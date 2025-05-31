@@ -23,6 +23,7 @@ import Data.Some as X (Some (..))
 import Data.String as X (IsString (fromString))
 import GHC.Generics as X (Generic)
 import GHC.Stack as X (HasCallStack)
+import GHC.TypeLits as X (Symbol)
 import Numeric.Natural as X (Natural)
 
 -- types

@@ -21,6 +21,7 @@ module Clang.HighLevel.SourceLoc (
     -- * for @CXSourceLocation@
   , clang_getDiagnosticLocation
   , clang_getCursorLocation
+  , clang_getCursorLocation'
   , clang_getTokenLocation
     -- ** for @CXSourceRange@
   , clang_getDiagnosticRange
@@ -309,6 +310,11 @@ clang_getDiagnosticLocation diagnostic =
 clang_getCursorLocation :: MonadIO m => Core.CXCursor -> m MultiLoc
 clang_getCursorLocation cursor =
     toMulti =<< Core.clang_getCursorLocation cursor
+
+-- | Like 'clang_getCursorLocation', but only retrieve the expansion location
+clang_getCursorLocation' :: MonadIO m => Core.CXCursor -> m SingleLoc
+clang_getCursorLocation' cursor =
+    clang_getExpansionLocation =<< Core.clang_getCursorLocation cursor
 
 -- | Retrieve the source location of the given token.
 clang_getTokenLocation ::

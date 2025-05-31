@@ -1,14 +1,12 @@
 module HsBindgen.Frontend.Pass.RenameAnon.IsPass (
     RenameAnon
-  , CName(..)
-  , SquashedTypedef(..)
+  , TypedefSquashed(..)
   ) where
 
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal (ValidPass, CName)
+import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
-import HsBindgen.Imports
-import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 
 {-------------------------------------------------------------------------------
@@ -20,20 +18,14 @@ data RenameAnon a deriving anyclass ValidPass
 
 type family AnnRenameAnon ix where
   AnnRenameAnon "TranslationUnit" = UseDefGraph Parse
-  AnnRenameAnon "TypeTypedef"     = SquashedTypedef
+  AnnRenameAnon "TypeTypedef"     = TypedefSquashed
   AnnRenameAnon _                 = NoAnn
 
 instance IsPass RenameAnon where
-  type Id     RenameAnon = CName
-  type Macro  RenameAnon = CheckedMacro
-  type Ann ix RenameAnon = AnnRenameAnon ix
-
-{-------------------------------------------------------------------------------
-  Identity
--------------------------------------------------------------------------------}
-
-newtype CName = CName Text
-  deriving newtype (Show, Eq, Ord, IsString, Semigroup)
+  type Id        RenameAnon = CName
+  type FieldName RenameAnon = CName
+  type MacroBody RenameAnon = CheckedMacro RenameAnon
+  type Ann ix    RenameAnon = AnnRenameAnon ix
 
 {-------------------------------------------------------------------------------
   Annotations
@@ -62,10 +54,10 @@ newtype CName = CName Text
 --
 -- We remove the declaration of these typedefs from the AST entirely (we do not
 -- need to generate code for them), and mark any /references/ to these typedefs
--- as 'SquashedTypedef'.
-data SquashedTypedef =
+-- as 'TypedefSquashed'.
+data TypedefSquashed =
     KeptTypedef
   | SquashedTypedef
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 

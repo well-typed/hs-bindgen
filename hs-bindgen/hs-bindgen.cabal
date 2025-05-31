@@ -76,12 +76,6 @@ library internal
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH.Translation
       HsBindgen.BindingSpecs
-      HsBindgen.C.AST
-      HsBindgen.C.Fold
-      HsBindgen.C.Fold.Common
-      HsBindgen.C.Fold.Decl
-      HsBindgen.C.Fold.DeclState
-      HsBindgen.C.Fold.Type
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
@@ -100,12 +94,16 @@ library internal
       HsBindgen.ExtBindings
       HsBindgen.ExtBindings.Gen
       HsBindgen.Frontend
-      HsBindgen.Frontend.Adapter
-      HsBindgen.Frontend.AST
       HsBindgen.Frontend.AST.Deps
+      HsBindgen.Frontend.AST.External
+      HsBindgen.Frontend.AST.Finalize
+      HsBindgen.Frontend.AST.Internal
+      HsBindgen.Frontend.AST.PrettyPrinter
       HsBindgen.Frontend.Graph.DefUse
       HsBindgen.Frontend.Graph.Includes
       HsBindgen.Frontend.Graph.UseDef
+      HsBindgen.Frontend.Macros.AST.C
+      HsBindgen.Frontend.Macros.AST.Syntax
       HsBindgen.Frontend.Pass
       HsBindgen.Frontend.Pass.HandleMacros
       HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -119,7 +117,6 @@ library internal
       HsBindgen.Frontend.Pass.Parse.Util
       HsBindgen.Frontend.Pass.RenameAnon
       HsBindgen.Frontend.Pass.RenameAnon.IsPass
-      HsBindgen.Frontend.Pass.RenameAnon.ProduceCName
       HsBindgen.Frontend.Pass.ResolveBindingSpecs
       HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
       HsBindgen.Frontend.RootHeader
@@ -130,18 +127,15 @@ library internal
       HsBindgen.GenTests.Readme
       HsBindgen.Guasi
       HsBindgen.Hs.AST
-      HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
-      HsBindgen.Hs.NameMangler
-      HsBindgen.Hs.NameMangler.API
       HsBindgen.Hs.NameMangler.DSL
       HsBindgen.Hs.NameMangler.DSL.FixCandidate
-      HsBindgen.Hs.NameMangler.DSL.Overrides
-      HsBindgen.Hs.NameMangler.DSL.ProduceCandidate
       HsBindgen.Hs.NameMangler.DSL.ReservedNames
       HsBindgen.Hs.Translation
       HsBindgen.Imports
-      HsBindgen.Language.Hs
+      HsBindgen.Language.C.Literal
+      HsBindgen.Language.C.Prim
+      HsBindgen.Language.Haskell
       HsBindgen.ModuleUnique
       HsBindgen.NameHint
       HsBindgen.Orphans
@@ -154,12 +148,6 @@ library internal
       HsBindgen.Util.Trace
       HsBindgen.Util.Tracer
       Text.SimplePrettyPrint
-  other-modules:
-      -- Re-exported through HsBindgen.C.AST
-      HsBindgen.C.AST.Literal
-      HsBindgen.C.AST.Macro
-      HsBindgen.C.AST.Name
-      HsBindgen.C.AST.Type
   other-extensions:
       TemplateHaskellQuotes
   build-depends:
@@ -208,7 +196,6 @@ library
       HsBindgen.TH
   reexported-modules:
       HsBindgen.Errors
-    , HsBindgen.Hs.NameMangler
     , HsBindgen.Hs.NameMangler.DSL
 
   build-depends:

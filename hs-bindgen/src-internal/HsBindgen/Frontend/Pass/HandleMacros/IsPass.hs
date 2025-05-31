@@ -2,16 +2,14 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
     HandleMacros
     -- * Parsed macros
   , CheckedMacro(..)
+  , CheckedMacroExpr(..)
   ) where
 
-import GHC.TypeLits (Symbol)
-
--- TODO.
-import HsBindgen.C.AST.Macro qualified as Old
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal (ValidPass, CName, Type)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
+import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
@@ -29,16 +27,23 @@ type family AnnHandleMacros (ix :: Symbol) :: Star where
   AnnHandleMacros _                 = NoAnn
 
 instance IsPass HandleMacros where
-  type Id     HandleMacros = DeclId
-  type Macro  HandleMacros = CheckedMacro
-  type Ann ix HandleMacros = AnnHandleMacros ix
+  type Id        HandleMacros = DeclId
+  type FieldName HandleMacros = CName
+  type MacroBody HandleMacros = CheckedMacro HandleMacros
+  type Ann ix    HandleMacros = AnnHandleMacros ix
 
 {-------------------------------------------------------------------------------
   Parsed macros
 -------------------------------------------------------------------------------}
 
-data CheckedMacro = CheckedMacro {
-      checkedMacro     :: Old.Macro Macro.Ps
-    , checkedMacroType :: Macro.Quant (Macro.Type Macro.Ty)
+data CheckedMacro p =
+    MacroType (Type p)
+  | MacroExpr CheckedMacroExpr
+  deriving stock (Show, Eq, Generic)
+
+data CheckedMacroExpr = CheckedMacroExpr{
+      macroExprBody :: Macro.MExpr Macro.Ps
+    , macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq, Generic)
+

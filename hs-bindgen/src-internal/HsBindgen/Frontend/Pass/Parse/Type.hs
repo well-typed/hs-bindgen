@@ -9,17 +9,20 @@ import GHC.Stack
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad
 import HsBindgen.Frontend.Pass.Parse.Util
+import HsBindgen.Language.C.Prim
 
 {-------------------------------------------------------------------------------
   Top-level
+
+  TODO: This needs entries for const and incomplete arrays.
 -------------------------------------------------------------------------------}
 
-fromCXType :: HasCallStack => CXType -> M (Type Parse)
+fromCXType :: HasCallStack => CXType -> M (C.Type Parse)
 fromCXType ty =
     dispatchWithArg ty $ \case
       CXType_Char_S     -> prim $ PrimChar (PrimSignImplicit $ Just Signed)
@@ -46,7 +49,7 @@ fromCXType ty =
       CXType_Typedef       -> fromDecl
       CXType_FunctionProto -> function
 
-      CXType_Void          -> const (pure TypeVoid)
+      CXType_Void          -> const (pure C.TypeVoid)
 
       kind -> \_ -> panicIO $ "fromCXType: " ++ show kind
 
@@ -54,29 +57,30 @@ fromCXType ty =
   Functions for each kind of type
 -------------------------------------------------------------------------------}
 
-prim :: PrimType -> CXType -> M (Type Parse)
-prim ty _ = return $ TypePrim ty
+prim :: PrimType -> CXType -> M (C.Type Parse)
+prim ty _ = return $ C.TypePrim ty
 
-elaborated :: CXType -> M (Type Parse)
+elaborated :: CXType -> M (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> fromCXType
 
-pointer :: CXType -> M (Type Parse)
-pointer = clang_getPointeeType >=> fmap TypePointer . fromCXType
+pointer :: CXType -> M (C.Type Parse)
+pointer = clang_getPointeeType >=> fmap C.TypePointer . fromCXType
 
-fromDecl :: HasCallStack => CXType -> M (Type Parse)
+fromDecl :: HasCallStack => CXType -> M (C.Type Parse)
 fromDecl ty = do
     decl   <- clang_getTypeDeclaration ty
     declId <- getDeclId decl
     dispatch decl $ \case
-      CXCursor_EnumDecl    -> return $ TypeEnum    declId
-      CXCursor_StructDecl  -> return $ TypeStruct  declId
-      CXCursor_UnionDecl   -> return $ TypeUnion   declId
-      CXCursor_TypedefDecl -> return $ TypeTypedef declId NoAnn
+      CXCursor_EnumDecl    -> return $ C.TypeEnum    declId
+      CXCursor_StructDecl  -> return $ C.TypeStruct  declId
+      CXCursor_UnionDecl   -> return $ C.TypeUnion   declId
+      CXCursor_TypedefDecl -> return $ C.TypeTypedef declId NoAnn
       kind -> panicIO $ "fromDecl: " ++ show kind
 
-function :: CXType -> M (Type Parse)
+function :: CXType -> M (C.Type Parse)
 function ty = do
-  res   <- clang_getResultType ty >>= fromCXType
-  nargs <- clang_getNumArgTypes ty
-  args  <- forM [0 .. nargs - 1] $ \i -> (clang_getArgType ty (fromIntegral i) >>= fromCXType)
-  pure $ TypeFunction args res
+    res   <- clang_getResultType ty >>= fromCXType
+    nargs <- clang_getNumArgTypes ty
+    args  <- forM [0 .. nargs - 1] $ \i ->
+               clang_getArgType ty (fromIntegral i) >>= fromCXType
+    pure $ C.TypeFun args res

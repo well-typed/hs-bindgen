@@ -19,13 +19,13 @@ module HsBindgen.SHs.AST (
     PatternSynonym (..),
 ) where
 
-import HsBindgen.C.AST qualified as C
 import HsBindgen.ExtBindings
-import HsBindgen.Imports
-import HsBindgen.NameHint
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Imports
+import HsBindgen.Language.Haskell
+import HsBindgen.NameHint
 
 import DeBruijn
 import C.Char qualified

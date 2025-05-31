@@ -1,7 +1,7 @@
--- | C macros of a certain shape
+-- | The syntax for macros recognized by hs-bindgen
 --
--- This is re-exported in "HsBindgen.C.AST".
-module HsBindgen.C.AST.Macro (
+-- Intended for unqualified import.
+module HsBindgen.Frontend.Macros.AST.Syntax (
     -- * Definition
     Macro(..)
   , MacroBody(..)
@@ -20,26 +20,24 @@ import Data.Char (toUpper)
 import Data.GADT.Compare (GEq(geq))
 import Data.Kind qualified as Hs
 import Data.Nat (Nat(..))
-import Data.Vec.Lazy (Vec(..))
+import Data.Proxy
 import Data.String
-import Data.Type.Equality
-  ( type (:~:)(..) )
+import Data.Type.Equality ( type (:~:)(..) )
 import Data.Type.Nat (SNatI)
+import Data.Type.Nat qualified as Nat
+import Data.Vec.Lazy (Vec(..))
+import Data.Vec.Lazy qualified as Vec
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.C.AST.Name
-import HsBindgen.C.AST.Literal
-import HsBindgen.Util.TestEquality
-  ( equals1 )
+import HsBindgen.C.Tc.Macro.Type
+import HsBindgen.Frontend.AST.Internal (CName)
+import HsBindgen.Language.C.Literal
+import HsBindgen.Util.TestEquality ( equals1 )
 
 import {-# SOURCE #-} HsBindgen.C.Reparse.Decl
-import HsBindgen.C.Tc.Macro.Type
-import Data.Type.Nat qualified as Nat
-import Data.Proxy
-import Data.Vec.Lazy qualified as Vec
 
 {-------------------------------------------------------------------------------
   Top-level

@@ -57,6 +57,7 @@ import C.Type qualified
 
 -- containers
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 -- parsec
 import Text.Parsec
@@ -68,33 +69,28 @@ import Data.Text qualified as Text
   ( pack, unpack )
 
 -- hs-bindgen
-import HsBindgen.C.AST.Literal
-  ( IntegerLiteral(..) )
-import HsBindgen.C.AST.Name
-import HsBindgen.C.AST.Type
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core ( CXTokenKind(..) )
 import HsBindgen.C.Reparse.Common (reparseName, manyTillLookahead)
 import HsBindgen.C.Reparse.Infra
+import HsBindgen.C.Reparse.Macro ( mExpr )
 import HsBindgen.C.Reparse.Type
+import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.C.Tc.Macro.Type qualified as Macro
+import HsBindgen.Errors
+import HsBindgen.Frontend.AST.Internal (CName(..))
+import HsBindgen.Frontend.Macros.AST.C qualified as C
+import HsBindgen.Frontend.Macros.AST.Syntax
+import HsBindgen.Imports (fromMaybe)
+import HsBindgen.Language.C.Literal
 
 -- TODO: re-using the macro expression parser for simplicity
-import HsBindgen.C.AST.Macro
-
-  ( MExpr (..), MTerm (..), Pass(..) )
-import HsBindgen.C.Reparse.Macro
-  ( mExpr )
-
-import HsBindgen.C.Tc.Macro qualified as Macro
-import HsBindgen.Errors
-import HsBindgen.Imports (fromMaybe)
-import Clang.LowLevel.Core
-  ( CXTokenKind(..) )
-import Clang.HighLevel.Types
-import HsBindgen.C.Tc.Macro.Type qualified as Macro
+-- import HsBindgen.C.AST.Macro
 
 --------------------------------------------------------------------------------
 
 -- | Reparse a C field declaration (in a struct)
-reparseFieldDecl :: Macro.TypeEnv -> Reparse (Type, CName)
+reparseFieldDecl :: Macro.TypeEnv -> Reparse (C.Type, CName)
 reparseFieldDecl tyEnv = do
   ( specs, decl ) <- reparseDeclaration @Concrete tyEnv
   _mbBitSize <- optionMaybe $
@@ -106,20 +102,20 @@ reparseFieldDecl tyEnv = do
     Right ( ty, DeclName nm ) -> return ( ty, nm )
 
 -- | Reparse a C function declaration.
-reparseFunDecl :: Macro.TypeEnv -> Reparse (([Type],Type), CName)
+reparseFunDecl :: Macro.TypeEnv -> Reparse (([C.Type],C.Type), CName)
 reparseFunDecl tyEnv = do
   ( specs, decl ) <- reparseDeclaration @Concrete tyEnv
   eof
   case declarationTypeAndName specs decl of
     Left err -> unexpected err
     Right ( ty, DeclName nm )
-      | TypeFun args res <- ty
+      | C.TypeFun args res <- ty
       -> return ( (args, res), nm )
       | otherwise
       -> unexpected $ "expected a function type, but got: " ++ show ty
 
 -- | Reparse a C @typedef@ declaration.
-reparseTypedef :: Macro.TypeEnv -> Reparse Type
+reparseTypedef :: Macro.TypeEnv -> Reparse C.Type
 reparseTypedef macroTys = do
   ( specs, decl ) <- reparseDeclaration @Concrete macroTys
   -- We expect a 'typedef' storage class specifier to be provided,
@@ -291,8 +287,8 @@ data TypeQualifier
   | TQ__Atomic
   deriving stock ( Eq, Show, Generic )
 data TypeSpecifier
-  = TypeSpecifier Type
-  | TypeDefTypeSpecifier CName Macro.TypedefUnderlyingType
+  = TypeSpecifier C.Type
+  | TypeDefTypeSpecifier CName
   | StructOrUnionTypeSpecifier StructOrUnionSpecifier
   | EnumTypeSpecifier EnumSpecifier
   deriving stock ( Eq, Show, Generic )
@@ -387,26 +383,26 @@ reparseDeclaration macroTys =
     ( reparseDeclarationSpecifier macroTys )
     ( reparseDeclarator @abs macroTys )
 
-declaratorType :: Type -> Declarator abs -> Either String ( Type, DeclName abs )
+declaratorType :: C.Type -> Declarator abs -> Either String ( C.Type, DeclName abs )
 declaratorType baseTy (Declarator ptrs decl) =
   directDeclaratorTypeAndName (mkPtr ptrs baseTy) decl
 
 declarationTypeAndName
   :: [ DeclarationSpecifier ]
   -> Declarator abs
-  -> Either String ( Type, DeclName abs )
+  -> Either String ( C.Type, DeclName abs )
 declarationTypeAndName specs decl =
   case declarationSpecifiersType specs of
     Nothing -> Left "declarator missing a type"
     Just baseTy -> declaratorType baseTy decl
 
-mkPtr :: Pointers -> Type -> Type
+mkPtr :: Pointers -> C.Type -> C.Type
 mkPtr (Pointers l) = go l
   where
     go [] a = a
-    go (_:r) a = go r (TypePointer a)
+    go (_:r) a = go r (C.TypePointer a)
 
-declarationSpecifiersType :: [DeclarationSpecifier] -> Maybe Type
+declarationSpecifiersType :: [DeclarationSpecifier] -> Maybe C.Type
 declarationSpecifiersType specs =
   -- TODO: we are discarding
   --  - function specifiers (inline/noreturn)
@@ -423,7 +419,7 @@ declarationSpecifiersType specs =
         ]
 
   where
-    isTy :: DeclarationSpecifier -> Maybe Type
+    isTy :: DeclarationSpecifier -> Maybe C.Type
     isTy = \case
       DeclFunctionSpecifier {} -> Nothing
       DeclStorageSpecifier  {} -> Nothing
@@ -434,34 +430,30 @@ declarationSpecifiersType specs =
           TSQ_TypeSpecifier ts ->
             Just $ typeSpecifierType ts
 
-typeNameType :: TypeName -> Either String Type
+typeNameType :: TypeName -> Either String C.Type
 typeNameType (TypeName tySpec _attrs decl) =
   -- TODO: discarding attributes
     fst <$> declaratorType ty decl
   where
     ty = typeSpecifierType tySpec
 
-typeSpecifierType :: TypeSpecifier -> Type
+typeSpecifierType :: TypeSpecifier -> C.Type
 typeSpecifierType = \case
   TypeSpecifier ty -> ty
-  TypeDefTypeSpecifier nm tydef ->
-    case tydef of
-      Macro.NormalTypedef     -> TypeTypedef nm
-      Macro.AnonStructTypedef -> TypeStruct $ DeclPathAnon $ DeclPathCtxtTypedef nm
-      Macro.AnonEnumTypedef   -> TypeEnum $ DeclPathAnon $ DeclPathCtxtTypedef nm
+  TypeDefTypeSpecifier nm -> C.TypeTypedef nm
   StructOrUnionTypeSpecifier
     StructOrUnionSpecifier
       { structOrUnion = su, structOrUnionIdentifier = i }
      -> case su of
-          IsStruct -> TypeStruct $ DeclPathName i
-          IsUnion  -> TypeUnion  $ DeclPathName i
+          IsStruct -> C.TypeStruct i
+          IsUnion  -> C.TypeUnion  i
   EnumTypeSpecifier
     EnumSpecifier { enumSpecifierIdentifier = i } ->
-      TypeEnum $ DeclPathName i
+      C.TypeEnum i
 
 directDeclaratorTypeAndName
-  :: Type -> DirectDeclarator abs
-  -> Either String ( Type, DeclName abs )
+  :: C.Type -> DirectDeclarator abs
+  -> Either String ( C.Type, DeclName abs )
 directDeclaratorTypeAndName ty = \case
   IdentifierDeclarator nm _attrs ->
     -- TODO: discarding attributes
@@ -473,14 +465,14 @@ directDeclaratorTypeAndName ty = \case
       arrTy =
         case sz of
           ArrayNoSize ->
-            TypeIncompleteArray ty
+            C.TypeIncompleteArray ty
           VLA ->
-             TypeIncompleteArray ty
-          ArraySize sizeExpr@( SizeExpression _ mbKnownSize )
+             C.TypeIncompleteArray ty
+          ArraySize ( SizeExpression _ mbKnownSize )
             | Just n <- mbKnownSize
-            -> TypeConstArray ( Size n sizeExpr ) ty
+            -> C.TypeConstArray n ty
             | otherwise
-            -> TypeIncompleteArray ty -- TODO: this discards information
+            -> C.TypeIncompleteArray ty -- TODO: this discards information
     directDeclaratorTypeAndName arrTy d
   FunctionDirectDeclarator
     (FunctionDeclarator
@@ -497,7 +489,7 @@ directDeclaratorTypeAndName ty = \case
           then
             Left "unsupported variadic function declaration"
           else
-            Right $ TypeFun argTys ty
+            Right $ C.TypeFun argTys ty
         ms@(_:rest) -> do
           let s = if null rest then "" else "s"
           Left $
@@ -505,7 +497,7 @@ directDeclaratorTypeAndName ty = \case
               ++ " " ++ intercalate ", " ( map show ms )
     directDeclaratorTypeAndName funTy d
 
-parameterTypes :: [Parameter] -> ([Int], [Type])
+parameterTypes :: [Parameter] -> ([Int], [C.Type])
 parameterTypes ps =
   partitionEithers $
     zipWith aux [1..] ps
@@ -518,7 +510,7 @@ parameterTypes ps =
             Left {} -> Left i
             Right ty -> Right ty
 
-parameterDeclaratorType :: [DeclarationSpecifier] -> ParameterDeclarator -> Either String Type
+parameterDeclaratorType :: [DeclarationSpecifier] -> ParameterDeclarator -> Either String C.Type
 parameterDeclaratorType specs = \case
   ParameterDeclarator decl         -> fmap fst $ declarationTypeAndName specs decl
   ParameterAbstractDeclarator decl -> fmap fst $ declarationTypeAndName specs decl
@@ -772,17 +764,17 @@ reparseTypeSpecifier macroTypeEnv =
   -- typedef-name
   , try $
     do { nm <- reparseName
-       ; case Map.lookup nm (Macro.typeEnvTypedefs macroTypeEnv) of
-           Just tyDef -> return $ TypeDefTypeSpecifier nm tyDef
-           Nothing ->
-            case Map.lookup nm (Macro.typeEnvMacros macroTypeEnv) of
-              Nothing -> unexpected $ "out of scope type specifier macro name " ++ show nm
-              Just valAndTy
-                 | Macro.Quant bf <- fmap snd valAndTy
-                 , Macro.isPrimTy bf
-                 -> return $ TypeDefTypeSpecifier nm Macro.NormalTypedef
-                 | otherwise
-                 -> unexpected $ "macro name does not refer to a type: " ++ show nm
+       ; if Set.member nm (Macro.typeEnvTypedefs macroTypeEnv) then
+           return $ TypeDefTypeSpecifier nm
+         else
+           case Map.lookup nm (Macro.typeEnvMacros macroTypeEnv) of
+             Nothing -> unexpected $ "out of scope type specifier macro name " ++ show nm
+             Just valAndTy
+                | Macro.Quant bf <- fmap snd valAndTy
+                , Macro.isPrimTy bf
+                -> return $ TypeDefTypeSpecifier nm
+                | otherwise
+                -> unexpected $ "macro name does not refer to a type: " ++ show nm
        }
   ] <?> "type"
 

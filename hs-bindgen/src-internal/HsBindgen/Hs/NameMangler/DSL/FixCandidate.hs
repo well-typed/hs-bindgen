@@ -28,9 +28,9 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Numeric (showHex)
 
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.NameMangler.DSL.ReservedNames (allReservedNames)
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
   Definition

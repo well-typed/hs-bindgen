@@ -5,10 +5,10 @@ module HsBindgen.Hs.AST.Type (
   hsPrimFloatTy
 ) where
 
-import HsBindgen.C.AST qualified as C
 import HsBindgen.ExtBindings
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
-import HsBindgen.Hs.AST.Name
+import HsBindgen.Language.Haskell
 
 import C.Type qualified
 

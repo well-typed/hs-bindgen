@@ -100,15 +100,12 @@ import C.Operators qualified as C.Op
 import C.Expr.HostPlatform qualified as C.Expr
 
 -- hs-bindgen
-import HsBindgen.Imports
-import HsBindgen.Errors
-import HsBindgen.C.AST.Literal
-  ( IntegerLiteral(..), FloatingLiteral(..) )
-import HsBindgen.C.AST.Macro
-  ( MExpr(..), MFun(..), MTerm(..), MacroBody(..) )
-import HsBindgen.C.AST.Name
-  ( CName(..) )
 import HsBindgen.C.Tc.Macro.Type
+import HsBindgen.Errors
+import HsBindgen.Frontend.AST.Internal (CName(..))
+import HsBindgen.Frontend.Macros.AST.Syntax
+import HsBindgen.Imports
+import HsBindgen.Language.C.Literal
 import HsBindgen.Util.TestEquality
   ( equals2 )
 

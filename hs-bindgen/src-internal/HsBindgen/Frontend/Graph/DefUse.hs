@@ -20,7 +20,8 @@ import Control.Monad.State
 
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal (CName)
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph(..), Usage(..))
 import HsBindgen.Frontend.Graph.UseDef qualified as UseDefGraph
 import HsBindgen.Frontend.Pass.Parse
@@ -34,6 +35,7 @@ import HsBindgen.Imports
 --
 -- This graph has edges from def sites to use sites.
 newtype DefUseGraph = DefUseGraph (UseDefGraph Parse)
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Construction
@@ -50,12 +52,12 @@ fromUseDef UseDefGraph{useDefIndex, useDefGraph} = DefUseGraph UseDefGraph{
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
-    UsedByNamed Usage (Text, Namespace)
-  | UsedByAnon Usage UseOfDecl
+    UsedByNamed (Usage Parse) (CName, C.Namespace)
+  | UsedByAnon (Usage Parse) UseOfDecl
   deriving stock (Show)
 
 -- | Find direct or indirect use by a named declaration, if it exists
-findNamedUseOf :: DefUseGraph -> QualId Parse -> Maybe UseOfDecl
+findNamedUseOf :: DefUseGraph -> C.QualId Parse -> Maybe UseOfDecl
 findNamedUseOf (DefUseGraph ud@UseDefGraph{useDefGraph}) =
       flip evalState id
     . DynGraph.findTrailFrom
@@ -63,10 +65,10 @@ findNamedUseOf (DefUseGraph ud@UseDefGraph{useDefGraph}) =
         (aux . map (second (ud UseDefGraph.!)))
   where
     aux ::
-         [(Usage, Decl Parse)] -- ^ Direct use sites
+         [(Usage Parse, C.Decl Parse)] -- ^ Direct use sites
       -> State
            (UseOfDecl -> UseOfDecl)
-           (Either (QualId Parse) (Maybe UseOfDecl))
+           (Either (C.QualId Parse) (Maybe UseOfDecl))
     aux [(u, d)] = do
         case uid of
           DeclNamed name -> do
@@ -76,7 +78,7 @@ findNamedUseOf (DefUseGraph ud@UseDefGraph{useDefGraph}) =
             modify (. UsedByAnon u)
             return $ Left qid
       where
-        qid@(QualId uid ns) = declQualId d
+        qid@(C.QualId uid ns) = C.declQualId d
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =

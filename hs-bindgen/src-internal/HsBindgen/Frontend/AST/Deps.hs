@@ -5,18 +5,22 @@ module HsBindgen.Frontend.AST.Deps (
   , depsOfType
   ) where
 
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definitions
 -------------------------------------------------------------------------------}
 
-data Usage =
+data Usage p =
     UsedInTypedef ValOrRef
-  | UsedInField ValOrRef Text
+  | UsedInField ValOrRef (FieldName p)
   | UsedInFunction ValOrRef
-  deriving stock (Show, Eq, Ord)
+
+deriving instance ValidPass p => Show (Usage p)
+deriving instance ValidPass p => Eq   (Usage p)
+deriving instance ValidPass p => Ord  (Usage p)
 
 data ValOrRef = ByValue | ByRef
   deriving stock (Show, Eq, Ord)
@@ -25,15 +29,13 @@ data ValOrRef = ByValue | ByRef
   Get all dependencies
 -------------------------------------------------------------------------------}
 
-depsOfDecl :: forall p. DeclKind p -> [(Usage, QualId p)]
+depsOfDecl :: forall p. DeclKind p -> [(Usage p, QualId p)]
 depsOfDecl (DeclStruct Struct{..}) =
     concatMap (depsOfField structFieldName structFieldType) structFields
 depsOfDecl DeclStructOpaque =
     []
 depsOfDecl (DeclUnion Union{..}) =
     concatMap (depsOfField unionFieldName unionFieldType) unionFields
-depsOfDecl DeclUnionOpaque =
-    []
 depsOfDecl (DeclEnum _) =
     []
 depsOfDecl DeclEnumOpaque =
@@ -41,7 +43,7 @@ depsOfDecl DeclEnumOpaque =
 depsOfDecl (DeclTypedef ty) =
     map (uncurry aux) $ depsOfTypedef ty
   where
-    aux :: ValOrRef -> QualId p -> (Usage, QualId p)
+    aux :: ValOrRef -> QualId p -> (Usage p, QualId p)
     aux isPtr uid = (UsedInTypedef isPtr, uid)
 depsOfDecl (DeclMacro _ts) =
     -- We cannot know the dependencies of a macro until we parse it, but we
@@ -52,14 +54,18 @@ depsOfDecl (DeclMacro _ts) =
 depsOfDecl (DeclFunction (Function {..})) =
     map (uncurry aux) $ concatMap depsOfType (functionRes : functionArgs)
   where
-    aux :: ValOrRef -> QualId p -> (Usage, QualId p)
+    aux :: ValOrRef -> QualId p -> (Usage p, QualId p)
     aux isPtr uid = (UsedInFunction isPtr, uid)
 
-depsOfField :: (a p -> Text) -> (a p -> Type p) -> a p -> [(Usage, QualId p)]
+-- | Dependencies of struct or union field
+depsOfField :: forall a p.
+     (a p -> FieldName p)
+  -> (a p -> Type p)
+  -> a p -> [(Usage p, QualId p)]
 depsOfField getName getType field =
     map (uncurry aux) $ depsOfType $ getType field
   where
-    aux :: ValOrRef -> QualId p -> (Usage, QualId p)
+    aux :: ValOrRef -> QualId p -> (Usage p, QualId p)
     aux isPtr uid = (UsedInField isPtr (getName field), uid)
 
 depsOfTypedef :: Typedef p -> [(ValOrRef, QualId p)]
@@ -72,12 +78,14 @@ depsOfTypedef = depsOfType . typedefType
 -- NOTE: We are only interested in /direct/ dependencies here; transitive
 -- dependencies will materialize when we build the graph.
 depsOfType :: Type p -> [(ValOrRef, QualId p)]
-depsOfType (TypePrim _)           = []
-depsOfType (TypeStruct uid)       = [(ByValue, QualId uid NamespaceStruct)]
-depsOfType (TypeUnion uid)        = [(ByValue, QualId uid NamespaceUnion)]
-depsOfType (TypeEnum uid)         = [(ByValue, QualId uid NamespaceEnum)]
-depsOfType (TypeTypedef uid _ann) = [(ByValue, QualId uid NamespaceTypedef)]
-depsOfType (TypePointer ty)       = first (const ByRef) <$> depsOfType ty
-depsOfType (TypeFunction tys ty)  = concatMap depsOfType tys <> depsOfType ty
-depsOfType TypeVoid               = []
-depsOfType (TypeExtBinding _ _)   = []
+depsOfType (TypePrim _)            = []
+depsOfType (TypeStruct uid)        = [(ByValue, QualId uid NamespaceStruct)]
+depsOfType (TypeUnion uid)         = [(ByValue, QualId uid NamespaceUnion)]
+depsOfType (TypeEnum uid)          = [(ByValue, QualId uid NamespaceEnum)]
+depsOfType (TypeTypedef uid _ann)  = [(ByValue, QualId uid NamespaceTypedef)]
+depsOfType (TypePointer ty)        = first (const ByRef) <$> depsOfType ty
+depsOfType (TypeFun args res)      = concatMap depsOfType args <> depsOfType res
+depsOfType TypeVoid                = []
+depsOfType (TypeExtBinding _ _)    = []
+depsOfType (TypeConstArray _ t)    = depsOfType t
+depsOfType (TypeIncompleteArray t) = depsOfType t

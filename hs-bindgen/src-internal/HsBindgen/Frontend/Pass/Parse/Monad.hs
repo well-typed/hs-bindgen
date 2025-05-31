@@ -64,7 +64,7 @@ data ParseLog =
     | SkippedBuiltIn Text
     | SkippedPredicate {
         skippedName   :: Text
-      , skippedLoc    :: MultiLoc
+      , skippedLoc    :: SingleLoc
       , skippedReason :: Text
       }
       -- | Struct with implicit fields
@@ -72,7 +72,7 @@ data ParseLog =
       -- We record the name of the struct that has the implicit fields.
     | UnsupportedImplicitFields {
         unsupportedImplicitFieldsId  :: DeclId
-      , unsupportedImplicitFieldsLoc :: MultiLoc
+      , unsupportedImplicitFieldsLoc :: SingleLoc
       }
   deriving stock (Show)
 

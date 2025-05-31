@@ -10,6 +10,7 @@ module HsBindgen.BindingSpecs (
   , ResolvedBindingSpecs
   , Omittable(..)
   , Type(..)
+  , defaultTypeSpec
     -- ** Instances
   , Instance(..)
   , Strategy(..)
@@ -68,7 +69,7 @@ import Clang.Paths
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Language.Hs
+import HsBindgen.Language.Haskell
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Tracer (TraceWithCallStack)
@@ -134,6 +135,13 @@ data Type = Type {
       typeInstances :: Map HsTypeClass (Omittable Instance)
     }
   deriving stock (Eq, Generic, Show)
+
+defaultTypeSpec :: Type
+defaultTypeSpec = Type{
+      typeModule     = Nothing
+    , typeIdentifier = Nothing
+    , typeInstances  = Map.empty
+    }
 
 {-------------------------------------------------------------------------------
   Types: Instances

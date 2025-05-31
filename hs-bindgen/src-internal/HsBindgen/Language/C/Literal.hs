@@ -1,4 +1,4 @@
-module HsBindgen.C.AST.Literal (
+module HsBindgen.Language.C.Literal (
   -- * Integer literals
     IntegerLiteral(..)
   -- * Floating-point literals

@@ -61,14 +61,13 @@ module HsBindgen.Hs.AST (
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
 
-import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
-
-import HsBindgen.Imports
-import HsBindgen.Language.Hs (HsTypeClass(..))
-import HsBindgen.NameHint
-import HsBindgen.Hs.AST.Name
+import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Macros.AST.Syntax qualified as C
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Imports
+import HsBindgen.Language.Haskell
+import HsBindgen.NameHint
 import HsBindgen.Orphans ()
 import HsBindgen.Util.TestEquality
 
@@ -103,7 +102,7 @@ data Struct (n :: Nat) = Struct {
 
 data StructOrigin =
       StructOriginStruct C.Struct
-    | StructOriginEnum C.Enu
+    | StructOriginEnum C.Enum
   deriving stock (Generic, Show)
 
 data EmptyData = EmptyData {
@@ -113,8 +112,8 @@ data EmptyData = EmptyData {
   deriving stock (Generic, Show)
 
 data EmptyDataOrigin =
-      EmptyDataOriginOpaqueStruct C.OpaqueStruct
-    | EmptyDataOriginOpaqueEnum C.OpaqueEnum
+      EmptyDataOriginOpaqueStruct C.DeclInfo
+    | EmptyDataOriginOpaqueEnum C.DeclInfo
   deriving stock (Generic, Show)
 
 data Newtype = Newtype {
@@ -127,7 +126,7 @@ data Newtype = Newtype {
   deriving stock (Generic, Show)
 
 data NewtypeOrigin =
-      NewtypeOriginEnum C.Enu
+      NewtypeOriginEnum C.Enum
     | NewtypeOriginTypedef C.Typedef
     | NewtypeOriginUnion C.Union
     | NewtypeOriginMacro ( C.Macro C.Ps )
@@ -334,7 +333,7 @@ data PatSyn = PatSyn
   deriving stock (Generic, Show)
 
 newtype PatSynOrigin =
-      PatSynOriginEnumValue C.EnumValue
+      PatSynOriginEnumValue C.EnumConstant
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------

@@ -3,11 +3,12 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
   ) where
 
 import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.Frontend.AST.Internal (ValidPass, CName)
+import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.RenameAnon
-import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -22,15 +23,16 @@ import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 -- * Input binding specifications
 --   ("we want to adjust how to generate the binding for this").
 type ResolveBindingSpecs :: Pass
-data ResolveBindingSpecs a
+data ResolveBindingSpecs a deriving anyclass (ValidPass)
 
 type family AnnResolveBindingSpecs ix where
-  AnnResolveBindingSpecs "Decl"            = Maybe BindingSpecs.Type
+  AnnResolveBindingSpecs "Decl"            = BindingSpecs.Type
   AnnResolveBindingSpecs "TranslationUnit" = UseDefGraph Parse
-  AnnResolveBindingSpecs "TypeTypedef"     = SquashedTypedef
+  AnnResolveBindingSpecs "TypeTypedef"     = TypedefSquashed
   AnnResolveBindingSpecs _                 = NoAnn
 
 instance IsPass ResolveBindingSpecs where
-  type Id     ResolveBindingSpecs = CName
-  type Macro  ResolveBindingSpecs = CheckedMacro
-  type Ann ix ResolveBindingSpecs = AnnResolveBindingSpecs ix
+  type Id        ResolveBindingSpecs = CName
+  type FieldName ResolveBindingSpecs = CName
+  type MacroBody ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
+  type Ann ix    ResolveBindingSpecs = AnnResolveBindingSpecs ix

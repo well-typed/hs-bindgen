@@ -1,18 +1,19 @@
-module HsBindgen.C.AST.Macro (
+module HsBindgen.Frontend.Macros.AST.MacroSpecific (
     MExpr(..)
   , MFun(..)
   , MTerm(..)
   ) where
 
-import Data.Kind qualified as Hs
 import Data.GADT.Compare (GEq)
+import Data.Kind qualified as Hs
 import Data.Nat (Nat(..))
 import Data.Type.Nat (SNatI)
 import Data.Vec.Lazy (Vec(..))
 import GHC.Generics
-import HsBindgen.C.AST.Name
-import HsBindgen.C.AST.Literal
+
 import HsBindgen.C.Tc.Macro.Type
+import HsBindgen.Frontend.Macros.AST.Name
+import HsBindgen.Language.C.Literal
 
 type MExpr :: Pass -> Hs.Type
 data MExpr p
