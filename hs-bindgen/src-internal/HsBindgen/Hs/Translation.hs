@@ -46,6 +46,7 @@ import HsBindgen.Hs.NameMangler
 import HsBindgen.Imports
 import HsBindgen.ModuleUnique
 import HsBindgen.NameHint
+import HsBindgen.PrettyC qualified as PC
 
 import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken)
 
@@ -892,7 +893,7 @@ functionDecs nm mu typedefs f
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
   | otherwise =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.functionHeader f
-    , Hs.DeclInlineC $ wrapperCDecl ""
+    , Hs.DeclInlineC $ PC.prettyDecl cdecl ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
@@ -922,34 +923,23 @@ functionDecs nm mu typedefs f
     wrapperName :: String
     wrapperName = unModuleUnique mu ++ "_" ++ innerName
 
-    wrapperCDecl :: ShowS
-    wrapperCDecl
-        | C.isVoid res = signature . showString " { " . innerCall . showString "; }"
-        | otherwise    = signature . showString " { return " . innerCall . showString "; }"
+    cdecl :: PC.Decl
+    cdecl = PC.withArgs args $ \args' ->
+        PC.FunDefn wrapperName res args' [cwrapperStmt innerName res args']
 
     res :: C.Type
     res = C.functionRes f
 
-    args :: [(ShowS, C.Type)]
-    args = zipWith named [1..] (C.functionArgs f) where
-      named :: Int -> C.Type -> (ShowS, C.Type)
-      named i t = (showString "arg" . shows i, t)
+    args :: [C.Type]
+    args = C.functionArgs f
 
-    signature :: ShowS
-    signature = C.showsFunctionType
-      (showString wrapperName)
-      args
-      res
-
-    innerCall :: ShowS
-    innerCall = showString innerName . showChar '('  . callArgs . showChar ')'
-
-    callArgs :: ShowS
-    callArgs = case args of
-        []   -> id
-        x:xs -> foldr1 sep $ fmap fst $ x :| xs
-      where
-        sep u v = u . showString ", " . v
+cwrapperStmt :: forall ctx. String -> C.Type -> PC.Args ctx -> PC.Stmt ctx
+cwrapperStmt innerName res args
+    | C.isVoid res = PC.Expr cexpr
+    | otherwise    = PC.Return cexpr
+  where
+    cexpr :: PC.Expr ctx
+    cexpr = PC.Call innerName (map PC.Var (PC.argsToIdx args))
 
 {-------------------------------------------------------------------------------
   Macro

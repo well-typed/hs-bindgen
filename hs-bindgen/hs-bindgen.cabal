@@ -124,6 +124,7 @@ library internal
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Trace
       HsBindgen.Util.Tracer
+      HsBindgen.PrettyC
       HsBindgen.ModuleUnique
       Text.SimplePrettyPrint
   other-modules:
