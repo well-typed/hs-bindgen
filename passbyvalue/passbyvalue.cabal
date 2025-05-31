@@ -1,0 +1,30 @@
+cabal-version:      3.0
+name:               passbyvalue
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Edsko de Vries
+maintainer:         edsko@well-typed.com
+build-type:         Simple
+extra-source-files: cbits/*.c
+                    cbits/*.h
+
+common lang
+  default-language: GHC2021
+  build-depends:    base >= 4.17 && < 5
+  ghc-options:      -Wall
+
+  default-extensions:
+      CApiFFI
+      DerivingStrategies
+
+executable passbyvalue
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: src
+  other-modules:  Point
+
+  -- C sources
+  include-dirs: cbits
+  c-sources:    cbits/demo.c
+  cc-options:   -Wall
