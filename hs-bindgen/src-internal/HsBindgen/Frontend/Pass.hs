@@ -5,7 +5,6 @@ module HsBindgen.Frontend.Pass (
   ) where
 
 import HsBindgen.Imports
-import GHC.TypeLits (Symbol)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -40,11 +39,14 @@ class IsPass (p :: Pass) where
   --    corresponding Haskell name.
   type Id p :: Star
 
+  -- | Names of fields (structs and unions)
+  type FieldName p :: Star
+
   -- | Macro body
   --
   -- After parsing this is simply a list of tokens; after 'HandleMacros', this
   -- is the parsed and type-checked macro body.
-  type Macro p :: Star
+  type MacroBody p :: Star
 
   -- | Generic TTG-style annotation
   --
@@ -58,4 +60,4 @@ class IsPass (p :: Pass) where
   type Ann (ix :: Symbol) p :: Star
 
 data NoAnn = NoAnn
-  deriving stock (Show)
+  deriving stock (Show, Eq)

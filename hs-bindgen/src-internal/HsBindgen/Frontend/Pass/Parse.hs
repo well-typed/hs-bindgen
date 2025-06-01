@@ -7,7 +7,7 @@ module HsBindgen.Frontend.Pass.Parse (
 import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.UseDef qualified as UseDefGraph
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -20,15 +20,15 @@ import HsBindgen.Imports
 
 parseTranslationUnit ::
      ParseEnv
-  -> IO (TranslationUnit Parse)
+  -> IO (C.TranslationUnit Parse)
 parseTranslationUnit env = do
     root <- clang_getTranslationUnitCursor (envUnit env)
     (decls, outputGraph) <-
       fmap (first concat) . runParseMonad env $
         HighLevel.clang_visitChildren root foldDecl
     let useDefGraph = UseDefGraph.fromDecls outputGraph decls
-    pure $ TranslationUnit {
-            unitDecls        = UseDefGraph.toDecls useDefGraph
-          , unitIncludeGraph = outputGraph
-          , unitAnn          = useDefGraph
-          }
+    pure $ C.TranslationUnit {
+        unitDecls        = UseDefGraph.toDecls useDefGraph
+      , unitIncludeGraph = outputGraph
+      , unitAnn          = useDefGraph
+      }

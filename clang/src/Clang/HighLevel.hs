@@ -21,6 +21,7 @@ module Clang.HighLevel (
     -- *** for @CXSourceLocation@
   , clang_getDiagnosticLocation
   , clang_getCursorLocation
+  , clang_getCursorLocation'
   , clang_getTokenLocation
     -- *** for @CXSourceRange@
   , clang_getDiagnosticRange

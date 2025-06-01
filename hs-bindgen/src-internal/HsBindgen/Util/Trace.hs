@@ -2,10 +2,9 @@ module HsBindgen.Util.Trace (
     Trace (..)
   ) where
 
-import Clang.HighLevel.Types (Diagnostic, diagnosticIsError)
-
 import Control.Exception (Exception (displayException))
-import HsBindgen.C.Fold.Common (Skipped)
+
+import Clang.HighLevel.Types (Diagnostic, diagnosticIsError)
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Frontend.Pass.Parse.Monad (ParseLog)
 import HsBindgen.Resolve (ResolveHeaderException)
@@ -24,8 +23,6 @@ data Trace = TraceDiagnostic Diagnostic
            | TraceExtraClangArgs ExtraClangArgsLog
            | TraceParse ParseLog
            | TraceResolveHeader ResolveHeaderException
-           -- TODO: 'Skipped' will be part of 'ParseLog'.
-           | TraceSkipped Skipped
 
 instance PrettyTrace Trace where
   prettyTrace = \case
@@ -33,7 +30,6 @@ instance PrettyTrace Trace where
     TraceExtraClangArgs x -> prettyTrace x
     TraceParse x          -> prettyTrace x
     TraceResolveHeader x  -> displayException x
-    TraceSkipped x        -> prettyTrace x
 
 instance HasDefaultLogLevel Trace where
   getDefaultLogLevel = \case
@@ -43,7 +39,6 @@ instance HasDefaultLogLevel Trace where
     TraceExtraClangArgs x                   -> getDefaultLogLevel x
     TraceParse x                            -> getDefaultLogLevel x
     TraceResolveHeader x                    -> getDefaultLogLevel x
-    TraceSkipped x                          -> getDefaultLogLevel x
 
 instance HasSource Trace where
   getSource = \case
@@ -51,4 +46,3 @@ instance HasSource Trace where
     TraceExtraClangArgs x -> getSource x
     TraceParse x          -> getSource x
     TraceResolveHeader x  -> getSource x
-    TraceSkipped x        -> getSource x

@@ -15,14 +15,16 @@ import Clang.Paths
 import HsBindgen.BindingSpecs (ResolvedBindingSpecs)
 import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal (CName(..))
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.HandleMacros (CheckedMacro(..))
 import HsBindgen.Frontend.Pass.RenameAnon
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.Hs
+import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -31,12 +33,12 @@ import HsBindgen.Language.Hs
 resolveBindingSpecs ::
      ResolvedBindingSpecs -- ^ Configuration binding specifications
   -> ResolvedBindingSpecs -- ^ External binding specifications
-  -> TranslationUnit RenameAnon
-  -> (TranslationUnit ResolveBindingSpecs, [BindingSpecsError])
+  -> C.TranslationUnit RenameAnon
+  -> (C.TranslationUnit ResolveBindingSpecs, [BindingSpecsError])
 resolveBindingSpecs
   confSpecs
   extSpecs
-  TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+  C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     let (decls, ctx) = runM confSpecs $
           resolveDecls confSpecs extSpecs unitIncludeGraph unitDecls
         notUsedErrs =
@@ -44,9 +46,9 @@ resolveBindingSpecs
     in  (reassemble decls, reverse (ctxErrors ctx) ++ notUsedErrs)
   where
     reassemble ::
-         [Decl ResolveBindingSpecs]
-      -> TranslationUnit ResolveBindingSpecs
-    reassemble decls' = TranslationUnit{
+         [C.Decl ResolveBindingSpecs]
+      -> C.TranslationUnit ResolveBindingSpecs
+    reassemble decls' = C.TranslationUnit{
         unitDecls = decls'
       , unitIncludeGraph
       , unitAnn
@@ -92,9 +94,9 @@ runM confSpecs = flip runState (initCtx confSpecs) . unwrapM
 
 data Ctx = Ctx {
       ctxErrors       :: [BindingSpecsError] -- ^ Stored in reverse order
-    , ctxExtTypes     :: Map (QualId RenameAnon) (Type ResolveBindingSpecs)
+    , ctxExtTypes     :: Map (C.QualId RenameAnon) (C.Type ResolveBindingSpecs)
     , ctxNoConfTypes  :: Set CNameSpelling
-    , ctxOmittedTypes :: Set (QualId RenameAnon)
+    , ctxOmittedTypes :: Set (C.QualId RenameAnon)
     }
 
 initCtx :: ResolvedBindingSpecs -> Ctx
@@ -110,7 +112,7 @@ insertError e ctx = ctx {
       ctxErrors = e : ctxErrors ctx
     }
 
-insertExtType :: QualId RenameAnon -> Type ResolveBindingSpecs -> Ctx -> Ctx
+insertExtType :: C.QualId RenameAnon -> C.Type ResolveBindingSpecs -> Ctx -> Ctx
 insertExtType qualId typ ctx = ctx {
       ctxExtTypes = Map.insert qualId typ (ctxExtTypes ctx)
     }
@@ -120,7 +122,7 @@ deleteNoConfType cname ctx = ctx {
       ctxNoConfTypes = Set.delete cname (ctxNoConfTypes ctx)
     }
 
-insertOmittedType :: QualId RenameAnon -> Ctx -> Ctx
+insertOmittedType :: C.QualId RenameAnon -> Ctx -> Ctx
 insertOmittedType qualId ctx = ctx {
       ctxOmittedTypes = Set.insert qualId (ctxOmittedTypes ctx)
     }
@@ -133,29 +135,29 @@ resolveDecls ::
      ResolvedBindingSpecs -- ^ Configuration binding specifications
   -> ResolvedBindingSpecs -- ^ External binding specifications
   -> IncludeGraph
-  -> [Decl RenameAnon]
-  -> M [Decl ResolveBindingSpecs]
+  -> [C.Decl RenameAnon]
+  -> M [C.Decl ResolveBindingSpecs]
 resolveDecls confSpecs extSpecs includeGraph = mapMaybeM aux
   where
-    aux :: Decl RenameAnon -> M (Maybe (Decl ResolveBindingSpecs))
+    aux :: C.Decl RenameAnon -> M (Maybe (C.Decl ResolveBindingSpecs))
     aux decl = auxExt
       where
-        qualId :: QualId RenameAnon
-        qualId = declQualId decl
+        qualId :: C.QualId RenameAnon
+        qualId = C.declQualId decl
 
         cname :: CNameSpelling
         cname = qualIdCNameSpelling qualId
 
         declPaths :: Set SourcePath
         declPaths = IncludeGraph.reaches includeGraph $
-          singleLocPath (declLoc (declInfo decl))
+          singleLocPath (C.declLoc (C.declInfo decl))
 
-        auxExt :: M (Maybe (Decl ResolveBindingSpecs))
+        auxExt :: M (Maybe (C.Decl ResolveBindingSpecs))
         auxExt = case BindingSpecs.lookupType cname declPaths extSpecs of
           Just (BindingSpecs.Require typeSpec) ->
             case getExtHsRef cname typeSpec of
               Right extHsRef -> do
-                let t = TypeExtBinding extHsRef typeSpec
+                let t = C.TypeExtBinding extHsRef typeSpec
                 modify' $ insertExtType qualId t
                 return Nothing
               Left e -> do
@@ -166,7 +168,7 @@ resolveDecls confSpecs extSpecs includeGraph = mapMaybeM aux
             auxConf
           Nothing -> auxConf
 
-        auxConf :: M (Maybe (Decl ResolveBindingSpecs))
+        auxConf :: M (Maybe (C.Decl ResolveBindingSpecs))
         auxConf = case BindingSpecs.lookupType cname declPaths confSpecs of
           Just (BindingSpecs.Require typeSpec) -> do
             modify' $ deleteNoConfType cname
@@ -176,15 +178,15 @@ resolveDecls confSpecs extSpecs includeGraph = mapMaybeM aux
             return Nothing
           Nothing -> Just <$> mkDecl decl Nothing
 
-qualIdCNameSpelling :: QualId RenameAnon -> CNameSpelling
-qualIdCNameSpelling (QualId (CName cname) namespace) =
+qualIdCNameSpelling :: C.QualId RenameAnon -> CNameSpelling
+qualIdCNameSpelling (C.QualId (CName cname) namespace) =
     let prefix = case namespace of
-          NamespaceTypedef  -> ""
-          NamespaceStruct   -> "struct "
-          NamespaceUnion    -> "union "
-          NamespaceEnum     -> "enum "
-          NamespaceMacro    -> ""
-          NamespaceFunction -> ""
+          C.NamespaceTypedef  -> ""
+          C.NamespaceStruct   -> "struct "
+          C.NamespaceUnion    -> "union "
+          C.NamespaceEnum     -> "enum "
+          C.NamespaceMacro    -> ""
+          C.NamespaceFunction -> ""
     in  CNameSpelling $ prefix <> cname
 
 getExtHsRef ::
@@ -201,116 +203,149 @@ getExtHsRef cname typ = do
     return ExtHsRef{extHsRefModule, extHsRefIdentifier}
 
 mkDecl ::
-     Decl RenameAnon
+     C.Decl RenameAnon
   -> Maybe BindingSpecs.Type
-  -> M (Decl ResolveBindingSpecs)
-mkDecl decl mTypeSpec = reassemble <$> mkDeclKind (declKind decl)
+  -> M (C.Decl ResolveBindingSpecs)
+mkDecl C.Decl{..} mTypeSpec =
+    reassemble <$> mkDeclKind declKind
   where
-    reassemble :: DeclKind ResolveBindingSpecs -> Decl ResolveBindingSpecs
-    reassemble declKind = Decl {
-        declInfo = mkDeclInfo (declInfo decl)
-      , declKind
-      , declAnn = mTypeSpec
+    reassemble :: C.DeclKind ResolveBindingSpecs -> C.Decl ResolveBindingSpecs
+    reassemble declKind' = C.Decl {
+        declInfo = mkDeclInfo declInfo
+      , declKind = declKind'
+      , declAnn  = fromMaybe BindingSpecs.defaultTypeSpec mTypeSpec
       }
 
-mkDeclInfo :: DeclInfo RenameAnon -> DeclInfo ResolveBindingSpecs
-mkDeclInfo DeclInfo{declLoc, declId} = DeclInfo{declLoc, declId}
+mkDeclInfo :: C.DeclInfo RenameAnon -> C.DeclInfo ResolveBindingSpecs
+mkDeclInfo C.DeclInfo{..} = C.DeclInfo{..}
 
-mkDeclKind :: DeclKind RenameAnon -> M (DeclKind ResolveBindingSpecs)
+mkDeclKind :: C.DeclKind RenameAnon -> M (C.DeclKind ResolveBindingSpecs)
 mkDeclKind = \case
-    DeclStruct struct   -> DeclStruct <$> mkStruct struct
-    DeclStructOpaque    -> return DeclStructOpaque
-    DeclUnion union     -> DeclUnion <$> mkUnion union
-    DeclUnionOpaque     -> return DeclUnionOpaque
-    DeclTypedef typedef -> DeclTypedef <$> mkTypedef typedef
-    DeclEnum enumConsts -> return (DeclEnum enumConsts)
-    DeclEnumOpaque      -> return DeclEnumOpaque
-    DeclMacro macro     -> return (DeclMacro macro)
-    DeclFunction fun    -> DeclFunction <$> mkFunction fun
+    C.DeclStruct struct   -> C.DeclStruct <$> mkStruct struct
+    C.DeclStructOpaque    -> return C.DeclStructOpaque
+    C.DeclUnion union     -> C.DeclUnion <$> mkUnion union
+    C.DeclTypedef typedef -> C.DeclTypedef <$> mkTypedef typedef
+    C.DeclEnum enum       -> C.DeclEnum <$> mkEnum enum
+    C.DeclEnumOpaque      -> return C.DeclEnumOpaque
+    C.DeclMacro macro     -> C.DeclMacro <$> mkMacro macro
+    C.DeclFunction fun    -> C.DeclFunction <$> mkFunction fun
 
-mkStruct :: Struct RenameAnon -> M (Struct ResolveBindingSpecs)
-mkStruct struct = reassemble <$> mapM mkStructField (structFields struct)
+mkStruct :: C.Struct RenameAnon -> M (C.Struct ResolveBindingSpecs)
+mkStruct C.Struct{..} =
+    reassemble <$> mapM mkStructField structFields
   where
     reassemble ::
-         [StructField ResolveBindingSpecs]
-      -> Struct ResolveBindingSpecs
-    reassemble structFields = Struct {
-        structSizeof = structSizeof struct
-      , structAlignment = structAlignment struct
-      , structFields
-      }
+         [C.StructField ResolveBindingSpecs]
+      -> C.Struct ResolveBindingSpecs
+    reassemble structFields' = C.Struct {
+          structFields = structFields'
+        , ..
+        }
 
-mkStructField :: StructField RenameAnon -> M (StructField ResolveBindingSpecs)
-mkStructField field = reassemble <$> mkType (structFieldType field)
+mkStructField ::
+     C.StructField RenameAnon
+  -> M (C.StructField ResolveBindingSpecs)
+mkStructField C.StructField{..} =
+    reassemble <$> mkType structFieldType
   where
-    reassemble :: Type ResolveBindingSpecs -> StructField ResolveBindingSpecs
-    reassemble structFieldType = StructField {
-        structFieldName = structFieldName field
-      , structFieldType
-      , structFieldOffset = structFieldOffset field
-      , structFieldAnn = structFieldAnn field
-      }
+    reassemble ::
+         C.Type ResolveBindingSpecs
+      -> C.StructField ResolveBindingSpecs
+    reassemble structFieldType' = C.StructField {
+          structFieldType = structFieldType'
+        , ..
+        }
 
-mkUnion :: Union RenameAnon -> M (Union ResolveBindingSpecs)
-mkUnion union = reassemble <$> mapM mkUnionField (unionFields union)
+mkUnion :: C.Union RenameAnon -> M (C.Union ResolveBindingSpecs)
+mkUnion C.Union{..} =
+    reassemble <$> mapM mkUnionField unionFields
   where
-    reassemble :: [UnionField ResolveBindingSpecs] -> Union ResolveBindingSpecs
-    reassemble unionFields = Union {
-        unionSizeof = unionSizeof union
-      , unionAlignment = unionAlignment union
-      , unionFields
-      }
+    reassemble ::
+         [C.UnionField ResolveBindingSpecs]
+      -> C.Union ResolveBindingSpecs
+    reassemble unionFields' = C.Union {
+          unionFields = unionFields'
+        , ..
+        }
 
-mkUnionField :: UnionField RenameAnon -> M (UnionField ResolveBindingSpecs)
-mkUnionField field = reassemble <$> mkType (unionFieldType field)
+mkUnionField :: C.UnionField RenameAnon -> M (C.UnionField ResolveBindingSpecs)
+mkUnionField C.UnionField{..} =
+    reassemble <$> mkType unionFieldType
   where
-    reassemble :: Type ResolveBindingSpecs -> UnionField ResolveBindingSpecs
-    reassemble unionFieldType = UnionField {
-        unionFieldName = unionFieldName field
-      , unionFieldType
-      , unionFieldAnn = unionFieldAnn field
-      }
+    reassemble :: C.Type ResolveBindingSpecs -> C.UnionField ResolveBindingSpecs
+    reassemble unionFieldType' = C.UnionField {
+          unionFieldType = unionFieldType'
+        , ..
+        }
 
-mkTypedef :: Typedef RenameAnon -> M (Typedef ResolveBindingSpecs)
-mkTypedef typedef = reassemble <$> mkType (typedefType typedef)
+mkEnum :: C.Enum RenameAnon -> M (C.Enum ResolveBindingSpecs)
+mkEnum C.Enum{..} =
+    reassemble
+      <$> mkType enumType
+      <*> mapM mkEnumConstant enumConstants
   where
-    reassemble :: Type ResolveBindingSpecs -> Typedef ResolveBindingSpecs
-    reassemble typedefType = Typedef {
-        typedefType
-      , typedefAnn = typedefAnn typedef
+   reassemble ::
+        C.Type ResolveBindingSpecs
+     -> [C.EnumConstant ResolveBindingSpecs]
+     -> C.Enum ResolveBindingSpecs
+   reassemble enumType' enumConstants' = C.Enum{
+         enumType      = enumType'
+       , enumConstants = enumConstants'
+       , ..
+       }
+
+mkEnumConstant ::
+     C.EnumConstant RenameAnon
+  -> M (C.EnumConstant ResolveBindingSpecs)
+mkEnumConstant C.EnumConstant{..} = return C.EnumConstant{..}
+
+mkTypedef :: C.Typedef RenameAnon -> M (C.Typedef ResolveBindingSpecs)
+mkTypedef C.Typedef{..} =
+    reassemble <$> mkType typedefType
+  where
+    reassemble :: C.Type ResolveBindingSpecs -> C.Typedef ResolveBindingSpecs
+    reassemble typedefType' = C.Typedef {
+          typedefType = typedefType'
+        , ..
+        }
+
+mkFunction :: C.Function RenameAnon -> M (C.Function ResolveBindingSpecs)
+mkFunction C.Function{..} = do
+    functionArgs' <- mapM mkType functionArgs
+    functionRes'  <- mkType functionRes
+    return C.Function {
+        functionArgs = functionArgs'
+      , functionRes  = functionRes'
+      , ..
       }
 
-mkFunction :: Function RenameAnon -> M (Function ResolveBindingSpecs)
-mkFunction fun = do
-    functionArgs <- mapM mkType (functionArgs fun)
-    functionRes <- mkType (functionRes fun)
-    return Function {
-        functionName = functionName fun
-      , functionArgs
-      , functionRes
-      , functionAnn = functionAnn fun
-      }
+mkMacro :: CheckedMacro RenameAnon -> M (CheckedMacro ResolveBindingSpecs)
+mkMacro (MacroType typ)  = MacroType <$> mkType typ
+mkMacro (MacroExpr expr) = return $ MacroExpr expr
 
-mkType :: Type RenameAnon -> M (Type ResolveBindingSpecs)
+mkType :: C.Type RenameAnon -> M (C.Type ResolveBindingSpecs)
 mkType = \case
-    TypePrim t -> return (TypePrim t)
-    TypeStruct uid -> aux TypeStruct uid NamespaceStruct
-    TypeUnion uid -> aux TypeUnion uid NamespaceUnion
-    TypeEnum uid -> aux TypeEnum uid NamespaceEnum
-    TypeTypedef uid ann -> aux (`TypeTypedef` ann) uid NamespaceTypedef
-    TypePointer t -> TypePointer <$> mkType t
-    TypeFunction args res -> TypeFunction <$> mapM mkType args <*> mkType res
-    TypeVoid -> return TypeVoid
-    TypeExtBinding extHsRef typeSpec ->
-      return (TypeExtBinding extHsRef typeSpec)
+    C.TypePrim t            -> return (C.TypePrim t)
+    C.TypeStruct uid        -> aux C.TypeStruct uid C.NamespaceStruct
+    C.TypeUnion uid         -> aux C.TypeUnion uid C.NamespaceUnion
+    C.TypeEnum uid          -> aux C.TypeEnum uid C.NamespaceEnum
+    C.TypeTypedef uid ann   -> aux (`C.TypeTypedef` ann) uid C.NamespaceTypedef
+    C.TypePointer t         -> C.TypePointer <$> mkType t
+    C.TypeFun args res      -> C.TypeFun <$> mapM mkType args <*> mkType res
+    C.TypeVoid              -> return C.TypeVoid
+    C.TypeConstArray n t    -> C.TypeConstArray n <$> mkType t
+    C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> mkType t
+
+    C.TypeExtBinding extHsRef typeSpec ->
+      return (C.TypeExtBinding extHsRef typeSpec)
   where
     aux ::
-         (Id ResolveBindingSpecs -> Type ResolveBindingSpecs)
+         (Id ResolveBindingSpecs -> C.Type ResolveBindingSpecs)
       -> Id RenameAnon
-      -> Namespace
-      -> M (Type ResolveBindingSpecs)
+      -> C.Namespace
+      -> M (C.Type ResolveBindingSpecs)
     aux mk uid namespace = do
-      let qualId = QualId uid namespace
+      let qualId = C.QualId uid namespace
           cname  = qualIdCNameSpelling qualId
       isOmitted <- gets $ Set.member qualId . ctxOmittedTypes
       when isOmitted . modify' $ insertError (BindingSpecsOmittedTypeUse cname)

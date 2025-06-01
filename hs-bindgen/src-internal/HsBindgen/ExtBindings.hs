@@ -56,7 +56,7 @@ import Clang.Paths
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Language.Hs
+import HsBindgen.Language.Haskell
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Tracer (TraceWithCallStack)

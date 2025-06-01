@@ -1,0 +1,239 @@
+-- | Construct the final (external) form of the AST
+module HsBindgen.Frontend.AST.Finalize (finalize) where
+
+import HsBindgen.Frontend.AST.External qualified as Ext
+import HsBindgen.Frontend.AST.Internal qualified as Int
+import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.NameMangler.IsPass
+import HsBindgen.Imports
+
+{-------------------------------------------------------------------------------
+  Definition
+-------------------------------------------------------------------------------}
+
+class Finalize (a :: Pass -> Star) where
+  type Finalized a :: Star
+  finalize :: a Final -> Finalized a
+
+-- The final phase in the frontend
+type Final = NameMangler
+
+{-------------------------------------------------------------------------------
+  Instances
+
+  NOTE: We're intentionally not using RecordDotSyntax here, so that we consider
+  each field, all annotations, etc. Fields that we don't want to include in
+  the external AST we explicitly ignore.
+-------------------------------------------------------------------------------}
+
+instance Finalize Int.TranslationUnit where
+  type Finalized Int.TranslationUnit = Ext.TranslationUnit
+
+  finalize unit = Ext.TranslationUnit{
+        unitDecls = map finalize unitDecls
+      }
+    where
+      Int.TranslationUnit{
+          unitDecls
+        , unitIncludeGraph = _includeGraph
+        , unitAnn = _useDefGraph
+        } = unit
+
+instance Finalize Int.Decl where
+  type Finalized Int.Decl = Ext.Decl
+
+  finalize decl = Ext.Decl{
+        declInfo = finalize declInfo
+      , declKind = finalize declKind
+      , declSpec = declAnn
+      }
+    where
+      Int.Decl {
+          declInfo
+        , declKind
+        , declAnn
+        } = decl
+
+instance Finalize Int.DeclInfo where
+  type Finalized Int.DeclInfo = Ext.DeclInfo
+
+  finalize info = Ext.DeclInfo{
+        declLoc
+      , declId
+      }
+    where
+      Int.DeclInfo{
+          declLoc
+        , declId
+        } = info
+
+instance Finalize Int.DeclKind where
+  type Finalized Int.DeclKind = Ext.DeclKind
+
+  finalize (Int.DeclStruct struct)   = Ext.DeclStruct (finalize struct)
+  finalize (Int.DeclStructOpaque)    = Ext.DeclStructOpaque
+  finalize (Int.DeclUnion union)     = Ext.DeclUnion (finalize union)
+  finalize (Int.DeclEnum enum)       = Ext.DeclEnum (finalize enum)
+  finalize (Int.DeclEnumOpaque)      = Ext.DeclEnumOpaque
+  finalize (Int.DeclTypedef typedef) = Ext.DeclTypedef (finalize typedef)
+  finalize (Int.DeclMacro macro)     = Ext.DeclMacro (finalize macro)
+  finalize (Int.DeclFunction func)   = Ext.DeclFunction (finalize func)
+
+instance Finalize Int.Struct where
+  type Finalized Int.Struct = Ext.Struct
+
+  -- TODO: We should partition the fields and pick out the complete array for
+  -- the FLAM (or add structFlam also to the internal AST, but I don't think
+  -- it's necessary).
+  finalize struct = Ext.Struct{
+        structNames = structAnn
+      , structSizeof
+      , structAlignment
+      , structFields = map finalize structFields
+      , structFlam = Nothing
+      }
+    where
+      Int.Struct {
+          structSizeof
+        , structAlignment
+        , structFields
+        , structAnn
+        } = struct
+
+instance Finalize Int.StructField where
+  type Finalized Int.StructField = Ext.StructField
+
+  finalize field = Ext.StructField{
+        structFieldLoc
+      , structFieldName
+      , structFieldType = finalize structFieldType
+      , structFieldOffset
+      , structFieldWidth
+      }
+    where
+      Int.StructField {
+          structFieldLoc
+        , structFieldName
+        , structFieldType
+        , structFieldOffset
+        , structFieldWidth
+        , structFieldAnn = NoAnn
+        } = field
+
+instance Finalize Int.Union where
+  type Finalized Int.Union = Ext.Union
+
+  finalize union = Ext.Union{
+        unionNames = unionAnn
+      , unionSizeof
+      , unionAlignment
+      , unionFields = map finalize unionFields
+      }
+    where
+      Int.Union {
+          unionSizeof
+        , unionAlignment
+        , unionFields
+        , unionAnn
+        } = union
+
+instance Finalize Int.UnionField where
+  type Finalized Int.UnionField = Ext.UnionField
+
+  finalize field = Ext.UnionField{
+        unionFieldLoc
+      , unionFieldName
+      , unionFieldType = finalize unionFieldType
+      }
+    where
+      Int.UnionField {
+          unionFieldLoc
+        , unionFieldName
+        , unionFieldType
+        , unionFieldAnn = NoAnn
+        } = field
+
+instance Finalize Int.Enum where
+  type Finalized Int.Enum = Ext.Enum
+
+  finalize enum = Ext.Enum{
+        enumNames = enumAnn
+      , enumType = finalize enumType
+      , enumSizeof
+      , enumAlignment
+      , enumConstants = map finalize enumConstants
+      }
+    where
+      Int.Enum {
+          enumType
+        , enumSizeof
+        , enumAlignment
+        , enumConstants
+        , enumAnn
+        } = enum
+
+instance Finalize Int.EnumConstant where
+  type Finalized Int.EnumConstant = Ext.EnumConstant
+
+  finalize constant = Ext.EnumConstant{
+        enumConstantLoc
+      , enumConstantName
+      , enumConstantValue
+      }
+    where
+      Int.EnumConstant {
+          enumConstantLoc
+        , enumConstantName
+        , enumConstantValue
+        } = constant
+
+instance Finalize Int.Typedef where
+  type Finalized Int.Typedef = Ext.Typedef
+
+  finalize typedef = Ext.Typedef{
+        typedefNames = typedefAnn
+      , typedefType  = finalize typedefType
+      }
+    where
+      Int.Typedef{
+          typedefType
+        , typedefAnn
+        } = typedef
+
+instance Finalize Int.Function where
+  type Finalized Int.Function = Ext.Function
+
+  finalize function = Ext.Function{
+        functionArgs   = map finalize functionArgs
+      , functionRes    = finalize functionRes
+      , functionHeader = undefined -- TODO
+      }
+    where
+      Int.Function {
+          functionArgs
+        , functionRes
+        , functionAnn = NoAnn
+        } = function
+
+instance Finalize CheckedMacro where
+  type Finalized CheckedMacro = Ext.CheckedMacro
+
+  finalize (MacroType typ)  = Ext.MacroType (finalize typ)
+  finalize (MacroExpr expr) = Ext.MacroExpr expr
+
+instance Finalize Int.Type where
+  type Finalized Int.Type = Ext.Type
+
+  finalize (Int.TypePrim prim)           = Ext.TypePrim prim
+  finalize (Int.TypeStruct name)         = Ext.TypeStruct name
+  finalize (Int.TypeUnion name)          = Ext.TypeUnion name
+  finalize (Int.TypeEnum name)           = Ext.TypeEnum name
+  finalize (Int.TypeTypedef name ann)    = Ext.TypeTypedef name ann
+  finalize (Int.TypePointer typ)         = Ext.TypePointer (finalize typ)
+  finalize (Int.TypeFun args res)        = Ext.TypeFun (map finalize args) (finalize res)
+  finalize (Int.TypeVoid)                = Ext.TypeVoid
+  finalize (Int.TypeConstArray n typ)    = Ext.TypeConstArray n (finalize typ)
+  finalize (Int.TypeIncompleteArray typ) = Ext.TypeIncompleteArray (finalize typ)
+
+  finalize (Int.TypeExtBinding ref typ) = undefined -- TODO

@@ -13,8 +13,8 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import Clang.HighLevel.Types
 
-import HsBindgen.C.AST.Name ( CName(CName) )
 import HsBindgen.C.Reparse.Infra
+import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

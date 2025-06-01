@@ -31,7 +31,8 @@ import Clang.Paths
 import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal (ValidPass)
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
@@ -47,10 +48,10 @@ import HsBindgen.Imports
 -- Whenever declaration A uses (depends on) declaration B, there will be
 -- an edge from A to B in this graph.
 data UseDefGraph p = UseDefGraph{
-      useDefIndex :: Map (QualId p) (Decl p)
-    , useDefGraph :: DynGraph Usage (QualId p)
+      useDefIndex :: Map (C.QualId p) (C.Decl p)
+    , useDefGraph :: DynGraph (Usage p) (C.QualId p)
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Construction
@@ -64,8 +65,8 @@ empty = UseDefGraph{
 
 insert :: forall p.
      (ValidPass p, HasCallStack)
-  => UseDefGraph p -> Decl p -> UseDefGraph p
-insert UseDefGraph{useDefIndex, useDefGraph} decl@Decl{declKind} =
+  => UseDefGraph p -> C.Decl p -> UseDefGraph p
+insert UseDefGraph{useDefIndex, useDefGraph} decl@C.Decl{declKind} =
     UseDefGraph{
         useDefIndex = Map.alter addDecl qid useDefIndex
         -- Map.insert declId decl useDefIndex
@@ -75,16 +76,16 @@ insert UseDefGraph{useDefIndex, useDefGraph} decl@Decl{declKind} =
                        (depsOfDecl declKind)
       }
   where
-    qid :: QualId p
-    qid = declQualId decl
+    qid :: C.QualId p
+    qid = C.declQualId decl
 
-    addDecl :: Maybe (Decl p) -> Maybe (Decl p)
+    addDecl :: Maybe (C.Decl p) -> Maybe (C.Decl p)
     addDecl Nothing  = Just decl
     addDecl (Just _) = panicPure $ "duplicate declaration for " ++ show qid
 
 fromDecls ::
      (ValidPass p, HasCallStack)
-  => IncludeGraph -> [Decl p] -> UseDefGraph p
+  => IncludeGraph -> [C.Decl p] -> UseDefGraph p
 fromDecls includeGraph decls =
     Foldable.foldl' insert empty $
       -- It is important that we insert elements into the graph in source order
@@ -110,17 +111,17 @@ fromDecls includeGraph decls =
 --
 -- For each declaration we provide one example of how that declaration is used
 -- (if one exists).
-toDecls :: ValidPass p => UseDefGraph p -> [Decl p]
+toDecls :: ValidPass p => UseDefGraph p -> [C.Decl p]
 toDecls ud@UseDefGraph{useDefGraph} =
     -- TODO: Should this just be DynGraph.topSort?
     -- Not sure why that has an additional reverse.
     map (ud !) . DynGraph.postorderForest $
       DynGraph.dff useDefGraph
 
-lookup :: Ord (Id p) => QualId p -> UseDefGraph p -> Maybe (Decl p)
+lookup :: Ord (Id p) => C.QualId p -> UseDefGraph p -> Maybe (C.Decl p)
 lookup uid UseDefGraph{useDefIndex} = Map.lookup uid useDefIndex
 
-(!) :: (ValidPass p, HasCallStack) => UseDefGraph p -> QualId p -> Decl p
+(!) :: (ValidPass p, HasCallStack) => UseDefGraph p -> C.QualId p -> C.Decl p
 (!) ud uid =
     fromMaybe (panicPure $ "Unknown key: " ++ show uid) $
        lookup uid ud
@@ -136,8 +137,8 @@ data SortKey = SortKey{
     }
   deriving (Eq, Ord, Show)
 
-annSortKey :: Map SourcePath Int -> Decl p -> SortKey
-annSortKey sourceMap Decl{declInfo = DeclInfo{declLoc}} =
+annSortKey :: Map SourcePath Int -> C.Decl p -> SortKey
+annSortKey sourceMap C.Decl{declInfo = C.DeclInfo{declLoc}} =
   let key        = singleLocPath declLoc
       sortPathIx = fromMaybe
         (panicPure $ "Source of declaration " <> show key <> " not in source map")
@@ -161,5 +162,5 @@ dumpMermaid showId ud@UseDefGraph{useDefGraph} =
       (\uid -> showDecl $ ud ! uid)
       useDefGraph
   where
-    showDecl :: Decl p -> String
-    showDecl Decl{declInfo = DeclInfo{declId}} = showId declId
+    showDecl :: C.Decl p -> String
+    showDecl C.Decl{declInfo = C.DeclInfo{declId}} = showId declId

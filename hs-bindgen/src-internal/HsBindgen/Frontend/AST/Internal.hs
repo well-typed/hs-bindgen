@@ -1,0 +1,308 @@
+-- | Internal AST as it is constructed step by step in the frontend
+--
+-- Intended for qualified import.
+--
+-- > import HsBindgen.Frontend.AST.Internal (ValidPass)
+-- > import HsBindgen.Frontend.AST.Internal qualified as C
+module HsBindgen.Frontend.AST.Internal (
+    TranslationUnit(..)
+    -- * Declarations
+  , Decl(..)
+  , DeclInfo(..)
+  , DeclKind(..)
+  , Struct(..)
+  , StructField(..)
+  , Union(..)
+  , UnionField(..)
+  , Typedef(..)
+  , Enum(..)
+  , EnumConstant(..)
+  , Function(..)
+    -- * Types (at use sites)
+  , Type(..)
+    -- * Names
+  , CName(..)
+    -- ** Namespaced
+  , QualId(..)
+  , Namespace(..)
+  , coerceQualId
+  , declNamespace
+  , declQualId
+    -- * Show
+  , ValidPass
+  ) where
+
+import Prelude hiding (Enum)
+
+import Clang.HighLevel.Types
+import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
+import HsBindgen.Frontend.Pass
+import HsBindgen.Imports
+import HsBindgen.Language.Haskell (ExtHsRef)
+import HsBindgen.Language.C.Prim
+
+{-------------------------------------------------------------------------------
+  Declarations
+
+  NOTE: Struct and union fields, as well as enum constants, have their /own/
+  'SingleLoc' (in addition to the 'SingleLoc' of the enclosing declaration).
+-------------------------------------------------------------------------------}
+
+data TranslationUnit p = TranslationUnit{
+      -- | Declarations in the unit
+      --
+      -- This includes all declarations from all headers that we have processed,
+      -- except
+      --
+      -- * declarations that were filtered out by a selection predicate
+      -- * declarations for which we have existing external bindings
+      -- * declarations that were filtered out by a binding specification
+      unitDecls :: [Decl p]
+
+      -- | Include graph
+      --
+      -- This is used to declare TH dependencies.
+      --
+      -- It can also be useful for users to see this graph, as it may provide
+      -- insight into the binding generation process. For example, suppose we
+      -- have a large library (say Gtk), with a few main entry points (for which
+      -- we should generate separate Haskell modules) and a core of "common"
+      -- definitions; it may be quite useful to look at the include graph to
+      -- figure out what this set of "core" headers is.
+    , unitIncludeGraph :: IncludeGraph
+
+      -- | Pass-specific annotation
+    , unitAnn :: Ann "TranslationUnit" p
+    }
+
+data Decl p = Decl {
+      declInfo :: DeclInfo p
+    , declKind :: DeclKind p
+    , declAnn  :: Ann "Decl" p
+    }
+
+data DeclInfo p = DeclInfo{
+      declLoc :: SingleLoc
+    , declId  :: Id p
+    }
+
+data DeclKind p =
+    DeclStruct (Struct p)
+  | DeclStructOpaque
+  | DeclUnion (Union p)
+  | DeclTypedef (Typedef p)
+  | DeclEnum (Enum p)
+  | DeclEnumOpaque
+  | DeclMacro (MacroBody p)
+  | DeclFunction (Function p)
+
+data Struct p = Struct {
+      structSizeof    :: Int
+    , structAlignment :: Int
+    , structFields    :: [StructField p]
+    , structAnn       :: Ann "Struct" p
+    }
+
+data StructField p = StructField {
+      structFieldLoc    :: SingleLoc
+    , structFieldName   :: FieldName p
+    , structFieldType   :: Type p
+    , structFieldOffset :: Int     -- ^ Offset in bits
+    , structFieldWidth  :: Maybe Int
+    , structFieldAnn    :: Ann "StructField" p
+    }
+
+data Union p = Union {
+      unionSizeof    :: Int
+    , unionAlignment :: Int
+    , unionFields    :: [UnionField p]
+    , unionAnn       :: Ann "Union" p
+    }
+
+data UnionField p = UnionField {
+      unionFieldLoc   :: SingleLoc
+    , unionFieldName  :: FieldName p
+    , unionFieldType  :: Type p
+    , unionFieldAnn   :: Ann "UnionField" p
+    }
+
+data Typedef p = Typedef {
+      typedefType :: Type p
+    , typedefAnn  :: Ann "Typedef" p
+    }
+
+data Enum p = Enum {
+      enumType      :: Type p
+    , enumSizeof    :: Int
+    , enumAlignment :: Int
+    , enumConstants :: [EnumConstant p]
+    , enumAnn       :: Ann "Enum" p
+    }
+
+data EnumConstant p = EnumConstant {
+      enumConstantLoc   :: SingleLoc
+    , enumConstantName  :: FieldName p
+    , enumConstantValue :: Integer
+    }
+
+data Function p = Function {
+      functionArgs :: [Type p]
+    , functionRes  :: Type p
+    , functionAnn  :: Ann "Function" p
+    }
+
+{-------------------------------------------------------------------------------
+  Types (at use sites)
+-------------------------------------------------------------------------------}
+
+data Type p =
+    TypePrim PrimType
+  | TypeStruct (Id p)
+  | TypeUnion (Id p)
+  | TypeEnum (Id p)
+  | TypeTypedef (Id p) (Ann "TypeTypedef" p)
+  | TypePointer (Type p)
+  | TypeFun [Type p] (Type p)
+  | TypeVoid
+  | TypeConstArray Natural (Type p)
+
+    -- | Arrays of unknown size
+    --
+    -- Arrays normally have a known size, but not always:
+    --
+    -- * Arrays of unknown size are allowed as function arguments; such arrays
+    --   are interpreted as pointers.
+    -- * Arrays of unknown size may be declared for externs; this is considered
+    --   an incomplete type.
+    -- * Structs may contain an array of undefined size as their last field,
+    --   known as a "flexible array member" (FLAM).
+    --
+    -- We treat the FLAM case separately.
+    --
+    -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
+  | TypeIncompleteArray (Type p)
+
+    -- | TODO: Docs
+  | TypeExtBinding ExtHsRef BindingSpecs.Type
+
+
+{-------------------------------------------------------------------------------
+  Names
+-------------------------------------------------------------------------------}
+
+newtype CName = CName {
+      getCName :: Text
+    }
+  deriving newtype (Show, Eq, Ord, IsString, Semigroup)
+  deriving stock (Generic)
+
+{-------------------------------------------------------------------------------
+  Namespaces
+-------------------------------------------------------------------------------}
+
+data Namespace =
+    NamespaceTypedef
+  | NamespaceStruct
+  | NamespaceUnion
+  | NamespaceEnum
+  | NamespaceMacro
+  | NamespaceFunction
+  deriving stock (Show, Eq, Ord)
+
+data QualId p = QualId (Id p) Namespace
+
+deriving instance Show (Id p) => Show (QualId p)
+deriving instance Eq   (Id p) => Eq   (QualId p)
+deriving instance Ord  (Id p) => Ord  (QualId p)
+
+-- TODO: It would be nicer if we could avoid this
+coerceQualId :: (Id p ~ Id p') => QualId p -> QualId p'
+coerceQualId (QualId uid ns) = QualId uid ns
+
+declNamespace :: DeclKind p -> Namespace
+declNamespace DeclStruct{}       = NamespaceStruct
+declNamespace DeclStructOpaque{} = NamespaceStruct
+declNamespace DeclUnion{}        = NamespaceUnion
+declNamespace DeclEnum{}         = NamespaceEnum
+declNamespace DeclEnumOpaque{}   = NamespaceEnum
+declNamespace DeclTypedef{}      = NamespaceTypedef
+declNamespace DeclMacro{}        = NamespaceMacro
+declNamespace DeclFunction{}     = NamespaceFunction
+
+declQualId :: Decl p -> QualId p
+declQualId Decl{declInfo = DeclInfo{declId}, declKind} =
+    QualId (declId) (declNamespace declKind)
+
+{-------------------------------------------------------------------------------
+  Instances
+-------------------------------------------------------------------------------}
+
+class    ( Show (Ann ix p)
+         , Eq   (Ann ix p)
+         ) => ValidAnn (ix :: Symbol) (p :: Pass)
+instance ( Show (Ann ix p)
+         , Eq   (Ann ix p)
+         ) => ValidAnn (ix :: Symbol) (p :: Pass)
+
+-- | Valid pass
+--
+-- A pass is valid if the various type family instances satisfy constraints that
+-- we need, primarily for debugging and testing.
+--
+-- This is intentionally /not/ defined as a class alias, so that we get an error
+-- the moment we declare a pass to be 'ValidPass', rather than at use sites.
+class ( IsPass p
+
+        -- Identifiers
+        --
+        -- We often store identifiers in maps etc., so we insist on 'Ord'
+      , Show (Id p)
+      , Ord  (Id p)
+      , Show (FieldName p)
+      , Ord  (FieldName p)
+
+        -- Macros
+      , Show (MacroBody p)
+      , Eq   (MacroBody p)
+
+        -- Annotations
+      , ValidAnn "Decl"            p
+      , ValidAnn "Enum"            p
+      , ValidAnn "Function"        p
+      , ValidAnn "Struct"          p
+      , ValidAnn "StructField"     p
+      , ValidAnn "TranslationUnit" p
+      , ValidAnn "Typedef"         p
+      , ValidAnn "TypeTypedef"     p
+      , ValidAnn "Union"           p
+      , ValidAnn "UnionField"      p
+      ) => ValidPass p where
+
+deriving stock instance ValidPass p => Show (Decl            p)
+deriving stock instance ValidPass p => Show (DeclInfo        p)
+deriving stock instance ValidPass p => Show (DeclKind        p)
+deriving stock instance ValidPass p => Show (Enum            p)
+deriving stock instance ValidPass p => Show (EnumConstant    p)
+deriving stock instance ValidPass p => Show (Function        p)
+deriving stock instance ValidPass p => Show (Struct          p)
+deriving stock instance ValidPass p => Show (StructField     p)
+deriving stock instance ValidPass p => Show (TranslationUnit p)
+deriving stock instance ValidPass p => Show (Type            p)
+deriving stock instance ValidPass p => Show (Typedef         p)
+deriving stock instance ValidPass p => Show (Union           p)
+deriving stock instance ValidPass p => Show (UnionField      p)
+
+deriving stock instance ValidPass p => Eq (Decl            p)
+deriving stock instance ValidPass p => Eq (DeclInfo        p)
+deriving stock instance ValidPass p => Eq (DeclKind        p)
+deriving stock instance ValidPass p => Eq (Enum            p)
+deriving stock instance ValidPass p => Eq (EnumConstant    p)
+deriving stock instance ValidPass p => Eq (Function        p)
+deriving stock instance ValidPass p => Eq (Struct          p)
+deriving stock instance ValidPass p => Eq (StructField     p)
+deriving stock instance ValidPass p => Eq (TranslationUnit p)
+deriving stock instance ValidPass p => Eq (Type            p)
+deriving stock instance ValidPass p => Eq (Typedef         p)
+deriving stock instance ValidPass p => Eq (Union           p)
+deriving stock instance ValidPass p => Eq (UnionField      p)

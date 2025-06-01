@@ -9,14 +9,15 @@ import Text.Parsec
 import Text.Parsec.Expr
 
 import Clang.LowLevel.Core
-import HsBindgen.C.AST.Literal
-import HsBindgen.C.AST.Macro
-import HsBindgen.C.AST.Name
 import HsBindgen.C.Reparse.Common ( reparseName, reparseLocName )
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
-import {-# SOURCE #-} HsBindgen.C.Reparse.Decl ( reparseTypeName, reparseAttributeSpecifier )
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Frontend.AST.Internal (CName)
+import HsBindgen.Frontend.Macros.AST.Syntax
+import HsBindgen.Language.C.Literal
+
+import {-# SOURCE #-} HsBindgen.C.Reparse.Decl ( reparseTypeName, reparseAttributeSpecifier )
 
 {-------------------------------------------------------------------------------
   Top-level

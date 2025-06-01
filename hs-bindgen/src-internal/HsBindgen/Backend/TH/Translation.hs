@@ -29,14 +29,14 @@ import GHC.Float
 
 import C.Char (CharValue(..), charValueFromAddr)
 import C.Expr.HostPlatform qualified as C
-import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
+import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
-import HsBindgen.Language.Hs
+import HsBindgen.Language.C.Literal (canBeRepresentedAsRational)
+import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ByteArray qualified
@@ -44,10 +44,9 @@ import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Marshal qualified
-import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.SHs.AST
-import HsBindgen.Guasi
 
 import DeBruijn
 import GHC.Exts (Int(..), sizeofByteArray#)

@@ -13,12 +13,11 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   ) where
 
 import Data.Text qualified as Text
-import GHC.TypeLits (Symbol)
 
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.AST.Internal (ValidPass, CName(..))
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
@@ -39,9 +38,10 @@ type family ParseAnn (ix :: Symbol) :: Star where
   ParseAnn _                 = NoAnn
 
 instance IsPass Parse where
-  type Id     Parse = DeclId
-  type Macro  Parse = UnparsedMacro
-  type Ann ix Parse = ParseAnn ix
+  type Id        Parse = DeclId
+  type FieldName Parse = CName
+  type MacroBody Parse = UnparsedMacro
+  type Ann ix    Parse = ParseAnn ix
 
 {-------------------------------------------------------------------------------
   Identity
@@ -53,7 +53,7 @@ instance IsPass Parse where
 
 -- | Identity of a declaration
 data DeclId =
-    DeclNamed Text
+    DeclNamed CName
   | DeclAnon AnonId
   deriving stock (Show, Eq, Ord)
 
@@ -61,7 +61,7 @@ data DeclId =
 newtype AnonId = AnonId SingleLoc
   deriving stock (Show, Eq, Ord)
 
-isNamedDecl :: DeclId -> Maybe Text
+isNamedDecl :: DeclId -> Maybe CName
 isNamedDecl (DeclNamed name) = Just name
 isNamedDecl (DeclAnon  _)    = Nothing
 
@@ -71,20 +71,20 @@ isAnonDecl (DeclAnon anonId) = Just anonId
 
 getDeclId :: MonadIO m => CXCursor -> m DeclId
 getDeclId curr = do
-    name <- clang_getCursorSpelling curr
+    name   <- clang_getCursorSpelling  curr
     isAnon <- clang_Cursor_isAnonymous curr
     if isAnon || Text.null name then
       DeclAnon . AnonId . multiLocExpansion <$>
         HighLevel.clang_getCursorLocation curr
     else
-      return $ DeclNamed name
+      return $ DeclNamed (CName name)
 
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
 
 data UnparsedMacro = UnparsedMacro [Token TokenSpelling]
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 data ReparseInfo =
     -- | We need to reparse this declaration (to deal with macros)
@@ -94,7 +94,7 @@ data ReparseInfo =
 
     -- | This declaration does not use macros, so no need to reparse
   | ReparseNotNeeded
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 getUnparsedMacro ::
      MonadIO m

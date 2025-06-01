@@ -10,17 +10,15 @@ import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
-import HsBindgen.C.AST qualified as C (MFun(..))
 import HsBindgen.C.Tc.Macro qualified as Macro hiding ( IntegralType )
+import HsBindgen.Errors
+import HsBindgen.Frontend.Macros.AST.Syntax qualified as C
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
-import HsBindgen.Language.Hs (HsTypeClass)
+import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
-import HsBindgen.Errors
-
 
 import DeBruijn (rzeroAdd)
 import DeBruijn.Internal.Size (Size(UnsafeSize))

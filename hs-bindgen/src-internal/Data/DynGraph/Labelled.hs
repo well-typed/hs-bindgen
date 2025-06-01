@@ -48,14 +48,14 @@ import Data.Tree qualified as Tree
 -- Type variable @a@ represents the type of a vertex in the graph.  Internally,
 -- each value is mapped to an 'Int' index that is used in the representation of
 -- the graph.
-data DynGraph l a
-  = DynGraph
-      { vtxMap :: Map a Int
-      , idxMap :: IntMap a
-      , edges  :: IntMap (Set (l, Int))
-      }
+data DynGraph l a = DynGraph {
+      vtxMap :: Map a Int
+    , idxMap :: IntMap a
+    , edges  :: IntMap (Set (l, Int))
+    }
 
 deriving instance (Show a, Show l) => Show (DynGraph l a)
+deriving instance (Eq   a, Eq   l) => Eq   (DynGraph l a)
 
 {-------------------------------------------------------------------------------
   Construction

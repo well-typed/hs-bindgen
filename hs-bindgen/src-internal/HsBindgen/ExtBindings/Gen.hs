@@ -8,14 +8,13 @@ import Data.Set qualified as Set
 
 import Clang.CNameSpelling
 import Clang.Paths
-import HsBindgen.C.AST.Macro qualified as C
-import HsBindgen.C.AST.Name
-import HsBindgen.C.AST.Type qualified as C
 import HsBindgen.ExtBindings
+import HsBindgen.Frontend.AST.External (CName(..))
+import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Macros.AST.Syntax qualified as C
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Imports
-import HsBindgen.Language.Hs
+import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
   API

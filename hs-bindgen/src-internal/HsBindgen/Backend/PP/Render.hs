@@ -22,13 +22,12 @@ import Numeric (showHex)
 
 import HsBindgen.Backend.PP.Names
 import HsBindgen.Backend.PP.Translation
-import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type (HsPrimType(..))
 import HsBindgen.Imports
-import HsBindgen.Language.Hs
+import HsBindgen.Language.C.Literal (canBeRepresentedAsRational)
+import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 import Text.SimplePrettyPrint
