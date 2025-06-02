@@ -29,6 +29,7 @@ import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember (FLAMLengthMismatch (FLAMLengthMismatch))
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.LibC qualified as LibC
+import HsBindgen.Runtime.CAPI (allocaAndPeek)
 
 import Test01 qualified
 import Test02 qualified
@@ -166,9 +167,6 @@ thing_fun_3_high x =
     with x $ \x' ->
     allocaAndPeek $ \res ->
     Test01.thing_fun_3 x' res
-
-allocaAndPeek :: Storable a => (Ptr a -> IO ()) -> IO a
-allocaAndPeek kont = alloca $ \ptr -> kont ptr >> peek ptr
 
 {-------------------------------------------------------------------------------
   Test02
