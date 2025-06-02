@@ -27,6 +27,9 @@ data NameSpec ns where
   -- | Top-level variable (e.g. a function name)
   NameVar :: CName -> NameSpec NsVar
 
+  -- | Top-level variable (e.g. low-level FFI import name)
+  NameLowLevelVar :: CName -> NameSpec NsVar
+
   -- | Field of a struct or union
   NameField :: DeclPath -> CName -> NameSpec NsVar
 

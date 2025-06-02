@@ -97,6 +97,8 @@ produceCandidate nm prod = aux
     aux :: NameSpec ns' -> m Text
     aux (NameVar cname) = return $
         fromCName prod cname
+    aux (NameLowLevelVar cname) = return $
+        fromCName prod cname <> "_wrapper"
     aux (NameField declPath cname) =
         suffixPart prod (fromCName prod cname) <$>
           generatedName (NameTycon declPath)

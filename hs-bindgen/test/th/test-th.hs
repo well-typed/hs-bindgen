@@ -140,33 +140,33 @@ test01 = testGroup "test_01"
           @?= [Test01.ENUM_SAME_A, Test01.ENUM_SAME_B, Test01.ENUM_SAME_D]
 
     , testCase "struct-arg" $ do
-        res <- thing_fun_1_high (Test01.Thing 10)
+        res <- thing_fun_1 (Test01.Thing 10)
         10 @?= res
 
     , testCase "struct-res" $ do
-        res <- thing_fun_2_high 11
+        res <- thing_fun_2 11
         Test01.Thing 11 @?= res
 
     , testCase "struct-arg-res" $ do
-        res <- thing_fun_3_high (Test01.Thing 6)
+        res <- thing_fun_3 (Test01.Thing 6)
         Test01.Thing 12 @?= res
     ]
 
-thing_fun_1_high :: Test01.Thing -> IO CInt
-thing_fun_1_high x =
+thing_fun_1 :: Test01.Thing -> IO CInt
+thing_fun_1 x =
     with x $ \x' ->
-    Test01.thing_fun_1 x'
+    Test01.thing_fun_1_wrapper x'
 
-thing_fun_2_high :: CInt -> IO Test01.Thing
-thing_fun_2_high x =
+thing_fun_2 :: CInt -> IO Test01.Thing
+thing_fun_2 x =
     allocaAndPeek $ \res ->
-    Test01.thing_fun_2 x res
+    Test01.thing_fun_2_wrapper x res
 
-thing_fun_3_high :: Test01.Thing -> IO Test01.Thing
-thing_fun_3_high x =
+thing_fun_3 :: Test01.Thing -> IO Test01.Thing
+thing_fun_3 x =
     with x $ \x' ->
     allocaAndPeek $ \res ->
-    Test01.thing_fun_3 x' res
+    Test01.thing_fun_3_wrapper x' res
 
 {-------------------------------------------------------------------------------
   Test02

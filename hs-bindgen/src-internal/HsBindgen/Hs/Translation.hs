@@ -945,8 +945,10 @@ functionDecs nm mu typedefs f =
     [
     ]
   where
-    -- TODO: wrapper if any type is fancy
-    importName = mangle nm $ NameVar $ C.functionName f
+    highlevelName = mangle nm $ NameVar $ C.functionName f
+    importName
+        | any isWrappedFancy (res : args) = mangle nm $ NameLowLevelVar $ C.functionName f
+        | otherwise                       = highlevelName
 
     wrapType :: C.Type -> WrappedType
     wrapType ty
