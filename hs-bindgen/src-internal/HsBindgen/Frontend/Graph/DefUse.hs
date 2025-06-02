@@ -20,12 +20,12 @@ import Control.Monad.State
 
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal (CName)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph(..), Usage(..))
 import HsBindgen.Frontend.Graph.UseDef qualified as UseDefGraph
 import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Imports
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -52,7 +52,7 @@ fromUseDef UseDefGraph{useDefIndex, useDefGraph} = DefUseGraph UseDefGraph{
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
-    UsedByNamed (Usage Parse) (CName, C.Namespace)
+    UsedByNamed (Usage Parse) (CName, Namespace)
   | UsedByAnon (Usage Parse) UseOfDecl
   deriving stock (Show)
 

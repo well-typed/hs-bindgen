@@ -13,7 +13,7 @@ import GHC.Generics
 
 import HsBindgen.C.Tc.Macro.Type
 import HsBindgen.Frontend.Macros.AST.Name
-import HsBindgen.Language.C.Literal
+import HsBindgen.Language.C
 
 type MExpr :: Pass -> Hs.Type
 data MExpr p

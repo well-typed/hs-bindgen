@@ -15,7 +15,6 @@ import Clang.Paths
 import HsBindgen.C.Predicate (SkipReason (..), match)
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
-import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass
@@ -23,6 +22,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Util
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Top-level

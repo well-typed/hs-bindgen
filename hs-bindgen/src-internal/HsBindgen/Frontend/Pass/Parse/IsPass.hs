@@ -17,10 +17,11 @@ import Data.Text qualified as Text
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import HsBindgen.Frontend.AST.Internal (ValidPass, CName(..))
+import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Definition

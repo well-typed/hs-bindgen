@@ -15,15 +15,15 @@ import Clang.Paths
 import HsBindgen.BindingSpecs (ResolvedBindingSpecs)
 import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.HandleMacros (CheckedMacro(..))
 import HsBindgen.Frontend.Pass.RenameAnon
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C (CName(..))
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
@@ -319,9 +319,19 @@ mkFunction C.Function{..} = do
       , ..
       }
 
-mkMacro :: CheckedMacro RenameAnon -> M (CheckedMacro ResolveBindingSpecs)
-mkMacro (MacroType typ)  = MacroType <$> mkType typ
-mkMacro (MacroExpr expr) = return $ MacroExpr expr
+mkMacro :: C.CheckedMacro RenameAnon -> M (C.CheckedMacro ResolveBindingSpecs)
+mkMacro (C.MacroType typ)  = C.MacroType <$> mkMacroType typ
+mkMacro (C.MacroExpr expr) = return $ C.MacroExpr expr
+
+mkMacroType ::
+     C.CheckedMacroType RenameAnon
+  -> M (C.CheckedMacroType ResolveBindingSpecs)
+mkMacroType C.CheckedMacroType{..} = do
+    macroType' <- mkType macroType
+    return C.CheckedMacroType{
+        macroType = macroType'
+      , ..
+      }
 
 mkType :: C.Type RenameAnon -> M (C.Type ResolveBindingSpecs)
 mkType = \case

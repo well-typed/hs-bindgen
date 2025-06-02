@@ -78,11 +78,10 @@ import HsBindgen.C.Reparse.Type
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Frontend.Macros.AST.C qualified as C
 import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Imports (fromMaybe)
-import HsBindgen.Language.C.Literal
+import HsBindgen.Language.C
 
 -- TODO: re-using the macro expression parser for simplicity
 -- import HsBindgen.C.AST.Macro

@@ -33,8 +33,7 @@ import System.FilePath (takeBaseName)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Tc.Macro.Type
-import HsBindgen.Frontend.AST.Internal (CName)
-import HsBindgen.Language.C.Literal
+import HsBindgen.Language.C
 import HsBindgen.Util.TestEquality ( equals1 )
 
 import {-# SOURCE #-} HsBindgen.C.Reparse.Decl

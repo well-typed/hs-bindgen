@@ -134,7 +134,9 @@ library internal
       HsBindgen.Hs.Origin
       HsBindgen.Hs.Translation
       HsBindgen.Imports
+      HsBindgen.Language.C
       HsBindgen.Language.C.Literal
+      HsBindgen.Language.C.Name
       HsBindgen.Language.C.Prim
       HsBindgen.Language.Haskell
       HsBindgen.ModuleUnique

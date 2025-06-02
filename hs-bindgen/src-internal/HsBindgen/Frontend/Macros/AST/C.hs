@@ -20,12 +20,11 @@ module HsBindgen.Frontend.Macros.AST.C (
 
 import GHC.Natural (Natural)
 
-import HsBindgen.Frontend.AST.Internal (CName)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
 import HsBindgen.Frontend.Pass.Parse.IsPass (DeclId(..))
-import HsBindgen.Language.C.Prim
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Types

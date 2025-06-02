@@ -14,8 +14,8 @@ import Clang.LowLevel.Core
 import Clang.HighLevel.Types
 
 import HsBindgen.C.Reparse.Infra
-import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Imports
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Identifiers

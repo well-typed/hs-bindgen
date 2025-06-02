@@ -4,7 +4,6 @@ module HsBindgen.Frontend.AST.Finalize (finalize) where
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameMangler.IsPass
 import HsBindgen.Imports
 
@@ -217,11 +216,24 @@ instance Finalize Int.Function where
         , functionHeader
         } = function
 
-instance Finalize CheckedMacro where
-  type Finalized CheckedMacro = Ext.CheckedMacro
+instance Finalize Int.CheckedMacro where
+  type Finalized Int.CheckedMacro = Ext.CheckedMacro
 
-  finalize (MacroType typ)  = Ext.MacroType (finalize typ)
-  finalize (MacroExpr expr) = Ext.MacroExpr expr
+  finalize (Int.MacroType typ)  = Ext.MacroType (finalize typ)
+  finalize (Int.MacroExpr expr) = Ext.MacroExpr expr
+
+instance Finalize Int.CheckedMacroType where
+  type Finalized Int.CheckedMacroType = Ext.CheckedMacroType
+
+  finalize checkedMacroType = Ext.CheckedMacroType{
+        macroTypeNames = macroTypeAnn
+      , macroType      = finalize macroType
+      }
+    where
+      Int.CheckedMacroType{
+          macroType
+        , macroTypeAnn
+        } = checkedMacroType
 
 instance Finalize Int.Type where
   type Finalized Int.Type = Ext.Type

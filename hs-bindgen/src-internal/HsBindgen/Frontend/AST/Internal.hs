@@ -18,13 +18,14 @@ module HsBindgen.Frontend.AST.Internal (
   , Enum(..)
   , EnumConstant(..)
   , Function(..)
+    -- ** Macros
+  , CheckedMacro(..)
+  , CheckedMacroType(..)
+  , CheckedMacroExpr(..)
     -- * Types (at use sites)
   , Type(..)
-    -- * Names
-  , CName(..)
-    -- ** Namespaced
+    -- * Qualified names
   , QualId(..)
-  , Namespace(..)
   , coerceQualId
   , declNamespace
   , declQualId
@@ -37,10 +38,12 @@ import Prelude hiding (Enum)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
+import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
-import HsBindgen.Language.C.Prim
+import HsBindgen.Language.C
 import HsBindgen.Language.Haskell (ExtHsRef)
 
 {-------------------------------------------------------------------------------
@@ -169,6 +172,26 @@ data Function p = Function {
     }
 
 {-------------------------------------------------------------------------------
+  Macros
+-------------------------------------------------------------------------------}
+
+data CheckedMacro p =
+    MacroType (CheckedMacroType p)
+  | MacroExpr CheckedMacroExpr
+
+data CheckedMacroType p = CheckedMacroType{
+      macroType    :: Type p
+    , macroTypeAnn :: Ann "CheckedMacroType" p
+    }
+
+-- TODO: This is wrong, it does not allow name mangling to do its job.
+data CheckedMacroExpr = CheckedMacroExpr{
+      macroExprBody :: Macro.MExpr Macro.Ps
+    , macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
+    }
+  deriving stock (Show, Eq, Generic)
+
+{-------------------------------------------------------------------------------
   Types (at use sites)
 -------------------------------------------------------------------------------}
 
@@ -202,29 +225,9 @@ data Type p =
     -- | TODO: Docs
   | TypeExtBinding ExtHsRef BindingSpecs.Type
 
-
 {-------------------------------------------------------------------------------
-  Names
+  Qualified names
 -------------------------------------------------------------------------------}
-
-newtype CName = CName {
-      getCName :: Text
-    }
-  deriving newtype (Show, Eq, Ord, IsString, Semigroup)
-  deriving stock (Generic)
-
-{-------------------------------------------------------------------------------
-  Namespaces
--------------------------------------------------------------------------------}
-
-data Namespace =
-    NamespaceTypedef
-  | NamespaceStruct
-  | NamespaceUnion
-  | NamespaceEnum
-  | NamespaceMacro
-  | NamespaceFunction
-  deriving stock (Show, Eq, Ord)
 
 data QualId p = QualId (Id p) Namespace
 
@@ -283,42 +286,47 @@ class ( IsPass p
       , Eq   (MacroBody p)
 
         -- Annotations
-      , ValidAnn "Decl"            p
-      , ValidAnn "Enum"            p
-      , ValidAnn "Function"        p
-      , ValidAnn "Struct"          p
-      , ValidAnn "StructField"     p
-      , ValidAnn "TranslationUnit" p
-      , ValidAnn "Typedef"         p
-      , ValidAnn "TypeTypedef"     p
-      , ValidAnn "Union"           p
-      , ValidAnn "UnionField"      p
+      , ValidAnn "CheckedMacroType" p
+      , ValidAnn "Decl"             p
+      , ValidAnn "Enum"             p
+      , ValidAnn "Function"         p
+      , ValidAnn "Struct"           p
+      , ValidAnn "StructField"      p
+      , ValidAnn "TranslationUnit"  p
+      , ValidAnn "Typedef"          p
+      , ValidAnn "TypeTypedef"      p
+      , ValidAnn "Union"            p
+      , ValidAnn "UnionField"       p
       ) => ValidPass p where
 
-deriving stock instance ValidPass p => Show (Decl            p)
-deriving stock instance ValidPass p => Show (DeclInfo        p)
-deriving stock instance ValidPass p => Show (DeclKind        p)
-deriving stock instance ValidPass p => Show (Enum            p)
-deriving stock instance ValidPass p => Show (EnumConstant    p)
-deriving stock instance ValidPass p => Show (Function        p)
-deriving stock instance ValidPass p => Show (Struct          p)
-deriving stock instance ValidPass p => Show (StructField     p)
-deriving stock instance ValidPass p => Show (TranslationUnit p)
-deriving stock instance ValidPass p => Show (Type            p)
-deriving stock instance ValidPass p => Show (Typedef         p)
-deriving stock instance ValidPass p => Show (Union           p)
-deriving stock instance ValidPass p => Show (UnionField      p)
+deriving stock instance ValidPass p => Show (CheckedMacro     p)
+deriving stock instance ValidPass p => Show (CheckedMacroType p)
+deriving stock instance ValidPass p => Show (Decl             p)
+deriving stock instance ValidPass p => Show (DeclInfo         p)
+deriving stock instance ValidPass p => Show (DeclKind         p)
+deriving stock instance ValidPass p => Show (Enum             p)
+deriving stock instance ValidPass p => Show (EnumConstant     p)
+deriving stock instance ValidPass p => Show (Function         p)
+deriving stock instance ValidPass p => Show (Struct           p)
+deriving stock instance ValidPass p => Show (StructField      p)
+deriving stock instance ValidPass p => Show (TranslationUnit  p)
+deriving stock instance ValidPass p => Show (Type             p)
+deriving stock instance ValidPass p => Show (Typedef          p)
+deriving stock instance ValidPass p => Show (Union            p)
+deriving stock instance ValidPass p => Show (UnionField       p)
 
-deriving stock instance ValidPass p => Eq (Decl            p)
-deriving stock instance ValidPass p => Eq (DeclInfo        p)
-deriving stock instance ValidPass p => Eq (DeclKind        p)
-deriving stock instance ValidPass p => Eq (Enum            p)
-deriving stock instance ValidPass p => Eq (EnumConstant    p)
-deriving stock instance ValidPass p => Eq (Function        p)
-deriving stock instance ValidPass p => Eq (Struct          p)
-deriving stock instance ValidPass p => Eq (StructField     p)
-deriving stock instance ValidPass p => Eq (TranslationUnit p)
-deriving stock instance ValidPass p => Eq (Type            p)
-deriving stock instance ValidPass p => Eq (Typedef         p)
-deriving stock instance ValidPass p => Eq (Union           p)
-deriving stock instance ValidPass p => Eq (UnionField      p)
+deriving stock instance ValidPass p => Eq (CheckedMacro     p)
+deriving stock instance ValidPass p => Eq (CheckedMacroType p)
+deriving stock instance ValidPass p => Eq (Decl             p)
+deriving stock instance ValidPass p => Eq (DeclInfo         p)
+deriving stock instance ValidPass p => Eq (DeclKind         p)
+deriving stock instance ValidPass p => Eq (Enum             p)
+deriving stock instance ValidPass p => Eq (EnumConstant     p)
+deriving stock instance ValidPass p => Eq (Function         p)
+deriving stock instance ValidPass p => Eq (Struct           p)
+deriving stock instance ValidPass p => Eq (StructField      p)
+deriving stock instance ValidPass p => Eq (TranslationUnit  p)
+deriving stock instance ValidPass p => Eq (Type             p)
+deriving stock instance ValidPass p => Eq (Typedef          p)
+deriving stock instance ValidPass p => Eq (Union            p)
+deriving stock instance ValidPass p => Eq (UnionField       p)

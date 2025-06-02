@@ -11,16 +11,16 @@ import Data.Proxy
 
 import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.HandleMacros
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.NameMangler.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs
 import HsBindgen.Hs.NameMangler.DSL.FixCandidate (FixCandidate(..))
 import HsBindgen.Hs.NameMangler.DSL.FixCandidate qualified as FixCandidate
 import HsBindgen.Imports
+import HsBindgen.Language.C (CName(..))
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
-import HsBindgen.Frontend.Pass
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -213,6 +213,12 @@ mkEnumNames = mkNewtypeNames
 mkTypedefNames :: C.DeclInfo NameMangler -> NewtypeNames
 mkTypedefNames = mkNewtypeNames
 
+-- | Macro types
+--
+-- These behave like typedefs.
+mkMacroTypeNames :: C.DeclInfo NameMangler -> NewtypeNames
+mkMacroTypeNames = mkNewtypeNames
+
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
@@ -232,10 +238,10 @@ instance Mangle C.Decl where
 
           mk :: C.DeclKind NameMangler -> C.Decl NameMangler
           mk declKind' = C.Decl{
-              declInfo = info
-            , declKind = declKind'
-            , declAnn  = DeclSpec declAnn
-            }
+                declInfo = info
+              , declKind = declKind'
+              , declAnn  = DeclSpec declAnn
+              }
 
       mk <$> mangleDecl info declKind
     where
@@ -275,11 +281,11 @@ instance MangleDecl C.StructField where
                FieldName NameMangler
             -> C.Type NameMangler
             -> C.StructField NameMangler
-          mk structFieldName' structFieldType' = C.StructField{
-              structFieldName = structFieldName'
-            , structFieldType = structFieldType'
-            , ..
-            }
+          mk   structFieldName' structFieldType' = C.StructField{
+                structFieldName = structFieldName'
+              , structFieldType = structFieldType'
+              , ..
+              }
       mk <$> mangleFieldName info structFieldName
          <*> mangle structFieldType
 
@@ -287,10 +293,10 @@ instance MangleDecl C.Union where
   mangleDecl info C.Union{..} = do
       let mk :: [C.UnionField NameMangler] -> C.Union NameMangler
           mk unionFields' = C.Union{
-              unionFields = unionFields'
-            , unionAnn    = mkUnionNames info
-            , ..
-            }
+                unionFields = unionFields'
+              , unionAnn    = mkUnionNames info
+              , ..
+              }
       mk <$> mapM (mangleDecl info) unionFields
 
 instance MangleDecl C.UnionField where
@@ -300,10 +306,10 @@ instance MangleDecl C.UnionField where
             -> C.Type NameMangler
             -> C.UnionField NameMangler
           mk unionFieldName' unionFieldType' = C.UnionField{
-              unionFieldName = unionFieldName'
-            , unionFieldType = unionFieldType'
-            , ..
-            }
+                unionFieldName = unionFieldName'
+              , unionFieldType = unionFieldType'
+              , ..
+              }
       mk <$> mangleFieldName info unionFieldName
          <*> mangle unionFieldType
 
@@ -335,9 +341,9 @@ instance MangleDecl C.Typedef where
   mangleDecl info C.Typedef{..} = do
       let mk :: C.Type NameMangler -> C.Typedef NameMangler
           mk typedefType' = C.Typedef{
-              typedefType = typedefType'
-            , typedefAnn  = mkTypedefNames info
-            }
+                typedefType = typedefType'
+              , typedefAnn  = mkTypedefNames info
+              }
       mk <$> mangle typedefType
 
 instance MangleDecl C.Function where
@@ -347,16 +353,25 @@ instance MangleDecl C.Function where
             -> C.Type NameMangler
             -> C.Function NameMangler
           mk functionArgs' functionRes' = C.Function{
-              functionArgs = functionArgs'
-            , functionRes  = functionRes'
-            , ..
-            }
+                functionArgs = functionArgs'
+              , functionRes  = functionRes'
+              , ..
+              }
       mk <$> mapM mangle functionArgs <*> mangle functionRes
 
-instance MangleDecl CheckedMacro where
-  mangleDecl _info = \case
-      MacroType typ  -> MacroType <$> mangle typ
-      MacroExpr expr -> return $ MacroExpr expr
+instance MangleDecl C.CheckedMacro where
+  mangleDecl info = \case
+      C.MacroType typ  -> C.MacroType <$> mangleDecl info typ
+      C.MacroExpr expr -> return $ C.MacroExpr expr
+
+instance MangleDecl C.CheckedMacroType where
+  mangleDecl info C.CheckedMacroType{..} = do
+    let mk :: C.Type NameMangler -> C.CheckedMacroType NameMangler
+        mk macroType' = C.CheckedMacroType{
+               macroType    = macroType'
+             , macroTypeAnn = mkMacroTypeNames info
+             }
+    mk <$> mangle macroType
 
 instance Mangle C.Type where
   mangle (C.TypeStruct name) =
@@ -403,6 +418,6 @@ withDeclNamespace kind k =
 
       C.DeclMacro macro ->
         case macro of
-          MacroType{} -> k (Proxy @NsTypeConstr)
-          MacroExpr{} -> k (Proxy @NsVar)
+          C.MacroType{} -> k (Proxy @NsTypeConstr)
+          C.MacroExpr{} -> k (Proxy @NsVar)
 

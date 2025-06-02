@@ -102,12 +102,10 @@ import C.Expr.HostPlatform qualified as C.Expr
 -- hs-bindgen
 import HsBindgen.C.Tc.Macro.Type
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Imports
-import HsBindgen.Language.C.Literal
-import HsBindgen.Util.TestEquality
-  ( equals2 )
+import HsBindgen.Language.C
+import HsBindgen.Util.TestEquality ( equals2 )
 
 {-------------------------------------------------------------------------------
   Free type variables and substitution

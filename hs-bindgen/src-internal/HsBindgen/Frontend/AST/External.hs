@@ -26,7 +26,8 @@ module HsBindgen.Frontend.AST.External (
     -- ** Macros
     -- TODO: We should export everything we need here.
   , CheckedMacro(..)
-  , HandleMacros.CheckedMacroExpr(..)
+  , CheckedMacroType(..)
+  , Int.CheckedMacroExpr(..)
     -- ** Functions
   , Function(..)
     -- * Types
@@ -46,13 +47,12 @@ import Prelude hiding (Enum)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.ExtBindings (ExtIdentifier)
-import HsBindgen.Frontend.AST.Internal (CName(..))
+import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Pass.NameMangler.IsPass qualified as NameMangler
 import HsBindgen.Frontend.Pass.RenameAnon qualified as RenameAnon
 import HsBindgen.Imports
-import HsBindgen.Language.C.Prim
+import HsBindgen.Language.C
 import HsBindgen.Language.Haskell
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass qualified as HandleMacros
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -182,8 +182,14 @@ data Function = Function {
 -------------------------------------------------------------------------------}
 
 data CheckedMacro =
-    MacroType Type
-  | MacroExpr HandleMacros.CheckedMacroExpr
+    MacroType CheckedMacroType
+  | MacroExpr Int.CheckedMacroExpr
+  deriving stock (Show, Eq, Generic)
+
+data CheckedMacroType = CheckedMacroType{
+      macroTypeNames :: NameMangler.NewtypeNames
+    , macroType      :: Type
+    }
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

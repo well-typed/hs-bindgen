@@ -43,7 +43,7 @@ data Newtype =
     Enum    C.Enum
   | Typedef C.Typedef
   | Union   C.Union
-  | Macro   C.CheckedMacro
+  | Macro   C.CheckedMacroType
   deriving stock (Generic, Show)
 
 data EmptyData =

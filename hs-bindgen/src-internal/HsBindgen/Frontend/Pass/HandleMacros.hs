@@ -18,13 +18,13 @@ import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.C.Tc.Macro.Type (MacroTypes)
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal (CName)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Imports
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -253,6 +253,7 @@ processFunction info C.Function {..} =
                   functionArgs = map processType functionArgs
                 , functionRes = processType functionRes
                 , functionAnn = NoAnn
+                , ..
                 }
             , declAnn = NoAnn
             }
@@ -267,6 +268,7 @@ processFunction info C.Function {..} =
                     functionArgs = tys
                   , functionRes  = ty
                   , functionAnn  = NoAnn
+                  , ..
                   }
               , declAnn = NoAnn
               }
@@ -364,7 +366,7 @@ reparseWith p tokens k = state $ \st ->
 -- We also return the extension of the macro type environment.
 reparseMacro :: Reparse (
     Macro.Quant (FunValue, Macro.Type Macro.Ty)
-  , CheckedMacro HandleMacros
+  , C.CheckedMacro HandleMacros
   )
 reparseMacro typeEnv tokens = do
     Macro{macroName, macroArgs, macroBody} <- first MacroErrorReparse $
@@ -377,15 +379,17 @@ reparseMacro typeEnv tokens = do
         ExpressionMacro body ->
           return (
                inf
-             , MacroExpr CheckedMacroExpr{
+             , C.MacroExpr C.CheckedMacroExpr{
                    macroExprBody = body
                  , macroExprType = dropEval inf
                  }
              )
         TypeMacro typeName ->
           case Reparse.typeNameType typeName of
-            Right typ -> return (inf, MacroType typ)
-            Left  err -> Left (MacroErrorUnsupportedType err)
+            Right typ ->
+              return (inf, C.MacroType $ C.CheckedMacroType typ NoAnn)
+            Left err ->
+              Left (MacroErrorUnsupportedType err)
         EmptyMacro ->
           Left MacroErrorEmpty
         AttributeMacro _ ->

@@ -7,7 +7,7 @@ import Data.Text qualified as Text
 
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Imports
-import HsBindgen.Language.C.Prim
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Pretty-printers

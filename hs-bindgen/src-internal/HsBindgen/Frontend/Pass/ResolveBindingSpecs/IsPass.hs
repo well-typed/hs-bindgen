@@ -3,12 +3,12 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
   ) where
 
 import HsBindgen.BindingSpecs qualified as BindingSpecs
-import HsBindgen.Frontend.AST.Internal (ValidPass, CName)
+import HsBindgen.Frontend.AST.Internal (ValidPass, CheckedMacro)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.RenameAnon
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Definition

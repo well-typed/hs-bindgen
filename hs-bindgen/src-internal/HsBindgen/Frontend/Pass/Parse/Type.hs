@@ -14,7 +14,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad
 import HsBindgen.Frontend.Pass.Parse.Util
-import HsBindgen.Language.C.Prim
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Top-level

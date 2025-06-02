@@ -9,12 +9,12 @@ module HsBindgen.Frontend.Pass.NameMangler.IsPass (
   ) where
 
 import HsBindgen.BindingSpecs qualified as BindingSpecs
-import HsBindgen.Frontend.AST.Internal (ValidPass, CName)
+import HsBindgen.Frontend.AST.Internal (ValidPass, CheckedMacro)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.RenameAnon
+import HsBindgen.Language.C
 import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
@@ -29,14 +29,15 @@ type NameMangler :: Pass
 data NameMangler a deriving anyclass (ValidPass)
 
 type family AnnNameMangler ix where
-  AnnNameMangler "Decl"            = DeclSpec
-  AnnNameMangler "TranslationUnit" = UseDefGraph Parse
-  AnnNameMangler "TypeTypedef"     = TypedefSquashed
-  AnnNameMangler "Struct"          = RecordNames
-  AnnNameMangler "Union"           = NewtypeNames
-  AnnNameMangler "Enum"            = NewtypeNames
-  AnnNameMangler "Typedef"         = NewtypeNames
-  AnnNameMangler _                 = NoAnn
+  AnnNameMangler "Decl"             = DeclSpec
+  AnnNameMangler "TranslationUnit"  = UseDefGraph Parse
+  AnnNameMangler "TypeTypedef"      = TypedefSquashed
+  AnnNameMangler "Struct"           = RecordNames
+  AnnNameMangler "Union"            = NewtypeNames
+  AnnNameMangler "Enum"             = NewtypeNames
+  AnnNameMangler "Typedef"          = NewtypeNames
+  AnnNameMangler "CheckedMacroType" = NewtypeNames
+  AnnNameMangler _                  = NoAnn
 
 instance IsPass NameMangler where
   type Id        NameMangler = NamePair

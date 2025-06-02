@@ -4,7 +4,7 @@ module HsBindgen.Frontend.Pass.RenameAnon (
   ) where
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal (CName)
+import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.DefUse (DefUseGraph (..))
 import HsBindgen.Frontend.Graph.DefUse (UseOfDecl (..))
@@ -16,6 +16,7 @@ import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Frontend.Pass.RenameAnon.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -157,21 +158,27 @@ instance RenameUseSites CheckedMacro where
   renameUses du (MacroType typ)  = MacroType (renameUses du typ)
   renameUses _  (MacroExpr expr) = MacroExpr expr
 
+instance RenameUseSites CheckedMacroType where
+  renameUses du CheckedMacroType{..} = CheckedMacroType{
+        macroType = renameUses du macroType
+      , ..
+      }
+
 instance RenameUseSites C.Type where
   renameUses du = \case
       C.TypePrim prim ->
         C.TypePrim prim
       C.TypeStruct uid ->
-        let qid = C.QualId uid C.NamespaceStruct
+        let qid = C.QualId uid NamespaceStruct
         in C.TypeStruct (renameUse du qid)
       C.TypeUnion uid ->
-        let qid = C.QualId uid C.NamespaceUnion
+        let qid = C.QualId uid NamespaceUnion
         in C.TypeUnion (renameUse du qid)
       C.TypeEnum uid ->
-        let qid = C.QualId uid C.NamespaceEnum
+        let qid = C.QualId uid NamespaceEnum
         in C.TypeEnum (renameUse du qid)
       C.TypeTypedef uid NoAnn ->
-        let qid = C.QualId uid C.NamespaceTypedef
+        let qid = C.QualId uid NamespaceTypedef
         in C.TypeTypedef (renameUse du qid) (squashed du qid)
       C.TypePointer ty ->
         C.TypePointer (renameUses du ty)

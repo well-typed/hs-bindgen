@@ -3,11 +3,11 @@ module HsBindgen.Frontend.Pass.RenameAnon.IsPass (
   , TypedefSquashed(..)
   ) where
 
-import HsBindgen.Frontend.AST.Internal (ValidPass, CName)
+import HsBindgen.Frontend.AST.Internal (ValidPass, CheckedMacro)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Pass definition

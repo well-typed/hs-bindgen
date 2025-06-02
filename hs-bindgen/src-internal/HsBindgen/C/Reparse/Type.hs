@@ -9,7 +9,7 @@ import Text.Parsec
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.Frontend.Macros.AST.C qualified as C
 import HsBindgen.Imports
-import HsBindgen.Language.C.Prim
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Primitive types

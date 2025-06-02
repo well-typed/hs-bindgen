@@ -8,6 +8,7 @@ module HsBindgen.Frontend.AST.Deps (
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Definitions

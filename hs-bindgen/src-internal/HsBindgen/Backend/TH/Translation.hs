@@ -35,7 +35,7 @@ import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
-import HsBindgen.Language.C.Literal (canBeRepresentedAsRational)
+import HsBindgen.Language.C (canBeRepresentedAsRational)
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified

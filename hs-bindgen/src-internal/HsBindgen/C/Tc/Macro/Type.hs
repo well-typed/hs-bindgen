@@ -125,9 +125,8 @@ import Data.Vec.Lazy qualified as Vec
 import C.Type qualified
 
 -- hs-bindgen
-import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Imports
-import HsBindgen.Language.C.Literal
+import HsBindgen.Language.C
 import HsBindgen.Util.TestEquality
   ( equals2 )
 

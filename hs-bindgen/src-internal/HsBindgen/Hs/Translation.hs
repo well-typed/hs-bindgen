@@ -34,7 +34,7 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
-import HsBindgen.Language.C.Prim qualified as C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
 import HsBindgen.NameHint
@@ -127,7 +127,7 @@ generateDeclarations opts mu (C.TranslationUnit decs) =
         [ (C.nameC (C.declId declInfo), macroType)
         | C.Decl{declInfo, declKind} <- decs
         , C.DeclMacro macro <- [declKind]
-        , C.MacroType macroType <- [macro]
+        , C.MacroType C.CheckedMacroType{macroType} <- [macro]
         ]
 
 {-------------------------------------------------------------------------------
@@ -298,9 +298,8 @@ generateDecs opts mu typedefs (C.Decl info kind spec) =
         typedefDecs opts info d spec
       C.DeclFunction f ->
         return $ functionDecs mu typedefs info f spec
-      C.DeclMacro _m ->
-        panicPure "generateDecs: TODO: DeclMacro"
-        -- macroDecs opts nm m
+      C.DeclMacro macro ->
+        macroDecs opts info macro spec
 
 {-------------------------------------------------------------------------------
   Structs
@@ -711,7 +710,6 @@ typedefDecs opts info typedef spec = do
           , clss `Set.member` insts
           ]
 
-{-
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
@@ -719,41 +717,29 @@ typedefDecs opts info typedef spec = do
 macroDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
-  -> NameMangler
-  -> C.MacroDecl
+  -> C.DeclInfo
+  -> C.CheckedMacro
+  -> C.DeclSpec
   -> m [Hs.Decl]
-macroDecs opts nm C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
-    | Macro.Quant bf <- ty
-    , Macro.isPrimTy bf
-    = macroDecsTypedef opts nm m
-
-    | otherwise
-    = return $ macroVarDecs nm m ty
-    where
-
-macroDecs _ _ C.MacroReparseError {} = return []
-macroDecs _ _ C.MacroTcError {}      = return []
+macroDecs opts info checkedMacro spec =
+    case checkedMacro of
+      C.MacroType ty   -> macroDecsTypedef opts info ty spec
+      C.MacroExpr expr -> return $ macroVarDecs expr
 
 macroDecsTypedef ::
      State.MonadState InstanceMap m
   => TranslationOpts
-  -> NameMangler
-  -> C.Macro C.Ps
+  -> C.DeclInfo
+  -> C.CheckedMacroType
+  -> C.DeclSpec
   -> m [Hs.Decl]
-macroDecsTypedef opts nm macro = case C.macroBody macro of
-    C.TypeMacro tyNm
-      | Right ty <- C.typeNameType tyNm
-      -> do
-        (insts, decls) <- aux ty <$> State.get
-        State.modify' $ Map.insert newtypeName insts
-        return decls
-    _otherwise -> return []
+macroDecsTypedef opts info macroType spec = do
+    (insts, decls) <- aux (C.macroType macroType) <$> State.get
+    State.modify' $ Map.insert newtypeName insts
+    return decls
   where
-    declPath :: C.DeclPath
-    declPath = C.DeclPathName $ C.macroName macro
-
     newtypeName :: HsName NsTypeConstr
-    newtypeName = mangle nm $ NameTycon declPath
+    newtypeName = C.nameHs (C.declId info)
 
     candidateInsts :: Set HsTypeClass
     candidateInsts = Set.union (Set.singleton Hs.Storable) $
@@ -765,7 +751,7 @@ macroDecsTypedef opts nm macro = case C.macroBody macro of
         newtypeDecl : storableDecl ++ optDecls
       where
         fieldType :: HsType
-        fieldType = typ nm ty
+        fieldType = typ ty
 
         insts :: Set HsTypeClass
         insts = getInstances instanceMap newtypeName candidateInsts [fieldType]
@@ -773,14 +759,19 @@ macroDecsTypedef opts nm macro = case C.macroBody macro of
         hsNewtype :: Hs.Newtype
         hsNewtype = Hs.Newtype {
             newtypeName      = newtypeName
-          , newtypeConstr    = mangle nm $ NameDatacon declPath
-          , newtypeField     = Hs.Field {
-                fieldName   = mangle nm $ NameDecon declPath
-              , fieldType   = fieldType
-              , fieldOrigin = Hs.FieldOriginNone
-              }
-          , newtypeOrigin    = Hs.NewtypeOriginMacro macro
+          , newtypeConstr    = C.newtypeConstr (C.macroTypeNames macroType)
           , newtypeInstances = insts
+
+          , newtypeField = Hs.Field {
+                fieldName   = C.newtypeField (C.macroTypeNames macroType)
+              , fieldType   = fieldType
+              , fieldOrigin = Origin.GeneratedField
+              }
+          , newtypeOrigin = Origin.Decl {
+                declInfo = info
+              , declKind = Origin.Macro macroType
+              , declSpec = spec
+              }
           }
 
         newtypeDecl :: Hs.Decl
@@ -798,7 +789,6 @@ macroDecsTypedef opts nm macro = case C.macroBody macro of
           | (strat, clss) <- translationDeriveTypedef opts
           , clss `Set.member` insts
           ]
--}
 
 {-------------------------------------------------------------------------------
   Types
@@ -969,6 +959,12 @@ functionDecs mu typedefs info f spec
 {-------------------------------------------------------------------------------
   Macro
 -------------------------------------------------------------------------------}
+
+macroVarDecs ::
+     C.CheckedMacroExpr
+  -> [Hs.Decl]
+macroVarDecs = undefined
+
 {-
 
 macroVarDecs ::
