@@ -207,13 +207,14 @@ instance Finalize Int.Function where
   finalize function = Ext.Function{
         functionArgs   = map finalize functionArgs
       , functionRes    = finalize functionRes
-      , functionHeader = undefined -- TODO
+      , functionHeader = functionHeader
       }
     where
       Int.Function {
           functionArgs
         , functionRes
         , functionAnn = NoAnn
+        , functionHeader
         } = function
 
 instance Finalize CheckedMacro where

@@ -47,7 +47,6 @@ import HsBindgen.Imports
 -- to avoid confusion, it is therefore cleaner to run macro parsing and
 -- declaration reparsing /prior/ to this transformation.
 --
--- TODO: We should remove 'MacroError' from the AST.
 -- TODO: We are not using the fallback if reparsing fails
 handleMacros ::
       C.TranslationUnit Parse

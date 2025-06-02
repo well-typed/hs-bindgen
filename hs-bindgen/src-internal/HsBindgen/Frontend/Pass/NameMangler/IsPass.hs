@@ -8,15 +8,14 @@ module HsBindgen.Frontend.Pass.NameMangler.IsPass (
   , DeclSpec(..)
   ) where
 
+import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.Frontend.AST.Internal (ValidPass, CName)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.RenameAnon
-import HsBindgen.Imports
 import HsBindgen.Language.Haskell
-import HsBindgen.BindingSpecs
 
 {-------------------------------------------------------------------------------
   Definition
@@ -88,12 +87,16 @@ data NewtypeNames = NewtypeNames {
   Information from the binding specs, minus naming information
 -------------------------------------------------------------------------------}
 
-data DeclSpec = DeclSpec {
-      -- | Module the Haskell declaration should be placed in
-      declSpecModule :: Maybe HsModuleName
-
-      -- | Instances
-    , declSpecInstances :: Map HsTypeClass (Omittable Instance)
-    }
+-- | Binding specification for this declaration
+--
+-- Although we have interpreted /part/ of this binding specification during
+-- name mangling, we leave the /full/ binding specification in the AST, because
+-- we need it when we  /generate/ the output binding specification.
+--
+-- TODO: This is not quite right: we should distinguish between binding
+-- specifications for different classes of things (declarations of types,
+-- functions, etc.). When we do, we should not associate them with the top-level
+-- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
+-- have consequences for "Hs.Origin" also.
+newtype DeclSpec = DeclSpec BindingSpecs.Type
   deriving stock (Show, Eq)
-

@@ -35,12 +35,13 @@ module HsBindgen.Frontend.AST.Internal (
 import Prelude hiding (Enum)
 
 import Clang.HighLevel.Types
+import Clang.Paths
 import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell (ExtHsRef)
 import HsBindgen.Language.C.Prim
+import HsBindgen.Language.Haskell (ExtHsRef)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -150,6 +151,16 @@ data Function p = Function {
       functionArgs :: [Type p]
     , functionRes  :: Type p
     , functionAnn  :: Ann "Function" p
+
+      -- | User-specified header that includes the declaration of this function
+      --
+      -- It may not be declared in this header directly, but in one of its
+      -- transitive includes. If the user specifies multiple headers, all of
+      -- which directly or indirectly define the same function, then either (1)
+      -- the C headers will need to explicitly check (if this is already
+      -- defined, do nothing), or (2) this is an error in the C code. This means
+      -- that there is always a /single/ header to choose here.
+    , functionHeader :: CHeaderIncludePath
     }
 
 {-------------------------------------------------------------------------------

@@ -10,15 +10,11 @@
 --
 -- > import HsBindgen.Hs.AST qualified as Hs
 module HsBindgen.Hs.AST (
-    -- * Information about generated code
+    -- * Generated Haskell datatypes
     Field(..)
-  , FieldOrigin(..)
   , Struct(..)
-  , StructOrigin(..)
   , EmptyData(..)
-  , EmptyDataOrigin(..)
   , Newtype(..)
-  , NewtypeOrigin(..)
     -- * Types
   , HsType(..)
     -- * Variable binding
@@ -65,6 +61,7 @@ import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as C
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
@@ -82,54 +79,35 @@ import C.Char qualified
 data Field = Field {
       fieldName   :: HsName NsVar
     , fieldType   :: HsType
-    , fieldOrigin :: FieldOrigin
+    , fieldOrigin :: Origin.Field
     }
-  deriving stock (Generic, Show)
-
-data FieldOrigin =
-      FieldOriginNone
-    | FieldOriginStructField C.StructField
   deriving stock (Generic, Show)
 
 data Struct (n :: Nat) = Struct {
       structName      :: HsName NsTypeConstr
     , structConstr    :: HsName NsConstr
     , structFields    :: Vec n Field
-    , structOrigin    :: StructOrigin
+      -- TODO: This is a temporary work-around: for enums we generate /both/
+      -- a newtype /and/ a struct, and then define instances only for the
+      -- struct. This is a nasty hack that we should get rid of.
+    , structOrigin    :: Maybe (Origin.Decl Origin.Struct)
     , structInstances :: Set HsTypeClass
     }
   deriving stock (Generic, Show)
 
-data StructOrigin =
-      StructOriginStruct C.Struct
-    | StructOriginEnum C.Enum
-  deriving stock (Generic, Show)
-
 data EmptyData = EmptyData {
       emptyDataName   :: HsName NsTypeConstr
-    , emptyDataOrigin :: EmptyDataOrigin
+    , emptyDataOrigin :: Origin.Decl Origin.EmptyData
     }
-  deriving stock (Generic, Show)
-
-data EmptyDataOrigin =
-      EmptyDataOriginOpaqueStruct C.DeclInfo
-    | EmptyDataOriginOpaqueEnum C.DeclInfo
   deriving stock (Generic, Show)
 
 data Newtype = Newtype {
       newtypeName      :: HsName NsTypeConstr
     , newtypeConstr    :: HsName NsConstr
     , newtypeField     :: Field
-    , newtypeOrigin    :: NewtypeOrigin
+    , newtypeOrigin    :: Origin.Decl Origin.Newtype
     , newtypeInstances :: Set HsTypeClass
     }
-  deriving stock (Generic, Show)
-
-data NewtypeOrigin =
-      NewtypeOriginEnum C.Enum
-    | NewtypeOriginTypedef C.Typedef
-    | NewtypeOriginUnion C.Union
-    | NewtypeOriginMacro ( C.Macro C.Ps )
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl

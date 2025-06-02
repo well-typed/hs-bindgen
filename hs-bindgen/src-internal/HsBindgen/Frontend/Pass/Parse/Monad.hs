@@ -50,6 +50,8 @@ type M = Eff ParseMonad
 data ParseMonad a
 
 -- | Support for 'M' (internal type, not exported)
+--
+-- TODO: Add "current main header"
 data ParseSupport = ParseSupport {
       parseEnv         :: ParseEnv              -- ^ Reader
     , parseExtraOutput :: IORef IncludeGraph    -- ^ Writer (ish)

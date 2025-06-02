@@ -32,6 +32,7 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.C.Prim qualified as C
 import HsBindgen.Language.Haskell
@@ -281,22 +282,22 @@ generateDecs ::
   -> Map C.CName C.Type
   -> C.Decl
   -> m [Hs.Decl]
-generateDecs opts mu typedefs (C.Decl info kind _spec) =
+generateDecs opts mu typedefs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct ->
-        reifyStructFields struct $ structDecs opts info struct
+        reifyStructFields struct $ structDecs opts info struct spec
       C.DeclStructOpaque ->
-        opaqueStructDecs info
+        opaqueStructDecs info spec
       C.DeclUnion union ->
-        unionDecs info union
+        unionDecs info union spec
       C.DeclEnum e ->
-        enumDecs opts info e
+        enumDecs opts info e spec
       C.DeclEnumOpaque ->
-        opaqueEnumDecs info
+        opaqueEnumDecs info spec
       C.DeclTypedef d ->
-        typedefDecs opts info d
+        typedefDecs opts info d spec
       C.DeclFunction f ->
-        return $ functionDecs mu typedefs info f
+        return $ functionDecs mu typedefs info f spec
       C.DeclMacro _m ->
         panicPure "generateDecs: TODO: DeclMacro"
         -- macroDecs opts nm m
@@ -317,9 +318,10 @@ structDecs :: forall n m.
   => TranslationOpts
   -> C.DeclInfo
   -> C.Struct
+  -> C.DeclSpec
   -> Vec n C.StructField
   -> m [Hs.Decl]
-structDecs opts info struct fields = do
+structDecs opts info struct spec fields = do
     (insts, decls) <- aux <$> State.get
     State.modify' $ Map.insert structName insts
     return decls
@@ -331,7 +333,7 @@ structDecs opts info struct fields = do
     structFields = flip Vec.map fields $ \f -> Hs.Field {
         fieldName   = C.nameHs (C.structFieldName f)
       , fieldType   = typ (C.structFieldType f)
-      , fieldOrigin = Hs.FieldOriginStructField f
+      , fieldOrigin = Origin.StructField f
       }
 
     candidateInsts :: Set HsTypeClass
@@ -352,10 +354,13 @@ structDecs opts info struct fields = do
             structName      = structName
           , structConstr    = C.recordConstr (C.structNames struct)
           , structFields    = structFields
-          , structOrigin    = Hs.StructOriginStruct struct
           , structInstances = insts
+          , structOrigin    = Just Origin.Decl{
+                declInfo = info
+              , declKind = Origin.Struct struct
+              , declSpec = spec
+              }
           }
-
 
         structDecl :: Hs.Decl
         structDecl = Hs.DeclData hsStruct
@@ -407,8 +412,9 @@ pokeStructField ptr f i = case C.structFieldWidth f of
 opaqueStructDecs ::
      State.MonadState InstanceMap m
   => C.DeclInfo
+  -> C.DeclSpec
   -> m [Hs.Decl]
-opaqueStructDecs info = do
+opaqueStructDecs info spec = do
     State.modify' $ Map.insert name Set.empty
     return [decl]
   where
@@ -418,14 +424,19 @@ opaqueStructDecs info = do
     decl :: Hs.Decl
     decl = Hs.DeclEmpty Hs.EmptyData {
         emptyDataName   = name
-      , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct info
+      , emptyDataOrigin = Origin.Decl{
+            declInfo = info
+          , declKind = Origin.OpaqueStruct
+          , declSpec = spec
+          }
       }
 
 opaqueEnumDecs ::
      State.MonadState InstanceMap m
   => C.DeclInfo
+  -> C.DeclSpec
   -> m [Hs.Decl]
-opaqueEnumDecs info = do
+opaqueEnumDecs info spec = do
     State.modify' $ Map.insert name Set.empty
     return [decl]
   where
@@ -435,7 +446,11 @@ opaqueEnumDecs info = do
     decl :: Hs.Decl
     decl = Hs.DeclEmpty Hs.EmptyData {
         emptyDataName   = name
-      , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum info
+      , emptyDataOrigin = Origin.Decl{
+            declInfo = info
+          , declKind = Origin.OpaqueEnum
+          , declSpec = spec
+          }
       }
 
 {-------------------------------------------------------------------------------
@@ -446,8 +461,9 @@ unionDecs ::
      State.MonadState InstanceMap m
   => C.DeclInfo
   -> C.Union
+  -> C.DeclSpec
   -> m [Hs.Decl]
-unionDecs info union = do
+unionDecs info union spec = do
     decls <- aux <$> State.get
     State.modify' $ Map.insert newtypeName insts
     return decls
@@ -462,13 +478,18 @@ unionDecs info union = do
     hsNewtype = Hs.Newtype {
         newtypeName      = newtypeName
       , newtypeConstr    = C.newtypeConstr (C.unionNames union)
-      , newtypeField     = Hs.Field {
+      , newtypeInstances = insts
+
+      , newtypeField = Hs.Field {
             fieldName   = C.newtypeField (C.unionNames union)
           , fieldType   = Hs.HsByteArray
-          , fieldOrigin = Hs.FieldOriginNone
+          , fieldOrigin = Origin.GeneratedField
           }
-      , newtypeOrigin    = Hs.NewtypeOriginUnion union
-      , newtypeInstances = insts
+      , newtypeOrigin = Origin.Decl{
+            declInfo = info
+          , declKind = Origin.Union union
+          , declSpec = spec
+          }
       }
 
     newtypeDecl :: Hs.Decl
@@ -514,8 +535,9 @@ enumDecs ::
   => TranslationOpts
   -> C.DeclInfo
   -> C.Enum
+  -> C.DeclSpec
   -> m [Hs.Decl]
-enumDecs opts info e = do
+enumDecs opts info e spec = do
     State.modify' $ Map.insert newtypeName insts
     return $
       newtypeDecl : storableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
@@ -530,7 +552,7 @@ enumDecs opts info e = do
     newtypeField = Hs.Field {
         fieldName   = C.newtypeField (C.enumNames e)
       , fieldType   = typ (C.enumType e)
-      , fieldOrigin = Hs.FieldOriginNone
+      , fieldOrigin = Origin.GeneratedField
       }
 
     insts :: Set HsTypeClass
@@ -542,8 +564,12 @@ enumDecs opts info e = do
         newtypeName      = newtypeName
       , newtypeConstr    = newtypeConstr
       , newtypeField     = newtypeField
-      , newtypeOrigin    = Hs.NewtypeOriginEnum e
       , newtypeInstances = insts
+      , newtypeOrigin    = Origin.Decl{
+            declInfo = info
+          , declKind = Origin.Enum e
+          , declSpec = spec
+          }
       }
 
     newtypeDecl :: Hs.Decl
@@ -554,8 +580,8 @@ enumDecs opts info e = do
         structName      = newtypeName
       , structConstr    = newtypeConstr
       , structFields    = Vec.singleton newtypeField
-      , structOrigin    = Hs.StructOriginEnum e
       , structInstances = insts
+      , structOrigin    = Nothing
       }
 
     storableDecl :: Hs.Decl
@@ -622,8 +648,9 @@ typedefDecs ::
   => TranslationOpts
   -> C.DeclInfo
   -> C.Typedef
+  -> C.DeclSpec
   -> m [Hs.Decl]
-typedefDecs opts info typedef = do
+typedefDecs opts info typedef spec = do
     (insts, decls) <- aux <$> State.get
     State.modify' $ Map.insert newtypeName insts
     return decls
@@ -635,7 +662,7 @@ typedefDecs opts info typedef = do
     newtypeField = Hs.Field {
         fieldName   = C.newtypeField (C.typedefNames typedef)
       , fieldType   = typ (C.typedefType typedef)
-      , fieldOrigin = Hs.FieldOriginNone
+      , fieldOrigin = Origin.GeneratedField
       }
 
     candidateInsts :: Set HsTypeClass
@@ -660,8 +687,12 @@ typedefDecs opts info typedef = do
             newtypeName      = newtypeName
           , newtypeConstr    = C.newtypeConstr (C.typedefNames typedef)
           , newtypeField     = newtypeField
-          , newtypeOrigin    = Hs.NewtypeOriginTypedef typedef
           , newtypeInstances = insts
+          , newtypeOrigin    = Origin.Decl{
+                declInfo = info
+              , declKind = Origin.Typedef typedef
+              , declSpec = spec
+              }
           }
 
         newtypeDecl :: Hs.Decl
@@ -867,8 +898,9 @@ functionDecs ::
   -> Map C.CName C.Type -- ^ typedefs
   -> C.DeclInfo
   -> C.Function
+  -> C.DeclSpec
   -> [Hs.Decl]
-functionDecs mu typedefs info f
+functionDecs mu typedefs info f spec
   | any isFancy (C.functionRes f : C.functionArgs f)
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
   | otherwise =

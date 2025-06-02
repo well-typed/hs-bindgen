@@ -131,6 +131,7 @@ library internal
       HsBindgen.Hs.NameMangler.DSL
       HsBindgen.Hs.NameMangler.DSL.FixCandidate
       HsBindgen.Hs.NameMangler.DSL.ReservedNames
+      HsBindgen.Hs.Origin
       HsBindgen.Hs.Translation
       HsBindgen.Imports
       HsBindgen.Language.C.Literal

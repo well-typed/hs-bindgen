@@ -9,7 +9,7 @@ import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Proxy
 
-import HsBindgen.BindingSpecs qualified as BindingSpec
+import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal (CName(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -81,7 +81,7 @@ nameForDecl fix decl =
                        first choose $ fromCName fix ns cName
   where
     C.Decl{declInfo = C.DeclInfo{declId = cName}, declKind, declAnn} = decl
-    BindingSpec.Type{typeIdentifier} = declAnn
+    BindingSpecs.Type{typeIdentifier} = declAnn
 
     choose :: HsIdentifier -> (C.QualId ResolveBindingSpecs, HsIdentifier)
     choose hsName = (C.declQualId decl, hsName)
@@ -234,16 +234,12 @@ instance Mangle C.Decl where
           mk declKind' = C.Decl{
               declInfo = info
             , declKind = declKind'
-            , declAnn  = DeclSpec{
-                  declSpecModule    = typeModule
-                , declSpecInstances = typeInstances
-                }
+            , declAnn  = DeclSpec declAnn
             }
 
       mk <$> mangleDecl info declKind
     where
       C.Decl{declInfo = C.DeclInfo{..}, declKind, declAnn} = decl
-      BindingSpec.Type{typeModule, typeInstances} = declAnn
 
 instance MangleDecl C.DeclKind where
   mangleDecl info (C.DeclStruct struct) =

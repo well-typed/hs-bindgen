@@ -98,7 +98,10 @@ translateDeclData struct = DRecord $ Record
             }
         | f <- toList $ Hs.structFields struct
         ]
-    , dataOrigin = Hs.structOrigin struct
+    , dataOrigin =
+        case Hs.structOrigin struct of
+          Just origin -> origin
+          Nothing     -> panicPure "Missing structOrigin"
     }
 
 translateDeclEmpty :: Hs.EmptyData -> SDecl

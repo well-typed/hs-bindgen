@@ -23,6 +23,7 @@ import HsBindgen.ExtBindings
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
@@ -272,7 +273,7 @@ data Instance  = Instance {
 data Field = Field {
       fieldName   :: HsName NsVar
     , fieldType   :: ClosedType
-    , fieldOrigin :: Hs.FieldOrigin
+    , fieldOrigin :: Origin.Field
     }
   deriving stock (Show)
 
@@ -280,13 +281,13 @@ data Record = Record {
       dataType   :: HsName NsTypeConstr
     , dataCon    :: HsName NsConstr
     , dataFields :: [Field]
-    , dataOrigin :: Hs.StructOrigin
+    , dataOrigin :: Origin.Decl Origin.Struct
     }
   deriving stock (Show)
 
 data EmptyData = EmptyData {
       emptyDataName   :: HsName NsTypeConstr
-    , emptyDataOrigin :: Hs.EmptyDataOrigin
+    , emptyDataOrigin :: Origin.Decl Origin.EmptyData
     }
   deriving stock (Show)
 
@@ -294,7 +295,7 @@ data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeCon    :: HsName NsConstr
     , newtypeField  :: Field
-    , newtypeOrigin :: Hs.NewtypeOrigin
+    , newtypeOrigin :: Origin.Decl Origin.Newtype
     }
   deriving stock (Show)
 

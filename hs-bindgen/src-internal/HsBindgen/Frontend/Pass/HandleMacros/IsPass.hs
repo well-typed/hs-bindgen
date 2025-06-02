@@ -41,6 +41,7 @@ data CheckedMacro p =
   | MacroExpr CheckedMacroExpr
   deriving stock (Show, Eq, Generic)
 
+-- TODO: This is wrong, it does not allow name mangling to do its job.
 data CheckedMacroExpr = CheckedMacroExpr{
       macroExprBody :: Macro.MExpr Macro.Ps
     , macroExprType :: Macro.Quant (Macro.Type Macro.Ty)

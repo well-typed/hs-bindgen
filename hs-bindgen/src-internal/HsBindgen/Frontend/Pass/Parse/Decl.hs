@@ -364,6 +364,7 @@ functionDecl curr = do
                 functionArgs
               , functionRes
               , functionAnn
+              , functionHeader = undefined -- TODO
               }
           , declAnn  = NoAnn
           }

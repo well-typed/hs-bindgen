@@ -80,7 +80,6 @@ data DeclInfo = DeclInfo{
     }
   deriving stock (Show, Eq, Generic)
 
--- | Top-level declaration
 data DeclKind =
     DeclStruct Struct
   | DeclStructOpaque
