@@ -69,9 +69,10 @@ import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.AST.Origin
+import HsBindgen.Hs.AST.Strategy
 import HsBindgen.Orphans ()
 import HsBindgen.Util.TestEquality
-
 import DeBruijn
 
 import C.Char qualified
@@ -87,11 +88,6 @@ data Field = Field {
     }
   deriving stock (Generic, Show)
 
-data FieldOrigin =
-      FieldOriginNone
-    | FieldOriginStructField C.StructField
-  deriving stock (Generic, Show)
-
 data Struct (n :: Nat) = Struct {
       structName      :: HsName NsTypeConstr
     , structConstr    :: HsName NsConstr
@@ -101,20 +97,10 @@ data Struct (n :: Nat) = Struct {
     }
   deriving stock (Generic, Show)
 
-data StructOrigin =
-      StructOriginStruct C.Struct
-    | StructOriginEnum C.Enu
-  deriving stock (Generic, Show)
-
 data EmptyData = EmptyData {
       emptyDataName   :: HsName NsTypeConstr
     , emptyDataOrigin :: EmptyDataOrigin
     }
-  deriving stock (Generic, Show)
-
-data EmptyDataOrigin =
-      EmptyDataOriginOpaqueStruct C.OpaqueStruct
-    | EmptyDataOriginOpaqueEnum C.OpaqueEnum
   deriving stock (Generic, Show)
 
 data Newtype = Newtype {
@@ -126,13 +112,6 @@ data Newtype = Newtype {
     }
   deriving stock (Generic, Show)
 
-data NewtypeOrigin =
-      NewtypeOriginEnum C.Enu
-    | NewtypeOriginTypedef C.Typedef
-    | NewtypeOriginUnion C.Union
-    | NewtypeOriginMacro ( C.Macro C.Ps )
-  deriving stock (Generic, Show)
-
 data ForeignImportDecl = ForeignImportDecl
     { foreignImportName       :: HsName NsVar
     , foreignImportType       :: HsType
@@ -140,10 +119,6 @@ data ForeignImportDecl = ForeignImportDecl
     , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
     , foreignImportDeclOrigin :: ForeignImportDeclOrigin
     }
-  deriving stock (Generic, Show)
-
-newtype ForeignImportDeclOrigin =
-      ForeignImportDeclOriginFunction C.Function
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
@@ -184,13 +159,6 @@ data Decl where
     DeclUnionSetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
 
 deriving instance Show Decl
-
--- | Deriving strategy
-data Strategy ty =
-    DeriveNewtype
-  | DeriveStock
-  | DeriveVia ty
-  deriving stock (Generic, Show, Functor, Foldable, Traversable)
 
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
@@ -329,10 +297,6 @@ data PatSyn = PatSyn
     , patSynValue  :: Integer
     , patSynOrigin :: PatSynOrigin
     }
-  deriving stock (Generic, Show)
-
-newtype PatSynOrigin =
-      PatSynOriginEnumValue C.EnumValue
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
