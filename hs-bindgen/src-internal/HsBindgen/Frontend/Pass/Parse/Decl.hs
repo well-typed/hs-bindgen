@@ -87,15 +87,20 @@ getReparseInfo curr = do
 
 inclusionDirective :: Fold M a
 inclusionDirective curr = do
-    loc  <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
-    includedFile <- clang_getIncludedFile curr
-    includedFilePath <- SourcePath <$> clang_getFileName includedFile
-    let includingFilePath = singleLocPath loc
-    recordTraceWithCallStack callStack $
-      RegisterInclude includingFilePath includedFilePath
-    modifyIncludeGraph $
-      IncludeGraph.register includingFilePath includedFilePath
+    fr <- getIncludeFrom
+    to <- getIncludeTo
+    recordTraceWithCallStack callStack $ RegisterInclude fr to
+    modifyIncludeGraph $ IncludeGraph.register fr to
+    -- TODO: We should update the main header.
     return $ Continue Nothing
+  where
+    getIncludeFrom :: M SourcePath
+    getIncludeFrom = singleLocPath <$> HighLevel.clang_getCursorLocation' curr
+
+    getIncludeTo :: M SourcePath
+    getIncludeTo = do
+        file <- clang_getIncludedFile curr
+        SourcePath <$> clang_getFileName file
 
 -- | Macros
 --
@@ -356,7 +361,8 @@ functionDecl curr = do
     info <- getDeclInfo curr
     typ  <- fromCXType =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
-    functionAnn <- getReparseInfo curr
+    functionAnn    <- getReparseInfo curr
+    functionHeader <- getMainHeader
     let decl :: C.Decl Parse
         decl = C.Decl{
             declInfo = info
@@ -364,11 +370,11 @@ functionDecl curr = do
                 functionArgs
               , functionRes
               , functionAnn
-              , functionHeader = undefined -- TODO
+              , functionHeader
               }
           , declAnn  = NoAnn
           }
-    -- TODO (#684): Handle inline declarations.
+    -- TODO (#684): Handle inline type declarations.
     pure $ Continue $ Just [decl]
   where
     guardTypeFunction :: C.Type Parse -> M ([C.Type Parse], C.Type Parse)

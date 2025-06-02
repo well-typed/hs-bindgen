@@ -1,40 +1,41 @@
 module HsBindgen.Frontend.Pass.Parse.Monad (
     -- * Definition
     M
-  , ParseLog(..)
   , ParseEnv (..)
   , runParseMonad
-    -- * Functionaltiy
-  , liftIO
-  , modifyIncludeGraph
+    -- * Functionality
+    -- ** "Reader"
   , getTranslationUnit
   , getPredicate
   , getMainSourcePaths
-  , recordTraceWithCallStack
+    -- ** "Writer"
+  , modifyIncludeGraph
+    -- ** "State"
+  , getMainHeader
   , recordMacroExpansionAt
   , checkHasMacroExpansion
+    -- ** Logging
+  , ParseLog(..)
+  , recordTraceWithCallStack
   ) where
 
-import Control.Monad.IO.Class
 import Control.Tracer (Tracer)
 import Data.IORef
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 import GHC.Stack (CallStack)
 
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import Clang.Paths (SourcePath)
-import Data.Text qualified as Text
+import Clang.Paths
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.Eff
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              HasSource (getSource), Level (Debug, Error, Info),
-                              PrettyTrace (prettyTrace), Source (HsBindgen),
-                              TraceWithCallStack, traceWithCallStack)
+import HsBindgen.Util.Tracer
+import HsBindgen.Errors
 
 {-------------------------------------------------------------------------------
   Definition
@@ -50,70 +51,11 @@ type M = Eff ParseMonad
 data ParseMonad a
 
 -- | Support for 'M' (internal type, not exported)
---
--- TODO: Add "current main header"
 data ParseSupport = ParseSupport {
-      parseEnv         :: ParseEnv              -- ^ Reader
-    , parseExtraOutput :: IORef IncludeGraph    -- ^ Writer (ish)
-    , parseState       :: IORef (Set SingleLoc) -- ^ State
+      parseEnv         :: ParseEnv           -- ^ Reader
+    , parseExtraOutput :: IORef IncludeGraph -- ^ Writer (ish)
+    , parseState       :: IORef ParseState   -- ^ State
     }
-
-data ParseLog =
-      RegisterInclude {
-        registerIncludeIncludingFile :: SourcePath
-      , registerIncludeIncludedFile :: SourcePath
-      }
-    | SkippedBuiltIn Text
-    | SkippedPredicate {
-        skippedName   :: Text
-      , skippedLoc    :: SingleLoc
-      , skippedReason :: Text
-      }
-      -- | Struct with implicit fields
-      --
-      -- We record the name of the struct that has the implicit fields.
-    | UnsupportedImplicitFields {
-        unsupportedImplicitFieldsId  :: DeclId
-      , unsupportedImplicitFieldsLoc :: SingleLoc
-      }
-  deriving stock (Show)
-
-instance PrettyTrace ParseLog where
-  prettyTrace = \case
-    RegisterInclude h i -> "Registering include: " <> show h <> " includes " <> show i
-    SkippedBuiltIn x ->
-      "Skipped built-in: " <> show x
-    SkippedPredicate {..} ->
-      Text.unpack $ Text.concat [ "Skipped "
-                                , skippedName
-                                , " at "
-                                , Text.pack (show skippedLoc)
-                                , ": "
-                                , skippedReason
-                                ]
-    UnsupportedImplicitFields {..} ->
-      concat [ "Unsupported implicit field with ID "
-             , show unsupportedImplicitFieldsId
-             , " at "
-             , show unsupportedImplicitFieldsLoc
-             ]
-
-instance HasDefaultLogLevel ParseLog where
-  getDefaultLogLevel = \case
-    RegisterInclude {}           -> Debug
-    SkippedBuiltIn {}            -> Debug
-    SkippedPredicate {}          -> Info
-    UnsupportedImplicitFields {} -> Error
-
-instance HasSource ParseLog where
-  getSource = const HsBindgen
-
-data ParseEnv = ParseEnv {
-    envUnit            :: CXTranslationUnit
-  , envPredicate       :: Predicate
-  , envMainSourcePaths :: Set SourcePath
-  , envTracer          :: Tracer IO (TraceWithCallStack ParseLog)
-  }
 
 type instance Support ParseMonad = ParseSupport
 
@@ -121,13 +63,20 @@ runParseMonad :: ParseEnv -> M a -> IO (a, IncludeGraph)
 runParseMonad env f = do
     support <- ParseSupport env
                  <$> newIORef IncludeGraph.empty
-                 <*> newIORef Set.empty
+                 <*> newIORef initParseState
     result  <- unwrapEff f support
     (result,) <$> readIORef (parseExtraOutput support)
 
-modifyIncludeGraph :: (IncludeGraph -> IncludeGraph) -> M ()
-modifyIncludeGraph f = wrapEff $ \ParseSupport{parseExtraOutput} ->
-    modifyIORef parseExtraOutput f
+{-------------------------------------------------------------------------------
+  "Reader"
+-------------------------------------------------------------------------------}
+
+data ParseEnv = ParseEnv {
+      envUnit            :: CXTranslationUnit
+    , envPredicate       :: Predicate
+    , envMainSourcePaths :: Set SourcePath
+    , envTracer          :: Tracer IO (TraceWithCallStack ParseLog)
+    }
 
 getTranslationUnit :: M CXTranslationUnit
 getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
@@ -139,19 +88,58 @@ getPredicate = wrapEff $ pure . envPredicate . parseEnv
 getMainSourcePaths :: M (Set SourcePath)
 getMainSourcePaths = wrapEff $ pure . envMainSourcePaths . parseEnv
 
-recordTraceWithCallStack :: CallStack -> ParseLog -> M ()
-recordTraceWithCallStack stack trace = wrapEff $ \ParseSupport{parseEnv} ->
-  traceWithCallStack (envTracer parseEnv) stack trace
+{-------------------------------------------------------------------------------
+  "Writer"
+-------------------------------------------------------------------------------}
+
+modifyIncludeGraph :: (IncludeGraph -> IncludeGraph) -> M ()
+modifyIncludeGraph f = wrapEff $ \ParseSupport{parseExtraOutput} ->
+    modifyIORef parseExtraOutput f
+
+{-------------------------------------------------------------------------------
+  "State"
+-------------------------------------------------------------------------------}
+
+data ParseState = ParseState {
+      -- | Where did clang expand macros?
+      --
+      -- Declarations with expanded macros need to be reparsed.
+      stateMacroExpansions :: Set SingleLoc
+
+      -- | Current main head header
+      --
+      -- This is exclusively used to set 'functionHeader'.
+    , stateMainHeader :: Maybe CHeaderIncludePath
+    }
+
+initParseState :: ParseState
+initParseState = ParseState{
+      stateMacroExpansions = Set.empty
+    , stateMainHeader      = Nothing
+    }
+
+getMainHeader :: M CHeaderIncludePath
+getMainHeader = wrapEff $ \ParseSupport{parseState} -> do
+     state <- readIORef parseState
+     case stateMainHeader state of
+       Just header -> return header
+       Nothing     ->
+         -- This should not happen: we only ask for the main header when we
+         -- are generating a function, which must ultimately come from one of
+         -- the main headers.
+         panicIO "No main header"
 
 recordMacroExpansionAt :: SingleLoc -> M ()
 recordMacroExpansionAt loc = do
     wrapEff $ \ParseSupport{parseState} ->
-      modifyIORef parseState $ Set.insert loc
+      modifyIORef parseState $ \st -> st{
+          stateMacroExpansions = Set.insert loc (stateMacroExpansions st)
+        }
 
 checkHasMacroExpansion :: Range SingleLoc -> M Bool
 checkHasMacroExpansion extent = do
     wrapEff $ \ParseSupport{parseState} ->
-      aux extent <$> readIORef parseState
+      aux extent . stateMacroExpansions <$> readIORef parseState
   where
     aux :: Range SingleLoc -> Set SingleLoc -> Bool
     aux range expansions = or [
@@ -169,3 +157,76 @@ checkHasMacroExpansion extent = do
         -- If that fails, do a O(n) scan through all macro expansions
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
+
+{-------------------------------------------------------------------------------
+  Logging
+-------------------------------------------------------------------------------}
+
+data ParseLog =
+    -- | Executed @#include@
+    RegisterInclude {
+        registerIncludeIncludingFile :: SourcePath
+      , registerIncludeIncludedFile :: SourcePath
+      }
+
+    -- | Clang builtin
+  | SkippedBuiltIn Text
+
+    -- | Definition skipped due to user's selection predicate
+  | SkippedPredicate {
+        skippedName   :: Text
+      , skippedLoc    :: SingleLoc
+      , skippedReason :: Text
+      }
+
+    -- | Struct with implicit fields
+    --
+    -- We record the name of the struct that has the implicit fields.
+  | UnsupportedImplicitFields {
+        unsupportedImplicitFieldsId  :: DeclId
+      , unsupportedImplicitFieldsLoc :: SingleLoc
+      }
+  deriving stock (Show)
+
+instance PrettyTrace ParseLog where
+  prettyTrace = \case
+    RegisterInclude h i -> concat [
+        "Registering include: "
+      , show h
+      , " includes "
+      , show i
+      ]
+    SkippedBuiltIn x -> concat [
+        "Skipped built-in: "
+      , show x
+      ]
+    SkippedPredicate{..} -> Text.unpack $ mconcat [
+        "Skipped "
+      , skippedName
+      , " at "
+      , Text.pack (show skippedLoc)
+      , ": "
+      , skippedReason
+      ]
+    UnsupportedImplicitFields {..} -> concat [
+        "Unsupported implicit field with ID "
+      , show unsupportedImplicitFieldsId
+      , " at "
+      , show unsupportedImplicitFieldsLoc
+      ]
+
+instance HasDefaultLogLevel ParseLog where
+  getDefaultLogLevel = \case
+    RegisterInclude {}           -> Debug
+    SkippedBuiltIn {}            -> Debug
+    SkippedPredicate {}          -> Info
+    UnsupportedImplicitFields {} -> Error
+
+instance HasSource ParseLog where
+  getSource = const HsBindgen
+
+recordTraceWithCallStack :: CallStack -> ParseLog -> M ()
+recordTraceWithCallStack stack trace = wrapEff $ \ParseSupport{parseEnv} ->
+  traceWithCallStack (envTracer parseEnv) stack trace
+
+
