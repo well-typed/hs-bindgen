@@ -153,7 +153,7 @@ resolveDecls confSpecs extSpecs includeGraph = mapMaybeM aux
           singleLocPath (C.declLoc (C.declInfo decl))
 
         auxExt :: M (Maybe (C.Decl ResolveBindingSpecs))
-        auxExt = case BindingSpecs.lookupType cname declPaths extSpecs of
+        auxExt = case BindingSpecs.lookupTypeSpec cname declPaths extSpecs of
           Just (BindingSpecs.Require typeSpec) ->
             case getExtHsRef cname typeSpec of
               Right extHsRef -> do
@@ -169,7 +169,7 @@ resolveDecls confSpecs extSpecs includeGraph = mapMaybeM aux
           Nothing -> auxConf
 
         auxConf :: M (Maybe (C.Decl ResolveBindingSpecs))
-        auxConf = case BindingSpecs.lookupType cname declPaths confSpecs of
+        auxConf = case BindingSpecs.lookupTypeSpec cname declPaths confSpecs of
           Just (BindingSpecs.Require typeSpec) -> do
             modify' $ deleteNoConfType cname
             Just <$> mkDecl decl (Just typeSpec)
@@ -191,20 +191,20 @@ qualIdCNameSpelling (C.QualId (CName cname) namespace) =
 
 getExtHsRef ::
      CNameSpelling
-  -> BindingSpecs.Type
+  -> BindingSpecs.TypeSpec
   -> Either BindingSpecsError ExtHsRef
-getExtHsRef cname typ = do
+getExtHsRef cname typeSpec = do
     extHsRefModule <-
       maybe (Left (BindingSpecsExtHsRefNoModule cname)) Right $
-        BindingSpecs.typeModule typ
+        BindingSpecs.typeSpecModule typeSpec
     extHsRefIdentifier <-
       maybe (Left (BindingSpecsExtHsRefNoIdentifier cname)) Right $
-        BindingSpecs.typeIdentifier typ
+        BindingSpecs.typeSpecIdentifier typeSpec
     return ExtHsRef{extHsRefModule, extHsRefIdentifier}
 
 mkDecl ::
      C.Decl RenameAnon
-  -> Maybe BindingSpecs.Type
+  -> Maybe BindingSpecs.TypeSpec
   -> M (C.Decl ResolveBindingSpecs)
 mkDecl C.Decl{..} mTypeSpec =
     reassemble <$> mkDeclKind declKind

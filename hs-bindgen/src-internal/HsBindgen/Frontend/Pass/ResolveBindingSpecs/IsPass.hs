@@ -26,7 +26,7 @@ type ResolveBindingSpecs :: Pass
 data ResolveBindingSpecs a deriving anyclass (ValidPass)
 
 type family AnnResolveBindingSpecs ix where
-  AnnResolveBindingSpecs "Decl"            = BindingSpecs.Type
+  AnnResolveBindingSpecs "Decl"            = BindingSpecs.TypeSpec
   AnnResolveBindingSpecs "TranslationUnit" = UseDefGraph Parse
   AnnResolveBindingSpecs "TypeTypedef"     = TypedefSquashed
   AnnResolveBindingSpecs _                 = NoAnn

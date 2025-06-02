@@ -75,13 +75,13 @@ nameForDecl ::
   -> C.Decl ResolveBindingSpecs
   -> ((C.QualId ResolveBindingSpecs, HsIdentifier), Maybe MangleError)
 nameForDecl fix decl =
-    case typeIdentifier of
+    case typeSpecIdentifier of
       Just hsName -> (choose hsName, Nothing)
       Nothing     -> withDeclNamespace declKind $ \ns ->
                        first choose $ fromCName fix ns cName
   where
     C.Decl{declInfo = C.DeclInfo{declId = cName}, declKind, declAnn} = decl
-    BindingSpecs.Type{typeIdentifier} = declAnn
+    BindingSpecs.TypeSpec{typeSpecIdentifier} = declAnn
 
     choose :: HsIdentifier -> (C.QualId ResolveBindingSpecs, HsIdentifier)
     choose hsName = (C.declQualId decl, hsName)

@@ -223,7 +223,7 @@ data Type p =
   | TypeIncompleteArray (Type p)
 
     -- | TODO: Docs
-  | TypeExtBinding ExtHsRef BindingSpecs.Type
+  | TypeExtBinding ExtHsRef BindingSpecs.TypeSpec
 
 {-------------------------------------------------------------------------------
   Qualified names

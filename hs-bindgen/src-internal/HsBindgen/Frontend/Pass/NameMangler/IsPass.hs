@@ -99,5 +99,5 @@ data NewtypeNames = NewtypeNames {
 -- functions, etc.). When we do, we should not associate them with the top-level
 -- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
 -- have consequences for "Hs.Origin" also.
-newtype DeclSpec = DeclSpec BindingSpecs.Type
+newtype DeclSpec = DeclSpec BindingSpecs.TypeSpec
   deriving stock (Show, Eq)
