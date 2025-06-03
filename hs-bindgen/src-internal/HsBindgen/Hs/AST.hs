@@ -60,6 +60,7 @@ module HsBindgen.Hs.AST (
 
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
+import DeBruijn (Ctx, EmptyCtx, Wk (..), Add (..), Idx (..))
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
@@ -73,7 +74,6 @@ import HsBindgen.Hs.AST.Origin
 import HsBindgen.Hs.AST.Strategy
 import HsBindgen.Orphans ()
 import HsBindgen.Util.TestEquality
-import DeBruijn
 
 import C.Char qualified
 
