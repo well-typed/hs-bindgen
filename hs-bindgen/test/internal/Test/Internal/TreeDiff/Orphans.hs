@@ -264,6 +264,8 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclUnionGetter" [toExpr u, toExpr f, toExpr n]
     Hs.DeclUnionSetter u f n ->
       Expr.App "DeclUnionSetter" [toExpr u, toExpr f, toExpr n]
+    Hs.DeclSimple _d ->
+      Expr.App "DeclSimple" [] -- TODO: no ToExpr SDecl
 
 instance ToExpr a => ToExpr (Vec n a) where
   toExpr = Expr.Lst . map toExpr . Vec.toList

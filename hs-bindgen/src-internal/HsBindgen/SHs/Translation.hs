@@ -65,6 +65,7 @@ translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
 translateDecl (Hs.DeclPatSyn ps) = singleton $ translatePatSyn ps
 translateDecl (Hs.DeclUnionGetter u f n) = singleton $ translateUnionGetter u f n
 translateDecl (Hs.DeclUnionSetter u f n) = singleton $ translateUnionSetter u f n
+translateDecl (Hs.DeclSimple d) = [d]
 -- these are processed by 'csources'
 translateDecl Hs.DeclInlineCInclude {} = []
 translateDecl Hs.DeclInlineC {}        = []

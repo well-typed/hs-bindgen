@@ -65,14 +65,15 @@ import DeBruijn (Ctx, EmptyCtx, Wk (..), Add (..), Idx (..))
 import HsBindgen.C.AST qualified as C
 
 import HsBindgen.ExtBindings (HsTypeClass(..))
+import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.AST.Origin
+import HsBindgen.Hs.AST.SigmaType
+import HsBindgen.Hs.AST.Strategy
+import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
-import HsBindgen.Hs.AST.Name
-import HsBindgen.Hs.AST.Type
-import HsBindgen.Hs.AST.SigmaType
-import HsBindgen.Hs.AST.Origin
-import HsBindgen.Hs.AST.Strategy
 import HsBindgen.Orphans ()
+import HsBindgen.SHs.AST qualified as SHs
 
 import C.Char qualified
 
@@ -156,7 +157,7 @@ data Decl where
     DeclVar             :: VarDecl -> Decl
     DeclUnionGetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
     DeclUnionSetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
-
+    DeclSimple          :: SHs.SDecl -> Decl
 deriving instance Show Decl
 
 -- | Class instance declaration (with code that /we/ generate)
