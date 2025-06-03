@@ -3,6 +3,7 @@ module HsBindgen.Frontend.AST.Finalize (finalize) where
 
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Internal qualified as Int
+import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.NameMangler.IsPass
 import HsBindgen.Imports
@@ -31,11 +32,12 @@ instance Finalize Int.TranslationUnit where
 
   finalize unit = Ext.TranslationUnit{
         unitDecls = map finalize unitDecls
+      , unitDeps  = IncludeGraph.toSortedList unitIncludeGraph
       }
     where
       Int.TranslationUnit{
           unitDecls
-        , unitIncludeGraph = _includeGraph
+        , unitIncludeGraph
         , unitAnn = _useDefGraph
         } = unit
 

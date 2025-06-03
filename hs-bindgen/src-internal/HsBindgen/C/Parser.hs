@@ -15,13 +15,9 @@ import Control.Exception
 import Control.Tracer (Tracer)
 import Data.List qualified as List
 import Data.List.Compat ((!?))
-import Data.Map.Strict qualified as Map
 import Data.Maybe qualified as Maybe
-import Data.Ord (comparing)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Data.Tree (Tree)
-import Data.Tree qualified as Tree
 import GHC.Stack (callStack)
 
 import Clang.Args
@@ -31,11 +27,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import Data.DynGraph (DynGraph)
-import Data.DynGraph qualified as DynGraph
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.C.Predicate (Predicate)
-import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.Args (ExtraClangArgsLog, withExtraClangArgs)
 import HsBindgen.Errors
 import HsBindgen.Frontend (processTranslationUnit)
@@ -85,8 +78,8 @@ parseCHeaders ::
   -> Predicate
   -> ResolvedBindingSpec
   -> [CHeaderIncludePath]
-  -> IO ([SourcePath], C.TranslationUnit) -- ^ List of included headers and parsed header
-parseCHeaders tracer args predicate extSpec headerIncludePaths =
+  -> IO C.TranslationUnit
+parseCHeaders tracer args predicate _extSpec headerIncludePaths =
   withExtraClangArgs (useTrace TraceExtraClangArgs tracer) args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
@@ -107,25 +100,7 @@ parseCHeaders tracer args predicate extSpec headerIncludePaths =
                   parseTracer = useTrace TraceParse tracer
                   parseEnvironment :: ParseEnv
                   parseEnvironment = ParseEnv unit predicate mainSourcePaths parseTracer
-              unit' <- processTranslationUnit parseEnvironment
-              print unit'
-
-              error "UHOH"
-
-{-
-              (decls, finalDeclState) <-
-                C.runFoldState C.initDeclState $
-                  HighLevel.clang_visitChildren rootCursor $
-                    C.foldDecls (useTrace TraceSkipped tracer) p extSpec headerIncludePaths unit
-              let decls' =
-                    [ d
-                    | C.TypeDecl _ d <-
-                        toList (C.typeDeclarations finalDeclState)
-                    ]
-                  depPaths = List.delete C.RootHeader.name $
-                    DynGraph.topSort (C.cIncludePathGraph finalDeclState)
-              return (depPaths, C.Header (sortDecls depPaths (decls ++ decls')))
--}
+              processTranslationUnit parseEnvironment
   where
     hFilePath :: FilePath
     hFilePath = getSourcePath RootHeader.name

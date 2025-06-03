@@ -60,6 +60,11 @@ import HsBindgen.Language.Haskell
 
 data TranslationUnit = TranslationUnit{
       unitDecls :: [Decl]
+
+      -- | All transitive dependencies
+      --
+      -- We use this to declare TH dependent files.
+    , unitDeps :: [SourcePath]
     }
   deriving stock (Show, Eq, Generic)
 

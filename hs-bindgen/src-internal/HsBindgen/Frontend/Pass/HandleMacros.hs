@@ -380,7 +380,8 @@ reparseMacro typeEnv tokens = do
           return (
                inf
              , C.MacroExpr C.CheckedMacroExpr{
-                   macroExprBody = body
+                   macroExprArgs = macroArgs
+                 , macroExprBody = body
                  , macroExprType = dropEval inf
                  }
              )

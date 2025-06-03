@@ -6,10 +6,6 @@ module HsBindgen.Hs.Translation (
     TranslationOpts(..)
   , defaultTranslationOpts
   , generateDeclarations
---    -- * leaky exports:
---    --   perfectly, translation will happen in *this* module.
---  , integralType
---  , floatingType
   ) where
 
 import Control.Monad.State qualified as State
@@ -30,16 +26,20 @@ import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
+import HsBindgen.Frontend.Macros.AST.Syntax qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
+import HsBindgen.Language.C (CName(..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
 import HsBindgen.NameHint
 
 import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken)
+import HsBindgen.Hs.NameMangler.DSL.FixCandidate (FixCandidate)
+import HsBindgen.Hs.NameMangler.DSL.FixCandidate qualified as FixCandidate
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -102,18 +102,18 @@ defaultTranslationOpts = TranslationOpts {
 generateDeclarations ::
      TranslationOpts
   -> ModuleUnique
-  -> C.TranslationUnit
+  -> [C.Decl]
   -> [Hs.Decl]
-generateDeclarations opts mu (C.TranslationUnit decs) =
+generateDeclarations opts mu decs =
     flip State.evalState Map.empty $
       concat <$> mapM (generateDecs opts mu typedefs) decs
   where
-    typedefs :: Map C.CName C.Type
+    typedefs :: Map CName C.Type
     typedefs = Map.union actualTypedefs pseudoTypedefs
 
     -- typedef lookup table
     -- shallow: only one layer of typedefs is stripped.
-    actualTypedefs :: Map C.CName C.Type
+    actualTypedefs :: Map CName C.Type
     actualTypedefs = Map.fromList
         [ (C.nameC (C.declId declInfo), typedefType)
         | C.Decl{declInfo, declKind} <- decs
@@ -122,7 +122,7 @@ generateDeclarations opts mu (C.TranslationUnit decs) =
         ]
 
     -- macros also act as "typedef"s
-    pseudoTypedefs :: Map C.CName C.Type
+    pseudoTypedefs :: Map CName C.Type
     pseudoTypedefs = Map.fromList
         [ (C.nameC (C.declId declInfo), macroType)
         | C.Decl{declInfo, declKind} <- decs
@@ -286,7 +286,7 @@ generateDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
   -> ModuleUnique
-  -> Map C.CName C.Type
+  -> Map CName C.Type
   -> C.Decl
   -> m [Hs.Decl]
 generateDecs opts mu typedefs (C.Decl info kind spec) =
@@ -731,7 +731,7 @@ macroDecs ::
 macroDecs opts info checkedMacro spec =
     case checkedMacro of
       C.MacroType ty   -> macroDecsTypedef opts info ty spec
-      C.MacroExpr expr -> return $ macroVarDecs expr
+      C.MacroExpr expr -> return $ macroVarDecs info expr
 
 macroDecsTypedef ::
      State.MonadState InstanceMap m
@@ -892,12 +892,12 @@ floatingType = \case
 
 functionDecs ::
      ModuleUnique
-  -> Map C.CName C.Type -- ^ typedefs
+  -> Map CName C.Type -- ^ typedefs
   -> C.DeclInfo
   -> C.Function
   -> C.DeclSpec
   -> [Hs.Decl]
-functionDecs mu typedefs info f spec
+functionDecs mu typedefs info f _spec
   | any isFancy (C.functionRes f : C.functionArgs f)
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
   | otherwise =
@@ -968,29 +968,26 @@ functionDecs mu typedefs info f spec
 -------------------------------------------------------------------------------}
 
 macroVarDecs ::
-     C.CheckedMacroExpr
+     C.DeclInfo
+  -> C.CheckedMacroExpr
   -> [Hs.Decl]
-macroVarDecs = undefined
-
-{-
-
-macroVarDecs ::
-     NameMangler
-  -> C.Macro p
-  -> Macro.Quant ( Macro.Type Macro.Ty )
-  -> [Hs.Decl]
-macroVarDecs nm (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
-  [
-    Hs.DeclVar $
-      Hs.VarDecl
-        { varDeclName = hsVarName
-        , varDeclType = quantTyHsTy qty
-        , varDeclBody = hsBody
-        }
-  | hsBody <- toList $ macroLamHsExpr nm cVarNm args body
-  ]
+macroVarDecs info macroExpr = [
+      Hs.DeclVar $
+        Hs.VarDecl
+          { varDeclName = hsVarName
+          , varDeclType = quantTyHsTy macroExprType
+          , varDeclBody = hsBody
+          }
+    | hsBody <- toList $ macroLamHsExpr macroExprArgs macroExprBody
+    ]
   where
-    hsVarName = mangle nm $ NameVar cVarNm
+    macroExprArgs :: [CName]
+    macroExprBody :: C.MExpr C.Ps
+    macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
+    C.CheckedMacroExpr{macroExprArgs, macroExprBody, macroExprType} = macroExpr
+
+    hsVarName :: HsName NsVar
+    hsVarName = C.nameHs (C.declId info)
 
 quantTyHsTy :: Macro.Quant ( Macro.Type Macro.Ty ) -> Hs.SigmaType
 quantTyHsTy qty@(Macro.Quant @kis _) =
@@ -1034,39 +1031,31 @@ quantTyHsTy qty@(Macro.Quant @kis _) =
 newtype U n = U { unU :: Vec n (Idx n) }
 
 macroLamHsExpr ::
-     NameMangler
-  -> C.CName
-  -> [C.CName]
-  -> C.MacroBody p
+     [CName]
+  -> C.MExpr p
   -> Maybe (Hs.VarDeclRHS EmptyCtx)
-macroLamHsExpr nm _macroName macroArgs body =
-  case body of
-    C.EmptyMacro -> Nothing
-    C.AttributeMacro {} -> Nothing
-    C.TypeMacro {} -> Nothing
-    C.ExpressionMacro expr ->
-      makeNames macroArgs Map.empty
-      where
-        makeNames :: [C.CName] -> Map C.CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
-        makeNames []     env = macroExprHsExpr nm env expr
-        makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
+macroLamHsExpr macroArgs expr =
+    makeNames macroArgs Map.empty
+  where
+    makeNames :: [CName] -> Map CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
+    makeNames []     env = macroExprHsExpr env expr
+    makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
 
-cnameToHint :: C.CName -> NameHint
-cnameToHint (C.CName t) = fromString (T.unpack t)
+cnameToHint :: CName -> NameHint
+cnameToHint (CName t) = fromString (T.unpack t)
 
 macroExprHsExpr ::
-     NameMangler
-  -> Map C.CName (Idx ctx)
+     Map CName (Idx ctx)
   -> C.MExpr p
   -> Maybe (Hs.VarDeclRHS ctx)
-macroExprHsExpr nm = goExpr where
-    goExpr :: Map C.CName (Idx ctx) -> C.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
+macroExprHsExpr = goExpr where
+    goExpr :: Map CName (Idx ctx) -> C.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
       C.MTerm tm -> goTerm env tm
       C.MApp _xapp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
-    goTerm :: Map C.CName (Idx ctx) -> C.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
+    goTerm :: Map CName (Idx ctx) -> C.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
     goTerm env = \case
       C.MInt i -> goInt i
       C.MFloat f -> goFloat f
@@ -1077,12 +1066,12 @@ macroExprHsExpr nm = goExpr where
         case Map.lookup cname env of
           Just i  -> return (Hs.VarDeclVar i)
           Nothing ->
-            let hsVar = mangle nm $ NameVar cname
+            let hsVar = macroName cname -- mangle nm $ NameVar cname
             in  goApp env (Hs.VarAppHead hsVar) args
       C.MStringize {} -> Nothing
       C.MConcat {} -> Nothing
 
-    goApp :: Map C.CName (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
+    goApp :: Map CName (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
     goApp env appHead args = do
       args' <- traverse (goExpr env) args
       return $ Hs.VarDeclApp appHead args'
@@ -1107,4 +1096,16 @@ macroExprHsExpr nm = goExpr where
       case fty of
         C.Type.FloatType  -> Just $ Hs.VarDeclFloat (C.floatingLiteralFloatValue flt)
         C.Type.DoubleType -> Just $ Hs.VarDeclDouble (C.floatingLiteralDoubleValue flt)
--}
+
+-- | Construct Haskell name for macro
+--
+-- TODO: This should be done as part of the NameMangler frontend pass.
+macroName :: CName -> HsName NsVar
+macroName (CName cName) =
+    case FixCandidate.fixCandidate fix cName of
+      Just hsName -> hsName
+      Nothing     ->
+        panicPure $ "Unable to construct name for macro " ++ show cName
+  where
+    fix :: FixCandidate Maybe
+    fix = FixCandidate.fixCandidateDefault

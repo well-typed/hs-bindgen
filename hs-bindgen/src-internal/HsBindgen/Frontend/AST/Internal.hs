@@ -184,9 +184,13 @@ data CheckedMacroType p = CheckedMacroType{
     , macroTypeAnn :: Ann "CheckedMacroType" p
     }
 
--- TODO: This is wrong, it does not allow name mangling to do its job.
+-- | Checked expression (function) macro
+--
+-- TODO: This is wrong, it does not allow name mangling to do its job. To fix
+-- that we'd have to change 'Macro.MExpr'.
 data CheckedMacroExpr = CheckedMacroExpr{
-      macroExprBody :: Macro.MExpr Macro.Ps
+      macroExprArgs :: [CName]
+    , macroExprBody :: Macro.MExpr Macro.Ps
     , macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
     }
   deriving stock (Show, Eq, Generic)
