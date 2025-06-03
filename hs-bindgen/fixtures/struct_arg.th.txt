@@ -2,6 +2,8 @@
 -- #include "struct_arg.h"
 -- signed int test_internal_thing_fun_1 (struct thing *arg1) { return thing_fun_1(*arg1); }
 -- void test_internal_thing_fun_2 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }
+-- void test_internal_thing_fun_3a (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }
+-- char test_internal_thing_fun_3b (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }
 data Thing = Thing {thing_x :: CInt}
 instance Storable Thing
     where {sizeOf = \_ -> 4 :: Int;
@@ -13,5 +15,20 @@ deriving stock instance Show Thing
 deriving stock instance Eq Thing
 foreign import ccall safe "test_internal_thing_fun_1" thing_fun_1_wrapper :: Ptr Thing ->
                                                                              IO CInt
+thing_fun_1 :: Thing -> IO CInt
+thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
 foreign import ccall safe "test_internal_thing_fun_2" thing_fun_2_wrapper :: CInt ->
                                                                              Ptr Thing -> IO Unit
+thing_fun_2 :: CInt -> IO Thing
+thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
+foreign import ccall safe "test_internal_thing_fun_3a" thing_fun_3a_wrapper :: CInt ->
+                                                                               Ptr Thing ->
+                                                                               CDouble ->
+                                                                               Ptr Thing -> IO Unit
+thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
+thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
+foreign import ccall safe "test_internal_thing_fun_3b" thing_fun_3b_wrapper :: CInt ->
+                                                                               Ptr Thing ->
+                                                                               CDouble -> IO CChar
+thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
+thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> thing_fun_3b_wrapper x_0 y_3 x_2)

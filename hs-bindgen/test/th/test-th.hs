@@ -143,13 +143,22 @@ test01 = testGroup "test_01"
         res <- thing_fun_1 (Test01.Thing 10)
         10 @?= res
 
+        res <- Test01.thing_fun_1 (Test01.Thing 20)
+        20 @?= res
+
     , testCase "struct-res" $ do
         res <- thing_fun_2 11
         Test01.Thing 11 @?= res
 
+        res' <- Test01.thing_fun_2 22
+        Test01.Thing 22 @?= res'
+
     , testCase "struct-arg-res" $ do
         res <- thing_fun_3 (Test01.Thing 6)
         Test01.Thing 12 @?= res
+
+        res' <- Test01.thing_fun_3 (Test01.Thing 6)
+        Test01.Thing 12 @?= res'
     ]
 
 thing_fun_1 :: Test01.Thing -> IO CInt

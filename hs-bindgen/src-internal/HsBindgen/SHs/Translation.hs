@@ -1,6 +1,7 @@
 -- | Simplified HS translation (from high level HS)
 module HsBindgen.SHs.Translation (
     translateDecls,
+    translateType,
 ) where
 
 -- previously Backend.Common.Translation
@@ -20,7 +21,6 @@ import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 import HsBindgen.Errors
-
 
 import DeBruijn (rzeroAdd)
 import DeBruijn.Internal.Size (Size(UnsafeSize))

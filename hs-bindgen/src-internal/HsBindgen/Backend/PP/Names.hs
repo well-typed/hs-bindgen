@@ -43,6 +43,7 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+import HsBindgen.Runtime.CAPI qualified
 
 {-------------------------------------------------------------------------------
   Imports
@@ -220,6 +221,8 @@ resolveGlobal = \case
     CharValue_tycon       -> importQ ''C.Char.CharValue
     CharValue_constructor -> importQ 'C.Char.CharValue
     CharValue_fromAddr    -> importQ 'C.Char.charValueFromAddr
+    CAPI_with             -> importQ 'Foreign.with
+    CAPI_allocaAndPeek    -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
 
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded

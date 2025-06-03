@@ -12,6 +12,7 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
 import Data.Void qualified
+import Foreign qualified
 import Foreign.C.Types qualified
 import Foreign.C.String qualified
 import Foreign.Ptr qualified
@@ -45,6 +46,7 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.SHs.AST
 import HsBindgen.Guasi
 
@@ -85,6 +87,8 @@ mkGlobal = \case
       CharValue_tycon        -> ''C.Char.CharValue
       CharValue_constructor  -> 'C.Char.CharValue
       CharValue_fromAddr    -> 'C.Char.charValueFromAddr
+      CAPI_with             -> 'Foreign.with
+      CAPI_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
 
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
@@ -270,6 +274,8 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CharValue_fromAddr   -> TH.varE name
     ByteArray_setUnionPayload -> TH.varE name
     ByteArray_getUnionPayload -> TH.varE name
+    CAPI_with             -> TH.varE name
+    CAPI_allocaAndPeek    -> TH.varE name
 
     -- Other type classes
     Bits_class        -> panicPure "class in expression"
