@@ -22,7 +22,6 @@ import Numeric (showHex)
 
 import HsBindgen.Backend.PP.Names
 import HsBindgen.Backend.PP.Translation
-import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type (HsPrimType(..))
 import HsBindgen.Imports
@@ -499,9 +498,9 @@ instance Pretty HsModuleName where
 instance Pretty HsIdentifier where
   pretty = string . Text.unpack . getHsIdentifier
 
-instance Pretty ExtIdentifier where
-  pretty ExtIdentifier{..} =
-    hcat [pretty extIdentifierModule, char '.', pretty extIdentifierIdentifier]
+instance Pretty ExtHsRef where
+  pretty ExtHsRef{..} =
+    hcat [pretty extHsRefModule, char '.', pretty extHsRefIdentifier]
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

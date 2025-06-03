@@ -238,15 +238,14 @@ instance Finalize Int.CheckedMacroType where
 instance Finalize Int.Type where
   type Finalized Int.Type = Ext.Type
 
-  finalize (Int.TypePrim prim)           = Ext.TypePrim prim
-  finalize (Int.TypeStruct name)         = Ext.TypeStruct name
-  finalize (Int.TypeUnion name)          = Ext.TypeUnion name
-  finalize (Int.TypeEnum name)           = Ext.TypeEnum name
-  finalize (Int.TypeTypedef name ann)    = Ext.TypeTypedef name ann
-  finalize (Int.TypePointer typ)         = Ext.TypePointer (finalize typ)
-  finalize (Int.TypeFun args res)        = Ext.TypeFun (map finalize args) (finalize res)
-  finalize (Int.TypeVoid)                = Ext.TypeVoid
-  finalize (Int.TypeConstArray n typ)    = Ext.TypeConstArray n (finalize typ)
-  finalize (Int.TypeIncompleteArray typ) = Ext.TypeIncompleteArray (finalize typ)
-
-  finalize (Int.TypeExtBinding ref typ) = undefined -- TODO
+  finalize (Int.TypePrim prim)               = Ext.TypePrim prim
+  finalize (Int.TypeStruct name)             = Ext.TypeStruct name
+  finalize (Int.TypeUnion name)              = Ext.TypeUnion name
+  finalize (Int.TypeEnum name)               = Ext.TypeEnum name
+  finalize (Int.TypeTypedef name ann)        = Ext.TypeTypedef name ann
+  finalize (Int.TypePointer typ)             = Ext.TypePointer (finalize typ)
+  finalize (Int.TypeFun args res)            = Ext.TypeFun (map finalize args) (finalize res)
+  finalize (Int.TypeVoid)                    = Ext.TypeVoid
+  finalize (Int.TypeConstArray n typ)        = Ext.TypeConstArray n (finalize typ)
+  finalize (Int.TypeIncompleteArray typ)     = Ext.TypeIncompleteArray (finalize typ)
+  finalize (Int.TypeExtBinding ref typeSpec) = Ext.TypeExtBinding ref typeSpec

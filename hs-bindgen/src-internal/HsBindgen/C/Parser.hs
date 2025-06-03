@@ -33,11 +33,11 @@ import Clang.LowLevel.Core
 import Clang.Paths
 import Data.DynGraph (DynGraph)
 import Data.DynGraph qualified as DynGraph
+import HsBindgen.BindingSpecs (ResolvedBindingSpecs)
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.Args (ExtraClangArgsLog, withExtraClangArgs)
 import HsBindgen.Errors
-import HsBindgen.ExtBindings
 import HsBindgen.Frontend (processTranslationUnit)
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.Parse.Monad (ParseEnv (ParseEnv))
@@ -83,10 +83,10 @@ parseCHeaders ::
      Tracer IO (TraceWithCallStack Trace)
   -> ClangArgs
   -> Predicate
-  -> ExtBindings
+  -> ResolvedBindingSpecs
   -> [CHeaderIncludePath]
   -> IO ([SourcePath], C.TranslationUnit) -- ^ List of included headers and parsed header
-parseCHeaders tracer args predicate extBindings headerIncludePaths =
+parseCHeaders tracer args predicate extSpecs headerIncludePaths =
   withExtraClangArgs (useTrace TraceExtraClangArgs tracer) args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
@@ -116,7 +116,7 @@ parseCHeaders tracer args predicate extBindings headerIncludePaths =
               (decls, finalDeclState) <-
                 C.runFoldState C.initDeclState $
                   HighLevel.clang_visitChildren rootCursor $
-                    C.foldDecls (useTrace TraceSkipped tracer) p extBindings headerIncludePaths unit
+                    C.foldDecls (useTrace TraceSkipped tracer) p extSpecs headerIncludePaths unit
               let decls' =
                     [ d
                     | C.TypeDecl _ d <-

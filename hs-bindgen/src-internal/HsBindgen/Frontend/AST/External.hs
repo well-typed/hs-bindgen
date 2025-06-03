@@ -46,7 +46,7 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.ExtBindings (ExtIdentifier)
+import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Pass.NameMangler.IsPass qualified as NameMangler
 import HsBindgen.Frontend.Pass.RenameAnon qualified as RenameAnon
@@ -225,7 +225,7 @@ data Type =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray Type
-  | TypeExtBinding ExtIdentifier Type
+  | TypeExtBinding ExtHsRef BindingSpecs.TypeSpec
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow Type
 

@@ -5,6 +5,7 @@ module HsBindgen.Frontend.AST.PrettyPrinter (
 
 import Data.Text qualified as Text
 
+import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -54,7 +55,8 @@ showsType x (TypeFun args res)      = showsFunctionType (showParen True x) (zipW
   named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                = showString "void " . x
 showsType x (TypeIncompleteArray t) = showsType (x . showString "[]") t
-showsType x (TypeExtBinding _ t)    = showsType x t
+showsType _x (TypeExtBinding _ref _typeSpec) =
+  throwPure_TODO 608 "showsType TypeExtBinding needs CNameSpelling"
 
 -- TODO: Currently 'NamePair' contains a 'CName' which /we/ constructed.
 -- We might want to extend 'CName' with an additional field which tells us

@@ -76,6 +76,7 @@ library internal
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH.Translation
       HsBindgen.BindingSpecs
+      HsBindgen.BindingSpecs.Gen
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
@@ -91,8 +92,6 @@ library internal
       HsBindgen.Debug
       HsBindgen.Eff
       HsBindgen.Errors
-      HsBindgen.ExtBindings
-      HsBindgen.ExtBindings.Gen
       HsBindgen.Frontend
       HsBindgen.Frontend.AST.Deps
       HsBindgen.Frontend.AST.External

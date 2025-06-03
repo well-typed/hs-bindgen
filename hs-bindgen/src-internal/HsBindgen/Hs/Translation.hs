@@ -25,9 +25,9 @@ import GHC.Exts qualified as IsList (IsList (..))
 import C.Char qualified
 import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
 import Clang.Paths
+import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
-import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
 import HsBindgen.Hs.AST qualified as Hs
@@ -162,8 +162,8 @@ getInstances instanceMap name = aux
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO{} -> Set.empty
           HsFun{} -> Set.empty
-          HsExtBinding extId _cType ->
-            let acc' = acc /\ ExtBindings.extIdentifierInstances extId
+          HsExtBinding _ref typeSpec ->
+            let acc' = acc /\ typeSpecInsts typeSpec
             in  aux acc' hsTypes
           HsByteArray{} ->
             let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
@@ -268,6 +268,13 @@ getInstances instanceMap name = aux
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
+      ]
+
+    typeSpecInsts :: BindingSpecs.TypeSpec -> Set HsTypeClass
+    typeSpecInsts typeSpec = Set.fromAscList [
+        cls
+      | (cls, BindingSpecs.Require{}) <-
+           Map.toAscList (BindingSpecs.typeSpecInstances typeSpec)
       ]
 
 {-------------------------------------------------------------------------------
