@@ -48,7 +48,7 @@ import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.SHs.AST
 import HsBindgen.Guasi
 
-import DeBruijn
+import DeBruijn (Env (..), lookupEnv, EmptyCtx, Add (..))
 import GHC.Exts (Int(..), sizeofByteArray#)
 
 {-------------------------------------------------------------------------------

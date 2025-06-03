@@ -26,7 +26,7 @@ import HsBindgen.NameHint
 import C.Type qualified as CExpr
 import C.Char qualified as CExpr
 
-import DeBruijn
+import DeBruijn (S, Add, addToInt, Idx, idxToInt, Size, sizeToInt)
 
 {-------------------------------------------------------------------------------
   base
