@@ -2,15 +2,15 @@ module HsBindgen.GenTests.Hs (
     genTestsHs
   ) where
 
-import Data.Bits qualified as Bits
-import Data.List qualified as List
-import Data.Vec.Lazy qualified as Vec
-import System.FilePath qualified as FilePath
+--import Data.Bits qualified as Bits
+--import Data.List qualified as List
+--import Data.Vec.Lazy qualified as Vec
+--import System.FilePath qualified as FilePath
 
-import HsBindgen.GenTests.Internal
+--import HsBindgen.GenTests.Internal
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
-import Text.SimplePrettyPrint
+--import HsBindgen.Hs.AST.Name
+--import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Generation
@@ -26,6 +26,9 @@ genTestsHs ::
   -> Int       -- ^ Maximum line length
   -> [Hs.Decl] -- ^ Declarations
   -> IO ()
+genTestsHs = undefined -- TODO refactor
+
+{-
 genTestsHs
   hsTestPath
   hsSpecPath
@@ -511,3 +514,4 @@ prettySection :: String -> CtxDoc
 prettySection label = renderedLines $ \w ->
     let rule = List.replicate (w - 1) '-'
     in  ['{' : rule, "  " ++ label, rule ++ "}"]
+-}

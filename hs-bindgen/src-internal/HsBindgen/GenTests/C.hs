@@ -2,24 +2,24 @@ module HsBindgen.GenTests.C (
     genTestsC
   ) where
 
-import Data.Char qualified as Char
-import Data.List qualified as List
-import Data.Text qualified as T
-import Data.Typeable (typeOf)
-import Data.Vec.Lazy qualified as Vec
-import System.FilePath qualified as FilePath
-import System.FilePath.Posix qualified as Posix
+--import Data.Char qualified as Char
+--import Data.List qualified as List
+--import Data.Text qualified as T
+--import Data.Typeable (typeOf)
+--import Data.Vec.Lazy qualified as Vec
+--import System.FilePath qualified as FilePath
+--import System.FilePath.Posix qualified as Posix
 
 import Clang.Paths
-import HsBindgen.Errors
-import HsBindgen.C.AST qualified as C
-import HsBindgen.C.AST.Name
-import HsBindgen.GenTests.Internal
-    ( CFunPrefix, getCFunPrefix, prettyHsName )
+--import HsBindgen.Errors
+--import HsBindgen.C.AST qualified as C
+--import HsBindgen.C.AST.Name
+--import HsBindgen.GenTests.Internal
+--    ( CFunPrefix, getCFunPrefix, prettyHsName )
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
-import HsBindgen.Hs.AST.Type qualified as HsT
-import Text.SimplePrettyPrint
+--import HsBindgen.Hs.AST.Name
+--import HsBindgen.Hs.AST.Type qualified as HsT
+--import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Generation
@@ -33,6 +33,9 @@ genTestsC ::
   -> CHeaderIncludePath -- ^ C header path
   -> [Hs.Decl]          -- ^ Declarations
   -> IO ()
+genTestsC = undefined -- TODO refactor
+
+{-
 genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
     writeFile cTestHeaderPath $ renderPretty ctx CTestHeader{..}
     writeFile cTestSourcePath $ renderPretty ctx CTestSource{..}
@@ -339,3 +342,4 @@ prettyFun lDoc args rDoc = lDoc >< "(" >< fsep
   where
     numArgs :: Int
     numArgs = length args
+-}
