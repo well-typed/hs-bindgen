@@ -23,7 +23,8 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.NameHint
-import HsBindgen.Hs.AST qualified as Hs
+import HsBindgen.Hs.AST.Origin qualified as Hs
+import HsBindgen.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 
