@@ -317,12 +317,8 @@ load ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
   -> ClangArgs
   -> [FilePath]
-  -> IO
-       ( Either
-           BindingSpecExceptions
-           (Set ResolveHeaderException, ResolvedBindingSpec)
-       )
-load tracer args paths = do
+  -> IO (Set ResolveHeaderException, ResolvedBindingSpec)
+load tracer args paths = throwExceptions =<< do
     (errs, uspec) <-
       first (map ReadBindingSpecException) . partitionEithers
         <$> mapM readFile paths
@@ -333,6 +329,9 @@ load tracer args paths = do
         | null errs -> Right (resolveErrs, spec)
         | otherwise -> Left $ BindingSpecExceptions errs
       Left mergeErr -> Left $ BindingSpecExceptions (errs ++ [mergeErr])
+  where
+    throwExceptions :: Either BindingSpecExceptions x -> IO x
+    throwExceptions = either throwIO return
 
 -- | Lookup the 'TypeSpec' associated with a C name spelling where there is at
 -- least one header in common with the specified set

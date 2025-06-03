@@ -264,7 +264,7 @@ parseInput =
 loadExtBindings' :: HasCallStack =>
      Tracer IO (TraceWithCallStack Trace)
   -> GlobalOpts
-  -> IO ExtBindings
+  -> IO ResolvedBindingSpec
 loadExtBindings' tracer GlobalOpts{..} = do
     (resolveErrs, extBindings) <-
       loadExtBindings (useTrace TraceExtraClangArgs tracer) globalOptsClangArgs globalOptsExtBindings
