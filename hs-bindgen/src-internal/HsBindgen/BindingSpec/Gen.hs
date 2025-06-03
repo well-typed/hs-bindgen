@@ -1,6 +1,6 @@
-module HsBindgen.BindingSpecs.Gen (
+module HsBindgen.BindingSpec.Gen (
     -- * API
-    genBindingSpecs
+    genBindingSpec
   ) where
 
 import Data.Map.Strict qualified as Map
@@ -8,8 +8,8 @@ import Data.Set qualified as Set
 
 import Clang.CNameSpelling
 import Clang.Paths
-import HsBindgen.BindingSpecs (UnresolvedBindingSpecs)
-import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.BindingSpec (UnresolvedBindingSpec)
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.NameMangler.IsPass qualified as NameMangler
@@ -23,18 +23,18 @@ import HsBindgen.Language.Haskell
   API
 -------------------------------------------------------------------------------}
 
--- TODO omitted binding specs
-genBindingSpecs ::
+-- TODO omitted types
+genBindingSpec ::
      CHeaderIncludePath
   -> HsModuleName
   -> [Hs.Decl]
-  -> UnresolvedBindingSpecs
-genBindingSpecs headerIncludePath hsModuleName = foldr aux BindingSpecs.empty
+  -> UnresolvedBindingSpec
+genBindingSpec headerIncludePath hsModuleName = foldr aux BindingSpec.empty
   where
     aux ::
          Hs.Decl
-      -> UnresolvedBindingSpecs
-      -> UnresolvedBindingSpecs
+      -> UnresolvedBindingSpec
+      -> UnresolvedBindingSpec
     aux = \case
       Hs.DeclData struct      -> insertType $ getStructSpec hsModuleName struct
       Hs.DeclEmpty edata      -> insertType $ getEmptyDataSpec hsModuleName edata
@@ -51,11 +51,11 @@ genBindingSpecs headerIncludePath hsModuleName = foldr aux BindingSpecs.empty
 
     insertType ::
          Spec
-      -> UnresolvedBindingSpecs
-      -> UnresolvedBindingSpecs
-    insertType (cname, oTypeSpec) specs = BindingSpecs.BindingSpecs {
-        bindingSpecsTypes = Map.insert cname [(headers, oTypeSpec)] $
-          BindingSpecs.bindingSpecsTypes specs
+      -> UnresolvedBindingSpec
+      -> UnresolvedBindingSpec
+    insertType (cname, oTypeSpec) spec = BindingSpec.BindingSpec {
+        bindingSpecTypes = Map.insert cname [(headers, oTypeSpec)] $
+          BindingSpec.bindingSpecTypes spec
       }
 
     headers :: Set CHeaderIncludePath
@@ -65,7 +65,7 @@ genBindingSpecs headerIncludePath hsModuleName = foldr aux BindingSpecs.empty
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
-type Spec = (CNameSpelling, BindingSpecs.Omittable BindingSpecs.TypeSpec)
+type Spec = (CNameSpelling, BindingSpec.Omittable BindingSpec.TypeSpec)
 
 -- TODO aliases
 getStructSpec :: HsModuleName -> Hs.Struct n -> Spec
@@ -77,14 +77,14 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
           cnameSpelling = CNameSpelling $ "struct " <> getCName cname
           hsIdentifier = HsIdentifier $ getHsName (Hs.structName hsStruct)
           NameMangler.DeclSpec typeSpec' = Origin.declSpec originDecl
-          typeSpec = BindingSpecs.TypeSpec {
+          typeSpec = BindingSpec.TypeSpec {
               typeSpecModule     = Just hsModuleName
             , typeSpecIdentifier = Just hsIdentifier
             , typeSpecInstances  =
-                 BindingSpecs.typeSpecInstances typeSpec'
+                 BindingSpec.typeSpecInstances typeSpec'
                    <> mkInstSpecs (Hs.structInstances hsStruct)
             }
-      in  (cnameSpelling, BindingSpecs.Require typeSpec)
+      in  (cnameSpelling, BindingSpec.Require typeSpec)
 
 -- TODO aliases
 getEmptyDataSpec :: HsModuleName -> Hs.EmptyData -> Spec
@@ -95,12 +95,12 @@ getEmptyDataSpec hsModuleName edata =
           Origin.OpaqueStruct -> "struct " <> getCName cname
           Origin.OpaqueEnum   -> "enum "   <> getCName cname
         hsIdentifier = HsIdentifier $ getHsName (Hs.emptyDataName edata)
-        typeSpec = BindingSpecs.TypeSpec {
+        typeSpec = BindingSpec.TypeSpec {
             typeSpecModule     = Just hsModuleName
           , typeSpecIdentifier = Just hsIdentifier
           , typeSpecInstances  = Map.empty
           }
-    in  (cnameSpelling, BindingSpecs.Require typeSpec)
+    in  (cnameSpelling, BindingSpec.Require typeSpec)
 
 -- TODO aliases
 getNewtypeSpec :: HsModuleName -> Hs.Newtype -> Spec
@@ -114,22 +114,22 @@ getNewtypeSpec hsModuleName hsNewtype =
           Origin.Macro{}   -> getCName cname
         hsIdentifier = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
         NameMangler.DeclSpec typeSpec' = Origin.declSpec originDecl
-        typeSpec = BindingSpecs.TypeSpec {
+        typeSpec = BindingSpec.TypeSpec {
             typeSpecModule     = Just hsModuleName
           , typeSpecIdentifier = Just hsIdentifier
           , typeSpecInstances  =
-              BindingSpecs.typeSpecInstances typeSpec'
+              BindingSpec.typeSpecInstances typeSpec'
                 <> mkInstSpecs (Hs.newtypeInstances hsNewtype)
           }
-    in  (cnameSpelling, BindingSpecs.Require typeSpec)
+    in  (cnameSpelling, BindingSpec.Require typeSpec)
 
 mkInstSpecs ::
      Set HsTypeClass
-  -> Map HsTypeClass (BindingSpecs.Omittable BindingSpecs.InstanceSpec)
+  -> Map HsTypeClass (BindingSpec.Omittable BindingSpec.InstanceSpec)
 mkInstSpecs = Map.fromAscList . map (, oInstSpec) . Set.toAscList
   where
-    oInstSpec :: BindingSpecs.Omittable BindingSpecs.InstanceSpec
-    oInstSpec = BindingSpecs.Require BindingSpecs.InstanceSpec {
+    oInstSpec :: BindingSpec.Omittable BindingSpec.InstanceSpec
+    oInstSpec = BindingSpec.Require BindingSpec.InstanceSpec {
         instanceSpecStrategy    = Nothing -- TODO strategy?
       , instanceSpecConstraints = []      -- TODO constraints
       }

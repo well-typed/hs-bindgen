@@ -37,7 +37,7 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
@@ -223,7 +223,7 @@ data Type p =
   | TypeIncompleteArray (Type p)
 
     -- | TODO: Docs
-  | TypeExtBinding ExtHsRef BindingSpecs.TypeSpec
+  | TypeExtBinding ExtHsRef BindingSpec.TypeSpec
 
 {-------------------------------------------------------------------------------
   Qualified names

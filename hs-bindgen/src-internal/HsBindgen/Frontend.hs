@@ -3,7 +3,8 @@
 -- Intended for unqualified import.
 module HsBindgen.Frontend (processTranslationUnit) where
 
-import HsBindgen.BindingSpecs (ResolvedBindingSpecs)
+import HsBindgen.BindingSpec (ResolvedBindingSpec)
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.AST.Internal qualified as Int
@@ -13,7 +14,7 @@ import HsBindgen.Frontend.Pass.NameMangler
 import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Frontend.Pass.Parse.Monad (ParseEnv)
 import HsBindgen.Frontend.Pass.RenameAnon
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs
+import HsBindgen.Frontend.Pass.ResolveBindingSpec
 
 {-------------------------------------------------------------------------------
   Construction
@@ -25,25 +26,25 @@ processTranslationUnit parseEnvironment = do
     afterParse <- parseTranslationUnit parseEnvironment
 
     -- TODO receive binding specifications via arguments
-    let confSpecs, extSpecs :: ResolvedBindingSpecs
-        confSpecs = undefined
-        extSpecs  = undefined
+    let confSpec, extSpec :: ResolvedBindingSpec
+        confSpec = BindingSpec.empty
+        extSpec  = BindingSpec.empty
 
     let (afterHandleMacros, macroErrors) =
           handleMacros afterParse
         afterRenameAnon =
           renameAnon afterHandleMacros
-        (afterResolveBindingSpecs, bindingSpecsErrors) =
-          resolveBindingSpecs confSpecs extSpecs afterRenameAnon
+        (afterResolveBindingSpec, bindingSpecErrors) =
+          resolveBindingSpec confSpec extSpec afterRenameAnon
         (afterNameMangler, mangleErrors) =
-          mangleNames afterResolveBindingSpecs
+          mangleNames afterResolveBindingSpec
 
     writeFile "usedef.mermaid" $
       UseDef.dumpMermaid show (Int.unitAnn afterParse)
 
     -- TODO: Use tracer for these
     mapM_ print macroErrors
-    mapM_ print bindingSpecsErrors
+    mapM_ print bindingSpecErrors
     mapM_ print mangleErrors
 
     return $ finalize afterNameMangler

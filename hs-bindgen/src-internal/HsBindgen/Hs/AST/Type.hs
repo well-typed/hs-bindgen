@@ -5,7 +5,7 @@ module HsBindgen.Hs.AST.Type (
   hsPrimFloatTy
 ) where
 
-import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 
@@ -60,7 +60,7 @@ data HsType =
   | HsFunPtr HsType
   | HsIO HsType
   | HsFun HsType HsType
-  | HsExtBinding ExtHsRef BindingSpecs.TypeSpec
+  | HsExtBinding ExtHsRef BindingSpec.TypeSpec
   | HsByteArray
   | HsSizedByteArray Natural Natural
   deriving stock (Generic, Show)

@@ -19,7 +19,7 @@ module HsBindgen.SHs.AST (
     PatternSynonym (..),
 ) where
 
-import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.Origin qualified as Origin
@@ -252,7 +252,7 @@ data SType ctx =
   | TCon (HsName NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
-  | TExt ExtHsRef BindingSpecs.TypeSpec
+  | TExt ExtHsRef BindingSpec.TypeSpec
   | TBound (Idx ctx)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')

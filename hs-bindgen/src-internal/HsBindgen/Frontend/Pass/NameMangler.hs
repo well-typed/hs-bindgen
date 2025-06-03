@@ -9,12 +9,12 @@ import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Proxy
 
-import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.NameMangler.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs
+import HsBindgen.Frontend.Pass.ResolveBindingSpec
 import HsBindgen.Hs.NameMangler.DSL.FixCandidate (FixCandidate(..))
 import HsBindgen.Hs.NameMangler.DSL.FixCandidate qualified as FixCandidate
 import HsBindgen.Imports
@@ -33,7 +33,7 @@ import HsBindgen.Language.Haskell
 -------------------------------------------------------------------------------}
 
 mangleNames ::
-     C.TranslationUnit ResolveBindingSpecs
+     C.TranslationUnit ResolveBindingSpec
   -> (C.TranslationUnit NameMangler, [MangleError])
 mangleNames unit =
     (unit', errors1 ++ errors2)
@@ -57,7 +57,7 @@ mangleNames unit =
   even if there are errors.
 -------------------------------------------------------------------------------}
 
-type NameMap = Map (C.QualId ResolveBindingSpecs) HsIdentifier
+type NameMap = Map (C.QualId ResolveBindingSpec) HsIdentifier
 
 data MangleError =
     CouldNotMangle Text
@@ -65,15 +65,15 @@ data MangleError =
 
 chooseNames ::
      FixCandidate Maybe
-  -> [C.Decl ResolveBindingSpecs] -> (NameMap, [MangleError])
+  -> [C.Decl ResolveBindingSpec] -> (NameMap, [MangleError])
 chooseNames fix decls =
     bimap Map.fromList catMaybes $
       unzip $ map (nameForDecl fix) decls
 
 nameForDecl ::
      FixCandidate Maybe
-  -> C.Decl ResolveBindingSpecs
-  -> ((C.QualId ResolveBindingSpecs, HsIdentifier), Maybe MangleError)
+  -> C.Decl ResolveBindingSpec
+  -> ((C.QualId ResolveBindingSpec, HsIdentifier), Maybe MangleError)
 nameForDecl fix decl =
     case typeSpecIdentifier of
       Just hsName -> (choose hsName, Nothing)
@@ -81,9 +81,9 @@ nameForDecl fix decl =
                        first choose $ fromCName fix ns cName
   where
     C.Decl{declInfo = C.DeclInfo{declId = cName}, declKind, declAnn} = decl
-    BindingSpecs.TypeSpec{typeSpecIdentifier} = declAnn
+    BindingSpec.TypeSpec{typeSpecIdentifier} = declAnn
 
-    choose :: HsIdentifier -> (C.QualId ResolveBindingSpecs, HsIdentifier)
+    choose :: HsIdentifier -> (C.QualId ResolveBindingSpec, HsIdentifier)
     choose hsName = (C.declQualId decl, hsName)
 
 fromCName :: forall ns.
@@ -134,14 +134,14 @@ runM fix nm = flip runReader env . flip runStateT [] . unwrapM
 -------------------------------------------------------------------------------}
 
 class Mangle a where
-  mangle :: a ResolveBindingSpecs -> M (a NameMangler)
+  mangle :: a ResolveBindingSpec -> M (a NameMangler)
 
 class MangleDecl a where
   mangleDecl ::
        C.DeclInfo NameMangler
-    -> a ResolveBindingSpecs -> M (a NameMangler)
+    -> a ResolveBindingSpec -> M (a NameMangler)
 
-mangleQualId :: C.QualId ResolveBindingSpecs -> M NamePair
+mangleQualId :: C.QualId ResolveBindingSpec -> M NamePair
 mangleQualId qualId@(C.QualId cName _namespace) = do
     nm <- asks envNameMap
     return $
@@ -403,7 +403,7 @@ instance Mangle C.Type where
 -------------------------------------------------------------------------------}
 
 withDeclNamespace ::
-     C.DeclKind ResolveBindingSpecs
+     C.DeclKind ResolveBindingSpec
   -> (forall ns. SingNamespace ns => Proxy ns -> r)
   -> r
 withDeclNamespace kind k =

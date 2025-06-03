@@ -75,8 +75,8 @@ library internal
       HsBindgen.Backend.PP.Render
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH.Translation
-      HsBindgen.BindingSpecs
-      HsBindgen.BindingSpecs.Gen
+      HsBindgen.BindingSpec
+      HsBindgen.BindingSpec.Gen
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
@@ -116,8 +116,8 @@ library internal
       HsBindgen.Frontend.Pass.Parse.Util
       HsBindgen.Frontend.Pass.RenameAnon
       HsBindgen.Frontend.Pass.RenameAnon.IsPass
-      HsBindgen.Frontend.Pass.ResolveBindingSpecs
-      HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+      HsBindgen.Frontend.Pass.ResolveBindingSpec
+      HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
       HsBindgen.Frontend.RootHeader
       HsBindgen.GenTests
       HsBindgen.GenTests.C

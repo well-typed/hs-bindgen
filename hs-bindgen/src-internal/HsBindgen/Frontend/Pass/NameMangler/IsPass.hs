@@ -8,7 +8,7 @@ module HsBindgen.Frontend.Pass.NameMangler.IsPass (
   , DeclSpec(..)
   ) where
 
-import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (ValidPass, CheckedMacro)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
@@ -23,8 +23,8 @@ import HsBindgen.Language.Haskell
 
 -- | NameMangler
 --
--- Name mangling depends on information from the binding specs, and must
--- therefore happen after 'ResolveBindingSpecs'.
+-- Name mangling depends on information from the binding spec, and must
+-- therefore happen after 'ResolveBindingSpec'.
 type NameMangler :: Pass
 data NameMangler a deriving anyclass (ValidPass)
 
@@ -85,7 +85,7 @@ data NewtypeNames = NewtypeNames {
   deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
-  Information from the binding specs, minus naming information
+  Information from the binding spec, minus naming information
 -------------------------------------------------------------------------------}
 
 -- | Binding specification for this declaration
@@ -99,5 +99,5 @@ data NewtypeNames = NewtypeNames {
 -- functions, etc.). When we do, we should not associate them with the top-level
 -- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
 -- have consequences for "Hs.Origin" also.
-newtype DeclSpec = DeclSpec BindingSpecs.TypeSpec
+newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
   deriving stock (Show, Eq)

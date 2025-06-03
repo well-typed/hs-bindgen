@@ -5,7 +5,7 @@
 -- information for various purposes:
 --
 -- * Generating tests
--- * Generating external binding specifications
+-- * Generating external binding specification
 -- * Generating documentation
 --
 -- Intended for qualified import.

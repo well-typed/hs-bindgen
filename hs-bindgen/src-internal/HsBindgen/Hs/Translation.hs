@@ -25,7 +25,7 @@ import GHC.Exts qualified as IsList (IsList (..))
 import C.Char qualified
 import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
 import Clang.Paths
-import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
@@ -270,11 +270,11 @@ getInstances instanceMap name = aux
       , Hs.WriteRaw
       ]
 
-    typeSpecInsts :: BindingSpecs.TypeSpec -> Set HsTypeClass
+    typeSpecInsts :: BindingSpec.TypeSpec -> Set HsTypeClass
     typeSpecInsts typeSpec = Set.fromAscList [
         cls
-      | (cls, BindingSpecs.Require{}) <-
-           Map.toAscList (BindingSpecs.typeSpecInstances typeSpec)
+      | (cls, BindingSpec.Require{}) <-
+           Map.toAscList (BindingSpec.typeSpecInstances typeSpec)
       ]
 
 {-------------------------------------------------------------------------------

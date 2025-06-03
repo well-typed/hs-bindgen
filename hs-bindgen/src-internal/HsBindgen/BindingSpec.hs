@@ -1,13 +1,13 @@
--- | Binding specifications
+-- | Binding specification
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.BindingSpecs qualified as BindingSpecs
-module HsBindgen.BindingSpecs (
+-- > import HsBindgen.BindingSpec qualified as BindingSpec
+module HsBindgen.BindingSpec (
     -- * Types
-    BindingSpecs(..)
-  , UnresolvedBindingSpecs
-  , ResolvedBindingSpecs
+    BindingSpec(..)
+  , UnresolvedBindingSpec
+  , ResolvedBindingSpec
   , Omittable(..)
   , TypeSpec(..)
   , defaultTypeSpec
@@ -16,11 +16,11 @@ module HsBindgen.BindingSpecs (
   , StrategySpec(..)
   , ConstraintSpec(..)
     -- ** Exceptions
-  , ReadBindingSpecsException(..)
-  , WriteBindingSpecsException(..)
-  , MergeBindingSpecsException(..)
-  , BindingSpecsException(..)
-  , BindingSpecsExceptions(..)
+  , ReadBindingSpecException(..)
+  , WriteBindingSpecException(..)
+  , MergeBindingSpecException(..)
+  , BindingSpecException(..)
+  , BindingSpecExceptions(..)
     -- * API
   , empty
   , load
@@ -78,11 +78,11 @@ import HsBindgen.Util.Tracer (TraceWithCallStack)
   Types
 -------------------------------------------------------------------------------}
 
--- | Binding specifications
+-- | Binding specification
 --
 -- The @header@ type parameter determines the representation of header paths.
--- See 'UnresolvedBindingSpecs' and 'ResolvedBindingSpecs'.
-newtype BindingSpecs header = BindingSpecs {
+-- See 'UnresolvedBindingSpec' and 'ResolvedBindingSpec'.
+newtype BindingSpec header = BindingSpec {
       -- | Type specifications
       --
       -- C types are identified using a 'CNameSpelling' and a set of headers
@@ -92,15 +92,15 @@ newtype BindingSpecs header = BindingSpecs {
       -- @'Map' 'CNameSpelling' ('Map' header 'Omittable Type')@, but this type
       -- is used as an optimization.  In most cases, each 'CNameSpelling' is
       -- mapped to a singleton list with a singleton set of headers.
-      bindingSpecsTypes :: Map CNameSpelling [(Set header, Omittable TypeSpec)]
+      bindingSpecTypes :: Map CNameSpelling [(Set header, Omittable TypeSpec)]
     }
   deriving stock (Eq, Generic, Show)
 
--- | Binding specifications with unresolved headers
-type UnresolvedBindingSpecs = BindingSpecs CHeaderIncludePath
+-- | Binding specification with unresolved headers
+type UnresolvedBindingSpec = BindingSpec CHeaderIncludePath
 
--- | Binding specifications with resolved headers
-type ResolvedBindingSpecs = BindingSpecs SourcePath
+-- | Binding specification with resolved headers
+type ResolvedBindingSpec = BindingSpec SourcePath
 
 --------------------------------------------------------------------------------
 
@@ -123,7 +123,7 @@ data Omittable a =
 
 --------------------------------------------------------------------------------
 
--- | Binding specifications for a C type
+-- | Binding specification for a C type
 data TypeSpec = TypeSpec {
       -- | Haskell module
       typeSpecModule :: Maybe HsModuleName
@@ -131,7 +131,7 @@ data TypeSpec = TypeSpec {
     , -- | Haskell identifier
       typeSpecIdentifier :: Maybe HsIdentifier
 
-    , -- | Instance specifications
+    , -- | Instance specification
       typeSpecInstances :: Map HsTypeClass (Omittable InstanceSpec)
     }
   deriving stock (Eq, Generic, Show)
@@ -147,7 +147,7 @@ defaultTypeSpec = TypeSpec {
   Types: Instances
 -------------------------------------------------------------------------------}
 
--- | Instance specifications
+-- | Instance specification
 data InstanceSpec = InstanceSpec {
       -- | Strategy used to generate/derive the instance
       --
@@ -207,40 +207,40 @@ data ConstraintSpec = ConstraintSpec {
   Types: Exceptions
 -------------------------------------------------------------------------------}
 
--- | Failed to load binding specifications file
-data ReadBindingSpecsException =
+-- | Failed to load binding specification file
+data ReadBindingSpecException =
     -- | Unknown file extension
-    ReadBindingSpecsUnknownExtension FilePath
+    ReadBindingSpecUnknownExtension FilePath
   | -- | Aeson parsing error
-    ReadBindingSpecsAesonError FilePath String
+    ReadBindingSpecAesonError FilePath String
   | -- | YAML parsing error
-    ReadBindingSpecsYamlError FilePath Yaml.ParseException
+    ReadBindingSpecYamlError FilePath Yaml.ParseException
   | -- | YAML parsing warnings (which should be treated like errors)
-    ReadBindingSpecsYamlWarning FilePath [Data.Yaml.Internal.Warning]
-    -- | Multiple specifications for the same C name and header in the same file
-  | ReadBindingSpecsConflict
+    ReadBindingSpecYamlWarning FilePath [Data.Yaml.Internal.Warning]
+    -- | Multiple entries for the same C name and header in the same file
+  | ReadBindingSpecConflict
       FilePath
       (Set (CNameSpelling, CHeaderIncludePath))
   deriving stock (Show)
 
-instance Exception ReadBindingSpecsException where
+instance Exception ReadBindingSpecException where
   displayException = \case
-    ReadBindingSpecsUnknownExtension path -> "unknown extension: " ++ path
-    ReadBindingSpecsAesonError path err ->
+    ReadBindingSpecUnknownExtension path -> "unknown extension: " ++ path
+    ReadBindingSpecAesonError path err ->
       "error parsing JSON: " ++ path ++ ": " ++ err
-    ReadBindingSpecsYamlError path err -> unlines [
+    ReadBindingSpecYamlError path err -> unlines [
         "error parsing YAML: " ++ path
       , Yaml.prettyPrintParseException err
       ]
-    ReadBindingSpecsYamlWarning path warnings ->
+    ReadBindingSpecYamlWarning path warnings ->
       unlines $
           ("duplicate keys in YAML file: " ++ path)
         : [ "  " ++ Aeson.formatPath jsonPath
           | Data.Yaml.Internal.DuplicateKey jsonPath <- warnings
           ]
-    ReadBindingSpecsConflict path conflicts ->
+    ReadBindingSpecConflict path conflicts ->
       unlines $
-          ( "multiple specifications for same C name and header: "
+          ( "multiple entries for same C name and header: "
               ++ path
           )
         : [ "  " ++ Text.unpack (getCNameSpelling cname)
@@ -250,27 +250,27 @@ instance Exception ReadBindingSpecsException where
 
 --------------------------------------------------------------------------------
 
--- | Failed to write binding specifications file
-newtype WriteBindingSpecsException =
+-- | Failed to write binding specification file
+newtype WriteBindingSpecException =
     -- | Unknown file extension
-    WriteBindingSpecsUnknownExtension FilePath
+    WriteBindingSpecUnknownExtension FilePath
   deriving stock (Show)
 
-instance Exception WriteBindingSpecsException where
+instance Exception WriteBindingSpecException where
   displayException = \case
-    WriteBindingSpecsUnknownExtension path -> "unknown extension: " ++ path
+    WriteBindingSpecUnknownExtension path -> "unknown extension: " ++ path
 
 --------------------------------------------------------------------------------
 
 -- | Failed to merge binding specifications
-newtype MergeBindingSpecsException =
+newtype MergeBindingSpecException =
     -- | Multiple binding specifications for the same C name and header
-    MergeBindingSpecsConflict (Set CNameSpelling)
+    MergeBindingSpecConflict (Set CNameSpelling)
   deriving stock (Show)
 
-instance Exception MergeBindingSpecsException where
+instance Exception MergeBindingSpecException where
   displayException = \case
-    MergeBindingSpecsConflict cnames ->
+    MergeBindingSpecConflict cnames ->
       unlines $
           "conflicting binding specifications for same C name and header:"
         : [ "  " ++ Text.unpack (getCNameSpelling cname)
@@ -280,34 +280,34 @@ instance Exception MergeBindingSpecsException where
 --------------------------------------------------------------------------------
 
 -- | Failed loading, resolving, or merging binding specifications
-data BindingSpecsException =
-    ReadBindingSpecsException  ReadBindingSpecsException
-  | MergeBindingSpecsException MergeBindingSpecsException
+data BindingSpecException =
+    ReadBindingSpecException  ReadBindingSpecException
+  | MergeBindingSpecException MergeBindingSpecException
   deriving stock (Show)
 
-instance Exception BindingSpecsException where
+instance Exception BindingSpecException where
   displayException = \case
-    ReadBindingSpecsException  e -> displayException e
-    MergeBindingSpecsException e -> displayException e
+    ReadBindingSpecException  e -> displayException e
+    MergeBindingSpecException e -> displayException e
 
 --------------------------------------------------------------------------------
 
 -- | Failed loading, resolving, or merging binding specifications
-newtype BindingSpecsExceptions = BindingSpecsExceptions [BindingSpecsException]
+newtype BindingSpecExceptions = BindingSpecExceptions [BindingSpecException]
   deriving stock (Show)
 
-instance Exception BindingSpecsExceptions where
-  displayException (BindingSpecsExceptions es) =
+instance Exception BindingSpecExceptions where
+  displayException (BindingSpecExceptions es) =
     unlines $ map displayException es
 
 {-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
 
--- | Empty binding specifications
-empty :: BindingSpecs header
-empty = BindingSpecs {
-      bindingSpecsTypes = Map.empty
+-- | Empty binding specification
+empty :: BindingSpec header
+empty = BindingSpec {
+      bindingSpecTypes = Map.empty
     }
 
 -- | Load, resolve, and merge binding specifications
@@ -319,107 +319,108 @@ load ::
   -> [FilePath]
   -> IO
        ( Either
-           BindingSpecsExceptions
-           (Set ResolveHeaderException, ResolvedBindingSpecs)
+           BindingSpecExceptions
+           (Set ResolveHeaderException, ResolvedBindingSpec)
        )
 load tracer args paths = do
-    (errs, uspecs) <-
-      first (map ReadBindingSpecsException) . partitionEithers
+    (errs, uspec) <-
+      first (map ReadBindingSpecException) . partitionEithers
         <$> mapM readFile paths
-    (resolveErrs, specss) <-
-      first Set.unions . unzip <$> mapM (resolve tracer args) uspecs
-    return $ case first MergeBindingSpecsException (merge specss) of
-      Right specs
-        | null errs -> Right (resolveErrs, specs)
-        | otherwise -> Left $ BindingSpecsExceptions errs
-      Left mergeErr -> Left $ BindingSpecsExceptions (errs ++ [mergeErr])
+    (resolveErrs, specs) <-
+      first Set.unions . unzip <$> mapM (resolve tracer args) uspec
+    return $ case first MergeBindingSpecException (merge specs) of
+      Right spec
+        | null errs -> Right (resolveErrs, spec)
+        | otherwise -> Left $ BindingSpecExceptions errs
+      Left mergeErr -> Left $ BindingSpecExceptions (errs ++ [mergeErr])
 
 -- | Lookup the 'TypeSpec' associated with a C name spelling where there is at
 -- least one header in common with the specified set
 lookupTypeSpec ::
      CNameSpelling
   -> Set SourcePath
-  -> ResolvedBindingSpecs
+  -> ResolvedBindingSpec
   -> Maybe (Omittable TypeSpec)
 lookupTypeSpec cname headers =
     fmap snd . List.find (not . Set.disjoint headers . fst)
-      <=< Map.lookup cname . bindingSpecsTypes
+      <=< Map.lookup cname . bindingSpecTypes
 
 {-------------------------------------------------------------------------------
   API: YAML/JSON
 -------------------------------------------------------------------------------}
 
--- | Read binding specifications from a file
+-- | Read a binding specification from a file
+--
 -- The format is determined by the filename extension.
 readFile ::
      FilePath
-  -> IO (Either ReadBindingSpecsException UnresolvedBindingSpecs)
+  -> IO (Either ReadBindingSpecException UnresolvedBindingSpec)
 readFile path
     | ".yaml" `List.isSuffixOf` path = readFileYaml path
     | ".json" `List.isSuffixOf` path = readFileJson path
-    | otherwise = return $ Left (ReadBindingSpecsUnknownExtension path)
+    | otherwise = return $ Left (ReadBindingSpecUnknownExtension path)
 
--- | Read binding specifications from a JSON file
+-- | Read a binding specification from a JSON file
 readFileJson ::
      FilePath
-  -> IO (Either ReadBindingSpecsException UnresolvedBindingSpecs)
+  -> IO (Either ReadBindingSpecException UnresolvedBindingSpec)
 readFileJson path = do
     ees <- Aeson.eitherDecodeFileStrict' path
     return $ case ees of
-      Right specs -> fromABindingSpecs path specs
-      Left err    -> Left (ReadBindingSpecsAesonError path err)
+      Right spec -> fromABindingSpec path spec
+      Left err   -> Left (ReadBindingSpecAesonError path err)
 
--- | Read binding specifications from a YAML file
+-- | Read a binding specification from a YAML file
 readFileYaml ::
      FilePath
-  -> IO (Either ReadBindingSpecsException UnresolvedBindingSpecs)
+  -> IO (Either ReadBindingSpecException UnresolvedBindingSpec)
 readFileYaml path = do
     eews <- Yaml.decodeFileWithWarnings path
     return $ case eews of
-      Right ([], specs) -> fromABindingSpecs path specs
-      Right (warnings, _) -> Left (ReadBindingSpecsYamlWarning path warnings)
-      Left err -> Left (ReadBindingSpecsYamlError path err)
+      Right ([], spec) -> fromABindingSpec path spec
+      Right (warnings, _) -> Left (ReadBindingSpecYamlWarning path warnings)
+      Left err -> Left (ReadBindingSpecYamlError path err)
 
--- | Encode binding specifications as JSON
-encodeJson :: UnresolvedBindingSpecs -> BSL.ByteString
-encodeJson = encodeJson' . toABindingSpecs
+-- | Encode a binding specification as JSON
+encodeJson :: UnresolvedBindingSpec -> BSL.ByteString
+encodeJson = encodeJson' . toABindingSpec
 
--- | Encode binding specifications as YAML
-encodeYaml :: UnresolvedBindingSpecs -> BSS.ByteString
-encodeYaml = encodeYaml' . toABindingSpecs
+-- | Encode a binding specification as YAML
+encodeYaml :: UnresolvedBindingSpec -> BSS.ByteString
+encodeYaml = encodeYaml' . toABindingSpec
 
--- | Write binding specifications to a file
+-- | Write a binding specification to a file
 --
 -- The format is determined by the filename extension.
 writeFile ::
      FilePath
-  -> UnresolvedBindingSpecs
-  -> IO (Either WriteBindingSpecsException ())
-writeFile path specs
-    | ".yaml" `List.isSuffixOf` path = Right <$> writeFileYaml path specs
-    | ".json" `List.isSuffixOf` path = Right <$> writeFileJson path specs
-    | otherwise = return $ Left (WriteBindingSpecsUnknownExtension path)
+  -> UnresolvedBindingSpec
+  -> IO (Either WriteBindingSpecException ())
+writeFile path spec
+    | ".yaml" `List.isSuffixOf` path = Right <$> writeFileYaml path spec
+    | ".json" `List.isSuffixOf` path = Right <$> writeFileJson path spec
+    | otherwise = return $ Left (WriteBindingSpecUnknownExtension path)
 
--- | Write binding specifications to a JSON file
-writeFileJson :: FilePath -> UnresolvedBindingSpecs -> IO ()
-writeFileJson path = BSL.writeFile path . encodeJson' . toABindingSpecs
+-- | Write a binding specification to a JSON file
+writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
+writeFileJson path = BSL.writeFile path . encodeJson' . toABindingSpec
 
--- | Write binding specifications to a YAML file
-writeFileYaml :: FilePath -> UnresolvedBindingSpecs -> IO ()
-writeFileYaml path = BSS.writeFile path . encodeYaml' . toABindingSpecs
+-- | Write a binding specification to a YAML file
+writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
+writeFileYaml path = BSS.writeFile path . encodeYaml' . toABindingSpec
 
 {-------------------------------------------------------------------------------
   API: Header resolution
 -------------------------------------------------------------------------------}
 
--- | Resolve headers in binding specifications
+-- | Resolve headers in a binding specification
 resolve ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
   -> ClangArgs
-  -> UnresolvedBindingSpecs
-  -> IO (Set ResolveHeaderException, ResolvedBindingSpecs)
-resolve tracer args uSpecs = do
-    let types = bindingSpecsTypes uSpecs
+  -> UnresolvedBindingSpec
+  -> IO (Set ResolveHeaderException, ResolvedBindingSpec)
+resolve tracer args uSpec = do
+    let types = bindingSpecTypes uSpec
         cPaths = Set.toAscList . mconcat $ fst <$> mconcat (Map.elems types)
     (errs, headerMap) <- bimap Set.fromList Map.fromList . partitionEithers
       <$> mapM
@@ -440,10 +441,10 @@ resolve tracer args uSpecs = do
           lR
             | null lR   -> Nothing
             | otherwise -> Just lR
-        rSpecs = BindingSpecs {
-            bindingSpecsTypes = Map.mapMaybe resolve' types
+        rSpec = BindingSpec {
+            bindingSpecTypes = Map.mapMaybe resolve' types
           }
-    return (errs, rSpecs)
+    return (errs, rSpec)
 
 {-------------------------------------------------------------------------------
   API: Merging
@@ -451,26 +452,26 @@ resolve tracer args uSpecs = do
 
 -- | Merge binding specifications
 merge ::
-     [ResolvedBindingSpecs]
-  -> Either MergeBindingSpecsException ResolvedBindingSpecs
+     [ResolvedBindingSpec]
+  -> Either MergeBindingSpecException ResolvedBindingSpec
 merge = \case
     []   -> Right empty
     x:xs -> do
-      bindingSpecsTypes <- mergeTypes Set.empty (bindingSpecsTypes x) $
-        concatMap (Map.toList . bindingSpecsTypes) xs
-      return BindingSpecs{..}
+      bindingSpecTypes <- mergeTypes Set.empty (bindingSpecTypes x) $
+        concatMap (Map.toList . bindingSpecTypes) xs
+      return BindingSpec{..}
   where
     mergeTypes ::
          Set CNameSpelling
       -> Map CNameSpelling [(Set SourcePath, a)]
       -> [(CNameSpelling, [(Set SourcePath, a)])]
       -> Either
-           MergeBindingSpecsException
+           MergeBindingSpecException
            (Map CNameSpelling [(Set SourcePath, a)])
     mergeTypes dupSet acc = \case
       []
         | Set.null dupSet -> Right acc
-        | otherwise       -> Left $ MergeBindingSpecsConflict dupSet
+        | otherwise       -> Left $ MergeBindingSpecConflict dupSet
       (cname, rs):ps ->
         case Map.insertLookupWithKey (const (++)) cname rs acc of
           (Nothing, acc') -> mergeTypes dupSet acc' ps
@@ -483,7 +484,7 @@ merge = \case
                   else mergeTypes (Set.insert cname dupSet) acc' ps
 
 {-------------------------------------------------------------------------------
-  Auxiliary: Specifications files
+  Auxiliary: Specification files
 -------------------------------------------------------------------------------}
 
 data AOmittable a = ARequire a | AOmit a
@@ -502,19 +503,19 @@ instance Aeson.ToJSON a => Aeson.ToJSON (AOmittable a) where
 
 --------------------------------------------------------------------------------
 
-newtype ABindingSpecs = ABindingSpecs {
-      aBindingSpecsTypes :: [AOmittable ATypeSpecMapping]
+newtype ABindingSpec = ABindingSpec {
+      aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
     }
   deriving stock Show
 
-instance Aeson.FromJSON ABindingSpecs where
-  parseJSON = Aeson.withObject "ABindingSpecs" $ \o -> do
-    aBindingSpecsTypes <- o .: "types"
-    return ABindingSpecs{..}
+instance Aeson.FromJSON ABindingSpec where
+  parseJSON = Aeson.withObject "ABindingSpec" $ \o -> do
+    aBindingSpecTypes <- o .: "types"
+    return ABindingSpec{..}
 
-instance Aeson.ToJSON ABindingSpecs where
-  toJSON ABindingSpecs{..} = Aeson.object [
-    "types" .= aBindingSpecsTypes
+instance Aeson.ToJSON ABindingSpec where
+  toJSON ABindingSpec{..} = Aeson.object [
+    "types" .= aBindingSpecTypes
     ]
 
 --------------------------------------------------------------------------------
@@ -606,27 +607,27 @@ instance Aeson.ToJSON AConstraintSpec where
 
 --------------------------------------------------------------------------------
 
-fromABindingSpecs ::
+fromABindingSpec ::
      FilePath
-  -> ABindingSpecs
-  -> Either ReadBindingSpecsException UnresolvedBindingSpecs
-fromABindingSpecs path ABindingSpecs{..} = do
-    bindingSpecsTypes <- mkTypeMap aBindingSpecsTypes
-    return BindingSpecs{..}
+  -> ABindingSpec
+  -> Either ReadBindingSpecException UnresolvedBindingSpec
+fromABindingSpec path ABindingSpec{..} = do
+    bindingSpecTypes <- mkTypeMap aBindingSpecTypes
+    return BindingSpec{..}
   where
     mkTypeMap ::
          [AOmittable ATypeSpecMapping]
       -> Either
-           ReadBindingSpecsException
+           ReadBindingSpecException
            (Map CNameSpelling [(Set CHeaderIncludePath, Omittable TypeSpec)])
     mkTypeMap = mkTypeMapErr . foldr mkTypeMapInsert (Map.empty, Map.empty)
 
     mkTypeMapErr ::
          (Map CNameSpelling (Set CHeaderIncludePath), a)
-      -> Either ReadBindingSpecsException a
+      -> Either ReadBindingSpecException a
     mkTypeMapErr (dupMap, x)
       | Map.null dupMap = Right x
-      | otherwise = Left . ReadBindingSpecsConflict path $ Set.fromList [
+      | otherwise = Left . ReadBindingSpecConflict path $ Set.fromList [
             (cname, header)
           | (cname, headers) <- Map.toList dupMap
           , header <- Set.toList headers
@@ -688,11 +689,11 @@ fromABindingSpecs path ABindingSpecs{..} = do
         in  (aInstanceSpecMappingClass, Require inst)
       AOmit AInstanceSpecMapping{..} -> (aInstanceSpecMappingClass, Omit)
 
-toABindingSpecs :: UnresolvedBindingSpecs -> ABindingSpecs
-toABindingSpecs BindingSpecs{..} = ABindingSpecs{..}
+toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
+toABindingSpec BindingSpec{..} = ABindingSpec{..}
   where
-    aBindingSpecsTypes :: [AOmittable ATypeSpecMapping]
-    aBindingSpecsTypes = [
+    aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
+    aBindingSpecTypes = [
         case oType of
           Require TypeSpec{..} -> ARequire ATypeSpecMapping {
               aTypeSpecMappingHeaders    = Set.toAscList headers
@@ -722,14 +723,14 @@ toABindingSpecs BindingSpecs{..} = ABindingSpecs{..}
             , aTypeSpecMappingIdentifier = Nothing
             , aTypeSpecMappingInstances  = []
             }
-      | (cname, xs) <- Map.toAscList bindingSpecsTypes
+      | (cname, xs) <- Map.toAscList bindingSpecTypes
       , (headers, oType) <- xs
       ]
 
-encodeJson' :: ABindingSpecs -> BSL.ByteString
+encodeJson' :: ABindingSpec -> BSL.ByteString
 encodeJson' = Aeson.encode
 
-encodeYaml' :: ABindingSpecs -> BSS.ByteString
+encodeYaml' :: ABindingSpec -> BSS.ByteString
 encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
   where
     yamlConfig :: Data.Yaml.Pretty.Config
@@ -740,7 +741,7 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
     keyPosition :: Text -> Int
     keyPosition = \case
       "omit"        -> 0  -- Omittable:1
-      "types"       -> 1  -- ABindingSpecs:1
+      "types"       -> 1  -- ABindingSpec:1
       "class"       -> 2  -- AInstanceSpecMapping:1, AConstraintSpec:1
       "headers"     -> 3  -- ATypeSpecMapping:1
       "cname"       -> 4  -- ATypeSpecMapping:2
