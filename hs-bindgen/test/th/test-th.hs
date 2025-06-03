@@ -17,8 +17,8 @@ import Control.Monad (unless, when)
 import Data.Data (Proxy (Proxy))
 import Data.Either (isRight)
 import Data.Vector.Storable qualified as VS
-import Foreign (Ptr, Storable (..), nullPtr)
-import Foreign.C.Types (CLong)
+import Foreign (Ptr, Storable (..), nullPtr, with)
+import Foreign.C.Types (CInt, CLong)
 import Foreign.Marshal.Alloc (alloca)
 import Test.Tasty (TestTree, defaultMain, testGroup)
 import Test.Tasty.HUnit (Assertion, HasCallStack, assertFailure, testCase,
@@ -137,7 +137,38 @@ test01 = testGroup "test_01"
         Test01.ENUM_SAME_B @?= Test01.ENUM_SAME_C
         [minBound..maxBound]
           @?= [Test01.ENUM_SAME_A, Test01.ENUM_SAME_B, Test01.ENUM_SAME_D]
+
+    , testCase "struct-arg" $ do
+        res <- thing_fun_1_high (Test01.Thing 10)
+        10 @?= res
+
+    , testCase "struct-res" $ do
+        res <- thing_fun_2_high 11
+        Test01.Thing 11 @?= res
+
+    , testCase "struct-arg-res" $ do
+        res <- thing_fun_3_high (Test01.Thing 6)
+        Test01.Thing 12 @?= res
     ]
+
+thing_fun_1_high :: Test01.Thing -> IO CInt
+thing_fun_1_high x =
+    with x $ \x' ->
+    Test01.thing_fun_1 x'
+
+thing_fun_2_high :: CInt -> IO Test01.Thing
+thing_fun_2_high x =
+    allocaAndPeek $ \res ->
+    Test01.thing_fun_2 x res
+
+thing_fun_3_high :: Test01.Thing -> IO Test01.Thing
+thing_fun_3_high x =
+    with x $ \x' ->
+    allocaAndPeek $ \res ->
+    Test01.thing_fun_3 x' res
+
+allocaAndPeek :: Storable a => (Ptr a -> IO ()) -> IO a
+allocaAndPeek kont = alloca $ \ptr -> kont ptr >> peek ptr
 
 {-------------------------------------------------------------------------------
   Test02
