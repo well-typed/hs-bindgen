@@ -227,7 +227,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "thing_fun_1",
+        "thing_fun_1_wrapper",
       foreignImportType = HsFun
         (HsPtr
           (HsTypRef
@@ -260,7 +260,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "thing_fun_2",
+        "thing_fun_2_wrapper",
       foreignImportType = HsFun
         (HsPrimType HsPrimCInt)
         (HsFun

@@ -11,7 +11,7 @@ instance Storable Thing
                                     {Thing thing_x_3 -> pokeByteOff ptr_1 (0 :: Int) thing_x_3}}
 deriving stock instance Show Thing
 deriving stock instance Eq Thing
-foreign import ccall safe "test_internal_thing_fun_1" thing_fun_1 :: Ptr Thing ->
-                                                                     IO CInt
-foreign import ccall safe "test_internal_thing_fun_2" thing_fun_2 :: CInt ->
-                                                                     Ptr Thing -> IO Unit
+foreign import ccall safe "test_internal_thing_fun_1" thing_fun_1_wrapper :: Ptr Thing ->
+                                                                             IO CInt
+foreign import ccall safe "test_internal_thing_fun_2" thing_fun_2_wrapper :: CInt ->
+                                                                             Ptr Thing -> IO Unit

@@ -38,6 +38,6 @@ deriving stock instance Show Thing
 
 deriving stock instance Eq Thing
 
-foreign import ccall safe "testmodule_thing_fun_1" thing_fun_1 :: (F.Ptr Thing) -> IO FC.CInt
+foreign import ccall safe "testmodule_thing_fun_1" thing_fun_1_wrapper :: (F.Ptr Thing) -> IO FC.CInt
 
-foreign import ccall safe "testmodule_thing_fun_2" thing_fun_2 :: FC.CInt -> (F.Ptr Thing) -> IO ()
+foreign import ccall safe "testmodule_thing_fun_2" thing_fun_2_wrapper :: FC.CInt -> (F.Ptr Thing) -> IO ()
