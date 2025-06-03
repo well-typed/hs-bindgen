@@ -12,10 +12,11 @@ import Text.Regex.Applicative qualified as R
 import Text.Regex.Applicative.Common qualified as R
 
 import Clang.Paths
+import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.ExtBindings qualified as ExtBindings
-import HsBindgen.ExtBindings.Gen qualified as ExtBindings
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
@@ -125,7 +126,7 @@ tests tracer packageRoot rustBindgen = testGroup "test-internal" [
           headerIncludePath = mkHeaderIncludePath name
       ediffGolden1 goldenTestSteps "treediff" target $ \report ->
         withOpts report $ \opts ->
-          snd <$> Pipeline.parseCHeader opts headerIncludePath
+          Pipeline.parseCHeader opts headerIncludePath
 
     goldenHs :: TestName -> TestTree
     goldenHs name = do
@@ -164,10 +165,10 @@ tests tracer packageRoot rustBindgen = testGroup "test-internal" [
       goldenVsStringDiff_ "extbindings" target $ \report ->
         withOpts report $ \opts -> do
           decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
-          return . UTF8.toString . ExtBindings.encodeUnresolvedExtBindingsYaml $
-            ExtBindings.genExtBindings
+          return . UTF8.toString . BindingSpec.encodeYaml $
+            BindingSpec.genBindingSpec
               headerIncludePath
-              (ExtBindings.HsModuleName "Example")
+              (Hs.HsModuleName "Example")
               decls
 
     -- -<.> does weird stuff for filenames with multiple dots;

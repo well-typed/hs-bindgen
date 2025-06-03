@@ -81,7 +81,8 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Macros.AST.C qualified as C
 import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Imports (fromMaybe)
-import HsBindgen.Language.C
+import HsBindgen.Language.C (CName(..))
+import HsBindgen.Language.C qualified as C
 
 -- TODO: re-using the macro expression parser for simplicity
 -- import HsBindgen.C.AST.Macro
@@ -286,7 +287,7 @@ data TypeQualifier
   | TQ__Atomic
   deriving stock ( Eq, Show, Generic )
 data TypeSpecifier
-  = TypeSpecifier C.Type
+  = TypeSpecifier C.PrimType
   | TypeDefTypeSpecifier CName
   | StructOrUnionTypeSpecifier StructOrUnionSpecifier
   | EnumTypeSpecifier EnumSpecifier
@@ -347,7 +348,7 @@ litSizeExpression n
   = SizeExpression
     { sizeExpressionMExpr =
         MTerm $ MInt $
-          IntegerLiteral ( Text.pack $ show n ) C.Type.Size ( fromIntegral n )
+          C.IntegerLiteral ( Text.pack $ show n ) C.Type.Size ( fromIntegral n )
     , sizeExpressionValue = Just n
     }
 
@@ -438,7 +439,7 @@ typeNameType (TypeName tySpec _attrs decl) =
 
 typeSpecifierType :: TypeSpecifier -> C.Type
 typeSpecifierType = \case
-  TypeSpecifier ty -> ty
+  TypeSpecifier ty -> C.TypePrim ty
   TypeDefTypeSpecifier nm -> C.TypeTypedef nm
   StructOrUnionTypeSpecifier
     StructOrUnionSpecifier

@@ -3,7 +3,6 @@
 module Test.Internal.TreeDiff.Orphans where
 
 import Data.Foldable (toList)
-import Data.List qualified as List
 import Data.TreeDiff.Class (ToExpr(..))
 import Data.TreeDiff.Expr qualified as Expr
 import Data.TreeDiff.OMap qualified as OMap
@@ -13,14 +12,17 @@ import Foreign.C
 import System.FilePath qualified as FilePath
 
 import Clang.Enum.Simple
+import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as Paths
-import HsBindgen.C.AST qualified as C
+import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.C.Reparse.Decl qualified as C
 import HsBindgen.C.Tc.Macro qualified as CMacro
-import HsBindgen.C.Tc.Macro.Type qualified as CMacro
-import HsBindgen.ExtBindings
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name qualified as HsName
 import HsBindgen.Hs.AST.Type qualified as HsType
+import HsBindgen.Hs.Origin qualified as Origin
+import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
 import C.Type qualified as CExpr
@@ -39,39 +41,47 @@ instance ToExpr CInt where
   hs-bindgen
 -------------------------------------------------------------------------------}
 
+instance ToExpr Paths.SourcePath where
+  toExpr = toExpr . Paths.getSourcePath
+
 instance ToExpr Paths.CHeaderIncludePath where
   toExpr = toExpr . Paths.getCHeaderIncludePath
 
+instance ToExpr (C.MTerm C.Ps)
+instance ToExpr (C.XVar C.Ps)
+instance ToExpr C.CheckedMacro
+instance ToExpr C.CheckedMacroExpr
+instance ToExpr C.CheckedMacroType
 instance ToExpr C.CName
 instance ToExpr C.Decl
-instance ToExpr C.DeclPath
-instance ToExpr C.DeclPathCtxt
-instance ToExpr C.Enu
-instance ToExpr C.EnumValue
+instance ToExpr C.DeclInfo
+instance ToExpr C.DeclKind
+instance ToExpr C.DeclSpec
+instance ToExpr C.Enum
+instance ToExpr C.EnumConstant
 instance ToExpr C.Function
-instance ToExpr C.Header
-instance ToExpr (C.Macro C.Ps)
-instance ToExpr C.MacroDecl
-instance ToExpr (C.MTerm C.Ps)
-instance ToExpr (C.XApp C.Ps)
-instance ToExpr (C.XVar C.Ps)
-instance ToExpr C.MultiLoc
-instance ToExpr C.OpaqueEnum
-instance ToExpr C.OpaqueStruct
+instance ToExpr C.NamePair
+instance ToExpr C.NewtypeNames
 instance ToExpr C.PrimFloatType
 instance ToExpr C.PrimIntType
 instance ToExpr C.PrimSign
 instance ToExpr C.PrimSignChar
 instance ToExpr C.PrimType
+instance ToExpr C.RecordNames
 instance ToExpr C.Struct
 instance ToExpr C.StructField
-instance ToExpr C.TokenSpelling
+instance ToExpr C.TranslationUnit
 instance ToExpr C.Type
-instance ToExpr CMacro.TypedefUnderlyingType
-instance ToExpr C.Size
 instance ToExpr C.Typedef
+instance ToExpr C.TypedefSquashed
 instance ToExpr C.Union
 instance ToExpr C.UnionField
+
+instance ToExpr BindingSpec.TypeSpec
+instance ToExpr BindingSpec.InstanceSpec
+instance ToExpr BindingSpec.StrategySpec
+instance ToExpr BindingSpec.ConstraintSpec
+instance ToExpr a => ToExpr (BindingSpec.Omittable a)
 
 instance ToExpr CExpr.CharValue
 
@@ -79,8 +89,6 @@ instance ToExpr C.IntegerLiteral
 instance ToExpr C.FloatingLiteral
 instance ToExpr C.CharLiteral
 instance ToExpr C.StringLiteral
-instance ToExpr a => ToExpr (C.Range a)
-instance ToExpr a => ToExpr (C.Token a)
 
 -- do not use record syntax, as it's very verbose
 instance ToExpr C.SingleLoc where
@@ -88,56 +96,10 @@ instance ToExpr C.SingleLoc where
     let filename = FilePath.takeFileName $ Paths.getSourcePath p
     in  filename ++ ":" ++ show l ++ ":" ++ show c
 
-instance ToExpr C.ReparseError where
-  toExpr C.ReparseError {..} = Expr.Rec "ReparseError" $ OMap.fromList
-    [ ("reparseError", toExpr $ normalizePaths reparseError)
-    , ("reparseErrorTokens", toExpr reparseErrorTokens)
-    ]
-    where
-      -- reparseError may contain paths
-      normalizePaths :: String -> String
-      normalizePaths s = case span (/= '"') s of
-        (sL, '"':'<':sR) -> sL ++ normalizePathsQB sR
-        (sL, '"':sR)     -> sL ++ normalizePathsQ  sR
-        _otherwise       -> s
-
-      -- syntax: "PATH"
-      normalizePathsQ :: String -> String
-      normalizePathsQ s = case span (/= '"') s of
-        (sL, '"':sR)
-          -- not everything quoted is a path
-          | ".h" `List.isSuffixOf` sL ->
-              '"' : FilePath.takeFileName sL ++ '"' : normalizePaths sR
-          -- do not assume other quotes are paired
-          | otherwise -> '"' : normalizePaths s
-        _otherwise -> '"' : s
-
-      -- syntax: "<PATH:RANGE>"
-      normalizePathsQB :: String -> String
-      normalizePathsQB s = case span (/= '>') s of
-        (pathAndRange, '>':'"':sR) ->
-          '"' : '<' : FilePath.takeFileName pathAndRange
-            ++ '>' : '"' : normalizePaths sR
-        _otherwise -> '"' : '<' : s -- unexpected
-
-instance ToExpr HsModuleName
-instance ToExpr HsIdentifier
-instance ToExpr HsTypeClass
-instance ToExpr ExtIdentifier
-
-instance ToExpr C.TcMacroError where
-  toExpr err = toExpr $ C.pprTcMacroError err
-
-instance ToExpr (C.MacroBody C.Ps) where
-  toExpr = \case
-    C.EmptyMacro ->
-      Expr.App "EmptyMacro" []
-    C.AttributeMacro attrs ->
-      Expr.App "AttributeMacro" [toExpr attrs]
-    C.ExpressionMacro expr ->
-      Expr.App "ExpressionMacro" [toExpr expr]
-    C.TypeMacro ty ->
-      Expr.App "TypeMacro" [toExpr ty]
+instance ToExpr Hs.HsModuleName
+instance ToExpr Hs.HsIdentifier
+instance ToExpr Hs.HsTypeClass
+instance ToExpr Hs.ExtHsRef
 
 instance ToExpr (C.MExpr C.Ps) where
   toExpr = \case
@@ -216,19 +178,21 @@ instance ToExpr HsType.HsType
 instance ToExpr HsType.HsPrimType
 
 instance ToExpr Hs.EmptyData
-instance ToExpr Hs.EmptyDataOrigin
 instance ToExpr Hs.Field
-instance ToExpr Hs.FieldOrigin
 instance ToExpr Hs.ForeignImportDecl
 instance ToExpr Hs.ForeignImportDeclOrigin
 instance ToExpr Hs.Newtype
-instance ToExpr Hs.NewtypeOrigin
 instance ToExpr Hs.PatSyn
 instance ToExpr Hs.PatSynOrigin
 instance ToExpr Hs.StorableInstance
 instance ToExpr t => ToExpr (Hs.Strategy t)
-instance ToExpr Hs.StructOrigin
 instance ToExpr Hs.VarDecl
+
+instance ToExpr a => ToExpr (Origin.Decl a)
+instance ToExpr Origin.EmptyData
+instance ToExpr Origin.Field
+instance ToExpr Origin.Newtype
+instance ToExpr Origin.Struct
 
 instance ToExpr (Hs.PeekByteOff ctx)
 instance ToExpr (Hs.PhiType ctx)
@@ -268,10 +232,10 @@ instance ToExpr Hs.Decl where
 instance ToExpr a => ToExpr (Vec n a) where
   toExpr = Expr.Lst . map toExpr . Vec.toList
 
-instance HsName.SingNamespace ns => ToExpr (HsName.HsName ns) where
+instance Hs.SingNamespace ns => ToExpr (Hs.HsName ns) where
   toExpr name = Expr.App "HsName" [
-      toExpr ('@' : show (HsName.namespaceOf (HsName.singNamespace @ns)))
-    , toExpr (HsName.getHsName name)
+      toExpr ('@' : show (Hs.namespaceOf (Hs.singNamespace @ns)))
+    , toExpr (Hs.getHsName name)
     ]
 
 instance ToExpr Hs.InstanceDecl where
@@ -331,7 +295,6 @@ instance ToExpr Hs.ATyCon where
 instance ToExpr Hs.AClass where
   toExpr (Hs.AClass tc) =
     Expr.App "AClass" [toExpr tc]
-
 
 {-------------------------------------------------------------------------------
   Declarations/declarators

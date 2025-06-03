@@ -14,6 +14,7 @@ import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.RenameAnon
+import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.Haskell
 
@@ -57,7 +58,7 @@ data NamePair = NamePair {
       nameC       :: CName
     , nameHsIdent :: HsIdentifier
     }
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq, Ord, Generic)
 
 -- | Extract namespaced Haskell name
 --
@@ -75,14 +76,14 @@ nameHs NamePair{nameHsIdent = HsIdentifier name} = HsName name
 data RecordNames = RecordNames {
       recordConstr :: HsName NsConstr
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Generic)
 
 -- | Names for a Haskell newtype
 data NewtypeNames = NewtypeNames {
       newtypeConstr :: HsName NsConstr
     , newtypeField  :: HsName NsVar
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Information from the binding spec, minus naming information
@@ -100,4 +101,4 @@ data NewtypeNames = NewtypeNames {
 -- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
 -- have consequences for "Hs.Origin" also.
 newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Generic)

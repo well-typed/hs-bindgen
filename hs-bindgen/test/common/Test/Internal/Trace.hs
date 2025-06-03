@@ -15,5 +15,4 @@ degradeKnownTraces = CustomLogLevel $ \case
   -- "Nullability Issue": "pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified)".
   TraceDiagnostic x | diagnosticCategory x == 26 -> Debug
   TraceExtraClangArgs _ -> Debug
-  TraceSkipped _        -> Debug
   x                     -> getDefaultLogLevel x

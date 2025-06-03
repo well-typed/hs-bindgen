@@ -49,6 +49,7 @@ module HsBindgen.Lib (
 
     -- ** Logging
   , Trace.Trace (..)
+  , Parse.ParseLog(..)
   , module HsBindgen.Util.Tracer
 
     -- ** Preprocessor
@@ -76,6 +77,7 @@ import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
+import HsBindgen.Frontend.Pass.Parse.Monad qualified as Parse
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports

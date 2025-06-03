@@ -26,7 +26,6 @@ import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
-import HsBindgen.Frontend.Macros.AST.Syntax qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.Origin qualified as Origin

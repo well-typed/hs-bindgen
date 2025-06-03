@@ -24,10 +24,14 @@ module HsBindgen.Frontend.AST.External (
   , Typedef(..)
   , RenameAnon.TypedefSquashed(..)
     -- ** Macros
-    -- TODO: We should export everything we need here.
   , CheckedMacro(..)
   , CheckedMacroType(..)
   , Int.CheckedMacroExpr(..)
+  , Macro.MExpr(..)
+  , Macro.MFun(..)
+  , Macro.MTerm(..)
+  , Macro.Pass(Ps)
+  , Macro.XVar(..)
     -- ** Functions
   , Function(..)
     -- * Types
@@ -48,6 +52,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
+import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass.NameMangler.IsPass qualified as NameMangler
 import HsBindgen.Frontend.Pass.RenameAnon qualified as RenameAnon
 import HsBindgen.Imports

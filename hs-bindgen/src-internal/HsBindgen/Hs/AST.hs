@@ -59,7 +59,6 @@ import Data.Type.Nat qualified as Nat
 
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Macros.AST.Syntax qualified as C
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports

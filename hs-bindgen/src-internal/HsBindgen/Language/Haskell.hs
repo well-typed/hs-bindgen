@@ -40,7 +40,7 @@ data ExtHsRef = ExtHsRef {
       extHsRefModule     :: HsModuleName
     , extHsRefIdentifier :: HsIdentifier
     }
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Show, Generic)
 
 -- | Haskell module name
 --

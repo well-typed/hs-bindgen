@@ -7,6 +7,7 @@ import HsBindgen.Frontend.AST.Internal (ValidPass, CheckedMacro)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Imports
 import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
@@ -58,6 +59,6 @@ instance IsPass RenameAnon where
 data TypedefSquashed =
     KeptTypedef
   | SquashedTypedef
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Generic)
 
 
