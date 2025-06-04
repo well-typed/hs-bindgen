@@ -149,17 +149,15 @@ parseCHeaders tracer args predicate _extSpec headerIncludePaths =
       -> IO (Next IO (SourcePath, CHeaderIncludePath))
     resolveMainHeaders cursor = either return return <=< runExceptT $ do
       loc <- clang_getCursorLocation cursor
-      sloc <- HighLevel.clang_getExpansionLocation loc
-      -- skip builtin macros
-      when (nullSourcePath (singleLocPath sloc)) $ throwError (Continue Nothing)
-      -- only process the root header
+      -- only process root header
       isFromRootHeader <- clang_Location_isFromMainFile loc
-      unless isFromRootHeader $ throwError (Break Nothing)
+      unless isFromRootHeader $ throwError (Continue Nothing)
       -- only process inclusion directives
       eCursorKind <- fromSimpleEnum <$> clang_getCursorKind cursor
       unless (eCursorKind == Right CXCursor_InclusionDirective) $
-        throwError (Break Nothing)
+        throwError (Continue Nothing)
       -- return main header paths
+      sloc <- HighLevel.clang_getExpansionLocation loc
       sourcePath <-
         SourcePath <$> (clang_getFileName <=< clang_getIncludedFile) cursor
       includePath <- maybe (panicIO "root header unknown include") return $
