@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 import Data.Bifunctor
 import Data.Either (partitionEithers)
 import Data.List qualified as List
+import Data.Map.Strict qualified as Map
 import GHC.Stack
 
 import Clang.Enum.Simple
@@ -31,35 +32,39 @@ import HsBindgen.Language.C
 
 foldDecl :: HasCallStack => Fold M [C.Decl Parse]
 foldDecl curr = do
-    loc <- HighLevel.clang_getCursorLocation' curr
+    eCursorKind <- fromSimpleEnum <$> clang_getCursorKind curr
+    if eCursorKind == Right CXCursor_InclusionDirective
+      then inclusionDirective curr
+      else do
+        loc <- HighLevel.clang_getCursorLocation' curr
 
-    predicate       <- getPredicate
-    mainSourcePaths <- getMainSourcePaths
-    matchResult     <- match mainSourcePaths curr loc predicate
+        predicate       <- getPredicate
+        mainSourcePaths <- Map.keysSet <$> getMainHeaders
+        matchResult     <- match mainSourcePaths curr loc predicate
 
-    case matchResult of
+        case matchResult of
 
-      Left skipReason -> do
-        name <- clang_getCursorSpelling curr
-        case skipReason of
-          SkipReasonBuiltIn ->
-            recordTraceWithCallStack callStack $
-              SkippedBuiltIn name
-          SkipReasonPredicate {..} ->
-            recordTraceWithCallStack callStack $
-              SkippedPredicate name loc reason
-        pure $ Continue Nothing
+          Left skipReason -> do
+            name <- clang_getCursorSpelling curr
+            case skipReason of
+              SkipReasonBuiltIn ->
+                recordTraceWithCallStack callStack $
+                  SkippedBuiltIn name
+              SkipReasonPredicate {..} ->
+                recordTraceWithCallStack callStack $
+                  SkippedPredicate name loc reason
+            pure $ Continue Nothing
 
-      Right _  -> dispatchWithArg curr $ \case
-        CXCursor_InclusionDirective -> inclusionDirective
-        CXCursor_MacroDefinition    -> macroDefinition
-        CXCursor_StructDecl         -> structDecl
-        CXCursor_UnionDecl          -> unionDecl
-        CXCursor_TypedefDecl        -> typedefDecl
-        CXCursor_MacroExpansion     -> macroExpansion
-        CXCursor_EnumDecl           -> enumDecl
-        CXCursor_FunctionDecl       -> functionDecl
-        kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
+          Right _  -> dispatchWithArg curr $ \case
+            -- CXCursor_InclusionDirective handled before predicate match
+            CXCursor_MacroDefinition    -> macroDefinition
+            CXCursor_StructDecl         -> structDecl
+            CXCursor_UnionDecl          -> unionDecl
+            CXCursor_TypedefDecl        -> typedefDecl
+            CXCursor_MacroExpansion     -> macroExpansion
+            CXCursor_EnumDecl           -> enumDecl
+            CXCursor_FunctionDecl       -> functionDecl
+            kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations
@@ -91,7 +96,7 @@ inclusionDirective curr = do
     to <- getIncludeTo
     recordTraceWithCallStack callStack $ RegisterInclude fr to
     modifyIncludeGraph $ IncludeGraph.register fr to
-    -- TODO: We should update the main header.
+    maybe (return ()) setMainHeader . Map.lookup to =<< getMainHeaders
     return $ Continue Nothing
   where
     getIncludeFrom :: M SourcePath

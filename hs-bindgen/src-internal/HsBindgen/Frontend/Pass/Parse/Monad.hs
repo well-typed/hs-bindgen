@@ -7,10 +7,11 @@ module HsBindgen.Frontend.Pass.Parse.Monad (
     -- ** "Reader"
   , getTranslationUnit
   , getPredicate
-  , getMainSourcePaths
+  , getMainHeaders
     -- ** "Writer"
   , modifyIncludeGraph
     -- ** "State"
+  , setMainHeader
   , getMainHeader
   , recordMacroExpansionAt
   , checkHasMacroExpansion
@@ -72,10 +73,10 @@ runParseMonad env f = do
 -------------------------------------------------------------------------------}
 
 data ParseEnv = ParseEnv {
-      envUnit            :: CXTranslationUnit
-    , envPredicate       :: Predicate
-    , envMainSourcePaths :: Set SourcePath
-    , envTracer          :: Tracer IO (TraceWithCallStack ParseLog)
+      envUnit        :: CXTranslationUnit
+    , envPredicate   :: Predicate
+    , envMainHeaders :: Map SourcePath CHeaderIncludePath
+    , envTracer      :: Tracer IO (TraceWithCallStack ParseLog)
     }
 
 getTranslationUnit :: M CXTranslationUnit
@@ -85,8 +86,8 @@ getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
 getPredicate :: M Predicate
 getPredicate = wrapEff $ pure . envPredicate . parseEnv
 
-getMainSourcePaths :: M (Set SourcePath)
-getMainSourcePaths = wrapEff $ pure . envMainSourcePaths . parseEnv
+getMainHeaders :: M (Map SourcePath CHeaderIncludePath)
+getMainHeaders = wrapEff $ pure . envMainHeaders . parseEnv
 
 {-------------------------------------------------------------------------------
   "Writer"
@@ -106,7 +107,7 @@ data ParseState = ParseState {
       -- Declarations with expanded macros need to be reparsed.
       stateMacroExpansions :: Set SingleLoc
 
-      -- | Current main head header
+      -- | Current main header
       --
       -- This is exclusively used to set 'functionHeader'.
     , stateMainHeader :: Maybe CHeaderIncludePath
@@ -117,6 +118,12 @@ initParseState = ParseState{
       stateMacroExpansions = Set.empty
     , stateMainHeader      = Nothing
     }
+
+setMainHeader :: CHeaderIncludePath -> M ()
+setMainHeader includePath = wrapEff $ \ParseSupport{parseState} ->
+    modifyIORef parseState $ \st -> st{
+        stateMainHeader = Just includePath
+      }
 
 getMainHeader :: M CHeaderIncludePath
 getMainHeader = wrapEff $ \ParseSupport{parseState} -> do

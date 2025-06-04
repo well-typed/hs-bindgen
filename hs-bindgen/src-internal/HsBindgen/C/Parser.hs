@@ -12,11 +12,13 @@ module HsBindgen.C.Parser (
   ) where
 
 import Control.Exception
+import Control.Monad ((<=<))
+import Control.Monad.Except (runExceptT, throwError)
 import Control.Tracer (Tracer)
 import Data.List qualified as List
 import Data.List.Compat ((!?))
+import Data.Map.Strict qualified as Map
 import Data.Maybe qualified as Maybe
-import Data.Set qualified as Set
 import Data.Text qualified as Text
 import GHC.Stack (callStack)
 
@@ -94,12 +96,13 @@ parseCHeaders tracer args predicate _extSpec headerIncludePaths =
                                  (useTrace TraceDiagnostic tracer)
                                  callStack
 
-              let mainSourcePaths = Set.fromList $ RootHeader.name :
-                    map (SourcePath . Text.pack . getCHeaderIncludePath)
-                      headerIncludePaths
-                  parseTracer = useTrace TraceParse tracer
+              rootCursor <- clang_getTranslationUnitCursor unit
+              mainHeaders <- Map.fromList
+                <$> HighLevel.clang_visitChildren rootCursor resolveMainHeaders
+
+              let parseTracer = useTrace TraceParse tracer
                   parseEnvironment :: ParseEnv
-                  parseEnvironment = ParseEnv unit predicate mainSourcePaths parseTracer
+                  parseEnvironment = ParseEnv unit predicate mainHeaders parseTracer
               processTranslationUnit parseEnvironment
   where
     hFilePath :: FilePath
@@ -129,6 +132,39 @@ parseCHeaders tracer args predicate _extSpec headerIncludePaths =
       guard $ " file not found" `Text.isSuffixOf` diagnosticSpelling
       headerIncludePath <- headerIncludePaths !? (singleLocLine sloc - 1)
       return $ ParseCHeadersInputFileNotFound headerIncludePath
+
+    -- This function resolves main header paths before we parse them.  There
+    -- should be little overhead since the same translation unit is used.
+    --
+    -- This is necessary to implement the @SelectFromMainFiles@ predicate.  If
+    -- a user specifies headers @a.h@ and @b.h@, where @a.h@ includes @b.h@,
+    -- then we need to know that @b.h@ is a main header before the inclusion
+    -- directive in the root header is processed.
+    --
+    -- The 'CHeaderIncludePath' is retrieved from the list via line number
+    -- because we are unable to distinguish between system and quote inclusions
+    -- from the AST (without re-parsing the macro).
+    resolveMainHeaders ::
+         CXCursor
+      -> IO (Next IO (SourcePath, CHeaderIncludePath))
+    resolveMainHeaders cursor = either return return <=< runExceptT $ do
+      loc <- clang_getCursorLocation cursor
+      sloc <- HighLevel.clang_getExpansionLocation loc
+      -- skip builtin macros
+      when (nullSourcePath (singleLocPath sloc)) $ throwError (Continue Nothing)
+      -- only process the root header
+      isFromRootHeader <- clang_Location_isFromMainFile loc
+      unless isFromRootHeader $ throwError (Break Nothing)
+      -- only process inclusion directives
+      eCursorKind <- fromSimpleEnum <$> clang_getCursorKind cursor
+      unless (eCursorKind == Right CXCursor_InclusionDirective) $
+        throwError (Break Nothing)
+      -- return main header paths
+      sourcePath <-
+        SourcePath <$> (clang_getFileName <=< clang_getIncludedFile) cursor
+      includePath <- maybe (panicIO "root header unknown include") return $
+        headerIncludePaths !? (singleLocLine sloc - 1)
+      return $ Break (Just (sourcePath, includePath))
 
 {-------------------------------------------------------------------------------
   Debugging/development
