@@ -164,7 +164,7 @@ parseCHeaders tracer args predicate _extSpec headerIncludePaths =
         SourcePath <$> (clang_getFileName <=< clang_getIncludedFile) cursor
       includePath <- maybe (panicIO "root header unknown include") return $
         headerIncludePaths !? (singleLocLine sloc - 1)
-      return $ Break (Just (sourcePath, includePath))
+      return $ Continue (Just (sourcePath, includePath))
 
 {-------------------------------------------------------------------------------
   Debugging/development
