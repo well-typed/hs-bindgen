@@ -105,6 +105,7 @@ library internal
       HsBindgen.Hs.AST
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
+      HsBindgen.Hs.AST.SigmaType
       HsBindgen.Hs.AST.Origin
       HsBindgen.Hs.AST.Strategy
       HsBindgen.Hs.NameMangler
