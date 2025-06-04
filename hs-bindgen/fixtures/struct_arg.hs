@@ -252,6 +252,7 @@
           functionHeader = "struct_arg.h",
           functionSourceLoc =
           "struct_arg.h:6:5"}},
+  DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
   DeclInlineC
@@ -286,4 +287,99 @@
             (DeclPathName (CName "thing")),
           functionHeader = "struct_arg.h",
           functionSourceLoc =
-          "struct_arg.h:7:14"}}]
+          "struct_arg.h:7:14"}},
+  DeclSimple,
+  DeclInlineCInclude
+    "struct_arg.h",
+  DeclInlineC
+    "void testmodule_thing_fun_3a (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "thing_fun_3a_wrapper",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCInt)
+        (HsFun
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Thing")))
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Thing")))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "testmodule_thing_fun_3a",
+      foreignImportHeader =
+      "struct_arg.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "thing_fun_3a",
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypeStruct
+              (DeclPathName (CName "thing")),
+            TypePrim
+              (PrimFloating PrimDouble)],
+          functionRes = TypeStruct
+            (DeclPathName (CName "thing")),
+          functionHeader = "struct_arg.h",
+          functionSourceLoc =
+          "struct_arg.h:9:14"}},
+  DeclSimple,
+  DeclInlineCInclude
+    "struct_arg.h",
+  DeclInlineC
+    "char testmodule_thing_fun_3b (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "thing_fun_3b_wrapper",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCInt)
+        (HsFun
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Thing")))
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsPrimType HsPrimCChar)))),
+      foreignImportOrigName =
+      "testmodule_thing_fun_3b",
+      foreignImportHeader =
+      "struct_arg.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "thing_fun_3b",
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypeStruct
+              (DeclPathName (CName "thing")),
+            TypePrim
+              (PrimFloating PrimDouble)],
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed))),
+          functionHeader = "struct_arg.h",
+          functionSourceLoc =
+          "struct_arg.h:10:6"}},
+  DeclSimple]

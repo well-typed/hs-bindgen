@@ -42,6 +42,7 @@ genExtBindings headerIncludePath extIdentifierModule =
       Hs.DeclUnionSetter{}    -> id
       Hs.DeclInlineC{}        -> id
       Hs.DeclInlineCInclude{} -> id
+      Hs.DeclSimple{}         -> id
 
     insertTypes :: [EB] -> UnresolvedExtBindings -> UnresolvedExtBindings
     insertTypes ebs UnresolvedExtBindings{..} =

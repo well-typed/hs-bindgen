@@ -42,4 +42,38 @@ Header
           (DeclPathName (CName "thing")),
         functionHeader = "struct_arg.h",
         functionSourceLoc =
-        "struct_arg.h:7:14"}]
+        "struct_arg.h:7:14"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "thing_fun_3a",
+        functionArgs = [
+          TypePrim
+            (PrimIntegral PrimInt Signed),
+          TypeStruct
+            (DeclPathName (CName "thing")),
+          TypePrim
+            (PrimFloating PrimDouble)],
+        functionRes = TypeStruct
+          (DeclPathName (CName "thing")),
+        functionHeader = "struct_arg.h",
+        functionSourceLoc =
+        "struct_arg.h:9:14"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "thing_fun_3b",
+        functionArgs = [
+          TypePrim
+            (PrimIntegral PrimInt Signed),
+          TypeStruct
+            (DeclPathName (CName "thing")),
+          TypePrim
+            (PrimFloating PrimDouble)],
+        functionRes = TypePrim
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed))),
+        functionHeader = "struct_arg.h",
+        functionSourceLoc =
+        "struct_arg.h:10:6"}]

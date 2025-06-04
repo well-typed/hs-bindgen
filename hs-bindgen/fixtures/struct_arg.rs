@@ -17,3 +17,13 @@ extern "C" {
 extern "C" {
     pub fn thing_fun_2(x: ::std::os::raw::c_int) -> thing;
 }
+extern "C" {
+    pub fn thing_fun_3a(x: ::std::os::raw::c_int, y: thing, z: f64) -> thing;
+}
+extern "C" {
+    pub fn thing_fun_3b(
+        x: ::std::os::raw::c_int,
+        y: thing,
+        z: f64,
+    ) -> ::std::os::raw::c_char;
+}

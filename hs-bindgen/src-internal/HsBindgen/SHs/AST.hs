@@ -67,6 +67,8 @@ data Global =
   | CharValue_fromAddr
   | ByteArray_setUnionPayload
   | ByteArray_getUnionPayload
+  | CAPI_with
+  | CAPI_allocaAndPeek
 
     -- Other type classes
   | Bits_class

@@ -42,13 +42,15 @@ import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.SHs.AST qualified as SHs
+import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Hs.NameMangler
 import HsBindgen.Imports
 import HsBindgen.ModuleUnique
 import HsBindgen.NameHint
 import HsBindgen.PrettyC qualified as PC
 
-import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken, Env (..), zipWithEnv)
+import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken, Env (..), zipWithEnv, tabulateEnv, sizeEnv)
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -891,6 +893,10 @@ unwrapType :: WrappedType -> C.Type
 unwrapType (WrapType ty) = ty
 unwrapType (FancyType ty) = C.TypePointer ty
 
+unwrapOrigType :: WrappedType -> C.Type
+unwrapOrigType (WrapType ty) = ty
+unwrapOrigType (FancyType ty) = ty
+
 isVoidW :: WrappedType -> Bool
 isVoidW = C.isVoid . unwrapType
 
@@ -924,6 +930,71 @@ wrapperDecl innerName wrapperName res args
     callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
     callArgs tys ids = toList (zipWithEnv f tys ids) where f ty idx = if isWrappedFancy ty then PC.DeRef (PC.Var idx) else PC.Var idx
 
+hsWrapperDecl
+    :: NameMangler
+    -> HsName NsVar   -- ^ haskell name
+    -> HsName NsVar   -- ^ low-level import name
+    -> WrappedType    -- ^ result type
+    -> [WrappedType]  -- ^ arguments
+    -> SHs.SDecl
+hsWrapperDecl nm hiName loName res args
+  | isWrappedFancy res
+  = SHs.DVar
+    hiName
+    (Just (SHs.translateType hsty))
+    (goA EmptyEnv args)
+
+  | otherwise
+  = SHs.DVar
+    hiName
+    (Just (SHs.translateType hsty))
+    (goB EmptyEnv args)
+  where
+    hsty = foldr HsFun (HsIO $ typ' CFunRes nm $ unwrapOrigType res) (typ' CFunArg nm . unwrapOrigType <$> args)
+
+    -- wrapper for fancy result
+    goA :: Env ctx WrappedType -> [WrappedType] -> SHs.SExpr ctx
+    goA env []     = goA' env (tabulateEnv (sizeEnv env) id) []
+    goA env (x:xs) = SHs.ELam "x" $ goA (env :> x) xs
+
+    goA' :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [Idx ctx] -> SHs.SExpr ctx
+    goA' EmptyEnv    EmptyEnv  zs
+        = shsApps (SHs.EGlobal SHs.CAPI_allocaAndPeek)
+          [ SHs.ELam "z" $ shsApps (SHs.EFree loName) (map SHs.EBound (fmap IS zs ++ [IZ]))
+          ]
+
+    goA' (tys :> ty) (xs :> x) zs
+        | isWrappedFancy ty
+        = shsApps (SHs.EGlobal SHs.CAPI_with)
+          [ SHs.EBound x
+          , SHs.ELam "y" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
+          ]
+
+        | otherwise
+        = goA' tys xs (x : zs)
+
+    -- wrapper for non-fancy result.
+    goB :: Env ctx WrappedType -> [WrappedType] -> SHs.SExpr ctx
+    goB env []     = goB' env (tabulateEnv (sizeEnv env) id) []
+    goB env (x:xs) = SHs.ELam "x" $ goB (env :> x) xs
+
+    goB' :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [Idx ctx] -> SHs.SExpr ctx
+    goB' EmptyEnv    EmptyEnv  zs
+        = shsApps (SHs.EFree loName) (map SHs.EBound zs)
+
+    goB' (tys :> ty) (xs :> x) zs
+        | isWrappedFancy ty
+        = shsApps (SHs.EGlobal SHs.CAPI_with)
+          [ SHs.EBound x
+          , SHs.ELam "y" $ goB' tys (IS <$> xs) (IZ : fmap IS zs)
+          ]
+
+        | otherwise
+        = goB' tys xs (x : zs)
+
+shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
+shsApps = foldl' SHs.EApp
+
 functionDecs ::
      NameMangler
   -> ModuleUnique
@@ -942,13 +1013,16 @@ functionDecs nm mu typedefs f =
         }
     ] ++
     -- TODO: Hs wrapper if any type is fancy
-    [
+    [ Hs.DeclSimple $ hsWrapperDecl nm highlevelName importName res args
+    | anyFancy
     ]
   where
+    anyFancy = any isWrappedFancy (res : args)
+
     highlevelName = mangle nm $ NameVar $ C.functionName f
     importName
-        | any isWrappedFancy (res : args) = mangle nm $ NameLowLevelVar $ C.functionName f
-        | otherwise                       = highlevelName
+        | anyFancy   = mangle nm $ NameLowLevelVar $ C.functionName f
+        | otherwise  = highlevelName
 
     wrapType :: C.Type -> WrappedType
     wrapType ty
