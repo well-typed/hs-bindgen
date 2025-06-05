@@ -16,7 +16,7 @@ import Clang.Args
 import Control.Tracer (Tracer)
 import Data.Maybe (isJust)
 import GHC.ResponseFile (unescapeArgs)
-import GHC.Stack (HasCallStack, callStack)
+import GHC.Stack (HasCallStack)
 import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
                               HasSource (getSource), Level (Debug, Info),
                               PrettyTrace (prettyTrace), Source (HsBindgen),
@@ -96,10 +96,10 @@ getExtraClangArgs tracer mtarget = do
     Nothing ->
       if isJust mtarget
       then getExtraClangArgs tracer Nothing -- Always fall back to no target.
-      else traceWithCallStack tracer callStack ExtraClangArgsNone >> pure []
+      else traceWithCallStack tracer ExtraClangArgsNone >> pure []
     Just content -> do
       let args = splitArguments content
-      traceWithCallStack tracer callStack
+      traceWithCallStack tracer
         (ExtraClangArgsParsed extraClangArgsEnvName args)
       pure args
   where

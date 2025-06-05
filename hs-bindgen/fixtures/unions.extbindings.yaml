@@ -1,9 +1,19 @@
 types:
 - headers: unions.h
-  cname: DimPayloadB
+  cname: struct AnonA_polar
   module: Example
-  identifier: DimPayloadB
+  identifier: AnonA_polar
   instances:
+  - Eq
+  - Show
+  - Storable
+- headers: unions.h
+  cname: struct AnonA_xy
+  module: Example
+  identifier: AnonA_xy
+  instances:
+  - Eq
+  - Show
   - Storable
 - headers: unions.h
   cname: struct Dim

@@ -15,7 +15,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(CAPI.addCSource "#include \"macro_in_fundecl_vs_typedef.h\"\nchar testmodule_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }\nTC testmodule_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }\nMC *testmodule_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }\nTC *testmodule_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }\nvoid testmodule_struct_typedef1 (struct <anon> *arg1, MC arg2) { struct_typedef1(arg1, arg2); }\nvoid testmodule_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }\nvoid testmodule_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }\nvoid testmodule_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }\nvoid testmodule_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }\nvoid testmodule_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }\n")
+$(CAPI.addCSource "#include \"macro_in_fundecl_vs_typedef.h\"\nchar testmodule_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }\nTC testmodule_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }\nMC *testmodule_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }\nTC *testmodule_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }\nvoid testmodule_struct_typedef1 (struct2 *arg1, char arg2) { struct_typedef1(arg1, arg2); }\nvoid testmodule_struct_typedef2 (struct3_t *arg1, char arg2) { struct_typedef2(arg1, arg2); }\nvoid testmodule_struct_typedef3 (struct4 *arg1, char arg2) { struct_typedef3(arg1, arg2); }\nvoid testmodule_struct_name1 (struct struct1 *arg1, char arg2) { struct_name1(arg1, arg2); }\nvoid testmodule_struct_name2 (struct struct3 *arg1, char arg2) { struct_name2(arg1, arg2); }\nvoid testmodule_struct_name3 (struct struct4 *arg1, char arg2) { struct_name3(arg1, arg2); }\n")
 
 newtype MC = MC
   { un_MC :: FC.CChar
@@ -195,14 +195,14 @@ deriving stock instance Show Struct4
 
 deriving stock instance Eq Struct4
 
-foreign import ccall safe "testmodule_struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> FC.CChar -> IO ()
 
-foreign import ccall safe "testmodule_struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t) -> FC.CChar -> IO ()
 
-foreign import ccall safe "testmodule_struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> FC.CChar -> IO ()
 
-foreign import ccall safe "testmodule_struct_name1" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name1" struct_name1 :: (F.Ptr Struct1) -> FC.CChar -> IO ()
 
-foreign import ccall safe "testmodule_struct_name2" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name2" struct_name2 :: (F.Ptr Struct3) -> FC.CChar -> IO ()
 
-foreign import ccall safe "testmodule_struct_name3" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name3" struct_name3 :: (F.Ptr Struct4) -> FC.CChar -> IO ()

@@ -24,6 +24,6 @@ types:
   module: Example
   identifier: Foo
 - headers: opaque_declaration.h
-  cname: struct opaque_union
+  cname: union opaque_union
   module: Example
   identifier: Opaque_union

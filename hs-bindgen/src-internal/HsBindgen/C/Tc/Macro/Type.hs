@@ -1,7 +1,97 @@
 {-# LANGUAGE MagicHash #-}
 
 -- | Macro types: the types that we infer for macros.
-module HsBindgen.C.Tc.Macro.Type where
+module HsBindgen.C.Tc.Macro.Type (
+    -- * Names
+    Name
+  , FunName
+    -- * Annotations
+  , XVar(..)
+  , XApp(..)
+    -- * Pass
+  , Pass(Ps, Tc)
+    -- * Type inference
+  , TypeEnv(..)
+  , MacroTypes
+  , VarEnv
+    -- ** Type system
+  , Type(..)
+  , IntegralType(..)
+  , Kind(Ty, Ct)
+  , Quant(..)
+  , QuantTyBody(..)
+  , mkQuantTyBody
+  , mkFunTy
+    -- ** Type variables
+  , MetaTyVar(..)
+  , MetaOrigin(..)
+  , InstOrigin(..)
+  , TyVar(..)
+  , SkolemTyVar(..)
+  , Unique(..)
+    -- ** Type constructors
+  , TyCon(..)
+  , GenerativeTyCon(..)
+  , FamilyTyCon(..)
+  , DataTyCon(..)
+    -- ** Constraints
+  , ClassTyCon(..)
+  , CtOrigin(..)
+    -- ** Pattern synonyms for types
+  , pattern Class
+  , pattern Data
+  , pattern FamApp
+  , pattern Not
+  , pattern Plus
+  , pattern Minus
+  , pattern Complement
+  , pattern Logical
+  , pattern RelEq
+  , pattern RelOrd
+  , pattern Add
+  , pattern Sub
+  , pattern Mult
+  , pattern Div
+  , pattern Rem
+  , pattern Bitwise
+  , pattern Shift
+  , pattern PrimIntInfoTy
+  , pattern PrimFloatInfoTy
+  , pattern IntLike
+  , pattern FloatLike
+  , pattern String
+  , pattern PrimTy
+  , pattern Empty
+  , pattern Ptr
+  , pattern Tuple
+  , pattern PlusRes
+  , pattern MinusRes
+  , pattern AddRes
+  , pattern SubRes
+  , pattern MultRes
+  , pattern DivRes
+  , pattern RemRes
+  , pattern ComplementRes
+  , pattern BitsRes
+  , pattern ShiftRes
+  , pattern IntTy
+  , pattern HsIntTy
+  , pattern CharTy
+  , pattern CharLitTy
+    -- ** Query
+  , isPrimTy
+  , tyVarName
+  , tyVarNames
+  , tyVarUnique
+  , eqType
+    -- ** Pretty-printing
+  , pprCtOrigin
+  , pprMetaOrigin
+    -- * Evaluation
+  , ValSType(..)
+  , Value(..)
+  , FunValue(..)
+  ) where
 
 -- base
 import Data.Kind qualified as Hs
@@ -36,10 +126,7 @@ import C.Type qualified
 
 -- hs-bindgen
 import HsBindgen.Imports
-import HsBindgen.C.AST.Literal
-  ( IntegerLiteral(..), FloatingLiteral(..) )
-import HsBindgen.C.AST.Name
-  ( CName(..) )
+import HsBindgen.Language.C
 import HsBindgen.Util.TestEquality
   ( equals2 )
 
@@ -386,20 +473,10 @@ isPrimTy' _                       = False
   Type environment
 -------------------------------------------------------------------------------}
 
--- | Workaround datatype to deal with how we represent typedefs around
--- anonymous structs & enums.
---
--- This should be removed in a future refactoring.
-data TypedefUnderlyingType
-  = NormalTypedef
-  | AnonStructTypedef
-  | AnonEnumTypedef
-  deriving stock ( Eq, Ord, Show, Generic )
-
 data TypeEnv =
    TypeEnv
      { typeEnvMacros   :: MacroTypes
-     , typeEnvTypedefs :: Map CName TypedefUnderlyingType
+     , typeEnvTypedefs :: Set CName
      }
   deriving stock Show
 

@@ -1,1 +1,3 @@
-Header []
+TranslationUnit {
+  unitDecls = [],
+  unitDeps = ["unnamed-struct"]}

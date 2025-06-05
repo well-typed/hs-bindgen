@@ -14,36 +14,51 @@
             "foo_z",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "z",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "weird01.h:2:13",
+              structFieldName = NamePair {
+                nameC = CName "z",
+                nameHsIdent = HsIdentifier
+                  "foo_z"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "weird01.h:2:13"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "foo"),
-          structAliases = [],
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "z",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "weird01.h:2:13"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "weird01.h:1:8"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "weird01.h:1:8",
+            declId = NamePair {
+              nameC = CName "foo",
+              nameHsIdent = HsIdentifier
+                "Foo"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Foo"),
+              structSizeof = 4,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "weird01.h:2:13",
+                  structFieldName = NamePair {
+                    nameC = CName "z",
+                    nameHsIdent = HsIdentifier
+                      "foo_z"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -62,36 +77,51 @@
               "foo_z",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "z",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "weird01.h:2:13",
+                structFieldName = NamePair {
+                  nameC = CName "z",
+                  nameHsIdent = HsIdentifier
+                    "foo_z"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "weird01.h:2:13"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "foo"),
-            structAliases = [],
-            structSizeof = 4,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "z",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "weird01.h:2:13"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "weird01.h:1:8"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "weird01.h:1:8",
+              declId = NamePair {
+                nameC = CName "foo",
+                nameHsIdent = HsIdentifier
+                  "Foo"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Foo"),
+                structSizeof = 4,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "weird01.h:2:13",
+                    structFieldName = NamePair {
+                      nameC = CName "z",
+                      nameHsIdent = HsIdentifier
+                        "foo_z"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -115,36 +145,51 @@
                       "foo_z",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "z",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "weird01.h:2:13",
+                        structFieldName = NamePair {
+                          nameC = CName "z",
+                          nameHsIdent = HsIdentifier
+                            "foo_z"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "weird01.h:2:13"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "foo"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "z",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "weird01.h:2:13"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "weird01.h:1:8"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "weird01.h:1:8",
+                      declId = NamePair {
+                        nameC = CName "foo",
+                        nameHsIdent = HsIdentifier
+                          "Foo"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Foo"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "weird01.h:2:13",
+                            structFieldName = NamePair {
+                              nameC = CName "z",
+                              nameHsIdent = HsIdentifier
+                                "foo_z"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -168,36 +213,51 @@
                       "foo_z",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "z",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "weird01.h:2:13",
+                        structFieldName = NamePair {
+                          nameC = CName "z",
+                          nameHsIdent = HsIdentifier
+                            "foo_z"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "weird01.h:2:13"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "foo"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "z",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "weird01.h:2:13"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "weird01.h:1:8"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "weird01.h:1:8",
+                      declId = NamePair {
+                        nameC = CName "foo",
+                        nameHsIdent = HsIdentifier
+                          "Foo"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Foo"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "weird01.h:2:13",
+                            structFieldName = NamePair {
+                              nameC = CName "z",
+                              nameHsIdent = HsIdentifier
+                                "foo_z"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -230,36 +290,51 @@
             "bar_x",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "weird01.h:4:21",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "bar_x"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "weird01.h:4:21"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "bar"),
-          structAliases = [],
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "weird01.h:4:21"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "weird01.h:3:16"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "weird01.h:3:16",
+            declId = NamePair {
+              nameC = CName "bar",
+              nameHsIdent = HsIdentifier
+                "Bar"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Bar"),
+              structSizeof = 4,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "weird01.h:4:21",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "bar_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -278,36 +353,51 @@
               "bar_x",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "weird01.h:4:21",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "bar_x"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "weird01.h:4:21"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "bar"),
-            structAliases = [],
-            structSizeof = 4,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "weird01.h:4:21"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "weird01.h:3:16"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "weird01.h:3:16",
+              declId = NamePair {
+                nameC = CName "bar",
+                nameHsIdent = HsIdentifier
+                  "Bar"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Bar"),
+                structSizeof = 4,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "weird01.h:4:21",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "bar_x"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -331,36 +421,51 @@
                       "bar_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "weird01.h:4:21",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "bar_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "weird01.h:4:21"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bar"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "weird01.h:4:21"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "weird01.h:3:16"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "weird01.h:3:16",
+                      declId = NamePair {
+                        nameC = CName "bar",
+                        nameHsIdent = HsIdentifier
+                          "Bar"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bar"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "weird01.h:4:21",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "bar_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -384,36 +489,51 @@
                       "bar_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "weird01.h:4:21",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "bar_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "weird01.h:4:21"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bar"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "weird01.h:4:21"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "weird01.h:3:16"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "weird01.h:3:16",
+                      declId = NamePair {
+                        nameC = CName "bar",
+                        nameHsIdent = HsIdentifier
+                          "Bar"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bar"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "weird01.h:4:21",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "bar_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -449,14 +569,14 @@
       foreignImportHeader =
       "weird01.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "func",
           functionArgs = [
             TypePointer
               (TypeStruct
-                (DeclPathName (CName "bar")))],
+                NamePair {
+                  nameC = CName "bar",
+                  nameHsIdent = HsIdentifier
+                    "Bar"})],
           functionRes = TypeVoid,
-          functionHeader = "weird01.h",
-          functionSourceLoc =
-          "weird01.h:8:6"}}]
+          functionHeader = "weird01.h"}}]

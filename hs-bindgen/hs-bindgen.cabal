@@ -48,6 +48,7 @@ common lang
       DerivingStrategies
       DerivingVia
       DisambiguateRecordFields
+      FunctionalDependencies
       LambdaCase
       MultiWayIf
       OverloadedStrings
@@ -68,17 +69,14 @@ library internal
 
   exposed-modules:
       Data.DynGraph
+      Data.DynGraph.Labelled
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.PP.Names
       HsBindgen.Backend.PP.Render
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH.Translation
-      HsBindgen.C.AST
-      HsBindgen.C.Fold
-      HsBindgen.C.Fold.Common
-      HsBindgen.C.Fold.Decl
-      HsBindgen.C.Fold.DeclState
-      HsBindgen.C.Fold.Type
+      HsBindgen.BindingSpec
+      HsBindgen.BindingSpec.Gen
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
@@ -94,8 +92,38 @@ library internal
       HsBindgen.Debug
       HsBindgen.Eff
       HsBindgen.Errors
-      HsBindgen.ExtBindings
-      HsBindgen.ExtBindings.Gen
+      HsBindgen.Frontend
+      HsBindgen.Frontend.AST.Coerce
+      HsBindgen.Frontend.AST.Deps
+      HsBindgen.Frontend.AST.External
+      HsBindgen.Frontend.AST.Finalize
+      HsBindgen.Frontend.AST.Internal
+      HsBindgen.Frontend.AST.PrettyPrinter
+      HsBindgen.Frontend.Graph.DefUse
+      HsBindgen.Frontend.Graph.Includes
+      HsBindgen.Frontend.Graph.UseDef
+      HsBindgen.Frontend.Macros.AST.C
+      HsBindgen.Frontend.Macros.AST.Syntax
+      HsBindgen.Frontend.Pass
+      HsBindgen.Frontend.Pass.HandleMacros
+      HsBindgen.Frontend.Pass.HandleMacros.IsPass
+      HsBindgen.Frontend.Pass.NameMangler
+      HsBindgen.Frontend.Pass.NameMangler.IsPass
+      HsBindgen.Frontend.Pass.Parse
+      HsBindgen.Frontend.Pass.Parse.Decl
+      HsBindgen.Frontend.Pass.Parse.IsPass
+      HsBindgen.Frontend.Pass.Parse.Monad
+      HsBindgen.Frontend.Pass.Parse.Type
+      HsBindgen.Frontend.Pass.RenameAnon
+      HsBindgen.Frontend.Pass.RenameAnon.IsPass
+      HsBindgen.Frontend.Pass.ResolveBindingSpec
+      HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+      HsBindgen.Frontend.Pass.Sort
+      HsBindgen.Frontend.Pass.Sort.IsPass
+      HsBindgen.Frontend.ProcessIncludes
+      HsBindgen.Frontend.RootHeader
+      HsBindgen.Frontend.SourceMap
+      HsBindgen.Frontend.Util.Fold
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs
@@ -103,23 +131,25 @@ library internal
       HsBindgen.GenTests.Readme
       HsBindgen.Guasi
       HsBindgen.Hs.AST
-      HsBindgen.Hs.AST.Name
-      HsBindgen.Hs.AST.Type
       HsBindgen.Hs.AST.SigmaType
-      HsBindgen.Hs.AST.Origin
       HsBindgen.Hs.AST.Strategy
-      HsBindgen.Hs.NameMangler
-      HsBindgen.Hs.NameMangler.API
+      HsBindgen.Hs.AST.Type
       HsBindgen.Hs.NameMangler.DSL
       HsBindgen.Hs.NameMangler.DSL.FixCandidate
-      HsBindgen.Hs.NameMangler.DSL.Overrides
-      HsBindgen.Hs.NameMangler.DSL.ProduceCandidate
       HsBindgen.Hs.NameMangler.DSL.ReservedNames
+      HsBindgen.Hs.Origin
       HsBindgen.Hs.Translation
       HsBindgen.Imports
+      HsBindgen.Language.C
+      HsBindgen.Language.C.Literal
+      HsBindgen.Language.C.Name
+      HsBindgen.Language.C.Prim
+      HsBindgen.Language.Haskell
+      HsBindgen.ModuleUnique
       HsBindgen.NameHint
       HsBindgen.Orphans
       HsBindgen.Pipeline
+      HsBindgen.PrettyC
       HsBindgen.Resolve
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
@@ -127,15 +157,7 @@ library internal
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Trace
       HsBindgen.Util.Tracer
-      HsBindgen.PrettyC
-      HsBindgen.ModuleUnique
       Text.SimplePrettyPrint
-  other-modules:
-      -- Re-exported through HsBindgen.C.AST
-      HsBindgen.C.AST.Literal
-      HsBindgen.C.AST.Macro
-      HsBindgen.C.AST.Name
-      HsBindgen.C.AST.Type
   other-extensions:
       TemplateHaskellQuotes
   build-depends:
@@ -158,7 +180,6 @@ library internal
     , filepath           >= 1.4       && < 1.6
     , fin                >= 0.3.2     && < 0.4
     , mtl                >= 2.2       && < 2.4
-    , ordered-containers ^>=0.2.4
     , parsec             >= 3.1       && < 3.2
     , pretty             >= 1.1       && < 1.2
     , regex-pcre-builtin >= 0.95      && < 0.96
@@ -169,8 +190,8 @@ library internal
     , time               >= 1.11      && < 1.15
     , unliftio-core      ^>=0.2.1.0
     , vec                >= 0.5       && < 0.6
-    , yaml               >= 0.11.11.1 && < 0.12
     , witherable         ^>=0.5
+    , yaml               >= 0.11.11.1 && < 0.12
 
   if impl(ghc < 9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2
@@ -184,7 +205,6 @@ library
       HsBindgen.TH
   reexported-modules:
       HsBindgen.Errors
-    , HsBindgen.Hs.NameMangler
     , HsBindgen.Hs.NameMangler.DSL
 
   build-depends:

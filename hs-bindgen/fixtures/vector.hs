@@ -14,61 +14,80 @@
             "vector_x",
           fieldType = HsPrimType
             HsPrimCDouble,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "vector.h:2:12",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "vector_x"},
+              structFieldType = TypePrim
                 (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "vector.h:2:12"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "vector_y",
           fieldType = HsPrimType
             HsPrimCDouble,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "y",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "vector.h:3:12",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "vector_y"},
+              structFieldType = TypePrim
                 (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "vector.h:3:12"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName "vector")),
-          structAliases = [],
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "vector.h:2:12"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "vector.h:3:12"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "vector.h:1:9"},
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "vector.h:1:9",
+            declId = NamePair {
+              nameC = CName "vector",
+              nameHsIdent = HsIdentifier
+                "Vector"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Vector"),
+              structSizeof = 16,
+              structAlignment = 8,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "vector.h:2:12",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "vector_x"},
+                  structFieldType = TypePrim
+                    (PrimFloating PrimDouble),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "vector.h:3:12",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "vector_y"},
+                  structFieldType = TypePrim
+                    (PrimFloating PrimDouble),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -87,61 +106,80 @@
               "vector_x",
             fieldType = HsPrimType
               HsPrimCDouble,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "vector.h:2:12",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "vector_x"},
+                structFieldType = TypePrim
                   (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "vector.h:2:12"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "vector_y",
             fieldType = HsPrimType
               HsPrimCDouble,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "y",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "vector.h:3:12",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "vector_y"},
+                structFieldType = TypePrim
                   (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "vector.h:3:12"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "vector")),
-            structAliases = [],
-            structSizeof = 16,
-            structAlignment = 8,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "vector.h:2:12"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "vector.h:3:12"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "vector.h:1:9"},
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "vector.h:1:9",
+              declId = NamePair {
+                nameC = CName "vector",
+                nameHsIdent = HsIdentifier
+                  "Vector"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Vector"),
+                structSizeof = 16,
+                structAlignment = 8,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "vector.h:2:12",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "vector_x"},
+                    structFieldType = TypePrim
+                      (PrimFloating PrimDouble),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "vector.h:3:12",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "vector_y"},
+                    structFieldType = TypePrim
+                      (PrimFloating PrimDouble),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -165,61 +203,80 @@
                       "vector_x",
                     fieldType = HsPrimType
                       HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "vector.h:2:12",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "vector_x"},
+                        structFieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "vector.h:2:12"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "vector_y",
                     fieldType = HsPrimType
                       HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "vector.h:3:12",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "vector_y"},
+                        structFieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "vector.h:3:12"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName "vector")),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "vector.h:2:12"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "vector.h:3:12"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "vector.h:1:9"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "vector.h:1:9",
+                      declId = NamePair {
+                        nameC = CName "vector",
+                        nameHsIdent = HsIdentifier
+                          "Vector"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Vector"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "vector.h:2:12",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "vector_x"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "vector.h:3:12",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "vector_y"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -245,61 +302,80 @@
                       "vector_x",
                     fieldType = HsPrimType
                       HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "vector.h:2:12",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "vector_x"},
+                        structFieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "vector.h:2:12"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "vector_y",
                     fieldType = HsPrimType
                       HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "vector.h:3:12",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "vector_y"},
+                        structFieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "vector.h:3:12"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName "vector")),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "vector.h:2:12"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "vector.h:3:12"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "vector.h:1:9"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "vector.h:1:9",
+                      declId = NamePair {
+                        nameC = CName "vector",
+                        nameHsIdent = HsIdentifier
+                          "Vector"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Vector"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "vector.h:2:12",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "vector_x"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "vector.h:3:12",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "vector_y"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -324,7 +400,7 @@
       "Vector"),
   DeclInlineCInclude "vector.h",
   DeclInlineC
-    "struct <anon> *testmodule_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+    "vector *testmodule_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -345,20 +421,20 @@
       foreignImportHeader =
       "vector.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "new_vector",
           functionArgs = [
             TypePrim
               (PrimFloating PrimDouble),
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePointer
-            (TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtTypedef
-                  (CName "vector")))),
-          functionHeader = "vector.h",
-          functionSourceLoc =
-          "vector.h:6:9"}}]
+            (TypeTypedef
+              (TypedefSquashed
+                (CName "vector")
+                (TypeStruct
+                  NamePair {
+                    nameC = CName "vector",
+                    nameHsIdent = HsIdentifier
+                      "Vector"}))),
+          functionHeader = "vector.h"}}]

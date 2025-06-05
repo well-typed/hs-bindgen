@@ -13,31 +13,32 @@
           "un_PtrInt",
         fieldType = HsPtr
           (HsPrimType HsPrimCInt),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:2:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "PtrInt",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers
-                  [_×_ [] []],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:2:9",
+          declId = NamePair {
+            nameC = CName "PtrInt",
+            nameHsIdent = HsIdentifier
+              "PtrInt"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "PtrInt",
+              newtypeField = HsName
+                "@NsVar"
+                "un_PtrInt"},
+            macroType = TypePointer
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
@@ -79,32 +80,34 @@
         fieldType = HsPtr
           (HsPtr
             (HsPrimType HsPrimCChar)),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:5:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "PtrPtrChar",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:5:9",
+          declId = NamePair {
+            nameC = CName "PtrPtrChar",
+            nameHsIdent = HsIdentifier
+              "PtrPtrChar"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "PtrPtrChar",
+              newtypeField = HsName
+                "@NsVar"
+                "un_PtrPtrChar"},
+            macroType = TypePointer
+              (TypePointer
                 (TypePrim
                   (PrimChar
-                    (PrimSignImplicit Nothing))))
-              []
-              Declarator {
-                declaratorPointer = Pointers
-                  [_×_ [] [], _×_ [] []],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+                    (PrimSignImplicit Nothing))))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
@@ -146,43 +149,33 @@
         fieldType = HsConstArray
           2
           (HsPrimType HsPrimCInt),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:8:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr1",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MInt
-                          IntegerLiteral {
-                            integerLiteralText = "2",
-                            integerLiteralType = Int Signed,
-                            integerLiteralValue = 2})),
-                    arrayAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:8:9",
+          declId = NamePair {
+            nameC = CName "Arr1",
+            nameHsIdent = HsIdentifier
+              "Arr1"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr1",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr1"},
+            macroType = TypeConstArray
+              2
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -213,44 +206,34 @@
           3
           (HsPtr
             (HsPrimType HsPrimCFloat)),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:11:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr2",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:11:9",
+          declId = NamePair {
+            nameC = CName "Arr2",
+            nameHsIdent = HsIdentifier
+              "Arr2"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr2",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr2"},
+            macroType = TypeConstArray
+              3
+              (TypePointer
                 (TypePrim
-                  (PrimFloating PrimFloat)))
-              []
-              Declarator {
-                declaratorPointer = Pointers
-                  [_×_ [] []],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MInt
-                          IntegerLiteral {
-                            integerLiteralText = "3",
-                            integerLiteralType = Int Signed,
-                            integerLiteralValue = 3})),
-                    arrayAttributes = []}})},
+                  (PrimFloating PrimFloat)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -284,74 +267,38 @@
               (HsPrimType HsPrimCDouble)
               (HsIO
                 (HsPrimType HsPrimCFloat)))),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:14:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr3",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimFloating PrimFloat)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                FunctionDirectDeclarator
-                  FunctionDeclarator {
-                    functionDirectDeclarator =
-                    ParenDeclarator
-                      Declarator {
-                        declaratorPointer = Pointers
-                          [_×_ [] []],
-                        directDeclarator =
-                        ArrayDirectDeclarator
-                          ArrayDeclarator {
-                            arrayDirectDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              [],
-                            arrayStatic = False,
-                            arrayTypeQualifiers = [],
-                            arraySize = ArraySize
-                              (MTerm
-                                (MInt
-                                  IntegerLiteral {
-                                    integerLiteralText = "4",
-                                    integerLiteralType = Int Signed,
-                                    integerLiteralValue = 4})),
-                            arrayAttributes = []}},
-                    functionParameters = [
-                      Parameter {
-                        parameterAttributes = [],
-                        parameterDeclSpecifiers =
-                        NE.fromList
-                          [
-                            _×_
-                              (DeclTypeSpecifierQualifier
-                                (TSQ_TypeSpecifier
-                                  (TypeSpecifier
-                                    (TypePrim
-                                      (PrimFloating PrimDouble)))))
-                              []],
-                        parameterDeclarator =
-                        ParameterAbstractDeclarator
-                          Declarator {
-                            declaratorPointer = Pointers [],
-                            directDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              []}}],
-                    functionVariadic = False,
-                    functionAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:14:9",
+          declId = NamePair {
+            nameC = CName "Arr3",
+            nameHsIdent = HsIdentifier
+              "Arr3"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr3",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr3"},
+            macroType = TypeConstArray
+              4
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimFloating PrimDouble)]
+                  (TypePrim
+                    (PrimFloating PrimFloat))))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -383,59 +330,36 @@
           (HsIO
             (HsPtr
               (HsPrimType HsPrimCFloat))),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:17:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Fun1",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:17:9",
+          declId = NamePair {
+            nameC = CName "Fun1",
+            nameHsIdent = HsIdentifier
+              "Fun1"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Fun1",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Fun1"},
+            macroType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              (TypePointer
                 (TypePrim
-                  (PrimFloating PrimFloat)))
-              []
-              Declarator {
-                declaratorPointer = Pointers
-                  [_×_ [] []],
-                directDeclarator =
-                FunctionDirectDeclarator
-                  FunctionDeclarator {
-                    functionDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    functionParameters = [
-                      Parameter {
-                        parameterAttributes = [],
-                        parameterDeclSpecifiers =
-                        NE.fromList
-                          [
-                            _×_
-                              (DeclTypeSpecifierQualifier
-                                (TSQ_TypeSpecifier
-                                  (TypeSpecifier
-                                    (TypePrim
-                                      (PrimIntegral
-                                        PrimInt
-                                        Signed)))))
-                              []],
-                        parameterDeclarator =
-                        ParameterAbstractDeclarator
-                          Declarator {
-                            declaratorPointer = Pointers [],
-                            directDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              []}}],
-                    functionVariadic = False,
-                    functionAttributes = []}})},
+                  (PrimFloating PrimFloat)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         []},
   DeclNewtype
@@ -458,82 +382,41 @@
                 (HsPrimType HsPrimCDouble))
               (HsIO
                 (HsPrimType HsPrimCInt)))),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:20:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Fun2",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:20:9",
+          declId = NamePair {
+            nameC = CName "Fun2",
+            nameHsIdent = HsIdentifier
+              "Fun2"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Fun2",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Fun2"},
+            macroType = TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimFloating PrimFloat),
+                  TypePointer
+                    (TypePrim
+                      (PrimFloating PrimDouble))]
                 (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                FunctionDirectDeclarator
-                  FunctionDeclarator {
-                    functionDirectDeclarator =
-                    ParenDeclarator
-                      Declarator {
-                        declaratorPointer = Pointers
-                          [_×_ [] []],
-                        directDeclarator =
-                        IdentifierDeclarator
-                          AbstractName
-                          []},
-                    functionParameters = [
-                      Parameter {
-                        parameterAttributes = [],
-                        parameterDeclSpecifiers =
-                        NE.fromList
-                          [
-                            _×_
-                              (DeclTypeSpecifierQualifier
-                                (TSQ_TypeSpecifier
-                                  (TypeSpecifier
-                                    (TypePrim
-                                      (PrimFloating PrimFloat)))))
-                              []],
-                        parameterDeclarator =
-                        ParameterAbstractDeclarator
-                          Declarator {
-                            declaratorPointer = Pointers [],
-                            directDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              []}},
-                      Parameter {
-                        parameterAttributes = [],
-                        parameterDeclSpecifiers =
-                        NE.fromList
-                          [
-                            _×_
-                              (DeclTypeSpecifierQualifier
-                                (TSQ_TypeSpecifier
-                                  (TypeSpecifier
-                                    (TypePrim
-                                      (PrimFloating PrimDouble)))))
-                              []],
-                        parameterDeclarator =
-                        ParameterAbstractDeclarator
-                          Declarator {
-                            declaratorPointer = Pointers
-                              [_×_ [] []],
-                            directDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              []}}],
-                    functionVariadic = False,
-                    functionAttributes = []}})},
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
@@ -571,63 +454,40 @@
             (HsIO
               (HsPtr
                 (HsPrimType HsPrimCInt)))),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:23:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Fun3",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers
-                  [_×_ [] []],
-                directDeclarator =
-                FunctionDirectDeclarator
-                  FunctionDeclarator {
-                    functionDirectDeclarator =
-                    ParenDeclarator
-                      Declarator {
-                        declaratorPointer = Pointers
-                          [_×_ [] []],
-                        directDeclarator =
-                        IdentifierDeclarator
-                          AbstractName
-                          []},
-                    functionParameters = [
-                      Parameter {
-                        parameterAttributes = [],
-                        parameterDeclSpecifiers =
-                        NE.fromList
-                          [
-                            _×_
-                              (DeclTypeSpecifierQualifier
-                                (TSQ_TypeSpecifier
-                                  (TypeSpecifier
-                                    (TypePrim
-                                      (PrimFloating PrimFloat)))))
-                              []],
-                        parameterDeclarator =
-                        ParameterAbstractDeclarator
-                          Declarator {
-                            declaratorPointer = Pointers
-                              [_×_ [] []],
-                            directDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              []}}],
-                    functionVariadic = False,
-                    functionAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:23:9",
+          declId = NamePair {
+            nameC = CName "Fun3",
+            nameHsIdent = HsIdentifier
+              "Fun3"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Fun3",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Fun3"},
+            macroType = TypePointer
+              (TypeFun
+                [
+                  TypePointer
+                    (TypePrim
+                      (PrimFloating PrimFloat))]
+                (TypePointer
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
@@ -672,134 +532,49 @@
                     (HsIO
                       (HsPtr
                         (HsPrimType HsPrimCLong)))))))),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:26:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Fun4",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimLong Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers
-                  [_×_ [] []],
-                directDeclarator =
-                FunctionDirectDeclarator
-                  FunctionDeclarator {
-                    functionDirectDeclarator =
-                    ParenDeclarator
-                      Declarator {
-                        declaratorPointer = Pointers
-                          [_×_ [] []],
-                        directDeclarator =
-                        FunctionDirectDeclarator
-                          FunctionDeclarator {
-                            functionDirectDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              [],
-                            functionParameters = [
-                              Parameter {
-                                parameterAttributes = [],
-                                parameterDeclSpecifiers =
-                                NE.fromList
-                                  [
-                                    _×_
-                                      (DeclTypeSpecifierQualifier
-                                        (TSQ_TypeSpecifier
-                                          (TypeSpecifier
-                                            (TypePrim
-                                              (PrimIntegral
-                                                PrimInt
-                                                Signed)))))
-                                      []],
-                                parameterDeclarator =
-                                ParameterAbstractDeclarator
-                                  Declarator {
-                                    declaratorPointer = Pointers [],
-                                    directDeclarator =
-                                    IdentifierDeclarator
-                                      AbstractName
-                                      []}},
-                              Parameter {
-                                parameterAttributes = [],
-                                parameterDeclSpecifiers =
-                                NE.fromList
-                                  [
-                                    _×_
-                                      (DeclTypeSpecifierQualifier
-                                        (TSQ_TypeSpecifier
-                                          (TypeSpecifier
-                                            (TypePrim
-                                              (PrimIntegral
-                                                PrimLong
-                                                Signed)))))
-                                      []],
-                                parameterDeclarator =
-                                ParameterAbstractDeclarator
-                                  Declarator {
-                                    declaratorPointer = Pointers
-                                      [_×_ [] []],
-                                    directDeclarator =
-                                    IdentifierDeclarator
-                                      AbstractName
-                                      []}}],
-                            functionVariadic = False,
-                            functionAttributes = []}},
-                    functionParameters = [
-                      Parameter {
-                        parameterAttributes = [],
-                        parameterDeclSpecifiers =
-                        NE.fromList
-                          [
-                            _×_
-                              (DeclTypeSpecifierQualifier
-                                (TSQ_TypeSpecifier
-                                  (TypeSpecifier
-                                    (TypePrim
-                                      (PrimFloating PrimFloat)))))
-                              []],
-                        parameterDeclarator =
-                        ParameterAbstractDeclarator
-                          Declarator {
-                            declaratorPointer = Pointers [],
-                            directDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              []}},
-                      Parameter {
-                        parameterAttributes = [],
-                        parameterDeclSpecifiers =
-                        NE.fromList
-                          [
-                            _×_
-                              (DeclTypeSpecifierQualifier
-                                (TSQ_TypeSpecifier
-                                  (TypeSpecifier
-                                    (TypePrim
-                                      (PrimFloating PrimDouble)))))
-                              []],
-                        parameterDeclarator =
-                        ParameterAbstractDeclarator
-                          Declarator {
-                            declaratorPointer = Pointers
-                              [_×_ [] []],
-                            directDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              []}}],
-                    functionVariadic = False,
-                    functionAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:26:9",
+          declId = NamePair {
+            nameC = CName "Fun4",
+            nameHsIdent = HsIdentifier
+              "Fun4"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Fun4",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Fun4"},
+            macroType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePointer
+                  (TypePrim
+                    (PrimIntegral PrimLong Signed))]
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimFloating PrimFloat),
+                    TypePointer
+                      (TypePrim
+                        (PrimFloating PrimDouble))]
+                  (TypePointer
+                    (TypePrim
+                      (PrimIntegral
+                        PrimLong
+                        Signed)))))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         []},
   DeclNewtype
@@ -824,91 +599,44 @@
                 2
                 (HsPtr
                   (HsPrimType HsPrimCShort))))),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:29:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Fun5",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral
-                    PrimShort
-                    Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers
-                  [_×_ [] []],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    ParenDeclarator
-                      Declarator {
-                        declaratorPointer = Pointers
-                          [_×_ [] []],
-                        directDeclarator =
-                        FunctionDirectDeclarator
-                          FunctionDeclarator {
-                            functionDirectDeclarator =
-                            IdentifierDeclarator
-                              AbstractName
-                              [],
-                            functionParameters = [
-                              Parameter {
-                                parameterAttributes = [],
-                                parameterDeclSpecifiers =
-                                NE.fromList
-                                  [
-                                    _×_
-                                      (DeclTypeSpecifierQualifier
-                                        (TSQ_TypeSpecifier
-                                          (TypeSpecifier
-                                            (TypePrim
-                                              (PrimChar
-                                                (PrimSignImplicit Nothing))))))
-                                      []],
-                                parameterDeclarator =
-                                ParameterAbstractDeclarator
-                                  Declarator {
-                                    declaratorPointer = Pointers [],
-                                    directDeclarator =
-                                    ArrayDirectDeclarator
-                                      ArrayDeclarator {
-                                        arrayDirectDeclarator =
-                                        IdentifierDeclarator
-                                          AbstractName
-                                          [],
-                                        arrayStatic = False,
-                                        arrayTypeQualifiers = [],
-                                        arraySize = ArraySize
-                                          (MTerm
-                                            (MInt
-                                              IntegerLiteral {
-                                                integerLiteralText = "8",
-                                                integerLiteralType = Int Signed,
-                                                integerLiteralValue = 8})),
-                                        arrayAttributes = []}}}],
-                            functionVariadic = False,
-                            functionAttributes = []}},
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MInt
-                          IntegerLiteral {
-                            integerLiteralText = "2",
-                            integerLiteralType = Int Signed,
-                            integerLiteralValue = 2})),
-                    arrayAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:29:9",
+          declId = NamePair {
+            nameC = CName "Fun5",
+            nameHsIdent = HsIdentifier
+              "Fun5"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Fun5",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Fun5"},
+            macroType = TypeFun
+              [
+                TypeConstArray
+                  8
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit Nothing)))]
+              (TypePointer
+                (TypeConstArray
+                  2
+                  (TypePointer
+                    (TypePrim
+                      (PrimIntegral
+                        PrimShort
+                        Signed)))))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         []},
   DeclNewtype
@@ -925,30 +653,31 @@
           "un_MTy",
         fieldType = HsPrimType
           HsPrimCFloat,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:33:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "MTy",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimFloating PrimFloat)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:33:9",
+          declId = NamePair {
+            nameC = CName "MTy",
+            nameHsIdent = HsIdentifier
+              "MTy"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "MTy",
+              newtypeField = HsName
+                "@NsVar"
+                "un_MTy"},
+            macroType = TypePrim
+              (PrimFloating PrimFloat)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1025,15 +754,35 @@
           "un_Tty",
         fieldType = HsTypRef
           (HsName "@NsTypeConstr" "MTy"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "tty",
-          typedefType = TypeTypedef
-            (CName "MTy"),
-          typedefSourceLoc =
-          "macro_types.h:34:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:34:13",
+          declId = NamePair {
+            nameC = CName "tty",
+            nameHsIdent = HsIdentifier
+              "Tty"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Tty",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Tty"},
+            typedefType = TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MTy",
+                  nameHsIdent = HsIdentifier
+                    "MTy"})},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1110,31 +859,32 @@
           "un_UINT8_T",
         fieldType = HsPrimType
           HsPrimCUChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:36:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "UINT8_T",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimChar
-                    (PrimSignExplicit Unsigned))))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:36:9",
+          declId = NamePair {
+            nameC = CName "UINT8_T",
+            nameHsIdent = HsIdentifier
+              "UINT8_T"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "UINT8_T",
+              newtypeField = HsName
+                "@NsVar"
+                "un_UINT8_T"},
+            macroType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1244,30 +994,35 @@
           (HsName
             "@NsTypeConstr"
             "UINT8_T"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_types.h:37:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "BOOLEAN_T",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeDefTypeSpecifier
-                (CName "UINT8_T")
-                NormalTypedef)
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:37:9",
+          declId = NamePair {
+            nameC = CName "BOOLEAN_T",
+            nameHsIdent = HsIdentifier
+              "BOOLEAN_T"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "BOOLEAN_T",
+              newtypeField = HsName
+                "@NsVar"
+                "un_BOOLEAN_T"},
+            macroType = TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "UINT8_T",
+                  nameHsIdent = HsIdentifier
+                    "UINT8_T"})},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1377,15 +1132,35 @@
           (HsName
             "@NsTypeConstr"
             "BOOLEAN_T"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "boolean_T",
-          typedefType = TypeTypedef
-            (CName "BOOLEAN_T"),
-          typedefSourceLoc =
-          "macro_types.h:38:19"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "macro_types.h:38:19",
+          declId = NamePair {
+            nameC = CName "boolean_T",
+            nameHsIdent = HsIdentifier
+              "Boolean_T"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Boolean_T",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Boolean_T"},
+            typedefType = TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "BOOLEAN_T",
+                  nameHsIdent = HsIdentifier
+                    "BOOLEAN_T"})},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,

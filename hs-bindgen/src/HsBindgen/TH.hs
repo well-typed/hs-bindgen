@@ -19,9 +19,9 @@ module HsBindgen.TH (
   , Args.CStandard(..)
 
     -- ** External bindings
-  , ExtBindings.ExtBindings -- opaque
-  , ExtBindings.emptyExtBindings
+  , ResolvedBindingSpec -- opaque
   , loadExtBindings
+  , emptyExtBindings
   , Resolve.ResolveHeaderException(..)
 
     -- ** Translation options
@@ -52,9 +52,10 @@ import System.FilePath qualified as FilePath
 
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
+import HsBindgen.BindingSpec (ResolvedBindingSpec)
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
-import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
@@ -83,8 +84,11 @@ loadExtBindings ::
      Tracer TH.Q (TraceWithCallStack Trace.Trace)
   -> Args.ClangArgs
   -> [FilePath]
-  -> TH.Q (Set Resolve.ResolveHeaderException, ExtBindings.ExtBindings)
-loadExtBindings tracer args = TH.runIO . ExtBindings.loadExtBindings tracer' args
+  -> TH.Q (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
+loadExtBindings tracer args = TH.runIO . BindingSpec.load tracer' args
   where
     tracer' :: Tracer IO (TraceWithCallStack ExtraClangArgsLog)
     tracer' = useTrace Trace.TraceExtraClangArgs $ natTracer TH.runQ tracer
+
+emptyExtBindings :: ResolvedBindingSpec
+emptyExtBindings = BindingSpec.empty

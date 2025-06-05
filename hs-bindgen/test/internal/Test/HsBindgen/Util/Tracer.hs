@@ -2,7 +2,6 @@ module Test.HsBindgen.Util.Tracer
   ( tests
   ) where
 
-import GHC.Stack (callStack)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 
@@ -44,7 +43,7 @@ testTracerIO customLogLevel traces = do
       tracerConf = defaultTracerConf { tVerbosity = Verbosity Debug }
       withTracer = withTracerCustom DisableAnsiColor tracerConf customLogLevel noOutput
   (_, maxLogLevel) <- withTracer $ \tracer -> do
-    mapM_ (traceWithCallStack tracer callStack) traces
+    mapM_ (traceWithCallStack tracer) traces
   pure maxLogLevel
 
 tests :: TestTree

@@ -1,16 +1,16 @@
 -- addDependentFile examples/attributes.h
 data C__SFILE
-    = C__SFILE {c__SFILE__r :: CInt,
-                c__SFILE__w :: CInt,
-                c__SFILE__close :: (FunPtr (Ptr Void -> IO CInt))}
+    = C__SFILE {__sFILE__r :: CInt,
+                __sFILE__w :: CInt,
+                __sFILE__close :: (FunPtr (Ptr Void -> IO CInt))}
 instance Storable C__SFILE
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
            peek = \ptr_0 -> ((pure C__SFILE <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {C__SFILE c__SFILE__r_3
-                                              c__SFILE__w_4
-                                              c__SFILE__close_5 -> pokeByteOff ptr_1 (0 :: Int) c__SFILE__r_3 >> (pokeByteOff ptr_1 (4 :: Int) c__SFILE__w_4 >> pokeByteOff ptr_1 (8 :: Int) c__SFILE__close_5)}}
+                                    {C__SFILE __sFILE__r_3
+                                              __sFILE__w_4
+                                              __sFILE__close_5 -> pokeByteOff ptr_1 (0 :: Int) __sFILE__r_3 >> (pokeByteOff ptr_1 (4 :: Int) __sFILE__w_4 >> pokeByteOff ptr_1 (8 :: Int) __sFILE__close_5)}}
 deriving stock instance Show C__SFILE
 deriving stock instance Eq C__SFILE
 newtype FILE = FILE {un_FILE :: C__SFILE}

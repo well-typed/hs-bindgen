@@ -1,401 +1,559 @@
-Header
-  [
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:5:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "I",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "macro_in_fundecl.h:5:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:6:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit Nothing))))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "macro_in_fundecl.h:6:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:7:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "F",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimFloating PrimFloat)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "macro_in_fundecl.h:7:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:8:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "L",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimLong Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "macro_in_fundecl.h:8:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:9:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:5:9",
+        declId = NamePair {
+          nameC = CName "I",
+          nameHsIdent = HsIdentifier
+            "I"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "I",
+              newtypeField = HsName
+                "@NsVar"
+                "un_I"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:6:9",
+        declId = NamePair {
+          nameC = CName "C",
+          nameHsIdent = HsIdentifier
+            "C"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "C",
+              newtypeField = HsName
+                "@NsVar"
+                "un_C"},
+            macroType = TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:7:9",
+        declId = NamePair {
+          nameC = CName "F",
+          nameHsIdent = HsIdentifier
+            "F"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "F",
+              newtypeField = HsName
+                "@NsVar"
+                "un_F"},
+            macroType = TypePrim
+              (PrimFloating PrimFloat)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:8:9",
+        declId = NamePair {
+          nameC = CName "L",
+          nameHsIdent = HsIdentifier
+            "L"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "L",
+              newtypeField = HsName
+                "@NsVar"
+                "un_L"},
+            macroType = TypePrim
+              (PrimIntegral
+                PrimLong
+                Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:9:9",
+        declId = NamePair {
+          nameC = CName "S",
+          nameHsIdent = HsIdentifier
+            "S"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "S",
+              newtypeField = HsName
+                "@NsVar"
+                "un_S"},
+            macroType = TypePrim
+              (PrimIntegral
+                PrimShort
+                Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:12:6",
+        declId = NamePair {
+          nameC = CName "quux",
+          nameHsIdent = HsIdentifier
+            "quux"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "F",
+                  nameHsIdent = HsIdentifier
+                    "F"}),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))],
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing)),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:13:4",
+        declId = NamePair {
+          nameC = CName "wam",
+          nameHsIdent = HsIdentifier
+            "wam"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "C",
+                    nameHsIdent = HsIdentifier
+                      "C"}))],
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "C",
+                  nameHsIdent = HsIdentifier
+                    "C"})),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:16:7",
+        declId = NamePair {
+          nameC = CName "foo1",
+          nameHsIdent = HsIdentifier
+            "foo1"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
                 (TypePrim
                   (PrimIntegral
-                    PrimShort
-                    Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "macro_in_fundecl.h:9:9"},
-    DeclFunction
-      Function {
-        functionName = CName "quux",
-        functionArgs = [
-          TypeTypedef (CName "F"),
-          TypePrim
-            (PrimChar
-              (PrimSignImplicit Nothing))],
-        functionRes = TypePrim
-          (PrimChar
-            (PrimSignImplicit Nothing)),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:12:6"},
-    DeclFunction
-      Function {
-        functionName = CName "wam",
-        functionArgs = [
-          TypePrim
-            (PrimFloating PrimFloat),
-          TypePointer
-            (TypeTypedef (CName "C"))],
-        functionRes = TypePointer
-          (TypeTypedef (CName "C")),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:13:4"},
-    DeclFunction
-      Function {
-        functionName = CName "foo1",
-        functionArgs = [
-          TypePrim
-            (PrimFloating PrimFloat),
-          TypePointer
+                    PrimInt
+                    Signed)))],
+          functionRes = TypePointer
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:17:7",
+        declId = NamePair {
+          nameC = CName "foo2",
+          nameHsIdent = HsIdentifier
+            "foo2"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "F",
+                  nameHsIdent = HsIdentifier
+                    "F"}),
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionRes = TypePointer
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:18:4",
+        declId = NamePair {
+          nameC = CName "foo3",
+          nameHsIdent = HsIdentifier
+            "foo3"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "C",
+                  nameHsIdent = HsIdentifier
+                    "C"})),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:21:7",
+        declId = NamePair {
+          nameC = CName "bar1",
+          nameHsIdent = HsIdentifier
+            "bar1"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimLong Signed)],
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
-                  (PrimIntegral PrimInt Signed)]
+                  (PrimIntegral PrimShort Signed)]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))],
-        functionRes = TypePointer
-          (TypePrim
-            (PrimChar
-              (PrimSignImplicit
-                (Just Signed)))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:16:7"},
-    DeclFunction
-      Function {
-        functionName = CName "foo2",
-        functionArgs = [
-          TypeTypedef (CName "F"),
-          TypePointer
+                (PrimIntegral PrimInt Signed))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:22:7",
+        declId = NamePair {
+          nameC = CName "bar2",
+          nameHsIdent = HsIdentifier
+            "bar2"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "L",
+                  nameHsIdent = HsIdentifier
+                    "L"})],
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
-                  (PrimIntegral PrimInt Signed)]
+                  (PrimIntegral PrimShort Signed)]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))],
-        functionRes = TypePointer
-          (TypePrim
-            (PrimChar
-              (PrimSignImplicit Nothing))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:17:7"},
-    DeclFunction
-      Function {
-        functionName = CName "foo3",
-        functionArgs = [
-          TypePrim
-            (PrimFloating PrimFloat),
-          TypePointer
+                (PrimIntegral PrimInt Signed))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:23:7",
+        declId = NamePair {
+          nameC = CName "bar3",
+          nameHsIdent = HsIdentifier
+            "bar3"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimLong Signed)],
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "S",
+                      nameHsIdent = HsIdentifier
+                        "S"})]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:24:5",
+        declId = NamePair {
+          nameC = CName "bar4",
+          nameHsIdent = HsIdentifier
+            "bar4"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimLong Signed)],
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
-                  (PrimIntegral PrimInt Signed)]
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))],
-        functionRes = TypePointer
-          (TypeTypedef (CName "C")),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:18:4"},
-    DeclFunction
-      Function {
-        functionName = CName "bar1",
-        functionArgs = [
-          TypePrim
-            (PrimIntegral PrimLong Signed)],
-        functionRes = TypePointer
-          (TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimShort Signed)]
-            (TypePrim
-              (PrimIntegral PrimInt Signed))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:21:7"},
-    DeclFunction
-      Function {
-        functionName = CName "bar2",
-        functionArgs = [
-          TypeTypedef (CName "L")],
-        functionRes = TypePointer
-          (TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimShort Signed)]
-            (TypePrim
-              (PrimIntegral PrimInt Signed))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:22:7"},
-    DeclFunction
-      Function {
-        functionName = CName "bar3",
-        functionArgs = [
-          TypePrim
-            (PrimIntegral PrimLong Signed)],
-        functionRes = TypePointer
-          (TypeFun
-            [TypeTypedef (CName "S")]
-            (TypePrim
-              (PrimIntegral PrimInt Signed))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:23:7"},
-    DeclFunction
-      Function {
-        functionName = CName "bar4",
-        functionArgs = [
-          TypePrim
-            (PrimIntegral PrimLong Signed)],
-        functionRes = TypePointer
-          (TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimShort Signed)]
-            (TypeTypedef (CName "I"))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:24:5"},
-    DeclFunction
-      Function {
-        functionName = CName "baz1",
-        functionArgs = [
-          TypePrim
-            (PrimIntegral PrimInt Signed)],
-        functionRes = TypePointer
-          (TypeConstArray
-            Size {
-              size = 2,
-              sizeExpression = MTerm
-                (MInt
-                  IntegerLiteral {
-                    integerLiteralText = "2",
-                    integerLiteralType = Size,
-                    integerLiteralValue = 2})}
+                  (PrimIntegral PrimShort Signed)]
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "I",
+                    nameHsIdent = HsIdentifier
+                      "I"}))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:27:7",
+        declId = NamePair {
+          nameC = CName "baz1",
+          nameHsIdent = HsIdentifier
+            "baz1"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypePointer
             (TypeConstArray
-              Size {
-                size = 3,
-                sizeExpression = MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "3",
-                      integerLiteralType = Size,
-                      integerLiteralValue = 3})}
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:27:7"},
-    DeclFunction
-      Function {
-        functionName = CName "baz2",
-        functionArgs = [
-          TypeTypedef (CName "I")],
-        functionRes = TypePointer
-          (TypeConstArray
-            Size {
-              size = 2,
-              sizeExpression = MTerm
-                (MInt
-                  IntegerLiteral {
-                    integerLiteralText = "2",
-                    integerLiteralType = Int Signed,
-                    integerLiteralValue = 2})}
+              2
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:35:7",
+        declId = NamePair {
+          nameC = CName "baz2",
+          nameHsIdent = HsIdentifier
+            "baz2"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "I",
+                  nameHsIdent = HsIdentifier
+                    "I"})],
+          functionRes = TypePointer
             (TypeConstArray
-              Size {
-                size = 3,
-                sizeExpression = MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "3",
-                      integerLiteralType = Int Signed,
-                      integerLiteralValue = 3})}
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:35:7"},
-    DeclFunction
-      Function {
-        functionName = CName "baz3",
-        functionArgs = [
-          TypePrim
-            (PrimIntegral PrimInt Signed)],
-        functionRes = TypePointer
-          (TypeConstArray
-            Size {
-              size = 2,
-              sizeExpression = MTerm
-                (MInt
-                  IntegerLiteral {
-                    integerLiteralText = "2",
-                    integerLiteralType = Int Signed,
-                    integerLiteralValue = 2})}
+              2
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:43:5",
+        declId = NamePair {
+          nameC = CName "baz3",
+          nameHsIdent = HsIdentifier
+            "baz3"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypePointer
             (TypeConstArray
-              Size {
-                size = 3,
-                sizeExpression = MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "3",
-                      integerLiteralType = Int Signed,
-                      integerLiteralValue = 3})}
-              (TypeTypedef (CName "I")))),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:43:5"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "no_args_no_void",
-        functionArgs = [],
-        functionRes = TypeTypedef
-          (CName "I"),
-        functionHeader =
-        "macro_in_fundecl.h",
-        functionSourceLoc =
-        "macro_in_fundecl.h:53:3"}]
+              2
+              (TypeConstArray
+                3
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "I",
+                      nameHsIdent = HsIdentifier
+                        "I"})))),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl.h:53:3",
+        declId = NamePair {
+          nameC = CName "no_args_no_void",
+          nameHsIdent = HsIdentifier
+            "no_args_no_void"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "I",
+                nameHsIdent = HsIdentifier
+                  "I"}),
+          functionHeader =
+          "macro_in_fundecl.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["macro_in_fundecl"]}

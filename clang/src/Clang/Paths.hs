@@ -15,11 +15,11 @@ module Clang.Paths (
   , CIncludePathDir(..)
   ) where
 
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception (displayException))
+import Data.List qualified as List
 import Data.String
 import Data.Text (Text)
 import Data.Text qualified as Text
-import Data.List qualified as List
 import System.FilePath qualified as FilePath
 
 {-------------------------------------------------------------------------------

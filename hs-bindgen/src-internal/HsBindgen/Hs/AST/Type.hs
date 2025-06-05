@@ -5,10 +5,9 @@ module HsBindgen.Hs.AST.Type (
   hsPrimFloatTy
 ) where
 
-import HsBindgen.C.AST qualified as C
-import HsBindgen.ExtBindings
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
-import HsBindgen.Hs.AST.Name
+import HsBindgen.Language.Haskell
 
 import C.Type qualified
 
@@ -61,7 +60,7 @@ data HsType =
   | HsFunPtr HsType
   | HsIO HsType
   | HsFun HsType HsType
-  | HsExtBinding ExtIdentifier C.Type
+  | HsExtBinding ExtHsRef BindingSpec.TypeSpec
   | HsByteArray
   | HsSizedByteArray Natural Natural
   deriving stock (Generic, Show)

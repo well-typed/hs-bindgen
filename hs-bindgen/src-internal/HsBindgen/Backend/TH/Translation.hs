@@ -30,25 +30,24 @@ import GHC.Float
 
 import C.Char (CharValue(..), charValueFromAddr)
 import C.Expr.HostPlatform qualified as C
-import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Errors
-import HsBindgen.ExtBindings
+import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
+import HsBindgen.Language.C (canBeRepresentedAsRational)
+import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ByteArray qualified
+import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Marshal qualified
-import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
-import HsBindgen.Runtime.CAPI qualified
+import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.SHs.AST
-import HsBindgen.Guasi
 
 import DeBruijn (Env (..), lookupEnv, EmptyCtx, Add (..))
 import GHC.Exts (Int(..), sizeofByteArray#)
@@ -473,11 +472,11 @@ mkType env = \case
             (map bndr xs)
             (traverse (mkType env') ctxt)
             (mkType env' body)
-    TExt ExtIdentifier{..} _ctype ->
+    TExt ExtHsRef{..} _typeSpec ->
         TH.conT . TH.mkName $ concat [
-              Text.unpack (getHsModuleName extIdentifierModule)
+              Text.unpack (getHsModuleName extHsRefModule)
             , "."
-            , Text.unpack (getHsIdentifier extIdentifierIdentifier)
+            , Text.unpack (getHsIdentifier extHsRefIdentifier)
             ]
 
 mkPrimType :: Quote q => HsPrimType -> q TH.Type

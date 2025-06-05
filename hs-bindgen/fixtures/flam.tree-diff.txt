@@ -1,122 +1,186 @@
-Header
-  [
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "pascal"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "len",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc = "flam.h:3:9"}],
-        structFlam = Just
-          StructField {
-            fieldName = CName "data",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed))),
-            fieldSourceLoc = "flam.h:4:10"},
-        structSourceLoc = "flam.h:2:8"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "foo"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "len",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc = "flam.h:9:6"}],
-        structFlam = Just
-          StructField {
-            fieldName = CName "bar",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "foo"))
-                  (CName "bar")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc = "flam.h:13:4"},
-        structSourceLoc = "flam.h:8:8"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathAnon
-          (DeclPathCtxtField
-            (Just (CName "foo"))
-            (CName "bar")
-            DeclPathCtxtTop),
-        structAliases = [],
-        structSizeof = 8,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "x",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc = "flam.h:11:7"},
-          StructField {
-            fieldName = CName "y",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "flam.h:12:7"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "flam.h:10:2"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "diff"),
-        structAliases = [],
-        structSizeof = 16,
-        structAlignment = 8,
-        structFields = [
-          StructField {
-            fieldName = CName "first",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimLong Signed),
-            fieldSourceLoc = "flam.h:18:7"},
-          StructField {
-            fieldName = CName "second",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed))),
-            fieldSourceLoc =
-            "flam.h:19:7"}],
-        structFlam = Just
-          StructField {
-            fieldName = CName "flam",
-            fieldOffset = 72,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed))),
-            fieldSourceLoc = "flam.h:20:7"},
-        structSourceLoc =
-        "flam.h:17:8"}]
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "flam.h:2:8",
+        declId = NamePair {
+          nameC = CName "pascal",
+          nameHsIdent = HsIdentifier
+            "Pascal"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Pascal"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc = "flam.h:3:9",
+              structFieldName = NamePair {
+                nameC = CName "len",
+                nameHsIdent = HsIdentifier
+                  "pascal_len"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Just
+            StructField {
+              structFieldLoc = "flam.h:4:10",
+              structFieldName = NamePair {
+                nameC = CName "data",
+                nameHsIdent = HsIdentifier
+                  "pascal_data"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "flam.h:10:2",
+        declId = NamePair {
+          nameC = CName "foo_bar",
+          nameHsIdent = HsIdentifier
+            "Foo_bar"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Foo_bar"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc = "flam.h:11:7",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "foo_bar_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc = "flam.h:12:7",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "foo_bar_y"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "flam.h:8:8",
+        declId = NamePair {
+          nameC = CName "foo",
+          nameHsIdent = HsIdentifier
+            "Foo"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Foo"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc = "flam.h:9:6",
+              structFieldName = NamePair {
+                nameC = CName "len",
+                nameHsIdent = HsIdentifier
+                  "foo_len"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Just
+            StructField {
+              structFieldLoc = "flam.h:13:4",
+              structFieldName = NamePair {
+                nameC = CName "bar",
+                nameHsIdent = HsIdentifier
+                  "foo_bar"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName "foo_bar",
+                  nameHsIdent = HsIdentifier
+                    "Foo_bar"},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "flam.h:17:8",
+        declId = NamePair {
+          nameC = CName "diff",
+          nameHsIdent = HsIdentifier
+            "Diff"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Diff"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldLoc = "flam.h:18:7",
+              structFieldName = NamePair {
+                nameC = CName "first",
+                nameHsIdent = HsIdentifier
+                  "diff_first"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimLong Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc = "flam.h:19:7",
+              structFieldName = NamePair {
+                nameC = CName "second",
+                nameHsIdent = HsIdentifier
+                  "diff_second"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Just
+            StructField {
+              structFieldLoc = "flam.h:20:7",
+              structFieldName = NamePair {
+                nameC = CName "flam",
+                nameHsIdent = HsIdentifier
+                  "diff_flam"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 72,
+              structFieldWidth = Nothing}},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["flam"]}

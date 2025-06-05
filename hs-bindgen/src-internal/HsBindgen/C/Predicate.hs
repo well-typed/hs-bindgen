@@ -8,17 +8,23 @@ module HsBindgen.C.Predicate (
     Predicate(..)
   , Regex -- opaque
     -- * Execution (this is internal API)
+  , IsMainFile
+  , SkipReason (..)
+  , skipBuiltin
   , match
   ) where
 
 import Control.Monad.Except (ExceptT, runExceptT, throwError)
+import Data.Text qualified as Text
 import Text.Regex.PCRE qualified as PCRE
-import Text.Regex.PCRE.Text () -- instances only
+import Text.Regex.PCRE.Text ()
 
+import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -36,11 +42,8 @@ data Predicate =
     -- Used to define the 'Semigroup' instance.
   | SelectIfBoth Predicate Predicate
 
-    -- | Check if the definition is from the \"main\" file
-    --
-    -- Corresponds directly to @clang_Location_isFromMainFile@ in @libclang@;
-    -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacb4ca7b858d66f0205797ae84cc4e8f2>.
-  | SelectFromMainFile
+    -- | Include definitions in main files (and not in included files)
+  | SelectFromMainFiles
 
     -- | Match filename against regex
   | SelectByFileName Regex
@@ -56,51 +59,112 @@ instance Monoid Predicate where
   mempty = SelectAll
 
 {-------------------------------------------------------------------------------
+  Log messages (during matching)
+-------------------------------------------------------------------------------}
+
+data SkipReason =
+    SkipBuiltin {
+         skippedName :: Text
+       }
+  | SkipPredicate {
+        skippedName   :: Text
+      , skippedLoc    :: SingleLoc
+      , skippedReason :: Text
+      }
+  deriving stock (Show)
+
+instance PrettyTrace SkipReason where
+  prettyTrace = \case
+      SkipBuiltin{skippedName} -> concat [
+          "Skipped built-in: "
+        , show skippedName
+        ]
+      SkipPredicate{..} -> Text.unpack $ mconcat [
+          "Skipped "
+        , skippedName
+        , " at "
+        , Text.pack (show skippedLoc)
+        , ": "
+        , skippedReason
+        ]
+
+instance HasDefaultLogLevel SkipReason where
+  getDefaultLogLevel = \case
+      SkipBuiltin{}   -> Debug
+      SkipPredicate{} -> Info
+
+{-------------------------------------------------------------------------------
   Matching
 
   NOTE: This is internal API (users construct filters, but don't use them).
 -------------------------------------------------------------------------------}
+
+-- | Check if a declaration is from one of the main files
+--
+-- This check is somewhat subtle, and we punt on the precise implementation in
+-- this module. See "HsBindgen.Frontend.ProcessIncludes" for discussion.
+type IsMainFile = SingleLoc -> Bool
+
+-- | Skip built-in
+skipBuiltin ::
+     MonadIO m
+  => CXCursor -> m (Either SkipReason ())
+skipBuiltin curr = do
+    loc <- HighLevel.clang_getCursorLocation' curr
+    if nullSourcePath (singleLocPath loc)
+      then Left . SkipBuiltin <$> clang_getCursorSpelling curr
+      else return $ Right ()
 
 -- | Match filter
 --
 -- If the filter does not match, we report the reason why.
 match :: forall m.
      MonadIO m
-  => SourcePath -- ^ Path of current main header file
-  -> CXCursor
-  -> SingleLoc
+  => IsMainFile
   -> Predicate
-  -> m (Either String ())
-match mainSourcePath current sloc = runExceptT . go
-  where
-    go :: Predicate -> ExceptT String m ()
-    go SelectAll      = return ()
-    go (SelectIfBoth p q) = go p >> go q
+  -> CXCursor -> m (Either SkipReason ())
+match isMainFile predicate curr = runExceptT $ do
+    loc <- HighLevel.clang_getCursorLocation' curr
 
-    go SelectFromMainFile =
-        unless (singleLocPath sloc == mainSourcePath) $
-          throwError $ "Not from the main file"
+    let skip :: Text -> ExceptT SkipReason m a
+        skip skippedReason = do
+              skippedName <- clang_getCursorSpelling curr
+              throwError SkipPredicate{
+                  skippedName
+                , skippedReason
+                , skippedLoc = loc
+                }
 
-    go (SelectByFileName re) = do
-        let filename = case singleLocPath sloc of
-              SourcePath t -> t
-        unless (matchTest re filename) $
-          throwError $ mconcat [
-              "File name "
-            , show filename
-            , " does not match "
-            , show re
-            ]
+        go :: Predicate -> ExceptT SkipReason m ()
+        go SelectAll =
+            pure ()
+        go (SelectIfBoth p q) = do
+            go p
+            go q
+        go SelectFromMainFiles = do
+            unless (isMainFile loc) $
+              skip "Not from main files"
+        go (SelectByFileName re) = do
+            let filename = case singleLocPath loc of SourcePath t -> t
+            unless (matchTest re filename) $
+              skip $ mconcat [
+                  "File name '"
+                , filename
+                , "' does not match "
+                , Text.pack $ show re
+                ]
+        go (SelectByElementName re) = do
+            elementName <- clang_getCursorSpelling curr
+            unless (matchTest re elementName) $ do
+              skip $ mconcat [
+                  "Element name '"
+                , elementName
+                , "' does not match "
+                , Text.pack $ show re
+                ]
 
-    go (SelectByElementName re) = do
-        elementName <- clang_getCursorSpelling current
-        unless (matchTest re elementName) $ do
-          throwError $ mconcat [
-              "Element name "
-            , show elementName
-            , " does not match "
-            , show re
-            ]
+
+    go predicate
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs

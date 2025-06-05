@@ -39,35 +39,6 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar P
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
-data Foo = Foo
-  { foo_len :: FC.CInt
-  }
-
-instance F.Storable Foo where
-
-  sizeOf = \_ -> (4 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Foo
-      <*> F.peekByteOff ptr0 (0 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Foo foo_len2 -> F.pokeByteOff ptr0 (0 :: Int) foo_len2
-
-deriving stock instance Show Foo
-
-deriving stock instance Eq Foo
-
-instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo_bar Foo where
-
-  flexibleArrayMemberOffset = \_ty0 -> 4
-
 data Foo_bar = Foo_bar
   { foo_bar_x :: FC.CInt
   , foo_bar_y :: FC.CInt
@@ -96,6 +67,35 @@ instance F.Storable Foo_bar where
 deriving stock instance Show Foo_bar
 
 deriving stock instance Eq Foo_bar
+
+data Foo = Foo
+  { foo_len :: FC.CInt
+  }
+
+instance F.Storable Foo where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Foo
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Foo foo_len2 -> F.pokeByteOff ptr0 (0 :: Int) foo_len2
+
+deriving stock instance Show Foo
+
+deriving stock instance Eq Foo
+
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo_bar Foo where
+
+  flexibleArrayMemberOffset = \_ty0 -> 4
 
 data Diff = Diff
   { diff_first :: FC.CLong

@@ -1,24 +1,7 @@
 -- addDependentFile musl-include/x86_64/stdbool.h
--- addDependentFile musl-include/x86_64/bits/stdint.h
--- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/distilled_lib_1.h
 -- #include "distilled_lib_1.h"
 -- int32_t test_internal_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }
-newtype Int32_t = Int32_t {un_Int32_t :: CInt}
-deriving newtype instance Storable Int32_t
-deriving stock instance Eq Int32_t
-deriving stock instance Ord Int32_t
-deriving stock instance Read Int32_t
-deriving stock instance Show Int32_t
-deriving newtype instance Enum Int32_t
-deriving newtype instance Ix Int32_t
-deriving newtype instance Bounded Int32_t
-deriving newtype instance Bits Int32_t
-deriving newtype instance FiniteBits Int32_t
-deriving newtype instance Integral Int32_t
-deriving newtype instance Num Int32_t
-deriving newtype instance Real Int32_t
 newtype Uint8_t = Uint8_t {un_Uint8_t :: CUChar}
 deriving newtype instance Storable Uint8_t
 deriving stock instance Eq Uint8_t
@@ -61,6 +44,20 @@ deriving newtype instance FiniteBits Uint32_t
 deriving newtype instance Integral Uint32_t
 deriving newtype instance Num Uint32_t
 deriving newtype instance Real Uint32_t
+newtype Int32_t = Int32_t {un_Int32_t :: CInt}
+deriving newtype instance Storable Int32_t
+deriving stock instance Eq Int32_t
+deriving stock instance Ord Int32_t
+deriving stock instance Read Int32_t
+deriving stock instance Show Int32_t
+deriving newtype instance Enum Int32_t
+deriving newtype instance Ix Int32_t
+deriving newtype instance Bounded Int32_t
+deriving newtype instance Bits Int32_t
+deriving newtype instance FiniteBits Int32_t
+deriving newtype instance Integral Int32_t
+deriving newtype instance Num Int32_t
+deriving newtype instance Real Int32_t
 data Another_typedef_struct_t
     = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt,
                                 another_typedef_struct_t_bar :: CChar}

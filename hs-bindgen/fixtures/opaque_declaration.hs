@@ -4,13 +4,21 @@
       emptyDataName = HsName
         "@NsTypeConstr"
         "Foo",
-      emptyDataOrigin =
-      EmptyDataOriginOpaqueStruct
-        OpaqueStruct {
-          opaqueStructTag = CName "foo",
-          opaqueStructAliases = [],
-          opaqueStructSourceLoc =
-          "opaque_declaration.h:1:8"}},
+      emptyDataOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "opaque_declaration.h:1:8",
+          declId = NamePair {
+            nameC = CName "foo",
+            nameHsIdent = HsIdentifier
+              "Foo"}},
+        declKind = OpaqueStruct,
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}}},
   DeclData
     Struct {
       structName = HsName
@@ -27,17 +35,22 @@
           fieldType = HsPtr
             (HsTypRef
               (HsName "@NsTypeConstr" "Foo")),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "ptrA",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
+              structFieldLoc =
+              "opaque_declaration.h:5:17",
+              structFieldName = NamePair {
+                nameC = CName "ptrA",
+                nameHsIdent = HsIdentifier
+                  "bar_ptrA"},
+              structFieldType = TypePointer
                 (TypeStruct
-                  (DeclPathName (CName "foo"))),
-              fieldSourceLoc =
-              "opaque_declaration.h:5:17"}},
+                  NamePair {
+                    nameC = CName "foo",
+                    nameHsIdent = HsIdentifier
+                      "Foo"}),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -45,47 +58,75 @@
           fieldType = HsPtr
             (HsTypRef
               (HsName "@NsTypeConstr" "Bar")),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "ptrB",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
+              structFieldLoc =
+              "opaque_declaration.h:6:17",
+              structFieldName = NamePair {
+                nameC = CName "ptrB",
+                nameHsIdent = HsIdentifier
+                  "bar_ptrB"},
+              structFieldType = TypePointer
                 (TypeStruct
-                  (DeclPathName (CName "bar"))),
-              fieldSourceLoc =
-              "opaque_declaration.h:6:17"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "bar"),
-          structAliases = [],
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "ptrA",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypeStruct
-                  (DeclPathName (CName "foo"))),
-              fieldSourceLoc =
-              "opaque_declaration.h:5:17"},
-            StructField {
-              fieldName = CName "ptrB",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypeStruct
-                  (DeclPathName (CName "bar"))),
-              fieldSourceLoc =
-              "opaque_declaration.h:6:17"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "opaque_declaration.h:4:8"},
+                  NamePair {
+                    nameC = CName "bar",
+                    nameHsIdent = HsIdentifier
+                      "Bar"}),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "opaque_declaration.h:4:8",
+            declId = NamePair {
+              nameC = CName "bar",
+              nameHsIdent = HsIdentifier
+                "Bar"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Bar"),
+              structSizeof = 16,
+              structAlignment = 8,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "opaque_declaration.h:5:17",
+                  structFieldName = NamePair {
+                    nameC = CName "ptrA",
+                    nameHsIdent = HsIdentifier
+                      "bar_ptrA"},
+                  structFieldType = TypePointer
+                    (TypeStruct
+                      NamePair {
+                        nameC = CName "foo",
+                        nameHsIdent = HsIdentifier
+                          "Foo"}),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "opaque_declaration.h:6:17",
+                  structFieldName = NamePair {
+                    nameC = CName "ptrB",
+                    nameHsIdent = HsIdentifier
+                      "bar_ptrB"},
+                  structFieldType = TypePointer
+                    (TypeStruct
+                      NamePair {
+                        nameC = CName "bar",
+                        nameHsIdent = HsIdentifier
+                          "Bar"}),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -105,17 +146,22 @@
             fieldType = HsPtr
               (HsTypRef
                 (HsName "@NsTypeConstr" "Foo")),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "ptrA",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
+                structFieldLoc =
+                "opaque_declaration.h:5:17",
+                structFieldName = NamePair {
+                  nameC = CName "ptrA",
+                  nameHsIdent = HsIdentifier
+                    "bar_ptrA"},
+                structFieldType = TypePointer
                   (TypeStruct
-                    (DeclPathName (CName "foo"))),
-                fieldSourceLoc =
-                "opaque_declaration.h:5:17"}},
+                    NamePair {
+                      nameC = CName "foo",
+                      nameHsIdent = HsIdentifier
+                        "Foo"}),
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -123,47 +169,75 @@
             fieldType = HsPtr
               (HsTypRef
                 (HsName "@NsTypeConstr" "Bar")),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "ptrB",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
+                structFieldLoc =
+                "opaque_declaration.h:6:17",
+                structFieldName = NamePair {
+                  nameC = CName "ptrB",
+                  nameHsIdent = HsIdentifier
+                    "bar_ptrB"},
+                structFieldType = TypePointer
                   (TypeStruct
-                    (DeclPathName (CName "bar"))),
-                fieldSourceLoc =
-                "opaque_declaration.h:6:17"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "bar"),
-            structAliases = [],
-            structSizeof = 16,
-            structAlignment = 8,
-            structFields = [
-              StructField {
-                fieldName = CName "ptrA",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
-                  (TypeStruct
-                    (DeclPathName (CName "foo"))),
-                fieldSourceLoc =
-                "opaque_declaration.h:5:17"},
-              StructField {
-                fieldName = CName "ptrB",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
-                  (TypeStruct
-                    (DeclPathName (CName "bar"))),
-                fieldSourceLoc =
-                "opaque_declaration.h:6:17"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "opaque_declaration.h:4:8"},
+                    NamePair {
+                      nameC = CName "bar",
+                      nameHsIdent = HsIdentifier
+                        "Bar"}),
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "opaque_declaration.h:4:8",
+              declId = NamePair {
+                nameC = CName "bar",
+                nameHsIdent = HsIdentifier
+                  "Bar"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Bar"),
+                structSizeof = 16,
+                structAlignment = 8,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "opaque_declaration.h:5:17",
+                    structFieldName = NamePair {
+                      nameC = CName "ptrA",
+                      nameHsIdent = HsIdentifier
+                        "bar_ptrA"},
+                    structFieldType = TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = CName "foo",
+                          nameHsIdent = HsIdentifier
+                            "Foo"}),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "opaque_declaration.h:6:17",
+                    structFieldName = NamePair {
+                      nameC = CName "ptrB",
+                      nameHsIdent = HsIdentifier
+                        "bar_ptrB"},
+                    structFieldType = TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = CName "bar",
+                          nameHsIdent = HsIdentifier
+                            "Bar"}),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -188,17 +262,22 @@
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName "@NsTypeConstr" "Foo")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "ptrA",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "opaque_declaration.h:5:17",
+                        structFieldName = NamePair {
+                          nameC = CName "ptrA",
+                          nameHsIdent = HsIdentifier
+                            "bar_ptrA"},
+                        structFieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName (CName "foo"))),
-                        fieldSourceLoc =
-                        "opaque_declaration.h:5:17"}},
+                            NamePair {
+                              nameC = CName "foo",
+                              nameHsIdent = HsIdentifier
+                                "Foo"}),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -206,47 +285,75 @@
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName "@NsTypeConstr" "Bar")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "ptrB",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "opaque_declaration.h:6:17",
+                        structFieldName = NamePair {
+                          nameC = CName "ptrB",
+                          nameHsIdent = HsIdentifier
+                            "bar_ptrB"},
+                        structFieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName (CName "bar"))),
-                        fieldSourceLoc =
-                        "opaque_declaration.h:6:17"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bar"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "ptrA",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathName (CName "foo"))),
-                        fieldSourceLoc =
-                        "opaque_declaration.h:5:17"},
-                      StructField {
-                        fieldName = CName "ptrB",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathName (CName "bar"))),
-                        fieldSourceLoc =
-                        "opaque_declaration.h:6:17"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "opaque_declaration.h:4:8"},
+                            NamePair {
+                              nameC = CName "bar",
+                              nameHsIdent = HsIdentifier
+                                "Bar"}),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "opaque_declaration.h:4:8",
+                      declId = NamePair {
+                        nameC = CName "bar",
+                        nameHsIdent = HsIdentifier
+                          "Bar"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bar"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "opaque_declaration.h:5:17",
+                            structFieldName = NamePair {
+                              nameC = CName "ptrA",
+                              nameHsIdent = HsIdentifier
+                                "bar_ptrA"},
+                            structFieldType = TypePointer
+                              (TypeStruct
+                                NamePair {
+                                  nameC = CName "foo",
+                                  nameHsIdent = HsIdentifier
+                                    "Foo"}),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "opaque_declaration.h:6:17",
+                            structFieldName = NamePair {
+                              nameC = CName "ptrB",
+                              nameHsIdent = HsIdentifier
+                                "bar_ptrB"},
+                            structFieldType = TypePointer
+                              (TypeStruct
+                                NamePair {
+                                  nameC = CName "bar",
+                                  nameHsIdent = HsIdentifier
+                                    "Bar"}),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -273,17 +380,22 @@
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName "@NsTypeConstr" "Foo")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "ptrA",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "opaque_declaration.h:5:17",
+                        structFieldName = NamePair {
+                          nameC = CName "ptrA",
+                          nameHsIdent = HsIdentifier
+                            "bar_ptrA"},
+                        structFieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName (CName "foo"))),
-                        fieldSourceLoc =
-                        "opaque_declaration.h:5:17"}},
+                            NamePair {
+                              nameC = CName "foo",
+                              nameHsIdent = HsIdentifier
+                                "Foo"}),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -291,47 +403,75 @@
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName "@NsTypeConstr" "Bar")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "ptrB",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "opaque_declaration.h:6:17",
+                        structFieldName = NamePair {
+                          nameC = CName "ptrB",
+                          nameHsIdent = HsIdentifier
+                            "bar_ptrB"},
+                        structFieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName (CName "bar"))),
-                        fieldSourceLoc =
-                        "opaque_declaration.h:6:17"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bar"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "ptrA",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathName (CName "foo"))),
-                        fieldSourceLoc =
-                        "opaque_declaration.h:5:17"},
-                      StructField {
-                        fieldName = CName "ptrB",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathName (CName "bar"))),
-                        fieldSourceLoc =
-                        "opaque_declaration.h:6:17"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "opaque_declaration.h:4:8"},
+                            NamePair {
+                              nameC = CName "bar",
+                              nameHsIdent = HsIdentifier
+                                "Bar"}),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "opaque_declaration.h:4:8",
+                      declId = NamePair {
+                        nameC = CName "bar",
+                        nameHsIdent = HsIdentifier
+                          "Bar"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bar"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "opaque_declaration.h:5:17",
+                            structFieldName = NamePair {
+                              nameC = CName "ptrA",
+                              nameHsIdent = HsIdentifier
+                                "bar_ptrA"},
+                            structFieldType = TypePointer
+                              (TypeStruct
+                                NamePair {
+                                  nameC = CName "foo",
+                                  nameHsIdent = HsIdentifier
+                                    "Foo"}),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "opaque_declaration.h:6:17",
+                            structFieldName = NamePair {
+                              nameC = CName "ptrB",
+                              nameHsIdent = HsIdentifier
+                                "bar_ptrB"},
+                            structFieldType = TypePointer
+                              (TypeStruct
+                                NamePair {
+                                  nameC = CName "bar",
+                                  nameHsIdent = HsIdentifier
+                                    "Bar"}),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -359,18 +499,29 @@
         "@NsConstr"
         "Baz",
       structFields = [],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "baz"),
-          structAliases = [],
-          structSizeof = 0,
-          structAlignment = 1,
-          structFields = [],
-          structFlam = Nothing,
-          structSourceLoc =
-          "opaque_declaration.h:9:8"},
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "opaque_declaration.h:9:8",
+            declId = NamePair {
+              nameC = CName "baz",
+              nameHsIdent = HsIdentifier
+                "Baz"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Baz"),
+              structSizeof = 0,
+              structAlignment = 1,
+              structFields = [],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -383,18 +534,29 @@
           "@NsConstr"
           "Baz",
         structFields = [],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "baz"),
-            structAliases = [],
-            structSizeof = 0,
-            structAlignment = 1,
-            structFields = [],
-            structFlam = Nothing,
-            structSourceLoc =
-            "opaque_declaration.h:9:8"},
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "opaque_declaration.h:9:8",
+              declId = NamePair {
+                nameC = CName "baz",
+                nameHsIdent = HsIdentifier
+                  "Baz"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Baz"),
+                structSizeof = 0,
+                structAlignment = 1,
+                structFields = [],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -412,18 +574,29 @@
                   "@NsConstr"
                   "Baz",
                 structFields = [],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "baz"),
-                    structAliases = [],
-                    structSizeof = 0,
-                    structAlignment = 1,
-                    structFields = [],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "opaque_declaration.h:9:8"},
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "opaque_declaration.h:9:8",
+                      declId = NamePair {
+                        nameC = CName "baz",
+                        nameHsIdent = HsIdentifier
+                          "Baz"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Baz"),
+                        structSizeof = 0,
+                        structAlignment = 1,
+                        structFields = [],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             []),
@@ -441,18 +614,29 @@
                   "@NsConstr"
                   "Baz",
                 structFields = [],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "baz"),
-                    structAliases = [],
-                    structSizeof = 0,
-                    structAlignment = 1,
-                    structFields = [],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "opaque_declaration.h:9:8"},
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "opaque_declaration.h:9:8",
+                      declId = NamePair {
+                        nameC = CName "baz",
+                        nameHsIdent = HsIdentifier
+                          "Baz"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Baz"),
+                        structSizeof = 0,
+                        structAlignment = 1,
+                        structFields = [],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 0)
@@ -470,23 +654,38 @@
       emptyDataName = HsName
         "@NsTypeConstr"
         "Quu",
-      emptyDataOrigin =
-      EmptyDataOriginOpaqueEnum
-        OpaqueEnum {
-          opaqueEnumTag = CName "quu",
-          opaqueEnumAliases = [],
-          opaqueEnumSourceLoc =
-          "opaque_declaration.h:11:6"}},
+      emptyDataOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "opaque_declaration.h:11:6",
+          declId = NamePair {
+            nameC = CName "quu",
+            nameHsIdent = HsIdentifier
+              "Quu"}},
+        declKind = OpaqueEnum,
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}}},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
         "@NsTypeConstr"
         "Opaque_union",
-      emptyDataOrigin =
-      EmptyDataOriginOpaqueStruct
-        OpaqueStruct {
-          opaqueStructTag = CName
-            "opaque_union",
-          opaqueStructAliases = [],
-          opaqueStructSourceLoc =
-          "opaque_declaration.h:13:7"}}]
+      emptyDataOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "opaque_declaration.h:13:7",
+          declId = NamePair {
+            nameC = CName "opaque_union",
+            nameHsIdent = HsIdentifier
+              "Opaque_union"}},
+        declKind = OpaqueUnion,
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}}}]

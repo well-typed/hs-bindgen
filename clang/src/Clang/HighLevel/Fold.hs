@@ -56,6 +56,10 @@ data Next m a where
   -- This is the equivalent of 'CXChildVisit_Recurse'.
   Recurse :: Fold m b -> ([b] -> m (Maybe a)) -> Next m a
 
+{-------------------------------------------------------------------------------
+  Combinators
+-------------------------------------------------------------------------------}
+
 instance Functor m => Functor (Next m) where
   fmap f (Break x)     = Break (fmap f x)
   fmap f (Continue x)  = Continue (fmap f x)

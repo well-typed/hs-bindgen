@@ -13,30 +13,50 @@
           "un_Foo",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "foo"),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "FOO1",
-              valueValue = 0,
-              valueSourceLoc =
-              "typenames.h:15:2"},
-            EnumValue {
-              valueName = CName "FOO2",
-              valueValue = 1,
-              valueSourceLoc =
-              "typenames.h:16:2"}],
-          enumSourceLoc =
-          "typenames.h:14:6"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "typenames.h:14:6",
+          declId = NamePair {
+            nameC = CName "foo",
+            nameHsIdent = HsIdentifier
+              "Foo"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Foo",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Foo"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "typenames.h:15:2",
+                enumConstantName = NamePair {
+                  nameC = CName "FOO1",
+                  nameHsIdent = HsIdentifier
+                    "FOO1"},
+                enumConstantValue = 0},
+              EnumConstant {
+                enumConstantLoc =
+                "typenames.h:16:2",
+                enumConstantName = NamePair {
+                  nameC = CName "FOO2",
+                  nameHsIdent = HsIdentifier
+                    "FOO2"},
+                enumConstantValue = 1}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -60,29 +80,8 @@
               "un_Foo",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "foo"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO1",
-                valueValue = 0,
-                valueSourceLoc =
-                "typenames.h:15:2"},
-              EnumValue {
-                valueName = CName "FOO2",
-                valueValue = 1,
-                valueSourceLoc =
-                "typenames.h:16:2"}],
-            enumSourceLoc =
-            "typenames.h:14:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -106,29 +105,8 @@
                       "un_Foo",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "foo"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "FOO1",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "typenames.h:15:2"},
-                      EnumValue {
-                        valueName = CName "FOO2",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "typenames.h:16:2"}],
-                    enumSourceLoc =
-                    "typenames.h:14:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -157,29 +135,8 @@
                       "un_Foo",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "foo"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "FOO1",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "typenames.h:15:2"},
-                      EnumValue {
-                        valueName = CName "FOO2",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "typenames.h:16:2"}],
-                    enumSourceLoc =
-                    "typenames.h:14:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -213,29 +170,8 @@
               "un_Foo",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "foo"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO1",
-                valueValue = 0,
-                valueSourceLoc =
-                "typenames.h:15:2"},
-              EnumValue {
-                valueName = CName "FOO2",
-                valueValue = 1,
-                valueSourceLoc =
-                "typenames.h:16:2"}],
-            enumSourceLoc =
-            "typenames.h:14:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -260,29 +196,8 @@
               "un_Foo",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "foo"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO1",
-                valueValue = 0,
-                valueSourceLoc =
-                "typenames.h:15:2"},
-              EnumValue {
-                valueName = CName "FOO2",
-                valueValue = 1,
-                valueSourceLoc =
-                "typenames.h:16:2"}],
-            enumSourceLoc =
-            "typenames.h:14:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "FOO1")
@@ -303,29 +218,8 @@
               "un_Foo",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "foo"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO1",
-                valueValue = 0,
-                valueSourceLoc =
-                "typenames.h:15:2"},
-              EnumValue {
-                valueName = CName "FOO2",
-                valueValue = 1,
-                valueSourceLoc =
-                "typenames.h:16:2"}],
-            enumSourceLoc =
-            "typenames.h:14:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -349,29 +243,8 @@
               "un_Foo",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "foo"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO1",
-                valueValue = 0,
-                valueSourceLoc =
-                "typenames.h:15:2"},
-              EnumValue {
-                valueName = CName "FOO2",
-                valueValue = 1,
-                valueSourceLoc =
-                "typenames.h:16:2"}],
-            enumSourceLoc =
-            "typenames.h:14:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -391,13 +264,15 @@
         "@NsConstr"
         "Foo",
       patSynValue = 0,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "FOO1",
-          valueValue = 0,
-          valueSourceLoc =
-          "typenames.h:15:2"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "typenames.h:15:2",
+          enumConstantName = NamePair {
+            nameC = CName "FOO1",
+            nameHsIdent = HsIdentifier
+              "FOO1"},
+          enumConstantValue = 0}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -410,13 +285,15 @@
         "@NsConstr"
         "Foo",
       patSynValue = 1,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "FOO2",
-          valueValue = 1,
-          valueSourceLoc =
-          "typenames.h:16:2"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "typenames.h:16:2",
+          enumConstantName = NamePair {
+            nameC = CName "FOO2",
+            nameHsIdent = HsIdentifier
+              "FOO2"},
+          enumConstantValue = 1}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -431,15 +308,31 @@
           "un_Foo",
         fieldType = HsPrimType
           HsPrimCDouble,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "foo",
-          typedefType = TypePrim
-            (PrimFloating PrimDouble),
-          typedefSourceLoc =
-          "typenames.h:19:16"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "typenames.h:19:16",
+          declId = NamePair {
+            nameC = CName "foo",
+            nameHsIdent = HsIdentifier
+              "Foo"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Foo",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Foo"},
+            typedefType = TypePrim
+              (PrimFloating PrimDouble)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,

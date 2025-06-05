@@ -13,31 +13,33 @@
           "un_MC",
         fieldType = HsPrimType
           HsPrimCChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl_vs_typedef.h:4:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "MC",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit Nothing))))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "macro_in_fundecl_vs_typedef.h:4:9",
+          declId = NamePair {
+            nameC = CName "MC",
+            nameHsIdent = HsIdentifier
+              "MC"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "MC",
+              newtypeField = HsName
+                "@NsVar"
+                "un_MC"},
+            macroType = TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -119,17 +121,34 @@
           "un_TC",
         fieldType = HsPrimType
           HsPrimCChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "TC",
-          typedefType = TypePrim
-            (PrimChar
-              (PrimSignImplicit
-                (Just Signed))),
-          typedefSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:5:14"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "macro_in_fundecl_vs_typedef.h:5:14",
+          declId = NamePair {
+            nameC = CName "TC",
+            nameHsIdent = HsIdentifier
+              "TC"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "TC",
+              newtypeField = HsName
+                "@NsVar"
+                "un_TC"},
+            typedefType = TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -219,19 +238,26 @@
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "quux1",
           functionArgs = [
-            TypeTypedef (CName "MC"),
-            TypeTypedef (CName "TC")],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"}),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "TC",
+                  nameHsIdent = HsIdentifier
+                    "TC"})],
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit Nothing)),
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:8:6"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -256,20 +282,26 @@
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "quux2",
           functionArgs = [
-            TypeTypedef (CName "MC"),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"}),
             TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))],
           functionRes = TypeTypedef
-            (CName "TC"),
+            (TypedefRegular
+              NamePair {
+                nameC = CName "TC",
+                nameHsIdent = HsIdentifier
+                  "TC"}),
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:9:4"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -296,20 +328,27 @@
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "wam1",
           functionArgs = [
             TypePrim
               (PrimFloating PrimFloat),
             TypePointer
-              (TypeTypedef (CName "TC"))],
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "TC",
+                    nameHsIdent = HsIdentifier
+                      "TC"}))],
           functionRes = TypePointer
-            (TypeTypedef (CName "MC")),
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})),
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:10:5"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -336,20 +375,27 @@
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "wam2",
           functionArgs = [
             TypePrim
               (PrimFloating PrimFloat),
             TypePointer
-              (TypeTypedef (CName "MC"))],
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "MC",
+                    nameHsIdent = HsIdentifier
+                      "MC"}))],
           functionRes = TypePointer
-            (TypeTypedef (CName "TC")),
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "TC",
+                  nameHsIdent = HsIdentifier
+                    "TC"})),
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:11:5"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclData
     Struct {
       structName = HsName
@@ -365,36 +411,52 @@
             "struct1_a",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "macro_in_fundecl_vs_typedef.h:18:30",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "struct1_a"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "macro_in_fundecl_vs_typedef.h:18:30"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "struct1"),
-          structAliases = [],
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "macro_in_fundecl_vs_typedef.h:18:30"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:18:16"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "macro_in_fundecl_vs_typedef.h:18:16",
+            declId = NamePair {
+              nameC = CName "struct1",
+              nameHsIdent = HsIdentifier
+                "Struct1"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Struct1"),
+              structSizeof = 4,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "macro_in_fundecl_vs_typedef.h:18:30",
+                  structFieldName = NamePair {
+                    nameC = CName "a",
+                    nameHsIdent = HsIdentifier
+                      "struct1_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -413,36 +475,52 @@
               "struct1_a",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "macro_in_fundecl_vs_typedef.h:18:30",
+                structFieldName = NamePair {
+                  nameC = CName "a",
+                  nameHsIdent = HsIdentifier
+                    "struct1_a"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "macro_in_fundecl_vs_typedef.h:18:30"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "struct1"),
-            structAliases = [],
-            structSizeof = 4,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "macro_in_fundecl_vs_typedef.h:18:30"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:18:16"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "macro_in_fundecl_vs_typedef.h:18:16",
+              declId = NamePair {
+                nameC = CName "struct1",
+                nameHsIdent = HsIdentifier
+                  "Struct1"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Struct1"),
+                structSizeof = 4,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "macro_in_fundecl_vs_typedef.h:18:30",
+                    structFieldName = NamePair {
+                      nameC = CName "a",
+                      nameHsIdent = HsIdentifier
+                        "struct1_a"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -466,36 +544,52 @@
                       "struct1_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "macro_in_fundecl_vs_typedef.h:18:30",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "struct1_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:18:30"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "struct1"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:18:30"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:18:16"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "macro_in_fundecl_vs_typedef.h:18:16",
+                      declId = NamePair {
+                        nameC = CName "struct1",
+                        nameHsIdent = HsIdentifier
+                          "Struct1"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Struct1"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "macro_in_fundecl_vs_typedef.h:18:30",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "struct1_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -519,36 +613,52 @@
                       "struct1_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "macro_in_fundecl_vs_typedef.h:18:30",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "struct1_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:18:30"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "struct1"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:18:30"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:18:16"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "macro_in_fundecl_vs_typedef.h:18:16",
+                      declId = NamePair {
+                        nameC = CName "struct1",
+                        nameHsIdent = HsIdentifier
+                          "Struct1"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Struct1"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "macro_in_fundecl_vs_typedef.h:18:30",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "struct1_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -585,37 +695,52 @@
             "struct2_a",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "macro_in_fundecl_vs_typedef.h:19:30",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "struct2_a"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "macro_in_fundecl_vs_typedef.h:19:30"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName "struct2")),
-          structAliases = [],
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "macro_in_fundecl_vs_typedef.h:19:30"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:19:9"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "macro_in_fundecl_vs_typedef.h:19:9",
+            declId = NamePair {
+              nameC = CName "struct2",
+              nameHsIdent = HsIdentifier
+                "Struct2"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Struct2"),
+              structSizeof = 4,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "macro_in_fundecl_vs_typedef.h:19:30",
+                  structFieldName = NamePair {
+                    nameC = CName "a",
+                    nameHsIdent = HsIdentifier
+                      "struct2_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -634,37 +759,52 @@
               "struct2_a",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "macro_in_fundecl_vs_typedef.h:19:30",
+                structFieldName = NamePair {
+                  nameC = CName "a",
+                  nameHsIdent = HsIdentifier
+                    "struct2_a"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "macro_in_fundecl_vs_typedef.h:19:30"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "struct2")),
-            structAliases = [],
-            structSizeof = 4,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "macro_in_fundecl_vs_typedef.h:19:30"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:19:9"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "macro_in_fundecl_vs_typedef.h:19:9",
+              declId = NamePair {
+                nameC = CName "struct2",
+                nameHsIdent = HsIdentifier
+                  "Struct2"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Struct2"),
+                structSizeof = 4,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "macro_in_fundecl_vs_typedef.h:19:30",
+                    structFieldName = NamePair {
+                      nameC = CName "a",
+                      nameHsIdent = HsIdentifier
+                        "struct2_a"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -688,37 +828,52 @@
                       "struct2_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "macro_in_fundecl_vs_typedef.h:19:30",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "struct2_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:19:30"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName "struct2")),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:19:30"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:19:9"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "macro_in_fundecl_vs_typedef.h:19:9",
+                      declId = NamePair {
+                        nameC = CName "struct2",
+                        nameHsIdent = HsIdentifier
+                          "Struct2"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Struct2"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "macro_in_fundecl_vs_typedef.h:19:30",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "struct2_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -742,37 +897,52 @@
                       "struct2_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "macro_in_fundecl_vs_typedef.h:19:30",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "struct2_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:19:30"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName "struct2")),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:19:30"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:19:9"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "macro_in_fundecl_vs_typedef.h:19:9",
+                      declId = NamePair {
+                        nameC = CName "struct2",
+                        nameHsIdent = HsIdentifier
+                          "Struct2"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Struct2"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "macro_in_fundecl_vs_typedef.h:19:30",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "struct2_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -809,36 +979,52 @@
             "struct3_a",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "macro_in_fundecl_vs_typedef.h:20:30",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "struct3_a"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "macro_in_fundecl_vs_typedef.h:20:30"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "struct3"),
-          structAliases = [],
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "macro_in_fundecl_vs_typedef.h:20:30"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:20:16"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "macro_in_fundecl_vs_typedef.h:20:16",
+            declId = NamePair {
+              nameC = CName "struct3",
+              nameHsIdent = HsIdentifier
+                "Struct3"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Struct3"),
+              structSizeof = 4,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "macro_in_fundecl_vs_typedef.h:20:30",
+                  structFieldName = NamePair {
+                    nameC = CName "a",
+                    nameHsIdent = HsIdentifier
+                      "struct3_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -857,36 +1043,52 @@
               "struct3_a",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "macro_in_fundecl_vs_typedef.h:20:30",
+                structFieldName = NamePair {
+                  nameC = CName "a",
+                  nameHsIdent = HsIdentifier
+                    "struct3_a"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "macro_in_fundecl_vs_typedef.h:20:30"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "struct3"),
-            structAliases = [],
-            structSizeof = 4,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "macro_in_fundecl_vs_typedef.h:20:30"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:20:16"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "macro_in_fundecl_vs_typedef.h:20:16",
+              declId = NamePair {
+                nameC = CName "struct3",
+                nameHsIdent = HsIdentifier
+                  "Struct3"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Struct3"),
+                structSizeof = 4,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "macro_in_fundecl_vs_typedef.h:20:30",
+                    structFieldName = NamePair {
+                      nameC = CName "a",
+                      nameHsIdent = HsIdentifier
+                        "struct3_a"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -910,36 +1112,52 @@
                       "struct3_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "macro_in_fundecl_vs_typedef.h:20:30",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "struct3_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:20:30"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "struct3"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:20:30"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:20:16"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "macro_in_fundecl_vs_typedef.h:20:16",
+                      declId = NamePair {
+                        nameC = CName "struct3",
+                        nameHsIdent = HsIdentifier
+                          "Struct3"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Struct3"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "macro_in_fundecl_vs_typedef.h:20:30",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "struct3_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -963,36 +1181,52 @@
                       "struct3_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "macro_in_fundecl_vs_typedef.h:20:30",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "struct3_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:20:30"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "struct3"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:20:30"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:20:16"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "macro_in_fundecl_vs_typedef.h:20:16",
+                      declId = NamePair {
+                        nameC = CName "struct3",
+                        nameHsIdent = HsIdentifier
+                          "Struct3"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Struct3"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "macro_in_fundecl_vs_typedef.h:20:30",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "struct3_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -1030,16 +1264,35 @@
           (HsName
             "@NsTypeConstr"
             "Struct3"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "struct3_t",
-          typedefType = TypeStruct
-            (DeclPathName
-              (CName "struct3")),
-          typedefSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:20:35"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "macro_in_fundecl_vs_typedef.h:20:35",
+          declId = NamePair {
+            nameC = CName "struct3_t",
+            nameHsIdent = HsIdentifier
+              "Struct3_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Struct3_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Struct3_t"},
+            typedefType = TypeStruct
+              NamePair {
+                nameC = CName "struct3",
+                nameHsIdent = HsIdentifier
+                  "Struct3"}},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -1075,37 +1328,52 @@
             "struct4_a",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "macro_in_fundecl_vs_typedef.h:21:30",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "struct4_a"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "macro_in_fundecl_vs_typedef.h:21:30"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "struct4"),
-          structAliases = [
-            CName "struct4"],
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "macro_in_fundecl_vs_typedef.h:21:30"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:21:16"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "macro_in_fundecl_vs_typedef.h:21:16",
+            declId = NamePair {
+              nameC = CName "struct4",
+              nameHsIdent = HsIdentifier
+                "Struct4"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Struct4"),
+              structSizeof = 4,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "macro_in_fundecl_vs_typedef.h:21:30",
+                  structFieldName = NamePair {
+                    nameC = CName "a",
+                    nameHsIdent = HsIdentifier
+                      "struct4_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1124,37 +1392,52 @@
               "struct4_a",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "macro_in_fundecl_vs_typedef.h:21:30",
+                structFieldName = NamePair {
+                  nameC = CName "a",
+                  nameHsIdent = HsIdentifier
+                    "struct4_a"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "macro_in_fundecl_vs_typedef.h:21:30"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "struct4"),
-            structAliases = [
-              CName "struct4"],
-            structSizeof = 4,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "macro_in_fundecl_vs_typedef.h:21:30"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:21:16"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "macro_in_fundecl_vs_typedef.h:21:16",
+              declId = NamePair {
+                nameC = CName "struct4",
+                nameHsIdent = HsIdentifier
+                  "Struct4"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Struct4"),
+                structSizeof = 4,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "macro_in_fundecl_vs_typedef.h:21:30",
+                    structFieldName = NamePair {
+                      nameC = CName "a",
+                      nameHsIdent = HsIdentifier
+                        "struct4_a"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1178,37 +1461,52 @@
                       "struct4_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "macro_in_fundecl_vs_typedef.h:21:30",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "struct4_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:21:30"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "struct4"),
-                    structAliases = [
-                      CName "struct4"],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:21:30"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:21:16"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "macro_in_fundecl_vs_typedef.h:21:16",
+                      declId = NamePair {
+                        nameC = CName "struct4",
+                        nameHsIdent = HsIdentifier
+                          "Struct4"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Struct4"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "macro_in_fundecl_vs_typedef.h:21:30",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "struct4_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -1232,37 +1530,52 @@
                       "struct4_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "macro_in_fundecl_vs_typedef.h:21:30",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "struct4_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:21:30"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "struct4"),
-                    structAliases = [
-                      CName "struct4"],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "macro_in_fundecl_vs_typedef.h:21:30"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:21:16"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "macro_in_fundecl_vs_typedef.h:21:16",
+                      declId = NamePair {
+                        nameC = CName "struct4",
+                        nameHsIdent = HsIdentifier
+                          "Struct4"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Struct4"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "macro_in_fundecl_vs_typedef.h:21:30",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "struct4_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -1287,7 +1600,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef1 (struct <anon> *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
+    "void testmodule_struct_typedef1 (struct2 *arg1, char arg2) { struct_typedef1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1300,34 +1613,36 @@
               "@NsTypeConstr"
               "Struct2")))
         (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
+          (HsPrimType HsPrimCChar)
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef1",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "struct_typedef1",
           functionArgs = [
             TypePointer
-              (TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtTypedef
-                    (CName "struct2")))),
-            TypeTypedef (CName "MC")],
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "struct2")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "struct2",
+                      nameHsIdent = HsIdentifier
+                        "Struct2"}))),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
           functionRes = TypeVoid,
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:23:6"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
+    "void testmodule_struct_typedef2 (struct3_t *arg1, char arg2) { struct_typedef2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1340,32 +1655,34 @@
               "@NsTypeConstr"
               "Struct3_t")))
         (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
+          (HsPrimType HsPrimCChar)
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef2",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "struct_typedef2",
           functionArgs = [
             TypePointer
               (TypeTypedef
-                (CName "struct3_t")),
-            TypeTypedef (CName "MC")],
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "struct3_t",
+                    nameHsIdent = HsIdentifier
+                      "Struct3_t"})),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
           functionRes = TypeVoid,
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:24:6"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
+    "void testmodule_struct_typedef3 (struct4 *arg1, char arg2) { struct_typedef3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1378,31 +1695,36 @@
               "@NsTypeConstr"
               "Struct4")))
         (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
+          (HsPrimType HsPrimCChar)
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef3",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "struct_typedef3",
           functionArgs = [
             TypePointer
-              (TypeTypedef (CName "struct4")),
-            TypeTypedef (CName "MC")],
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "struct4")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "struct4",
+                      nameHsIdent = HsIdentifier
+                        "Struct4"}))),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
           functionRes = TypeVoid,
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:25:6"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
+    "void testmodule_struct_name1 (struct struct1 *arg1, char arg2) { struct_name1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1415,33 +1737,33 @@
               "@NsTypeConstr"
               "Struct1")))
         (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
+          (HsPrimType HsPrimCChar)
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name1",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "struct_name1",
           functionArgs = [
             TypePointer
               (TypeStruct
-                (DeclPathName
-                  (CName "struct1"))),
-            TypeTypedef (CName "MC")],
+                NamePair {
+                  nameC = CName "struct1",
+                  nameHsIdent = HsIdentifier
+                    "Struct1"}),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
           functionRes = TypeVoid,
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:27:6"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
+    "void testmodule_struct_name2 (struct struct3 *arg1, char arg2) { struct_name2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1454,33 +1776,33 @@
               "@NsTypeConstr"
               "Struct3")))
         (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
+          (HsPrimType HsPrimCChar)
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name2",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "struct_name2",
           functionArgs = [
             TypePointer
               (TypeStruct
-                (DeclPathName
-                  (CName "struct3"))),
-            TypeTypedef (CName "MC")],
+                NamePair {
+                  nameC = CName "struct3",
+                  nameHsIdent = HsIdentifier
+                    "Struct3"}),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
           functionRes = TypeVoid,
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:28:6"}},
+          "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
+    "void testmodule_struct_name3 (struct struct4 *arg1, char arg2) { struct_name3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1493,26 +1815,26 @@
               "@NsTypeConstr"
               "Struct4")))
         (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
+          (HsPrimType HsPrimCChar)
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name3",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "struct_name3",
           functionArgs = [
             TypePointer
               (TypeStruct
-                (DeclPathName
-                  (CName "struct4"))),
-            TypeTypedef (CName "MC")],
+                NamePair {
+                  nameC = CName "struct4",
+                  nameHsIdent = HsIdentifier
+                    "Struct4"}),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
           functionRes = TypeVoid,
           functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:29:6"}}]
+          "macro_in_fundecl_vs_typedef.h"}}]

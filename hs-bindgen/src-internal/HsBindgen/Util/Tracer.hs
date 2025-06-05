@@ -36,7 +36,7 @@ import Control.Tracer (Contravariant (contramap), Tracer (Tracer), emit,
 import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
-import GHC.Stack (CallStack, prettyCallStack)
+import GHC.Stack (HasCallStack, callStack, CallStack, prettyCallStack)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
                             ConsoleLayer (Foreground),
@@ -258,10 +258,10 @@ data TraceWithCallStack a = TraceWithCallStack { tTrace     :: a
 instance Functor TraceWithCallStack where
   fmap f trace = trace { tTrace = f (tTrace trace) }
 
-traceWithCallStack :: Monad m
-  => Tracer m (TraceWithCallStack a) -> CallStack -> a -> m ()
-traceWithCallStack tracer stack trace =
-  traceWith tracer (TraceWithCallStack trace stack)
+traceWithCallStack :: (Monad m, HasCallStack)
+  => Tracer m (TraceWithCallStack a) -> a -> m ()
+traceWithCallStack tracer trace =
+  traceWith tracer (TraceWithCallStack trace callStack)
 
 -- | Use, for example, to specialize a tracer with a call stack.
 --
