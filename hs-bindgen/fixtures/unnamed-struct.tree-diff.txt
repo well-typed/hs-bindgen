@@ -1,1 +1,5 @@
-Header []
+TranslationUnit {
+  unitDecls = [],
+  unitDeps =
+  [
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/unnamed-struct.h"]}

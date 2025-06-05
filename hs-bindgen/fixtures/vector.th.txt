@@ -1,6 +1,6 @@
 -- addDependentFile examples/vector.h
 -- #include "vector.h"
--- struct <anon> *test_internal_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }
+-- vector *test_internal_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }
 data Vector = Vector {vector_x :: CDouble, vector_y :: CDouble}
 instance Storable Vector
     where {sizeOf = \_ -> 16 :: Int;

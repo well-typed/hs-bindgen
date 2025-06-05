@@ -1,41 +1,48 @@
-Header
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "uses_utf8.h:4:6",
+        declId = NamePair {
+          nameC = CName "MyEnum",
+          nameHsIdent = HsIdentifier
+            "MyEnum"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "MyEnum",
+            newtypeField = HsName
+              "@NsVar"
+              "un_MyEnum"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "uses_utf8.h:5:9",
+              enumConstantName = NamePair {
+                nameC = CName "Say\20320\22909",
+                nameHsIdent = HsIdentifier
+                  "Say\20320\22909"},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantLoc =
+              "uses_utf8.h:6:9",
+              enumConstantName = NamePair {
+                nameC = CName "Say\25308\25308",
+                nameHsIdent = HsIdentifier
+                  "Say\25308\25308"},
+              enumConstantValue = 1}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps =
   [
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "uses_utf8.h:2:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "USES_UTF8_H",
-          macroArgs = [],
-          macroBody = EmptyMacro},
-        macroDeclMacroTy = "Empty",
-        macroDeclSourceLoc =
-        "uses_utf8.h:2:9"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "MyEnum"),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName
-              "Say\20320\22909",
-            valueValue = 0,
-            valueSourceLoc =
-            "uses_utf8.h:5:9"},
-          EnumValue {
-            valueName = CName
-              "Say\25308\25308",
-            valueValue = 1,
-            valueSourceLoc =
-            "uses_utf8.h:6:9"}],
-        enumSourceLoc =
-        "uses_utf8.h:4:6"}]
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/uses_utf8.h"]}

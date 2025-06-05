@@ -1,6 +1,9 @@
 module HsBindgen.Eff (
   -- * Eff
   Eff,
+  Support,
+  wrapEff,
+  unwrapEff,
   runFoldIdentity,
   runFoldReader,
   runFoldState,

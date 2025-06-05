@@ -11,7 +11,7 @@ import Data.List qualified as List
 import Data.Text qualified as T
 import System.FilePath qualified as FilePath
 
-import HsBindgen.Hs.AST.Name
+import HsBindgen.Language.Haskell
 import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------

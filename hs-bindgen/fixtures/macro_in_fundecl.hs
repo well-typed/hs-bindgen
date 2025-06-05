@@ -13,30 +13,32 @@
           "un_I",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:5:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "I",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "macro_in_fundecl.h:5:9",
+          declId = NamePair {
+            nameC = CName "I",
+            nameHsIdent = HsIdentifier
+              "I"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "I",
+              newtypeField = HsName
+                "@NsVar"
+                "un_I"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -118,31 +120,33 @@
           "un_C",
         fieldType = HsPrimType
           HsPrimCChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:6:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit Nothing))))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "macro_in_fundecl.h:6:9",
+          declId = NamePair {
+            nameC = CName "C",
+            nameHsIdent = HsIdentifier
+              "C"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "C",
+              newtypeField = HsName
+                "@NsVar"
+                "un_C"},
+            macroType = TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -224,30 +228,32 @@
           "un_F",
         fieldType = HsPrimType
           HsPrimCFloat,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:7:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "F",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimFloating PrimFloat)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "macro_in_fundecl.h:7:9",
+          declId = NamePair {
+            nameC = CName "F",
+            nameHsIdent = HsIdentifier
+              "F"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "F",
+              newtypeField = HsName
+                "@NsVar"
+                "un_F"},
+            macroType = TypePrim
+              (PrimFloating PrimFloat)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -324,30 +330,32 @@
           "un_L",
         fieldType = HsPrimType
           HsPrimCLong,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:8:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "L",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimLong Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "macro_in_fundecl.h:8:9",
+          declId = NamePair {
+            nameC = CName "L",
+            nameHsIdent = HsIdentifier
+              "L"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "L",
+              newtypeField = HsName
+                "@NsVar"
+                "un_L"},
+            macroType = TypePrim
+              (PrimIntegral PrimLong Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -429,32 +437,34 @@
           "un_S",
         fieldType = HsPrimType
           HsPrimCShort,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl.h:9:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral
-                    PrimShort
-                    Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "macro_in_fundecl.h:9:9",
+          declId = NamePair {
+            nameC = CName "S",
+            nameHsIdent = HsIdentifier
+              "S"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "S",
+              newtypeField = HsName
+                "@NsVar"
+                "un_S"},
+            macroType = TypePrim
+              (PrimIntegral
+                PrimShort
+                Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -543,11 +553,15 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "quux",
           functionArgs = [
-            TypeTypedef (CName "F"),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "F",
+                  nameHsIdent = HsIdentifier
+                    "F"}),
             TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))],
@@ -555,9 +569,7 @@
             (PrimChar
               (PrimSignImplicit Nothing)),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:12:6"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -584,20 +596,27 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "wam",
           functionArgs = [
             TypePrim
               (PrimFloating PrimFloat),
             TypePointer
-              (TypeTypedef (CName "C"))],
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "C",
+                    nameHsIdent = HsIdentifier
+                      "C"}))],
           functionRes = TypePointer
-            (TypeTypedef (CName "C")),
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "C",
+                  nameHsIdent = HsIdentifier
+                    "C"})),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:13:4"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -622,9 +641,8 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "foo1",
           functionArgs = [
             TypePrim
               (PrimFloating PrimFloat),
@@ -643,9 +661,7 @@
                 (PrimSignImplicit
                   (Just Signed)))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:16:7"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -671,11 +687,15 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "foo2",
           functionArgs = [
-            TypeTypedef (CName "F"),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "F",
+                  nameHsIdent = HsIdentifier
+                    "F"}),
             TypePointer
               (TypeFun
                 [
@@ -690,9 +710,7 @@
               (PrimChar
                 (PrimSignImplicit Nothing))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:17:7"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -720,9 +738,8 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "foo3",
           functionArgs = [
             TypePrim
               (PrimFloating PrimFloat),
@@ -736,11 +753,14 @@
                     PrimInt
                     Signed)))],
           functionRes = TypePointer
-            (TypeTypedef (CName "C")),
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "C",
+                  nameHsIdent = HsIdentifier
+                    "C"})),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:18:4"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -763,9 +783,8 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "bar1",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
@@ -777,9 +796,7 @@
               (TypePrim
                 (PrimIntegral PrimInt Signed))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:21:7"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -803,11 +820,15 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "bar2",
           functionArgs = [
-            TypeTypedef (CName "L")],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "L",
+                  nameHsIdent = HsIdentifier
+                    "L"})],
           functionRes = TypePointer
             (TypeFun
               [
@@ -816,9 +837,7 @@
               (TypePrim
                 (PrimIntegral PrimInt Signed))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:22:7"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -842,21 +861,24 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "bar3",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
           functionRes = TypePointer
             (TypeFun
-              [TypeTypedef (CName "S")]
+              [
+                TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "S",
+                      nameHsIdent = HsIdentifier
+                        "S"})]
               (TypePrim
                 (PrimIntegral PrimInt Signed))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:23:7"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -882,9 +904,8 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "bar4",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
@@ -893,11 +914,14 @@
               [
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
-              (TypeTypedef (CName "I"))),
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "I",
+                    nameHsIdent = HsIdentifier
+                      "I"}))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:24:5"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -921,39 +945,22 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "baz1",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePointer
             (TypeConstArray
-              Size {
-                size = 2,
-                sizeExpression = MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "2",
-                      integerLiteralType = Size,
-                      integerLiteralValue = 2})}
+              2
               (TypeConstArray
-                Size {
-                  size = 3,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "3",
-                        integerLiteralType = Size,
-                        integerLiteralValue = 3})}
+                3
                 (TypePrim
                   (PrimIntegral
                     PrimInt
                     Signed)))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:27:7"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -978,38 +985,26 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "baz2",
           functionArgs = [
-            TypeTypedef (CName "I")],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "I",
+                  nameHsIdent = HsIdentifier
+                    "I"})],
           functionRes = TypePointer
             (TypeConstArray
-              Size {
-                size = 2,
-                sizeExpression = MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "2",
-                      integerLiteralType = Int Signed,
-                      integerLiteralValue = 2})}
+              2
               (TypeConstArray
-                Size {
-                  size = 3,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "3",
-                        integerLiteralType = Int Signed,
-                        integerLiteralValue = 3})}
+                3
                 (TypePrim
                   (PrimIntegral
                     PrimInt
                     Signed)))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:35:7"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1036,36 +1031,24 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "baz3",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePointer
             (TypeConstArray
-              Size {
-                size = 2,
-                sizeExpression = MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "2",
-                      integerLiteralType = Int Signed,
-                      integerLiteralValue = 2})}
+              2
               (TypeConstArray
-                Size {
-                  size = 3,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "3",
-                        integerLiteralType = Int Signed,
-                        integerLiteralValue = 3})}
-                (TypeTypedef (CName "I")))),
+                3
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "I",
+                      nameHsIdent = HsIdentifier
+                        "I"})))),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:43:5"}},
+          "macro_in_fundecl.h"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1083,14 +1066,14 @@
       foreignImportHeader =
       "macro_in_fundecl.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "no_args_no_void",
           functionArgs = [],
           functionRes = TypeTypedef
-            (CName "I"),
+            (TypedefRegular
+              NamePair {
+                nameC = CName "I",
+                nameHsIdent = HsIdentifier
+                  "I"}),
           functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:53:3"}}]
+          "macro_in_fundecl.h"}}]

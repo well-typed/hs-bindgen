@@ -1,17 +1,53 @@
-Header
-  [
-    DeclTypedef
-      Typedef {
-        typedefName = CName "myint",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "typedefs.h:1:13"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "intptr",
-        typedefType = TypePointer
-          (TypePrim
-            (PrimIntegral PrimInt Signed)),
-        typedefSourceLoc =
-        "typedefs.h:2:15"}]
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "typedefs.h:1:13",
+        declId = NamePair {
+          nameC = CName "myint",
+          nameHsIdent = HsIdentifier
+            "Myint"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Myint",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Myint"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "typedefs.h:2:15",
+        declId = NamePair {
+          nameC = CName "intptr",
+          nameHsIdent = HsIdentifier
+            "Intptr"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Intptr",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Intptr"},
+          typedefType = TypePointer
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/typedefs.h"]}

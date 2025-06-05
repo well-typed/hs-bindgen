@@ -14,24 +14,33 @@
         fieldType = HsConstArray
           3
           (HsPrimType HsPrimCInt),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "triple",
-          typedefType = TypeConstArray
-            Size {
-              size = 3,
-              sizeExpression = MTerm
-                (MInt
-                  IntegerLiteral {
-                    integerLiteralText = "3",
-                    integerLiteralType = Size,
-                    integerLiteralValue = 3})}
-            (TypePrim
-              (PrimIntegral PrimInt Signed)),
-          typedefSourceLoc =
-          "fixedarray.h:1:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "fixedarray.h:1:13",
+          declId = NamePair {
+            nameC = CName "triple",
+            nameHsIdent = HsIdentifier
+              "Triple"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Triple",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Triple"},
+            typedefType = TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -68,25 +77,20 @@
           fieldType = HsConstArray
             3
             (HsPrimType HsPrimCInt),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "triple",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 3,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "3",
-                        integerLiteralType = Size,
-                        integerLiteralValue = 3})}
+              structFieldLoc =
+              "fixedarray.h:4:9",
+              structFieldName = NamePair {
+                nameC = CName "triple",
+                nameHsIdent = HsIdentifier
+                  "example_triple"},
+              structFieldType = TypeConstArray
+                3
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
-              fieldSourceLoc =
-              "fixedarray.h:4:9"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -96,89 +100,72 @@
             (HsConstArray
               3
               (HsPrimType HsPrimCInt)),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "sudoku",
-              fieldOffset = 96,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 3,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "3",
-                        integerLiteralType = Size,
-                        integerLiteralValue = 3})}
+              structFieldLoc =
+              "fixedarray.h:5:9",
+              structFieldName = NamePair {
+                nameC = CName "sudoku",
+                nameHsIdent = HsIdentifier
+                  "example_sudoku"},
+              structFieldType = TypeConstArray
+                3
                 (TypeConstArray
-                  Size {
-                    size = 3,
-                    sizeExpression = MTerm
-                      (MInt
-                        IntegerLiteral {
-                          integerLiteralText = "3",
-                          integerLiteralType = Size,
-                          integerLiteralValue = 3})}
+                  3
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
-              fieldSourceLoc =
-              "fixedarray.h:5:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "Example"),
-          structAliases = [],
-          structSizeof = 48,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "triple",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 3,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "3",
-                        integerLiteralType = Size,
-                        integerLiteralValue = 3})}
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)),
-              fieldSourceLoc =
-              "fixedarray.h:4:9"},
-            StructField {
-              fieldName = CName "sudoku",
-              fieldOffset = 96,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 3,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "3",
-                        integerLiteralType = Size,
-                        integerLiteralValue = 3})}
-                (TypeConstArray
-                  Size {
-                    size = 3,
-                    sizeExpression = MTerm
-                      (MInt
-                        IntegerLiteral {
-                          integerLiteralText = "3",
-                          integerLiteralType = Size,
-                          integerLiteralValue = 3})}
-                  (TypePrim
-                    (PrimIntegral PrimInt Signed))),
-              fieldSourceLoc =
-              "fixedarray.h:5:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "fixedarray.h:3:8"},
+              structFieldOffset = 96,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "fixedarray.h:3:8",
+            declId = NamePair {
+              nameC = CName "Example",
+              nameHsIdent = HsIdentifier
+                "Example"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Example"),
+              structSizeof = 48,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "fixedarray.h:4:9",
+                  structFieldName = NamePair {
+                    nameC = CName "triple",
+                    nameHsIdent = HsIdentifier
+                      "example_triple"},
+                  structFieldType = TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral PrimInt Signed)),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "fixedarray.h:5:9",
+                  structFieldName = NamePair {
+                    nameC = CName "sudoku",
+                    nameHsIdent = HsIdentifier
+                      "example_sudoku"},
+                  structFieldType = TypeConstArray
+                    3
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral PrimInt Signed))),
+                  structFieldOffset = 96,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -198,25 +185,20 @@
             fieldType = HsConstArray
               3
               (HsPrimType HsPrimCInt),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "triple",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 3,
-                    sizeExpression = MTerm
-                      (MInt
-                        IntegerLiteral {
-                          integerLiteralText = "3",
-                          integerLiteralType = Size,
-                          integerLiteralValue = 3})}
+                structFieldLoc =
+                "fixedarray.h:4:9",
+                structFieldName = NamePair {
+                  nameC = CName "triple",
+                  nameHsIdent = HsIdentifier
+                    "example_triple"},
+                structFieldType = TypeConstArray
+                  3
                   (TypePrim
                     (PrimIntegral PrimInt Signed)),
-                fieldSourceLoc =
-                "fixedarray.h:4:9"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -226,89 +208,72 @@
               (HsConstArray
                 3
                 (HsPrimType HsPrimCInt)),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "sudoku",
-                fieldOffset = 96,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 3,
-                    sizeExpression = MTerm
-                      (MInt
-                        IntegerLiteral {
-                          integerLiteralText = "3",
-                          integerLiteralType = Size,
-                          integerLiteralValue = 3})}
+                structFieldLoc =
+                "fixedarray.h:5:9",
+                structFieldName = NamePair {
+                  nameC = CName "sudoku",
+                  nameHsIdent = HsIdentifier
+                    "example_sudoku"},
+                structFieldType = TypeConstArray
+                  3
                   (TypeConstArray
-                    Size {
-                      size = 3,
-                      sizeExpression = MTerm
-                        (MInt
-                          IntegerLiteral {
-                            integerLiteralText = "3",
-                            integerLiteralType = Size,
-                            integerLiteralValue = 3})}
+                    3
                     (TypePrim
                       (PrimIntegral PrimInt Signed))),
-                fieldSourceLoc =
-                "fixedarray.h:5:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "Example"),
-            structAliases = [],
-            structSizeof = 48,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "triple",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 3,
-                    sizeExpression = MTerm
-                      (MInt
-                        IntegerLiteral {
-                          integerLiteralText = "3",
-                          integerLiteralType = Size,
-                          integerLiteralValue = 3})}
-                  (TypePrim
-                    (PrimIntegral PrimInt Signed)),
-                fieldSourceLoc =
-                "fixedarray.h:4:9"},
-              StructField {
-                fieldName = CName "sudoku",
-                fieldOffset = 96,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 3,
-                    sizeExpression = MTerm
-                      (MInt
-                        IntegerLiteral {
-                          integerLiteralText = "3",
-                          integerLiteralType = Size,
-                          integerLiteralValue = 3})}
-                  (TypeConstArray
-                    Size {
-                      size = 3,
-                      sizeExpression = MTerm
-                        (MInt
-                          IntegerLiteral {
-                            integerLiteralText = "3",
-                            integerLiteralType = Size,
-                            integerLiteralValue = 3})}
-                    (TypePrim
-                      (PrimIntegral PrimInt Signed))),
-                fieldSourceLoc =
-                "fixedarray.h:5:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "fixedarray.h:3:8"},
+                structFieldOffset = 96,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "fixedarray.h:3:8",
+              declId = NamePair {
+                nameC = CName "Example",
+                nameHsIdent = HsIdentifier
+                  "Example"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Example"),
+                structSizeof = 48,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "fixedarray.h:4:9",
+                    structFieldName = NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "example_triple"},
+                    structFieldType = TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral PrimInt Signed)),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "fixedarray.h:5:9",
+                    structFieldName = NamePair {
+                      nameC = CName "sudoku",
+                      nameHsIdent = HsIdentifier
+                        "example_sudoku"},
+                    structFieldType = TypeConstArray
+                      3
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed))),
+                    structFieldOffset = 96,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -333,25 +298,20 @@
                     fieldType = HsConstArray
                       3
                       (HsPrimType HsPrimCInt),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "triple",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 3,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "3",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 3})}
+                        structFieldLoc =
+                        "fixedarray.h:4:9",
+                        structFieldName = NamePair {
+                          nameC = CName "triple",
+                          nameHsIdent = HsIdentifier
+                            "example_triple"},
+                        structFieldType = TypeConstArray
+                          3
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
-                        fieldSourceLoc =
-                        "fixedarray.h:4:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -361,89 +321,72 @@
                       (HsConstArray
                         3
                         (HsPrimType HsPrimCInt)),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "sudoku",
-                        fieldOffset = 96,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 3,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "3",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 3})}
+                        structFieldLoc =
+                        "fixedarray.h:5:9",
+                        structFieldName = NamePair {
+                          nameC = CName "sudoku",
+                          nameHsIdent = HsIdentifier
+                            "example_sudoku"},
+                        structFieldType = TypeConstArray
+                          3
                           (TypeConstArray
-                            Size {
-                              size = 3,
-                              sizeExpression = MTerm
-                                (MInt
-                                  IntegerLiteral {
-                                    integerLiteralText = "3",
-                                    integerLiteralType = Size,
-                                    integerLiteralValue = 3})}
+                            3
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
-                        fieldSourceLoc =
-                        "fixedarray.h:5:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "Example"),
-                    structAliases = [],
-                    structSizeof = 48,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "triple",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 3,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "3",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 3})}
-                          (TypePrim
-                            (PrimIntegral PrimInt Signed)),
-                        fieldSourceLoc =
-                        "fixedarray.h:4:9"},
-                      StructField {
-                        fieldName = CName "sudoku",
-                        fieldOffset = 96,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 3,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "3",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 3})}
-                          (TypeConstArray
-                            Size {
-                              size = 3,
-                              sizeExpression = MTerm
-                                (MInt
-                                  IntegerLiteral {
-                                    integerLiteralText = "3",
-                                    integerLiteralType = Size,
-                                    integerLiteralValue = 3})}
-                            (TypePrim
-                              (PrimIntegral PrimInt Signed))),
-                        fieldSourceLoc =
-                        "fixedarray.h:5:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "fixedarray.h:3:8"},
+                        structFieldOffset = 96,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "fixedarray.h:3:8",
+                      declId = NamePair {
+                        nameC = CName "Example",
+                        nameHsIdent = HsIdentifier
+                          "Example"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Example"),
+                        structSizeof = 48,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "fixedarray.h:4:9",
+                            structFieldName = NamePair {
+                              nameC = CName "triple",
+                              nameHsIdent = HsIdentifier
+                                "example_triple"},
+                            structFieldType = TypeConstArray
+                              3
+                              (TypePrim
+                                (PrimIntegral PrimInt Signed)),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "fixedarray.h:5:9",
+                            structFieldName = NamePair {
+                              nameC = CName "sudoku",
+                              nameHsIdent = HsIdentifier
+                                "example_sudoku"},
+                            structFieldType = TypeConstArray
+                              3
+                              (TypeConstArray
+                                3
+                                (TypePrim
+                                  (PrimIntegral PrimInt Signed))),
+                            structFieldOffset = 96,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -470,25 +413,20 @@
                     fieldType = HsConstArray
                       3
                       (HsPrimType HsPrimCInt),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "triple",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 3,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "3",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 3})}
+                        structFieldLoc =
+                        "fixedarray.h:4:9",
+                        structFieldName = NamePair {
+                          nameC = CName "triple",
+                          nameHsIdent = HsIdentifier
+                            "example_triple"},
+                        structFieldType = TypeConstArray
+                          3
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
-                        fieldSourceLoc =
-                        "fixedarray.h:4:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -498,89 +436,72 @@
                       (HsConstArray
                         3
                         (HsPrimType HsPrimCInt)),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "sudoku",
-                        fieldOffset = 96,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 3,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "3",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 3})}
+                        structFieldLoc =
+                        "fixedarray.h:5:9",
+                        structFieldName = NamePair {
+                          nameC = CName "sudoku",
+                          nameHsIdent = HsIdentifier
+                            "example_sudoku"},
+                        structFieldType = TypeConstArray
+                          3
                           (TypeConstArray
-                            Size {
-                              size = 3,
-                              sizeExpression = MTerm
-                                (MInt
-                                  IntegerLiteral {
-                                    integerLiteralText = "3",
-                                    integerLiteralType = Size,
-                                    integerLiteralValue = 3})}
+                            3
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
-                        fieldSourceLoc =
-                        "fixedarray.h:5:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "Example"),
-                    structAliases = [],
-                    structSizeof = 48,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "triple",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 3,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "3",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 3})}
-                          (TypePrim
-                            (PrimIntegral PrimInt Signed)),
-                        fieldSourceLoc =
-                        "fixedarray.h:4:9"},
-                      StructField {
-                        fieldName = CName "sudoku",
-                        fieldOffset = 96,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 3,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "3",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 3})}
-                          (TypeConstArray
-                            Size {
-                              size = 3,
-                              sizeExpression = MTerm
-                                (MInt
-                                  IntegerLiteral {
-                                    integerLiteralText = "3",
-                                    integerLiteralType = Size,
-                                    integerLiteralValue = 3})}
-                            (TypePrim
-                              (PrimIntegral PrimInt Signed))),
-                        fieldSourceLoc =
-                        "fixedarray.h:5:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "fixedarray.h:3:8"},
+                        structFieldOffset = 96,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "fixedarray.h:3:8",
+                      declId = NamePair {
+                        nameC = CName "Example",
+                        nameHsIdent = HsIdentifier
+                          "Example"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Example"),
+                        structSizeof = 48,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "fixedarray.h:4:9",
+                            structFieldName = NamePair {
+                              nameC = CName "triple",
+                              nameHsIdent = HsIdentifier
+                                "example_triple"},
+                            structFieldType = TypeConstArray
+                              3
+                              (TypePrim
+                                (PrimIntegral PrimInt Signed)),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "fixedarray.h:5:9",
+                            structFieldName = NamePair {
+                              nameC = CName "sudoku",
+                              nameHsIdent = HsIdentifier
+                                "example_sudoku"},
+                            structFieldType = TypeConstArray
+                              3
+                              (TypeConstArray
+                                3
+                                (TypePrim
+                                  (PrimIntegral PrimInt Signed))),
+                            structFieldOffset = 96,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

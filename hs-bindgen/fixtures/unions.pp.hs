@@ -160,35 +160,6 @@ instance F.Storable DimB where
                F.pokeByteOff ptr0 (0 :: Int) dimB_tag2
             >> F.pokeByteOff ptr0 (4 :: Int) dimB_payload3
 
-data AnonA_xy = AnonA_xy
-  { anonA_xy_x :: FC.CDouble
-  , anonA_xy_y :: FC.CDouble
-  }
-
-instance F.Storable AnonA_xy where
-
-  sizeOf = \_ -> (16 :: Int)
-
-  alignment = \_ -> (8 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure AnonA_xy
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          AnonA_xy anonA_xy_x2 anonA_xy_y3 ->
-               F.pokeByteOff ptr0 (0 :: Int) anonA_xy_x2
-            >> F.pokeByteOff ptr0 (8 :: Int) anonA_xy_y3
-
-deriving stock instance Show AnonA_xy
-
-deriving stock instance Eq AnonA_xy
-
 data AnonA_polar = AnonA_polar
   { anonA_polar_r :: FC.CDouble
   , anonA_polar_p :: FC.CDouble
@@ -217,6 +188,35 @@ instance F.Storable AnonA_polar where
 deriving stock instance Show AnonA_polar
 
 deriving stock instance Eq AnonA_polar
+
+data AnonA_xy = AnonA_xy
+  { anonA_xy_x :: FC.CDouble
+  , anonA_xy_y :: FC.CDouble
+  }
+
+instance F.Storable AnonA_xy where
+
+  sizeOf = \_ -> (16 :: Int)
+
+  alignment = \_ -> (8 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure AnonA_xy
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonA_xy anonA_xy_x2 anonA_xy_y3 ->
+               F.pokeByteOff ptr0 (0 :: Int) anonA_xy_x2
+            >> F.pokeByteOff ptr0 (8 :: Int) anonA_xy_y3
+
+deriving stock instance Show AnonA_xy
+
+deriving stock instance Eq AnonA_xy
 
 newtype AnonA = AnonA
   { un_AnonA :: Data.Array.Byte.ByteArray

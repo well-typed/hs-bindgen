@@ -1,1 +1,7 @@
-Header []
+TranslationUnit {
+  unitDecls = [],
+  unitDeps =
+  [
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/musl-include/x86_64/bits/alltypes.h",
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/musl-include/x86_64/stddef.h",
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/headers.h"]}

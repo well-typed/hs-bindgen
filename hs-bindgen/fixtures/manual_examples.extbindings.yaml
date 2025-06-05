@@ -116,14 +116,6 @@ types:
   - Real
   - Storable
 - headers: manual_examples.h
-  cname: date
-  module: Example
-  identifier: Date
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
   cname: enum CXCursorKind
   module: Example
   identifier: CXCursorKind
@@ -194,20 +186,12 @@ types:
   - Show
   - Storable
 - headers: manual_examples.h
-  cname: index
+  cname: struct config_Deref
   module: Example
-  identifier: Index
+  identifier: Config_Deref
   instances:
   - Eq
-  - Ord
-  - Read
   - Show
-  - Storable
-- headers: manual_examples.h
-  cname: occupation
-  module: Example
-  identifier: Occupation
-  instances:
   - Storable
 - headers: manual_examples.h
   cname: struct date
@@ -233,6 +217,22 @@ types:
   cname: struct rect
   module: Example
   identifier: Rect
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
+  cname: struct rect_lower_left
+  module: Example
+  identifier: Rect_lower_left
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
+  cname: struct rect_upper_right
+  module: Example
+  identifier: Rect_upper_right
   instances:
   - Eq
   - Show
@@ -270,14 +270,6 @@ types:
   - Integral
   - Num
   - Real
-  - Storable
-- headers: manual_examples.h
-  cname: triple
-  module: Example
-  identifier: Triple
-  instances:
-  - Eq
-  - Show
   - Storable
 - headers: manual_examples.h
   cname: union occupation

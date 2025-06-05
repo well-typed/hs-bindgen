@@ -1,185 +1,340 @@
-Header
+TranslationUnit {
+  unitDecls =
   [
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "triple"),
-        structAliases = [
-          CName "triple"],
-        structSizeof = 12,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "a",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:14:16",
+        declId = NamePair {
+          nameC = CName "triple",
+          nameHsIdent = HsIdentifier
+            "Triple"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Triple"),
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:15:9",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "triple_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:16:9",
+              structFieldName = NamePair {
+                nameC = CName "b",
+                nameHsIdent = HsIdentifier
+                  "triple_b"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:17:9",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "triple_c"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:20:6",
+        declId = NamePair {
+          nameC = CName "mk_triple",
+          nameHsIdent = HsIdentifier
+            "mk_triple"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
               (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:15:9"},
-          StructField {
-            fieldName = CName "b",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
+            TypePrim
               (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:16:9"},
-          StructField {
-            fieldName = CName "c",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
+            TypePrim
               (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:17:9"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:14:16"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "mk_triple",
-        functionArgs = [
-          TypePrim
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "triple")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "Triple"})))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:26:14",
+        declId = NamePair {
+          nameC = CName "index",
+          nameHsIdent = HsIdentifier
+            "Index"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Index",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Index"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:27:5",
+              enumConstantName = NamePair {
+                nameC = CName "A",
+                nameHsIdent = HsIdentifier "A"},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:28:5",
+              enumConstantName = NamePair {
+                nameC = CName "B",
+                nameHsIdent = HsIdentifier "B"},
+              enumConstantValue = 1},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:29:5",
+              enumConstantName = NamePair {
+                nameC = CName "C",
+                nameHsIdent = HsIdentifier "C"},
+              enumConstantValue = 2}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:32:5",
+        declId = NamePair {
+          nameC = CName "index_triple",
+          nameHsIdent = HsIdentifier
+            "index_triple"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "triple")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "Triple"}))),
+            TypeTypedef
+              (TypedefSquashed
+                (CName "index")
+                (TypeEnum
+                  NamePair {
+                    nameC = CName "index",
+                    nameHsIdent = HsIdentifier
+                      "Index"}))],
+          functionRes = TypePrim
             (PrimIntegral PrimInt Signed),
-          TypePrim
-            (PrimIntegral PrimInt Signed),
-          TypePrim
-            (PrimIntegral PrimInt Signed),
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "triple")))],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:20:6"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "index"),
-        enumAliases = [CName "index"],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName "A",
-            valueValue = 0,
-            valueSourceLoc =
-            "manual_examples.h:27:5"},
-          EnumValue {
-            valueName = CName "B",
-            valueValue = 1,
-            valueSourceLoc =
-            "manual_examples.h:28:5"},
-          EnumValue {
-            valueName = CName "C",
-            valueValue = 2,
-            valueSourceLoc =
-            "manual_examples.h:29:5"}],
-        enumSourceLoc =
-        "manual_examples.h:26:14"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "index_triple",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "triple"))),
-          TypeEnum
-            (DeclPathName (CName "index"))],
-        functionRes = TypePrim
-          (PrimIntegral PrimInt Signed),
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:32:5"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "sum",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "manual_examples.h:38:13"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "average",
-        typedefType = TypePrim
-          (PrimFloating PrimDouble),
-        typedefSourceLoc =
-        "manual_examples.h:39:16"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "sum_triple",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "triple")))],
-        functionRes = TypeTypedef
-          (CName "sum"),
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:41:5"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "average_triple",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "triple")))],
-        functionRes = TypeTypedef
-          (CName "average"),
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:42:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:48:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName
-            "FIELD_OFFSET",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:38:13",
+        declId = NamePair {
+          nameC = CName "sum",
+          nameHsIdent = HsIdentifier
+            "Sum"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Sum",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Sum"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:39:16",
+        declId = NamePair {
+          nameC = CName "average",
+          nameHsIdent = HsIdentifier
+            "Average"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Average",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Average"},
+          typedefType = TypePrim
+            (PrimFloating PrimDouble)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:41:5",
+        declId = NamePair {
+          nameC = CName "sum_triple",
+          nameHsIdent = HsIdentifier
+            "sum_triple"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "triple")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "Triple"})))],
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "sum",
+                nameHsIdent = HsIdentifier
+                  "Sum"}),
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:42:9",
+        declId = NamePair {
+          nameC = CName "average_triple",
+          nameHsIdent = HsIdentifier
+            "average_triple"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "triple")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "Triple"})))],
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "average",
+                nameHsIdent = HsIdentifier
+                  "Average"}),
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:48:9",
+        declId = NamePair {
+          nameC = CName "FIELD_OFFSET",
+          nameHsIdent = HsIdentifier
+            "fIELD_OFFSET"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "4",
                   integerLiteralType = Int Signed,
-                  integerLiteralValue = 4}))},
-        macroDeclMacroTy =
-        "IntLike (CIntegralType (IntLike (Int Signed)))",
-        macroDeclSourceLoc =
-        "manual_examples.h:48:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:49:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "EPSILON",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                  integerLiteralValue = 4}),
+            macroExprType =
+            "IntLike (CIntegralType (IntLike (Int Signed)))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:49:9",
+        declId = NamePair {
+          nameC = CName "EPSILON",
+          nameHsIdent = HsIdentifier
+            "ePSILON"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "0.1",
@@ -187,25 +342,29 @@ Header
                   DoubleType,
                   floatingLiteralFloatValue = 0.1,
                   floatingLiteralDoubleValue =
-                  0.1}))},
-        macroDeclMacroTy =
-        "FloatLike DoubleType",
-        macroDeclSourceLoc =
-        "manual_examples.h:49:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:51:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName
-            "PTR_TO_FIELD",
-          macroArgs = [CName "ptr"],
-          macroBody = ExpressionMacro
-            (MApp
+                  0.1}),
+            macroExprType =
+            "FloatLike DoubleType"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:51:9",
+        declId = NamePair {
+          nameC = CName "PTR_TO_FIELD",
+          nameHsIdent = HsIdentifier
+            "pTR_TO_FIELD"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [CName "ptr"],
+            macroExprBody = MApp
               MAdd
               [
                 MTerm
@@ -215,683 +374,1188 @@ Header
                     IntegerLiteral {
                       integerLiteralText = "4",
                       integerLiteralType = Int Signed,
-                      integerLiteralValue = 4})])},
-        macroDeclMacroTy =
-        "(forall a. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))",
-        macroDeclSourceLoc =
-        "manual_examples.h:51:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:53:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "YEAR",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
+                      integerLiteralValue = 4})],
+            macroExprType =
+            "(forall a. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:53:9",
+        declId = NamePair {
+          nameC = CName "YEAR",
+          nameHsIdent = HsIdentifier
+            "YEAR"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "YEAR",
+              newtypeField = HsName
+                "@NsVar"
+                "un_YEAR"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:54:9",
+        declId = NamePair {
+          nameC = CName "MONTH",
+          nameHsIdent = HsIdentifier
+            "MONTH"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "MONTH",
+              newtypeField = HsName
+                "@NsVar"
+                "un_MONTH"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:55:9",
+        declId = NamePair {
+          nameC = CName "DAY",
+          nameHsIdent = HsIdentifier
+            "DAY"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "DAY",
+              newtypeField = HsName
+                "@NsVar"
+                "un_DAY"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:57:16",
+        declId = NamePair {
+          nameC = CName "date",
+          nameHsIdent = HsIdentifier
+            "Date"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Date"),
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:58:11",
+              structFieldName = NamePair {
+                nameC = CName "year",
+                nameHsIdent = HsIdentifier
+                  "date_year"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "YEAR",
+                    nameHsIdent = HsIdentifier
+                      "YEAR"}),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:59:11",
+              structFieldName = NamePair {
+                nameC = CName "month",
+                nameHsIdent = HsIdentifier
+                  "date_month"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "MONTH",
+                    nameHsIdent = HsIdentifier
+                      "MONTH"}),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:60:11",
+              structFieldName = NamePair {
+                nameC = CName "day",
+                nameHsIdent = HsIdentifier
+                  "date_day"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "DAY",
+                    nameHsIdent = HsIdentifier
+                      "DAY"}),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:63:6",
+        declId = NamePair {
+          nameC = CName "getYear",
+          nameHsIdent = HsIdentifier
+            "getYear"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "date")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "date",
+                      nameHsIdent = HsIdentifier
+                        "Date"})))],
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "YEAR",
+                nameHsIdent = HsIdentifier
+                  "YEAR"}),
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:77:12",
+        declId = NamePair {
+          nameC = CName "person",
+          nameHsIdent = HsIdentifier
+            "Person"}},
+      declKind = DeclStructOpaque,
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:75:10",
+        declId = NamePair {
+          nameC = CName "employee",
+          nameHsIdent = HsIdentifier
+            "Employee"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Employee"),
+          structSizeof = 24,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:76:11",
+              structFieldName = NamePair {
+                nameC = CName "company",
+                nameHsIdent = HsIdentifier
+                  "employee_company"},
+              structFieldType = TypePointer
                 (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "manual_examples.h:53:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:54:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "MONTH",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:77:20",
+              structFieldName = NamePair {
+                nameC = CName "supervisor",
+                nameHsIdent = HsIdentifier
+                  "employee_supervisor"},
+              structFieldType = TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = CName "person",
+                    nameHsIdent = HsIdentifier
+                      "Person"}),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:78:9",
+              structFieldName = NamePair {
+                nameC = CName "salary",
+                nameHsIdent = HsIdentifier
+                  "employee_salary"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 128,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:70:10",
+        declId = NamePair {
+          nameC = CName "student",
+          nameHsIdent = HsIdentifier
+            "Student"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Student"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:71:11",
+              structFieldName = NamePair {
+                nameC = CName "university",
+                nameHsIdent = HsIdentifier
+                  "student_university"},
+              structFieldType = TypePointer
                 (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "manual_examples.h:54:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:55:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "DAY",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "manual_examples.h:55:9"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "date"),
-        structAliases = [CName "date"],
-        structSizeof = 12,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "year",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypeTypedef
-              (CName "YEAR"),
-            fieldSourceLoc =
-            "manual_examples.h:58:11"},
-          StructField {
-            fieldName = CName "month",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypeTypedef
-              (CName "MONTH"),
-            fieldSourceLoc =
-            "manual_examples.h:59:11"},
-          StructField {
-            fieldName = CName "day",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypeTypedef
-              (CName "DAY"),
-            fieldSourceLoc =
-            "manual_examples.h:60:11"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:57:16"},
-    DeclFunction
-      Function {
-        functionName = CName "getYear",
-        functionArgs = [
-          TypePointer
-            (TypeTypedef (CName "date"))],
-        functionRes = TypeTypedef
-          (CName "YEAR"),
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:63:6"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "student"),
-        structAliases = [],
-        structSizeof = 16,
-        structAlignment = 8,
-        structFields = [
-          StructField {
-            fieldName = CName "university",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed)))),
-            fieldSourceLoc =
-            "manual_examples.h:71:11"},
-          StructField {
-            fieldName = CName "year",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:72:9",
+              structFieldName = NamePair {
+                nameC = CName "year",
+                nameHsIdent = HsIdentifier
+                  "student_year"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:69:15",
+        declId = NamePair {
+          nameC = CName "occupation",
+          nameHsIdent = HsIdentifier
+            "Occupation"}},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Occupation",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Occupation"},
+          unionSizeof = 24,
+          unionAlignment = 8,
+          unionFields = [
+            UnionField {
+              unionFieldLoc =
+              "manual_examples.h:73:5",
+              unionFieldName = NamePair {
+                nameC = CName "student",
+                nameHsIdent = HsIdentifier
+                  "occupation_student"},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = CName "student",
+                  nameHsIdent = HsIdentifier
+                    "Student"}},
+            UnionField {
+              unionFieldLoc =
+              "manual_examples.h:79:5",
+              unionFieldName = NamePair {
+                nameC = CName "employee",
+                nameHsIdent = HsIdentifier
+                  "occupation_employee"},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = CName "employee",
+                  nameHsIdent = HsIdentifier
+                    "Employee"}}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:82:6",
+        declId = NamePair {
+          nameC = CName
+            "print_occupation",
+          nameHsIdent = HsIdentifier
+            "print_occupation"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
               (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:72:9"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:70:10"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "employee"),
-        structAliases = [],
-        structSizeof = 24,
-        structAlignment = 8,
-        structFields = [
-          StructField {
-            fieldName = CName "company",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed)))),
-            fieldSourceLoc =
-            "manual_examples.h:76:11"},
-          StructField {
-            fieldName = CName "supervisor",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "person"))),
-            fieldSourceLoc =
-            "manual_examples.h:77:20"},
-          StructField {
-            fieldName = CName "salary",
-            fieldOffset = 128,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:78:9"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:75:10"},
-    DeclUnion
-      Union {
-        unionDeclPath = DeclPathName
-          (CName "occupation"),
-        unionAliases = [
-          CName "occupation"],
-        unionSizeof = 24,
-        unionAlignment = 8,
-        unionFields = [
-          UnionField {
-            ufieldName = CName "student",
-            ufieldType = TypeStruct
-              (DeclPathName
-                (CName "student")),
-            ufieldSourceLoc =
-            "manual_examples.h:73:5"},
-          UnionField {
-            ufieldName = CName "employee",
-            ufieldType = TypeStruct
-              (DeclPathName
-                (CName "employee")),
-            ufieldSourceLoc =
-            "manual_examples.h:79:5"}],
-        unionSourceLoc =
-        "manual_examples.h:69:15"},
-    DeclOpaqueStruct
-      OpaqueStruct {
-        opaqueStructTag = CName
-          "person",
-        opaqueStructAliases = [],
-        opaqueStructSourceLoc =
-        "manual_examples.h:77:12"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "print_occupation",
-        functionArgs = [
-          TypePrim
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "occupation")
+                  (TypeUnion
+                    NamePair {
+                      nameC = CName "occupation",
+                      nameHsIdent = HsIdentifier
+                        "Occupation"})))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:89:3",
+        declId = NamePair {
+          nameC = CName "rect_lower_left",
+          nameHsIdent = HsIdentifier
+            "Rect_lower_left"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Rect_lower_left"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:90:9",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "rect_lower_left_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:91:9",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "rect_lower_left_y"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:94:3",
+        declId = NamePair {
+          nameC = CName
+            "rect_upper_right",
+          nameHsIdent = HsIdentifier
+            "Rect_upper_right"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Rect_upper_right"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:95:9",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "rect_upper_right_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:96:9",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "rect_upper_right_y"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:88:8",
+        declId = NamePair {
+          nameC = CName "rect",
+          nameHsIdent = HsIdentifier
+            "Rect"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Rect"),
+          structSizeof = 16,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:92:5",
+              structFieldName = NamePair {
+                nameC = CName "lower_left",
+                nameHsIdent = HsIdentifier
+                  "rect_lower_left"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName "rect_lower_left",
+                  nameHsIdent = HsIdentifier
+                    "Rect_lower_left"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:97:5",
+              structFieldName = NamePair {
+                nameC = CName "upper_right",
+                nameHsIdent = HsIdentifier
+                  "rect_upper_right"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName
+                    "rect_upper_right",
+                  nameHsIdent = HsIdentifier
+                    "Rect_upper_right"},
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:100:9",
+        declId = NamePair {
+          nameC = CName "config_Deref",
+          nameHsIdent = HsIdentifier
+            "Config_Deref"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Config_Deref"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:101:7",
+              structFieldName = NamePair {
+                nameC = CName "width",
+                nameHsIdent = HsIdentifier
+                  "config_Deref_width"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:102:7",
+              structFieldName = NamePair {
+                nameC = CName "height",
+                nameHsIdent = HsIdentifier
+                  "config_Deref_height"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:103:4",
+        declId = NamePair {
+          nameC = CName "config",
+          nameHsIdent = HsIdentifier
+            "Config"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Config",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Config"},
+          typedefType = TypePointer
+            (TypeStruct
+              NamePair {
+                nameC = CName "config_Deref",
+                nameHsIdent = HsIdentifier
+                  "Config_Deref"})},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:109:13",
+        declId = NamePair {
+          nameC = CName "adio\769s",
+          nameHsIdent = HsIdentifier
+            "Adio'0301s"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Adio'0301s",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Adio'0301s"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:110:6",
+        declId = NamePair {
+          nameC = CName "\25308\25308",
+          nameHsIdent = HsIdentifier
+            "\25308\25308"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:111:13",
+        declId = NamePair {
+          nameC = CName "\25968\23383",
+          nameHsIdent = HsIdentifier
+            "C\25968\23383"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "C\25968\23383",
+            newtypeField = HsName
+              "@NsVar"
+              "un_C\25968\23383"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:112:6",
+        declId = NamePair {
+          nameC = CName "\978",
+          nameHsIdent = HsIdentifier
+            "c\978"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:113:13",
+        declId = NamePair {
+          nameC = CName "data",
+          nameHsIdent = HsIdentifier
+            "Data"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Data",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Data"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:114:6",
+        declId = NamePair {
+          nameC = CName "import",
+          nameHsIdent = HsIdentifier
+            "import'"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:120:6",
+        declId = NamePair {
+          nameC = CName "signal",
+          nameHsIdent = HsIdentifier
+            "Signal"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Signal",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Signal"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:121:3",
+              enumConstantName = NamePair {
+                nameC = CName "start",
+                nameHsIdent = HsIdentifier
+                  "Start"},
+              enumConstantValue = 1},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:122:3",
+              enumConstantName = NamePair {
+                nameC = CName "pause",
+                nameHsIdent = HsIdentifier
+                  "Pause"},
+              enumConstantValue = 2},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:123:3",
+              enumConstantName = NamePair {
+                nameC = CName "resume",
+                nameHsIdent = HsIdentifier
+                  "Resume"},
+              enumConstantValue = 3},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:124:3",
+              enumConstantName = NamePair {
+                nameC = CName "stop",
+                nameHsIdent = HsIdentifier
+                  "Stop"},
+              enumConstantValue = 4}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:127:6",
+        declId = NamePair {
+          nameC = CName "HTTP_status",
+          nameHsIdent = HsIdentifier
+            "HTTP_status"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "HTTP_status",
+            newtypeField = HsName
+              "@NsVar"
+              "un_HTTP_status"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:128:3",
+              enumConstantName = NamePair {
+                nameC = CName "ok",
+                nameHsIdent = HsIdentifier
+                  "Ok"},
+              enumConstantValue = 200},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:129:3",
+              enumConstantName = NamePair {
+                nameC = CName "moved",
+                nameHsIdent = HsIdentifier
+                  "Moved"},
+              enumConstantValue = 301},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:130:3",
+              enumConstantName = NamePair {
+                nameC = CName "bad_request",
+                nameHsIdent = HsIdentifier
+                  "Bad_request"},
+              enumConstantValue = 400},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:131:3",
+              enumConstantName = NamePair {
+                nameC = CName "unauthorized",
+                nameHsIdent = HsIdentifier
+                  "Unauthorized"},
+              enumConstantValue = 401},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:132:3",
+              enumConstantName = NamePair {
+                nameC = CName "not_found",
+                nameHsIdent = HsIdentifier
+                  "Not_found"},
+              enumConstantValue = 404}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:135:6",
+        declId = NamePair {
+          nameC = CName "descending",
+          nameHsIdent = HsIdentifier
+            "Descending"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Descending",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Descending"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:136:3",
+              enumConstantName = NamePair {
+                nameC = CName "X",
+                nameHsIdent = HsIdentifier "X"},
+              enumConstantValue = 100},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:137:3",
+              enumConstantName = NamePair {
+                nameC = CName "Y",
+                nameHsIdent = HsIdentifier "Y"},
+              enumConstantValue = 99},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:138:3",
+              enumConstantName = NamePair {
+                nameC = CName "Y_alias",
+                nameHsIdent = HsIdentifier
+                  "Y_alias"},
+              enumConstantValue = 99},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:139:3",
+              enumConstantName = NamePair {
+                nameC = CName "Z",
+                nameHsIdent = HsIdentifier "Z"},
+              enumConstantValue = 98}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:142:6",
+        declId = NamePair {
+          nameC = CName "result",
+          nameHsIdent = HsIdentifier
+            "Result"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Result",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Result"},
+          enumType = TypePrim
             (PrimIntegral PrimInt Signed),
-          TypePointer
-            (TypeUnion
-              (DeclPathName
-                (CName "occupation")))],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:82:6"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathAnon
-          (DeclPathCtxtField
-            (Just (CName "rect"))
-            (CName "lower_left")
-            DeclPathCtxtTop),
-        structAliases = [],
-        structSizeof = 8,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "x",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:90:9"},
-          StructField {
-            fieldName = CName "y",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:91:9"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:89:3"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathAnon
-          (DeclPathCtxtField
-            (Just (CName "rect"))
-            (CName "upper_right")
-            DeclPathCtxtTop),
-        structAliases = [],
-        structSizeof = 8,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "x",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:95:9"},
-          StructField {
-            fieldName = CName "y",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:96:9"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:94:3"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "rect"),
-        structAliases = [],
-        structSizeof = 16,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "lower_left",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "rect"))
-                  (CName "lower_left")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "manual_examples.h:92:5"},
-          StructField {
-            fieldName = CName "upper_right",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "rect"))
-                  (CName "upper_right")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "manual_examples.h:97:5"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:88:8"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathAnon
-          (DeclPathCtxtPtr
-            (DeclPathCtxtTypedef
-              (CName "config"))),
-        structAliases = [],
-        structSizeof = 8,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "width",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:101:7"},
-          StructField {
-            fieldName = CName "height",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:102:7"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:100:9"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "config",
-        typedefType = TypePointer
-          (TypeStruct
-            (DeclPathAnon
-              (DeclPathCtxtPtr
-                (DeclPathCtxtTypedef
-                  (CName "config"))))),
-        typedefSourceLoc =
-        "manual_examples.h:103:4"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "adio\769s",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "manual_examples.h:109:13"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "\25308\25308",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:110:6"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName
-          "\25968\23383",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "manual_examples.h:111:13"},
-    DeclFunction
-      Function {
-        functionName = CName "\978",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:112:6"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "data",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "manual_examples.h:113:13"},
-    DeclFunction
-      Function {
-        functionName = CName "import",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:114:6"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "signal"),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName "start",
-            valueValue = 1,
-            valueSourceLoc =
-            "manual_examples.h:121:3"},
-          EnumValue {
-            valueName = CName "pause",
-            valueValue = 2,
-            valueSourceLoc =
-            "manual_examples.h:122:3"},
-          EnumValue {
-            valueName = CName "resume",
-            valueValue = 3,
-            valueSourceLoc =
-            "manual_examples.h:123:3"},
-          EnumValue {
-            valueName = CName "stop",
-            valueValue = 4,
-            valueSourceLoc =
-            "manual_examples.h:124:3"}],
-        enumSourceLoc =
-        "manual_examples.h:120:6"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "HTTP_status"),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName "ok",
-            valueValue = 200,
-            valueSourceLoc =
-            "manual_examples.h:128:3"},
-          EnumValue {
-            valueName = CName "moved",
-            valueValue = 301,
-            valueSourceLoc =
-            "manual_examples.h:129:3"},
-          EnumValue {
-            valueName = CName "bad_request",
-            valueValue = 400,
-            valueSourceLoc =
-            "manual_examples.h:130:3"},
-          EnumValue {
-            valueName = CName
-              "unauthorized",
-            valueValue = 401,
-            valueSourceLoc =
-            "manual_examples.h:131:3"},
-          EnumValue {
-            valueName = CName "not_found",
-            valueValue = 404,
-            valueSourceLoc =
-            "manual_examples.h:132:3"}],
-        enumSourceLoc =
-        "manual_examples.h:127:6"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "descending"),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName "X",
-            valueValue = 100,
-            valueSourceLoc =
-            "manual_examples.h:136:3"},
-          EnumValue {
-            valueName = CName "Y",
-            valueValue = 99,
-            valueSourceLoc =
-            "manual_examples.h:137:3"},
-          EnumValue {
-            valueName = CName "Y_alias",
-            valueValue = 99,
-            valueSourceLoc =
-            "manual_examples.h:138:3"},
-          EnumValue {
-            valueName = CName "Z",
-            valueValue = 98,
-            valueSourceLoc =
-            "manual_examples.h:139:3"}],
-        enumSourceLoc =
-        "manual_examples.h:135:6"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "result"),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName "failed",
-            valueValue = `-1`,
-            valueSourceLoc =
-            "manual_examples.h:143:3"},
-          EnumValue {
-            valueName = CName "success",
-            valueValue = 0,
-            valueSourceLoc =
-            "manual_examples.h:144:3"},
-          EnumValue {
-            valueName = CName "postponed",
-            valueValue = 1,
-            valueSourceLoc =
-            "manual_examples.h:145:3"},
-          EnumValue {
-            valueName = CName
-              "already_done",
-            valueValue = 2,
-            valueSourceLoc =
-            "manual_examples.h:146:3"}],
-        enumSourceLoc =
-        "manual_examples.h:142:6"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "vote"),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimChar
-            (PrimSignExplicit Unsigned)),
-        enumSizeof = 1,
-        enumAlignment = 1,
-        enumValues = [
-          EnumValue {
-            valueName = CName "infavour",
-            valueValue = 0,
-            valueSourceLoc =
-            "manual_examples.h:150:3"},
-          EnumValue {
-            valueName = CName "against",
-            valueValue = 1,
-            valueSourceLoc =
-            "manual_examples.h:151:3"},
-          EnumValue {
-            valueName = CName "abstain",
-            valueValue = 2,
-            valueSourceLoc =
-            "manual_examples.h:152:3"}],
-        enumSourceLoc =
-        "manual_examples.h:149:6"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "CXCursorKind"),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName
-              "CXCursor_FirstExpr",
-            valueValue = 100,
-            valueSourceLoc =
-            "manual_examples.h:158:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_UnexposedExpr",
-            valueValue = 100,
-            valueSourceLoc =
-            "manual_examples.h:159:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_DeclRefExpr",
-            valueValue = 101,
-            valueSourceLoc =
-            "manual_examples.h:160:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_MemberRefExpr",
-            valueValue = 102,
-            valueSourceLoc =
-            "manual_examples.h:161:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_PackIndexingExpr",
-            valueValue = 156,
-            valueSourceLoc =
-            "manual_examples.h:163:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_LastExpr",
-            valueValue = 156,
-            valueSourceLoc =
-            "manual_examples.h:164:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_FirstStmt",
-            valueValue = 200,
-            valueSourceLoc =
-            "manual_examples.h:166:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_UnexposedStmt",
-            valueValue = 200,
-            valueSourceLoc =
-            "manual_examples.h:167:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_LabelStmt",
-            valueValue = 201,
-            valueSourceLoc =
-            "manual_examples.h:168:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_CompoundStmt",
-            valueValue = 202,
-            valueSourceLoc =
-            "manual_examples.h:169:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_OpenACCUpdateConstruct",
-            valueValue = 331,
-            valueSourceLoc =
-            "manual_examples.h:171:3"},
-          EnumValue {
-            valueName = CName
-              "CXCursor_LastStmt",
-            valueValue = 331,
-            valueSourceLoc =
-            "manual_examples.h:172:3"}],
-        enumSourceLoc =
-        "manual_examples.h:157:6"}]
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:143:3",
+              enumConstantName = NamePair {
+                nameC = CName "failed",
+                nameHsIdent = HsIdentifier
+                  "Failed"},
+              enumConstantValue = `-1`},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:144:3",
+              enumConstantName = NamePair {
+                nameC = CName "success",
+                nameHsIdent = HsIdentifier
+                  "Success"},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:145:3",
+              enumConstantName = NamePair {
+                nameC = CName "postponed",
+                nameHsIdent = HsIdentifier
+                  "Postponed"},
+              enumConstantValue = 1},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:146:3",
+              enumConstantName = NamePair {
+                nameC = CName "already_done",
+                nameHsIdent = HsIdentifier
+                  "Already_done"},
+              enumConstantValue = 2}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:149:6",
+        declId = NamePair {
+          nameC = CName "vote",
+          nameHsIdent = HsIdentifier
+            "Vote"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Vote",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Vote"},
+          enumType = TypePrim
+            (PrimChar
+              (PrimSignExplicit Unsigned)),
+          enumSizeof = 1,
+          enumAlignment = 1,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:150:3",
+              enumConstantName = NamePair {
+                nameC = CName "infavour",
+                nameHsIdent = HsIdentifier
+                  "Infavour"},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:151:3",
+              enumConstantName = NamePair {
+                nameC = CName "against",
+                nameHsIdent = HsIdentifier
+                  "Against"},
+              enumConstantValue = 1},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:152:3",
+              enumConstantName = NamePair {
+                nameC = CName "abstain",
+                nameHsIdent = HsIdentifier
+                  "Abstain"},
+              enumConstantValue = 2}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:157:6",
+        declId = NamePair {
+          nameC = CName "CXCursorKind",
+          nameHsIdent = HsIdentifier
+            "CXCursorKind"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "CXCursorKind",
+            newtypeField = HsName
+              "@NsVar"
+              "un_CXCursorKind"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:158:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_FirstExpr",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_FirstExpr"},
+              enumConstantValue = 100},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:159:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_UnexposedExpr",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_UnexposedExpr"},
+              enumConstantValue = 100},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:160:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_DeclRefExpr",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_DeclRefExpr"},
+              enumConstantValue = 101},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:161:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_MemberRefExpr",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_MemberRefExpr"},
+              enumConstantValue = 102},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:163:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_PackIndexingExpr",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_PackIndexingExpr"},
+              enumConstantValue = 156},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:164:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_LastExpr",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_LastExpr"},
+              enumConstantValue = 156},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:166:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_FirstStmt",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_FirstStmt"},
+              enumConstantValue = 200},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:167:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_UnexposedStmt",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_UnexposedStmt"},
+              enumConstantValue = 200},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:168:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_LabelStmt",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_LabelStmt"},
+              enumConstantValue = 201},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:169:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_CompoundStmt",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_CompoundStmt"},
+              enumConstantValue = 202},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:171:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_OpenACCUpdateConstruct",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_OpenACCUpdateConstruct"},
+              enumConstantValue = 331},
+            EnumConstant {
+              enumConstantLoc =
+              "manual_examples.h:172:3",
+              enumConstantName = NamePair {
+                nameC = CName
+                  "CXCursor_LastStmt",
+                nameHsIdent = HsIdentifier
+                  "CXCursor_LastStmt"},
+              enumConstantValue = 331}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps =
+  [
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/manual_examples.h"]}

@@ -14,60 +14,76 @@
             "dim2_x",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc = "unions.h:2:9",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "dim2_x"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:2:9"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "dim2_y",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc = "unions.h:3:9",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "dim2_y"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:3:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "Dim2"),
-          structAliases = [],
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:2:9"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:3:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:1:8"},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "unions.h:1:8",
+            declId = NamePair {
+              nameC = CName "Dim2",
+              nameHsIdent = HsIdentifier
+                "Dim2"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Dim2"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc = "unions.h:2:9",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "dim2_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc = "unions.h:3:9",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "dim2_y"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -86,60 +102,76 @@
               "dim2_x",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc = "unions.h:2:9",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "dim2_x"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:2:9"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "dim2_y",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "y",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc = "unions.h:3:9",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "dim2_y"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:3:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "Dim2"),
-            structAliases = [],
-            structSizeof = 8,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:2:9"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:3:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "unions.h:1:8"},
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "unions.h:1:8",
+              declId = NamePair {
+                nameC = CName "Dim2",
+                nameHsIdent = HsIdentifier
+                  "Dim2"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Dim2"),
+                structSizeof = 8,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc = "unions.h:2:9",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "dim2_x"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc = "unions.h:3:9",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "dim2_y"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -163,60 +195,76 @@
                       "dim2_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:2:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "dim2_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:2:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "dim2_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:3:9",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "dim2_y"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:3:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "Dim2"),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:2:9"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:3:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:1:8"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:1:8",
+                      declId = NamePair {
+                        nameC = CName "Dim2",
+                        nameHsIdent = HsIdentifier
+                          "Dim2"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Dim2"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "unions.h:2:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "dim2_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "unions.h:3:9",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "dim2_y"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -242,60 +290,76 @@
                       "dim2_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:2:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "dim2_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:2:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "dim2_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:3:9",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "dim2_y"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:3:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "Dim2"),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:2:9"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:3:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:1:8"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:1:8",
+                      declId = NamePair {
+                        nameC = CName "Dim2",
+                        nameHsIdent = HsIdentifier
+                          "Dim2"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Dim2"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "unions.h:2:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "dim2_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "unions.h:3:9",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "dim2_y"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -329,84 +393,103 @@
             "dim3_x",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc = "unions.h:7:9",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "dim3_x"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:7:9"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "dim3_y",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc = "unions.h:8:9",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "dim3_y"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:8:9"}},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "dim3_z",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "z",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc = "unions.h:9:9",
+              structFieldName = NamePair {
+                nameC = CName "z",
+                nameHsIdent = HsIdentifier
+                  "dim3_z"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:9:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "Dim3"),
-          structAliases = [],
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:7:9"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:8:9"},
-            StructField {
-              fieldName = CName "z",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:9:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:6:8"},
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "unions.h:6:8",
+            declId = NamePair {
+              nameC = CName "Dim3",
+              nameHsIdent = HsIdentifier
+                "Dim3"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Dim3"),
+              structSizeof = 12,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc = "unions.h:7:9",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "dim3_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc = "unions.h:8:9",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "dim3_y"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc = "unions.h:9:9",
+                  structFieldName = NamePair {
+                    nameC = CName "z",
+                    nameHsIdent = HsIdentifier
+                      "dim3_z"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -425,84 +508,103 @@
               "dim3_x",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc = "unions.h:7:9",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "dim3_x"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:7:9"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "dim3_y",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "y",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc = "unions.h:8:9",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "dim3_y"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:8:9"}},
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "dim3_z",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "z",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc = "unions.h:9:9",
+                structFieldName = NamePair {
+                  nameC = CName "z",
+                  nameHsIdent = HsIdentifier
+                    "dim3_z"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:9:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "Dim3"),
-            structAliases = [],
-            structSizeof = 12,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:7:9"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:8:9"},
-              StructField {
-                fieldName = CName "z",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:9:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "unions.h:6:8"},
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "unions.h:6:8",
+              declId = NamePair {
+                nameC = CName "Dim3",
+                nameHsIdent = HsIdentifier
+                  "Dim3"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Dim3"),
+                structSizeof = 12,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc = "unions.h:7:9",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "dim3_x"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc = "unions.h:8:9",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "dim3_y"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc = "unions.h:9:9",
+                    structFieldName = NamePair {
+                      nameC = CName "z",
+                      nameHsIdent = HsIdentifier
+                        "dim3_z"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -526,84 +628,103 @@
                       "dim3_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:7:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "dim3_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:7:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "dim3_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:8:9",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "dim3_y"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:8:9"}},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "dim3_z",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "z",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:9:9",
+                        structFieldName = NamePair {
+                          nameC = CName "z",
+                          nameHsIdent = HsIdentifier
+                            "dim3_z"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:9:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "Dim3"),
-                    structAliases = [],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:7:9"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:8:9"},
-                      StructField {
-                        fieldName = CName "z",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:9:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:6:8"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:6:8",
+                      declId = NamePair {
+                        nameC = CName "Dim3",
+                        nameHsIdent = HsIdentifier
+                          "Dim3"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Dim3"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "unions.h:7:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "dim3_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "unions.h:8:9",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "dim3_y"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "unions.h:9:9",
+                            structFieldName = NamePair {
+                              nameC = CName "z",
+                              nameHsIdent = HsIdentifier
+                                "dim3_z"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -630,84 +751,103 @@
                       "dim3_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:7:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "dim3_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:7:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "dim3_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:8:9",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "dim3_y"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:8:9"}},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "dim3_z",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "z",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc = "unions.h:9:9",
+                        structFieldName = NamePair {
+                          nameC = CName "z",
+                          nameHsIdent = HsIdentifier
+                            "dim3_z"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:9:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "Dim3"),
-                    structAliases = [],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:7:9"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:8:9"},
-                      StructField {
-                        fieldName = CName "z",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:9:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:6:8"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:6:8",
+                      declId = NamePair {
+                        nameC = CName "Dim3",
+                        nameHsIdent = HsIdentifier
+                          "Dim3"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Dim3"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "unions.h:7:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "dim3_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "unions.h:8:9",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "dim3_y"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "unions.h:9:9",
+                            structFieldName = NamePair {
+                              nameC = CName "z",
+                              nameHsIdent = HsIdentifier
+                                "dim3_z"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -740,30 +880,56 @@
           "@NsVar"
           "un_DimPayload",
         fieldType = HsByteArray,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginUnion
-        Union {
-          unionDeclPath = DeclPathName
-            (CName "DimPayload"),
-          unionAliases = [],
-          unionSizeof = 8,
-          unionAlignment = 4,
-          unionFields = [
-            UnionField {
-              ufieldName = CName "dim2",
-              ufieldType = TypeStruct
-                (DeclPathName (CName "Dim2")),
-              ufieldSourceLoc =
-              "unions.h:13:17"},
-            UnionField {
-              ufieldName = CName "dim3",
-              ufieldType = TypeStruct
-                (DeclPathName (CName "Dim2")),
-              ufieldSourceLoc =
-              "unions.h:14:17"}],
-          unionSourceLoc =
-          "unions.h:12:7"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "unions.h:12:7",
+          declId = NamePair {
+            nameC = CName "DimPayload",
+            nameHsIdent = HsIdentifier
+              "DimPayload"}},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "DimPayload",
+              newtypeField = HsName
+                "@NsVar"
+                "un_DimPayload"},
+            unionSizeof = 8,
+            unionAlignment = 4,
+            unionFields = [
+              UnionField {
+                unionFieldLoc =
+                "unions.h:13:17",
+                unionFieldName = NamePair {
+                  nameC = CName "dim2",
+                  nameHsIdent = HsIdentifier
+                    "dimPayload_dim2"},
+                unionFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "Dim2",
+                    nameHsIdent = HsIdentifier
+                      "Dim2"}},
+              UnionField {
+                unionFieldLoc =
+                "unions.h:14:17",
+                unionFieldName = NamePair {
+                  nameC = CName "dim3",
+                  nameHsIdent = HsIdentifier
+                    "dimPayload_dim3"},
+                unionFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "Dim2",
+                    nameHsIdent = HsIdentifier
+                      "Dim2"}}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance
@@ -824,16 +990,18 @@
             "dim_tag",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "tag",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "unions.h:18:9",
+              structFieldName = NamePair {
+                nameC = CName "tag",
+                nameHsIdent = HsIdentifier
+                  "dim_tag"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:18:9"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -842,46 +1010,68 @@
             (HsName
               "@NsTypeConstr"
               "DimPayload"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "payload",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeUnion
-                (DeclPathName
-                  (CName "DimPayload")),
-              fieldSourceLoc =
-              "unions.h:19:22"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "Dim"),
-          structAliases = [],
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "tag",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:18:9"},
-            StructField {
-              fieldName = CName "payload",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeUnion
-                (DeclPathName
-                  (CName "DimPayload")),
-              fieldSourceLoc =
-              "unions.h:19:22"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:17:8"},
+              structFieldLoc =
+              "unions.h:19:22",
+              structFieldName = NamePair {
+                nameC = CName "payload",
+                nameHsIdent = HsIdentifier
+                  "dim_payload"},
+              structFieldType = TypeUnion
+                NamePair {
+                  nameC = CName "DimPayload",
+                  nameHsIdent = HsIdentifier
+                    "DimPayload"},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "unions.h:17:8",
+            declId = NamePair {
+              nameC = CName "Dim",
+              nameHsIdent = HsIdentifier
+                "Dim"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Dim"),
+              structSizeof = 12,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "unions.h:18:9",
+                  structFieldName = NamePair {
+                    nameC = CName "tag",
+                    nameHsIdent = HsIdentifier
+                      "dim_tag"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "unions.h:19:22",
+                  structFieldName = NamePair {
+                    nameC = CName "payload",
+                    nameHsIdent = HsIdentifier
+                      "dim_payload"},
+                  structFieldType = TypeUnion
+                    NamePair {
+                      nameC = CName "DimPayload",
+                      nameHsIdent = HsIdentifier
+                        "DimPayload"},
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Storable]},
   DeclInstance
@@ -900,16 +1090,18 @@
               "dim_tag",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "tag",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "unions.h:18:9",
+                structFieldName = NamePair {
+                  nameC = CName "tag",
+                  nameHsIdent = HsIdentifier
+                    "dim_tag"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:18:9"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -918,46 +1110,68 @@
               (HsName
                 "@NsTypeConstr"
                 "DimPayload"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "payload",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypeUnion
-                  (DeclPathName
-                    (CName "DimPayload")),
-                fieldSourceLoc =
-                "unions.h:19:22"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "Dim"),
-            structAliases = [],
-            structSizeof = 12,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "tag",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:18:9"},
-              StructField {
-                fieldName = CName "payload",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypeUnion
-                  (DeclPathName
-                    (CName "DimPayload")),
-                fieldSourceLoc =
-                "unions.h:19:22"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "unions.h:17:8"},
+                structFieldLoc =
+                "unions.h:19:22",
+                structFieldName = NamePair {
+                  nameC = CName "payload",
+                  nameHsIdent = HsIdentifier
+                    "dim_payload"},
+                structFieldType = TypeUnion
+                  NamePair {
+                    nameC = CName "DimPayload",
+                    nameHsIdent = HsIdentifier
+                      "DimPayload"},
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "unions.h:17:8",
+              declId = NamePair {
+                nameC = CName "Dim",
+                nameHsIdent = HsIdentifier
+                  "Dim"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Dim"),
+                structSizeof = 12,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "unions.h:18:9",
+                    structFieldName = NamePair {
+                      nameC = CName "tag",
+                      nameHsIdent = HsIdentifier
+                        "dim_tag"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "unions.h:19:22",
+                    structFieldName = NamePair {
+                      nameC = CName "payload",
+                      nameHsIdent = HsIdentifier
+                        "dim_payload"},
+                    structFieldType = TypeUnion
+                      NamePair {
+                        nameC = CName "DimPayload",
+                        nameHsIdent = HsIdentifier
+                          "DimPayload"},
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Storable]}
       StorableInstance {
@@ -981,16 +1195,18 @@
                       "dim_tag",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "tag",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "unions.h:18:9",
+                        structFieldName = NamePair {
+                          nameC = CName "tag",
+                          nameHsIdent = HsIdentifier
+                            "dim_tag"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:18:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -999,46 +1215,68 @@
                       (HsName
                         "@NsTypeConstr"
                         "DimPayload"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "payload",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "DimPayload")),
-                        fieldSourceLoc =
-                        "unions.h:19:22"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "Dim"),
-                    structAliases = [],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "tag",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:18:9"},
-                      StructField {
-                        fieldName = CName "payload",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "DimPayload")),
-                        fieldSourceLoc =
-                        "unions.h:19:22"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:17:8"},
+                        structFieldLoc =
+                        "unions.h:19:22",
+                        structFieldName = NamePair {
+                          nameC = CName "payload",
+                          nameHsIdent = HsIdentifier
+                            "dim_payload"},
+                        structFieldType = TypeUnion
+                          NamePair {
+                            nameC = CName "DimPayload",
+                            nameHsIdent = HsIdentifier
+                              "DimPayload"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:17:8",
+                      declId = NamePair {
+                        nameC = CName "Dim",
+                        nameHsIdent = HsIdentifier
+                          "Dim"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Dim"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:18:9",
+                            structFieldName = NamePair {
+                              nameC = CName "tag",
+                              nameHsIdent = HsIdentifier
+                                "dim_tag"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:19:22",
+                            structFieldName = NamePair {
+                              nameC = CName "payload",
+                              nameHsIdent = HsIdentifier
+                                "dim_payload"},
+                            structFieldType = TypeUnion
+                              NamePair {
+                                nameC = CName "DimPayload",
+                                nameHsIdent = HsIdentifier
+                                  "DimPayload"},
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Storable]})
             [
@@ -1064,16 +1302,18 @@
                       "dim_tag",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "tag",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "unions.h:18:9",
+                        structFieldName = NamePair {
+                          nameC = CName "tag",
+                          nameHsIdent = HsIdentifier
+                            "dim_tag"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:18:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1082,46 +1322,68 @@
                       (HsName
                         "@NsTypeConstr"
                         "DimPayload"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "payload",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "DimPayload")),
-                        fieldSourceLoc =
-                        "unions.h:19:22"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "Dim"),
-                    structAliases = [],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "tag",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:18:9"},
-                      StructField {
-                        fieldName = CName "payload",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "DimPayload")),
-                        fieldSourceLoc =
-                        "unions.h:19:22"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:17:8"},
+                        structFieldLoc =
+                        "unions.h:19:22",
+                        structFieldName = NamePair {
+                          nameC = CName "payload",
+                          nameHsIdent = HsIdentifier
+                            "dim_payload"},
+                        structFieldType = TypeUnion
+                          NamePair {
+                            nameC = CName "DimPayload",
+                            nameHsIdent = HsIdentifier
+                              "DimPayload"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:17:8",
+                      declId = NamePair {
+                        nameC = CName "Dim",
+                        nameHsIdent = HsIdentifier
+                          "Dim"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Dim"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:18:9",
+                            structFieldName = NamePair {
+                              nameC = CName "tag",
+                              nameHsIdent = HsIdentifier
+                                "dim_tag"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:19:22",
+                            structFieldName = NamePair {
+                              nameC = CName "payload",
+                              nameHsIdent = HsIdentifier
+                                "dim_payload"},
+                            structFieldType = TypeUnion
+                              NamePair {
+                                nameC = CName "DimPayload",
+                                nameHsIdent = HsIdentifier
+                                  "DimPayload"},
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Storable]}
               (Add 2)
@@ -1145,31 +1407,56 @@
           "@NsVar"
           "un_DimPayloadB",
         fieldType = HsByteArray,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginUnion
-        Union {
-          unionDeclPath = DeclPathName
-            (CName "DimPayloadB"),
-          unionAliases = [
-            CName "DimPayloadB"],
-          unionSizeof = 8,
-          unionAlignment = 4,
-          unionFields = [
-            UnionField {
-              ufieldName = CName "dim2",
-              ufieldType = TypeStruct
-                (DeclPathName (CName "Dim2")),
-              ufieldSourceLoc =
-              "unions.h:24:17"},
-            UnionField {
-              ufieldName = CName "dim3",
-              ufieldType = TypeStruct
-                (DeclPathName (CName "Dim2")),
-              ufieldSourceLoc =
-              "unions.h:25:17"}],
-          unionSourceLoc =
-          "unions.h:23:15"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "unions.h:23:15",
+          declId = NamePair {
+            nameC = CName "DimPayloadB",
+            nameHsIdent = HsIdentifier
+              "DimPayloadB"}},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "DimPayloadB",
+              newtypeField = HsName
+                "@NsVar"
+                "un_DimPayloadB"},
+            unionSizeof = 8,
+            unionAlignment = 4,
+            unionFields = [
+              UnionField {
+                unionFieldLoc =
+                "unions.h:24:17",
+                unionFieldName = NamePair {
+                  nameC = CName "dim2",
+                  nameHsIdent = HsIdentifier
+                    "dimPayloadB_dim2"},
+                unionFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "Dim2",
+                    nameHsIdent = HsIdentifier
+                      "Dim2"}},
+              UnionField {
+                unionFieldLoc =
+                "unions.h:25:17",
+                unionFieldName = NamePair {
+                  nameC = CName "dim3",
+                  nameHsIdent = HsIdentifier
+                    "dimPayloadB_dim3"},
+                unionFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "Dim2",
+                    nameHsIdent = HsIdentifier
+                      "Dim2"}}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance
@@ -1230,16 +1517,18 @@
             "dimB_tag",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "tag",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "unions.h:29:9",
+              structFieldName = NamePair {
+                nameC = CName "tag",
+                nameHsIdent = HsIdentifier
+                  "dimB_tag"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:29:9"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1248,46 +1537,74 @@
             (HsName
               "@NsTypeConstr"
               "DimPayloadB"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "payload",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeUnion
-                (DeclPathName
-                  (CName "DimPayloadB")),
-              fieldSourceLoc =
-              "unions.h:30:17"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "DimB"),
-          structAliases = [],
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "tag",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:29:9"},
-            StructField {
-              fieldName = CName "payload",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeUnion
-                (DeclPathName
-                  (CName "DimPayloadB")),
-              fieldSourceLoc =
-              "unions.h:30:17"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:28:8"},
+              structFieldLoc =
+              "unions.h:30:17",
+              structFieldName = NamePair {
+                nameC = CName "payload",
+                nameHsIdent = HsIdentifier
+                  "dimB_payload"},
+              structFieldType = TypeTypedef
+                (TypedefSquashed
+                  (CName "DimPayloadB")
+                  (TypeUnion
+                    NamePair {
+                      nameC = CName "DimPayloadB",
+                      nameHsIdent = HsIdentifier
+                        "DimPayloadB"})),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "unions.h:28:8",
+            declId = NamePair {
+              nameC = CName "DimB",
+              nameHsIdent = HsIdentifier
+                "DimB"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "DimB"),
+              structSizeof = 12,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "unions.h:29:9",
+                  structFieldName = NamePair {
+                    nameC = CName "tag",
+                    nameHsIdent = HsIdentifier
+                      "dimB_tag"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "unions.h:30:17",
+                  structFieldName = NamePair {
+                    nameC = CName "payload",
+                    nameHsIdent = HsIdentifier
+                      "dimB_payload"},
+                  structFieldType = TypeTypedef
+                    (TypedefSquashed
+                      (CName "DimPayloadB")
+                      (TypeUnion
+                        NamePair {
+                          nameC = CName "DimPayloadB",
+                          nameHsIdent = HsIdentifier
+                            "DimPayloadB"})),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Storable]},
   DeclInstance
@@ -1306,16 +1623,18 @@
               "dimB_tag",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "tag",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "unions.h:29:9",
+                structFieldName = NamePair {
+                  nameC = CName "tag",
+                  nameHsIdent = HsIdentifier
+                    "dimB_tag"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:29:9"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1324,46 +1643,74 @@
               (HsName
                 "@NsTypeConstr"
                 "DimPayloadB"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "payload",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypeUnion
-                  (DeclPathName
-                    (CName "DimPayloadB")),
-                fieldSourceLoc =
-                "unions.h:30:17"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "DimB"),
-            structAliases = [],
-            structSizeof = 12,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "tag",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "unions.h:29:9"},
-              StructField {
-                fieldName = CName "payload",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypeUnion
-                  (DeclPathName
-                    (CName "DimPayloadB")),
-                fieldSourceLoc =
-                "unions.h:30:17"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "unions.h:28:8"},
+                structFieldLoc =
+                "unions.h:30:17",
+                structFieldName = NamePair {
+                  nameC = CName "payload",
+                  nameHsIdent = HsIdentifier
+                    "dimB_payload"},
+                structFieldType = TypeTypedef
+                  (TypedefSquashed
+                    (CName "DimPayloadB")
+                    (TypeUnion
+                      NamePair {
+                        nameC = CName "DimPayloadB",
+                        nameHsIdent = HsIdentifier
+                          "DimPayloadB"})),
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "unions.h:28:8",
+              declId = NamePair {
+                nameC = CName "DimB",
+                nameHsIdent = HsIdentifier
+                  "DimB"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "DimB"),
+                structSizeof = 12,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "unions.h:29:9",
+                    structFieldName = NamePair {
+                      nameC = CName "tag",
+                      nameHsIdent = HsIdentifier
+                        "dimB_tag"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "unions.h:30:17",
+                    structFieldName = NamePair {
+                      nameC = CName "payload",
+                      nameHsIdent = HsIdentifier
+                        "dimB_payload"},
+                    structFieldType = TypeTypedef
+                      (TypedefSquashed
+                        (CName "DimPayloadB")
+                        (TypeUnion
+                          NamePair {
+                            nameC = CName "DimPayloadB",
+                            nameHsIdent = HsIdentifier
+                              "DimPayloadB"})),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Storable]}
       StorableInstance {
@@ -1387,16 +1734,18 @@
                       "dimB_tag",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "tag",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "unions.h:29:9",
+                        structFieldName = NamePair {
+                          nameC = CName "tag",
+                          nameHsIdent = HsIdentifier
+                            "dimB_tag"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:29:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1405,46 +1754,74 @@
                       (HsName
                         "@NsTypeConstr"
                         "DimPayloadB"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "payload",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "DimPayloadB")),
-                        fieldSourceLoc =
-                        "unions.h:30:17"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "DimB"),
-                    structAliases = [],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "tag",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:29:9"},
-                      StructField {
-                        fieldName = CName "payload",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "DimPayloadB")),
-                        fieldSourceLoc =
-                        "unions.h:30:17"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:28:8"},
+                        structFieldLoc =
+                        "unions.h:30:17",
+                        structFieldName = NamePair {
+                          nameC = CName "payload",
+                          nameHsIdent = HsIdentifier
+                            "dimB_payload"},
+                        structFieldType = TypeTypedef
+                          (TypedefSquashed
+                            (CName "DimPayloadB")
+                            (TypeUnion
+                              NamePair {
+                                nameC = CName "DimPayloadB",
+                                nameHsIdent = HsIdentifier
+                                  "DimPayloadB"})),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:28:8",
+                      declId = NamePair {
+                        nameC = CName "DimB",
+                        nameHsIdent = HsIdentifier
+                          "DimB"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "DimB"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:29:9",
+                            structFieldName = NamePair {
+                              nameC = CName "tag",
+                              nameHsIdent = HsIdentifier
+                                "dimB_tag"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:30:17",
+                            structFieldName = NamePair {
+                              nameC = CName "payload",
+                              nameHsIdent = HsIdentifier
+                                "dimB_payload"},
+                            structFieldType = TypeTypedef
+                              (TypedefSquashed
+                                (CName "DimPayloadB")
+                                (TypeUnion
+                                  NamePair {
+                                    nameC = CName "DimPayloadB",
+                                    nameHsIdent = HsIdentifier
+                                      "DimPayloadB"})),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Storable]})
             [
@@ -1470,16 +1847,18 @@
                       "dimB_tag",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "tag",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "unions.h:29:9",
+                        structFieldName = NamePair {
+                          nameC = CName "tag",
+                          nameHsIdent = HsIdentifier
+                            "dimB_tag"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:29:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1488,46 +1867,74 @@
                       (HsName
                         "@NsTypeConstr"
                         "DimPayloadB"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "payload",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "DimPayloadB")),
-                        fieldSourceLoc =
-                        "unions.h:30:17"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "DimB"),
-                    structAliases = [],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "tag",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "unions.h:29:9"},
-                      StructField {
-                        fieldName = CName "payload",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "DimPayloadB")),
-                        fieldSourceLoc =
-                        "unions.h:30:17"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:28:8"},
+                        structFieldLoc =
+                        "unions.h:30:17",
+                        structFieldName = NamePair {
+                          nameC = CName "payload",
+                          nameHsIdent = HsIdentifier
+                            "dimB_payload"},
+                        structFieldType = TypeTypedef
+                          (TypedefSquashed
+                            (CName "DimPayloadB")
+                            (TypeUnion
+                              NamePair {
+                                nameC = CName "DimPayloadB",
+                                nameHsIdent = HsIdentifier
+                                  "DimPayloadB"})),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:28:8",
+                      declId = NamePair {
+                        nameC = CName "DimB",
+                        nameHsIdent = HsIdentifier
+                          "DimB"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "DimB"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:29:9",
+                            structFieldName = NamePair {
+                              nameC = CName "tag",
+                              nameHsIdent = HsIdentifier
+                                "dimB_tag"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:30:17",
+                            structFieldName = NamePair {
+                              nameC = CName "payload",
+                              nameHsIdent = HsIdentifier
+                                "dimB_payload"},
+                            structFieldType = TypeTypedef
+                              (TypedefSquashed
+                                (CName "DimPayloadB")
+                                (TypeUnion
+                                  NamePair {
+                                    nameC = CName "DimPayloadB",
+                                    nameHsIdent = HsIdentifier
+                                      "DimPayloadB"})),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Storable]}
               (Add 2)
@@ -1538,337 +1945,6 @@
                     (Idx 3)
                     4
                     (Idx 1)])))}),
-  DeclData
-    Struct {
-      structName = HsName
-        "@NsTypeConstr"
-        "AnonA_xy",
-      structConstr = HsName
-        "@NsConstr"
-        "AnonA_xy",
-      structFields = [
-        Field {
-          fieldName = HsName
-            "@NsVar"
-            "anonA_xy_x",
-          fieldType = HsPrimType
-            HsPrimCDouble,
-          fieldOrigin =
-          FieldOriginStructField
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "unions.h:35:21"}},
-        Field {
-          fieldName = HsName
-            "@NsVar"
-            "anonA_xy_y",
-          fieldType = HsPrimType
-            HsPrimCDouble,
-          fieldOrigin =
-          FieldOriginStructField
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "unions.h:35:31"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathAnon
-            (DeclPathCtxtField
-              (Just (CName "AnonA"))
-              (CName "xy")
-              DeclPathCtxtTop),
-          structAliases = [],
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "unions.h:35:21"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "unions.h:35:31"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:35:5"},
-      structInstances = Set.fromList
-        [Eq, Show, Storable]},
-  DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "AnonA_xy",
-        structConstr = HsName
-          "@NsConstr"
-          "AnonA_xy",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "anonA_xy_x",
-            fieldType = HsPrimType
-              HsPrimCDouble,
-            fieldOrigin =
-            FieldOriginStructField
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "unions.h:35:21"}},
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "anonA_xy_y",
-            fieldType = HsPrimType
-              HsPrimCDouble,
-            fieldOrigin =
-            FieldOriginStructField
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "unions.h:35:31"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathAnon
-              (DeclPathCtxtField
-                (Just (CName "AnonA"))
-                (CName "xy")
-                DeclPathCtxtTop),
-            structAliases = [],
-            structSizeof = 16,
-            structAlignment = 8,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "unions.h:35:21"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "unions.h:35:31"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "unions.h:35:5"},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 16,
-        storableAlignment = 8,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "AnonA_xy",
-                structConstr = HsName
-                  "@NsConstr"
-                  "AnonA_xy",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "anonA_xy_x",
-                    fieldType = HsPrimType
-                      HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:35:21"}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "anonA_xy_y",
-                    fieldType = HsPrimType
-                      HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:35:31"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtField
-                        (Just (CName "AnonA"))
-                        (CName "xy")
-                        DeclPathCtxtTop),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:35:21"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:35:31"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:35:5"},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [
-              PeekByteOff (Idx 0) 0,
-              PeekByteOff (Idx 0) 8]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "AnonA_xy",
-                structConstr = HsName
-                  "@NsConstr"
-                  "AnonA_xy",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "anonA_xy_x",
-                    fieldType = HsPrimType
-                      HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:35:21"}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "anonA_xy_y",
-                    fieldType = HsPrimType
-                      HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:35:31"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtField
-                        (Just (CName "AnonA"))
-                        (CName "xy")
-                        DeclPathCtxtTop),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:35:21"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:35:31"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:35:5"},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 2)
-              (Seq
-                [
-                  PokeByteOff (Idx 3) 0 (Idx 0),
-                  PokeByteOff
-                    (Idx 3)
-                    8
-                    (Idx 1)])))}),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "AnonA_xy"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "AnonA_xy"),
   DeclData
     Struct {
       structName = HsName
@@ -1884,63 +1960,82 @@
             "anonA_polar_r",
           fieldType = HsPrimType
             HsPrimCDouble,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "r",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "unions.h:36:21",
+              structFieldName = NamePair {
+                nameC = CName "r",
+                nameHsIdent = HsIdentifier
+                  "anonA_polar_r"},
+              structFieldType = TypePrim
                 (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "unions.h:36:21"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "anonA_polar_p",
           fieldType = HsPrimType
             HsPrimCDouble,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "p",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "unions.h:36:31",
+              structFieldName = NamePair {
+                nameC = CName "p",
+                nameHsIdent = HsIdentifier
+                  "anonA_polar_p"},
+              structFieldType = TypePrim
                 (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "unions.h:36:31"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathAnon
-            (DeclPathCtxtField
-              (Just (CName "AnonA"))
-              (CName "polar")
-              DeclPathCtxtTop),
-          structAliases = [],
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "r",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "unions.h:36:21"},
-            StructField {
-              fieldName = CName "p",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimDouble),
-              fieldSourceLoc =
-              "unions.h:36:31"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:36:5"},
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "unions.h:36:5",
+            declId = NamePair {
+              nameC = CName "AnonA_polar",
+              nameHsIdent = HsIdentifier
+                "AnonA_polar"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName
+                  "@NsConstr"
+                  "AnonA_polar"),
+              structSizeof = 16,
+              structAlignment = 8,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "unions.h:36:21",
+                  structFieldName = NamePair {
+                    nameC = CName "r",
+                    nameHsIdent = HsIdentifier
+                      "anonA_polar_r"},
+                  structFieldType = TypePrim
+                    (PrimFloating PrimDouble),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "unions.h:36:31",
+                  structFieldName = NamePair {
+                    nameC = CName "p",
+                    nameHsIdent = HsIdentifier
+                      "anonA_polar_p"},
+                  structFieldType = TypePrim
+                    (PrimFloating PrimDouble),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1959,63 +2054,82 @@
               "anonA_polar_r",
             fieldType = HsPrimType
               HsPrimCDouble,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "r",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "unions.h:36:21",
+                structFieldName = NamePair {
+                  nameC = CName "r",
+                  nameHsIdent = HsIdentifier
+                    "anonA_polar_r"},
+                structFieldType = TypePrim
                   (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "unions.h:36:21"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "anonA_polar_p",
             fieldType = HsPrimType
               HsPrimCDouble,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "p",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "unions.h:36:31",
+                structFieldName = NamePair {
+                  nameC = CName "p",
+                  nameHsIdent = HsIdentifier
+                    "anonA_polar_p"},
+                structFieldType = TypePrim
                   (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "unions.h:36:31"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathAnon
-              (DeclPathCtxtField
-                (Just (CName "AnonA"))
-                (CName "polar")
-                DeclPathCtxtTop),
-            structAliases = [],
-            structSizeof = 16,
-            structAlignment = 8,
-            structFields = [
-              StructField {
-                fieldName = CName "r",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "unions.h:36:21"},
-              StructField {
-                fieldName = CName "p",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimDouble),
-                fieldSourceLoc =
-                "unions.h:36:31"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "unions.h:36:5"},
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "unions.h:36:5",
+              declId = NamePair {
+                nameC = CName "AnonA_polar",
+                nameHsIdent = HsIdentifier
+                  "AnonA_polar"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName
+                    "@NsConstr"
+                    "AnonA_polar"),
+                structSizeof = 16,
+                structAlignment = 8,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "unions.h:36:21",
+                    structFieldName = NamePair {
+                      nameC = CName "r",
+                      nameHsIdent = HsIdentifier
+                        "anonA_polar_r"},
+                    structFieldType = TypePrim
+                      (PrimFloating PrimDouble),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "unions.h:36:31",
+                    structFieldName = NamePair {
+                      nameC = CName "p",
+                      nameHsIdent = HsIdentifier
+                        "anonA_polar_p"},
+                    structFieldType = TypePrim
+                      (PrimFloating PrimDouble),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2039,63 +2153,82 @@
                       "anonA_polar_r",
                     fieldType = HsPrimType
                       HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "r",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "unions.h:36:21",
+                        structFieldName = NamePair {
+                          nameC = CName "r",
+                          nameHsIdent = HsIdentifier
+                            "anonA_polar_r"},
+                        structFieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:36:21"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "anonA_polar_p",
                     fieldType = HsPrimType
                       HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "p",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "unions.h:36:31",
+                        structFieldName = NamePair {
+                          nameC = CName "p",
+                          nameHsIdent = HsIdentifier
+                            "anonA_polar_p"},
+                        structFieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:36:31"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtField
-                        (Just (CName "AnonA"))
-                        (CName "polar")
-                        DeclPathCtxtTop),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "r",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:36:21"},
-                      StructField {
-                        fieldName = CName "p",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:36:31"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:36:5"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:36:5",
+                      declId = NamePair {
+                        nameC = CName "AnonA_polar",
+                        nameHsIdent = HsIdentifier
+                          "AnonA_polar"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "AnonA_polar"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:36:21",
+                            structFieldName = NamePair {
+                              nameC = CName "r",
+                              nameHsIdent = HsIdentifier
+                                "anonA_polar_r"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:36:31",
+                            structFieldName = NamePair {
+                              nameC = CName "p",
+                              nameHsIdent = HsIdentifier
+                                "anonA_polar_p"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2121,63 +2254,82 @@
                       "anonA_polar_r",
                     fieldType = HsPrimType
                       HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "r",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "unions.h:36:21",
+                        structFieldName = NamePair {
+                          nameC = CName "r",
+                          nameHsIdent = HsIdentifier
+                            "anonA_polar_r"},
+                        structFieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:36:21"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "anonA_polar_p",
                     fieldType = HsPrimType
                       HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "p",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "unions.h:36:31",
+                        structFieldName = NamePair {
+                          nameC = CName "p",
+                          nameHsIdent = HsIdentifier
+                            "anonA_polar_p"},
+                        structFieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:36:31"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtField
-                        (Just (CName "AnonA"))
-                        (CName "polar")
-                        DeclPathCtxtTop),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "r",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:36:21"},
-                      StructField {
-                        fieldName = CName "p",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimDouble),
-                        fieldSourceLoc =
-                        "unions.h:36:31"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "unions.h:36:5"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:36:5",
+                      declId = NamePair {
+                        nameC = CName "AnonA_polar",
+                        nameHsIdent = HsIdentifier
+                          "AnonA_polar"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "AnonA_polar"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:36:21",
+                            structFieldName = NamePair {
+                              nameC = CName "r",
+                              nameHsIdent = HsIdentifier
+                                "anonA_polar_r"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:36:31",
+                            structFieldName = NamePair {
+                              nameC = CName "p",
+                              nameHsIdent = HsIdentifier
+                                "anonA_polar_p"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2200,6 +2352,405 @@
     (HsName
       "@NsTypeConstr"
       "AnonA_polar"),
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
+        "AnonA_xy",
+      structConstr = HsName
+        "@NsConstr"
+        "AnonA_xy",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "anonA_xy_x",
+          fieldType = HsPrimType
+            HsPrimCDouble,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "unions.h:35:21",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "anonA_xy_x"},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "anonA_xy_y",
+          fieldType = HsPrimType
+            HsPrimCDouble,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "unions.h:35:31",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "anonA_xy_y"},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "unions.h:35:5",
+            declId = NamePair {
+              nameC = CName "AnonA_xy",
+              nameHsIdent = HsIdentifier
+                "AnonA_xy"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "AnonA_xy"),
+              structSizeof = 16,
+              structAlignment = 8,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "unions.h:35:21",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "anonA_xy_x"},
+                  structFieldType = TypePrim
+                    (PrimFloating PrimDouble),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "unions.h:35:31",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "anonA_xy_y"},
+                  structFieldType = TypePrim
+                    (PrimFloating PrimDouble),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "AnonA_xy",
+        structConstr = HsName
+          "@NsConstr"
+          "AnonA_xy",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "anonA_xy_x",
+            fieldType = HsPrimType
+              HsPrimCDouble,
+            fieldOrigin = StructField
+              StructField {
+                structFieldLoc =
+                "unions.h:35:21",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "anonA_xy_x"},
+                structFieldType = TypePrim
+                  (PrimFloating PrimDouble),
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "anonA_xy_y",
+            fieldType = HsPrimType
+              HsPrimCDouble,
+            fieldOrigin = StructField
+              StructField {
+                structFieldLoc =
+                "unions.h:35:31",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "anonA_xy_y"},
+                structFieldType = TypePrim
+                  (PrimFloating PrimDouble),
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "unions.h:35:5",
+              declId = NamePair {
+                nameC = CName "AnonA_xy",
+                nameHsIdent = HsIdentifier
+                  "AnonA_xy"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "AnonA_xy"),
+                structSizeof = 16,
+                structAlignment = 8,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "unions.h:35:21",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "anonA_xy_x"},
+                    structFieldType = TypePrim
+                      (PrimFloating PrimDouble),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "unions.h:35:31",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "anonA_xy_y"},
+                    structFieldType = TypePrim
+                      (PrimFloating PrimDouble),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
+      StorableInstance {
+        storableSizeOf = 16,
+        storableAlignment = 8,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "AnonA_xy",
+                structConstr = HsName
+                  "@NsConstr"
+                  "AnonA_xy",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "anonA_xy_x",
+                    fieldType = HsPrimType
+                      HsPrimCDouble,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "unions.h:35:21",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "anonA_xy_x"},
+                        structFieldType = TypePrim
+                          (PrimFloating PrimDouble),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "anonA_xy_y",
+                    fieldType = HsPrimType
+                      HsPrimCDouble,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "unions.h:35:31",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "anonA_xy_y"},
+                        structFieldType = TypePrim
+                          (PrimFloating PrimDouble),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:35:5",
+                      declId = NamePair {
+                        nameC = CName "AnonA_xy",
+                        nameHsIdent = HsIdentifier
+                          "AnonA_xy"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "AnonA_xy"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:35:21",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "anonA_xy_x"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:35:31",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "anonA_xy_y"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
+            [
+              PeekByteOff (Idx 0) 0,
+              PeekByteOff (Idx 0) 8]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "AnonA_xy",
+                structConstr = HsName
+                  "@NsConstr"
+                  "AnonA_xy",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "anonA_xy_x",
+                    fieldType = HsPrimType
+                      HsPrimCDouble,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "unions.h:35:21",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "anonA_xy_x"},
+                        structFieldType = TypePrim
+                          (PrimFloating PrimDouble),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "anonA_xy_y",
+                    fieldType = HsPrimType
+                      HsPrimCDouble,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "unions.h:35:31",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "anonA_xy_y"},
+                        structFieldType = TypePrim
+                          (PrimFloating PrimDouble),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "unions.h:35:5",
+                      declId = NamePair {
+                        nameC = CName "AnonA_xy",
+                        nameHsIdent = HsIdentifier
+                          "AnonA_xy"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "AnonA_xy"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:35:21",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "anonA_xy_x"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "unions.h:35:31",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "anonA_xy_y"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimDouble),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
+              (Add 2)
+              (Seq
+                [
+                  PokeByteOff (Idx 3) 0 (Idx 0),
+                  PokeByteOff
+                    (Idx 3)
+                    8
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "AnonA_xy"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "AnonA_xy"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2213,38 +2764,56 @@
           "@NsVar"
           "un_AnonA",
         fieldType = HsByteArray,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginUnion
-        Union {
-          unionDeclPath = DeclPathName
-            (CName "AnonA"),
-          unionAliases = [],
-          unionSizeof = 16,
-          unionAlignment = 8,
-          unionFields = [
-            UnionField {
-              ufieldName = CName "xy",
-              ufieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "AnonA"))
-                    (CName "xy")
-                    DeclPathCtxtTop)),
-              ufieldSourceLoc =
-              "unions.h:35:36"},
-            UnionField {
-              ufieldName = CName "polar",
-              ufieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "AnonA"))
-                    (CName "polar")
-                    DeclPathCtxtTop)),
-              ufieldSourceLoc =
-              "unions.h:36:36"}],
-          unionSourceLoc =
-          "unions.h:34:7"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "unions.h:34:7",
+          declId = NamePair {
+            nameC = CName "AnonA",
+            nameHsIdent = HsIdentifier
+              "AnonA"}},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "AnonA",
+              newtypeField = HsName
+                "@NsVar"
+                "un_AnonA"},
+            unionSizeof = 16,
+            unionAlignment = 8,
+            unionFields = [
+              UnionField {
+                unionFieldLoc =
+                "unions.h:35:36",
+                unionFieldName = NamePair {
+                  nameC = CName "xy",
+                  nameHsIdent = HsIdentifier
+                    "anonA_xy"},
+                unionFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "AnonA_xy",
+                    nameHsIdent = HsIdentifier
+                      "AnonA_xy"}},
+              UnionField {
+                unionFieldLoc =
+                "unions.h:36:36",
+                unionFieldName = NamePair {
+                  nameC = CName "polar",
+                  nameHsIdent = HsIdentifier
+                    "anonA_polar"},
+                unionFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "AnonA_polar",
+                    nameHsIdent = HsIdentifier
+                      "AnonA_polar"}}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance

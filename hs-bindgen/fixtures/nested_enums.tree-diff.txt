@@ -1,91 +1,161 @@
-Header
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "nested_enums.h:2:14",
+        declId = NamePair {
+          nameC = CName "enumA",
+          nameHsIdent = HsIdentifier
+            "EnumA"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "EnumA",
+            newtypeField = HsName
+              "@NsVar"
+              "un_EnumA"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "nested_enums.h:3:17",
+              enumConstantName = NamePair {
+                nameC = CName "VALA_1",
+                nameHsIdent = HsIdentifier
+                  "VALA_1"},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantLoc =
+              "nested_enums.h:4:17",
+              enumConstantName = NamePair {
+                nameC = CName "VALA_2",
+                nameHsIdent = HsIdentifier
+                  "VALA_2"},
+              enumConstantValue = 1}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "nested_enums.h:1:8",
+        declId = NamePair {
+          nameC = CName "exA",
+          nameHsIdent = HsIdentifier
+            "ExA"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "ExA"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "nested_enums.h:5:11",
+              structFieldName = NamePair {
+                nameC = CName "fieldA1",
+                nameHsIdent = HsIdentifier
+                  "exA_fieldA1"},
+              structFieldType = TypeEnum
+                NamePair {
+                  nameC = CName "enumA",
+                  nameHsIdent = HsIdentifier
+                    "EnumA"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "nested_enums.h:9:9",
+        declId = NamePair {
+          nameC = CName "exB_fieldB1",
+          nameHsIdent = HsIdentifier
+            "ExB_fieldB1"}},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "ExB_fieldB1",
+            newtypeField = HsName
+              "@NsVar"
+              "un_ExB_fieldB1"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantLoc =
+              "nested_enums.h:10:17",
+              enumConstantName = NamePair {
+                nameC = CName "VALB_1",
+                nameHsIdent = HsIdentifier
+                  "VALB_1"},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantLoc =
+              "nested_enums.h:11:17",
+              enumConstantName = NamePair {
+                nameC = CName "VALB_2",
+                nameHsIdent = HsIdentifier
+                  "VALB_2"},
+              enumConstantValue = 1}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "nested_enums.h:8:8",
+        declId = NamePair {
+          nameC = CName "exB",
+          nameHsIdent = HsIdentifier
+            "ExB"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "ExB"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "nested_enums.h:12:11",
+              structFieldName = NamePair {
+                nameC = CName "fieldB1",
+                nameHsIdent = HsIdentifier
+                  "exB_fieldB1"},
+              structFieldType = TypeEnum
+                NamePair {
+                  nameC = CName "exB_fieldB1",
+                  nameHsIdent = HsIdentifier
+                    "ExB_fieldB1"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps =
   [
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "enumA"),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName "VALA_1",
-            valueValue = 0,
-            valueSourceLoc =
-            "nested_enums.h:3:17"},
-          EnumValue {
-            valueName = CName "VALA_2",
-            valueValue = 1,
-            valueSourceLoc =
-            "nested_enums.h:4:17"}],
-        enumSourceLoc =
-        "nested_enums.h:2:14"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "exA"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "fieldA1",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypeEnum
-              (DeclPathName (CName "enumA")),
-            fieldSourceLoc =
-            "nested_enums.h:5:11"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "nested_enums.h:1:8"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathAnon
-          (DeclPathCtxtField
-            (Just (CName "exB"))
-            (CName "fieldB1")
-            DeclPathCtxtTop),
-        enumAliases = [],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName "VALB_1",
-            valueValue = 0,
-            valueSourceLoc =
-            "nested_enums.h:10:17"},
-          EnumValue {
-            valueName = CName "VALB_2",
-            valueValue = 1,
-            valueSourceLoc =
-            "nested_enums.h:11:17"}],
-        enumSourceLoc =
-        "nested_enums.h:9:9"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "exB"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "fieldB1",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypeEnum
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "exB"))
-                  (CName "fieldB1")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "nested_enums.h:12:11"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "nested_enums.h:8:8"}]
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/nested_enums.h"]}

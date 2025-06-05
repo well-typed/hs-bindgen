@@ -1,267 +1,544 @@
-Header
-  [
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_in_fundecl_vs_typedef.h:4:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "MC",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit Nothing))))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:4:9"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "TC",
-        typedefType = TypePrim
-          (PrimChar
-            (PrimSignImplicit
-              (Just Signed))),
-        typedefSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:5:14"},
-    DeclFunction
-      Function {
-        functionName = CName "quux1",
-        functionArgs = [
-          TypeTypedef (CName "MC"),
-          TypeTypedef (CName "TC")],
-        functionRes = TypePrim
-          (PrimChar
-            (PrimSignImplicit Nothing)),
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:8:6"},
-    DeclFunction
-      Function {
-        functionName = CName "quux2",
-        functionArgs = [
-          TypeTypedef (CName "MC"),
-          TypePrim
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:4:9",
+        declId = NamePair {
+          nameC = CName "MC",
+          nameHsIdent = HsIdentifier
+            "MC"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "MC",
+              newtypeField = HsName
+                "@NsVar"
+                "un_MC"},
+            macroType = TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:5:14",
+        declId = NamePair {
+          nameC = CName "TC",
+          nameHsIdent = HsIdentifier
+            "TC"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "TC",
+            newtypeField = HsName
+              "@NsVar"
+              "un_TC"},
+          typedefType = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing))],
-        functionRes = TypeTypedef
-          (CName "TC"),
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:9:4"},
-    DeclFunction
-      Function {
-        functionName = CName "wam1",
-        functionArgs = [
-          TypePrim
-            (PrimFloating PrimFloat),
-          TypePointer
-            (TypeTypedef (CName "TC"))],
-        functionRes = TypePointer
-          (TypeTypedef (CName "MC")),
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:10:5"},
-    DeclFunction
-      Function {
-        functionName = CName "wam2",
-        functionArgs = [
-          TypePrim
-            (PrimFloating PrimFloat),
-          TypePointer
-            (TypeTypedef (CName "MC"))],
-        functionRes = TypePointer
-          (TypeTypedef (CName "TC")),
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:11:5"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "struct1"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "a",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:18:30"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:18:16"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathAnon
-          (DeclPathCtxtTypedef
-            (CName "struct2")),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "a",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:19:30"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:19:9"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "struct3"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "a",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:20:30"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:20:16"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "struct3_t",
-        typedefType = TypeStruct
-          (DeclPathName
-            (CName "struct3")),
-        typedefSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:20:35"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "struct4"),
-        structAliases = [
-          CName "struct4"],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "a",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:21:30"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:21:16"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_typedef1",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtTypedef
-                  (CName "struct2")))),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:23:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_typedef2",
-        functionArgs = [
-          TypePointer
+              (PrimSignImplicit
+                (Just Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:8:6",
+        declId = NamePair {
+          nameC = CName "quux1",
+          nameHsIdent = HsIdentifier
+            "quux1"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"}),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "TC",
+                  nameHsIdent = HsIdentifier
+                    "TC"})],
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing)),
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:9:4",
+        declId = NamePair {
+          nameC = CName "quux2",
+          nameHsIdent = HsIdentifier
+            "quux2"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"}),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))],
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "TC",
+                nameHsIdent = HsIdentifier
+                  "TC"}),
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:10:5",
+        declId = NamePair {
+          nameC = CName "wam1",
+          nameHsIdent = HsIdentifier
+            "wam1"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "TC",
+                    nameHsIdent = HsIdentifier
+                      "TC"}))],
+          functionRes = TypePointer
             (TypeTypedef
-              (CName "struct3_t")),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:24:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_typedef3",
-        functionArgs = [
-          TypePointer
-            (TypeTypedef (CName "struct4")),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:25:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_name1",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "struct1"))),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:27:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_name2",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "struct3"))),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:28:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_name3",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "struct4"))),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:29:6"}]
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})),
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:11:5",
+        declId = NamePair {
+          nameC = CName "wam2",
+          nameHsIdent = HsIdentifier
+            "wam2"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "MC",
+                    nameHsIdent = HsIdentifier
+                      "MC"}))],
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "TC",
+                  nameHsIdent = HsIdentifier
+                    "TC"})),
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:18:16",
+        declId = NamePair {
+          nameC = CName "struct1",
+          nameHsIdent = HsIdentifier
+            "Struct1"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Struct1"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "macro_in_fundecl_vs_typedef.h:18:30",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "struct1_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:19:9",
+        declId = NamePair {
+          nameC = CName "struct2",
+          nameHsIdent = HsIdentifier
+            "Struct2"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Struct2"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "macro_in_fundecl_vs_typedef.h:19:30",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "struct2_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:20:16",
+        declId = NamePair {
+          nameC = CName "struct3",
+          nameHsIdent = HsIdentifier
+            "Struct3"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Struct3"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "macro_in_fundecl_vs_typedef.h:20:30",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "struct3_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:20:35",
+        declId = NamePair {
+          nameC = CName "struct3_t",
+          nameHsIdent = HsIdentifier
+            "Struct3_t"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Struct3_t",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Struct3_t"},
+          typedefType = TypeStruct
+            NamePair {
+              nameC = CName "struct3",
+              nameHsIdent = HsIdentifier
+                "Struct3"}},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:21:16",
+        declId = NamePair {
+          nameC = CName "struct4",
+          nameHsIdent = HsIdentifier
+            "Struct4"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Struct4"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "macro_in_fundecl_vs_typedef.h:21:30",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "struct4_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:23:6",
+        declId = NamePair {
+          nameC = CName "struct_typedef1",
+          nameHsIdent = HsIdentifier
+            "struct_typedef1"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "struct2")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "struct2",
+                      nameHsIdent = HsIdentifier
+                        "Struct2"}))),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:24:6",
+        declId = NamePair {
+          nameC = CName "struct_typedef2",
+          nameHsIdent = HsIdentifier
+            "struct_typedef2"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "struct3_t",
+                    nameHsIdent = HsIdentifier
+                      "Struct3_t"})),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:25:6",
+        declId = NamePair {
+          nameC = CName "struct_typedef3",
+          nameHsIdent = HsIdentifier
+            "struct_typedef3"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "struct4")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "struct4",
+                      nameHsIdent = HsIdentifier
+                        "Struct4"}))),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:27:6",
+        declId = NamePair {
+          nameC = CName "struct_name1",
+          nameHsIdent = HsIdentifier
+            "struct_name1"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = CName "struct1",
+                  nameHsIdent = HsIdentifier
+                    "Struct1"}),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:28:6",
+        declId = NamePair {
+          nameC = CName "struct_name2",
+          nameHsIdent = HsIdentifier
+            "struct_name2"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = CName "struct3",
+                  nameHsIdent = HsIdentifier
+                    "Struct3"}),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_in_fundecl_vs_typedef.h:29:6",
+        declId = NamePair {
+          nameC = CName "struct_name3",
+          nameHsIdent = HsIdentifier
+            "struct_name3"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = CName "struct4",
+                  nameHsIdent = HsIdentifier
+                    "Struct4"}),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps =
+  [
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/macro_in_fundecl_vs_typedef.h"]}

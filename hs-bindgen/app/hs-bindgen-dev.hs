@@ -27,7 +27,7 @@ execMode Dev{..} tracer = \case
       let opts = cmdOpts {
               optsExtBindings = extBindings
             }
-      print . snd =<< Pipeline.parseCHeader opts parseInputPath
+      print =<< Pipeline.parseCHeader opts parseInputPath
   where
     cmdOpts :: Opts
     cmdOpts = defaultOpts {

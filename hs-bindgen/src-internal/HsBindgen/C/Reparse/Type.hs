@@ -6,9 +6,9 @@ import Data.List (intercalate)
 import Data.Text qualified as Text
 import Text.Parsec
 
-import HsBindgen.Imports
-import HsBindgen.C.AST.Type
 import HsBindgen.C.Reparse.Infra
+import HsBindgen.Imports
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Primitive types
@@ -37,48 +37,49 @@ primTypeKeyword = choice [
     , keyword "_Decimal128"
     ]
 
-reparsePrimType :: Reparse Type
+reparsePrimType :: Reparse PrimType
 reparsePrimType = do
     kws <- many1 primTypeKeyword
     case kws of
       -- char
-      [             "char"] -> return $ TypePrim $ PrimChar (PrimSignImplicit Nothing)
-      ["signed"   , "char"] -> return $ TypePrim $ PrimChar (PrimSignExplicit Signed)
-      ["unsigned" , "char"] -> return $ TypePrim $ PrimChar (PrimSignExplicit Unsigned)
+      [             "char"] -> return $ PrimChar (PrimSignImplicit Nothing)
+      ["signed"   , "char"] -> return $ PrimChar (PrimSignExplicit Signed)
+      ["unsigned" , "char"] -> return $ PrimChar (PrimSignExplicit Unsigned)
       -- short
-      [             "short"        ] -> return $ TypePrim $ PrimIntegral PrimShort Signed
-      ["signed"   , "short"        ] -> return $ TypePrim $ PrimIntegral PrimShort Signed
-      ["unsigned" , "short"        ] -> return $ TypePrim $ PrimIntegral PrimShort Unsigned
-      [             "short" , "int"] -> return $ TypePrim $ PrimIntegral PrimShort Signed
-      ["signed"   , "short" , "int"] -> return $ TypePrim $ PrimIntegral PrimShort Signed
-      ["unsigned" , "short" , "int"] -> return $ TypePrim $ PrimIntegral PrimShort Unsigned
+      [             "short"        ] -> return $ PrimIntegral PrimShort Signed
+      ["signed"   , "short"        ] -> return $ PrimIntegral PrimShort Signed
+      ["unsigned" , "short"        ] -> return $ PrimIntegral PrimShort Unsigned
+      [             "short" , "int"] -> return $ PrimIntegral PrimShort Signed
+      ["signed"   , "short" , "int"] -> return $ PrimIntegral PrimShort Signed
+      ["unsigned" , "short" , "int"] -> return $ PrimIntegral PrimShort Unsigned
       -- int
-      [             "int"] -> return $ TypePrim $ PrimIntegral PrimInt Signed
-      ["signed"   , "int"] -> return $ TypePrim $ PrimIntegral PrimInt Signed
-      ["unsigned" , "int"] -> return $ TypePrim $ PrimIntegral PrimInt Unsigned
+      [             "int"] -> return $ PrimIntegral PrimInt Signed
+      ["signed"   , "int"] -> return $ PrimIntegral PrimInt Signed
+      ["unsigned" , "int"] -> return $ PrimIntegral PrimInt Unsigned
       -- long
-      [             "long"        ] -> return $ TypePrim $ PrimIntegral PrimLong Signed
-      ["signed"   , "long"        ] -> return $ TypePrim $ PrimIntegral PrimLong Signed
-      ["unsigned" , "long"        ] -> return $ TypePrim $ PrimIntegral PrimLong Unsigned
-      [             "long" , "int"] -> return $ TypePrim $ PrimIntegral PrimLong Signed
-      ["signed"   , "long" , "int"] -> return $ TypePrim $ PrimIntegral PrimLong Signed
-      ["unsigned" , "long" , "int"] -> return $ TypePrim $ PrimIntegral PrimLong Unsigned
+      [             "long"        ] -> return $ PrimIntegral PrimLong Signed
+      ["signed"   , "long"        ] -> return $ PrimIntegral PrimLong Signed
+      ["unsigned" , "long"        ] -> return $ PrimIntegral PrimLong Unsigned
+      [             "long" , "int"] -> return $ PrimIntegral PrimLong Signed
+      ["signed"   , "long" , "int"] -> return $ PrimIntegral PrimLong Signed
+      ["unsigned" , "long" , "int"] -> return $ PrimIntegral PrimLong Unsigned
       -- long
-      [             "long" , "long"        ] -> return $ TypePrim $ PrimIntegral PrimLongLong Signed
-      ["signed"   , "long" , "long"        ] -> return $ TypePrim $ PrimIntegral PrimLongLong Signed
-      ["unsigned" , "long" , "long"        ] -> return $ TypePrim $ PrimIntegral PrimLongLong Unsigned
-      [             "long" , "long" , "int"] -> return $ TypePrim $ PrimIntegral PrimLongLong Signed
-      ["signed"   , "long" , "long" , "int"] -> return $ TypePrim $ PrimIntegral PrimLongLong Signed
-      ["unsigned" , "long" , "long" , "int"] -> return $ TypePrim $ PrimIntegral PrimLongLong Unsigned
+      [             "long" , "long"        ] -> return $ PrimIntegral PrimLongLong Signed
+      ["signed"   , "long" , "long"        ] -> return $ PrimIntegral PrimLongLong Signed
+      ["unsigned" , "long" , "long"        ] -> return $ PrimIntegral PrimLongLong Unsigned
+      [             "long" , "long" , "int"] -> return $ PrimIntegral PrimLongLong Signed
+      ["signed"   , "long" , "long" , "int"] -> return $ PrimIntegral PrimLongLong Signed
+      ["unsigned" , "long" , "long" , "int"] -> return $ PrimIntegral PrimLongLong Unsigned
       -- float, double, long double
-      [         "float" ] -> return $ TypePrim $ PrimFloating PrimFloat
-      [         "double"] -> return $ TypePrim $ PrimFloating PrimDouble
-      ["long" , "double"] -> return $ TypePrim $ PrimFloating PrimLongDouble
+      [         "float" ] -> return $ PrimFloating PrimFloat
+      [         "double"] -> return $ PrimFloating PrimDouble
+      ["long" , "double"] -> return $ PrimFloating PrimLongDouble
       -- void
-      ["void"] -> return TypeVoid
+      -- TODO: Re-enable or delete
+      -- ["void"] -> return C.TypeVoid
       -- bool
-      ["_Bool"] -> return $ TypePrim PrimBool
-      ["bool"]  -> return $ TypePrim PrimBool
+      ["_Bool"] -> return $ PrimBool
+      ["bool"]  -> return $ PrimBool
       -- invalid
       _otherwise -> unexpected $ concat [
           "Unexpected primitive type "

@@ -13,15 +13,33 @@
           "un_Uint32_t",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:131:25"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "fixedwidth.h:3:22",
+          declId = NamePair {
+            nameC = CName "uint32_t",
+            nameHsIdent = HsIdentifier
+              "Uint32_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Uint32_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Uint32_t"},
+            typedefType = TypePrim
+              (PrimIntegral
+                PrimInt
+                Unsigned)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -129,17 +147,33 @@
           "un_Uint64_t",
         fieldType = HsPrimType
           HsPrimCULong,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint64_t",
-          typedefType = TypePrim
-            (PrimIntegral
-              PrimLong
-              Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:136:25"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "fixedwidth.h:4:23",
+          declId = NamePair {
+            nameC = CName "uint64_t",
+            nameHsIdent = HsIdentifier
+              "Uint64_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Uint64_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Uint64_t"},
+            typedefType = TypePrim
+              (PrimIntegral
+                PrimLong
+                Unsigned)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -250,16 +284,22 @@
             (HsName
               "@NsTypeConstr"
               "Uint64_t"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "sixty_four",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint64_t"),
-              fieldSourceLoc =
-              "fixedwidth.h:4:11"}},
+              structFieldLoc =
+              "fixedwidth.h:7:11",
+              structFieldName = NamePair {
+                nameC = CName "sixty_four",
+                nameHsIdent = HsIdentifier
+                  "foo_sixty_four"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "uint64_t",
+                    nameHsIdent = HsIdentifier
+                      "Uint64_t"}),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -268,44 +308,74 @@
             (HsName
               "@NsTypeConstr"
               "Uint32_t"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "thirty_two",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint32_t"),
-              fieldSourceLoc =
-              "fixedwidth.h:5:11"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "foo"),
-          structAliases = [],
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "sixty_four",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint64_t"),
-              fieldSourceLoc =
-              "fixedwidth.h:4:11"},
-            StructField {
-              fieldName = CName "thirty_two",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint32_t"),
-              fieldSourceLoc =
-              "fixedwidth.h:5:11"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "fixedwidth.h:3:8"},
+              structFieldLoc =
+              "fixedwidth.h:8:11",
+              structFieldName = NamePair {
+                nameC = CName "thirty_two",
+                nameHsIdent = HsIdentifier
+                  "foo_thirty_two"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "uint32_t",
+                    nameHsIdent = HsIdentifier
+                      "Uint32_t"}),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "fixedwidth.h:6:8",
+            declId = NamePair {
+              nameC = CName "foo",
+              nameHsIdent = HsIdentifier
+                "Foo"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Foo"),
+              structSizeof = 16,
+              structAlignment = 8,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "fixedwidth.h:7:11",
+                  structFieldName = NamePair {
+                    nameC = CName "sixty_four",
+                    nameHsIdent = HsIdentifier
+                      "foo_sixty_four"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "uint64_t",
+                        nameHsIdent = HsIdentifier
+                          "Uint64_t"}),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "fixedwidth.h:8:11",
+                  structFieldName = NamePair {
+                    nameC = CName "thirty_two",
+                    nameHsIdent = HsIdentifier
+                      "foo_thirty_two"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "uint32_t",
+                        nameHsIdent = HsIdentifier
+                          "Uint32_t"}),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -326,16 +396,22 @@
               (HsName
                 "@NsTypeConstr"
                 "Uint64_t"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "sixty_four",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint64_t"),
-                fieldSourceLoc =
-                "fixedwidth.h:4:11"}},
+                structFieldLoc =
+                "fixedwidth.h:7:11",
+                structFieldName = NamePair {
+                  nameC = CName "sixty_four",
+                  nameHsIdent = HsIdentifier
+                    "foo_sixty_four"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "uint64_t",
+                      nameHsIdent = HsIdentifier
+                        "Uint64_t"}),
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -344,44 +420,74 @@
               (HsName
                 "@NsTypeConstr"
                 "Uint32_t"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "thirty_two",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint32_t"),
-                fieldSourceLoc =
-                "fixedwidth.h:5:11"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "foo"),
-            structAliases = [],
-            structSizeof = 16,
-            structAlignment = 8,
-            structFields = [
-              StructField {
-                fieldName = CName "sixty_four",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint64_t"),
-                fieldSourceLoc =
-                "fixedwidth.h:4:11"},
-              StructField {
-                fieldName = CName "thirty_two",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint32_t"),
-                fieldSourceLoc =
-                "fixedwidth.h:5:11"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "fixedwidth.h:3:8"},
+                structFieldLoc =
+                "fixedwidth.h:8:11",
+                structFieldName = NamePair {
+                  nameC = CName "thirty_two",
+                  nameHsIdent = HsIdentifier
+                    "foo_thirty_two"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "uint32_t",
+                      nameHsIdent = HsIdentifier
+                        "Uint32_t"}),
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "fixedwidth.h:6:8",
+              declId = NamePair {
+                nameC = CName "foo",
+                nameHsIdent = HsIdentifier
+                  "Foo"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Foo"),
+                structSizeof = 16,
+                structAlignment = 8,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "fixedwidth.h:7:11",
+                    structFieldName = NamePair {
+                      nameC = CName "sixty_four",
+                      nameHsIdent = HsIdentifier
+                        "foo_sixty_four"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "uint64_t",
+                          nameHsIdent = HsIdentifier
+                            "Uint64_t"}),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "fixedwidth.h:8:11",
+                    structFieldName = NamePair {
+                      nameC = CName "thirty_two",
+                      nameHsIdent = HsIdentifier
+                        "foo_thirty_two"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "uint32_t",
+                          nameHsIdent = HsIdentifier
+                            "Uint32_t"}),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -407,16 +513,22 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint64_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "sixty_four",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint64_t"),
-                        fieldSourceLoc =
-                        "fixedwidth.h:4:11"}},
+                        structFieldLoc =
+                        "fixedwidth.h:7:11",
+                        structFieldName = NamePair {
+                          nameC = CName "sixty_four",
+                          nameHsIdent = HsIdentifier
+                            "foo_sixty_four"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint64_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint64_t"}),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -425,44 +537,74 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint32_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "thirty_two",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint32_t"),
-                        fieldSourceLoc =
-                        "fixedwidth.h:5:11"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "foo"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "sixty_four",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint64_t"),
-                        fieldSourceLoc =
-                        "fixedwidth.h:4:11"},
-                      StructField {
-                        fieldName = CName "thirty_two",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint32_t"),
-                        fieldSourceLoc =
-                        "fixedwidth.h:5:11"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "fixedwidth.h:3:8"},
+                        structFieldLoc =
+                        "fixedwidth.h:8:11",
+                        structFieldName = NamePair {
+                          nameC = CName "thirty_two",
+                          nameHsIdent = HsIdentifier
+                            "foo_thirty_two"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint32_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint32_t"}),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "fixedwidth.h:6:8",
+                      declId = NamePair {
+                        nameC = CName "foo",
+                        nameHsIdent = HsIdentifier
+                          "Foo"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Foo"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "fixedwidth.h:7:11",
+                            structFieldName = NamePair {
+                              nameC = CName "sixty_four",
+                              nameHsIdent = HsIdentifier
+                                "foo_sixty_four"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint64_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint64_t"}),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "fixedwidth.h:8:11",
+                            structFieldName = NamePair {
+                              nameC = CName "thirty_two",
+                              nameHsIdent = HsIdentifier
+                                "foo_thirty_two"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint32_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint32_t"}),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -490,16 +632,22 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint64_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "sixty_four",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint64_t"),
-                        fieldSourceLoc =
-                        "fixedwidth.h:4:11"}},
+                        structFieldLoc =
+                        "fixedwidth.h:7:11",
+                        structFieldName = NamePair {
+                          nameC = CName "sixty_four",
+                          nameHsIdent = HsIdentifier
+                            "foo_sixty_four"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint64_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint64_t"}),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -508,44 +656,74 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint32_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "thirty_two",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint32_t"),
-                        fieldSourceLoc =
-                        "fixedwidth.h:5:11"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "foo"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "sixty_four",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint64_t"),
-                        fieldSourceLoc =
-                        "fixedwidth.h:4:11"},
-                      StructField {
-                        fieldName = CName "thirty_two",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint32_t"),
-                        fieldSourceLoc =
-                        "fixedwidth.h:5:11"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "fixedwidth.h:3:8"},
+                        structFieldLoc =
+                        "fixedwidth.h:8:11",
+                        structFieldName = NamePair {
+                          nameC = CName "thirty_two",
+                          nameHsIdent = HsIdentifier
+                            "foo_thirty_two"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint32_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint32_t"}),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "fixedwidth.h:6:8",
+                      declId = NamePair {
+                        nameC = CName "foo",
+                        nameHsIdent = HsIdentifier
+                          "Foo"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Foo"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "fixedwidth.h:7:11",
+                            structFieldName = NamePair {
+                              nameC = CName "sixty_four",
+                              nameHsIdent = HsIdentifier
+                                "foo_sixty_four"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint64_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint64_t"}),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "fixedwidth.h:8:11",
+                            structFieldName = NamePair {
+                              nameC = CName "thirty_two",
+                              nameHsIdent = HsIdentifier
+                                "foo_thirty_two"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint32_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint32_t"}),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

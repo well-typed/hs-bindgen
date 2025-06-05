@@ -8,14 +8,6 @@ types:
   - Show
   - Storable
 - headers: recursive_struct.h
-  cname: linked_list_B_t
-  module: Example
-  identifier: Linked_list_B_t
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: recursive_struct.h
   cname: struct linked_list_A_s
   module: Example
   identifier: Linked_list_A_s

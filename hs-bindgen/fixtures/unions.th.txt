@@ -56,17 +56,6 @@ instance Storable DimB
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {DimB dimB_tag_3
                                           dimB_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dimB_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dimB_payload_4}}
-data AnonA_xy
-    = AnonA_xy {anonA_xy_x :: CDouble, anonA_xy_y :: CDouble}
-instance Storable AnonA_xy
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure AnonA_xy <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {AnonA_xy anonA_xy_x_3
-                                              anonA_xy_y_4 -> pokeByteOff ptr_1 (0 :: Int) anonA_xy_x_3 >> pokeByteOff ptr_1 (8 :: Int) anonA_xy_y_4}}
-deriving stock instance Show AnonA_xy
-deriving stock instance Eq AnonA_xy
 data AnonA_polar
     = AnonA_polar {anonA_polar_r :: CDouble, anonA_polar_p :: CDouble}
 instance Storable AnonA_polar
@@ -78,6 +67,17 @@ instance Storable AnonA_polar
                                                  anonA_polar_p_4 -> pokeByteOff ptr_1 (0 :: Int) anonA_polar_r_3 >> pokeByteOff ptr_1 (8 :: Int) anonA_polar_p_4}}
 deriving stock instance Show AnonA_polar
 deriving stock instance Eq AnonA_polar
+data AnonA_xy
+    = AnonA_xy {anonA_xy_x :: CDouble, anonA_xy_y :: CDouble}
+instance Storable AnonA_xy
+    where {sizeOf = \_ -> 16 :: Int;
+           alignment = \_ -> 8 :: Int;
+           peek = \ptr_0 -> (pure AnonA_xy <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {AnonA_xy anonA_xy_x_3
+                                              anonA_xy_y_4 -> pokeByteOff ptr_1 (0 :: Int) anonA_xy_x_3 >> pokeByteOff ptr_1 (8 :: Int) anonA_xy_y_4}}
+deriving stock instance Show AnonA_xy
+deriving stock instance Eq AnonA_xy
 newtype AnonA = AnonA {un_AnonA :: ByteArray}
 deriving via (SizedByteArray 16 8) instance Storable AnonA
 get_anonA_xy :: AnonA -> AnonA_xy

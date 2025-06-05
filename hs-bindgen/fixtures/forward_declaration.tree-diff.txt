@@ -1,47 +1,99 @@
-Header
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "forward_declaration.h:3:8",
+        declId = NamePair {
+          nameC = CName "S1",
+          nameHsIdent = HsIdentifier
+            "S1"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "S1"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "forward_declaration.h:4:7",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "s1_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "forward_declaration.h:1:19",
+        declId = NamePair {
+          nameC = CName "S1_t",
+          nameHsIdent = HsIdentifier
+            "S1_t"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "S1_t",
+            newtypeField = HsName
+              "@NsVar"
+              "un_S1_t"},
+          typedefType = TypeStruct
+            NamePair {
+              nameC = CName "S1",
+              nameHsIdent = HsIdentifier
+                "S1"}},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "forward_declaration.h:9:8",
+        declId = NamePair {
+          nameC = CName "S2",
+          nameHsIdent = HsIdentifier
+            "S2"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "S2"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "forward_declaration.h:10:7",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "s2_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps =
   [
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "S1"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "a",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "forward_declaration.h:4:7"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "forward_declaration.h:3:8"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "S1_t",
-        typedefType = TypeStruct
-          (DeclPathName (CName "S1")),
-        typedefSourceLoc =
-        "forward_declaration.h:1:19"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "S2"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "a",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "forward_declaration.h:10:7"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "forward_declaration.h:9:8"}]
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/forward_declaration.h"]}

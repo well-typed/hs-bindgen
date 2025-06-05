@@ -13,14 +13,11 @@
       "testmodule_by",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "by",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:3:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_forall (void) { forall(); }",
@@ -35,14 +32,11 @@
       "testmodule_forall",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "forall",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:4:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_mdo (void) { mdo(); }",
@@ -57,14 +51,11 @@
       "testmodule_mdo",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "mdo",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:5:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_pattern (void) { pattern(); }",
@@ -79,14 +70,11 @@
       "testmodule_pattern",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "pattern",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:6:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_proc (void) { proc(); }",
@@ -101,14 +89,11 @@
       "testmodule_proc",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "proc",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:7:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_rec (void) { rec(); }",
@@ -123,14 +108,11 @@
       "testmodule_rec",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "rec",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:8:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_using (void) { using(); }",
@@ -145,14 +127,11 @@
       "testmodule_using",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "using",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:9:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_anyclass (void) { anyclass(); }",
@@ -167,14 +146,11 @@
       "testmodule_anyclass",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "anyclass",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:12:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_capi (void) { capi(); }",
@@ -189,14 +165,11 @@
       "testmodule_capi",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "capi",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:13:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_cases (void) { cases(); }",
@@ -211,14 +184,11 @@
       "testmodule_cases",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "cases",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:14:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_ccall (void) { ccall(); }",
@@ -233,14 +203,11 @@
       "testmodule_ccall",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "ccall",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:15:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_dynamic (void) { dynamic(); }",
@@ -255,14 +222,11 @@
       "testmodule_dynamic",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "dynamic",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:16:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_export (void) { export(); }",
@@ -277,14 +241,11 @@
       "testmodule_export",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "export",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:17:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_family (void) { family(); }",
@@ -299,14 +260,11 @@
       "testmodule_family",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "family",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:18:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_group (void) { group(); }",
@@ -321,14 +279,11 @@
       "testmodule_group",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "group",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:19:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_interruptible (void) { interruptible(); }",
@@ -343,15 +298,11 @@
       "testmodule_interruptible",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "interruptible",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:20:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_javascript (void) { javascript(); }",
@@ -366,15 +317,11 @@
       "testmodule_javascript",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "javascript",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:21:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_label (void) { label(); }",
@@ -389,14 +336,11 @@
       "testmodule_label",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "label",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:22:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_prim (void) { prim(); }",
@@ -411,14 +355,11 @@
       "testmodule_prim",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "prim",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:23:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_role (void) { role(); }",
@@ -433,14 +374,11 @@
       "testmodule_role",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "role",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:24:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_safe (void) { safe(); }",
@@ -455,14 +393,11 @@
       "testmodule_safe",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "safe",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:25:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_stdcall (void) { stdcall(); }",
@@ -477,14 +412,11 @@
       "testmodule_stdcall",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "stdcall",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:26:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_stock (void) { stock(); }",
@@ -499,14 +431,11 @@
       "testmodule_stock",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "stock",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:27:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_unsafe (void) { unsafe(); }",
@@ -521,14 +450,11 @@
       "testmodule_unsafe",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "unsafe",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:28:6"}},
+          functionHeader = "names.h"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_via (void) { via(); }",
@@ -543,11 +469,8 @@
       "testmodule_via",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "via",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "names.h",
-          functionSourceLoc =
-          "names.h:29:6"}}]
+          functionHeader = "names.h"}}]

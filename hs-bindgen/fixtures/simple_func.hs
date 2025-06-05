@@ -17,18 +17,15 @@
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "erf",
           functionArgs = [
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
             (PrimFloating PrimDouble),
           functionHeader =
-          "simple_func.h",
-          functionSourceLoc =
-          "simple_func.h:1:8"}},
+          "simple_func.h"}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -51,9 +48,8 @@
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "bad_fma",
           functionArgs = [
             TypePrim
               (PrimFloating PrimDouble),
@@ -64,9 +60,7 @@
           functionRes = TypePrim
             (PrimFloating PrimDouble),
           functionHeader =
-          "simple_func.h",
-          functionSourceLoc =
-          "simple_func.h:3:22"}},
+          "simple_func.h"}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -83,15 +77,12 @@
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "no_args",
           functionArgs = [],
           functionRes = TypeVoid,
           functionHeader =
-          "simple_func.h",
-          functionSourceLoc =
-          "simple_func.h:7:6"}},
+          "simple_func.h"}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -108,16 +99,12 @@
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "no_args_no_void",
           functionArgs = [],
           functionRes = TypeVoid,
           functionHeader =
-          "simple_func.h",
-          functionSourceLoc =
-          "simple_func.h:9:6"}},
+          "simple_func.h"}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -137,9 +124,8 @@
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "fun",
           functionArgs = [
             TypePrim
               (PrimChar
@@ -150,6 +136,4 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed),
           functionHeader =
-          "simple_func.h",
-          functionSourceLoc =
-          "simple_func.h:11:5"}}]
+          "simple_func.h"}}]

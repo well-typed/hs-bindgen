@@ -21,14 +21,13 @@ module HsBindgen.SHs.AST (
 
 import DeBruijn (Ctx, EmptyCtx, Idx, Add)
 
-import HsBindgen.C.AST qualified as C
-import HsBindgen.ExtBindings
-import HsBindgen.Imports
-import HsBindgen.NameHint
-import HsBindgen.Hs.AST.Origin qualified as Hs
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Hs.AST.Strategy qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.Origin qualified as Origin
+import HsBindgen.Imports
+import HsBindgen.Language.Haskell
+import HsBindgen.NameHint
 
 import C.Char qualified
 
@@ -256,7 +255,7 @@ data SType ctx =
   | TCon (HsName NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
-  | TExt ExtIdentifier C.Type
+  | TExt ExtHsRef BindingSpec.TypeSpec
   | TBound (Idx ctx)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
@@ -276,7 +275,7 @@ data Instance  = Instance {
 data Field = Field {
       fieldName   :: HsName NsVar
     , fieldType   :: ClosedType
-    , fieldOrigin :: Hs.FieldOrigin
+    , fieldOrigin :: Origin.Field
     }
   deriving stock (Show)
 
@@ -284,13 +283,13 @@ data Record = Record {
       dataType   :: HsName NsTypeConstr
     , dataCon    :: HsName NsConstr
     , dataFields :: [Field]
-    , dataOrigin :: Hs.StructOrigin
+    , dataOrigin :: Origin.Decl Origin.Struct
     }
   deriving stock (Show)
 
 data EmptyData = EmptyData {
       emptyDataName   :: HsName NsTypeConstr
-    , emptyDataOrigin :: Hs.EmptyDataOrigin
+    , emptyDataOrigin :: Origin.Decl Origin.EmptyData
     }
   deriving stock (Show)
 
@@ -298,7 +297,7 @@ data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeCon    :: HsName NsConstr
     , newtypeField  :: Field
-    , newtypeOrigin :: Hs.NewtypeOrigin
+    , newtypeOrigin :: Origin.Decl Origin.Newtype
     }
   deriving stock (Show)
 
@@ -307,7 +306,7 @@ data ForeignImport = ForeignImport
     , foreignImportType     :: ClosedType
     , foreignImportOrigName :: Text
     , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
-    , foreignImportOrigin   :: Hs.ForeignImportDeclOrigin
+    , foreignImportOrigin   :: Origin.ForeignImport
     }
   deriving stock (Show)
 
@@ -315,6 +314,6 @@ data PatternSynonym = PatternSynonym
     { patSynName   :: HsName NsConstr
     , patSynType   :: ClosedType
     , patSynRHS    :: PatExpr
-    , patSynOrigin :: Hs.PatSynOrigin
+    , patSynOrigin :: Origin.PatSyn
     }
   deriving stock (Show)

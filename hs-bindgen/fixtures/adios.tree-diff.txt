@@ -1,43 +1,106 @@
-Header
-  [
-    DeclTypedef
-      Typedef {
-        typedefName = CName "adio\769s",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "adios.h:7:13"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName
-          "\25968\23383",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "adios.h:12:13"},
-    DeclFunction
-      Function {
-        functionName = CName "\978",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "adios.h",
-        functionSourceLoc =
-        "adios.h:18:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "\25308\25308",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "adios.h",
-        functionSourceLoc =
-        "adios.h:21:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "Say\25308\25308",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "adios.h",
-        functionSourceLoc =
-        "adios.h:25:6"}]
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:7:13",
+        declId = NamePair {
+          nameC = CName "adio\769s",
+          nameHsIdent = HsIdentifier
+            "Adio'0301s"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Adio'0301s",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Adio'0301s"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:12:13",
+        declId = NamePair {
+          nameC = CName "\25968\23383",
+          nameHsIdent = HsIdentifier
+            "C\25968\23383"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "C\25968\23383",
+            newtypeField = HsName
+              "@NsVar"
+              "un_C\25968\23383"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:18:6",
+        declId = NamePair {
+          nameC = CName "\978",
+          nameHsIdent = HsIdentifier
+            "c\978"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "adios.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:21:6",
+        declId = NamePair {
+          nameC = CName "\25308\25308",
+          nameHsIdent = HsIdentifier
+            "\25308\25308"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "adios.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:25:6",
+        declId = NamePair {
+          nameC = CName "Say\25308\25308",
+          nameHsIdent = HsIdentifier
+            "say\25308\25308"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "adios.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "/home/edsko/wt/clients/anduril/hs-bindgen/hs-bindgen/examples/adios.h"]}
