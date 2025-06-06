@@ -4,6 +4,7 @@ import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
+import HsBindgen.Frontend.SourceMap (SourceMap)
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -17,7 +18,7 @@ type Sort :: Pass
 data Sort a deriving anyclass ValidPass
 
 type family AnalyzeAnn (ix :: Symbol) :: Star where
-  AnalyzeAnn "TranslationUnit" = UseDefGraph
+  AnalyzeAnn "TranslationUnit" = (UseDefGraph, SourceMap Parse)
   AnalyzeAnn ix                = Ann ix Parse
 
 instance IsPass Sort where

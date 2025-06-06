@@ -4,7 +4,7 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec (
   ) where
 
 import Control.Exception (Exception(..))
-import Control.Monad.State
+import Control.Monad.RWS
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -20,6 +20,7 @@ import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.RenameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+import HsBindgen.Frontend.SourceMap (SourceMap(..))
 import HsBindgen.Imports
 import HsBindgen.Language.C (CName(..))
 import HsBindgen.Language.C qualified as C
@@ -38,8 +39,9 @@ resolveBindingSpec
   confSpec
   extSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    let (decls, ctx) = runM confSpec $
-          resolveDecls confSpec extSpec unitIncludeGraph unitDecls
+    let extMap = mkExtMap extSpec unitIncludeGraph (snd unitAnn)
+        (decls, ctx) = runM confSpec extMap $
+          resolveDecls confSpec unitIncludeGraph unitDecls
         notUsedErrs =
           BindingSpecTypeNotUsed <$> Set.toAscList (ctxNoConfTypes ctx)
     in  (reassemble decls, reverse (ctxErrors ctx) ++ notUsedErrs)
@@ -50,7 +52,7 @@ resolveBindingSpec
     reassemble decls' = C.TranslationUnit{
         unitDecls = decls'
       , unitIncludeGraph
-      , unitAnn
+      , unitAnn = fst unitAnn
       }
 
 data BindingSpecError =
@@ -79,13 +81,31 @@ instance Exception BindingSpecError where
   Internal: monad
 -------------------------------------------------------------------------------}
 
-newtype M a = WrapM {
-      unwrapM :: State Ctx a
-    }
-  deriving newtype (Applicative, Functor, Monad, MonadState Ctx)
+newtype M a = WrapM (RWS ExtMap () Ctx a)
+  deriving newtype (Applicative, Functor, Monad, MonadReader ExtMap, MonadState Ctx)
 
-runM :: ResolvedBindingSpec -> M a -> (a, Ctx)
-runM confSpec = flip runState (initCtx confSpec) . unwrapM
+runM :: ResolvedBindingSpec -> ExtMap -> M a -> (a, Ctx)
+runM confSpec extMap (WrapM m) =
+    let (x, s, ()) = runRWS m extMap (initCtx confSpec)
+    in  (x, s)
+
+{-------------------------------------------------------------------------------
+  Internal: external binding map
+-------------------------------------------------------------------------------}
+
+type ExtMap =
+  Map (C.QualId RenameAnon) (BindingSpec.Omittable BindingSpec.TypeSpec)
+
+mkExtMap ::
+     ResolvedBindingSpec -- ^ External binding specification
+  -> IncludeGraph
+  -> SourceMap RenameAnon
+  -> Map (C.QualId RenameAnon) (BindingSpec.Omittable BindingSpec.TypeSpec)
+mkExtMap extSpec includeGraph (SourceMap sourceMap) =
+    flip Map.mapMaybeWithKey sourceMap $ \qualId sourcePath ->
+      let cname     = qualIdCNameSpelling qualId
+          declPaths = IncludeGraph.reaches includeGraph sourcePath
+      in  BindingSpec.lookupTypeSpec cname declPaths extSpec
 
 {-------------------------------------------------------------------------------
   Internal: state context
@@ -93,7 +113,6 @@ runM confSpec = flip runState (initCtx confSpec) . unwrapM
 
 data Ctx = Ctx {
       ctxErrors       :: [BindingSpecError] -- ^ Stored in reverse order
-    , ctxExtTypes     :: Map (C.QualId RenameAnon) (C.Type ResolveBindingSpec)
     , ctxNoConfTypes  :: Set CNameSpelling
     , ctxOmittedTypes :: Set (C.QualId RenameAnon)
     }
@@ -102,7 +121,6 @@ data Ctx = Ctx {
 initCtx :: ResolvedBindingSpec -> Ctx
 initCtx confSpec = Ctx {
       ctxErrors       = []
-    , ctxExtTypes     = Map.empty
     , ctxNoConfTypes  = Map.keysSet $ BindingSpec.bindingSpecTypes confSpec
     , ctxOmittedTypes = Set.empty
     }
@@ -110,11 +128,6 @@ initCtx confSpec = Ctx {
 insertError :: BindingSpecError -> Ctx -> Ctx
 insertError e ctx = ctx {
       ctxErrors = e : ctxErrors ctx
-    }
-
-insertExtType :: C.QualId RenameAnon -> C.Type ResolveBindingSpec -> Ctx -> Ctx
-insertExtType qualId typ ctx = ctx {
-      ctxExtTypes = Map.insert qualId typ (ctxExtTypes ctx)
     }
 
 deleteNoConfType :: CNameSpelling -> Ctx -> Ctx
@@ -133,14 +146,13 @@ insertOmittedType qualId ctx = ctx {
 
 resolveDecls ::
      ResolvedBindingSpec -- ^ Configuration binding specification
-  -> ResolvedBindingSpec -- ^ External binding specification
   -> IncludeGraph
   -> [C.Decl RenameAnon]
   -> M [C.Decl ResolveBindingSpec]
-resolveDecls confSpec extSpec includeGraph = mapMaybeM aux
+resolveDecls confSpec includeGraph = mapMaybeM aux
   where
     aux :: C.Decl RenameAnon -> M (Maybe (C.Decl ResolveBindingSpec))
-    aux decl = auxExt
+    aux decl = auxExt =<< ask
       where
         qualId :: C.QualId RenameAnon
         qualId = C.declQualId decl
@@ -152,14 +164,11 @@ resolveDecls confSpec extSpec includeGraph = mapMaybeM aux
         declPaths = IncludeGraph.reaches includeGraph $
           singleLocPath (C.declLoc (C.declInfo decl))
 
-        auxExt :: M (Maybe (C.Decl ResolveBindingSpec))
-        auxExt = case BindingSpec.lookupTypeSpec cname declPaths extSpec of
+        auxExt :: ExtMap -> M (Maybe (C.Decl ResolveBindingSpec))
+        auxExt extMap = case Map.lookup qualId extMap of
           Just (BindingSpec.Require typeSpec) ->
             case getExtHsRef cname typeSpec of
-              Right extHsRef -> do
-                let t = C.TypeExtBinding extHsRef typeSpec
-                modify' $ insertExtType qualId t
-                return Nothing
+              Right _extHsRef -> return Nothing
               Left e -> do
                 modify' $ insertError e
                 auxConf
@@ -178,17 +187,6 @@ resolveDecls confSpec extSpec includeGraph = mapMaybeM aux
             return Nothing
           Nothing -> Just <$> resolveDecl decl Nothing
 
-qualIdCNameSpelling :: C.QualId RenameAnon -> CNameSpelling
-qualIdCNameSpelling (C.QualId (CName cname) namespace) =
-    let prefix = case namespace of
-          C.NamespaceTypedef  -> ""
-          C.NamespaceStruct   -> "struct "
-          C.NamespaceUnion    -> "union "
-          C.NamespaceEnum     -> "enum "
-          C.NamespaceMacro    -> ""
-          C.NamespaceFunction -> ""
-    in  CNameSpelling $ prefix <> cname
-
 getExtHsRef ::
      CNameSpelling
   -> BindingSpec.TypeSpec
@@ -201,10 +199,6 @@ getExtHsRef cname typeSpec = do
       maybe (Left (BindingSpecExtHsRefNoIdentifier cname)) Right $
         BindingSpec.typeSpecIdentifier typeSpec
     return ExtHsRef{extHsRefModule, extHsRefIdentifier}
-
-{-------------------------------------------------------------------------------
-  Instances
--------------------------------------------------------------------------------}
 
 resolveDecl ::
      C.Decl RenameAnon
@@ -222,6 +216,10 @@ resolveDecl C.Decl{..} mTypeSpec =
 
     mkDeclInfo :: C.DeclInfo RenameAnon -> C.DeclInfo ResolveBindingSpec
     mkDeclInfo C.DeclInfo{..} = C.DeclInfo{..}
+
+{-------------------------------------------------------------------------------
+  Instances
+-------------------------------------------------------------------------------}
 
 class Resolve a where
   resolve :: a RenameAnon -> M (a ResolveBindingSpec)
@@ -364,26 +362,40 @@ instance Resolve C.Type where
         -> C.Namespace
         -> M (C.Type ResolveBindingSpec)
       aux mk uid namespace = do
+          let qualId = C.QualId uid namespace
+              cname  = qualIdCNameSpelling qualId
           isOmitted <- gets $ Set.member qualId . ctxOmittedTypes
           when isOmitted $
             modify' $ insertError (BindingSpecOmittedTypeUse cname)
-          gets checkExternal
-        where
-          qualId :: C.QualId RenameAnon
-          qualId = C.QualId uid namespace
-
-          cname :: CNameSpelling
-          cname = qualIdCNameSpelling qualId
-
-          checkExternal :: Ctx -> C.Type ResolveBindingSpec
-          checkExternal ctx =
-              case Map.lookup qualId $ ctxExtTypes ctx of
-                Just ty -> ty
-                Nothing -> mk uid
+          extMap <- ask
+          case Map.lookup qualId extMap of
+            Just (BindingSpec.Require typeSpec) ->
+              case getExtHsRef cname typeSpec of
+                Right extHsRef ->
+                  return $ C.TypeExtBinding extHsRef typeSpec
+                Left e -> do
+                  modify' $ insertError e
+                  return $ mk uid
+            Just BindingSpec.Omit -> do
+              modify' $ insertError (BindingSpecOmittedTypeUse cname)
+              return $ mk uid
+            Nothing ->
+              return $ mk uid
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
+
+qualIdCNameSpelling :: C.QualId RenameAnon -> CNameSpelling
+qualIdCNameSpelling (C.QualId (CName cname) namespace) =
+    let prefix = case namespace of
+          C.NamespaceTypedef  -> ""
+          C.NamespaceStruct   -> "struct "
+          C.NamespaceUnion    -> "union "
+          C.NamespaceEnum     -> "enum "
+          C.NamespaceMacro    -> ""
+          C.NamespaceFunction -> ""
+    in  CNameSpelling $ prefix <> cname
 
 mapMaybeM :: forall a b m. Monad m => (a -> m (Maybe b)) -> [a] -> m [b]
 mapMaybeM f = foldr aux (pure [])

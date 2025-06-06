@@ -1,5 +1,7 @@
 module HsBindgen.Frontend.Pass.RenameAnon (renameAnon) where
 
+import Data.Map.Strict qualified as Map
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal
@@ -12,6 +14,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.RenameAnon.IsPass
+import HsBindgen.Frontend.SourceMap (SourceMap(..))
 import HsBindgen.Imports
 import HsBindgen.Language.C
 
@@ -25,13 +28,13 @@ renameAnon C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     reassemble $ mapMaybe (renameDef du) unitDecls
   where
     du :: DefUseGraph
-    du = DefUseGraph.fromUseDef unitAnn
+    du = DefUseGraph.fromUseDef (fst unitAnn)
 
     reassemble :: [C.Decl RenameAnon] -> C.TranslationUnit RenameAnon
     reassemble decls' = C.TranslationUnit{
           unitDecls = decls'
         , unitIncludeGraph
-        , unitAnn
+        , unitAnn = renameSourceMap du <$> unitAnn
         }
 
 {-------------------------------------------------------------------------------
@@ -283,3 +286,15 @@ nameForAnon = \case
         nameForAnon useOfAnon <> "_" <> field
       UsedByAnon (UsedInFunction _valOrRef) _useOfAnon ->
         panicPure $ "nameForAnon: unexpected anonymous function argument or return type"
+
+{-------------------------------------------------------------------------------
+  Source map
+-------------------------------------------------------------------------------}
+
+renameSourceMap :: DefUseGraph -> SourceMap Parse -> SourceMap RenameAnon
+renameSourceMap du (SourceMap x) = SourceMap . Map.fromList $ catMaybes [
+      case renameDeclId du uid ns of
+        Just cname -> Just (QualId cname ns, src)
+        Nothing    -> Nothing
+    | (QualId uid ns, src) <- Map.toList x
+    ]

@@ -24,6 +24,8 @@ import HsBindgen.Language.C
 type ResolveBindingSpec :: Pass
 data ResolveBindingSpec a deriving anyclass (ValidPass)
 
+-- We do not need the @SourceMap@ anymore, so we drop it from the annotation on
+-- @TranslationUnit@.
 type family AnnResolveBindingSpec ix where
   AnnResolveBindingSpec "Decl"            = BindingSpec.TypeSpec
   AnnResolveBindingSpec "TranslationUnit" = UseDefGraph

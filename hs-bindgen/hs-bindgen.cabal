@@ -122,6 +122,7 @@ library internal
       HsBindgen.Frontend.Pass.Sort.IsPass
       HsBindgen.Frontend.ProcessIncludes
       HsBindgen.Frontend.RootHeader
+      HsBindgen.Frontend.SourceMap
       HsBindgen.Frontend.Util.Fold
       HsBindgen.GenTests
       HsBindgen.GenTests.C

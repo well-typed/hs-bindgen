@@ -27,25 +27,30 @@ import HsBindgen.Language.C
 
 foldDecl :: HasCallStack => Fold M [C.Decl Parse]
 foldDecl curr = do
-    -- Handle includes no matter what the user's predicate selects
-    isInclude <- handleIncludeDirectives curr
-    selected  <- if isInclude
-                   then return False
-                   else evalPredicate curr
-    if selected then
-      dispatchWithArg curr $ \case
-        CXCursor_InclusionDirective -> \_ -> return $ Continue Nothing
-        CXCursor_MacroDefinition    -> macroDefinition
-        CXCursor_StructDecl         -> structDecl
-        CXCursor_UnionDecl          -> unionDecl
-        CXCursor_TypedefDecl        -> typedefDecl
-        CXCursor_MacroExpansion     -> macroExpansion
-        CXCursor_EnumDecl           -> enumDecl
-        CXCursor_FunctionDecl       -> functionDecl
-        CXCursor_VarDecl            -> varDecl
-        kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
-    else
-      return $ Continue Nothing
+    isBuiltin <- skipBuiltin curr
+    if isBuiltin
+      then return $ Continue Nothing
+      else do
+        -- Record source and handle includes regardless of selection
+        recordSource curr
+        isInclude <- handleIncludeDirectives curr
+        selected  <- if isInclude
+                       then return False
+                       else evalPredicate curr
+        if selected then
+          dispatchWithArg curr $ \case
+            CXCursor_InclusionDirective -> \_ -> return $ Continue Nothing
+            CXCursor_MacroDefinition    -> macroDefinition
+            CXCursor_StructDecl         -> structDecl
+            CXCursor_UnionDecl          -> unionDecl
+            CXCursor_TypedefDecl        -> typedefDecl
+            CXCursor_MacroExpansion     -> macroExpansion
+            CXCursor_EnumDecl           -> enumDecl
+            CXCursor_FunctionDecl       -> functionDecl
+            CXCursor_VarDecl            -> varDecl
+            kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
+        else
+          return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Process includes
@@ -66,6 +71,7 @@ handleIncludeDirectives curr =
         return True
       _otherwise ->
         return False
+
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations

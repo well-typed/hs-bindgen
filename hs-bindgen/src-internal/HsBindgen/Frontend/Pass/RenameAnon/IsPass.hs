@@ -7,6 +7,7 @@ import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.SourceMap (SourceMap)
 import HsBindgen.Imports
 import HsBindgen.Language.C
 
@@ -18,7 +19,7 @@ type RenameAnon :: Pass
 data RenameAnon a deriving anyclass ValidPass
 
 type family AnnRenameAnon ix where
-  AnnRenameAnon "TranslationUnit" = UseDefGraph
+  AnnRenameAnon "TranslationUnit" = (UseDefGraph, SourceMap RenameAnon)
   AnnRenameAnon _                 = NoAnn
 
 instance IsPass RenameAnon where

@@ -29,12 +29,12 @@ parseDecls ::
   -> IO (C.TranslationUnit Parse)
 parseDecls tracer rootHeader predicate includeGraph isMainFile unit = do
     root  <- clang_getTranslationUnitCursor unit
-    decls <- fmap concat . runParseMonad parseEnv $
+    (sourceMap, decls) <- fmap (fmap concat) . runParseMonad parseEnv $
       HighLevel.clang_visitChildren root foldDecl
     return C.TranslationUnit{
         unitDecls        = decls
       , unitIncludeGraph = includeGraph
-      , unitAnn          = ()
+      , unitAnn          = sourceMap
       }
   where
     parseEnv :: ParseEnv

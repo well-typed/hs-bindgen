@@ -10,6 +10,7 @@ module HsBindgen.C.Predicate (
     -- * Execution (this is internal API)
   , IsMainFile
   , SkipReason (..)
+  , skipBuiltin
   , match
   ) where
 
@@ -104,6 +105,16 @@ instance HasDefaultLogLevel SkipReason where
 -- this module. See "HsBindgen.Frontend.ProcessIncludes" for discussion.
 type IsMainFile = SingleLoc -> Bool
 
+-- | Skip built-in
+skipBuiltin ::
+     MonadIO m
+  => CXCursor -> m (Either SkipReason ())
+skipBuiltin curr = do
+    loc <- HighLevel.clang_getCursorLocation' curr
+    if nullSourcePath (singleLocPath loc)
+      then Left . SkipBuiltin <$> clang_getCursorSpelling curr
+      else return $ Right ()
+
 -- | Match filter
 --
 -- If the filter does not match, we report the reason why.
@@ -115,16 +126,7 @@ match :: forall m.
 match isMainFile predicate curr = runExceptT $ do
     loc <- HighLevel.clang_getCursorLocation' curr
 
-    let skipBuiltIn :: ExceptT SkipReason m ()
-        skipBuiltIn =
-            when (nullSourcePath sourcePath) $ do
-              skippedName <- clang_getCursorSpelling curr
-              throwError SkipBuiltin{skippedName}
-          where
-            sourcePath :: SourcePath
-            sourcePath = singleLocPath loc
-
-        skip :: Text -> ExceptT SkipReason m a
+    let skip :: Text -> ExceptT SkipReason m a
         skip skippedReason = do
               skippedName <- clang_getCursorSpelling curr
               throwError SkipPredicate{
@@ -162,7 +164,6 @@ match isMainFile predicate curr = runExceptT $ do
                 ]
 
 
-    skipBuiltIn
     go predicate
 
 {-------------------------------------------------------------------------------

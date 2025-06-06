@@ -14,7 +14,7 @@ import HsBindgen.Frontend.Pass.Sort.IsPass
 sortDecls :: C.TranslationUnit Parse -> C.TranslationUnit Sort
 sortDecls C.TranslationUnit{..} = C.TranslationUnit{
       unitDecls = map coercePass $ UseDefGraph.toDecls useDefGraph
-    , unitAnn   = useDefGraph
+    , unitAnn   = (useDefGraph, unitAnn)
     , unitIncludeGraph
     }
   where
