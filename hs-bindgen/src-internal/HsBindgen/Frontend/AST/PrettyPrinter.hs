@@ -1,6 +1,7 @@
 -- | Pretty-print valid C code
 module HsBindgen.Frontend.AST.PrettyPrinter (
-    showsFunctionType
+    showsFunctionType,
+    showsType,
   ) where
 
 import Data.Text qualified as Text
@@ -36,6 +37,8 @@ showsFunctionType n args res =
 -- | Show type in C syntax.
 -- Used to generate userland-capi C-code.
 --
+-- >>> import HsBindgen.Frontend.AST.External (Type (TypePrim))
+-- >>> import HsBindgen.Language.C (PrimType (PrimBool))
 -- >>> showsType (showString "x") (TypePrim PrimBool) ""
 -- "_Bool x"
 --
