@@ -5,7 +5,7 @@ module HsBindgen.Frontend.AST.PrettyPrinter (
 
 import Data.Text qualified as Text
 
-import HsBindgen.Errors
+import Clang.CNameSpelling (CNameSpelling(..))
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -15,7 +15,8 @@ import HsBindgen.Language.C
 -------------------------------------------------------------------------------}
 
 showsFunctionType ::
-     ShowS            -- ^ function name
+     HasCallStack
+  => ShowS            -- ^ function name
   -> [(ShowS, Type)]  -- ^ arguments, names and types
   -> Type             -- ^ return type
   -> ShowS
@@ -41,8 +42,11 @@ showsFunctionType n args res =
 -- TODO: int (*baz2 (int arg1))[2][3] { ... }
 --
 --
-showsType :: ShowS -- ^ variable name
-  -> Type -> ShowS
+showsType ::
+     HasCallStack
+  => ShowS -- ^ variable name
+  -> Type
+  -> ShowS
 showsType x (TypePrim p)            = showsPrimType p . showChar ' ' . x
 showsType x (TypeStruct name)       = showString "struct " . showsName name . showChar ' ' . x
 showsType x (TypeUnion name)        = showString "union " . showsName name . showChar ' ' . x
@@ -55,8 +59,10 @@ showsType x (TypeFun args res)      = showsFunctionType (showParen True x) (zipW
   named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                = showString "void " . x
 showsType x (TypeIncompleteArray t) = showsType (x . showString "[]") t
-showsType _x (TypeExtBinding _ref _typeSpec) =
-  throwPure_TODO 608 "showsType TypeExtBinding needs CNameSpelling"
+showsType x (TypeExtBinding c _ _)  = showCSpelling c . showChar ' ' . x
+
+showCSpelling :: CNameSpelling -> ShowS
+showCSpelling = showString . Text.unpack . getCNameSpelling
 
 -- TODO: Currently 'NamePair' contains a 'CName' which /we/ constructed.
 -- We might want to extend 'CName' with an additional field which tells us

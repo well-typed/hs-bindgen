@@ -180,7 +180,7 @@ instance (
   coercePass  TypeVoid                 = TypeVoid
   coercePass (TypeConstArray n typ)    = TypeConstArray n (coercePass typ)
   coercePass (TypeIncompleteArray typ) = TypeIncompleteArray (coercePass typ)
-  coercePass (TypeExtBinding ref spec) = TypeExtBinding ref spec
+  coercePass (TypeExtBinding c r s)    = TypeExtBinding c r s
 
 instance (
      Id p ~ Id p'
