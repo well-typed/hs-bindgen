@@ -1,23 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 
 -- | Low-level translation of the C header to a Haskell module
---
--- TODO: This module is intended to implement the following milestones:
---
--- * Milestone 1: @Storable@ instances
---   <https://github.com/well-typed/hs-bindgen/milestone/2>
--- * Milestone 2: Low-level API
---   <https://github.com/well-typed/hs-bindgen/milestone/3>
 module HsBindgen.Hs.Translation (
     TranslationOpts(..)
   , defaultTranslationOpts
   , generateDeclarations
-    -- * leaky exports:
-    --   perfectly, translation will happen in *this* module.
-  , integralType
-  , floatingType
   ) where
 
 import Control.Monad.State qualified as State
@@ -33,22 +21,24 @@ import GHC.Exts qualified as IsList (IsList (..))
 import C.Char qualified
 import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
 import Clang.Paths
-import HsBindgen.C.AST qualified as C
-import HsBindgen.C.AST.Type qualified as C
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
-import HsBindgen.ExtBindings (HsTypeClass)
-import HsBindgen.ExtBindings qualified as ExtBindings
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
-import HsBindgen.SHs.AST qualified as SHs
-import HsBindgen.SHs.Translation qualified as SHs
-import HsBindgen.Hs.NameMangler
+import HsBindgen.Hs.NameMangler.DSL.FixCandidate (FixCandidate)
+import HsBindgen.Hs.NameMangler.DSL.FixCandidate qualified as FixCandidate
+import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
+import HsBindgen.Language.C (CName(..))
+import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
 import HsBindgen.NameHint
 import HsBindgen.PrettyC qualified as PC
+import HsBindgen.SHs.AST qualified as SHs
+import HsBindgen.SHs.Translation qualified as SHs
 
 import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken, Env (..), zipWithEnv, tabulateEnv, sizeEnv)
 
@@ -110,43 +100,35 @@ defaultTranslationOpts = TranslationOpts {
   Top-level
 -------------------------------------------------------------------------------}
 
--- filepath argument https://github.com/well-typed/hs-bindgen/issues/333
 generateDeclarations ::
      TranslationOpts
   -> ModuleUnique
-  -> NameMangler
-  -> C.Header
+  -> [C.Decl]
   -> [Hs.Decl]
-generateDeclarations opts mu nm (C.Header decs) =
+generateDeclarations opts mu decs =
     flip State.evalState Map.empty $
-      concat <$> mapM (generateDecs opts nm mu typedefs) decs
+      concat <$> mapM (generateDecs opts mu typedefs) decs
   where
-    typedefs :: Map C.CName C.Type
+    typedefs :: Map CName C.Type
     typedefs = Map.union actualTypedefs pseudoTypedefs
 
     -- typedef lookup table
     -- shallow: only one layer of typedefs is stripped.
-    actualTypedefs :: Map C.CName C.Type
+    actualTypedefs :: Map CName C.Type
     actualTypedefs = Map.fromList
-        [ (n, t)
-        | C.DeclTypedef (C.Typedef { typedefName = n, typedefType = t }) <- decs
+        [ (C.nameC (C.declId declInfo), typedefType)
+        | C.Decl{declInfo, declKind} <- decs
+        , C.DeclTypedef typedef <- [declKind]
+        , let C.Typedef{typedefType} = typedef
         ]
 
     -- macros also act as "typedef"s
-    pseudoTypedefs :: Map C.CName C.Type
+    pseudoTypedefs :: Map CName C.Type
     pseudoTypedefs = Map.fromList
-        [ (n, ty)
-        | C.DeclMacro (C.MacroDecl
-          { macroDeclMacro =
-              C.Macro
-                { C.macroName = n
-                , C.macroBody = C.TypeMacro tyNm
-                }
-          , macroDeclMacroTy =
-              Macro.Quant bf
-          }) <- decs
-        , Macro.isPrimTy bf
-        , Right ty <- [C.typeNameType tyNm]
+        [ (C.nameC (C.declId declInfo), macroType)
+        | C.Decl{declInfo, declKind} <- decs
+        , C.DeclMacro macro <- [declKind]
+        , C.MacroType C.CheckedMacroType{macroType} <- [macro]
         ]
 
 {-------------------------------------------------------------------------------
@@ -181,8 +163,8 @@ getInstances instanceMap name = aux
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO{} -> Set.empty
           HsFun{} -> Set.empty
-          HsExtBinding extId _cType ->
-            let acc' = acc /\ ExtBindings.extIdentifierInstances extId
+          HsExtBinding _ref typeSpec ->
+            let acc' = acc /\ typeSpecInsts typeSpec
             in  aux acc' hsTypes
           HsByteArray{} ->
             let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
@@ -289,27 +271,45 @@ getInstances instanceMap name = aux
       , Hs.WriteRaw
       ]
 
+    typeSpecInsts :: BindingSpec.TypeSpec -> Set HsTypeClass
+    typeSpecInsts typeSpec = Set.fromAscList [
+        cls
+      | (cls, BindingSpec.Require{}) <-
+           Map.toAscList (BindingSpec.typeSpecInstances typeSpec)
+      ]
+
 {-------------------------------------------------------------------------------
   Declarations
 ------------------------------------------------------------------------------}
 
+-- TODO: Take DeclSpec into account
 generateDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
-  -> NameMangler
   -> ModuleUnique
-  -> Map C.CName C.Type
+  -> Map CName C.Type
   -> C.Decl
   -> m [Hs.Decl]
-generateDecs opts nm mu typedefs = \case
-    C.DeclStruct struct  -> reifyStructFields struct $ structDecs opts nm struct
-    C.DeclUnion union    -> unionDecs nm union
-    C.DeclOpaqueStruct o -> opaqueStructDecs nm o
-    C.DeclEnum e         -> enumDecs opts nm e
-    C.DeclOpaqueEnum o   -> opaqueEnumDecs nm o -- TODO?
-    C.DeclTypedef d      -> typedefDecs opts nm d
-    C.DeclMacro m        -> macroDecs opts nm m
-    C.DeclFunction f     -> return $ functionDecs nm mu typedefs f
+generateDecs opts mu typedefs (C.Decl info kind spec) =
+    case kind of
+      C.DeclStruct struct ->
+        reifyStructFields struct $ structDecs opts info struct spec
+      C.DeclStructOpaque ->
+        opaqueStructDecs info spec
+      C.DeclUnion union ->
+        unionDecs info union spec
+      C.DeclUnionOpaque ->
+        opaqueUnionDecs info spec
+      C.DeclEnum e ->
+        enumDecs opts info e spec
+      C.DeclEnumOpaque ->
+        opaqueEnumDecs info spec
+      C.DeclTypedef d ->
+        typedefDecs opts info d spec
+      C.DeclFunction f ->
+        return $ functionDecs mu typedefs info f spec
+      C.DeclMacro macro ->
+        macroDecs opts info macro spec
 
 {-------------------------------------------------------------------------------
   Structs
@@ -325,26 +325,24 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 structDecs :: forall n m.
      (SNatI n, State.MonadState InstanceMap m)
   => TranslationOpts
-  -> NameMangler
+  -> C.DeclInfo
   -> C.Struct
+  -> C.DeclSpec
   -> Vec n C.StructField
   -> m [Hs.Decl]
-structDecs opts nm struct fields = do
+structDecs opts info struct spec fields = do
     (insts, decls) <- aux <$> State.get
     State.modify' $ Map.insert structName insts
     return decls
   where
-    declPath :: C.DeclPath
-    declPath = C.structDeclPath struct
-
     structName :: HsName NsTypeConstr
-    structName = mangle nm $ NameTycon declPath
+    structName = C.nameHs (C.declId info)
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
-        fieldName   = mangle nm $ NameField declPath (C.fieldName f)
-      , fieldType   = typ nm (C.fieldType f)
-      , fieldOrigin = Hs.FieldOriginStructField f
+        fieldName   = C.nameHs (C.structFieldName f)
+      , fieldType   = typ (C.structFieldType f)
+      , fieldOrigin = Origin.StructField f
       }
 
     candidateInsts :: Set HsTypeClass
@@ -363,10 +361,14 @@ structDecs opts nm struct fields = do
         hsStruct :: Hs.Struct n
         hsStruct = Hs.Struct {
             structName      = structName
-          , structConstr    = mangle nm $ NameDatacon declPath
+          , structConstr    = C.recordConstr (C.structNames struct)
           , structFields    = structFields
-          , structOrigin    = Hs.StructOriginStruct struct
           , structInstances = insts
+          , structOrigin    = Just Origin.Decl{
+                declInfo = info
+              , declKind = Origin.Struct struct
+              , declSpec = spec
+              }
           }
 
         structDecl :: Hs.Decl
@@ -399,58 +401,66 @@ structDecs opts nm struct fields = do
           Nothing   -> []
           Just flam -> singleton $ Hs.DeclDefineInstance $ Hs.InstanceHasFLAM
             hsStruct
-            (typ nm (C.fieldType flam))
-            (C.fieldOffset flam `div` 8)
+            (typ (C.structFieldType flam))
+            (C.structFieldOffset flam `div` 8)
 
 peekStructField :: Idx ctx -> C.StructField -> Hs.PeekByteOff ctx
-peekStructField ptr f = case C.fieldWidth f of
-    Nothing -> Hs.PeekByteOff ptr (C.fieldOffset f `div` 8)
-    Just w  -> Hs.PeekBitOffWidth ptr (C.fieldOffset f) w
+peekStructField ptr f = case C.structFieldWidth f of
+    Nothing -> Hs.PeekByteOff ptr (C.structFieldOffset f `div` 8)
+    Just w  -> Hs.PeekBitOffWidth ptr (C.structFieldOffset f) w
 
 pokeStructField :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
-pokeStructField ptr f i = case C.fieldWidth f of
-    Nothing -> Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
-    Just w  -> Hs.PokeBitOffWidth ptr (C.fieldOffset f) w i
+pokeStructField ptr f i = case C.structFieldWidth f of
+    Nothing -> Hs.PokeByteOff ptr (C.structFieldOffset f `div` 8) i
+    Just w  -> Hs.PokeBitOffWidth ptr (C.structFieldOffset f) w i
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
 -------------------------------------------------------------------------------}
 
-opaqueStructDecs ::
+opaqueDecs ::
      State.MonadState InstanceMap m
-  => NameMangler
-  -> C.OpaqueStruct
+  => Origin.EmptyData
+  -> C.DeclInfo
+  -> C.DeclSpec
   -> m [Hs.Decl]
-opaqueStructDecs nm o = do
+opaqueDecs origin info spec = do
     State.modify' $ Map.insert name Set.empty
     return [decl]
   where
     name :: HsName NsTypeConstr
-    name = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueStructTag o)
+    name = C.nameHs (C.declId info)
 
     decl :: Hs.Decl
     decl = Hs.DeclEmpty Hs.EmptyData {
         emptyDataName   = name
-      , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct o
+      , emptyDataOrigin = Origin.Decl{
+            declInfo = info
+          , declKind = origin
+          , declSpec = spec
+          }
       }
+
+opaqueStructDecs ::
+     State.MonadState InstanceMap m
+  => C.DeclInfo
+  -> C.DeclSpec
+  -> m [Hs.Decl]
+opaqueStructDecs = opaqueDecs Origin.OpaqueStruct
 
 opaqueEnumDecs ::
      State.MonadState InstanceMap m
-  => NameMangler
-  -> C.OpaqueEnum
+  => C.DeclInfo
+  -> C.DeclSpec
   -> m [Hs.Decl]
-opaqueEnumDecs nm o = do
-    State.modify' $ Map.insert name Set.empty
-    return [decl]
-  where
-    name :: HsName NsTypeConstr
-    name = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueEnumTag o)
+opaqueEnumDecs = opaqueDecs Origin.OpaqueEnum
 
-    decl :: Hs.Decl
-    decl = Hs.DeclEmpty Hs.EmptyData {
-        emptyDataName   = name
-      , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum o
-      }
+opaqueUnionDecs ::
+     State.MonadState InstanceMap m
+  => C.DeclInfo
+  -> C.DeclSpec
+  -> m [Hs.Decl]
+opaqueUnionDecs = opaqueDecs Origin.OpaqueUnion
 
 {-------------------------------------------------------------------------------
   Unions
@@ -458,19 +468,17 @@ opaqueEnumDecs nm o = do
 
 unionDecs ::
      State.MonadState InstanceMap m
-  => NameMangler
+  => C.DeclInfo
   -> C.Union
+  -> C.DeclSpec
   -> m [Hs.Decl]
-unionDecs nm union = do
+unionDecs info union spec = do
     decls <- aux <$> State.get
     State.modify' $ Map.insert newtypeName insts
     return decls
   where
-    declPath :: C.DeclPath
-    declPath = C.unionDeclPath union
-
     newtypeName :: HsName NsTypeConstr
-    newtypeName = mangle nm $ NameTycon declPath
+    newtypeName = C.nameHs (C.declId info)
 
     insts :: Set HsTypeClass
     insts = Set.singleton Hs.Storable
@@ -478,14 +486,19 @@ unionDecs nm union = do
     hsNewtype :: Hs.Newtype
     hsNewtype = Hs.Newtype {
         newtypeName      = newtypeName
-      , newtypeConstr    = mangle nm $ NameDatacon declPath
-      , newtypeField     = Hs.Field {
-            fieldName   = mangle nm $ NameDecon declPath
-          , fieldType   = Hs.HsByteArray
-          , fieldOrigin = Hs.FieldOriginNone
-          }
-      , newtypeOrigin    = Hs.NewtypeOriginUnion union
+      , newtypeConstr    = C.newtypeConstr (C.unionNames union)
       , newtypeInstances = insts
+
+      , newtypeField = Hs.Field {
+            fieldName   = C.newtypeField (C.unionNames union)
+          , fieldType   = Hs.HsByteArray
+          , fieldOrigin = Origin.GeneratedField
+          }
+      , newtypeOrigin = Origin.Decl{
+            declInfo = info
+          , declKind = Origin.Union union
+          , declSpec = spec
+          }
       }
 
     newtypeDecl :: Hs.Decl
@@ -508,17 +521,18 @@ unionDecs nm union = do
         accessorDecls :: [Hs.Decl]
         accessorDecls = concatMap getAccessorDecls (C.unionFields union)
 
+        -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
         getAccessorDecls :: C.UnionField -> [Hs.Decl]
         getAccessorDecls C.UnionField{..} =
-          let hsType = typ nm ufieldType
+          let hsType = typ unionFieldType
               fInsts = getInstances instanceMap newtypeName insts [hsType]
           in  if Hs.Storable `Set.notMember` fInsts
                 then []
                 else
                   [ Hs.DeclUnionGetter newtypeName hsType $
-                      mangle nm (NameGetter declPath ufieldName)
+                      "get_" <> C.nameHs unionFieldName
                   , Hs.DeclUnionSetter newtypeName hsType $
-                      mangle nm (NameBuilder declPath ufieldName)
+                      "set_" <> C.nameHs unionFieldName
                   ]
 
 {-------------------------------------------------------------------------------
@@ -528,28 +542,26 @@ unionDecs nm union = do
 enumDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
-  -> NameMangler
-  -> C.Enu
+  -> C.DeclInfo
+  -> C.Enum
+  -> C.DeclSpec
   -> m [Hs.Decl]
-enumDecs opts nm e = do
+enumDecs opts info e spec = do
     State.modify' $ Map.insert newtypeName insts
     return $
       newtypeDecl : storableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
   where
-    declPath :: C.DeclPath
-    declPath = C.enumDeclPath e
-
     newtypeName :: HsName NsTypeConstr
-    newtypeName = mangle nm $ NameTycon declPath
+    newtypeName = C.nameHs (C.declId info)
 
     newtypeConstr :: HsName NsConstr
-    newtypeConstr = mangle nm $ NameDatacon declPath
+    newtypeConstr = C.newtypeConstr (C.enumNames e)
 
     newtypeField :: Hs.Field
     newtypeField = Hs.Field {
-        fieldName   = mangle nm $ NameDecon declPath
-      , fieldType   = typ nm (C.enumType e)
-      , fieldOrigin = Hs.FieldOriginNone
+        fieldName   = C.newtypeField (C.enumNames e)
+      , fieldType   = typ (C.enumType e)
+      , fieldOrigin = Origin.GeneratedField
       }
 
     insts :: Set HsTypeClass
@@ -561,8 +573,12 @@ enumDecs opts nm e = do
         newtypeName      = newtypeName
       , newtypeConstr    = newtypeConstr
       , newtypeField     = newtypeField
-      , newtypeOrigin    = Hs.NewtypeOriginEnum e
       , newtypeInstances = insts
+      , newtypeOrigin    = Origin.Decl{
+            declInfo = info
+          , declKind = Origin.Enum e
+          , declSpec = spec
+          }
       }
 
     newtypeDecl :: Hs.Decl
@@ -573,8 +589,8 @@ enumDecs opts nm e = do
         structName      = newtypeName
       , structConstr    = newtypeConstr
       , structFields    = Vec.singleton newtypeField
-      , structOrigin    = Hs.StructOriginEnum e
       , structInstances = insts
+      , structOrigin    = Nothing
       }
 
     storableDecl :: Hs.Decl
@@ -598,13 +614,13 @@ enumDecs opts nm e = do
     valueDecls :: [Hs.Decl]
     valueDecls =
         [ Hs.DeclPatSyn Hs.PatSyn
-          { patSynName   = mangle nm $ NameDatacon (C.DeclPathName valueName)
+          { patSynName   = C.nameHs enumConstantName
           , patSynType   = newtypeName
           , patSynConstr = newtypeConstr
-          , patSynValue  = valueValue
-          , patSynOrigin = Hs.PatSynOriginEnumValue enumValue
+          , patSynValue  = enumConstantValue
+          , patSynOrigin = Origin.EnumConstant enumValue
           }
-        | enumValue@C.EnumValue{..} <- C.enumValues e
+        | enumValue@C.EnumConstant{..} <- C.enumConstants e
         ]
 
     cEnumInstanceDecls :: [Hs.Decl]
@@ -639,25 +655,23 @@ enumDecs opts nm e = do
 typedefDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
-  -> NameMangler
+  -> C.DeclInfo
   -> C.Typedef
+  -> C.DeclSpec
   -> m [Hs.Decl]
-typedefDecs opts nm typedef = do
+typedefDecs opts info typedef spec = do
     (insts, decls) <- aux <$> State.get
     State.modify' $ Map.insert newtypeName insts
     return decls
   where
-    declPath :: C.DeclPath
-    declPath = C.DeclPathName $ C.typedefName typedef
-
     newtypeName :: HsName NsTypeConstr
-    newtypeName = mangle nm $ NameTycon declPath
+    newtypeName = C.nameHs (C.declId info)
 
     newtypeField :: Hs.Field
     newtypeField = Hs.Field {
-        fieldName   = mangle nm $ NameDecon declPath
-      , fieldType   = typ nm (C.typedefType typedef)
-      , fieldOrigin = Hs.FieldOriginNone
+        fieldName   = C.newtypeField (C.typedefNames typedef)
+      , fieldType   = typ (C.typedefType typedef)
+      , fieldOrigin = Origin.GeneratedField
       }
 
     candidateInsts :: Set HsTypeClass
@@ -680,10 +694,14 @@ typedefDecs opts nm typedef = do
         hsNewtype :: Hs.Newtype
         hsNewtype = Hs.Newtype {
             newtypeName      = newtypeName
-          , newtypeConstr    = mangle nm $ NameDatacon declPath
+          , newtypeConstr    = C.newtypeConstr (C.typedefNames typedef)
           , newtypeField     = newtypeField
-          , newtypeOrigin    = Hs.NewtypeOriginTypedef typedef
           , newtypeInstances = insts
+          , newtypeOrigin    = Origin.Decl{
+                declInfo = info
+              , declKind = Origin.Typedef typedef
+              , declSpec = spec
+              }
           }
 
         newtypeDecl :: Hs.Decl
@@ -709,41 +727,29 @@ typedefDecs opts nm typedef = do
 macroDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
-  -> NameMangler
-  -> C.MacroDecl
+  -> C.DeclInfo
+  -> C.CheckedMacro
+  -> C.DeclSpec
   -> m [Hs.Decl]
-macroDecs opts nm C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
-    | Macro.Quant bf <- ty
-    , Macro.isPrimTy bf
-    = macroDecsTypedef opts nm m
-
-    | otherwise
-    = return $ macroVarDecs nm m ty
-    where
-
-macroDecs _ _ C.MacroReparseError {} = return []
-macroDecs _ _ C.MacroTcError {}      = return []
+macroDecs opts info checkedMacro spec =
+    case checkedMacro of
+      C.MacroType ty   -> macroDecsTypedef opts info ty spec
+      C.MacroExpr expr -> return $ macroVarDecs info expr
 
 macroDecsTypedef ::
      State.MonadState InstanceMap m
   => TranslationOpts
-  -> NameMangler
-  -> C.Macro C.Ps
+  -> C.DeclInfo
+  -> C.CheckedMacroType
+  -> C.DeclSpec
   -> m [Hs.Decl]
-macroDecsTypedef opts nm macro = case C.macroBody macro of
-    C.TypeMacro tyNm
-      | Right ty <- C.typeNameType tyNm
-      -> do
-        (insts, decls) <- aux ty <$> State.get
-        State.modify' $ Map.insert newtypeName insts
-        return decls
-    _otherwise -> return []
+macroDecsTypedef opts info macroType spec = do
+    (insts, decls) <- aux (C.macroType macroType) <$> State.get
+    State.modify' $ Map.insert newtypeName insts
+    return decls
   where
-    declPath :: C.DeclPath
-    declPath = C.DeclPathName $ C.macroName macro
-
     newtypeName :: HsName NsTypeConstr
-    newtypeName = mangle nm $ NameTycon declPath
+    newtypeName = C.nameHs (C.declId info)
 
     candidateInsts :: Set HsTypeClass
     candidateInsts = Set.union (Set.singleton Hs.Storable) $
@@ -755,7 +761,7 @@ macroDecsTypedef opts nm macro = case C.macroBody macro of
         newtypeDecl : storableDecl ++ optDecls
       where
         fieldType :: HsType
-        fieldType = typ nm ty
+        fieldType = typ ty
 
         insts :: Set HsTypeClass
         insts = getInstances instanceMap newtypeName candidateInsts [fieldType]
@@ -763,14 +769,19 @@ macroDecsTypedef opts nm macro = case C.macroBody macro of
         hsNewtype :: Hs.Newtype
         hsNewtype = Hs.Newtype {
             newtypeName      = newtypeName
-          , newtypeConstr    = mangle nm $ NameDatacon declPath
-          , newtypeField     = Hs.Field {
-                fieldName   = mangle nm $ NameDecon declPath
-              , fieldType   = fieldType
-              , fieldOrigin = Hs.FieldOriginNone
-              }
-          , newtypeOrigin    = Hs.NewtypeOriginMacro macro
+          , newtypeConstr    = C.newtypeConstr (C.macroTypeNames macroType)
           , newtypeInstances = insts
+
+          , newtypeField = Hs.Field {
+                fieldName   = C.newtypeField (C.macroTypeNames macroType)
+              , fieldType   = fieldType
+              , fieldOrigin = Origin.GeneratedField
+              }
+          , newtypeOrigin = Origin.Decl {
+                declInfo = info
+              , declKind = Origin.Macro macroType
+              , declSpec = spec
+              }
           }
 
         newtypeDecl :: Hs.Decl
@@ -800,22 +811,23 @@ data TypeContext =
   | CPtrArg  -- ^ Pointer argument
   deriving stock (Show)
 
-typ :: NameMangler -> C.Type -> Hs.HsType
+typ :: HasCallStack => C.Type -> Hs.HsType
 typ = typ' CTop
 
-typ' :: TypeContext -> NameMangler -> C.Type -> Hs.HsType
-typ' ctx nm = go ctx
+typ' :: HasCallStack => TypeContext -> C.Type -> Hs.HsType
+typ' ctx = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
-    go _ (C.TypeTypedef c) =
-        Hs.HsTypRef (mangle nm $ NameTycon (C.DeclPathName c)) -- wrong
-    go _ (C.TypeStruct declPath) =
-        Hs.HsTypRef (mangle nm $ NameTycon declPath)
-    go _ (C.TypeUnion declPath) =
-        -- TODO: UnionTypeConstrContext?
-        Hs.HsTypRef (mangle nm $ NameTycon declPath)
-    go _ (C.TypeEnum declPath) =
-        Hs.HsTypRef (mangle nm $ NameTycon declPath)
+    go _ (C.TypeTypedef (C.TypedefRegular name)) =
+        Hs.HsTypRef (C.nameHs name)
+    go c (C.TypeTypedef (C.TypedefSquashed _name ty)) =
+        go c ty
+    go _ (C.TypeStruct name) =
+        Hs.HsTypRef (C.nameHs name)
+    go _ (C.TypeUnion name) =
+        Hs.HsTypRef (C.nameHs name)
+    go _ (C.TypeEnum name) =
+        Hs.HsTypRef (C.nameHs name)
     go c C.TypeVoid =
         Hs.HsPrimType (goVoid c)
     go _ (C.TypePrim p) =
@@ -823,8 +835,7 @@ typ' ctx nm = go ctx
     go _ (C.TypePointer t) = case t of
         C.TypeFun {} -> Hs.HsFunPtr (go CPtrArg t)
         _            -> Hs.HsPtr (go CPtrArg t)
-    go _ (C.TypeConstArray (C.Size n _) ty) =
-        -- TODO(#460): we are dropping the size expression, only using its value.
+    go _ (C.TypeConstArray n ty) =
         Hs.HsConstArray n (go CTop ty)
     go c (C.TypeIncompleteArray ty) =
         goArrayUnknownSize c ty
@@ -931,13 +942,12 @@ wrapperDecl innerName wrapperName res args
     callArgs tys ids = toList (zipWithEnv f tys ids) where f ty idx = if isWrappedFancy ty then PC.DeRef (PC.Var idx) else PC.Var idx
 
 hsWrapperDecl
-    :: NameMangler
-    -> HsName NsVar   -- ^ haskell name
+    :: HsName NsVar   -- ^ haskell name
     -> HsName NsVar   -- ^ low-level import name
     -> WrappedType    -- ^ result type
     -> [WrappedType]  -- ^ arguments
     -> SHs.SDecl
-hsWrapperDecl nm hiName loName res args
+hsWrapperDecl hiName loName res args
   | isWrappedFancy res
   = SHs.DVar
     hiName
@@ -950,7 +960,7 @@ hsWrapperDecl nm hiName loName res args
     (Just (SHs.translateType hsty))
     (goB EmptyEnv args)
   where
-    hsty = foldr HsFun (HsIO $ typ' CFunRes nm $ unwrapOrigType res) (typ' CFunArg nm . unwrapOrigType <$> args)
+    hsty = foldr HsFun (HsIO $ typ' CFunRes $ unwrapOrigType res) (typ' CFunArg . unwrapOrigType <$> args)
 
     -- wrapper for fancy result
     goA :: Env ctx WrappedType -> [WrappedType] -> SHs.SExpr ctx
@@ -996,12 +1006,13 @@ shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
 shsApps = foldl' SHs.EApp
 
 functionDecs ::
-     NameMangler
-  -> ModuleUnique
-  -> Map C.CName C.Type -- ^ typedefs
+     ModuleUnique
+  -> Map CName C.Type -- ^ typedefs
+  -> C.DeclInfo
   -> C.Function
+  -> C.DeclSpec
   -> [Hs.Decl]
-functionDecs nm mu typedefs f =
+functionDecs mu typedefs info f _spec =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.functionHeader f
     , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
@@ -1009,19 +1020,19 @@ functionDecs nm mu typedefs f =
         , foreignImportType       = importType
         , foreignImportOrigName   = T.pack wrapperName
         , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
-        , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
+        , foreignImportDeclOrigin = Origin.Function f
         }
     ] ++
     -- TODO: Hs wrapper if any type is fancy
-    [ Hs.DeclSimple $ hsWrapperDecl nm highlevelName importName res args
+    [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res args
     | anyFancy
     ]
   where
     anyFancy = any isWrappedFancy (res : args)
 
-    highlevelName = mangle nm $ NameVar $ C.functionName f
+    highlevelName = C.nameHs (C.declId info)
     importName
-        | anyFancy   = mangle nm $ NameLowLevelVar $ C.functionName f
+        | anyFancy   = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
         | otherwise  = highlevelName
 
     wrapType :: C.Type -> WrappedType
@@ -1037,22 +1048,26 @@ functionDecs nm mu typedefs f =
     isFancy C.TypeStruct {}     = True
     isFancy C.TypeUnion {}      = True
     isFancy C.TypeConstArray {} = True
-    isFancy (C.TypeTypedef n)   =
-        let t = Map.findWithDefault (panicPure $ "Unbound typedef " ++ show n) n typedefs
-        in isFancy t
+    isFancy (C.TypeTypedef ref) =
+        case ref of
+          C.TypedefRegular n ->
+            let t = Map.findWithDefault (panicPure $ "Unbound typedef " ++ show n) (C.nameC n) typedefs
+            in isFancy t
+          C.TypedefSquashed _n ty' ->
+            isFancy ty'
     isFancy _ = False
 
     importType :: HsType
     importType
         | isWrappedFancy res
-        = foldr HsFun (HsIO $ typ' CFunRes nm C.TypeVoid) (typ' CFunArg nm . unwrapType <$> (args ++ [res]))
+        = foldr HsFun (HsIO $ typ' CFunRes C.TypeVoid) (typ' CFunArg . unwrapType <$> (args ++ [res]))
 
         | otherwise
-        = foldr HsFun (HsIO $ typ' CFunRes nm $ unwrapType res) (typ' CFunArg nm . unwrapType <$> args)
+        = foldr HsFun (HsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
 
     -- below is generation of C wrapper for userland-capi.
     innerName :: String
-    innerName = T.unpack (C.getCName (C.functionName f))
+    innerName = T.unpack (C.getCName . C.nameC . C.declId $ info)
 
     wrapperName :: String
     wrapperName = unModuleUnique mu ++ "_" ++ innerName
@@ -1062,22 +1077,26 @@ functionDecs nm mu typedefs f =
 -------------------------------------------------------------------------------}
 
 macroVarDecs ::
-     NameMangler
-  -> C.Macro p
-  -> Macro.Quant ( Macro.Type Macro.Ty )
+     C.DeclInfo
+  -> C.CheckedMacroExpr
   -> [Hs.Decl]
-macroVarDecs nm (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
-  [
-    Hs.DeclVar $
-      Hs.VarDecl
-        { varDeclName = hsVarName
-        , varDeclType = quantTyHsTy qty
-        , varDeclBody = hsBody
-        }
-  | hsBody <- toList $ macroLamHsExpr nm cVarNm args body
-  ]
+macroVarDecs info macroExpr = [
+      Hs.DeclVar $
+        Hs.VarDecl
+          { varDeclName = hsVarName
+          , varDeclType = quantTyHsTy macroExprType
+          , varDeclBody = hsBody
+          }
+    | hsBody <- toList $ macroLamHsExpr macroExprArgs macroExprBody
+    ]
   where
-    hsVarName = mangle nm $ NameVar cVarNm
+    macroExprArgs :: [CName]
+    macroExprBody :: C.MExpr C.Ps
+    macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
+    C.CheckedMacroExpr{macroExprArgs, macroExprBody, macroExprType} = macroExpr
+
+    hsVarName :: HsName NsVar
+    hsVarName = C.nameHs (C.declId info)
 
 quantTyHsTy :: Macro.Quant ( Macro.Type Macro.Ty ) -> Hs.SigmaType
 quantTyHsTy qty@(Macro.Quant @kis _) =
@@ -1121,39 +1140,31 @@ quantTyHsTy qty@(Macro.Quant @kis _) =
 newtype U n = U { unU :: Vec n (Idx n) }
 
 macroLamHsExpr ::
-     NameMangler
-  -> C.CName
-  -> [C.CName]
-  -> C.MacroBody p
+     [CName]
+  -> C.MExpr p
   -> Maybe (Hs.VarDeclRHS EmptyCtx)
-macroLamHsExpr nm _macroName macroArgs body =
-  case body of
-    C.EmptyMacro -> Nothing
-    C.AttributeMacro {} -> Nothing
-    C.TypeMacro {} -> Nothing
-    C.ExpressionMacro expr ->
-      makeNames macroArgs Map.empty
-      where
-        makeNames :: [C.CName] -> Map C.CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
-        makeNames []     env = macroExprHsExpr nm env expr
-        makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
+macroLamHsExpr macroArgs expr =
+    makeNames macroArgs Map.empty
+  where
+    makeNames :: [CName] -> Map CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
+    makeNames []     env = macroExprHsExpr env expr
+    makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
 
-cnameToHint :: C.CName -> NameHint
-cnameToHint (C.CName t) = fromString (T.unpack t)
+cnameToHint :: CName -> NameHint
+cnameToHint (CName t) = fromString (T.unpack t)
 
 macroExprHsExpr ::
-     NameMangler
-  -> Map C.CName (Idx ctx)
+     Map CName (Idx ctx)
   -> C.MExpr p
   -> Maybe (Hs.VarDeclRHS ctx)
-macroExprHsExpr nm = goExpr where
-    goExpr :: Map C.CName (Idx ctx) -> C.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
+macroExprHsExpr = goExpr where
+    goExpr :: Map CName (Idx ctx) -> C.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
       C.MTerm tm -> goTerm env tm
       C.MApp _xapp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
-    goTerm :: Map C.CName (Idx ctx) -> C.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
+    goTerm :: Map CName (Idx ctx) -> C.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
     goTerm env = \case
       C.MInt i -> goInt i
       C.MFloat f -> goFloat f
@@ -1164,12 +1175,12 @@ macroExprHsExpr nm = goExpr where
         case Map.lookup cname env of
           Just i  -> return (Hs.VarDeclVar i)
           Nothing ->
-            let hsVar = mangle nm $ NameVar cname
+            let hsVar = macroName cname -- mangle nm $ NameVar cname
             in  goApp env (Hs.VarAppHead hsVar) args
       C.MStringize {} -> Nothing
       C.MConcat {} -> Nothing
 
-    goApp :: Map C.CName (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
+    goApp :: Map CName (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
     goApp env appHead args = do
       args' <- traverse (goExpr env) args
       return $ Hs.VarDeclApp appHead args'
@@ -1194,3 +1205,16 @@ macroExprHsExpr nm = goExpr where
       case fty of
         C.Type.FloatType  -> Just $ Hs.VarDeclFloat (C.floatingLiteralFloatValue flt)
         C.Type.DoubleType -> Just $ Hs.VarDeclDouble (C.floatingLiteralDoubleValue flt)
+
+-- | Construct Haskell name for macro
+--
+-- TODO: This should be done as part of the NameMangler frontend pass.
+macroName :: CName -> HsName NsVar
+macroName (CName cName) =
+    case FixCandidate.fixCandidate fix cName of
+      Just hsName -> hsName
+      Nothing     ->
+        panicPure $ "Unable to construct name for macro " ++ show cName
+  where
+    fix :: FixCandidate Maybe
+    fix = FixCandidate.fixCandidateDefault

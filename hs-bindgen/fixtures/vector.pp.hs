@@ -11,7 +11,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include \"vector.h\"\nstruct <anon> *testmodule_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }\n")
+$(CAPI.addCSource "#include \"vector.h\"\nvector *testmodule_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }\n")
 
 data Vector = Vector
   { vector_x :: FC.CDouble

@@ -1,65 +1,115 @@
-Header
-  [
-    DeclFunction
-      Function {
-        functionName = CName "erf",
-        functionArgs = [
-          TypePrim
-            (PrimFloating PrimDouble)],
-        functionRes = TypePrim
-          (PrimFloating PrimDouble),
-        functionHeader =
-        "simple_func.h",
-        functionSourceLoc =
-        "simple_func.h:1:8"},
-    DeclFunction
-      Function {
-        functionName = CName "bad_fma",
-        functionArgs = [
-          TypePrim
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "simple_func.h:1:8",
+        declId = NamePair {
+          nameC = CName "erf",
+          nameHsIdent = HsIdentifier
+            "erf"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimDouble)],
+          functionRes = TypePrim
             (PrimFloating PrimDouble),
-          TypePrim
+          functionHeader =
+          "simple_func.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "simple_func.h:3:22",
+        declId = NamePair {
+          nameC = CName "bad_fma",
+          nameHsIdent = HsIdentifier
+            "bad_fma"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble)],
+          functionRes = TypePrim
             (PrimFloating PrimDouble),
-          TypePrim
-            (PrimFloating PrimDouble)],
-        functionRes = TypePrim
-          (PrimFloating PrimDouble),
-        functionHeader =
-        "simple_func.h",
-        functionSourceLoc =
-        "simple_func.h:3:22"},
-    DeclFunction
-      Function {
-        functionName = CName "no_args",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader =
-        "simple_func.h",
-        functionSourceLoc =
-        "simple_func.h:7:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "no_args_no_void",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader =
-        "simple_func.h",
-        functionSourceLoc =
-        "simple_func.h:9:6"},
-    DeclFunction
-      Function {
-        functionName = CName "fun",
-        functionArgs = [
-          TypePrim
-            (PrimChar
-              (PrimSignImplicit
-                (Just Signed))),
-          TypePrim
-            (PrimFloating PrimDouble)],
-        functionRes = TypePrim
-          (PrimIntegral PrimInt Signed),
-        functionHeader =
-        "simple_func.h",
-        functionSourceLoc =
-        "simple_func.h:11:5"}]
+          functionHeader =
+          "simple_func.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "simple_func.h:7:6",
+        declId = NamePair {
+          nameC = CName "no_args",
+          nameHsIdent = HsIdentifier
+            "no_args"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "simple_func.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "simple_func.h:9:6",
+        declId = NamePair {
+          nameC = CName "no_args_no_void",
+          nameHsIdent = HsIdentifier
+            "no_args_no_void"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "simple_func.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "simple_func.h:11:5",
+        declId = NamePair {
+          nameC = CName "fun",
+          nameHsIdent = HsIdentifier
+            "fun"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
+            TypePrim
+              (PrimFloating PrimDouble)],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed),
+          functionHeader =
+          "simple_func.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["simple_func"]}

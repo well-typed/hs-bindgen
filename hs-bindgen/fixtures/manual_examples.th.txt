@@ -1,11 +1,11 @@
 -- addDependentFile examples/manual_examples.h
 -- #include "manual_examples.h"
--- void test_internal_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }
--- signed int test_internal_index_triple (struct triple *arg1, enum index arg2) { return index_triple(arg1, arg2); }
--- sum test_internal_sum_triple (struct triple *arg1) { return sum_triple(arg1); }
--- average test_internal_average_triple (struct triple *arg1) { return average_triple(arg1); }
+-- void test_internal_mk_triple (signed int arg1, signed int arg2, signed int arg3, triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }
+-- signed int test_internal_index_triple (triple *arg1, index arg2) { return index_triple(arg1, arg2); }
+-- sum test_internal_sum_triple (triple *arg1) { return sum_triple(arg1); }
+-- average test_internal_average_triple (triple *arg1) { return average_triple(arg1); }
 -- YEAR test_internal_getYear (date *arg1) { return getYear(arg1); }
--- void test_internal_print_occupation (signed int arg1, union occupation *arg2) { print_occupation(arg1, arg2); }
+-- void test_internal_print_occupation (signed int arg1, occupation *arg2) { print_occupation(arg1, arg2); }
 -- void test_internal_拜拜 (void) { 拜拜(); }
 -- void test_internal_ϒ (void) { ϒ(); }
 -- void test_internal_import (void) { import(); }
@@ -164,6 +164,7 @@ instance Storable Student
                                              student_year_4 -> pokeByteOff ptr_1 (0 :: Int) student_university_3 >> pokeByteOff ptr_1 (8 :: Int) student_year_4}}
 deriving stock instance Show Student
 deriving stock instance Eq Student
+data Person
 data Employee
     = Employee {employee_company :: (Ptr CChar),
                 employee_supervisor :: (Ptr Person),
@@ -188,7 +189,6 @@ get_occupation_employee :: Occupation -> Employee
 get_occupation_employee = getUnionPayload
 set_occupation_employee :: Employee -> Occupation
 set_occupation_employee = setUnionPayload
-data Person
 foreign import ccall safe "test_internal_print_occupation" print_occupation :: CInt ->
                                                                                Ptr Occupation ->
                                                                                IO Unit

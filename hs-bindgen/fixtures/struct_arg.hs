@@ -14,36 +14,51 @@
             "thing_x",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "struct_arg.h:3:9",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "thing_x"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "struct_arg.h:3:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "thing"),
-          structAliases = [],
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "struct_arg.h:3:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "struct_arg.h:2:8"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "struct_arg.h:2:8",
+            declId = NamePair {
+              nameC = CName "thing",
+              nameHsIdent = HsIdentifier
+                "Thing"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Thing"),
+              structSizeof = 4,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "struct_arg.h:3:9",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "thing_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -62,36 +77,51 @@
               "thing_x",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "struct_arg.h:3:9",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "thing_x"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "struct_arg.h:3:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "thing"),
-            structAliases = [],
-            structSizeof = 4,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "struct_arg.h:3:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "struct_arg.h:2:8"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "struct_arg.h:2:8",
+              declId = NamePair {
+                nameC = CName "thing",
+                nameHsIdent = HsIdentifier
+                  "Thing"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Thing"),
+                structSizeof = 4,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "struct_arg.h:3:9",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "thing_x"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -115,36 +145,51 @@
                       "thing_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "struct_arg.h:3:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "thing_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "struct_arg.h:3:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "thing"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "struct_arg.h:3:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "struct_arg.h:2:8"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "struct_arg.h:2:8",
+                      declId = NamePair {
+                        nameC = CName "thing",
+                        nameHsIdent = HsIdentifier
+                          "Thing"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Thing"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "struct_arg.h:3:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "thing_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -168,36 +213,51 @@
                       "thing_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "struct_arg.h:3:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "thing_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "struct_arg.h:3:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "thing"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "struct_arg.h:3:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "struct_arg.h:2:8"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "struct_arg.h:2:8",
+                      declId = NamePair {
+                        nameC = CName "thing",
+                        nameHsIdent = HsIdentifier
+                          "Thing"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Thing"),
+                        structSizeof = 4,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "struct_arg.h:3:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "thing_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -240,18 +300,18 @@
       foreignImportHeader =
       "struct_arg.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "thing_fun_1",
           functionArgs = [
             TypeStruct
-              (DeclPathName (CName "thing"))],
+              NamePair {
+                nameC = CName "thing",
+                nameHsIdent = HsIdentifier
+                  "Thing"}],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed),
-          functionHeader = "struct_arg.h",
-          functionSourceLoc =
-          "struct_arg.h:6:5"}},
+          functionHeader =
+          "struct_arg.h"}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -276,18 +336,18 @@
       foreignImportHeader =
       "struct_arg.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "thing_fun_2",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypeStruct
-            (DeclPathName (CName "thing")),
-          functionHeader = "struct_arg.h",
-          functionSourceLoc =
-          "struct_arg.h:7:14"}},
+            NamePair {
+              nameC = CName "thing",
+              nameHsIdent = HsIdentifier
+                "Thing"},
+          functionHeader =
+          "struct_arg.h"}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -321,22 +381,25 @@
       foreignImportHeader =
       "struct_arg.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "thing_fun_3a",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed),
             TypeStruct
-              (DeclPathName (CName "thing")),
+              NamePair {
+                nameC = CName "thing",
+                nameHsIdent = HsIdentifier
+                  "Thing"},
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypeStruct
-            (DeclPathName (CName "thing")),
-          functionHeader = "struct_arg.h",
-          functionSourceLoc =
-          "struct_arg.h:9:14"}},
+            NamePair {
+              nameC = CName "thing",
+              nameHsIdent = HsIdentifier
+                "Thing"},
+          functionHeader =
+          "struct_arg.h"}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -364,22 +427,22 @@
       foreignImportHeader =
       "struct_arg.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "thing_fun_3b",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed),
             TypeStruct
-              (DeclPathName (CName "thing")),
+              NamePair {
+                nameC = CName "thing",
+                nameHsIdent = HsIdentifier
+                  "Thing"},
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit
                 (Just Signed))),
-          functionHeader = "struct_arg.h",
-          functionSourceLoc =
-          "struct_arg.h:10:6"}},
+          functionHeader =
+          "struct_arg.h"}},
   DeclSimple]

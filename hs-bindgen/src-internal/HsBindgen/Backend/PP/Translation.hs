@@ -18,10 +18,10 @@ import Data.Text qualified as Text
 
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.PP.Names
-import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell
 import HsBindgen.SHs.AST
 
 {-------------------------------------------------------------------------------
@@ -209,7 +209,7 @@ resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
     TCon _n -> mempty
     TLit _n -> mempty
-    TExt i _ctype -> resolveExtIdentifierImports i
+    TExt ref _typeSpec -> resolveExtHsRefImports ref
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound {} -> mempty
@@ -225,11 +225,10 @@ resolveStrategyImports = \case
     Hs.DeriveStock -> mempty
     Hs.DeriveVia ty -> resolveTypeImports ty
 
-resolveExtIdentifierImports :: ExtIdentifier -> ImportAcc
-resolveExtIdentifierImports ExtIdentifier{..} =
+resolveExtHsRefImports :: ExtHsRef -> ImportAcc
+resolveExtHsRefImports ExtHsRef{..} =
     let hsImportModule = HsImportModule {
-            hsImportModuleName =
-              Text.unpack $ getHsModuleName extIdentifierModule
+            hsImportModuleName  = Text.unpack $ getHsModuleName extHsRefModule
           , hsImportModuleAlias = Nothing
           }
     in  ImportAcc (Set.singleton hsImportModule, mempty)

@@ -1,18 +1,20 @@
-Header
+TranslationUnit {
+  unitDecls =
   [
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:1:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "INCR",
-          macroArgs = [CName "x"],
-          macroBody = ExpressionMacro
-            (MApp
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:1:9",
+        declId = NamePair {
+          nameC = CName "INCR",
+          nameHsIdent = HsIdentifier
+            "iNCR"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [CName "x"],
+            macroExprBody = MApp
               MAdd
               [
                 MTerm
@@ -22,114 +24,136 @@ Header
                     IntegerLiteral {
                       integerLiteralText = "1",
                       integerLiteralType = Int Signed,
-                      integerLiteralValue = 1})])},
-        macroDeclMacroTy =
-        "(forall a. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))",
-        macroDeclSourceLoc =
-        "macro_functions.h:1:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:2:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "ADD",
-          macroArgs = [
-            CName "x",
-            CName "y"],
-          macroBody = ExpressionMacro
-            (MApp
+                      integerLiteralValue = 1})],
+            macroExprType =
+            "(forall a. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:2:9",
+        declId = NamePair {
+          nameC = CName "ADD",
+          nameHsIdent = HsIdentifier
+            "aDD"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "x",
+              CName "y"],
+            macroExprBody = MApp
               MAdd
               [
                 MTerm
                   (MVar NoXVar (CName "x") []),
                 MTerm
-                  (MVar NoXVar (CName "y") [])])},
-        macroDeclMacroTy =
-        "(forall a b. Add a b => (a -> b -> AddRes a b))",
-        macroDeclSourceLoc =
-        "macro_functions.h:2:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:4:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "ID",
-          macroArgs = [CName "X"],
-          macroBody = ExpressionMacro
-            (MTerm
-              (MVar NoXVar (CName "X") []))},
-        macroDeclMacroTy =
-        "(forall a. (a -> a))",
-        macroDeclSourceLoc =
-        "macro_functions.h:4:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:5:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "CONST",
-          macroArgs = [
-            CName "X",
-            CName "Y"],
-          macroBody = ExpressionMacro
-            (MTerm
-              (MVar NoXVar (CName "X") []))},
-        macroDeclMacroTy =
-        "(forall a b. (a -> b -> a))",
-        macroDeclSourceLoc =
-        "macro_functions.h:5:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:7:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "CMP",
-          macroArgs = [
-            CName "X",
-            CName "Y"],
-          macroBody = ExpressionMacro
-            (MApp
+                  (MVar NoXVar (CName "y") [])],
+            macroExprType =
+            "(forall a b. Add a b => (a -> b -> AddRes a b))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:4:9",
+        declId = NamePair {
+          nameC = CName "ID",
+          nameHsIdent = HsIdentifier
+            "iD"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [CName "X"],
+            macroExprBody = MTerm
+              (MVar NoXVar (CName "X") []),
+            macroExprType =
+            "(forall a. (a -> a))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:5:9",
+        declId = NamePair {
+          nameC = CName "CONST",
+          nameHsIdent = HsIdentifier
+            "cONST"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "X",
+              CName "Y"],
+            macroExprBody = MTerm
+              (MVar NoXVar (CName "X") []),
+            macroExprType =
+            "(forall a b. (a -> b -> a))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:7:9",
+        declId = NamePair {
+          nameC = CName "CMP",
+          nameHsIdent = HsIdentifier
+            "cMP"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "X",
+              CName "Y"],
+            macroExprBody = MApp
               MRelLT
               [
                 MTerm
                   (MVar NoXVar (CName "X") []),
                 MTerm
-                  (MVar NoXVar (CName "Y") [])])},
-        macroDeclMacroTy =
-        "(forall a b. RelOrd a b => (a -> b -> IntLike (CIntegralType (IntLike (Int Signed)))))",
-        macroDeclSourceLoc =
-        "macro_functions.h:7:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:8:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "FUN1",
-          macroArgs = [
-            CName "X",
-            CName "Y"],
-          macroBody = ExpressionMacro
-            (MApp
+                  (MVar NoXVar (CName "Y") [])],
+            macroExprType =
+            "(forall a b. RelOrd a b => (a -> b -> IntLike (CIntegralType (IntLike (Int Signed)))))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:8:9",
+        declId = NamePair {
+          nameC = CName "FUN1",
+          nameHsIdent = HsIdentifier
+            "fUN1"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "X",
+              CName "Y"],
+            macroExprBody = MApp
               MAdd
               [
                 MTerm
@@ -145,29 +169,31 @@ Header
                             Unsigned,
                           integerLiteralValue = 12}),
                     MTerm
-                      (MVar
-                        NoXVar
-                        (CName "Y")
-                        [])]])},
-        macroDeclMacroTy =
-        "(forall a b. Add a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b) => Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (a -> b -> AddRes a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b)))",
-        macroDeclSourceLoc =
-        "macro_functions.h:8:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:9:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "FUN2",
-          macroArgs = [
-            CName "X",
-            CName "Y"],
-          macroBody = ExpressionMacro
-            (MApp
+                      (MVar NoXVar (CName "Y") [])]],
+            macroExprType =
+            "(forall a b. Add a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b) => Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (a -> b -> AddRes a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b)))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:9:9",
+        declId = NamePair {
+          nameC = CName "FUN2",
+          nameHsIdent = HsIdentifier
+            "fUN2"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "X",
+              CName "Y"],
+            macroExprBody = MApp
               MShiftLeft
               [
                 MTerm
@@ -183,29 +209,31 @@ Header
                             Unsigned,
                           integerLiteralValue = 3}),
                     MTerm
-                      (MVar
-                        NoXVar
-                        (CName "Y")
-                        [])]])},
-        macroDeclMacroTy =
-        "(forall a b. Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => IntLike b_10[tau] ~ MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (IntLike a -> b -> ShiftRes (IntLike a)))",
-        macroDeclSourceLoc =
-        "macro_functions.h:9:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:11:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "G",
-          macroArgs = [
-            CName "X",
-            CName "Y"],
-          macroBody = ExpressionMacro
-            (MTerm
+                      (MVar NoXVar (CName "Y") [])]],
+            macroExprType =
+            "(forall a b. Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => IntLike b_10[tau] ~ MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (IntLike a -> b -> ShiftRes (IntLike a)))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:11:9",
+        declId = NamePair {
+          nameC = CName "G",
+          nameHsIdent = HsIdentifier
+            "g"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "X",
+              CName "Y"],
+            macroExprBody = MTerm
               (MVar
                 NoXVar
                 (CName "CONST")
@@ -226,26 +254,31 @@ Header
                           (MVar
                             NoXVar
                             (CName "X")
-                            [])])]))},
-        macroDeclMacroTy =
-        "(forall a b. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (b -> a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))",
-        macroDeclSourceLoc =
-        "macro_functions.h:11:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:13:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "DIV1",
-          macroArgs = [
-            CName "X",
-            CName "Y"],
-          macroBody = ExpressionMacro
-            (MApp
+                            [])])]),
+            macroExprType =
+            "(forall a b. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (b -> a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:13:9",
+        declId = NamePair {
+          nameC = CName "DIV1",
+          nameHsIdent = HsIdentifier
+            "dIV1"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "X",
+              CName "Y"],
+            macroExprBody = MApp
               MDiv
               [
                 MTerm
@@ -261,26 +294,31 @@ Header
                           integerLiteralText = "12u",
                           integerLiteralType = Int
                             Unsigned,
-                          integerLiteralValue = 12})]])},
-        macroDeclMacroTy =
-        "(forall a b. Add b (IntLike (CIntegralType (IntLike (Int Unsigned)))) => Div a (AddRes b (IntLike (CIntegralType (IntLike (Int Unsigned))))) => (a -> b -> DivRes a (AddRes b (IntLike (CIntegralType (IntLike (Int Unsigned)))))))",
-        macroDeclSourceLoc =
-        "macro_functions.h:13:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_functions.h:14:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "DIV2",
-          macroArgs = [
-            CName "X",
-            CName "Y"],
-          macroBody = ExpressionMacro
-            (MApp
+                          integerLiteralValue = 12})]],
+            macroExprType =
+            "(forall a b. Add b (IntLike (CIntegralType (IntLike (Int Unsigned)))) => Div a (AddRes b (IntLike (CIntegralType (IntLike (Int Unsigned))))) => (a -> b -> DivRes a (AddRes b (IntLike (CIntegralType (IntLike (Int Unsigned)))))))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:14:9",
+        declId = NamePair {
+          nameC = CName "DIV2",
+          nameHsIdent = HsIdentifier
+            "dIV2"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "X",
+              CName "Y"],
+            macroExprBody = MApp
               MDiv
               [
                 MApp
@@ -298,8 +336,13 @@ Header
                     MTerm
                       (MVar NoXVar (CName "X") [])],
                 MTerm
-                  (MVar NoXVar (CName "Y") [])])},
-        macroDeclMacroTy =
-        "(forall a b. Mult (FloatLike FloatType) a => Div (MultRes (FloatLike FloatType) a) b => (a -> b -> DivRes (MultRes (FloatLike FloatType) a) b))",
-        macroDeclSourceLoc =
-        "macro_functions.h:14:9"}]
+                  (MVar NoXVar (CName "Y") [])],
+            macroExprType =
+            "(forall a b. Mult (FloatLike FloatType) a => Div (MultRes (FloatLike FloatType) a) b => (a -> b -> DivRes (MultRes (FloatLike FloatType) a) b))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["macro_functions"]}

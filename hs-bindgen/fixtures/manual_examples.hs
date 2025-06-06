@@ -14,85 +14,110 @@
             "triple_a",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:15:9",
+              structFieldName = NamePair {
+                nameC = CName "a",
+                nameHsIdent = HsIdentifier
+                  "triple_a"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:15:9"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "triple_b",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:16:9",
+              structFieldName = NamePair {
+                nameC = CName "b",
+                nameHsIdent = HsIdentifier
+                  "triple_b"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:16:9"}},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "triple_c",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "c",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:17:9",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "triple_c"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:17:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "triple"),
-          structAliases = [
-            CName "triple"],
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:15:9"},
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:16:9"},
-            StructField {
-              fieldName = CName "c",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:17:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:14:16"},
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:14:16",
+            declId = NamePair {
+              nameC = CName "triple",
+              nameHsIdent = HsIdentifier
+                "Triple"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Triple"),
+              structSizeof = 12,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:15:9",
+                  structFieldName = NamePair {
+                    nameC = CName "a",
+                    nameHsIdent = HsIdentifier
+                      "triple_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:16:9",
+                  structFieldName = NamePair {
+                    nameC = CName "b",
+                    nameHsIdent = HsIdentifier
+                      "triple_b"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:17:9",
+                  structFieldName = NamePair {
+                    nameC = CName "c",
+                    nameHsIdent = HsIdentifier
+                      "triple_c"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -111,85 +136,110 @@
               "triple_a",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:15:9",
+                structFieldName = NamePair {
+                  nameC = CName "a",
+                  nameHsIdent = HsIdentifier
+                    "triple_a"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:15:9"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "triple_b",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "b",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:16:9",
+                structFieldName = NamePair {
+                  nameC = CName "b",
+                  nameHsIdent = HsIdentifier
+                    "triple_b"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:16:9"}},
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "triple_c",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "c",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:17:9",
+                structFieldName = NamePair {
+                  nameC = CName "c",
+                  nameHsIdent = HsIdentifier
+                    "triple_c"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:17:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "triple"),
-            structAliases = [
-              CName "triple"],
-            structSizeof = 12,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "a",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:15:9"},
-              StructField {
-                fieldName = CName "b",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:16:9"},
-              StructField {
-                fieldName = CName "c",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:17:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:14:16"},
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:14:16",
+              declId = NamePair {
+                nameC = CName "triple",
+                nameHsIdent = HsIdentifier
+                  "Triple"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Triple"),
+                structSizeof = 12,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:15:9",
+                    structFieldName = NamePair {
+                      nameC = CName "a",
+                      nameHsIdent = HsIdentifier
+                        "triple_a"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:16:9",
+                    structFieldName = NamePair {
+                      nameC = CName "b",
+                      nameHsIdent = HsIdentifier
+                        "triple_b"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:17:9",
+                    structFieldName = NamePair {
+                      nameC = CName "c",
+                      nameHsIdent = HsIdentifier
+                        "triple_c"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -213,85 +263,110 @@
                       "triple_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:15:9",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "triple_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:15:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "triple_b",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "b",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:16:9",
+                        structFieldName = NamePair {
+                          nameC = CName "b",
+                          nameHsIdent = HsIdentifier
+                            "triple_b"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:16:9"}},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "triple_c",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "c",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:17:9",
+                        structFieldName = NamePair {
+                          nameC = CName "c",
+                          nameHsIdent = HsIdentifier
+                            "triple_c"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:17:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "triple"),
-                    structAliases = [
-                      CName "triple"],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:15:9"},
-                      StructField {
-                        fieldName = CName "b",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:16:9"},
-                      StructField {
-                        fieldName = CName "c",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:17:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:14:16"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:14:16",
+                      declId = NamePair {
+                        nameC = CName "triple",
+                        nameHsIdent = HsIdentifier
+                          "Triple"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Triple"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:15:9",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "triple_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:16:9",
+                            structFieldName = NamePair {
+                              nameC = CName "b",
+                              nameHsIdent = HsIdentifier
+                                "triple_b"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:17:9",
+                            structFieldName = NamePair {
+                              nameC = CName "c",
+                              nameHsIdent = HsIdentifier
+                                "triple_c"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -318,85 +393,110 @@
                       "triple_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:15:9",
+                        structFieldName = NamePair {
+                          nameC = CName "a",
+                          nameHsIdent = HsIdentifier
+                            "triple_a"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:15:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "triple_b",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "b",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:16:9",
+                        structFieldName = NamePair {
+                          nameC = CName "b",
+                          nameHsIdent = HsIdentifier
+                            "triple_b"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:16:9"}},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "triple_c",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "c",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:17:9",
+                        structFieldName = NamePair {
+                          nameC = CName "c",
+                          nameHsIdent = HsIdentifier
+                            "triple_c"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:17:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "triple"),
-                    structAliases = [
-                      CName "triple"],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "a",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:15:9"},
-                      StructField {
-                        fieldName = CName "b",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:16:9"},
-                      StructField {
-                        fieldName = CName "c",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:17:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:14:16"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:14:16",
+                      declId = NamePair {
+                        nameC = CName "triple",
+                        nameHsIdent = HsIdentifier
+                          "Triple"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Triple"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:15:9",
+                            structFieldName = NamePair {
+                              nameC = CName "a",
+                              nameHsIdent = HsIdentifier
+                                "triple_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:16:9",
+                            structFieldName = NamePair {
+                              nameC = CName "b",
+                              nameHsIdent = HsIdentifier
+                                "triple_b"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:17:9",
+                            structFieldName = NamePair {
+                              nameC = CName "c",
+                              nameHsIdent = HsIdentifier
+                                "triple_c"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -423,7 +523,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "void testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }",
+    "void testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -448,10 +548,8 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "mk_triple",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed),
@@ -460,14 +558,17 @@
             TypePrim
               (PrimIntegral PrimInt Signed),
             TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "triple")))],
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "triple")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "Triple"})))],
           functionRes = TypeVoid,
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:20:6"}},
+          "manual_examples.h"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -482,35 +583,56 @@
           "un_Index",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "index"),
-          enumAliases = [CName "index"],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "A",
-              valueValue = 0,
-              valueSourceLoc =
-              "manual_examples.h:27:5"},
-            EnumValue {
-              valueName = CName "B",
-              valueValue = 1,
-              valueSourceLoc =
-              "manual_examples.h:28:5"},
-            EnumValue {
-              valueName = CName "C",
-              valueValue = 2,
-              valueSourceLoc =
-              "manual_examples.h:29:5"}],
-          enumSourceLoc =
-          "manual_examples.h:26:14"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:26:14",
+          declId = NamePair {
+            nameC = CName "index",
+            nameHsIdent = HsIdentifier
+              "Index"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Index",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Index"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:27:5",
+                enumConstantName = NamePair {
+                  nameC = CName "A",
+                  nameHsIdent = HsIdentifier "A"},
+                enumConstantValue = 0},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:28:5",
+                enumConstantName = NamePair {
+                  nameC = CName "B",
+                  nameHsIdent = HsIdentifier "B"},
+                enumConstantValue = 1},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:29:5",
+                enumConstantName = NamePair {
+                  nameC = CName "C",
+                  nameHsIdent = HsIdentifier "C"},
+                enumConstantValue = 2}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -534,34 +656,8 @@
               "un_Index",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "index"),
-            enumAliases = [CName "index"],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "A",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:27:5"},
-              EnumValue {
-                valueName = CName "B",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:28:5"},
-              EnumValue {
-                valueName = CName "C",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:29:5"}],
-            enumSourceLoc =
-            "manual_examples.h:26:14"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -585,34 +681,8 @@
                       "un_Index",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "index"),
-                    enumAliases = [CName "index"],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "A",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "manual_examples.h:27:5"},
-                      EnumValue {
-                        valueName = CName "B",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "manual_examples.h:28:5"},
-                      EnumValue {
-                        valueName = CName "C",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "manual_examples.h:29:5"}],
-                    enumSourceLoc =
-                    "manual_examples.h:26:14"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -641,34 +711,8 @@
                       "un_Index",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "index"),
-                    enumAliases = [CName "index"],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "A",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "manual_examples.h:27:5"},
-                      EnumValue {
-                        valueName = CName "B",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "manual_examples.h:28:5"},
-                      EnumValue {
-                        valueName = CName "C",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "manual_examples.h:29:5"}],
-                    enumSourceLoc =
-                    "manual_examples.h:26:14"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -706,34 +750,8 @@
               "un_Index",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "index"),
-            enumAliases = [CName "index"],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "A",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:27:5"},
-              EnumValue {
-                valueName = CName "B",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:28:5"},
-              EnumValue {
-                valueName = CName "C",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:29:5"}],
-            enumSourceLoc =
-            "manual_examples.h:26:14"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -759,34 +777,8 @@
               "un_Index",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "index"),
-            enumAliases = [CName "index"],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "A",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:27:5"},
-              EnumValue {
-                valueName = CName "B",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:28:5"},
-              EnumValue {
-                valueName = CName "C",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:29:5"}],
-            enumSourceLoc =
-            "manual_examples.h:26:14"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "A")
@@ -807,34 +799,8 @@
               "un_Index",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "index"),
-            enumAliases = [CName "index"],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "A",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:27:5"},
-              EnumValue {
-                valueName = CName "B",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:28:5"},
-              EnumValue {
-                valueName = CName "C",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:29:5"}],
-            enumSourceLoc =
-            "manual_examples.h:26:14"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -858,34 +824,8 @@
               "un_Index",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "index"),
-            enumAliases = [CName "index"],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "A",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:27:5"},
-              EnumValue {
-                valueName = CName "B",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:28:5"},
-              EnumValue {
-                valueName = CName "C",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:29:5"}],
-            enumSourceLoc =
-            "manual_examples.h:26:14"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -905,13 +845,14 @@
         "@NsConstr"
         "Index",
       patSynValue = 0,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "A",
-          valueValue = 0,
-          valueSourceLoc =
-          "manual_examples.h:27:5"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:27:5",
+          enumConstantName = NamePair {
+            nameC = CName "A",
+            nameHsIdent = HsIdentifier "A"},
+          enumConstantValue = 0}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -924,13 +865,14 @@
         "@NsConstr"
         "Index",
       patSynValue = 1,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "B",
-          valueValue = 1,
-          valueSourceLoc =
-          "manual_examples.h:28:5"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:28:5",
+          enumConstantName = NamePair {
+            nameC = CName "B",
+            nameHsIdent = HsIdentifier "B"},
+          enumConstantValue = 1}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -943,17 +885,18 @@
         "@NsConstr"
         "Index",
       patSynValue = 2,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "C",
-          valueValue = 2,
-          valueSourceLoc =
-          "manual_examples.h:29:5"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:29:5",
+          enumConstantName = NamePair {
+            nameC = CName "C",
+            nameHsIdent = HsIdentifier "C"},
+          enumConstantValue = 2}},
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "signed int testmodule_index_triple (struct triple *arg1, enum index arg2) { return index_triple(arg1, arg2); }",
+    "signed int testmodule_index_triple (triple *arg1, index arg2) { return index_triple(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -976,23 +919,30 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "index_triple",
           functionArgs = [
             TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "triple"))),
-            TypeEnum
-              (DeclPathName (CName "index"))],
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "triple")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "Triple"}))),
+            TypeTypedef
+              (TypedefSquashed
+                (CName "index")
+                (TypeEnum
+                  NamePair {
+                    nameC = CName "index",
+                    nameHsIdent = HsIdentifier
+                      "Index"}))],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed),
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:32:5"}},
+          "manual_examples.h"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1007,15 +957,32 @@
           "un_Sum",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "sum",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "manual_examples.h:38:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:38:13",
+          declId = NamePair {
+            nameC = CName "sum",
+            nameHsIdent = HsIdentifier
+              "Sum"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Sum",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Sum"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1097,15 +1064,32 @@
           "un_Average",
         fieldType = HsPrimType
           HsPrimCDouble,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "average",
-          typedefType = TypePrim
-            (PrimFloating PrimDouble),
-          typedefSourceLoc =
-          "manual_examples.h:39:16"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:39:16",
+          declId = NamePair {
+            nameC = CName "average",
+            nameHsIdent = HsIdentifier
+              "Average"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Average",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Average"},
+            typedefType = TypePrim
+              (PrimFloating PrimDouble)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1195,7 +1179,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "sum testmodule_sum_triple (struct triple *arg1) { return sum_triple(arg1); }",
+    "sum testmodule_sum_triple (triple *arg1) { return sum_triple(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1217,25 +1201,30 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "sum_triple",
           functionArgs = [
             TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "triple")))],
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "triple")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "Triple"})))],
           functionRes = TypeTypedef
-            (CName "sum"),
+            (TypedefRegular
+              NamePair {
+                nameC = CName "sum",
+                nameHsIdent = HsIdentifier
+                  "Sum"}),
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:41:5"}},
+          "manual_examples.h"}},
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "average testmodule_average_triple (struct triple *arg1) { return average_triple(arg1); }",
+    "average testmodule_average_triple (triple *arg1) { return average_triple(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1257,21 +1246,26 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "average_triple",
           functionArgs = [
             TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "triple")))],
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "triple")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "triple",
+                      nameHsIdent = HsIdentifier
+                        "Triple"})))],
           functionRes = TypeTypedef
-            (CName "average"),
+            (TypedefRegular
+              NamePair {
+                nameC = CName "average",
+                nameHsIdent = HsIdentifier
+                  "Average"}),
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:42:9"}},
+          "manual_examples.h"}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -1392,30 +1386,32 @@
           "un_YEAR",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:53:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "YEAR",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:53:9",
+          declId = NamePair {
+            nameC = CName "YEAR",
+            nameHsIdent = HsIdentifier
+              "YEAR"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "YEAR",
+              newtypeField = HsName
+                "@NsVar"
+                "un_YEAR"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1497,30 +1493,32 @@
           "un_MONTH",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:54:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "MONTH",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:54:9",
+          declId = NamePair {
+            nameC = CName "MONTH",
+            nameHsIdent = HsIdentifier
+              "MONTH"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "MONTH",
+              newtypeField = HsName
+                "@NsVar"
+                "un_MONTH"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1628,30 +1626,32 @@
           "un_DAY",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:55:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "DAY",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:55:9",
+          declId = NamePair {
+            nameC = CName "DAY",
+            nameHsIdent = HsIdentifier
+              "DAY"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "DAY",
+              newtypeField = HsName
+                "@NsVar"
+                "un_DAY"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1734,16 +1734,22 @@
             "date_year",
           fieldType = HsTypRef
             (HsName "@NsTypeConstr" "YEAR"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "year",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "YEAR"),
-              fieldSourceLoc =
-              "manual_examples.h:58:11"}},
+              structFieldLoc =
+              "manual_examples.h:58:11",
+              structFieldName = NamePair {
+                nameC = CName "year",
+                nameHsIdent = HsIdentifier
+                  "date_year"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "YEAR",
+                    nameHsIdent = HsIdentifier
+                      "YEAR"}),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1752,68 +1758,112 @@
             (HsName
               "@NsTypeConstr"
               "MONTH"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "month",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "MONTH"),
-              fieldSourceLoc =
-              "manual_examples.h:59:11"}},
+              structFieldLoc =
+              "manual_examples.h:59:11",
+              structFieldName = NamePair {
+                nameC = CName "month",
+                nameHsIdent = HsIdentifier
+                  "date_month"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "MONTH",
+                    nameHsIdent = HsIdentifier
+                      "MONTH"}),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "date_day",
           fieldType = HsTypRef
             (HsName "@NsTypeConstr" "DAY"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "day",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "DAY"),
-              fieldSourceLoc =
-              "manual_examples.h:60:11"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "date"),
-          structAliases = [CName "date"],
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "year",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "YEAR"),
-              fieldSourceLoc =
-              "manual_examples.h:58:11"},
-            StructField {
-              fieldName = CName "month",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "MONTH"),
-              fieldSourceLoc =
-              "manual_examples.h:59:11"},
-            StructField {
-              fieldName = CName "day",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "DAY"),
-              fieldSourceLoc =
-              "manual_examples.h:60:11"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:57:16"},
+              structFieldLoc =
+              "manual_examples.h:60:11",
+              structFieldName = NamePair {
+                nameC = CName "day",
+                nameHsIdent = HsIdentifier
+                  "date_day"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "DAY",
+                    nameHsIdent = HsIdentifier
+                      "DAY"}),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:57:16",
+            declId = NamePair {
+              nameC = CName "date",
+              nameHsIdent = HsIdentifier
+                "Date"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Date"),
+              structSizeof = 12,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:58:11",
+                  structFieldName = NamePair {
+                    nameC = CName "year",
+                    nameHsIdent = HsIdentifier
+                      "date_year"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "YEAR",
+                        nameHsIdent = HsIdentifier
+                          "YEAR"}),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:59:11",
+                  structFieldName = NamePair {
+                    nameC = CName "month",
+                    nameHsIdent = HsIdentifier
+                      "date_month"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "MONTH",
+                        nameHsIdent = HsIdentifier
+                          "MONTH"}),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:60:11",
+                  structFieldName = NamePair {
+                    nameC = CName "day",
+                    nameHsIdent = HsIdentifier
+                      "date_day"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "DAY",
+                        nameHsIdent = HsIdentifier
+                          "DAY"}),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1832,16 +1882,22 @@
               "date_year",
             fieldType = HsTypRef
               (HsName "@NsTypeConstr" "YEAR"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "year",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "YEAR"),
-                fieldSourceLoc =
-                "manual_examples.h:58:11"}},
+                structFieldLoc =
+                "manual_examples.h:58:11",
+                structFieldName = NamePair {
+                  nameC = CName "year",
+                  nameHsIdent = HsIdentifier
+                    "date_year"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "YEAR",
+                      nameHsIdent = HsIdentifier
+                        "YEAR"}),
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1850,68 +1906,112 @@
               (HsName
                 "@NsTypeConstr"
                 "MONTH"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "month",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "MONTH"),
-                fieldSourceLoc =
-                "manual_examples.h:59:11"}},
+                structFieldLoc =
+                "manual_examples.h:59:11",
+                structFieldName = NamePair {
+                  nameC = CName "month",
+                  nameHsIdent = HsIdentifier
+                    "date_month"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "MONTH",
+                      nameHsIdent = HsIdentifier
+                        "MONTH"}),
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "date_day",
             fieldType = HsTypRef
               (HsName "@NsTypeConstr" "DAY"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "day",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "DAY"),
-                fieldSourceLoc =
-                "manual_examples.h:60:11"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "date"),
-            structAliases = [CName "date"],
-            structSizeof = 12,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "year",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "YEAR"),
-                fieldSourceLoc =
-                "manual_examples.h:58:11"},
-              StructField {
-                fieldName = CName "month",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "MONTH"),
-                fieldSourceLoc =
-                "manual_examples.h:59:11"},
-              StructField {
-                fieldName = CName "day",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "DAY"),
-                fieldSourceLoc =
-                "manual_examples.h:60:11"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:57:16"},
+                structFieldLoc =
+                "manual_examples.h:60:11",
+                structFieldName = NamePair {
+                  nameC = CName "day",
+                  nameHsIdent = HsIdentifier
+                    "date_day"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "DAY",
+                      nameHsIdent = HsIdentifier
+                        "DAY"}),
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:57:16",
+              declId = NamePair {
+                nameC = CName "date",
+                nameHsIdent = HsIdentifier
+                  "Date"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Date"),
+                structSizeof = 12,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:58:11",
+                    structFieldName = NamePair {
+                      nameC = CName "year",
+                      nameHsIdent = HsIdentifier
+                        "date_year"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "YEAR",
+                          nameHsIdent = HsIdentifier
+                            "YEAR"}),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:59:11",
+                    structFieldName = NamePair {
+                      nameC = CName "month",
+                      nameHsIdent = HsIdentifier
+                        "date_month"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "MONTH",
+                          nameHsIdent = HsIdentifier
+                            "MONTH"}),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:60:11",
+                    structFieldName = NamePair {
+                      nameC = CName "day",
+                      nameHsIdent = HsIdentifier
+                        "date_day"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "DAY",
+                          nameHsIdent = HsIdentifier
+                            "DAY"}),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1935,16 +2035,22 @@
                       "date_year",
                     fieldType = HsTypRef
                       (HsName "@NsTypeConstr" "YEAR"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "year",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "YEAR"),
-                        fieldSourceLoc =
-                        "manual_examples.h:58:11"}},
+                        structFieldLoc =
+                        "manual_examples.h:58:11",
+                        structFieldName = NamePair {
+                          nameC = CName "year",
+                          nameHsIdent = HsIdentifier
+                            "date_year"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "YEAR",
+                              nameHsIdent = HsIdentifier
+                                "YEAR"}),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1953,68 +2059,112 @@
                       (HsName
                         "@NsTypeConstr"
                         "MONTH"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "month",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "MONTH"),
-                        fieldSourceLoc =
-                        "manual_examples.h:59:11"}},
+                        structFieldLoc =
+                        "manual_examples.h:59:11",
+                        structFieldName = NamePair {
+                          nameC = CName "month",
+                          nameHsIdent = HsIdentifier
+                            "date_month"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "MONTH",
+                              nameHsIdent = HsIdentifier
+                                "MONTH"}),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "date_day",
                     fieldType = HsTypRef
                       (HsName "@NsTypeConstr" "DAY"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "day",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "DAY"),
-                        fieldSourceLoc =
-                        "manual_examples.h:60:11"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "date"),
-                    structAliases = [CName "date"],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "year",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "YEAR"),
-                        fieldSourceLoc =
-                        "manual_examples.h:58:11"},
-                      StructField {
-                        fieldName = CName "month",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "MONTH"),
-                        fieldSourceLoc =
-                        "manual_examples.h:59:11"},
-                      StructField {
-                        fieldName = CName "day",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "DAY"),
-                        fieldSourceLoc =
-                        "manual_examples.h:60:11"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:57:16"},
+                        structFieldLoc =
+                        "manual_examples.h:60:11",
+                        structFieldName = NamePair {
+                          nameC = CName "day",
+                          nameHsIdent = HsIdentifier
+                            "date_day"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "DAY",
+                              nameHsIdent = HsIdentifier
+                                "DAY"}),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:57:16",
+                      declId = NamePair {
+                        nameC = CName "date",
+                        nameHsIdent = HsIdentifier
+                          "Date"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Date"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:58:11",
+                            structFieldName = NamePair {
+                              nameC = CName "year",
+                              nameHsIdent = HsIdentifier
+                                "date_year"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "YEAR",
+                                  nameHsIdent = HsIdentifier
+                                    "YEAR"}),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:59:11",
+                            structFieldName = NamePair {
+                              nameC = CName "month",
+                              nameHsIdent = HsIdentifier
+                                "date_month"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "MONTH",
+                                  nameHsIdent = HsIdentifier
+                                    "MONTH"}),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:60:11",
+                            structFieldName = NamePair {
+                              nameC = CName "day",
+                              nameHsIdent = HsIdentifier
+                                "date_day"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "DAY",
+                                  nameHsIdent = HsIdentifier
+                                    "DAY"}),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2041,16 +2191,22 @@
                       "date_year",
                     fieldType = HsTypRef
                       (HsName "@NsTypeConstr" "YEAR"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "year",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "YEAR"),
-                        fieldSourceLoc =
-                        "manual_examples.h:58:11"}},
+                        structFieldLoc =
+                        "manual_examples.h:58:11",
+                        structFieldName = NamePair {
+                          nameC = CName "year",
+                          nameHsIdent = HsIdentifier
+                            "date_year"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "YEAR",
+                              nameHsIdent = HsIdentifier
+                                "YEAR"}),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2059,68 +2215,112 @@
                       (HsName
                         "@NsTypeConstr"
                         "MONTH"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "month",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "MONTH"),
-                        fieldSourceLoc =
-                        "manual_examples.h:59:11"}},
+                        structFieldLoc =
+                        "manual_examples.h:59:11",
+                        structFieldName = NamePair {
+                          nameC = CName "month",
+                          nameHsIdent = HsIdentifier
+                            "date_month"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "MONTH",
+                              nameHsIdent = HsIdentifier
+                                "MONTH"}),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "date_day",
                     fieldType = HsTypRef
                       (HsName "@NsTypeConstr" "DAY"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "day",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "DAY"),
-                        fieldSourceLoc =
-                        "manual_examples.h:60:11"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "date"),
-                    structAliases = [CName "date"],
-                    structSizeof = 12,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "year",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "YEAR"),
-                        fieldSourceLoc =
-                        "manual_examples.h:58:11"},
-                      StructField {
-                        fieldName = CName "month",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "MONTH"),
-                        fieldSourceLoc =
-                        "manual_examples.h:59:11"},
-                      StructField {
-                        fieldName = CName "day",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "DAY"),
-                        fieldSourceLoc =
-                        "manual_examples.h:60:11"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:57:16"},
+                        structFieldLoc =
+                        "manual_examples.h:60:11",
+                        structFieldName = NamePair {
+                          nameC = CName "day",
+                          nameHsIdent = HsIdentifier
+                            "date_day"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "DAY",
+                              nameHsIdent = HsIdentifier
+                                "DAY"}),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:57:16",
+                      declId = NamePair {
+                        nameC = CName "date",
+                        nameHsIdent = HsIdentifier
+                          "Date"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Date"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:58:11",
+                            structFieldName = NamePair {
+                              nameC = CName "year",
+                              nameHsIdent = HsIdentifier
+                                "date_year"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "YEAR",
+                                  nameHsIdent = HsIdentifier
+                                    "YEAR"}),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:59:11",
+                            structFieldName = NamePair {
+                              nameC = CName "month",
+                              nameHsIdent = HsIdentifier
+                                "date_month"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "MONTH",
+                                  nameHsIdent = HsIdentifier
+                                    "MONTH"}),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:60:11",
+                            structFieldName = NamePair {
+                              nameC = CName "day",
+                              nameHsIdent = HsIdentifier
+                                "date_day"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "DAY",
+                                  nameHsIdent = HsIdentifier
+                                    "DAY"}),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -2165,18 +2365,26 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "getYear",
           functionArgs = [
             TypePointer
-              (TypeTypedef (CName "date"))],
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "date")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "date",
+                      nameHsIdent = HsIdentifier
+                        "Date"})))],
           functionRes = TypeTypedef
-            (CName "YEAR"),
+            (TypedefRegular
+              NamePair {
+                nameC = CName "YEAR",
+                nameHsIdent = HsIdentifier
+                  "YEAR"}),
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:63:6"}},
+          "manual_examples.h"}},
   DeclData
     Struct {
       structName = HsName
@@ -2192,66 +2400,87 @@
             "student_university",
           fieldType = HsPtr
             (HsPrimType HsPrimCChar),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "university",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
+              structFieldLoc =
+              "manual_examples.h:71:11",
+              structFieldName = NamePair {
+                nameC = CName "university",
+                nameHsIdent = HsIdentifier
+                  "student_university"},
+              structFieldType = TypePointer
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit
                       (Just Signed)))),
-              fieldSourceLoc =
-              "manual_examples.h:71:11"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "student_year",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "year",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:72:9",
+              structFieldName = NamePair {
+                nameC = CName "year",
+                nameHsIdent = HsIdentifier
+                  "student_year"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:72:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "student"),
-          structAliases = [],
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "university",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))),
-              fieldSourceLoc =
-              "manual_examples.h:71:11"},
-            StructField {
-              fieldName = CName "year",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:72:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:70:10"},
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:70:10",
+            declId = NamePair {
+              nameC = CName "student",
+              nameHsIdent = HsIdentifier
+                "Student"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Student"),
+              structSizeof = 16,
+              structAlignment = 8,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:71:11",
+                  structFieldName = NamePair {
+                    nameC = CName "university",
+                    nameHsIdent = HsIdentifier
+                      "student_university"},
+                  structFieldType = TypePointer
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit
+                          (Just Signed)))),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:72:9",
+                  structFieldName = NamePair {
+                    nameC = CName "year",
+                    nameHsIdent = HsIdentifier
+                      "student_year"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2270,66 +2499,87 @@
               "student_university",
             fieldType = HsPtr
               (HsPrimType HsPrimCChar),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "university",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
+                structFieldLoc =
+                "manual_examples.h:71:11",
+                structFieldName = NamePair {
+                  nameC = CName "university",
+                  nameHsIdent = HsIdentifier
+                    "student_university"},
+                structFieldType = TypePointer
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed)))),
-                fieldSourceLoc =
-                "manual_examples.h:71:11"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "student_year",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "year",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:72:9",
+                structFieldName = NamePair {
+                  nameC = CName "year",
+                  nameHsIdent = HsIdentifier
+                    "student_year"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:72:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "student"),
-            structAliases = [],
-            structSizeof = 16,
-            structAlignment = 8,
-            structFields = [
-              StructField {
-                fieldName = CName "university",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
-                  (TypePrim
-                    (PrimChar
-                      (PrimSignImplicit
-                        (Just Signed)))),
-                fieldSourceLoc =
-                "manual_examples.h:71:11"},
-              StructField {
-                fieldName = CName "year",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:72:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:70:10"},
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:70:10",
+              declId = NamePair {
+                nameC = CName "student",
+                nameHsIdent = HsIdentifier
+                  "Student"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Student"),
+                structSizeof = 16,
+                structAlignment = 8,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:71:11",
+                    structFieldName = NamePair {
+                      nameC = CName "university",
+                      nameHsIdent = HsIdentifier
+                        "student_university"},
+                    structFieldType = TypePointer
+                      (TypePrim
+                        (PrimChar
+                          (PrimSignImplicit
+                            (Just Signed)))),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:72:9",
+                    structFieldName = NamePair {
+                      nameC = CName "year",
+                      nameHsIdent = HsIdentifier
+                        "student_year"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2353,66 +2603,87 @@
                       "student_university",
                     fieldType = HsPtr
                       (HsPrimType HsPrimCChar),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "university",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "manual_examples.h:71:11",
+                        structFieldName = NamePair {
+                          nameC = CName "university",
+                          nameHsIdent = HsIdentifier
+                            "student_university"},
+                        structFieldType = TypePointer
                           (TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed)))),
-                        fieldSourceLoc =
-                        "manual_examples.h:71:11"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "student_year",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "year",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:72:9",
+                        structFieldName = NamePair {
+                          nameC = CName "year",
+                          nameHsIdent = HsIdentifier
+                            "student_year"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:72:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "student"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "university",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypePrim
-                            (PrimChar
-                              (PrimSignImplicit
-                                (Just Signed)))),
-                        fieldSourceLoc =
-                        "manual_examples.h:71:11"},
-                      StructField {
-                        fieldName = CName "year",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:72:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:70:10"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:70:10",
+                      declId = NamePair {
+                        nameC = CName "student",
+                        nameHsIdent = HsIdentifier
+                          "Student"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Student"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:71:11",
+                            structFieldName = NamePair {
+                              nameC = CName "university",
+                              nameHsIdent = HsIdentifier
+                                "student_university"},
+                            structFieldType = TypePointer
+                              (TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed)))),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:72:9",
+                            structFieldName = NamePair {
+                              nameC = CName "year",
+                              nameHsIdent = HsIdentifier
+                                "student_year"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2438,66 +2709,87 @@
                       "student_university",
                     fieldType = HsPtr
                       (HsPrimType HsPrimCChar),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "university",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "manual_examples.h:71:11",
+                        structFieldName = NamePair {
+                          nameC = CName "university",
+                          nameHsIdent = HsIdentifier
+                            "student_university"},
+                        structFieldType = TypePointer
                           (TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed)))),
-                        fieldSourceLoc =
-                        "manual_examples.h:71:11"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "student_year",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "year",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:72:9",
+                        structFieldName = NamePair {
+                          nameC = CName "year",
+                          nameHsIdent = HsIdentifier
+                            "student_year"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:72:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "student"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "university",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypePrim
-                            (PrimChar
-                              (PrimSignImplicit
-                                (Just Signed)))),
-                        fieldSourceLoc =
-                        "manual_examples.h:71:11"},
-                      StructField {
-                        fieldName = CName "year",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:72:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:70:10"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:70:10",
+                      declId = NamePair {
+                        nameC = CName "student",
+                        nameHsIdent = HsIdentifier
+                          "Student"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Student"),
+                        structSizeof = 16,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:71:11",
+                            structFieldName = NamePair {
+                              nameC = CName "university",
+                              nameHsIdent = HsIdentifier
+                                "student_university"},
+                            structFieldType = TypePointer
+                              (TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed)))),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:72:9",
+                            structFieldName = NamePair {
+                              nameC = CName "year",
+                              nameHsIdent = HsIdentifier
+                                "student_year"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2520,6 +2812,26 @@
     (HsName
       "@NsTypeConstr"
       "Student"),
+  DeclEmpty
+    EmptyData {
+      emptyDataName = HsName
+        "@NsTypeConstr"
+        "Person",
+      emptyDataOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:77:12",
+          declId = NamePair {
+            nameC = CName "person",
+            nameHsIdent = HsIdentifier
+              "Person"}},
+        declKind = OpaqueStruct,
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}}},
   DeclData
     Struct {
       structName = HsName
@@ -2535,19 +2847,21 @@
             "employee_company",
           fieldType = HsPtr
             (HsPrimType HsPrimCChar),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "company",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
+              structFieldLoc =
+              "manual_examples.h:76:11",
+              structFieldName = NamePair {
+                nameC = CName "company",
+                nameHsIdent = HsIdentifier
+                  "employee_company"},
+              structFieldType = TypePointer
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit
                       (Just Signed)))),
-              fieldSourceLoc =
-              "manual_examples.h:76:11"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2557,75 +2871,103 @@
               (HsName
                 "@NsTypeConstr"
                 "Person")),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "supervisor",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
+              structFieldLoc =
+              "manual_examples.h:77:20",
+              structFieldName = NamePair {
+                nameC = CName "supervisor",
+                nameHsIdent = HsIdentifier
+                  "employee_supervisor"},
+              structFieldType = TypePointer
                 (TypeStruct
-                  (DeclPathName
-                    (CName "person"))),
-              fieldSourceLoc =
-              "manual_examples.h:77:20"}},
+                  NamePair {
+                    nameC = CName "person",
+                    nameHsIdent = HsIdentifier
+                      "Person"}),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "employee_salary",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "salary",
-              fieldOffset = 128,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:78:9",
+              structFieldName = NamePair {
+                nameC = CName "salary",
+                nameHsIdent = HsIdentifier
+                  "employee_salary"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:78:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "employee"),
-          structAliases = [],
-          structSizeof = 24,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "company",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))),
-              fieldSourceLoc =
-              "manual_examples.h:76:11"},
-            StructField {
-              fieldName = CName "supervisor",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypeStruct
-                  (DeclPathName
-                    (CName "person"))),
-              fieldSourceLoc =
-              "manual_examples.h:77:20"},
-            StructField {
-              fieldName = CName "salary",
-              fieldOffset = 128,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:78:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:75:10"},
+              structFieldOffset = 128,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:75:10",
+            declId = NamePair {
+              nameC = CName "employee",
+              nameHsIdent = HsIdentifier
+                "Employee"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Employee"),
+              structSizeof = 24,
+              structAlignment = 8,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:76:11",
+                  structFieldName = NamePair {
+                    nameC = CName "company",
+                    nameHsIdent = HsIdentifier
+                      "employee_company"},
+                  structFieldType = TypePointer
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit
+                          (Just Signed)))),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:77:20",
+                  structFieldName = NamePair {
+                    nameC = CName "supervisor",
+                    nameHsIdent = HsIdentifier
+                      "employee_supervisor"},
+                  structFieldType = TypePointer
+                    (TypeStruct
+                      NamePair {
+                        nameC = CName "person",
+                        nameHsIdent = HsIdentifier
+                          "Person"}),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:78:9",
+                  structFieldName = NamePair {
+                    nameC = CName "salary",
+                    nameHsIdent = HsIdentifier
+                      "employee_salary"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 128,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2644,19 +2986,21 @@
               "employee_company",
             fieldType = HsPtr
               (HsPrimType HsPrimCChar),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "company",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
+                structFieldLoc =
+                "manual_examples.h:76:11",
+                structFieldName = NamePair {
+                  nameC = CName "company",
+                  nameHsIdent = HsIdentifier
+                    "employee_company"},
+                structFieldType = TypePointer
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed)))),
-                fieldSourceLoc =
-                "manual_examples.h:76:11"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2666,75 +3010,103 @@
                 (HsName
                   "@NsTypeConstr"
                   "Person")),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "supervisor",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
+                structFieldLoc =
+                "manual_examples.h:77:20",
+                structFieldName = NamePair {
+                  nameC = CName "supervisor",
+                  nameHsIdent = HsIdentifier
+                    "employee_supervisor"},
+                structFieldType = TypePointer
                   (TypeStruct
-                    (DeclPathName
-                      (CName "person"))),
-                fieldSourceLoc =
-                "manual_examples.h:77:20"}},
+                    NamePair {
+                      nameC = CName "person",
+                      nameHsIdent = HsIdentifier
+                        "Person"}),
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "employee_salary",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "salary",
-                fieldOffset = 128,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:78:9",
+                structFieldName = NamePair {
+                  nameC = CName "salary",
+                  nameHsIdent = HsIdentifier
+                    "employee_salary"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:78:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "employee"),
-            structAliases = [],
-            structSizeof = 24,
-            structAlignment = 8,
-            structFields = [
-              StructField {
-                fieldName = CName "company",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
-                  (TypePrim
-                    (PrimChar
-                      (PrimSignImplicit
-                        (Just Signed)))),
-                fieldSourceLoc =
-                "manual_examples.h:76:11"},
-              StructField {
-                fieldName = CName "supervisor",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
-                  (TypeStruct
-                    (DeclPathName
-                      (CName "person"))),
-                fieldSourceLoc =
-                "manual_examples.h:77:20"},
-              StructField {
-                fieldName = CName "salary",
-                fieldOffset = 128,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:78:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:75:10"},
+                structFieldOffset = 128,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:75:10",
+              declId = NamePair {
+                nameC = CName "employee",
+                nameHsIdent = HsIdentifier
+                  "Employee"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Employee"),
+                structSizeof = 24,
+                structAlignment = 8,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:76:11",
+                    structFieldName = NamePair {
+                      nameC = CName "company",
+                      nameHsIdent = HsIdentifier
+                        "employee_company"},
+                    structFieldType = TypePointer
+                      (TypePrim
+                        (PrimChar
+                          (PrimSignImplicit
+                            (Just Signed)))),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:77:20",
+                    structFieldName = NamePair {
+                      nameC = CName "supervisor",
+                      nameHsIdent = HsIdentifier
+                        "employee_supervisor"},
+                    structFieldType = TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = CName "person",
+                          nameHsIdent = HsIdentifier
+                            "Person"}),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:78:9",
+                    structFieldName = NamePair {
+                      nameC = CName "salary",
+                      nameHsIdent = HsIdentifier
+                        "employee_salary"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 128,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2758,19 +3130,21 @@
                       "employee_company",
                     fieldType = HsPtr
                       (HsPrimType HsPrimCChar),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "company",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "manual_examples.h:76:11",
+                        structFieldName = NamePair {
+                          nameC = CName "company",
+                          nameHsIdent = HsIdentifier
+                            "employee_company"},
+                        structFieldType = TypePointer
                           (TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed)))),
-                        fieldSourceLoc =
-                        "manual_examples.h:76:11"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2780,75 +3154,103 @@
                         (HsName
                           "@NsTypeConstr"
                           "Person")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "supervisor",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "manual_examples.h:77:20",
+                        structFieldName = NamePair {
+                          nameC = CName "supervisor",
+                          nameHsIdent = HsIdentifier
+                            "employee_supervisor"},
+                        structFieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "person"))),
-                        fieldSourceLoc =
-                        "manual_examples.h:77:20"}},
+                            NamePair {
+                              nameC = CName "person",
+                              nameHsIdent = HsIdentifier
+                                "Person"}),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "employee_salary",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "salary",
-                        fieldOffset = 128,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:78:9",
+                        structFieldName = NamePair {
+                          nameC = CName "salary",
+                          nameHsIdent = HsIdentifier
+                            "employee_salary"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:78:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "employee"),
-                    structAliases = [],
-                    structSizeof = 24,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "company",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypePrim
-                            (PrimChar
-                              (PrimSignImplicit
-                                (Just Signed)))),
-                        fieldSourceLoc =
-                        "manual_examples.h:76:11"},
-                      StructField {
-                        fieldName = CName "supervisor",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathName
-                              (CName "person"))),
-                        fieldSourceLoc =
-                        "manual_examples.h:77:20"},
-                      StructField {
-                        fieldName = CName "salary",
-                        fieldOffset = 128,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:78:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:75:10"},
+                        structFieldOffset = 128,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:75:10",
+                      declId = NamePair {
+                        nameC = CName "employee",
+                        nameHsIdent = HsIdentifier
+                          "Employee"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Employee"),
+                        structSizeof = 24,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:76:11",
+                            structFieldName = NamePair {
+                              nameC = CName "company",
+                              nameHsIdent = HsIdentifier
+                                "employee_company"},
+                            structFieldType = TypePointer
+                              (TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed)))),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:77:20",
+                            structFieldName = NamePair {
+                              nameC = CName "supervisor",
+                              nameHsIdent = HsIdentifier
+                                "employee_supervisor"},
+                            structFieldType = TypePointer
+                              (TypeStruct
+                                NamePair {
+                                  nameC = CName "person",
+                                  nameHsIdent = HsIdentifier
+                                    "Person"}),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:78:9",
+                            structFieldName = NamePair {
+                              nameC = CName "salary",
+                              nameHsIdent = HsIdentifier
+                                "employee_salary"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 128,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2875,19 +3277,21 @@
                       "employee_company",
                     fieldType = HsPtr
                       (HsPrimType HsPrimCChar),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "company",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "manual_examples.h:76:11",
+                        structFieldName = NamePair {
+                          nameC = CName "company",
+                          nameHsIdent = HsIdentifier
+                            "employee_company"},
+                        structFieldType = TypePointer
                           (TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed)))),
-                        fieldSourceLoc =
-                        "manual_examples.h:76:11"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2897,75 +3301,103 @@
                         (HsName
                           "@NsTypeConstr"
                           "Person")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "supervisor",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "manual_examples.h:77:20",
+                        structFieldName = NamePair {
+                          nameC = CName "supervisor",
+                          nameHsIdent = HsIdentifier
+                            "employee_supervisor"},
+                        structFieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "person"))),
-                        fieldSourceLoc =
-                        "manual_examples.h:77:20"}},
+                            NamePair {
+                              nameC = CName "person",
+                              nameHsIdent = HsIdentifier
+                                "Person"}),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "employee_salary",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "salary",
-                        fieldOffset = 128,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:78:9",
+                        structFieldName = NamePair {
+                          nameC = CName "salary",
+                          nameHsIdent = HsIdentifier
+                            "employee_salary"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:78:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "employee"),
-                    structAliases = [],
-                    structSizeof = 24,
-                    structAlignment = 8,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "company",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypePrim
-                            (PrimChar
-                              (PrimSignImplicit
-                                (Just Signed)))),
-                        fieldSourceLoc =
-                        "manual_examples.h:76:11"},
-                      StructField {
-                        fieldName = CName "supervisor",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathName
-                              (CName "person"))),
-                        fieldSourceLoc =
-                        "manual_examples.h:77:20"},
-                      StructField {
-                        fieldName = CName "salary",
-                        fieldOffset = 128,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:78:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:75:10"},
+                        structFieldOffset = 128,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:75:10",
+                      declId = NamePair {
+                        nameC = CName "employee",
+                        nameHsIdent = HsIdentifier
+                          "Employee"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Employee"),
+                        structSizeof = 24,
+                        structAlignment = 8,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:76:11",
+                            structFieldName = NamePair {
+                              nameC = CName "company",
+                              nameHsIdent = HsIdentifier
+                                "employee_company"},
+                            structFieldType = TypePointer
+                              (TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed)))),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:77:20",
+                            structFieldName = NamePair {
+                              nameC = CName "supervisor",
+                              nameHsIdent = HsIdentifier
+                                "employee_supervisor"},
+                            structFieldType = TypePointer
+                              (TypeStruct
+                                NamePair {
+                                  nameC = CName "person",
+                                  nameHsIdent = HsIdentifier
+                                    "Person"}),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:78:9",
+                            structFieldName = NamePair {
+                              nameC = CName "salary",
+                              nameHsIdent = HsIdentifier
+                                "employee_salary"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 128,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -3002,33 +3434,57 @@
           "@NsVar"
           "un_Occupation",
         fieldType = HsByteArray,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginUnion
-        Union {
-          unionDeclPath = DeclPathName
-            (CName "occupation"),
-          unionAliases = [
-            CName "occupation"],
-          unionSizeof = 24,
-          unionAlignment = 8,
-          unionFields = [
-            UnionField {
-              ufieldName = CName "student",
-              ufieldType = TypeStruct
-                (DeclPathName
-                  (CName "student")),
-              ufieldSourceLoc =
-              "manual_examples.h:73:5"},
-            UnionField {
-              ufieldName = CName "employee",
-              ufieldType = TypeStruct
-                (DeclPathName
-                  (CName "employee")),
-              ufieldSourceLoc =
-              "manual_examples.h:79:5"}],
-          unionSourceLoc =
-          "manual_examples.h:69:15"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:69:15",
+          declId = NamePair {
+            nameC = CName "occupation",
+            nameHsIdent = HsIdentifier
+              "Occupation"}},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Occupation",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Occupation"},
+            unionSizeof = 24,
+            unionAlignment = 8,
+            unionFields = [
+              UnionField {
+                unionFieldLoc =
+                "manual_examples.h:73:5",
+                unionFieldName = NamePair {
+                  nameC = CName "student",
+                  nameHsIdent = HsIdentifier
+                    "occupation_student"},
+                unionFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "student",
+                    nameHsIdent = HsIdentifier
+                      "Student"}},
+              UnionField {
+                unionFieldLoc =
+                "manual_examples.h:79:5",
+                unionFieldName = NamePair {
+                  nameC = CName "employee",
+                  nameHsIdent = HsIdentifier
+                    "occupation_employee"},
+                unionFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "employee",
+                    nameHsIdent = HsIdentifier
+                      "Employee"}}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance
@@ -3082,23 +3538,10 @@
     (HsName
       "@NsVar"
       "set_occupation_employee"),
-  DeclEmpty
-    EmptyData {
-      emptyDataName = HsName
-        "@NsTypeConstr"
-        "Person",
-      emptyDataOrigin =
-      EmptyDataOriginOpaqueStruct
-        OpaqueStruct {
-          opaqueStructTag = CName
-            "person",
-          opaqueStructAliases = [],
-          opaqueStructSourceLoc =
-          "manual_examples.h:77:12"}},
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "void testmodule_print_occupation (signed int arg1, union occupation *arg2) { print_occupation(arg1, arg2); }",
+    "void testmodule_print_occupation (signed int arg1, occupation *arg2) { print_occupation(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3118,22 +3561,23 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "print_occupation",
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed),
             TypePointer
-              (TypeUnion
-                (DeclPathName
-                  (CName "occupation")))],
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "occupation")
+                  (TypeUnion
+                    NamePair {
+                      nameC = CName "occupation",
+                      nameHsIdent = HsIdentifier
+                        "Occupation"})))],
           functionRes = TypeVoid,
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:82:6"}},
+          "manual_examples.h"}},
   DeclData
     Struct {
       structName = HsName
@@ -3149,63 +3593,83 @@
             "rect_lower_left_x",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:90:9",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "rect_lower_left_x"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:90:9"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "rect_lower_left_y",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:91:9",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "rect_lower_left_y"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:91:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathAnon
-            (DeclPathCtxtField
-              (Just (CName "rect"))
-              (CName "lower_left")
-              DeclPathCtxtTop),
-          structAliases = [],
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:90:9"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:91:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:89:3"},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:89:3",
+            declId = NamePair {
+              nameC = CName "rect_lower_left",
+              nameHsIdent = HsIdentifier
+                "Rect_lower_left"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName
+                  "@NsConstr"
+                  "Rect_lower_left"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:90:9",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "rect_lower_left_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:91:9",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "rect_lower_left_y"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -3224,63 +3688,83 @@
               "rect_lower_left_x",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:90:9",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "rect_lower_left_x"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:90:9"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "rect_lower_left_y",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "y",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:91:9",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "rect_lower_left_y"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:91:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathAnon
-              (DeclPathCtxtField
-                (Just (CName "rect"))
-                (CName "lower_left")
-                DeclPathCtxtTop),
-            structAliases = [],
-            structSizeof = 8,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:90:9"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:91:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:89:3"},
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:89:3",
+              declId = NamePair {
+                nameC = CName "rect_lower_left",
+                nameHsIdent = HsIdentifier
+                  "Rect_lower_left"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName
+                    "@NsConstr"
+                    "Rect_lower_left"),
+                structSizeof = 8,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:90:9",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "rect_lower_left_x"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:91:9",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "rect_lower_left_y"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -3304,63 +3788,83 @@
                       "rect_lower_left_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:90:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "rect_lower_left_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:90:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "rect_lower_left_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:91:9",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "rect_lower_left_y"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:91:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtField
-                        (Just (CName "rect"))
-                        (CName "lower_left")
-                        DeclPathCtxtTop),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:90:9"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:91:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:89:3"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:89:3",
+                      declId = NamePair {
+                        nameC = CName "rect_lower_left",
+                        nameHsIdent = HsIdentifier
+                          "Rect_lower_left"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Rect_lower_left"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:90:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "rect_lower_left_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:91:9",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "rect_lower_left_y"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -3386,63 +3890,83 @@
                       "rect_lower_left_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:90:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "rect_lower_left_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:90:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "rect_lower_left_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:91:9",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "rect_lower_left_y"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:91:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtField
-                        (Just (CName "rect"))
-                        (CName "lower_left")
-                        DeclPathCtxtTop),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:90:9"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:91:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:89:3"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:89:3",
+                      declId = NamePair {
+                        nameC = CName "rect_lower_left",
+                        nameHsIdent = HsIdentifier
+                          "Rect_lower_left"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Rect_lower_left"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:90:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "rect_lower_left_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:91:9",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "rect_lower_left_y"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -3480,63 +4004,84 @@
             "rect_upper_right_x",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:95:9",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "rect_upper_right_x"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:95:9"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "rect_upper_right_y",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:96:9",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "rect_upper_right_y"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:96:9"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathAnon
-            (DeclPathCtxtField
-              (Just (CName "rect"))
-              (CName "upper_right")
-              DeclPathCtxtTop),
-          structAliases = [],
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:95:9"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:96:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:94:3"},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:94:3",
+            declId = NamePair {
+              nameC = CName
+                "rect_upper_right",
+              nameHsIdent = HsIdentifier
+                "Rect_upper_right"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName
+                  "@NsConstr"
+                  "Rect_upper_right"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:95:9",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "rect_upper_right_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:96:9",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "rect_upper_right_y"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -3555,63 +4100,84 @@
               "rect_upper_right_x",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:95:9",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "rect_upper_right_x"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:95:9"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "rect_upper_right_y",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "y",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:96:9",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "rect_upper_right_y"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:96:9"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathAnon
-              (DeclPathCtxtField
-                (Just (CName "rect"))
-                (CName "upper_right")
-                DeclPathCtxtTop),
-            structAliases = [],
-            structSizeof = 8,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:95:9"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:96:9"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:94:3"},
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:94:3",
+              declId = NamePair {
+                nameC = CName
+                  "rect_upper_right",
+                nameHsIdent = HsIdentifier
+                  "Rect_upper_right"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName
+                    "@NsConstr"
+                    "Rect_upper_right"),
+                structSizeof = 8,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:95:9",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "rect_upper_right_x"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:96:9",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "rect_upper_right_y"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -3635,63 +4201,84 @@
                       "rect_upper_right_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:95:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "rect_upper_right_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:95:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "rect_upper_right_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:96:9",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "rect_upper_right_y"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:96:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtField
-                        (Just (CName "rect"))
-                        (CName "upper_right")
-                        DeclPathCtxtTop),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:95:9"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:96:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:94:3"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:94:3",
+                      declId = NamePair {
+                        nameC = CName
+                          "rect_upper_right",
+                        nameHsIdent = HsIdentifier
+                          "Rect_upper_right"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Rect_upper_right"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:95:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "rect_upper_right_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:96:9",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "rect_upper_right_y"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -3717,63 +4304,84 @@
                       "rect_upper_right_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:95:9",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "rect_upper_right_x"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:95:9"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "rect_upper_right_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:96:9",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "rect_upper_right_y"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:96:9"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtField
-                        (Just (CName "rect"))
-                        (CName "upper_right")
-                        DeclPathCtxtTop),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:95:9"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:96:9"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:94:3"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:94:3",
+                      declId = NamePair {
+                        nameC = CName
+                          "rect_upper_right",
+                        nameHsIdent = HsIdentifier
+                          "Rect_upper_right"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Rect_upper_right"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:95:9",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "rect_upper_right_x"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:96:9",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "rect_upper_right_y"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -3813,20 +4421,21 @@
             (HsName
               "@NsTypeConstr"
               "Rect_lower_left"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "lower_left",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "rect"))
-                    (CName "lower_left")
-                    DeclPathCtxtTop)),
-              fieldSourceLoc =
-              "manual_examples.h:92:5"}},
+              structFieldLoc =
+              "manual_examples.h:92:5",
+              structFieldName = NamePair {
+                nameC = CName "lower_left",
+                nameHsIdent = HsIdentifier
+                  "rect_lower_left"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName "rect_lower_left",
+                  nameHsIdent = HsIdentifier
+                    "Rect_lower_left"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3835,56 +4444,74 @@
             (HsName
               "@NsTypeConstr"
               "Rect_upper_right"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "upper_right",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "rect"))
-                    (CName "upper_right")
-                    DeclPathCtxtTop)),
-              fieldSourceLoc =
-              "manual_examples.h:97:5"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "rect"),
-          structAliases = [],
-          structSizeof = 16,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "lower_left",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "rect"))
-                    (CName "lower_left")
-                    DeclPathCtxtTop)),
-              fieldSourceLoc =
-              "manual_examples.h:92:5"},
-            StructField {
-              fieldName = CName "upper_right",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "rect"))
-                    (CName "upper_right")
-                    DeclPathCtxtTop)),
-              fieldSourceLoc =
-              "manual_examples.h:97:5"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:88:8"},
+              structFieldLoc =
+              "manual_examples.h:97:5",
+              structFieldName = NamePair {
+                nameC = CName "upper_right",
+                nameHsIdent = HsIdentifier
+                  "rect_upper_right"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName
+                    "rect_upper_right",
+                  nameHsIdent = HsIdentifier
+                    "Rect_upper_right"},
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:88:8",
+            declId = NamePair {
+              nameC = CName "rect",
+              nameHsIdent = HsIdentifier
+                "Rect"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Rect"),
+              structSizeof = 16,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:92:5",
+                  structFieldName = NamePair {
+                    nameC = CName "lower_left",
+                    nameHsIdent = HsIdentifier
+                      "rect_lower_left"},
+                  structFieldType = TypeStruct
+                    NamePair {
+                      nameC = CName "rect_lower_left",
+                      nameHsIdent = HsIdentifier
+                        "Rect_lower_left"},
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:97:5",
+                  structFieldName = NamePair {
+                    nameC = CName "upper_right",
+                    nameHsIdent = HsIdentifier
+                      "rect_upper_right"},
+                  structFieldType = TypeStruct
+                    NamePair {
+                      nameC = CName
+                        "rect_upper_right",
+                      nameHsIdent = HsIdentifier
+                        "Rect_upper_right"},
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -3905,20 +4532,21 @@
               (HsName
                 "@NsTypeConstr"
                 "Rect_lower_left"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "lower_left",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "rect"))
-                      (CName "lower_left")
-                      DeclPathCtxtTop)),
-                fieldSourceLoc =
-                "manual_examples.h:92:5"}},
+                structFieldLoc =
+                "manual_examples.h:92:5",
+                structFieldName = NamePair {
+                  nameC = CName "lower_left",
+                  nameHsIdent = HsIdentifier
+                    "rect_lower_left"},
+                structFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "rect_lower_left",
+                    nameHsIdent = HsIdentifier
+                      "Rect_lower_left"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3927,56 +4555,74 @@
               (HsName
                 "@NsTypeConstr"
                 "Rect_upper_right"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "upper_right",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "rect"))
-                      (CName "upper_right")
-                      DeclPathCtxtTop)),
-                fieldSourceLoc =
-                "manual_examples.h:97:5"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "rect"),
-            structAliases = [],
-            structSizeof = 16,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "lower_left",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "rect"))
-                      (CName "lower_left")
-                      DeclPathCtxtTop)),
-                fieldSourceLoc =
-                "manual_examples.h:92:5"},
-              StructField {
-                fieldName = CName "upper_right",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "rect"))
-                      (CName "upper_right")
-                      DeclPathCtxtTop)),
-                fieldSourceLoc =
-                "manual_examples.h:97:5"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:88:8"},
+                structFieldLoc =
+                "manual_examples.h:97:5",
+                structFieldName = NamePair {
+                  nameC = CName "upper_right",
+                  nameHsIdent = HsIdentifier
+                    "rect_upper_right"},
+                structFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName
+                      "rect_upper_right",
+                    nameHsIdent = HsIdentifier
+                      "Rect_upper_right"},
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:88:8",
+              declId = NamePair {
+                nameC = CName "rect",
+                nameHsIdent = HsIdentifier
+                  "Rect"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Rect"),
+                structSizeof = 16,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:92:5",
+                    structFieldName = NamePair {
+                      nameC = CName "lower_left",
+                      nameHsIdent = HsIdentifier
+                        "rect_lower_left"},
+                    structFieldType = TypeStruct
+                      NamePair {
+                        nameC = CName "rect_lower_left",
+                        nameHsIdent = HsIdentifier
+                          "Rect_lower_left"},
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:97:5",
+                    structFieldName = NamePair {
+                      nameC = CName "upper_right",
+                      nameHsIdent = HsIdentifier
+                        "rect_upper_right"},
+                    structFieldType = TypeStruct
+                      NamePair {
+                        nameC = CName
+                          "rect_upper_right",
+                        nameHsIdent = HsIdentifier
+                          "Rect_upper_right"},
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -4002,20 +4648,21 @@
                       (HsName
                         "@NsTypeConstr"
                         "Rect_lower_left"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "lower_left",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "lower_left")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:92:5"}},
+                        structFieldLoc =
+                        "manual_examples.h:92:5",
+                        structFieldName = NamePair {
+                          nameC = CName "lower_left",
+                          nameHsIdent = HsIdentifier
+                            "rect_lower_left"},
+                        structFieldType = TypeStruct
+                          NamePair {
+                            nameC = CName "rect_lower_left",
+                            nameHsIdent = HsIdentifier
+                              "Rect_lower_left"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -4024,56 +4671,74 @@
                       (HsName
                         "@NsTypeConstr"
                         "Rect_upper_right"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "upper_right",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "upper_right")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:97:5"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "rect"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "lower_left",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "lower_left")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:92:5"},
-                      StructField {
-                        fieldName = CName "upper_right",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "upper_right")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:97:5"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:88:8"},
+                        structFieldLoc =
+                        "manual_examples.h:97:5",
+                        structFieldName = NamePair {
+                          nameC = CName "upper_right",
+                          nameHsIdent = HsIdentifier
+                            "rect_upper_right"},
+                        structFieldType = TypeStruct
+                          NamePair {
+                            nameC = CName
+                              "rect_upper_right",
+                            nameHsIdent = HsIdentifier
+                              "Rect_upper_right"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:88:8",
+                      declId = NamePair {
+                        nameC = CName "rect",
+                        nameHsIdent = HsIdentifier
+                          "Rect"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Rect"),
+                        structSizeof = 16,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:92:5",
+                            structFieldName = NamePair {
+                              nameC = CName "lower_left",
+                              nameHsIdent = HsIdentifier
+                                "rect_lower_left"},
+                            structFieldType = TypeStruct
+                              NamePair {
+                                nameC = CName "rect_lower_left",
+                                nameHsIdent = HsIdentifier
+                                  "Rect_lower_left"},
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:97:5",
+                            structFieldName = NamePair {
+                              nameC = CName "upper_right",
+                              nameHsIdent = HsIdentifier
+                                "rect_upper_right"},
+                            structFieldType = TypeStruct
+                              NamePair {
+                                nameC = CName
+                                  "rect_upper_right",
+                                nameHsIdent = HsIdentifier
+                                  "Rect_upper_right"},
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -4101,20 +4766,21 @@
                       (HsName
                         "@NsTypeConstr"
                         "Rect_lower_left"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "lower_left",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "lower_left")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:92:5"}},
+                        structFieldLoc =
+                        "manual_examples.h:92:5",
+                        structFieldName = NamePair {
+                          nameC = CName "lower_left",
+                          nameHsIdent = HsIdentifier
+                            "rect_lower_left"},
+                        structFieldType = TypeStruct
+                          NamePair {
+                            nameC = CName "rect_lower_left",
+                            nameHsIdent = HsIdentifier
+                              "Rect_lower_left"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -4123,56 +4789,74 @@
                       (HsName
                         "@NsTypeConstr"
                         "Rect_upper_right"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "upper_right",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "upper_right")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:97:5"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "rect"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "lower_left",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "lower_left")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:92:5"},
-                      StructField {
-                        fieldName = CName "upper_right",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "upper_right")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:97:5"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:88:8"},
+                        structFieldLoc =
+                        "manual_examples.h:97:5",
+                        structFieldName = NamePair {
+                          nameC = CName "upper_right",
+                          nameHsIdent = HsIdentifier
+                            "rect_upper_right"},
+                        structFieldType = TypeStruct
+                          NamePair {
+                            nameC = CName
+                              "rect_upper_right",
+                            nameHsIdent = HsIdentifier
+                              "Rect_upper_right"},
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:88:8",
+                      declId = NamePair {
+                        nameC = CName "rect",
+                        nameHsIdent = HsIdentifier
+                          "Rect"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Rect"),
+                        structSizeof = 16,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:92:5",
+                            structFieldName = NamePair {
+                              nameC = CName "lower_left",
+                              nameHsIdent = HsIdentifier
+                                "rect_lower_left"},
+                            structFieldType = TypeStruct
+                              NamePair {
+                                nameC = CName "rect_lower_left",
+                                nameHsIdent = HsIdentifier
+                                  "Rect_lower_left"},
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:97:5",
+                            structFieldName = NamePair {
+                              nameC = CName "upper_right",
+                              nameHsIdent = HsIdentifier
+                                "rect_upper_right"},
+                            structFieldType = TypeStruct
+                              NamePair {
+                                nameC = CName
+                                  "rect_upper_right",
+                                nameHsIdent = HsIdentifier
+                                  "Rect_upper_right"},
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -4206,62 +4890,83 @@
             "config_Deref_width",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "width",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:101:7",
+              structFieldName = NamePair {
+                nameC = CName "width",
+                nameHsIdent = HsIdentifier
+                  "config_Deref_width"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:101:7"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "config_Deref_height",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "height",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "manual_examples.h:102:7",
+              structFieldName = NamePair {
+                nameC = CName "height",
+                nameHsIdent = HsIdentifier
+                  "config_Deref_height"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:102:7"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathAnon
-            (DeclPathCtxtPtr
-              (DeclPathCtxtTypedef
-                (CName "config"))),
-          structAliases = [],
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "width",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:101:7"},
-            StructField {
-              fieldName = CName "height",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "manual_examples.h:102:7"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:100:9"},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:100:9",
+            declId = NamePair {
+              nameC = CName "config_Deref",
+              nameHsIdent = HsIdentifier
+                "Config_Deref"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName
+                  "@NsConstr"
+                  "Config_Deref"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:101:7",
+                  structFieldName = NamePair {
+                    nameC = CName "width",
+                    nameHsIdent = HsIdentifier
+                      "config_Deref_width"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:102:7",
+                  structFieldName = NamePair {
+                    nameC = CName "height",
+                    nameHsIdent = HsIdentifier
+                      "config_Deref_height"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -4280,62 +4985,83 @@
               "config_Deref_width",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "width",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:101:7",
+                structFieldName = NamePair {
+                  nameC = CName "width",
+                  nameHsIdent = HsIdentifier
+                    "config_Deref_width"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:101:7"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "config_Deref_height",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "height",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "manual_examples.h:102:7",
+                structFieldName = NamePair {
+                  nameC = CName "height",
+                  nameHsIdent = HsIdentifier
+                    "config_Deref_height"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:102:7"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathAnon
-              (DeclPathCtxtPtr
-                (DeclPathCtxtTypedef
-                  (CName "config"))),
-            structAliases = [],
-            structSizeof = 8,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "width",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:101:7"},
-              StructField {
-                fieldName = CName "height",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "manual_examples.h:102:7"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:100:9"},
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:100:9",
+              declId = NamePair {
+                nameC = CName "config_Deref",
+                nameHsIdent = HsIdentifier
+                  "Config_Deref"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName
+                    "@NsConstr"
+                    "Config_Deref"),
+                structSizeof = 8,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:101:7",
+                    structFieldName = NamePair {
+                      nameC = CName "width",
+                      nameHsIdent = HsIdentifier
+                        "config_Deref_width"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:102:7",
+                    structFieldName = NamePair {
+                      nameC = CName "height",
+                      nameHsIdent = HsIdentifier
+                        "config_Deref_height"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -4359,62 +5085,83 @@
                       "config_Deref_width",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "width",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:101:7",
+                        structFieldName = NamePair {
+                          nameC = CName "width",
+                          nameHsIdent = HsIdentifier
+                            "config_Deref_width"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:101:7"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "config_Deref_height",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "height",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:102:7",
+                        structFieldName = NamePair {
+                          nameC = CName "height",
+                          nameHsIdent = HsIdentifier
+                            "config_Deref_height"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:102:7"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtPtr
-                        (DeclPathCtxtTypedef
-                          (CName "config"))),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "width",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:101:7"},
-                      StructField {
-                        fieldName = CName "height",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:102:7"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:100:9"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:100:9",
+                      declId = NamePair {
+                        nameC = CName "config_Deref",
+                        nameHsIdent = HsIdentifier
+                          "Config_Deref"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Config_Deref"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:101:7",
+                            structFieldName = NamePair {
+                              nameC = CName "width",
+                              nameHsIdent = HsIdentifier
+                                "config_Deref_width"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:102:7",
+                            structFieldName = NamePair {
+                              nameC = CName "height",
+                              nameHsIdent = HsIdentifier
+                                "config_Deref_height"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -4440,62 +5187,83 @@
                       "config_Deref_width",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "width",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:101:7",
+                        structFieldName = NamePair {
+                          nameC = CName "width",
+                          nameHsIdent = HsIdentifier
+                            "config_Deref_width"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:101:7"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "config_Deref_height",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "height",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "manual_examples.h:102:7",
+                        structFieldName = NamePair {
+                          nameC = CName "height",
+                          nameHsIdent = HsIdentifier
+                            "config_Deref_height"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:102:7"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtPtr
-                        (DeclPathCtxtTypedef
-                          (CName "config"))),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "width",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:101:7"},
-                      StructField {
-                        fieldName = CName "height",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "manual_examples.h:102:7"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:100:9"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:100:9",
+                      declId = NamePair {
+                        nameC = CName "config_Deref",
+                        nameHsIdent = HsIdentifier
+                          "Config_Deref"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Config_Deref"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:101:7",
+                            structFieldName = NamePair {
+                              nameC = CName "width",
+                              nameHsIdent = HsIdentifier
+                                "config_Deref_width"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:102:7",
+                            structFieldName = NamePair {
+                              nameC = CName "height",
+                              nameHsIdent = HsIdentifier
+                                "config_Deref_height"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -4535,19 +5303,36 @@
             (HsName
               "@NsTypeConstr"
               "Config_Deref")),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "config",
-          typedefType = TypePointer
-            (TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtPtr
-                  (DeclPathCtxtTypedef
-                    (CName "config"))))),
-          typedefSourceLoc =
-          "manual_examples.h:103:4"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:103:4",
+          declId = NamePair {
+            nameC = CName "config",
+            nameHsIdent = HsIdentifier
+              "Config"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Config",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Config"},
+            typedefType = TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = CName "config_Deref",
+                  nameHsIdent = HsIdentifier
+                    "Config_Deref"})},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
@@ -4588,15 +5373,32 @@
           "un_Adio'0301s",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "adio\769s",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "manual_examples.h:109:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:109:13",
+          declId = NamePair {
+            nameC = CName "adio\769s",
+            nameHsIdent = HsIdentifier
+              "Adio'0301s"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Adio'0301s",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Adio'0301s"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -4706,16 +5508,12 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "\25308\25308",
           functionArgs = [],
           functionRes = TypeVoid,
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:110:6"}},
+          "manual_examples.h"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -4730,16 +5528,32 @@
           "un_C\25968\23383",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName
-            "\25968\23383",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "manual_examples.h:111:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:111:13",
+          declId = NamePair {
+            nameC = CName "\25968\23383",
+            nameHsIdent = HsIdentifier
+              "C\25968\23383"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "C\25968\23383",
+              newtypeField = HsName
+                "@NsVar"
+                "un_C\25968\23383"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -4849,15 +5663,12 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "\978",
           functionArgs = [],
           functionRes = TypeVoid,
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:112:6"}},
+          "manual_examples.h"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -4872,15 +5683,32 @@
           "un_Data",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "data",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "manual_examples.h:113:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:113:13",
+          declId = NamePair {
+            nameC = CName "data",
+            nameHsIdent = HsIdentifier
+              "Data"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Data",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Data"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -4964,15 +5792,12 @@
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "import",
           functionArgs = [],
           functionRes = TypeVoid,
           functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:114:6"}},
+          "manual_examples.h"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -4987,40 +5812,67 @@
           "un_Signal",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "signal"),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "start",
-              valueValue = 1,
-              valueSourceLoc =
-              "manual_examples.h:121:3"},
-            EnumValue {
-              valueName = CName "pause",
-              valueValue = 2,
-              valueSourceLoc =
-              "manual_examples.h:122:3"},
-            EnumValue {
-              valueName = CName "resume",
-              valueValue = 3,
-              valueSourceLoc =
-              "manual_examples.h:123:3"},
-            EnumValue {
-              valueName = CName "stop",
-              valueValue = 4,
-              valueSourceLoc =
-              "manual_examples.h:124:3"}],
-          enumSourceLoc =
-          "manual_examples.h:120:6"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:120:6",
+          declId = NamePair {
+            nameC = CName "signal",
+            nameHsIdent = HsIdentifier
+              "Signal"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Signal",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Signal"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:121:3",
+                enumConstantName = NamePair {
+                  nameC = CName "start",
+                  nameHsIdent = HsIdentifier
+                    "Start"},
+                enumConstantValue = 1},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:122:3",
+                enumConstantName = NamePair {
+                  nameC = CName "pause",
+                  nameHsIdent = HsIdentifier
+                    "Pause"},
+                enumConstantValue = 2},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:123:3",
+                enumConstantName = NamePair {
+                  nameC = CName "resume",
+                  nameHsIdent = HsIdentifier
+                    "Resume"},
+                enumConstantValue = 3},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:124:3",
+                enumConstantName = NamePair {
+                  nameC = CName "stop",
+                  nameHsIdent = HsIdentifier
+                    "Stop"},
+                enumConstantValue = 4}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -5044,39 +5896,8 @@
               "un_Signal",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "signal"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "start",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:121:3"},
-              EnumValue {
-                valueName = CName "pause",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:122:3"},
-              EnumValue {
-                valueName = CName "resume",
-                valueValue = 3,
-                valueSourceLoc =
-                "manual_examples.h:123:3"},
-              EnumValue {
-                valueName = CName "stop",
-                valueValue = 4,
-                valueSourceLoc =
-                "manual_examples.h:124:3"}],
-            enumSourceLoc =
-            "manual_examples.h:120:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -5100,39 +5921,8 @@
                       "un_Signal",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "signal"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "start",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "manual_examples.h:121:3"},
-                      EnumValue {
-                        valueName = CName "pause",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "manual_examples.h:122:3"},
-                      EnumValue {
-                        valueName = CName "resume",
-                        valueValue = 3,
-                        valueSourceLoc =
-                        "manual_examples.h:123:3"},
-                      EnumValue {
-                        valueName = CName "stop",
-                        valueValue = 4,
-                        valueSourceLoc =
-                        "manual_examples.h:124:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:120:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -5161,39 +5951,8 @@
                       "un_Signal",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "signal"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "start",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "manual_examples.h:121:3"},
-                      EnumValue {
-                        valueName = CName "pause",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "manual_examples.h:122:3"},
-                      EnumValue {
-                        valueName = CName "resume",
-                        valueValue = 3,
-                        valueSourceLoc =
-                        "manual_examples.h:123:3"},
-                      EnumValue {
-                        valueName = CName "stop",
-                        valueValue = 4,
-                        valueSourceLoc =
-                        "manual_examples.h:124:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:120:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -5231,39 +5990,8 @@
               "un_Signal",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "signal"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "start",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:121:3"},
-              EnumValue {
-                valueName = CName "pause",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:122:3"},
-              EnumValue {
-                valueName = CName "resume",
-                valueValue = 3,
-                valueSourceLoc =
-                "manual_examples.h:123:3"},
-              EnumValue {
-                valueName = CName "stop",
-                valueValue = 4,
-                valueSourceLoc =
-                "manual_examples.h:124:3"}],
-            enumSourceLoc =
-            "manual_examples.h:120:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -5290,39 +6018,8 @@
               "un_Signal",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "signal"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "start",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:121:3"},
-              EnumValue {
-                valueName = CName "pause",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:122:3"},
-              EnumValue {
-                valueName = CName "resume",
-                valueValue = 3,
-                valueSourceLoc =
-                "manual_examples.h:123:3"},
-              EnumValue {
-                valueName = CName "stop",
-                valueValue = 4,
-                valueSourceLoc =
-                "manual_examples.h:124:3"}],
-            enumSourceLoc =
-            "manual_examples.h:120:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Start")
@@ -5343,39 +6040,8 @@
               "un_Signal",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "signal"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "start",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:121:3"},
-              EnumValue {
-                valueName = CName "pause",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:122:3"},
-              EnumValue {
-                valueName = CName "resume",
-                valueValue = 3,
-                valueSourceLoc =
-                "manual_examples.h:123:3"},
-              EnumValue {
-                valueName = CName "stop",
-                valueValue = 4,
-                valueSourceLoc =
-                "manual_examples.h:124:3"}],
-            enumSourceLoc =
-            "manual_examples.h:120:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -5399,39 +6065,8 @@
               "un_Signal",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "signal"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "start",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:121:3"},
-              EnumValue {
-                valueName = CName "pause",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:122:3"},
-              EnumValue {
-                valueName = CName "resume",
-                valueValue = 3,
-                valueSourceLoc =
-                "manual_examples.h:123:3"},
-              EnumValue {
-                valueName = CName "stop",
-                valueValue = 4,
-                valueSourceLoc =
-                "manual_examples.h:124:3"}],
-            enumSourceLoc =
-            "manual_examples.h:120:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -5451,13 +6086,15 @@
         "@NsConstr"
         "Signal",
       patSynValue = 1,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "start",
-          valueValue = 1,
-          valueSourceLoc =
-          "manual_examples.h:121:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:121:3",
+          enumConstantName = NamePair {
+            nameC = CName "start",
+            nameHsIdent = HsIdentifier
+              "Start"},
+          enumConstantValue = 1}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -5470,13 +6107,15 @@
         "@NsConstr"
         "Signal",
       patSynValue = 2,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "pause",
-          valueValue = 2,
-          valueSourceLoc =
-          "manual_examples.h:122:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:122:3",
+          enumConstantName = NamePair {
+            nameC = CName "pause",
+            nameHsIdent = HsIdentifier
+              "Pause"},
+          enumConstantValue = 2}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -5489,13 +6128,15 @@
         "@NsConstr"
         "Signal",
       patSynValue = 3,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "resume",
-          valueValue = 3,
-          valueSourceLoc =
-          "manual_examples.h:123:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:123:3",
+          enumConstantName = NamePair {
+            nameC = CName "resume",
+            nameHsIdent = HsIdentifier
+              "Resume"},
+          enumConstantValue = 3}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -5508,13 +6149,15 @@
         "@NsConstr"
         "Signal",
       patSynValue = 4,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "stop",
-          valueValue = 4,
-          valueSourceLoc =
-          "manual_examples.h:124:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:124:3",
+          enumConstantName = NamePair {
+            nameC = CName "stop",
+            nameHsIdent = HsIdentifier
+              "Stop"},
+          enumConstantValue = 4}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -5529,46 +6172,75 @@
           "un_HTTP_status",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "HTTP_status"),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "ok",
-              valueValue = 200,
-              valueSourceLoc =
-              "manual_examples.h:128:3"},
-            EnumValue {
-              valueName = CName "moved",
-              valueValue = 301,
-              valueSourceLoc =
-              "manual_examples.h:129:3"},
-            EnumValue {
-              valueName = CName "bad_request",
-              valueValue = 400,
-              valueSourceLoc =
-              "manual_examples.h:130:3"},
-            EnumValue {
-              valueName = CName
-                "unauthorized",
-              valueValue = 401,
-              valueSourceLoc =
-              "manual_examples.h:131:3"},
-            EnumValue {
-              valueName = CName "not_found",
-              valueValue = 404,
-              valueSourceLoc =
-              "manual_examples.h:132:3"}],
-          enumSourceLoc =
-          "manual_examples.h:127:6"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:127:6",
+          declId = NamePair {
+            nameC = CName "HTTP_status",
+            nameHsIdent = HsIdentifier
+              "HTTP_status"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "HTTP_status",
+              newtypeField = HsName
+                "@NsVar"
+                "un_HTTP_status"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:128:3",
+                enumConstantName = NamePair {
+                  nameC = CName "ok",
+                  nameHsIdent = HsIdentifier
+                    "Ok"},
+                enumConstantValue = 200},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:129:3",
+                enumConstantName = NamePair {
+                  nameC = CName "moved",
+                  nameHsIdent = HsIdentifier
+                    "Moved"},
+                enumConstantValue = 301},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:130:3",
+                enumConstantName = NamePair {
+                  nameC = CName "bad_request",
+                  nameHsIdent = HsIdentifier
+                    "Bad_request"},
+                enumConstantValue = 400},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:131:3",
+                enumConstantName = NamePair {
+                  nameC = CName "unauthorized",
+                  nameHsIdent = HsIdentifier
+                    "Unauthorized"},
+                enumConstantValue = 401},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:132:3",
+                enumConstantName = NamePair {
+                  nameC = CName "not_found",
+                  nameHsIdent = HsIdentifier
+                    "Not_found"},
+                enumConstantValue = 404}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -5592,45 +6264,8 @@
               "un_HTTP_status",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "HTTP_status"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ok",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:128:3"},
-              EnumValue {
-                valueName = CName "moved",
-                valueValue = 301,
-                valueSourceLoc =
-                "manual_examples.h:129:3"},
-              EnumValue {
-                valueName = CName "bad_request",
-                valueValue = 400,
-                valueSourceLoc =
-                "manual_examples.h:130:3"},
-              EnumValue {
-                valueName = CName
-                  "unauthorized",
-                valueValue = 401,
-                valueSourceLoc =
-                "manual_examples.h:131:3"},
-              EnumValue {
-                valueName = CName "not_found",
-                valueValue = 404,
-                valueSourceLoc =
-                "manual_examples.h:132:3"}],
-            enumSourceLoc =
-            "manual_examples.h:127:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -5654,45 +6289,8 @@
                       "un_HTTP_status",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "HTTP_status"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "ok",
-                        valueValue = 200,
-                        valueSourceLoc =
-                        "manual_examples.h:128:3"},
-                      EnumValue {
-                        valueName = CName "moved",
-                        valueValue = 301,
-                        valueSourceLoc =
-                        "manual_examples.h:129:3"},
-                      EnumValue {
-                        valueName = CName "bad_request",
-                        valueValue = 400,
-                        valueSourceLoc =
-                        "manual_examples.h:130:3"},
-                      EnumValue {
-                        valueName = CName
-                          "unauthorized",
-                        valueValue = 401,
-                        valueSourceLoc =
-                        "manual_examples.h:131:3"},
-                      EnumValue {
-                        valueName = CName "not_found",
-                        valueValue = 404,
-                        valueSourceLoc =
-                        "manual_examples.h:132:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:127:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -5721,45 +6319,8 @@
                       "un_HTTP_status",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "HTTP_status"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "ok",
-                        valueValue = 200,
-                        valueSourceLoc =
-                        "manual_examples.h:128:3"},
-                      EnumValue {
-                        valueName = CName "moved",
-                        valueValue = 301,
-                        valueSourceLoc =
-                        "manual_examples.h:129:3"},
-                      EnumValue {
-                        valueName = CName "bad_request",
-                        valueValue = 400,
-                        valueSourceLoc =
-                        "manual_examples.h:130:3"},
-                      EnumValue {
-                        valueName = CName
-                          "unauthorized",
-                        valueValue = 401,
-                        valueSourceLoc =
-                        "manual_examples.h:131:3"},
-                      EnumValue {
-                        valueName = CName "not_found",
-                        valueValue = 404,
-                        valueSourceLoc =
-                        "manual_examples.h:132:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:127:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -5797,45 +6358,8 @@
               "un_HTTP_status",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "HTTP_status"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ok",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:128:3"},
-              EnumValue {
-                valueName = CName "moved",
-                valueValue = 301,
-                valueSourceLoc =
-                "manual_examples.h:129:3"},
-              EnumValue {
-                valueName = CName "bad_request",
-                valueValue = 400,
-                valueSourceLoc =
-                "manual_examples.h:130:3"},
-              EnumValue {
-                valueName = CName
-                  "unauthorized",
-                valueValue = 401,
-                valueSourceLoc =
-                "manual_examples.h:131:3"},
-              EnumValue {
-                valueName = CName "not_found",
-                valueValue = 404,
-                valueSourceLoc =
-                "manual_examples.h:132:3"}],
-            enumSourceLoc =
-            "manual_examples.h:127:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -5869,45 +6393,8 @@
               "un_HTTP_status",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "HTTP_status"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ok",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:128:3"},
-              EnumValue {
-                valueName = CName "moved",
-                valueValue = 301,
-                valueSourceLoc =
-                "manual_examples.h:129:3"},
-              EnumValue {
-                valueName = CName "bad_request",
-                valueValue = 400,
-                valueSourceLoc =
-                "manual_examples.h:130:3"},
-              EnumValue {
-                valueName = CName
-                  "unauthorized",
-                valueValue = 401,
-                valueSourceLoc =
-                "manual_examples.h:131:3"},
-              EnumValue {
-                valueName = CName "not_found",
-                valueValue = 404,
-                valueSourceLoc =
-                "manual_examples.h:132:3"}],
-            enumSourceLoc =
-            "manual_examples.h:127:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -5931,45 +6418,8 @@
               "un_HTTP_status",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "HTTP_status"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ok",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:128:3"},
-              EnumValue {
-                valueName = CName "moved",
-                valueValue = 301,
-                valueSourceLoc =
-                "manual_examples.h:129:3"},
-              EnumValue {
-                valueName = CName "bad_request",
-                valueValue = 400,
-                valueSourceLoc =
-                "manual_examples.h:130:3"},
-              EnumValue {
-                valueName = CName
-                  "unauthorized",
-                valueValue = 401,
-                valueSourceLoc =
-                "manual_examples.h:131:3"},
-              EnumValue {
-                valueName = CName "not_found",
-                valueValue = 404,
-                valueSourceLoc =
-                "manual_examples.h:132:3"}],
-            enumSourceLoc =
-            "manual_examples.h:127:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -5989,13 +6439,15 @@
         "@NsConstr"
         "HTTP_status",
       patSynValue = 200,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "ok",
-          valueValue = 200,
-          valueSourceLoc =
-          "manual_examples.h:128:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:128:3",
+          enumConstantName = NamePair {
+            nameC = CName "ok",
+            nameHsIdent = HsIdentifier
+              "Ok"},
+          enumConstantValue = 200}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6008,13 +6460,15 @@
         "@NsConstr"
         "HTTP_status",
       patSynValue = 301,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "moved",
-          valueValue = 301,
-          valueSourceLoc =
-          "manual_examples.h:129:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:129:3",
+          enumConstantName = NamePair {
+            nameC = CName "moved",
+            nameHsIdent = HsIdentifier
+              "Moved"},
+          enumConstantValue = 301}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6027,13 +6481,15 @@
         "@NsConstr"
         "HTTP_status",
       patSynValue = 400,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "bad_request",
-          valueValue = 400,
-          valueSourceLoc =
-          "manual_examples.h:130:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:130:3",
+          enumConstantName = NamePair {
+            nameC = CName "bad_request",
+            nameHsIdent = HsIdentifier
+              "Bad_request"},
+          enumConstantValue = 400}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6046,14 +6502,15 @@
         "@NsConstr"
         "HTTP_status",
       patSynValue = 401,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "unauthorized",
-          valueValue = 401,
-          valueSourceLoc =
-          "manual_examples.h:131:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:131:3",
+          enumConstantName = NamePair {
+            nameC = CName "unauthorized",
+            nameHsIdent = HsIdentifier
+              "Unauthorized"},
+          enumConstantValue = 401}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6066,13 +6523,15 @@
         "@NsConstr"
         "HTTP_status",
       patSynValue = 404,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "not_found",
-          valueValue = 404,
-          valueSourceLoc =
-          "manual_examples.h:132:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:132:3",
+          enumConstantName = NamePair {
+            nameC = CName "not_found",
+            nameHsIdent = HsIdentifier
+              "Not_found"},
+          enumConstantValue = 404}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -6087,40 +6546,64 @@
           "un_Descending",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "descending"),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "X",
-              valueValue = 100,
-              valueSourceLoc =
-              "manual_examples.h:136:3"},
-            EnumValue {
-              valueName = CName "Y",
-              valueValue = 99,
-              valueSourceLoc =
-              "manual_examples.h:137:3"},
-            EnumValue {
-              valueName = CName "Y_alias",
-              valueValue = 99,
-              valueSourceLoc =
-              "manual_examples.h:138:3"},
-            EnumValue {
-              valueName = CName "Z",
-              valueValue = 98,
-              valueSourceLoc =
-              "manual_examples.h:139:3"}],
-          enumSourceLoc =
-          "manual_examples.h:135:6"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:135:6",
+          declId = NamePair {
+            nameC = CName "descending",
+            nameHsIdent = HsIdentifier
+              "Descending"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Descending",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Descending"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:136:3",
+                enumConstantName = NamePair {
+                  nameC = CName "X",
+                  nameHsIdent = HsIdentifier "X"},
+                enumConstantValue = 100},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:137:3",
+                enumConstantName = NamePair {
+                  nameC = CName "Y",
+                  nameHsIdent = HsIdentifier "Y"},
+                enumConstantValue = 99},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:138:3",
+                enumConstantName = NamePair {
+                  nameC = CName "Y_alias",
+                  nameHsIdent = HsIdentifier
+                    "Y_alias"},
+                enumConstantValue = 99},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:139:3",
+                enumConstantName = NamePair {
+                  nameC = CName "Z",
+                  nameHsIdent = HsIdentifier "Z"},
+                enumConstantValue = 98}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -6144,39 +6627,8 @@
               "un_Descending",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "descending"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "X",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:136:3"},
-              EnumValue {
-                valueName = CName "Y",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:137:3"},
-              EnumValue {
-                valueName = CName "Y_alias",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:138:3"},
-              EnumValue {
-                valueName = CName "Z",
-                valueValue = 98,
-                valueSourceLoc =
-                "manual_examples.h:139:3"}],
-            enumSourceLoc =
-            "manual_examples.h:135:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -6200,39 +6652,8 @@
                       "un_Descending",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "descending"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "X",
-                        valueValue = 100,
-                        valueSourceLoc =
-                        "manual_examples.h:136:3"},
-                      EnumValue {
-                        valueName = CName "Y",
-                        valueValue = 99,
-                        valueSourceLoc =
-                        "manual_examples.h:137:3"},
-                      EnumValue {
-                        valueName = CName "Y_alias",
-                        valueValue = 99,
-                        valueSourceLoc =
-                        "manual_examples.h:138:3"},
-                      EnumValue {
-                        valueName = CName "Z",
-                        valueValue = 98,
-                        valueSourceLoc =
-                        "manual_examples.h:139:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:135:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -6261,39 +6682,8 @@
                       "un_Descending",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "descending"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "X",
-                        valueValue = 100,
-                        valueSourceLoc =
-                        "manual_examples.h:136:3"},
-                      EnumValue {
-                        valueName = CName "Y",
-                        valueValue = 99,
-                        valueSourceLoc =
-                        "manual_examples.h:137:3"},
-                      EnumValue {
-                        valueName = CName "Y_alias",
-                        valueValue = 99,
-                        valueSourceLoc =
-                        "manual_examples.h:138:3"},
-                      EnumValue {
-                        valueName = CName "Z",
-                        valueValue = 98,
-                        valueSourceLoc =
-                        "manual_examples.h:139:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:135:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -6331,39 +6721,8 @@
               "un_Descending",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "descending"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "X",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:136:3"},
-              EnumValue {
-                valueName = CName "Y",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:137:3"},
-              EnumValue {
-                valueName = CName "Y_alias",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:138:3"},
-              EnumValue {
-                valueName = CName "Z",
-                valueValue = 98,
-                valueSourceLoc =
-                "manual_examples.h:139:3"}],
-            enumSourceLoc =
-            "manual_examples.h:135:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -6391,39 +6750,8 @@
               "un_Descending",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "descending"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "X",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:136:3"},
-              EnumValue {
-                valueName = CName "Y",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:137:3"},
-              EnumValue {
-                valueName = CName "Y_alias",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:138:3"},
-              EnumValue {
-                valueName = CName "Z",
-                valueValue = 98,
-                valueSourceLoc =
-                "manual_examples.h:139:3"}],
-            enumSourceLoc =
-            "manual_examples.h:135:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Z")
@@ -6444,39 +6772,8 @@
               "un_Descending",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "descending"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "X",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:136:3"},
-              EnumValue {
-                valueName = CName "Y",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:137:3"},
-              EnumValue {
-                valueName = CName "Y_alias",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:138:3"},
-              EnumValue {
-                valueName = CName "Z",
-                valueValue = 98,
-                valueSourceLoc =
-                "manual_examples.h:139:3"}],
-            enumSourceLoc =
-            "manual_examples.h:135:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -6500,39 +6797,8 @@
               "un_Descending",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "descending"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "X",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:136:3"},
-              EnumValue {
-                valueName = CName "Y",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:137:3"},
-              EnumValue {
-                valueName = CName "Y_alias",
-                valueValue = 99,
-                valueSourceLoc =
-                "manual_examples.h:138:3"},
-              EnumValue {
-                valueName = CName "Z",
-                valueValue = 98,
-                valueSourceLoc =
-                "manual_examples.h:139:3"}],
-            enumSourceLoc =
-            "manual_examples.h:135:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -6552,13 +6818,14 @@
         "@NsConstr"
         "Descending",
       patSynValue = 100,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "X",
-          valueValue = 100,
-          valueSourceLoc =
-          "manual_examples.h:136:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:136:3",
+          enumConstantName = NamePair {
+            nameC = CName "X",
+            nameHsIdent = HsIdentifier "X"},
+          enumConstantValue = 100}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6571,13 +6838,14 @@
         "@NsConstr"
         "Descending",
       patSynValue = 99,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "Y",
-          valueValue = 99,
-          valueSourceLoc =
-          "manual_examples.h:137:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:137:3",
+          enumConstantName = NamePair {
+            nameC = CName "Y",
+            nameHsIdent = HsIdentifier "Y"},
+          enumConstantValue = 99}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6590,13 +6858,15 @@
         "@NsConstr"
         "Descending",
       patSynValue = 99,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "Y_alias",
-          valueValue = 99,
-          valueSourceLoc =
-          "manual_examples.h:138:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:138:3",
+          enumConstantName = NamePair {
+            nameC = CName "Y_alias",
+            nameHsIdent = HsIdentifier
+              "Y_alias"},
+          enumConstantValue = 99}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6609,13 +6879,14 @@
         "@NsConstr"
         "Descending",
       patSynValue = 98,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "Z",
-          valueValue = 98,
-          valueSourceLoc =
-          "manual_examples.h:139:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:139:3",
+          enumConstantName = NamePair {
+            nameC = CName "Z",
+            nameHsIdent = HsIdentifier "Z"},
+          enumConstantValue = 98}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -6630,41 +6901,67 @@
           "un_Result",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "result"),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "failed",
-              valueValue = `-1`,
-              valueSourceLoc =
-              "manual_examples.h:143:3"},
-            EnumValue {
-              valueName = CName "success",
-              valueValue = 0,
-              valueSourceLoc =
-              "manual_examples.h:144:3"},
-            EnumValue {
-              valueName = CName "postponed",
-              valueValue = 1,
-              valueSourceLoc =
-              "manual_examples.h:145:3"},
-            EnumValue {
-              valueName = CName
-                "already_done",
-              valueValue = 2,
-              valueSourceLoc =
-              "manual_examples.h:146:3"}],
-          enumSourceLoc =
-          "manual_examples.h:142:6"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:142:6",
+          declId = NamePair {
+            nameC = CName "result",
+            nameHsIdent = HsIdentifier
+              "Result"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Result",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Result"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:143:3",
+                enumConstantName = NamePair {
+                  nameC = CName "failed",
+                  nameHsIdent = HsIdentifier
+                    "Failed"},
+                enumConstantValue = `-1`},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:144:3",
+                enumConstantName = NamePair {
+                  nameC = CName "success",
+                  nameHsIdent = HsIdentifier
+                    "Success"},
+                enumConstantValue = 0},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:145:3",
+                enumConstantName = NamePair {
+                  nameC = CName "postponed",
+                  nameHsIdent = HsIdentifier
+                    "Postponed"},
+                enumConstantValue = 1},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:146:3",
+                enumConstantName = NamePair {
+                  nameC = CName "already_done",
+                  nameHsIdent = HsIdentifier
+                    "Already_done"},
+                enumConstantValue = 2}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -6688,40 +6985,8 @@
               "un_Result",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "result"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "failed",
-                valueValue = `-1`,
-                valueSourceLoc =
-                "manual_examples.h:143:3"},
-              EnumValue {
-                valueName = CName "success",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:144:3"},
-              EnumValue {
-                valueName = CName "postponed",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:145:3"},
-              EnumValue {
-                valueName = CName
-                  "already_done",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:146:3"}],
-            enumSourceLoc =
-            "manual_examples.h:142:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -6745,40 +7010,8 @@
                       "un_Result",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "result"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "failed",
-                        valueValue = `-1`,
-                        valueSourceLoc =
-                        "manual_examples.h:143:3"},
-                      EnumValue {
-                        valueName = CName "success",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "manual_examples.h:144:3"},
-                      EnumValue {
-                        valueName = CName "postponed",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "manual_examples.h:145:3"},
-                      EnumValue {
-                        valueName = CName
-                          "already_done",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "manual_examples.h:146:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:142:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -6807,40 +7040,8 @@
                       "un_Result",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "result"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "failed",
-                        valueValue = `-1`,
-                        valueSourceLoc =
-                        "manual_examples.h:143:3"},
-                      EnumValue {
-                        valueName = CName "success",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "manual_examples.h:144:3"},
-                      EnumValue {
-                        valueName = CName "postponed",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "manual_examples.h:145:3"},
-                      EnumValue {
-                        valueName = CName
-                          "already_done",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "manual_examples.h:146:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:142:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -6878,40 +7079,8 @@
               "un_Result",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "result"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "failed",
-                valueValue = `-1`,
-                valueSourceLoc =
-                "manual_examples.h:143:3"},
-              EnumValue {
-                valueName = CName "success",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:144:3"},
-              EnumValue {
-                valueName = CName "postponed",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:145:3"},
-              EnumValue {
-                valueName = CName
-                  "already_done",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:146:3"}],
-            enumSourceLoc =
-            "manual_examples.h:142:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCInt)
@@ -6944,40 +7113,8 @@
               "un_Result",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "result"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "failed",
-                valueValue = `-1`,
-                valueSourceLoc =
-                "manual_examples.h:143:3"},
-              EnumValue {
-                valueName = CName "success",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:144:3"},
-              EnumValue {
-                valueName = CName "postponed",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:145:3"},
-              EnumValue {
-                valueName = CName
-                  "already_done",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:146:3"}],
-            enumSourceLoc =
-            "manual_examples.h:142:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Failed")
@@ -7000,40 +7137,8 @@
               "un_Result",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "result"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "failed",
-                valueValue = `-1`,
-                valueSourceLoc =
-                "manual_examples.h:143:3"},
-              EnumValue {
-                valueName = CName "success",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:144:3"},
-              EnumValue {
-                valueName = CName "postponed",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:145:3"},
-              EnumValue {
-                valueName = CName
-                  "already_done",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:146:3"}],
-            enumSourceLoc =
-            "manual_examples.h:142:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -7057,40 +7162,8 @@
               "un_Result",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "result"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "failed",
-                valueValue = `-1`,
-                valueSourceLoc =
-                "manual_examples.h:143:3"},
-              EnumValue {
-                valueName = CName "success",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:144:3"},
-              EnumValue {
-                valueName = CName "postponed",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:145:3"},
-              EnumValue {
-                valueName = CName
-                  "already_done",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:146:3"}],
-            enumSourceLoc =
-            "manual_examples.h:142:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -7110,13 +7183,15 @@
         "@NsConstr"
         "Result",
       patSynValue = `-1`,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "failed",
-          valueValue = `-1`,
-          valueSourceLoc =
-          "manual_examples.h:143:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:143:3",
+          enumConstantName = NamePair {
+            nameC = CName "failed",
+            nameHsIdent = HsIdentifier
+              "Failed"},
+          enumConstantValue = `-1`}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7129,13 +7204,15 @@
         "@NsConstr"
         "Result",
       patSynValue = 0,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "success",
-          valueValue = 0,
-          valueSourceLoc =
-          "manual_examples.h:144:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:144:3",
+          enumConstantName = NamePair {
+            nameC = CName "success",
+            nameHsIdent = HsIdentifier
+              "Success"},
+          enumConstantValue = 0}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7148,13 +7225,15 @@
         "@NsConstr"
         "Result",
       patSynValue = 1,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "postponed",
-          valueValue = 1,
-          valueSourceLoc =
-          "manual_examples.h:145:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:145:3",
+          enumConstantName = NamePair {
+            nameC = CName "postponed",
+            nameHsIdent = HsIdentifier
+              "Postponed"},
+          enumConstantValue = 1}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7167,14 +7246,15 @@
         "@NsConstr"
         "Result",
       patSynValue = 2,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "already_done",
-          valueValue = 2,
-          valueSourceLoc =
-          "manual_examples.h:146:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:146:3",
+          enumConstantName = NamePair {
+            nameC = CName "already_done",
+            nameHsIdent = HsIdentifier
+              "Already_done"},
+          enumConstantValue = 2}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -7189,36 +7269,60 @@
           "un_Vote",
         fieldType = HsPrimType
           HsPrimCUChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "vote"),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimChar
-              (PrimSignExplicit Unsigned)),
-          enumSizeof = 1,
-          enumAlignment = 1,
-          enumValues = [
-            EnumValue {
-              valueName = CName "infavour",
-              valueValue = 0,
-              valueSourceLoc =
-              "manual_examples.h:150:3"},
-            EnumValue {
-              valueName = CName "against",
-              valueValue = 1,
-              valueSourceLoc =
-              "manual_examples.h:151:3"},
-            EnumValue {
-              valueName = CName "abstain",
-              valueValue = 2,
-              valueSourceLoc =
-              "manual_examples.h:152:3"}],
-          enumSourceLoc =
-          "manual_examples.h:149:6"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:149:6",
+          declId = NamePair {
+            nameC = CName "vote",
+            nameHsIdent = HsIdentifier
+              "Vote"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Vote",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Vote"},
+            enumType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:150:3",
+                enumConstantName = NamePair {
+                  nameC = CName "infavour",
+                  nameHsIdent = HsIdentifier
+                    "Infavour"},
+                enumConstantValue = 0},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:151:3",
+                enumConstantName = NamePair {
+                  nameC = CName "against",
+                  nameHsIdent = HsIdentifier
+                    "Against"},
+                enumConstantValue = 1},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:152:3",
+                enumConstantName = NamePair {
+                  nameC = CName "abstain",
+                  nameHsIdent = HsIdentifier
+                    "Abstain"},
+                enumConstantValue = 2}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -7242,35 +7346,8 @@
               "un_Vote",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "vote"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "infavour",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:150:3"},
-              EnumValue {
-                valueName = CName "against",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:151:3"},
-              EnumValue {
-                valueName = CName "abstain",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:152:3"}],
-            enumSourceLoc =
-            "manual_examples.h:149:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -7294,35 +7371,8 @@
                       "un_Vote",
                     fieldType = HsPrimType
                       HsPrimCUChar,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "vote"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimChar
-                        (PrimSignExplicit Unsigned)),
-                    enumSizeof = 1,
-                    enumAlignment = 1,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "infavour",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "manual_examples.h:150:3"},
-                      EnumValue {
-                        valueName = CName "against",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "manual_examples.h:151:3"},
-                      EnumValue {
-                        valueName = CName "abstain",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "manual_examples.h:152:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:149:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -7351,35 +7401,8 @@
                       "un_Vote",
                     fieldType = HsPrimType
                       HsPrimCUChar,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "vote"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimChar
-                        (PrimSignExplicit Unsigned)),
-                    enumSizeof = 1,
-                    enumAlignment = 1,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "infavour",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "manual_examples.h:150:3"},
-                      EnumValue {
-                        valueName = CName "against",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "manual_examples.h:151:3"},
-                      EnumValue {
-                        valueName = CName "abstain",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "manual_examples.h:152:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:149:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -7413,35 +7436,8 @@
               "un_Vote",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "vote"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "infavour",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:150:3"},
-              EnumValue {
-                valueName = CName "against",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:151:3"},
-              EnumValue {
-                valueName = CName "abstain",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:152:3"}],
-            enumSourceLoc =
-            "manual_examples.h:149:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUChar)
@@ -7471,35 +7467,8 @@
               "un_Vote",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "vote"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "infavour",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:150:3"},
-              EnumValue {
-                valueName = CName "against",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:151:3"},
-              EnumValue {
-                valueName = CName "abstain",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:152:3"}],
-            enumSourceLoc =
-            "manual_examples.h:149:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Infavour")
@@ -7520,35 +7489,8 @@
               "un_Vote",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "vote"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "infavour",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:150:3"},
-              EnumValue {
-                valueName = CName "against",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:151:3"},
-              EnumValue {
-                valueName = CName "abstain",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:152:3"}],
-            enumSourceLoc =
-            "manual_examples.h:149:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -7572,35 +7514,8 @@
               "un_Vote",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "vote"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "infavour",
-                valueValue = 0,
-                valueSourceLoc =
-                "manual_examples.h:150:3"},
-              EnumValue {
-                valueName = CName "against",
-                valueValue = 1,
-                valueSourceLoc =
-                "manual_examples.h:151:3"},
-              EnumValue {
-                valueName = CName "abstain",
-                valueValue = 2,
-                valueSourceLoc =
-                "manual_examples.h:152:3"}],
-            enumSourceLoc =
-            "manual_examples.h:149:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -7620,13 +7535,15 @@
         "@NsConstr"
         "Vote",
       patSynValue = 0,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "infavour",
-          valueValue = 0,
-          valueSourceLoc =
-          "manual_examples.h:150:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:150:3",
+          enumConstantName = NamePair {
+            nameC = CName "infavour",
+            nameHsIdent = HsIdentifier
+              "Infavour"},
+          enumConstantValue = 0}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7639,13 +7556,15 @@
         "@NsConstr"
         "Vote",
       patSynValue = 1,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "against",
-          valueValue = 1,
-          valueSourceLoc =
-          "manual_examples.h:151:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:151:3",
+          enumConstantName = NamePair {
+            nameC = CName "against",
+            nameHsIdent = HsIdentifier
+              "Against"},
+          enumConstantValue = 1}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7658,13 +7577,15 @@
         "@NsConstr"
         "Vote",
       patSynValue = 2,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "abstain",
-          valueValue = 2,
-          valueSourceLoc =
-          "manual_examples.h:152:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:152:3",
+          enumConstantName = NamePair {
+            nameC = CName "abstain",
+            nameHsIdent = HsIdentifier
+              "Abstain"},
+          enumConstantValue = 2}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -7679,92 +7600,143 @@
           "un_CXCursorKind",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "CXCursorKind"),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName
-                "CXCursor_FirstExpr",
-              valueValue = 100,
-              valueSourceLoc =
-              "manual_examples.h:158:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_UnexposedExpr",
-              valueValue = 100,
-              valueSourceLoc =
-              "manual_examples.h:159:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_DeclRefExpr",
-              valueValue = 101,
-              valueSourceLoc =
-              "manual_examples.h:160:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_MemberRefExpr",
-              valueValue = 102,
-              valueSourceLoc =
-              "manual_examples.h:161:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_PackIndexingExpr",
-              valueValue = 156,
-              valueSourceLoc =
-              "manual_examples.h:163:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_LastExpr",
-              valueValue = 156,
-              valueSourceLoc =
-              "manual_examples.h:164:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_FirstStmt",
-              valueValue = 200,
-              valueSourceLoc =
-              "manual_examples.h:166:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_UnexposedStmt",
-              valueValue = 200,
-              valueSourceLoc =
-              "manual_examples.h:167:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_LabelStmt",
-              valueValue = 201,
-              valueSourceLoc =
-              "manual_examples.h:168:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_CompoundStmt",
-              valueValue = 202,
-              valueSourceLoc =
-              "manual_examples.h:169:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_OpenACCUpdateConstruct",
-              valueValue = 331,
-              valueSourceLoc =
-              "manual_examples.h:171:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_LastStmt",
-              valueValue = 331,
-              valueSourceLoc =
-              "manual_examples.h:172:3"}],
-          enumSourceLoc =
-          "manual_examples.h:157:6"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "manual_examples.h:157:6",
+          declId = NamePair {
+            nameC = CName "CXCursorKind",
+            nameHsIdent = HsIdentifier
+              "CXCursorKind"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "CXCursorKind",
+              newtypeField = HsName
+                "@NsVar"
+                "un_CXCursorKind"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:158:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_FirstExpr",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_FirstExpr"},
+                enumConstantValue = 100},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:159:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_UnexposedExpr",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_UnexposedExpr"},
+                enumConstantValue = 100},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:160:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_DeclRefExpr",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_DeclRefExpr"},
+                enumConstantValue = 101},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:161:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_MemberRefExpr",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_MemberRefExpr"},
+                enumConstantValue = 102},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:163:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_PackIndexingExpr",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_PackIndexingExpr"},
+                enumConstantValue = 156},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:164:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_LastExpr",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_LastExpr"},
+                enumConstantValue = 156},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:166:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_FirstStmt",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_FirstStmt"},
+                enumConstantValue = 200},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:167:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_UnexposedStmt",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_UnexposedStmt"},
+                enumConstantValue = 200},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:168:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_LabelStmt",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_LabelStmt"},
+                enumConstantValue = 201},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:169:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_CompoundStmt",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_CompoundStmt"},
+                enumConstantValue = 202},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:171:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_OpenACCUpdateConstruct",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_OpenACCUpdateConstruct"},
+                enumConstantValue = 331},
+              EnumConstant {
+                enumConstantLoc =
+                "manual_examples.h:172:3",
+                enumConstantName = NamePair {
+                  nameC = CName
+                    "CXCursor_LastStmt",
+                  nameHsIdent = HsIdentifier
+                    "CXCursor_LastStmt"},
+                enumConstantValue = 331}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -7788,91 +7760,8 @@
               "un_CXCursorKind",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "CXCursorKind"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "CXCursor_FirstExpr",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:158:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_UnexposedExpr",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:159:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_DeclRefExpr",
-                valueValue = 101,
-                valueSourceLoc =
-                "manual_examples.h:160:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_MemberRefExpr",
-                valueValue = 102,
-                valueSourceLoc =
-                "manual_examples.h:161:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_PackIndexingExpr",
-                valueValue = 156,
-                valueSourceLoc =
-                "manual_examples.h:163:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LastExpr",
-                valueValue = 156,
-                valueSourceLoc =
-                "manual_examples.h:164:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_FirstStmt",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:166:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_UnexposedStmt",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:167:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LabelStmt",
-                valueValue = 201,
-                valueSourceLoc =
-                "manual_examples.h:168:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CompoundStmt",
-                valueValue = 202,
-                valueSourceLoc =
-                "manual_examples.h:169:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_OpenACCUpdateConstruct",
-                valueValue = 331,
-                valueSourceLoc =
-                "manual_examples.h:171:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LastStmt",
-                valueValue = 331,
-                valueSourceLoc =
-                "manual_examples.h:172:3"}],
-            enumSourceLoc =
-            "manual_examples.h:157:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -7896,91 +7785,8 @@
                       "un_CXCursorKind",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "CXCursorKind"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_FirstExpr",
-                        valueValue = 100,
-                        valueSourceLoc =
-                        "manual_examples.h:158:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_UnexposedExpr",
-                        valueValue = 100,
-                        valueSourceLoc =
-                        "manual_examples.h:159:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_DeclRefExpr",
-                        valueValue = 101,
-                        valueSourceLoc =
-                        "manual_examples.h:160:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_MemberRefExpr",
-                        valueValue = 102,
-                        valueSourceLoc =
-                        "manual_examples.h:161:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_PackIndexingExpr",
-                        valueValue = 156,
-                        valueSourceLoc =
-                        "manual_examples.h:163:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_LastExpr",
-                        valueValue = 156,
-                        valueSourceLoc =
-                        "manual_examples.h:164:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_FirstStmt",
-                        valueValue = 200,
-                        valueSourceLoc =
-                        "manual_examples.h:166:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_UnexposedStmt",
-                        valueValue = 200,
-                        valueSourceLoc =
-                        "manual_examples.h:167:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_LabelStmt",
-                        valueValue = 201,
-                        valueSourceLoc =
-                        "manual_examples.h:168:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_CompoundStmt",
-                        valueValue = 202,
-                        valueSourceLoc =
-                        "manual_examples.h:169:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_OpenACCUpdateConstruct",
-                        valueValue = 331,
-                        valueSourceLoc =
-                        "manual_examples.h:171:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_LastStmt",
-                        valueValue = 331,
-                        valueSourceLoc =
-                        "manual_examples.h:172:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:157:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -8009,91 +7815,8 @@
                       "un_CXCursorKind",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "CXCursorKind"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_FirstExpr",
-                        valueValue = 100,
-                        valueSourceLoc =
-                        "manual_examples.h:158:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_UnexposedExpr",
-                        valueValue = 100,
-                        valueSourceLoc =
-                        "manual_examples.h:159:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_DeclRefExpr",
-                        valueValue = 101,
-                        valueSourceLoc =
-                        "manual_examples.h:160:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_MemberRefExpr",
-                        valueValue = 102,
-                        valueSourceLoc =
-                        "manual_examples.h:161:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_PackIndexingExpr",
-                        valueValue = 156,
-                        valueSourceLoc =
-                        "manual_examples.h:163:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_LastExpr",
-                        valueValue = 156,
-                        valueSourceLoc =
-                        "manual_examples.h:164:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_FirstStmt",
-                        valueValue = 200,
-                        valueSourceLoc =
-                        "manual_examples.h:166:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_UnexposedStmt",
-                        valueValue = 200,
-                        valueSourceLoc =
-                        "manual_examples.h:167:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_LabelStmt",
-                        valueValue = 201,
-                        valueSourceLoc =
-                        "manual_examples.h:168:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_CompoundStmt",
-                        valueValue = 202,
-                        valueSourceLoc =
-                        "manual_examples.h:169:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_OpenACCUpdateConstruct",
-                        valueValue = 331,
-                        valueSourceLoc =
-                        "manual_examples.h:171:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_LastStmt",
-                        valueValue = 331,
-                        valueSourceLoc =
-                        "manual_examples.h:172:3"}],
-                    enumSourceLoc =
-                    "manual_examples.h:157:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -8131,91 +7854,8 @@
               "un_CXCursorKind",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "CXCursorKind"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "CXCursor_FirstExpr",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:158:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_UnexposedExpr",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:159:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_DeclRefExpr",
-                valueValue = 101,
-                valueSourceLoc =
-                "manual_examples.h:160:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_MemberRefExpr",
-                valueValue = 102,
-                valueSourceLoc =
-                "manual_examples.h:161:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_PackIndexingExpr",
-                valueValue = 156,
-                valueSourceLoc =
-                "manual_examples.h:163:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LastExpr",
-                valueValue = 156,
-                valueSourceLoc =
-                "manual_examples.h:164:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_FirstStmt",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:166:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_UnexposedStmt",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:167:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LabelStmt",
-                valueValue = 201,
-                valueSourceLoc =
-                "manual_examples.h:168:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CompoundStmt",
-                valueValue = 202,
-                valueSourceLoc =
-                "manual_examples.h:169:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_OpenACCUpdateConstruct",
-                valueValue = 331,
-                valueSourceLoc =
-                "manual_examples.h:171:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LastStmt",
-                valueValue = 331,
-                valueSourceLoc =
-                "manual_examples.h:172:3"}],
-            enumSourceLoc =
-            "manual_examples.h:157:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -8278,91 +7918,8 @@
               "un_CXCursorKind",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "CXCursorKind"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "CXCursor_FirstExpr",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:158:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_UnexposedExpr",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:159:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_DeclRefExpr",
-                valueValue = 101,
-                valueSourceLoc =
-                "manual_examples.h:160:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_MemberRefExpr",
-                valueValue = 102,
-                valueSourceLoc =
-                "manual_examples.h:161:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_PackIndexingExpr",
-                valueValue = 156,
-                valueSourceLoc =
-                "manual_examples.h:163:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LastExpr",
-                valueValue = 156,
-                valueSourceLoc =
-                "manual_examples.h:164:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_FirstStmt",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:166:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_UnexposedStmt",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:167:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LabelStmt",
-                valueValue = 201,
-                valueSourceLoc =
-                "manual_examples.h:168:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CompoundStmt",
-                valueValue = 202,
-                valueSourceLoc =
-                "manual_examples.h:169:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_OpenACCUpdateConstruct",
-                valueValue = 331,
-                valueSourceLoc =
-                "manual_examples.h:171:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LastStmt",
-                valueValue = 331,
-                valueSourceLoc =
-                "manual_examples.h:172:3"}],
-            enumSourceLoc =
-            "manual_examples.h:157:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -8386,91 +7943,8 @@
               "un_CXCursorKind",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "CXCursorKind"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "CXCursor_FirstExpr",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:158:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_UnexposedExpr",
-                valueValue = 100,
-                valueSourceLoc =
-                "manual_examples.h:159:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_DeclRefExpr",
-                valueValue = 101,
-                valueSourceLoc =
-                "manual_examples.h:160:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_MemberRefExpr",
-                valueValue = 102,
-                valueSourceLoc =
-                "manual_examples.h:161:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_PackIndexingExpr",
-                valueValue = 156,
-                valueSourceLoc =
-                "manual_examples.h:163:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LastExpr",
-                valueValue = 156,
-                valueSourceLoc =
-                "manual_examples.h:164:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_FirstStmt",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:166:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_UnexposedStmt",
-                valueValue = 200,
-                valueSourceLoc =
-                "manual_examples.h:167:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LabelStmt",
-                valueValue = 201,
-                valueSourceLoc =
-                "manual_examples.h:168:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CompoundStmt",
-                valueValue = 202,
-                valueSourceLoc =
-                "manual_examples.h:169:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_OpenACCUpdateConstruct",
-                valueValue = 331,
-                valueSourceLoc =
-                "manual_examples.h:171:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_LastStmt",
-                valueValue = 331,
-                valueSourceLoc =
-                "manual_examples.h:172:3"}],
-            enumSourceLoc =
-            "manual_examples.h:157:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -8490,14 +7964,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 100,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_FirstExpr",
-          valueValue = 100,
-          valueSourceLoc =
-          "manual_examples.h:158:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:158:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_FirstExpr",
+            nameHsIdent = HsIdentifier
+              "CXCursor_FirstExpr"},
+          enumConstantValue = 100}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8510,14 +7986,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 100,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_UnexposedExpr",
-          valueValue = 100,
-          valueSourceLoc =
-          "manual_examples.h:159:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:159:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_UnexposedExpr",
+            nameHsIdent = HsIdentifier
+              "CXCursor_UnexposedExpr"},
+          enumConstantValue = 100}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8530,14 +8008,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 101,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_DeclRefExpr",
-          valueValue = 101,
-          valueSourceLoc =
-          "manual_examples.h:160:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:160:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_DeclRefExpr",
+            nameHsIdent = HsIdentifier
+              "CXCursor_DeclRefExpr"},
+          enumConstantValue = 101}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8550,14 +8030,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 102,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_MemberRefExpr",
-          valueValue = 102,
-          valueSourceLoc =
-          "manual_examples.h:161:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:161:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_MemberRefExpr",
+            nameHsIdent = HsIdentifier
+              "CXCursor_MemberRefExpr"},
+          enumConstantValue = 102}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8570,14 +8052,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 156,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_PackIndexingExpr",
-          valueValue = 156,
-          valueSourceLoc =
-          "manual_examples.h:163:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:163:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_PackIndexingExpr",
+            nameHsIdent = HsIdentifier
+              "CXCursor_PackIndexingExpr"},
+          enumConstantValue = 156}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8590,14 +8074,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 156,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_LastExpr",
-          valueValue = 156,
-          valueSourceLoc =
-          "manual_examples.h:164:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:164:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_LastExpr",
+            nameHsIdent = HsIdentifier
+              "CXCursor_LastExpr"},
+          enumConstantValue = 156}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8610,14 +8096,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 200,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_FirstStmt",
-          valueValue = 200,
-          valueSourceLoc =
-          "manual_examples.h:166:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:166:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_FirstStmt",
+            nameHsIdent = HsIdentifier
+              "CXCursor_FirstStmt"},
+          enumConstantValue = 200}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8630,14 +8118,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 200,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_UnexposedStmt",
-          valueValue = 200,
-          valueSourceLoc =
-          "manual_examples.h:167:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:167:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_UnexposedStmt",
+            nameHsIdent = HsIdentifier
+              "CXCursor_UnexposedStmt"},
+          enumConstantValue = 200}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8650,14 +8140,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 201,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_LabelStmt",
-          valueValue = 201,
-          valueSourceLoc =
-          "manual_examples.h:168:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:168:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_LabelStmt",
+            nameHsIdent = HsIdentifier
+              "CXCursor_LabelStmt"},
+          enumConstantValue = 201}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8670,14 +8162,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 202,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_CompoundStmt",
-          valueValue = 202,
-          valueSourceLoc =
-          "manual_examples.h:169:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:169:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_CompoundStmt",
+            nameHsIdent = HsIdentifier
+              "CXCursor_CompoundStmt"},
+          enumConstantValue = 202}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8690,14 +8184,16 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 331,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_OpenACCUpdateConstruct",
-          valueValue = 331,
-          valueSourceLoc =
-          "manual_examples.h:171:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:171:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_OpenACCUpdateConstruct",
+            nameHsIdent = HsIdentifier
+              "CXCursor_OpenACCUpdateConstruct"},
+          enumConstantValue = 331}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -8710,11 +8206,13 @@
         "@NsConstr"
         "CXCursorKind",
       patSynValue = 331,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_LastStmt",
-          valueValue = 331,
-          valueSourceLoc =
-          "manual_examples.h:172:3"}}]
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "manual_examples.h:172:3",
+          enumConstantName = NamePair {
+            nameC = CName
+              "CXCursor_LastStmt",
+            nameHsIdent = HsIdentifier
+              "CXCursor_LastStmt"},
+          enumConstantValue = 331}}]

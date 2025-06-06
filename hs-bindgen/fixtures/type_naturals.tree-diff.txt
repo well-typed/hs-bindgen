@@ -1,40 +1,43 @@
-Header
+TranslationUnit {
+  unitDecls =
   [
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:4:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "N",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "type_naturals.h:4:9",
+        declId = NamePair {
+          nameC = CName "N",
+          nameHsIdent = HsIdentifier
+            "n"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "3",
                   integerLiteralType = Int Signed,
-                  integerLiteralValue = 3}))},
-        macroDeclMacroTy =
-        "IntLike (CIntegralType (IntLike (Int Signed)))",
-        macroDeclSourceLoc =
-        "type_naturals.h:4:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:5:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "M",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MApp
+                  integerLiteralValue = 3}),
+            macroExprType =
+            "IntLike (CIntegralType (IntLike (Int Signed)))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "type_naturals.h:5:9",
+        declId = NamePair {
+          nameC = CName "M",
+          nameHsIdent = HsIdentifier
+            "m"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MApp
               MAdd
               [
                 MTerm
@@ -44,26 +47,30 @@ Header
                       integerLiteralType = Int Signed,
                       integerLiteralValue = 1}),
                 MTerm
-                  (MVar NoXVar (CName "N") [])])},
-        macroDeclMacroTy =
-        "IntLike (CIntegralType (IntLike (Int Signed)))",
-        macroDeclSourceLoc =
-        "type_naturals.h:5:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:6:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "F",
-          macroArgs = [
-            CName "A",
-            CName "B"],
-          macroBody = ExpressionMacro
-            (MApp
+                  (MVar NoXVar (CName "N") [])],
+            macroExprType =
+            "IntLike (CIntegralType (IntLike (Int Signed)))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "type_naturals.h:6:9",
+        declId = NamePair {
+          nameC = CName "F",
+          nameHsIdent = HsIdentifier
+            "f"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "A",
+              CName "B"],
+            macroExprBody = MApp
               MSub
               [
                 MApp
@@ -87,27 +94,31 @@ Header
                     IntegerLiteral {
                       integerLiteralText = "1",
                       integerLiteralType = Int Signed,
-                      integerLiteralValue = 1})])},
-        macroDeclMacroTy =
-        "(forall a b. Add a (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b) => Sub (AddRes a (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b)) (IntLike (CIntegralType (IntLike (Int Signed)))) => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) b => (a -> b -> SubRes (AddRes a (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b)) (IntLike (CIntegralType (IntLike (Int Signed))))))",
-        macroDeclSourceLoc =
-        "type_naturals.h:6:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:7:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "G",
-          macroArgs = [
-            CName "U",
-            CName "X",
-            CName "Y"],
-          macroBody = ExpressionMacro
-            (MApp
+                      integerLiteralValue = 1})],
+            macroExprType =
+            "(forall a b. Add a (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b) => Sub (AddRes a (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b)) (IntLike (CIntegralType (IntLike (Int Signed)))) => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) b => (a -> b -> SubRes (AddRes a (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b)) (IntLike (CIntegralType (IntLike (Int Signed))))))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "type_naturals.h:7:9",
+        declId = NamePair {
+          nameC = CName "G",
+          nameHsIdent = HsIdentifier
+            "g"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              CName "U",
+              CName "X",
+              CName "Y"],
+            macroExprBody = MApp
               MAdd
               [
                 MApp
@@ -131,27 +142,28 @@ Header
                           integerLiteralType = Int Signed,
                           integerLiteralValue = 16}),
                     MTerm
-                      (MVar
-                        NoXVar
-                        (CName "Y")
-                        [])]])},
-        macroDeclMacroTy =
-        "(forall a b c. Add (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b) => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) b => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) a => (c -> a -> b -> AddRes (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b)))",
-        macroDeclSourceLoc =
-        "type_naturals.h:7:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:8:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "K",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      (MVar NoXVar (CName "Y") [])]],
+            macroExprType =
+            "(forall a b c. Add (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b) => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) b => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) a => (c -> a -> b -> AddRes (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b)))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "type_naturals.h:8:9",
+        declId = NamePair {
+          nameC = CName "K",
+          nameHsIdent = HsIdentifier
+            "k"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MVar
                 NoXVar
                 (CName "G")
@@ -188,215 +200,133 @@ Header
                           (MVar
                             NoXVar
                             (CName "N")
-                            [])])]))},
-        macroDeclMacroTy =
-        "(forall a. Add (IntLike (CIntegralType (IntLike (Int Signed)))) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) a => (a -> AddRes (IntLike (CIntegralType (IntLike (Int Signed)))) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a)))",
-        macroDeclSourceLoc =
-        "type_naturals.h:8:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:10:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr1",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MVar NoXVar (CName "N") [])),
-                    arrayAttributes = []}})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "type_naturals.h:10:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:11:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr2",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MApp
-                        MMult
-                        [
-                          MTerm
-                            (MInt
-                              IntegerLiteral {
-                                integerLiteralText = "2",
-                                integerLiteralType = Int Signed,
-                                integerLiteralValue = 2}),
-                          MTerm
-                            (MVar NoXVar (CName "M") [])]),
-                    arrayAttributes = []}})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "type_naturals.h:11:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:12:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr3",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MVar
-                          NoXVar
-                          (CName "F")
-                          [
-                            MTerm
-                              (MVar NoXVar (CName "N") []),
-                            MApp
-                              MMult
-                              [
-                                MTerm
-                                  (MInt
-                                    IntegerLiteral {
-                                      integerLiteralText = "2",
-                                      integerLiteralType = Int Signed,
-                                      integerLiteralValue = 2}),
-                                MTerm
-                                  (MVar
-                                    NoXVar
-                                    (CName "M")
-                                    [])]])),
-                    arrayAttributes = []}})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "type_naturals.h:12:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:13:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr4",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MVar
-                          NoXVar
-                          (CName "G")
-                          [
-                            MTerm
-                              (MFloat
-                                FloatingLiteral {
-                                  floatingLiteralText = "11.77",
-                                  floatingLiteralType =
-                                  DoubleType,
-                                  floatingLiteralFloatValue =
-                                  11.77,
-                                  floatingLiteralDoubleValue =
-                                  11.77}),
-                            MTerm
-                              (MVar
-                                NoXVar
-                                (CName "F")
-                                [
-                                  MTerm
-                                    (MVar
-                                      NoXVar
-                                      (CName "F")
-                                      [
-                                        MTerm
-                                          (MInt
-                                            IntegerLiteral {
-                                              integerLiteralText = "2",
-                                              integerLiteralType = Int Signed,
-                                              integerLiteralValue = 2}),
-                                        MTerm
-                                          (MVar NoXVar (CName "M") [])]),
-                                  MTerm
-                                    (MVar NoXVar (CName "N") [])]),
-                            MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "7",
-                                  integerLiteralType = Int Signed,
-                                  integerLiteralValue = 7})])),
-                    arrayAttributes = []}})},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "type_naturals.h:13:9"}]
+                            [])])]),
+            macroExprType =
+            "(forall a. Add (IntLike (CIntegralType (IntLike (Int Signed)))) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) a => (a -> AddRes (IntLike (CIntegralType (IntLike (Int Signed)))) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a)))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_naturals.h:10:9",
+        declId = NamePair {
+          nameC = CName "Arr1",
+          nameHsIdent = HsIdentifier
+            "Arr1"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr1",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr1"},
+            macroType = TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_naturals.h:11:9",
+        declId = NamePair {
+          nameC = CName "Arr2",
+          nameHsIdent = HsIdentifier
+            "Arr2"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr2",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr2"},
+            macroType = TypeConstArray
+              8
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_naturals.h:12:9",
+        declId = NamePair {
+          nameC = CName "Arr3",
+          nameHsIdent = HsIdentifier
+            "Arr3"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr3",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr3"},
+            macroType = TypeConstArray
+              18
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_naturals.h:13:9",
+        declId = NamePair {
+          nameC = CName "Arr4",
+          nameHsIdent = HsIdentifier
+            "Arr4"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr4",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr4"},
+            macroType = TypeConstArray
+              252
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["type_naturals"]}

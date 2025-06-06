@@ -14,7 +14,8 @@ module HsBindgen.PrettyC (
 ) where
 
 import HsBindgen.Imports
-import HsBindgen.C.AST.Type qualified as C
+import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
 
 import DeBruijn (Idx, lookupEnv, sizeEnv, tabulateEnv, Env(..))
 import Control.Monad.State.Strict (State, evalState, put, get)

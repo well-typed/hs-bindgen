@@ -13,15 +13,31 @@
           "un_Myint",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "myint",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "typedefs.h:1:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "typedefs.h:1:13",
+          declId = NamePair {
+            nameC = CName "myint",
+            nameHsIdent = HsIdentifier
+              "Myint"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Myint",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Myint"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -129,16 +145,32 @@
           "un_Intptr",
         fieldType = HsPtr
           (HsPrimType HsPrimCInt),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "intptr",
-          typedefType = TypePointer
-            (TypePrim
-              (PrimIntegral PrimInt Signed)),
-          typedefSourceLoc =
-          "typedefs.h:2:15"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "typedefs.h:2:15",
+          declId = NamePair {
+            nameC = CName "intptr",
+            nameHsIdent = HsIdentifier
+              "Intptr"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Intptr",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Intptr"},
+            typedefType = TypePointer
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance

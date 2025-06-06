@@ -30,7 +30,7 @@ import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 import qualified Text.Read
 
-$(CAPI.addCSource "#include \"manual_examples.h\"\nvoid testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }\nsigned int testmodule_index_triple (struct triple *arg1, enum index arg2) { return index_triple(arg1, arg2); }\nsum testmodule_sum_triple (struct triple *arg1) { return sum_triple(arg1); }\naverage testmodule_average_triple (struct triple *arg1) { return average_triple(arg1); }\nYEAR testmodule_getYear (date *arg1) { return getYear(arg1); }\nvoid testmodule_print_occupation (signed int arg1, union occupation *arg2) { print_occupation(arg1, arg2); }\nvoid testmodule_\25308\25308 (void) { \25308\25308(); }\nvoid testmodule_\978 (void) { \978(); }\nvoid testmodule_import (void) { import(); }\n")
+$(CAPI.addCSource "#include \"manual_examples.h\"\nvoid testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }\nsigned int testmodule_index_triple (triple *arg1, index arg2) { return index_triple(arg1, arg2); }\nsum testmodule_sum_triple (triple *arg1) { return sum_triple(arg1); }\naverage testmodule_average_triple (triple *arg1) { return average_triple(arg1); }\nYEAR testmodule_getYear (date *arg1) { return getYear(arg1); }\nvoid testmodule_print_occupation (signed int arg1, occupation *arg2) { print_occupation(arg1, arg2); }\nvoid testmodule_\25308\25308 (void) { \25308\25308(); }\nvoid testmodule_\978 (void) { \978(); }\nvoid testmodule_import (void) { import(); }\n")
 
 data Triple = Triple
   { triple_a :: FC.CInt
@@ -364,6 +364,8 @@ deriving stock instance Show Student
 
 deriving stock instance Eq Student
 
+data Person
+
 data Employee = Employee
   { employee_company :: F.Ptr FC.CChar
   , employee_supervisor :: F.Ptr Person
@@ -413,8 +415,6 @@ get_occupation_employee = HsBindgen.Runtime.ByteArray.getUnionPayload
 
 set_occupation_employee :: Employee -> Occupation
 set_occupation_employee = HsBindgen.Runtime.ByteArray.setUnionPayload
-
-data Person
 
 foreign import ccall safe "testmodule_print_occupation" print_occupation :: FC.CInt -> (F.Ptr Occupation) -> IO ()
 

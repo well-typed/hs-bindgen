@@ -31,10 +31,10 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
               Pipeline.optsClangArgs  = clangArgs packageRoot
             , Pipeline.optsTracer = tracer
             }
-      (depPaths, cheader) <- Pipeline.parseCHeader opts headerIncludePath
+      unit <- Pipeline.parseCHeader opts headerIncludePath
 
       let decls :: Qu [TH.Dec]
-          decls = Pipeline.genBindingsFromCHeader opts depPaths cheader
+          decls = Pipeline.genBindingsFromCHeader opts unit
 
           -- unqualify names, qualified names are noisy *and*
           -- GHC.Base names have moved.

@@ -8,6 +8,14 @@ types:
   - Show
   - Storable
 - headers: anonymous.h
+  cname: struct S1_c
+  module: Example
+  identifier: S1_c
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: anonymous.h
   cname: struct S2
   module: Example
   identifier: S2
@@ -16,9 +24,33 @@ types:
   - Show
   - Storable
 - headers: anonymous.h
+  cname: struct S2_inner
+  module: Example
+  identifier: S2_inner
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: anonymous.h
+  cname: struct S2_inner_deep
+  module: Example
+  identifier: S2_inner_deep
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: anonymous.h
   cname: struct S3
   module: Example
   identifier: S3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: anonymous.h
+  cname: struct S3_c
+  module: Example
+  identifier: S3_c
   instances:
   - Eq
   - Show

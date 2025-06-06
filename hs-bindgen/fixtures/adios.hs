@@ -13,15 +13,31 @@
           "un_Adio'0301s",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "adio\769s",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "adios.h:7:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "adios.h:7:13",
+          declId = NamePair {
+            nameC = CName "adio\769s",
+            nameHsIdent = HsIdentifier
+              "Adio'0301s"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Adio'0301s",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Adio'0301s"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -129,16 +145,31 @@
           "un_C\25968\23383",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName
-            "\25968\23383",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "adios.h:12:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "adios.h:12:13",
+          declId = NamePair {
+            nameC = CName "\25968\23383",
+            nameHsIdent = HsIdentifier
+              "C\25968\23383"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "C\25968\23383",
+              newtypeField = HsName
+                "@NsVar"
+                "un_C\25968\23383"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -246,14 +277,11 @@
       "testmodule_\978",
       foreignImportHeader = "adios.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "\978",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "adios.h",
-          functionSourceLoc =
-          "adios.h:18:6"}},
+          functionHeader = "adios.h"}},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "void testmodule_\25308\25308 (void) { \25308\25308(); }",
@@ -268,15 +296,11 @@
       "testmodule_\25308\25308",
       foreignImportHeader = "adios.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "\25308\25308",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "adios.h",
-          functionSourceLoc =
-          "adios.h:21:6"}},
+          functionHeader = "adios.h"}},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "void testmodule_Say\25308\25308 (void) { Say\25308\25308(); }",
@@ -291,12 +315,8 @@
       "testmodule_Say\25308\25308",
       foreignImportHeader = "adios.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName
-            "Say\25308\25308",
           functionArgs = [],
           functionRes = TypeVoid,
-          functionHeader = "adios.h",
-          functionSourceLoc =
-          "adios.h:25:6"}}]
+          functionHeader = "adios.h"}}]

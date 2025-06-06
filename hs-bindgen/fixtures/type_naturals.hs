@@ -512,39 +512,34 @@
         fieldType = HsConstArray
           3
           (HsPrimType HsPrimCInt),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:10:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr1",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MVar NoXVar (CName "N") [])),
-                    arrayAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "type_naturals.h:10:9",
+          declId = NamePair {
+            nameC = CName "Arr1",
+            nameHsIdent = HsIdentifier
+              "Arr1"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr1",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr1"},
+            macroType = TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -574,48 +569,34 @@
         fieldType = HsConstArray
           8
           (HsPrimType HsPrimCInt),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:11:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr2",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MApp
-                        MMult
-                        [
-                          MTerm
-                            (MInt
-                              IntegerLiteral {
-                                integerLiteralText = "2",
-                                integerLiteralType = Int Signed,
-                                integerLiteralValue = 2}),
-                          MTerm
-                            (MVar NoXVar (CName "M") [])]),
-                    arrayAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "type_naturals.h:11:9",
+          declId = NamePair {
+            nameC = CName "Arr2",
+            nameHsIdent = HsIdentifier
+              "Arr2"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr2",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr2"},
+            macroType = TypeConstArray
+              8
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -645,58 +626,34 @@
         fieldType = HsConstArray
           18
           (HsPrimType HsPrimCInt),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:12:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr3",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MVar
-                          NoXVar
-                          (CName "F")
-                          [
-                            MTerm
-                              (MVar NoXVar (CName "N") []),
-                            MApp
-                              MMult
-                              [
-                                MTerm
-                                  (MInt
-                                    IntegerLiteral {
-                                      integerLiteralText = "2",
-                                      integerLiteralType = Int Signed,
-                                      integerLiteralValue = 2}),
-                                MTerm
-                                  (MVar
-                                    NoXVar
-                                    (CName "M")
-                                    [])]])),
-                    arrayAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "type_naturals.h:12:9",
+          declId = NamePair {
+            nameC = CName "Arr3",
+            nameHsIdent = HsIdentifier
+              "Arr3"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr3",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr3"},
+            macroType = TypeConstArray
+              18
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -726,78 +683,34 @@
         fieldType = HsConstArray
           252
           (HsPrimType HsPrimCInt),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "type_naturals.h:13:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "Arr4",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                ArrayDirectDeclarator
-                  ArrayDeclarator {
-                    arrayDirectDeclarator =
-                    IdentifierDeclarator
-                      AbstractName
-                      [],
-                    arrayStatic = False,
-                    arrayTypeQualifiers = [],
-                    arraySize = ArraySize
-                      (MTerm
-                        (MVar
-                          NoXVar
-                          (CName "G")
-                          [
-                            MTerm
-                              (MFloat
-                                FloatingLiteral {
-                                  floatingLiteralText = "11.77",
-                                  floatingLiteralType =
-                                  DoubleType,
-                                  floatingLiteralFloatValue =
-                                  11.77,
-                                  floatingLiteralDoubleValue =
-                                  11.77}),
-                            MTerm
-                              (MVar
-                                NoXVar
-                                (CName "F")
-                                [
-                                  MTerm
-                                    (MVar
-                                      NoXVar
-                                      (CName "F")
-                                      [
-                                        MTerm
-                                          (MInt
-                                            IntegerLiteral {
-                                              integerLiteralText = "2",
-                                              integerLiteralType = Int Signed,
-                                              integerLiteralValue = 2}),
-                                        MTerm
-                                          (MVar NoXVar (CName "M") [])]),
-                                  MTerm
-                                    (MVar NoXVar (CName "N") [])]),
-                            MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "7",
-                                  integerLiteralType = Int Signed,
-                                  integerLiteralValue = 7})])),
-                    arrayAttributes = []}})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "type_naturals.h:13:9",
+          declId = NamePair {
+            nameC = CName "Arr4",
+            nameHsIdent = HsIdentifier
+              "Arr4"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Arr4",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Arr4"},
+            macroType = TypeConstArray
+              252
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance

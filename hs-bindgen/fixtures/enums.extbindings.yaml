@@ -1,5 +1,15 @@
 types:
 - headers: enums.h
+  cname: enum enumA
+  module: Example
+  identifier: EnumA
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
   cname: enum enumB
   module: Example
   identifier: EnumB
@@ -73,36 +83,6 @@ types:
   cname: enum second
   module: Example
   identifier: Second
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: enums.h
-  cname: enumA
-  module: Example
-  identifier: EnumA
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: enums.h
-  cname: enumB
-  module: Example
-  identifier: EnumB
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: enums.h
-  cname: enumC
-  module: Example
-  identifier: EnumC
   instances:
   - Eq
   - Ord

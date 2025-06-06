@@ -1,204 +1,453 @@
-Header
-  [
-    DeclFunction
-      Function {
-        functionName = CName "by",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:3:6"},
-    DeclFunction
-      Function {
-        functionName = CName "forall",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:4:6"},
-    DeclFunction
-      Function {
-        functionName = CName "mdo",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:5:6"},
-    DeclFunction
-      Function {
-        functionName = CName "pattern",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:6:6"},
-    DeclFunction
-      Function {
-        functionName = CName "proc",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:7:6"},
-    DeclFunction
-      Function {
-        functionName = CName "rec",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:8:6"},
-    DeclFunction
-      Function {
-        functionName = CName "using",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:9:6"},
-    DeclFunction
-      Function {
-        functionName = CName "anyclass",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:12:6"},
-    DeclFunction
-      Function {
-        functionName = CName "capi",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:13:6"},
-    DeclFunction
-      Function {
-        functionName = CName "cases",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:14:6"},
-    DeclFunction
-      Function {
-        functionName = CName "ccall",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:15:6"},
-    DeclFunction
-      Function {
-        functionName = CName "dynamic",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:16:6"},
-    DeclFunction
-      Function {
-        functionName = CName "export",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:17:6"},
-    DeclFunction
-      Function {
-        functionName = CName "family",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:18:6"},
-    DeclFunction
-      Function {
-        functionName = CName "group",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:19:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "interruptible",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:20:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "javascript",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:21:6"},
-    DeclFunction
-      Function {
-        functionName = CName "label",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:22:6"},
-    DeclFunction
-      Function {
-        functionName = CName "prim",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:23:6"},
-    DeclFunction
-      Function {
-        functionName = CName "role",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:24:6"},
-    DeclFunction
-      Function {
-        functionName = CName "safe",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:25:6"},
-    DeclFunction
-      Function {
-        functionName = CName "stdcall",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:26:6"},
-    DeclFunction
-      Function {
-        functionName = CName "stock",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:27:6"},
-    DeclFunction
-      Function {
-        functionName = CName "unsafe",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:28:6"},
-    DeclFunction
-      Function {
-        functionName = CName "via",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader = "names.h",
-        functionSourceLoc =
-        "names.h:29:6"}]
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:3:6",
+        declId = NamePair {
+          nameC = CName "by",
+          nameHsIdent = HsIdentifier
+            "by'"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:4:6",
+        declId = NamePair {
+          nameC = CName "forall",
+          nameHsIdent = HsIdentifier
+            "forall'"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:5:6",
+        declId = NamePair {
+          nameC = CName "mdo",
+          nameHsIdent = HsIdentifier
+            "mdo'"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:6:6",
+        declId = NamePair {
+          nameC = CName "pattern",
+          nameHsIdent = HsIdentifier
+            "pattern'"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:7:6",
+        declId = NamePair {
+          nameC = CName "proc",
+          nameHsIdent = HsIdentifier
+            "proc'"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:8:6",
+        declId = NamePair {
+          nameC = CName "rec",
+          nameHsIdent = HsIdentifier
+            "rec'"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:9:6",
+        declId = NamePair {
+          nameC = CName "using",
+          nameHsIdent = HsIdentifier
+            "using'"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:12:6",
+        declId = NamePair {
+          nameC = CName "anyclass",
+          nameHsIdent = HsIdentifier
+            "anyclass"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:13:6",
+        declId = NamePair {
+          nameC = CName "capi",
+          nameHsIdent = HsIdentifier
+            "capi"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:14:6",
+        declId = NamePair {
+          nameC = CName "cases",
+          nameHsIdent = HsIdentifier
+            "cases"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:15:6",
+        declId = NamePair {
+          nameC = CName "ccall",
+          nameHsIdent = HsIdentifier
+            "ccall"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:16:6",
+        declId = NamePair {
+          nameC = CName "dynamic",
+          nameHsIdent = HsIdentifier
+            "dynamic"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:17:6",
+        declId = NamePair {
+          nameC = CName "export",
+          nameHsIdent = HsIdentifier
+            "export"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:18:6",
+        declId = NamePair {
+          nameC = CName "family",
+          nameHsIdent = HsIdentifier
+            "family"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:19:6",
+        declId = NamePair {
+          nameC = CName "group",
+          nameHsIdent = HsIdentifier
+            "group"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:20:6",
+        declId = NamePair {
+          nameC = CName "interruptible",
+          nameHsIdent = HsIdentifier
+            "interruptible"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:21:6",
+        declId = NamePair {
+          nameC = CName "javascript",
+          nameHsIdent = HsIdentifier
+            "javascript"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:22:6",
+        declId = NamePair {
+          nameC = CName "label",
+          nameHsIdent = HsIdentifier
+            "label"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:23:6",
+        declId = NamePair {
+          nameC = CName "prim",
+          nameHsIdent = HsIdentifier
+            "prim"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:24:6",
+        declId = NamePair {
+          nameC = CName "role",
+          nameHsIdent = HsIdentifier
+            "role"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:25:6",
+        declId = NamePair {
+          nameC = CName "safe",
+          nameHsIdent = HsIdentifier
+            "safe"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:26:6",
+        declId = NamePair {
+          nameC = CName "stdcall",
+          nameHsIdent = HsIdentifier
+            "stdcall"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:27:6",
+        declId = NamePair {
+          nameC = CName "stock",
+          nameHsIdent = HsIdentifier
+            "stock"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:28:6",
+        declId = NamePair {
+          nameC = CName "unsafe",
+          nameHsIdent = HsIdentifier
+            "unsafe"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "names.h:29:6",
+        declId = NamePair {
+          nameC = CName "via",
+          nameHsIdent = HsIdentifier
+            "via"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "names.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["names"]}

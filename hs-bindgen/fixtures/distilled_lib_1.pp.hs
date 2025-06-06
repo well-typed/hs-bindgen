@@ -26,36 +26,6 @@ import qualified Text.Read
 
 $(CAPI.addCSource "#include \"distilled_lib_1.h\"\nint32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }\n")
 
-newtype Int32_t = Int32_t
-  { un_Int32_t :: FC.CInt
-  }
-
-deriving newtype instance F.Storable Int32_t
-
-deriving stock instance Eq Int32_t
-
-deriving stock instance Ord Int32_t
-
-deriving stock instance Read Int32_t
-
-deriving stock instance Show Int32_t
-
-deriving newtype instance Enum Int32_t
-
-deriving newtype instance Ix.Ix Int32_t
-
-deriving newtype instance Bounded Int32_t
-
-deriving newtype instance Bits.Bits Int32_t
-
-deriving newtype instance FiniteBits Int32_t
-
-deriving newtype instance Integral Int32_t
-
-deriving newtype instance Num Int32_t
-
-deriving newtype instance Real Int32_t
-
 newtype Uint8_t = Uint8_t
   { un_Uint8_t :: FC.CUChar
   }
@@ -145,6 +115,36 @@ deriving newtype instance Integral Uint32_t
 deriving newtype instance Num Uint32_t
 
 deriving newtype instance Real Uint32_t
+
+newtype Int32_t = Int32_t
+  { un_Int32_t :: FC.CInt
+  }
+
+deriving newtype instance F.Storable Int32_t
+
+deriving stock instance Eq Int32_t
+
+deriving stock instance Ord Int32_t
+
+deriving stock instance Read Int32_t
+
+deriving stock instance Show Int32_t
+
+deriving newtype instance Enum Int32_t
+
+deriving newtype instance Ix.Ix Int32_t
+
+deriving newtype instance Bounded Int32_t
+
+deriving newtype instance Bits.Bits Int32_t
+
+deriving newtype instance FiniteBits Int32_t
+
+deriving newtype instance Integral Int32_t
+
+deriving newtype instance Num Int32_t
+
+deriving newtype instance Real Int32_t
 
 data Another_typedef_struct_t = Another_typedef_struct_t
   { another_typedef_struct_t_foo :: FC.CInt

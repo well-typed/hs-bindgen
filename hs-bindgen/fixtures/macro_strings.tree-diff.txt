@@ -1,42 +1,44 @@
-Header
+TranslationUnit {
+  unitDecls =
   [
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:4:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C1",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "macro_strings.h:4:9",
+        declId = NamePair {
+          nameC = CName "C1",
+          nameHsIdent = HsIdentifier
+            "c1"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'a'",
                   charLiteralValue = CharValue {
                     charValue =
                     Prim.byteArrayFromList [97],
-                    unicodeCodePoint = Just
-                      'a'}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:4:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:5:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C2",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                    unicodeCodePoint = Just 'a'}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "macro_strings.h:5:9",
+        declId = NamePair {
+          nameC = CName "C2",
+          nameHsIdent = HsIdentifier
+            "c2"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\"'",
@@ -44,47 +46,52 @@ Header
                     charValue =
                     Prim.byteArrayFromList [34],
                     unicodeCodePoint = Just
-                      `'"'`}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:5:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:6:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C3",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      `'"'`}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "macro_strings.h:6:9",
+        declId = NamePair {
+          nameC = CName "C3",
+          nameHsIdent = HsIdentifier
+            "c3"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\\t'",
                   charLiteralValue = CharValue {
                     charValue =
                     Prim.byteArrayFromList [9],
-                    unicodeCodePoint = Just
-                      '\t'}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:6:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:7:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C4",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                    unicodeCodePoint = Just '\t'}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "macro_strings.h:7:9",
+        declId = NamePair {
+          nameC = CName "C4",
+          nameHsIdent = HsIdentifier
+            "c4"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\\0'",
@@ -92,140 +99,160 @@ Header
                     charValue =
                     Prim.byteArrayFromList [0],
                     unicodeCodePoint = Just
-                      '\NUL'}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:7:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:8:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C5",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      '\NUL'}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "macro_strings.h:8:9",
+        declId = NamePair {
+          nameC = CName "C5",
+          nameHsIdent = HsIdentifier
+            "c5"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\\''",
                   charLiteralValue = CharValue {
                     charValue =
                     Prim.byteArrayFromList [39],
-                    unicodeCodePoint = Just
-                      '\''}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:8:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:9:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C6",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                    unicodeCodePoint = Just '\''}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "macro_strings.h:9:9",
+        declId = NamePair {
+          nameC = CName "C6",
+          nameHsIdent = HsIdentifier
+            "c6"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\\?'",
                   charLiteralValue = CharValue {
                     charValue =
                     Prim.byteArrayFromList [63],
-                    unicodeCodePoint = Just
-                      '?'}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:9:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:10:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C7",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                    unicodeCodePoint = Just '?'}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:10:9",
+        declId = NamePair {
+          nameC = CName "C7",
+          nameHsIdent = HsIdentifier
+            "c7"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\\123'",
                   charLiteralValue = CharValue {
                     charValue =
                     Prim.byteArrayFromList [83],
-                    unicodeCodePoint = Nothing}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:10:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:11:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "C8",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                    unicodeCodePoint = Nothing}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:11:9",
+        declId = NamePair {
+          nameC = CName "C8",
+          nameHsIdent = HsIdentifier
+            "c8"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\\x53'",
                   charLiteralValue = CharValue {
                     charValue =
                     Prim.byteArrayFromList [83],
-                    unicodeCodePoint = Nothing}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:11:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:13:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "D",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                    unicodeCodePoint = Nothing}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:13:9",
+        declId = NamePair {
+          nameC = CName "D",
+          nameHsIdent = HsIdentifier
+            "d"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\\777'",
                   charLiteralValue = CharValue {
                     charValue =
                     Prim.byteArrayFromList [1, 255],
-                    unicodeCodePoint = Nothing}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:13:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:15:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "J1",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                    unicodeCodePoint = Nothing}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:15:9",
+        declId = NamePair {
+          nameC = CName "J1",
+          nameHsIdent = HsIdentifier
+            "j1"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\12354'",
@@ -234,23 +261,27 @@ Header
                     Prim.byteArrayFromList
                       [227, 129, 130],
                     unicodeCodePoint = Just
-                      '\12354'}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:15:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:16:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "J2",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      '\12354'}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:16:9",
+        declId = NamePair {
+          nameC = CName "J2",
+          nameHsIdent = HsIdentifier
+            "j2"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText = "'\\u3042'",
@@ -259,23 +290,27 @@ Header
                     Prim.byteArrayFromList
                       [227, 129, 130],
                     unicodeCodePoint = Just
-                      '\12354'}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:16:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:17:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "J3",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      '\12354'}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:17:9",
+        declId = NamePair {
+          nameC = CName "J3",
+          nameHsIdent = HsIdentifier
+            "j3"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MChar
                 CharLiteral {
                   charLiteralText =
@@ -284,23 +319,28 @@ Header
                     charValue =
                     Prim.byteArrayFromList
                       [227, 129, 130],
-                    unicodeCodePoint = Nothing}}))},
-        macroDeclMacroTy = "CharLit",
-        macroDeclSourceLoc =
-        "macro_strings.h:17:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:20:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S1",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                    unicodeCodePoint = Nothing}}),
+            macroExprType = "CharLit"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:20:9",
+        declId = NamePair {
+          nameC = CName "S1",
+          nameHsIdent = HsIdentifier
+            "s1"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText = "\"a\"",
@@ -308,25 +348,29 @@ Header
                     CharValue {
                       charValue =
                       Prim.byteArrayFromList [97],
-                      unicodeCodePoint = Just
-                        'a'}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:20:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:21:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S2",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      unicodeCodePoint = Just 'a'}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:21:9",
+        declId = NamePair {
+          nameC = CName "S2",
+          nameHsIdent = HsIdentifier
+            "s2"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText = "\"'\"",
@@ -335,24 +379,29 @@ Header
                       charValue =
                       Prim.byteArrayFromList [39],
                       unicodeCodePoint = Just
-                        '\''}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:21:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:22:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S3",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                        '\''}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:22:9",
+        declId = NamePair {
+          nameC = CName "S3",
+          nameHsIdent = HsIdentifier
+            "s3"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText = "\"\\t\"",
@@ -361,24 +410,29 @@ Header
                       charValue =
                       Prim.byteArrayFromList [9],
                       unicodeCodePoint = Just
-                        '\t'}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:22:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:23:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S4",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                        '\t'}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:23:9",
+        declId = NamePair {
+          nameC = CName "S4",
+          nameHsIdent = HsIdentifier
+            "s4"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText = "\"\\0\"",
@@ -387,24 +441,29 @@ Header
                       charValue =
                       Prim.byteArrayFromList [0],
                       unicodeCodePoint = Just
-                        '\NUL'}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:23:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:24:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S5",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                        '\NUL'}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:24:9",
+        declId = NamePair {
+          nameC = CName "S5",
+          nameHsIdent = HsIdentifier
+            "s5"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText = "\"\\'\"",
@@ -413,24 +472,29 @@ Header
                       charValue =
                       Prim.byteArrayFromList [39],
                       unicodeCodePoint = Just
-                        '\''}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:24:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:25:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S6",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                        '\''}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:25:9",
+        declId = NamePair {
+          nameC = CName "S6",
+          nameHsIdent = HsIdentifier
+            "s6"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText = "\"\\?\"",
@@ -438,25 +502,29 @@ Header
                     CharValue {
                       charValue =
                       Prim.byteArrayFromList [63],
-                      unicodeCodePoint = Just
-                        '?'}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:25:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:26:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S7",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      unicodeCodePoint = Just '?'}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:26:9",
+        declId = NamePair {
+          nameC = CName "S7",
+          nameHsIdent = HsIdentifier
+            "s7"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText = "\"\\123\"",
@@ -464,25 +532,29 @@ Header
                     CharValue {
                       charValue =
                       Prim.byteArrayFromList [83],
-                      unicodeCodePoint =
-                      Nothing}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:26:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:27:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "S8",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      unicodeCodePoint = Nothing}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:27:9",
+        declId = NamePair {
+          nameC = CName "S8",
+          nameHsIdent = HsIdentifier
+            "s8"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText = "\"\\x53\"",
@@ -490,25 +562,29 @@ Header
                     CharValue {
                       charValue =
                       Prim.byteArrayFromList [83],
-                      unicodeCodePoint =
-                      Nothing}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:27:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:29:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "T1",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      unicodeCodePoint = Nothing}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:29:9",
+        declId = NamePair {
+          nameC = CName "T1",
+          nameHsIdent = HsIdentifier
+            "t1"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText =
@@ -519,24 +595,29 @@ Header
                       Prim.byteArrayFromList
                         [227, 129, 130],
                       unicodeCodePoint = Just
-                        '\12354'}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:29:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:30:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "T2",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                        '\12354'}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:30:9",
+        declId = NamePair {
+          nameC = CName "T2",
+          nameHsIdent = HsIdentifier
+            "t2"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText =
@@ -547,24 +628,29 @@ Header
                       Prim.byteArrayFromList
                         [227, 129, 130],
                       unicodeCodePoint = Just
-                        '\12354'}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:30:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:31:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "T3",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                        '\12354'}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:31:9",
+        declId = NamePair {
+          nameC = CName "T3",
+          nameHsIdent = HsIdentifier
+            "t3"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText =
@@ -581,25 +667,29 @@ Header
                     CharValue {
                       charValue =
                       Prim.byteArrayFromList [130],
-                      unicodeCodePoint =
-                      Nothing}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:31:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:33:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "U",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      unicodeCodePoint = Nothing}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:33:9",
+        declId = NamePair {
+          nameC = CName "U",
+          nameHsIdent = HsIdentifier
+            "u"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText =
@@ -620,25 +710,29 @@ Header
                     CharValue {
                       charValue =
                       Prim.byteArrayFromList [1, 255],
-                      unicodeCodePoint =
-                      Nothing}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:33:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:34:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "V",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      unicodeCodePoint = Nothing}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:34:9",
+        declId = NamePair {
+          nameC = CName "V",
+          nameHsIdent = HsIdentifier
+            "v"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText =
@@ -667,25 +761,29 @@ Header
                     CharValue {
                       charValue =
                       Prim.byteArrayFromList [6],
-                      unicodeCodePoint =
-                      Nothing}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:34:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:36:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "W1",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                      unicodeCodePoint = Nothing}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:36:9",
+        declId = NamePair {
+          nameC = CName "W1",
+          nameHsIdent = HsIdentifier
+            "w1"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText =
@@ -707,24 +805,29 @@ Header
                       charValue =
                       Prim.byteArrayFromList [0],
                       unicodeCodePoint = Just
-                        '\NUL'}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:36:9"},
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "macro_strings.h:37:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "W2",
-          macroArgs = [],
-          macroBody = ExpressionMacro
-            (MTerm
+                        '\NUL'}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_strings.h:37:9",
+        declId = NamePair {
+          nameC = CName "W2",
+          nameHsIdent = HsIdentifier
+            "w2"}},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
               (MString
                 StringLiteral {
                   stringLiteralText =
@@ -765,9 +868,13 @@ Header
                     CharValue {
                       charValue =
                       Prim.byteArrayFromList [103],
-                      unicodeCodePoint = Just
-                        'g'}]}))},
-        macroDeclMacroTy =
-        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
-        macroDeclSourceLoc =
-        "macro_strings.h:37:9"}]
+                      unicodeCodePoint = Just 'g'}]}),
+            macroExprType =
+            "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["macro_strings"]}

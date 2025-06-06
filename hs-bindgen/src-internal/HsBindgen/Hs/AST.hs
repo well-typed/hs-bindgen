@@ -10,15 +10,11 @@
 --
 -- > import HsBindgen.Hs.AST qualified as Hs
 module HsBindgen.Hs.AST (
-    -- * Information about generated code
+    -- * Generated Haskell datatypes
     Field(..)
-  , FieldOrigin(..)
   , Struct(..)
-  , StructOrigin(..)
   , EmptyData(..)
-  , EmptyDataOrigin(..)
   , Newtype(..)
-  , NewtypeOrigin(..)
     -- * Types
   , HsType(..)
     -- * Variable binding
@@ -42,7 +38,6 @@ module HsBindgen.Hs.AST (
   , HsTypeClass(..)
     -- ** Foreign imports
   , ForeignImportDecl(..)
-  , ForeignImportDeclOrigin(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -55,22 +50,19 @@ module HsBindgen.Hs.AST (
   , makeElimStruct
     -- ** Pattern Synonyms
   , PatSyn(..)
-  , PatSynOrigin(..)
   ) where
 
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
 import DeBruijn (Ctx, EmptyCtx, Wk (..), Add (..), Idx (..))
 
-import HsBindgen.C.AST qualified as C
-
-import HsBindgen.ExtBindings (HsTypeClass(..))
-import HsBindgen.Hs.AST.Name
-import HsBindgen.Hs.AST.Origin
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST.SigmaType
 import HsBindgen.Hs.AST.Strategy
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
 import HsBindgen.SHs.AST qualified as SHs
@@ -84,7 +76,7 @@ import C.Char qualified
 data Field = Field {
       fieldName   :: HsName NsVar
     , fieldType   :: HsType
-    , fieldOrigin :: FieldOrigin
+    , fieldOrigin :: Origin.Field
     }
   deriving stock (Generic, Show)
 
@@ -92,14 +84,17 @@ data Struct (n :: Nat) = Struct {
       structName      :: HsName NsTypeConstr
     , structConstr    :: HsName NsConstr
     , structFields    :: Vec n Field
-    , structOrigin    :: StructOrigin
+      -- TODO: This is a temporary work-around: for enums we generate /both/
+      -- a newtype /and/ a struct, and then define instances only for the
+      -- struct. This is a nasty hack that we should get rid of.
+    , structOrigin    :: Maybe (Origin.Decl Origin.Struct)
     , structInstances :: Set HsTypeClass
     }
   deriving stock (Generic, Show)
 
 data EmptyData = EmptyData {
       emptyDataName   :: HsName NsTypeConstr
-    , emptyDataOrigin :: EmptyDataOrigin
+    , emptyDataOrigin :: Origin.Decl Origin.EmptyData
     }
   deriving stock (Generic, Show)
 
@@ -107,7 +102,7 @@ data Newtype = Newtype {
       newtypeName      :: HsName NsTypeConstr
     , newtypeConstr    :: HsName NsConstr
     , newtypeField     :: Field
-    , newtypeOrigin    :: NewtypeOrigin
+    , newtypeOrigin    :: Origin.Decl Origin.Newtype
     , newtypeInstances :: Set HsTypeClass
     }
   deriving stock (Generic, Show)
@@ -117,7 +112,7 @@ data ForeignImportDecl = ForeignImportDecl
     , foreignImportType       :: HsType
     , foreignImportOrigName   :: Text
     , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
-    , foreignImportDeclOrigin :: ForeignImportDeclOrigin
+    , foreignImportDeclOrigin :: Origin.ForeignImport
     }
   deriving stock (Generic, Show)
 
@@ -235,7 +230,7 @@ data PatSyn = PatSyn
     , patSynType   :: HsName NsTypeConstr
     , patSynConstr :: HsName NsConstr
     , patSynValue  :: Integer
-    , patSynOrigin :: PatSynOrigin
+    , patSynOrigin :: Origin.PatSyn
     }
   deriving stock (Generic, Show)
 

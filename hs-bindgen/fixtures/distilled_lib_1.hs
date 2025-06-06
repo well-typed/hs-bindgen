@@ -3,122 +3,6 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
-        "Int32_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Int32_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Int32_t",
-        fieldType = HsPrimType
-          HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "int32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "alltypes.h:106:25"},
-      newtypeInstances = Set.fromList
-        [
-          Eq,
-          Ord,
-          Enum,
-          Ix,
-          Bounded,
-          Read,
-          Show,
-          Bits,
-          FiniteBits,
-          Integral,
-          Num,
-          Real,
-          Storable]},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
         "Uint8_t",
       newtypeConstr = HsName
         "@NsConstr"
@@ -129,16 +13,33 @@
           "un_Uint8_t",
         fieldType = HsPrimType
           HsPrimCUChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint8_t",
-          typedefType = TypePrim
-            (PrimChar
-              (PrimSignExplicit Unsigned)),
-          typedefSourceLoc =
-          "alltypes.h:121:25"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:7:24",
+          declId = NamePair {
+            nameC = CName "uint8_t",
+            nameHsIdent = HsIdentifier
+              "Uint8_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Uint8_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Uint8_t"},
+            typedefType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -246,17 +147,34 @@
           "un_Uint16_t",
         fieldType = HsPrimType
           HsPrimCUShort,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint16_t",
-          typedefType = TypePrim
-            (PrimIntegral
-              PrimShort
-              Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:126:25"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:8:24",
+          declId = NamePair {
+            nameC = CName "uint16_t",
+            nameHsIdent = HsIdentifier
+              "Uint16_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Uint16_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Uint16_t"},
+            typedefType = TypePrim
+              (PrimIntegral
+                PrimShort
+                Unsigned)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -364,15 +282,34 @@
           "un_Uint32_t",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:131:25"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:9:24",
+          declId = NamePair {
+            nameC = CName "uint32_t",
+            nameHsIdent = HsIdentifier
+              "Uint32_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Uint32_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Uint32_t"},
+            typedefType = TypePrim
+              (PrimIntegral
+                PrimInt
+                Unsigned)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -466,6 +403,139 @@
     (HsName
       "@NsTypeConstr"
       "Uint32_t"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Int32_t",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Int32_t",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Int32_t",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:10:24",
+          declId = NamePair {
+            nameC = CName "int32_t",
+            nameHsIdent = HsIdentifier
+              "Int32_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Int32_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Int32_t"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
   DeclData
     Struct {
       structName = HsName
@@ -481,66 +551,88 @@
             "another_typedef_struct_t_foo",
           fieldType = HsPrimType
             HsPrimCInt,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "foo",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "distilled_lib_1.h:12:22",
+              structFieldName = NamePair {
+                nameC = CName "foo",
+                nameHsIdent = HsIdentifier
+                  "another_typedef_struct_t_foo"},
+              structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "distilled_lib_1.h:8:22"}},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "another_typedef_struct_t_bar",
           fieldType = HsPrimType
             HsPrimCChar,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "bar",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
+              structFieldLoc =
+              "distilled_lib_1.h:12:32",
+              structFieldName = NamePair {
+                nameC = CName "bar",
+                nameHsIdent = HsIdentifier
+                  "another_typedef_struct_t_bar"},
+              structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:8:32"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName
-                "another_typedef_struct_t")),
-          structAliases = [],
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "foo",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "distilled_lib_1.h:8:22"},
-            StructField {
-              fieldName = CName "bar",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:8:32"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "distilled_lib_1.h:8:9"},
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "distilled_lib_1.h:12:9",
+            declId = NamePair {
+              nameC = CName
+                "another_typedef_struct_t",
+              nameHsIdent = HsIdentifier
+                "Another_typedef_struct_t"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName
+                  "@NsConstr"
+                  "Another_typedef_struct_t"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:12:22",
+                  structFieldName = NamePair {
+                    nameC = CName "foo",
+                    nameHsIdent = HsIdentifier
+                      "another_typedef_struct_t_foo"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:12:32",
+                  structFieldName = NamePair {
+                    nameC = CName "bar",
+                    nameHsIdent = HsIdentifier
+                      "another_typedef_struct_t_bar"},
+                  structFieldType = TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -559,66 +651,88 @@
               "another_typedef_struct_t_foo",
             fieldType = HsPrimType
               HsPrimCInt,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "foo",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "distilled_lib_1.h:12:22",
+                structFieldName = NamePair {
+                  nameC = CName "foo",
+                  nameHsIdent = HsIdentifier
+                    "another_typedef_struct_t_foo"},
+                structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "distilled_lib_1.h:8:22"}},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "another_typedef_struct_t_bar",
             fieldType = HsPrimType
               HsPrimCChar,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "bar",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
+                structFieldLoc =
+                "distilled_lib_1.h:12:32",
+                structFieldName = NamePair {
+                  nameC = CName "bar",
+                  nameHsIdent = HsIdentifier
+                    "another_typedef_struct_t_bar"},
+                structFieldType = TypePrim
                   (PrimChar
                     (PrimSignImplicit
                       (Just Signed))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:8:32"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName
-                  "another_typedef_struct_t")),
-            structAliases = [],
-            structSizeof = 8,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "foo",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "distilled_lib_1.h:8:22"},
-              StructField {
-                fieldName = CName "bar",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:8:32"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "distilled_lib_1.h:8:9"},
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "distilled_lib_1.h:12:9",
+              declId = NamePair {
+                nameC = CName
+                  "another_typedef_struct_t",
+                nameHsIdent = HsIdentifier
+                  "Another_typedef_struct_t"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName
+                    "@NsConstr"
+                    "Another_typedef_struct_t"),
+                structSizeof = 8,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:12:22",
+                    structFieldName = NamePair {
+                      nameC = CName "foo",
+                      nameHsIdent = HsIdentifier
+                        "another_typedef_struct_t_foo"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:12:32",
+                    structFieldName = NamePair {
+                      nameC = CName "bar",
+                      nameHsIdent = HsIdentifier
+                        "another_typedef_struct_t_bar"},
+                    structFieldType = TypePrim
+                      (PrimChar
+                        (PrimSignImplicit
+                          (Just Signed))),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -642,66 +756,88 @@
                       "another_typedef_struct_t_foo",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "foo",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "distilled_lib_1.h:12:22",
+                        structFieldName = NamePair {
+                          nameC = CName "foo",
+                          nameHsIdent = HsIdentifier
+                            "another_typedef_struct_t_foo"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:8:22"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "another_typedef_struct_t_bar",
                     fieldType = HsPrimType
                       HsPrimCChar,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "bar",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "distilled_lib_1.h:12:32",
+                        structFieldName = NamePair {
+                          nameC = CName "bar",
+                          nameHsIdent = HsIdentifier
+                            "another_typedef_struct_t_bar"},
+                        structFieldType = TypePrim
                           (PrimChar
                             (PrimSignImplicit
                               (Just Signed))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:8:32"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName
-                          "another_typedef_struct_t")),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "foo",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:8:22"},
-                      StructField {
-                        fieldName = CName "bar",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimChar
-                            (PrimSignImplicit
-                              (Just Signed))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:8:32"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "distilled_lib_1.h:8:9"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "distilled_lib_1.h:12:9",
+                      declId = NamePair {
+                        nameC = CName
+                          "another_typedef_struct_t",
+                        nameHsIdent = HsIdentifier
+                          "Another_typedef_struct_t"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Another_typedef_struct_t"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:12:22",
+                            structFieldName = NamePair {
+                              nameC = CName "foo",
+                              nameHsIdent = HsIdentifier
+                                "another_typedef_struct_t_foo"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:12:32",
+                            structFieldName = NamePair {
+                              nameC = CName "bar",
+                              nameHsIdent = HsIdentifier
+                                "another_typedef_struct_t_bar"},
+                            structFieldType = TypePrim
+                              (PrimChar
+                                (PrimSignImplicit
+                                  (Just Signed))),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -727,66 +863,88 @@
                       "another_typedef_struct_t_foo",
                     fieldType = HsPrimType
                       HsPrimCInt,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "foo",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "distilled_lib_1.h:12:22",
+                        structFieldName = NamePair {
+                          nameC = CName "foo",
+                          nameHsIdent = HsIdentifier
+                            "another_typedef_struct_t_foo"},
+                        structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:8:22"}},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "another_typedef_struct_t_bar",
                     fieldType = HsPrimType
                       HsPrimCChar,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "bar",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
+                        structFieldLoc =
+                        "distilled_lib_1.h:12:32",
+                        structFieldName = NamePair {
+                          nameC = CName "bar",
+                          nameHsIdent = HsIdentifier
+                            "another_typedef_struct_t_bar"},
+                        structFieldType = TypePrim
                           (PrimChar
                             (PrimSignImplicit
                               (Just Signed))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:8:32"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName
-                          "another_typedef_struct_t")),
-                    structAliases = [],
-                    structSizeof = 8,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "foo",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:8:22"},
-                      StructField {
-                        fieldName = CName "bar",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimChar
-                            (PrimSignImplicit
-                              (Just Signed))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:8:32"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "distilled_lib_1.h:8:9"},
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "distilled_lib_1.h:12:9",
+                      declId = NamePair {
+                        nameC = CName
+                          "another_typedef_struct_t",
+                        nameHsIdent = HsIdentifier
+                          "Another_typedef_struct_t"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Another_typedef_struct_t"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:12:22",
+                            structFieldName = NamePair {
+                              nameC = CName "foo",
+                              nameHsIdent = HsIdentifier
+                                "another_typedef_struct_t_foo"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:12:32",
+                            structFieldName = NamePair {
+                              nameC = CName "bar",
+                              nameHsIdent = HsIdentifier
+                                "another_typedef_struct_t_bar"},
+                            structFieldType = TypePrim
+                              (PrimChar
+                                (PrimSignImplicit
+                                  (Just Signed))),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -823,32 +981,52 @@
           "un_Another_typedef_enum_e",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName
-                "another_typedef_enum_e")),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "FOO",
-              valueValue = 0,
-              valueSourceLoc =
-              "distilled_lib_1.h:9:16"},
-            EnumValue {
-              valueName = CName "BAR",
-              valueValue = 1,
-              valueSourceLoc =
-              "distilled_lib_1.h:9:21"}],
-          enumSourceLoc =
-          "distilled_lib_1.h:9:9"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:13:9",
+          declId = NamePair {
+            nameC = CName
+              "another_typedef_enum_e",
+            nameHsIdent = HsIdentifier
+              "Another_typedef_enum_e"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Another_typedef_enum_e",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Another_typedef_enum_e"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "distilled_lib_1.h:13:16",
+                enumConstantName = NamePair {
+                  nameC = CName "FOO",
+                  nameHsIdent = HsIdentifier
+                    "FOO"},
+                enumConstantValue = 0},
+              EnumConstant {
+                enumConstantLoc =
+                "distilled_lib_1.h:13:21",
+                enumConstantName = NamePair {
+                  nameC = CName "BAR",
+                  nameHsIdent = HsIdentifier
+                    "BAR"},
+                enumConstantValue = 1}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -872,31 +1050,8 @@
               "un_Another_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName
-                  "another_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:16"},
-              EnumValue {
-                valueName = CName "BAR",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:21"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -920,31 +1075,8 @@
                       "un_Another_typedef_enum_e",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName
-                          "another_typedef_enum_e")),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "FOO",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:9:16"},
-                      EnumValue {
-                        valueName = CName "BAR",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:9:21"}],
-                    enumSourceLoc =
-                    "distilled_lib_1.h:9:9"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -973,31 +1105,8 @@
                       "un_Another_typedef_enum_e",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName
-                          "another_typedef_enum_e")),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "FOO",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:9:16"},
-                      EnumValue {
-                        valueName = CName "BAR",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:9:21"}],
-                    enumSourceLoc =
-                    "distilled_lib_1.h:9:9"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -1035,31 +1144,8 @@
               "un_Another_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName
-                  "another_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:16"},
-              EnumValue {
-                valueName = CName "BAR",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:21"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -1084,31 +1170,8 @@
               "un_Another_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName
-                  "another_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:16"},
-              EnumValue {
-                valueName = CName "BAR",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:21"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "FOO")
@@ -1129,31 +1192,8 @@
               "un_Another_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName
-                  "another_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:16"},
-              EnumValue {
-                valueName = CName "BAR",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:21"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -1177,31 +1217,8 @@
               "un_Another_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName
-                  "another_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName "FOO",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:16"},
-              EnumValue {
-                valueName = CName "BAR",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:9:21"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -1221,13 +1238,15 @@
         "@NsConstr"
         "Another_typedef_enum_e",
       patSynValue = 0,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "FOO",
-          valueValue = 0,
-          valueSourceLoc =
-          "distilled_lib_1.h:9:16"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "distilled_lib_1.h:13:16",
+          enumConstantName = NamePair {
+            nameC = CName "FOO",
+            nameHsIdent = HsIdentifier
+              "FOO"},
+          enumConstantValue = 0}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1240,13 +1259,15 @@
         "@NsConstr"
         "Another_typedef_enum_e",
       patSynValue = 1,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "BAR",
-          valueValue = 1,
-          valueSourceLoc =
-          "distilled_lib_1.h:9:21"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "distilled_lib_1.h:13:21",
+          enumConstantName = NamePair {
+            nameC = CName "BAR",
+            nameHsIdent = HsIdentifier
+              "BAR"},
+          enumConstantValue = 1}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -1336,15 +1357,32 @@
           "un_A_type_t",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "a_type_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "distilled_lib_1.h:13:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:17:13",
+          declId = NamePair {
+            nameC = CName "a_type_t",
+            nameHsIdent = HsIdentifier
+              "A_type_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "A_type_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_A_type_t"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1452,15 +1490,32 @@
           "un_Var_t",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "var_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "distilled_lib_1.h:14:13"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:18:13",
+          declId = NamePair {
+            nameC = CName "var_t",
+            nameHsIdent = HsIdentifier
+              "Var_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Var_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Var_t"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1569,15 +1624,18 @@
             "a_typedef_struct_field_0",
           fieldType = HsPrimType
             HsPrimCBool,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_0",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "distilled_lib_1.h:36:31"}},
+              structFieldLoc =
+              "distilled_lib_1.h:40:31",
+              structFieldName = NamePair {
+                nameC = CName "field_0",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_0"},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1586,16 +1644,22 @@
             (HsName
               "@NsTypeConstr"
               "Uint8_t"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_1",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint8_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:37:31"}},
+              structFieldLoc =
+              "distilled_lib_1.h:41:31",
+              structFieldName = NamePair {
+                nameC = CName "field_1",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_1"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "uint8_t",
+                    nameHsIdent = HsIdentifier
+                      "Uint8_t"}),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1604,16 +1668,22 @@
             (HsName
               "@NsTypeConstr"
               "Uint16_t"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_2",
-              fieldOffset = 16,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint16_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:38:31"}},
+              structFieldLoc =
+              "distilled_lib_1.h:42:31",
+              structFieldName = NamePair {
+                nameC = CName "field_2",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_2"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "uint16_t",
+                    nameHsIdent = HsIdentifier
+                      "Uint16_t"}),
+              structFieldOffset = 16,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1622,16 +1692,22 @@
             (HsName
               "@NsTypeConstr"
               "Uint32_t"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_3",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint32_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:39:31"}},
+              structFieldLoc =
+              "distilled_lib_1.h:43:31",
+              structFieldName = NamePair {
+                nameC = CName "field_3",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_3"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "uint32_t",
+                    nameHsIdent = HsIdentifier
+                      "Uint32_t"}),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1640,19 +1716,26 @@
             (HsName
               "@NsTypeConstr"
               "Another_typedef_struct_t"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_4",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtTypedef
-                    (CName
-                      "another_typedef_struct_t"))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:40:31"}},
+              structFieldLoc =
+              "distilled_lib_1.h:44:31",
+              structFieldName = NamePair {
+                nameC = CName "field_4",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_4"},
+              structFieldType = TypeTypedef
+                (TypedefSquashed
+                  (CName
+                    "another_typedef_struct_t")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName
+                        "another_typedef_struct_t",
+                      nameHsIdent = HsIdentifier
+                        "Another_typedef_struct_t"})),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1662,36 +1745,45 @@
               (HsName
                 "@NsTypeConstr"
                 "Another_typedef_struct_t")),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_5",
-              fieldOffset = 128,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtTypedef
-                      (CName
-                        "another_typedef_struct_t")))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:41:31"}},
+              structFieldLoc =
+              "distilled_lib_1.h:45:31",
+              structFieldName = NamePair {
+                nameC = CName "field_5",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_5"},
+              structFieldType = TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (CName
+                      "another_typedef_struct_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = CName
+                          "another_typedef_struct_t",
+                        nameHsIdent = HsIdentifier
+                          "Another_typedef_struct_t"}))),
+              structFieldOffset = 128,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "a_typedef_struct_field_6",
           fieldType = HsPtr
             (HsPrimType HsPrimVoid),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_6",
-              fieldOffset = 192,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
+              structFieldLoc =
+              "distilled_lib_1.h:46:31",
+              structFieldName = NamePair {
+                nameC = CName "field_6",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_6"},
+              structFieldType = TypePointer
                 TypeVoid,
-              fieldSourceLoc =
-              "distilled_lib_1.h:42:31"}},
+              structFieldOffset = 192,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1702,25 +1794,24 @@
               (HsName
                 "@NsTypeConstr"
                 "Uint32_t")),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_7",
-              fieldOffset = 256,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 7,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "7",
-                        integerLiteralType = Size,
-                        integerLiteralValue = 7})}
+              structFieldLoc =
+              "distilled_lib_1.h:47:31",
+              structFieldName = NamePair {
+                nameC = CName "field_7",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_7"},
+              structFieldType = TypeConstArray
+                7
                 (TypeTypedef
-                  (CName "uint32_t")),
-              fieldSourceLoc =
-              "distilled_lib_1.h:43:31"}},
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "uint32_t",
+                      nameHsIdent = HsIdentifier
+                        "Uint32_t"})),
+              structFieldOffset = 256,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1729,19 +1820,25 @@
             (HsName
               "@NsTypeConstr"
               "Another_typedef_enum_e"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_8",
-              fieldOffset = 480,
-              fieldWidth = Nothing,
-              fieldType = TypeEnum
-                (DeclPathAnon
-                  (DeclPathCtxtTypedef
-                    (CName
-                      "another_typedef_enum_e"))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:44:31"}},
+              structFieldLoc =
+              "distilled_lib_1.h:48:31",
+              structFieldName = NamePair {
+                nameC = CName "field_8",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_8"},
+              structFieldType = TypeTypedef
+                (TypedefSquashed
+                  (CName "another_typedef_enum_e")
+                  (TypeEnum
+                    NamePair {
+                      nameC = CName
+                        "another_typedef_enum_e",
+                      nameHsIdent = HsIdentifier
+                        "Another_typedef_enum_e"})),
+              structFieldOffset = 480,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1752,27 +1849,27 @@
               (HsName
                 "@NsTypeConstr"
                 "Another_typedef_enum_e")),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_9",
-              fieldOffset = 512,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 4,
-                  sizeExpression = MTerm
-                    (MVar
-                      NoXVar
-                      (CName "SOME_DEFINED_CONSTANT")
-                      [])}
-                (TypeEnum
-                  (DeclPathAnon
-                    (DeclPathCtxtTypedef
-                      (CName
-                        "another_typedef_enum_e")))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:45:31"}},
+              structFieldLoc =
+              "distilled_lib_1.h:49:31",
+              structFieldName = NamePair {
+                nameC = CName "field_9",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_9"},
+              structFieldType = TypeConstArray
+                4
+                (TypeTypedef
+                  (TypedefSquashed
+                    (CName "another_typedef_enum_e")
+                    (TypeEnum
+                      NamePair {
+                        nameC = CName
+                          "another_typedef_enum_e",
+                        nameHsIdent = HsIdentifier
+                          "Another_typedef_enum_e"}))),
+              structFieldOffset = 512,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1785,171 +1882,238 @@
                 (HsName
                   "@NsTypeConstr"
                   "Another_typedef_enum_e"))),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "field_10",
-              fieldOffset = 640,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 5,
-                  sizeExpression = MTerm
-                    (MVar NoXVar (CName "A") [])}
+              structFieldLoc =
+              "distilled_lib_1.h:50:31",
+              structFieldName = NamePair {
+                nameC = CName "field_10",
+                nameHsIdent = HsIdentifier
+                  "a_typedef_struct_field_10"},
+              structFieldType = TypeConstArray
+                5
                 (TypeConstArray
-                  Size {
-                    size = 3,
-                    sizeExpression = MTerm
-                      (MVar NoXVar (CName "B") [])}
-                  (TypeEnum
-                    (DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName
-                          "another_typedef_enum_e"))))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:46:31"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "a_typedef_struct"),
-          structAliases = [],
-          structSizeof = 140,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "field_0",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "distilled_lib_1.h:36:31"},
-            StructField {
-              fieldName = CName "field_1",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint8_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:37:31"},
-            StructField {
-              fieldName = CName "field_2",
-              fieldOffset = 16,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint16_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:38:31"},
-            StructField {
-              fieldName = CName "field_3",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint32_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:39:31"},
-            StructField {
-              fieldName = CName "field_4",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtTypedef
-                    (CName
-                      "another_typedef_struct_t"))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:40:31"},
-            StructField {
-              fieldName = CName "field_5",
-              fieldOffset = 128,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtTypedef
+                  3
+                  (TypeTypedef
+                    (TypedefSquashed
+                      (CName "another_typedef_enum_e")
+                      (TypeEnum
+                        NamePair {
+                          nameC = CName
+                            "another_typedef_enum_e",
+                          nameHsIdent = HsIdentifier
+                            "Another_typedef_enum_e"})))),
+              structFieldOffset = 640,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "distilled_lib_1.h:38:16",
+            declId = NamePair {
+              nameC = CName
+                "a_typedef_struct",
+              nameHsIdent = HsIdentifier
+                "A_typedef_struct"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName
+                  "@NsConstr"
+                  "A_typedef_struct"),
+              structSizeof = 140,
+              structAlignment = 1,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:40:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_0",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_0"},
+                  structFieldType = TypePrim
+                    PrimBool,
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:41:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_1",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_1"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "uint8_t",
+                        nameHsIdent = HsIdentifier
+                          "Uint8_t"}),
+                  structFieldOffset = 8,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:42:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_2",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_2"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "uint16_t",
+                        nameHsIdent = HsIdentifier
+                          "Uint16_t"}),
+                  structFieldOffset = 16,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:43:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_3",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_3"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "uint32_t",
+                        nameHsIdent = HsIdentifier
+                          "Uint32_t"}),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:44:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_4",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_4"},
+                  structFieldType = TypeTypedef
+                    (TypedefSquashed
                       (CName
-                        "another_typedef_struct_t")))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:41:31"},
-            StructField {
-              fieldName = CName "field_6",
-              fieldOffset = 192,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                TypeVoid,
-              fieldSourceLoc =
-              "distilled_lib_1.h:42:31"},
-            StructField {
-              fieldName = CName "field_7",
-              fieldOffset = 256,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 7,
-                  sizeExpression = MTerm
-                    (MInt
-                      IntegerLiteral {
-                        integerLiteralText = "7",
-                        integerLiteralType = Size,
-                        integerLiteralValue = 7})}
-                (TypeTypedef
-                  (CName "uint32_t")),
-              fieldSourceLoc =
-              "distilled_lib_1.h:43:31"},
-            StructField {
-              fieldName = CName "field_8",
-              fieldOffset = 480,
-              fieldWidth = Nothing,
-              fieldType = TypeEnum
-                (DeclPathAnon
-                  (DeclPathCtxtTypedef
-                    (CName
-                      "another_typedef_enum_e"))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:44:31"},
-            StructField {
-              fieldName = CName "field_9",
-              fieldOffset = 512,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 4,
-                  sizeExpression = MTerm
-                    (MVar
-                      NoXVar
-                      (CName "SOME_DEFINED_CONSTANT")
-                      [])}
-                (TypeEnum
-                  (DeclPathAnon
-                    (DeclPathCtxtTypedef
-                      (CName
-                        "another_typedef_enum_e")))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:45:31"},
-            StructField {
-              fieldName = CName "field_10",
-              fieldOffset = 640,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                Size {
-                  size = 5,
-                  sizeExpression = MTerm
-                    (MVar NoXVar (CName "A") [])}
-                (TypeConstArray
-                  Size {
-                    size = 3,
-                    sizeExpression = MTerm
-                      (MVar NoXVar (CName "B") [])}
-                  (TypeEnum
-                    (DeclPathAnon
-                      (DeclPathCtxtTypedef
+                        "another_typedef_struct_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = CName
+                            "another_typedef_struct_t",
+                          nameHsIdent = HsIdentifier
+                            "Another_typedef_struct_t"})),
+                  structFieldOffset = 64,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:45:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_5",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_5"},
+                  structFieldType = TypePointer
+                    (TypeTypedef
+                      (TypedefSquashed
                         (CName
-                          "another_typedef_enum_e"))))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:46:31"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "distilled_lib_1.h:34:16"},
+                          "another_typedef_struct_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = CName
+                              "another_typedef_struct_t",
+                            nameHsIdent = HsIdentifier
+                              "Another_typedef_struct_t"}))),
+                  structFieldOffset = 128,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:46:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_6",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_6"},
+                  structFieldType = TypePointer
+                    TypeVoid,
+                  structFieldOffset = 192,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:47:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_7",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_7"},
+                  structFieldType = TypeConstArray
+                    7
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "uint32_t",
+                          nameHsIdent = HsIdentifier
+                            "Uint32_t"})),
+                  structFieldOffset = 256,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:48:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_8",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_8"},
+                  structFieldType = TypeTypedef
+                    (TypedefSquashed
+                      (CName "another_typedef_enum_e")
+                      (TypeEnum
+                        NamePair {
+                          nameC = CName
+                            "another_typedef_enum_e",
+                          nameHsIdent = HsIdentifier
+                            "Another_typedef_enum_e"})),
+                  structFieldOffset = 480,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:49:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_9",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_9"},
+                  structFieldType = TypeConstArray
+                    4
+                    (TypeTypedef
+                      (TypedefSquashed
+                        (CName "another_typedef_enum_e")
+                        (TypeEnum
+                          NamePair {
+                            nameC = CName
+                              "another_typedef_enum_e",
+                            nameHsIdent = HsIdentifier
+                              "Another_typedef_enum_e"}))),
+                  structFieldOffset = 512,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "distilled_lib_1.h:50:31",
+                  structFieldName = NamePair {
+                    nameC = CName "field_10",
+                    nameHsIdent = HsIdentifier
+                      "a_typedef_struct_field_10"},
+                  structFieldType = TypeConstArray
+                    5
+                    (TypeConstArray
+                      3
+                      (TypeTypedef
+                        (TypedefSquashed
+                          (CName "another_typedef_enum_e")
+                          (TypeEnum
+                            NamePair {
+                              nameC = CName
+                                "another_typedef_enum_e",
+                              nameHsIdent = HsIdentifier
+                                "Another_typedef_enum_e"})))),
+                  structFieldOffset = 640,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1968,15 +2132,18 @@
               "a_typedef_struct_field_0",
             fieldType = HsPrimType
               HsPrimCBool,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_0",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "distilled_lib_1.h:36:31"}},
+                structFieldLoc =
+                "distilled_lib_1.h:40:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_0",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_0"},
+                structFieldType = TypePrim
+                  PrimBool,
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1985,16 +2152,22 @@
               (HsName
                 "@NsTypeConstr"
                 "Uint8_t"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_1",
-                fieldOffset = 8,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint8_t"),
-                fieldSourceLoc =
-                "distilled_lib_1.h:37:31"}},
+                structFieldLoc =
+                "distilled_lib_1.h:41:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_1",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_1"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "uint8_t",
+                      nameHsIdent = HsIdentifier
+                        "Uint8_t"}),
+                structFieldOffset = 8,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2003,16 +2176,22 @@
               (HsName
                 "@NsTypeConstr"
                 "Uint16_t"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_2",
-                fieldOffset = 16,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint16_t"),
-                fieldSourceLoc =
-                "distilled_lib_1.h:38:31"}},
+                structFieldLoc =
+                "distilled_lib_1.h:42:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_2",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_2"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "uint16_t",
+                      nameHsIdent = HsIdentifier
+                        "Uint16_t"}),
+                structFieldOffset = 16,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2021,16 +2200,22 @@
               (HsName
                 "@NsTypeConstr"
                 "Uint32_t"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_3",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint32_t"),
-                fieldSourceLoc =
-                "distilled_lib_1.h:39:31"}},
+                structFieldLoc =
+                "distilled_lib_1.h:43:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_3",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_3"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "uint32_t",
+                      nameHsIdent = HsIdentifier
+                        "Uint32_t"}),
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2039,19 +2224,26 @@
               (HsName
                 "@NsTypeConstr"
                 "Another_typedef_struct_t"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_4",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtTypedef
-                      (CName
-                        "another_typedef_struct_t"))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:40:31"}},
+                structFieldLoc =
+                "distilled_lib_1.h:44:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_4",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_4"},
+                structFieldType = TypeTypedef
+                  (TypedefSquashed
+                    (CName
+                      "another_typedef_struct_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = CName
+                          "another_typedef_struct_t",
+                        nameHsIdent = HsIdentifier
+                          "Another_typedef_struct_t"})),
+                structFieldOffset = 64,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2061,36 +2253,45 @@
                 (HsName
                   "@NsTypeConstr"
                   "Another_typedef_struct_t")),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_5",
-                fieldOffset = 128,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
-                  (TypeStruct
-                    (DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName
-                          "another_typedef_struct_t")))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:41:31"}},
+                structFieldLoc =
+                "distilled_lib_1.h:45:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_5",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_5"},
+                structFieldType = TypePointer
+                  (TypeTypedef
+                    (TypedefSquashed
+                      (CName
+                        "another_typedef_struct_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = CName
+                            "another_typedef_struct_t",
+                          nameHsIdent = HsIdentifier
+                            "Another_typedef_struct_t"}))),
+                structFieldOffset = 128,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "a_typedef_struct_field_6",
             fieldType = HsPtr
               (HsPrimType HsPrimVoid),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_6",
-                fieldOffset = 192,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
+                structFieldLoc =
+                "distilled_lib_1.h:46:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_6",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_6"},
+                structFieldType = TypePointer
                   TypeVoid,
-                fieldSourceLoc =
-                "distilled_lib_1.h:42:31"}},
+                structFieldOffset = 192,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2101,25 +2302,24 @@
                 (HsName
                   "@NsTypeConstr"
                   "Uint32_t")),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_7",
-                fieldOffset = 256,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 7,
-                    sizeExpression = MTerm
-                      (MInt
-                        IntegerLiteral {
-                          integerLiteralText = "7",
-                          integerLiteralType = Size,
-                          integerLiteralValue = 7})}
+                structFieldLoc =
+                "distilled_lib_1.h:47:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_7",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_7"},
+                structFieldType = TypeConstArray
+                  7
                   (TypeTypedef
-                    (CName "uint32_t")),
-                fieldSourceLoc =
-                "distilled_lib_1.h:43:31"}},
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "uint32_t",
+                        nameHsIdent = HsIdentifier
+                          "Uint32_t"})),
+                structFieldOffset = 256,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2128,19 +2328,25 @@
               (HsName
                 "@NsTypeConstr"
                 "Another_typedef_enum_e"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_8",
-                fieldOffset = 480,
-                fieldWidth = Nothing,
-                fieldType = TypeEnum
-                  (DeclPathAnon
-                    (DeclPathCtxtTypedef
-                      (CName
-                        "another_typedef_enum_e"))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:44:31"}},
+                structFieldLoc =
+                "distilled_lib_1.h:48:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_8",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_8"},
+                structFieldType = TypeTypedef
+                  (TypedefSquashed
+                    (CName "another_typedef_enum_e")
+                    (TypeEnum
+                      NamePair {
+                        nameC = CName
+                          "another_typedef_enum_e",
+                        nameHsIdent = HsIdentifier
+                          "Another_typedef_enum_e"})),
+                structFieldOffset = 480,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2151,27 +2357,27 @@
                 (HsName
                   "@NsTypeConstr"
                   "Another_typedef_enum_e")),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_9",
-                fieldOffset = 512,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 4,
-                    sizeExpression = MTerm
-                      (MVar
-                        NoXVar
-                        (CName "SOME_DEFINED_CONSTANT")
-                        [])}
-                  (TypeEnum
-                    (DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName
-                          "another_typedef_enum_e")))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:45:31"}},
+                structFieldLoc =
+                "distilled_lib_1.h:49:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_9",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_9"},
+                structFieldType = TypeConstArray
+                  4
+                  (TypeTypedef
+                    (TypedefSquashed
+                      (CName "another_typedef_enum_e")
+                      (TypeEnum
+                        NamePair {
+                          nameC = CName
+                            "another_typedef_enum_e",
+                          nameHsIdent = HsIdentifier
+                            "Another_typedef_enum_e"}))),
+                structFieldOffset = 512,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2184,171 +2390,238 @@
                   (HsName
                     "@NsTypeConstr"
                     "Another_typedef_enum_e"))),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "field_10",
-                fieldOffset = 640,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 5,
-                    sizeExpression = MTerm
-                      (MVar NoXVar (CName "A") [])}
+                structFieldLoc =
+                "distilled_lib_1.h:50:31",
+                structFieldName = NamePair {
+                  nameC = CName "field_10",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_field_10"},
+                structFieldType = TypeConstArray
+                  5
                   (TypeConstArray
-                    Size {
-                      size = 3,
-                      sizeExpression = MTerm
-                        (MVar NoXVar (CName "B") [])}
-                    (TypeEnum
-                      (DeclPathAnon
-                        (DeclPathCtxtTypedef
-                          (CName
-                            "another_typedef_enum_e"))))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:46:31"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "a_typedef_struct"),
-            structAliases = [],
-            structSizeof = 140,
-            structAlignment = 1,
-            structFields = [
-              StructField {
-                fieldName = CName "field_0",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "distilled_lib_1.h:36:31"},
-              StructField {
-                fieldName = CName "field_1",
-                fieldOffset = 8,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint8_t"),
-                fieldSourceLoc =
-                "distilled_lib_1.h:37:31"},
-              StructField {
-                fieldName = CName "field_2",
-                fieldOffset = 16,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint16_t"),
-                fieldSourceLoc =
-                "distilled_lib_1.h:38:31"},
-              StructField {
-                fieldName = CName "field_3",
-                fieldOffset = 32,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "uint32_t"),
-                fieldSourceLoc =
-                "distilled_lib_1.h:39:31"},
-              StructField {
-                fieldName = CName "field_4",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtTypedef
-                      (CName
-                        "another_typedef_struct_t"))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:40:31"},
-              StructField {
-                fieldName = CName "field_5",
-                fieldOffset = 128,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
-                  (TypeStruct
-                    (DeclPathAnon
-                      (DeclPathCtxtTypedef
+                    3
+                    (TypeTypedef
+                      (TypedefSquashed
+                        (CName "another_typedef_enum_e")
+                        (TypeEnum
+                          NamePair {
+                            nameC = CName
+                              "another_typedef_enum_e",
+                            nameHsIdent = HsIdentifier
+                              "Another_typedef_enum_e"})))),
+                structFieldOffset = 640,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "distilled_lib_1.h:38:16",
+              declId = NamePair {
+                nameC = CName
+                  "a_typedef_struct",
+                nameHsIdent = HsIdentifier
+                  "A_typedef_struct"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName
+                    "@NsConstr"
+                    "A_typedef_struct"),
+                structSizeof = 140,
+                structAlignment = 1,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:40:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_0",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_0"},
+                    structFieldType = TypePrim
+                      PrimBool,
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:41:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_1",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_1"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "uint8_t",
+                          nameHsIdent = HsIdentifier
+                            "Uint8_t"}),
+                    structFieldOffset = 8,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:42:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_2",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_2"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "uint16_t",
+                          nameHsIdent = HsIdentifier
+                            "Uint16_t"}),
+                    structFieldOffset = 16,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:43:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_3",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_3"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "uint32_t",
+                          nameHsIdent = HsIdentifier
+                            "Uint32_t"}),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:44:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_4",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_4"},
+                    structFieldType = TypeTypedef
+                      (TypedefSquashed
                         (CName
-                          "another_typedef_struct_t")))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:41:31"},
-              StructField {
-                fieldName = CName "field_6",
-                fieldOffset = 192,
-                fieldWidth = Nothing,
-                fieldType = TypePointer
-                  TypeVoid,
-                fieldSourceLoc =
-                "distilled_lib_1.h:42:31"},
-              StructField {
-                fieldName = CName "field_7",
-                fieldOffset = 256,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 7,
-                    sizeExpression = MTerm
-                      (MInt
-                        IntegerLiteral {
-                          integerLiteralText = "7",
-                          integerLiteralType = Size,
-                          integerLiteralValue = 7})}
-                  (TypeTypedef
-                    (CName "uint32_t")),
-                fieldSourceLoc =
-                "distilled_lib_1.h:43:31"},
-              StructField {
-                fieldName = CName "field_8",
-                fieldOffset = 480,
-                fieldWidth = Nothing,
-                fieldType = TypeEnum
-                  (DeclPathAnon
-                    (DeclPathCtxtTypedef
-                      (CName
-                        "another_typedef_enum_e"))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:44:31"},
-              StructField {
-                fieldName = CName "field_9",
-                fieldOffset = 512,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 4,
-                    sizeExpression = MTerm
-                      (MVar
-                        NoXVar
-                        (CName "SOME_DEFINED_CONSTANT")
-                        [])}
-                  (TypeEnum
-                    (DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName
-                          "another_typedef_enum_e")))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:45:31"},
-              StructField {
-                fieldName = CName "field_10",
-                fieldOffset = 640,
-                fieldWidth = Nothing,
-                fieldType = TypeConstArray
-                  Size {
-                    size = 5,
-                    sizeExpression = MTerm
-                      (MVar NoXVar (CName "A") [])}
-                  (TypeConstArray
-                    Size {
-                      size = 3,
-                      sizeExpression = MTerm
-                        (MVar NoXVar (CName "B") [])}
-                    (TypeEnum
-                      (DeclPathAnon
-                        (DeclPathCtxtTypedef
+                          "another_typedef_struct_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = CName
+                              "another_typedef_struct_t",
+                            nameHsIdent = HsIdentifier
+                              "Another_typedef_struct_t"})),
+                    structFieldOffset = 64,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:45:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_5",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_5"},
+                    structFieldType = TypePointer
+                      (TypeTypedef
+                        (TypedefSquashed
                           (CName
-                            "another_typedef_enum_e"))))),
-                fieldSourceLoc =
-                "distilled_lib_1.h:46:31"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "distilled_lib_1.h:34:16"},
+                            "another_typedef_struct_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = CName
+                                "another_typedef_struct_t",
+                              nameHsIdent = HsIdentifier
+                                "Another_typedef_struct_t"}))),
+                    structFieldOffset = 128,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:46:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_6",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_6"},
+                    structFieldType = TypePointer
+                      TypeVoid,
+                    structFieldOffset = 192,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:47:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_7",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_7"},
+                    structFieldType = TypeConstArray
+                      7
+                      (TypeTypedef
+                        (TypedefRegular
+                          NamePair {
+                            nameC = CName "uint32_t",
+                            nameHsIdent = HsIdentifier
+                              "Uint32_t"})),
+                    structFieldOffset = 256,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:48:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_8",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_8"},
+                    structFieldType = TypeTypedef
+                      (TypedefSquashed
+                        (CName "another_typedef_enum_e")
+                        (TypeEnum
+                          NamePair {
+                            nameC = CName
+                              "another_typedef_enum_e",
+                            nameHsIdent = HsIdentifier
+                              "Another_typedef_enum_e"})),
+                    structFieldOffset = 480,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:49:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_9",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_9"},
+                    structFieldType = TypeConstArray
+                      4
+                      (TypeTypedef
+                        (TypedefSquashed
+                          (CName "another_typedef_enum_e")
+                          (TypeEnum
+                            NamePair {
+                              nameC = CName
+                                "another_typedef_enum_e",
+                              nameHsIdent = HsIdentifier
+                                "Another_typedef_enum_e"}))),
+                    structFieldOffset = 512,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "distilled_lib_1.h:50:31",
+                    structFieldName = NamePair {
+                      nameC = CName "field_10",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_field_10"},
+                    structFieldType = TypeConstArray
+                      5
+                      (TypeConstArray
+                        3
+                        (TypeTypedef
+                          (TypedefSquashed
+                            (CName "another_typedef_enum_e")
+                            (TypeEnum
+                              NamePair {
+                                nameC = CName
+                                  "another_typedef_enum_e",
+                                nameHsIdent = HsIdentifier
+                                  "Another_typedef_enum_e"})))),
+                    structFieldOffset = 640,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2372,15 +2645,18 @@
                       "a_typedef_struct_field_0",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_0",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:36:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:40:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_0",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_0"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2389,16 +2665,22 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint8_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_1",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint8_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:37:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:41:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_1",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_1"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint8_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint8_t"}),
+                        structFieldOffset = 8,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2407,16 +2689,22 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint16_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_2",
-                        fieldOffset = 16,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint16_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:38:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:42:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_2",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_2"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint16_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint16_t"}),
+                        structFieldOffset = 16,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2425,16 +2713,22 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint32_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_3",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint32_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:39:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:43:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_3",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_3"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint32_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint32_t"}),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2443,19 +2737,26 @@
                       (HsName
                         "@NsTypeConstr"
                         "Another_typedef_struct_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_4",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtTypedef
-                              (CName
-                                "another_typedef_struct_t"))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:40:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:44:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_4",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_4"},
+                        structFieldType = TypeTypedef
+                          (TypedefSquashed
+                            (CName
+                              "another_typedef_struct_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = CName
+                                  "another_typedef_struct_t",
+                                nameHsIdent = HsIdentifier
+                                  "Another_typedef_struct_t"})),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2465,36 +2766,45 @@
                         (HsName
                           "@NsTypeConstr"
                           "Another_typedef_struct_t")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_5",
-                        fieldOffset = 128,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathAnon
-                              (DeclPathCtxtTypedef
-                                (CName
-                                  "another_typedef_struct_t")))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:41:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:45:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_5",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_5"},
+                        structFieldType = TypePointer
+                          (TypeTypedef
+                            (TypedefSquashed
+                              (CName
+                                "another_typedef_struct_t")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = CName
+                                    "another_typedef_struct_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Another_typedef_struct_t"}))),
+                        structFieldOffset = 128,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "a_typedef_struct_field_6",
                     fieldType = HsPtr
                       (HsPrimType HsPrimVoid),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_6",
-                        fieldOffset = 192,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "distilled_lib_1.h:46:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_6",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_6"},
+                        structFieldType = TypePointer
                           TypeVoid,
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:42:31"}},
+                        structFieldOffset = 192,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2505,25 +2815,24 @@
                         (HsName
                           "@NsTypeConstr"
                           "Uint32_t")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_7",
-                        fieldOffset = 256,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 7,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "7",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 7})}
+                        structFieldLoc =
+                        "distilled_lib_1.h:47:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_7",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_7"},
+                        structFieldType = TypeConstArray
+                          7
                           (TypeTypedef
-                            (CName "uint32_t")),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:43:31"}},
+                            (TypedefRegular
+                              NamePair {
+                                nameC = CName "uint32_t",
+                                nameHsIdent = HsIdentifier
+                                  "Uint32_t"})),
+                        structFieldOffset = 256,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2532,19 +2841,25 @@
                       (HsName
                         "@NsTypeConstr"
                         "Another_typedef_enum_e"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_8",
-                        fieldOffset = 480,
-                        fieldWidth = Nothing,
-                        fieldType = TypeEnum
-                          (DeclPathAnon
-                            (DeclPathCtxtTypedef
-                              (CName
-                                "another_typedef_enum_e"))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:44:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:48:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_8",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_8"},
+                        structFieldType = TypeTypedef
+                          (TypedefSquashed
+                            (CName "another_typedef_enum_e")
+                            (TypeEnum
+                              NamePair {
+                                nameC = CName
+                                  "another_typedef_enum_e",
+                                nameHsIdent = HsIdentifier
+                                  "Another_typedef_enum_e"})),
+                        structFieldOffset = 480,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2555,27 +2870,27 @@
                         (HsName
                           "@NsTypeConstr"
                           "Another_typedef_enum_e")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_9",
-                        fieldOffset = 512,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 4,
-                            sizeExpression = MTerm
-                              (MVar
-                                NoXVar
-                                (CName "SOME_DEFINED_CONSTANT")
-                                [])}
-                          (TypeEnum
-                            (DeclPathAnon
-                              (DeclPathCtxtTypedef
-                                (CName
-                                  "another_typedef_enum_e")))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:45:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:49:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_9",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_9"},
+                        structFieldType = TypeConstArray
+                          4
+                          (TypeTypedef
+                            (TypedefSquashed
+                              (CName "another_typedef_enum_e")
+                              (TypeEnum
+                                NamePair {
+                                  nameC = CName
+                                    "another_typedef_enum_e",
+                                  nameHsIdent = HsIdentifier
+                                    "Another_typedef_enum_e"}))),
+                        structFieldOffset = 512,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2588,171 +2903,238 @@
                           (HsName
                             "@NsTypeConstr"
                             "Another_typedef_enum_e"))),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_10",
-                        fieldOffset = 640,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 5,
-                            sizeExpression = MTerm
-                              (MVar NoXVar (CName "A") [])}
+                        structFieldLoc =
+                        "distilled_lib_1.h:50:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_10",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_10"},
+                        structFieldType = TypeConstArray
+                          5
                           (TypeConstArray
-                            Size {
-                              size = 3,
-                              sizeExpression = MTerm
-                                (MVar NoXVar (CName "B") [])}
-                            (TypeEnum
-                              (DeclPathAnon
-                                (DeclPathCtxtTypedef
-                                  (CName
-                                    "another_typedef_enum_e"))))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:46:31"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "a_typedef_struct"),
-                    structAliases = [],
-                    structSizeof = 140,
-                    structAlignment = 1,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "field_0",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:36:31"},
-                      StructField {
-                        fieldName = CName "field_1",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint8_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:37:31"},
-                      StructField {
-                        fieldName = CName "field_2",
-                        fieldOffset = 16,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint16_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:38:31"},
-                      StructField {
-                        fieldName = CName "field_3",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint32_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:39:31"},
-                      StructField {
-                        fieldName = CName "field_4",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtTypedef
-                              (CName
-                                "another_typedef_struct_t"))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:40:31"},
-                      StructField {
-                        fieldName = CName "field_5",
-                        fieldOffset = 128,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathAnon
-                              (DeclPathCtxtTypedef
+                            3
+                            (TypeTypedef
+                              (TypedefSquashed
+                                (CName "another_typedef_enum_e")
+                                (TypeEnum
+                                  NamePair {
+                                    nameC = CName
+                                      "another_typedef_enum_e",
+                                    nameHsIdent = HsIdentifier
+                                      "Another_typedef_enum_e"})))),
+                        structFieldOffset = 640,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "distilled_lib_1.h:38:16",
+                      declId = NamePair {
+                        nameC = CName
+                          "a_typedef_struct",
+                        nameHsIdent = HsIdentifier
+                          "A_typedef_struct"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "A_typedef_struct"),
+                        structSizeof = 140,
+                        structAlignment = 1,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:40:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_0",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_0"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:41:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_1",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_1"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint8_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint8_t"}),
+                            structFieldOffset = 8,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:42:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_2",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_2"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint16_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint16_t"}),
+                            structFieldOffset = 16,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:43:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_3",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_3"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint32_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint32_t"}),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:44:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_4",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_4"},
+                            structFieldType = TypeTypedef
+                              (TypedefSquashed
                                 (CName
-                                  "another_typedef_struct_t")))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:41:31"},
-                      StructField {
-                        fieldName = CName "field_6",
-                        fieldOffset = 192,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          TypeVoid,
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:42:31"},
-                      StructField {
-                        fieldName = CName "field_7",
-                        fieldOffset = 256,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 7,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "7",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 7})}
-                          (TypeTypedef
-                            (CName "uint32_t")),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:43:31"},
-                      StructField {
-                        fieldName = CName "field_8",
-                        fieldOffset = 480,
-                        fieldWidth = Nothing,
-                        fieldType = TypeEnum
-                          (DeclPathAnon
-                            (DeclPathCtxtTypedef
-                              (CName
-                                "another_typedef_enum_e"))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:44:31"},
-                      StructField {
-                        fieldName = CName "field_9",
-                        fieldOffset = 512,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 4,
-                            sizeExpression = MTerm
-                              (MVar
-                                NoXVar
-                                (CName "SOME_DEFINED_CONSTANT")
-                                [])}
-                          (TypeEnum
-                            (DeclPathAnon
-                              (DeclPathCtxtTypedef
-                                (CName
-                                  "another_typedef_enum_e")))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:45:31"},
-                      StructField {
-                        fieldName = CName "field_10",
-                        fieldOffset = 640,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 5,
-                            sizeExpression = MTerm
-                              (MVar NoXVar (CName "A") [])}
-                          (TypeConstArray
-                            Size {
-                              size = 3,
-                              sizeExpression = MTerm
-                                (MVar NoXVar (CName "B") [])}
-                            (TypeEnum
-                              (DeclPathAnon
-                                (DeclPathCtxtTypedef
+                                  "another_typedef_struct_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = CName
+                                      "another_typedef_struct_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Another_typedef_struct_t"})),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:45:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_5",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_5"},
+                            structFieldType = TypePointer
+                              (TypeTypedef
+                                (TypedefSquashed
                                   (CName
-                                    "another_typedef_enum_e"))))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:46:31"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "distilled_lib_1.h:34:16"},
+                                    "another_typedef_struct_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = CName
+                                        "another_typedef_struct_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Another_typedef_struct_t"}))),
+                            structFieldOffset = 128,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:46:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_6",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_6"},
+                            structFieldType = TypePointer
+                              TypeVoid,
+                            structFieldOffset = 192,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:47:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_7",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_7"},
+                            structFieldType = TypeConstArray
+                              7
+                              (TypeTypedef
+                                (TypedefRegular
+                                  NamePair {
+                                    nameC = CName "uint32_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Uint32_t"})),
+                            structFieldOffset = 256,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:48:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_8",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_8"},
+                            structFieldType = TypeTypedef
+                              (TypedefSquashed
+                                (CName "another_typedef_enum_e")
+                                (TypeEnum
+                                  NamePair {
+                                    nameC = CName
+                                      "another_typedef_enum_e",
+                                    nameHsIdent = HsIdentifier
+                                      "Another_typedef_enum_e"})),
+                            structFieldOffset = 480,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:49:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_9",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_9"},
+                            structFieldType = TypeConstArray
+                              4
+                              (TypeTypedef
+                                (TypedefSquashed
+                                  (CName "another_typedef_enum_e")
+                                  (TypeEnum
+                                    NamePair {
+                                      nameC = CName
+                                        "another_typedef_enum_e",
+                                      nameHsIdent = HsIdentifier
+                                        "Another_typedef_enum_e"}))),
+                            structFieldOffset = 512,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:50:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_10",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_10"},
+                            structFieldType = TypeConstArray
+                              5
+                              (TypeConstArray
+                                3
+                                (TypeTypedef
+                                  (TypedefSquashed
+                                    (CName "another_typedef_enum_e")
+                                    (TypeEnum
+                                      NamePair {
+                                        nameC = CName
+                                          "another_typedef_enum_e",
+                                        nameHsIdent = HsIdentifier
+                                          "Another_typedef_enum_e"})))),
+                            structFieldOffset = 640,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2787,15 +3169,18 @@
                       "a_typedef_struct_field_0",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_0",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:36:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:40:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_0",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_0"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2804,16 +3189,22 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint8_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_1",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint8_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:37:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:41:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_1",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_1"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint8_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint8_t"}),
+                        structFieldOffset = 8,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2822,16 +3213,22 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint16_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_2",
-                        fieldOffset = 16,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint16_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:38:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:42:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_2",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_2"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint16_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint16_t"}),
+                        structFieldOffset = 16,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2840,16 +3237,22 @@
                       (HsName
                         "@NsTypeConstr"
                         "Uint32_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_3",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint32_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:39:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:43:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_3",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_3"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "uint32_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint32_t"}),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2858,19 +3261,26 @@
                       (HsName
                         "@NsTypeConstr"
                         "Another_typedef_struct_t"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_4",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtTypedef
-                              (CName
-                                "another_typedef_struct_t"))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:40:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:44:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_4",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_4"},
+                        structFieldType = TypeTypedef
+                          (TypedefSquashed
+                            (CName
+                              "another_typedef_struct_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = CName
+                                  "another_typedef_struct_t",
+                                nameHsIdent = HsIdentifier
+                                  "Another_typedef_struct_t"})),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2880,36 +3290,45 @@
                         (HsName
                           "@NsTypeConstr"
                           "Another_typedef_struct_t")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_5",
-                        fieldOffset = 128,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathAnon
-                              (DeclPathCtxtTypedef
-                                (CName
-                                  "another_typedef_struct_t")))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:41:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:45:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_5",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_5"},
+                        structFieldType = TypePointer
+                          (TypeTypedef
+                            (TypedefSquashed
+                              (CName
+                                "another_typedef_struct_t")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = CName
+                                    "another_typedef_struct_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Another_typedef_struct_t"}))),
+                        structFieldOffset = 128,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "a_typedef_struct_field_6",
                     fieldType = HsPtr
                       (HsPrimType HsPrimVoid),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_6",
-                        fieldOffset = 192,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
+                        structFieldLoc =
+                        "distilled_lib_1.h:46:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_6",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_6"},
+                        structFieldType = TypePointer
                           TypeVoid,
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:42:31"}},
+                        structFieldOffset = 192,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2920,25 +3339,24 @@
                         (HsName
                           "@NsTypeConstr"
                           "Uint32_t")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_7",
-                        fieldOffset = 256,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 7,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "7",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 7})}
+                        structFieldLoc =
+                        "distilled_lib_1.h:47:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_7",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_7"},
+                        structFieldType = TypeConstArray
+                          7
                           (TypeTypedef
-                            (CName "uint32_t")),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:43:31"}},
+                            (TypedefRegular
+                              NamePair {
+                                nameC = CName "uint32_t",
+                                nameHsIdent = HsIdentifier
+                                  "Uint32_t"})),
+                        structFieldOffset = 256,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2947,19 +3365,25 @@
                       (HsName
                         "@NsTypeConstr"
                         "Another_typedef_enum_e"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_8",
-                        fieldOffset = 480,
-                        fieldWidth = Nothing,
-                        fieldType = TypeEnum
-                          (DeclPathAnon
-                            (DeclPathCtxtTypedef
-                              (CName
-                                "another_typedef_enum_e"))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:44:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:48:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_8",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_8"},
+                        structFieldType = TypeTypedef
+                          (TypedefSquashed
+                            (CName "another_typedef_enum_e")
+                            (TypeEnum
+                              NamePair {
+                                nameC = CName
+                                  "another_typedef_enum_e",
+                                nameHsIdent = HsIdentifier
+                                  "Another_typedef_enum_e"})),
+                        structFieldOffset = 480,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2970,27 +3394,27 @@
                         (HsName
                           "@NsTypeConstr"
                           "Another_typedef_enum_e")),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_9",
-                        fieldOffset = 512,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 4,
-                            sizeExpression = MTerm
-                              (MVar
-                                NoXVar
-                                (CName "SOME_DEFINED_CONSTANT")
-                                [])}
-                          (TypeEnum
-                            (DeclPathAnon
-                              (DeclPathCtxtTypedef
-                                (CName
-                                  "another_typedef_enum_e")))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:45:31"}},
+                        structFieldLoc =
+                        "distilled_lib_1.h:49:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_9",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_9"},
+                        structFieldType = TypeConstArray
+                          4
+                          (TypeTypedef
+                            (TypedefSquashed
+                              (CName "another_typedef_enum_e")
+                              (TypeEnum
+                                NamePair {
+                                  nameC = CName
+                                    "another_typedef_enum_e",
+                                  nameHsIdent = HsIdentifier
+                                    "Another_typedef_enum_e"}))),
+                        structFieldOffset = 512,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3003,171 +3427,238 @@
                           (HsName
                             "@NsTypeConstr"
                             "Another_typedef_enum_e"))),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "field_10",
-                        fieldOffset = 640,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 5,
-                            sizeExpression = MTerm
-                              (MVar NoXVar (CName "A") [])}
+                        structFieldLoc =
+                        "distilled_lib_1.h:50:31",
+                        structFieldName = NamePair {
+                          nameC = CName "field_10",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_field_10"},
+                        structFieldType = TypeConstArray
+                          5
                           (TypeConstArray
-                            Size {
-                              size = 3,
-                              sizeExpression = MTerm
-                                (MVar NoXVar (CName "B") [])}
-                            (TypeEnum
-                              (DeclPathAnon
-                                (DeclPathCtxtTypedef
-                                  (CName
-                                    "another_typedef_enum_e"))))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:46:31"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "a_typedef_struct"),
-                    structAliases = [],
-                    structSizeof = 140,
-                    structAlignment = 1,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "field_0",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:36:31"},
-                      StructField {
-                        fieldName = CName "field_1",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint8_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:37:31"},
-                      StructField {
-                        fieldName = CName "field_2",
-                        fieldOffset = 16,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint16_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:38:31"},
-                      StructField {
-                        fieldName = CName "field_3",
-                        fieldOffset = 32,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "uint32_t"),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:39:31"},
-                      StructField {
-                        fieldName = CName "field_4",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtTypedef
-                              (CName
-                                "another_typedef_struct_t"))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:40:31"},
-                      StructField {
-                        fieldName = CName "field_5",
-                        fieldOffset = 128,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          (TypeStruct
-                            (DeclPathAnon
-                              (DeclPathCtxtTypedef
+                            3
+                            (TypeTypedef
+                              (TypedefSquashed
+                                (CName "another_typedef_enum_e")
+                                (TypeEnum
+                                  NamePair {
+                                    nameC = CName
+                                      "another_typedef_enum_e",
+                                    nameHsIdent = HsIdentifier
+                                      "Another_typedef_enum_e"})))),
+                        structFieldOffset = 640,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "distilled_lib_1.h:38:16",
+                      declId = NamePair {
+                        nameC = CName
+                          "a_typedef_struct",
+                        nameHsIdent = HsIdentifier
+                          "A_typedef_struct"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "A_typedef_struct"),
+                        structSizeof = 140,
+                        structAlignment = 1,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:40:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_0",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_0"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:41:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_1",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_1"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint8_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint8_t"}),
+                            structFieldOffset = 8,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:42:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_2",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_2"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint16_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint16_t"}),
+                            structFieldOffset = 16,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:43:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_3",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_3"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "uint32_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint32_t"}),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:44:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_4",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_4"},
+                            structFieldType = TypeTypedef
+                              (TypedefSquashed
                                 (CName
-                                  "another_typedef_struct_t")))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:41:31"},
-                      StructField {
-                        fieldName = CName "field_6",
-                        fieldOffset = 192,
-                        fieldWidth = Nothing,
-                        fieldType = TypePointer
-                          TypeVoid,
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:42:31"},
-                      StructField {
-                        fieldName = CName "field_7",
-                        fieldOffset = 256,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 7,
-                            sizeExpression = MTerm
-                              (MInt
-                                IntegerLiteral {
-                                  integerLiteralText = "7",
-                                  integerLiteralType = Size,
-                                  integerLiteralValue = 7})}
-                          (TypeTypedef
-                            (CName "uint32_t")),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:43:31"},
-                      StructField {
-                        fieldName = CName "field_8",
-                        fieldOffset = 480,
-                        fieldWidth = Nothing,
-                        fieldType = TypeEnum
-                          (DeclPathAnon
-                            (DeclPathCtxtTypedef
-                              (CName
-                                "another_typedef_enum_e"))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:44:31"},
-                      StructField {
-                        fieldName = CName "field_9",
-                        fieldOffset = 512,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 4,
-                            sizeExpression = MTerm
-                              (MVar
-                                NoXVar
-                                (CName "SOME_DEFINED_CONSTANT")
-                                [])}
-                          (TypeEnum
-                            (DeclPathAnon
-                              (DeclPathCtxtTypedef
-                                (CName
-                                  "another_typedef_enum_e")))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:45:31"},
-                      StructField {
-                        fieldName = CName "field_10",
-                        fieldOffset = 640,
-                        fieldWidth = Nothing,
-                        fieldType = TypeConstArray
-                          Size {
-                            size = 5,
-                            sizeExpression = MTerm
-                              (MVar NoXVar (CName "A") [])}
-                          (TypeConstArray
-                            Size {
-                              size = 3,
-                              sizeExpression = MTerm
-                                (MVar NoXVar (CName "B") [])}
-                            (TypeEnum
-                              (DeclPathAnon
-                                (DeclPathCtxtTypedef
+                                  "another_typedef_struct_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = CName
+                                      "another_typedef_struct_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Another_typedef_struct_t"})),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:45:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_5",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_5"},
+                            structFieldType = TypePointer
+                              (TypeTypedef
+                                (TypedefSquashed
                                   (CName
-                                    "another_typedef_enum_e"))))),
-                        fieldSourceLoc =
-                        "distilled_lib_1.h:46:31"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "distilled_lib_1.h:34:16"},
+                                    "another_typedef_struct_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = CName
+                                        "another_typedef_struct_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Another_typedef_struct_t"}))),
+                            structFieldOffset = 128,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:46:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_6",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_6"},
+                            structFieldType = TypePointer
+                              TypeVoid,
+                            structFieldOffset = 192,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:47:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_7",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_7"},
+                            structFieldType = TypeConstArray
+                              7
+                              (TypeTypedef
+                                (TypedefRegular
+                                  NamePair {
+                                    nameC = CName "uint32_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Uint32_t"})),
+                            structFieldOffset = 256,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:48:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_8",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_8"},
+                            structFieldType = TypeTypedef
+                              (TypedefSquashed
+                                (CName "another_typedef_enum_e")
+                                (TypeEnum
+                                  NamePair {
+                                    nameC = CName
+                                      "another_typedef_enum_e",
+                                    nameHsIdent = HsIdentifier
+                                      "Another_typedef_enum_e"})),
+                            structFieldOffset = 480,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:49:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_9",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_9"},
+                            structFieldType = TypeConstArray
+                              4
+                              (TypeTypedef
+                                (TypedefSquashed
+                                  (CName "another_typedef_enum_e")
+                                  (TypeEnum
+                                    NamePair {
+                                      nameC = CName
+                                        "another_typedef_enum_e",
+                                      nameHsIdent = HsIdentifier
+                                        "Another_typedef_enum_e"}))),
+                            structFieldOffset = 512,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "distilled_lib_1.h:50:31",
+                            structFieldName = NamePair {
+                              nameC = CName "field_10",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_field_10"},
+                            structFieldType = TypeConstArray
+                              5
+                              (TypeConstArray
+                                3
+                                (TypeTypedef
+                                  (TypedefSquashed
+                                    (CName "another_typedef_enum_e")
+                                    (TypeEnum
+                                      NamePair {
+                                        nameC = CName
+                                          "another_typedef_enum_e",
+                                        nameHsIdent = HsIdentifier
+                                          "Another_typedef_enum_e"})))),
+                            structFieldOffset = 640,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 11)
@@ -3215,17 +3706,37 @@
           (HsName
             "@NsTypeConstr"
             "A_typedef_struct"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName
-            "a_typedef_struct_t",
-          typedefType = TypeStruct
-            (DeclPathName
-              (CName "a_typedef_struct")),
-          typedefSourceLoc =
-          "distilled_lib_1.h:47:3"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:51:3",
+          declId = NamePair {
+            nameC = CName
+              "a_typedef_struct_t",
+            nameHsIdent = HsIdentifier
+              "A_typedef_struct_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "A_typedef_struct_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_A_typedef_struct_t"},
+            typedefType = TypeStruct
+              NamePair {
+                nameC = CName
+                  "a_typedef_struct",
+                nameHsIdent = HsIdentifier
+                  "A_typedef_struct"}},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -3384,42 +3895,69 @@
           "un_A_typedef_enum_e",
         fieldType = HsPrimType
           HsPrimCUChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName "a_typedef_enum_e")),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimChar
-              (PrimSignExplicit Unsigned)),
-          enumSizeof = 1,
-          enumAlignment = 1,
-          enumValues = [
-            EnumValue {
-              valueName = CName "ENUM_CASE_0",
-              valueValue = 0,
-              valueSourceLoc =
-              "distilled_lib_1.h:62:3"},
-            EnumValue {
-              valueName = CName "ENUM_CASE_1",
-              valueValue = 1,
-              valueSourceLoc =
-              "distilled_lib_1.h:63:3"},
-            EnumValue {
-              valueName = CName "ENUM_CASE_2",
-              valueValue = 2,
-              valueSourceLoc =
-              "distilled_lib_1.h:64:3"},
-            EnumValue {
-              valueName = CName "ENUM_CASE_3",
-              valueValue = 3,
-              valueSourceLoc =
-              "distilled_lib_1.h:65:3"}],
-          enumSourceLoc =
-          "distilled_lib_1.h:60:9"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:64:9",
+          declId = NamePair {
+            nameC = CName
+              "a_typedef_enum_e",
+            nameHsIdent = HsIdentifier
+              "A_typedef_enum_e"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "A_typedef_enum_e",
+              newtypeField = HsName
+                "@NsVar"
+                "un_A_typedef_enum_e"},
+            enumType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "distilled_lib_1.h:66:3",
+                enumConstantName = NamePair {
+                  nameC = CName "ENUM_CASE_0",
+                  nameHsIdent = HsIdentifier
+                    "ENUM_CASE_0"},
+                enumConstantValue = 0},
+              EnumConstant {
+                enumConstantLoc =
+                "distilled_lib_1.h:67:3",
+                enumConstantName = NamePair {
+                  nameC = CName "ENUM_CASE_1",
+                  nameHsIdent = HsIdentifier
+                    "ENUM_CASE_1"},
+                enumConstantValue = 1},
+              EnumConstant {
+                enumConstantLoc =
+                "distilled_lib_1.h:68:3",
+                enumConstantName = NamePair {
+                  nameC = CName "ENUM_CASE_2",
+                  nameHsIdent = HsIdentifier
+                    "ENUM_CASE_2"},
+                enumConstantValue = 2},
+              EnumConstant {
+                enumConstantLoc =
+                "distilled_lib_1.h:69:3",
+                enumConstantName = NamePair {
+                  nameC = CName "ENUM_CASE_3",
+                  nameHsIdent = HsIdentifier
+                    "ENUM_CASE_3"},
+                enumConstantValue = 3}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -3443,41 +3981,8 @@
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "a_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ENUM_CASE_0",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:62:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_1",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:63:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_2",
-                valueValue = 2,
-                valueSourceLoc =
-                "distilled_lib_1.h:64:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_3",
-                valueValue = 3,
-                valueSourceLoc =
-                "distilled_lib_1.h:65:3"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -3501,41 +4006,8 @@
                       "un_A_typedef_enum_e",
                     fieldType = HsPrimType
                       HsPrimCUChar,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName "a_typedef_enum_e")),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimChar
-                        (PrimSignExplicit Unsigned)),
-                    enumSizeof = 1,
-                    enumAlignment = 1,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "ENUM_CASE_0",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:62:3"},
-                      EnumValue {
-                        valueName = CName "ENUM_CASE_1",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:63:3"},
-                      EnumValue {
-                        valueName = CName "ENUM_CASE_2",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:64:3"},
-                      EnumValue {
-                        valueName = CName "ENUM_CASE_3",
-                        valueValue = 3,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:65:3"}],
-                    enumSourceLoc =
-                    "distilled_lib_1.h:60:9"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -3564,41 +4036,8 @@
                       "un_A_typedef_enum_e",
                     fieldType = HsPrimType
                       HsPrimCUChar,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathAnon
-                      (DeclPathCtxtTypedef
-                        (CName "a_typedef_enum_e")),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimChar
-                        (PrimSignExplicit Unsigned)),
-                    enumSizeof = 1,
-                    enumAlignment = 1,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName "ENUM_CASE_0",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:62:3"},
-                      EnumValue {
-                        valueName = CName "ENUM_CASE_1",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:63:3"},
-                      EnumValue {
-                        valueName = CName "ENUM_CASE_2",
-                        valueValue = 2,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:64:3"},
-                      EnumValue {
-                        valueName = CName "ENUM_CASE_3",
-                        valueValue = 3,
-                        valueSourceLoc =
-                        "distilled_lib_1.h:65:3"}],
-                    enumSourceLoc =
-                    "distilled_lib_1.h:60:9"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -3636,41 +4075,8 @@
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "a_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ENUM_CASE_0",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:62:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_1",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:63:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_2",
-                valueValue = 2,
-                valueSourceLoc =
-                "distilled_lib_1.h:64:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_3",
-                valueValue = 3,
-                valueSourceLoc =
-                "distilled_lib_1.h:65:3"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUChar)
@@ -3705,41 +4111,8 @@
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "a_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ENUM_CASE_0",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:62:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_1",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:63:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_2",
-                valueValue = 2,
-                valueSourceLoc =
-                "distilled_lib_1.h:64:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_3",
-                valueValue = 3,
-                valueSourceLoc =
-                "distilled_lib_1.h:65:3"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName
@@ -3764,41 +4137,8 @@
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "a_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ENUM_CASE_0",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:62:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_1",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:63:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_2",
-                valueValue = 2,
-                valueSourceLoc =
-                "distilled_lib_1.h:64:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_3",
-                valueValue = 3,
-                valueSourceLoc =
-                "distilled_lib_1.h:65:3"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -3822,41 +4162,8 @@
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUChar,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "a_typedef_enum_e")),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned)),
-            enumSizeof = 1,
-            enumAlignment = 1,
-            enumValues = [
-              EnumValue {
-                valueName = CName "ENUM_CASE_0",
-                valueValue = 0,
-                valueSourceLoc =
-                "distilled_lib_1.h:62:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_1",
-                valueValue = 1,
-                valueSourceLoc =
-                "distilled_lib_1.h:63:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_2",
-                valueValue = 2,
-                valueSourceLoc =
-                "distilled_lib_1.h:64:3"},
-              EnumValue {
-                valueName = CName "ENUM_CASE_3",
-                valueValue = 3,
-                valueSourceLoc =
-                "distilled_lib_1.h:65:3"}],
-            enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -3876,13 +4183,15 @@
         "@NsConstr"
         "A_typedef_enum_e",
       patSynValue = 0,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "ENUM_CASE_0",
-          valueValue = 0,
-          valueSourceLoc =
-          "distilled_lib_1.h:62:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "distilled_lib_1.h:66:3",
+          enumConstantName = NamePair {
+            nameC = CName "ENUM_CASE_0",
+            nameHsIdent = HsIdentifier
+              "ENUM_CASE_0"},
+          enumConstantValue = 0}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3895,13 +4204,15 @@
         "@NsConstr"
         "A_typedef_enum_e",
       patSynValue = 1,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "ENUM_CASE_1",
-          valueValue = 1,
-          valueSourceLoc =
-          "distilled_lib_1.h:63:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "distilled_lib_1.h:67:3",
+          enumConstantName = NamePair {
+            nameC = CName "ENUM_CASE_1",
+            nameHsIdent = HsIdentifier
+              "ENUM_CASE_1"},
+          enumConstantValue = 1}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3914,13 +4225,15 @@
         "@NsConstr"
         "A_typedef_enum_e",
       patSynValue = 2,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "ENUM_CASE_2",
-          valueValue = 2,
-          valueSourceLoc =
-          "distilled_lib_1.h:64:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "distilled_lib_1.h:68:3",
+          enumConstantName = NamePair {
+            nameC = CName "ENUM_CASE_2",
+            nameHsIdent = HsIdentifier
+              "ENUM_CASE_2"},
+          enumConstantValue = 2}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3933,13 +4246,15 @@
         "@NsConstr"
         "A_typedef_enum_e",
       patSynValue = 3,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName "ENUM_CASE_3",
-          valueValue = 3,
-          valueSourceLoc =
-          "distilled_lib_1.h:65:3"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "distilled_lib_1.h:69:3",
+          enumConstantName = NamePair {
+            nameC = CName "ENUM_CASE_3",
+            nameHsIdent = HsIdentifier
+              "ENUM_CASE_3"},
+          enumConstantValue = 3}},
   DeclInlineCInclude
     "distilled_lib_1.h",
   DeclInlineC
@@ -3976,23 +4291,37 @@
       foreignImportHeader =
       "distilled_lib_1.h",
       foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
+      Function
         Function {
-          functionName = CName "some_fun",
           functionArgs = [
             TypePointer
               (TypeTypedef
-                (CName "a_type_t")),
-            TypeTypedef (CName "uint32_t"),
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "a_type_t",
+                    nameHsIdent = HsIdentifier
+                      "A_type_t"})),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "uint32_t",
+                  nameHsIdent = HsIdentifier
+                    "Uint32_t"}),
             TypeIncompleteArray
               (TypeTypedef
-                (CName "uint8_t"))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "uint8_t",
+                    nameHsIdent = HsIdentifier
+                      "Uint8_t"}))],
           functionRes = TypeTypedef
-            (CName "int32_t"),
+            (TypedefRegular
+              NamePair {
+                nameC = CName "int32_t",
+                nameHsIdent = HsIdentifier
+                  "Int32_t"}),
           functionHeader =
-          "distilled_lib_1.h",
-          functionSourceLoc =
-          "distilled_lib_1.h:71:9"}},
+          "distilled_lib_1.h"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -4018,21 +4347,46 @@
                   (HsName
                     "@NsTypeConstr"
                     "Uint32_t"))))),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName
-            "callback_t",
-          typedefType = TypePointer
-            (TypeFun
-              [
-                TypePointer TypeVoid,
-                TypeTypedef (CName "uint32_t")]
-              (TypeTypedef
-                (CName "uint32_t"))),
-          typedefSourceLoc =
-          "distilled_lib_1.h:76:19"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "distilled_lib_1.h:80:19",
+          declId = NamePair {
+            nameC = CName "callback_t",
+            nameHsIdent = HsIdentifier
+              "Callback_t"}},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Callback_t",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Callback_t"},
+            typedefType = TypePointer
+              (TypeFun
+                [
+                  TypePointer TypeVoid,
+                  TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "uint32_t",
+                        nameHsIdent = HsIdentifier
+                          "Uint32_t"})]
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "uint32_t",
+                      nameHsIdent = HsIdentifier
+                        "Uint32_t"})))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance

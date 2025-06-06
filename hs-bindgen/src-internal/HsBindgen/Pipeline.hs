@@ -46,20 +46,19 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
-import HsBindgen.C.AST qualified as C
+import HsBindgen.BindingSpec (ResolvedBindingSpec)
+import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Gen (genBindingSpec)
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Errors
-import HsBindgen.ExtBindings
-import HsBindgen.ExtBindings.Gen qualified as GenExtBindings
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.NameMangler (NameMangler)
-import HsBindgen.Hs.NameMangler qualified as NameMangler
-import HsBindgen.Hs.NameMangler.DSL qualified as NameMangler.DSL
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
@@ -73,9 +72,8 @@ import HsBindgen.Util.Tracer (TraceWithCallStack)
 -- | Options for both the preprocessor and TH APIs
 data Opts = Opts {
       optsClangArgs   :: ClangArgs
-    , optsExtBindings :: ExtBindings
+    , optsExtBindings :: ResolvedBindingSpec
     , optsTranslation :: Hs.TranslationOpts
-    , optsNameMangler :: NameMangler
     , optsPredicate   :: Predicate
     , optsTracer      :: Tracer IO (TraceWithCallStack Trace)
     }
@@ -84,18 +82,11 @@ data Opts = Opts {
 defaultOpts :: Opts
 defaultOpts = Opts {
       optsClangArgs   = defaultClangArgs
-    , optsExtBindings = emptyExtBindings
+    , optsExtBindings = BindingSpec.empty
     , optsTranslation = Hs.defaultTranslationOpts
-    , optsNameMangler = nameMangler
-    , optsPredicate   = SelectFromMainFile
+    , optsPredicate   = SelectFromMainFiles
     , optsTracer      = nullTracer
     }
-  where
-    -- TODO: Make it possible to specify overrides through the CLI
-    nameMangler :: NameMangler
-    nameMangler =
-        NameMangler.DSL.applyOverrides NameMangler.DSL.overridesNone $
-          NameMangler.nameManglerDefault
 
 -- | Additional options for the preprocessor API
 data PPOpts = PPOpts {
@@ -115,7 +106,11 @@ defaultPPOpts = PPOpts {
 -------------------------------------------------------------------------------}
 
 -- | Parse a C header
-parseCHeader :: HasCallStack => Opts -> CHeaderIncludePath -> IO ([SourcePath], C.Header)
+parseCHeader ::
+      HasCallStack
+   => Opts
+   -> CHeaderIncludePath
+   -> IO C.TranslationUnit
 parseCHeader Opts{..} headerIncludePath =
     C.parseCHeaders
       optsTracer
@@ -125,8 +120,8 @@ parseCHeader Opts{..} headerIncludePath =
       [headerIncludePath]
 
 -- | Generate @Hs@ declarations
-genHsDecls :: ModuleUnique -> Opts -> C.Header -> [Hs.Decl]
-genHsDecls mu Opts{..} = Hs.generateDeclarations optsTranslation mu optsNameMangler
+genHsDecls :: ModuleUnique -> Opts -> [C.Decl] -> [Hs.Decl]
+genHsDecls mu Opts{..} = Hs.generateDeclarations optsTranslation mu
 
 -- | Generate @SHs@ declarations
 genSHsDecls :: [Hs.Decl] -> [SHs.SDecl]
@@ -160,8 +155,8 @@ genExtensions = foldMap requiredExtensions
 translateCHeader :: HasCallStack
   => ModuleUnique -> Opts -> CHeaderIncludePath -> IO [Hs.Decl]
 translateCHeader mu opts headerIncludePath = do
-    (_depPaths, header) <- parseCHeader opts headerIncludePath
-    return $ genHsDecls mu opts header
+    C.TranslationUnit{unitDecls} <- parseCHeader opts headerIncludePath
+    return $ genHsDecls mu opts unitDecls
 
 -- | Generate bindings for the given C header
 preprocessPure :: PPOpts -> [Hs.Decl] -> String
@@ -187,22 +182,21 @@ genBindings :: HasCallStack =>
 genBindings opts fp = do
     headerIncludePath <- either (TH.runIO . throwIO) return $
       parseCHeaderIncludePath fp
-    (depPaths, cheader) <- TH.runIO $ parseCHeader opts headerIncludePath
-    genBindingsFromCHeader opts depPaths cheader
+    unit <- TH.runIO $ parseCHeader opts headerIncludePath
+    genBindingsFromCHeader opts unit
 
 -- | Non-IO part of 'genBindings'
 genBindingsFromCHeader
     :: Guasi q
     => Opts
-    -> [SourcePath]
-    -> C.Header
+    -> C.TranslationUnit
     -> q [TH.Dec]
-genBindingsFromCHeader opts depPaths cheader = do
+genBindingsFromCHeader opts unit = do
     -- record dependencies, including transitively included headers
-    mapM_ (addDependentFile . getSourcePath) depPaths
+    mapM_ (addDependentFile . getSourcePath) unitDeps
 
     mu <- getModuleUnique
-    let sdecls = genSHsDecls $ genHsDecls mu opts cheader
+    let sdecls = genSHsDecls $ genHsDecls mu opts unitDecls
 
     -- extensions checks.
     -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)
@@ -215,6 +209,8 @@ genBindingsFromCHeader opts depPaths cheader = do
 
     -- generate TH declarations
     genTH sdecls
+  where
+    C.TranslationUnit{unitDecls, unitDeps} = unit
 
 -- | Generate bindings for the given C header (simple)
 --
@@ -244,8 +240,8 @@ genExtBindings ::
   -> IO ()
 genExtBindings PPOpts{..} headerIncludePath path =
         either (throwIO . HsBindgenException) return
-    <=< writeUnresolvedExtBindings path
-    .   GenExtBindings.genExtBindings headerIncludePath moduleName
+    <=< BindingSpec.writeFile path
+    .   genBindingSpec headerIncludePath moduleName
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)

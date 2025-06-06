@@ -11,9 +11,9 @@ import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 data C__SFILE = C__SFILE
-  { c__SFILE__r :: FC.CInt
-  , c__SFILE__w :: FC.CInt
-  , c__SFILE__close :: F.FunPtr ((F.Ptr Void) -> IO FC.CInt)
+  { __sFILE__r :: FC.CInt
+  , __sFILE__w :: FC.CInt
+  , __sFILE__close :: F.FunPtr ((F.Ptr Void) -> IO FC.CInt)
   }
 
 instance F.Storable C__SFILE where
@@ -33,10 +33,10 @@ instance F.Storable C__SFILE where
     \ptr0 ->
       \s1 ->
         case s1 of
-          C__SFILE c__SFILE__r2 c__SFILE__w3 c__SFILE__close4 ->
-               F.pokeByteOff ptr0 (0 :: Int) c__SFILE__r2
-            >> F.pokeByteOff ptr0 (4 :: Int) c__SFILE__w3
-            >> F.pokeByteOff ptr0 (8 :: Int) c__SFILE__close4
+          C__SFILE __sFILE__r2 __sFILE__w3 __sFILE__close4 ->
+               F.pokeByteOff ptr0 (0 :: Int) __sFILE__r2
+            >> F.pokeByteOff ptr0 (4 :: Int) __sFILE__w3
+            >> F.pokeByteOff ptr0 (8 :: Int) __sFILE__close4
 
 deriving stock instance Show C__SFILE
 

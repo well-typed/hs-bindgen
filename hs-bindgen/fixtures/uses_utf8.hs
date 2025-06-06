@@ -13,32 +13,50 @@
           "un_MyEnum",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginEnum
-        Enu {
-          enumDeclPath = DeclPathName
-            (CName "MyEnum"),
-          enumAliases = [],
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName
-                "Say\20320\22909",
-              valueValue = 0,
-              valueSourceLoc =
-              "uses_utf8.h:5:9"},
-            EnumValue {
-              valueName = CName
-                "Say\25308\25308",
-              valueValue = 1,
-              valueSourceLoc =
-              "uses_utf8.h:6:9"}],
-          enumSourceLoc =
-          "uses_utf8.h:4:6"},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "uses_utf8.h:4:6",
+          declId = NamePair {
+            nameC = CName "MyEnum",
+            nameHsIdent = HsIdentifier
+              "MyEnum"}},
+        declKind = Enum
+          Enum {
+            enumNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "MyEnum",
+              newtypeField = HsName
+                "@NsVar"
+                "un_MyEnum"},
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumConstants = [
+              EnumConstant {
+                enumConstantLoc =
+                "uses_utf8.h:5:9",
+                enumConstantName = NamePair {
+                  nameC = CName "Say\20320\22909",
+                  nameHsIdent = HsIdentifier
+                    "Say\20320\22909"},
+                enumConstantValue = 0},
+              EnumConstant {
+                enumConstantLoc =
+                "uses_utf8.h:6:9",
+                enumConstantName = NamePair {
+                  nameC = CName "Say\25308\25308",
+                  nameHsIdent = HsIdentifier
+                    "Say\25308\25308"},
+                enumConstantValue = 1}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -62,31 +80,8 @@
               "un_MyEnum",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "MyEnum"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "Say\20320\22909",
-                valueValue = 0,
-                valueSourceLoc =
-                "uses_utf8.h:5:9"},
-              EnumValue {
-                valueName = CName
-                  "Say\25308\25308",
-                valueValue = 1,
-                valueSourceLoc =
-                "uses_utf8.h:6:9"}],
-            enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -110,31 +105,8 @@
                       "un_MyEnum",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "MyEnum"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName
-                          "Say\20320\22909",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "uses_utf8.h:5:9"},
-                      EnumValue {
-                        valueName = CName
-                          "Say\25308\25308",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "uses_utf8.h:6:9"}],
-                    enumSourceLoc =
-                    "uses_utf8.h:4:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -163,31 +135,8 @@
                       "un_MyEnum",
                     fieldType = HsPrimType
                       HsPrimCUInt,
-                    fieldOrigin = FieldOriginNone}],
-                structOrigin = StructOriginEnum
-                  Enu {
-                    enumDeclPath = DeclPathName
-                      (CName "MyEnum"),
-                    enumAliases = [],
-                    enumType = TypePrim
-                      (PrimIntegral PrimInt Unsigned),
-                    enumSizeof = 4,
-                    enumAlignment = 4,
-                    enumValues = [
-                      EnumValue {
-                        valueName = CName
-                          "Say\20320\22909",
-                        valueValue = 0,
-                        valueSourceLoc =
-                        "uses_utf8.h:5:9"},
-                      EnumValue {
-                        valueName = CName
-                          "Say\25308\25308",
-                        valueValue = 1,
-                        valueSourceLoc =
-                        "uses_utf8.h:6:9"}],
-                    enumSourceLoc =
-                    "uses_utf8.h:4:6"},
+                    fieldOrigin = GeneratedField}],
+                structOrigin = Nothing,
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -225,31 +174,8 @@
               "un_MyEnum",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "MyEnum"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "Say\20320\22909",
-                valueValue = 0,
-                valueSourceLoc =
-                "uses_utf8.h:5:9"},
-              EnumValue {
-                valueName = CName
-                  "Say\25308\25308",
-                valueValue = 1,
-                valueSourceLoc =
-                "uses_utf8.h:6:9"}],
-            enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -280,31 +206,8 @@
               "un_MyEnum",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "MyEnum"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "Say\20320\22909",
-                valueValue = 0,
-                valueSourceLoc =
-                "uses_utf8.h:5:9"},
-              EnumValue {
-                valueName = CName
-                  "Say\25308\25308",
-                valueValue = 1,
-                valueSourceLoc =
-                "uses_utf8.h:6:9"}],
-            enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName
@@ -329,31 +232,8 @@
               "un_MyEnum",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "MyEnum"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "Say\20320\22909",
-                valueValue = 0,
-                valueSourceLoc =
-                "uses_utf8.h:5:9"},
-              EnumValue {
-                valueName = CName
-                  "Say\25308\25308",
-                valueValue = 1,
-                valueSourceLoc =
-                "uses_utf8.h:6:9"}],
-            enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -377,31 +257,8 @@
               "un_MyEnum",
             fieldType = HsPrimType
               HsPrimCUInt,
-            fieldOrigin = FieldOriginNone}],
-        structOrigin = StructOriginEnum
-          Enu {
-            enumDeclPath = DeclPathName
-              (CName "MyEnum"),
-            enumAliases = [],
-            enumType = TypePrim
-              (PrimIntegral PrimInt Unsigned),
-            enumSizeof = 4,
-            enumAlignment = 4,
-            enumValues = [
-              EnumValue {
-                valueName = CName
-                  "Say\20320\22909",
-                valueValue = 0,
-                valueSourceLoc =
-                "uses_utf8.h:5:9"},
-              EnumValue {
-                valueName = CName
-                  "Say\25308\25308",
-                valueValue = 1,
-                valueSourceLoc =
-                "uses_utf8.h:6:9"}],
-            enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            fieldOrigin = GeneratedField}],
+        structOrigin = Nothing,
         structInstances = Set.fromList
           [
             Eq,
@@ -421,14 +278,15 @@
         "@NsConstr"
         "MyEnum",
       patSynValue = 0,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "Say\20320\22909",
-          valueValue = 0,
-          valueSourceLoc =
-          "uses_utf8.h:5:9"}},
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "uses_utf8.h:5:9",
+          enumConstantName = NamePair {
+            nameC = CName "Say\20320\22909",
+            nameHsIdent = HsIdentifier
+              "Say\20320\22909"},
+          enumConstantValue = 0}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -441,11 +299,12 @@
         "@NsConstr"
         "MyEnum",
       patSynValue = 1,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "Say\25308\25308",
-          valueValue = 1,
-          valueSourceLoc =
-          "uses_utf8.h:6:9"}}]
+      patSynOrigin = EnumConstant
+        EnumConstant {
+          enumConstantLoc =
+          "uses_utf8.h:6:9",
+          enumConstantName = NamePair {
+            nameC = CName "Say\25308\25308",
+            nameHsIdent = HsIdentifier
+              "Say\25308\25308"},
+          enumConstantValue = 1}}]

@@ -14,54 +14,76 @@
             "bools1_x",
           fieldType = HsPrimType
             HsPrimCBool,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "bool.h:2:11"}},
+              structFieldLoc = "bool.h:2:11",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "bools1_x"},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "bools1_y",
           fieldType = HsPrimType
             HsPrimCBool,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "bool.h:3:11"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "bools1"),
-          structAliases = [],
-          structSizeof = 2,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc = "bool.h:2:11"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "bool.h:3:11"}],
-          structFlam = Nothing,
-          structSourceLoc = "bool.h:1:8"},
+              structFieldLoc = "bool.h:3:11",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "bools1_y"},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "bool.h:1:8",
+            declId = NamePair {
+              nameC = CName "bools1",
+              nameHsIdent = HsIdentifier
+                "Bools1"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Bools1"),
+              structSizeof = 2,
+              structAlignment = 1,
+              structFields = [
+                StructField {
+                  structFieldLoc = "bool.h:2:11",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "bools1_x"},
+                  structFieldType = TypePrim
+                    PrimBool,
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc = "bool.h:3:11",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "bools1_y"},
+                  structFieldType = TypePrim
+                    PrimBool,
+                  structFieldOffset = 8,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -80,54 +102,76 @@
               "bools1_x",
             fieldType = HsPrimType
               HsPrimCBool,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "bool.h:2:11"}},
+                structFieldLoc = "bool.h:2:11",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "bools1_x"},
+                structFieldType = TypePrim
+                  PrimBool,
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "bools1_y",
             fieldType = HsPrimType
               HsPrimCBool,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "y",
-                fieldOffset = 8,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "bool.h:3:11"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "bools1"),
-            structAliases = [],
-            structSizeof = 2,
-            structAlignment = 1,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc = "bool.h:2:11"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 8,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "bool.h:3:11"}],
-            structFlam = Nothing,
-            structSourceLoc = "bool.h:1:8"},
+                structFieldLoc = "bool.h:3:11",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "bools1_y"},
+                structFieldType = TypePrim
+                  PrimBool,
+                structFieldOffset = 8,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "bool.h:1:8",
+              declId = NamePair {
+                nameC = CName "bools1",
+                nameHsIdent = HsIdentifier
+                  "Bools1"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Bools1"),
+                structSizeof = 2,
+                structAlignment = 1,
+                structFields = [
+                  StructField {
+                    structFieldLoc = "bool.h:2:11",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "bools1_x"},
+                    structFieldType = TypePrim
+                      PrimBool,
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc = "bool.h:3:11",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "bools1_y"},
+                    structFieldType = TypePrim
+                      PrimBool,
+                    structFieldOffset = 8,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -151,54 +195,76 @@
                       "bools1_x",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:2:11"}},
+                        structFieldLoc = "bool.h:2:11",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "bools1_x"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "bools1_y",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:3:11"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bools1"),
-                    structAliases = [],
-                    structSizeof = 2,
-                    structAlignment = 1,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = "bool.h:2:11"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:3:11"}],
-                    structFlam = Nothing,
-                    structSourceLoc = "bool.h:1:8"},
+                        structFieldLoc = "bool.h:3:11",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "bools1_y"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 8,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "bool.h:1:8",
+                      declId = NamePair {
+                        nameC = CName "bools1",
+                        nameHsIdent = HsIdentifier
+                          "Bools1"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bools1"),
+                        structSizeof = 2,
+                        structAlignment = 1,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "bool.h:2:11",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "bools1_x"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "bool.h:3:11",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "bools1_y"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 8,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -224,54 +290,76 @@
                       "bools1_x",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:2:11"}},
+                        structFieldLoc = "bool.h:2:11",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "bools1_x"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "bools1_y",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:3:11"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bools1"),
-                    structAliases = [],
-                    structSizeof = 2,
-                    structAlignment = 1,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = "bool.h:2:11"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:3:11"}],
-                    structFlam = Nothing,
-                    structSourceLoc = "bool.h:1:8"},
+                        structFieldLoc = "bool.h:3:11",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "bools1_y"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 8,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "bool.h:1:8",
+                      declId = NamePair {
+                        nameC = CName "bools1",
+                        nameHsIdent = HsIdentifier
+                          "Bools1"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bools1"),
+                        structSizeof = 2,
+                        structAlignment = 1,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "bool.h:2:11",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "bools1_x"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "bool.h:3:11",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "bools1_y"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 8,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -309,54 +397,76 @@
             "bools2_x",
           fieldType = HsPrimType
             HsPrimCBool,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "bool.h:9:10"}},
+              structFieldLoc = "bool.h:9:10",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "bools2_x"},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "bools2_y",
           fieldType = HsPrimType
             HsPrimCBool,
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "bool.h:10:10"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "bools2"),
-          structAliases = [],
-          structSizeof = 2,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc = "bool.h:9:10"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "bool.h:10:10"}],
-          structFlam = Nothing,
-          structSourceLoc = "bool.h:8:8"},
+              structFieldLoc = "bool.h:10:10",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "bools2_y"},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "bool.h:8:8",
+            declId = NamePair {
+              nameC = CName "bools2",
+              nameHsIdent = HsIdentifier
+                "Bools2"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Bools2"),
+              structSizeof = 2,
+              structAlignment = 1,
+              structFields = [
+                StructField {
+                  structFieldLoc = "bool.h:9:10",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "bools2_x"},
+                  structFieldType = TypePrim
+                    PrimBool,
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc = "bool.h:10:10",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "bools2_y"},
+                  structFieldType = TypePrim
+                    PrimBool,
+                  structFieldOffset = 8,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -375,54 +485,76 @@
               "bools2_x",
             fieldType = HsPrimType
               HsPrimCBool,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "bool.h:9:10"}},
+                structFieldLoc = "bool.h:9:10",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "bools2_x"},
+                structFieldType = TypePrim
+                  PrimBool,
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "bools2_y",
             fieldType = HsPrimType
               HsPrimCBool,
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "y",
-                fieldOffset = 8,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "bool.h:10:10"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "bools2"),
-            structAliases = [],
-            structSizeof = 2,
-            structAlignment = 1,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc = "bool.h:9:10"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 8,
-                fieldWidth = Nothing,
-                fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "bool.h:10:10"}],
-            structFlam = Nothing,
-            structSourceLoc = "bool.h:8:8"},
+                structFieldLoc = "bool.h:10:10",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "bools2_y"},
+                structFieldType = TypePrim
+                  PrimBool,
+                structFieldOffset = 8,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "bool.h:8:8",
+              declId = NamePair {
+                nameC = CName "bools2",
+                nameHsIdent = HsIdentifier
+                  "Bools2"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Bools2"),
+                structSizeof = 2,
+                structAlignment = 1,
+                structFields = [
+                  StructField {
+                    structFieldLoc = "bool.h:9:10",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "bools2_x"},
+                    structFieldType = TypePrim
+                      PrimBool,
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc = "bool.h:10:10",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "bools2_y"},
+                    structFieldType = TypePrim
+                      PrimBool,
+                    structFieldOffset = 8,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -446,54 +578,76 @@
                       "bools2_x",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:9:10"}},
+                        structFieldLoc = "bool.h:9:10",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "bools2_x"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "bools2_y",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:10:10"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bools2"),
-                    structAliases = [],
-                    structSizeof = 2,
-                    structAlignment = 1,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = "bool.h:9:10"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:10:10"}],
-                    structFlam = Nothing,
-                    structSourceLoc = "bool.h:8:8"},
+                        structFieldLoc = "bool.h:10:10",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "bools2_y"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 8,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "bool.h:8:8",
+                      declId = NamePair {
+                        nameC = CName "bools2",
+                        nameHsIdent = HsIdentifier
+                          "Bools2"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bools2"),
+                        structSizeof = 2,
+                        structAlignment = 1,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "bool.h:9:10",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "bools2_x"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "bool.h:10:10",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "bools2_y"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 8,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -519,54 +673,76 @@
                       "bools2_x",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:9:10"}},
+                        structFieldLoc = "bool.h:9:10",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "bools2_x"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "bools2_y",
                     fieldType = HsPrimType
                       HsPrimCBool,
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:10:10"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bools2"),
-                    structAliases = [],
-                    structSizeof = 2,
-                    structAlignment = 1,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = "bool.h:9:10"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "bool.h:10:10"}],
-                    structFlam = Nothing,
-                    structSourceLoc = "bool.h:8:8"},
+                        structFieldLoc = "bool.h:10:10",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "bools2_y"},
+                        structFieldType = TypePrim
+                          PrimBool,
+                        structFieldOffset = 8,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "bool.h:8:8",
+                      declId = NamePair {
+                        nameC = CName "bools2",
+                        nameHsIdent = HsIdentifier
+                          "Bools2"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bools2"),
+                        structSizeof = 2,
+                        structAlignment = 1,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "bool.h:9:10",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "bools2_x"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "bool.h:10:10",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "bools2_y"},
+                            structFieldType = TypePrim
+                              PrimBool,
+                            structFieldOffset = 8,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -603,29 +779,30 @@
           "un_BOOL",
         fieldType = HsPrimType
           HsPrimCBool,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "bool.h:13:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "BOOL",
-          macroArgs = [],
-          macroBody = TypeMacro
-            (TypeName
-              (TypeSpecifier
-                (TypePrim PrimBool))
-              []
-              Declarator {
-                declaratorPointer = Pointers [],
-                directDeclarator =
-                IdentifierDeclarator
-                  AbstractName
-                  []})},
+        fieldOrigin = GeneratedField},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "bool.h:13:9",
+          declId = NamePair {
+            nameC = CName "BOOL",
+            nameHsIdent = HsIdentifier
+              "BOOL"}},
+        declKind = Macro
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "BOOL",
+              newtypeField = HsName
+                "@NsVar"
+                "un_BOOL"},
+            macroType = TypePrim PrimBool},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -708,60 +885,92 @@
             "bools3_x",
           fieldType = HsTypRef
             (HsName "@NsTypeConstr" "BOOL"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "BOOL"),
-              fieldSourceLoc =
-              "bool.h:16:10"}},
+              structFieldLoc = "bool.h:16:10",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "bools3_x"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "BOOL",
+                    nameHsIdent = HsIdentifier
+                      "BOOL"}),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
             "bools3_y",
           fieldType = HsTypRef
             (HsName "@NsTypeConstr" "BOOL"),
-          fieldOrigin =
-          FieldOriginStructField
+          fieldOrigin = StructField
             StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "BOOL"),
-              fieldSourceLoc =
-              "bool.h:17:10"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "bools3"),
-          structAliases = [],
-          structSizeof = 2,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "BOOL"),
-              fieldSourceLoc =
-              "bool.h:16:10"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "BOOL"),
-              fieldSourceLoc =
-              "bool.h:17:10"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "bool.h:15:8"},
+              structFieldLoc = "bool.h:17:10",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "bools3_y"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "BOOL",
+                    nameHsIdent = HsIdentifier
+                      "BOOL"}),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "bool.h:15:8",
+            declId = NamePair {
+              nameC = CName "bools3",
+              nameHsIdent = HsIdentifier
+                "Bools3"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Bools3"),
+              structSizeof = 2,
+              structAlignment = 1,
+              structFields = [
+                StructField {
+                  structFieldLoc = "bool.h:16:10",
+                  structFieldName = NamePair {
+                    nameC = CName "x",
+                    nameHsIdent = HsIdentifier
+                      "bools3_x"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "BOOL",
+                        nameHsIdent = HsIdentifier
+                          "BOOL"}),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc = "bool.h:17:10",
+                  structFieldName = NamePair {
+                    nameC = CName "y",
+                    nameHsIdent = HsIdentifier
+                      "bools3_y"},
+                  structFieldType = TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = CName "BOOL",
+                        nameHsIdent = HsIdentifier
+                          "BOOL"}),
+                  structFieldOffset = 8,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -780,60 +989,92 @@
               "bools3_x",
             fieldType = HsTypRef
               (HsName "@NsTypeConstr" "BOOL"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "BOOL"),
-                fieldSourceLoc =
-                "bool.h:16:10"}},
+                structFieldLoc = "bool.h:16:10",
+                structFieldName = NamePair {
+                  nameC = CName "x",
+                  nameHsIdent = HsIdentifier
+                    "bools3_x"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "BOOL",
+                      nameHsIdent = HsIdentifier
+                        "BOOL"}),
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
               "bools3_y",
             fieldType = HsTypRef
               (HsName "@NsTypeConstr" "BOOL"),
-            fieldOrigin =
-            FieldOriginStructField
+            fieldOrigin = StructField
               StructField {
-                fieldName = CName "y",
-                fieldOffset = 8,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "BOOL"),
-                fieldSourceLoc =
-                "bool.h:17:10"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "bools3"),
-            structAliases = [],
-            structSizeof = 2,
-            structAlignment = 1,
-            structFields = [
-              StructField {
-                fieldName = CName "x",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "BOOL"),
-                fieldSourceLoc =
-                "bool.h:16:10"},
-              StructField {
-                fieldName = CName "y",
-                fieldOffset = 8,
-                fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "BOOL"),
-                fieldSourceLoc =
-                "bool.h:17:10"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "bool.h:15:8"},
+                structFieldLoc = "bool.h:17:10",
+                structFieldName = NamePair {
+                  nameC = CName "y",
+                  nameHsIdent = HsIdentifier
+                    "bools3_y"},
+                structFieldType = TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = CName "BOOL",
+                      nameHsIdent = HsIdentifier
+                        "BOOL"}),
+                structFieldOffset = 8,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "bool.h:15:8",
+              declId = NamePair {
+                nameC = CName "bools3",
+                nameHsIdent = HsIdentifier
+                  "Bools3"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName "@NsConstr" "Bools3"),
+                structSizeof = 2,
+                structAlignment = 1,
+                structFields = [
+                  StructField {
+                    structFieldLoc = "bool.h:16:10",
+                    structFieldName = NamePair {
+                      nameC = CName "x",
+                      nameHsIdent = HsIdentifier
+                        "bools3_x"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "BOOL",
+                          nameHsIdent = HsIdentifier
+                            "BOOL"}),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc = "bool.h:17:10",
+                    structFieldName = NamePair {
+                      nameC = CName "y",
+                      nameHsIdent = HsIdentifier
+                        "bools3_y"},
+                    structFieldType = TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = CName "BOOL",
+                          nameHsIdent = HsIdentifier
+                            "BOOL"}),
+                    structFieldOffset = 8,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -857,60 +1098,92 @@
                       "bools3_x",
                     fieldType = HsTypRef
                       (HsName "@NsTypeConstr" "BOOL"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "BOOL"),
-                        fieldSourceLoc =
-                        "bool.h:16:10"}},
+                        structFieldLoc = "bool.h:16:10",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "bools3_x"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "BOOL",
+                              nameHsIdent = HsIdentifier
+                                "BOOL"}),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "bools3_y",
                     fieldType = HsTypRef
                       (HsName "@NsTypeConstr" "BOOL"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "BOOL"),
-                        fieldSourceLoc =
-                        "bool.h:17:10"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bools3"),
-                    structAliases = [],
-                    structSizeof = 2,
-                    structAlignment = 1,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "BOOL"),
-                        fieldSourceLoc =
-                        "bool.h:16:10"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "BOOL"),
-                        fieldSourceLoc =
-                        "bool.h:17:10"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "bool.h:15:8"},
+                        structFieldLoc = "bool.h:17:10",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "bools3_y"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "BOOL",
+                              nameHsIdent = HsIdentifier
+                                "BOOL"}),
+                        structFieldOffset = 8,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "bool.h:15:8",
+                      declId = NamePair {
+                        nameC = CName "bools3",
+                        nameHsIdent = HsIdentifier
+                          "Bools3"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bools3"),
+                        structSizeof = 2,
+                        structAlignment = 1,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "bool.h:16:10",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "bools3_x"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "BOOL",
+                                  nameHsIdent = HsIdentifier
+                                    "BOOL"}),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "bool.h:17:10",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "bools3_y"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "BOOL",
+                                  nameHsIdent = HsIdentifier
+                                    "BOOL"}),
+                            structFieldOffset = 8,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -936,60 +1209,92 @@
                       "bools3_x",
                     fieldType = HsTypRef
                       (HsName "@NsTypeConstr" "BOOL"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "BOOL"),
-                        fieldSourceLoc =
-                        "bool.h:16:10"}},
+                        structFieldLoc = "bool.h:16:10",
+                        structFieldName = NamePair {
+                          nameC = CName "x",
+                          nameHsIdent = HsIdentifier
+                            "bools3_x"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "BOOL",
+                              nameHsIdent = HsIdentifier
+                                "BOOL"}),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "bools3_y",
                     fieldType = HsTypRef
                       (HsName "@NsTypeConstr" "BOOL"),
-                    fieldOrigin =
-                    FieldOriginStructField
+                    fieldOrigin = StructField
                       StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "BOOL"),
-                        fieldSourceLoc =
-                        "bool.h:17:10"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "bools3"),
-                    structAliases = [],
-                    structSizeof = 2,
-                    structAlignment = 1,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "x",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "BOOL"),
-                        fieldSourceLoc =
-                        "bool.h:16:10"},
-                      StructField {
-                        fieldName = CName "y",
-                        fieldOffset = 8,
-                        fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "BOOL"),
-                        fieldSourceLoc =
-                        "bool.h:17:10"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "bool.h:15:8"},
+                        structFieldLoc = "bool.h:17:10",
+                        structFieldName = NamePair {
+                          nameC = CName "y",
+                          nameHsIdent = HsIdentifier
+                            "bools3_y"},
+                        structFieldType = TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = CName "BOOL",
+                              nameHsIdent = HsIdentifier
+                                "BOOL"}),
+                        structFieldOffset = 8,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "bool.h:15:8",
+                      declId = NamePair {
+                        nameC = CName "bools3",
+                        nameHsIdent = HsIdentifier
+                          "Bools3"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Bools3"),
+                        structSizeof = 2,
+                        structAlignment = 1,
+                        structFields = [
+                          StructField {
+                            structFieldLoc = "bool.h:16:10",
+                            structFieldName = NamePair {
+                              nameC = CName "x",
+                              nameHsIdent = HsIdentifier
+                                "bools3_x"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "BOOL",
+                                  nameHsIdent = HsIdentifier
+                                    "BOOL"}),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc = "bool.h:17:10",
+                            structFieldName = NamePair {
+                              nameC = CName "y",
+                              nameHsIdent = HsIdentifier
+                                "bools3_y"},
+                            structFieldType = TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = CName "BOOL",
+                                  nameHsIdent = HsIdentifier
+                                    "BOOL"}),
+                            structFieldOffset = 8,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
