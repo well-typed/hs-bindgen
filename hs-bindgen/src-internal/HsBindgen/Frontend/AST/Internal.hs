@@ -34,6 +34,7 @@ module HsBindgen.Frontend.AST.Internal (
 
 import Prelude hiding (Enum)
 
+import Clang.CNameSpelling (CNameSpelling)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -233,7 +234,7 @@ data Type p =
   | TypeIncompleteArray (Type p)
 
     -- | TODO: Docs
-  | TypeExtBinding ExtHsRef BindingSpec.TypeSpec
+  | TypeExtBinding CNameSpelling ExtHsRef BindingSpec.TypeSpec
 
 {-------------------------------------------------------------------------------
   Qualified names

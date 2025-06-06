@@ -251,7 +251,9 @@ instance Finalize Int.Type where
   finalize (Int.TypeVoid)                    = Ext.TypeVoid
   finalize (Int.TypeConstArray n typ)        = Ext.TypeConstArray n (finalize typ)
   finalize (Int.TypeIncompleteArray typ)     = Ext.TypeIncompleteArray (finalize typ)
-  finalize (Int.TypeExtBinding ref typeSpec) = Ext.TypeExtBinding ref typeSpec
+
+  finalize (Int.TypeExtBinding cSpelling ref typeSpec) =
+      Ext.TypeExtBinding cSpelling ref typeSpec
 
   -- TODO: We should probably keep the distinction between typedef and
   -- macro-defined typedef also in the external AST.

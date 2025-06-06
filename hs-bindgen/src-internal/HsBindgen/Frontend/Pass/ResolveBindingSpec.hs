@@ -353,8 +353,8 @@ instance Resolve C.Type where
           TypedefSquashed cname ty ->
             C.TypeTypedef . TypedefSquashed cname <$> resolve ty
 
-      C.TypeExtBinding extHsRef typeSpec ->
-        return (C.TypeExtBinding extHsRef typeSpec)
+      C.TypeExtBinding cSpelling extHsRef typeSpec ->
+        return (C.TypeExtBinding cSpelling extHsRef typeSpec)
     where
       aux ::
            (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)
@@ -372,7 +372,7 @@ instance Resolve C.Type where
             Just (BindingSpec.Require typeSpec) ->
               case getExtHsRef cname typeSpec of
                 Right extHsRef ->
-                  return $ C.TypeExtBinding extHsRef typeSpec
+                  return $ C.TypeExtBinding cname extHsRef typeSpec
                 Left e -> do
                   modify' $ insertError e
                   return $ mk uid

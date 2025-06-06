@@ -195,8 +195,8 @@ renameType du = go
         C.TypeFun (map go args) (go res)
     go (C.TypeVoid) =
         C.TypeVoid
-    go (C.TypeExtBinding extHsRef typeSpec) =
-        C.TypeExtBinding extHsRef typeSpec
+    go (C.TypeExtBinding cSpelling extHsRef typeSpec) =
+        C.TypeExtBinding cSpelling extHsRef typeSpec
     go (C.TypeConstArray n ty) =
         C.TypeConstArray n (go ty)
     go (C.TypeIncompleteArray ty) =

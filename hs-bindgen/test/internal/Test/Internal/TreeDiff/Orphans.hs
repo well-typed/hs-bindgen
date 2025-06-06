@@ -11,6 +11,7 @@ import Data.Vec.Lazy qualified as Vec
 import Foreign.C
 import System.FilePath qualified as FilePath
 
+import Clang.CNameSpelling (CNameSpelling(..))
 import Clang.Enum.Simple
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as Paths
@@ -336,6 +337,9 @@ instance ToExpr C.ParameterDeclarator
 
 instance ToExpr C.SizeExpression where
   toExpr (C.SizeExpression e _env) = toExpr e
+
+instance ToExpr CNameSpelling where
+  toExpr = toExpr . getCNameSpelling
 
 {-------------------------------------------------------------------------------
   hs-bindgen-runtime
