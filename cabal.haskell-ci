@@ -1,3 +1,4 @@
 branches: main
 copy-fields: all
 apt: llvm libclang-dev
+docspec: True

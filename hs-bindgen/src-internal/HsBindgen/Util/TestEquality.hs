@@ -23,6 +23,9 @@ import Data.GADT.Compare
 
 import HsBindgen.Imports
 
+-- $setup
+-- >>> :seti -XDataKinds -XGADTs
+
 --------------------------------------------------------------------------------
 
 infixr 4 `equals1`
