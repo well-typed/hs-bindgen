@@ -5,7 +5,8 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec (
 
 import Control.Exception (Exception(..))
 import Control.Monad ((<=<))
-import Control.Monad.RWS
+import Control.Monad.RWS (MonadReader, MonadState, RWS)
+import Control.Monad.RWS qualified as RWS
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -100,7 +101,7 @@ runM ::
 runM confSpec extSpec includeGraph omittedDecls (WrapM m) =
     let env        = MEnv confSpec extSpec includeGraph omittedDecls
         state0     = initMState confSpec
-        (x, s, ()) = runRWS m env state0
+        (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
 
 {-------------------------------------------------------------------------------
@@ -180,7 +181,7 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 resolveTop ::
      C.Decl RenameAnon
   -> M (Maybe (C.Decl RenameAnon, Maybe BindingSpec.TypeSpec))
-resolveTop decl = ask >>= \MEnv{..} -> do
+resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     let qualId     = C.declQualId decl
         cname      = qualIdCNameSpelling qualId
         sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
@@ -190,23 +191,23 @@ resolveTop decl = ask >>= \MEnv{..} -> do
         case getExtHsRef cname typeSpec of
           Right extHsRef -> do
             let ty = C.TypeExtBinding cname extHsRef typeSpec
-            modify' $ insertExtType qualId ty
+            RWS.modify' $ insertExtType qualId ty
             return True
           Left e -> do
-            modify' $ insertError e
+            RWS.modify' $ insertError e
             return False
       Just BindingSpec.Omit -> do
-        modify' $ insertError (BindingSpecOmittedTypeUse cname)
+        RWS.modify' $ insertError (BindingSpecOmittedTypeUse cname)
         return False
       Nothing -> return False
     if isExt
       then return Nothing
       else case BindingSpec.lookupTypeSpec cname declPaths envConfSpec of
         Just (BindingSpec.Require typeSpec) -> do
-          modify' $ deleteNoConfType cname
+          RWS.modify' $ deleteNoConfType cname
           return $ Just (decl, Just typeSpec)
         Just BindingSpec.Omit -> do
-          modify' $ deleteNoConfType cname . insertOmittedType qualId
+          RWS.modify' $ deleteNoConfType cname . insertOmittedType qualId
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
 
@@ -375,12 +376,13 @@ instance Resolve C.Type where
         -> Id RenameAnon
         -> C.Namespace
         -> M (C.Type ResolveBindingSpec)
-      aux mk uid namespace = ask >>= \MEnv{..} -> get >>= \MState{..} -> do
+      aux mk uid namespace =
+        RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
           let qualId = C.QualId uid namespace
               cname  = qualIdCNameSpelling qualId
           -- check for type omitted by binding specification
           when (Set.member qualId stateOmitTypes) $
-            modify' $ insertError (BindingSpecOmittedTypeUse cname)
+            RWS.modify' $ insertError (BindingSpecOmittedTypeUse cname)
           -- check for selected external binding
           case Map.lookup qualId stateExtTypes of
             Just ty -> return ty
@@ -396,13 +398,14 @@ instance Resolve C.Type where
                       case getExtHsRef cname typeSpec of
                         Right extHsRef -> do
                           let ty = C.TypeExtBinding cname extHsRef typeSpec
-                          modify' $ insertExtType qualId ty
+                          RWS.modify' $ insertExtType qualId ty
                           return ty
                         Left e -> do
-                          modify' $ insertError e
+                          RWS.modify' $ insertError e
                           return (mk uid)
                     Just BindingSpec.Omit -> do
-                      modify' $ insertError (BindingSpecOmittedTypeUse cname)
+                      RWS.modify' $
+                        insertError (BindingSpecOmittedTypeUse cname)
                       return (mk uid)
                     Nothing -> return (mk uid)
 
