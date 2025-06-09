@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec (
   ) where
 
 import Control.Exception (Exception(..))
+import Control.Monad ((<=<))
 import Control.Monad.RWS
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
@@ -162,8 +163,24 @@ insertOmittedType qualId st = st {
   Internal: implementation
 -------------------------------------------------------------------------------}
 
+-- Resolve declarations, in two passes
 resolveDecls :: [C.Decl RenameAnon] -> M [C.Decl ResolveBindingSpec]
-resolveDecls = mapMaybeM $ \decl -> ask >>= \MEnv{..} -> do
+resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
+
+-- Pass one: top-level
+--
+-- If a declaration has an external binding, then the declaration is dropped and
+-- the external binding is recorded.
+--
+-- If a declaration is omitted, then the declaration is dropped and the omission
+-- is recorded.
+--
+-- Otherwise, the declaration is kept and is associated with an type
+-- specification when applicable.
+resolveTop ::
+     C.Decl RenameAnon
+  -> M (Maybe (C.Decl RenameAnon, Maybe BindingSpec.TypeSpec))
+resolveTop decl = ask >>= \MEnv{..} -> do
     let qualId     = C.declQualId decl
         cname      = qualIdCNameSpelling qualId
         sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
@@ -187,30 +204,21 @@ resolveDecls = mapMaybeM $ \decl -> ask >>= \MEnv{..} -> do
       else case BindingSpec.lookupTypeSpec cname declPaths envConfSpec of
         Just (BindingSpec.Require typeSpec) -> do
           modify' $ deleteNoConfType cname
-          Just <$> resolveDecl decl (Just typeSpec)
+          return $ Just (decl, Just typeSpec)
         Just BindingSpec.Omit -> do
           modify' $ deleteNoConfType cname . insertOmittedType qualId
           return Nothing
-        Nothing -> Just <$> resolveDecl decl Nothing
+        Nothing -> return $ Just (decl, Nothing)
 
-getExtHsRef ::
-     CNameSpelling
-  -> BindingSpec.TypeSpec
-  -> Either BindingSpecError ExtHsRef
-getExtHsRef cname typeSpec = do
-    extHsRefModule <-
-      maybe (Left (BindingSpecExtHsRefNoModule cname)) Right $
-        BindingSpec.typeSpecModule typeSpec
-    extHsRefIdentifier <-
-      maybe (Left (BindingSpecExtHsRefNoIdentifier cname)) Right $
-        BindingSpec.typeSpecIdentifier typeSpec
-    return ExtHsRef{extHsRefModule, extHsRefIdentifier}
-
-resolveDecl ::
+-- Pass two: deep
+--
+-- Types within the declaration are resolved, and it is reassembled for the
+-- current pass.
+resolveDeep ::
      C.Decl RenameAnon
   -> Maybe BindingSpec.TypeSpec
   -> M (C.Decl ResolveBindingSpec)
-resolveDecl C.Decl{..} mTypeSpec =
+resolveDeep C.Decl{..} mTypeSpec =
     reassemble <$> resolve declKind
   where
     reassemble :: C.DeclKind ResolveBindingSpec -> C.Decl ResolveBindingSpec
@@ -370,11 +378,14 @@ instance Resolve C.Type where
       aux mk uid namespace = ask >>= \MEnv{..} -> get >>= \MState{..} -> do
           let qualId = C.QualId uid namespace
               cname  = qualIdCNameSpelling qualId
+          -- check for type omitted by binding specification
           when (Set.member qualId stateOmitTypes) $
             modify' $ insertError (BindingSpecOmittedTypeUse cname)
+          -- check for selected external binding
           case Map.lookup qualId stateExtTypes of
             Just ty -> return ty
             Nothing ->
+              -- check for external binding of type omitted by predicate
               case OmittedDecls.lookup (uid, namespace) envOmittedDecls of
                 Nothing -> return (mk uid)
                 Just sourcePath -> do
@@ -409,6 +420,19 @@ qualIdCNameSpelling (C.QualId (CName cname) namespace) =
           C.NamespaceMacro    -> ""
           C.NamespaceFunction -> ""
     in  CNameSpelling $ prefix <> cname
+
+getExtHsRef ::
+     CNameSpelling
+  -> BindingSpec.TypeSpec
+  -> Either BindingSpecError ExtHsRef
+getExtHsRef cname typeSpec = do
+    extHsRefModule <-
+      maybe (Left (BindingSpecExtHsRefNoModule cname)) Right $
+        BindingSpec.typeSpecModule typeSpec
+    extHsRefIdentifier <-
+      maybe (Left (BindingSpecExtHsRefNoIdentifier cname)) Right $
+        BindingSpec.typeSpecIdentifier typeSpec
+    return ExtHsRef{extHsRefModule, extHsRefIdentifier}
 
 mapMaybeM :: forall a b m. Monad m => (a -> m (Maybe b)) -> [a] -> m [b]
 mapMaybeM f = foldr aux (pure [])
