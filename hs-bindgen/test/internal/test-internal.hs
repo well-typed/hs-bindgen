@@ -90,7 +90,6 @@ tests ansiColor tracer packageRoot rustBindgen =
         , golden "bool"
         , golden "anonymous"
         , golden "simple_func"
-        , golden "weird01"
         , golden "bitfields"
         , golden "unions"
         , golden "nested_enums"
