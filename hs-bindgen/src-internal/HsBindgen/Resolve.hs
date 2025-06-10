@@ -46,7 +46,8 @@ instance PrettyTrace ResolveHeaderException where
   prettyTrace = displayException
 
 instance HasDefaultLogLevel ResolveHeaderException where
-  getDefaultLogLevel = const Error
+  -- 'Warning', not 'Error'; see https://github.com/well-typed/hs-bindgen/issues/479.
+  getDefaultLogLevel = const Warning
 
 instance HasSource ResolveHeaderException where
   getSource = const HsBindgen

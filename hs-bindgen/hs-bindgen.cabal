@@ -312,6 +312,7 @@ test-suite test-internal
       Test.Internal.Tracer
       Test.Internal.TreeDiff.Orphans
       -- Common
+      Test.Internal.Tasty
       Test.Internal.Trace
   build-depends:
       -- Internal dependencies
@@ -355,6 +356,7 @@ test-suite test-th
       Test01
       Test02
       -- Common
+      Test.Internal.Tasty
       Test.Internal.Trace
 
   default-language: Haskell2010
@@ -384,6 +386,7 @@ test-suite test-pp
       Test01
       Test02
       -- Common
+      Test.Internal.Tasty
       Test.Internal.Trace
 
   default-language: Haskell2010

@@ -11,6 +11,7 @@ module HsBindgen.Util.Tracer (
   , Source (..)
   , HasSource (..)
   , Verbosity (..)
+  , ErrorTraceException (..)
   -- | Tracer configuration
   , AnsiColor (..)
   , ShowTimeStamp (..)
@@ -30,6 +31,7 @@ module HsBindgen.Util.Tracer (
   ) where
 
 import Control.Applicative (ZipList (ZipList, getZipList))
+import Control.Exception (Exception (..), throwIO)
 import Control.Monad (when)
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import Control.Tracer (Contravariant (contramap), Tracer (Tracer), emit,
@@ -38,13 +40,15 @@ import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
 import GHC.Stack (CallStack, HasCallStack, callStack, prettyCallStack)
-import HsBindgen.Errors (panicIO)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
                             ConsoleLayer (Foreground),
                             SGR (SetColor, SetConsoleIntensity),
                             hSupportsANSIColor, setSGRCode)
 import System.IO (Handle, IOMode (AppendMode), hPutStrLn, stdout, withFile)
+
+import HsBindgen.Errors (hsBindgenExceptionFromException,
+                         hsBindgenExceptionToException)
 
 {-------------------------------------------------------------------------------
   Data types and type classes useful for tracing
@@ -73,7 +77,7 @@ getColorForLevel = \case
 
 -- | Convert values to textual representations used in traces.
 class PrettyTrace a where
-  -- TODO: Use 'Text' (issue #650).
+  -- Issue #650: use 'Text'.
   prettyTrace :: a -> String
 
 -- | Get default (or suggested) log level of values used in traces.
@@ -96,6 +100,15 @@ class HasSource a where
 
 newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
+
+data ErrorTraceException = ErrorTraceException
+  deriving stock Show
+
+instance Exception ErrorTraceException where
+  toException = hsBindgenExceptionToException
+  fromException = hsBindgenExceptionFromException
+  displayException _ =
+    "An error happened while generating bindings (see above)"
 
 {-------------------------------------------------------------------------------
   Tracer configuration
@@ -134,6 +147,8 @@ data CustomLogLevel a = DefaultLogLevel | CustomLogLevel (a -> Level)
 -------------------------------------------------------------------------------}
 
 -- | Run an action with a tracer writing to 'stdout'. Use ANSI colors, if available.
+--
+-- Throw exception after performing action if an 'Error' trace was emitted.
 withTracerStdOut :: MonadIO m => (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
   => TracerConf
   -> CustomLogLevel a
@@ -145,6 +160,8 @@ withTracerStdOut tracerConf customLogLevel action = do
     action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
 
 -- | Run an action with a tracer writing to a file. Do not use ANSI colors.
+--
+-- Throw exception after performing action if an 'Error' trace was emitted.
 withTracerFile
   :: (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
   => FilePath
@@ -159,6 +176,8 @@ withTracerFile file tracerConf customLogLevel action =
         mkTracer DisableAnsiColor tracerConf customLogLevel ref (hPutStrLn handle)
 
 -- | Run an action with a tracer using a custom report function.
+--
+-- Throw exception after performing action if an 'Error' trace was emitted.
 withTracerCustom
   :: forall m a b. (MonadIO m, PrettyTrace a, HasDefaultLogLevel a, HasSource a)
   => AnsiColor
@@ -172,7 +191,8 @@ withTracerCustom ansiColor tracerConf customLogLevel report action =
 
 -- | Run an action with a tracer using a custom report function.
 --
--- Do not panic on 'Error'; return the maximum log level of traces.
+-- Do not throw exception on 'Error' traces; instead return the maximum log
+-- level of traces.
 withTracerCustom' :: (MonadIO m, PrettyTrace a, HasDefaultLogLevel a,  HasSource a)
   => AnsiColor
   -> TracerConf
@@ -304,8 +324,8 @@ withColor EnableAnsiColor    level = withColor' (getColorForLevel level)
 
 exceptionOnError :: MonadIO m => m (a, Level) -> m a
 exceptionOnError k = k >>= \case
-  (_, Error)      -> panicIO "errors reported while generating bindings"
-  (r, _otherwise) -> pure r
+  (_, Error) -> liftIO $ throwIO ErrorTraceException
+  (r, _    ) -> pure r
 
 withExceptionOnError :: MonadIO m => (IORef Level -> m a) -> m a
 withExceptionOnError action = exceptionOnError (withIORef Debug action)
