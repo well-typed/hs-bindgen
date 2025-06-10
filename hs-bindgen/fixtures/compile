@@ -11,22 +11,19 @@ usage() {
 }
 
 failures=(
-    # Error happens when importing the included C header.
-    "adios.pp.hs"                       # NFC.
-    "macro_in_fundecl_vs_typedef.pp.hs" # Conflicting types in C header.
-    "manual_examples.pp.hs"             # NFC.
-    "simple_func.pp.hs"                 # Redefinition errors.
-    "weird01.pp.hs"                     # "Declaration does not declare anything" error.
+    # GCC compilation errors (error happens when parsing inlined C source).
+    "adios.pp.hs"           # NFC.
+    "manual_examples.pp.hs" # NFC.
+    "weird01.pp.hs"         # "Declaration does not declare anything" error.
     # GHC compilation errors.
     "macro_functions.pp.hs"  # Import error ("type" keyword required).
     "macro_in_fundecl.pp.hs" # "Illegal type" error.
     "macro_strings.pp.hs"    # "A section must be enclosed in parentheses" error
     "macro_types.pp.hs"      # "Illegal type" error.
-    "nested_unions.pp.hs"    # "No instance for ..." error.
     "typedef_vs_macro.pp.hs" # "Illegal type" error.
     "typenames.pp.hs"        # "Multiple declarations" error.
     "type_naturals.pp.hs"    # "Illegal type" error.
-    "unions.pp.hs"           # "No instance for ..." error.
+    "vector.pp.hs"           # "unknown type name ‘import’" (wrong import from 'vector-algorithms/vector.h')?
 )
 
 compile_one() {
