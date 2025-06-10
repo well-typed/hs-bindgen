@@ -49,7 +49,7 @@ foldDecl curr = do
                 CXCursor_VarDecl            -> varDecl
                 kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
             else do
-              recordOmittedDecl curr
+              recordNonSelectedDecl curr
               return $ Continue Nothing
 
 {-------------------------------------------------------------------------------

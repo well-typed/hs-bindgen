@@ -18,7 +18,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import HsBindgen.Frontend.AST.Internal (ValidPass)
-import HsBindgen.Frontend.OmittedDecls (OmittedDecls)
+import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -31,7 +31,7 @@ type Parse :: Pass
 data Parse a deriving anyclass ValidPass
 
 type family ParseAnn (ix :: Symbol) :: Star where
-  ParseAnn "TranslationUnit" = OmittedDecls
+  ParseAnn "TranslationUnit" = NonSelectedDecls
   ParseAnn "StructField"     = ReparseInfo
   ParseAnn "UnionField"      = ReparseInfo
   ParseAnn "Typedef"         = ReparseInfo

@@ -13,7 +13,7 @@ module HsBindgen.Frontend.Pass.Parse.Monad (
   , getMainHeader
   , recordMacroExpansionAt
   , checkHasMacroExpansion
-  , recordOmittedDecl
+  , recordNonSelectedDecl
     -- ** Logging
   , ParseTrace(..)
   , recordTrace
@@ -32,8 +32,8 @@ import HsBindgen.C.Predicate (Predicate, IsMainFile)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
 import HsBindgen.Errors
-import HsBindgen.Frontend.OmittedDecls (OmittedDecls)
-import HsBindgen.Frontend.OmittedDecls qualified as OmittedDecls
+import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
+import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
@@ -63,11 +63,11 @@ data ParseSupport = ParseSupport {
 
 type instance Support ParseMonad = ParseSupport
 
-runParseMonad :: ParseEnv -> M a -> IO (OmittedDecls, a)
+runParseMonad :: ParseEnv -> M a -> IO (NonSelectedDecls, a)
 runParseMonad env f = do
     support <- ParseSupport env <$> newIORef initParseState
     x <- unwrapEff f support
-    (, x) . stateOmittedDecls <$> readIORef (parseState support)
+    (, x) . stateNonSelectedDecls <$> readIORef (parseState support)
 
 {-------------------------------------------------------------------------------
   "Reader"
@@ -121,18 +121,18 @@ data ParseState = ParseState {
       -- This is exclusively used to set 'functionHeader'.
     , stateMainHeader :: Maybe CHeaderIncludePath
 
-      -- | Omitted declarations
+      -- | Non-selected declarations
       --
       -- We need to track which header each omitted declaration is declared in
       -- so that we can resolve external bindings.
-    , stateOmittedDecls :: OmittedDecls
+    , stateNonSelectedDecls :: NonSelectedDecls
     }
 
 initParseState :: ParseState
 initParseState = ParseState{
-      stateMacroExpansions = Set.empty
-    , stateMainHeader      = Nothing
-    , stateOmittedDecls    = OmittedDecls.empty
+      stateMacroExpansions  = Set.empty
+    , stateMainHeader       = Nothing
+    , stateNonSelectedDecls = NonSelectedDecls.empty
     }
 
 -- | Update the main header, when necessary
@@ -184,8 +184,8 @@ checkHasMacroExpansion extent = do
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
 
-recordOmittedDecl :: CXCursor -> M ()
-recordOmittedDecl curr = do
+recordNonSelectedDecl :: CXCursor -> M ()
+recordNonSelectedDecl curr = do
     mNamespace <- dispatch curr $ return . \case
       CXCursor_MacroDefinition -> Just NamespaceMacro
       CXCursor_StructDecl      -> Just NamespaceStruct
@@ -206,9 +206,9 @@ recordOmittedDecl curr = do
             singleLocPath <$> HighLevel.clang_getCursorLocation' curr
           wrapEff $ \ParseSupport{parseState} -> do
             modifyIORef parseState $ \st -> st{
-                stateOmittedDecls =
-                  OmittedDecls.insert (cname, namespace) sourcePath $
-                    stateOmittedDecls st
+                stateNonSelectedDecls =
+                  NonSelectedDecls.insert (cname, namespace) sourcePath $
+                    stateNonSelectedDecls st
               }
         DeclAnon{} -> return ()
       Nothing -> return ()

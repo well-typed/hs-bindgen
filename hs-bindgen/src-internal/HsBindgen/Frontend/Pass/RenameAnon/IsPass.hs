@@ -6,7 +6,7 @@ module HsBindgen.Frontend.Pass.RenameAnon.IsPass (
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
-import HsBindgen.Frontend.OmittedDecls (OmittedDecls)
+import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -19,7 +19,7 @@ type RenameAnon :: Pass
 data RenameAnon a deriving anyclass ValidPass
 
 type family AnnRenameAnon ix where
-  AnnRenameAnon "TranslationUnit" = (UseDefGraph, OmittedDecls)
+  AnnRenameAnon "TranslationUnit" = (UseDefGraph, NonSelectedDecls)
   AnnRenameAnon _                 = NoAnn
 
 instance IsPass RenameAnon where

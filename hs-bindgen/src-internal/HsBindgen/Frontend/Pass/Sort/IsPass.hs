@@ -2,7 +2,7 @@ module HsBindgen.Frontend.Pass.Sort.IsPass (Sort) where
 
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
-import HsBindgen.Frontend.OmittedDecls (OmittedDecls)
+import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Imports
@@ -18,7 +18,7 @@ type Sort :: Pass
 data Sort a deriving anyclass ValidPass
 
 type family AnalyzeAnn (ix :: Symbol) :: Star where
-  AnalyzeAnn "TranslationUnit" = (UseDefGraph, OmittedDecls)
+  AnalyzeAnn "TranslationUnit" = (UseDefGraph, NonSelectedDecls)
   AnalyzeAnn ix                = Ann ix Parse
 
 instance IsPass Sort where

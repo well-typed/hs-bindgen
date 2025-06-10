@@ -18,8 +18,8 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
-import HsBindgen.Frontend.OmittedDecls (OmittedDecls)
-import HsBindgen.Frontend.OmittedDecls qualified as OmittedDecls
+import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
+import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.RenameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
@@ -95,11 +95,11 @@ runM ::
      ResolvedBindingSpec -- ^ Configuration binding specification
   -> ResolvedBindingSpec -- ^ External binding specification
   -> IncludeGraph
-  -> OmittedDecls
+  -> NonSelectedDecls
   -> M a
   -> (a, MState)
-runM confSpec extSpec includeGraph omittedDecls (WrapM m) =
-    let env        = MEnv confSpec extSpec includeGraph omittedDecls
+runM confSpec extSpec includeGraph nonSelectedDecls (WrapM m) =
+    let env        = MEnv confSpec extSpec includeGraph nonSelectedDecls
         state0     = initMState confSpec
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
@@ -109,10 +109,10 @@ runM confSpec extSpec includeGraph omittedDecls (WrapM m) =
 -------------------------------------------------------------------------------}
 
 data MEnv = MEnv {
-      envConfSpec     :: ResolvedBindingSpec
-    , envExtSpec      :: ResolvedBindingSpec
-    , envIncludeGraph :: IncludeGraph
-    , envOmittedDecls :: OmittedDecls
+      envConfSpec         :: ResolvedBindingSpec
+    , envExtSpec          :: ResolvedBindingSpec
+    , envIncludeGraph     :: IncludeGraph
+    , envNonSelectedDecls :: NonSelectedDecls
     }
   deriving (Show)
 
@@ -386,9 +386,10 @@ instance Resolve C.Type where
           -- check for selected external binding
           case Map.lookup qualId stateExtTypes of
             Just ty -> return ty
-            Nothing ->
-              -- check for external binding of type omitted by predicate
-              case OmittedDecls.lookup (uid, namespace) envOmittedDecls of
+            Nothing -> do
+              -- check for external binding of non-selected type
+              let k = (uid, namespace)
+              case NonSelectedDecls.lookup k envNonSelectedDecls of
                 Nothing -> return (mk uid)
                 Just sourcePath -> do
                   let declPaths =
