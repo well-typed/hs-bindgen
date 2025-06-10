@@ -857,11 +857,457 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
+        "Ex3_ex3_struct",
+      structConstr = HsName
+        "@NsConstr"
+        "Ex3_ex3_struct",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "ex3_ex3_struct_ex3_a",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "nested_types.h:13:13",
+              structFieldName = NamePair {
+                nameC = CName "ex3_a",
+                nameHsIdent = HsIdentifier
+                  "ex3_ex3_struct_ex3_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "ex3_ex3_struct_ex3_b",
+          fieldType = HsPrimType
+            HsPrimCChar,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "nested_types.h:14:14",
+              structFieldName = NamePair {
+                nameC = CName "ex3_b",
+                nameHsIdent = HsIdentifier
+                  "ex3_ex3_struct_ex3_b"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "nested_types.h:12:5",
+            declId = NamePair {
+              nameC = CName "ex3_ex3_struct",
+              nameHsIdent = HsIdentifier
+                "Ex3_ex3_struct"}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName
+                  "@NsConstr"
+                  "Ex3_ex3_struct"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "nested_types.h:13:13",
+                  structFieldName = NamePair {
+                    nameC = CName "ex3_a",
+                    nameHsIdent = HsIdentifier
+                      "ex3_ex3_struct_ex3_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "nested_types.h:14:14",
+                  structFieldName = NamePair {
+                    nameC = CName "ex3_b",
+                    nameHsIdent = HsIdentifier
+                      "ex3_ex3_struct_ex3_b"},
+                  structFieldType = TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Ex3_ex3_struct",
+        structConstr = HsName
+          "@NsConstr"
+          "Ex3_ex3_struct",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "ex3_ex3_struct_ex3_a",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = StructField
+              StructField {
+                structFieldLoc =
+                "nested_types.h:13:13",
+                structFieldName = NamePair {
+                  nameC = CName "ex3_a",
+                  nameHsIdent = HsIdentifier
+                    "ex3_ex3_struct_ex3_a"},
+                structFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed),
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "ex3_ex3_struct_ex3_b",
+            fieldType = HsPrimType
+              HsPrimCChar,
+            fieldOrigin = StructField
+              StructField {
+                structFieldLoc =
+                "nested_types.h:14:14",
+                structFieldName = NamePair {
+                  nameC = CName "ex3_b",
+                  nameHsIdent = HsIdentifier
+                    "ex3_ex3_struct_ex3_b"},
+                structFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc = "nested_types.h:12:5",
+              declId = NamePair {
+                nameC = CName "ex3_ex3_struct",
+                nameHsIdent = HsIdentifier
+                  "Ex3_ex3_struct"}},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName
+                    "@NsConstr"
+                    "Ex3_ex3_struct"),
+                structSizeof = 8,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "nested_types.h:13:13",
+                    structFieldName = NamePair {
+                      nameC = CName "ex3_a",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct_ex3_a"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "nested_types.h:14:14",
+                    structFieldName = NamePair {
+                      nameC = CName "ex3_b",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct_ex3_b"},
+                    structFieldType = TypePrim
+                      (PrimChar
+                        (PrimSignImplicit
+                          (Just Signed))),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
+      StorableInstance {
+        storableSizeOf = 8,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Ex3_ex3_struct",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Ex3_ex3_struct",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "ex3_ex3_struct_ex3_a",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "nested_types.h:13:13",
+                        structFieldName = NamePair {
+                          nameC = CName "ex3_a",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_struct_ex3_a"},
+                        structFieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "ex3_ex3_struct_ex3_b",
+                    fieldType = HsPrimType
+                      HsPrimCChar,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "nested_types.h:14:14",
+                        structFieldName = NamePair {
+                          nameC = CName "ex3_b",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_struct_ex3_b"},
+                        structFieldType = TypePrim
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "nested_types.h:12:5",
+                      declId = NamePair {
+                        nameC = CName "ex3_ex3_struct",
+                        nameHsIdent = HsIdentifier
+                          "Ex3_ex3_struct"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Ex3_ex3_struct"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "nested_types.h:13:13",
+                            structFieldName = NamePair {
+                              nameC = CName "ex3_a",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct_ex3_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "nested_types.h:14:14",
+                            structFieldName = NamePair {
+                              nameC = CName "ex3_b",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct_ex3_b"},
+                            structFieldType = TypePrim
+                              (PrimChar
+                                (PrimSignImplicit
+                                  (Just Signed))),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
+            [
+              PeekByteOff (Idx 0) 0,
+              PeekByteOff (Idx 0) 4]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Ex3_ex3_struct",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Ex3_ex3_struct",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "ex3_ex3_struct_ex3_a",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "nested_types.h:13:13",
+                        structFieldName = NamePair {
+                          nameC = CName "ex3_a",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_struct_ex3_a"},
+                        structFieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "ex3_ex3_struct_ex3_b",
+                    fieldType = HsPrimType
+                      HsPrimCChar,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "nested_types.h:14:14",
+                        structFieldName = NamePair {
+                          nameC = CName "ex3_b",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_struct_ex3_b"},
+                        structFieldType = TypePrim
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "nested_types.h:12:5",
+                      declId = NamePair {
+                        nameC = CName "ex3_ex3_struct",
+                        nameHsIdent = HsIdentifier
+                          "Ex3_ex3_struct"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "Ex3_ex3_struct"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "nested_types.h:13:13",
+                            structFieldName = NamePair {
+                              nameC = CName "ex3_a",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct_ex3_a"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "nested_types.h:14:14",
+                            structFieldName = NamePair {
+                              nameC = CName "ex3_b",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct_ex3_b"},
+                            structFieldType = TypePrim
+                              (PrimChar
+                                (PrimSignImplicit
+                                  (Just Signed))),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
+              (Add 2)
+              (Seq
+                [
+                  PokeByteOff (Idx 3) 0 (Idx 0),
+                  PokeByteOff
+                    (Idx 3)
+                    4
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Ex3_ex3_struct"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Ex3_ex3_struct"),
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
         "Ex3",
       structConstr = HsName
         "@NsConstr"
         "Ex3",
       structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "ex3_ex3_struct",
+          fieldType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Ex3_ex3_struct"),
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "nested_types.h:15:7",
+              structFieldName = NamePair {
+                nameC = CName "ex3_struct",
+                nameHsIdent = HsIdentifier
+                  "ex3_ex3_struct"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName "ex3_ex3_struct",
+                  nameHsIdent = HsIdentifier
+                    "Ex3_ex3_struct"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -897,6 +1343,20 @@
               structFields = [
                 StructField {
                   structFieldLoc =
+                  "nested_types.h:15:7",
+                  structFieldName = NamePair {
+                    nameC = CName "ex3_struct",
+                    nameHsIdent = HsIdentifier
+                      "ex3_ex3_struct"},
+                  structFieldType = TypeStruct
+                    NamePair {
+                      nameC = CName "ex3_ex3_struct",
+                      nameHsIdent = HsIdentifier
+                        "Ex3_ex3_struct"},
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
                   "nested_types.h:16:11",
                   structFieldName = NamePair {
                     nameC = CName "ex3_c",
@@ -925,6 +1385,29 @@
           "@NsConstr"
           "Ex3",
         structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "ex3_ex3_struct",
+            fieldType = HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Ex3_ex3_struct"),
+            fieldOrigin = StructField
+              StructField {
+                structFieldLoc =
+                "nested_types.h:15:7",
+                structFieldName = NamePair {
+                  nameC = CName "ex3_struct",
+                  nameHsIdent = HsIdentifier
+                    "ex3_ex3_struct"},
+                structFieldType = TypeStruct
+                  NamePair {
+                    nameC = CName "ex3_ex3_struct",
+                    nameHsIdent = HsIdentifier
+                      "Ex3_ex3_struct"},
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -958,6 +1441,20 @@
                 structSizeof = 12,
                 structAlignment = 4,
                 structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "nested_types.h:15:7",
+                    structFieldName = NamePair {
+                      nameC = CName "ex3_struct",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct"},
+                    structFieldType = TypeStruct
+                      NamePair {
+                        nameC = CName "ex3_ex3_struct",
+                        nameHsIdent = HsIdentifier
+                          "Ex3_ex3_struct"},
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
                   StructField {
                     structFieldLoc =
                     "nested_types.h:16:11",
@@ -996,71 +1493,26 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex3_ex3_c",
-                    fieldType = HsPrimType
-                      HsPrimCFloat,
+                      "ex3_ex3_struct",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Ex3_ex3_struct"),
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "nested_types.h:16:11",
+                        "nested_types.h:15:7",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_c",
+                          nameC = CName "ex3_struct",
                           nameHsIdent = HsIdentifier
-                            "ex3_ex3_c"},
-                        structFieldType = TypePrim
-                          (PrimFloating PrimFloat),
-                        structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc = "nested_types.h:11:8",
-                      declId = NamePair {
-                        nameC = CName "ex3",
-                        nameHsIdent = HsIdentifier
-                          "Ex3"}},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Ex3"),
-                        structSizeof = 12,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "nested_types.h:16:11",
-                            structFieldName = NamePair {
-                              nameC = CName "ex3_c",
-                              nameHsIdent = HsIdentifier
-                                "ex3_ex3_c"},
-                            structFieldType = TypePrim
-                              (PrimFloating PrimFloat),
-                            structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 8]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Ex3",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Ex3",
-                structFields = [
+                            "ex3_ex3_struct"},
+                        structFieldType = TypeStruct
+                          NamePair {
+                            nameC = CName "ex3_ex3_struct",
+                            nameHsIdent = HsIdentifier
+                              "Ex3_ex3_struct"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1096,6 +1548,127 @@
                         structFields = [
                           StructField {
                             structFieldLoc =
+                            "nested_types.h:15:7",
+                            structFieldName = NamePair {
+                              nameC = CName "ex3_struct",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct"},
+                            structFieldType = TypeStruct
+                              NamePair {
+                                nameC = CName "ex3_ex3_struct",
+                                nameHsIdent = HsIdentifier
+                                  "Ex3_ex3_struct"},
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "nested_types.h:16:11",
+                            structFieldName = NamePair {
+                              nameC = CName "ex3_c",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_c"},
+                            structFieldType = TypePrim
+                              (PrimFloating PrimFloat),
+                            structFieldOffset = 64,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
+            [
+              PeekByteOff (Idx 0) 0,
+              PeekByteOff (Idx 0) 8]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Ex3",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Ex3",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "ex3_ex3_struct",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Ex3_ex3_struct"),
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "nested_types.h:15:7",
+                        structFieldName = NamePair {
+                          nameC = CName "ex3_struct",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_struct"},
+                        structFieldType = TypeStruct
+                          NamePair {
+                            nameC = CName "ex3_ex3_struct",
+                            nameHsIdent = HsIdentifier
+                              "Ex3_ex3_struct"},
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "ex3_ex3_c",
+                    fieldType = HsPrimType
+                      HsPrimCFloat,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "nested_types.h:16:11",
+                        structFieldName = NamePair {
+                          nameC = CName "ex3_c",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_c"},
+                        structFieldType = TypePrim
+                          (PrimFloating PrimFloat),
+                        structFieldOffset = 64,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc = "nested_types.h:11:8",
+                      declId = NamePair {
+                        nameC = CName "ex3",
+                        nameHsIdent = HsIdentifier
+                          "Ex3"}},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName "@NsConstr" "Ex3"),
+                        structSizeof = 12,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "nested_types.h:15:7",
+                            structFieldName = NamePair {
+                              nameC = CName "ex3_struct",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct"},
+                            structFieldType = TypeStruct
+                              NamePair {
+                                nameC = CName "ex3_ex3_struct",
+                                nameHsIdent = HsIdentifier
+                                  "Ex3_ex3_struct"},
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
                             "nested_types.h:16:11",
                             structFieldName = NamePair {
                               nameC = CName "ex3_c",
@@ -1114,13 +1687,14 @@
                           []}},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
-              (Add 1)
+              (Add 2)
               (Seq
                 [
+                  PokeByteOff (Idx 3) 0 (Idx 0),
                   PokeByteOff
-                    (Idx 2)
+                    (Idx 3)
                     8
-                    (Idx 0)])))}),
+                    (Idx 1)])))}),
   DeclNewtypeInstance
     DeriveStock
     Show

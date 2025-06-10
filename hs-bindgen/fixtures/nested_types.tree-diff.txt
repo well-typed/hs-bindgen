@@ -96,6 +96,53 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
+        declLoc = "nested_types.h:12:5",
+        declId = NamePair {
+          nameC = CName "ex3_ex3_struct",
+          nameHsIdent = HsIdentifier
+            "Ex3_ex3_struct"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Ex3_ex3_struct"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "nested_types.h:13:13",
+              structFieldName = NamePair {
+                nameC = CName "ex3_a",
+                nameHsIdent = HsIdentifier
+                  "ex3_ex3_struct_ex3_a"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "nested_types.h:14:14",
+              structFieldName = NamePair {
+                nameC = CName "ex3_b",
+                nameHsIdent = HsIdentifier
+                  "ex3_ex3_struct_ex3_b"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
         declLoc = "nested_types.h:11:8",
         declId = NamePair {
           nameC = CName "ex3",
@@ -108,6 +155,20 @@ TranslationUnit {
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
+            StructField {
+              structFieldLoc =
+              "nested_types.h:15:7",
+              structFieldName = NamePair {
+                nameC = CName "ex3_struct",
+                nameHsIdent = HsIdentifier
+                  "ex3_ex3_struct"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName "ex3_ex3_struct",
+                  nameHsIdent = HsIdentifier
+                    "Ex3_ex3_struct"},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
             StructField {
               structFieldLoc =
               "nested_types.h:16:11",

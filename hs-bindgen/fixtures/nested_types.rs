@@ -29,7 +29,7 @@ const _: () = {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ex3 {
-    pub __bindgen_anon_1: ex3__bindgen_ty_1,
+    pub ex3_struct: ex3__bindgen_ty_1,
     pub ex3_c: f32,
 }
 #[repr(C)]
@@ -55,6 +55,9 @@ const _: () = {
 const _: () = {
     ["Size of ex3"][::std::mem::size_of::<ex3>() - 12usize];
     ["Alignment of ex3"][::std::mem::align_of::<ex3>() - 4usize];
+    [
+        "Offset of field: ex3::ex3_struct",
+    ][::std::mem::offset_of!(ex3, ex3_struct) - 0usize];
     ["Offset of field: ex3::ex3_c"][::std::mem::offset_of!(ex3, ex3_c) - 8usize];
 };
 #[repr(C)]
