@@ -186,11 +186,12 @@ data ParseTrace =
     Skipped Predicate.SkipReason
 
     -- | Struct with implicit fields
-    --
-    -- We record the name of the struct that has the implicit fields.
   | UnsupportedImplicitFields {
-        unsupportedImplicitFieldsId  :: DeclId
-      , unsupportedImplicitFieldsLoc :: SingleLoc
+        -- | Name of the (outer) struct (which has implicit fields)
+        unsupportedImplicitFieldsIn :: DeclId
+
+        -- | The names of the implicit fields
+      , unsupportedImplicitFields :: [DeclId]
       }
   deriving stock (Show)
 
@@ -199,10 +200,10 @@ instance PrettyTrace ParseTrace where
       Skipped reason ->
           prettyTrace reason
       UnsupportedImplicitFields {..} -> concat [
-          "Unsupported implicit field with ID "
-        , show unsupportedImplicitFieldsId
-        , " at "
-        , show unsupportedImplicitFieldsLoc
+          "Unsupported implicit fields "
+        , show unsupportedImplicitFields
+        , " in "
+        , show unsupportedImplicitFieldsIn
         ]
 
 instance HasDefaultLogLevel ParseTrace where
