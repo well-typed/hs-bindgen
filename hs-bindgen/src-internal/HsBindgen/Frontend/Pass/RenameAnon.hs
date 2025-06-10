@@ -4,10 +4,10 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.DefUse (DefUseGraph (..), UseOfDecl (..))
-import HsBindgen.Frontend.Graph.DefUse qualified as DefUseGraph
-import HsBindgen.Frontend.Graph.UseDef (Usage (..), ValOrRef (..))
-import HsBindgen.Frontend.Graph.UseDef qualified as UseDef
+import HsBindgen.Frontend.Graph.DeclUse (DeclUseGraph (..), UseOfDecl (..))
+import HsBindgen.Frontend.Graph.DeclUse qualified as DeclUseGraph
+import HsBindgen.Frontend.Graph.UseDecl (Usage (..), ValOrRef (..))
+import HsBindgen.Frontend.Graph.UseDecl qualified as UseDecl
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -24,8 +24,8 @@ renameAnon :: C.TranslationUnit HandleMacros -> C.TranslationUnit RenameAnon
 renameAnon C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     reassemble $ mapMaybe (renameDef du) unitDecls
   where
-    du :: DefUseGraph
-    du = DefUseGraph.fromUseDef (fst unitAnn)
+    du :: DeclUseGraph
+    du = DeclUseGraph.fromUseDecl (fst unitAnn)
 
     reassemble :: [C.Decl RenameAnon] -> C.TranslationUnit RenameAnon
     reassemble decls' = C.TranslationUnit{
@@ -38,7 +38,7 @@ renameAnon C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
   Def sites: declarations
 -------------------------------------------------------------------------------}
 
-renameDef :: DefUseGraph -> C.Decl HandleMacros -> Maybe (C.Decl RenameAnon)
+renameDef :: DeclUseGraph -> C.Decl HandleMacros -> Maybe (C.Decl RenameAnon)
 renameDef du decl = do
     guard $ not (squash decl)
     mkDecl <$> renameDeclId du declId (declNamespace declKind)
@@ -58,10 +58,10 @@ renameDef du decl = do
 -- | Rename 'DeclId'
 --
 -- Returns 'Nothing' if this is an anonymous type without any use.
-renameDeclId :: DefUseGraph -> DeclId -> Namespace -> Maybe CName
+renameDeclId :: DeclUseGraph -> DeclId -> Namespace -> Maybe CName
 renameDeclId _      (DeclNamed n) _  = Just n
 renameDeclId du uid@(DeclAnon  _) ns =
-    nameForAnon <$> DefUseGraph.findNamedUseOf du (C.QualId uid ns)
+    nameForAnon <$> DeclUseGraph.findNamedUseOf du (C.QualId uid ns)
 
 -- | Should we squash this declaration?
 squash :: forall p. Id p ~ DeclId => C.Decl p -> Bool
@@ -81,7 +81,7 @@ squash C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
 -------------------------------------------------------------------------------}
 
 class RenameUseSites a where
-  renameUses :: DefUseGraph -> a HandleMacros -> a RenameAnon
+  renameUses :: DeclUseGraph -> a HandleMacros -> a RenameAnon
 
 instance RenameUseSites C.DeclKind where
   renameUses du = \case
@@ -159,14 +159,14 @@ instance RenameUseSites C.Type where
   Types
 
   We generalize this, as we might also call it on types (constructed from
-  declarations) that we get from the UseDef graph.
+  declarations) that we get from the UseDecl graph.
 -------------------------------------------------------------------------------}
 
 renameType :: forall p.
      ( Id p ~ DeclId
      , TypedefRef p ~ CName
      )
-  => DefUseGraph -> Type p -> Type RenameAnon
+  => DeclUseGraph -> Type p -> Type RenameAnon
 renameType du = go
   where
     go :: Type p -> Type RenameAnon
@@ -202,12 +202,12 @@ renameType du = go
 -- | Rename specific use site
 --
 -- NOTE: there /must/ be at least one use site, because we are renaming one!
-renameUse :: Id p ~ DeclId => DefUseGraph -> C.QualId p -> CName
+renameUse :: Id p ~ DeclId => DeclUseGraph -> C.QualId p -> CName
 renameUse du qid@(C.QualId uid _namespace) =
     case uid of
       DeclNamed name -> name
       DeclAnon  _    ->
-       case DefUseGraph.findNamedUseOf du (coercePass qid) of
+       case DeclUseGraph.findNamedUseOf du (coercePass qid) of
          Just useOfAnon -> nameForAnon useOfAnon
          Nothing        -> panicPure "impossible"
 
@@ -237,8 +237,8 @@ squashTypedef typedefName C.Typedef{typedefType = typ} =
 -- In order to know if the typedef is squashed or not, we need to look up
 -- its declaration. If no declaration is found (perhaps because it's external),
 -- we assume that it should not be squashed.
-renameTypedefRef :: DefUseGraph -> CName -> RenamedTypedefRef RenameAnon
-renameTypedefRef du@(DefUseGraph ud) typedefName =
+renameTypedefRef :: DeclUseGraph -> CName -> RenamedTypedefRef RenameAnon
+renameTypedefRef du@(DeclUseGraph ud) typedefName =
     case squashTypedef typedefName =<< mDecl of
        Nothing -> TypedefRegular typedefName
        Just ty -> TypedefSquashed typedefName $ renameType du ty
@@ -248,7 +248,7 @@ renameTypedefRef du@(DefUseGraph ud) typedefName =
 
     mDecl :: Maybe (Typedef Parse)
     mDecl = do
-        decl@C.Decl{declKind} <- UseDef.lookup typedefId ud
+        decl@C.Decl{declKind} <- UseDecl.lookup typedefId ud
         case declKind of
           DeclTypedef typedef ->
             return typedef

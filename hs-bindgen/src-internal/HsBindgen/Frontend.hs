@@ -62,8 +62,8 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
         (afterNameMangler, mangleErrors) =
           mangleNames afterResolveBindingSpec
 
-    -- writeFile "usedef.mermaid" $
-    --   UseDef.dumpMermaid (Int.unitAnn afterSort)
+    -- writeFile "usedecl.mermaid" $
+    --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
     forM_ macroErrors       $ traceWithCallStack tracer . FrontendMacro
     forM_ bindingSpecErrors $ traceWithCallStack tracer . FrontendBindingSpec

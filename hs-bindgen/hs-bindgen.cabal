@@ -99,9 +99,9 @@ library internal
       HsBindgen.Frontend.AST.Finalize
       HsBindgen.Frontend.AST.Internal
       HsBindgen.Frontend.AST.PrettyPrinter
-      HsBindgen.Frontend.Graph.DefUse
+      HsBindgen.Frontend.Graph.DeclUse
       HsBindgen.Frontend.Graph.Includes
-      HsBindgen.Frontend.Graph.UseDef
+      HsBindgen.Frontend.Graph.UseDecl
       HsBindgen.Frontend.Macros.AST.C
       HsBindgen.Frontend.Macros.AST.Syntax
       HsBindgen.Frontend.NonSelectedDecls

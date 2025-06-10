@@ -3,8 +3,8 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.AST.Internal (ValidPass, CheckedMacro)
-import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
+import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.RenameAnon.IsPass
 import HsBindgen.Language.C
@@ -28,7 +28,7 @@ data ResolveBindingSpec a deriving anyclass (ValidPass)
 -- @TranslationUnit@.
 type family AnnResolveBindingSpec ix where
   AnnResolveBindingSpec "Decl"            = BindingSpec.TypeSpec
-  AnnResolveBindingSpec "TranslationUnit" = UseDefGraph
+  AnnResolveBindingSpec "TranslationUnit" = UseDeclGraph
   AnnResolveBindingSpec _                 = NoAnn
 
 instance IsPass ResolveBindingSpec where
