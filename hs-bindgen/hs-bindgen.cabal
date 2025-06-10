@@ -104,6 +104,7 @@ library internal
       HsBindgen.Frontend.Graph.UseDef
       HsBindgen.Frontend.Macros.AST.C
       HsBindgen.Frontend.Macros.AST.Syntax
+      HsBindgen.Frontend.NonSelectedDecls
       HsBindgen.Frontend.Pass
       HsBindgen.Frontend.Pass.HandleMacros
       HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -122,7 +123,6 @@ library internal
       HsBindgen.Frontend.Pass.Sort.IsPass
       HsBindgen.Frontend.ProcessIncludes
       HsBindgen.Frontend.RootHeader
-      HsBindgen.Frontend.SourceMap
       HsBindgen.Frontend.Util.Fold
       HsBindgen.GenTests
       HsBindgen.GenTests.C

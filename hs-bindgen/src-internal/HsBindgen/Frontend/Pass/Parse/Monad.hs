@@ -13,7 +13,7 @@ module HsBindgen.Frontend.Pass.Parse.Monad (
   , getMainHeader
   , recordMacroExpansionAt
   , checkHasMacroExpansion
-  , recordSource
+  , recordNonSelectedDecl
     -- ** Logging
   , ParseTrace(..)
   , recordTrace
@@ -32,12 +32,11 @@ import HsBindgen.C.Predicate (Predicate, IsMainFile)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
+import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
-import HsBindgen.Frontend.SourceMap (SourceMap)
-import HsBindgen.Frontend.SourceMap qualified as SourceMap
 import HsBindgen.Frontend.Util.Fold (dispatch)
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -64,11 +63,11 @@ data ParseSupport = ParseSupport {
 
 type instance Support ParseMonad = ParseSupport
 
-runParseMonad :: ParseEnv -> M a -> IO (SourceMap Parse, a)
+runParseMonad :: ParseEnv -> M a -> IO (NonSelectedDecls, a)
 runParseMonad env f = do
     support <- ParseSupport env <$> newIORef initParseState
     x <- unwrapEff f support
-    (, x) . stateSourceMap <$> readIORef (parseState support)
+    (, x) . stateNonSelectedDecls <$> readIORef (parseState support)
 
 {-------------------------------------------------------------------------------
   "Reader"
@@ -122,19 +121,18 @@ data ParseState = ParseState {
       -- This is exclusively used to set 'functionHeader'.
     , stateMainHeader :: Maybe CHeaderIncludePath
 
-      -- | Source map
+      -- | Non-selected declarations
       --
-      -- We need to track which headers every declaration is declared in so that
-      -- we can resolve external bindings even when the declarations are not
-      -- selected.
-    , stateSourceMap :: SourceMap Parse
+      -- We need to track which header each omitted declaration is declared in
+      -- so that we can resolve external bindings.
+    , stateNonSelectedDecls :: NonSelectedDecls
     }
 
 initParseState :: ParseState
 initParseState = ParseState{
-      stateMacroExpansions = Set.empty
-    , stateMainHeader      = Nothing
-    , stateSourceMap       = SourceMap.empty
+      stateMacroExpansions  = Set.empty
+    , stateMainHeader       = Nothing
+    , stateNonSelectedDecls = NonSelectedDecls.empty
     }
 
 -- | Update the main header, when necessary
@@ -186,8 +184,8 @@ checkHasMacroExpansion extent = do
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
 
-recordSource :: CXCursor -> M ()
-recordSource curr = do
+recordNonSelectedDecl :: CXCursor -> M ()
+recordNonSelectedDecl curr = do
     mNamespace <- dispatch curr $ return . \case
       CXCursor_MacroDefinition -> Just NamespaceMacro
       CXCursor_StructDecl      -> Just NamespaceStruct
@@ -202,16 +200,18 @@ recordSource curr = do
       -- don't error out on such unsupported cases.
       _kind                    -> Nothing
     case mNamespace of
-      Nothing        -> return ()
-      Just namespace -> do
-        declId  <- getDeclId curr
-        let qualId = C.QualId declId namespace
-        sourcePath <- singleLocPath <$> HighLevel.clang_getCursorLocation' curr
-        wrapEff $ \ParseSupport{parseState} -> do
-          modifyIORef parseState $ \st -> st{
-              stateSourceMap =
-                SourceMap.insert qualId sourcePath (stateSourceMap st)
-            }
+      Just namespace -> getDeclId curr >>= \case
+        DeclNamed cname -> do
+          sourcePath <-
+            singleLocPath <$> HighLevel.clang_getCursorLocation' curr
+          wrapEff $ \ParseSupport{parseState} -> do
+            modifyIORef parseState $ \st -> st{
+                stateNonSelectedDecls =
+                  NonSelectedDecls.insert (cname, namespace) sourcePath $
+                    stateNonSelectedDecls st
+              }
+        DeclAnon{} -> return ()
+      Nothing -> return ()
 
 {-------------------------------------------------------------------------------
   Logging

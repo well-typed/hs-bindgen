@@ -31,26 +31,26 @@ foldDecl curr = do
     if isBuiltin
       then return $ Continue Nothing
       else do
-        -- Record source and handle includes regardless of selection
-        recordSource curr
         isInclude <- handleIncludeDirectives curr
-        selected  <- if isInclude
-                       then return False
-                       else evalPredicate curr
-        if selected then
-          dispatchWithArg curr $ \case
-            CXCursor_InclusionDirective -> \_ -> return $ Continue Nothing
-            CXCursor_MacroDefinition    -> macroDefinition
-            CXCursor_StructDecl         -> structDecl
-            CXCursor_UnionDecl          -> unionDecl
-            CXCursor_TypedefDecl        -> typedefDecl
-            CXCursor_MacroExpansion     -> macroExpansion
-            CXCursor_EnumDecl           -> enumDecl
-            CXCursor_FunctionDecl       -> functionDecl
-            CXCursor_VarDecl            -> varDecl
-            kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
-        else
-          return $ Continue Nothing
+        if isInclude
+          then return $ Continue Nothing
+          else do
+            selected <- evalPredicate curr
+            if selected then
+              dispatchWithArg curr $ \case
+                CXCursor_InclusionDirective -> \_ -> return $ Continue Nothing
+                CXCursor_MacroDefinition    -> macroDefinition
+                CXCursor_StructDecl         -> structDecl
+                CXCursor_UnionDecl          -> unionDecl
+                CXCursor_TypedefDecl        -> typedefDecl
+                CXCursor_MacroExpansion     -> macroExpansion
+                CXCursor_EnumDecl           -> enumDecl
+                CXCursor_FunctionDecl       -> functionDecl
+                CXCursor_VarDecl            -> varDecl
+                kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
+            else do
+              recordNonSelectedDecl curr
+              return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Process includes
