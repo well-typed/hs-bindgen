@@ -48,9 +48,10 @@ main :: IO ()
 main = do
     packageRoot <- findPackageDirectory "hs-bindgen"
     ansiColor <- getAnsiColor
-    _ <- withTracerCustom ansiColor defaultTracerConf degradeKnownTraces putStrLn $
+    _ <- withTracerCustom ansiColor tracerConf degradeKnownTraces putStrLn $
            \tracer -> defaultMain $ withRustBindgen $ tests ansiColor tracer packageRoot
     pure ()
+  where tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
 
 {-------------------------------------------------------------------------------
   Tests

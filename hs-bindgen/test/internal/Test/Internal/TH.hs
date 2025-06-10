@@ -23,7 +23,8 @@ import Test.Internal.Trace (degradeKnownTraces)
 
 goldenTh :: HasCallStack => FilePath -> TestName -> TestTree
 goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
-    (logs, _) <- withTracerCustom EnableAnsiColor defaultTracerConf degradeKnownTraces report $ \tracer -> do
+    let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
+    (logs, _) <- withTracerCustom EnableAnsiColor tracerConf degradeKnownTraces report $ \tracer -> do
       -- -<.> does weird stuff for filenames with multiple dots;
       -- I usually simply avoid using it.
       let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
