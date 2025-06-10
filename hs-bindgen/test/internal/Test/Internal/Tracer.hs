@@ -41,5 +41,5 @@ withTracerTestCustom
   -> IO a
 withTracerTestCustom report getAnsiColor action = do
   ansiColor <- getAnsiColor
-  fst <$> withTracerCustom ansiColor tracerConf degradeKnownTraces report action
+  withTracerCustom ansiColor tracerConf degradeKnownTraces report action
   where tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }

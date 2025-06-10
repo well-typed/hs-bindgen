@@ -52,7 +52,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    _ <- withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
+    withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
       withExtraClangArgs tracer cArgs $ \cArgs' -> do
         src <- resolveHeader tracer cArgs' optFile
         HighLevel.withIndex DontDisplayDiagnostics $ \index ->
@@ -65,7 +65,6 @@ clangAstDump opts@Options{..} = do
                   | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
                   | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
                   | otherwise                             -> foldDecls opts cursor
-    pure ()
   where
     tracerConf :: TracerConf
     tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }

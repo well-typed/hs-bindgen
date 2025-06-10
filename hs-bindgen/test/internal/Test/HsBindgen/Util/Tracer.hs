@@ -41,7 +41,7 @@ testTracerIO :: CustomLogLevel TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
   let noOutput _ = pure ()
       tracerConf = defaultTracerConf { tVerbosity = Verbosity Debug }
-      withTracer = withTracerCustom DisableAnsiColor tracerConf customLogLevel noOutput
+      withTracer = withTracerCustom' DisableAnsiColor tracerConf customLogLevel noOutput
   (_, maxLogLevel) <- withTracer $ \tracer -> do
     mapM_ (traceWithCallStack tracer) traces
   pure maxLogLevel

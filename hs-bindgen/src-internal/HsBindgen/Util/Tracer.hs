@@ -26,6 +26,7 @@ module HsBindgen.Util.Tracer (
   , withTracerStdOut
   , withTracerFile
   , withTracerCustom
+  , withTracerCustom'
   ) where
 
 import Control.Applicative (ZipList (ZipList, getZipList))
@@ -37,6 +38,7 @@ import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
 import GHC.Stack (CallStack, HasCallStack, callStack, prettyCallStack)
+import HsBindgen.Errors (panicIO)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
                             ConsoleLayer (Foreground),
@@ -131,39 +133,32 @@ data CustomLogLevel a = DefaultLogLevel | CustomLogLevel (a -> Level)
   Tracers
 -------------------------------------------------------------------------------}
 
-
 -- | Run an action with a tracer writing to 'stdout'. Use ANSI colors, if available.
---
--- Also return the maximum log level of traces.
 withTracerStdOut :: MonadIO m => (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
   => TracerConf
   -> CustomLogLevel a
   -> (Tracer m (TraceWithCallStack a) -> m b)
-  -> m (b, Level)
+  -> m b
 withTracerStdOut tracerConf customLogLevel action = do
   ansiColor <- getAnsiColor stdout
-  withIORef Debug $ \ref ->
+  withExceptionOnError $ \ref ->
     action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
 
 -- | Run an action with a tracer writing to a file. Do not use ANSI colors.
---
--- Also return the maximum log level of traces.
 withTracerFile
   :: (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
   => FilePath
   -> TracerConf
   -> CustomLogLevel a
   -> (Tracer IO (TraceWithCallStack a) -> IO b)
-  -> IO (b, Level)
+  -> IO b
 withTracerFile file tracerConf customLogLevel action =
   withFile file AppendMode $ \handle ->
-    withIORef Debug $ \ref ->
+    withExceptionOnError $ \ref ->
       action $
         mkTracer DisableAnsiColor tracerConf customLogLevel ref (hPutStrLn handle)
 
 -- | Run an action with a tracer using a custom report function.
---
--- Also return the maximum log level of traces.
 withTracerCustom
   :: forall m a b. (MonadIO m, PrettyTrace a, HasDefaultLogLevel a, HasSource a)
   => AnsiColor
@@ -171,8 +166,21 @@ withTracerCustom
   -> CustomLogLevel a
   -> (String -> m ())
   -> (Tracer m (TraceWithCallStack a) -> m b)
+  -> m b
+withTracerCustom ansiColor tracerConf customLogLevel report action =
+  exceptionOnError (withTracerCustom' ansiColor tracerConf customLogLevel report action)
+
+-- | Run an action with a tracer using a custom report function.
+--
+-- Do not panic on 'Error'; return the maximum log level of traces.
+withTracerCustom' :: (MonadIO m, PrettyTrace a, HasDefaultLogLevel a,  HasSource a)
+  => AnsiColor
+  -> TracerConf
+  -> CustomLogLevel a
+  -> (String -> m ())
+  -> (Tracer m (TraceWithCallStack a) -> m b)
   -> m (b, Level)
-withTracerCustom ansiColor tracerConf customLogLevel report action = do
+withTracerCustom' ansiColor tracerConf customLogLevel report action =
   withIORef Debug $ \ref ->
     action $ mkTracer ansiColor tracerConf customLogLevel ref report
 
@@ -204,8 +212,6 @@ useTrace = contramap . fmap
 -------------------------------------------------------------------------------}
 
 -- | Create a tracer emitting traces to a provided function @report@.
---
--- See 'mkTracer' for the exported version.
 --
 -- The traces provide additional information about
 -- - the time,
@@ -277,6 +283,8 @@ mkTracer ansiColor (TracerConf {..}) customLogLevel maxLogLevelRef report =
     indent :: String -> String
     indent = ("  " <>)
 
+
+
 -- | Render a string in bold and a specified color.
 --
 -- Careful, the applied ANSI code suffix also resets all other activated formatting.
@@ -293,6 +301,14 @@ withColor EnableAnsiColor    level = withColor' (getColorForLevel level)
 
         resetColor :: String
         resetColor = setSGRCode []
+
+exceptionOnError :: MonadIO m => m (a, Level) -> m a
+exceptionOnError k = k >>= \case
+  (_, Error)      -> panicIO "errors reported while generating bindings"
+  (r, _otherwise) -> pure r
+
+withExceptionOnError :: MonadIO m => (IORef Level -> m a) -> m a
+withExceptionOnError action = exceptionOnError (withIORef Debug action)
 
 withIORef :: MonadIO m => b -> (IORef b -> m a) -> m (a, b)
 withIORef initialValue action = do
