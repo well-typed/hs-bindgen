@@ -21,10 +21,10 @@ import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
 import Test.Internal.Trace (degradeKnownTraces)
 
-goldenTh :: HasCallStack => FilePath -> TestName -> TestTree
-goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
+goldenTh :: HasCallStack => AnsiColor -> FilePath -> TestName -> TestTree
+goldenTh ansiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
     let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
-    (logs, _) <- withTracerCustom EnableAnsiColor tracerConf degradeKnownTraces report $ \tracer -> do
+    (logs, _) <- withTracerCustom ansiColor tracerConf degradeKnownTraces report $ \tracer -> do
       -- -<.> does weird stuff for filenames with multiple dots;
       -- I usually simply avoid using it.
       let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"

@@ -123,7 +123,7 @@ tests ansiColor tracer packageRoot rustBindgen =
 -- @Unit@ in 9.8 <https://github.com/ghc-proposals/ghc-proposals/pull/475>.
 -- We therefore test TH only with one specific GHC version.
 #if __GLASGOW_HASKELL__ >=904
-        , goldenTh packageRoot name
+        , goldenTh ansiColor packageRoot name
 #endif
         , goldenPP name
         , goldenExtBindings name
@@ -252,4 +252,4 @@ getAnsiColor = do
     where
       -- Build a fake 'TestTree' to parse options.
       fakeTestTree :: TestTree
-      fakeTestTree = tests EnableAnsiColor nullTracer "" (pure "")
+      fakeTestTree = tests DisableAnsiColor nullTracer "" (pure "")
