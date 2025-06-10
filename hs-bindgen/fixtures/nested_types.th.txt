@@ -19,13 +19,27 @@ instance Storable Bar
                                          bar_foo2_4 -> pokeByteOff ptr_1 (0 :: Int) bar_foo1_3 >> pokeByteOff ptr_1 (8 :: Int) bar_foo2_4}}
 deriving stock instance Show Bar
 deriving stock instance Eq Bar
-data Ex3 = Ex3 {ex3_ex3_c :: CFloat}
+data Ex3_ex3_struct
+    = Ex3_ex3_struct {ex3_ex3_struct_ex3_a :: CInt,
+                      ex3_ex3_struct_ex3_b :: CChar}
+instance Storable Ex3_ex3_struct
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Ex3_ex3_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Ex3_ex3_struct ex3_ex3_struct_ex3_a_3
+                                                    ex3_ex3_struct_ex3_b_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_ex3_a_3 >> pokeByteOff ptr_1 (4 :: Int) ex3_ex3_struct_ex3_b_4}}
+deriving stock instance Show Ex3_ex3_struct
+deriving stock instance Eq Ex3_ex3_struct
+data Ex3
+    = Ex3 {ex3_ex3_struct :: Ex3_ex3_struct, ex3_ex3_c :: CFloat}
 instance Storable Ex3
     where {sizeOf = \_ -> 12 :: Int;
            alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Ex3 <*> peekByteOff ptr_0 (8 :: Int);
+           peek = \ptr_0 -> (pure Ex3 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Ex3 ex3_ex3_c_3 -> pokeByteOff ptr_1 (8 :: Int) ex3_ex3_c_3}}
+                                    {Ex3 ex3_ex3_struct_3
+                                         ex3_ex3_c_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_3 >> pokeByteOff ptr_1 (8 :: Int) ex3_ex3_c_4}}
 deriving stock instance Show Ex3
 deriving stock instance Eq Ex3
 data Ex4_even

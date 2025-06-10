@@ -12,7 +12,7 @@ struct ex3 {
     struct {
         int ex3_a;
         char ex3_b;
-    };
+    } ex3_struct;
     float ex3_c;
 };
 

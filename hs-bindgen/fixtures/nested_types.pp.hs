@@ -66,8 +66,38 @@ deriving stock instance Show Bar
 
 deriving stock instance Eq Bar
 
+data Ex3_ex3_struct = Ex3_ex3_struct
+  { ex3_ex3_struct_ex3_a :: FC.CInt
+  , ex3_ex3_struct_ex3_b :: FC.CChar
+  }
+
+instance F.Storable Ex3_ex3_struct where
+
+  sizeOf = \_ -> (8 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Ex3_ex3_struct
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Ex3_ex3_struct ex3_ex3_struct_ex3_a2 ex3_ex3_struct_ex3_b3 ->
+               F.pokeByteOff ptr0 (0 :: Int) ex3_ex3_struct_ex3_a2
+            >> F.pokeByteOff ptr0 (4 :: Int) ex3_ex3_struct_ex3_b3
+
+deriving stock instance Show Ex3_ex3_struct
+
+deriving stock instance Eq Ex3_ex3_struct
+
 data Ex3 = Ex3
-  { ex3_ex3_c :: FC.CFloat
+  { ex3_ex3_struct :: Ex3_ex3_struct
+  , ex3_ex3_c :: FC.CFloat
   }
 
 instance F.Storable Ex3 where
@@ -79,13 +109,16 @@ instance F.Storable Ex3 where
   peek =
     \ptr0 ->
           pure Ex3
+      <*> F.peekByteOff ptr0 (0 :: Int)
       <*> F.peekByteOff ptr0 (8 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Ex3 ex3_ex3_c2 -> F.pokeByteOff ptr0 (8 :: Int) ex3_ex3_c2
+          Ex3 ex3_ex3_struct2 ex3_ex3_c3 ->
+               F.pokeByteOff ptr0 (0 :: Int) ex3_ex3_struct2
+            >> F.pokeByteOff ptr0 (8 :: Int) ex3_ex3_c3
 
 deriving stock instance Show Ex3
 
