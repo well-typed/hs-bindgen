@@ -2,8 +2,8 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
     HandleMacros
   ) where
 
-import HsBindgen.Frontend.AST.Internal (ValidPass, CheckedMacro)
-import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
+import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph)
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -19,7 +19,7 @@ data HandleMacros a deriving anyclass ValidPass
 
 -- We do not need the @ReparseInfo@ anymore, so we drop it from the annotations.
 type family AnnHandleMacros (ix :: Symbol) :: Star where
-  AnnHandleMacros "TranslationUnit" = (UseDefGraph, NonSelectedDecls)
+  AnnHandleMacros "TranslationUnit" = (UseDeclGraph, NonSelectedDecls)
   AnnHandleMacros _                 = NoAnn
 
 instance IsPass HandleMacros where

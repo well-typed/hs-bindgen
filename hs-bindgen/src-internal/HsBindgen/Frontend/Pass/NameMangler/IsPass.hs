@@ -9,8 +9,8 @@ module HsBindgen.Frontend.Pass.NameMangler.IsPass (
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.AST.Internal (ValidPass, CheckedMacro)
-import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
+import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.RenameAnon.IsPass
 import HsBindgen.Imports
@@ -30,7 +30,7 @@ data NameMangler a deriving anyclass (ValidPass)
 
 type family AnnNameMangler ix where
   AnnNameMangler "Decl"             = DeclSpec
-  AnnNameMangler "TranslationUnit"  = UseDefGraph
+  AnnNameMangler "TranslationUnit"  = UseDeclGraph
   AnnNameMangler "Struct"           = RecordNames
   AnnNameMangler "Union"            = NewtypeNames
   AnnNameMangler "Enum"             = NewtypeNames

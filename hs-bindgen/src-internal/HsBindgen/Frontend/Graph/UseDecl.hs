@@ -2,11 +2,11 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Frontend.Graph.UseDef (UseDefGraph, Usage)
--- > import HsBindgen.Frontend.Graph.UseDef qualified as UseDefGraph
-module HsBindgen.Frontend.Graph.UseDef (
+-- > import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph, Usage)
+-- > import HsBindgen.Frontend.Graph.UseDecl qualified as UseDeclGraph
+module HsBindgen.Frontend.Graph.UseDecl (
     -- * Definition
-    UseDefGraph(..)
+    UseDeclGraph(..)
   , Usage(..)
   , ValOrRef(..)
     -- * Construction
@@ -45,9 +45,9 @@ import HsBindgen.Imports
 --
 -- Whenever declaration A uses (depends on) declaration B, there will be
 -- an edge from A to B in this graph.
-data UseDefGraph = UseDefGraph{
-      useDefIndex :: Map (C.QualId Parse) (C.Decl Parse)
-    , useDefGraph :: DynGraph Usage (C.QualId Parse)
+data UseDeclGraph = UseDeclGraph{
+      useDeclIndex :: Map (C.QualId Parse) (C.Decl Parse)
+    , useDeclGraph :: DynGraph Usage (C.QualId Parse)
     }
   deriving stock (Show, Eq)
 
@@ -57,10 +57,10 @@ data UseDefGraph = UseDefGraph{
 
 fromDecls ::
      HasCallStack
-  => IncludeGraph -> [C.Decl Parse] -> UseDefGraph
-fromDecls includeGraph decls = UseDefGraph{
-      useDefIndex = constructUseDefIndex decls
-    , useDefGraph = constructUseDefGraph $
+  => IncludeGraph -> [C.Decl Parse] -> UseDeclGraph
+fromDecls includeGraph decls = UseDeclGraph{
+      useDeclIndex = constructUseDeclIndex decls
+    , useDeclGraph = constructUseDeclGraph $
                       List.sortBy (comparing $ annSortKey sourceMap) decls
     }
   where
@@ -70,11 +70,11 @@ fromDecls includeGraph decls = UseDefGraph{
     sourceMap :: Map SourcePath Int
     sourceMap = Map.fromList $ zip sourcePaths [0..]
 
-constructUseDefIndex ::
+constructUseDeclIndex ::
      HasCallStack
   => [C.Decl Parse]
   -> Map (C.QualId Parse) (C.Decl Parse)
-constructUseDefIndex = Map.fromListWith aux . map (\d -> (C.declQualId d, d))
+constructUseDeclIndex = Map.fromListWith aux . map (\d -> (C.declQualId d, d))
   where
     -- Some declarations can be repeated, but if so, they must be essentially
     -- the same. For example, this is valid C, which declares the same struct
@@ -90,8 +90,8 @@ constructUseDefIndex = Map.fromListWith aux . map (\d -> (C.declQualId d, d))
       | otherwise
       = panicPure $ "duplicate declaration for " ++ show (C.declQualId new)
 
-constructUseDefGraph :: [C.Decl Parse] -> DynGraph Usage (C.QualId Parse)
-constructUseDefGraph decls =
+constructUseDeclGraph :: [C.Decl Parse] -> DynGraph Usage (C.QualId Parse)
+constructUseDeclGraph decls =
     -- We first insert all declarations, so that they are assigned vertices.
     -- Since we do this in source order, this ensures that we preserve source
     -- order as much as possible in 'toDecls' (modulo dependencies).
@@ -122,20 +122,20 @@ constructUseDefGraph decls =
 --
 -- For each declaration we provide one example of how that declaration is used
 -- (if one exists).
-toDecls :: UseDefGraph -> [C.Decl Parse]
-toDecls ud@UseDefGraph{useDefGraph} =
+toDecls :: UseDeclGraph -> [C.Decl Parse]
+toDecls ud@UseDeclGraph{useDeclGraph} =
     -- TODO: Should this just be DynGraph.topSort?
     -- Not sure why that has an additional reverse.
-    -- NOTE: There might be dependencies in 'useDefGraph' on declarations
-    -- without a corresponding entry in 'useDefIndex': for example, this can
+    -- NOTE: There might be dependencies in 'useDeclGraph' on declarations
+    -- without a corresponding entry in 'useDeclIndex': for example, this can
     -- happen when we areusing external binding specifications.
     mapMaybe (`lookup` ud) . DynGraph.postorderForest $
-      DynGraph.dff useDefGraph
+      DynGraph.dff useDeclGraph
 
-lookup :: C.QualId Parse -> UseDefGraph -> Maybe (C.Decl Parse)
-lookup uid UseDefGraph{useDefIndex} = Map.lookup uid useDefIndex
+lookup :: C.QualId Parse -> UseDeclGraph -> Maybe (C.Decl Parse)
+lookup uid UseDeclGraph{useDeclIndex} = Map.lookup uid useDeclIndex
 
-(!) :: HasCallStack => UseDefGraph -> C.QualId Parse -> C.Decl Parse
+(!) :: HasCallStack => UseDeclGraph -> C.QualId Parse -> C.Decl Parse
 (!) ud uid =
     fromMaybe (panicPure $ "Unknown key: " ++ show uid) $
        lookup uid ud
@@ -167,12 +167,12 @@ annSortKey sourceMap C.Decl{declInfo = C.DeclInfo{declLoc}} =
   Debugging
 -------------------------------------------------------------------------------}
 
-dumpMermaid :: UseDefGraph -> String
-dumpMermaid ud@UseDefGraph{useDefGraph} =
+dumpMermaid :: UseDeclGraph -> String
+dumpMermaid ud@UseDeclGraph{useDeclGraph} =
     DynGraph.dumpMermaid
       (Just . show)
       (\uid -> showDecl $ ud ! uid)
-      useDefGraph
+      useDeclGraph
   where
     showDecl :: C.Decl Parse -> String
     showDecl C.Decl{declInfo = C.DeclInfo{declId}} = show declId

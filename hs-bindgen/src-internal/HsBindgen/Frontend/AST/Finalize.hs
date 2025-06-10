@@ -39,7 +39,7 @@ instance Finalize Int.TranslationUnit where
       Int.TranslationUnit{
           unitDecls
         , unitIncludeGraph
-        , unitAnn = _useDefGraph
+        , unitAnn = _useDeclGraph
         } = unit
 
 instance Finalize Int.Decl where

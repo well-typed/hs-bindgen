@@ -2,13 +2,13 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Frontend.Graph.DefUse (DefUseGraph)
--- > import HsBindgen.Frontend.Graph.DefUse qualified as DefUseGraph
-module HsBindgen.Frontend.Graph.DefUse (
+-- > import HsBindgen.Frontend.Graph.DeclUse (DeclUseGraph)
+-- > import HsBindgen.Frontend.Graph.DeclUse qualified as DeclUseGraph
+module HsBindgen.Frontend.Graph.DeclUse (
     -- * Definition
-    DefUseGraph(..)
+    DeclUseGraph(..)
     -- * Construction
-  , fromUseDef
+  , fromUseDecl
     -- * Query
   , UseOfDecl(..)
   , findNamedUseOf
@@ -21,8 +21,8 @@ import Control.Monad.State
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.UseDef (UseDefGraph(..), Usage(..))
-import HsBindgen.Frontend.Graph.UseDef qualified as UseDefGraph
+import HsBindgen.Frontend.Graph.UseDecl (Usage (..), UseDeclGraph (..))
+import HsBindgen.Frontend.Graph.UseDecl qualified as UseDeclGraph
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -31,20 +31,20 @@ import HsBindgen.Language.C
   Definition
 -------------------------------------------------------------------------------}
 
--- | Reverse of 'UseDefGraph'
+-- | Reverse of 'UseDeclGraph'
 --
 -- This graph has edges from def sites to use sites.
-newtype DefUseGraph = DefUseGraph UseDefGraph
+newtype DeclUseGraph = DeclUseGraph UseDeclGraph
   deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
-fromUseDef :: UseDefGraph -> DefUseGraph
-fromUseDef UseDefGraph{useDefIndex, useDefGraph} = DefUseGraph UseDefGraph{
-      useDefIndex
-    , useDefGraph = DynGraph.reverse useDefGraph
+fromUseDecl :: UseDeclGraph -> DeclUseGraph
+fromUseDecl UseDeclGraph{useDeclIndex, useDeclGraph} = DeclUseGraph UseDeclGraph{
+      useDeclIndex
+    , useDeclGraph = DynGraph.reverse useDeclGraph
     }
 
 {-------------------------------------------------------------------------------
@@ -57,12 +57,12 @@ data UseOfDecl =
   deriving stock (Show)
 
 -- | Find direct or indirect use by a named declaration, if it exists
-findNamedUseOf :: DefUseGraph -> C.QualId Parse -> Maybe UseOfDecl
-findNamedUseOf (DefUseGraph ud@UseDefGraph{useDefGraph}) =
+findNamedUseOf :: DeclUseGraph -> C.QualId Parse -> Maybe UseOfDecl
+findNamedUseOf (DeclUseGraph ud@UseDeclGraph{useDeclGraph}) =
       flip evalState id
     . DynGraph.findTrailFrom
-        useDefGraph
-        (aux . map (first (ud UseDefGraph.!)))
+        useDeclGraph
+        (aux . map (first (ud UseDeclGraph.!)))
   where
     aux ::
          [(C.Decl Parse, Usage)] -- ^ Direct use sites
@@ -88,5 +88,5 @@ findNamedUseOf (DefUseGraph ud@UseDefGraph{useDefGraph}) =
   Debugging
 -------------------------------------------------------------------------------}
 
-dumpMermaid :: DefUseGraph -> String
-dumpMermaid (DefUseGraph graph) = UseDefGraph.dumpMermaid graph
+dumpMermaid :: DeclUseGraph -> String
+dumpMermaid (DeclUseGraph graph) = UseDeclGraph.dumpMermaid graph
