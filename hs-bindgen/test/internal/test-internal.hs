@@ -3,18 +3,10 @@ module Main (main) where
 
 import Control.DeepSeq (force)
 import Control.Exception (displayException, evaluate, try)
-import Control.Tracer (Tracer, nullTracer)
-import Data.Bool (bool)
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.List qualified as List
 import Data.TreeDiff.Golden (ediffGolden1)
-import System.Console.ANSI (hSupportsANSIColor)
-import System.IO (stdout)
-import Test.Tasty (TestName, TestTree, defaultIngredients, defaultMain,
-                   testGroup)
-import Test.Tasty.Ingredients.ConsoleReporter (UseColor (..))
-import Test.Tasty.Options (lookupOption)
-import Test.Tasty.Runners (parseOptions)
+import Test.Tasty (TestName, TestTree, defaultMain, testGroup)
 import Text.Regex.Applicative qualified as R
 import Text.Regex.Applicative.Common qualified as R
 
@@ -33,7 +25,7 @@ import Test.HsBindgen.Util.Tracer qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
-import Test.Internal.Trace (degradeKnownTraces)
+import Test.Internal.Tracer
 import Test.Internal.TreeDiff.Orphans ()
 
 #if __GLASGOW_HASKELL__ >=904
@@ -47,21 +39,19 @@ import Test.Internal.TH
 main :: IO ()
 main = do
     packageRoot <- findPackageDirectory "hs-bindgen"
-    ansiColor <- getAnsiColor
-    _ <- withTracerCustom ansiColor tracerConf degradeKnownTraces putStrLn $
-           \tracer -> defaultMain $ withRustBindgen $ tests ansiColor tracer packageRoot
-    pure ()
-  where tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
+    defaultMain $ withRustBindgen $ \getRustBindgen ->
+      withAnsiColor $ \getAnsiColor -> do
+        tests packageRoot getAnsiColor getRustBindgen
 
 {-------------------------------------------------------------------------------
   Tests
 -------------------------------------------------------------------------------}
 
-tests :: AnsiColor -> (Tracer IO (TraceWithCallStack Trace)) -> FilePath -> IO FilePath -> TestTree
-tests ansiColor tracer packageRoot rustBindgen =
+tests :: FilePath -> IO AnsiColor -> IO FilePath -> TestTree
+tests packageRoot getAnsiColor getRustBindgen =
   testGroup "test-internal" [
-      Test.HsBindgen.C.Parser.tests tracer args
-    , Test.HsBindgen.Clang.Args.tests tracer
+      Test.HsBindgen.C.Parser.tests getAnsiColor args
+    , Test.HsBindgen.Clang.Args.tests getAnsiColor
     , Test.HsBindgen.Util.Tracer.tests
     , testGroup "examples" [
           golden "simple_structs"
@@ -112,7 +102,7 @@ tests ansiColor tracer packageRoot rustBindgen =
 
     golden :: TestName -> TestTree
     golden name =
-      testGroup name $ goldenNoRust name ++ [goldenRust rustBindgen name]
+      testGroup name $ goldenNoRust name ++ [goldenRust getRustBindgen name]
 
     goldenNoRust :: TestName -> [TestTree]
     goldenNoRust name = [
@@ -123,7 +113,7 @@ tests ansiColor tracer packageRoot rustBindgen =
 -- @Unit@ in 9.8 <https://github.com/ghc-proposals/ghc-proposals/pull/475>.
 -- We therefore test TH only with one specific GHC version.
 #if __GLASGOW_HASKELL__ >=904
-        , goldenTh ansiColor packageRoot name
+        , goldenTh getAnsiColor packageRoot name
 #endif
         , goldenPP name
         , goldenExtBindings name
@@ -186,9 +176,7 @@ tests ansiColor tracer packageRoot rustBindgen =
     mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
 
     withOpts :: (String -> IO ()) -> (Pipeline.Opts -> IO a) -> IO a
-    withOpts report action = fst <$>
-      let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning } in
-      withTracerCustom ansiColor tracerConf degradeKnownTraces report $
+    withOpts report action = withTracerTestCustom report getAnsiColor $
         \tracer' -> action $ Pipeline.defaultOpts {
             Pipeline.optsClangArgs = clangArgs packageRoot
           , Pipeline.optsTracer = tracer'
@@ -235,21 +223,3 @@ normalise s =
 
     pkgname :: R.RE Char String
     pkgname = concat <$> sequenceA [ "hs-bindgen-", "0" <$ R.few R.anySym, "-inplace" ]
-
--- | Determine ANSI color.
---
--- Tricky, because we need to have access to the options of Tasty and query the
--- `stdout` handle.
-getAnsiColor :: IO AnsiColor
-getAnsiColor = do
-    supportsAnsiColor <- hSupportsANSIColor stdout
-    opts <- parseOptions defaultIngredients fakeTestTree
-    let useColor :: UseColor = lookupOption opts
-    pure $ case useColor of
-          Never -> DisableAnsiColor
-          Always -> EnableAnsiColor
-          Auto -> bool DisableAnsiColor EnableAnsiColor supportsAnsiColor
-    where
-      -- Build a fake 'TestTree' to parse options.
-      fakeTestTree :: TestTree
-      fakeTestTree = tests DisableAnsiColor nullTracer "" (pure "")

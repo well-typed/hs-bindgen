@@ -19,12 +19,11 @@ import HsBindgen.Guasi
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
-import Test.Internal.Trace (degradeKnownTraces)
+import Test.Internal.Tracer (withTracerTestCustom)
 
-goldenTh :: HasCallStack => AnsiColor -> FilePath -> TestName -> TestTree
-goldenTh ansiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
-    let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
-    (logs, _) <- withTracerCustom ansiColor tracerConf degradeKnownTraces report $ \tracer -> do
+goldenTh :: HasCallStack => IO AnsiColor -> FilePath -> TestName -> TestTree
+goldenTh getAnsiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
+    withTracerTestCustom report getAnsiColor $ \tracer -> do
       -- -<.> does weird stuff for filenames with multiple dots;
       -- I usually simply avoid using it.
       let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
@@ -55,7 +54,6 @@ goldenTh ansiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (
           [ "-- addDependentFile " ++ convertWindows (makeRelative packageRoot fp) | fp <- depfiles ] ++
           [ "-- " ++ l | src <- csources, l <- lines src ] ++
           [ show $ TH.ppr d | d <- unqualNames thdecs ]
-    pure logs
 
 convertWindows :: FilePath -> FilePath
 convertWindows = map f where

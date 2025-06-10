@@ -36,13 +36,13 @@ import Control.Tracer (Contravariant (contramap), Tracer (Tracer), emit,
 import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
-import GHC.Stack (HasCallStack, callStack, CallStack, prettyCallStack)
+import GHC.Stack (CallStack, HasCallStack, callStack, prettyCallStack)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
                             ConsoleLayer (Foreground),
                             SGR (SetColor, SetConsoleIntensity),
                             hSupportsANSIColor, setSGRCode)
-import System.IO (IOMode (AppendMode), hPutStrLn, stdout, withFile)
+import System.IO (Handle, IOMode (AppendMode), hPutStrLn, stdout, withFile)
 
 {-------------------------------------------------------------------------------
   Data types and type classes useful for tracing
@@ -131,7 +131,81 @@ data CustomLogLevel a = DefaultLogLevel | CustomLogLevel (a -> Level)
   Tracers
 -------------------------------------------------------------------------------}
 
+
+-- | Run an action with a tracer writing to 'stdout'. Use ANSI colors, if available.
+--
+-- Also return the maximum log level of traces.
+withTracerStdOut :: MonadIO m => (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
+  => TracerConf
+  -> CustomLogLevel a
+  -> (Tracer m (TraceWithCallStack a) -> m b)
+  -> m (b, Level)
+withTracerStdOut tracerConf customLogLevel action = do
+  ansiColor <- getAnsiColor stdout
+  withIORef Debug $ \ref ->
+    action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
+
+-- | Run an action with a tracer writing to a file. Do not use ANSI colors.
+--
+-- Also return the maximum log level of traces.
+withTracerFile
+  :: (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
+  => FilePath
+  -> TracerConf
+  -> CustomLogLevel a
+  -> (Tracer IO (TraceWithCallStack a) -> IO b)
+  -> IO (b, Level)
+withTracerFile file tracerConf customLogLevel action =
+  withFile file AppendMode $ \handle ->
+    withIORef Debug $ \ref ->
+      action $
+        mkTracer DisableAnsiColor tracerConf customLogLevel ref (hPutStrLn handle)
+
+-- | Run an action with a tracer using a custom report function.
+--
+-- Also return the maximum log level of traces.
+withTracerCustom
+  :: forall m a b. (MonadIO m, PrettyTrace a, HasDefaultLogLevel a, HasSource a)
+  => AnsiColor
+  -> TracerConf
+  -> CustomLogLevel a
+  -> (String -> m ())
+  -> (Tracer m (TraceWithCallStack a) -> m b)
+  -> m (b, Level)
+withTracerCustom ansiColor tracerConf customLogLevel report action = do
+  withIORef Debug $ \ref ->
+    action $ mkTracer ansiColor tracerConf customLogLevel ref report
+
+{-------------------------------------------------------------------------------
+  Trace with call stack
+-------------------------------------------------------------------------------}
+
+data TraceWithCallStack a = TraceWithCallStack { tTrace     :: a
+                                               , tCallStack :: CallStack }
+
+instance Functor TraceWithCallStack where
+  fmap f trace = trace { tTrace = f (tTrace trace) }
+
+traceWithCallStack :: (Monad m, HasCallStack)
+  => Tracer m (TraceWithCallStack a) -> a -> m ()
+traceWithCallStack tracer trace =
+  traceWith tracer (TraceWithCallStack trace callStack)
+
+-- | Use, for example, to specialize a tracer with a call stack.
+--
+-- > useDiagnostic :: Tracer IO (TraceWithCallStack Trace)
+-- >               -> Tracer IO (TraceWithCallStack Diagnostic)
+-- > useDiagnostic = useTrace TraceDiagnostic
+useTrace :: (Contravariant c, Functor f)  => (b -> a) -> c (f a) -> c (f b)
+useTrace = contramap . fmap
+
+{-------------------------------------------------------------------------------
+  Internal helpers
+-------------------------------------------------------------------------------}
+
 -- | Create a tracer emitting traces to a provided function @report@.
+--
+-- See 'mkTracer' for the exported version.
 --
 -- The traces provide additional information about
 -- - the time,
@@ -203,78 +277,6 @@ mkTracer ansiColor (TracerConf {..}) customLogLevel maxLogLevelRef report =
     indent :: String -> String
     indent = ("  " <>)
 
--- | Run an action with a tracer writing to 'stdout'. Use ANSI colors, if available.
---
--- Also return the maximum log level of traces.
-withTracerStdOut :: MonadIO m => (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => TracerConf
-  -> CustomLogLevel a
-  -> (Tracer m (TraceWithCallStack a) -> m b)
-  -> m (b, Level)
-withTracerStdOut tracerConf customLogLevel action = do
-  supportsAnsiColor <- liftIO $ hSupportsANSIColor stdout
-  let ansiColor = if supportsAnsiColor then EnableAnsiColor else DisableAnsiColor
-  withIORef Debug $ \ref ->
-    action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
-
--- | Run an action with a tracer writing to a file. Do not use ANSI colors.
---
--- Also return the maximum log level of traces.
-withTracerFile
-  :: (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => FilePath
-  -> TracerConf
-  -> CustomLogLevel a
-  -> (Tracer IO (TraceWithCallStack a) -> IO b)
-  -> IO (b, Level)
-withTracerFile file tracerConf customLogLevel action =
-  withFile file AppendMode $ \handle ->
-    withIORef Debug $ \ref ->
-      action $
-        mkTracer DisableAnsiColor tracerConf customLogLevel ref (hPutStrLn handle)
-
--- | Run an action with a tracer using a custom report function.
---
--- Also return the maximum log level of traces.
-withTracerCustom
-  :: forall m a b. (MonadIO m, PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => AnsiColor
-  -> TracerConf
-  -> CustomLogLevel a
-  -> (String -> m ())
-  -> (Tracer m (TraceWithCallStack a) -> m b)
-  -> m (b, Level)
-withTracerCustom ansiColor tracerConf customLogLevel report action =
-  withIORef Debug $ \ref ->
-    action $ mkTracer ansiColor tracerConf customLogLevel ref report
-
-{-------------------------------------------------------------------------------
-  Trace with call stack
--------------------------------------------------------------------------------}
-
-data TraceWithCallStack a = TraceWithCallStack { tTrace     :: a
-                                               , tCallStack :: CallStack }
-
-instance Functor TraceWithCallStack where
-  fmap f trace = trace { tTrace = f (tTrace trace) }
-
-traceWithCallStack :: (Monad m, HasCallStack)
-  => Tracer m (TraceWithCallStack a) -> a -> m ()
-traceWithCallStack tracer trace =
-  traceWith tracer (TraceWithCallStack trace callStack)
-
--- | Use, for example, to specialize a tracer with a call stack.
---
--- > useDiagnostic :: Tracer IO (TraceWithCallStack Trace)
--- >               -> Tracer IO (TraceWithCallStack Diagnostic)
--- > useDiagnostic = useTrace TraceDiagnostic
-useTrace :: (Contravariant c, Functor f)  => (b -> a) -> c (f a) -> c (f b)
-useTrace = contramap . fmap
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
-
 -- | Render a string in bold and a specified color.
 --
 -- Careful, the applied ANSI code suffix also resets all other activated formatting.
@@ -298,3 +300,8 @@ withIORef initialValue action = do
   actionResult <- action ref
   refResult <- liftIO $ readIORef ref
   pure (actionResult, refResult)
+
+getAnsiColor :: MonadIO m => Handle -> m AnsiColor
+getAnsiColor handle = do
+    supportsAnsiColor <- liftIO $ hSupportsANSIColor handle
+    pure $ if supportsAnsiColor then EnableAnsiColor else DisableAnsiColor

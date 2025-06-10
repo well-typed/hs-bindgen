@@ -309,6 +309,7 @@ test-suite test-internal
       Test.Internal.Rust
       Test.Internal.TastyGolden
       Test.Internal.TH
+      Test.Internal.Tracer
       Test.Internal.TreeDiff.Orphans
       -- Common
       Test.Internal.Trace
