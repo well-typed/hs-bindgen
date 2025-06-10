@@ -1,6 +1,7 @@
 -- | Fold declarations
 module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 
+import Control.Monad
 import Data.Bifunctor
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -152,9 +153,13 @@ structDecl curr = do
         -- TODO: This check is wrong. When we get more nesting, we get /all/
         -- structs at once, even those used by /nested/ fields, thus triggering
         -- this error.
---        unless (null unusedDecls) $ do
---          mloc <- HighLevel.clang_getCursorLocation curr
---          recordTraceWithCallStack callStack $ UnsupportedImplicitFields (declId info)
+        unless (null unusedDecls) $ do
+          recordTrace $ UnsupportedImplicitFields {
+              unsupportedImplicitFieldsIn =
+                C.declId info
+            , unsupportedImplicitFields =
+                map (C.declId . C.declInfo) unusedDecls
+            }
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
@@ -166,20 +171,14 @@ structDecl curr = do
                   }
               , declAnn  = NoAnn
               }
-        return $ Just $ otherDecls ++ [decl]
+        return $ Just $ usedDecls ++ [decl]
       where
         otherDecls :: [C.Decl Parse]
         fields     :: [C.StructField Parse]
         (otherDecls, fields) = first concat $ partitionEithers xs
 
-        fieldDeps :: [C.QualId Parse]
-        fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) fields
-
-        declIsUsed :: C.Decl Parse -> Bool
-        declIsUsed decl = C.declQualId decl `elem` fieldDeps
-
-        _usedDecls, _unusedDecls :: [C.Decl Parse]
-        (_usedDecls, _unusedDecls) = List.partition declIsUsed otherDecls
+        usedDecls, unusedDecls :: [C.Decl Parse]
+        (usedDecls, unusedDecls) = detectStructImplicitFields otherDecls fields
 
 unionDecl :: Fold M [C.Decl Parse]
 unionDecl curr = do
@@ -391,3 +390,68 @@ functionDecl curr = do
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/42>
 varDecl :: Fold M [C.Decl Parse]
 varDecl _ = return $ Continue Nothing
+
+{-------------------------------------------------------------------------------
+  Auxiliary: detect implicit fields
+-------------------------------------------------------------------------------}
+
+-- | Detect implicit fields inside a struct
+--
+-- Implicit fields arise from structs that are declared inside an outer struct,
+-- but without an explicit reference from any of the fields in that outer
+-- struct. Something like this:
+--
+-- > struct outer {
+-- >   struct inner {
+-- >     int x;
+-- >     int y;
+-- >   };
+-- >   int z;
+-- > };
+--
+-- We cannot support implicit fields due to a limitation of clang
+-- (<https://github.com/well-typed/hs-bindgen/issues/659>), but we should at
+-- least detect when they are used and issue an error.
+--
+-- This function partitions local declarations into those that are referenced by
+-- some field ("regular declarations"), and those that are not (that is, the
+-- implicit fields). Doing this correctly is a little tricky, because clang
+-- reports /all/ nested declarations at once. For example, in
+--
+-- > struct outer {
+-- >   struct {
+-- >     int x1_1;
+-- >     struct {
+-- >       int x1_2_1;
+-- >     } x1_2;
+-- >   } x1;
+-- >   int x2;
+-- > };
+--
+-- there are no implicit fields, but we see both nested structs at once (inside
+-- the outermost struct), and so we need to check if there is a reference to the
+-- inner struct from /any/ nested field, not just fields of the outermost
+-- struct.
+detectStructImplicitFields ::
+     [C.Decl Parse]
+     -- ^ Nested declarations inside a struct
+  -> [C.StructField Parse]
+     -- ^ Fields of the (outer) struct
+  -> ([C.Decl Parse], [C.Decl Parse])
+detectStructImplicitFields nestedDecls outerFields =
+    List.partition declIsUsed nestedDecls
+  where
+    allFields :: [C.StructField Parse]
+    allFields = outerFields ++ concatMap nestedFields nestedDecls
+
+    nestedFields :: C.Decl Parse -> [C.StructField Parse]
+    nestedFields C.Decl{declKind} =
+        case declKind of
+          C.DeclStruct struct -> C.structFields struct
+          _otherwise          -> []
+
+    fieldDeps :: [C.QualId Parse]
+    fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) allFields
+
+    declIsUsed :: C.Decl Parse -> Bool
+    declIsUsed decl = C.declQualId decl `elem` fieldDeps
