@@ -1,4 +1,0 @@
-CApiFFI
-TemplateHaskell
-StandaloneDeriving
-DerivingStrategies
