@@ -15,7 +15,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.Pass.RenameAnon.IsPass
+import HsBindgen.Frontend.Pass.Rename.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C (CName(..))

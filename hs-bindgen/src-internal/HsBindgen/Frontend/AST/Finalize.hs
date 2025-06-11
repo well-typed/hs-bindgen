@@ -6,7 +6,7 @@ import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.Pass.RenameAnon.IsPass qualified as Int
+import HsBindgen.Frontend.Pass.Rename.IsPass qualified as Int
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

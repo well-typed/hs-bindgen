@@ -12,7 +12,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.RenameAnon.IsPass
+import HsBindgen.Frontend.Pass.Rename.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.Haskell
