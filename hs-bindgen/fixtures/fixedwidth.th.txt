@@ -1,4 +1,4 @@
--- addDependentFile examples/fixedwidth.h
+-- addDependentFile examples/golden/fixedwidth.h
 newtype Uint32_t = Uint32_t {un_Uint32_t :: CUInt}
 deriving newtype instance Storable Uint32_t
 deriving stock instance Eq Uint32_t

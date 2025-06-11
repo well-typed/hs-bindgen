@@ -71,7 +71,7 @@ data SkipReason =
       , skippedLoc    :: SingleLoc
       , skippedReason :: Text
       }
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 instance PrettyTrace SkipReason where
   prettyTrace = \case

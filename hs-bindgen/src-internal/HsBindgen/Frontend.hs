@@ -83,6 +83,7 @@ data FrontendTrace =
   | FrontendMacro MacroError
   | FrontendBindingSpec BindingSpecError
   | FrontendNameMangler MangleError
+  deriving stock (Show, Eq)
 
 instance PrettyTrace FrontendTrace where
   prettyTrace = \case

@@ -1,4 +1,4 @@
--- addDependentFile examples/names.h
+-- addDependentFile examples/golden/names.h
 -- #include "names.h"
 -- void test_internal_by (void) { by(); }
 -- void test_internal_forall (void) { forall(); }

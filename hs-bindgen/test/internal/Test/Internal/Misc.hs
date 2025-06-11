@@ -7,9 +7,10 @@ module Test.Internal.Misc (
 
 import Data.ByteString qualified as BS
 import Data.ByteString.UTF8 qualified as UTF8
-import System.Directory (doesFileExist, setCurrentDirectory, getCurrentDirectory)
+import System.Directory (doesFileExist, getCurrentDirectory,
+                         setCurrentDirectory)
 import System.FilePath ((-<.>))
-import Test.Tasty (TestTree, TestName)
+import Test.Tasty (TestName, TestTree)
 
 import AnsiDiff (ansidiff)
 import Clang.Paths
@@ -73,6 +74,9 @@ clangArgs packageRoot = defaultClangArgs{
           CIncludePathDir (packageRoot </> "musl-include/x86_64")
         ]
     , clangQuoteIncludePathDirs = [
-          CIncludePathDir (packageRoot </> "examples")
+          CIncludePathDir (packageRoot </> "examples/golden")
+        , CIncludePathDir (packageRoot </> "examples/golden-norust")
+          -- TODO (#722): Remove 'failing' from include paths.
+        , CIncludePathDir (packageRoot </> "examples/failing")
         ]
     }

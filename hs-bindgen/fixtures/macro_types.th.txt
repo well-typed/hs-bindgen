@@ -1,4 +1,4 @@
--- addDependentFile examples/macro_types.h
+-- addDependentFile examples/golden/macro_types.h
 newtype PtrInt = PtrInt {un_PtrInt :: (Ptr CInt)}
 deriving newtype instance Storable PtrInt
 deriving stock instance Eq PtrInt

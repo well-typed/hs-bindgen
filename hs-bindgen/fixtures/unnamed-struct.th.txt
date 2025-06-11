@@ -1,1 +1,1 @@
--- addDependentFile examples/unnamed-struct.h
+-- addDependentFile examples/golden/unnamed-struct.h

@@ -1,4 +1,4 @@
--- addDependentFile examples/typenames.h
+-- addDependentFile examples/golden/typenames.h
 newtype Foo = Foo {un_Foo :: CUInt}
 instance Storable Foo
     where {sizeOf = \_ -> 4 :: Int;

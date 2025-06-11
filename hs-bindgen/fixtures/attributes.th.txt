@@ -1,4 +1,4 @@
--- addDependentFile examples/attributes.h
+-- addDependentFile examples/golden/attributes.h
 data C__SFILE
     = C__SFILE {__sFILE__r :: CInt,
                 __sFILE__w :: CInt,

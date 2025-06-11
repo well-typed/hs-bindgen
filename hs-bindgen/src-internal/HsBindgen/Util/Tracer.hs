@@ -210,6 +210,7 @@ withTracerCustom' ansiColor tracerConf customLogLevel report action =
 
 data TraceWithCallStack a = TraceWithCallStack { tTrace     :: a
                                                , tCallStack :: CallStack }
+  deriving stock (Show)
 
 instance Functor TraceWithCallStack where
   fmap f trace = trace { tTrace = f (tTrace trace) }

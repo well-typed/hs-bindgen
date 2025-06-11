@@ -310,11 +310,11 @@ test-suite test-internal
       Test.Internal.Rust
       Test.Internal.TastyGolden
       Test.Internal.TH
-      Test.Internal.Tracer
       Test.Internal.TreeDiff.Orphans
       -- Common
       Test.Internal.Tasty
       Test.Internal.Trace
+      Test.Internal.Tracer
   build-depends:
       -- Internal dependencies
     , c-expr
@@ -359,6 +359,7 @@ test-suite test-th
       -- Common
       Test.Internal.Tasty
       Test.Internal.Trace
+      Test.Internal.Tracer
 
   default-language: Haskell2010
   build-depends:
@@ -368,8 +369,11 @@ test-suite test-th
     , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
+    , ansi-terminal
     , base <5
     , containers
+    , contra-tracer
+    , mtl
   build-depends:
       -- External dependencies
     , tasty ^>= 1.5
@@ -389,6 +393,7 @@ test-suite test-pp
       -- Common
       Test.Internal.Tasty
       Test.Internal.Trace
+      Test.Internal.Tracer
 
   default-language: Haskell2010
 
@@ -407,8 +412,11 @@ test-suite test-pp
     , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
+    , ansi-terminal
     , base <5
     , containers
+    , contra-tracer
+    , mtl
   build-depends:
       -- External dependencies
     , tasty ^>= 1.5

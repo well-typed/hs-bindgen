@@ -7,6 +7,7 @@ import Data.ByteString.UTF8 qualified as UTF8
 import Data.List qualified as List
 import Data.TreeDiff.Golden (ediffGolden1)
 import Test.Tasty (TestName, TestTree, defaultMain, testGroup)
+import Test.Tasty.HUnit (assertBool, testCase)
 import Text.Regex.Applicative qualified as R
 import Text.Regex.Applicative.Common qualified as R
 
@@ -14,6 +15,8 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Errors
+import HsBindgen.Frontend (FrontendTrace (FrontendParse))
+import HsBindgen.Frontend.Pass.Parse.Monad (ParseTrace (UnsupportedImplicitFields))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Lib
@@ -25,7 +28,8 @@ import Test.HsBindgen.Util.Tracer qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
-import Test.Internal.Tracer
+import Test.Internal.Tracer (withAnsiColor, withTracerTestCustom,
+                             withWriterTracer)
 import Test.Internal.TreeDiff.Orphans ()
 
 #if __GLASGOW_HASKELL__ >=904
@@ -53,47 +57,57 @@ tests packageRoot getAnsiColor getRustBindgen =
       Test.HsBindgen.C.Parser.tests getAnsiColor args
     , Test.HsBindgen.Clang.Args.tests getAnsiColor
     , Test.HsBindgen.Util.Tracer.tests
-    , testGroup "examples" [
-          golden "simple_structs"
-        , golden "recursive_struct"
-        , golden "nested_types"
-        , golden "enums"
-        , golden "primitive_types"
-        , golden "typedefs"
-        , golden "macros"
-        , testGroup "macro_strings" $ goldenNoRust "macro_strings" -- rs-bindgen panics on this
-        , golden "macro_functions"
-        , golden "macro_in_fundecl"
-        , golden "macro_in_fundecl_vs_typedef"
-        , golden "macro_types"
-        , golden "uses_utf8"
-        , golden "typedef_vs_macro"
-        , golden "headers"
-        , golden "fixedwidth"
-        , golden "fixedarray"
-        , golden "unnamed-struct"
-        , golden "forward_declaration"
-        , golden "opaque_declaration"
-        , golden "distilled_lib_1"
-        , golden "flam"
-        , golden "typenames"
-        , golden "type_naturals"
-        , golden "bool"
-        , golden "anonymous"
-        , golden "simple_func"
-        , golden "bitfields"
-        , golden "unions"
-        , golden "nested_enums"
-        , golden "nested_unions"
-        , golden "adios"
-        , golden "manual_examples"
-        , golden "names"
-        , golden "attributes"
-        , golden "vector"
-        , golden "struct_arg"
+    , testGroup "examples/golden" $ map golden [
+          "adios"
+        , "anonymous"
+        , "attributes"
+        , "bitfields"
+        , "bool"
+        , "distilled_lib_1"
+        , "enums"
+        , "fixedarray"
+        , "fixedwidth"
+        , "flam"
+        , "forward_declaration"
+        , "headers"
+        , "macro_functions"
+        , "macro_in_fundecl"
+        , "macro_in_fundecl_vs_typedef"
+        , "macros"
+        , "macro_types"
+        , "manual_examples"
+        , "names"
+        , "nested_enums"
+        , "nested_types"
+        , "nested_unions"
+        , "opaque_declaration"
+        , "primitive_types"
+        , "recursive_struct"
+        , "simple_func"
+        , "simple_structs"
+        , "struct_arg"
+        , "typedefs"
+        , "typedef_vs_macro"
+        , "typenames"
+        , "type_naturals"
+        , "unions"
+        , "unnamed-struct"
+        , "uses_utf8"
+        , "vector"
         ]
-    , testGroup "failing-examples" [
+    -- @rs-bindgen@ panics on these
+    , testGroup "examples/golden-norust" $ map goldenNoRust [
+          "macro_strings"
+        ]
+    , testGroup "examples/failing" [
           failing "long_double"
+        , expectTrace
+            "implicit_fields_struct"
+            "expected UnsupportedImplicitFields trace"
+            (\case
+                (TraceFrontend (FrontendParse (UnsupportedImplicitFields {}))) -> True
+                _otherwise -> False
+            )
         ]
     ]
   where
@@ -102,10 +116,13 @@ tests packageRoot getAnsiColor getRustBindgen =
 
     golden :: TestName -> TestTree
     golden name =
-      testGroup name $ goldenNoRust name ++ [goldenRust getRustBindgen name]
+      testGroup name $ goldenNoRust' name ++ [goldenRust getRustBindgen name]
 
-    goldenNoRust :: TestName -> [TestTree]
-    goldenNoRust name = [
+    goldenNoRust :: TestName -> TestTree
+    goldenNoRust name = testGroup name $ goldenNoRust' name
+
+    goldenNoRust' :: TestName -> [TestTree]
+    goldenNoRust' name = [
           goldenTreeDiff name
         , goldenHs name
         , goldenExtensions name
@@ -153,9 +170,7 @@ tests packageRoot getAnsiColor getRustBindgen =
       goldenVsStringDiff_ "pp" target $ \report ->
         withOpts report $ \opts -> do
           decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
-
-          -- TODO: PP.render should add trailing '\n' itself.
-          return $ Pipeline.preprocessPure ppOpts decls ++ "\n"
+          return $ Pipeline.preprocessPure ppOpts decls
 
     goldenExtBindings :: TestName -> TestTree
     goldenExtBindings name = do
@@ -187,6 +202,8 @@ tests packageRoot getAnsiColor getRustBindgen =
         Pipeline.ppOptsModule = HsModuleOpts { hsModuleOptsName = "Example" }
       }
 
+    -- TODO (#722): Failing tests should not create a fixture; instead, we
+    -- should expect specific traces.
     failing :: TestName -> TestTree
     failing name = do
       let target = "fixtures" </> (name ++ ".failure.txt")
@@ -195,15 +212,25 @@ tests packageRoot getAnsiColor getRustBindgen =
         withOpts report $ \opts -> do
           result <- try $ do
             decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
-
-            -- TODO: PP.render should add trailing '\n' itself.
-            evaluate $ force $ Pipeline.preprocessPure ppOpts decls ++ "\n"
+            evaluate $ force $ Pipeline.preprocessPure ppOpts decls
 
           case result of
             Right result' -> fail $
               "Expected failure; unexpected success\n" ++ result'
             Left exc -> return $ normalise $
               displayException (exc :: HsBindgenException)
+
+    expectTrace :: TestName -> String -> (Trace -> Bool) -> TestTree
+    expectTrace name msg predicate = testCase name $ do
+      (_, traces) <- withWriterTracer $ \tracer -> do
+             let headerIncludePath = mkHeaderIncludePath name
+                 opts :: Opts
+                 opts = defaultOpts {
+                     optsClangArgs = clangArgs packageRoot
+                   , optsTracer = tracer
+                   }
+             Pipeline.translateCHeader "failWithTraceTest" opts headerIncludePath
+      assertBool msg $ any (predicate . tTrace) traces
 
 -- | Normalise the test fixture output so it doesn't change that often, nor across various systems.
 normalise :: String -> String

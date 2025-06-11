@@ -1,4 +1,4 @@
--- addDependentFile examples/unions.h
+-- addDependentFile examples/golden/unions.h
 data Dim2 = Dim2 {dim2_x :: CInt, dim2_y :: CInt}
 instance Storable Dim2
     where {sizeOf = \_ -> 8 :: Int;

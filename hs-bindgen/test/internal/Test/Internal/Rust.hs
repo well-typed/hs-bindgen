@@ -92,11 +92,11 @@ ignoringIOErrors ioe = ioe `catch` h
     h :: IOException -> IO ()
     h _ = return ()
 
--- | bindgen --allowlist-file=hs-bindgen/examples/fixedwidth.h hs-bindgen/examples/fixedwidth.h
+-- | bindgen --allowlist-file=hs-bindgen/examples/golden/fixedwidth.h hs-bindgen/examples/golden/fixedwidth.h
 goldenRust :: IO FilePath -> TestName -> TestTree
 goldenRust gb name =  goldenVsStringDiff_ "rust" ("fixtures" </> (name ++ ".rs")) $ \report -> do
     -- package root is not used as we don't specify the location of stdlib
-    let fp = "examples" </> (name ++ ".h")
+    let fp = "examples" </> "golden" </> (name ++ ".h")
 
     bindgen <- gb
 

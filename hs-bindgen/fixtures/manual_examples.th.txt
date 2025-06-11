@@ -1,4 +1,4 @@
--- addDependentFile examples/manual_examples.h
+-- addDependentFile examples/golden/manual_examples.h
 -- #include "manual_examples.h"
 -- void test_internal_mk_triple (signed int arg1, signed int arg2, signed int arg3, triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }
 -- signed int test_internal_index_triple (triple *arg1, index arg2) { return index_triple(arg1, arg2); }

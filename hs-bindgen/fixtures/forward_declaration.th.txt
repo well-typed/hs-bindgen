@@ -1,4 +1,4 @@
--- addDependentFile examples/forward_declaration.h
+-- addDependentFile examples/golden/forward_declaration.h
 data S1 = S1 {s1_a :: CInt}
 instance Storable S1
     where {sizeOf = \_ -> 4 :: Int;
