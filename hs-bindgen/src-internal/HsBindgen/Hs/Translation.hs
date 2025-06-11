@@ -23,12 +23,12 @@ import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Config.FixCandidate (FixCandidate)
+import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
-import HsBindgen.Hs.NameMangler.DSL.FixCandidate (FixCandidate)
-import HsBindgen.Hs.NameMangler.DSL.FixCandidate qualified as FixCandidate
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.C (CName(..))

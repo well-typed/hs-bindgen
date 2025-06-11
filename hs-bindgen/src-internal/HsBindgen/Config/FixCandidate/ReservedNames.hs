@@ -1,4 +1,4 @@
-module HsBindgen.Hs.NameMangler.DSL.ReservedNames (
+module HsBindgen.Config.FixCandidate.ReservedNames (
     -- $ReservedNames
     allReservedNames
   , reservedVarNames

@@ -1,4 +1,4 @@
-module HsBindgen.Frontend.Pass.NameMangler.IsPass (
+module HsBindgen.Frontend.Pass.MangleNames.IsPass (
     NameMangler
     -- * Annotations
   , NamePair(..)
