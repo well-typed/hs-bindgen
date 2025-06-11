@@ -117,8 +117,8 @@ library internal
       HsBindgen.Frontend.Pass.Parse.IsPass
       HsBindgen.Frontend.Pass.Parse.Monad
       HsBindgen.Frontend.Pass.Parse.Type
-      HsBindgen.Frontend.Pass.RenameAnon
-      HsBindgen.Frontend.Pass.RenameAnon.IsPass
+      HsBindgen.Frontend.Pass.Rename
+      HsBindgen.Frontend.Pass.Rename.IsPass
       HsBindgen.Frontend.Pass.ResolveBindingSpec
       HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
       HsBindgen.Frontend.Pass.Sort

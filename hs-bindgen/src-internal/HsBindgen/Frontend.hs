@@ -19,7 +19,7 @@ import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.Parse (parseDecls)
 import HsBindgen.Frontend.Pass.Parse.Monad
-import HsBindgen.Frontend.Pass.RenameAnon
+import HsBindgen.Frontend.Pass.Rename
 import HsBindgen.Frontend.Pass.ResolveBindingSpec
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.ProcessIncludes
@@ -55,11 +55,11 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
           sortDecls afterParse
         (afterHandleMacros, macroErrors) =
           handleMacros afterSort
-        afterRenameAnon =
-          renameAnon afterHandleMacros
+        afterRename =
+          rename afterHandleMacros
         (afterResolveBindingSpec, bindingSpecErrors) =
-          resolveBindingSpec confSpec extSpec afterRenameAnon
-        (afterNameMangler, mangleErrors) =
+          resolveBindingSpec confSpec extSpec afterRename
+        (afterMangleNames, mangleErrors) =
           mangleNames afterResolveBindingSpec
 
     -- writeFile "usedecl.mermaid" $
@@ -69,7 +69,7 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
     forM_ bindingSpecErrors $ traceWithCallStack tracer . FrontendBindingSpec
     forM_ mangleErrors      $ traceWithCallStack tracer . FrontendNameMangler
 
-    return $ finalize afterNameMangler
+    return $ finalize afterMangleNames
 
 {-------------------------------------------------------------------------------
   Logging

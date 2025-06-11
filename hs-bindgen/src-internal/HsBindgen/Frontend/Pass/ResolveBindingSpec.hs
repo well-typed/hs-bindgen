@@ -21,7 +21,7 @@ import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.RenameAnon.IsPass
+import HsBindgen.Frontend.Pass.Rename.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C (CName(..))

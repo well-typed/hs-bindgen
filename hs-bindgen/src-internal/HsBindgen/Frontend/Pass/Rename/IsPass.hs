@@ -1,4 +1,4 @@
-module HsBindgen.Frontend.Pass.RenameAnon.IsPass (
+module HsBindgen.Frontend.Pass.Rename.IsPass (
     RenameAnon
   , RenamedTypedefRef(..)
   ) where

@@ -1,4 +1,4 @@
-module HsBindgen.Frontend.Pass.RenameAnon (renameAnon) where
+module HsBindgen.Frontend.Pass.Rename (rename) where
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
@@ -11,7 +11,7 @@ import HsBindgen.Frontend.Graph.UseDecl qualified as UseDecl
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.RenameAnon.IsPass
+import HsBindgen.Frontend.Pass.Rename.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 
@@ -20,8 +20,8 @@ import HsBindgen.Language.C
 -------------------------------------------------------------------------------}
 
 -- | Rename anonymous declarations
-renameAnon :: C.TranslationUnit HandleMacros -> C.TranslationUnit RenameAnon
-renameAnon C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+rename :: C.TranslationUnit HandleMacros -> C.TranslationUnit RenameAnon
+rename C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     reassemble $ mapMaybe (renameDef du) unitDecls
   where
     du :: DeclUseGraph
