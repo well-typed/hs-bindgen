@@ -1,5 +1,5 @@
 -- addDependentFile musl-include/x86_64/stdbool.h
--- addDependentFile examples/bool.h
+-- addDependentFile examples/golden/bool.h
 data Bools1 = Bools1 {bools1_x :: CBool, bools1_y :: CBool}
 instance Storable Bools1
     where {sizeOf = \_ -> 2 :: Int;

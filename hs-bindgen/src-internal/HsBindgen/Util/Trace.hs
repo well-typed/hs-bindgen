@@ -21,6 +21,7 @@ data Trace = TraceDiagnostic Diagnostic
            | TraceExtraClangArgs ExtraClangArgsLog
            | TraceFrontend FrontendTrace
            | TraceResolveHeader ResolveHeaderException
+    deriving stock (Show, Eq)
 
 instance PrettyTrace Trace where
   prettyTrace = \case

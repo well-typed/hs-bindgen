@@ -1,4 +1,4 @@
--- addDependentFile examples/macro_functions.h
+-- addDependentFile examples/golden/macro_functions.h
 iNCR :: forall a_0 . Add a_0 CInt => a_0 -> AddRes a_0 CInt
 iNCR = \x_0 -> (+) x_0 (1 :: CInt)
 aDD :: forall a_0 b_1 . Add a_0 b_1 => a_0 -> b_1 -> AddRes a_0 b_1

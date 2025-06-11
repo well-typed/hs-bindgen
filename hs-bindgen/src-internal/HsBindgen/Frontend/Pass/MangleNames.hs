@@ -9,7 +9,7 @@ import Data.Map qualified as Map
 import Data.Proxy
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Config.FixCandidate (FixCandidate(..))
+import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -17,7 +17,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName(..))
+import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
@@ -60,7 +60,7 @@ type NameMap = Map (C.QualId HandleTypedefs) HsIdentifier
 
 data MangleError =
     CouldNotMangle Text
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 chooseNames ::
      FixCandidate Maybe

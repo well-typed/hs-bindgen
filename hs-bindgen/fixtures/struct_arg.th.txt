@@ -1,4 +1,4 @@
--- addDependentFile examples/struct_arg.h
+-- addDependentFile examples/golden/struct_arg.h
 -- #include "struct_arg.h"
 -- signed int test_internal_thing_fun_1 (struct thing *arg1) { return thing_fun_1(*arg1); }
 -- void test_internal_thing_fun_2 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }

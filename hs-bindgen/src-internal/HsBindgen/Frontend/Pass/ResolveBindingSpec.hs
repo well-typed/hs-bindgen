@@ -3,7 +3,7 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec (
   , BindingSpecError(..)
   ) where
 
-import Control.Exception (Exception(..))
+import Control.Exception (Exception (..))
 import Control.Monad ((<=<))
 import Control.Monad.RWS (MonadReader, MonadState, RWS)
 import Control.Monad.RWS qualified as RWS
@@ -25,7 +25,7 @@ import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName(..))
+import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
@@ -61,7 +61,7 @@ data BindingSpecError =
   | BindingSpecExtHsRefNoIdentifier CNameSpelling
   | BindingSpecOmittedTypeUse CNameSpelling
   | BindingSpecTypeNotUsed CNameSpelling
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 instance Exception BindingSpecError where
   toException = hsBindgenExceptionToException

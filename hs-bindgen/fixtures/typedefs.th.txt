@@ -1,4 +1,4 @@
--- addDependentFile examples/typedefs.h
+-- addDependentFile examples/golden/typedefs.h
 newtype Myint = Myint {un_Myint :: CInt}
 deriving newtype instance Storable Myint
 deriving stock instance Eq Myint

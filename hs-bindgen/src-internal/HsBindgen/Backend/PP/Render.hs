@@ -9,21 +9,21 @@ module HsBindgen.Backend.PP.Render (
   , renderIO
   ) where
 
-import Data.Maybe (maybeToList)
 import Data.Char qualified
 import Data.List qualified as List
+import Data.Maybe (maybeToList)
 import Data.Text qualified as Text
 import Data.Word
-import GHC.Float (castFloatToWord32, castDoubleToWord64)
-import GHC.Exts (Int(..), sizeofByteArray#)
-import GHC.Exts qualified as IsList(IsList(..))
-import System.IO
+import GHC.Exts (Int (..), sizeofByteArray#)
+import GHC.Exts qualified as IsList (IsList (..))
+import GHC.Float (castDoubleToWord64, castFloatToWord32)
 import Numeric (showHex)
+import System.IO
 
 import HsBindgen.Backend.PP.Names
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Type (HsPrimType(..))
+import HsBindgen.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Imports
 import HsBindgen.Language.C (canBeRepresentedAsRational)
 import HsBindgen.Language.Haskell
@@ -31,8 +31,8 @@ import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 import Text.SimplePrettyPrint
 
-import C.Char (CharValue(..))
-import DeBruijn (EmptyCtx, Env (..), lookupEnv, Add (..))
+import C.Char (CharValue (..))
+import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 
 {-------------------------------------------------------------------------------
   Rendering
@@ -51,13 +51,13 @@ instance Default HsRenderOpts where
 
 -- | Render generated bindings
 render :: HsRenderOpts -> HsModule -> String
-render HsRenderOpts{..} = renderPretty (mkContext hsLineLength)
+render HsRenderOpts{..} = (++ "\n") . renderPretty (mkContext hsLineLength)
 
 -- | Write rendered bindings to the specified file (or @stdout@)
 renderIO :: HsRenderOpts -> Maybe FilePath -> HsModule -> IO ()
-renderIO opts Nothing   modl = putStrLn $ render opts modl
+renderIO opts Nothing   modl = putStr $ render opts modl
 renderIO opts (Just fp) modl = withFile fp WriteMode $ \h ->
-    hPutStrLn h $ render opts modl
+    hPutStr h $ render opts modl
 
 {-------------------------------------------------------------------------------
   Module pretty-printing

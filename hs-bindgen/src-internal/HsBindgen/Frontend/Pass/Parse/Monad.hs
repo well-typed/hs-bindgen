@@ -26,7 +26,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import HsBindgen.C.Predicate (Predicate, IsMainFile)
+import HsBindgen.C.Predicate (IsMainFile, Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
@@ -193,7 +193,7 @@ data ParseTrace =
         -- | The names of the implicit fields
       , unsupportedImplicitFields :: [DeclId]
       }
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 instance PrettyTrace ParseTrace where
   prettyTrace = \case
