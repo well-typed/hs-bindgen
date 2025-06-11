@@ -1,4 +1,4 @@
-module HsBindgen.Hs.NameMangler.DSL.FixCandidate (
+module HsBindgen.Config.FixCandidate (
     -- * Definition
     FixCandidate(..)
   , fixCandidate
@@ -28,7 +28,7 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Numeric (showHex)
 
-import HsBindgen.Hs.NameMangler.DSL.ReservedNames (allReservedNames)
+import HsBindgen.Config.FixCandidate.ReservedNames (allReservedNames)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 

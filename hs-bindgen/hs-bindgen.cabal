@@ -89,6 +89,8 @@ library internal
       HsBindgen.C.Tc.Macro
       HsBindgen.C.Tc.Macro.Type
       HsBindgen.Clang.Args
+      HsBindgen.Config.FixCandidate
+      HsBindgen.Config.FixCandidate.ReservedNames
       HsBindgen.Debug
       HsBindgen.Eff
       HsBindgen.Errors
@@ -108,8 +110,8 @@ library internal
       HsBindgen.Frontend.Pass
       HsBindgen.Frontend.Pass.HandleMacros
       HsBindgen.Frontend.Pass.HandleMacros.IsPass
-      HsBindgen.Frontend.Pass.NameMangler
-      HsBindgen.Frontend.Pass.NameMangler.IsPass
+      HsBindgen.Frontend.Pass.MangleNames
+      HsBindgen.Frontend.Pass.MangleNames.IsPass
       HsBindgen.Frontend.Pass.Parse
       HsBindgen.Frontend.Pass.Parse.Decl
       HsBindgen.Frontend.Pass.Parse.IsPass
@@ -134,9 +136,6 @@ library internal
       HsBindgen.Hs.AST.SigmaType
       HsBindgen.Hs.AST.Strategy
       HsBindgen.Hs.AST.Type
-      HsBindgen.Hs.NameMangler.DSL
-      HsBindgen.Hs.NameMangler.DSL.FixCandidate
-      HsBindgen.Hs.NameMangler.DSL.ReservedNames
       HsBindgen.Hs.Origin
       HsBindgen.Hs.Translation
       HsBindgen.Imports
@@ -204,8 +203,9 @@ library
       HsBindgen.Lib
       HsBindgen.TH
   reexported-modules:
-      HsBindgen.Errors
-    , HsBindgen.Hs.NameMangler.DSL
+    , HsBindgen.Config.FixCandidate
+    , HsBindgen.Config.FixCandidate.ReservedNames
+    , HsBindgen.Errors
 
   build-depends:
       -- Internal dependencies

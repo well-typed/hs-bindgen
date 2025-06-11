@@ -16,7 +16,7 @@ import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.Pass.HandleMacros
-import HsBindgen.Frontend.Pass.NameMangler
+import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.Parse (parseDecls)
 import HsBindgen.Frontend.Pass.Parse.Monad
 import HsBindgen.Frontend.Pass.RenameAnon

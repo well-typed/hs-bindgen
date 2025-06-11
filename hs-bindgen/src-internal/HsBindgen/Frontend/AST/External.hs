@@ -10,7 +10,7 @@ module HsBindgen.Frontend.AST.External (
   , Decl(..)
   , DeclInfo(..)
   , DeclKind(..)
-  , NameMangler.DeclSpec(..)
+  , MangleNames.DeclSpec(..)
     -- ** Structs
   , Struct(..)
   , StructField(..)
@@ -40,10 +40,10 @@ module HsBindgen.Frontend.AST.External (
     -- * Names
   , CName(..)
   , HsIdentifier(..)
-  , NameMangler.NamePair(..)
-  , NameMangler.nameHs
-  , NameMangler.RecordNames(..)
-  , NameMangler.NewtypeNames(..)
+  , MangleNames.NamePair(..)
+  , MangleNames.nameHs
+  , MangleNames.RecordNames(..)
+  , MangleNames.NewtypeNames(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -54,7 +54,7 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
-import HsBindgen.Frontend.Pass.NameMangler.IsPass qualified as NameMangler
+import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.Haskell
@@ -80,13 +80,13 @@ data TranslationUnit = TranslationUnit{
 data Decl = Decl {
       declInfo :: DeclInfo
     , declKind :: DeclKind
-    , declSpec :: NameMangler.DeclSpec
+    , declSpec :: MangleNames.DeclSpec
     }
   deriving stock (Show, Eq, Generic)
 
 data DeclInfo = DeclInfo{
       declLoc :: SingleLoc
-    , declId  :: NameMangler.NamePair
+    , declId  :: MangleNames.NamePair
     }
   deriving stock (Show, Eq, Generic)
 
@@ -108,7 +108,7 @@ data DeclKind =
 
 -- | Definition of a struct
 data Struct = Struct {
-      structNames     :: NameMangler.RecordNames
+      structNames     :: MangleNames.RecordNames
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -120,7 +120,7 @@ data Struct = Struct {
 
 data StructField = StructField {
       structFieldLoc    :: SingleLoc
-    , structFieldName   :: NameMangler.NamePair
+    , structFieldName   :: MangleNames.NamePair
     , structFieldType   :: Type
     , structFieldOffset :: Int -- ^ Offset in bits
     , structFieldWidth  :: Maybe Int
@@ -133,7 +133,7 @@ data StructField = StructField {
 
 -- | Definition of an union
 data Union = Union {
-      unionNames     :: NameMangler.NewtypeNames
+      unionNames     :: MangleNames.NewtypeNames
     , unionSizeof    :: Int
     , unionAlignment :: Int
     , unionFields    :: [UnionField]
@@ -142,7 +142,7 @@ data Union = Union {
 
 data UnionField = UnionField {
       unionFieldLoc  :: SingleLoc
-    , unionFieldName :: NameMangler.NamePair
+    , unionFieldName :: MangleNames.NamePair
     , unionFieldType :: Type
     }
   deriving stock (Show, Eq, Generic)
@@ -152,7 +152,7 @@ data UnionField = UnionField {
 -------------------------------------------------------------------------------}
 
 data Enum = Enum {
-      enumNames     :: NameMangler.NewtypeNames
+      enumNames     :: MangleNames.NewtypeNames
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int
@@ -162,7 +162,7 @@ data Enum = Enum {
 
 data EnumConstant = EnumConstant {
       enumConstantLoc   :: SingleLoc
-    , enumConstantName  :: NameMangler.NamePair
+    , enumConstantName  :: MangleNames.NamePair
     , enumConstantValue :: Integer
     }
   deriving stock (Show, Eq, Generic)
@@ -172,7 +172,7 @@ data EnumConstant = EnumConstant {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefNames :: NameMangler.NewtypeNames
+      typedefNames :: MangleNames.NewtypeNames
     , typedefType  :: Type
     }
   deriving stock (Show, Eq, Generic)
@@ -198,7 +198,7 @@ data CheckedMacro =
   deriving stock (Show, Eq, Generic)
 
 data CheckedMacroType = CheckedMacroType{
-      macroTypeNames :: NameMangler.NewtypeNames
+      macroTypeNames :: MangleNames.NewtypeNames
     , macroType      :: Type
     }
   deriving stock (Show, Eq, Generic)
@@ -212,9 +212,9 @@ data CheckedMacroType = CheckedMacroType{
 -- For type /declarations/ see 'Decl'.
 data Type =
     TypePrim PrimType
-  | TypeStruct NameMangler.NamePair
-  | TypeUnion NameMangler.NamePair
-  | TypeEnum NameMangler.NamePair
+  | TypeStruct MangleNames.NamePair
+  | TypeUnion MangleNames.NamePair
+  | TypeEnum MangleNames.NamePair
   | TypeTypedef TypedefRef
   | TypePointer Type
   | TypeConstArray Natural Type
@@ -241,7 +241,7 @@ data Type =
   deriving Repr via ReprShow Type
 
 data TypedefRef =
-    TypedefRegular NameMangler.NamePair
+    TypedefRegular MangleNames.NamePair
   | TypedefSquashed CName Type
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow TypedefRef

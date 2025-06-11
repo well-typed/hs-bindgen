@@ -12,7 +12,7 @@ import HsBindgen.BindingSpec (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Pass.NameMangler.IsPass qualified as NameMangler
+import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
@@ -73,11 +73,11 @@ getStructSpec :: HsModuleName -> Hs.Struct n -> Spec
 getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
     Nothing -> panicPure "getStructSpec: structOrigin is Nothing"
     Just originDecl ->
-      let cname = NameMangler.nameC $ C.declId (Origin.declInfo originDecl)
+      let cname = MangleNames.nameC $ C.declId (Origin.declInfo originDecl)
           -- TODO correct CNameSpelling depends on how named
           cnameSpelling = CNameSpelling $ "struct " <> getCName cname
           hsIdentifier = HsIdentifier $ getHsName (Hs.structName hsStruct)
-          NameMangler.DeclSpec typeSpec' = Origin.declSpec originDecl
+          MangleNames.DeclSpec typeSpec' = Origin.declSpec originDecl
           typeSpec = BindingSpec.TypeSpec {
               typeSpecModule     = Just hsModuleName
             , typeSpecIdentifier = Just hsIdentifier
@@ -91,7 +91,7 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
 getEmptyDataSpec :: HsModuleName -> Hs.EmptyData -> Spec
 getEmptyDataSpec hsModuleName edata =
     let originDecl = Hs.emptyDataOrigin edata
-        cname = NameMangler.nameC $ C.declId (Origin.declInfo originDecl)
+        cname = MangleNames.nameC $ C.declId (Origin.declInfo originDecl)
         cnameSpelling = CNameSpelling $ case Origin.declKind originDecl of
           Origin.OpaqueStruct -> "struct " <> getCName cname
           Origin.OpaqueEnum   -> "enum "   <> getCName cname
@@ -108,14 +108,14 @@ getEmptyDataSpec hsModuleName edata =
 getNewtypeSpec :: HsModuleName -> Hs.Newtype -> Spec
 getNewtypeSpec hsModuleName hsNewtype =
     let originDecl = Hs.newtypeOrigin hsNewtype
-        cname = NameMangler.nameC $ C.declId (Origin.declInfo originDecl)
+        cname = MangleNames.nameC $ C.declId (Origin.declInfo originDecl)
         cnameSpelling = CNameSpelling $ case Origin.declKind originDecl of
           Origin.Enum{}    -> "enum " <> getCName cname
           Origin.Typedef{} -> getCName cname
           Origin.Union{}   -> "union " <> getCName cname
           Origin.Macro{}   -> getCName cname
         hsIdentifier = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
-        NameMangler.DeclSpec typeSpec' = Origin.declSpec originDecl
+        MangleNames.DeclSpec typeSpec' = Origin.declSpec originDecl
         typeSpec = BindingSpec.TypeSpec {
             typeSpecModule     = Just hsModuleName
           , typeSpecIdentifier = Just hsIdentifier
