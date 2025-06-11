@@ -102,13 +102,13 @@ newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
 
 data ErrorTraceException = ErrorTraceException
-  deriving stock Show
+
+instance Show ErrorTraceException where
+  show _ = "An error happened while generating bindings (see above)"
 
 instance Exception ErrorTraceException where
   toException = hsBindgenExceptionToException
   fromException = hsBindgenExceptionFromException
-  displayException _ =
-    "An error happened while generating bindings (see above)"
 
 {-------------------------------------------------------------------------------
   Tracer configuration
