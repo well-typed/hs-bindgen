@@ -3,10 +3,10 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Rename.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
@@ -24,11 +24,9 @@ import HsBindgen.Language.C
 type ResolveBindingSpec :: Pass
 data ResolveBindingSpec a deriving anyclass (ValidPass)
 
--- We do not need the @SourceMap@ anymore, so we drop it from the annotation on
--- @TranslationUnit@.
 type family AnnResolveBindingSpec ix where
   AnnResolveBindingSpec "Decl"            = BindingSpec.TypeSpec
-  AnnResolveBindingSpec "TranslationUnit" = UseDeclGraph
+  AnnResolveBindingSpec "TranslationUnit" = DeclMeta
   AnnResolveBindingSpec _                 = NoAnn
 
 instance IsPass ResolveBindingSpec where

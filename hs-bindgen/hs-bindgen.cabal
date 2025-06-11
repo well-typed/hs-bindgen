@@ -95,6 +95,7 @@ library internal
       HsBindgen.Eff
       HsBindgen.Errors
       HsBindgen.Frontend
+      HsBindgen.Frontend.Analysis.DeclIndex
       HsBindgen.Frontend.Analysis.DeclUseGraph
       HsBindgen.Frontend.Analysis.IncludeGraph
       HsBindgen.Frontend.Analysis.UseDeclGraph

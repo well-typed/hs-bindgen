@@ -3,10 +3,11 @@ module HsBindgen.Frontend.Pass.Rename (rename) where
 import Prelude hiding (lookup)
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph (..), UseOfDecl (..))
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDecl
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -14,6 +15,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Rename.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 
@@ -28,7 +30,8 @@ rename C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
   where
     env :: RenameEnv
     env = RenameEnv{
-          envDeclUse = DeclUseGraph.fromUseDecl (fst unitAnn)
+          envDeclIndex = declIndex unitAnn
+        , envDeclUse   = DeclUseGraph.fromUseDecl (declUsage unitAnn)
         }
 
     reassemble :: [C.Decl RenameAnon] -> C.TranslationUnit RenameAnon
@@ -88,17 +91,17 @@ squash C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
 -------------------------------------------------------------------------------}
 
 data RenameEnv = RenameEnv {
-      envDeclUse :: DeclUseGraph
+      envDeclIndex :: DeclIndex
+    , envDeclUse   :: DeclUseGraph
     }
 
 findNamedUseOf :: Id p ~ DeclId => RenameEnv -> QualId p -> Maybe UseOfDecl
-findNamedUseOf env qid =
-    DeclUseGraph.findNamedUseOf
-      (envDeclUse env)
-      (coercePass qid)
+findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qid =
+    DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse (coercePass qid)
 
 lookup :: RenameEnv -> QualId Parse -> Maybe (Decl Parse)
-lookup RenameEnv{envDeclUse = DeclUseGraph ud} qid = UseDecl.lookup qid ud
+lookup RenameEnv{envDeclIndex} qid =
+    DeclIndex.lookup qid envDeclIndex
 
 {-------------------------------------------------------------------------------
   Use sites
