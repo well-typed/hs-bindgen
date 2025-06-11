@@ -12,8 +12,8 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.C.Predicate (IsMainFile)
-import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
-import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.Util.Fold

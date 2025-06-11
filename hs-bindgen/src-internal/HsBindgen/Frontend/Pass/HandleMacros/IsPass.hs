@@ -2,8 +2,8 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
     HandleMacros
   ) where
 
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
-import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph)
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass

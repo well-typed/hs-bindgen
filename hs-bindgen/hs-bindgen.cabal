@@ -95,15 +95,15 @@ library internal
       HsBindgen.Eff
       HsBindgen.Errors
       HsBindgen.Frontend
+      HsBindgen.Frontend.Analysis.DeclUseGraph
+      HsBindgen.Frontend.Analysis.IncludeGraph
+      HsBindgen.Frontend.Analysis.UseDeclGraph
       HsBindgen.Frontend.AST.Coerce
       HsBindgen.Frontend.AST.Deps
       HsBindgen.Frontend.AST.External
       HsBindgen.Frontend.AST.Finalize
       HsBindgen.Frontend.AST.Internal
       HsBindgen.Frontend.AST.PrettyPrinter
-      HsBindgen.Frontend.Graph.DeclUse
-      HsBindgen.Frontend.Graph.Includes
-      HsBindgen.Frontend.Graph.UseDecl
       HsBindgen.Frontend.Macros.AST.C
       HsBindgen.Frontend.Macros.AST.Syntax
       HsBindgen.Frontend.NonSelectedDecls

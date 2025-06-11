@@ -15,9 +15,9 @@ import Clang.HighLevel.Types
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
-import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass

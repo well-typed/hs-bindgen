@@ -2,9 +2,9 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
--- > import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
-module HsBindgen.Frontend.Graph.Includes (
+-- > import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+-- > import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+module HsBindgen.Frontend.Analysis.IncludeGraph (
     IncludeGraph(..)
     -- * Construction
   , empty

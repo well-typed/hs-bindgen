@@ -1,9 +1,9 @@
 module HsBindgen.Frontend.Pass.Sort (sortDecls) where
 
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
+import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph)
-import HsBindgen.Frontend.Graph.UseDecl qualified as UseDeclGraph
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 

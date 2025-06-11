@@ -1,13 +1,13 @@
 module HsBindgen.Frontend.Pass.Rename (rename) where
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph (..), UseOfDecl (..))
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
+import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDecl
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.DeclUse (DeclUseGraph (..), UseOfDecl (..))
-import HsBindgen.Frontend.Graph.DeclUse qualified as DeclUseGraph
-import HsBindgen.Frontend.Graph.UseDecl (Usage (..), ValOrRef (..))
-import HsBindgen.Frontend.Graph.UseDecl qualified as UseDecl
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass

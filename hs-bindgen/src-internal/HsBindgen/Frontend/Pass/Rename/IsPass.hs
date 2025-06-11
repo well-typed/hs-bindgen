@@ -3,9 +3,9 @@ module HsBindgen.Frontend.Pass.Rename.IsPass (
   , RenamedTypedefRef(..)
   ) where
 
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph)
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports

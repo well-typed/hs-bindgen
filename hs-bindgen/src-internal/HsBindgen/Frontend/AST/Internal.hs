@@ -39,7 +39,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
-import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
