@@ -1,5 +1,7 @@
 module HsBindgen.Frontend.Pass.Rename (rename) where
 
+import Prelude hiding (lookup)
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph (..), UseOfDecl (..))
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
@@ -22,10 +24,12 @@ import HsBindgen.Language.C
 -- | Rename anonymous declarations
 rename :: C.TranslationUnit HandleMacros -> C.TranslationUnit RenameAnon
 rename C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    reassemble $ mapMaybe (renameDef du) unitDecls
+    reassemble $ mapMaybe (renameDef env) unitDecls
   where
-    du :: DeclUseGraph
-    du = DeclUseGraph.fromUseDecl (fst unitAnn)
+    env :: RenameEnv
+    env = RenameEnv{
+          envDeclUse = DeclUseGraph.fromUseDecl (fst unitAnn)
+        }
 
     reassemble :: [C.Decl RenameAnon] -> C.TranslationUnit RenameAnon
     reassemble decls' = C.TranslationUnit{
@@ -38,10 +42,10 @@ rename C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
   Def sites: declarations
 -------------------------------------------------------------------------------}
 
-renameDef :: DeclUseGraph -> C.Decl HandleMacros -> Maybe (C.Decl RenameAnon)
-renameDef du decl = do
+renameDef :: RenameEnv -> C.Decl HandleMacros -> Maybe (C.Decl RenameAnon)
+renameDef env decl = do
     guard $ not (squash decl)
-    mkDecl <$> renameDeclId du declId (declNamespace declKind)
+    mkDecl <$> renameDeclId env declId (declNamespace declKind)
   where
     C.Decl{declInfo = C.DeclInfo{declLoc, declId}, declKind, declAnn} = decl
 
@@ -51,17 +55,20 @@ renameDef du decl = do
               declId = newId
             , declLoc
             }
-        , declKind = renameUses du declKind
+        , declKind = renameUses env declKind
         , declAnn
         }
 
 -- | Rename 'DeclId'
 --
 -- Returns 'Nothing' if this is an anonymous type without any use.
-renameDeclId :: DeclUseGraph -> DeclId -> Namespace -> Maybe CName
-renameDeclId _      (DeclNamed n) _  = Just n
-renameDeclId du uid@(DeclAnon  _) ns =
-    nameForAnon <$> DeclUseGraph.findNamedUseOf du (C.QualId uid ns)
+renameDeclId :: RenameEnv -> DeclId -> Namespace -> Maybe CName
+renameDeclId _       (DeclNamed n) _  = Just n
+renameDeclId env uid@(DeclAnon  _) ns =
+    nameForAnon <$> findNamedUseOf env qid
+  where
+    qid :: QualId HandleMacros
+    qid = C.QualId uid ns
 
 -- | Should we squash this declaration?
 squash :: forall p. Id p ~ DeclId => C.Decl p -> Bool
@@ -77,52 +84,70 @@ squash C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
         False
 
 {-------------------------------------------------------------------------------
+  Internal auxiliary: environment used for renaming
+-------------------------------------------------------------------------------}
+
+data RenameEnv = RenameEnv {
+      envDeclUse :: DeclUseGraph
+    }
+
+findNamedUseOf :: Id p ~ DeclId => RenameEnv -> QualId p -> Maybe UseOfDecl
+findNamedUseOf env qid =
+    DeclUseGraph.findNamedUseOf
+      (envDeclUse env)
+      (coercePass qid)
+
+lookup :: RenameEnv -> QualId Parse -> Maybe (Decl Parse)
+lookup RenameEnv{envDeclUse = DeclUseGraph ud} qid = UseDecl.lookup qid ud
+
+{-------------------------------------------------------------------------------
   Use sites
 -------------------------------------------------------------------------------}
 
 class RenameUseSites a where
-  renameUses :: DeclUseGraph -> a HandleMacros -> a RenameAnon
+  renameUses :: RenameEnv -> a HandleMacros -> a RenameAnon
+
 
 instance RenameUseSites C.DeclKind where
-  renameUses du = \case
-      C.DeclStruct struct    -> C.DeclStruct (renameUses du struct)
+  renameUses env = \case
+      C.DeclStruct struct    -> C.DeclStruct (renameUses env struct)
       C.DeclStructOpaque     -> C.DeclStructOpaque
-      C.DeclUnion union      -> C.DeclUnion (renameUses du union)
+      C.DeclUnion union      -> C.DeclUnion (renameUses env union)
       C.DeclUnionOpaque      -> C.DeclUnionOpaque
-      C.DeclEnum enum        -> C.DeclEnum (renameUses du enum)
+      C.DeclEnum enum        -> C.DeclEnum (renameUses env enum)
       C.DeclEnumOpaque       -> C.DeclEnumOpaque
-      C.DeclTypedef typedef  -> C.DeclTypedef (renameUses du typedef)
-      C.DeclMacro macro      -> C.DeclMacro (renameUses du macro)
-      C.DeclFunction fun     -> C.DeclFunction (renameUses du fun)
+      C.DeclTypedef typedef  -> C.DeclTypedef (renameUses env typedef)
+      C.DeclMacro macro      -> C.DeclMacro (renameUses env macro)
+      C.DeclFunction fun     -> C.DeclFunction (renameUses env fun)
 
 instance RenameUseSites C.Struct where
-  renameUses du C.Struct{..} = C.Struct{
-        structFields = map (renameUses du) structFields
+  renameUses env C.Struct{..} = C.Struct{
+        structFields = map (renameUses env) structFields
       , ..
       }
 
 instance RenameUseSites C.StructField where
-  renameUses du C.StructField{..} = C.StructField{
-        structFieldType = renameUses du structFieldType
+  renameUses env C.StructField{..} = C.StructField{
+        structFieldType = renameUses env structFieldType
       , ..
       }
 
 instance RenameUseSites C.Union where
-  renameUses du C.Union{..} = C.Union{
-        unionFields = map (renameUses du) unionFields
+  renameUses env C.Union{..} = C.Union{
+        unionFields = map (renameUses env) unionFields
       , ..
       }
 
 instance RenameUseSites C.UnionField where
-  renameUses du C.UnionField{..} = C.UnionField{
-        unionFieldType = renameUses du unionFieldType
+  renameUses env C.UnionField{..} = C.UnionField{
+        unionFieldType = renameUses env unionFieldType
       , ..
       }
 
 instance RenameUseSites C.Enum where
-  renameUses du C.Enum{..} = C.Enum{
-        enumType      = renameUses du enumType
-      , enumConstants =  map (renameUses du) enumConstants
+  renameUses env C.Enum{..} = C.Enum{
+        enumType      = renameUses env enumType
+      , enumConstants =  map (renameUses env) enumConstants
       , ..
       }
 
@@ -130,25 +155,25 @@ instance RenameUseSites C.EnumConstant where
   renameUses _ C.EnumConstant{..} = C.EnumConstant{..}
 
 instance RenameUseSites C.Typedef where
-  renameUses du C.Typedef{..} = C.Typedef{
-        typedefType = renameUses du typedefType
+  renameUses env C.Typedef{..} = C.Typedef{
+        typedefType = renameUses env typedefType
       , ..
       }
 
 instance RenameUseSites C.Function where
-  renameUses du C.Function{..} = C.Function{
-        functionArgs = map (renameUses du) functionArgs
-      , functionRes = renameUses du functionRes
+  renameUses env C.Function{..} = C.Function{
+        functionArgs = map (renameUses env) functionArgs
+      , functionRes = renameUses env functionRes
       , ..
       }
 
 instance RenameUseSites CheckedMacro where
-  renameUses du (MacroType typ)  = MacroType (renameUses du typ)
+  renameUses env (MacroType typ)  = MacroType (renameUses env typ)
   renameUses _  (MacroExpr expr) = MacroExpr expr
 
 instance RenameUseSites CheckedMacroType where
-  renameUses du CheckedMacroType{..} = CheckedMacroType{
-        macroType = renameUses du macroType
+  renameUses env CheckedMacroType{..} = CheckedMacroType{
+        macroType = renameUses env macroType
       , ..
       }
 
@@ -166,26 +191,26 @@ renameType :: forall p.
      ( Id p ~ DeclId
      , TypedefRef p ~ CName
      )
-  => DeclUseGraph -> Type p -> Type RenameAnon
-renameType du = go
+  => RenameEnv -> Type p -> Type RenameAnon
+renameType env = go
   where
     go :: Type p -> Type RenameAnon
     go (C.TypePrim prim) =
         C.TypePrim prim
     go (C.TypeStruct uid) =
         let qid = C.QualId uid NamespaceStruct :: QualId p
-        in C.TypeStruct (renameUse du qid)
+        in C.TypeStruct (renameUse env qid)
     go (C.TypeUnion uid) =
         let qid = C.QualId uid NamespaceUnion :: QualId p
-        in C.TypeUnion (renameUse du qid)
+        in C.TypeUnion (renameUse env qid)
     go (C.TypeEnum uid) =
         let qid = C.QualId uid NamespaceEnum :: QualId p
-        in C.TypeEnum (renameUse du qid)
+        in C.TypeEnum (renameUse env qid)
     go (C.TypeTypedef uid) =
-        C.TypeTypedef (renameTypedefRef du uid)
+        C.TypeTypedef (renameTypedefRef env uid)
     go (C.TypeMacroTypedef uid) =
         let qid = C.QualId uid NamespaceMacro :: QualId p
-        in C.TypeMacroTypedef (renameUse du qid)
+        in C.TypeMacroTypedef (renameUse env qid)
     go (C.TypePointer ty) =
         C.TypePointer (go ty)
     go (C.TypeFun args res) =
@@ -202,12 +227,12 @@ renameType du = go
 -- | Rename specific use site
 --
 -- NOTE: there /must/ be at least one use site, because we are renaming one!
-renameUse :: Id p ~ DeclId => DeclUseGraph -> C.QualId p -> CName
-renameUse du qid@(C.QualId uid _namespace) =
+renameUse :: Id p ~ DeclId => RenameEnv -> C.QualId p -> CName
+renameUse env qid@(C.QualId uid _namespace) =
     case uid of
       DeclNamed name -> name
       DeclAnon  _    ->
-       case DeclUseGraph.findNamedUseOf du (coercePass qid) of
+       case findNamedUseOf env qid of
          Just useOfAnon -> nameForAnon useOfAnon
          Nothing        -> panicPure "impossible"
 
@@ -237,18 +262,18 @@ squashTypedef typedefName C.Typedef{typedefType = typ} =
 -- In order to know if the typedef is squashed or not, we need to look up
 -- its declaration. If no declaration is found (perhaps because it's external),
 -- we assume that it should not be squashed.
-renameTypedefRef :: DeclUseGraph -> CName -> RenamedTypedefRef RenameAnon
-renameTypedefRef du@(DeclUseGraph ud) typedefName =
+renameTypedefRef :: RenameEnv -> CName -> RenamedTypedefRef RenameAnon
+renameTypedefRef env typedefName =
     case squashTypedef typedefName =<< mDecl of
        Nothing -> TypedefRegular typedefName
-       Just ty -> TypedefSquashed typedefName $ renameType du ty
+       Just ty -> TypedefSquashed typedefName $ renameType env ty
   where
     typedefId :: QualId Parse
     typedefId = C.QualId (DeclNamed typedefName) NamespaceTypedef
 
     mDecl :: Maybe (Typedef Parse)
     mDecl = do
-        decl@C.Decl{declKind} <- UseDecl.lookup typedefId ud
+        decl@C.Decl{declKind} <- lookup env typedefId
         case declKind of
           DeclTypedef typedef ->
             return typedef
