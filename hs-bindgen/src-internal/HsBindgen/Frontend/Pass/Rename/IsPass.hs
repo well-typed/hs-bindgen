@@ -3,11 +3,10 @@ module HsBindgen.Frontend.Pass.Rename.IsPass (
   , RenamedTypedefRef(..)
   ) where
 
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.C
 
@@ -19,7 +18,7 @@ type RenameAnon :: Pass
 data RenameAnon a deriving anyclass ValidPass
 
 type family AnnRenameAnon ix where
-  AnnRenameAnon "TranslationUnit" = (UseDeclGraph, NonSelectedDecls)
+  AnnRenameAnon "TranslationUnit" = DeclMeta
   AnnRenameAnon _                 = NoAnn
 
 instance IsPass RenameAnon where

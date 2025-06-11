@@ -20,7 +20,9 @@ import Control.Monad.State
 
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), UseDeclGraph (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph, Usage (..))
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -34,7 +36,12 @@ import HsBindgen.Language.C
 -- | Reverse of 'UseDeclGraph'
 --
 -- This graph has edges from def sites to use sites.
-newtype DeclUseGraph = DeclUseGraph UseDeclGraph
+--
+-- TODO: This is wrong. The types suggest that the nested graph is the use-decl
+-- graph, but it's not, it's the reverse.
+newtype DeclUseGraph = Wrap {
+      unwrap :: UseDeclGraph
+    }
   deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
@@ -42,10 +49,8 @@ newtype DeclUseGraph = DeclUseGraph UseDeclGraph
 -------------------------------------------------------------------------------}
 
 fromUseDecl :: UseDeclGraph -> DeclUseGraph
-fromUseDecl UseDeclGraph{useDeclIndex, useDeclGraph} = DeclUseGraph UseDeclGraph{
-      useDeclIndex
-    , useDeclGraph = DynGraph.reverse useDeclGraph
-    }
+fromUseDecl (UseDeclGraph.Wrap graph) = Wrap . UseDeclGraph.Wrap $
+    DynGraph.reverse graph
 
 {-------------------------------------------------------------------------------
   Query: usage of anon declarations
@@ -57,12 +62,12 @@ data UseOfDecl =
   deriving stock (Show)
 
 -- | Find direct or indirect use by a named declaration, if it exists
-findNamedUseOf :: DeclUseGraph -> C.QualId Parse -> Maybe UseOfDecl
-findNamedUseOf (DeclUseGraph ud@UseDeclGraph{useDeclGraph}) =
+findNamedUseOf :: DeclIndex -> DeclUseGraph -> C.QualId Parse -> Maybe UseOfDecl
+findNamedUseOf declIndex (Wrap (UseDeclGraph.Wrap useDeclGraph)) =
       flip evalState id
     . DynGraph.findTrailFrom
         useDeclGraph
-        (aux . map (first (ud UseDeclGraph.!)))
+        (aux . map (first (declIndex DeclIndex.!)))
   where
     aux ::
          [(C.Decl Parse, Usage)] -- ^ Direct use sites
@@ -88,5 +93,5 @@ findNamedUseOf (DeclUseGraph ud@UseDeclGraph{useDeclGraph}) =
   Debugging
 -------------------------------------------------------------------------------}
 
-dumpMermaid :: DeclUseGraph -> String
-dumpMermaid (DeclUseGraph graph) = UseDeclGraph.dumpMermaid graph
+dumpMermaid :: DeclIndex -> DeclUseGraph -> String
+dumpMermaid declIndex (Wrap graph) = UseDeclGraph.dumpMermaid declIndex graph

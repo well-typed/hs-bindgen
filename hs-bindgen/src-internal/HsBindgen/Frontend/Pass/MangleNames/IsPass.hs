@@ -9,10 +9,10 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Rename.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.Haskell
@@ -30,7 +30,7 @@ data NameMangler a deriving anyclass (ValidPass)
 
 type family AnnNameMangler ix where
   AnnNameMangler "Decl"             = DeclSpec
-  AnnNameMangler "TranslationUnit"  = UseDeclGraph
+  AnnNameMangler "TranslationUnit"  = DeclMeta
   AnnNameMangler "Struct"           = RecordNames
   AnnNameMangler "Union"            = NewtypeNames
   AnnNameMangler "Enum"             = NewtypeNames

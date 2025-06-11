@@ -23,6 +23,7 @@ import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Rename.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C (CName(..))
 import HsBindgen.Language.C qualified as C
@@ -42,7 +43,7 @@ resolveBindingSpec
   extSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     let (decls, MState{..}) =
-          runM confSpec extSpec unitIncludeGraph (snd unitAnn) $
+          runM confSpec extSpec unitIncludeGraph (declNonSelected unitAnn) $
             resolveDecls unitDecls
         notUsedErrs = BindingSpecTypeNotUsed <$> Set.toAscList stateNoConfTypes
     in  (reassemble decls, reverse stateErrors ++ notUsedErrs)
@@ -52,8 +53,7 @@ resolveBindingSpec
       -> C.TranslationUnit ResolveBindingSpec
     reassemble decls' = C.TranslationUnit{
         unitDecls = decls'
-      , unitIncludeGraph
-      , unitAnn = fst unitAnn
+      , ..
       }
 
 data BindingSpecError =
