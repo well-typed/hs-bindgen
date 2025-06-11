@@ -2,9 +2,9 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph, Usage)
--- > import HsBindgen.Frontend.Graph.UseDecl qualified as UseDeclGraph
-module HsBindgen.Frontend.Graph.UseDecl (
+-- > import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph, Usage)
+-- > import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
+module HsBindgen.Frontend.Analysis.UseDeclGraph (
     -- * Definition
     UseDeclGraph(..)
   , Usage(..)
@@ -30,10 +30,10 @@ import Clang.Paths
 import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
-import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 

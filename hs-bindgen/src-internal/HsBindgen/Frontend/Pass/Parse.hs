@@ -7,8 +7,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 
 import HsBindgen.C.Predicate (IsMainFile, Predicate)
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad

@@ -9,8 +9,8 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
-import HsBindgen.Frontend.Graph.UseDecl (UseDeclGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Rename.IsPass
 import HsBindgen.Imports

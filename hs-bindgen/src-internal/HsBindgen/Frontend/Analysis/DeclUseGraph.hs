@@ -2,9 +2,9 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Frontend.Graph.DeclUse (DeclUseGraph)
--- > import HsBindgen.Frontend.Graph.DeclUse qualified as DeclUseGraph
-module HsBindgen.Frontend.Graph.DeclUse (
+-- > import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
+-- > import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+module HsBindgen.Frontend.Analysis.DeclUseGraph (
     -- * Definition
     DeclUseGraph(..)
     -- * Construction
@@ -20,9 +20,9 @@ import Control.Monad.State
 
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), UseDeclGraph (..))
+import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Graph.UseDecl (Usage (..), UseDeclGraph (..))
-import HsBindgen.Frontend.Graph.UseDecl qualified as UseDeclGraph
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
