@@ -3,8 +3,6 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 
 -- For flexible array members:
 {-# OPTIONS_GHC -Wno-orphans #-}
@@ -14,8 +12,8 @@ import Control.Exception (AssertionFailed (AssertionFailed),
                           Exception (fromException), TypeError (TypeError),
                           bracket, evaluate, try, tryJust)
 import Control.Monad (unless, when)
-import Data.Data (Proxy (Proxy))
 import Data.Either (isRight)
+import Data.Proxy (Proxy (Proxy))
 import Data.Vector.Storable qualified as VS
 import Foreign (Ptr, Storable (..), nullPtr, with)
 import Foreign.C.Types (CInt, CLong)
@@ -24,13 +22,14 @@ import Test.Tasty (TestTree, defaultMain, testGroup)
 import Test.Tasty.HUnit (Assertion, HasCallStack, assertFailure, testCase,
                          (@?=))
 
+import HsBindgen.Runtime.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.CEnum qualified as CEnum
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember (FLAMLengthMismatch (FLAMLengthMismatch))
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.LibC qualified as LibC
-import HsBindgen.Runtime.CAPI (allocaAndPeek)
 
+import Test.Internal.Tasty (assertException)
 import Test01 qualified
 import Test02 qualified
 
@@ -218,12 +217,3 @@ main = defaultMain $ testGroup CURRENT_COMPONENT_ID
     [ test01
     , test02
     ]
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
-
-assertException :: forall e a. Exception e => String -> Proxy e -> IO a -> Assertion
-assertException msg exception action = do
-  result <- tryJust (\x -> fromException x :: Maybe e) action
-  when (isRight result) $ assertFailure msg

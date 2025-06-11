@@ -11,6 +11,7 @@ module HsBindgen.Util.Tracer (
   , Source (..)
   , HasSource (..)
   , Verbosity (..)
+  , ErrorTraceException (..)
   -- | Tracer configuration
   , AnsiColor (..)
   , ShowTimeStamp (..)
@@ -26,9 +27,11 @@ module HsBindgen.Util.Tracer (
   , withTracerStdOut
   , withTracerFile
   , withTracerCustom
+  , withTracerCustom'
   ) where
 
 import Control.Applicative (ZipList (ZipList, getZipList))
+import Control.Exception (Exception (..), throwIO)
 import Control.Monad (when)
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import Control.Tracer (Contravariant (contramap), Tracer (Tracer), emit,
@@ -36,13 +39,16 @@ import Control.Tracer (Contravariant (contramap), Tracer (Tracer), emit,
 import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
-import GHC.Stack (HasCallStack, callStack, CallStack, prettyCallStack)
+import GHC.Stack (CallStack, HasCallStack, callStack, prettyCallStack)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
                             ConsoleLayer (Foreground),
                             SGR (SetColor, SetConsoleIntensity),
                             hSupportsANSIColor, setSGRCode)
-import System.IO (IOMode (AppendMode), hPutStrLn, stdout, withFile)
+import System.IO (Handle, IOMode (AppendMode), hPutStrLn, stdout, withFile)
+
+import HsBindgen.Errors (hsBindgenExceptionFromException,
+                         hsBindgenExceptionToException)
 
 {-------------------------------------------------------------------------------
   Data types and type classes useful for tracing
@@ -71,7 +77,7 @@ getColorForLevel = \case
 
 -- | Convert values to textual representations used in traces.
 class PrettyTrace a where
-  -- TODO: Use 'Text' (issue #650).
+  -- Issue #650: use 'Text'.
   prettyTrace :: a -> String
 
 -- | Get default (or suggested) log level of values used in traces.
@@ -94,6 +100,15 @@ class HasSource a where
 
 newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
+
+data ErrorTraceException = ErrorTraceException
+
+instance Show ErrorTraceException where
+  show _ = "An error happened while generating bindings (see above)"
+
+instance Exception ErrorTraceException where
+  toException = hsBindgenExceptionToException
+  fromException = hsBindgenExceptionFromException
 
 {-------------------------------------------------------------------------------
   Tracer configuration
@@ -129,6 +144,91 @@ data CustomLogLevel a = DefaultLogLevel | CustomLogLevel (a -> Level)
 
 {-------------------------------------------------------------------------------
   Tracers
+-------------------------------------------------------------------------------}
+
+-- | Run an action with a tracer writing to 'stdout'. Use ANSI colors, if available.
+--
+-- Throw exception after performing action if an 'Error' trace was emitted.
+withTracerStdOut :: MonadIO m => (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
+  => TracerConf
+  -> CustomLogLevel a
+  -> (Tracer m (TraceWithCallStack a) -> m b)
+  -> m b
+withTracerStdOut tracerConf customLogLevel action = do
+  ansiColor <- getAnsiColor stdout
+  withExceptionOnError $ \ref ->
+    action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
+
+-- | Run an action with a tracer writing to a file. Do not use ANSI colors.
+--
+-- Throw exception after performing action if an 'Error' trace was emitted.
+withTracerFile
+  :: (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
+  => FilePath
+  -> TracerConf
+  -> CustomLogLevel a
+  -> (Tracer IO (TraceWithCallStack a) -> IO b)
+  -> IO b
+withTracerFile file tracerConf customLogLevel action =
+  withFile file AppendMode $ \handle ->
+    withExceptionOnError $ \ref ->
+      action $
+        mkTracer DisableAnsiColor tracerConf customLogLevel ref (hPutStrLn handle)
+
+-- | Run an action with a tracer using a custom report function.
+--
+-- Throw exception after performing action if an 'Error' trace was emitted.
+withTracerCustom
+  :: forall m a b. (MonadIO m, PrettyTrace a, HasDefaultLogLevel a, HasSource a)
+  => AnsiColor
+  -> TracerConf
+  -> CustomLogLevel a
+  -> (String -> m ())
+  -> (Tracer m (TraceWithCallStack a) -> m b)
+  -> m b
+withTracerCustom ansiColor tracerConf customLogLevel report action =
+  exceptionOnError (withTracerCustom' ansiColor tracerConf customLogLevel report action)
+
+-- | Run an action with a tracer using a custom report function.
+--
+-- Do not throw exception on 'Error' traces; instead return the maximum log
+-- level of traces.
+withTracerCustom' :: (MonadIO m, PrettyTrace a, HasDefaultLogLevel a,  HasSource a)
+  => AnsiColor
+  -> TracerConf
+  -> CustomLogLevel a
+  -> (String -> m ())
+  -> (Tracer m (TraceWithCallStack a) -> m b)
+  -> m (b, Level)
+withTracerCustom' ansiColor tracerConf customLogLevel report action =
+  withIORef Debug $ \ref ->
+    action $ mkTracer ansiColor tracerConf customLogLevel ref report
+
+{-------------------------------------------------------------------------------
+  Trace with call stack
+-------------------------------------------------------------------------------}
+
+data TraceWithCallStack a = TraceWithCallStack { tTrace     :: a
+                                               , tCallStack :: CallStack }
+
+instance Functor TraceWithCallStack where
+  fmap f trace = trace { tTrace = f (tTrace trace) }
+
+traceWithCallStack :: (Monad m, HasCallStack)
+  => Tracer m (TraceWithCallStack a) -> a -> m ()
+traceWithCallStack tracer trace =
+  traceWith tracer (TraceWithCallStack trace callStack)
+
+-- | Use, for example, to specialize a tracer with a call stack.
+--
+-- > useDiagnostic :: Tracer IO (TraceWithCallStack Trace)
+-- >               -> Tracer IO (TraceWithCallStack Diagnostic)
+-- > useDiagnostic = useTrace TraceDiagnostic
+useTrace :: (Contravariant c, Functor f)  => (b -> a) -> c (f a) -> c (f b)
+useTrace = contramap . fmap
+
+{-------------------------------------------------------------------------------
+  Internal helpers
 -------------------------------------------------------------------------------}
 
 -- | Create a tracer emitting traces to a provided function @report@.
@@ -203,77 +303,7 @@ mkTracer ansiColor (TracerConf {..}) customLogLevel maxLogLevelRef report =
     indent :: String -> String
     indent = ("  " <>)
 
--- | Run an action with a tracer writing to 'stdout'. Use ANSI colors, if available.
---
--- Also return the maximum log level of traces.
-withTracerStdOut :: MonadIO m => (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => TracerConf
-  -> CustomLogLevel a
-  -> (Tracer m (TraceWithCallStack a) -> m b)
-  -> m (b, Level)
-withTracerStdOut tracerConf customLogLevel action = do
-  supportsAnsiColor <- liftIO $ hSupportsANSIColor stdout
-  let ansiColor = if supportsAnsiColor then EnableAnsiColor else DisableAnsiColor
-  withIORef Debug $ \ref ->
-    action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
 
--- | Run an action with a tracer writing to a file. Do not use ANSI colors.
---
--- Also return the maximum log level of traces.
-withTracerFile
-  :: (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => FilePath
-  -> TracerConf
-  -> CustomLogLevel a
-  -> (Tracer IO (TraceWithCallStack a) -> IO b)
-  -> IO (b, Level)
-withTracerFile file tracerConf customLogLevel action =
-  withFile file AppendMode $ \handle ->
-    withIORef Debug $ \ref ->
-      action $
-        mkTracer DisableAnsiColor tracerConf customLogLevel ref (hPutStrLn handle)
-
--- | Run an action with a tracer using a custom report function.
---
--- Also return the maximum log level of traces.
-withTracerCustom
-  :: forall m a b. (MonadIO m, PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => AnsiColor
-  -> TracerConf
-  -> CustomLogLevel a
-  -> (String -> m ())
-  -> (Tracer m (TraceWithCallStack a) -> m b)
-  -> m (b, Level)
-withTracerCustom ansiColor tracerConf customLogLevel report action =
-  withIORef Debug $ \ref ->
-    action $ mkTracer ansiColor tracerConf customLogLevel ref report
-
-{-------------------------------------------------------------------------------
-  Trace with call stack
--------------------------------------------------------------------------------}
-
-data TraceWithCallStack a = TraceWithCallStack { tTrace     :: a
-                                               , tCallStack :: CallStack }
-
-instance Functor TraceWithCallStack where
-  fmap f trace = trace { tTrace = f (tTrace trace) }
-
-traceWithCallStack :: (Monad m, HasCallStack)
-  => Tracer m (TraceWithCallStack a) -> a -> m ()
-traceWithCallStack tracer trace =
-  traceWith tracer (TraceWithCallStack trace callStack)
-
--- | Use, for example, to specialize a tracer with a call stack.
---
--- > useDiagnostic :: Tracer IO (TraceWithCallStack Trace)
--- >               -> Tracer IO (TraceWithCallStack Diagnostic)
--- > useDiagnostic = useTrace TraceDiagnostic
-useTrace :: (Contravariant c, Functor f)  => (b -> a) -> c (f a) -> c (f b)
-useTrace = contramap . fmap
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
 
 -- | Render a string in bold and a specified color.
 --
@@ -292,9 +322,22 @@ withColor EnableAnsiColor    level = withColor' (getColorForLevel level)
         resetColor :: String
         resetColor = setSGRCode []
 
+exceptionOnError :: MonadIO m => m (a, Level) -> m a
+exceptionOnError k = k >>= \case
+  (_, Error) -> liftIO $ throwIO ErrorTraceException
+  (r, _    ) -> pure r
+
+withExceptionOnError :: MonadIO m => (IORef Level -> m a) -> m a
+withExceptionOnError action = exceptionOnError (withIORef Debug action)
+
 withIORef :: MonadIO m => b -> (IORef b -> m a) -> m (a, b)
 withIORef initialValue action = do
   ref <- liftIO $ newIORef initialValue
   actionResult <- action ref
   refResult <- liftIO $ readIORef ref
   pure (actionResult, refResult)
+
+getAnsiColor :: MonadIO m => Handle -> m AnsiColor
+getAnsiColor handle = do
+    supportsAnsiColor <- liftIO $ hSupportsANSIColor handle
+    pure $ if supportsAnsiColor then EnableAnsiColor else DisableAnsiColor

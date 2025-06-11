@@ -20,9 +20,7 @@ import HsBindgen.Lib
 main :: IO ()
 main = handle exceptionHandler $ do
     cli@Cli{..} <- getCli
-    _ <- withTracerStdOut (globalOptsTracerConf cliGlobalOpts) DefaultLogLevel $ \tracer ->
-      execMode cli tracer cliMode
-    pure ()
+    execMode cli cliMode
 
 data LiterateFileException = LiterateFileException FilePath String
   deriving Show
@@ -33,31 +31,35 @@ instance Exception LiterateFileException where
     displayException (LiterateFileException path err) =
       "error loading " ++ path ++ ": " ++ err
 
-execMode :: HasCallStack => Cli -> Tracer IO (TraceWithCallStack Trace) -> Mode -> IO ()
-execMode Cli{..} tracer = \case
-    ModePreprocess{..} -> do
-      extBindings <- loadExtBindings' tracer cliGlobalOpts
-      let opts = cmdOpts {
-              optsExtBindings = extBindings
-            , optsTranslation = preprocessTranslationOpts
-            }
-          ppOpts = defaultPPOpts {
-              ppOptsModule = preprocessModuleOpts
-            , ppOptsRender = preprocessRenderOpts
-            }
-      -- to avoid potential issues it would be great to include unitid in module unique
-      -- but AFAIK there is no way to get one for preprocessor
-      -- https://github.com/well-typed/hs-bindgen/issues/502
-      let mu :: ModuleUnique
-          mu = ModuleUnique $ filter isLetter $ hsModuleOptsName $ preprocessModuleOpts
-      decls <- translateCHeader mu opts preprocessInput
-      preprocessIO ppOpts preprocessOutput decls
-      case preprocessGenExtBindings of
-        Nothing   -> return ()
-        Just path -> genExtBindings ppOpts preprocessInput path decls
+execMode :: HasCallStack => Cli -> Mode -> IO ()
+execMode Cli{..} = \case
+    ModePreprocess{..} -> genDecls >>= outputDecls
+      where
+        genDecls = withTracer $ \tracer -> do
+          extBindings <- loadExtBindings' tracer cliGlobalOpts
+          let opts = cmdOpts {
+                  optsExtBindings = extBindings
+                , optsTranslation = preprocessTranslationOpts
+                , optsTracer      = tracer
+                }
+          -- to avoid potential issues it would be great to include unitid in module unique
+          -- but AFAIK there is no way to get one for preprocessor
+          -- https://github.com/well-typed/hs-bindgen/issues/502
+          let mu :: ModuleUnique
+              mu = ModuleUnique $ filter isLetter $ hsModuleOptsName $ preprocessModuleOpts
+          translateCHeader mu opts preprocessInput
+        outputDecls decls = do
+          let ppOpts = defaultPPOpts {
+                ppOptsModule = preprocessModuleOpts
+              , ppOptsRender = preprocessRenderOpts
+              }
+          preprocessIO ppOpts preprocessOutput decls
+          case preprocessGenExtBindings of
+            Nothing   -> return ()
+            Just path -> genExtBindings ppOpts preprocessInput path decls
 
     ModeGenTests{..} -> do
-      extBindings <- loadExtBindings' tracer cliGlobalOpts
+      extBindings <- withTracer $ \tracer -> loadExtBindings' tracer cliGlobalOpts
       let opts = defaultOpts {
               optsExtBindings = extBindings
             }
@@ -68,21 +70,22 @@ execMode Cli{..} tracer = \case
       genTests ppOpts genTestsInput genTestsOutput
         =<< translateCHeader "TODO" opts genTestsInput
 
-    ModeLiterate input output -> execLiterate input output tracer
+    ModeLiterate input output -> execLiterate input output
   where
     cmdOpts :: Opts
     cmdOpts = defaultOpts {
         optsClangArgs  = globalOptsClangArgs cliGlobalOpts
       , optsPredicate  = globalOptsPredicate cliGlobalOpts
-      , optsTracer     = tracer
       }
+    withTracer :: (Tracer IO (TraceWithCallStack Trace) -> IO b) -> IO b
+    withTracer = withTracerStdOut (globalOptsTracerConf cliGlobalOpts) DefaultLogLevel
 
-execLiterate :: FilePath -> FilePath -> Tracer IO (TraceWithCallStack Trace) -> IO ()
-execLiterate input output tracer = do
+execLiterate :: FilePath -> FilePath -> IO ()
+execLiterate input output = do
     args <- maybe (throw' "cannot parse literate file") return . readMaybe
       =<< readFile input
     case pureParseModePreprocess args of
-      Just cli -> execMode cli tracer $ case cliMode cli of
+      Just cli -> execMode cli $ case cliMode cli of
         mode@ModePreprocess{} -> mode { preprocessOutput = Just output }
         mode                  -> mode
       Nothing -> throw' "cannot parse arguments in literate file"

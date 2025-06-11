@@ -19,7 +19,8 @@ $(do
     let args = defaultClangArgs {
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
-    extBindings <- snd . fst <$> (withTracerStdOut defaultTracerConf degradeKnownTraces $
+        tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
+    extBindings <- snd <$> (withTracerStdOut tracerConf degradeKnownTraces $
       \tracer -> loadExtBindings tracer args [
         joinPath [dir, "bindings", "base.yaml"]
       , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]
