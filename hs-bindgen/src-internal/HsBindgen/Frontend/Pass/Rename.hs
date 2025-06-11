@@ -5,7 +5,7 @@ import Prelude hiding (lookup)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph (..), UseOfDecl (..))
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph, UseOfDecl (..))
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
 import HsBindgen.Frontend.AST.Coerce
