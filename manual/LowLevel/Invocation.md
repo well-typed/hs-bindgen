@@ -48,7 +48,8 @@ Configuration of `libclang` via environment variables is important because:
   `hs-bindgen`'s behavior for packages that use it.
 
 - Users may want to configure `hs-bindgen`'s behavior when it is invoked via
-  Template Haskell (using `genBindings`), without modifying the source code.
+  Template Haskell (using `hashInclude` or `hashIncludeWith`), without modifying
+  the source code.
 
 Note that when using `hs-bindgen-cli`, users can fully configure `libclang`
 with command-line arguments. For instance, they can set:

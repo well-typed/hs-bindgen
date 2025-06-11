@@ -20,4 +20,4 @@ import HsBindgen.TH
 -- Used by generated code
 import Foreign.C.Types
 
-$(getPackageRoot >>= \dir -> genBindings' [dir </> "examples"] "test_01.h")
+hashInclude "test_01.h" def { extraIncludeDirs = [ PackageRoot "examples" ] }

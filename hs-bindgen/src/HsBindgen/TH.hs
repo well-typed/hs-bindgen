@@ -3,12 +3,16 @@
 -- | Main entry point for using @hs-bindgen@ in TH mode
 module HsBindgen.TH (
     -- * Template Haskell API
-    Pipeline.genBindings
-  , Pipeline.genBindings'
+    Pipeline.hashInclude'
+  , Pipeline.hashInclude
+  , Pipeline.hashIncludeWith
 
     -- * Options
   , Pipeline.Opts(..)
   , Pipeline.defaultOpts
+  , Pipeline.QuoteIncludeDir(..)
+  , Pipeline.HashIncludeOpts(..)
+  , module Default
 
     -- ** Clang arguments
   , Args.ClangArgs(..)
@@ -58,6 +62,7 @@ import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
+import HsBindgen.Imports as Default (Default (..))
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Trace qualified as Trace
