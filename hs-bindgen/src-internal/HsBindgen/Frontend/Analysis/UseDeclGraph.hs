@@ -6,7 +6,8 @@
 -- > import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 module HsBindgen.Frontend.Analysis.UseDeclGraph (
     -- * Definition
-    UseDeclGraph(..) -- TODO: should be opaque
+    UseDeclGraph -- opaque
+  , toDynGraph
   , Usage(..)
   , ValOrRef(..)
     -- * Construction
@@ -48,6 +49,9 @@ newtype UseDeclGraph = Wrap {
       unwrap :: DynGraph Usage (C.QualId Parse)
     }
   deriving stock (Show, Eq)
+
+toDynGraph :: UseDeclGraph -> DynGraph Usage (C.QualId Parse)
+toDynGraph = unwrap
 
 {-------------------------------------------------------------------------------
   Construction

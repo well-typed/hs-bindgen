@@ -6,18 +6,17 @@
 -- > import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 module HsBindgen.Frontend.Analysis.DeclUseGraph (
     -- * Definition
-    DeclUseGraph(..)
+    DeclUseGraph -- opaque
     -- * Construction
   , fromUseDecl
     -- * Query
   , UseOfDecl(..)
   , findNamedUseOf
-    -- * Debugging
-  , dumpMermaid
   ) where
 
 import Control.Monad.State
 
+import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
@@ -36,11 +35,8 @@ import HsBindgen.Language.C
 -- | Reverse of 'UseDeclGraph'
 --
 -- This graph has edges from def sites to use sites.
---
--- TODO: This is wrong. The types suggest that the nested graph is the use-decl
--- graph, but it's not, it's the reverse.
 newtype DeclUseGraph = Wrap {
-      unwrap :: UseDeclGraph
+      unwrap :: DynGraph Usage (C.QualId Parse)
     }
   deriving stock (Show, Eq)
 
@@ -49,8 +45,7 @@ newtype DeclUseGraph = Wrap {
 -------------------------------------------------------------------------------}
 
 fromUseDecl :: UseDeclGraph -> DeclUseGraph
-fromUseDecl (UseDeclGraph.Wrap graph) = Wrap . UseDeclGraph.Wrap $
-    DynGraph.reverse graph
+fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
 
 {-------------------------------------------------------------------------------
   Query: usage of anon declarations
@@ -63,10 +58,10 @@ data UseOfDecl =
 
 -- | Find direct or indirect use by a named declaration, if it exists
 findNamedUseOf :: DeclIndex -> DeclUseGraph -> C.QualId Parse -> Maybe UseOfDecl
-findNamedUseOf declIndex (Wrap (UseDeclGraph.Wrap useDeclGraph)) =
+findNamedUseOf declIndex (Wrap graph) =
       flip evalState id
     . DynGraph.findTrailFrom
-        useDeclGraph
+        graph
         (aux . map (first (declIndex DeclIndex.!)))
   where
     aux ::
@@ -88,10 +83,3 @@ findNamedUseOf declIndex (Wrap (UseDeclGraph.Wrap useDeclGraph)) =
         return $ Right Nothing
     aux (_:_:_) =
         panicPure "findUseOfAnon: impossible multiple use of anon decl"
-
-{-------------------------------------------------------------------------------
-  Debugging
--------------------------------------------------------------------------------}
-
-dumpMermaid :: DeclIndex -> DeclUseGraph -> String
-dumpMermaid declIndex (Wrap graph) = UseDeclGraph.dumpMermaid declIndex graph
