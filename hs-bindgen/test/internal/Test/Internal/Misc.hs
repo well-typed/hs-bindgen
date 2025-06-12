@@ -7,9 +7,10 @@ module Test.Internal.Misc (
 
 import Data.ByteString qualified as BS
 import Data.ByteString.UTF8 qualified as UTF8
-import System.Directory (doesFileExist, setCurrentDirectory, getCurrentDirectory)
+import System.Directory (doesFileExist, getCurrentDirectory,
+                         setCurrentDirectory)
 import System.FilePath ((-<.>))
-import Test.Tasty (TestTree, TestName)
+import Test.Tasty (TestName, TestTree)
 
 import AnsiDiff (ansidiff)
 import Clang.Paths
@@ -66,7 +67,7 @@ findPackageDirectory pkgname = do
 -------------------------------------------------------------------------------
 
 clangArgs :: FilePath -> ClangArgs
-clangArgs packageRoot = defaultClangArgs{
+clangArgs packageRoot = def {
       clangTarget = Just (Target_Linux_X86_64, TargetEnvOverride "gnu")
     , clangCStandard = Just C23
     , clangSystemIncludePathDirs = [

@@ -3,9 +3,7 @@
 module HsBindgen.Pipeline (
     -- * Options
     Opts(..)
-  , defaultOpts
   , PPOpts(..)
-  , defaultPPOpts
 
     -- * Translation pipeline components
   , parseCHeader
@@ -90,12 +88,11 @@ data Opts = Opts {
     , optsTracer      :: Tracer IO (TraceWithCallStack Trace)
     }
 
--- | Default 'Opts'
-defaultOpts :: Opts
-defaultOpts = Opts {
-      optsClangArgs   = defaultClangArgs
+instance Default Opts where
+  def = Opts {
+      optsClangArgs   = def
     , optsExtBindings = BindingSpec.empty
-    , optsTranslation = Hs.defaultTranslationOpts
+    , optsTranslation = def
     , optsPredicate   = SelectFromMainFiles
     , optsTracer      = nullTracer
     }
@@ -106,9 +103,8 @@ data PPOpts = PPOpts {
     , ppOptsRender :: HsRenderOpts -- ^ Default line length: 120
     }
 
--- | Default 'PPOpts'
-defaultPPOpts :: PPOpts
-defaultPPOpts = PPOpts {
+instance Default PPOpts where
+  def = PPOpts {
       ppOptsModule = HsModuleOpts { hsModuleOptsName = "Generated" }
     , ppOptsRender = HsRenderOpts { hsLineLength = 120 }
     }
@@ -186,24 +182,16 @@ preprocessIO ppOpts fp = genPP ppOpts fp . genModule ppOpts . genSHsDecls
   Template Haskell API
 -------------------------------------------------------------------------------}
 
--- | Project-specific (quoted) C include directory
 
 -- Potential TODO: Make this an opaque type, ensure path exists, and construct
 -- normal file path right away.
+
+-- | Project-specific (quoted) C include directory
 data QuoteIncludeDir =
     -- | Relative to package root.
     PackageRoot FilePath
   | QuoteIncludeDir FilePath
   deriving stock (Eq, Show)
-
-toFilePath :: FilePath -> QuoteIncludeDir -> FilePath
-toFilePath root (PackageRoot     x) = root </> x
-toFilePath _    (QuoteIncludeDir x) = x
-
-toFilePaths :: [QuoteIncludeDir] -> TH.Q [FilePath]
-toFilePaths xs = do
-  root <- getPackageRoot
-  pure $ map (toFilePath root) xs
 
 -- | Options
 newtype HashIncludeOpts = HashIncludeOpts {
@@ -216,7 +204,7 @@ instance Default HashIncludeOpts where
 
 -- | Generate bindings for the given C header (simple)
 --
--- Use default options 'defaultOpts'.
+-- Use default options ('Opts').
 --
 -- In particular, do not add custom C include directories.
 --
@@ -229,7 +217,7 @@ hashInclude' fp = hashInclude fp def
 
 -- | Generate bindings for the given C header (custom C include directories)
 --
--- Use default options 'defaultOpts' but allow specification of custom C include
+-- Use default options ('Opts') but allow specification of custom C include
 -- directories.
 --
 -- Please see 'hashInclude' (simple interface) or 'hashIncludeWith' (customized
@@ -240,12 +228,22 @@ hashInclude ::
   -> TH.Q [TH.Dec]
 hashInclude fp HashIncludeOpts {..} = do
   quoteIncludeDirs <- toFilePaths extraIncludeDirs
-  let opts = defaultOpts {
-        optsClangArgs = defaultClangArgs {
+  let opts :: Opts
+      opts = def {
+        optsClangArgs = def {
             clangQuoteIncludePathDirs  = CIncludePathDir <$> quoteIncludeDirs
           }
       }
   hashIncludeWith opts fp
+  where
+    toFilePath :: FilePath -> QuoteIncludeDir -> FilePath
+    toFilePath root (PackageRoot     x) = root </> x
+    toFilePath _    (QuoteIncludeDir x) = x
+
+    toFilePaths :: [QuoteIncludeDir] -> TH.Q [FilePath]
+    toFilePaths xs = do
+      root <- getPackageRoot
+      pure $ map (toFilePath root) xs
 
 -- | Generate bindings for the given C header
 hashIncludeWith :: HasCallStack =>

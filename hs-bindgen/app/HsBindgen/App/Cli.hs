@@ -128,7 +128,7 @@ parseModeLiterate = do
 -------------------------------------------------------------------------------}
 
 parseTranslationOpts :: Parser TranslationOpts
-parseTranslationOpts = pure defaultTranslationOpts
+parseTranslationOpts = pure def
 
 parseHsModuleOpts :: Parser HsModuleOpts
 parseHsModuleOpts =

@@ -4,7 +4,6 @@
 module Clang.Args (
     ClangArgs(..)
   , CStandard(..)
-  , defaultClangArgs
   , fromClangArgs
     -- * Cross-compilation
   , Target(..)
@@ -13,6 +12,7 @@ module Clang.Args (
   ) where
 
 import Control.Monad.Except
+import Data.Default (Default (..))
 
 import Clang.Paths
 import Clang.Version
@@ -56,6 +56,17 @@ data ClangArgs = ClangArgs {
     }
   deriving stock (Show, Eq)
 
+instance Default ClangArgs where
+ def = ClangArgs {
+      clangTarget                = Nothing
+    , clangCStandard             = Nothing
+    , clangEnableGnu             = False
+    , clangStdInc                = True
+    , clangSystemIncludePathDirs = []
+    , clangQuoteIncludePathDirs  = []
+    , clangOtherArgs             = []
+    }
+
 -- | C standard
 --
 -- References:
@@ -74,17 +85,6 @@ data CStandard =
   | C17
   | C23
   deriving stock (Bounded, Enum, Eq, Ord, Show)
-
-defaultClangArgs :: ClangArgs
-defaultClangArgs = ClangArgs {
-      clangTarget                = Nothing
-    , clangCStandard             = Nothing
-    , clangEnableGnu             = False
-    , clangStdInc                = True
-    , clangSystemIncludePathDirs = []
-    , clangQuoteIncludePathDirs  = []
-    , clangOtherArgs             = []
-    }
 
 {-------------------------------------------------------------------------------
   Translation

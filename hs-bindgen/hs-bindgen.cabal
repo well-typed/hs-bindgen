@@ -295,6 +295,7 @@ executable clang-ast-dump
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
+    , data-default
     , text
   build-depends:
       -- External dependencies

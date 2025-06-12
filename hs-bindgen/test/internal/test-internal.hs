@@ -177,13 +177,13 @@ tests packageRoot getAnsiColor getRustBindgen =
 
     withOpts :: (String -> IO ()) -> (Pipeline.Opts -> IO a) -> IO a
     withOpts report action = withTracerTestCustom report getAnsiColor $
-        \tracer' -> action $ Pipeline.defaultOpts {
+        \tracer' -> action $ (def :: Pipeline.Opts) {
             Pipeline.optsClangArgs = clangArgs packageRoot
           , Pipeline.optsTracer = tracer'
           }
 
     ppOpts :: Pipeline.PPOpts
-    ppOpts = Pipeline.defaultPPOpts {
+    ppOpts = def {
         Pipeline.ppOptsModule = HsModuleOpts { hsModuleOptsName = "Example" }
       }
 

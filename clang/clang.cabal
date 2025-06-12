@@ -98,6 +98,7 @@ library
       Clang.HighLevel.Wrappers
   build-depends:
       -- External dependencies
+    , data-default  >= 0.8   && < 0.9
     , exceptions    >= 0.10  && < 0.11
     , filepath      >= 1.4   && < 1.6
     , mtl           >= 2.2   && < 2.4
@@ -141,4 +142,5 @@ test-suite clang-tutorial
     , clang
   build-depends:
       -- Inherited dependencies
+    , data-default
     , text

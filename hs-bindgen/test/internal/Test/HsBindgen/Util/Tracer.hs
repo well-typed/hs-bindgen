@@ -72,7 +72,7 @@ tests = testGroup "HsBindgen.Util.Tracer"
     ]
   , testGroup "ExceptionOnError"
     [ testCase "exception" $
-        assertException "Expected panicIO" (Proxy :: Proxy ErrorTraceException) $ do
+        assertException "Expected ErrorTraceException" (Proxy :: Proxy ErrorTraceException) $ do
           let noOutput _ = pure ()
               tracerConf = defaultTracerConf { tVerbosity = Verbosity Debug }
               withTracer = withTracerCustom DisableAnsiColor tracerConf DefaultLogLevel noOutput

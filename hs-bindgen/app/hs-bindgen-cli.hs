@@ -49,7 +49,7 @@ execMode Cli{..} = \case
               mu = ModuleUnique $ filter isLetter $ hsModuleOptsName $ preprocessModuleOpts
           translateCHeader mu opts preprocessInput
         outputDecls decls = do
-          let ppOpts = defaultPPOpts {
+          let ppOpts = (def :: PPOpts) {
                 ppOptsModule = preprocessModuleOpts
               , ppOptsRender = preprocessRenderOpts
               }
@@ -60,10 +60,10 @@ execMode Cli{..} = \case
 
     ModeGenTests{..} -> do
       extBindings <- withTracer $ \tracer -> loadExtBindings' tracer cliGlobalOpts
-      let opts = defaultOpts {
+      let opts = (def :: Opts) {
               optsExtBindings = extBindings
             }
-          ppOpts = defaultPPOpts {
+          ppOpts = (def :: PPOpts) {
               ppOptsModule = genTestsModuleOpts
             , ppOptsRender = genTestsRenderOpts
             }
@@ -73,7 +73,7 @@ execMode Cli{..} = \case
     ModeLiterate input output -> execLiterate input output
   where
     cmdOpts :: Opts
-    cmdOpts = defaultOpts {
+    cmdOpts = def {
         optsClangArgs  = globalOptsClangArgs cliGlobalOpts
       , optsPredicate  = globalOptsPredicate cliGlobalOpts
       }

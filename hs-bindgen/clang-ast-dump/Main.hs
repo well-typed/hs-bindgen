@@ -7,10 +7,10 @@ import Control.Exception
 import Control.Monad
 import Control.Monad.IO.Class
 import Data.Bifunctor
-import Foreign.C.Types (CUInt)
-
+import Data.Default (Default (def))
 import Data.Text (Text)
 import Data.Text qualified as T
+import Foreign.C.Types (CUInt)
 import Options.Applicative qualified as OA
 
 import Clang.Args
@@ -70,7 +70,7 @@ clangAstDump opts@Options{..} = do
     tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
 
     cArgs :: ClangArgs
-    cArgs = defaultClangArgs {
+    cArgs = def {
         clangSystemIncludePathDirs = optSystemIncludePath
       , clangQuoteIncludePathDirs  = optQuoteIncludePath
       }

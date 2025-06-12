@@ -29,6 +29,9 @@ import Data.Map.Strict
   ( Map )
 import Data.Map.Strict qualified as Map
 
+-- data-default
+import Data.Default (Default(def))
+
 -- directory
 import System.Directory
   ( doesFileExist, listDirectory, getCurrentDirectory )
@@ -109,7 +112,7 @@ main = do
 
   let platform = hostPlatform
       clangArgs0 =
-        Clang.defaultClangArgs
+        def
           { Clang.clangCStandard = Just Clang.C23 }
       clangArgs =
         case platformOS hostPlatform of

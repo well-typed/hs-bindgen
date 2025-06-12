@@ -8,15 +8,13 @@ module HsBindgen.TH (
   , Pipeline.hashIncludeWith
 
     -- * Options
+  , module Default
   , Pipeline.Opts(..)
-  , Pipeline.defaultOpts
   , Pipeline.QuoteIncludeDir(..)
   , Pipeline.HashIncludeOpts(..)
-  , module Default
 
     -- ** Clang arguments
   , Args.ClangArgs(..)
-  , Args.defaultClangArgs
   , Args.Target(..)
   , Args.TargetEnv(..)
   , Args.targetTriple
@@ -30,7 +28,6 @@ module HsBindgen.TH (
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
-  , Hs.defaultTranslationOpts
   , Hs.Strategy(..)
   , Hs.HsTypeClass(..)
 

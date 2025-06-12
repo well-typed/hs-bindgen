@@ -12,8 +12,6 @@ module CallClang
 -- base
 import Control.Exception
   ( bracket )
---import Control.Monad
---  ( unless )
 import Control.Monad.IO.Class
   ( MonadIO(liftIO) )
 import Data.Foldable
@@ -32,6 +30,9 @@ import Data.IntMap.Strict qualified as IntMap
 import Data.Map.Strict
   ( Map )
 import Data.Map.Strict qualified as Map
+
+-- data-default
+import Data.Default (Default(def))
 
 -- text
 import Data.Text
@@ -366,7 +367,7 @@ diagnosticIsSevere diag =
 -- | Get the target triple of the build system, as reported by Clang.
 queryClangBuildTargetTriple :: IO Text
 queryClangBuildTargetTriple =
-  clangWithTranslationUnit Clang.defaultClangArgs "" getTriple
+  clangWithTranslationUnit def "" getTriple
   where
     getTriple unit =
       bracket

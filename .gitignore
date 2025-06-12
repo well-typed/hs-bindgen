@@ -1,9 +1,10 @@
-/.dir-locals.el
 /.direnv/
 /.stylish-haskell.yaml
 
+.dir-locals.el
 .envrc
 .vscode/
+
 cabal.project.local
 dist-newstyle/
 unversioned
