@@ -1,8 +1,9 @@
-module HsBindgen.Frontend.Pass.Rename.IsPass (
-    RenameAnon
+module HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (
+    HandleTypedefs
   , RenamedTypedefRef(..)
   ) where
 
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
@@ -14,19 +15,20 @@ import HsBindgen.Language.C
   Pass definition
 -------------------------------------------------------------------------------}
 
-type RenameAnon :: Pass
-data RenameAnon a deriving anyclass ValidPass
+type HandleTypedefs :: Pass
+data HandleTypedefs a deriving anyclass ValidPass
 
-type family AnnRenameAnon ix where
-  AnnRenameAnon "TranslationUnit" = DeclMeta
-  AnnRenameAnon _                 = NoAnn
+type family AnnHandleTypedefs ix where
+  AnnHandleTypedefs "TranslationUnit" = DeclMeta
+  AnnHandleTypedefs "Decl"            = BindingSpec.TypeSpec
+  AnnHandleTypedefs _                 = NoAnn
 
-instance IsPass RenameAnon where
-  type Id         RenameAnon = CName
-  type FieldName  RenameAnon = CName
-  type TypedefRef RenameAnon = RenamedTypedefRef RenameAnon
-  type MacroBody  RenameAnon = C.CheckedMacro RenameAnon
-  type Ann ix     RenameAnon = AnnRenameAnon ix
+instance IsPass HandleTypedefs where
+  type Id         HandleTypedefs = CName
+  type FieldName  HandleTypedefs = CName
+  type TypedefRef HandleTypedefs = RenamedTypedefRef HandleTypedefs
+  type MacroBody  HandleTypedefs = C.CheckedMacro HandleTypedefs
+  type Ann ix     HandleTypedefs = AnnHandleTypedefs ix
 
 {-------------------------------------------------------------------------------
   Annotations

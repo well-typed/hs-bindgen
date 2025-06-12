@@ -111,15 +111,17 @@ library internal
       HsBindgen.Frontend.Pass
       HsBindgen.Frontend.Pass.HandleMacros
       HsBindgen.Frontend.Pass.HandleMacros.IsPass
+      HsBindgen.Frontend.Pass.HandleTypedefs
+      HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
       HsBindgen.Frontend.Pass.MangleNames
       HsBindgen.Frontend.Pass.MangleNames.IsPass
+      HsBindgen.Frontend.Pass.NameAnon
+      HsBindgen.Frontend.Pass.NameAnon.IsPass
       HsBindgen.Frontend.Pass.Parse
       HsBindgen.Frontend.Pass.Parse.Decl
       HsBindgen.Frontend.Pass.Parse.IsPass
       HsBindgen.Frontend.Pass.Parse.Monad
       HsBindgen.Frontend.Pass.Parse.Type
-      HsBindgen.Frontend.Pass.Rename
-      HsBindgen.Frontend.Pass.Rename.IsPass
       HsBindgen.Frontend.Pass.ResolveBindingSpec
       HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
       HsBindgen.Frontend.Pass.Sort

@@ -5,8 +5,8 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass qualified as Int
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.Pass.Rename.IsPass qualified as Int
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

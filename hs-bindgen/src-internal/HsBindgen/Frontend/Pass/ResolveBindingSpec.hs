@@ -21,7 +21,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Rename.IsPass
+import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
@@ -36,7 +36,7 @@ import HsBindgen.Language.Haskell
 resolveBindingSpec ::
      ResolvedBindingSpec -- ^ Configuration binding specification
   -> ResolvedBindingSpec -- ^ External binding specification
-  -> C.TranslationUnit RenameAnon
+  -> C.TranslationUnit NameAnon
   -> (C.TranslationUnit ResolveBindingSpec, [BindingSpecError])
 resolveBindingSpec
   confSpec
@@ -122,9 +122,9 @@ data MEnv = MEnv {
 
 data MState = MState {
       stateErrors      :: [BindingSpecError] -- ^ Stored in reverse order
-    , stateExtTypes    :: Map (C.QualId RenameAnon) (C.Type ResolveBindingSpec)
+    , stateExtTypes    :: Map (C.QualId NameAnon) (C.Type ResolveBindingSpec)
     , stateNoConfTypes :: Set CNameSpelling
-    , stateOmitTypes   :: Set (C.QualId RenameAnon)
+    , stateOmitTypes   :: Set (C.QualId NameAnon)
     }
   deriving (Show)
 
@@ -142,7 +142,7 @@ insertError e st = st {
     }
 
 insertExtType ::
-     C.QualId RenameAnon
+     C.QualId NameAnon
   -> C.Type ResolveBindingSpec
   -> MState
   -> MState
@@ -155,7 +155,7 @@ deleteNoConfType cname st = st {
       stateNoConfTypes = Set.delete cname (stateNoConfTypes st)
     }
 
-insertOmittedType :: C.QualId RenameAnon -> MState -> MState
+insertOmittedType :: C.QualId NameAnon -> MState -> MState
 insertOmittedType qualId st = st {
       stateOmitTypes = Set.insert qualId (stateOmitTypes st)
     }
@@ -165,7 +165,7 @@ insertOmittedType qualId st = st {
 -------------------------------------------------------------------------------}
 
 -- Resolve declarations, in two passes
-resolveDecls :: [C.Decl RenameAnon] -> M [C.Decl ResolveBindingSpec]
+resolveDecls :: [C.Decl NameAnon] -> M [C.Decl ResolveBindingSpec]
 resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 
 -- Pass one: top-level
@@ -179,8 +179,8 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 -- Otherwise, the declaration is kept and is associated with an type
 -- specification when applicable.
 resolveTop ::
-     C.Decl RenameAnon
-  -> M (Maybe (C.Decl RenameAnon, Maybe BindingSpec.TypeSpec))
+     C.Decl NameAnon
+  -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.TypeSpec))
 resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     let qualId     = C.declQualId decl
         cname      = qualIdCNameSpelling qualId
@@ -216,7 +216,7 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
 -- Types within the declaration are resolved, and it is reassembled for the
 -- current pass.
 resolveDeep ::
-     C.Decl RenameAnon
+     C.Decl NameAnon
   -> Maybe BindingSpec.TypeSpec
   -> M (C.Decl ResolveBindingSpec)
 resolveDeep C.Decl{..} mTypeSpec =
@@ -229,7 +229,7 @@ resolveDeep C.Decl{..} mTypeSpec =
       , declAnn  = fromMaybe BindingSpec.defaultTypeSpec mTypeSpec
       }
 
-    mkDeclInfo :: C.DeclInfo RenameAnon -> C.DeclInfo ResolveBindingSpec
+    mkDeclInfo :: C.DeclInfo NameAnon -> C.DeclInfo ResolveBindingSpec
     mkDeclInfo C.DeclInfo{..} = C.DeclInfo{..}
 
 {-------------------------------------------------------------------------------
@@ -237,7 +237,7 @@ resolveDeep C.Decl{..} mTypeSpec =
 -------------------------------------------------------------------------------}
 
 class Resolve a where
-  resolve :: a RenameAnon -> M (a ResolveBindingSpec)
+  resolve :: a NameAnon -> M (a ResolveBindingSpec)
 
 instance Resolve C.DeclKind where
   resolve = \case
@@ -354,6 +354,7 @@ instance Resolve C.Type where
       C.TypeStruct uid        -> aux C.TypeStruct uid C.NamespaceStruct
       C.TypeUnion uid         -> aux C.TypeUnion uid C.NamespaceUnion
       C.TypeEnum uid          -> aux C.TypeEnum uid C.NamespaceEnum
+      C.TypeTypedef uid       -> aux C.TypeTypedef uid C.NamespaceTypedef
       C.TypeMacroTypedef uid  -> aux C.TypeMacroTypedef uid C.NamespaceMacro
       C.TypePointer t         -> C.TypePointer <$> resolve t
       C.TypeFun args res      -> C.TypeFun <$> mapM resolve args <*> resolve res
@@ -361,19 +362,12 @@ instance Resolve C.Type where
       C.TypeConstArray n t    -> C.TypeConstArray n <$> resolve t
       C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> resolve t
 
-      C.TypeTypedef typedef ->
-        case typedef of
-          TypedefRegular uid ->
-            aux (C.TypeTypedef . TypedefRegular) uid C.NamespaceTypedef
-          TypedefSquashed cname ty ->
-            C.TypeTypedef . TypedefSquashed cname <$> resolve ty
-
       C.TypeExtBinding cSpelling extHsRef typeSpec ->
         return (C.TypeExtBinding cSpelling extHsRef typeSpec)
     where
       aux ::
            (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)
-        -> Id RenameAnon
+        -> Id NameAnon
         -> C.Namespace
         -> M (C.Type ResolveBindingSpec)
       aux mk uid namespace =
@@ -414,7 +408,7 @@ instance Resolve C.Type where
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
 
-qualIdCNameSpelling :: C.QualId RenameAnon -> CNameSpelling
+qualIdCNameSpelling :: C.QualId NameAnon -> CNameSpelling
 qualIdCNameSpelling (C.QualId (CName cname) namespace) =
     let prefix = case namespace of
           C.NamespaceTypedef  -> ""
