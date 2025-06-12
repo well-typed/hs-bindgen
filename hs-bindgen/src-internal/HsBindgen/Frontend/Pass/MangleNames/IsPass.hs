@@ -11,7 +11,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Rename.IsPass
+import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C

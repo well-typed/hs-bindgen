@@ -16,10 +16,11 @@ import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.Pass.HandleMacros
+import HsBindgen.Frontend.Pass.HandleTypedefs
 import HsBindgen.Frontend.Pass.MangleNames
+import HsBindgen.Frontend.Pass.NameAnon
 import HsBindgen.Frontend.Pass.Parse (parseDecls)
 import HsBindgen.Frontend.Pass.Parse.Monad
-import HsBindgen.Frontend.Pass.Rename
 import HsBindgen.Frontend.Pass.ResolveBindingSpec
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.ProcessIncludes
@@ -55,12 +56,14 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
           sortDecls afterParse
         (afterHandleMacros, macroErrors) =
           handleMacros afterSort
-        afterRename =
-          rename afterHandleMacros
+        afterNameAnon =
+          nameAnon afterHandleMacros
         (afterResolveBindingSpec, bindingSpecErrors) =
-          resolveBindingSpec confSpec extSpec afterRename
+          resolveBindingSpec confSpec extSpec afterNameAnon
+        afterHandleTypedefs =
+          handleTypedefs afterResolveBindingSpec
         (afterMangleNames, mangleErrors) =
-          mangleNames afterResolveBindingSpec
+          mangleNames afterHandleTypedefs
 
     -- writeFile "usedecl.mermaid" $
     --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
