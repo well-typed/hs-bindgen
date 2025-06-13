@@ -12,6 +12,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad
+import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Util.Tracer
 
@@ -25,9 +26,17 @@ parseDecls ::
   -> Predicate
   -> IncludeGraph
   -> IsMainFile
+  -> GetMainHeader
   -> CXTranslationUnit
   -> IO (C.TranslationUnit Parse)
-parseDecls tracer rootHeader predicate includeGraph isMainFile unit = do
+parseDecls
+  tracer
+  rootHeader
+  predicate
+  includeGraph
+  isMainFile
+  getMainHeader
+  unit = do
     root  <- clang_getTranslationUnitCursor unit
     (omittedDecls, decls) <- fmap (fmap concat) . runParseMonad parseEnv $
       HighLevel.clang_visitChildren root foldDecl
@@ -39,9 +48,10 @@ parseDecls tracer rootHeader predicate includeGraph isMainFile unit = do
   where
     parseEnv :: ParseEnv
     parseEnv = ParseEnv{
-          envUnit       = unit
-        , envRootHeader = rootHeader
-        , envIsMainFile = isMainFile
-        , envPredicate  = predicate
-        , envTracer     = tracer
+          envUnit          = unit
+        , envRootHeader    = rootHeader
+        , envIsMainFile    = isMainFile
+        , envGetMainHeader = getMainHeader
+        , envPredicate     = predicate
+        , envTracer        = tracer
         }

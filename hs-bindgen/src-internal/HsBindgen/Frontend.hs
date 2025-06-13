@@ -38,7 +38,7 @@ processTranslationUnit ::
   -> Predicate
   -> CXTranslationUnit -> IO Ext.TranslationUnit
 processTranslationUnit tracer extSpec rootHeader predicate unit = do
-    (includeGraph, isMainFile) <- processIncludes rootHeader unit
+    (includeGraph, isMainFile, getMainHeader) <- processIncludes rootHeader unit
     afterParse <-
       parseDecls
         (contramap (fmap FrontendParse) tracer)
@@ -46,6 +46,7 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
         predicate
         includeGraph
         isMainFile
+        getMainHeader
         unit
 
     -- TODO receive configuration binding specifications via argument

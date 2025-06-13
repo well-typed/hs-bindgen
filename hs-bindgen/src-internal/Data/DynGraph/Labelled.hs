@@ -12,6 +12,7 @@ module Data.DynGraph.Labelled (
   , reaches
   , topSort
   , dff
+  , dfFindEq
   , findTrailFrom
     -- * Debugging
   , dumpMermaid
@@ -28,10 +29,11 @@ import Data.Array.ST.Safe qualified as Array
 import Data.Bifunctor
 import Data.IntMap.Strict (IntMap)
 import Data.IntMap.Strict qualified as IntMap
+import Data.IntSet qualified as IntSet
 import Data.List qualified as List
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
-import Data.Maybe (fromMaybe)
+import Data.Maybe (fromMaybe, mapMaybe)
 import Data.Set (Set)
 import Data.Set qualified as Set
 import Data.Tree (Tree)
@@ -142,6 +144,20 @@ topSort dynGraph@DynGraph{..} = (idxMap IntMap.!) <$> topSort' dynGraph
 -- the graph starting from each vertex in insertion order
 dff :: DynGraph l a -> [Tree a]
 dff dynGraph@DynGraph{..} = fmap (idxMap IntMap.!) <$> dff' dynGraph
+
+-- | Find the first vertex in the specified set in a depth-first traversal of
+-- the graph starting from the specified vertex
+--
+-- This function is specific to equality so that more can be done in the index
+-- domain, for performance.
+dfFindEq :: Ord a => Set a -> DynGraph l a -> a -> Maybe a
+dfFindEq targets dynGraph@DynGraph{..} v = do
+    ix <- Map.lookup v vtxMap
+    let targetIxs = IntSet.fromList $
+          mapMaybe (`Map.lookup` vtxMap) (Set.toList targets)
+    targetIx <- List.find (`IntSet.member` targetIxs) $
+      List.reverse (postorderForest (dfs' dynGraph [ix]))
+    IntMap.lookup targetIx idxMap
 
 -- | Find trail through the graph
 findTrailFrom :: forall m l a r.

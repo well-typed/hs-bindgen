@@ -11,6 +11,7 @@ module Data.DynGraph (
   , reaches
   , topSort
   , dff
+  , dfFindEq
     -- * Debugging
   , dumpMermaid
   ) where
@@ -74,6 +75,14 @@ topSort = Labelled.topSort
 -- the graph starting from each vertex in insertion order
 dff :: DynGraph a -> [Tree a]
 dff = Labelled.dff
+
+-- | Find the first vertex in the specified set in a depth-first traversal of
+-- the graph starting from the specified vertex
+--
+-- This function is specific to equality so that more can be done in the index
+-- domain, for performance.
+dfFindEq :: Ord a => Set a -> DynGraph a -> a -> Maybe a
+dfFindEq = Labelled.dfFindEq
 
 {-------------------------------------------------------------------------------
   Debugging
