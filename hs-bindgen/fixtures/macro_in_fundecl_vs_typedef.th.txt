@@ -1,4 +1,4 @@
--- addDependentFile examples/macro_in_fundecl_vs_typedef.h
+-- addDependentFile examples/golden/macro_in_fundecl_vs_typedef.h
 -- #include "macro_in_fundecl_vs_typedef.h"
 -- char test_internal_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }
 -- TC test_internal_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }

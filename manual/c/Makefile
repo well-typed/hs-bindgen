@@ -11,8 +11,8 @@ clean:
 libexample.so: manual_examples.o
 	gcc -Wall -o libexample.so -shared manual_examples.o
 
-manual_examples.o: manual_examples.c ${PROJECT_ROOT}/hs-bindgen/examples/manual_examples.h
-	gcc -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/examples
+manual_examples.o: manual_examples.c ${PROJECT_ROOT}/hs-bindgen/examples/golden/manual_examples.h
+	gcc -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/examples/golden
 
 # Example for external bindings
 

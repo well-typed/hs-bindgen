@@ -59,7 +59,7 @@ data Diagnostic = Diagnostic {
       -- | Child diagnostics
     , diagnosticChildren  :: [Diagnostic]
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq)
   deriving anyclass (Exception)
 
 -- | Suggestion to fix the code
@@ -83,7 +83,7 @@ data FixIt = FixIt {
       -- | Text that should replace the source code
     , fixItReplacement :: Text
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 -- TODO: Probably separate into Info/Warning/Error (issue #175).
 diagnosticIsError :: Diagnostic -> Bool

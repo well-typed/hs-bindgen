@@ -1,4 +1,4 @@
--- addDependentFile examples/typedef_vs_macro.h
+-- addDependentFile examples/golden/typedef_vs_macro.h
 newtype T1 = T1 {un_T1 :: CInt}
 deriving newtype instance Storable T1
 deriving stock instance Eq T1

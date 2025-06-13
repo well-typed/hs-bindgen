@@ -1,4 +1,4 @@
--- addDependentFile examples/type_naturals.h
+-- addDependentFile examples/golden/type_naturals.h
 n :: CInt
 n = 3 :: CInt
 m :: CInt

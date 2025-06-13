@@ -74,6 +74,9 @@ clangArgs packageRoot = def {
           CIncludePathDir (packageRoot </> "musl-include/x86_64")
         ]
     , clangQuoteIncludePathDirs = [
-          CIncludePathDir (packageRoot </> "examples")
+          CIncludePathDir (packageRoot </> "examples/golden")
+        , CIncludePathDir (packageRoot </> "examples/golden-norust")
+          -- TODO (#722): Remove 'failing' from include paths.
+        , CIncludePathDir (packageRoot </> "examples/failing")
         ]
     }

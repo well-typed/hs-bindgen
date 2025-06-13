@@ -355,7 +355,7 @@ data MacroError =
 
     -- | Macro that defines an unsupported type
   | MacroErrorUnsupportedType String
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 instance PrettyTrace MacroError where
   prettyTrace = \case
