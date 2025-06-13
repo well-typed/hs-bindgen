@@ -1,0 +1,3 @@
+-- addDependentFile examples/golden/redeclaration_identical.h
+a :: CInt
+a = 5 :: CInt

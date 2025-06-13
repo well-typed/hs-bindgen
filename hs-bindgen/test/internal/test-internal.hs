@@ -15,9 +15,11 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend (FrontendTrace (FrontendNameMangler, FrontendParse))
+import HsBindgen.Frontend (FrontendTrace (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError(Redeclaration))
 import HsBindgen.Frontend.Pass.MangleNames (MangleError (MissingDeclaration))
 import HsBindgen.Frontend.Pass.Parse.Monad (ParseTrace (UnsupportedImplicitFields))
+import HsBindgen.Frontend.Pass.Sort (SortError(..))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Lib
@@ -72,10 +74,10 @@ tests packageRoot getAnsiColor getRustBindgen =
         , "forward_declaration"
         , "headers"
         , "macro_functions"
-        , "macro_in_fundecl"
         , "macro_in_fundecl_vs_typedef"
-        , "macros"
+        , "macro_in_fundecl"
         , "macro_types"
+        , "macros"
         , "manual_examples"
         , "names"
         , "nested_enums"
@@ -84,13 +86,14 @@ tests packageRoot getAnsiColor getRustBindgen =
         , "opaque_declaration"
         , "primitive_types"
         , "recursive_struct"
+        , "redeclaration_identical"
         , "simple_func"
         , "simple_structs"
         , "struct_arg"
-        , "typedefs"
-        , "typedef_vs_macro"
-        , "typenames"
         , "type_naturals"
+        , "typedef_vs_macro"
+        , "typedefs"
+        , "typenames"
         , "unions"
         , "unnamed-struct"
         , "uses_utf8"
@@ -114,6 +117,13 @@ tests packageRoot getAnsiColor getRustBindgen =
             "expected trace MissingDeclaration"
             (\case
                 (TraceFrontend (FrontendNameMangler (MissingDeclaration {}))) -> True
+                _otherwise -> False
+            )
+        , expectTrace
+            "redeclaration_different"
+            "expected trace Redeclaration"
+            (\case
+                (TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {})))) -> True
                 _otherwise -> False
             )
         ]

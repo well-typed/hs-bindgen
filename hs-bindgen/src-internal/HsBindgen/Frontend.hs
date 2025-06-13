@@ -55,7 +55,7 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
     let confSpec :: ResolvedBindingSpec
         confSpec = BindingSpec.empty
 
-    let afterSort =
+    let (afterSort, sortErrors) =
           sortDecls afterParse
         (afterHandleMacros, macroErrors) =
           handleMacros afterSort
@@ -71,6 +71,7 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
     -- writeFile "usedecl.mermaid" $
     --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
+    forM_ sortErrors        $ traceWithCallStack tracer . FrontendSort
     forM_ macroErrors       $ traceWithCallStack tracer . FrontendMacro
     forM_ bindingSpecErrors $ traceWithCallStack tracer . FrontendBindingSpec
     forM_ mangleErrors      $ traceWithCallStack tracer . FrontendNameMangler
@@ -85,7 +86,8 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
 --
 -- Most passes in the frontend have their own set of trace messages.
 data FrontendTrace =
-    FrontendParse ParseTrace
+    FrontendSort SortError
+  | FrontendParse ParseTrace
   | FrontendMacro MacroError
   | FrontendBindingSpec BindingSpecError
   | FrontendNameMangler MangleError
@@ -93,6 +95,7 @@ data FrontendTrace =
 
 instance PrettyTrace FrontendTrace where
   prettyTrace = \case
+    FrontendSort        x -> prettyTrace x
     FrontendParse       x -> prettyTrace x
     FrontendMacro       x -> prettyTrace x
     FrontendBindingSpec x -> show x -- TODO
@@ -100,6 +103,7 @@ instance PrettyTrace FrontendTrace where
 
 instance HasDefaultLogLevel FrontendTrace where
   getDefaultLogLevel = \case
+    FrontendSort        x -> getDefaultLogLevel x
     FrontendParse       x -> getDefaultLogLevel x
     FrontendMacro       x -> getDefaultLogLevel x
     FrontendBindingSpec _ -> Error
