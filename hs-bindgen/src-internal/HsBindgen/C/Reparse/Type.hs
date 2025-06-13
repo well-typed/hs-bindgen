@@ -37,51 +37,54 @@ primTypeKeyword = choice [
     , keyword "_Decimal128"
     ]
 
-reparsePrimType :: Reparse PrimType
+-- | Primitive type or @void@
+reparsePrimType :: Reparse (Either () PrimType)
 reparsePrimType = do
     kws <- many1 primTypeKeyword
     case kws of
-      -- char
-      [             "char"] -> return $ PrimChar (PrimSignImplicit Nothing)
-      ["signed"   , "char"] -> return $ PrimChar (PrimSignExplicit Signed)
-      ["unsigned" , "char"] -> return $ PrimChar (PrimSignExplicit Unsigned)
-      -- short
-      [             "short"        ] -> return $ PrimIntegral PrimShort Signed
-      ["signed"   , "short"        ] -> return $ PrimIntegral PrimShort Signed
-      ["unsigned" , "short"        ] -> return $ PrimIntegral PrimShort Unsigned
-      [             "short" , "int"] -> return $ PrimIntegral PrimShort Signed
-      ["signed"   , "short" , "int"] -> return $ PrimIntegral PrimShort Signed
-      ["unsigned" , "short" , "int"] -> return $ PrimIntegral PrimShort Unsigned
-      -- int
-      [             "int"] -> return $ PrimIntegral PrimInt Signed
-      ["signed"   , "int"] -> return $ PrimIntegral PrimInt Signed
-      ["unsigned" , "int"] -> return $ PrimIntegral PrimInt Unsigned
-      -- long
-      [             "long"        ] -> return $ PrimIntegral PrimLong Signed
-      ["signed"   , "long"        ] -> return $ PrimIntegral PrimLong Signed
-      ["unsigned" , "long"        ] -> return $ PrimIntegral PrimLong Unsigned
-      [             "long" , "int"] -> return $ PrimIntegral PrimLong Signed
-      ["signed"   , "long" , "int"] -> return $ PrimIntegral PrimLong Signed
-      ["unsigned" , "long" , "int"] -> return $ PrimIntegral PrimLong Unsigned
-      -- long
-      [             "long" , "long"        ] -> return $ PrimIntegral PrimLongLong Signed
-      ["signed"   , "long" , "long"        ] -> return $ PrimIntegral PrimLongLong Signed
-      ["unsigned" , "long" , "long"        ] -> return $ PrimIntegral PrimLongLong Unsigned
-      [             "long" , "long" , "int"] -> return $ PrimIntegral PrimLongLong Signed
-      ["signed"   , "long" , "long" , "int"] -> return $ PrimIntegral PrimLongLong Signed
-      ["unsigned" , "long" , "long" , "int"] -> return $ PrimIntegral PrimLongLong Unsigned
-      -- float, double, long double
-      [         "float" ] -> return $ PrimFloating PrimFloat
-      [         "double"] -> return $ PrimFloating PrimDouble
-      ["long" , "double"] -> return $ PrimFloating PrimLongDouble
       -- void
-      -- TODO: Re-enable or delete
-      -- ["void"] -> return C.TypeVoid
+      ["void"] -> return $ Left ()
+      -- char
+      [             "char"] -> primType $ PrimChar (PrimSignImplicit Nothing)
+      ["signed"   , "char"] -> primType $ PrimChar (PrimSignExplicit Signed)
+      ["unsigned" , "char"] -> primType $ PrimChar (PrimSignExplicit Unsigned)
+      -- short
+      [             "short"        ] -> primType $ PrimIntegral PrimShort Signed
+      ["signed"   , "short"        ] -> primType $ PrimIntegral PrimShort Signed
+      ["unsigned" , "short"        ] -> primType $ PrimIntegral PrimShort Unsigned
+      [             "short" , "int"] -> primType $ PrimIntegral PrimShort Signed
+      ["signed"   , "short" , "int"] -> primType $ PrimIntegral PrimShort Signed
+      ["unsigned" , "short" , "int"] -> primType $ PrimIntegral PrimShort Unsigned
+      -- int
+      [             "int"] -> primType $ PrimIntegral PrimInt Signed
+      ["signed"   , "int"] -> primType $ PrimIntegral PrimInt Signed
+      ["unsigned" , "int"] -> primType $ PrimIntegral PrimInt Unsigned
+      -- long
+      [             "long"        ] -> primType $ PrimIntegral PrimLong Signed
+      ["signed"   , "long"        ] -> primType $ PrimIntegral PrimLong Signed
+      ["unsigned" , "long"        ] -> primType $ PrimIntegral PrimLong Unsigned
+      [             "long" , "int"] -> primType $ PrimIntegral PrimLong Signed
+      ["signed"   , "long" , "int"] -> primType $ PrimIntegral PrimLong Signed
+      ["unsigned" , "long" , "int"] -> primType $ PrimIntegral PrimLong Unsigned
+      -- long
+      [             "long" , "long"        ] -> primType $ PrimIntegral PrimLongLong Signed
+      ["signed"   , "long" , "long"        ] -> primType $ PrimIntegral PrimLongLong Signed
+      ["unsigned" , "long" , "long"        ] -> primType $ PrimIntegral PrimLongLong Unsigned
+      [             "long" , "long" , "int"] -> primType $ PrimIntegral PrimLongLong Signed
+      ["signed"   , "long" , "long" , "int"] -> primType $ PrimIntegral PrimLongLong Signed
+      ["unsigned" , "long" , "long" , "int"] -> primType $ PrimIntegral PrimLongLong Unsigned
+      -- float, double, long double
+      [         "float" ] -> primType $ PrimFloating PrimFloat
+      [         "double"] -> primType $ PrimFloating PrimDouble
+      ["long" , "double"] -> primType $ PrimFloating PrimLongDouble
       -- bool
-      ["_Bool"] -> return $ PrimBool
-      ["bool"]  -> return $ PrimBool
+      ["_Bool"] -> primType $ PrimBool
+      ["bool"]  -> primType $ PrimBool
       -- invalid
       _otherwise -> unexpected $ concat [
           "Unexpected primitive type "
         , show $ intercalate " " (map Text.unpack kws)
         ]
+  where
+    primType :: PrimType -> Reparse (Either () PrimType)
+    primType = return . Right

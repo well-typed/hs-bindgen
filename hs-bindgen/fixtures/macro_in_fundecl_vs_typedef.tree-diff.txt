@@ -372,10 +372,12 @@ TranslationUnit {
                       nameC = CName "struct2",
                       nameHsIdent = HsIdentifier
                         "Struct2"}))),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"},
@@ -403,10 +405,12 @@ TranslationUnit {
                     nameC = CName "struct3_t",
                     nameHsIdent = HsIdentifier
                       "Struct3_t"})),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"},
@@ -436,10 +440,12 @@ TranslationUnit {
                       nameC = CName "struct4",
                       nameHsIdent = HsIdentifier
                         "Struct4"}))),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"},
@@ -466,10 +472,12 @@ TranslationUnit {
                   nameC = CName "struct1",
                   nameHsIdent = HsIdentifier
                     "Struct1"}),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"},
@@ -496,10 +504,12 @@ TranslationUnit {
                   nameC = CName "struct3",
                   nameHsIdent = HsIdentifier
                     "Struct3"}),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"},
@@ -526,10 +536,12 @@ TranslationUnit {
                   nameC = CName "struct4",
                   nameHsIdent = HsIdentifier
                     "Struct4"}),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"},

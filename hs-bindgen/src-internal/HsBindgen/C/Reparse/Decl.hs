@@ -288,6 +288,7 @@ data TypeQualifier
   deriving stock ( Eq, Show, Generic )
 data TypeSpecifier
   = TypeSpecifier C.PrimType
+  | TypeVoid
     -- | An \"original\" typedef (one that appears in the C source)
   | TypeDefTypeSpecifier CName
     -- | A macro-defined type (semi-typedef)
@@ -443,6 +444,7 @@ typeNameType (TypeName tySpec _attrs decl) =
 typeSpecifierType :: TypeSpecifier -> C.Type
 typeSpecifierType = \case
   TypeSpecifier ty -> C.TypePrim ty
+  TypeVoid -> C.TypeVoid
   TypeDefTypeSpecifier nm -> C.TypeTypedef nm
   MacroTypeDefTypeSpecifier nm -> C.TypeMacroTypedef nm
   StructOrUnionTypeSpecifier
@@ -755,7 +757,7 @@ reparseTypeSpecifier :: Macro.TypeEnv -> Reparse TypeSpecifier
 reparseTypeSpecifier macroTypeEnv =
   choice
   -- Primitive type (such as void, int, float)
-  [ TypeSpecifier <$> reparsePrimType
+  [ typeSpecifier <$> reparsePrimType
   -- struct-or-union-specifier
   , StructOrUnionTypeSpecifier <$> reparseStructOrUnionSpecifier
   -- enum-specifier
@@ -781,6 +783,11 @@ reparseTypeSpecifier macroTypeEnv =
                 -> unexpected $ "macro name does not refer to a type: " ++ show nm
        }
   ] <?> "type"
+  where
+    typeSpecifier :: Either () C.PrimType -> TypeSpecifier
+    typeSpecifier (Left  ()) = TypeVoid
+    typeSpecifier (Right ty) = TypeSpecifier ty
+
 
 reparseStructOrUnion :: Reparse StructOrUnion
 reparseStructOrUnion = choice [ keyword "struct" $> IsStruct, keyword "union" $> IsUnion ]
