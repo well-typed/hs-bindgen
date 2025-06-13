@@ -1,0 +1,118 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_typedef_scope.h:4:9",
+        declId = NamePair {
+          nameC = CName "T1",
+          nameHsIdent = HsIdentifier
+            "T1"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "T1",
+              newtypeField = HsName
+                "@NsVar"
+                "un_T1"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_typedef_scope.h:5:12",
+        declId = NamePair {
+          nameC = CName "T2",
+          nameHsIdent = HsIdentifier
+            "T2"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "T2",
+            newtypeField = HsName
+              "@NsVar"
+              "un_T2"},
+          typedefType = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "T1",
+                nameHsIdent = HsIdentifier
+                  "T1"})},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_typedef_scope.h:6:9",
+        declId = NamePair {
+          nameC = CName "T3",
+          nameHsIdent = HsIdentifier
+            "T3"}},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "T3",
+              newtypeField = HsName
+                "@NsVar"
+                "un_T3"},
+            macroType = TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "T2",
+                  nameHsIdent = HsIdentifier
+                    "T2"})}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_typedef_scope.h:7:12",
+        declId = NamePair {
+          nameC = CName "T4",
+          nameHsIdent = HsIdentifier
+            "T4"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "T4",
+            newtypeField = HsName
+              "@NsVar"
+              "un_T4"},
+          typedefType = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "T3",
+                nameHsIdent = HsIdentifier
+                  "T3"})},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "macro_typedef_scope"]}
