@@ -1600,7 +1600,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef1 (struct2 *arg1, char arg2) { struct_typedef1(arg1, arg2); }",
+    "void testmodule_struct_typedef1 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1613,7 +1613,8 @@
               "@NsTypeConstr"
               "Struct2")))
         (HsFun
-          (HsPrimType HsPrimCChar)
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef1",
@@ -1632,17 +1633,19 @@
                       nameC = CName "struct2",
                       nameHsIdent = HsIdentifier
                         "Struct2"}))),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef2 (struct3_t *arg1, char arg2) { struct_typedef2(arg1, arg2); }",
+    "void testmodule_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1655,7 +1658,8 @@
               "@NsTypeConstr"
               "Struct3_t")))
         (HsFun
-          (HsPrimType HsPrimCChar)
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef2",
@@ -1672,17 +1676,19 @@
                     nameC = CName "struct3_t",
                     nameHsIdent = HsIdentifier
                       "Struct3_t"})),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef3 (struct4 *arg1, char arg2) { struct_typedef3(arg1, arg2); }",
+    "void testmodule_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1695,7 +1701,8 @@
               "@NsTypeConstr"
               "Struct4")))
         (HsFun
-          (HsPrimType HsPrimCChar)
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef3",
@@ -1714,17 +1721,19 @@
                       nameC = CName "struct4",
                       nameHsIdent = HsIdentifier
                         "Struct4"}))),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name1 (struct struct1 *arg1, char arg2) { struct_name1(arg1, arg2); }",
+    "void testmodule_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1737,7 +1746,8 @@
               "@NsTypeConstr"
               "Struct1")))
         (HsFun
-          (HsPrimType HsPrimCChar)
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name1",
@@ -1753,17 +1763,19 @@
                   nameC = CName "struct1",
                   nameHsIdent = HsIdentifier
                     "Struct1"}),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name2 (struct struct3 *arg1, char arg2) { struct_name2(arg1, arg2); }",
+    "void testmodule_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1776,7 +1788,8 @@
               "@NsTypeConstr"
               "Struct3")))
         (HsFun
-          (HsPrimType HsPrimCChar)
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name2",
@@ -1792,17 +1805,19 @@
                   nameC = CName "struct3",
                   nameHsIdent = HsIdentifier
                     "Struct3"}),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name3 (struct struct4 *arg1, char arg2) { struct_name3(arg1, arg2); }",
+    "void testmodule_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1815,7 +1830,8 @@
               "@NsTypeConstr"
               "Struct4")))
         (HsFun
-          (HsPrimType HsPrimCChar)
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name3",
@@ -1831,10 +1847,12 @@
                   nameC = CName "struct4",
                   nameHsIdent = HsIdentifier
                     "Struct4"}),
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))],
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier
+                    "MC"})],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}}]
