@@ -16,7 +16,8 @@ import HsBindgen.Runtime.LibC qualified
 
 $(do
     dir <- getPackageRoot
-    let args = defaultClangArgs {
+    let args :: ClangArgs
+        args = def {
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
         tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
@@ -25,9 +26,10 @@ $(do
         joinPath [dir, "bindings", "base.yaml"]
       , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]
       ])
-    let opts = defaultOpts {
+    let opts :: Opts
+        opts = def {
             optsClangArgs   = args
           , optsExtBindings = extBindings
           }
-    genBindings opts "test_02.h"
+    hashIncludeWith opts "test_02.h"
  )

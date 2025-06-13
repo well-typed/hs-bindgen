@@ -4,10 +4,10 @@
 module Main (main) where
 
 import Control.Monad
+import Data.Default (Default (def))
 import Data.Text qualified as Text
 import System.Environment
 
-import Clang.Args
 import Clang.Enum.Bitfield
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
@@ -27,7 +27,7 @@ tutorial fp = do
     unit   <- clang_parseTranslationUnit
                 index
                 (SourcePath (Text.pack fp))
-                defaultClangArgs
+                def
                 []
                 (bitfieldEnum [CXTranslationUnit_None])
     cursor <- clang_getTranslationUnitCursor unit

@@ -128,7 +128,8 @@ test-suite tests
     , clang
   build-depends:
       -- Inherited dependencies
-      fin
+      data-default
+    , fin
     , vec
   build-depends:
       -- External dependencies

@@ -19,13 +19,12 @@ module HsBindgen.Lib (
   , genTests
 
     -- * Options
+  , module Default
   , ModuleUnique(..)
   , Pipeline.Opts(..)
-  , Pipeline.defaultOpts
 
     -- ** Clang arguments
   , Args.ClangArgs(..)
-  , Args.defaultClangArgs
   , Args.Target(..)
   , Args.TargetEnv(..)
   , Args.targetTriple
@@ -39,7 +38,6 @@ module HsBindgen.Lib (
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
-  , Hs.defaultTranslationOpts
   , Hs.Strategy(..)
   , Hs.HsTypeClass(..)
 
@@ -53,7 +51,6 @@ module HsBindgen.Lib (
 
     -- ** Preprocessor
   , Pipeline.PPOpts(..)
-  , Pipeline.defaultPPOpts
   , Backend.PP.HsModuleOpts(..)
   , Backend.PP.HsRenderOpts(..)
 
@@ -79,6 +76,7 @@ import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
+import HsBindgen.Imports as Default (Default (..))
 import HsBindgen.ModuleUnique
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve

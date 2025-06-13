@@ -27,7 +27,8 @@ goldenTh getAnsiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </
       -- -<.> does weird stuff for filenames with multiple dots;
       -- I usually simply avoid using it.
       let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-          opts = Pipeline.defaultOpts {
+          opts :: Pipeline.Opts
+          opts = def {
               Pipeline.optsClangArgs  = clangArgs packageRoot
             , Pipeline.optsTracer = tracer
             }

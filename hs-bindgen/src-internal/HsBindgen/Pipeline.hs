@@ -1,9 +1,9 @@
+{-# LANGUAGE CPP #-}
+
 module HsBindgen.Pipeline (
     -- * Options
     Opts(..)
-  , defaultOpts
   , PPOpts(..)
-  , defaultPPOpts
 
     -- * Translation pipeline components
   , parseCHeader
@@ -21,9 +21,12 @@ module HsBindgen.Pipeline (
   , preprocessIO
 
     -- * Template Haskell API
-  , genBindings
+  , QuoteIncludeDir (..)
+  , HashIncludeOpts (..)
+  , hashInclude
+  , hashInclude'
+  , hashIncludeWith
   , genBindingsFromCHeader
-  , genBindings'
 
     -- * External bindings generation
   , genExtBindings
@@ -37,6 +40,7 @@ import Control.Tracer (Tracer, nullTracer)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
+import System.FilePath ((</>))
 
 import Clang.Args
 import Clang.Paths
@@ -65,6 +69,12 @@ import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Util.Trace (Trace)
 import HsBindgen.Util.Tracer (TraceWithCallStack)
 
+#ifdef MIN_VERSION_th_compat
+import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
+#else
+import Language.Haskell.TH.Syntax (getPackageRoot)
+#endif
+
 {-------------------------------------------------------------------------------
   Options
 -------------------------------------------------------------------------------}
@@ -78,12 +88,11 @@ data Opts = Opts {
     , optsTracer      :: Tracer IO (TraceWithCallStack Trace)
     }
 
--- | Default 'Opts'
-defaultOpts :: Opts
-defaultOpts = Opts {
-      optsClangArgs   = defaultClangArgs
+instance Default Opts where
+  def = Opts {
+      optsClangArgs   = def
     , optsExtBindings = BindingSpec.empty
-    , optsTranslation = Hs.defaultTranslationOpts
+    , optsTranslation = def
     , optsPredicate   = SelectFromMainFiles
     , optsTracer      = nullTracer
     }
@@ -94,9 +103,8 @@ data PPOpts = PPOpts {
     , ppOptsRender :: HsRenderOpts -- ^ Default line length: 120
     }
 
--- | Default 'PPOpts'
-defaultPPOpts :: PPOpts
-defaultPPOpts = PPOpts {
+instance Default PPOpts where
+  def = PPOpts {
       ppOptsModule = HsModuleOpts { hsModuleOptsName = "Generated" }
     , ppOptsRender = HsRenderOpts { hsLineLength = 120 }
     }
@@ -174,18 +182,81 @@ preprocessIO ppOpts fp = genPP ppOpts fp . genModule ppOpts . genSHsDecls
   Template Haskell API
 -------------------------------------------------------------------------------}
 
+
+-- Potential TODO: Make this an opaque type, ensure path exists, and construct
+-- normal file path right away.
+
+-- | Project-specific (quoted) C include directory
+data QuoteIncludeDir =
+    -- | Relative to package root.
+    PackageRoot FilePath
+  | QuoteIncludeDir FilePath
+  deriving stock (Eq, Show)
+
+-- | Options
+newtype HashIncludeOpts = HashIncludeOpts {
+    extraIncludeDirs :: [QuoteIncludeDir]
+  }
+  deriving stock (Eq, Show)
+
+instance Default HashIncludeOpts where
+  def = HashIncludeOpts { extraIncludeDirs = [] }
+
+-- | Generate bindings for the given C header (simple)
+--
+-- Use default options ('Opts').
+--
+-- In particular, do not add custom C include directories.
+--
+-- Please see 'hashInclude' or 'hashIncludeWith' for customized binding
+-- generation.
+hashInclude' ::
+     FilePath   -- ^ Input header, as written in C @#include@
+  -> TH.Q [TH.Dec]
+hashInclude' fp = hashInclude fp def
+
+-- | Generate bindings for the given C header (custom C include directories)
+--
+-- Use default options ('Opts') but allow specification of custom C include
+-- directories.
+--
+-- Please see 'hashInclude' (simple interface) or 'hashIncludeWith' (customized
+-- binding generation).
+hashInclude ::
+     FilePath   -- ^ Input header, as written in C @#include@
+  -> HashIncludeOpts
+  -> TH.Q [TH.Dec]
+hashInclude fp HashIncludeOpts {..} = do
+  quoteIncludeDirs <- toFilePaths extraIncludeDirs
+  let opts :: Opts
+      opts = def {
+        optsClangArgs = def {
+            clangQuoteIncludePathDirs  = CIncludePathDir <$> quoteIncludeDirs
+          }
+      }
+  hashIncludeWith opts fp
+  where
+    toFilePath :: FilePath -> QuoteIncludeDir -> FilePath
+    toFilePath root (PackageRoot     x) = root </> x
+    toFilePath _    (QuoteIncludeDir x) = x
+
+    toFilePaths :: [QuoteIncludeDir] -> TH.Q [FilePath]
+    toFilePaths xs = do
+      root <- getPackageRoot
+      pure $ map (toFilePath root) xs
+
 -- | Generate bindings for the given C header
-genBindings :: HasCallStack =>
+hashIncludeWith :: HasCallStack =>
      Opts
   -> FilePath -- ^ Input header, as written in C @#include@
   -> TH.Q [TH.Dec]
-genBindings opts fp = do
+hashIncludeWith opts fp = do
     headerIncludePath <- either (TH.runIO . throwIO) return $
       parseCHeaderIncludePath fp
     unit <- TH.runIO $ parseCHeader opts headerIncludePath
     genBindingsFromCHeader opts unit
 
--- | Non-IO part of 'genBindings'
+-- | Non-IO part of 'hashIncludeWith'
 genBindingsFromCHeader
     :: Guasi q
     => Opts
@@ -211,21 +282,6 @@ genBindingsFromCHeader opts unit = do
     genTH sdecls
   where
     C.TranslationUnit{unitDecls, unitDeps} = unit
-
--- | Generate bindings for the given C header (simple)
---
--- This function uses default Clang arguments but allows you to add directories
--- to the include search path.  Use 'genBindings' when more configuration is
--- required.
-genBindings' ::
-     [FilePath] -- ^ Quote include search path directories
-  -> FilePath   -- ^ Input header, as written in C @#include@
-  -> TH.Q [TH.Dec]
-genBindings' quoteIncPathDirs = genBindings defaultOpts {
-      optsClangArgs = defaultClangArgs {
-          clangQuoteIncludePathDirs  = CIncludePathDir <$> quoteIncPathDirs
-        }
-    }
 
 {-------------------------------------------------------------------------------
   External bindings generation

@@ -25,7 +25,8 @@ execMode Dev{..} = \case
         genBindings :: IO TranslationUnit
         genBindings = withTracerStdOut (globalOptsTracerConf devGlobalOpts) DefaultLogLevel $
           \tracer -> do extBindings <- loadExtBindings' tracer devGlobalOpts
-                        let opts = defaultOpts {
+                        let opts :: Opts
+                            opts = def {
                                 optsClangArgs   = globalOptsClangArgs devGlobalOpts
                               , optsExtBindings = extBindings
                               , optsPredicate   = globalOptsPredicate devGlobalOpts

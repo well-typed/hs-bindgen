@@ -4,7 +4,6 @@
 -- | Low-level translation of the C header to a Haskell module
 module HsBindgen.Hs.Translation (
     TranslationOpts(..)
-  , defaultTranslationOpts
   , generateDeclarations
   ) where
 
@@ -19,7 +18,7 @@ import Data.Vec.Lazy qualified as Vec
 import GHC.Exts qualified as IsList (IsList (..))
 
 import C.Char qualified
-import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
+import C.Type qualified (FloatingType (..), IntegralType (IntLike))
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro qualified as Macro
@@ -31,7 +30,7 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName(..))
+import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
@@ -40,7 +39,8 @@ import HsBindgen.PrettyC qualified as PC
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
 
-import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken, Env (..), zipWithEnv, tabulateEnv, sizeEnv)
+import DeBruijn (Add (..), EmptyCtx, Env (..), Idx (..), pattern I1, pattern I2,
+                 sizeEnv, tabulateEnv, weaken, zipWithEnv)
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -66,8 +66,8 @@ data TranslationOpts = TranslationOpts {
     }
   deriving stock (Show)
 
-defaultTranslationOpts :: TranslationOpts
-defaultTranslationOpts = TranslationOpts {
+instance Default TranslationOpts where
+  def = TranslationOpts {
       translationDeriveStruct = [
           (Hs.DeriveStock, Hs.Show)
         , (Hs.DeriveStock, Hs.Eq)

@@ -196,7 +196,10 @@ library internal
     , yaml               >= 0.11.11.1 && < 0.12
 
   if impl(ghc < 9.4)
-    build-depends: data-array-byte >=0.1.0.1 && <0.2
+    build-depends:
+        data-array-byte >=0.1.0.1 && <0.2
+        -- for getPackageRoot
+      , th-compat ^>=0.1.6
 
 library
   import:         lang
@@ -221,9 +224,10 @@ library
     , filepath
     , template-haskell
 
-  -- for getPackageRoot
-  if !impl(ghc >=9.4)
-    build-depends: th-compat ^>=0.1.6
+  if impl(ghc < 9.4)
+    build-depends:
+        -- for getPackageRoot
+        th-compat ^>=0.1.6
 
 executable hs-bindgen-cli
   import:         lang
@@ -293,6 +297,7 @@ executable clang-ast-dump
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
+    , data-default
     , text
   build-depends:
       -- External dependencies
@@ -356,6 +361,7 @@ test-suite test-th
 
   other-modules:
       -- TH
+      Simple
       Test01
       Test02
       -- Common
