@@ -49,6 +49,8 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
         getMainHeader
         unit
 
+    -- writeFile "includegraph.mermaid" $ IncludeGraph.dumpMermaid includeGraph
+
     -- TODO receive configuration binding specifications via argument
     let confSpec :: ResolvedBindingSpec
         confSpec = BindingSpec.empty

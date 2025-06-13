@@ -14,6 +14,8 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , reaches
   , toSortedList
   , getMainPath
+    -- * Debugging
+  , dumpMermaid
   ) where
 
 import Data.List qualified as List
@@ -73,3 +75,10 @@ getMainPath ::
   -> SourcePath
   -> Maybe SourcePath
 getMainPath mainPaths (IncludeGraph graph) = DynGraph.dfFindEq mainPaths graph
+
+{-------------------------------------------------------------------------------
+  Debugging
+-------------------------------------------------------------------------------}
+
+dumpMermaid :: IncludeGraph -> String
+dumpMermaid (IncludeGraph graph) = DynGraph.dumpMermaid getSourcePath graph
