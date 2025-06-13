@@ -1,0 +1,30 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "redeclaration_identical.h:3:9",
+        declId = NamePair {
+          nameC = CName "A",
+          nameHsIdent = HsIdentifier
+            "a"}},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "5",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 5}),
+            macroExprType =
+            "IntLike (CIntegralType (IntLike (Int Signed)))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "redeclaration_identical"]}

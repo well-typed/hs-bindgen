@@ -22,6 +22,7 @@ import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -81,11 +82,20 @@ getDeclId curr = do
     else
       return $ DeclNamed (CName name)
 
+instance PrettyTrace DeclId where
+  prettyTrace (DeclNamed name)   = prettyTrace name
+  prettyTrace (DeclAnon  anonId) = prettyTrace anonId
+
+instance PrettyTrace AnonId where
+  prettyTrace (AnonId loc) = "<" ++ show loc ++ ">"
+
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
 
-data UnparsedMacro = UnparsedMacro [Token TokenSpelling]
+newtype UnparsedMacro = UnparsedMacro {
+      unparsedTokens :: [Token TokenSpelling]
+    }
   deriving stock (Show, Eq)
 
 data ReparseInfo =
