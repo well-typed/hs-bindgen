@@ -125,7 +125,7 @@ tests packageRoot getAnsiColor getRustBindgen =
           headerIncludePath = mkHeaderIncludePath name
       ediffGolden1 goldenTestSteps "treediff" target $ \report ->
         withOpts report $ \opts ->
-          Pipeline.parseCHeader opts headerIncludePath
+          Pipeline.parseCHeaders opts [headerIncludePath]
 
     goldenHs :: TestName -> TestTree
     goldenHs name = do
@@ -133,7 +133,7 @@ tests packageRoot getAnsiColor getRustBindgen =
           headerIncludePath = mkHeaderIncludePath name
       ediffGolden1 goldenTestSteps "hs" target $ \report ->
         withOpts report $ \opts ->
-          Pipeline.translateCHeader "testmodule" opts headerIncludePath
+          Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
 
     goldenExtensions :: TestName -> TestTree
     goldenExtensions name = do
@@ -141,7 +141,8 @@ tests packageRoot getAnsiColor getRustBindgen =
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "exts" target $ \report ->
         withOpts report $ \opts -> do
-          decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
+          decls <-
+            Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
           return $ unlines $ map show $ List.sort $ toList $
                 Pipeline.genExtensions
               $ Pipeline.genSHsDecls decls
@@ -152,7 +153,8 @@ tests packageRoot getAnsiColor getRustBindgen =
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "pp" target $ \report ->
         withOpts report $ \opts -> do
-          decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
+          decls <-
+            Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
 
           -- TODO: PP.render should add trailing '\n' itself.
           return $ Pipeline.preprocessPure ppOpts decls ++ "\n"
@@ -163,10 +165,11 @@ tests packageRoot getAnsiColor getRustBindgen =
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "extbindings" target $ \report ->
         withOpts report $ \opts -> do
-          decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
+          decls <-
+            Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
           return . UTF8.toString . BindingSpec.encodeYaml $
             BindingSpec.genBindingSpec
-              headerIncludePath
+              [headerIncludePath]
               (Hs.HsModuleName "Example")
               decls
 
@@ -194,7 +197,8 @@ tests packageRoot getAnsiColor getRustBindgen =
       goldenVsStringDiff_ name target $ \report ->
         withOpts report $ \opts -> do
           result <- try $ do
-            decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
+            decls <-
+              Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
 
             -- TODO: PP.render should add trailing '\n' itself.
             evaluate $ force $ Pipeline.preprocessPure ppOpts decls ++ "\n"

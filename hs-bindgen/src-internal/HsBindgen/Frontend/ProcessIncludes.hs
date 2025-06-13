@@ -1,10 +1,12 @@
 module HsBindgen.Frontend.ProcessIncludes (
-    processIncludes
+    GetMainHeader
+  , processIncludes
     -- * Auxiliary
   , getIncludeTo
   , ifFromRootHeader_
   ) where
 
+import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel qualified as HighLevel
@@ -12,6 +14,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.C.Predicate (IsMainFile)
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.RootHeader (RootHeader)
@@ -25,10 +28,10 @@ import HsBindgen.Imports
   == Context
 
   When the user invokes @hs-bindgen@, they provide us with one or more headers
-  to process (command line option @-i@); we refer to these as the "main
-  headers". In order to process these, we construct a new "root header" (see
-  "HsBindgen.Frontend.RootHeader"), which has one @#include@ per user-specified
-  main header. For example, the root header might look like
+  to process; we refer to these as the "main headers". In order to process
+  these, we construct a new "root header" (see "HsBindgen.Frontend.RootHeader"),
+  which has one @#include@ per user-specified main header. For example, the root
+  header might look like
 
   > #include <a.h>
   > #include "b.h"
@@ -91,6 +94,9 @@ import HsBindgen.Imports
   in principle resolve to the /same/ 'SourcePath.')
 -------------------------------------------------------------------------------}
 
+-- | Function to get the main header that (transitively) includes a source path
+type GetMainHeader = SourcePath -> CHeaderIncludePath
+
 -- | Process includes
 --
 -- We do this as separate pass over the clang AST; this should be relatively
@@ -98,7 +104,7 @@ import HsBindgen.Imports
 processIncludes ::
      RootHeader
   -> CXTranslationUnit
-  -> IO (IncludeGraph, IsMainFile)
+  -> IO (IncludeGraph, IsMainFile, GetMainHeader)
 processIncludes rootHeader unit = do
     root     <- clang_getTranslationUnitCursor unit
     includes <- HighLevel.clang_visitChildren root $ \curr ->
@@ -108,19 +114,33 @@ processIncludes rootHeader unit = do
                     _otherwise ->
                       return $ Continue Nothing
 
-    let mainFiles :: Set SourcePath
-        mainFiles = Set.fromList $ mapMaybe aux includes
-          where
-            aux :: Include -> Maybe SourcePath
-            aux Include{..} = do
-                _root <- includeRoot -- keep only includes from the root
-                return includeTo
+    let includeGraph :: IncludeGraph
+        includeGraph = IncludeGraph.fromList $
+          map (\Include{..} -> (includeFrom, includeTo)) includes
 
-    return (
-        IncludeGraph.fromList $
-          map (\i -> (includeFrom i, includeTo i)) includes
-      , \loc -> singleLocPath loc `Set.member` mainFiles
-      )
+        mainPathPairs :: [(SourcePath, CHeaderIncludePath)]
+        mainPathPairs =
+          mapMaybe (\Include{..} -> (includeTo,) <$> includeRoot) includes
+
+        mainPathMap :: Map SourcePath CHeaderIncludePath
+        mainPathMap = Map.fromList mainPathPairs
+
+        mainPaths :: Set SourcePath
+        mainPaths = Map.keysSet mainPathMap
+
+        isMainFile :: IsMainFile
+        isMainFile loc = singleLocPath loc `Set.member` mainPaths
+
+        getMainHeader :: GetMainHeader
+        getMainHeader = case mainPathPairs of
+          -- If we only have one main header, always return it without checking.
+          [(_path, header)] -> const header
+          _otherwise -> \path ->
+            fromMaybe (panicPure ("getMainHeader failed for " ++ show path)) $
+              (`Map.lookup` mainPathMap)
+                =<< IncludeGraph.getMainPath mainPaths includeGraph path
+
+    return (includeGraph, isMainFile, getMainHeader)
 
 {-------------------------------------------------------------------------------
   Process inclusion directives

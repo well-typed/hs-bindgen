@@ -25,11 +25,11 @@ import HsBindgen.Language.Haskell
 
 -- TODO omitted types
 genBindingSpec ::
-     CHeaderIncludePath
+     [CHeaderIncludePath]
   -> HsModuleName
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
-genBindingSpec headerIncludePath hsModuleName = foldr aux BindingSpec.empty
+genBindingSpec headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
   where
     aux ::
          Hs.Decl
@@ -60,7 +60,7 @@ genBindingSpec headerIncludePath hsModuleName = foldr aux BindingSpec.empty
       }
 
     headers :: Set CHeaderIncludePath
-    headers = Set.singleton headerIncludePath
+    headers = Set.fromList headerIncludePaths
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

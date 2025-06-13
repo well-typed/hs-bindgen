@@ -248,12 +248,10 @@ parseExtBindings = many . strOption $ mconcat [
 
 parseInput :: Parser CHeaderIncludePath
 parseInput =
-    option (eitherReader $ first displayException . parseCHeaderIncludePath) $
+    argument (eitherReader $ first displayException . parseCHeaderIncludePath) $
       mconcat $ [
           help "Input C header, relative to an include path directory"
-        , metavar "PATH"
-        , long "input"
-        , short 'i'
+        , metavar "HEADER"
         ]
 
 {-------------------------------------------------------------------------------

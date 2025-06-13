@@ -37,9 +37,9 @@ data Dev = Dev {
   deriving (Show)
 
 newtype Mode =
-    -- | Just parse the C header
+    -- | Just parse the C headers
     ModeParse {
-        parseInputPath :: CHeaderIncludePath
+        parseInputPaths :: [CHeaderIncludePath]
       }
   deriving (Show)
 
@@ -71,4 +71,4 @@ parseMode = subparser $ mconcat [
 parseModeParse :: Parser Mode
 parseModeParse =
     ModeParse
-      <$> parseInput
+      <$> some parseInput

@@ -6,11 +6,9 @@ module HsBindgen.Frontend.Pass.Parse.Monad (
     -- * Functionality
     -- ** "Reader"
   , getTranslationUnit
-  , skipBuiltin
+  , evalGetMainHeader
   , evalPredicate
     -- ** "State"
-  , updateMainHeader
-  , getMainHeader
   , recordMacroExpansionAt
   , checkHasMacroExpansion
   , recordNonSelectedDecl
@@ -31,11 +29,10 @@ import Clang.Paths
 import HsBindgen.C.Predicate (Predicate, IsMainFile)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
-import HsBindgen.Errors
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.ProcessIncludes
+import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.Util.Fold (dispatch)
 import HsBindgen.Imports
@@ -74,37 +71,30 @@ runParseMonad env f = do
 -------------------------------------------------------------------------------}
 
 data ParseEnv = ParseEnv {
-      envUnit       :: CXTranslationUnit
-    , envRootHeader :: RootHeader
-    , envIsMainFile :: IsMainFile
-    , envPredicate  :: Predicate
-    , envTracer     :: Tracer IO (TraceWithCallStack ParseTrace)
+      envUnit          :: CXTranslationUnit
+    , envRootHeader    :: RootHeader
+    , envIsMainFile    :: IsMainFile
+    , envGetMainHeader :: GetMainHeader
+    , envPredicate     :: Predicate
+    , envTracer        :: Tracer IO (TraceWithCallStack ParseTrace)
     }
 
 getTranslationUnit :: M CXTranslationUnit
 getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
     return (envUnit parseEnv)
 
-skipBuiltin :: CXCursor -> M Bool
-skipBuiltin curr = wrapEff $ \ParseSupport{parseEnv} -> do
-    isMatch <- Predicate.skipBuiltin curr
-    case isMatch of
-      Right ()     -> return False
-      Left  reason -> do
-        traceWithCallStack (envTracer parseEnv) $ Skipped reason
-        return True
+evalGetMainHeader :: SourcePath -> M CHeaderIncludePath
+evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
+    return $ (envGetMainHeader parseEnv) path
 
-evalPredicate :: CXCursor -> M Bool
+evalPredicate :: CXCursor -> M (Either Predicate.SkipReason ())
 evalPredicate curr = wrapEff $ \ParseSupport{parseEnv} -> do
-    isMatch <- Predicate.match
-                 (envIsMainFile parseEnv)
-                 (envPredicate  parseEnv)
-                 curr
-    case isMatch of
-      Right ()     -> return True
-      Left  reason -> do
-        traceWithCallStack (envTracer parseEnv) $ Skipped reason
-        return False
+    matchResult <-
+      Predicate.match (envIsMainFile parseEnv) (envPredicate parseEnv) curr
+    case matchResult of
+      Right ()    -> return ()
+      Left reason -> traceWithCallStack (envTracer parseEnv) (Skipped reason)
+    return matchResult
 
 {-------------------------------------------------------------------------------
   "State"
@@ -116,11 +106,6 @@ data ParseState = ParseState {
       -- Declarations with expanded macros need to be reparsed.
       stateMacroExpansions :: Set SingleLoc
 
-      -- | Current main header
-      --
-      -- This is exclusively used to set 'functionHeader'.
-    , stateMainHeader :: Maybe CHeaderIncludePath
-
       -- | Non-selected declarations
       --
       -- We need to track which header each omitted declaration is declared in
@@ -131,29 +116,8 @@ data ParseState = ParseState {
 initParseState :: ParseState
 initParseState = ParseState{
       stateMacroExpansions  = Set.empty
-    , stateMainHeader       = Nothing
     , stateNonSelectedDecls = NonSelectedDecls.empty
     }
-
--- | Update the main header, when necessary
---
--- Should only be called on 'CXCursor_InclusionDirective'.
-updateMainHeader :: CXCursor -> M ()
-updateMainHeader curr = do
-    wrapEff $ \ParseSupport{parseEnv, parseState} ->
-      ifFromRootHeader_ (envRootHeader parseEnv) curr $ \path ->
-        modifyIORef parseState $ \st -> st{stateMainHeader = Just path}
-
-getMainHeader :: M CHeaderIncludePath
-getMainHeader = wrapEff $ \ParseSupport{parseState} -> do
-     state <- readIORef parseState
-     case stateMainHeader state of
-       Just header -> return header
-       Nothing     ->
-         -- This should not happen: we only ask for the main header when we
-         -- are generating a function, which must ultimately come from one of
-         -- the main headers.
-         panicIO "No main header"
 
 recordMacroExpansionAt :: SingleLoc -> M ()
 recordMacroExpansionAt loc = do

@@ -32,7 +32,7 @@ goldenTh getAnsiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </
               Pipeline.optsClangArgs  = clangArgs packageRoot
             , Pipeline.optsTracer = tracer
             }
-      unit <- Pipeline.parseCHeader opts headerIncludePath
+      unit <- Pipeline.parseCHeaders opts [headerIncludePath]
 
       let decls :: Qu [TH.Dec]
           decls = Pipeline.genBindingsFromCHeader opts unit

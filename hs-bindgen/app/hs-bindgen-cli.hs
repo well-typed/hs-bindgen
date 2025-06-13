@@ -47,7 +47,7 @@ execMode Cli{..} = \case
           -- https://github.com/well-typed/hs-bindgen/issues/502
           let mu :: ModuleUnique
               mu = ModuleUnique $ filter isLetter $ hsModuleOptsName $ preprocessModuleOpts
-          translateCHeader mu opts preprocessInput
+          translateCHeaders mu opts preprocessInputs
         outputDecls decls = do
           let ppOpts = (def :: PPOpts) {
                 ppOptsModule = preprocessModuleOpts
@@ -56,7 +56,7 @@ execMode Cli{..} = \case
           preprocessIO ppOpts preprocessOutput decls
           case preprocessGenExtBindings of
             Nothing   -> return ()
-            Just path -> genExtBindings ppOpts preprocessInput path decls
+            Just path -> genExtBindings ppOpts preprocessInputs path decls
 
     ModeGenTests{..} -> do
       extBindings <- withTracer $ \tracer -> loadExtBindings' tracer cliGlobalOpts
@@ -67,8 +67,8 @@ execMode Cli{..} = \case
               ppOptsModule = genTestsModuleOpts
             , ppOptsRender = genTestsRenderOpts
             }
-      genTests ppOpts genTestsInput genTestsOutput
-        =<< translateCHeader "TODO" opts genTestsInput
+      genTests ppOpts genTestsInputs genTestsOutput
+        =<< translateCHeaders "TODO" opts genTestsInputs
 
     ModeLiterate input output -> execLiterate input output
   where

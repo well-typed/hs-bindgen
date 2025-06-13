@@ -6,7 +6,7 @@ module HsBindgen.Pipeline (
   , PPOpts(..)
 
     -- * Translation pipeline components
-  , parseCHeader
+  , parseCHeaders
   , genHsDecls
   , genSHsDecls
   , genModule
@@ -16,7 +16,7 @@ module HsBindgen.Pipeline (
   , genExtensions
 
     -- * Preprocessor API
-  , translateCHeader
+  , translateCHeaders
   , preprocessPure
   , preprocessIO
 
@@ -113,19 +113,14 @@ instance Default PPOpts where
   Translation pipeline components
 -------------------------------------------------------------------------------}
 
--- | Parse a C header
-parseCHeader ::
+-- | Parse C headers
+parseCHeaders ::
       HasCallStack
    => Opts
-   -> CHeaderIncludePath
+   -> [CHeaderIncludePath]
    -> IO C.TranslationUnit
-parseCHeader Opts{..} headerIncludePath =
-    C.parseCHeaders
-      optsTracer
-      optsClangArgs
-      optsPredicate
-      optsExtBindings
-      [headerIncludePath]
+parseCHeaders Opts{..} =
+    C.parseCHeaders optsTracer optsClangArgs optsPredicate optsExtBindings
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Opts -> [C.Decl] -> [Hs.Decl]
@@ -160,10 +155,10 @@ genExtensions = foldMap requiredExtensions
 -------------------------------------------------------------------------------}
 
 -- | Parse a C header and generate @Hs@ declarations
-translateCHeader :: HasCallStack
-  => ModuleUnique -> Opts -> CHeaderIncludePath -> IO [Hs.Decl]
-translateCHeader mu opts headerIncludePath = do
-    C.TranslationUnit{unitDecls} <- parseCHeader opts headerIncludePath
+translateCHeaders :: HasCallStack
+  => ModuleUnique -> Opts -> [CHeaderIncludePath] -> IO [Hs.Decl]
+translateCHeaders mu opts headerIncludePaths = do
+    C.TranslationUnit{unitDecls} <- parseCHeaders opts headerIncludePaths
     return $ genHsDecls mu opts unitDecls
 
 -- | Generate bindings for the given C header
@@ -181,7 +176,6 @@ preprocessIO ppOpts fp = genPP ppOpts fp . genModule ppOpts . genSHsDecls
 {-------------------------------------------------------------------------------
   Template Haskell API
 -------------------------------------------------------------------------------}
-
 
 -- Potential TODO: Make this an opaque type, ensure path exists, and construct
 -- normal file path right away.
@@ -202,7 +196,7 @@ newtype HashIncludeOpts = HashIncludeOpts {
 instance Default HashIncludeOpts where
   def = HashIncludeOpts { extraIncludeDirs = [] }
 
--- | Generate bindings for the given C header (simple)
+-- | Generate bindings for the given C headers (simple)
 --
 -- Use default options ('Opts').
 --
@@ -211,11 +205,11 @@ instance Default HashIncludeOpts where
 -- Please see 'hashInclude' or 'hashIncludeWith' for customized binding
 -- generation.
 hashInclude' ::
-     FilePath   -- ^ Input header, as written in C @#include@
+     [FilePath]  -- ^ Input headers, as written in C @#include@
   -> TH.Q [TH.Dec]
-hashInclude' fp = hashInclude fp def
+hashInclude' fps = hashInclude fps def
 
--- | Generate bindings for the given C header (custom C include directories)
+-- | Generate bindings for the given C headers (custom C include directories)
 --
 -- Use default options ('Opts') but allow specification of custom C include
 -- directories.
@@ -223,10 +217,10 @@ hashInclude' fp = hashInclude fp def
 -- Please see 'hashInclude' (simple interface) or 'hashIncludeWith' (customized
 -- binding generation).
 hashInclude ::
-     FilePath   -- ^ Input header, as written in C @#include@
+     [FilePath]  -- ^ Input headers, as written in C @#include@
   -> HashIncludeOpts
   -> TH.Q [TH.Dec]
-hashInclude fp HashIncludeOpts {..} = do
+hashInclude fps HashIncludeOpts {..} = do
   quoteIncludeDirs <- toFilePaths extraIncludeDirs
   let opts :: Opts
       opts = def {
@@ -234,7 +228,7 @@ hashInclude fp HashIncludeOpts {..} = do
             clangQuoteIncludePathDirs  = CIncludePathDir <$> quoteIncludeDirs
           }
       }
-  hashIncludeWith opts fp
+  hashIncludeWith opts fps
   where
     toFilePath :: FilePath -> QuoteIncludeDir -> FilePath
     toFilePath root (PackageRoot     x) = root </> x
@@ -245,15 +239,15 @@ hashInclude fp HashIncludeOpts {..} = do
       root <- getPackageRoot
       pure $ map (toFilePath root) xs
 
--- | Generate bindings for the given C header
+-- | Generate bindings for the given C headers
 hashIncludeWith :: HasCallStack =>
      Opts
-  -> FilePath -- ^ Input header, as written in C @#include@
+  -> [FilePath] -- ^ Input headers, as written in C @#include@
   -> TH.Q [TH.Dec]
-hashIncludeWith opts fp = do
-    headerIncludePath <- either (TH.runIO . throwIO) return $
-      parseCHeaderIncludePath fp
-    unit <- TH.runIO $ parseCHeader opts headerIncludePath
+hashIncludeWith opts fps = do
+    headerIncludePaths <-
+      mapM (either (TH.runIO . throwIO) return . parseCHeaderIncludePath) fps
+    unit <- TH.runIO $ parseCHeaders opts headerIncludePaths
     genBindingsFromCHeader opts unit
 
 -- | Non-IO part of 'hashIncludeWith'
@@ -290,14 +284,14 @@ genBindingsFromCHeader opts unit = do
 -- | Generate external bindings configuration
 genExtBindings ::
      PPOpts
-  -> CHeaderIncludePath
+  -> [CHeaderIncludePath]
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genExtBindings PPOpts{..} headerIncludePath path =
+genExtBindings PPOpts{..} headerIncludePaths path =
         either (throwIO . HsBindgenException) return
     <=< BindingSpec.writeFile path
-    .   genBindingSpec headerIncludePath moduleName
+    .   genBindingSpec headerIncludePaths moduleName
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
@@ -307,10 +301,10 @@ genExtBindings PPOpts{..} headerIncludePath path =
 -------------------------------------------------------------------------------}
 
 -- | Generate tests
-genTests :: PPOpts -> CHeaderIncludePath -> FilePath -> [Hs.Decl] -> IO ()
-genTests PPOpts{..} headerIncludePath testDir decls =
+genTests :: PPOpts -> [CHeaderIncludePath] -> FilePath -> [Hs.Decl] -> IO ()
+genTests PPOpts{..} headerIncludePaths testDir decls =
     GenTests.genTests
-      headerIncludePath
+      headerIncludePaths
       decls
       (hsModuleOptsName ppOptsModule)
       (hsLineLength ppOptsRender)

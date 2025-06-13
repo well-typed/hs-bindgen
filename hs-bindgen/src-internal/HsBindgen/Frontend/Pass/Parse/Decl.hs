@@ -11,6 +11,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
+import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -26,52 +27,24 @@ import HsBindgen.Language.C
 -------------------------------------------------------------------------------}
 
 foldDecl :: HasCallStack => Fold M [C.Decl Parse]
-foldDecl curr = do
-    isBuiltin <- skipBuiltin curr
-    if isBuiltin
-      then return $ Continue Nothing
-      else do
-        isInclude <- handleIncludeDirectives curr
-        if isInclude
-          then return $ Continue Nothing
-          else do
-            selected <- evalPredicate curr
-            if selected then
-              dispatchWithArg curr $ \case
-                CXCursor_InclusionDirective -> \_ -> return $ Continue Nothing
-                CXCursor_MacroDefinition    -> macroDefinition
-                CXCursor_StructDecl         -> structDecl
-                CXCursor_UnionDecl          -> unionDecl
-                CXCursor_TypedefDecl        -> typedefDecl
-                CXCursor_MacroExpansion     -> macroExpansion
-                CXCursor_EnumDecl           -> enumDecl
-                CXCursor_FunctionDecl       -> functionDecl
-                CXCursor_VarDecl            -> varDecl
-                kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
-            else do
-              recordNonSelectedDecl curr
-              return $ Continue Nothing
-
-{-------------------------------------------------------------------------------
-  Process includes
--------------------------------------------------------------------------------}
-
--- | Handle include directives
---
--- Most processing of include directives has already been done (see
--- "HsBindgen.Frontend.ProcessIncludes"); we just need to make sure to update
--- the main header.
---
--- Returns whether or not this was an include directive.
-handleIncludeDirectives :: CXCursor -> M Bool
-handleIncludeDirectives curr =
-    dispatch curr $ \case
-      CXCursor_InclusionDirective -> do
-        updateMainHeader curr
-        return True
-      _otherwise ->
-        return False
-
+foldDecl curr = evalPredicate curr >>= \case
+    Right () ->
+      dispatchWithArg curr $ \case
+        CXCursor_InclusionDirective -> \_ -> return $ Continue Nothing
+        CXCursor_MacroDefinition    -> macroDefinition
+        CXCursor_StructDecl         -> structDecl
+        CXCursor_UnionDecl          -> unionDecl
+        CXCursor_TypedefDecl        -> typedefDecl
+        CXCursor_MacroExpansion     -> macroExpansion
+        CXCursor_EnumDecl           -> enumDecl
+        CXCursor_FunctionDecl       -> functionDecl
+        CXCursor_VarDecl            -> varDecl
+        kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
+    Left Predicate.SkipPredicate{} -> do
+        recordNonSelectedDecl curr
+        return $ Continue Nothing
+    Left Predicate.SkipBuiltin{} ->
+        return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations
@@ -363,7 +336,7 @@ functionDecl curr = do
     typ  <- fromCXType =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn    <- getReparseInfo curr
-    functionHeader <- getMainHeader
+    functionHeader <- evalGetMainHeader $ singleLocPath (C.declLoc info)
     let decl :: C.Decl Parse
         decl = C.Decl{
             declInfo = info

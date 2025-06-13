@@ -28,11 +28,11 @@ import HsBindgen.Hs.AST qualified as Hs
 
 -- | Generate C test header and source files
 genTestsC ::
-     FilePath           -- ^ C test header file path
-  -> FilePath           -- ^ C test source file path
-  -> Int                -- ^ Maximum line length
-  -> CHeaderIncludePath -- ^ C header path
-  -> [Hs.Decl]          -- ^ Declarations
+     FilePath             -- ^ C test header file path
+  -> FilePath             -- ^ C test source file path
+  -> Int                  -- ^ Maximum line length
+  -> [CHeaderIncludePath] -- ^ C header paths
+  -> [Hs.Decl]            -- ^ Declarations
   -> IO ()
 genTestsC = panicPure "TODO" -- TODO refactor
 

@@ -32,4 +32,4 @@ execMode Dev{..} = \case
                               , optsPredicate   = globalOptsPredicate devGlobalOpts
                               , optsTracer      = tracer
                               }
-                        Pipeline.parseCHeader opts parseInputPath
+                        Pipeline.parseCHeaders opts parseInputPaths

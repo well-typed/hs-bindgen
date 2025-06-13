@@ -31,5 +31,5 @@ $(do
             optsClangArgs   = args
           , optsExtBindings = extBindings
           }
-    hashIncludeWith opts "test_02.h"
+    hashIncludeWith opts ["test_02.h"]
  )

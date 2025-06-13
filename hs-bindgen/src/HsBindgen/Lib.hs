@@ -6,7 +6,7 @@
 module HsBindgen.Lib (
     -- * Parsing and translating
     HsDecls -- opaque
-  , translateCHeader
+  , translateCHeaders
 
     -- * Preprocessor
   , preprocessPure
@@ -95,10 +95,11 @@ newtype HsDecls = WrapHsDecls {
       unwrapHsDecls :: [Hs.Decl]
     }
 
--- | Translate C header to Haskell declarations
-translateCHeader :: HasCallStack
-  => ModuleUnique -> Pipeline.Opts -> Paths.CHeaderIncludePath -> IO HsDecls
-translateCHeader mu opts = fmap WrapHsDecls . Pipeline.translateCHeader mu opts
+-- | Translate C headers to Haskell declarations
+translateCHeaders :: HasCallStack
+  => ModuleUnique -> Pipeline.Opts -> [Paths.CHeaderIncludePath] -> IO HsDecls
+translateCHeaders mu opts =
+    fmap WrapHsDecls . Pipeline.translateCHeaders mu opts
 
 {-------------------------------------------------------------------------------
   Preprocessor
@@ -122,12 +123,12 @@ preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
 
 genExtBindings ::
      Pipeline.PPOpts
-  -> Paths.CHeaderIncludePath
+  -> [Paths.CHeaderIncludePath]
   -> FilePath
   -> HsDecls
   -> IO ()
-genExtBindings ppOpts headerIncludePath fp =
-    Pipeline.genExtBindings ppOpts headerIncludePath fp . unwrapHsDecls
+genExtBindings ppOpts headerIncludePaths fp =
+    Pipeline.genExtBindings ppOpts headerIncludePaths fp . unwrapHsDecls
 
 loadExtBindings ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
@@ -145,9 +146,9 @@ emptyExtBindings = BindingSpec.empty
 
 genTests ::
      Pipeline.PPOpts
-  -> Paths.CHeaderIncludePath
+  -> [Paths.CHeaderIncludePath]
   -> FilePath -- ^ Test suite directory path
   -> HsDecls
   -> IO ()
-genTests ppOpts headerIncludePath testDir =
-    Pipeline.genTests ppOpts headerIncludePath testDir . unwrapHsDecls
+genTests ppOpts headerIncludePaths testDir =
+    Pipeline.genTests ppOpts headerIncludePaths testDir . unwrapHsDecls

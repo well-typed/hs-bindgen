@@ -43,19 +43,19 @@ data Cli = Cli {
 data Mode =
     -- | The main mode: preprocess C headers to Haskell modules
     ModePreprocess {
-        preprocessInput           :: CHeaderIncludePath
-      , preprocessTranslationOpts :: TranslationOpts
+        preprocessTranslationOpts :: TranslationOpts
       , preprocessModuleOpts      :: HsModuleOpts
       , preprocessRenderOpts      :: HsRenderOpts
       , preprocessOutput          :: Maybe FilePath
       , preprocessGenExtBindings  :: Maybe FilePath
+      , preprocessInputs          :: [CHeaderIncludePath]
       }
     -- | Generate tests for generated Haskell code
   | ModeGenTests {
-        genTestsInput      :: CHeaderIncludePath
-      , genTestsModuleOpts :: HsModuleOpts
+        genTestsModuleOpts :: HsModuleOpts
       , genTestsRenderOpts :: HsRenderOpts
       , genTestsOutput     :: FilePath
+      , genTestsInputs     :: [CHeaderIncludePath]
       }
   | ModeLiterate FilePath FilePath
   deriving (Show)
@@ -100,20 +100,20 @@ parseMode = subparser $ mconcat [
 parseModePreprocess :: Parser Mode
 parseModePreprocess =
     ModePreprocess
-      <$> parseInput
-      <*> parseTranslationOpts
+      <$> parseTranslationOpts
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseOutput
       <*> optional parseGenExtBindings
+      <*> some parseInput
 
 parseModeGenTests :: Parser Mode
 parseModeGenTests =
     ModeGenTests
-      <$> parseInput
-      <*> parseHsModuleOpts
+      <$> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseGenTestsOutput
+      <*> some parseInput
 
 parseModeLiterate :: Parser Mode
 parseModeLiterate = do
