@@ -15,7 +15,8 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend (FrontendTrace (FrontendParse))
+import HsBindgen.Frontend (FrontendTrace (FrontendNameMangler, FrontendParse))
+import HsBindgen.Frontend.Pass.MangleNames (MangleError (MissingDeclaration))
 import HsBindgen.Frontend.Pass.Parse.Monad (ParseTrace (UnsupportedImplicitFields))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -103,9 +104,16 @@ tests packageRoot getAnsiColor getRustBindgen =
           failing "long_double"
         , expectTrace
             "implicit_fields_struct"
-            "expected UnsupportedImplicitFields trace"
+            "expected trace UnsupportedImplicitFields"
             (\case
                 (TraceFrontend (FrontendParse (UnsupportedImplicitFields {}))) -> True
+                _otherwise -> False
+            )
+        , expectTrace
+            "declaration_unselected_b"
+            "expected trace MissingDeclaration"
+            (\case
+                (TraceFrontend (FrontendNameMangler (MissingDeclaration {}))) -> True
                 _otherwise -> False
             )
         ]
