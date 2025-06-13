@@ -48,7 +48,6 @@ module HsBindgen.Frontend.AST.External (
 
 import Prelude hiding (Enum)
 
-import Clang.CNameSpelling (CNameSpelling)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -236,7 +235,7 @@ data Type =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray Type
-  | TypeExtBinding CNameSpelling ExtHsRef BindingSpec.TypeSpec
+  | TypeExtBinding BindingSpec.CSpelling ExtHsRef BindingSpec.TypeSpec
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow Type
 

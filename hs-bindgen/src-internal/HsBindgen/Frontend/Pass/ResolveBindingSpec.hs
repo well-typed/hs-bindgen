@@ -10,7 +10,6 @@ import Control.Monad.RWS qualified as RWS
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import Clang.CNameSpelling
 import Clang.HighLevel.Types
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -57,26 +56,26 @@ resolveBindingSpec
       }
 
 data BindingSpecError =
-    BindingSpecExtHsRefNoModule CNameSpelling
-  | BindingSpecExtHsRefNoIdentifier CNameSpelling
-  | BindingSpecOmittedTypeUse CNameSpelling
-  | BindingSpecTypeNotUsed CNameSpelling
+    BindingSpecExtHsRefNoModule BindingSpec.CSpelling
+  | BindingSpecExtHsRefNoIdentifier BindingSpec.CSpelling
+  | BindingSpecOmittedTypeUse BindingSpec.CSpelling
+  | BindingSpecTypeNotUsed BindingSpec.CSpelling
   deriving stock (Show, Eq)
 
 instance Exception BindingSpecError where
   toException = hsBindgenExceptionToException
   fromException = hsBindgenExceptionFromException
   displayException = \case
-    BindingSpecExtHsRefNoModule cname ->
-      "no Haskell module specified in " ++ show cname
+    BindingSpecExtHsRefNoModule cspelling ->
+      "no Haskell module specified in " ++ show cspelling
         ++ " external binding specification"
-    BindingSpecExtHsRefNoIdentifier cname ->
-      "no Haskell identifier specified in " ++ show cname
+    BindingSpecExtHsRefNoIdentifier cspelling ->
+      "no Haskell identifier specified in " ++ show cspelling
         ++ " external binding specification"
-    BindingSpecOmittedTypeUse cname ->
-      "omitted type " ++ show cname ++ " used"
-    BindingSpecTypeNotUsed cname ->
-      "binding specification for type " ++ show cname ++ " not used"
+    BindingSpecOmittedTypeUse cspelling ->
+      "omitted type " ++ show cspelling ++ " used"
+    BindingSpecTypeNotUsed cspelling ->
+      "binding specification for type " ++ show cspelling ++ " not used"
 
 {-------------------------------------------------------------------------------
   Internal: monad
@@ -123,7 +122,7 @@ data MEnv = MEnv {
 data MState = MState {
       stateErrors      :: [BindingSpecError] -- ^ Stored in reverse order
     , stateExtTypes    :: Map (C.QualId NameAnon) (C.Type ResolveBindingSpec)
-    , stateNoConfTypes :: Set CNameSpelling
+    , stateNoConfTypes :: Set BindingSpec.CSpelling
     , stateOmitTypes   :: Set (C.QualId NameAnon)
     }
   deriving (Show)
@@ -150,9 +149,9 @@ insertExtType qualId typ st = st {
       stateExtTypes = Map.insert qualId typ (stateExtTypes st)
     }
 
-deleteNoConfType :: CNameSpelling -> MState -> MState
-deleteNoConfType cname st = st {
-      stateNoConfTypes = Set.delete cname (stateNoConfTypes st)
+deleteNoConfType :: BindingSpec.CSpelling -> MState -> MState
+deleteNoConfType cspelling st = st {
+      stateNoConfTypes = Set.delete cspelling (stateNoConfTypes st)
     }
 
 insertOmittedType :: C.QualId NameAnon -> MState -> MState
@@ -183,31 +182,31 @@ resolveTop ::
   -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.TypeSpec))
 resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     let qualId     = C.declQualId decl
-        cname      = qualIdCNameSpelling qualId
+        cspelling  = qualIdCSpelling qualId
         sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
         declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
-    isExt <- case BindingSpec.lookupTypeSpec cname declPaths envExtSpec of
+    isExt <- case BindingSpec.lookupTypeSpec cspelling declPaths envExtSpec of
       Just (BindingSpec.Require typeSpec) ->
-        case getExtHsRef cname typeSpec of
+        case getExtHsRef cspelling typeSpec of
           Right extHsRef -> do
-            let ty = C.TypeExtBinding cname extHsRef typeSpec
+            let ty = C.TypeExtBinding cspelling extHsRef typeSpec
             RWS.modify' $ insertExtType qualId ty
             return True
           Left e -> do
             RWS.modify' $ insertError e
             return False
       Just BindingSpec.Omit -> do
-        RWS.modify' $ insertError (BindingSpecOmittedTypeUse cname)
+        RWS.modify' $ insertError (BindingSpecOmittedTypeUse cspelling)
         return False
       Nothing -> return False
     if isExt
       then return Nothing
-      else case BindingSpec.lookupTypeSpec cname declPaths envConfSpec of
+      else case BindingSpec.lookupTypeSpec cspelling declPaths envConfSpec of
         Just (BindingSpec.Require typeSpec) -> do
-          RWS.modify' $ deleteNoConfType cname
+          RWS.modify' $ deleteNoConfType cspelling
           return $ Just (decl, Just typeSpec)
         Just BindingSpec.Omit -> do
-          RWS.modify' $ deleteNoConfType cname . insertOmittedType qualId
+          RWS.modify' $ deleteNoConfType cspelling . insertOmittedType qualId
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
 
@@ -372,11 +371,11 @@ instance Resolve C.Type where
         -> M (C.Type ResolveBindingSpec)
       aux mk uid namespace =
         RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
-          let qualId = C.QualId uid namespace
-              cname  = qualIdCNameSpelling qualId
+          let qualId    = C.QualId uid namespace
+              cspelling = qualIdCSpelling qualId
           -- check for type omitted by binding specification
           when (Set.member qualId stateOmitTypes) $
-            RWS.modify' $ insertError (BindingSpecOmittedTypeUse cname)
+            RWS.modify' $ insertError (BindingSpecOmittedTypeUse cspelling)
           -- check for selected external binding
           case Map.lookup qualId stateExtTypes of
             Just ty -> return ty
@@ -388,11 +387,11 @@ instance Resolve C.Type where
                 Just sourcePath -> do
                   let declPaths =
                         IncludeGraph.reaches envIncludeGraph sourcePath
-                  case BindingSpec.lookupTypeSpec cname declPaths envExtSpec of
+                  case BindingSpec.lookupTypeSpec cspelling declPaths envExtSpec of
                     Just (BindingSpec.Require typeSpec) ->
-                      case getExtHsRef cname typeSpec of
+                      case getExtHsRef cspelling typeSpec of
                         Right extHsRef -> do
-                          let ty = C.TypeExtBinding cname extHsRef typeSpec
+                          let ty = C.TypeExtBinding cspelling extHsRef typeSpec
                           RWS.modify' $ insertExtType qualId ty
                           return ty
                         Left e -> do
@@ -400,7 +399,7 @@ instance Resolve C.Type where
                           return (mk uid)
                     Just BindingSpec.Omit -> do
                       RWS.modify' $
-                        insertError (BindingSpecOmittedTypeUse cname)
+                        insertError (BindingSpecOmittedTypeUse cspelling)
                       return (mk uid)
                     Nothing -> return (mk uid)
 
@@ -408,8 +407,8 @@ instance Resolve C.Type where
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
 
-qualIdCNameSpelling :: C.QualId NameAnon -> CNameSpelling
-qualIdCNameSpelling (C.QualId (CName cname) namespace) =
+qualIdCSpelling :: C.QualId NameAnon -> BindingSpec.CSpelling
+qualIdCSpelling (C.QualId cname namespace) =
     let prefix = case namespace of
           C.NamespaceTypedef  -> ""
           C.NamespaceStruct   -> "struct "
@@ -417,18 +416,18 @@ qualIdCNameSpelling (C.QualId (CName cname) namespace) =
           C.NamespaceEnum     -> "enum "
           C.NamespaceMacro    -> ""
           C.NamespaceFunction -> ""
-    in  CNameSpelling $ prefix <> cname
+    in  BindingSpec.CSpelling $ prefix <> getCName cname
 
 getExtHsRef ::
-     CNameSpelling
+     BindingSpec.CSpelling
   -> BindingSpec.TypeSpec
   -> Either BindingSpecError ExtHsRef
-getExtHsRef cname typeSpec = do
+getExtHsRef cspelling typeSpec = do
     extHsRefModule <-
-      maybe (Left (BindingSpecExtHsRefNoModule cname)) Right $
+      maybe (Left (BindingSpecExtHsRefNoModule cspelling)) Right $
         BindingSpec.typeSpecModule typeSpec
     extHsRefIdentifier <-
-      maybe (Left (BindingSpecExtHsRefNoIdentifier cname)) Right $
+      maybe (Left (BindingSpecExtHsRefNoIdentifier cspelling)) Right $
         BindingSpec.typeSpecIdentifier typeSpec
     return ExtHsRef{extHsRefModule, extHsRefIdentifier}
 

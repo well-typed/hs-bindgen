@@ -64,7 +64,6 @@ library
   exposed-modules:
       Clang.Args
       Clang.Backtrace
-      Clang.CNameSpelling
       Clang.Enum.Bitfield
       Clang.Enum.Simple
       Clang.Paths
