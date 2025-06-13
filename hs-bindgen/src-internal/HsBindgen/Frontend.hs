@@ -96,14 +96,14 @@ instance PrettyTrace FrontendTrace where
     FrontendParse       x -> prettyTrace x
     FrontendMacro       x -> prettyTrace x
     FrontendBindingSpec x -> show x -- TODO
-    FrontendNameMangler x -> show x -- TODO
+    FrontendNameMangler x -> prettyTrace x
 
 instance HasDefaultLogLevel FrontendTrace where
   getDefaultLogLevel = \case
     FrontendParse       x -> getDefaultLogLevel x
     FrontendMacro       x -> getDefaultLogLevel x
     FrontendBindingSpec _ -> Error
-    FrontendNameMangler _ -> Error
+    FrontendNameMangler x -> getDefaultLogLevel x
 
 instance HasSource FrontendTrace where
   getSource = \case

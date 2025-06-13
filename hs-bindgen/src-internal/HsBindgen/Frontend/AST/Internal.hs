@@ -45,6 +45,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.Haskell (ExtHsRef)
+import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -245,6 +246,9 @@ data QualId p = QualId (Id p) Namespace
 deriving instance Show (Id p) => Show (QualId p)
 deriving instance Eq   (Id p) => Eq   (QualId p)
 deriving instance Ord  (Id p) => Ord  (QualId p)
+
+instance (PrettyTrace (Id p)) => PrettyTrace (QualId p) where
+  prettyTrace (QualId x ns) = prettyTrace ns <> " " <> prettyTrace x
 
 declNamespace :: DeclKind p -> Namespace
 declNamespace DeclStruct{}       = NamespaceStruct

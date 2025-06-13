@@ -4,7 +4,10 @@ module HsBindgen.Language.C.Name (
   , Namespace(..)
   ) where
 
+import Data.Text (unpack)
+
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
   Names and namespaces
@@ -16,6 +19,9 @@ newtype CName = CName {
   deriving newtype (Show, Eq, Ord, IsString, Semigroup)
   deriving stock (Generic)
 
+instance PrettyTrace CName where
+  prettyTrace (CName name) = unpack name
+
 data Namespace =
     NamespaceTypedef
   | NamespaceStruct
@@ -25,3 +31,12 @@ data Namespace =
   | NamespaceFunction
   deriving stock (Show, Eq, Ord, Generic)
 
+instance PrettyTrace Namespace where
+  prettyTrace = \case
+    NamespaceTypedef  -> "typedef"
+    NamespaceStruct   -> "struct"
+    NamespaceUnion    -> "union"
+    NamespaceEnum     -> "enum"
+    -- I made these two up.
+    NamespaceMacro    -> "macro"
+    NamespaceFunction -> "function"

@@ -7,11 +7,11 @@ import Control.Monad.Reader
 import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Proxy
+import Data.Text (unpack)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
-import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
@@ -20,6 +20,8 @@ import HsBindgen.Imports
 import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
+import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
+                              Level (Error), PrettyTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -60,7 +62,20 @@ type NameMap = Map (C.QualId HandleTypedefs) HsIdentifier
 
 data MangleError =
     CouldNotMangle Text
+  | MissingDeclaration (C.QualId HandleTypedefs)
   deriving stock (Show, Eq)
+
+instance PrettyTrace MangleError where
+  prettyTrace (CouldNotMangle name) =
+    "Could not mangle C name: " <> unpack name
+  prettyTrace (MissingDeclaration qualId) =
+      concat [ "Missing declaration: '"
+             , prettyTrace qualId
+             , "'; did you select the declaration?"
+             ]
+
+instance HasDefaultLogLevel MangleError where
+  getDefaultLogLevel = const Error
 
 chooseNames ::
      FixCandidate Maybe
@@ -140,18 +155,20 @@ class MangleDecl a where
        C.DeclInfo NameMangler
     -> a HandleTypedefs -> M (a NameMangler)
 
-mangleQualId :: HasCallStack => C.QualId HandleTypedefs -> M NamePair
+mangleQualId :: C.QualId HandleTypedefs -> M NamePair
 mangleQualId qualId@(C.QualId cName _namespace) = do
     nm <- asks envNameMap
-    return $
-      case Map.lookup qualId nm of
-        Just hsName -> NamePair cName hsName
-        Nothing     -> panicPure $ concat [
-            "Name mangler bug: no name for "
-          , show qualId
-          , " in "
-          , show nm
-          ]
+    case Map.lookup qualId nm of
+      Just hsName -> pure $ NamePair cName hsName
+      Nothing     -> do
+        -- NB: We did not register any declaration with the given ID. This is
+        -- most likely because the user did not select the declaration. If the
+        -- declaration was completely missing, Clang would have complained
+        -- already.
+        modify (MissingDeclaration qualId :)
+        -- Use a fake Haskell ID.
+        pure $ NamePair cName (HsIdentifier "MissingDeclaration")
+
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
