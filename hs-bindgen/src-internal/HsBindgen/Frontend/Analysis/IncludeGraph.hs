@@ -74,7 +74,8 @@ getMainPath ::
   -> IncludeGraph
   -> SourcePath
   -> Maybe SourcePath
-getMainPath mainPaths (IncludeGraph graph) = DynGraph.dfFindEq mainPaths graph
+getMainPath mainPaths (IncludeGraph graph) =
+    DynGraph.dfFindMember mainPaths graph
 
 {-------------------------------------------------------------------------------
   Debugging

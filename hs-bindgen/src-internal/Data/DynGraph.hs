@@ -11,7 +11,7 @@ module Data.DynGraph (
   , reaches
   , topSort
   , dff
-  , dfFindEq
+  , dfFindMember
     -- * Debugging
   , dumpMermaid
   ) where
@@ -81,8 +81,8 @@ dff = Labelled.dff
 --
 -- This function is specific to equality so that more can be done in the index
 -- domain, for performance.
-dfFindEq :: Ord a => Set a -> DynGraph a -> a -> Maybe a
-dfFindEq = Labelled.dfFindEq
+dfFindMember :: Ord a => Set a -> DynGraph a -> a -> Maybe a
+dfFindMember = Labelled.dfFindMember
 
 {-------------------------------------------------------------------------------
   Debugging

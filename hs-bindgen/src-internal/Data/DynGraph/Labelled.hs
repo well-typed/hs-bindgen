@@ -12,7 +12,7 @@ module Data.DynGraph.Labelled (
   , reaches
   , topSort
   , dff
-  , dfFindEq
+  , dfFindMember
   , findTrailFrom
     -- * Debugging
   , dumpMermaid
@@ -150,8 +150,8 @@ dff dynGraph@DynGraph{..} = fmap (idxMap IntMap.!) <$> dff' dynGraph
 --
 -- This function is specific to equality so that more can be done in the index
 -- domain, for performance.
-dfFindEq :: Ord a => Set a -> DynGraph l a -> a -> Maybe a
-dfFindEq targets dynGraph@DynGraph{..} v = do
+dfFindMember :: Ord a => Set a -> DynGraph l a -> a -> Maybe a
+dfFindMember targets dynGraph@DynGraph{..} v = do
     ix <- Map.lookup v vtxMap
     let targetIxs = IntSet.fromList $
           mapMaybe (`Map.lookup` vtxMap) (Set.toList targets)
