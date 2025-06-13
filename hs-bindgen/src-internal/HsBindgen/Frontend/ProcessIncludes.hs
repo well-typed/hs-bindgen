@@ -28,10 +28,10 @@ import HsBindgen.Imports
   == Context
 
   When the user invokes @hs-bindgen@, they provide us with one or more headers
-  to process (command line option @-i@); we refer to these as the "main
-  headers". In order to process these, we construct a new "root header" (see
-  "HsBindgen.Frontend.RootHeader"), which has one @#include@ per user-specified
-  main header. For example, the root header might look like
+  to process; we refer to these as the "main headers". In order to process
+  these, we construct a new "root header" (see "HsBindgen.Frontend.RootHeader"),
+  which has one @#include@ per user-specified main header. For example, the root
+  header might look like
 
   > #include <a.h>
   > #include "b.h"

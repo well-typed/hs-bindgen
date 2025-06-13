@@ -48,14 +48,14 @@ data Mode =
       , preprocessRenderOpts      :: HsRenderOpts
       , preprocessOutput          :: Maybe FilePath
       , preprocessGenExtBindings  :: Maybe FilePath
-      , preprocessInput           :: CHeaderIncludePath
+      , preprocessInputs          :: [CHeaderIncludePath]
       }
     -- | Generate tests for generated Haskell code
   | ModeGenTests {
         genTestsModuleOpts :: HsModuleOpts
       , genTestsRenderOpts :: HsRenderOpts
       , genTestsOutput     :: FilePath
-      , genTestsInput      :: CHeaderIncludePath
+      , genTestsInputs     :: [CHeaderIncludePath]
       }
   | ModeLiterate FilePath FilePath
   deriving (Show)
@@ -105,7 +105,7 @@ parseModePreprocess =
       <*> parseHsRenderOpts
       <*> parseOutput
       <*> optional parseGenExtBindings
-      <*> parseInput
+      <*> some parseInput
 
 parseModeGenTests :: Parser Mode
 parseModeGenTests =
@@ -113,7 +113,7 @@ parseModeGenTests =
       <$> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseGenTestsOutput
-      <*> parseInput
+      <*> some parseInput
 
 parseModeLiterate :: Parser Mode
 parseModeLiterate = do

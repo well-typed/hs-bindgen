@@ -20,13 +20,13 @@ import HsBindgen.Imports
 
 -- | Generate test suite
 genTests ::
-     CHeaderIncludePath
+     [CHeaderIncludePath]
   -> [Hs.Decl]
   -> String   -- ^ Generated Haskell module name
   -> Int      -- ^ Maximum line length
   -> FilePath -- ^ Test suite directory path
   -> IO ()
-genTests headerIncludePath decls moduleName lineLength testSuitePath = do
+genTests headerIncludePaths decls moduleName lineLength testSuitePath = do
     -- fails when testSuitePath already exists
     mapM_ Dir.createDirectory $
       testSuitePath : cbitsPath : srcPath : modulePaths
@@ -40,7 +40,7 @@ genTests headerIncludePath decls moduleName lineLength testSuitePath = do
       cTestHeaderPath
       cTestSourcePath
       lineLength
-      headerIncludePath
+      headerIncludePaths
       decls
     genTestsHs
       hsTestPath

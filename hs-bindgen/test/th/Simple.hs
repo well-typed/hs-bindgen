@@ -8,7 +8,7 @@ module Simple where
 
 import HsBindgen.TH
 
-hashInclude "simple.h" def { extraIncludeDirs = [ PackageRoot "examples" ] }
+hashInclude ["simple.h"] def { extraIncludeDirs = [ PackageRoot "examples" ] }
 
 x :: Simple
 x = Simple { simple_n = 10 }
