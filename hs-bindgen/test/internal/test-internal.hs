@@ -55,7 +55,7 @@ main = do
 tests :: FilePath -> IO AnsiColor -> IO FilePath -> TestTree
 tests packageRoot getAnsiColor getRustBindgen =
   testGroup "test-internal" [
-      Test.HsBindgen.C.Parser.tests getAnsiColor args
+      Test.HsBindgen.C.Parser.tests getAnsiColor (argsWith [])
     , Test.HsBindgen.Clang.Args.tests getAnsiColor
     , Test.HsBindgen.Util.Tracer.tests
     , testGroup "examples/golden" $ map golden [
@@ -119,8 +119,8 @@ tests packageRoot getAnsiColor getRustBindgen =
         ]
     ]
   where
-    args :: ClangArgs
-    args = clangArgs packageRoot
+    argsWith :: [FilePath] -> ClangArgs
+    argsWith includeDirs = getClangArgs packageRoot includeDirs
 
     golden :: TestName -> TestTree
     golden name =
@@ -200,26 +200,26 @@ tests packageRoot getAnsiColor getRustBindgen =
     mkHeaderIncludePath :: String -> CHeaderIncludePath
     mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
 
-    withOpts :: (String -> IO ()) -> (Pipeline.Opts -> IO a) -> IO a
-    withOpts report action = withTracerTestCustom report getAnsiColor $
-        \tracer' -> action $ (def :: Pipeline.Opts) {
-            Pipeline.optsClangArgs = clangArgs packageRoot
-          , Pipeline.optsTracer = tracer'
+    withOpts_ :: [FilePath] -> (String -> IO ()) -> (Opts -> IO a) -> IO a
+    withOpts_ includeDir report action = withTracerTestCustom report getAnsiColor $
+        \tracer' -> action $ (def :: Opts) {
+            optsClangArgs = argsWith includeDir
+          , optsTracer = tracer'
           }
+
+    withOpts = withOpts_ ["examples/golden", "examples/golden-norust"]
 
     ppOpts :: Pipeline.PPOpts
     ppOpts = def {
         Pipeline.ppOptsModule = HsModuleOpts { hsModuleOptsName = "Example" }
       }
 
-    -- TODO (#722): Failing tests should not create a fixture; instead, we
-    -- should expect specific traces.
     failing :: TestName -> TestTree
     failing name = do
       let target = "fixtures" </> (name ++ ".failure.txt")
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ name target $ \report ->
-        withOpts report $ \opts -> do
+        withOpts_ ["examples/failing"] report $ \opts -> do
           result <- try $ do
             decls <- Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
             evaluate $ force $ Pipeline.preprocessPure ppOpts decls
@@ -236,7 +236,7 @@ tests packageRoot getAnsiColor getRustBindgen =
              let headerIncludePath = mkHeaderIncludePath name
                  opts :: Opts
                  opts = def {
-                     optsClangArgs = clangArgs packageRoot
+                     optsClangArgs = getClangArgs packageRoot ["examples/failing"]
                    , optsTracer = tracer
                    }
              Pipeline.translateCHeaders "failWithTraceTest" opts [headerIncludePath]

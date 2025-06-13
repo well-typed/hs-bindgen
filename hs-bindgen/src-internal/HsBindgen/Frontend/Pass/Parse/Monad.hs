@@ -193,6 +193,9 @@ data ParseTrace =
         -- | The names of the implicit fields
       , unsupportedImplicitFields :: [DeclId]
       }
+  | UnsupportedLongDouble {
+        unsupportedLongDouble :: DeclId
+      }
   deriving stock (Show, Eq)
 
 instance PrettyTrace ParseTrace where
@@ -205,11 +208,15 @@ instance PrettyTrace ParseTrace where
         , " in "
         , show unsupportedImplicitFieldsIn
         ]
+      UnsupportedLongDouble {..} ->
+          -- TODO: Use 'PrettyTrace' instance of 'DeclId'.
+          "Unsupported long double in " <> show unsupportedLongDouble
 
 instance HasDefaultLogLevel ParseTrace where
   getDefaultLogLevel = \case
       Skipped reason              -> getDefaultLogLevel reason
       UnsupportedImplicitFields{} -> Error
+      UnsupportedLongDouble{}     -> Error
 
 instance HasSource ParseTrace where
     getSource = const HsBindgen

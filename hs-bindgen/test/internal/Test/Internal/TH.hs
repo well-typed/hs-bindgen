@@ -16,8 +16,8 @@ import Test.Tasty (TestName, TestTree)
 
 import Clang.Paths
 import HsBindgen.Guasi
-import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.TH
 import Test.Internal.Misc
 import Test.Internal.Tracer (withTracerTestCustom)
 
@@ -27,10 +27,12 @@ goldenTh getAnsiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </
       -- -<.> does weird stuff for filenames with multiple dots;
       -- I usually simply avoid using it.
       let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-          opts :: Pipeline.Opts
+          opts :: Opts
           opts = def {
-              Pipeline.optsClangArgs  = clangArgs packageRoot
-            , Pipeline.optsTracer = tracer
+              optsClangArgs  = getClangArgs packageRoot [ "examples/golden"
+                                                        , "examples/golden-norust"
+                                                        ]
+            , optsTracer     = tracer
             }
       unit <- Pipeline.parseCHeaders opts [headerIncludePath]
 

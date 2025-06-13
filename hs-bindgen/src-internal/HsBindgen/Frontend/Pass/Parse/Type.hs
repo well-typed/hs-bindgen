@@ -38,7 +38,7 @@ fromCXType ty =
       CXType_ULongLong  -> prim $ PrimIntegral PrimLongLong Unsigned
       CXType_Float      -> prim $ PrimFloating PrimFloat
       CXType_Double     -> prim $ PrimFloating PrimDouble
-      CXType_LongDouble -> prim $ PrimFloating PrimLongDouble
+      CXType_LongDouble -> traceUnsupportedLongDouble
       CXType_Bool       -> prim $ PrimBool
 
       CXType_Attributed      -> attributed
@@ -106,3 +106,10 @@ incompleteArray ty = do
 
 attributed :: CXType -> M (C.Type Parse)
 attributed ty = fromCXType =<< clang_Type_getModifiedType ty
+
+traceUnsupportedLongDouble :: CXType -> M (C.Type Parse)
+traceUnsupportedLongDouble _ = do
+  -- TODO: How do we get the DeclId?
+  recordTrace (UnsupportedLongDouble _)
+  -- TODO: What fake value should we use here?
+  pure $ C.TypePrim (PrimFloating PrimDouble)

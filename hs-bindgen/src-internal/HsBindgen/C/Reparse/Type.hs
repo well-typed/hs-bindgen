@@ -73,7 +73,6 @@ reparsePrimType = do
       -- float, double, long double
       [         "float" ] -> return $ PrimFloating PrimFloat
       [         "double"] -> return $ PrimFloating PrimDouble
-      ["long" , "double"] -> return $ PrimFloating PrimLongDouble
       -- void
       -- TODO: Re-enable or delete
       -- ["void"] -> return C.TypeVoid

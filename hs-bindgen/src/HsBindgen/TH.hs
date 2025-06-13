@@ -9,6 +9,7 @@ module HsBindgen.TH (
 
     -- * Options
   , module Default
+  , ModuleUnique(..)
   , Pipeline.Opts(..)
   , Pipeline.QuoteIncludeDir(..)
   , Pipeline.HashIncludeOpts(..)
@@ -60,6 +61,7 @@ import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports as Default (Default (..))
+import HsBindgen.ModuleUnique
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Trace qualified as Trace
