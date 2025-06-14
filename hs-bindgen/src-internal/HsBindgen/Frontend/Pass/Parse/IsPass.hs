@@ -21,8 +21,10 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Frontend.AST.Internal (ValidPass)
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
@@ -135,6 +137,15 @@ data ParseTrace =
         -- | The names of the implicit fields
       , unsupportedImplicitFields :: [DeclId]
       }
+
+    -- | Unsupported type
+    --
+    -- Since types don't necessarily have associated source locations, we
+    -- instead record information about the enclosing declaration.
+  | UnsupportedType {
+        unsupportedTypeContext   :: C.DeclInfo Parse
+      , unsupportedTypeException :: ParseTypeException
+      }
   deriving stock (Show, Eq)
 
 instance PrettyTrace ParseTrace where
@@ -147,11 +158,24 @@ instance PrettyTrace ParseTrace where
         , " in "
         , show unsupportedImplicitFieldsIn
         ]
+      UnsupportedType {..} -> concat [
+          "Encountered unsupported type while parsing "
+        , prettyTrace (C.declId unsupportedTypeContext)
+        , " at "
+        , show (C.declLoc unsupportedTypeContext)
+        , ": "
+        , prettyTrace unsupportedTypeException
+        , ". "
+        , "No bindings generated for "
+        , prettyTrace (C.declId unsupportedTypeContext)
+        , "."
+        ]
 
 instance HasDefaultLogLevel ParseTrace where
   getDefaultLogLevel = \case
       Skipped reason              -> getDefaultLogLevel reason
       UnsupportedImplicitFields{} -> Error
+      UnsupportedType _ctxt err   -> getDefaultLogLevel err
 
 instance HasSource ParseTrace where
     getSource = const HsBindgen

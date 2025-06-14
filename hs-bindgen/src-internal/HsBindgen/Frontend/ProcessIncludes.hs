@@ -9,6 +9,7 @@ module HsBindgen.Frontend.ProcessIncludes (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -19,7 +20,6 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
-import HsBindgen.Frontend.Util.Fold
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -107,9 +107,10 @@ processIncludes ::
   -> IO (IncludeGraph, IsMainFile, GetMainHeader)
 processIncludes rootHeader unit = do
     root     <- clang_getTranslationUnitCursor unit
-    includes <- HighLevel.clang_visitChildren root $ \curr ->
-                  dispatch curr $ \case
-                    CXCursor_InclusionDirective ->
+    includes <- HighLevel.clang_visitChildren root $ \curr -> do
+                  mKind <- fromSimpleEnum <$> clang_getCursorKind curr
+                  case mKind of
+                    Right CXCursor_InclusionDirective ->
                       Continue . Just <$> processInclude rootHeader curr
                     _otherwise ->
                       return $ Continue Nothing

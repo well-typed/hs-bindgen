@@ -35,7 +35,7 @@
 - ignore: {name: "Replace case with maybe"}
 - ignore: {name: "Fuse foldr/<$>"}
 - ignore: {name: "Use map once"}
-
+- ignore: {name: "Use section"}
 
 # Specify additional command line arguments
 #

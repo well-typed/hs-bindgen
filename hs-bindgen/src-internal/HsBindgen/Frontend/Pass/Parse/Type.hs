@@ -2,16 +2,14 @@
 module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 
 import Control.Monad
+import Control.Monad.Error.Class
 import GHC.Stack
 
 import Clang.LowLevel.Core
-
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
-import HsBindgen.Frontend.Util.Fold
 import HsBindgen.Imports
 import HsBindgen.Language.C
 
@@ -58,7 +56,7 @@ cxtype ty =
       CXType_Typedef         -> fromDecl
       CXType_Void            -> const (pure C.TypeVoid)
 
-      kind -> unknownTypeKind kind
+      kind -> \_ -> throwError $ UnexpectedTypeKind (Right kind)
 
 {-------------------------------------------------------------------------------
   Functions for each kind of type
@@ -77,12 +75,12 @@ fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
     decl   <- clang_getTypeDeclaration ty
     declId <- getDeclId decl
-    dispatch decl $ \case
+    dispatchDecl decl $ \case
       CXCursor_EnumDecl    -> return $ C.TypeEnum    declId
       CXCursor_StructDecl  -> return $ C.TypeStruct  declId
       CXCursor_UnionDecl   -> return $ C.TypeUnion   declId
       CXCursor_TypedefDecl -> return $ C.TypeTypedef (typedefName declId)
-      kind                 -> ParseDecl.unknownCursorKind kind decl
+      kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where
     typedefName :: DeclId -> CName
     typedefName (DeclNamed name) = name
