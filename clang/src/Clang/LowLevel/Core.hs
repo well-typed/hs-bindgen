@@ -143,6 +143,7 @@ module Clang.LowLevel.Core (
   , clang_getTypedefName
   , clang_getUnqualifiedType
   , clang_getTypeDeclaration
+  , clang_isFunctionTypeVariadic
   , clang_getResultType
   , clang_getNumArgTypes
   , clang_getArgType
@@ -1433,6 +1434,14 @@ clang_getTypeDeclaration :: MonadIO m => CXType -> m CXCursor
 clang_getTypeDeclaration typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getTypeDeclaration typ'
+
+-- | Check if the CXType is a variadic function type
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga343b2463b0ed4b259739242cf26c3ae2>
+clang_isFunctionTypeVariadic :: MonadIO m => CXType -> m Bool
+clang_isFunctionTypeVariadic typ = liftIO $
+    onHaskellHeap typ $ \typ' ->
+      cToBool <$> wrap_isFunctionTypeVariadic typ'
 
 -- | Retrieve the return type associated with a function type.
 --

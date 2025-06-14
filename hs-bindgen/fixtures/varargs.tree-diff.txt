@@ -1,0 +1,21 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "varargs.h:5:6",
+        declId = NamePair {
+          nameC = CName "g",
+          nameHsIdent = HsIdentifier
+            "g"}},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "varargs.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["varargs"]}

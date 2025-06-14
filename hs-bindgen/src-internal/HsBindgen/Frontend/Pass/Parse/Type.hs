@@ -48,8 +48,8 @@ cxtype ty =
       CXType_ConstantArray   -> constantArray
       CXType_Elaborated      -> elaborated
       CXType_Enum            -> fromDecl
-      CXType_FunctionNoProto -> function
-      CXType_FunctionProto   -> function
+      CXType_FunctionNoProto -> function False
+      CXType_FunctionProto   -> function True
       CXType_IncompleteArray -> incompleteArray
       CXType_Pointer         -> pointer
       CXType_Record          -> fromDecl
@@ -86,13 +86,23 @@ fromDecl ty = do
     typedefName (DeclNamed name) = name
     typedefName (DeclAnon _)     = panicPure "Unexpected anonymous typedef"
 
-function :: CXType -> ParseType (C.Type Parse)
-function ty = do
-    res   <- clang_getResultType ty >>= cxtype
-    nargs <- clang_getNumArgTypes ty
-    args  <- forM [0 .. nargs - 1] $ \i ->
-               clang_getArgType ty (fromIntegral i) >>= cxtype
-    pure $ C.TypeFun args res
+function :: Bool -> CXType -> ParseType (C.Type Parse)
+function hasProto ty = do
+    isVariadic <-
+      -- Functions without a prototype (that is, without declared arguments)
+      -- are technically speaking considered variadic. However, we reinterpret
+      -- such declarations following C23, and assume they have /no/ arguments.
+      if hasProto
+        then clang_isFunctionTypeVariadic ty
+        else return False
+    if isVariadic then do
+      throwError UnsupportedVariadicFunction
+    else do
+      res   <- clang_getResultType ty >>= cxtype
+      nargs <- clang_getNumArgTypes ty
+      args  <- forM [0 .. nargs - 1] $ \i ->
+                 clang_getArgType ty (fromIntegral i) >>= cxtype
+      pure $ C.TypeFun args res
 
 constantArray :: CXType -> ParseType (C.Type Parse)
 constantArray ty = do
