@@ -122,10 +122,6 @@ structDecl curr = do
         -- This matters, because we need the offsets of these implicit fields.
         -- For now we therefore only try to detect the situation and report an
         -- error when it happens. Hopefully this is anyway very rare.
-        --
-        -- TODO: This check is wrong. When we get more nesting, we get /all/
-        -- structs at once, even those used by /nested/ fields, thus triggering
-        -- this error.
         unless (null unusedDecls) $ do
           recordTrace $ UnsupportedImplicitFields {
               unsupportedImplicitFieldsIn =
