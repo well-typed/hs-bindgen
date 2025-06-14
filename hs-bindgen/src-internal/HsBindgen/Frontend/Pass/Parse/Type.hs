@@ -1,7 +1,5 @@
--- | Fold types (at /use/ sites, not at declaration sites)
-module HsBindgen.Frontend.Pass.Parse.Type (
-    fromCXType
-  ) where
+-- | Fold types
+module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 
 import Control.Monad
 import GHC.Stack
@@ -10,17 +8,26 @@ import Clang.LowLevel.Core
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Monad
+import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Frontend.Util.Fold
+import HsBindgen.Imports
 import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-fromCXType :: HasCallStack => CXType -> M (C.Type Parse)
-fromCXType ty =
+fromCXType :: (MonadIO m, HasCallStack) => CXType -> m (C.Type Parse)
+fromCXType = run . cxtype
+
+{-------------------------------------------------------------------------------
+  Dispatch
+-------------------------------------------------------------------------------}
+
+cxtype :: HasCallStack => CXType -> ParseType (C.Type Parse)
+cxtype ty =
     dispatchWithArg ty $ \case
       CXType_Char_S     -> prim $ PrimChar (PrimSignImplicit $ Just Signed)
       CXType_Char_U     -> prim $ PrimChar (PrimSignImplicit $ Just Unsigned)
@@ -57,16 +64,16 @@ fromCXType ty =
   Functions for each kind of type
 -------------------------------------------------------------------------------}
 
-prim :: PrimType -> CXType -> M (C.Type Parse)
+prim :: PrimType -> CXType -> ParseType (C.Type Parse)
 prim ty _ = return $ C.TypePrim ty
 
-elaborated :: CXType -> M (C.Type Parse)
-elaborated = clang_Type_getNamedType >=> fromCXType
+elaborated :: CXType -> ParseType (C.Type Parse)
+elaborated = clang_Type_getNamedType >=> cxtype
 
-pointer :: CXType -> M (C.Type Parse)
-pointer = clang_getPointeeType >=> fmap C.TypePointer . fromCXType
+pointer :: CXType -> ParseType (C.Type Parse)
+pointer = clang_getPointeeType >=> fmap C.TypePointer . cxtype
 
-fromDecl :: HasCallStack => CXType -> M (C.Type Parse)
+fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
     decl   <- clang_getTypeDeclaration ty
     declId <- getDeclId decl
@@ -75,30 +82,30 @@ fromDecl ty = do
       CXCursor_StructDecl  -> return $ C.TypeStruct  declId
       CXCursor_UnionDecl   -> return $ C.TypeUnion   declId
       CXCursor_TypedefDecl -> return $ C.TypeTypedef (typedefName declId)
-      kind                 -> unknownCursorKind kind decl
+      kind                 -> ParseDecl.unknownCursorKind kind decl
   where
     typedefName :: DeclId -> CName
     typedefName (DeclNamed name) = name
     typedefName (DeclAnon _)     = panicPure "Unexpected anonymous typedef"
 
-function :: CXType -> M (C.Type Parse)
+function :: CXType -> ParseType (C.Type Parse)
 function ty = do
-    res   <- clang_getResultType ty >>= fromCXType
+    res   <- clang_getResultType ty >>= cxtype
     nargs <- clang_getNumArgTypes ty
     args  <- forM [0 .. nargs - 1] $ \i ->
-               clang_getArgType ty (fromIntegral i) >>= fromCXType
+               clang_getArgType ty (fromIntegral i) >>= cxtype
     pure $ C.TypeFun args res
 
-constantArray :: CXType -> M (C.Type Parse)
+constantArray :: CXType -> ParseType (C.Type Parse)
 constantArray ty = do
     n   <- fromIntegral <$> clang_getArraySize ty
-    ty' <- fromCXType =<< clang_getArrayElementType ty
+    ty' <- cxtype =<< clang_getArrayElementType ty
     return (C.TypeConstArray n ty')
 
-incompleteArray :: CXType -> M (C.Type Parse)
+incompleteArray :: CXType -> ParseType (C.Type Parse)
 incompleteArray ty = do
-    ty' <- fromCXType =<< clang_getArrayElementType ty
+    ty' <- cxtype =<< clang_getArrayElementType ty
     return (C.TypeIncompleteArray ty')
 
-attributed :: CXType -> M (C.Type Parse)
-attributed ty = fromCXType =<< clang_Type_getModifiedType ty
+attributed :: CXType -> ParseType (C.Type Parse)
+attributed ty = cxtype =<< clang_Type_getModifiedType ty

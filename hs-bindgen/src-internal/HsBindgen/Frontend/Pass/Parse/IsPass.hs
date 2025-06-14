@@ -10,6 +10,8 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , UnparsedMacro(..)
   , ReparseInfo(..)
   , getUnparsedMacro
+    -- * Tracing
+  , ParseTrace(..)
   ) where
 
 import Data.Text qualified as Text
@@ -17,6 +19,7 @@ import Data.Text qualified as Text
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
@@ -115,3 +118,40 @@ getUnparsedMacro unit curr = do
     range  <- HighLevel.clang_getCursorExtent curr
     tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
     return $ UnparsedMacro tokens
+
+{-------------------------------------------------------------------------------
+  Trace messages
+-------------------------------------------------------------------------------}
+
+data ParseTrace =
+    -- | We skipped over a declaration
+    Skipped Predicate.SkipReason
+
+    -- | Struct with implicit fields
+  | UnsupportedImplicitFields {
+        -- | Name of the (outer) struct (which has implicit fields)
+        unsupportedImplicitFieldsIn :: DeclId
+
+        -- | The names of the implicit fields
+      , unsupportedImplicitFields :: [DeclId]
+      }
+  deriving stock (Show, Eq)
+
+instance PrettyTrace ParseTrace where
+  prettyTrace = \case
+      Skipped reason ->
+          prettyTrace reason
+      UnsupportedImplicitFields {..} -> concat [
+          "Unsupported implicit fields "
+        , show unsupportedImplicitFields
+        , " in "
+        , show unsupportedImplicitFieldsIn
+        ]
+
+instance HasDefaultLogLevel ParseTrace where
+  getDefaultLogLevel = \case
+      Skipped reason              -> getDefaultLogLevel reason
+      UnsupportedImplicitFields{} -> Error
+
+instance HasSource ParseTrace where
+    getSource = const HsBindgen

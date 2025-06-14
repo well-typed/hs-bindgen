@@ -18,7 +18,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend (FrontendTrace (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError(Redeclaration))
 import HsBindgen.Frontend.Pass.MangleNames (MangleError (MissingDeclaration))
-import HsBindgen.Frontend.Pass.Parse.Monad (ParseTrace (UnsupportedImplicitFields))
+import HsBindgen.Frontend.Pass.Parse.IsPass (ParseTrace (UnsupportedImplicitFields))
 import HsBindgen.Frontend.Pass.Sort (SortError(..))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
