@@ -17,8 +17,8 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Monad
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Util.Fold
 import HsBindgen.Language.C
@@ -27,7 +27,7 @@ import HsBindgen.Language.C
   Top-level
 -------------------------------------------------------------------------------}
 
-foldDecl :: HasCallStack => Fold M [C.Decl Parse]
+foldDecl :: HasCallStack => Fold ParseDecl [C.Decl Parse]
 foldDecl curr = evalPredicate curr >>= \case
     Right () ->
       dispatchWithArg curr $ \case
@@ -58,13 +58,13 @@ foldDecl curr = evalPredicate curr >>= \case
   Info that we collect for all declarations
 -------------------------------------------------------------------------------}
 
-getDeclInfo :: CXCursor -> M (C.DeclInfo Parse)
+getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo curr = do
     declId  <- getDeclId curr
     declLoc <- HighLevel.clang_getCursorLocation' curr
     return C.DeclInfo{declId, declLoc}
 
-getReparseInfo :: CXCursor -> M ReparseInfo
+getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
 getReparseInfo curr = do
     extent <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
     hasMacroExpansion <- checkHasMacroExpansion extent
@@ -84,7 +84,7 @@ getReparseInfo curr = do
 -- will parse them later (after sorting all declarations in the file).
 --
 -- NOTE: We rely on selection to filter out clang internal macro declarations.
-macroDefinition :: Fold M [C.Decl Parse]
+macroDefinition :: Fold ParseDecl [C.Decl Parse]
 macroDefinition curr = do
     info <- getDeclInfo curr
     unit <- getTranslationUnit
@@ -96,7 +96,7 @@ macroDefinition curr = do
           }
     Continue . Just . (:[]) . mkDecl <$> getUnparsedMacro unit curr
 
-structDecl :: Fold M [C.Decl Parse]
+structDecl :: Fold ParseDecl [C.Decl Parse]
 structDecl curr = do
     info           <- getDeclInfo curr
     classification <- HighLevel.classifyDeclaration curr
@@ -117,7 +117,7 @@ structDecl curr = do
     aux ::
          C.DeclInfo Parse
       -> [Either [C.Decl Parse] (C.StructField Parse)]
-      -> M (Maybe [C.Decl Parse])
+      -> ParseDecl (Maybe [C.Decl Parse])
     aux info xs = do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
@@ -156,7 +156,7 @@ structDecl curr = do
         usedDecls, unusedDecls :: [C.Decl Parse]
         (usedDecls, unusedDecls) = detectStructImplicitFields otherDecls fields
 
-unionDecl :: Fold M [C.Decl Parse]
+unionDecl :: Fold ParseDecl [C.Decl Parse]
 unionDecl curr = do
     info           <- getDeclInfo curr
     classification <- HighLevel.classifyDeclaration curr
@@ -177,7 +177,7 @@ unionDecl curr = do
     aux ::
          C.DeclInfo Parse
       -> [Either [C.Decl Parse] (C.UnionField Parse)]
-      -> M (Maybe [C.Decl Parse])
+      -> ParseDecl (Maybe [C.Decl Parse])
     aux info xs = do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
@@ -202,8 +202,8 @@ unionDecl curr = do
         (otherDecls, fields) = first concat $ partitionEithers xs
 
 structOrUnionFieldDecl ::
-     (CXCursor -> M (a Parse))
-  -> Fold M (Either [C.Decl Parse] (a Parse))
+     (CXCursor -> ParseDecl (a Parse))
+  -> Fold ParseDecl (Either [C.Decl Parse] (a Parse))
 structOrUnionFieldDecl assembleField curr = do
     kind <- fromSimpleEnum <$> clang_getCursorKind curr
     case kind of
@@ -213,7 +213,7 @@ structOrUnionFieldDecl assembleField curr = do
       _otherwise -> do
         fmap Left <$> foldDecl curr
 
-assembleStructField :: CXCursor -> M (C.StructField Parse)
+assembleStructField :: CXCursor -> ParseDecl (C.StructField Parse)
 assembleStructField curr = do
     structFieldLoc    <- HighLevel.clang_getCursorLocation' curr
     structFieldName   <- CName <$> clang_getCursorDisplayName curr
@@ -230,14 +230,14 @@ assembleStructField curr = do
       , structFieldAnn
       }
 
-structWidth :: CXCursor -> M (Maybe Int)
+structWidth :: CXCursor -> ParseDecl (Maybe Int)
 structWidth curr = do
     isBitField <- clang_Cursor_isBitField curr
     if isBitField
       then Just . fromIntegral <$> clang_getFieldDeclBitWidth curr
       else return Nothing
 
-assembleUnionField :: CXCursor -> M (C.UnionField Parse)
+assembleUnionField :: CXCursor -> ParseDecl (C.UnionField Parse)
 assembleUnionField curr = do
     unionFieldLoc  <- HighLevel.clang_getCursorLocation' curr
     unionFieldName <- CName <$> clang_getCursorDisplayName curr
@@ -250,7 +250,7 @@ assembleUnionField curr = do
       , unionFieldAnn
       }
 
-typedefDecl :: Fold M [C.Decl Parse]
+typedefDecl :: Fold ParseDecl [C.Decl Parse]
 typedefDecl curr = do
     info        <- getDeclInfo curr
     typedefType <- fromCXType =<< clang_getTypedefDeclUnderlyingType curr
@@ -266,13 +266,13 @@ typedefDecl curr = do
           }
     return $ Continue $ Just [decl]
 
-macroExpansion :: Fold M [C.Decl Parse]
+macroExpansion :: Fold ParseDecl [C.Decl Parse]
 macroExpansion curr = do
     loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
     recordMacroExpansionAt loc
     return $ Continue Nothing
 
-enumDecl :: Fold M [C.Decl Parse]
+enumDecl :: Fold ParseDecl [C.Decl Parse]
 enumDecl curr = do
     info <- getDeclInfo curr
     classification <- HighLevel.classifyDeclaration curr
@@ -293,7 +293,7 @@ enumDecl curr = do
       aux ::
            C.DeclInfo Parse
         -> [C.EnumConstant Parse]
-        -> M (Maybe [C.Decl Parse])
+        -> ParseDecl (Maybe [C.Decl Parse])
       aux info es = do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
@@ -314,7 +314,7 @@ enumDecl curr = do
               }
         return $ Just [decl]
 
-enumeratorDecl :: Fold M (C.EnumConstant Parse)
+enumeratorDecl :: Fold ParseDecl (C.EnumConstant Parse)
 enumeratorDecl curr = do
     dispatch curr $ \case
       CXCursor_EnumConstantDecl -> do
@@ -332,7 +332,7 @@ enumeratorDecl curr = do
       kind ->
         unknownCursorKind kind curr
 
-functionDecl :: Fold M [C.Decl Parse]
+functionDecl :: Fold ParseDecl [C.Decl Parse]
 functionDecl curr = do
     info <- getDeclInfo curr
     typ  <- fromCXType =<< clang_getCursorType curr
@@ -353,7 +353,9 @@ functionDecl curr = do
     -- TODO (#684): Handle inline type declarations.
     pure $ Continue $ Just [decl]
   where
-    guardTypeFunction :: C.Type Parse -> M ([C.Type Parse], C.Type Parse)
+    guardTypeFunction ::
+         C.Type Parse
+      -> ParseDecl ([C.Type Parse], C.Type Parse)
     guardTypeFunction ty =
         case ty of
           C.TypeFun args res ->
@@ -364,14 +366,14 @@ functionDecl curr = do
 -- | Global variable declaration
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/42>
-varDecl :: Fold M [C.Decl Parse]
+varDecl :: Fold ParseDecl [C.Decl Parse]
 varDecl _ = return $ Continue Nothing
 
 -- | Unexposed declarations
 --
 -- Since we not told what kind of declaration this is, we can't do much except
 -- issue a warning.
-unexposedDecl :: Fold M [C.Decl Parse]
+unexposedDecl :: Fold ParseDecl [C.Decl Parse]
 unexposedDecl curr = do
     skippedLoc <- HighLevel.clang_getCursorLocation' curr
     recordTrace $ Skipped $ Predicate.SkipUnexposed{skippedLoc}

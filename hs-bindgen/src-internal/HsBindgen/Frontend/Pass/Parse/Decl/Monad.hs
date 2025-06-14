@@ -1,8 +1,14 @@
-module HsBindgen.Frontend.Pass.Parse.Monad (
+-- | Monad for parsing declarations
+--
+-- Intended for unqualified import (unless context is unambiguous).
+--
+-- > import HsBindgen.Frontend.Pass.Parse.Decl.Monad (ParseDecl)
+-- > import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
+module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
     -- * Definition
-    M
-  , ParseEnv (..)
-  , runParseMonad
+    ParseDecl
+  , Env (..)
+  , run
     -- * Functionality
     -- ** "Reader"
   , getTranslationUnit
@@ -13,15 +19,18 @@ module HsBindgen.Frontend.Pass.Parse.Monad (
   , checkHasMacroExpansion
   , recordNonSelectedDecl
     -- ** Logging
-  , ParseTrace(..)
   , recordTrace
+    -- ** Errors
+  , unknownCursorKind
   ) where
 
 import Control.Tracer (Tracer)
 import Data.IORef
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 import GHC.Stack
 
+import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -29,6 +38,7 @@ import Clang.Paths
 import HsBindgen.C.Predicate (IsMainFile, Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
+import HsBindgen.Errors
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -48,20 +58,20 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 -- | Monad used during folding
-type M = Eff ParseMonad
+type ParseDecl = Eff ParseDeclMonad
 
-data ParseMonad a
+data ParseDeclMonad a
 
--- | Support for 'M' (internal type, not exported)
+-- | Support for 'ParseDecl' (internal type, not exported)
 data ParseSupport = ParseSupport {
-      parseEnv   :: ParseEnv           -- ^ Reader
-    , parseState :: IORef ParseState   -- ^ State
+      parseEnv   :: Env              -- ^ Reader
+    , parseState :: IORef ParseState -- ^ State
     }
 
-type instance Support ParseMonad = ParseSupport
+type instance Support ParseDeclMonad = ParseSupport
 
-runParseMonad :: ParseEnv -> M a -> IO (NonSelectedDecls, a)
-runParseMonad env f = do
+run :: Env -> ParseDecl a -> IO (NonSelectedDecls, a)
+run env f = do
     support <- ParseSupport env <$> newIORef initParseState
     x <- unwrapEff f support
     (, x) . stateNonSelectedDecls <$> readIORef (parseState support)
@@ -70,7 +80,7 @@ runParseMonad env f = do
   "Reader"
 -------------------------------------------------------------------------------}
 
-data ParseEnv = ParseEnv {
+data Env = Env {
       envUnit          :: CXTranslationUnit
     , envRootHeader    :: RootHeader
     , envIsMainFile    :: IsMainFile
@@ -79,15 +89,15 @@ data ParseEnv = ParseEnv {
     , envTracer        :: Tracer IO (TraceWithCallStack ParseTrace)
     }
 
-getTranslationUnit :: M CXTranslationUnit
+getTranslationUnit :: ParseDecl CXTranslationUnit
 getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
     return (envUnit parseEnv)
 
-evalGetMainHeader :: SourcePath -> M CHeaderIncludePath
+evalGetMainHeader :: SourcePath -> ParseDecl CHeaderIncludePath
 evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
     return $ (envGetMainHeader parseEnv) path
 
-evalPredicate :: CXCursor -> M (Either Predicate.SkipReason ())
+evalPredicate :: CXCursor -> ParseDecl (Either Predicate.SkipReason ())
 evalPredicate curr = wrapEff $ \ParseSupport{parseEnv} -> do
     matchResult <-
       Predicate.match (envIsMainFile parseEnv) (envPredicate parseEnv) curr
@@ -119,14 +129,14 @@ initParseState = ParseState{
     , stateNonSelectedDecls = NonSelectedDecls.empty
     }
 
-recordMacroExpansionAt :: SingleLoc -> M ()
+recordMacroExpansionAt :: SingleLoc -> ParseDecl ()
 recordMacroExpansionAt loc = do
     wrapEff $ \ParseSupport{parseState} ->
       modifyIORef parseState $ \st -> st{
           stateMacroExpansions = Set.insert loc (stateMacroExpansions st)
         }
 
-checkHasMacroExpansion :: Range SingleLoc -> M Bool
+checkHasMacroExpansion :: Range SingleLoc -> ParseDecl Bool
 checkHasMacroExpansion extent = do
     wrapEff $ \ParseSupport{parseState} ->
       aux extent . stateMacroExpansions <$> readIORef parseState
@@ -148,7 +158,7 @@ checkHasMacroExpansion extent = do
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
 
-recordNonSelectedDecl :: CXCursor -> M ()
+recordNonSelectedDecl :: CXCursor -> ParseDecl ()
 recordNonSelectedDecl curr = do
     mNamespace <- dispatch curr $ return . \case
       CXCursor_MacroDefinition -> Just NamespaceMacro
@@ -181,39 +191,25 @@ recordNonSelectedDecl curr = do
   Logging
 -------------------------------------------------------------------------------}
 
-data ParseTrace =
-    -- | We skipped over a declaration
-    Skipped Predicate.SkipReason
-
-    -- | Struct with implicit fields
-  | UnsupportedImplicitFields {
-        -- | Name of the (outer) struct (which has implicit fields)
-        unsupportedImplicitFieldsIn :: DeclId
-
-        -- | The names of the implicit fields
-      , unsupportedImplicitFields :: [DeclId]
-      }
-  deriving stock (Show, Eq)
-
-instance PrettyTrace ParseTrace where
-  prettyTrace = \case
-      Skipped reason ->
-          prettyTrace reason
-      UnsupportedImplicitFields {..} -> concat [
-          "Unsupported implicit fields "
-        , show unsupportedImplicitFields
-        , " in "
-        , show unsupportedImplicitFieldsIn
-        ]
-
-instance HasDefaultLogLevel ParseTrace where
-  getDefaultLogLevel = \case
-      Skipped reason              -> getDefaultLogLevel reason
-      UnsupportedImplicitFields{} -> Error
-
-instance HasSource ParseTrace where
-    getSource = const HsBindgen
-
-recordTrace :: HasCallStack => ParseTrace -> M ()
+recordTrace :: HasCallStack => ParseTrace -> ParseDecl ()
 recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
     traceWithCallStack (envTracer parseEnv) trace
+
+{-------------------------------------------------------------------------------
+  Errors
+-------------------------------------------------------------------------------}
+
+unknownCursorKind ::
+     (MonadIO m, HasCallStack)
+  => CXCursorKind -> CXCursor -> m x
+unknownCursorKind kind curr = do
+    loc      <- HighLevel.clang_getCursorLocation' curr
+    spelling <- clang_getCursorKindSpelling (simpleEnum kind)
+    panicIO $ concat [
+        "Unknown cursor of kind "
+      , show kind
+      , " ("
+      , Text.unpack spelling
+      , ") at "
+      , show loc
+      ]

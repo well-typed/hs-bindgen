@@ -119,9 +119,10 @@ library internal
       HsBindgen.Frontend.Pass.NameAnon.IsPass
       HsBindgen.Frontend.Pass.Parse
       HsBindgen.Frontend.Pass.Parse.Decl
+      HsBindgen.Frontend.Pass.Parse.Decl.Monad
       HsBindgen.Frontend.Pass.Parse.IsPass
-      HsBindgen.Frontend.Pass.Parse.Monad
       HsBindgen.Frontend.Pass.Parse.Type
+      HsBindgen.Frontend.Pass.Parse.Type.Monad
       HsBindgen.Frontend.Pass.ResolveBindingSpec
       HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
       HsBindgen.Frontend.Pass.Sort

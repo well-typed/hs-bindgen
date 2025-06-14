@@ -20,7 +20,7 @@ import HsBindgen.Frontend.Pass.HandleTypedefs
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.NameAnon
 import HsBindgen.Frontend.Pass.Parse (parseDecls)
-import HsBindgen.Frontend.Pass.Parse.Monad
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.ProcessIncludes
