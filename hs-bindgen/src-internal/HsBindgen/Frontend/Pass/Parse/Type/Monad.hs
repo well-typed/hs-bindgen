@@ -84,6 +84,9 @@ data ParseTypeException =
 
     -- | We do not support variadic (varargs) functions
   | UnsupportedVariadicFunction
+
+    -- | We do not support @long double@
+  | UnsupportedLongDouble
   deriving stock (Show, Eq)
 
 instance PrettyTrace ParseTypeException where
@@ -115,6 +118,9 @@ instance PrettyTrace ParseTypeException where
     UnsupportedVariadicFunction -> concat [
         "Unsupported variadic (varargs) function."
       ]
+    UnsupportedLongDouble -> concat [
+        "Unsupported long double."
+      ]
 
 -- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
 --
@@ -125,6 +131,7 @@ instance HasDefaultLogLevel ParseTypeException where
     UnexpectedTypeKind{}        -> Error
     UnexpectedTypeDecl{}        -> Error
     UnsupportedVariadicFunction -> Warning
+    UnsupportedLongDouble       -> Warning
 
 instance Exception ParseTypeException where
   displayException = prettyTrace

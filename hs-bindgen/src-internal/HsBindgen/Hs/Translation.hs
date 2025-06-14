@@ -887,9 +887,8 @@ integralType C.PrimLongLong C.Unsigned = HsPrimCULLong
 
 floatingType :: C.PrimFloatType -> HsPrimType
 floatingType = \case
-  C.PrimFloat      -> HsPrimCFloat
-  C.PrimDouble     -> HsPrimCDouble
-  C.PrimLongDouble -> throwPure_TODO 349 "long double not supported"
+  C.PrimFloat  -> HsPrimCFloat
+  C.PrimDouble -> HsPrimCDouble
 
 {-------------------------------------------------------------------------------
   Function

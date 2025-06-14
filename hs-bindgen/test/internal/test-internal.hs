@@ -1,24 +1,20 @@
 {-# LANGUAGE CPP #-}
 module Main (main) where
 
-import Control.DeepSeq (force)
-import Control.Exception (displayException, evaluate, try)
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.List qualified as List
 import Data.TreeDiff.Golden (ediffGolden1)
 import Test.Tasty (TestName, TestTree, defaultMain, testGroup)
 import Test.Tasty.HUnit (assertBool, testCase)
-import Text.Regex.Applicative qualified as R
-import Text.Regex.Applicative.Common qualified as R
 
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.Errors
 import HsBindgen.Frontend (FrontendTrace (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError(Redeclaration))
 import HsBindgen.Frontend.Pass.MangleNames (MangleError (MissingDeclaration))
-import HsBindgen.Frontend.Pass.Parse.IsPass (ParseTrace (UnsupportedImplicitFields))
+import HsBindgen.Frontend.Pass.Parse.IsPass (ParseTrace (..))
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException(..))
 import HsBindgen.Frontend.Pass.Sort (SortError(..))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -106,26 +102,32 @@ tests packageRoot getAnsiColor getRustBindgen =
           "macro_strings"
         ]
     , testGroup "examples/failing" [
-          failing "long_double"
+          expectTrace
+            "long_double"
+            "expected trace X"
+            (\case
+                TraceFrontend (FrontendParse (UnsupportedType _ UnsupportedLongDouble)) -> True
+                _otherwise -> False
+            )
         , expectTrace
             "implicit_fields_struct"
             "expected trace UnsupportedImplicitFields"
             (\case
-                (TraceFrontend (FrontendParse (UnsupportedImplicitFields {}))) -> True
+                TraceFrontend (FrontendParse (UnsupportedImplicitFields {})) -> True
                 _otherwise -> False
             )
         , expectTrace
             "declaration_unselected_b"
             "expected trace MissingDeclaration"
             (\case
-                (TraceFrontend (FrontendNameMangler (MissingDeclaration {}))) -> True
+                TraceFrontend (FrontendNameMangler (MissingDeclaration {})) -> True
                 _otherwise -> False
             )
         , expectTrace
             "redeclaration_different"
             "expected trace Redeclaration"
             (\case
-                (TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {})))) -> True
+                TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {}))) -> True
                 _otherwise -> False
             )
         ]
@@ -224,24 +226,6 @@ tests packageRoot getAnsiColor getRustBindgen =
         Pipeline.ppOptsModule = HsModuleOpts { hsModuleOptsName = "Example" }
       }
 
-    -- TODO (#722): Failing tests should not create a fixture; instead, we
-    -- should expect specific traces.
-    failing :: TestName -> TestTree
-    failing name = do
-      let target = "fixtures" </> (name ++ ".failure.txt")
-          headerIncludePath = mkHeaderIncludePath name
-      goldenVsStringDiff_ name target $ \report ->
-        withOpts report $ \opts -> do
-          result <- try $ do
-            decls <- Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
-            evaluate $ force $ Pipeline.preprocessPure ppOpts decls
-
-          case result of
-            Right result' -> fail $
-              "Expected failure; unexpected success\n" ++ result'
-            Left exc -> return $ normalise $
-              displayException (exc :: HsBindgenException)
-
     expectTrace :: TestName -> String -> (Trace -> Bool) -> TestTree
     expectTrace name msg predicate = testCase name $ do
       (_, traces) <- withWriterTracer $ \tracer -> do
@@ -254,21 +238,3 @@ tests packageRoot getAnsiColor getRustBindgen =
              Pipeline.translateCHeaders "failWithTraceTest" opts [headerIncludePath]
       assertBool msg $ any (predicate . tTrace) traces
 
--- | Normalise the test fixture output so it doesn't change that often, nor across various systems.
-normalise :: String -> String
-normalise s =
-    R.replace pkgname $
-    R.replace rowcol $
-    map windows s
-  where
-    windows :: Char -> Char
-    windows '\\' = '/'
-    windows c    = c
-
-    rowcol :: R.RE Char String
-    rowcol = sequenceA [ R.sym ':', digits, R.sym ':', digits ]
-      where
-        digits = '0' <$ R.few (R.digit @Int)
-
-    pkgname :: R.RE Char String
-    pkgname = concat <$> sequenceA [ "hs-bindgen-", "0" <$ R.few R.anySym, "-inplace" ]

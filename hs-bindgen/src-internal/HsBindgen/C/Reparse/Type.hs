@@ -73,10 +73,10 @@ reparsePrimType = do
       [             "long" , "long" , "int"] -> primType $ PrimIntegral PrimLongLong Signed
       ["signed"   , "long" , "long" , "int"] -> primType $ PrimIntegral PrimLongLong Signed
       ["unsigned" , "long" , "long" , "int"] -> primType $ PrimIntegral PrimLongLong Unsigned
-      -- float, double, long double
-      [         "float" ] -> primType $ PrimFloating PrimFloat
-      [         "double"] -> primType $ PrimFloating PrimDouble
-      ["long" , "double"] -> primType $ PrimFloating PrimLongDouble
+      -- float, double
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/349>: long double
+      ["float" ] -> primType $ PrimFloating PrimFloat
+      ["double"] -> primType $ PrimFloating PrimDouble
       -- bool
       ["_Bool"] -> primType $ PrimBool
       ["bool"]  -> primType $ PrimBool
