@@ -41,7 +41,7 @@ cxtype ty =
       CXType_ULongLong  -> prim $ PrimIntegral PrimLongLong Unsigned
       CXType_Float      -> prim $ PrimFloating PrimFloat
       CXType_Double     -> prim $ PrimFloating PrimDouble
-      CXType_LongDouble -> prim $ PrimFloating PrimLongDouble
+      CXType_LongDouble -> failure UnsupportedLongDouble
       CXType_Bool       -> prim $ PrimBool
 
       CXType_Attributed      -> attributed
@@ -56,7 +56,10 @@ cxtype ty =
       CXType_Typedef         -> fromDecl
       CXType_Void            -> const (pure C.TypeVoid)
 
-      kind -> \_ -> throwError $ UnexpectedTypeKind (Right kind)
+      kind -> failure $ UnexpectedTypeKind (Right kind)
+  where
+    failure :: ParseTypeException -> CXType -> ParseType (C.Type Parse)
+    failure err _ty = throwError err
 
 {-------------------------------------------------------------------------------
   Functions for each kind of type

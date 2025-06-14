@@ -51,15 +51,16 @@ data PrimIntType
   | PrimLongLong
   deriving stock (Show, Eq, Enum, Generic)
 
+-- | Primitive floating point types
+--
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/349>
+-- We don't currently support @long double@.
 data PrimFloatType
     -- | @float@
   = PrimFloat
 
     -- | @double@
   | PrimDouble
-
-    -- | @long double@
-  | PrimLongDouble
   deriving stock (Show, Eq, Ord, Generic)
 
 -- | Sign of a primitive type
@@ -114,7 +115,6 @@ showsPrimIntType PrimLongLong = showString "long long"
 showsPrimFloatType :: PrimFloatType -> ShowS
 showsPrimFloatType PrimFloat = showString "float"
 showsPrimFloatType PrimDouble = showString "double"
-showsPrimFloatType PrimLongDouble = showString "long double"
 
 showsPrimSign :: PrimSign -> ShowS
 showsPrimSign Signed = showString "signed"

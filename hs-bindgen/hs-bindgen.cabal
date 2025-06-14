@@ -352,7 +352,6 @@ test-suite test-internal
     , temporary
     , tree-diff     ^>=0.3.4
     , utf8-string   ^>=1.0.2
-    , regex-applicative ^>=0.3.4
 
 test-suite test-th
   type:           exitcode-stdio-1.0
