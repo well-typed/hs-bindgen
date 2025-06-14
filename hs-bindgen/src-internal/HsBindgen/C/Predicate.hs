@@ -70,6 +70,9 @@ data SkipReason =
       , skippedLoc    :: SingleLoc
       , skippedReason :: Text
       }
+  | SkipUnexposed {
+        skippedLoc :: SingleLoc
+      }
   deriving stock (Show, Eq)
 
 instance PrettyTrace SkipReason where
@@ -86,11 +89,16 @@ instance PrettyTrace SkipReason where
         , ": "
         , skippedReason
         ]
+      SkipUnexposed{skippedLoc} -> concat [
+          "Skipped unexposed declaration at "
+        , show skippedLoc
+        ]
 
 instance HasDefaultLogLevel SkipReason where
   getDefaultLogLevel = \case
       SkipBuiltin{}   -> Debug
       SkipPredicate{} -> Info
+      SkipUnexposed{} -> Warning
 
 {-------------------------------------------------------------------------------
   Matching
