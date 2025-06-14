@@ -81,6 +81,9 @@ data ParseTypeException =
     --
     -- Similar comments apply as for 'UnexpectedTypeKind'.
   | UnexpectedTypeDecl (Either CInt CXCursorKind)
+
+    -- | We do not support variadic (varargs) functions
+  | UnsupportedVariadicFunction
   deriving stock (Show, Eq)
 
 instance PrettyTrace ParseTypeException where
@@ -109,6 +112,9 @@ instance PrettyTrace ParseTypeException where
       , ".\n"
       , pleaseReport
       ]
+    UnsupportedVariadicFunction -> concat [
+        "Unsupported variadic (varargs) function."
+      ]
 
 -- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
 --
@@ -116,8 +122,9 @@ instance PrettyTrace ParseTypeException where
 -- we can just skip generating bindings for that declaration.
 instance HasDefaultLogLevel ParseTypeException where
   getDefaultLogLevel = \case
-    UnexpectedTypeKind{} -> Error
-    UnexpectedTypeDecl{} -> Error
+    UnexpectedTypeKind{}        -> Error
+    UnexpectedTypeDecl{}        -> Error
+    UnsupportedVariadicFunction -> Warning
 
 instance Exception ParseTypeException where
   displayException = prettyTrace

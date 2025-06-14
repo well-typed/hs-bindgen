@@ -98,6 +98,7 @@ tests packageRoot getAnsiColor getRustBindgen =
         , "unions"
         , "unnamed-struct"
         , "uses_utf8"
+        , "varargs"
         , "vector"
         ]
     -- @rs-bindgen@ panics on these
