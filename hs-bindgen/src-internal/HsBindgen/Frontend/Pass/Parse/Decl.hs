@@ -40,12 +40,19 @@ foldDecl curr = evalPredicate curr >>= \case
         CXCursor_EnumDecl           -> enumDecl
         CXCursor_FunctionDecl       -> functionDecl
         CXCursor_VarDecl            -> varDecl
-        kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
-    Left Predicate.SkipPredicate{} -> do
-        recordNonSelectedDecl curr
-        return $ Continue Nothing
-    Left Predicate.SkipBuiltin{} ->
-        return $ Continue Nothing
+        CXCursor_UnexposedDecl      -> unexposedDecl
+        kind                        -> unknownCursorKind kind
+    Left skipReason ->
+      -- We need to keep track of skipped declarations so that they can be
+      -- given external bindings.
+      case skipReason of
+        Predicate.SkipPredicate{} -> do
+          recordNonSelectedDecl curr
+          return $ Continue Nothing
+        Predicate.SkipBuiltin{} ->
+          return $ Continue Nothing
+        Predicate.SkipUnexposed{} ->
+          return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations
@@ -323,7 +330,7 @@ enumeratorDecl curr = do
         -- 'packed' is handlded by clang; we can ignore it.
         pure $ Continue Nothing
       kind ->
-        panicIO $ "Unrecognized cursor in enumerator declaration " <> show kind
+        unknownCursorKind kind curr
 
 functionDecl :: Fold M [C.Decl Parse]
 functionDecl curr = do
@@ -359,6 +366,16 @@ functionDecl curr = do
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/42>
 varDecl :: Fold M [C.Decl Parse]
 varDecl _ = return $ Continue Nothing
+
+-- | Unexposed declarations
+--
+-- Since we not told what kind of declaration this is, we can't do much except
+-- issue a warning.
+unexposedDecl :: Fold M [C.Decl Parse]
+unexposedDecl curr = do
+    skippedLoc <- HighLevel.clang_getCursorLocation' curr
+    recordTrace $ Skipped $ Predicate.SkipUnexposed{skippedLoc}
+    return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Auxiliary: detect implicit fields

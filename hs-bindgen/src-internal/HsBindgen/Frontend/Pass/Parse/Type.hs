@@ -17,8 +17,6 @@ import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Top-level
-
-  TODO: This needs entries for const and incomplete arrays.
 -------------------------------------------------------------------------------}
 
 fromCXType :: HasCallStack => CXType -> M (C.Type Parse)
@@ -44,18 +42,16 @@ fromCXType ty =
       CXType_Attributed      -> attributed
       CXType_ConstantArray   -> constantArray
       CXType_Elaborated      -> elaborated
+      CXType_Enum            -> fromDecl
       CXType_FunctionNoProto -> function
       CXType_FunctionProto   -> function
       CXType_IncompleteArray -> incompleteArray
       CXType_Pointer         -> pointer
+      CXType_Record          -> fromDecl
+      CXType_Typedef         -> fromDecl
+      CXType_Void            -> const (pure C.TypeVoid)
 
-      CXType_Enum          -> fromDecl
-      CXType_Record        -> fromDecl
-      CXType_Typedef       -> fromDecl
-
-      CXType_Void          -> const (pure C.TypeVoid)
-
-      kind -> \_ -> panicIO $ "fromCXType: " ++ show kind
+      kind -> unknownTypeKind kind
 
 {-------------------------------------------------------------------------------
   Functions for each kind of type
@@ -79,7 +75,7 @@ fromDecl ty = do
       CXCursor_StructDecl  -> return $ C.TypeStruct  declId
       CXCursor_UnionDecl   -> return $ C.TypeUnion   declId
       CXCursor_TypedefDecl -> return $ C.TypeTypedef (typedefName declId)
-      kind -> panicIO $ "fromDecl: " ++ show kind
+      kind                 -> unknownCursorKind kind decl
   where
     typedefName :: DeclId -> CName
     typedefName (DeclNamed name) = name
