@@ -22,6 +22,9 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , recordTrace
     -- ** Errors
   , unknownCursorKind
+    -- * Utility: dispatching
+  , dispatch
+  , dispatchWithArg
   ) where
 
 import Control.Tracer (Tracer)
@@ -44,7 +47,6 @@ import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
 import HsBindgen.Frontend.RootHeader (RootHeader)
-import HsBindgen.Frontend.Util.Fold (dispatch)
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
@@ -213,3 +215,21 @@ unknownCursorKind kind curr = do
       , ") at "
       , show loc
       ]
+
+{-------------------------------------------------------------------------------
+  Utility: dispatching based on the cursor kind
+-------------------------------------------------------------------------------}
+
+dispatch :: CXCursor -> (CXCursorKind -> ParseDecl b) -> ParseDecl b
+dispatch curr k = do
+    mKind <- fromSimpleEnum <$> clang_getCursorKind curr
+    case mKind of
+      Right kind -> k kind
+      Left  i    -> panicIO $ "Unrecognized CXCursorKind " ++ show i
+
+-- | Convenience wrapper that repeats the argument
+dispatchWithArg ::
+     CXCursor
+  -> (CXCursorKind -> CXCursor -> ParseDecl b)
+  -> ParseDecl b
+dispatchWithArg x f = dispatch x $ \kind -> f kind x

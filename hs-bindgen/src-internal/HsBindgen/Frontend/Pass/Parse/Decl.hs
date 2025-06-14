@@ -2,6 +2,7 @@
 module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 
 import Control.Monad
+import Control.Monad.Catch (handle)
 import Data.Bifunctor
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -20,39 +21,49 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
-import HsBindgen.Frontend.Util.Fold
 import HsBindgen.Language.C
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 foldDecl :: HasCallStack => Fold ParseDecl [C.Decl Parse]
-foldDecl curr = evalPredicate curr >>= \case
-    Right () ->
-      dispatchWithArg curr $ \case
-        CXCursor_InclusionDirective -> \_ -> return $ Continue Nothing
-        CXCursor_MacroDefinition    -> macroDefinition
-        CXCursor_StructDecl         -> structDecl
-        CXCursor_UnionDecl          -> unionDecl
-        CXCursor_TypedefDecl        -> typedefDecl
-        CXCursor_MacroExpansion     -> macroExpansion
-        CXCursor_EnumDecl           -> enumDecl
-        CXCursor_FunctionDecl       -> functionDecl
-        CXCursor_VarDecl            -> varDecl
-        CXCursor_UnexposedDecl      -> unexposedDecl
-        kind                        -> unknownCursorKind kind
-    Left skipReason ->
-      -- We need to keep track of skipped declarations so that they can be
-      -- given external bindings.
-      case skipReason of
-        Predicate.SkipPredicate{} -> do
-          recordNonSelectedDecl curr
-          return $ Continue Nothing
-        Predicate.SkipBuiltin{} ->
-          return $ Continue Nothing
-        Predicate.SkipUnexposed{} ->
-          return $ Continue Nothing
+foldDecl curr = handle (flip handleTypeException curr) $
+    evalPredicate curr >>= \case
+      Right () ->
+        dispatchWithArg curr $ \case
+          CXCursor_InclusionDirective -> \_ -> return $ Continue Nothing
+          CXCursor_MacroDefinition    -> macroDefinition
+          CXCursor_StructDecl         -> structDecl
+          CXCursor_UnionDecl          -> unionDecl
+          CXCursor_TypedefDecl        -> typedefDecl
+          CXCursor_MacroExpansion     -> macroExpansion
+          CXCursor_EnumDecl           -> enumDecl
+          CXCursor_FunctionDecl       -> functionDecl
+          CXCursor_VarDecl            -> varDecl
+          CXCursor_UnexposedDecl      -> unexposedDecl
+          kind                        -> unknownCursorKind kind
+      Left skipReason ->
+        -- We need to keep track of skipped declarations so that they can be
+        -- given external bindings.
+        case skipReason of
+          Predicate.SkipPredicate{} -> do
+            recordNonSelectedDecl curr
+            return $ Continue Nothing
+          Predicate.SkipBuiltin{} ->
+            return $ Continue Nothing
+          Predicate.SkipUnexposed{} ->
+            return $ Continue Nothing
+
+handleTypeException :: ParseTypeException -> Fold ParseDecl [C.Decl Parse]
+handleTypeException err curr = do
+    info <- getDeclInfo curr
+    recordTrace $ UnsupportedType{
+        unsupportedTypeContext   = info
+      , unsupportedTypeException = err
+      }
+    return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations

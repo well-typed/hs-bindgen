@@ -10,6 +10,7 @@ module HsBindgen.Eff (
   assertEff,
 ) where
 
+import Control.Monad.Catch (MonadThrow, MonadCatch, MonadMask)
 import Control.Monad.Reader (Reader, ReaderT (..), MonadReader)
 import Control.Monad.State (State, MonadState (state))
 import Data.IORef (IORef, newIORef, readIORef, atomicModifyIORef)
@@ -29,7 +30,16 @@ import HsBindgen.Errors
 newtype Eff m a = Eff {
       getEff :: ReaderT (Support m) IO a
     }
-  deriving newtype (Functor, Applicative, Monad, MonadIO, MonadUnliftIO)
+  deriving newtype (
+      Functor
+    , Applicative
+    , Monad
+    , MonadIO
+    , MonadUnliftIO
+    , MonadThrow
+    , MonadCatch
+    , MonadMask
+    )
 
 wrapEff :: (Support m -> IO a) -> Eff m a
 wrapEff = Eff . ReaderT

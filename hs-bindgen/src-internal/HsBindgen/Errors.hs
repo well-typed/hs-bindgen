@@ -8,6 +8,7 @@ module HsBindgen.Errors (
     PanicException,
     panicPure,
     panicIO,
+    pleaseReport,
 ) where
 
 import GHC.Stack (CallStack, callStack, prettyCallStack)
@@ -73,10 +74,13 @@ instance Exception PanicException where
     fromException = hsBindgenExceptionFromException
     displayException (PanicException cs  msg) = unlines
         [ "PANIC!: the impossible happened"
-        , "Please report this as a bug at https://github.com/well-typed/hs-bindgen/issues/"
+        , pleaseReport
         , msg
         , prettyCallStack cs
         ]
+
+pleaseReport :: String
+pleaseReport = "Please report this as a bug at https://github.com/well-typed/hs-bindgen/issues/"
 
 -- | Panic in pure context
 panicPure :: HasCallStack => String -> a
