@@ -27,6 +27,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -52,7 +53,7 @@ fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
-    UsedByNamed Usage (CName, Namespace)
+    UsedByNamed Usage (CName, C.NameKind)
   | UsedByAnon Usage UseOfDecl
   deriving stock (Show)
 
@@ -73,12 +74,12 @@ findNamedUseOf declIndex (Wrap graph) =
         case uid of
           DeclNamed name -> do
             f <- get
-            return $ Right . Just $ f (UsedByNamed u (name, ns))
+            return $ Right . Just $ f (UsedByNamed u (name, nk))
           DeclAnon _anonId -> do
             modify (. UsedByAnon u)
             return $ Left qid
       where
-        qid@(C.QualId uid ns) = C.declQualId d
+        qid@(C.QualId uid nk) = C.declQualId d
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =

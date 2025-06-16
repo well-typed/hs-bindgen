@@ -48,7 +48,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -162,12 +162,12 @@ checkHasMacroExpansion extent = do
 
 recordNonSelectedDecl :: CXCursor -> ParseDecl ()
 recordNonSelectedDecl curr = do
-    mNamespace <- dispatch curr $ return . \case
-      CXCursor_MacroDefinition -> Just NamespaceMacro
-      CXCursor_StructDecl      -> Just NamespaceStruct
-      CXCursor_UnionDecl       -> Just NamespaceUnion
-      CXCursor_TypedefDecl     -> Just NamespaceTypedef
-      CXCursor_EnumDecl        -> Just NamespaceEnum
+    mNameKind <- dispatch curr $ return . \case
+      CXCursor_MacroDefinition -> Just C.NameKindOrdinary
+      CXCursor_StructDecl      -> Just C.NameKindStruct
+      CXCursor_UnionDecl       -> Just C.NameKindUnion
+      CXCursor_TypedefDecl     -> Just C.NameKindOrdinary
+      CXCursor_EnumDecl        -> Just C.NameKindEnum
       -- We intentionally do selection as part of parsing, rather than a
       -- separate step: if the user does not select certain declarations
       -- (perhaps because they live deep in the bowels of some system
@@ -175,15 +175,15 @@ recordNonSelectedDecl curr = do
       -- called on all declarations, selected or not, we must ensure that we
       -- don't error out on such unsupported cases.
       _kind                    -> Nothing
-    case mNamespace of
-      Just namespace -> getDeclId curr >>= \case
+    case mNameKind of
+      Just nameKind -> getDeclId curr >>= \case
         DeclNamed cname -> do
           sourcePath <-
             singleLocPath <$> HighLevel.clang_getCursorLocation' curr
           wrapEff $ \ParseSupport{parseState} -> do
             modifyIORef parseState $ \st -> st{
                 stateNonSelectedDecls =
-                  NonSelectedDecls.insert (cname, namespace) sourcePath $
+                  NonSelectedDecls.insert (cname, nameKind) sourcePath $
                     stateNonSelectedDecls st
               }
         DeclAnon{} -> return ()

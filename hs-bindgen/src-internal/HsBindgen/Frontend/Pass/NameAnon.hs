@@ -54,7 +54,9 @@ findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qid =
 -- Returns 'Nothing' if the declaration is anonymous and unused.
 nameDecl :: RenameEnv -> C.Decl HandleMacros -> Maybe (C.Decl NameAnon)
 nameDecl env decl = do
-    name <- nameDeclId env declId (C.declNamespace declKind)
+    name <- case declId of
+      DeclNamed n -> Just n
+      DeclAnon{}  -> nameForAnon <$> findNamedUseOf env (C.declQualId decl)
     return $ C.Decl{
         declInfo = C.DeclInfo{
             declId = name
@@ -65,17 +67,6 @@ nameDecl env decl = do
       }
   where
     C.Decl{declInfo = C.DeclInfo{declLoc, declId}, declKind, declAnn} = decl
-
--- | Rename 'DeclId'
---
--- Returns 'Nothing' if this is an anonymous type without any use.
-nameDeclId :: RenameEnv -> DeclId -> C.Namespace -> Maybe CName
-nameDeclId _       (DeclNamed n) _  = Just n
-nameDeclId env uid@(DeclAnon  _) ns =
-    nameForAnon <$> findNamedUseOf env qid
-  where
-    qid :: C.QualId HandleMacros
-    qid = C.QualId uid ns
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -157,18 +148,18 @@ instance NameUseSites C.Type where
       go (C.TypePrim prim) =
           C.TypePrim prim
       go (C.TypeStruct uid) =
-          let qid = C.QualId uid C.NamespaceStruct
+          let qid = C.QualId uid C.NameKindStruct
           in C.TypeStruct (nameUseSite qid)
       go (C.TypeUnion uid) =
-          let qid = C.QualId uid C.NamespaceUnion
+          let qid = C.QualId uid C.NameKindUnion
           in C.TypeUnion (nameUseSite qid)
       go (C.TypeEnum uid) =
-          let qid = C.QualId uid C.NamespaceEnum
+          let qid = C.QualId uid C.NameKindEnum
           in C.TypeEnum (nameUseSite qid)
       go (C.TypeTypedef name) =
           C.TypeTypedef name
       go (C.TypeMacroTypedef uid) =
-          let qid = C.QualId uid C.NamespaceMacro
+          let qid = C.QualId uid C.NameKindOrdinary
           in C.TypeMacroTypedef (nameUseSite qid)
       go (C.TypePointer ty) =
           C.TypePointer (go ty)
@@ -187,7 +178,7 @@ instance NameUseSites C.Type where
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
       nameUseSite :: C.QualId HandleMacros -> CName
-      nameUseSite qid@(C.QualId uid _namespace) =
+      nameUseSite qid@(C.QualId uid _nameKind) =
           case uid of
             DeclNamed name -> name
             DeclAnon  _    ->
@@ -206,13 +197,13 @@ instance NameUseSites C.Type where
 -- | Construct name for anonymous declaration
 nameForAnon :: UseOfDecl -> CName
 nameForAnon = \case
-      UsedByNamed (UsedInTypedef ByValue) (name, _namespace) ->
+      UsedByNamed (UsedInTypedef ByValue) (name, _nameKind) ->
         name
-      UsedByNamed (UsedInTypedef ByRef) (name, _namespace) ->
+      UsedByNamed (UsedInTypedef ByRef) (name, _nameKind) ->
         name <> "_Deref"
-      UsedByNamed (UsedInField _valOrRef field) (name, _namespace) ->
+      UsedByNamed (UsedInField _valOrRef field) (name, _nameKind) ->
         name <> "_" <> field
-      UsedByNamed (UsedInFunction _valOrRef) (name, _namespace) ->
+      UsedByNamed (UsedInFunction _valOrRef) (name, _nameKind) ->
         name
       UsedByAnon (UsedInTypedef _valOrRef) _useOfAnon ->
         panicPure $ "nameForAnon: unexpected anonymous typedef"

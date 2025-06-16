@@ -8,7 +8,7 @@ module HsBindgen.Frontend.AST.Deps (
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 
 {-------------------------------------------------------------------------------
@@ -80,14 +80,14 @@ depsOfTypedef = depsOfType . typedefType
 -- dependencies will materialize when we build the graph.
 depsOfType :: Type Parse -> [(ValOrRef, QualId Parse)]
 depsOfType (TypePrim _)            = []
-depsOfType (TypeStruct uid)        = [(ByValue, QualId uid NamespaceStruct)]
-depsOfType (TypeUnion uid)         = [(ByValue, QualId uid NamespaceUnion)]
-depsOfType (TypeEnum uid)          = [(ByValue, QualId uid NamespaceEnum)]
-depsOfType (TypeTypedef uid)       = [(ByValue, QualId (DeclNamed uid) NamespaceTypedef)]
+depsOfType (TypeStruct uid)        = [(ByValue, QualId uid C.NameKindStruct)]
+depsOfType (TypeUnion uid)         = [(ByValue, QualId uid C.NameKindUnion)]
+depsOfType (TypeEnum uid)          = [(ByValue, QualId uid C.NameKindEnum)]
+depsOfType (TypeTypedef uid)       = [(ByValue, QualId (DeclNamed uid) C.NameKindOrdinary)]
 depsOfType (TypePointer ty)        = first (const ByRef) <$> depsOfType ty
 depsOfType (TypeFun args res)      = concatMap depsOfType args <> depsOfType res
 depsOfType TypeVoid                = []
 depsOfType (TypeExtBinding{})      = []
 depsOfType (TypeConstArray _ t)    = depsOfType t
 depsOfType (TypeIncompleteArray t) = depsOfType t
-depsOfType (TypeMacroTypedef uid)  = [(ByValue, QualId uid NamespaceMacro)]
+depsOfType (TypeMacroTypedef uid)  = [(ByValue, QualId uid C.NameKindOrdinary)]

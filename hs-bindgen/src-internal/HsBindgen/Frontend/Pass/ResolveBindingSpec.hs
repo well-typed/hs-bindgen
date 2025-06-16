@@ -350,11 +350,11 @@ instance Resolve C.CheckedMacroType where
 instance Resolve C.Type where
   resolve = \case
       C.TypePrim t            -> return (C.TypePrim t)
-      C.TypeStruct uid        -> aux C.TypeStruct uid C.NamespaceStruct
-      C.TypeUnion uid         -> aux C.TypeUnion uid C.NamespaceUnion
-      C.TypeEnum uid          -> aux C.TypeEnum uid C.NamespaceEnum
-      C.TypeTypedef uid       -> aux C.TypeTypedef uid C.NamespaceTypedef
-      C.TypeMacroTypedef uid  -> aux C.TypeMacroTypedef uid C.NamespaceMacro
+      C.TypeStruct uid        -> aux C.TypeStruct uid C.NameKindStruct
+      C.TypeUnion uid         -> aux C.TypeUnion uid C.NameKindUnion
+      C.TypeEnum uid          -> aux C.TypeEnum uid C.NameKindEnum
+      C.TypeTypedef uid       -> aux C.TypeTypedef uid C.NameKindOrdinary
+      C.TypeMacroTypedef uid  -> aux C.TypeMacroTypedef uid C.NameKindOrdinary
       C.TypePointer t         -> C.TypePointer <$> resolve t
       C.TypeFun args res      -> C.TypeFun <$> mapM resolve args <*> resolve res
       C.TypeVoid              -> return C.TypeVoid
@@ -367,11 +367,11 @@ instance Resolve C.Type where
       aux ::
            (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)
         -> Id NameAnon
-        -> C.Namespace
+        -> C.NameKind
         -> M (C.Type ResolveBindingSpec)
-      aux mk uid namespace =
+      aux mk uid nameKind =
         RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
-          let qualId    = C.QualId uid namespace
+          let qualId    = C.QualId uid nameKind
               cspelling = qualIdCSpelling qualId
           -- check for type omitted by binding specification
           when (Set.member qualId stateOmitTypes) $
@@ -381,7 +381,7 @@ instance Resolve C.Type where
             Just ty -> return ty
             Nothing -> do
               -- check for external binding of non-selected type
-              let k = (uid, namespace)
+              let k = (uid, nameKind)
               case NonSelectedDecls.lookup k envNonSelectedDecls of
                 Nothing -> return (mk uid)
                 Just sourcePath -> do
@@ -408,14 +408,12 @@ instance Resolve C.Type where
 -------------------------------------------------------------------------------}
 
 qualIdCSpelling :: C.QualId NameAnon -> BindingSpec.CSpelling
-qualIdCSpelling (C.QualId cname namespace) =
-    let prefix = case namespace of
-          C.NamespaceTypedef  -> ""
-          C.NamespaceStruct   -> "struct "
-          C.NamespaceUnion    -> "union "
-          C.NamespaceEnum     -> "enum "
-          C.NamespaceMacro    -> ""
-          C.NamespaceFunction -> ""
+qualIdCSpelling (C.QualId cname nameKind) =
+    let prefix = case nameKind of
+          C.NameKindOrdinary -> ""
+          C.NameKindStruct   -> "struct "
+          C.NameKindUnion    -> "union "
+          C.NameKindEnum     -> "enum "
     in  BindingSpec.CSpelling $ prefix <> getCName cname
 
 getExtHsRef ::
