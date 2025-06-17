@@ -64,7 +64,6 @@ instance ToExpr C.Function
 instance ToExpr C.NameKind
 instance ToExpr C.NameOrigin
 instance ToExpr C.NamePair
-instance ToExpr C.Namespace
 instance ToExpr C.NewtypeNames
 instance ToExpr C.PrimFloatType
 instance ToExpr C.PrimIntType

@@ -1,7 +1,6 @@
 module HsBindgen.Language.C.Name (
     -- * Types
     CName(..)
-  , Namespace(..)
   , NameKind(..)
   , NameOrigin(..)
   ) where
@@ -31,38 +30,10 @@ newtype CName = CName {
 instance PrettyTrace CName where
   prettyTrace (CName name) = unpack name
 
--- | C namespace
---
--- C has the following namespaces:
---
--- * Label namespace, which we are not concerned with
--- * Ordinary namespace, including variable, function, and @typedef@ names
--- * Tag namespace, which is a /single/ namespace for @struct@, @union@, and
---   @enum@ tags
--- * Field namespaces, separate per @struct@ and @union@
---
--- This type is used to describe C types, so only the ordinary and tag
--- namespaces are represented.
-data Namespace =
-    -- | Ordinary namespace
-    --
-    -- A name in the ordinary namespace is written without a prefix.
-    NamespaceOrdinary
-
-    -- | Tag namespace
-    --
-    -- A name in the tag namespace is written with a prefix, which must be
-    -- determined from context.
-  | NamespaceTag
-  deriving stock (Show, Eq, Ord, Generic)
-
-instance PrettyTrace Namespace where
-  prettyTrace = show
-
 -- | C name kind
 --
--- This type is the same as 'Namespace` except that it distinguishes tag kinds.
--- It is needed when the kind is not determined by a context.
+-- This type distinguishes ordinary names and tagged names.  It is needed when
+-- the kind is not determined by a context.
 data NameKind =
     -- | Ordinary kind
     --
