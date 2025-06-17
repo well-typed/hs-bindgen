@@ -20,8 +20,9 @@
           "macro_in_fundecl.h:5:9",
           declId = NamePair {
             nameC = CName "I",
-            nameHsIdent = HsIdentifier
-              "I"}},
+            nameHsIdent = HsIdentifier "I"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -127,8 +128,9 @@
           "macro_in_fundecl.h:6:9",
           declId = NamePair {
             nameC = CName "C",
-            nameHsIdent = HsIdentifier
-              "C"}},
+            nameHsIdent = HsIdentifier "C"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -235,8 +237,9 @@
           "macro_in_fundecl.h:7:9",
           declId = NamePair {
             nameC = CName "F",
-            nameHsIdent = HsIdentifier
-              "F"}},
+            nameHsIdent = HsIdentifier "F"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -337,8 +340,9 @@
           "macro_in_fundecl.h:8:9",
           declId = NamePair {
             nameC = CName "L",
-            nameHsIdent = HsIdentifier
-              "L"}},
+            nameHsIdent = HsIdentifier "L"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -444,8 +448,9 @@
           "macro_in_fundecl.h:9:9",
           declId = NamePair {
             nameC = CName "S",
-            nameHsIdent = HsIdentifier
-              "S"}},
+            nameHsIdent = HsIdentifier "S"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -556,12 +561,11 @@
       Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "F",
-                  nameHsIdent = HsIdentifier
-                    "F"}),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "F",
+                nameHsIdent = HsIdentifier "F"}
+              NameOriginInSource,
             TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))],
@@ -602,19 +606,17 @@
             TypePrim
               (PrimFloating PrimFloat),
             TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = CName "C",
-                    nameHsIdent = HsIdentifier
-                      "C"}))],
-          functionRes = TypePointer
-            (TypeTypedef
-              (TypedefRegular
+              (TypeMacroTypedef
                 NamePair {
                   nameC = CName "C",
-                  nameHsIdent = HsIdentifier
-                    "C"})),
+                  nameHsIdent = HsIdentifier "C"}
+                NameOriginInSource)],
+          functionRes = TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = CName "C",
+                nameHsIdent = HsIdentifier "C"}
+              NameOriginInSource),
           functionHeader =
           "macro_in_fundecl.h"}},
   DeclInlineCInclude
@@ -690,12 +692,11 @@
       Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "F",
-                  nameHsIdent = HsIdentifier
-                    "F"}),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "F",
+                nameHsIdent = HsIdentifier "F"}
+              NameOriginInSource,
             TypePointer
               (TypeFun
                 [
@@ -753,12 +754,11 @@
                     PrimInt
                     Signed)))],
           functionRes = TypePointer
-            (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "C",
-                  nameHsIdent = HsIdentifier
-                    "C"})),
+            (TypeMacroTypedef
+              NamePair {
+                nameC = CName "C",
+                nameHsIdent = HsIdentifier "C"}
+              NameOriginInSource),
           functionHeader =
           "macro_in_fundecl.h"}},
   DeclInlineCInclude
@@ -823,12 +823,11 @@
       Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "L",
-                  nameHsIdent = HsIdentifier
-                    "L"})],
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "L",
+                nameHsIdent = HsIdentifier "L"}
+              NameOriginInSource],
           functionRes = TypePointer
             (TypeFun
               [
@@ -869,12 +868,11 @@
           functionRes = TypePointer
             (TypeFun
               [
-                TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = CName "S",
-                      nameHsIdent = HsIdentifier
-                        "S"})]
+                TypeMacroTypedef
+                  NamePair {
+                    nameC = CName "S",
+                    nameHsIdent = HsIdentifier "S"}
+                  NameOriginInSource]
               (TypePrim
                 (PrimIntegral PrimInt Signed))),
           functionHeader =
@@ -914,12 +912,11 @@
               [
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = CName "I",
-                    nameHsIdent = HsIdentifier
-                      "I"}))),
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = CName "I",
+                  nameHsIdent = HsIdentifier "I"}
+                NameOriginInSource)),
           functionHeader =
           "macro_in_fundecl.h"}},
   DeclInlineCInclude
@@ -988,12 +985,11 @@
       Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "I",
-                  nameHsIdent = HsIdentifier
-                    "I"})],
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "I",
+                nameHsIdent = HsIdentifier "I"}
+              NameOriginInSource],
           functionRes = TypePointer
             (TypeConstArray
               2
@@ -1041,12 +1037,11 @@
               2
               (TypeConstArray
                 3
-                (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = CName "I",
-                      nameHsIdent = HsIdentifier
-                        "I"})))),
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = CName "I",
+                    nameHsIdent = HsIdentifier "I"}
+                  NameOriginInSource))),
           functionHeader =
           "macro_in_fundecl.h"}},
   DeclInlineCInclude
@@ -1069,11 +1064,10 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = CName "I",
-                nameHsIdent = HsIdentifier
-                  "I"}),
+          functionRes = TypeMacroTypedef
+            NamePair {
+              nameC = CName "I",
+              nameHsIdent = HsIdentifier "I"}
+            NameOriginInSource,
           functionHeader =
           "macro_in_fundecl.h"}}]

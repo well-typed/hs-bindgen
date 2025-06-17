@@ -822,11 +822,13 @@ typ' ctx = go ctx
         Hs.HsTypRef (C.nameHs name)
     go c (C.TypeTypedef (C.TypedefSquashed _name ty)) =
         go c ty
-    go _ (C.TypeStruct name) =
+    go _ (C.TypeStruct name _origin) =
         Hs.HsTypRef (C.nameHs name)
-    go _ (C.TypeUnion name) =
+    go _ (C.TypeUnion name _origin) =
         Hs.HsTypRef (C.nameHs name)
-    go _ (C.TypeEnum name) =
+    go _ (C.TypeEnum name _origin) =
+        Hs.HsTypRef (C.nameHs name)
+    go _ (C.TypeMacroTypedef name _origin) =
         Hs.HsTypRef (C.nameHs name)
     go c C.TypeVoid =
         Hs.HsPrimType (goVoid c)

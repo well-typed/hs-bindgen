@@ -10,6 +10,7 @@ module Data.DynGraph.Labelled (
     -- * Query
   , vertices
   , reaches
+  , neighbors
   , topSort
   , dff
   , dfFindMember
@@ -23,6 +24,7 @@ module Data.DynGraph.Labelled (
 
 import Prelude hiding (reverse)
 
+import Control.Monad ((<=<))
 import Control.Monad.ST (ST)
 import Control.Monad.ST qualified as ST
 import Data.Array.ST.Safe qualified as Array
@@ -135,6 +137,13 @@ reaches :: (Ord a, Ord l) => DynGraph l a -> a -> Set a
 reaches DynGraph{..} v = case Map.lookup v vtxMap of
     Just idx -> Set.fromList $ (idxMap IntMap.!) <$> reaches' edges idx
     Nothing  -> mempty
+
+-- | Gets the set of vertices that are immediate neighbors of the specified
+-- vertex
+neighbors :: (Ord a, Ord l) => DynGraph l a -> a -> Set (a, l)
+neighbors DynGraph{..} =
+      maybe mempty (Set.map (first (idxMap IntMap.!)))
+    . ((`IntMap.lookup` edges) <=< (`Map.lookup` vtxMap))
 
 -- | Gets a topological sort of the graph
 topSort :: DynGraph l a -> [a]

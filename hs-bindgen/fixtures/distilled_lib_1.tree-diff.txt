@@ -8,7 +8,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "uint8_t",
           nameHsIdent = HsIdentifier
-            "Uint8_t"}},
+            "Uint8_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -34,7 +36,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "uint16_t",
           nameHsIdent = HsIdentifier
-            "Uint16_t"}},
+            "Uint16_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -61,7 +65,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "uint32_t",
           nameHsIdent = HsIdentifier
-            "Uint32_t"}},
+            "Uint32_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -88,7 +94,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "int32_t",
           nameHsIdent = HsIdentifier
-            "Int32_t"}},
+            "Int32_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -114,7 +122,12 @@ TranslationUnit {
           nameC = CName
             "another_typedef_struct_t",
           nameHsIdent = HsIdentifier
-            "Another_typedef_struct_t"}},
+            "Another_typedef_struct_t"},
+        declOrigin =
+        NameOriginGenerated,
+        declAliases = [
+          CName
+            "another_typedef_struct_t"]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -163,7 +176,12 @@ TranslationUnit {
           nameC = CName
             "another_typedef_enum_e",
           nameHsIdent = HsIdentifier
-            "Another_typedef_enum_e"}},
+            "Another_typedef_enum_e"},
+        declOrigin =
+        NameOriginGenerated,
+        declAliases = [
+          CName
+            "another_typedef_enum_e"]},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -206,8 +224,9 @@ TranslationUnit {
         "distilled_lib_1.h:14:9",
         declId = NamePair {
           nameC = CName "A",
-          nameHsIdent = HsIdentifier
-            "a"}},
+          nameHsIdent = HsIdentifier "a"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -232,8 +251,9 @@ TranslationUnit {
         "distilled_lib_1.h:15:9",
         declId = NamePair {
           nameC = CName "B",
-          nameHsIdent = HsIdentifier
-            "b"}},
+          nameHsIdent = HsIdentifier "b"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -260,7 +280,9 @@ TranslationUnit {
           nameC = CName
             "SOME_DEFINED_CONSTANT",
           nameHsIdent = HsIdentifier
-            "sOME_DEFINED_CONSTANT"}},
+            "sOME_DEFINED_CONSTANT"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -286,7 +308,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "a_type_t",
           nameHsIdent = HsIdentifier
-            "A_type_t"}},
+            "A_type_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -311,7 +335,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "var_t",
           nameHsIdent = HsIdentifier
-            "Var_t"}},
+            "Var_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -337,7 +363,10 @@ TranslationUnit {
           nameC = CName
             "a_typedef_struct",
           nameHsIdent = HsIdentifier
-            "A_typedef_struct"}},
+            "A_typedef_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [
+          CName "a_typedef_struct_t"]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -419,7 +448,8 @@ TranslationUnit {
                       nameC = CName
                         "another_typedef_struct_t",
                       nameHsIdent = HsIdentifier
-                        "Another_typedef_struct_t"})),
+                        "Another_typedef_struct_t"}
+                    NameOriginGenerated)),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
             StructField {
@@ -439,7 +469,8 @@ TranslationUnit {
                         nameC = CName
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
-                          "Another_typedef_struct_t"}))),
+                          "Another_typedef_struct_t"}
+                      NameOriginGenerated))),
               structFieldOffset = 128,
               structFieldWidth = Nothing},
             StructField {
@@ -485,7 +516,8 @@ TranslationUnit {
                       nameC = CName
                         "another_typedef_enum_e",
                       nameHsIdent = HsIdentifier
-                        "Another_typedef_enum_e"})),
+                        "Another_typedef_enum_e"}
+                    NameOriginGenerated)),
               structFieldOffset = 480,
               structFieldWidth = Nothing},
             StructField {
@@ -505,7 +537,8 @@ TranslationUnit {
                         nameC = CName
                           "another_typedef_enum_e",
                         nameHsIdent = HsIdentifier
-                          "Another_typedef_enum_e"}))),
+                          "Another_typedef_enum_e"}
+                      NameOriginGenerated))),
               structFieldOffset = 512,
               structFieldWidth = Nothing},
             StructField {
@@ -527,7 +560,8 @@ TranslationUnit {
                           nameC = CName
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
-                            "Another_typedef_enum_e"})))),
+                            "Another_typedef_enum_e"}
+                        NameOriginGenerated)))),
               structFieldOffset = 640,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -545,7 +579,9 @@ TranslationUnit {
           nameC = CName
             "a_typedef_struct_t",
           nameHsIdent = HsIdentifier
-            "A_typedef_struct_t"}},
+            "A_typedef_struct_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -560,7 +596,8 @@ TranslationUnit {
               nameC = CName
                 "a_typedef_struct",
               nameHsIdent = HsIdentifier
-                "A_typedef_struct"}},
+                "A_typedef_struct"}
+            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -574,7 +611,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "A_DEFINE_0",
           nameHsIdent = HsIdentifier
-            "a_DEFINE_0"}},
+            "a_DEFINE_0"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -600,7 +639,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "A_DEFINE_1",
           nameHsIdent = HsIdentifier
-            "a_DEFINE_1"}},
+            "a_DEFINE_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -627,7 +668,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "A_DEFINE_2",
           nameHsIdent = HsIdentifier
-            "a_DEFINE_2"}},
+            "a_DEFINE_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -653,7 +696,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "TWO_ARGS",
           nameHsIdent = HsIdentifier
-            "tWO_ARGS"}},
+            "tWO_ARGS"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -690,7 +735,11 @@ TranslationUnit {
           nameC = CName
             "a_typedef_enum_e",
           nameHsIdent = HsIdentifier
-            "A_typedef_enum_e"}},
+            "A_typedef_enum_e"},
+        declOrigin =
+        NameOriginGenerated,
+        declAliases = [
+          CName "a_typedef_enum_e"]},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -751,7 +800,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "some_fun",
           nameHsIdent = HsIdentifier
-            "some_fun"}},
+            "some_fun"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -796,7 +847,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "callback_t",
           nameHsIdent = HsIdentifier
-            "Callback_t"}},
+            "Callback_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

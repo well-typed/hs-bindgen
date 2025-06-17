@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "by",
           nameHsIdent = HsIdentifier
-            "by'"}},
+            "by'"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -24,7 +26,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "forall",
           nameHsIdent = HsIdentifier
-            "forall'"}},
+            "forall'"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -42,7 +46,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "mdo",
           nameHsIdent = HsIdentifier
-            "mdo'"}},
+            "mdo'"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -60,7 +66,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "pattern",
           nameHsIdent = HsIdentifier
-            "pattern'"}},
+            "pattern'"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -78,7 +86,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "proc",
           nameHsIdent = HsIdentifier
-            "proc'"}},
+            "proc'"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -96,7 +106,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "rec",
           nameHsIdent = HsIdentifier
-            "rec'"}},
+            "rec'"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -114,7 +126,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "using",
           nameHsIdent = HsIdentifier
-            "using'"}},
+            "using'"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -132,7 +146,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "anyclass",
           nameHsIdent = HsIdentifier
-            "anyclass"}},
+            "anyclass"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -150,7 +166,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "capi",
           nameHsIdent = HsIdentifier
-            "capi"}},
+            "capi"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -168,7 +186,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "cases",
           nameHsIdent = HsIdentifier
-            "cases"}},
+            "cases"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -186,7 +206,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "ccall",
           nameHsIdent = HsIdentifier
-            "ccall"}},
+            "ccall"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -204,7 +226,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "dynamic",
           nameHsIdent = HsIdentifier
-            "dynamic"}},
+            "dynamic"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -222,7 +246,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "export",
           nameHsIdent = HsIdentifier
-            "export"}},
+            "export"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -240,7 +266,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "family",
           nameHsIdent = HsIdentifier
-            "family"}},
+            "family"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -258,7 +286,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "group",
           nameHsIdent = HsIdentifier
-            "group"}},
+            "group"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -276,7 +306,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "interruptible",
           nameHsIdent = HsIdentifier
-            "interruptible"}},
+            "interruptible"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -294,7 +326,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "javascript",
           nameHsIdent = HsIdentifier
-            "javascript"}},
+            "javascript"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -312,7 +346,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "label",
           nameHsIdent = HsIdentifier
-            "label"}},
+            "label"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -330,7 +366,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "prim",
           nameHsIdent = HsIdentifier
-            "prim"}},
+            "prim"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -348,7 +386,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "role",
           nameHsIdent = HsIdentifier
-            "role"}},
+            "role"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -366,7 +406,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "safe",
           nameHsIdent = HsIdentifier
-            "safe"}},
+            "safe"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -384,7 +426,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "stdcall",
           nameHsIdent = HsIdentifier
-            "stdcall"}},
+            "stdcall"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -402,7 +446,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "stock",
           nameHsIdent = HsIdentifier
-            "stock"}},
+            "stock"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -420,7 +466,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "unsafe",
           nameHsIdent = HsIdentifier
-            "unsafe"}},
+            "unsafe"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -438,7 +486,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "via",
           nameHsIdent = HsIdentifier
-            "via"}},
+            "via"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],

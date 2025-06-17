@@ -21,7 +21,9 @@
           declId = NamePair {
             nameC = CName "T1",
             nameHsIdent = HsIdentifier
-              "T1"}},
+              "T1"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -128,7 +130,9 @@
           declId = NamePair {
             nameC = CName "T2",
             nameHsIdent = HsIdentifier
-              "T2"}},
+              "T2"},
+          declOrigin = NameOriginInSource,
+          declAliases = [CName "T4"]},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -138,12 +142,11 @@
               newtypeField = HsName
                 "@NsVar"
                 "un_T2"},
-            typedefType = TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "T1",
-                  nameHsIdent = HsIdentifier
-                    "T1"})},
+            typedefType = TypeMacroTypedef
+              NamePair {
+                nameC = CName "T1",
+                nameHsIdent = HsIdentifier "T1"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -239,7 +242,9 @@
           declId = NamePair {
             nameC = CName "T3",
             nameHsIdent = HsIdentifier
-              "T3"}},
+              "T3"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -350,7 +355,9 @@
           declId = NamePair {
             nameC = CName "T4",
             nameHsIdent = HsIdentifier
-              "T4"}},
+              "T4"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -360,12 +367,11 @@
               newtypeField = HsName
                 "@NsVar"
                 "un_T4"},
-            typedefType = TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "T3",
-                  nameHsIdent = HsIdentifier
-                    "T3"})},
+            typedefType = TypeMacroTypedef
+              NamePair {
+                nameC = CName "T3",
+                nameHsIdent = HsIdentifier "T3"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

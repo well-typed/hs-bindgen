@@ -21,7 +21,9 @@
           declId = NamePair {
             nameC = CName "MC",
             nameHsIdent = HsIdentifier
-              "MC"}},
+              "MC"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -129,7 +131,9 @@
           declId = NamePair {
             nameC = CName "TC",
             nameHsIdent = HsIdentifier
-              "TC"}},
+              "TC"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -241,12 +245,11 @@
       Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"}),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource,
             TypeTypedef
               (TypedefRegular
                 NamePair {
@@ -285,12 +288,11 @@
       Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"}),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource,
             TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))],
@@ -341,12 +343,11 @@
                     nameHsIdent = HsIdentifier
                       "TC"}))],
           functionRes = TypePointer
-            (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"})),
+            (TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource),
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
   DeclInlineCInclude
@@ -381,12 +382,11 @@
             TypePrim
               (PrimFloating PrimFloat),
             TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = CName "MC",
-                    nameHsIdent = HsIdentifier
-                      "MC"}))],
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = CName "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
@@ -431,7 +431,9 @@
             declId = NamePair {
               nameC = CName "struct1",
               nameHsIdent = HsIdentifier
-                "Struct1"}},
+                "Struct1"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -495,7 +497,9 @@
               declId = NamePair {
                 nameC = CName "struct1",
                 nameHsIdent = HsIdentifier
-                  "Struct1"}},
+                  "Struct1"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -564,7 +568,9 @@
                       declId = NamePair {
                         nameC = CName "struct1",
                         nameHsIdent = HsIdentifier
-                          "Struct1"}},
+                          "Struct1"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -633,7 +639,9 @@
                       declId = NamePair {
                         nameC = CName "struct1",
                         nameHsIdent = HsIdentifier
-                          "Struct1"}},
+                          "Struct1"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -715,7 +723,11 @@
             declId = NamePair {
               nameC = CName "struct2",
               nameHsIdent = HsIdentifier
-                "Struct2"}},
+                "Struct2"},
+            declOrigin =
+            NameOriginGenerated,
+            declAliases = [
+              CName "struct2"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -779,7 +791,11 @@
               declId = NamePair {
                 nameC = CName "struct2",
                 nameHsIdent = HsIdentifier
-                  "Struct2"}},
+                  "Struct2"},
+              declOrigin =
+              NameOriginGenerated,
+              declAliases = [
+                CName "struct2"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -848,7 +864,11 @@
                       declId = NamePair {
                         nameC = CName "struct2",
                         nameHsIdent = HsIdentifier
-                          "Struct2"}},
+                          "Struct2"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = [
+                        CName "struct2"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -917,7 +937,11 @@
                       declId = NamePair {
                         nameC = CName "struct2",
                         nameHsIdent = HsIdentifier
-                          "Struct2"}},
+                          "Struct2"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = [
+                        CName "struct2"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -999,7 +1023,10 @@
             declId = NamePair {
               nameC = CName "struct3",
               nameHsIdent = HsIdentifier
-                "Struct3"}},
+                "Struct3"},
+            declOrigin = NameOriginInSource,
+            declAliases = [
+              CName "struct3_t"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1063,7 +1090,10 @@
               declId = NamePair {
                 nameC = CName "struct3",
                 nameHsIdent = HsIdentifier
-                  "Struct3"}},
+                  "Struct3"},
+              declOrigin = NameOriginInSource,
+              declAliases = [
+                CName "struct3_t"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1132,7 +1162,10 @@
                       declId = NamePair {
                         nameC = CName "struct3",
                         nameHsIdent = HsIdentifier
-                          "Struct3"}},
+                          "Struct3"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "struct3_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1201,7 +1234,10 @@
                       declId = NamePair {
                         nameC = CName "struct3",
                         nameHsIdent = HsIdentifier
-                          "Struct3"}},
+                          "Struct3"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "struct3_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1272,7 +1308,9 @@
           declId = NamePair {
             nameC = CName "struct3_t",
             nameHsIdent = HsIdentifier
-              "Struct3_t"}},
+              "Struct3_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1286,7 +1324,8 @@
               NamePair {
                 nameC = CName "struct3",
                 nameHsIdent = HsIdentifier
-                  "Struct3"}},
+                  "Struct3"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1348,7 +1387,10 @@
             declId = NamePair {
               nameC = CName "struct4",
               nameHsIdent = HsIdentifier
-                "Struct4"}},
+                "Struct4"},
+            declOrigin = NameOriginInSource,
+            declAliases = [
+              CName "struct4"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1412,7 +1454,10 @@
               declId = NamePair {
                 nameC = CName "struct4",
                 nameHsIdent = HsIdentifier
-                  "Struct4"}},
+                  "Struct4"},
+              declOrigin = NameOriginInSource,
+              declAliases = [
+                CName "struct4"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1481,7 +1526,10 @@
                       declId = NamePair {
                         nameC = CName "struct4",
                         nameHsIdent = HsIdentifier
-                          "Struct4"}},
+                          "Struct4"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "struct4"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1550,7 +1598,10 @@
                       declId = NamePair {
                         nameC = CName "struct4",
                         nameHsIdent = HsIdentifier
-                          "Struct4"}},
+                          "Struct4"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "struct4"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1632,13 +1683,13 @@
                     NamePair {
                       nameC = CName "struct2",
                       nameHsIdent = HsIdentifier
-                        "Struct2"}))),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"})],
+                        "Struct2"}
+                    NameOriginGenerated))),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
@@ -1676,12 +1727,11 @@
                     nameC = CName "struct3_t",
                     nameHsIdent = HsIdentifier
                       "Struct3_t"})),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"})],
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
@@ -1720,13 +1770,13 @@
                     NamePair {
                       nameC = CName "struct4",
                       nameHsIdent = HsIdentifier
-                        "Struct4"}))),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"})],
+                        "Struct4"}
+                    NameOriginInSource))),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
@@ -1762,13 +1812,13 @@
                 NamePair {
                   nameC = CName "struct1",
                   nameHsIdent = HsIdentifier
-                    "Struct1"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"})],
+                    "Struct1"}
+                NameOriginInSource),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
@@ -1804,13 +1854,13 @@
                 NamePair {
                   nameC = CName "struct3",
                   nameHsIdent = HsIdentifier
-                    "Struct3"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"})],
+                    "Struct3"}
+                NameOriginInSource),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}},
@@ -1846,13 +1896,13 @@
                 NamePair {
                   nameC = CName "struct4",
                   nameHsIdent = HsIdentifier
-                    "Struct4"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MC",
-                  nameHsIdent = HsIdentifier
-                    "MC"})],
+                    "Struct4"}
+                NameOriginInSource),
+            TypeMacroTypedef
+              NamePair {
+                nameC = CName "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource],
           functionRes = TypeVoid,
           functionHeader =
           "macro_in_fundecl_vs_typedef.h"}}]

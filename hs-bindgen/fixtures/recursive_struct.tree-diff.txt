@@ -7,7 +7,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "linked_list_A_s",
           nameHsIdent = HsIdentifier
-            "Linked_list_A_s"}},
+            "Linked_list_A_s"},
+        declOrigin = NameOriginInSource,
+        declAliases = [
+          CName "linked_list_A_t"]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -40,7 +43,8 @@ TranslationUnit {
                   NamePair {
                     nameC = CName "linked_list_A_s",
                     nameHsIdent = HsIdentifier
-                      "Linked_list_A_s"}),
+                      "Linked_list_A_s"}
+                  NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -57,7 +61,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "linked_list_A_t",
           nameHsIdent = HsIdentifier
-            "Linked_list_A_t"}},
+            "Linked_list_A_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -71,7 +77,8 @@ TranslationUnit {
             NamePair {
               nameC = CName "linked_list_A_s",
               nameHsIdent = HsIdentifier
-                "Linked_list_A_s"}},
+                "Linked_list_A_s"}
+            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -85,7 +92,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "linked_list_B_t",
           nameHsIdent = HsIdentifier
-            "Linked_list_B_t"}},
+            "Linked_list_B_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = [
+          CName "linked_list_B_t"]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -121,7 +131,8 @@ TranslationUnit {
                       NamePair {
                         nameC = CName "linked_list_B_t",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_B_t"}))),
+                          "Linked_list_B_t"}
+                      NameOriginInSource))),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},

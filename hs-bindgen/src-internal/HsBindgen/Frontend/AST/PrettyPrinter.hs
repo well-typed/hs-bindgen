@@ -50,19 +50,20 @@ showsType ::
   => ShowS -- ^ variable name
   -> Type
   -> ShowS
-showsType x (TypePrim p)            = showsPrimType p . showChar ' ' . x
-showsType x (TypeStruct name)       = showString "struct " . showsName name . showChar ' ' . x
-showsType x (TypeUnion name)        = showString "union " . showsName name . showChar ' ' . x
-showsType x (TypeEnum name)         = showString "enum " . showsName name . showChar ' ' . x
-showsType x (TypeTypedef ref)       = showsTypedefName ref . showChar ' ' . x
-showsType x (TypePointer t)         = showsType (showString "*" . x) t
-showsType x (TypeConstArray n t)    = showsType (x . showChar '[' . shows n . showChar ']') t
-showsType x (TypeFun args res)      = showsFunctionType (showParen True x) (zipWith named [1..] args) res where
+showsType x (TypePrim p)              = showsPrimType p . showChar ' ' . x
+showsType x (TypeStruct name _)       = showString "struct " . showsName name . showChar ' ' . x
+showsType x (TypeUnion name _)        = showString "union " . showsName name . showChar ' ' . x
+showsType x (TypeEnum name _)         = showString "enum " . showsName name . showChar ' ' . x
+showsType x (TypeTypedef ref)         = showsTypedefName ref . showChar ' ' . x
+showsType x (TypeMacroTypedef name _) = showsName name . showChar ' ' . x
+showsType x (TypePointer t)           = showsType (showString "*" . x) t
+showsType x (TypeConstArray n t)      = showsType (x . showChar '[' . shows n . showChar ']') t
+showsType x (TypeFun args res)        = showsFunctionType (showParen True x) (zipWith named [1..] args) res where
   named :: Int -> Type -> (ShowS, Type)
   named i t = (showString "arg" . shows i, t)
-showsType x TypeVoid                = showString "void " . x
-showsType x (TypeIncompleteArray t) = showsType (x . showString "[]") t
-showsType x (TypeExtBinding c _ _)  = showCSpelling c . showChar ' ' . x
+showsType x TypeVoid                  = showString "void " . x
+showsType x (TypeIncompleteArray t)   = showsType (x . showString "[]") t
+showsType x (TypeExtBinding c _ _)    = showCSpelling c . showChar ' ' . x
 
 showCSpelling :: BindingSpec.CSpelling -> ShowS
 showCSpelling = showString . Text.unpack . BindingSpec.getCSpelling

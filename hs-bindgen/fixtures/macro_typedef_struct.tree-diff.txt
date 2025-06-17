@@ -7,7 +7,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "MY_TYPE",
           nameHsIdent = HsIdentifier
-            "MY_TYPE"}},
+            "MY_TYPE"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -33,7 +35,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "bar",
           nameHsIdent = HsIdentifier
-            "Bar"}},
+            "Bar"},
+        declOrigin =
+        NameOriginGenerated,
+        declAliases = [CName "bar"]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -59,12 +64,13 @@ TranslationUnit {
                 nameC = CName "y",
                 nameHsIdent = HsIdentifier
                   "bar_y"},
-              structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = CName "MY_TYPE",
-                    nameHsIdent = HsIdentifier
-                      "MY_TYPE"}),
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = CName "MY_TYPE",
+                  nameHsIdent = HsIdentifier
+                    "MY_TYPE"}
+                NameOriginInSource,
               structFieldOffset = 32,
               structFieldWidth = Nothing}],
           structFlam = Nothing},

@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "adio\769s",
           nameHsIdent = HsIdentifier
-            "Adio'0301s"}},
+            "Adio'0301s"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -30,7 +32,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "\25968\23383",
           nameHsIdent = HsIdentifier
-            "C\25968\23383"}},
+            "C\25968\23383"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -54,7 +58,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "\978",
           nameHsIdent = HsIdentifier
-            "c\978"}},
+            "c\978"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -72,7 +78,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "\25308\25308",
           nameHsIdent = HsIdentifier
-            "\25308\25308"}},
+            "\25308\25308"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -90,7 +98,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "Say\25308\25308",
           nameHsIdent = HsIdentifier
-            "say\25308\25308"}},
+            "say\25308\25308"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],

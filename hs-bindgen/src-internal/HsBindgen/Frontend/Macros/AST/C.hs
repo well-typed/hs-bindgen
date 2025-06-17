@@ -25,6 +25,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
 import HsBindgen.Frontend.Pass.Parse.IsPass (DeclId(..))
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Types
@@ -48,16 +49,17 @@ pattern TypeTypedef :: CName -> Type
 pattern TypeTypedef name = C.TypeTypedef name
 
 pattern TypeMacroTypedef :: CName -> Type
-pattern TypeMacroTypedef name = C.TypeMacroTypedef (DeclId name)
+pattern TypeMacroTypedef name =
+    C.TypeMacroTypedef (DeclId name) C.NameOriginInSource
 
 pattern TypeStruct :: CName -> Type
-pattern TypeStruct name = C.TypeStruct (DeclId name)
+pattern TypeStruct name = C.TypeStruct (DeclId name) C.NameOriginInSource
 
 pattern TypeUnion :: CName -> Type
-pattern TypeUnion name = C.TypeUnion (DeclId name)
+pattern TypeUnion name = C.TypeUnion (DeclId name) C.NameOriginInSource
 
 pattern TypeEnum :: CName -> Type
-pattern TypeEnum name = C.TypeEnum (DeclId name)
+pattern TypeEnum name = C.TypeEnum (DeclId name) C.NameOriginInSource
 
 pattern TypeIncompleteArray :: Type -> Type
 pattern TypeIncompleteArray ty = C.TypeIncompleteArray ty

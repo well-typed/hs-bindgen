@@ -7,7 +7,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "foo",
           nameHsIdent = HsIdentifier
-            "Foo"}},
+            "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -22,7 +24,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "bar",
           nameHsIdent = HsIdentifier
-            "Bar"}},
+            "Bar"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -42,7 +46,8 @@ TranslationUnit {
                   NamePair {
                     nameC = CName "foo",
                     nameHsIdent = HsIdentifier
-                      "Foo"}),
+                      "Foo"}
+                  NameOriginInSource),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
             StructField {
@@ -57,7 +62,8 @@ TranslationUnit {
                   NamePair {
                     nameC = CName "bar",
                     nameHsIdent = HsIdentifier
-                      "Bar"}),
+                      "Bar"}
+                  NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -74,7 +80,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "baz",
           nameHsIdent = HsIdentifier
-            "Baz"}},
+            "Baz"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -96,7 +104,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "quu",
           nameHsIdent = HsIdentifier
-            "Quu"}},
+            "Quu"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnumOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -111,7 +121,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "opaque_union",
           nameHsIdent = HsIdentifier
-            "Opaque_union"}},
+            "Opaque_union"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclUnionOpaque,
       declSpec = DeclSpec
         TypeSpec {

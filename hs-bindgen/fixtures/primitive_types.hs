@@ -544,7 +544,9 @@
             declId = NamePair {
               nameC = CName "primitive",
               nameHsIdent = HsIdentifier
-                "Primitive"}},
+                "Primitive"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1441,7 +1443,9 @@
               declId = NamePair {
                 nameC = CName "primitive",
                 nameHsIdent = HsIdentifier
-                  "Primitive"}},
+                  "Primitive"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2343,7 +2347,9 @@
                       declId = NamePair {
                         nameC = CName "primitive",
                         nameHsIdent = HsIdentifier
-                          "Primitive"}},
+                          "Primitive"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3273,7 +3279,9 @@
                       declId = NamePair {
                         nameC = CName "primitive",
                         nameHsIdent = HsIdentifier
-                          "Primitive"}},
+                          "Primitive"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

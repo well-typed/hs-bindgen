@@ -90,8 +90,10 @@ data Decl p = Decl {
     }
 
 data DeclInfo p = DeclInfo{
-      declLoc :: SingleLoc
-    , declId  :: Id p
+      declLoc     :: SingleLoc
+    , declId      :: Id p
+    , declOrigin  :: C.NameOrigin
+    , declAliases :: [CName]
     }
 
 data DeclKind p =
@@ -205,15 +207,15 @@ data CheckedMacroExpr = CheckedMacroExpr{
 
 data Type p =
     TypePrim PrimType
-  | TypeStruct (Id p)
-  | TypeUnion (Id p)
-  | TypeEnum (Id p)
+  | TypeStruct (Id p) C.NameOrigin
+  | TypeUnion (Id p) C.NameOrigin
+  | TypeEnum (Id p) C.NameOrigin
   | TypeTypedef (TypedefRef p)
 
     -- | Macro-defined type
     --
     -- These behave very similar to 'TypeTypedef'.
-  | TypeMacroTypedef (Id p)
+  | TypeMacroTypedef (Id p) C.NameOrigin
 
   | TypePointer (Type p)
   | TypeFun [Type p] (Type p)

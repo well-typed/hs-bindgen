@@ -51,7 +51,10 @@
             declId = NamePair {
               nameC = CName "vector",
               nameHsIdent = HsIdentifier
-                "Vector"}},
+                "Vector"},
+            declOrigin =
+            NameOriginGenerated,
+            declAliases = [CName "vector"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -143,7 +146,10 @@
               declId = NamePair {
                 nameC = CName "vector",
                 nameHsIdent = HsIdentifier
-                  "Vector"}},
+                  "Vector"},
+              declOrigin =
+              NameOriginGenerated,
+              declAliases = [CName "vector"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -240,7 +246,10 @@
                       declId = NamePair {
                         nameC = CName "vector",
                         nameHsIdent = HsIdentifier
-                          "Vector"}},
+                          "Vector"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = [CName "vector"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -339,7 +348,10 @@
                       declId = NamePair {
                         nameC = CName "vector",
                         nameHsIdent = HsIdentifier
-                          "Vector"}},
+                          "Vector"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = [CName "vector"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -436,5 +448,6 @@
                   NamePair {
                     nameC = CName "vector",
                     nameHsIdent = HsIdentifier
-                      "Vector"}))),
+                      "Vector"}
+                  NameOriginGenerated))),
           functionHeader = "vector.h"}}]

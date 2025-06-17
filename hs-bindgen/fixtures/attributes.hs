@@ -74,7 +74,9 @@
             declId = NamePair {
               nameC = CName "__sFILE",
               nameHsIdent = HsIdentifier
-                "C__SFILE"}},
+                "C__SFILE"},
+            declOrigin = NameOriginInSource,
+            declAliases = [CName "FILE"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -203,7 +205,9 @@
               declId = NamePair {
                 nameC = CName "__sFILE",
                 nameHsIdent = HsIdentifier
-                  "C__SFILE"}},
+                  "C__SFILE"},
+              declOrigin = NameOriginInSource,
+              declAliases = [CName "FILE"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -337,7 +341,9 @@
                       declId = NamePair {
                         nameC = CName "__sFILE",
                         nameHsIdent = HsIdentifier
-                          "C__SFILE"}},
+                          "C__SFILE"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [CName "FILE"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -474,7 +480,9 @@
                       declId = NamePair {
                         nameC = CName "__sFILE",
                         nameHsIdent = HsIdentifier
-                          "C__SFILE"}},
+                          "C__SFILE"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [CName "FILE"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -571,7 +579,9 @@
           declId = NamePair {
             nameC = CName "FILE",
             nameHsIdent = HsIdentifier
-              "FILE"}},
+              "FILE"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -585,7 +595,8 @@
               NamePair {
                 nameC = CName "__sFILE",
                 nameHsIdent = HsIdentifier
-                  "C__SFILE"}},
+                  "C__SFILE"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

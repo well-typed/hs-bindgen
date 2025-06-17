@@ -48,7 +48,8 @@
                   NamePair {
                     nameC = CName "linked_list_A_s",
                     nameHsIdent = HsIdentifier
-                      "Linked_list_A_s"}),
+                      "Linked_list_A_s"}
+                  NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -59,7 +60,10 @@
             declId = NamePair {
               nameC = CName "linked_list_A_s",
               nameHsIdent = HsIdentifier
-                "Linked_list_A_s"}},
+                "Linked_list_A_s"},
+            declOrigin = NameOriginInSource,
+            declAliases = [
+              CName "linked_list_A_t"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -92,7 +96,8 @@
                       NamePair {
                         nameC = CName "linked_list_A_s",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_A_s"}),
+                          "Linked_list_A_s"}
+                      NameOriginInSource),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -154,7 +159,8 @@
                     NamePair {
                       nameC = CName "linked_list_A_s",
                       nameHsIdent = HsIdentifier
-                        "Linked_list_A_s"}),
+                        "Linked_list_A_s"}
+                    NameOriginInSource),
                 structFieldOffset = 64,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -165,7 +171,10 @@
               declId = NamePair {
                 nameC = CName "linked_list_A_s",
                 nameHsIdent = HsIdentifier
-                  "Linked_list_A_s"}},
+                  "Linked_list_A_s"},
+              declOrigin = NameOriginInSource,
+              declAliases = [
+                CName "linked_list_A_t"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -198,7 +207,8 @@
                         NamePair {
                           nameC = CName "linked_list_A_s",
                           nameHsIdent = HsIdentifier
-                            "Linked_list_A_s"}),
+                            "Linked_list_A_s"}
+                        NameOriginInSource),
                     structFieldOffset = 64,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -265,7 +275,8 @@
                             NamePair {
                               nameC = CName "linked_list_A_s",
                               nameHsIdent = HsIdentifier
-                                "Linked_list_A_s"}),
+                                "Linked_list_A_s"}
+                            NameOriginInSource),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -276,7 +287,10 @@
                       declId = NamePair {
                         nameC = CName "linked_list_A_s",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_A_s"}},
+                          "Linked_list_A_s"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "linked_list_A_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -309,7 +323,8 @@
                                 NamePair {
                                   nameC = CName "linked_list_A_s",
                                   nameHsIdent = HsIdentifier
-                                    "Linked_list_A_s"}),
+                                    "Linked_list_A_s"}
+                                NameOriginInSource),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -378,7 +393,8 @@
                             NamePair {
                               nameC = CName "linked_list_A_s",
                               nameHsIdent = HsIdentifier
-                                "Linked_list_A_s"}),
+                                "Linked_list_A_s"}
+                            NameOriginInSource),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -389,7 +405,10 @@
                       declId = NamePair {
                         nameC = CName "linked_list_A_s",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_A_s"}},
+                          "Linked_list_A_s"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "linked_list_A_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -422,7 +441,8 @@
                                 NamePair {
                                   nameC = CName "linked_list_A_s",
                                   nameHsIdent = HsIdentifier
-                                    "Linked_list_A_s"}),
+                                    "Linked_list_A_s"}
+                                NameOriginInSource),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -478,7 +498,9 @@
           declId = NamePair {
             nameC = CName "linked_list_A_t",
             nameHsIdent = HsIdentifier
-              "Linked_list_A_t"}},
+              "Linked_list_A_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -492,7 +514,8 @@
               NamePair {
                 nameC = CName "linked_list_A_s",
                 nameHsIdent = HsIdentifier
-                  "Linked_list_A_s"}},
+                  "Linked_list_A_s"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -571,7 +594,8 @@
                       NamePair {
                         nameC = CName "linked_list_B_t",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_B_t"}))),
+                          "Linked_list_B_t"}
+                      NameOriginInSource))),
               structFieldOffset = 64,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -582,7 +606,10 @@
             declId = NamePair {
               nameC = CName "linked_list_B_t",
               nameHsIdent = HsIdentifier
-                "Linked_list_B_t"}},
+                "Linked_list_B_t"},
+            declOrigin = NameOriginInSource,
+            declAliases = [
+              CName "linked_list_B_t"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -618,7 +645,8 @@
                           NamePair {
                             nameC = CName "linked_list_B_t",
                             nameHsIdent = HsIdentifier
-                              "Linked_list_B_t"}))),
+                              "Linked_list_B_t"}
+                          NameOriginInSource))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -683,7 +711,8 @@
                         NamePair {
                           nameC = CName "linked_list_B_t",
                           nameHsIdent = HsIdentifier
-                            "Linked_list_B_t"}))),
+                            "Linked_list_B_t"}
+                        NameOriginInSource))),
                 structFieldOffset = 64,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -694,7 +723,10 @@
               declId = NamePair {
                 nameC = CName "linked_list_B_t",
                 nameHsIdent = HsIdentifier
-                  "Linked_list_B_t"}},
+                  "Linked_list_B_t"},
+              declOrigin = NameOriginInSource,
+              declAliases = [
+                CName "linked_list_B_t"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -730,7 +762,8 @@
                             NamePair {
                               nameC = CName "linked_list_B_t",
                               nameHsIdent = HsIdentifier
-                                "Linked_list_B_t"}))),
+                                "Linked_list_B_t"}
+                            NameOriginInSource))),
                     structFieldOffset = 64,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -800,7 +833,8 @@
                                 NamePair {
                                   nameC = CName "linked_list_B_t",
                                   nameHsIdent = HsIdentifier
-                                    "Linked_list_B_t"}))),
+                                    "Linked_list_B_t"}
+                                NameOriginInSource))),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -811,7 +845,10 @@
                       declId = NamePair {
                         nameC = CName "linked_list_B_t",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_B_t"}},
+                          "Linked_list_B_t"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "linked_list_B_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -847,7 +884,8 @@
                                     NamePair {
                                       nameC = CName "linked_list_B_t",
                                       nameHsIdent = HsIdentifier
-                                        "Linked_list_B_t"}))),
+                                        "Linked_list_B_t"}
+                                    NameOriginInSource))),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -919,7 +957,8 @@
                                 NamePair {
                                   nameC = CName "linked_list_B_t",
                                   nameHsIdent = HsIdentifier
-                                    "Linked_list_B_t"}))),
+                                    "Linked_list_B_t"}
+                                NameOriginInSource))),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -930,7 +969,10 @@
                       declId = NamePair {
                         nameC = CName "linked_list_B_t",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_B_t"}},
+                          "Linked_list_B_t"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "linked_list_B_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -966,7 +1008,8 @@
                                     NamePair {
                                       nameC = CName "linked_list_B_t",
                                       nameHsIdent = HsIdentifier
-                                        "Linked_list_B_t"}))),
+                                        "Linked_list_B_t"}
+                                    NameOriginInSource))),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},

@@ -20,7 +20,9 @@
           declId = NamePair {
             nameC = CName "myint",
             nameHsIdent = HsIdentifier
-              "Myint"}},
+              "Myint"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -152,7 +154,9 @@
           declId = NamePair {
             nameC = CName "intptr",
             nameHsIdent = HsIdentifier
-              "Intptr"}},
+              "Intptr"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

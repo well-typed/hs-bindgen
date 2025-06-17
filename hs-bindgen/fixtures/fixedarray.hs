@@ -21,7 +21,9 @@
           declId = NamePair {
             nameC = CName "triple",
             nameHsIdent = HsIdentifier
-              "Triple"}},
+              "Triple"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -123,7 +125,9 @@
             declId = NamePair {
               nameC = CName "Example",
               nameHsIdent = HsIdentifier
-                "Example"}},
+                "Example"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -231,7 +235,9 @@
               declId = NamePair {
                 nameC = CName "Example",
                 nameHsIdent = HsIdentifier
-                  "Example"}},
+                  "Example"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -344,7 +350,9 @@
                       declId = NamePair {
                         nameC = CName "Example",
                         nameHsIdent = HsIdentifier
-                          "Example"}},
+                          "Example"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -459,7 +467,9 @@
                       declId = NamePair {
                         nameC = CName "Example",
                         nameHsIdent = HsIdentifier
-                          "Example"}},
+                          "Example"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

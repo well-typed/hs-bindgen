@@ -520,7 +520,9 @@
           declId = NamePair {
             nameC = CName "Arr1",
             nameHsIdent = HsIdentifier
-              "Arr1"}},
+              "Arr1"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -577,7 +579,9 @@
           declId = NamePair {
             nameC = CName "Arr2",
             nameHsIdent = HsIdentifier
-              "Arr2"}},
+              "Arr2"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -634,7 +638,9 @@
           declId = NamePair {
             nameC = CName "Arr3",
             nameHsIdent = HsIdentifier
-              "Arr3"}},
+              "Arr3"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -691,7 +697,9 @@
           declId = NamePair {
             nameC = CName "Arr4",
             nameHsIdent = HsIdentifier
-              "Arr4"}},
+              "Arr4"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {

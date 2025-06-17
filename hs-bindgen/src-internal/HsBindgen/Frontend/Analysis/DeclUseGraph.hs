@@ -12,9 +12,11 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     -- * Query
   , UseOfDecl(..)
   , findNamedUseOf
+  , findAliasesOf
   ) where
 
 import Control.Monad.State
+import Data.Set qualified as Set
 
 import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
@@ -84,3 +86,16 @@ findNamedUseOf declIndex (Wrap graph) =
         return $ Right Nothing
     aux (_:_:_) =
         panicPure "findUseOfAnon: impossible multiple use of anon decl"
+
+{-------------------------------------------------------------------------------
+  Query: aliases of declarations
+-------------------------------------------------------------------------------}
+
+findAliasesOf :: DeclUseGraph -> C.QualId Parse -> [CName]
+findAliasesOf (Wrap graph) =
+    mapMaybe (uncurry aux) . Set.toList . DynGraph.neighbors graph
+  where
+    aux :: C.QualId Parse -> Usage -> Maybe CName
+    aux (C.QualId (DeclNamed cname) _) (UsedInTypedef UseDeclGraph.ByValue) =
+      Just cname
+    aux _ _ = Nothing

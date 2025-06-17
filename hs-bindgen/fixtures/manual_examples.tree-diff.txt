@@ -8,7 +8,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "triple",
           nameHsIdent = HsIdentifier
-            "Triple"}},
+            "Triple"},
+        declOrigin = NameOriginInSource,
+        declAliases = [CName "triple"]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -63,7 +65,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "mk_triple",
           nameHsIdent = HsIdentifier
-            "mk_triple"}},
+            "mk_triple"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -81,7 +85,8 @@ TranslationUnit {
                     NamePair {
                       nameC = CName "triple",
                       nameHsIdent = HsIdentifier
-                        "Triple"})))],
+                        "Triple"}
+                    NameOriginInSource)))],
           functionRes = TypeVoid,
           functionHeader =
           "manual_examples.h"},
@@ -98,7 +103,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "index",
           nameHsIdent = HsIdentifier
-            "Index"}},
+            "Index"},
+        declOrigin = NameOriginInSource,
+        declAliases = [CName "index"]},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -147,7 +154,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "index_triple",
           nameHsIdent = HsIdentifier
-            "index_triple"}},
+            "index_triple"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -159,7 +168,8 @@ TranslationUnit {
                     NamePair {
                       nameC = CName "triple",
                       nameHsIdent = HsIdentifier
-                        "Triple"}))),
+                        "Triple"}
+                    NameOriginInSource))),
             TypeTypedef
               (TypedefSquashed
                 (CName "index")
@@ -167,7 +177,8 @@ TranslationUnit {
                   NamePair {
                     nameC = CName "index",
                     nameHsIdent = HsIdentifier
-                      "Index"}))],
+                      "Index"}
+                  NameOriginInSource))],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed),
           functionHeader =
@@ -185,7 +196,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "sum",
           nameHsIdent = HsIdentifier
-            "Sum"}},
+            "Sum"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -210,7 +223,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "average",
           nameHsIdent = HsIdentifier
-            "Average"}},
+            "Average"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -235,7 +250,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "sum_triple",
           nameHsIdent = HsIdentifier
-            "sum_triple"}},
+            "sum_triple"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -247,7 +264,8 @@ TranslationUnit {
                     NamePair {
                       nameC = CName "triple",
                       nameHsIdent = HsIdentifier
-                        "Triple"})))],
+                        "Triple"}
+                    NameOriginInSource)))],
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -269,7 +287,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "average_triple",
           nameHsIdent = HsIdentifier
-            "average_triple"}},
+            "average_triple"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -281,7 +301,8 @@ TranslationUnit {
                     NamePair {
                       nameC = CName "triple",
                       nameHsIdent = HsIdentifier
-                        "Triple"})))],
+                        "Triple"}
+                    NameOriginInSource)))],
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -303,7 +324,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FIELD_OFFSET",
           nameHsIdent = HsIdentifier
-            "fIELD_OFFSET"}},
+            "fIELD_OFFSET"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -329,7 +352,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "EPSILON",
           nameHsIdent = HsIdentifier
-            "ePSILON"}},
+            "ePSILON"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -358,7 +383,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "PTR_TO_FIELD",
           nameHsIdent = HsIdentifier
-            "pTR_TO_FIELD"}},
+            "pTR_TO_FIELD"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -390,7 +417,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "YEAR",
           nameHsIdent = HsIdentifier
-            "YEAR"}},
+            "YEAR"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -416,7 +445,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "MONTH",
           nameHsIdent = HsIdentifier
-            "MONTH"}},
+            "MONTH"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -442,7 +473,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "DAY",
           nameHsIdent = HsIdentifier
-            "DAY"}},
+            "DAY"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -468,7 +501,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "date",
           nameHsIdent = HsIdentifier
-            "Date"}},
+            "Date"},
+        declOrigin = NameOriginInSource,
+        declAliases = [CName "date"]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -483,12 +518,13 @@ TranslationUnit {
                 nameC = CName "year",
                 nameHsIdent = HsIdentifier
                   "date_year"},
-              structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = CName "YEAR",
-                    nameHsIdent = HsIdentifier
-                      "YEAR"}),
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = CName "YEAR",
+                  nameHsIdent = HsIdentifier
+                    "YEAR"}
+                NameOriginInSource,
               structFieldOffset = 0,
               structFieldWidth = Nothing},
             StructField {
@@ -498,12 +534,13 @@ TranslationUnit {
                 nameC = CName "month",
                 nameHsIdent = HsIdentifier
                   "date_month"},
-              structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = CName "MONTH",
-                    nameHsIdent = HsIdentifier
-                      "MONTH"}),
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = CName "MONTH",
+                  nameHsIdent = HsIdentifier
+                    "MONTH"}
+                NameOriginInSource,
               structFieldOffset = 32,
               structFieldWidth = Nothing},
             StructField {
@@ -513,12 +550,13 @@ TranslationUnit {
                 nameC = CName "day",
                 nameHsIdent = HsIdentifier
                   "date_day"},
-              structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = CName "DAY",
-                    nameHsIdent = HsIdentifier
-                      "DAY"}),
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = CName "DAY",
+                  nameHsIdent = HsIdentifier
+                    "DAY"}
+                NameOriginInSource,
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -535,7 +573,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "getYear",
           nameHsIdent = HsIdentifier
-            "getYear"}},
+            "getYear"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -547,13 +587,14 @@ TranslationUnit {
                     NamePair {
                       nameC = CName "date",
                       nameHsIdent = HsIdentifier
-                        "Date"})))],
-          functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = CName "YEAR",
-                nameHsIdent = HsIdentifier
-                  "YEAR"}),
+                        "Date"}
+                    NameOriginInSource)))],
+          functionRes = TypeMacroTypedef
+            NamePair {
+              nameC = CName "YEAR",
+              nameHsIdent = HsIdentifier
+                "YEAR"}
+            NameOriginInSource,
           functionHeader =
           "manual_examples.h"},
       declSpec = DeclSpec
@@ -569,7 +610,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "student",
           nameHsIdent = HsIdentifier
-            "Student"}},
+            "Student"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -616,7 +659,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "person",
           nameHsIdent = HsIdentifier
-            "Person"}},
+            "Person"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -631,7 +676,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "employee",
           nameHsIdent = HsIdentifier
-            "Employee"}},
+            "Employee"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -665,7 +712,8 @@ TranslationUnit {
                   NamePair {
                     nameC = CName "person",
                     nameHsIdent = HsIdentifier
-                      "Person"}),
+                      "Person"}
+                  NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
             StructField {
@@ -693,7 +741,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "occupation",
           nameHsIdent = HsIdentifier
-            "Occupation"}},
+            "Occupation"},
+        declOrigin = NameOriginInSource,
+        declAliases = [
+          CName "occupation"]},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -717,7 +768,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "student",
                   nameHsIdent = HsIdentifier
-                    "Student"}},
+                    "Student"}
+                NameOriginInSource},
             UnionField {
               unionFieldLoc =
               "manual_examples.h:79:5",
@@ -729,7 +781,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "employee",
                   nameHsIdent = HsIdentifier
-                    "Employee"}}]},
+                    "Employee"}
+                NameOriginInSource}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -744,7 +797,9 @@ TranslationUnit {
           nameC = CName
             "print_occupation",
           nameHsIdent = HsIdentifier
-            "print_occupation"}},
+            "print_occupation"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -758,7 +813,8 @@ TranslationUnit {
                     NamePair {
                       nameC = CName "occupation",
                       nameHsIdent = HsIdentifier
-                        "Occupation"})))],
+                        "Occupation"}
+                    NameOriginInSource)))],
           functionRes = TypeVoid,
           functionHeader =
           "manual_examples.h"},
@@ -775,7 +831,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "rect_lower_left",
           nameHsIdent = HsIdentifier
-            "Rect_lower_left"}},
+            "Rect_lower_left"},
+        declOrigin =
+        NameOriginGenerated,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -822,7 +881,10 @@ TranslationUnit {
           nameC = CName
             "rect_upper_right",
           nameHsIdent = HsIdentifier
-            "Rect_upper_right"}},
+            "Rect_upper_right"},
+        declOrigin =
+        NameOriginGenerated,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -868,7 +930,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "rect",
           nameHsIdent = HsIdentifier
-            "Rect"}},
+            "Rect"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -887,7 +951,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "rect_lower_left",
                   nameHsIdent = HsIdentifier
-                    "Rect_lower_left"},
+                    "Rect_lower_left"}
+                NameOriginGenerated,
               structFieldOffset = 0,
               structFieldWidth = Nothing},
             StructField {
@@ -902,7 +967,8 @@ TranslationUnit {
                   nameC = CName
                     "rect_upper_right",
                   nameHsIdent = HsIdentifier
-                    "Rect_upper_right"},
+                    "Rect_upper_right"}
+                NameOriginGenerated,
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -919,7 +985,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "config_Deref",
           nameHsIdent = HsIdentifier
-            "Config_Deref"}},
+            "Config_Deref"},
+        declOrigin =
+        NameOriginGenerated,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -965,7 +1034,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "config",
           nameHsIdent = HsIdentifier
-            "Config"}},
+            "Config"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -980,7 +1051,8 @@ TranslationUnit {
               NamePair {
                 nameC = CName "config_Deref",
                 nameHsIdent = HsIdentifier
-                  "Config_Deref"})},
+                  "Config_Deref"}
+              NameOriginGenerated)},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -994,7 +1066,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "adio\769s",
           nameHsIdent = HsIdentifier
-            "Adio'0301s"}},
+            "Adio'0301s"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1019,7 +1093,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "\25308\25308",
           nameHsIdent = HsIdentifier
-            "\25308\25308"}},
+            "\25308\25308"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -1039,7 +1115,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "\25968\23383",
           nameHsIdent = HsIdentifier
-            "C\25968\23383"}},
+            "C\25968\23383"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1064,7 +1142,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "\978",
           nameHsIdent = HsIdentifier
-            "c\978"}},
+            "c\978"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -1084,7 +1164,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "data",
           nameHsIdent = HsIdentifier
-            "Data"}},
+            "Data"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1109,7 +1191,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "import",
           nameHsIdent = HsIdentifier
-            "import'"}},
+            "import'"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -1129,7 +1213,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "signal",
           nameHsIdent = HsIdentifier
-            "Signal"}},
+            "Signal"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1189,7 +1275,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "HTTP_status",
           nameHsIdent = HsIdentifier
-            "HTTP_status"}},
+            "HTTP_status"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1257,7 +1345,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "descending",
           nameHsIdent = HsIdentifier
-            "Descending"}},
+            "Descending"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1314,7 +1404,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "result",
           nameHsIdent = HsIdentifier
-            "Result"}},
+            "Result"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1374,7 +1466,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "vote",
           nameHsIdent = HsIdentifier
-            "Vote"}},
+            "Vote"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1427,7 +1521,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "CXCursorKind",
           nameHsIdent = HsIdentifier
-            "CXCursorKind"}},
+            "CXCursorKind"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {

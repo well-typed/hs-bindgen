@@ -21,7 +21,9 @@
           declId = NamePair {
             nameC = CName "uint8_t",
             nameHsIdent = HsIdentifier
-              "Uint8_t"}},
+              "Uint8_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -155,7 +157,9 @@
           declId = NamePair {
             nameC = CName "uint16_t",
             nameHsIdent = HsIdentifier
-              "Uint16_t"}},
+              "Uint16_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -290,7 +294,9 @@
           declId = NamePair {
             nameC = CName "uint32_t",
             nameHsIdent = HsIdentifier
-              "Uint32_t"}},
+              "Uint32_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -425,7 +431,9 @@
           declId = NamePair {
             nameC = CName "int32_t",
             nameHsIdent = HsIdentifier
-              "Int32_t"}},
+              "Int32_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -592,7 +600,12 @@
               nameC = CName
                 "another_typedef_struct_t",
               nameHsIdent = HsIdentifier
-                "Another_typedef_struct_t"}},
+                "Another_typedef_struct_t"},
+            declOrigin =
+            NameOriginGenerated,
+            declAliases = [
+              CName
+                "another_typedef_struct_t"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -692,7 +705,12 @@
                 nameC = CName
                   "another_typedef_struct_t",
                 nameHsIdent = HsIdentifier
-                  "Another_typedef_struct_t"}},
+                  "Another_typedef_struct_t"},
+              declOrigin =
+              NameOriginGenerated,
+              declAliases = [
+                CName
+                  "another_typedef_struct_t"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -797,7 +815,12 @@
                         nameC = CName
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
-                          "Another_typedef_struct_t"}},
+                          "Another_typedef_struct_t"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = [
+                        CName
+                          "another_typedef_struct_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -904,7 +927,12 @@
                         nameC = CName
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
-                          "Another_typedef_struct_t"}},
+                          "Another_typedef_struct_t"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = [
+                        CName
+                          "another_typedef_struct_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -990,7 +1018,12 @@
             nameC = CName
               "another_typedef_enum_e",
             nameHsIdent = HsIdentifier
-              "Another_typedef_enum_e"}},
+              "Another_typedef_enum_e"},
+          declOrigin =
+          NameOriginGenerated,
+          declAliases = [
+            CName
+              "another_typedef_enum_e"]},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -1365,7 +1398,9 @@
           declId = NamePair {
             nameC = CName "a_type_t",
             nameHsIdent = HsIdentifier
-              "A_type_t"}},
+              "A_type_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1498,7 +1533,9 @@
           declId = NamePair {
             nameC = CName "var_t",
             nameHsIdent = HsIdentifier
-              "Var_t"}},
+              "Var_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1733,7 +1770,8 @@
                       nameC = CName
                         "another_typedef_struct_t",
                       nameHsIdent = HsIdentifier
-                        "Another_typedef_struct_t"})),
+                        "Another_typedef_struct_t"}
+                    NameOriginGenerated)),
               structFieldOffset = 64,
               structFieldWidth = Nothing}},
         Field {
@@ -1763,7 +1801,8 @@
                         nameC = CName
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
-                          "Another_typedef_struct_t"}))),
+                          "Another_typedef_struct_t"}
+                      NameOriginGenerated))),
               structFieldOffset = 128,
               structFieldWidth = Nothing}},
         Field {
@@ -1836,7 +1875,8 @@
                       nameC = CName
                         "another_typedef_enum_e",
                       nameHsIdent = HsIdentifier
-                        "Another_typedef_enum_e"})),
+                        "Another_typedef_enum_e"}
+                    NameOriginGenerated)),
               structFieldOffset = 480,
               structFieldWidth = Nothing}},
         Field {
@@ -1867,7 +1907,8 @@
                         nameC = CName
                           "another_typedef_enum_e",
                         nameHsIdent = HsIdentifier
-                          "Another_typedef_enum_e"}))),
+                          "Another_typedef_enum_e"}
+                      NameOriginGenerated))),
               structFieldOffset = 512,
               structFieldWidth = Nothing}},
         Field {
@@ -1902,7 +1943,8 @@
                           nameC = CName
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
-                            "Another_typedef_enum_e"})))),
+                            "Another_typedef_enum_e"}
+                        NameOriginGenerated)))),
               structFieldOffset = 640,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -1914,7 +1956,10 @@
               nameC = CName
                 "a_typedef_struct",
               nameHsIdent = HsIdentifier
-                "A_typedef_struct"}},
+                "A_typedef_struct"},
+            declOrigin = NameOriginInSource,
+            declAliases = [
+              CName "a_typedef_struct_t"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1996,7 +2041,8 @@
                           nameC = CName
                             "another_typedef_struct_t",
                           nameHsIdent = HsIdentifier
-                            "Another_typedef_struct_t"})),
+                            "Another_typedef_struct_t"}
+                        NameOriginGenerated)),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2016,7 +2062,8 @@
                             nameC = CName
                               "another_typedef_struct_t",
                             nameHsIdent = HsIdentifier
-                              "Another_typedef_struct_t"}))),
+                              "Another_typedef_struct_t"}
+                          NameOriginGenerated))),
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2062,7 +2109,8 @@
                           nameC = CName
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
-                            "Another_typedef_enum_e"})),
+                            "Another_typedef_enum_e"}
+                        NameOriginGenerated)),
                   structFieldOffset = 480,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2082,7 +2130,8 @@
                             nameC = CName
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
-                              "Another_typedef_enum_e"}))),
+                              "Another_typedef_enum_e"}
+                          NameOriginGenerated))),
                   structFieldOffset = 512,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2104,7 +2153,8 @@
                               nameC = CName
                                 "another_typedef_enum_e",
                               nameHsIdent = HsIdentifier
-                                "Another_typedef_enum_e"})))),
+                                "Another_typedef_enum_e"}
+                            NameOriginGenerated)))),
                   structFieldOffset = 640,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -2241,7 +2291,8 @@
                         nameC = CName
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
-                          "Another_typedef_struct_t"})),
+                          "Another_typedef_struct_t"}
+                      NameOriginGenerated)),
                 structFieldOffset = 64,
                 structFieldWidth = Nothing}},
           Field {
@@ -2271,7 +2322,8 @@
                           nameC = CName
                             "another_typedef_struct_t",
                           nameHsIdent = HsIdentifier
-                            "Another_typedef_struct_t"}))),
+                            "Another_typedef_struct_t"}
+                        NameOriginGenerated))),
                 structFieldOffset = 128,
                 structFieldWidth = Nothing}},
           Field {
@@ -2344,7 +2396,8 @@
                         nameC = CName
                           "another_typedef_enum_e",
                         nameHsIdent = HsIdentifier
-                          "Another_typedef_enum_e"})),
+                          "Another_typedef_enum_e"}
+                      NameOriginGenerated)),
                 structFieldOffset = 480,
                 structFieldWidth = Nothing}},
           Field {
@@ -2375,7 +2428,8 @@
                           nameC = CName
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
-                            "Another_typedef_enum_e"}))),
+                            "Another_typedef_enum_e"}
+                        NameOriginGenerated))),
                 structFieldOffset = 512,
                 structFieldWidth = Nothing}},
           Field {
@@ -2410,7 +2464,8 @@
                             nameC = CName
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
-                              "Another_typedef_enum_e"})))),
+                              "Another_typedef_enum_e"}
+                          NameOriginGenerated)))),
                 structFieldOffset = 640,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -2422,7 +2477,10 @@
                 nameC = CName
                   "a_typedef_struct",
                 nameHsIdent = HsIdentifier
-                  "A_typedef_struct"}},
+                  "A_typedef_struct"},
+              declOrigin = NameOriginInSource,
+              declAliases = [
+                CName "a_typedef_struct_t"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2504,7 +2562,8 @@
                             nameC = CName
                               "another_typedef_struct_t",
                             nameHsIdent = HsIdentifier
-                              "Another_typedef_struct_t"})),
+                              "Another_typedef_struct_t"}
+                          NameOriginGenerated)),
                     structFieldOffset = 64,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2524,7 +2583,8 @@
                               nameC = CName
                                 "another_typedef_struct_t",
                               nameHsIdent = HsIdentifier
-                                "Another_typedef_struct_t"}))),
+                                "Another_typedef_struct_t"}
+                            NameOriginGenerated))),
                     structFieldOffset = 128,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2570,7 +2630,8 @@
                             nameC = CName
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
-                              "Another_typedef_enum_e"})),
+                              "Another_typedef_enum_e"}
+                          NameOriginGenerated)),
                     structFieldOffset = 480,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2590,7 +2651,8 @@
                               nameC = CName
                                 "another_typedef_enum_e",
                               nameHsIdent = HsIdentifier
-                                "Another_typedef_enum_e"}))),
+                                "Another_typedef_enum_e"}
+                            NameOriginGenerated))),
                     structFieldOffset = 512,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2612,7 +2674,8 @@
                                 nameC = CName
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
-                                  "Another_typedef_enum_e"})))),
+                                  "Another_typedef_enum_e"}
+                              NameOriginGenerated)))),
                     structFieldOffset = 640,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -2754,7 +2817,8 @@
                                 nameC = CName
                                   "another_typedef_struct_t",
                                 nameHsIdent = HsIdentifier
-                                  "Another_typedef_struct_t"})),
+                                  "Another_typedef_struct_t"}
+                              NameOriginGenerated)),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2784,7 +2848,8 @@
                                   nameC = CName
                                     "another_typedef_struct_t",
                                   nameHsIdent = HsIdentifier
-                                    "Another_typedef_struct_t"}))),
+                                    "Another_typedef_struct_t"}
+                                NameOriginGenerated))),
                         structFieldOffset = 128,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2857,7 +2922,8 @@
                                 nameC = CName
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
-                                  "Another_typedef_enum_e"})),
+                                  "Another_typedef_enum_e"}
+                              NameOriginGenerated)),
                         structFieldOffset = 480,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2888,7 +2954,8 @@
                                   nameC = CName
                                     "another_typedef_enum_e",
                                   nameHsIdent = HsIdentifier
-                                    "Another_typedef_enum_e"}))),
+                                    "Another_typedef_enum_e"}
+                                NameOriginGenerated))),
                         structFieldOffset = 512,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2923,7 +2990,8 @@
                                     nameC = CName
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
-                                      "Another_typedef_enum_e"})))),
+                                      "Another_typedef_enum_e"}
+                                  NameOriginGenerated)))),
                         structFieldOffset = 640,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -2935,7 +3003,10 @@
                         nameC = CName
                           "a_typedef_struct",
                         nameHsIdent = HsIdentifier
-                          "A_typedef_struct"}},
+                          "A_typedef_struct"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "a_typedef_struct_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3017,7 +3088,8 @@
                                     nameC = CName
                                       "another_typedef_struct_t",
                                     nameHsIdent = HsIdentifier
-                                      "Another_typedef_struct_t"})),
+                                      "Another_typedef_struct_t"}
+                                  NameOriginGenerated)),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3037,7 +3109,8 @@
                                       nameC = CName
                                         "another_typedef_struct_t",
                                       nameHsIdent = HsIdentifier
-                                        "Another_typedef_struct_t"}))),
+                                        "Another_typedef_struct_t"}
+                                    NameOriginGenerated))),
                             structFieldOffset = 128,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3083,7 +3156,8 @@
                                     nameC = CName
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
-                                      "Another_typedef_enum_e"})),
+                                      "Another_typedef_enum_e"}
+                                  NameOriginGenerated)),
                             structFieldOffset = 480,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3103,7 +3177,8 @@
                                       nameC = CName
                                         "another_typedef_enum_e",
                                       nameHsIdent = HsIdentifier
-                                        "Another_typedef_enum_e"}))),
+                                        "Another_typedef_enum_e"}
+                                    NameOriginGenerated))),
                             structFieldOffset = 512,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3125,7 +3200,8 @@
                                         nameC = CName
                                           "another_typedef_enum_e",
                                         nameHsIdent = HsIdentifier
-                                          "Another_typedef_enum_e"})))),
+                                          "Another_typedef_enum_e"}
+                                      NameOriginGenerated)))),
                             structFieldOffset = 640,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -3278,7 +3354,8 @@
                                 nameC = CName
                                   "another_typedef_struct_t",
                                 nameHsIdent = HsIdentifier
-                                  "Another_typedef_struct_t"})),
+                                  "Another_typedef_struct_t"}
+                              NameOriginGenerated)),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}},
                   Field {
@@ -3308,7 +3385,8 @@
                                   nameC = CName
                                     "another_typedef_struct_t",
                                   nameHsIdent = HsIdentifier
-                                    "Another_typedef_struct_t"}))),
+                                    "Another_typedef_struct_t"}
+                                NameOriginGenerated))),
                         structFieldOffset = 128,
                         structFieldWidth = Nothing}},
                   Field {
@@ -3381,7 +3459,8 @@
                                 nameC = CName
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
-                                  "Another_typedef_enum_e"})),
+                                  "Another_typedef_enum_e"}
+                              NameOriginGenerated)),
                         structFieldOffset = 480,
                         structFieldWidth = Nothing}},
                   Field {
@@ -3412,7 +3491,8 @@
                                   nameC = CName
                                     "another_typedef_enum_e",
                                   nameHsIdent = HsIdentifier
-                                    "Another_typedef_enum_e"}))),
+                                    "Another_typedef_enum_e"}
+                                NameOriginGenerated))),
                         structFieldOffset = 512,
                         structFieldWidth = Nothing}},
                   Field {
@@ -3447,7 +3527,8 @@
                                     nameC = CName
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
-                                      "Another_typedef_enum_e"})))),
+                                      "Another_typedef_enum_e"}
+                                  NameOriginGenerated)))),
                         structFieldOffset = 640,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -3459,7 +3540,10 @@
                         nameC = CName
                           "a_typedef_struct",
                         nameHsIdent = HsIdentifier
-                          "A_typedef_struct"}},
+                          "A_typedef_struct"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [
+                        CName "a_typedef_struct_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3541,7 +3625,8 @@
                                     nameC = CName
                                       "another_typedef_struct_t",
                                     nameHsIdent = HsIdentifier
-                                      "Another_typedef_struct_t"})),
+                                      "Another_typedef_struct_t"}
+                                  NameOriginGenerated)),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3561,7 +3646,8 @@
                                       nameC = CName
                                         "another_typedef_struct_t",
                                       nameHsIdent = HsIdentifier
-                                        "Another_typedef_struct_t"}))),
+                                        "Another_typedef_struct_t"}
+                                    NameOriginGenerated))),
                             structFieldOffset = 128,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3607,7 +3693,8 @@
                                     nameC = CName
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
-                                      "Another_typedef_enum_e"})),
+                                      "Another_typedef_enum_e"}
+                                  NameOriginGenerated)),
                             structFieldOffset = 480,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3627,7 +3714,8 @@
                                       nameC = CName
                                         "another_typedef_enum_e",
                                       nameHsIdent = HsIdentifier
-                                        "Another_typedef_enum_e"}))),
+                                        "Another_typedef_enum_e"}
+                                    NameOriginGenerated))),
                             structFieldOffset = 512,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3649,7 +3737,8 @@
                                         nameC = CName
                                           "another_typedef_enum_e",
                                         nameHsIdent = HsIdentifier
-                                          "Another_typedef_enum_e"})))),
+                                          "Another_typedef_enum_e"}
+                                      NameOriginGenerated)))),
                             structFieldOffset = 640,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -3715,7 +3804,9 @@
             nameC = CName
               "a_typedef_struct_t",
             nameHsIdent = HsIdentifier
-              "A_typedef_struct_t"}},
+              "A_typedef_struct_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -3730,7 +3821,8 @@
                 nameC = CName
                   "a_typedef_struct",
                 nameHsIdent = HsIdentifier
-                  "A_typedef_struct"}},
+                  "A_typedef_struct"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -3904,7 +3996,11 @@
             nameC = CName
               "a_typedef_enum_e",
             nameHsIdent = HsIdentifier
-              "A_typedef_enum_e"}},
+              "A_typedef_enum_e"},
+          declOrigin =
+          NameOriginGenerated,
+          declAliases = [
+            CName "a_typedef_enum_e"]},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -4355,7 +4451,9 @@
           declId = NamePair {
             nameC = CName "callback_t",
             nameHsIdent = HsIdentifier
-              "Callback_t"}},
+              "Callback_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

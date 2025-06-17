@@ -6,8 +6,9 @@ TranslationUnit {
         "redeclaration_identical.h:3:9",
         declId = NamePair {
           nameC = CName "A",
-          nameHsIdent = HsIdentifier
-            "a"}},
+          nameHsIdent = HsIdentifier "a"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {

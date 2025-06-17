@@ -49,7 +49,9 @@
             declId = NamePair {
               nameC = CName "Dim2",
               nameHsIdent = HsIdentifier
-                "Dim2"}},
+                "Dim2"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -137,7 +139,9 @@
               declId = NamePair {
                 nameC = CName "Dim2",
                 nameHsIdent = HsIdentifier
-                  "Dim2"}},
+                  "Dim2"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -230,7 +234,9 @@
                       declId = NamePair {
                         nameC = CName "Dim2",
                         nameHsIdent = HsIdentifier
-                          "Dim2"}},
+                          "Dim2"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -325,7 +331,9 @@
                       declId = NamePair {
                         nameC = CName "Dim2",
                         nameHsIdent = HsIdentifier
-                          "Dim2"}},
+                          "Dim2"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -445,7 +453,9 @@
             declId = NamePair {
               nameC = CName "Dim3",
               nameHsIdent = HsIdentifier
-                "Dim3"}},
+                "Dim3"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -560,7 +570,9 @@
               declId = NamePair {
                 nameC = CName "Dim3",
                 nameHsIdent = HsIdentifier
-                  "Dim3"}},
+                  "Dim3"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -680,7 +692,9 @@
                       declId = NamePair {
                         nameC = CName "Dim3",
                         nameHsIdent = HsIdentifier
-                          "Dim3"}},
+                          "Dim3"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -803,7 +817,9 @@
                       declId = NamePair {
                         nameC = CName "Dim3",
                         nameHsIdent = HsIdentifier
-                          "Dim3"}},
+                          "Dim3"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -887,7 +903,9 @@
           declId = NamePair {
             nameC = CName "DimPayload",
             nameHsIdent = HsIdentifier
-              "DimPayload"}},
+              "DimPayload"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -911,7 +929,8 @@
                   NamePair {
                     nameC = CName "Dim2",
                     nameHsIdent = HsIdentifier
-                      "Dim2"}},
+                      "Dim2"}
+                  NameOriginInSource},
               UnionField {
                 unionFieldLoc =
                 "unions.h:14:17",
@@ -923,7 +942,8 @@
                   NamePair {
                     nameC = CName "Dim2",
                     nameHsIdent = HsIdentifier
-                      "Dim2"}}]},
+                      "Dim2"}
+                  NameOriginInSource}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1022,7 +1042,8 @@
                 NamePair {
                   nameC = CName "DimPayload",
                   nameHsIdent = HsIdentifier
-                    "DimPayload"},
+                    "DimPayload"}
+                NameOriginInSource,
               structFieldOffset = 32,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -1032,7 +1053,9 @@
             declId = NamePair {
               nameC = CName "Dim",
               nameHsIdent = HsIdentifier
-                "Dim"}},
+                "Dim"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1062,7 +1085,8 @@
                     NamePair {
                       nameC = CName "DimPayload",
                       nameHsIdent = HsIdentifier
-                        "DimPayload"},
+                        "DimPayload"}
+                    NameOriginInSource,
                   structFieldOffset = 32,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -1122,7 +1146,8 @@
                   NamePair {
                     nameC = CName "DimPayload",
                     nameHsIdent = HsIdentifier
-                      "DimPayload"},
+                      "DimPayload"}
+                  NameOriginInSource,
                 structFieldOffset = 32,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -1132,7 +1157,9 @@
               declId = NamePair {
                 nameC = CName "Dim",
                 nameHsIdent = HsIdentifier
-                  "Dim"}},
+                  "Dim"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1162,7 +1189,8 @@
                       NamePair {
                         nameC = CName "DimPayload",
                         nameHsIdent = HsIdentifier
-                          "DimPayload"},
+                          "DimPayload"}
+                      NameOriginInSource,
                     structFieldOffset = 32,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -1227,7 +1255,8 @@
                           NamePair {
                             nameC = CName "DimPayload",
                             nameHsIdent = HsIdentifier
-                              "DimPayload"},
+                              "DimPayload"}
+                          NameOriginInSource,
                         structFieldOffset = 32,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1237,7 +1266,9 @@
                       declId = NamePair {
                         nameC = CName "Dim",
                         nameHsIdent = HsIdentifier
-                          "Dim"}},
+                          "Dim"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1267,7 +1298,8 @@
                               NamePair {
                                 nameC = CName "DimPayload",
                                 nameHsIdent = HsIdentifier
-                                  "DimPayload"},
+                                  "DimPayload"}
+                              NameOriginInSource,
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1334,7 +1366,8 @@
                           NamePair {
                             nameC = CName "DimPayload",
                             nameHsIdent = HsIdentifier
-                              "DimPayload"},
+                              "DimPayload"}
+                          NameOriginInSource,
                         structFieldOffset = 32,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1344,7 +1377,9 @@
                       declId = NamePair {
                         nameC = CName "Dim",
                         nameHsIdent = HsIdentifier
-                          "Dim"}},
+                          "Dim"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1374,7 +1409,8 @@
                               NamePair {
                                 nameC = CName "DimPayload",
                                 nameHsIdent = HsIdentifier
-                                  "DimPayload"},
+                                  "DimPayload"}
+                              NameOriginInSource,
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1414,7 +1450,10 @@
           declId = NamePair {
             nameC = CName "DimPayloadB",
             nameHsIdent = HsIdentifier
-              "DimPayloadB"}},
+              "DimPayloadB"},
+          declOrigin = NameOriginInSource,
+          declAliases = [
+            CName "DimPayloadB"]},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -1438,7 +1477,8 @@
                   NamePair {
                     nameC = CName "Dim2",
                     nameHsIdent = HsIdentifier
-                      "Dim2"}},
+                      "Dim2"}
+                  NameOriginInSource},
               UnionField {
                 unionFieldLoc =
                 "unions.h:25:17",
@@ -1450,7 +1490,8 @@
                   NamePair {
                     nameC = CName "Dim2",
                     nameHsIdent = HsIdentifier
-                      "Dim2"}}]},
+                      "Dim2"}
+                  NameOriginInSource}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1552,7 +1593,8 @@
                     NamePair {
                       nameC = CName "DimPayloadB",
                       nameHsIdent = HsIdentifier
-                        "DimPayloadB"})),
+                        "DimPayloadB"}
+                    NameOriginInSource)),
               structFieldOffset = 32,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -1562,7 +1604,9 @@
             declId = NamePair {
               nameC = CName "DimB",
               nameHsIdent = HsIdentifier
-                "DimB"}},
+                "DimB"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1595,7 +1639,8 @@
                         NamePair {
                           nameC = CName "DimPayloadB",
                           nameHsIdent = HsIdentifier
-                            "DimPayloadB"})),
+                            "DimPayloadB"}
+                        NameOriginInSource)),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -1658,7 +1703,8 @@
                       NamePair {
                         nameC = CName "DimPayloadB",
                         nameHsIdent = HsIdentifier
-                          "DimPayloadB"})),
+                          "DimPayloadB"}
+                      NameOriginInSource)),
                 structFieldOffset = 32,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -1668,7 +1714,9 @@
               declId = NamePair {
                 nameC = CName "DimB",
                 nameHsIdent = HsIdentifier
-                  "DimB"}},
+                  "DimB"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1701,7 +1749,8 @@
                           NamePair {
                             nameC = CName "DimPayloadB",
                             nameHsIdent = HsIdentifier
-                              "DimPayloadB"})),
+                              "DimPayloadB"}
+                          NameOriginInSource)),
                     structFieldOffset = 32,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -1769,7 +1818,8 @@
                               NamePair {
                                 nameC = CName "DimPayloadB",
                                 nameHsIdent = HsIdentifier
-                                  "DimPayloadB"})),
+                                  "DimPayloadB"}
+                              NameOriginInSource)),
                         structFieldOffset = 32,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1779,7 +1829,9 @@
                       declId = NamePair {
                         nameC = CName "DimB",
                         nameHsIdent = HsIdentifier
-                          "DimB"}},
+                          "DimB"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1812,7 +1864,8 @@
                                   NamePair {
                                     nameC = CName "DimPayloadB",
                                     nameHsIdent = HsIdentifier
-                                      "DimPayloadB"})),
+                                      "DimPayloadB"}
+                                  NameOriginInSource)),
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1882,7 +1935,8 @@
                               NamePair {
                                 nameC = CName "DimPayloadB",
                                 nameHsIdent = HsIdentifier
-                                  "DimPayloadB"})),
+                                  "DimPayloadB"}
+                              NameOriginInSource)),
                         structFieldOffset = 32,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1892,7 +1946,9 @@
                       declId = NamePair {
                         nameC = CName "DimB",
                         nameHsIdent = HsIdentifier
-                          "DimB"}},
+                          "DimB"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1925,7 +1981,8 @@
                                   NamePair {
                                     nameC = CName "DimPayloadB",
                                     nameHsIdent = HsIdentifier
-                                      "DimPayloadB"})),
+                                      "DimPayloadB"}
+                                  NameOriginInSource)),
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1997,7 +2054,10 @@
             declId = NamePair {
               nameC = CName "AnonA_xy",
               nameHsIdent = HsIdentifier
-                "AnonA_xy"}},
+                "AnonA_xy"},
+            declOrigin =
+            NameOriginGenerated,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2089,7 +2149,10 @@
               declId = NamePair {
                 nameC = CName "AnonA_xy",
                 nameHsIdent = HsIdentifier
-                  "AnonA_xy"}},
+                  "AnonA_xy"},
+              declOrigin =
+              NameOriginGenerated,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2186,7 +2249,10 @@
                       declId = NamePair {
                         nameC = CName "AnonA_xy",
                         nameHsIdent = HsIdentifier
-                          "AnonA_xy"}},
+                          "AnonA_xy"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2285,7 +2351,10 @@
                       declId = NamePair {
                         nameC = CName "AnonA_xy",
                         nameHsIdent = HsIdentifier
-                          "AnonA_xy"}},
+                          "AnonA_xy"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2396,7 +2465,10 @@
             declId = NamePair {
               nameC = CName "AnonA_polar",
               nameHsIdent = HsIdentifier
-                "AnonA_polar"}},
+                "AnonA_polar"},
+            declOrigin =
+            NameOriginGenerated,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2490,7 +2562,10 @@
               declId = NamePair {
                 nameC = CName "AnonA_polar",
                 nameHsIdent = HsIdentifier
-                  "AnonA_polar"}},
+                  "AnonA_polar"},
+              declOrigin =
+              NameOriginGenerated,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2589,7 +2664,10 @@
                       declId = NamePair {
                         nameC = CName "AnonA_polar",
                         nameHsIdent = HsIdentifier
-                          "AnonA_polar"}},
+                          "AnonA_polar"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2690,7 +2768,10 @@
                       declId = NamePair {
                         nameC = CName "AnonA_polar",
                         nameHsIdent = HsIdentifier
-                          "AnonA_polar"}},
+                          "AnonA_polar"},
+                      declOrigin =
+                      NameOriginGenerated,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2771,7 +2852,9 @@
           declId = NamePair {
             nameC = CName "AnonA",
             nameHsIdent = HsIdentifier
-              "AnonA"}},
+              "AnonA"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -2795,7 +2878,8 @@
                   NamePair {
                     nameC = CName "AnonA_xy",
                     nameHsIdent = HsIdentifier
-                      "AnonA_xy"}},
+                      "AnonA_xy"}
+                  NameOriginGenerated},
               UnionField {
                 unionFieldLoc =
                 "unions.h:36:36",
@@ -2807,7 +2891,8 @@
                   NamePair {
                     nameC = CName "AnonA_polar",
                     nameHsIdent = HsIdentifier
-                      "AnonA_polar"}}]},
+                      "AnonA_polar"}
+                  NameOriginGenerated}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

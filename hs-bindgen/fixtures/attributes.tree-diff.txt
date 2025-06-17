@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "__sFILE",
           nameHsIdent = HsIdentifier
-            "C__SFILE"}},
+            "C__SFILE"},
+        declOrigin = NameOriginInSource,
+        declAliases = [CName "FILE"]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -63,7 +65,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FILE",
           nameHsIdent = HsIdentifier
-            "FILE"}},
+            "FILE"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -77,7 +81,8 @@ TranslationUnit {
             NamePair {
               nameC = CName "__sFILE",
               nameHsIdent = HsIdentifier
-                "C__SFILE"}},
+                "C__SFILE"}
+            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

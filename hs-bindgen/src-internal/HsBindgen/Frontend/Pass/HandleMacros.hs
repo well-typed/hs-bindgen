@@ -48,7 +48,7 @@ handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
         }
 
 processDecl :: C.Decl Sort -> M (Maybe (C.Decl HandleMacros))
-processDecl C.Decl{declInfo = C.DeclInfo{declId, declLoc}, declKind} =
+processDecl C.Decl{declInfo, declKind} =
     case declKind of
       C.DeclMacro   macro   -> processMacro info' macro
       C.DeclTypedef typedef -> Just <$> processTypedef info' typedef
@@ -60,8 +60,10 @@ processDecl C.Decl{declInfo = C.DeclInfo{declId, declLoc}, declKind} =
       C.DeclEnumOpaque      -> Just <$> processOpaque C.DeclEnumOpaque info'
       C.DeclFunction fun    -> Just <$> processFunction info' fun
   where
+    C.DeclInfo{declId, declLoc, declOrigin, declAliases} = declInfo
+
     info' :: C.DeclInfo HandleMacros
-    info' = C.DeclInfo{declId, declLoc}
+    info' = C.DeclInfo{declId, declLoc, declOrigin, declAliases}
 
 {-------------------------------------------------------------------------------
   Function for each kind of declaration
@@ -201,9 +203,9 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
       --
       -- See https://github.com/well-typed/hs-bindgen/issues/707.
       ReparseNeeded tokens -> case typedefType of
-        C.TypeEnum _   -> withoutReparse
-        C.TypeStruct _ -> withoutReparse
-        _otherwise     -> reparseWith reparseTypedef tokens withoutReparse withReparse
+        C.TypeEnum _ _   -> withoutReparse
+        C.TypeStruct _ _ -> withoutReparse
+        _otherwise       -> reparseWith reparseTypedef tokens withoutReparse withReparse
   where
     name :: CName
     name = case C.declId info of

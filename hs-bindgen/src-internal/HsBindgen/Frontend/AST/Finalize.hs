@@ -63,11 +63,15 @@ instance Finalize Int.DeclInfo where
   finalize info = Ext.DeclInfo{
         declLoc
       , declId
+      , declOrigin
+      , declAliases
       }
     where
       Int.DeclInfo{
           declLoc
         , declId
+        , declOrigin
+        , declAliases
         } = info
 
 instance Finalize Int.DeclKind where
@@ -242,9 +246,9 @@ instance Finalize Int.Type where
   type Finalized Int.Type = Ext.Type
 
   finalize (Int.TypePrim prim)               = Ext.TypePrim prim
-  finalize (Int.TypeStruct name)             = Ext.TypeStruct name
-  finalize (Int.TypeUnion name)              = Ext.TypeUnion name
-  finalize (Int.TypeEnum name)               = Ext.TypeEnum name
+  finalize (Int.TypeStruct name origin)      = Ext.TypeStruct name origin
+  finalize (Int.TypeUnion name origin)       = Ext.TypeUnion name origin
+  finalize (Int.TypeEnum name origin)        = Ext.TypeEnum name origin
   finalize (Int.TypeTypedef ref)             = Ext.TypeTypedef (finalize ref)
   finalize (Int.TypePointer typ)             = Ext.TypePointer (finalize typ)
   finalize (Int.TypeFun args res)            = Ext.TypeFun (map finalize args) (finalize res)
@@ -255,10 +259,8 @@ instance Finalize Int.Type where
   finalize (Int.TypeExtBinding cSpelling ref typeSpec) =
       Ext.TypeExtBinding cSpelling ref typeSpec
 
-  -- TODO: We should probably keep the distinction between typedef and
-  -- macro-defined typedef also in the external AST.
-  finalize (Int.TypeMacroTypedef name) =
-      Ext.TypeTypedef $ Ext.TypedefRegular name
+  finalize (Int.TypeMacroTypedef name origin) =
+      Ext.TypeMacroTypedef name origin
 
 instance Finalize Int.RenamedTypedefRef where
   type Finalized Int.RenamedTypedefRef = Ext.TypedefRef

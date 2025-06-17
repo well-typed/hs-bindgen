@@ -22,6 +22,7 @@ import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 
 {-------------------------------------------------------------------------------
@@ -79,7 +80,11 @@ getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo curr = do
     declId  <- getDeclId curr
     declLoc <- HighLevel.clang_getCursorLocation' curr
-    return C.DeclInfo{declId, declLoc}
+    let declOrigin = case declId of
+          DeclNamed{} -> C.NameOriginInSource
+          DeclAnon{}  -> C.NameOriginGenerated
+        declAliases = []
+    return C.DeclInfo{declId, declLoc, declOrigin, declAliases}
 
 getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
 getReparseInfo curr = do

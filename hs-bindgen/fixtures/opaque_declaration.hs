@@ -11,7 +11,9 @@
           declId = NamePair {
             nameC = CName "foo",
             nameHsIdent = HsIdentifier
-              "Foo"}},
+              "Foo"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -48,7 +50,8 @@
                   NamePair {
                     nameC = CName "foo",
                     nameHsIdent = HsIdentifier
-                      "Foo"}),
+                      "Foo"}
+                  NameOriginInSource),
               structFieldOffset = 0,
               structFieldWidth = Nothing}},
         Field {
@@ -71,7 +74,8 @@
                   NamePair {
                     nameC = CName "bar",
                     nameHsIdent = HsIdentifier
-                      "Bar"}),
+                      "Bar"}
+                  NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -82,7 +86,9 @@
             declId = NamePair {
               nameC = CName "bar",
               nameHsIdent = HsIdentifier
-                "Bar"}},
+                "Bar"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -102,7 +108,8 @@
                       NamePair {
                         nameC = CName "foo",
                         nameHsIdent = HsIdentifier
-                          "Foo"}),
+                          "Foo"}
+                      NameOriginInSource),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -117,7 +124,8 @@
                       NamePair {
                         nameC = CName "bar",
                         nameHsIdent = HsIdentifier
-                          "Bar"}),
+                          "Bar"}
+                      NameOriginInSource),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -159,7 +167,8 @@
                     NamePair {
                       nameC = CName "foo",
                       nameHsIdent = HsIdentifier
-                        "Foo"}),
+                        "Foo"}
+                    NameOriginInSource),
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}},
           Field {
@@ -182,7 +191,8 @@
                     NamePair {
                       nameC = CName "bar",
                       nameHsIdent = HsIdentifier
-                        "Bar"}),
+                        "Bar"}
+                    NameOriginInSource),
                 structFieldOffset = 64,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -193,7 +203,9 @@
               declId = NamePair {
                 nameC = CName "bar",
                 nameHsIdent = HsIdentifier
-                  "Bar"}},
+                  "Bar"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -213,7 +225,8 @@
                         NamePair {
                           nameC = CName "foo",
                           nameHsIdent = HsIdentifier
-                            "Foo"}),
+                            "Foo"}
+                        NameOriginInSource),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing},
                   StructField {
@@ -228,7 +241,8 @@
                         NamePair {
                           nameC = CName "bar",
                           nameHsIdent = HsIdentifier
-                            "Bar"}),
+                            "Bar"}
+                        NameOriginInSource),
                     structFieldOffset = 64,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -275,7 +289,8 @@
                             NamePair {
                               nameC = CName "foo",
                               nameHsIdent = HsIdentifier
-                                "Foo"}),
+                                "Foo"}
+                            NameOriginInSource),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -298,7 +313,8 @@
                             NamePair {
                               nameC = CName "bar",
                               nameHsIdent = HsIdentifier
-                                "Bar"}),
+                                "Bar"}
+                            NameOriginInSource),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -309,7 +325,9 @@
                       declId = NamePair {
                         nameC = CName "bar",
                         nameHsIdent = HsIdentifier
-                          "Bar"}},
+                          "Bar"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -329,7 +347,8 @@
                                 NamePair {
                                   nameC = CName "foo",
                                   nameHsIdent = HsIdentifier
-                                    "Foo"}),
+                                    "Foo"}
+                                NameOriginInSource),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -344,7 +363,8 @@
                                 NamePair {
                                   nameC = CName "bar",
                                   nameHsIdent = HsIdentifier
-                                    "Bar"}),
+                                    "Bar"}
+                                NameOriginInSource),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -393,7 +413,8 @@
                             NamePair {
                               nameC = CName "foo",
                               nameHsIdent = HsIdentifier
-                                "Foo"}),
+                                "Foo"}
+                            NameOriginInSource),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -416,7 +437,8 @@
                             NamePair {
                               nameC = CName "bar",
                               nameHsIdent = HsIdentifier
-                                "Bar"}),
+                                "Bar"}
+                            NameOriginInSource),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -427,7 +449,9 @@
                       declId = NamePair {
                         nameC = CName "bar",
                         nameHsIdent = HsIdentifier
-                          "Bar"}},
+                          "Bar"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -447,7 +471,8 @@
                                 NamePair {
                                   nameC = CName "foo",
                                   nameHsIdent = HsIdentifier
-                                    "Foo"}),
+                                    "Foo"}
+                                NameOriginInSource),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -462,7 +487,8 @@
                                 NamePair {
                                   nameC = CName "bar",
                                   nameHsIdent = HsIdentifier
-                                    "Bar"}),
+                                    "Bar"}
+                                NameOriginInSource),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -507,7 +533,9 @@
             declId = NamePair {
               nameC = CName "baz",
               nameHsIdent = HsIdentifier
-                "Baz"}},
+                "Baz"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -542,7 +570,9 @@
               declId = NamePair {
                 nameC = CName "baz",
                 nameHsIdent = HsIdentifier
-                  "Baz"}},
+                  "Baz"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -582,7 +612,9 @@
                       declId = NamePair {
                         nameC = CName "baz",
                         nameHsIdent = HsIdentifier
-                          "Baz"}},
+                          "Baz"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -622,7 +654,9 @@
                       declId = NamePair {
                         nameC = CName "baz",
                         nameHsIdent = HsIdentifier
-                          "Baz"}},
+                          "Baz"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -661,7 +695,9 @@
           declId = NamePair {
             nameC = CName "quu",
             nameHsIdent = HsIdentifier
-              "Quu"}},
+              "Quu"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = OpaqueEnum,
         declSpec = DeclSpec
           TypeSpec {
@@ -681,7 +717,9 @@
           declId = NamePair {
             nameC = CName "opaque_union",
             nameHsIdent = HsIdentifier
-              "Opaque_union"}},
+              "Opaque_union"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
           TypeSpec {

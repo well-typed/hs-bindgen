@@ -349,18 +349,21 @@ instance Resolve C.CheckedMacroType where
 
 instance Resolve C.Type where
   resolve = \case
-      C.TypePrim t            -> return (C.TypePrim t)
-      C.TypeStruct uid        -> aux C.TypeStruct uid C.NameKindStruct
-      C.TypeUnion uid         -> aux C.TypeUnion uid C.NameKindUnion
-      C.TypeEnum uid          -> aux C.TypeEnum uid C.NameKindEnum
-      C.TypeTypedef uid       -> aux C.TypeTypedef uid C.NameKindOrdinary
-      C.TypeMacroTypedef uid  -> aux C.TypeMacroTypedef uid C.NameKindOrdinary
-      C.TypePointer t         -> C.TypePointer <$> resolve t
-      C.TypeFun args res      -> C.TypeFun <$> mapM resolve args <*> resolve res
-      C.TypeVoid              -> return C.TypeVoid
-      C.TypeConstArray n t    -> C.TypeConstArray n <$> resolve t
+      C.TypePrim t -> return (C.TypePrim t)
+      C.TypeStruct uid origin ->
+        aux (`C.TypeStruct` origin) uid C.NameKindStruct
+      C.TypeUnion uid origin ->
+        aux (`C.TypeUnion` origin) uid C.NameKindUnion
+      C.TypeEnum uid origin ->
+        aux (`C.TypeEnum` origin) uid C.NameKindEnum
+      C.TypeTypedef uid -> aux C.TypeTypedef uid C.NameKindOrdinary
+      C.TypeMacroTypedef uid origin ->
+        aux (`C.TypeMacroTypedef` origin) uid C.NameKindOrdinary
+      C.TypePointer t -> C.TypePointer <$> resolve t
+      C.TypeFun args res -> C.TypeFun <$> mapM resolve args <*> resolve res
+      C.TypeVoid -> return C.TypeVoid
+      C.TypeConstArray n t -> C.TypeConstArray n <$> resolve t
       C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> resolve t
-
       C.TypeExtBinding cSpelling extHsRef typeSpec ->
         return (C.TypeExtBinding cSpelling extHsRef typeSpec)
     where

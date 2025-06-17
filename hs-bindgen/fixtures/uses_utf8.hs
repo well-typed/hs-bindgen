@@ -20,7 +20,9 @@
           declId = NamePair {
             nameC = CName "MyEnum",
             nameHsIdent = HsIdentifier
-              "MyEnum"}},
+              "MyEnum"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {

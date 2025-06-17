@@ -3,6 +3,7 @@ module HsBindgen.Language.C.Name (
     CName(..)
   , Namespace(..)
   , NameKind(..)
+  , NameOrigin(..)
   ) where
 
 import Data.Text (unpack)
@@ -85,4 +86,28 @@ data NameKind =
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyTrace NameKind where
+  prettyTrace = show
+
+-- | C name origin
+--
+-- This type describes the origin of a C name.
+data NameOrigin =
+    -- | Name in source
+    --
+    -- The name may be used to construct a valid C type.
+    NameOriginInSource
+
+    -- | Name is generated
+    --
+    -- The name may not be used to construct a valid C type.
+  | NameOriginGenerated
+
+    -- | Name is renamed
+    --
+    -- The name may not be used to construct a valid C type, but this original
+    -- name may be used to construct a valid C type.
+  | NameOriginRenamedFrom CName
+  deriving stock (Show, Eq, Ord, Generic)
+
+instance PrettyTrace NameOrigin where
   prettyTrace = show

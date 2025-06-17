@@ -7,7 +7,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "OBJECTLIKE1",
           nameHsIdent = HsIdentifier
-            "oBJECTLIKE1"}},
+            "oBJECTLIKE1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -32,7 +34,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "OBJECTLIKE2",
           nameHsIdent = HsIdentifier
-            "oBJECTLIKE2"}},
+            "oBJECTLIKE2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -57,7 +61,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "OBJECTLIKE3",
           nameHsIdent = HsIdentifier
-            "oBJECTLIKE3"}},
+            "oBJECTLIKE3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -91,7 +97,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "OBJECTLIKE4",
           nameHsIdent = HsIdentifier
-            "oBJECTLIKE4"}},
+            "oBJECTLIKE4"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -126,7 +134,9 @@ TranslationUnit {
           nameC = CName
             "MEANING_OF_LIFE1",
           nameHsIdent = HsIdentifier
-            "mEANING_OF_LIFE1"}},
+            "mEANING_OF_LIFE1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -152,7 +162,9 @@ TranslationUnit {
           nameC = CName
             "MEANING_OF_LIFE2",
           nameHsIdent = HsIdentifier
-            "mEANING_OF_LIFE2"}},
+            "mEANING_OF_LIFE2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -178,7 +190,9 @@ TranslationUnit {
           nameC = CName
             "MEANING_OF_LIFE3",
           nameHsIdent = HsIdentifier
-            "mEANING_OF_LIFE3"}},
+            "mEANING_OF_LIFE3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -204,7 +218,9 @@ TranslationUnit {
           nameC = CName
             "MEANING_OF_LIFE4",
           nameHsIdent = HsIdentifier
-            "mEANING_OF_LIFE4"}},
+            "mEANING_OF_LIFE4"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -230,7 +246,9 @@ TranslationUnit {
           nameC = CName
             "MEANING_OF_LIFE5",
           nameHsIdent = HsIdentifier
-            "mEANING_OF_LIFE5"}},
+            "mEANING_OF_LIFE5"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -255,7 +273,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "LONG_INT_TOKEN1",
           nameHsIdent = HsIdentifier
-            "lONG_INT_TOKEN1"}},
+            "lONG_INT_TOKEN1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -283,7 +303,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "LONG_INT_TOKEN2",
           nameHsIdent = HsIdentifier
-            "lONG_INT_TOKEN2"}},
+            "lONG_INT_TOKEN2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -311,7 +333,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "LONG_INT_TOKEN3",
           nameHsIdent = HsIdentifier
-            "lONG_INT_TOKEN3"}},
+            "lONG_INT_TOKEN3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -339,7 +363,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "LONG_INT_TOKEN4",
           nameHsIdent = HsIdentifier
-            "lONG_INT_TOKEN4"}},
+            "lONG_INT_TOKEN4"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -367,7 +393,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "TUPLE1",
           nameHsIdent = HsIdentifier
-            "tUPLE1"}},
+            "tUPLE1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -402,7 +430,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "TUPLE2",
           nameHsIdent = HsIdentifier
-            "tUPLE2"}},
+            "tUPLE2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -437,7 +467,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "TUPLE3",
           nameHsIdent = HsIdentifier
-            "tUPLE3"}},
+            "tUPLE3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -472,7 +504,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT1_1",
           nameHsIdent = HsIdentifier
-            "fLT1_1"}},
+            "fLT1_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -501,7 +535,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT1_2",
           nameHsIdent = HsIdentifier
-            "fLT1_2"}},
+            "fLT1_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -530,7 +566,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT1_3",
           nameHsIdent = HsIdentifier
-            "fLT1_3"}},
+            "fLT1_3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -558,7 +596,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT2_1",
           nameHsIdent = HsIdentifier
-            "fLT2_1"}},
+            "fLT2_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -587,7 +627,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT2_2",
           nameHsIdent = HsIdentifier
-            "fLT2_2"}},
+            "fLT2_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -616,7 +658,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT2_3",
           nameHsIdent = HsIdentifier
-            "fLT2_3"}},
+            "fLT2_3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -644,7 +688,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT3_1",
           nameHsIdent = HsIdentifier
-            "fLT3_1"}},
+            "fLT3_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -673,7 +719,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT3_2",
           nameHsIdent = HsIdentifier
-            "fLT3_2"}},
+            "fLT3_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -702,7 +750,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT3_3",
           nameHsIdent = HsIdentifier
-            "fLT3_3"}},
+            "fLT3_3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -731,7 +781,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT3_4",
           nameHsIdent = HsIdentifier
-            "fLT3_4"}},
+            "fLT3_4"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -759,7 +811,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT4_1",
           nameHsIdent = HsIdentifier
-            "fLT4_1"}},
+            "fLT4_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -788,7 +842,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT4_2",
           nameHsIdent = HsIdentifier
-            "fLT4_2"}},
+            "fLT4_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -817,7 +873,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT4_3",
           nameHsIdent = HsIdentifier
-            "fLT4_3"}},
+            "fLT4_3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -846,7 +904,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT5_1",
           nameHsIdent = HsIdentifier
-            "fLT5_1"}},
+            "fLT5_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -875,7 +935,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT5_2",
           nameHsIdent = HsIdentifier
-            "fLT5_2"}},
+            "fLT5_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -904,7 +966,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT6_1",
           nameHsIdent = HsIdentifier
-            "fLT6_1"}},
+            "fLT6_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -934,7 +998,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT6_2",
           nameHsIdent = HsIdentifier
-            "fLT6_2"}},
+            "fLT6_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -963,7 +1029,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FLT6_3",
           nameHsIdent = HsIdentifier
-            "fLT6_3"}},
+            "fLT6_3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -992,7 +1060,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "BAD1",
           nameHsIdent = HsIdentifier
-            "bAD1"}},
+            "bAD1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -1029,7 +1099,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "BAD2",
           nameHsIdent = HsIdentifier
-            "bAD2"}},
+            "bAD2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {

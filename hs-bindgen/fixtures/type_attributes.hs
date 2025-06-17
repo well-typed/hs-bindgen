@@ -38,8 +38,9 @@
             "type_attributes.h:8:8",
             declId = NamePair {
               nameC = CName "S",
-              nameHsIdent = HsIdentifier
-                "S"}},
+              nameHsIdent = HsIdentifier "S"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -111,8 +112,9 @@
               "type_attributes.h:8:8",
               declId = NamePair {
                 nameC = CName "S",
-                nameHsIdent = HsIdentifier
-                  "S"}},
+                nameHsIdent = HsIdentifier "S"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -189,8 +191,9 @@
                       "type_attributes.h:8:8",
                       declId = NamePair {
                         nameC = CName "S",
-                        nameHsIdent = HsIdentifier
-                          "S"}},
+                        nameHsIdent = HsIdentifier "S"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -267,8 +270,9 @@
                       "type_attributes.h:8:8",
                       declId = NamePair {
                         nameC = CName "S",
-                        nameHsIdent = HsIdentifier
-                          "S"}},
+                        nameHsIdent = HsIdentifier "S"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -338,7 +342,9 @@
             nameC = CName
               "more_aligned_int",
             nameHsIdent = HsIdentifier
-              "More_aligned_int"}},
+              "More_aligned_int"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -489,7 +495,9 @@
             declId = NamePair {
               nameC = CName "S2",
               nameHsIdent = HsIdentifier
-                "S2"}},
+                "S2"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -562,7 +570,9 @@
               declId = NamePair {
                 nameC = CName "S2",
                 nameHsIdent = HsIdentifier
-                  "S2"}},
+                  "S2"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -640,7 +650,9 @@
                       declId = NamePair {
                         nameC = CName "S2",
                         nameHsIdent = HsIdentifier
-                          "S2"}},
+                          "S2"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -718,7 +730,9 @@
                       declId = NamePair {
                         nameC = CName "S2",
                         nameHsIdent = HsIdentifier
-                          "S2"}},
+                          "S2"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -821,7 +835,9 @@
               nameC = CName
                 "my_unpacked_struct",
               nameHsIdent = HsIdentifier
-                "My_unpacked_struct"}},
+                "My_unpacked_struct"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -921,7 +937,9 @@
                 nameC = CName
                   "my_unpacked_struct",
                 nameHsIdent = HsIdentifier
-                  "My_unpacked_struct"}},
+                  "My_unpacked_struct"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1026,7 +1044,9 @@
                         nameC = CName
                           "my_unpacked_struct",
                         nameHsIdent = HsIdentifier
-                          "My_unpacked_struct"}},
+                          "My_unpacked_struct"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1133,7 +1153,9 @@
                         nameC = CName
                           "my_unpacked_struct",
                         nameHsIdent = HsIdentifier
-                          "My_unpacked_struct"}},
+                          "My_unpacked_struct"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1264,7 +1286,8 @@
                   nameC = CName
                     "my_unpacked_struct",
                   nameHsIdent = HsIdentifier
-                    "My_unpacked_struct"},
+                    "My_unpacked_struct"}
+                NameOriginInSource,
               structFieldOffset = 40,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -1276,7 +1299,9 @@
               nameC = CName
                 "my_packed_struct",
               nameHsIdent = HsIdentifier
-                "My_packed_struct"}},
+                "My_packed_struct"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1322,7 +1347,8 @@
                       nameC = CName
                         "my_unpacked_struct",
                       nameHsIdent = HsIdentifier
-                        "My_unpacked_struct"},
+                        "My_unpacked_struct"}
+                    NameOriginInSource,
                   structFieldOffset = 40,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -1403,7 +1429,8 @@
                     nameC = CName
                       "my_unpacked_struct",
                     nameHsIdent = HsIdentifier
-                      "My_unpacked_struct"},
+                      "My_unpacked_struct"}
+                  NameOriginInSource,
                 structFieldOffset = 40,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -1415,7 +1442,9 @@
                 nameC = CName
                   "my_packed_struct",
                 nameHsIdent = HsIdentifier
-                  "My_packed_struct"}},
+                  "My_packed_struct"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1461,7 +1490,8 @@
                         nameC = CName
                           "my_unpacked_struct",
                         nameHsIdent = HsIdentifier
-                          "My_unpacked_struct"},
+                          "My_unpacked_struct"}
+                      NameOriginInSource,
                     structFieldOffset = 40,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -1547,7 +1577,8 @@
                             nameC = CName
                               "my_unpacked_struct",
                             nameHsIdent = HsIdentifier
-                              "My_unpacked_struct"},
+                              "My_unpacked_struct"}
+                          NameOriginInSource,
                         structFieldOffset = 40,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1559,7 +1590,9 @@
                         nameC = CName
                           "my_packed_struct",
                         nameHsIdent = HsIdentifier
-                          "My_packed_struct"}},
+                          "My_packed_struct"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1605,7 +1638,8 @@
                                 nameC = CName
                                   "my_unpacked_struct",
                                 nameHsIdent = HsIdentifier
-                                  "My_unpacked_struct"},
+                                  "My_unpacked_struct"}
+                              NameOriginInSource,
                             structFieldOffset = 40,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1694,7 +1728,8 @@
                             nameC = CName
                               "my_unpacked_struct",
                             nameHsIdent = HsIdentifier
-                              "My_unpacked_struct"},
+                              "My_unpacked_struct"}
+                          NameOriginInSource,
                         structFieldOffset = 40,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1706,7 +1741,9 @@
                         nameC = CName
                           "my_packed_struct",
                         nameHsIdent = HsIdentifier
-                          "My_packed_struct"}},
+                          "My_packed_struct"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1752,7 +1789,8 @@
                                 nameC = CName
                                   "my_unpacked_struct",
                                 nameHsIdent = HsIdentifier
-                                  "My_unpacked_struct"},
+                                  "My_unpacked_struct"}
+                              NameOriginInSource,
                             structFieldOffset = 40,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1797,7 +1835,9 @@
           declId = NamePair {
             nameC = CName "wait",
             nameHsIdent = HsIdentifier
-              "Wait"}},
+              "Wait"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
           TypeSpec {
@@ -1827,7 +1867,11 @@
             nameC = CName
               "wait_status_ptr_t",
             nameHsIdent = HsIdentifier
-              "Wait_status_ptr_t"}},
+              "Wait_status_ptr_t"},
+          declOrigin =
+          NameOriginGenerated,
+          declAliases = [
+            CName "wait_status_ptr_t"]},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -1862,7 +1906,8 @@
                     NamePair {
                       nameC = CName "wait",
                       nameHsIdent = HsIdentifier
-                        "Wait"})}]},
+                        "Wait"}
+                    NameOriginInSource)}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1940,7 +1985,9 @@
           declId = NamePair {
             nameC = CName "T1",
             nameHsIdent = HsIdentifier
-              "T1"}},
+              "T1"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -2047,7 +2094,9 @@
           declId = NamePair {
             nameC = CName "short_a",
             nameHsIdent = HsIdentifier
-              "Short_a"}},
+              "Short_a"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
