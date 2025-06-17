@@ -2,7 +2,6 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Structs where
 
@@ -69,32 +68,6 @@ instance F.Storable Room where
 deriving stock instance Show Room
 
 deriving stock instance Eq Room
-
-data Aula1 = Aula1
-  { aula1_n_doors :: FC.CInt
-  }
-
-instance F.Storable Aula1 where
-
-  sizeOf = \_ -> (12 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Aula1
-      <*> F.peekByteOff ptr0 (8 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Aula1 aula1_n_doors2 ->
-            F.pokeByteOff ptr0 (8 :: Int) aula1_n_doors2
-
-deriving stock instance Show Aula1
-
-deriving stock instance Eq Aula1
 
 data Aula2_door = Aula2_door
   { aula2_door_height :: FC.CFloat
