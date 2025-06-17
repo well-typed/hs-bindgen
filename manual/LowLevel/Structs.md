@@ -108,16 +108,13 @@ struct aula1 {
 };
 ```
 
-`hs-bindgen` generates the following bindings (instances omitted for brevity):
+<!-- TODO: https://github.com/well-typed/hs-bindgen/issues/659 -->
 
-```haskell
-data Aula1 = Aula1
-  { aula1_n_doors :: FC.CInt
-  }
-```
-
-> **TODO #659**: Bindings do not contain anonymous structure; `hs-bindgen` will
-> warn about ignoring the anonymous structure!
+At the moment, `hs-bindgen` can not generate bindings for the above declaration,
+because `libclang` [does not provide enough
+information](https://github.com/llvm/llvm-project/issues/122257). We [plan to
+support implicit fields](https://github.com/well-typed/hs-bindgen/issues/659) in
+the future.
 
 ### Embedded declaration (with variable name)
 
