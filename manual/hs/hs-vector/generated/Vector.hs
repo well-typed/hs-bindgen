@@ -8,10 +8,10 @@ module Vector where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
--- #include "vector.h"
--- struct <anon> *Vector_new_vector (double arg1, double arg2);
+$(CAPI.addCSource "#include \"vector.h\"\nvector *Vector_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }\n")
 
 data Vector = Vector
   { vector_x :: FC.CDouble
@@ -42,4 +42,4 @@ deriving stock instance Show Vector
 
 deriving stock instance Eq Vector
 
-foreign import capi safe "vector.h new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)
+foreign import ccall safe "Vector_new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)

@@ -9,7 +9,9 @@ build-type:    Simple
 
 common lang
   ghc-options:      -Wall
-  build-depends:    base >= 4.16 && < 5
+  build-depends:
+      base >= 4.16 && < 5
+    , hs-bindgen-runtime
   default-language: GHC2021
 
 library
