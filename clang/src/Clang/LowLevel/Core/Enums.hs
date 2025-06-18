@@ -89,7 +89,7 @@ data CXTranslationUnit_Flags =
     -- header will be built containing all of the initial includes at the top of
     -- the main file (what we refer to as the "preamble" of the file). In
     -- subsequent parses, if the preamble or the files in it have not changed,
-    -- \c clang_reparseTranslationUnit() will re-use the implicit precompiled
+    -- @clang_reparseTranslationUnit@ will re-use the implicit precompiled
     -- header to improve parsing performance.
   | CXTranslationUnit_PrecompiledPreamble
 

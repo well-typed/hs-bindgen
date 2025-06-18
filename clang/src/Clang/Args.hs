@@ -26,8 +26,8 @@ import Clang.Version
 -- The default standard when one is not specified depends on the Clang version
 -- and has GNU extensions enabled.
 --
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/83> (also #10 and #71).
--- We should support more of the command line arguments of @clang@.
+-- This is not intended to be complete; we have added the arguments that are
+-- most relevant to @hs-bindgen@.
 data ClangArgs = ClangArgs {
       -- | Target architecture ('Nothing' to compile for the host architecture)
       --
@@ -40,7 +40,8 @@ data ClangArgs = ClangArgs {
       -- | Enable GNU extensions when 'True'
     , clangEnableGnu :: Bool
 
-      -- | Enable both standard system @#include@ directories and builtin @#include@ directories (@False@ will pass @-nostdinc@)
+      -- | Enable both standard system @#include@ directories and builtin
+      -- @#include@ directories (@False@ will pass @-nostdinc@)
     , clangStdInc :: Bool
 
       -- | Directories in the system include search path

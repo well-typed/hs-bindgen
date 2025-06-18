@@ -31,7 +31,7 @@ withIndex diagnostics =
 withTranslationUnit ::
      (MonadIO m, MonadMask m, HasCallStack)
   => CXIndex
-  -> SourcePath
+  -> Maybe SourcePath
   -> ClangArgs
   -> [CXUnsavedFile]
   -> BitfieldEnum CXTranslationUnit_Flags
@@ -46,20 +46,32 @@ withTranslationUnit index src args unsavedFiles options =
 withTranslationUnit2 ::
      (MonadIO m, MonadMask m, HasCallStack)
   => CXIndex
-  -> SourcePath
+  -> Maybe SourcePath
   -> ClangArgs
   -> [CXUnsavedFile]
   -> BitfieldEnum CXTranslationUnit_Flags
-  -> (Either (SimpleEnum CXErrorCode) CXTranslationUnit -> m a)
+  -> (SimpleEnum CXErrorCode -> m a) -- ^ Handle errors
+  -> (CXTranslationUnit      -> m a)
   -> m a
-withTranslationUnit2 index src args unsavedFiles options =
-    bracket (clang_parseTranslationUnit2 index src args unsavedFiles options) $
-      \case
-        Right unit -> clang_disposeTranslationUnit unit
-        Left _err  -> return ()
+withTranslationUnit2 index src args unsavedFiles options onFailure onSuccess =
+    bracket
+      (clang_parseTranslationUnit2 index src args unsavedFiles options)
+      ( \case
+          Right unit -> clang_disposeTranslationUnit unit
+          Left _err  -> return ()
+      )
+      ( \case
+          Right unit -> onSuccess unit
+          Left  err  -> onFailure err
+      )
 
 -- | Constructs a 'CXUnsavedFile', allocating memory for the passed strings
-withUnsavedFile :: String -> String -> (CXUnsavedFile -> IO a) -> IO a
+--
+-- 'cxUnsavedFileLength' is computed from the length of the contents.
+withUnsavedFile ::
+     String -- ^ Filename
+  -> String -- ^ Contents
+  -> (CXUnsavedFile -> IO a) -> IO a
 withUnsavedFile filename contents f =
     withCString filename $ \cxUnsavedFileFilename ->
       withCStringLen contents $ \(cxUnsavedFileContents, len) ->

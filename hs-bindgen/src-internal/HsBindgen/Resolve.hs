@@ -65,17 +65,16 @@ resolveHeader' ::
 resolveHeader' tracer args headerIncludePath =
   withExtraClangArgs tracer args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withUnsavedFile headerName headerContent $ \file ->
-        HighLevel.withTranslationUnit2 index headerSourcePath args' [file] opts $
-          \case
-            Left err -> panicPure $
-              "Clang parse translation unit error during header resolution: "
+      HighLevel.withUnsavedFile headerName headerContent $ \file -> do
+        let onFailure :: SimpleEnum CXErrorCode -> IO a
+            onFailure err = panicPure $
+                   "Clang parse translation unit error during header resolution: "
                 ++ show err
-            Right unit -> do
-              rootCursor <- clang_getTranslationUnitCursor unit
-              maybe (Left (ResolveHeaderNotFound headerIncludePath)) Right
-                .   listToMaybe
-                <$> HighLevel.clang_visitChildren rootCursor visit
+        HighLevel.withTranslationUnit2 index (Just headerSourcePath) args' [file] opts onFailure $ \unit -> do
+          rootCursor <- clang_getTranslationUnitCursor unit
+          maybe (Left (ResolveHeaderNotFound headerIncludePath)) Right
+            .   listToMaybe
+            <$> HighLevel.clang_visitChildren rootCursor visit
   where
     visit :: CXCursor -> IO (Next IO SourcePath)
     visit cursor = either return return <=< runExceptT $ do

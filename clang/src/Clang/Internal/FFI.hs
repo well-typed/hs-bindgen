@@ -2,6 +2,7 @@
 module Clang.Internal.FFI (
     withArrayOrNull
   , withCStrings
+  , withOptCString
   ) where
 
 import Foreign
@@ -31,3 +32,8 @@ withCStrings = \args k ->
     go (x:xs) k = withCString x  $ \x'  ->
                   go          xs $ \xs' ->
                   k (x' : xs')
+
+-- | Variation on 'withCString' which uses @NULL@ for 'Nothing'
+withOptCString :: Maybe String -> (CString -> IO a) -> IO a
+withOptCString (Just str) = withCString str
+withOptCString Nothing    = ($ nullPtr)
