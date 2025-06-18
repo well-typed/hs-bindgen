@@ -73,6 +73,7 @@ tests packageRoot getAnsiColor getRustBindgen =
         , "macro_in_fundecl_vs_typedef"
         , "macro_in_fundecl"
         , "macro_typedef_scope"
+        , "macro_typedef_struct"
         , "macro_types"
         , "macros"
         , "manual_examples"

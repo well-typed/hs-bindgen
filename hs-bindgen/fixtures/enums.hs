@@ -1245,14 +1245,14 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
-        "Packad",
+        "Packed",
       newtypeConstr = HsName
         "@NsConstr"
-        "Packad",
+        "Packed",
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "un_Packad",
+          "un_Packed",
         fieldType = HsPrimType
           HsPrimCUChar,
         fieldOrigin = GeneratedField},
@@ -1260,18 +1260,18 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:26:6",
           declId = NamePair {
-            nameC = CName "packad",
+            nameC = CName "packed",
             nameHsIdent = HsIdentifier
-              "Packad"}},
+              "Packed"}},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
               newtypeConstr = HsName
                 "@NsConstr"
-                "Packad",
+                "Packed",
               newtypeField = HsName
                 "@NsVar"
-                "un_Packad"},
+                "un_Packed"},
             enumType = TypePrim
               (PrimChar
                 (PrimSignExplicit Unsigned)),
@@ -1320,15 +1320,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Packad",
+          "Packed",
         structConstr = HsName
           "@NsConstr"
-          "Packad",
+          "Packed",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_Packad",
+              "un_Packed",
             fieldType = HsPrimType
               HsPrimCUChar,
             fieldOrigin = GeneratedField}],
@@ -1345,15 +1345,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Packad",
+                  "Packed",
                 structConstr = HsName
                   "@NsConstr"
-                  "Packad",
+                  "Packed",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "un_Packad",
+                      "un_Packed",
                     fieldType = HsPrimType
                       HsPrimCUChar,
                     fieldOrigin = GeneratedField}],
@@ -1375,15 +1375,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Packad",
+                  "Packed",
                 structConstr = HsName
                   "@NsConstr"
-                  "Packad",
+                  "Packed",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "un_Packad",
+                      "un_Packed",
                     fieldType = HsPrimType
                       HsPrimCUChar,
                     fieldOrigin = GeneratedField}],
@@ -1402,27 +1402,27 @@
     Eq
     (HsName
       "@NsTypeConstr"
-      "Packad"),
+      "Packed"),
   DeclNewtypeInstance
     DeriveStock
     Ord
     (HsName
       "@NsTypeConstr"
-      "Packad"),
+      "Packed"),
   DeclInstance
     (InstanceCEnum
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Packad",
+          "Packed",
         structConstr = HsName
           "@NsConstr"
-          "Packad",
+          "Packed",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_Packad",
+              "un_Packed",
             fieldType = HsPrimType
               HsPrimCUChar,
             fieldOrigin = GeneratedField}],
@@ -1447,15 +1447,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Packad",
+          "Packed",
         structConstr = HsName
           "@NsConstr"
-          "Packad",
+          "Packed",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_Packad",
+              "un_Packed",
             fieldType = HsPrimType
               HsPrimCUChar,
             fieldOrigin = GeneratedField}],
@@ -1471,15 +1471,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Packad",
+          "Packed",
         structConstr = HsName
           "@NsConstr"
-          "Packad",
+          "Packed",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_Packad",
+              "un_Packed",
             fieldType = HsPrimType
               HsPrimCUChar,
             fieldOrigin = GeneratedField}],
@@ -1496,15 +1496,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Packad",
+          "Packed",
         structConstr = HsName
           "@NsConstr"
-          "Packad",
+          "Packed",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_Packad",
+              "un_Packed",
             fieldType = HsPrimType
               HsPrimCUChar,
             fieldOrigin = GeneratedField}],
@@ -1523,10 +1523,10 @@
         "PACKED_A",
       patSynType = HsName
         "@NsTypeConstr"
-        "Packad",
+        "Packed",
       patSynConstr = HsName
         "@NsConstr"
-        "Packad",
+        "Packed",
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
@@ -1544,10 +1544,10 @@
         "PACKED_B",
       patSynType = HsName
         "@NsTypeConstr"
-        "Packad",
+        "Packed",
       patSynConstr = HsName
         "@NsConstr"
-        "Packad",
+        "Packed",
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
@@ -1565,10 +1565,10 @@
         "PACKED_C",
       patSynType = HsName
         "@NsTypeConstr"
-        "Packad",
+        "Packed",
       patSynConstr = HsName
         "@NsConstr"
-        "Packad",
+        "Packed",
       patSynValue = 2,
       patSynOrigin = EnumConstant
         EnumConstant {

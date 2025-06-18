@@ -128,41 +128,41 @@ pattern NONSEQ_B :: Nonseq
 pattern NONSEQ_B = Nonseq 301
 pattern NONSEQ_C :: Nonseq
 pattern NONSEQ_C = Nonseq 404
-newtype Packad = Packad {un_Packad :: CUChar}
-instance Storable Packad
+newtype Packed = Packed {un_Packed :: CUChar}
+instance Storable Packed
     where {sizeOf = \_ -> 1 :: Int;
            alignment = \_ -> 1 :: Int;
-           peek = \ptr_0 -> pure Packad <*> peekByteOff ptr_0 (0 :: Int);
+           peek = \ptr_0 -> pure Packed <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Packad un_Packad_3 -> pokeByteOff ptr_1 (0 :: Int) un_Packad_3}}
-deriving stock instance Eq Packad
-deriving stock instance Ord Packad
-instance CEnum Packad
-    where {type CEnumZ Packad = CUChar;
-           toCEnum = Packad;
-           fromCEnum = un_Packad;
+                                    {Packed un_Packed_3 -> pokeByteOff ptr_1 (0 :: Int) un_Packed_3}}
+deriving stock instance Eq Packed
+deriving stock instance Ord Packed
+instance CEnum Packed
+    where {type CEnumZ Packed = CUChar;
+           toCEnum = Packed;
+           fromCEnum = un_Packed;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "PACKED_A"),
                                                           (1, singleton "PACKED_B"),
                                                           (2, singleton "PACKED_C")];
-           showsUndeclared = showsWrappedUndeclared "Packad";
-           readPrecUndeclared = readPrecWrappedUndeclared "Packad";
+           showsUndeclared = showsWrappedUndeclared "Packed";
+           readPrecUndeclared = readPrecWrappedUndeclared "Packed";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
-instance SequentialCEnum Packad
+instance SequentialCEnum Packed
     where {minDeclaredValue = PACKED_A; maxDeclaredValue = PACKED_C}
-instance Show Packad
+instance Show Packed
     where {showsPrec = showsCEnum}
-instance Read Packad
+instance Read Packed
     where {readPrec = readPrecCEnum;
            readList = readListDefault;
            readListPrec = readListPrecDefault}
-pattern PACKED_A :: Packad
-pattern PACKED_A = Packad 0
-pattern PACKED_B :: Packad
-pattern PACKED_B = Packad 1
-pattern PACKED_C :: Packad
-pattern PACKED_C = Packad 2
+pattern PACKED_A :: Packed
+pattern PACKED_A = Packed 0
+pattern PACKED_B :: Packed
+pattern PACKED_B = Packed 1
+pattern PACKED_C :: Packed
+pattern PACKED_C = Packed 2
 newtype EnumA = EnumA {un_EnumA :: CUInt}
 instance Storable EnumA
     where {sizeOf = \_ -> 4 :: Int;

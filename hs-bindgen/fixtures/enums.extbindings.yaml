@@ -60,9 +60,9 @@ types:
   - Show
   - Storable
 - headers: enums.h
-  cname: enum packad
+  cname: enum packed
   module: Example
-  identifier: Packad
+  identifier: Packed
   instances:
   - Eq
   - Ord

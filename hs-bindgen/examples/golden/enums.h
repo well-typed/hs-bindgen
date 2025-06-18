@@ -23,7 +23,7 @@ enum nonseq {
     NONSEQ_C = 404
 };
 
-enum packad {
+enum packed {
     PACKED_A, PACKED_B, PACKED_C
 } __attribute__((packed));
 

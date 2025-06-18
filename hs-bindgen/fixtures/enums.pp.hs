@@ -292,11 +292,11 @@ pattern NONSEQ_B = Nonseq 301
 pattern NONSEQ_C :: Nonseq
 pattern NONSEQ_C = Nonseq 404
 
-newtype Packad = Packad
-  { un_Packad :: FC.CUChar
+newtype Packed = Packed
+  { un_Packed :: FC.CUChar
   }
 
-instance F.Storable Packad where
+instance F.Storable Packed where
 
   sizeOf = \_ -> (1 :: Int)
 
@@ -304,26 +304,26 @@ instance F.Storable Packad where
 
   peek =
     \ptr0 ->
-          pure Packad
+          pure Packed
       <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Packad un_Packad2 -> F.pokeByteOff ptr0 (0 :: Int) un_Packad2
+          Packed un_Packed2 -> F.pokeByteOff ptr0 (0 :: Int) un_Packed2
 
-deriving stock instance Eq Packad
+deriving stock instance Eq Packed
 
-deriving stock instance Ord Packad
+deriving stock instance Ord Packed
 
-instance HsBindgen.Runtime.CEnum.CEnum Packad where
+instance HsBindgen.Runtime.CEnum.CEnum Packed where
 
-  type CEnumZ Packad = FC.CUChar
+  type CEnumZ Packed = FC.CUChar
 
-  toCEnum = Packad
+  toCEnum = Packed
 
-  fromCEnum = un_Packad
+  fromCEnum = un_Packed
 
   declaredValues =
     \_ ->
@@ -332,25 +332,25 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
                                                      , (2, Data.List.NonEmpty.singleton "PACKED_C")
                                                      ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Packad"
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Packed"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Packad"
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Packed"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
 
-instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Packed where
 
   minDeclaredValue = PACKED_A
 
   maxDeclaredValue = PACKED_C
 
-instance Show Packad where
+instance Show Packed where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
-instance Read Packad where
+instance Read Packed where
 
   readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
 
@@ -358,14 +358,14 @@ instance Read Packad where
 
   readListPrec = Text.Read.readListPrecDefault
 
-pattern PACKED_A :: Packad
-pattern PACKED_A = Packad 0
+pattern PACKED_A :: Packed
+pattern PACKED_A = Packed 0
 
-pattern PACKED_B :: Packad
-pattern PACKED_B = Packad 1
+pattern PACKED_B :: Packed
+pattern PACKED_B = Packed 1
 
-pattern PACKED_C :: Packad
-pattern PACKED_C = Packad 2
+pattern PACKED_C :: Packed
+pattern PACKED_C = Packed 2
 
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
