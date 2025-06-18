@@ -276,6 +276,7 @@ executable hs-bindgen-dev
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
+    , bytestring
     , contra-tracer
   build-depends:
       -- External dependencies

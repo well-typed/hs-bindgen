@@ -2,6 +2,7 @@ module HsBindgen.App.Dev (
     Dev(..)
   , Mode(..)
   , getDev
+  , BindingSpecMode(..)
   ) where
 
 import Options.Applicative
@@ -36,10 +37,13 @@ data Dev = Dev {
     }
   deriving (Show)
 
-newtype Mode =
+data Mode =
     -- | Just parse the C headers
     ModeParse {
         parseInputPaths :: [CHeaderIncludePath]
+      }
+  | ModeBindingSpec {
+        modeBindingSpec :: BindingSpecMode
       }
   deriving (Show)
 
@@ -62,6 +66,9 @@ parseMode = subparser $ mconcat [
       cmd "parse" parseModeParse $ mconcat [
           progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
         ]
+    , cmd "binding-spec" (ModeBindingSpec <$> parseBindingSpecMode) $ mconcat [
+          progDesc "Binding specification commands"
+        ]
     ]
 
 {-------------------------------------------------------------------------------
@@ -72,3 +79,22 @@ parseModeParse :: Parser Mode
 parseModeParse =
     ModeParse
       <$> some parseInput
+
+{-------------------------------------------------------------------------------
+  Binding spec mode
+-------------------------------------------------------------------------------}
+
+data BindingSpecMode =
+    BindingSpecModeBase
+  | BindingSpecModeRuntime
+  deriving (Show)
+
+parseBindingSpecMode :: Parser BindingSpecMode
+parseBindingSpecMode = subparser $ mconcat [
+      cmd "base" (pure BindingSpecModeBase) $ mconcat [
+          progDesc "Write base external binding specification"
+        ]
+    , cmd "runtime" (pure BindingSpecModeRuntime) $ mconcat [
+          progDesc "Write hs-bindgen-runtime external binding specification"
+        ]
+    ]
