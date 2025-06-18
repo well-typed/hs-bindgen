@@ -22,9 +22,6 @@ import HsBindgen.Language.Haskell
 -------------------------------------------------------------------------------}
 
 -- | NameMangler
---
--- Name mangling depends on information from the binding spec, and must
--- therefore happen after 'ResolveBindingSpec'.
 type NameMangler :: Pass
 data NameMangler a deriving anyclass (ValidPass)
 

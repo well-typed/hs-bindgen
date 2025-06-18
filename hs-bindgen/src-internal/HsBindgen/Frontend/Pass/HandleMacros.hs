@@ -34,21 +34,6 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 -- | Sort and typecheck macros, and reparse declarations
---
--- The macro parser needs to know which things are in scope (other macros as
--- well as typedefs), so we must process declarations in the right order; that
--- is, 'handleMacros' must be done after sorting the declarations.
---
--- In principle it could run before or after renaming: macros can neither refer
--- to nor introduce new anonymous declarations, so the relative ordering of
--- these two passes does not really matter. However, as part of renaming we
--- replace typedefs around anonymous structs by named structs:
---
--- > typedef struct { .. fields .. } foo;
---
--- On the C side however @foo@ must be referred to as @foo@, not @struct foo@;
--- to avoid confusion, it is therefore cleaner to run macro parsing and
--- declaration reparsing /prior/ to this transformation.
 handleMacros ::
       C.TranslationUnit Sort
   -> (C.TranslationUnit HandleMacros, [MacroError])
