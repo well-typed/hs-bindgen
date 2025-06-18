@@ -1,0 +1,333 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:8:8",
+        declId = NamePair {
+          nameC = CName "S",
+          nameHsIdent = HsIdentifier
+            "S"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "S"),
+          structSizeof = 8,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "type_attributes.h:8:18",
+              structFieldName = NamePair {
+                nameC = CName "f",
+                nameHsIdent = HsIdentifier
+                  "s_f"},
+              structFieldType = TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimShort
+                    Signed)),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:9:13",
+        declId = NamePair {
+          nameC = CName
+            "more_aligned_int",
+          nameHsIdent = HsIdentifier
+            "More_aligned_int"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "More_aligned_int",
+            newtypeField = HsName
+              "@NsVar"
+              "un_More_aligned_int"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:11:8",
+        declId = NamePair {
+          nameC = CName "S2",
+          nameHsIdent = HsIdentifier
+            "S2"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "S2"),
+          structSizeof = 16,
+          structAlignment = 16,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "type_attributes.h:11:19",
+              structFieldName = NamePair {
+                nameC = CName "f",
+                nameHsIdent = HsIdentifier
+                  "s2_f"},
+              structFieldType = TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimShort
+                    Signed)),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:13:8",
+        declId = NamePair {
+          nameC = CName
+            "my_unpacked_struct",
+          nameHsIdent = HsIdentifier
+            "My_unpacked_struct"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "My_unpacked_struct"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "type_attributes.h:15:8",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "my_unpacked_struct_c"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "type_attributes.h:16:7",
+              structFieldName = NamePair {
+                nameC = CName "i",
+                nameHsIdent = HsIdentifier
+                  "my_unpacked_struct_i"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:19:37",
+        declId = NamePair {
+          nameC = CName
+            "my_packed_struct",
+          nameHsIdent = HsIdentifier
+            "My_packed_struct"}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "My_packed_struct"),
+          structSizeof = 13,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "type_attributes.h:21:9",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "my_packed_struct_c"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "type_attributes.h:22:9",
+              structFieldName = NamePair {
+                nameC = CName "i",
+                nameHsIdent = HsIdentifier
+                  "my_packed_struct_i"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "type_attributes.h:23:30",
+              structFieldName = NamePair {
+                nameC = CName "s",
+                nameHsIdent = HsIdentifier
+                  "my_packed_struct_s"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName
+                    "my_unpacked_struct",
+                  nameHsIdent = HsIdentifier
+                    "My_unpacked_struct"},
+              structFieldOffset = 40,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:29:9",
+        declId = NamePair {
+          nameC = CName "wait",
+          nameHsIdent = HsIdentifier
+            "Wait"}},
+      declKind = DeclUnionOpaque,
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:26:9",
+        declId = NamePair {
+          nameC = CName
+            "wait_status_ptr_t",
+          nameHsIdent = HsIdentifier
+            "Wait_status_ptr_t"}},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Wait_status_ptr_t",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Wait_status_ptr_t"},
+          unionSizeof = 8,
+          unionAlignment = 8,
+          unionFields = [
+            UnionField {
+              unionFieldLoc =
+              "type_attributes.h:28:8",
+              unionFieldName = NamePair {
+                nameC = CName "__ip",
+                nameHsIdent = HsIdentifier
+                  "wait_status_ptr_t___ip"},
+              unionFieldType = TypePointer
+                (TypePrim
+                  (PrimIntegral PrimInt Signed))},
+            UnionField {
+              unionFieldLoc =
+              "type_attributes.h:29:15",
+              unionFieldName = NamePair {
+                nameC = CName "__up",
+                nameHsIdent = HsIdentifier
+                  "wait_status_ptr_t___up"},
+              unionFieldType = TypePointer
+                (TypeUnion
+                  NamePair {
+                    nameC = CName "wait",
+                    nameHsIdent = HsIdentifier
+                      "Wait"})}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:32:13",
+        declId = NamePair {
+          nameC = CName "T1",
+          nameHsIdent = HsIdentifier
+            "T1"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "T1",
+            newtypeField = HsName
+              "@NsVar"
+              "un_T1"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:34:46",
+        declId = NamePair {
+          nameC = CName "short_a",
+          nameHsIdent = HsIdentifier
+            "Short_a"}},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Short_a",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Short_a"},
+          typedefType = TypePrim
+            (PrimIntegral
+              PrimShort
+              Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["type_attributes"]}

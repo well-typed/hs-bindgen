@@ -1,0 +1,6 @@
+DataKinds
+StandaloneDeriving
+DerivingStrategies
+DerivingVia
+EmptyDataDecls
+GeneralizedNewtypeDeriving
