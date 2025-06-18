@@ -161,6 +161,8 @@ popUntil runInIO someStack newParent = do
 --
 -- * visitors can return results
 -- * we can specify different visitors at different levels of the AST
+--
+-- See also 'clang_getTranslationUnitCursor'.
 clang_visitChildren :: forall m a.
      MonadUnliftIO m
   => CXCursor -> Fold m a -> m [a]

@@ -17,10 +17,6 @@ import GHC.Ptr (Ptr(..))
 {-------------------------------------------------------------------------------
   Translation to bytestrings
 
-  TODO: <https://github.com/well-typed/hs-bindgen/issues/87>
-  It seems @libclang@ exclusively uses UTF-8 internally, but would be good to
-  find an authoritative reference to confirm this.
-
   TODO: <https://github.com/well-typed/hs-bindgen/issues/96>
   We could consider trying to deduplicate.
 -------------------------------------------------------------------------------}

@@ -299,7 +299,7 @@ clangWithTranslationUnit ::
 clangWithTranslationUnit userClangArgs srcContents k =
   Clang.withIndex Clang.DontDisplayDiagnostics $ \index ->
     Clang.withUnsavedFile headerName srcContents $ \unsavedFile ->
-      Clang.withTranslationUnit index src args [unsavedFile] opts k
+      Clang.withTranslationUnit index (Just src) args [unsavedFile] opts k
   where
     headerName :: FilePath
     headerName = "src.c"

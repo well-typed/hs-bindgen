@@ -56,7 +56,7 @@ clangAstDump opts@Options{..} = do
       withExtraClangArgs tracer cArgs $ \cArgs' -> do
         src <- resolveHeader tracer cArgs' optFile
         HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-          HighLevel.withTranslationUnit index src cArgs' [] cOpts $ \unit -> do
+          HighLevel.withTranslationUnit index (Just src) cArgs' [] cOpts $ \unit -> do
             rootCursor <- clang_getTranslationUnitCursor unit
             void . HighLevel.clang_visitChildren rootCursor $ \cursor -> do
               loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor

@@ -79,22 +79,21 @@ parseCHeaders ::
 parseCHeaders tracer args predicate extSpec mainFiles =
   withExtraClangArgs (useTrace TraceExtraClangArgs tracer) args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withUnsavedFile hFilePath hContent $ \file ->
-        HighLevel.withTranslationUnit2 index RootHeader.name args' [file] opts $
-          \case
-            Left err -> throwIO $ ParseCHeadersUnknownError err
-            Right unit -> do
-              (errors, warnings) <- List.partition diagnosticIsError
-                <$> HighLevel.clang_getDiagnostics unit Nothing
-              unless (null errors) $ throwIO (getError errors)
-              forM_ warnings $ traceWithCallStack
-                                 (useTrace TraceDiagnostic tracer)
-              processTranslationUnit
-                (useTrace TraceFrontend tracer)
-                extSpec
-                rootHeader
-                predicate
-                unit
+      HighLevel.withUnsavedFile hFilePath hContent $ \file -> do
+        let onFailure :: SimpleEnum CXErrorCode -> IO a
+            onFailure err = throwIO $ ParseCHeadersUnknownError err
+        HighLevel.withTranslationUnit2 index (Just RootHeader.name) args' [file] opts onFailure $ \unit -> do
+          (errors, warnings) <- List.partition diagnosticIsError
+            <$> HighLevel.clang_getDiagnostics unit Nothing
+          unless (null errors) $ throwIO (getError errors)
+          forM_ warnings $ traceWithCallStack
+                             (useTrace TraceDiagnostic tracer)
+          processTranslationUnit
+            (useTrace TraceFrontend tracer)
+            extSpec
+            rootHeader
+            predicate
+            unit
   where
     rootHeader :: RootHeader
     rootHeader = RootHeader.fromMainFiles mainFiles
@@ -135,17 +134,16 @@ getTargetTriple ::
 getTargetTriple tracer args =
   withExtraClangArgs tracer args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withUnsavedFile hName hContent $ \file ->
-        HighLevel.withTranslationUnit2 index hPath args' [file] opts $
-          \case
-            Left err -> panicPure $
-              "Clang parse translation unit error while getting target triple: "
+      HighLevel.withUnsavedFile hName hContent $ \file -> do
+        let onFailure :: SimpleEnum CXErrorCode -> IO Text
+            onFailure err = panicPure $
+                   "Clang parse translation unit error while getting target triple: "
                 ++ show err
-            Right unit ->
-              bracket
-                (clang_getTranslationUnitTargetInfo unit)
-                clang_TargetInfo_dispose
-                clang_TargetInfo_getTriple
+        HighLevel.withTranslationUnit2 index (Just hPath) args' [file] opts onFailure $ \unit ->
+          bracket
+            (clang_getTranslationUnitTargetInfo unit)
+            clang_TargetInfo_dispose
+            clang_TargetInfo_getTriple
   where
     hName :: FilePath
     hName = "hs-bindgen-triple.h"
@@ -158,3 +156,4 @@ getTargetTriple tracer args =
 
     opts :: BitfieldEnum CXTranslationUnit_Flags
     opts = bitfieldEnum []
+

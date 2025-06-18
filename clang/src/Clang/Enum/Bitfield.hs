@@ -53,6 +53,16 @@ class Typeable hs => IsSingleFlag hs where
 newtype BitfieldEnum hs = BitfieldEnum CUInt
   deriving stock (Eq, Ord, Generic)
 
+-- | 'Semigroup' instance corresponds to set union
+instance Semigroup (BitfieldEnum hs) where
+  BitfieldEnum a <> BitfieldEnum b = BitfieldEnum (a .|. b)
+
+-- | 'Monoid' instance corresponds to set union
+--
+-- This means that the neutral element 'mempty' is the empty set.
+instance Monoid (BitfieldEnum hs) where
+  mempty = BitfieldEnum 0
+
 {-------------------------------------------------------------------------------
   Showing values
 -------------------------------------------------------------------------------}

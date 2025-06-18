@@ -26,7 +26,7 @@ tutorial fp = do
     index  <- clang_createIndex DontDisplayDiagnostics
     unit   <- clang_parseTranslationUnit
                 index
-                (SourcePath (Text.pack fp))
+                (Just $ SourcePath (Text.pack fp))
                 def
                 []
                 (bitfieldEnum [CXTranslationUnit_None])

@@ -144,3 +144,25 @@ test-suite clang-tutorial
       -- Inherited dependencies
     , data-default
     , text
+
+test-suite test-clang-bindings
+  import:         lang
+  type:           exitcode-stdio-1.0
+  main-is:        test-clang-bindings.hs
+  hs-source-dirs: test
+
+  other-modules:
+      TestClangBindings.Traversal
+
+  build-depends:
+      -- Internal dependencies
+    , clang
+  build-depends:
+      -- Inherited dependencies
+    , data-default
+  build-depends:
+      -- New dependencies
+    , containers  >= 0.6  && < 0.8
+    , tasty       >= 1.5  && < 1.6
+    , tasty-hunit >= 0.10 && < 0.11
+

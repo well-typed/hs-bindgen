@@ -634,22 +634,18 @@ foreign import capi "clang_wrappers.h wrap_TargetInfo_getTriple"
 --
 -- Throws 'CallFailed' in case of an error.
 --
--- /NOTE/: We omit the argument for unsaved files; we have no plans for
--- supporting a workflow where the C headers are being edited, and the bindings
--- dynamically updated.
---
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga2baf83f8c3299788234c8bce55e4472e>
 clang_parseTranslationUnit ::
      (MonadIO m, HasCallStack)
   => CXIndex                               -- ^ @CIdx@
-  -> SourcePath                            -- ^ @source_filename@
+  -> Maybe SourcePath                      -- ^ @source_filename@
   -> ClangArgs                             -- ^ @command_line_args@
-  -> [CXUnsavedFile]
+  -> [CXUnsavedFile]                       -- ^ @unsaved_files@
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> m CXTranslationUnit
 clang_parseTranslationUnit cIdx src args unsavedFiles options = liftIO $ do
     args' <- either callFailed return $ fromClangArgs args
-    withCString (getSourcePath src) $ \src' ->
+    withOptCString (getSourcePath <$> src) $ \src' ->
       withCStrings args' $ \args'' numArgs ->
         withArrayOrNull unsavedFiles $ \unsavedFiles' numUnsavedFiles ->
           ensureNotNull $
@@ -674,15 +670,33 @@ clang_parseTranslationUnit cIdx src args unsavedFiles options = liftIO $ do
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga494de0e725c5ae40cbdea5fa6081027d>
 clang_parseTranslationUnit2 ::
      (MonadIO m, HasCallStack)
-  => CXIndex                               -- ^ @CIdx@
-  -> SourcePath                            -- ^ @source_filename@
-  -> ClangArgs                             -- ^ @command_line_args@
+  => CXIndex
+     -- ^ The index object with which the translation unit will be associated.
+  -> Maybe SourcePath
+     -- ^ The name of the source file to load, or 'Nothing' if the source file
+     -- is included in @command_line_args@.
+  -> ClangArgs
+     -- ^ The command-line arguments that would be passed to the clang
+     -- executable if it were being invoked out-of-process.
+     --
+     -- These command-line options will be parsed and will affect how the
+     -- translation unit is parsed. Note that the following options are ignored:
+     -- @'-c'@, @'-emit-ast'@, @'-fsyntax-only'@ (which is the default), and
+     -- @'-o <output file>'@.
   -> [CXUnsavedFile]
-  -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
+     -- ^ The files that have not yet been saved to disk but may be required for
+     -- parsing, including the contents of those files.
+     --
+     -- The contents and name of these files (as specified by CXUnsavedFile) are
+     -- copied when necessary, so the client only needs to guarantee their
+     -- validity until the call to this function returns.
+  -> BitfieldEnum CXTranslationUnit_Flags
+     -- ^ Options that affects how the translation unit is managed but not its
+     -- compilation.
   -> m (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
 clang_parseTranslationUnit2 cIdx src args unsavedFiles options = liftIO $ do
     args' <- either callFailed return $ fromClangArgs args
-    withCString (getSourcePath src) $ \src' ->
+    withOptCString (getSourcePath <$> src) $ \src' ->
       withCStrings args' $ \args'' numArgs ->
         withArrayOrNull unsavedFiles $ \unsavedFiles' numUnsavedFiles ->
           alloca $ \outPtr -> do
