@@ -57,12 +57,15 @@ import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 data TranslationUnit p = TranslationUnit{
       -- | Declarations in the unit
       --
-      -- This includes all declarations from all headers that we have processed,
-      -- except
+      -- Declarations from all headers that we have processed. Passes may remove
+      -- some declarations. For example,
       --
-      -- * declarations that were filtered out by a selection predicate
-      -- * declarations for which we have existing external bindings
-      -- * declarations that were filtered out by a binding specification
+      -- * The 'Parse' pass filters out declarations not matching the selection
+      --   predicate.
+      --
+      -- * The 'ResolveBindingSpec' pass removes declarations for which we have
+      --   existing external bindings, as well as declarations omitted by a
+      --   configuration binding specification.
       unitDecls :: [Decl p]
 
       -- | Include graph
