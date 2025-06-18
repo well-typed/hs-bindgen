@@ -11,11 +11,11 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Frontend (FrontendTrace (..))
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError(Redeclaration))
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (Redeclaration))
 import HsBindgen.Frontend.Pass.MangleNames (MangleError (MissingDeclaration))
 import HsBindgen.Frontend.Pass.Parse.IsPass (ParseTrace (..))
-import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException(..))
-import HsBindgen.Frontend.Pass.Sort (SortError(..))
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
+import HsBindgen.Frontend.Pass.Sort (SortError (..))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Lib
@@ -53,7 +53,7 @@ main = do
 tests :: FilePath -> IO AnsiColor -> IO FilePath -> TestTree
 tests packageRoot getAnsiColor getRustBindgen =
   testGroup "test-internal" [
-      Test.HsBindgen.C.Parser.tests getAnsiColor args
+      Test.HsBindgen.C.Parser.tests getAnsiColor (argsWith [])
     , Test.HsBindgen.Clang.Args.tests getAnsiColor
     , Test.HsBindgen.Util.Tracer.tests
     , testGroup "examples/golden" $ map golden [
@@ -133,8 +133,8 @@ tests packageRoot getAnsiColor getRustBindgen =
         ]
     ]
   where
-    args :: ClangArgs
-    args = clangArgs packageRoot
+    argsWith :: [FilePath] -> ClangArgs
+    argsWith includeDirs = getClangArgs packageRoot includeDirs
 
     golden :: TestName -> TestTree
     golden name =
@@ -214,11 +214,11 @@ tests packageRoot getAnsiColor getRustBindgen =
     mkHeaderIncludePath :: String -> CHeaderIncludePath
     mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
 
-    withOpts :: (String -> IO ()) -> (Pipeline.Opts -> IO a) -> IO a
+    withOpts :: (String -> IO ()) -> (Opts -> IO a) -> IO a
     withOpts report action = withTracerTestCustom report getAnsiColor $
-        \tracer' -> action $ (def :: Pipeline.Opts) {
-            Pipeline.optsClangArgs = clangArgs packageRoot
-          , Pipeline.optsTracer = tracer'
+        \tracer' -> action $ (def :: Opts) {
+            optsClangArgs = argsWith [ "examples/golden", "examples/golden-norust" ]
+          , optsTracer = tracer'
           }
 
     ppOpts :: Pipeline.PPOpts
@@ -232,7 +232,7 @@ tests packageRoot getAnsiColor getRustBindgen =
              let headerIncludePath = mkHeaderIncludePath name
                  opts :: Opts
                  opts = def {
-                     optsClangArgs = clangArgs packageRoot
+                     optsClangArgs = getClangArgs packageRoot [ "examples/failing" ]
                    , optsTracer = tracer
                    }
              Pipeline.translateCHeaders "failWithTraceTest" opts [headerIncludePath]

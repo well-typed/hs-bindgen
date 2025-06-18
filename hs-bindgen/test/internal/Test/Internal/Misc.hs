@@ -2,7 +2,7 @@
 module Test.Internal.Misc (
     goldenVsStringDiff_,
     findPackageDirectory,
-    clangArgs,
+    getClangArgs,
 ) where
 
 import Data.ByteString qualified as BS
@@ -66,17 +66,13 @@ findPackageDirectory pkgname = do
 -- default ClangArgs used in tests
 -------------------------------------------------------------------------------
 
-clangArgs :: FilePath -> ClangArgs
-clangArgs packageRoot = def {
+getClangArgs :: FilePath -> [FilePath] -> ClangArgs
+getClangArgs packageRoot extraIncludeDirs = def {
       clangTarget = Just (Target_Linux_X86_64, TargetEnvOverride "gnu")
     , clangCStandard = Just C23
     , clangSystemIncludePathDirs = [
           CIncludePathDir (packageRoot </> "musl-include/x86_64")
         ]
-    , clangQuoteIncludePathDirs = [
-          CIncludePathDir (packageRoot </> "examples/golden")
-        , CIncludePathDir (packageRoot </> "examples/golden-norust")
-          -- TODO (#722): Remove 'failing' from include paths.
-        , CIncludePathDir (packageRoot </> "examples/failing")
-        ]
+    , clangQuoteIncludePathDirs =
+        map (CIncludePathDir . (</>) packageRoot) extraIncludeDirs
     }

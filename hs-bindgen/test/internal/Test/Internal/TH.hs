@@ -29,8 +29,11 @@ goldenTh getAnsiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </
       let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
           opts :: Pipeline.Opts
           opts = def {
-              Pipeline.optsClangArgs  = clangArgs packageRoot
-            , Pipeline.optsTracer = tracer
+              Pipeline.optsClangArgs = getClangArgs packageRoot [
+                  "examples/golden"
+                , "examples/golden-norust"
+                ]
+            , Pipeline.optsTracer    = tracer
             }
       unit <- Pipeline.parseCHeaders opts [headerIncludePath]
 
