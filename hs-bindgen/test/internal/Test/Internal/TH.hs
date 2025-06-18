@@ -19,11 +19,15 @@ import HsBindgen.Guasi
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
-import Test.Internal.Tracer (withTracerTestCustom)
+import Test.Internal.Tracer (TracePredicate, withTracePredicate)
 
-goldenTh :: HasCallStack => IO AnsiColor -> FilePath -> TestName -> TestTree
-goldenTh getAnsiColor packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
-    withTracerTestCustom report getAnsiColor $ \tracer -> do
+goldenTh :: HasCallStack
+  => FilePath
+  -> TestName
+  -> TracePredicate Trace
+  -> TestTree
+goldenTh packageRoot name predicate = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \_ -> do
+    withTracePredicate predicate $ \tracer -> do
       -- -<.> does weird stuff for filenames with multiple dots;
       -- I usually simply avoid using it.
       let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"

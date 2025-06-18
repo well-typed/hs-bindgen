@@ -212,6 +212,12 @@ data TraceWithCallStack a = TraceWithCallStack { tTrace     :: a
                                                , tCallStack :: CallStack }
   deriving stock (Show)
 
+instance PrettyTrace a => PrettyTrace (TraceWithCallStack a) where
+  prettyTrace = prettyTrace . tTrace
+
+instance HasDefaultLogLevel a => HasDefaultLogLevel (TraceWithCallStack a) where
+  getDefaultLogLevel = getDefaultLogLevel . tTrace
+
 instance Functor TraceWithCallStack where
   fmap f trace = trace { tTrace = f (tTrace trace) }
 

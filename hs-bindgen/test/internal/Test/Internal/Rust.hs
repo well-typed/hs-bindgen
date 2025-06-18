@@ -2,6 +2,7 @@
 -- | Separate module for running Rust's @bindgen@ (as comparison) tests.
 module Test.Internal.Rust (
     goldenRust,
+    rustExpectPanic,
     withRustBindgen,
 ) where
 
@@ -18,7 +19,11 @@ withRustBindgen :: (IO FilePath -> TestTree) -> TestTree
 withRustBindgen k = k (return "")
 
 goldenRust :: IO FilePath -> TestName -> TestTree
-goldenRust _bindgen name = testCase name $ do
+goldenRust _bindgen _name = testCase "rust" $ do
+    return () -- do nothing on non-linux systems.
+
+rustExpectPanic :: IO FilePath -> TestName -> TestTree
+rustExpectPanic _bindgen _name = testCase "rust-panic" $ do
     return () -- do nothing on non-linux systems.
 
 #else
@@ -26,7 +31,7 @@ goldenRust _bindgen name = testCase name $ do
 -- https://github.com/rust-lang/rust-bindgen/releases/tag/v0.70.1
 -- https://github.com/rust-lang/rustfmt/releases/tag/v1.6.0
 
-import Control.Monad (unless)
+import Control.Monad (when)
 import System.FilePath ((</>), takeDirectory)
 import Test.Tasty (TestTree, TestName, withResource)
 import Control.Exception (catch, IOException)
@@ -37,6 +42,7 @@ import System.Process qualified as P
 import System.Exit (ExitCode (..))
 
 import Test.Internal.Misc
+import Test.Tasty.HUnit (testCase, assertBool, (@?=))
 
 -- | The golden tests are tied to a specific version of @rust-bindgen@.
 rustBindgenVersion :: String
@@ -92,18 +98,36 @@ ignoringIOErrors ioe = ioe `catch` h
     h :: IOException -> IO ()
     h _ = return ()
 
+callRust :: IO FilePath -> FilePath -> IO (ExitCode, String, String)
+callRust getRustBindgenCmd filePath = do
+    bindgen <- getRustBindgenCmd
+    readProcessWithExitCode bindgen args ""
+    -- We use `--formatter=prettyplease`, as we don't necessarily have the Rust
+    -- toolchain installed.
+  where args = [ "--formatter=prettyplease"
+               , "--allowlist-file=" ++ filePath
+               , filePath]
+
+
 -- | bindgen --allowlist-file=hs-bindgen/examples/golden/fixedwidth.h hs-bindgen/examples/golden/fixedwidth.h
 goldenRust :: IO FilePath -> TestName -> TestTree
 goldenRust gb name =  goldenVsStringDiff_ "rust" ("fixtures" </> (name ++ ".rs")) $ \report -> do
-    -- package root is not used as we don't specify the location of stdlib
+    -- The package root is not used as we don't specify the location of
+    -- `stdlib`.
     let fp = "examples" </> "golden" </> (name ++ ".h")
+    (exitCode, contents, err) <- callRust gb fp
+    -- Report errors when bindgen failed.
+    when (exitCode /= ExitSuccess) $ do
+      report $ "Exit code: " <> show exitCode
+      report $ "stderr: " <> err
+    exitCode @?= ExitSuccess
+    pure contents
 
-    bindgen <- gb
-
-    -- we use --formatter=prettyplease, as we don't necessarily have rust toolchain installed
-    (_ec, contents, err) <- readProcessWithExitCode bindgen ["--formatter=prettyplease", "--allowlist-file=" ++ fp, fp] ""
-    unless (null err) $ report err
-
-    return contents
+rustExpectPanic :: IO FilePath -> TestName -> TestTree
+rustExpectPanic gb name = testCase "rust-panic" $ do
+    let fp = "examples" </> "golden-norust" </> (name ++ ".h")
+    (errorCode, _, _) <- callRust gb fp
+    assertBool "expected rust-bindgen to fail" $ errorCode /= ExitSuccess
+  where
 
 #endif
