@@ -57,7 +57,7 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
             filter isLetter (hsModuleOptsName preprocessModuleOpts)
       hsDecls <- translateCHeaders mu opts preprocessInputs
       preprocessIO ppOpts preprocessOutput hsDecls
-      case preprocessGenExtBindings of
+      case preprocessGenBindingSpec of
         Nothing   -> return ()
         Just path -> genExtBindings opts ppOpts preprocessInputs path hsDecls
 

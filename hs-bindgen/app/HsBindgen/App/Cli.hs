@@ -48,7 +48,7 @@ data Mode =
       , preprocessModuleOpts      :: HsModuleOpts
       , preprocessRenderOpts      :: HsRenderOpts
       , preprocessOutput          :: Maybe FilePath
-      , preprocessGenExtBindings  :: Maybe FilePath
+      , preprocessGenBindingSpec  :: Maybe FilePath
       , preprocessInputs          :: [CHeaderIncludePath]
       }
     -- | Generate tests for generated Haskell code
@@ -120,7 +120,7 @@ parseModePreprocess =
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseOutput
-      <*> optional parseGenExtBindings
+      <*> optional parseGenBindingSpec
       <*> some parseInput
 
 parseModeGenTests :: Parser Mode
@@ -191,12 +191,12 @@ parseGenTestsOutput =
       , value "test-hs-bindgen"
       ]
 
-parseGenExtBindings :: Parser FilePath
-parseGenExtBindings =
+parseGenBindingSpec :: Parser FilePath
+parseGenBindingSpec =
     strOption $ mconcat [
-        help "External bindings configuration to generate"
+        help "Binding specification to generate"
       , metavar "PATH"
-      , long "gen-external-bindings"
+      , long "gen-binding-spec"
       ]
 
 {-------------------------------------------------------------------------------
