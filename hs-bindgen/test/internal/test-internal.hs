@@ -88,6 +88,7 @@ tests packageRoot getAnsiColor getRustBindgen =
         , "simple_func"
         , "simple_structs"
         , "struct_arg"
+        , "type_attributes"
         , "type_naturals"
         , "typedef_vs_macro"
         , "typedefs"
