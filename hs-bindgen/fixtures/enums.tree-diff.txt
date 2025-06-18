@@ -190,18 +190,18 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "enums.h:26:6",
         declId = NamePair {
-          nameC = CName "packad",
+          nameC = CName "packed",
           nameHsIdent = HsIdentifier
-            "Packad"}},
+            "Packed"}},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
             newtypeConstr = HsName
               "@NsConstr"
-              "Packad",
+              "Packed",
             newtypeField = HsName
               "@NsVar"
-              "un_Packad"},
+              "un_Packed"},
           enumType = TypePrim
             (PrimChar
               (PrimSignExplicit Unsigned)),

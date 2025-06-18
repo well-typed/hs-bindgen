@@ -11,11 +11,11 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Frontend (FrontendTrace (..))
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError(Redeclaration))
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (Redeclaration))
 import HsBindgen.Frontend.Pass.MangleNames (MangleError (MissingDeclaration))
 import HsBindgen.Frontend.Pass.Parse.IsPass (ParseTrace (..))
-import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException(..))
-import HsBindgen.Frontend.Pass.Sort (SortError(..))
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
+import HsBindgen.Frontend.Pass.Sort (SortError (..))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Lib
@@ -73,6 +73,7 @@ tests packageRoot getAnsiColor getRustBindgen =
         , "macro_in_fundecl_vs_typedef"
         , "macro_in_fundecl"
         , "macro_typedef_scope"
+        , "macro_typedef_struct"
         , "macro_types"
         , "macros"
         , "manual_examples"

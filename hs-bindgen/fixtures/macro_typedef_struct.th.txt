@@ -1,0 +1,25 @@
+-- addDependentFile examples/golden/macro_typedef_struct.h
+newtype MY_TYPE = MY_TYPE {un_MY_TYPE :: CInt}
+deriving newtype instance Storable MY_TYPE
+deriving stock instance Eq MY_TYPE
+deriving stock instance Ord MY_TYPE
+deriving stock instance Read MY_TYPE
+deriving stock instance Show MY_TYPE
+deriving newtype instance Enum MY_TYPE
+deriving newtype instance Ix MY_TYPE
+deriving newtype instance Bounded MY_TYPE
+deriving newtype instance Bits MY_TYPE
+deriving newtype instance FiniteBits MY_TYPE
+deriving newtype instance Integral MY_TYPE
+deriving newtype instance Num MY_TYPE
+deriving newtype instance Real MY_TYPE
+data Bar = Bar {bar_x :: CInt, bar_y :: MY_TYPE}
+instance Storable Bar
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Bar bar_x_3
+                                         bar_y_4 -> pokeByteOff ptr_1 (0 :: Int) bar_x_3 >> pokeByteOff ptr_1 (4 :: Int) bar_y_4}}
+deriving stock instance Show Bar
+deriving stock instance Eq Bar

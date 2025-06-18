@@ -205,8 +205,20 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
     case typedefAnn of
       ReparseNotNeeded ->
         withoutReparse
-      ReparseNeeded tokens ->
-        reparseWith reparseTypedef tokens withoutReparse withReparse
+      -- HACK: If the @typedef@ refers to a @enum@ or a @struct@, we do not
+      -- reparse the complete declaration, which will fail due to
+      --
+      -- "unsupported member declaration list in struct specifier", or
+      -- "unsupported enumerator list in enum specifier".
+      --
+      -- Instead, we defer the reparse to the @enumerator@ or @field@, which is
+      -- also labeled as 'ReparseNeeded'.
+      --
+      -- See https://github.com/well-typed/hs-bindgen/issues/707.
+      ReparseNeeded tokens -> case typedefType of
+        C.TypeEnum _   -> withoutReparse
+        C.TypeStruct _ -> withoutReparse
+        _otherwise     -> reparseWith reparseTypedef tokens withoutReparse withReparse
   where
     name :: CName
     name = case C.declId info of
