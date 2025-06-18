@@ -1,8 +1,14 @@
 types:
-- headers: 
-  - game_world.h
-  - game_player.h
+- headers: game_internal.h
   cname: game_state
-  package: hs-game
   module: Game.State
   identifier: Game_state
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: game_internal.h
+  cname: struct game_state_details
+  module: Game.State
+  identifier: Game_state_details

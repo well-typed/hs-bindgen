@@ -44,7 +44,6 @@ cabal run hs-bindgen-cli -- \
     -I c \
     -o hs/hs-vector/generated/Vector/Length.hs \
     --external-bindings external/vector.yaml \
-    --external-bindings external/length.yaml \
     --select-all \
     --module Vector.Length \
     vector_length.h
@@ -55,6 +54,7 @@ cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-game/generated/Game/State.hs \
+    --gen-external-bindings external/game.yaml \
     --module Game.State \
     game_internal.h
 
