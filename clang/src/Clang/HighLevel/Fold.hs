@@ -3,9 +3,11 @@
 -- Intended for unqualified import.
 module Clang.HighLevel.Fold (
     -- * Folds
-    Fold
+    Fold -- opaque
   , Next(..)
     -- * Construction
+  , simpleFold
+  , runFold
   , continueWith
   , recursePure
     -- * Execution
@@ -34,7 +36,17 @@ import Clang.LowLevel.Core qualified as Core
 --   function
 --
 -- This provides for a much nicer user experience.
-type Fold m a = CXCursor -> m (Next m a)
+data Fold m a = Fold{
+      getNext :: CXCursor -> m (Next m a)
+    }
+
+-- | Construct simple fold
+simpleFold :: (CXCursor -> m (Next m a)) -> Fold m a
+simpleFold = Fold
+
+-- | Run 'Fold'
+runFold :: Fold m a -> (CXCursor -> m (Next m a))
+runFold Fold{getNext} = getNext
 
 -- | Result of visiting one node
 --
@@ -68,8 +80,13 @@ instance Functor m => Functor (Next m) where
   fmap f (Continue x)  = Continue (fmap f x)
   fmap f (Recurse r g) = Recurse r (fmap (fmap f) . g)
 
+instance Functor m => Functor (Fold m) where
+  fmap f Fold{getNext} = Fold{
+        getNext = \curr -> fmap f <$> getNext curr
+      }
+
 continueWith :: Applicative m => Maybe a -> Fold m a
-continueWith x = \_curr -> pure (Continue x)
+continueWith x = simpleFold $ \_curr -> pure (Continue x)
 
 recursePure :: Applicative m => Fold m b -> ([b] -> Maybe a) -> Next m a
 recursePure r f = Recurse r (pure . f)
@@ -189,7 +206,7 @@ clang_visitChildren root topLevelFold = withRunInIO $ \runInIO -> do
         popUntil runInIO someStack parent
         SomeStack stack <- readIORef someStack
         let p = topProcessing stack
-        next <- runInIO $ currentFold p current
+        next <- runInIO $ runFold (currentFold p) current
         case next of
           Break ma -> do
             forM_ ma $ modifyIORef (partialResults p) . (:)

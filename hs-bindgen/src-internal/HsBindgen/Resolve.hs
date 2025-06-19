@@ -76,8 +76,8 @@ resolveHeader' tracer args headerIncludePath =
             .   listToMaybe
             <$> HighLevel.clang_visitChildren rootCursor visit
   where
-    visit :: CXCursor -> IO (Next IO SourcePath)
-    visit cursor = either return return <=< runExceptT $ do
+    visit :: Fold IO SourcePath
+    visit = simpleFold $ \cursor -> either return return <=< runExceptT $ do
       srcPath <-
             fmap singleLocPath . HighLevel.clang_getExpansionLocation
         =<< clang_getCursorLocation cursor

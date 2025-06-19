@@ -107,7 +107,7 @@ processIncludes ::
   -> IO (IncludeGraph, IsMainFile, GetMainHeader)
 processIncludes rootHeader unit = do
     root     <- clang_getTranslationUnitCursor unit
-    includes <- HighLevel.clang_visitChildren root $ \curr -> do
+    includes <- HighLevel.clang_visitChildren root $ simpleFold $ \curr -> do
                   mKind <- fromSimpleEnum <$> clang_getCursorKind curr
                   case mKind of
                     Right CXCursor_InclusionDirective ->
