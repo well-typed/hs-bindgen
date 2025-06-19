@@ -165,7 +165,7 @@ getExpansionTypeMapping clangArgs tys =
   where
 
     getCanonicalType :: Maybe Int -> Clang.Fold IO ( CType, Clang.CXType )
-    getCanonicalType inTestFunDecl cursor = do
+    getCanonicalType inTestFunDecl = Clang.simpleFold $ \cursor -> do
       loc <- liftIO $ Clang.clang_getCursorLocation cursor
       inMain <- liftIO $ Clang.clang_Location_isFromMainFile loc
       if not inMain
@@ -260,8 +260,8 @@ queryClangForResultType clangArgs tys op =
         ]
       ]
 
-    extractType :: ( Bool, Bool ) -> Clang.CXCursor -> IO ( Clang.Next IO CType )
-    extractType ( inTestFunDecl, inCast ) cursor = do
+    extractType :: ( Bool, Bool ) -> Clang.Fold IO CType
+    extractType ( inTestFunDecl, inCast ) = Clang.simpleFold $ \cursor -> do
       loc <- Clang.clang_getCursorLocation cursor
       inMain <- Clang.clang_Location_isFromMainFile loc
       if not inMain

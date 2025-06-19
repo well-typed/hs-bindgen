@@ -40,7 +40,7 @@ testGetAST test expected =
       assertEqual "" expected $ result
   where
     astShape :: Fold IO (Tree (SimpleEnum CXCursorKind))
-    astShape curr = do
+    astShape = simpleFold $ \curr -> do
         kind <- clang_getCursorKind curr
         return $ Recurse astShape (return . Just . Node kind)
 

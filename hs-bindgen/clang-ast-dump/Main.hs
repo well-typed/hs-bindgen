@@ -58,13 +58,13 @@ clangAstDump opts@Options{..} = do
         HighLevel.withIndex DontDisplayDiagnostics $ \index ->
           HighLevel.withTranslationUnit index (Just src) cArgs' [] cOpts $ \unit -> do
             rootCursor <- clang_getTranslationUnitCursor unit
-            void . HighLevel.clang_visitChildren rootCursor $ \cursor -> do
+            void . HighLevel.clang_visitChildren rootCursor $ simpleFold $ \cursor -> do
               loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
               case loc of
                 (file, _, _)
                   | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
                   | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
-                  | otherwise                             -> foldDecls opts cursor
+                  | otherwise                             -> runFold (foldDecls opts) cursor
   where
     tracerConf :: TracerConf
     tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
@@ -86,12 +86,12 @@ clangAstDump opts@Options{..} = do
     isBuiltIn :: Text -> Bool
     isBuiltIn = (`elem` [T.pack "<built-in>", T.pack "<command line>"])
 
-foldDecls :: Options -> CXCursor -> IO (Next IO ())
-foldDecls opts@Options{..} cursor = do
+foldDecls :: Options -> Fold IO ()
+foldDecls opts@Options{..} = simpleFold $ \cursor -> do
     traceU_ 0 =<< clang_getCursorDisplayName cursor
 
-    dumpParents
-    when optExtents dumpExtent
+    dumpParents cursor
+    when optExtents $ dumpExtent cursor
 
     cursorKind <- clang_getCursorKind cursor
     traceU 1 "cursor kind" cursorKind
@@ -103,25 +103,25 @@ foldDecls opts@Options{..} cursor = do
 
     isRecurse <- case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
-        dumpType cursorType isDecl
+        dumpType cursor cursorType isDecl
         pure True
       Right CXCursor_EnumDecl -> do
-        dumpType cursorType isDecl
+        dumpType cursor cursorType isDecl
         traceU 1 "integer type" =<< clang_getEnumDeclIntegerType cursor
         pure True
       Right CXCursor_FieldDecl -> do
-        dumpType cursorType isDecl
+        dumpType cursor cursorType isDecl
         traceU 1 "field offset" =<< clang_Cursor_getOffsetOfField cursor
         isBitField <- clang_Cursor_isBitField cursor
         when isBitField $
           traceU 1 "bit width" =<< clang_getFieldDeclBitWidth cursor
         pure False -- leaf
       Right CXCursor_EnumConstantDecl -> do
-        dumpType cursorType isDecl
+        dumpType cursor cursorType isDecl
         traceU 1 "integer value" =<< clang_getEnumConstantDeclValue cursor
         pure False -- leaf
       Right CXCursor_FunctionDecl -> do
-        dumpType cursorType isDecl
+        dumpType cursor cursorType isDecl
         numArgs <- clang_getNumArgTypes cursorType
         traceU 1 "args" numArgs
         forM_ [0 .. numArgs - 1] $ \i -> do
@@ -131,7 +131,7 @@ foldDecls opts@Options{..} cursor = do
         traceU 1 "result" =<< clang_getTypeSpelling resultType
         pure False
       Right CXCursor_TypedefDecl -> do
-        dumpType cursorType isDecl
+        dumpType cursor cursorType isDecl
         traceU 1 "typedef name" =<< clang_getTypedefName cursorType
         pure True -- results in repeated information unless typedef is decl
       Right CXCursor_MacroDefinition ->
@@ -140,7 +140,7 @@ foldDecls opts@Options{..} cursor = do
       Right CXCursor_InclusionDirective ->
         pure False -- does not matter
       Right CXCursor_UnionDecl -> do
-        dumpType cursorType isDecl
+        dumpType cursor cursorType isDecl
         pure True
       Right{} -> False <$ traceL 1 "CURSOR_KIND_NOT_IMPLEMENTED"
       Left n  -> False <$ traceU 1 "CURSOR_KIND_ENUM_OUT_OF_RANGE" n
@@ -156,8 +156,8 @@ foldDecls opts@Options{..} cursor = do
       then recursePure (foldDecls opts) (const Nothing)
       else Continue Nothing
   where
-    dumpParents :: IO ()
-    dumpParents = do
+    dumpParents :: CXCursor -> IO ()
+    dumpParents cursor = do
       semanticParent <- clang_getCursorSemanticParent cursor
       lexicalParent  <- clang_getCursorLexicalParent  cursor
       parentsEq      <- clang_equalCursors semanticParent lexicalParent
@@ -171,8 +171,8 @@ foldDecls opts@Options{..} cursor = do
           traceU 1 "lexical parent"
             =<< clang_getCursorDisplayName lexicalParent
 
-    dumpExtent :: IO ()
-    dumpExtent = do
+    dumpExtent :: CXCursor -> IO ()
+    dumpExtent cursor = do
       extent <- clang_getCursorExtent cursor
       (file, startLine, startCol) <-
         clang_getPresumedLocation =<< clang_getRangeStart extent
@@ -180,8 +180,8 @@ foldDecls opts@Options{..} cursor = do
         clang_getPresumedLocation =<< clang_getRangeEnd extent
       traceU 1 "extent" (file, (startLine, startCol), (endLine, endCol))
 
-    dumpType :: CXType -> Bool -> IO ()
-    dumpType cursorType isDecl = do
+    dumpType :: CXCursor -> CXType -> Bool -> IO ()
+    dumpType cursor cursorType isDecl = do
       traceU 1 "cursor type" =<< clang_getTypeSpelling cursorType
       when optType $ do
         let typeKind = cxtKind cursorType

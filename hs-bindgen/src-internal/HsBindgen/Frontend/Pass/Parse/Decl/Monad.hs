@@ -202,7 +202,7 @@ recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
 -------------------------------------------------------------------------------}
 
 unknownCursorKind :: (MonadIO m, HasCallStack) => CXCursorKind -> Fold m x
-unknownCursorKind kind curr = do
+unknownCursorKind kind = simpleFold $ \curr -> do
     loc      <- HighLevel.clang_getCursorLocation' curr
     spelling <- clang_getCursorKindSpelling (simpleEnum kind)
     panicIO $ concat [
@@ -230,4 +230,4 @@ dispatchFold ::
   => CXCursor
   -> (CXCursorKind -> Fold m a)
   -> m (Next m a)
-dispatchFold x f = dispatch x $ \kind -> f kind x
+dispatchFold x f = dispatch x $ \kind -> runFold (f kind) x

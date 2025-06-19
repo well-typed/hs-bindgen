@@ -30,7 +30,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 -------------------------------------------------------------------------------}
 
 foldDecl :: HasCallStack => Fold ParseDecl [C.Decl Parse]
-foldDecl = \curr -> handle (handleTypeException curr) $
+foldDecl = simpleFold $ \curr -> handle (handleTypeException curr) $
     evalPredicate curr >>= \case
       Right () ->
         dispatchFold curr $ \case
@@ -110,7 +110,7 @@ getReparseInfo = \curr -> do
 --
 -- NOTE: We rely on selection to filter out clang internal macro declarations.
 macroDefinition :: Fold ParseDecl [C.Decl Parse]
-macroDefinition = \curr -> do
+macroDefinition = simpleFold $ \curr -> do
     info <- getDeclInfo curr
     unit <- getTranslationUnit
     let mkDecl :: UnparsedMacro -> C.Decl Parse
@@ -122,7 +122,7 @@ macroDefinition = \curr -> do
     Continue . Just . (:[]) . mkDecl <$> getUnparsedMacro unit curr
 
 structDecl :: Fold ParseDecl [C.Decl Parse]
-structDecl = \curr -> do
+structDecl = simpleFold $ \curr -> do
     info           <- getDeclInfo curr
     classification <- HighLevel.classifyDeclaration curr
     case classification of
@@ -186,7 +186,7 @@ structDecl = \curr -> do
         return $ Continue $ Nothing
 
 unionDecl :: Fold ParseDecl [C.Decl Parse]
-unionDecl = \curr -> do
+unionDecl = simpleFold $ \curr -> do
     info           <- getDeclInfo curr
     classification <- HighLevel.classifyDeclaration curr
     case classification of
@@ -237,14 +237,14 @@ unionDecl = \curr -> do
 declOrFieldDecl ::
      (CXCursor -> ParseDecl (a Parse))
   -> Fold ParseDecl (Either [C.Decl Parse] (a Parse))
-declOrFieldDecl fieldDecl = \curr -> do
+declOrFieldDecl fieldDecl = simpleFold $ \curr -> do
     kind <- fromSimpleEnum <$> clang_getCursorKind curr
     case kind of
       Right CXCursor_FieldDecl -> do
         field <- fieldDecl curr
         return $ Continue . Just . Right $ field
       _otherwise -> do
-        fmap Left <$> foldDecl curr
+        fmap Left <$> runFold foldDecl curr
 
 structFieldDecl :: CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl = \curr -> do
@@ -284,7 +284,7 @@ unionFieldDecl = \curr -> do
       }
 
 typedefDecl :: Fold ParseDecl [C.Decl Parse]
-typedefDecl = \curr -> do
+typedefDecl = simpleFold $ \curr -> do
     info        <- getDeclInfo curr
     typedefType <- fromCXType =<< clang_getTypedefDeclUnderlyingType curr
     typedefAnn  <- getReparseInfo curr
@@ -300,13 +300,13 @@ typedefDecl = \curr -> do
     return $ Continue $ Just [decl]
 
 macroExpansion :: Fold ParseDecl [C.Decl Parse]
-macroExpansion = \curr -> do
+macroExpansion = simpleFold $ \curr -> do
     loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
     recordMacroExpansionAt loc
     return $ Continue Nothing
 
 enumDecl :: Fold ParseDecl [C.Decl Parse]
-enumDecl = \curr -> do
+enumDecl = simpleFold $ \curr -> do
     info <- getDeclInfo curr
     classification <- HighLevel.classifyDeclaration curr
     case classification of
@@ -342,14 +342,14 @@ enumDecl = \curr -> do
         pure $ Continue $ Nothing
   where
     parseConstant :: Fold ParseDecl (C.EnumConstant Parse)
-    parseConstant = \curr ->
+    parseConstant = simpleFold $ \curr ->
         dispatchFold curr $ \case
           CXCursor_EnumConstantDecl -> enumConstantDecl
           CXCursor_PackedAttr       -> attribute
           kind                      -> unknownCursorKind kind
 
 enumConstantDecl :: Fold ParseDecl (C.EnumConstant Parse)
-enumConstantDecl = \curr -> do
+enumConstantDecl = simpleFold $ \curr -> do
     enumConstantLoc   <- HighLevel.clang_getCursorLocation' curr
     enumConstantName  <- CName <$> clang_getCursorDisplayName curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
@@ -360,7 +360,7 @@ enumConstantDecl = \curr -> do
       }
 
 functionDecl :: Fold ParseDecl [C.Decl Parse]
-functionDecl = \curr -> do
+functionDecl = simpleFold $ \curr -> do
     info <- getDeclInfo curr
     typ  <- fromCXType =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
@@ -401,7 +401,7 @@ varDecl = continueWith Nothing
 -- Since we not told what kind of declaration this is, we can't do much except
 -- issue a warning.
 unexposedDecl :: Fold ParseDecl [C.Decl Parse]
-unexposedDecl = \curr -> do
+unexposedDecl = simpleFold $ \curr -> do
     skippedLoc <- HighLevel.clang_getCursorLocation' curr
     recordTrace $ Skipped $ Predicate.SkipUnexposed{skippedLoc}
     return $ Continue Nothing
