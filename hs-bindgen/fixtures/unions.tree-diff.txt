@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "Dim2",
           nameHsIdent = HsIdentifier
-            "Dim2"}},
+            "Dim2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -47,7 +49,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "Dim3",
           nameHsIdent = HsIdentifier
-            "Dim3"}},
+            "Dim3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -98,7 +102,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "DimPayload",
           nameHsIdent = HsIdentifier
-            "DimPayload"}},
+            "DimPayload"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -122,7 +128,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "Dim2",
                   nameHsIdent = HsIdentifier
-                    "Dim2"}},
+                    "Dim2"}
+                NameOriginInSource},
             UnionField {
               unionFieldLoc =
               "unions.h:14:17",
@@ -134,7 +141,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "Dim2",
                   nameHsIdent = HsIdentifier
-                    "Dim2"}}]},
+                    "Dim2"}
+                NameOriginInSource}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -147,7 +155,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "Dim",
           nameHsIdent = HsIdentifier
-            "Dim"}},
+            "Dim"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -177,7 +187,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "DimPayload",
                   nameHsIdent = HsIdentifier
-                    "DimPayload"},
+                    "DimPayload"}
+                NameOriginInSource,
               structFieldOffset = 32,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -193,7 +204,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "DimPayloadB",
           nameHsIdent = HsIdentifier
-            "DimPayloadB"}},
+            "DimPayloadB"},
+        declOrigin = NameOriginInSource,
+        declAliases = [
+          CName "DimPayloadB"]},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -217,7 +231,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "Dim2",
                   nameHsIdent = HsIdentifier
-                    "Dim2"}},
+                    "Dim2"}
+                NameOriginInSource},
             UnionField {
               unionFieldLoc =
               "unions.h:25:17",
@@ -229,7 +244,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "Dim2",
                   nameHsIdent = HsIdentifier
-                    "Dim2"}}]},
+                    "Dim2"}
+                NameOriginInSource}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -242,7 +258,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "DimB",
           nameHsIdent = HsIdentifier
-            "DimB"}},
+            "DimB"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -275,7 +293,8 @@ TranslationUnit {
                     NamePair {
                       nameC = CName "DimPayloadB",
                       nameHsIdent = HsIdentifier
-                        "DimPayloadB"})),
+                        "DimPayloadB"}
+                    NameOriginInSource)),
               structFieldOffset = 32,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -291,7 +310,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "AnonA_xy",
           nameHsIdent = HsIdentifier
-            "AnonA_xy"}},
+            "AnonA_xy"},
+        declOrigin = NameOriginGenerated
+          (AnonId "unions.h:35:5"),
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -334,7 +356,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "AnonA_polar",
           nameHsIdent = HsIdentifier
-            "AnonA_polar"}},
+            "AnonA_polar"},
+        declOrigin = NameOriginGenerated
+          (AnonId "unions.h:36:5"),
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -379,7 +404,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "AnonA",
           nameHsIdent = HsIdentifier
-            "AnonA"}},
+            "AnonA"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -403,7 +430,9 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "AnonA_xy",
                   nameHsIdent = HsIdentifier
-                    "AnonA_xy"}},
+                    "AnonA_xy"}
+                (NameOriginGenerated
+                  (AnonId "unions.h:35:5"))},
             UnionField {
               unionFieldLoc =
               "unions.h:36:36",
@@ -415,7 +444,9 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "AnonA_polar",
                   nameHsIdent = HsIdentifier
-                    "AnonA_polar"}}]},
+                    "AnonA_polar"}
+                (NameOriginGenerated
+                  (AnonId "unions.h:36:5"))}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

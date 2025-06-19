@@ -8,7 +8,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "INCR",
           nameHsIdent = HsIdentifier
-            "iNCR"}},
+            "iNCR"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -40,7 +42,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "ADD",
           nameHsIdent = HsIdentifier
-            "aDD"}},
+            "aDD"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -69,7 +73,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "ID",
           nameHsIdent = HsIdentifier
-            "iD"}},
+            "iD"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -91,7 +97,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "CONST",
           nameHsIdent = HsIdentifier
-            "cONST"}},
+            "cONST"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -115,7 +123,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "CMP",
           nameHsIdent = HsIdentifier
-            "cMP"}},
+            "cMP"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -145,7 +155,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FUN1",
           nameHsIdent = HsIdentifier
-            "fUN1"}},
+            "fUN1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -185,7 +197,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "FUN2",
           nameHsIdent = HsIdentifier
-            "fUN2"}},
+            "fUN2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -224,8 +238,9 @@ TranslationUnit {
         "macro_functions.h:11:9",
         declId = NamePair {
           nameC = CName "G",
-          nameHsIdent = HsIdentifier
-            "g"}},
+          nameHsIdent = HsIdentifier "g"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -270,7 +285,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "DIV1",
           nameHsIdent = HsIdentifier
-            "dIV1"}},
+            "dIV1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr
@@ -310,7 +327,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "DIV2",
           nameHsIdent = HsIdentifier
-            "dIV2"}},
+            "dIV2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind =
       DeclMacro
         (MacroExpr

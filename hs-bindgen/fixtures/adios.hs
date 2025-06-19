@@ -20,7 +20,9 @@
           declId = NamePair {
             nameC = CName "adio\769s",
             nameHsIdent = HsIdentifier
-              "Adio'0301s"}},
+              "Adio'0301s"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -152,7 +154,9 @@
           declId = NamePair {
             nameC = CName "\25968\23383",
             nameHsIdent = HsIdentifier
-              "C\25968\23383"}},
+              "C\25968\23383"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

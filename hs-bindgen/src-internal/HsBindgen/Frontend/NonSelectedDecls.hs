@@ -12,7 +12,8 @@ import Prelude hiding (lookup)
 
 import Clang.Paths (SourcePath)
 import HsBindgen.Imports
-import HsBindgen.Language.C.Name (CName, Namespace)
+import HsBindgen.Language.C.Name (CName)
+import HsBindgen.Language.C.Name qualified as C
 
 {-------------------------------------------------------------------------------
   Type
@@ -33,7 +34,7 @@ import HsBindgen.Language.C.Name (CName, Namespace)
 -- then you need to make sure that you /traverse/ @rect@, so that the
 -- @RenameAnon@ pass can do its work.
 newtype NonSelectedDecls = NonSelectedDecls {
-      unNonSelectedDecls :: Map (CName, Namespace) SourcePath
+      unNonSelectedDecls :: Map (CName, C.NameKind) SourcePath
     }
   deriving (Eq, Show)
 
@@ -45,11 +46,11 @@ empty :: NonSelectedDecls
 empty = NonSelectedDecls Map.empty
 
 insert ::
-     (CName, Namespace)
+     (CName, C.NameKind)
   -> SourcePath
   -> NonSelectedDecls
   -> NonSelectedDecls
 insert k v = NonSelectedDecls . Map.insert k v . unNonSelectedDecls
 
-lookup :: (CName, Namespace) -> NonSelectedDecls -> Maybe SourcePath
+lookup :: (CName, C.NameKind) -> NonSelectedDecls -> Maybe SourcePath
 lookup k = Map.lookup k . unNonSelectedDecls

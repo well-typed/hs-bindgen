@@ -20,7 +20,9 @@
           declId = NamePair {
             nameC = CName "foo",
             nameHsIdent = HsIdentifier
-              "Foo"}},
+              "Foo"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -315,7 +317,9 @@
           declId = NamePair {
             nameC = CName "foo",
             nameHsIdent = HsIdentifier
-              "Foo"}},
+              "Foo"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

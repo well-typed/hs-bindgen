@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "erf",
           nameHsIdent = HsIdentifier
-            "erf"}},
+            "erf"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -28,7 +30,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "bad_fma",
           nameHsIdent = HsIdentifier
-            "bad_fma"}},
+            "bad_fma"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -54,7 +58,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "no_args",
           nameHsIdent = HsIdentifier
-            "no_args"}},
+            "no_args"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -73,7 +79,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "no_args_no_void",
           nameHsIdent = HsIdentifier
-            "no_args_no_void"}},
+            "no_args_no_void"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -92,7 +100,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "fun",
           nameHsIdent = HsIdentifier
-            "fun"}},
+            "fun"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [

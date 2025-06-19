@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "foo",
           nameHsIdent = HsIdentifier
-            "Foo"}},
+            "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -51,7 +53,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "bar",
           nameHsIdent = HsIdentifier
-            "Bar"}},
+            "Bar"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -70,7 +74,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "foo",
                   nameHsIdent = HsIdentifier
-                    "Foo"},
+                    "Foo"}
+                NameOriginInSource,
               structFieldOffset = 0,
               structFieldWidth = Nothing},
             StructField {
@@ -84,7 +89,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "foo",
                   nameHsIdent = HsIdentifier
-                    "Foo"},
+                    "Foo"}
+                NameOriginInSource,
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -100,7 +106,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "ex3_ex3_struct",
           nameHsIdent = HsIdentifier
-            "Ex3_ex3_struct"}},
+            "Ex3_ex3_struct"},
+        declOrigin = NameOriginGenerated
+          (AnonId "nested_types.h:12:5"),
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -147,7 +156,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "ex3",
           nameHsIdent = HsIdentifier
-            "Ex3"}},
+            "Ex3"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -166,7 +177,9 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "ex3_ex3_struct",
                   nameHsIdent = HsIdentifier
-                    "Ex3_ex3_struct"},
+                    "Ex3_ex3_struct"}
+                (NameOriginGenerated
+                  (AnonId "nested_types.h:12:5")),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
             StructField {
@@ -194,7 +207,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "ex4_even",
           nameHsIdent = HsIdentifier
-            "Ex4_even"}},
+            "Ex4_even"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -225,7 +240,8 @@ TranslationUnit {
                   NamePair {
                     nameC = CName "ex4_odd",
                     nameHsIdent = HsIdentifier
-                      "Ex4_odd"}),
+                      "Ex4_odd"}
+                  NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -241,7 +257,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "ex4_odd",
           nameHsIdent = HsIdentifier
-            "Ex4_odd"}},
+            "Ex4_odd"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -272,7 +290,8 @@ TranslationUnit {
                   NamePair {
                     nameC = CName "ex4_even",
                     nameHsIdent = HsIdentifier
-                      "Ex4_even"}),
+                      "Ex4_even"}
+                  NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},

@@ -8,7 +8,7 @@ module HsBindgen.Frontend.AST.Deps (
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 
 {-------------------------------------------------------------------------------
@@ -79,15 +79,16 @@ depsOfTypedef = depsOfType . typedefType
 -- NOTE: We are only interested in /direct/ dependencies here; transitive
 -- dependencies will materialize when we build the graph.
 depsOfType :: Type Parse -> [(ValOrRef, QualId Parse)]
-depsOfType (TypePrim _)            = []
-depsOfType (TypeStruct uid)        = [(ByValue, QualId uid NamespaceStruct)]
-depsOfType (TypeUnion uid)         = [(ByValue, QualId uid NamespaceUnion)]
-depsOfType (TypeEnum uid)          = [(ByValue, QualId uid NamespaceEnum)]
-depsOfType (TypeTypedef uid)       = [(ByValue, QualId (DeclNamed uid) NamespaceTypedef)]
-depsOfType (TypePointer ty)        = first (const ByRef) <$> depsOfType ty
-depsOfType (TypeFun args res)      = concatMap depsOfType args <> depsOfType res
-depsOfType TypeVoid                = []
-depsOfType (TypeExtBinding{})      = []
-depsOfType (TypeConstArray _ t)    = depsOfType t
-depsOfType (TypeIncompleteArray t) = depsOfType t
-depsOfType (TypeMacroTypedef uid)  = [(ByValue, QualId uid NamespaceMacro)]
+depsOfType = \case
+    TypePrim{}             -> []
+    TypeStruct uid _       -> [(ByValue, QualId uid C.NameKindStruct)]
+    TypeUnion uid _        -> [(ByValue, QualId uid C.NameKindUnion)]
+    TypeEnum uid _         -> [(ByValue, QualId uid C.NameKindEnum)]
+    TypeTypedef uid        -> [(ByValue, QualId (DeclNamed uid) C.NameKindOrdinary)]
+    TypeMacroTypedef uid _ -> [(ByValue, QualId uid C.NameKindOrdinary)]
+    TypePointer ty         -> first (const ByRef) <$> depsOfType ty
+    TypeFun args res       -> concatMap depsOfType args <> depsOfType res
+    TypeVoid               -> []
+    TypeConstArray _ ty    -> depsOfType ty
+    TypeIncompleteArray ty -> depsOfType ty
+    TypeExtBinding{}       -> []

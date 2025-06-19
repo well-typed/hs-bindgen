@@ -397,17 +397,17 @@ instance MangleDecl C.CheckedMacroType where
     mk <$> mangle macroType
 
 instance Mangle C.Type where
-  mangle (C.TypeStruct name) =
-      C.TypeStruct <$> mangleQualId (C.QualId name C.NamespaceStruct)
-  mangle (C.TypeUnion name) =
-      C.TypeUnion <$> mangleQualId (C.QualId name C.NamespaceUnion)
-  mangle (C.TypeEnum name) =
-      C.TypeEnum <$> mangleQualId (C.QualId name C.NamespaceEnum)
+  mangle (C.TypeStruct name origin) =
+      (`C.TypeStruct` origin) <$> mangleQualId (C.QualId name C.NameKindStruct)
+  mangle (C.TypeUnion name origin) =
+      (`C.TypeUnion` origin) <$> mangleQualId (C.QualId name C.NameKindUnion)
+  mangle (C.TypeEnum name origin) =
+      (`C.TypeEnum` origin) <$> mangleQualId (C.QualId name C.NameKindEnum)
   mangle (C.TypeTypedef ref) =
       C.TypeTypedef <$> mangle ref
-  mangle (C.TypeMacroTypedef name) =
-      C.TypeMacroTypedef
-        <$> mangleQualId (C.QualId name C.NamespaceMacro)
+  mangle (C.TypeMacroTypedef name origin) =
+      (`C.TypeMacroTypedef` origin)
+        <$> mangleQualId (C.QualId name C.NameKindOrdinary)
   mangle (C.TypePointer typ) =
       C.TypePointer <$> mangle typ
   mangle (C.TypeFun args res) =
@@ -424,7 +424,7 @@ instance Mangle C.Type where
 
 instance Mangle RenamedTypedefRef where
   mangle (TypedefRegular name) =
-      TypedefRegular <$> mangleQualId (C.QualId name C.NamespaceTypedef)
+      TypedefRegular <$> mangleQualId (C.QualId name C.NameKindOrdinary)
   mangle (TypedefSquashed cName ty) =
       TypedefSquashed cName <$> mangle ty
 

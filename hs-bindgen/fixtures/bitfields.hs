@@ -127,7 +127,9 @@
             declId = NamePair {
               nameC = CName "flags",
               nameHsIdent = HsIdentifier
-                "Flags"}},
+                "Flags"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -343,7 +345,9 @@
               declId = NamePair {
                 nameC = CName "flags",
                 nameHsIdent = HsIdentifier
-                  "Flags"}},
+                  "Flags"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -564,7 +568,9 @@
                       declId = NamePair {
                         nameC = CName "flags",
                         nameHsIdent = HsIdentifier
-                          "Flags"}},
+                          "Flags"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -791,7 +797,9 @@
                       declId = NamePair {
                         nameC = CName "flags",
                         nameHsIdent = HsIdentifier
-                          "Flags"}},
+                          "Flags"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -985,7 +993,9 @@
             declId = NamePair {
               nameC = CName "overflow32",
               nameHsIdent = HsIdentifier
-                "Overflow32"}},
+                "Overflow32"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1108,7 +1118,9 @@
               declId = NamePair {
                 nameC = CName "overflow32",
                 nameHsIdent = HsIdentifier
-                  "Overflow32"}},
+                  "Overflow32"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1236,7 +1248,9 @@
                       declId = NamePair {
                         nameC = CName "overflow32",
                         nameHsIdent = HsIdentifier
-                          "Overflow32"}},
+                          "Overflow32"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1367,7 +1381,9 @@
                       declId = NamePair {
                         nameC = CName "overflow32",
                         nameHsIdent = HsIdentifier
-                          "Overflow32"}},
+                          "Overflow32"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1519,7 +1535,9 @@
             declId = NamePair {
               nameC = CName "overflow32b",
               nameHsIdent = HsIdentifier
-                "Overflow32b"}},
+                "Overflow32b"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1642,7 +1660,9 @@
               declId = NamePair {
                 nameC = CName "overflow32b",
                 nameHsIdent = HsIdentifier
-                  "Overflow32b"}},
+                  "Overflow32b"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1770,7 +1790,9 @@
                       declId = NamePair {
                         nameC = CName "overflow32b",
                         nameHsIdent = HsIdentifier
-                          "Overflow32b"}},
+                          "Overflow32b"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1901,7 +1923,9 @@
                       declId = NamePair {
                         nameC = CName "overflow32b",
                         nameHsIdent = HsIdentifier
-                          "Overflow32b"}},
+                          "Overflow32b"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2053,7 +2077,9 @@
             declId = NamePair {
               nameC = CName "overflow32c",
               nameHsIdent = HsIdentifier
-                "Overflow32c"}},
+                "Overflow32c"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2176,7 +2202,9 @@
               declId = NamePair {
                 nameC = CName "overflow32c",
                 nameHsIdent = HsIdentifier
-                  "Overflow32c"}},
+                  "Overflow32c"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2304,7 +2332,9 @@
                       declId = NamePair {
                         nameC = CName "overflow32c",
                         nameHsIdent = HsIdentifier
-                          "Overflow32c"}},
+                          "Overflow32c"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2435,7 +2465,9 @@
                       declId = NamePair {
                         nameC = CName "overflow32c",
                         nameHsIdent = HsIdentifier
-                          "Overflow32c"}},
+                          "Overflow32c"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2569,7 +2601,9 @@
             declId = NamePair {
               nameC = CName "overflow64",
               nameHsIdent = HsIdentifier
-                "Overflow64"}},
+                "Overflow64"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2663,7 +2697,9 @@
               declId = NamePair {
                 nameC = CName "overflow64",
                 nameHsIdent = HsIdentifier
-                  "Overflow64"}},
+                  "Overflow64"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2762,7 +2798,9 @@
                       declId = NamePair {
                         nameC = CName "overflow64",
                         nameHsIdent = HsIdentifier
-                          "Overflow64"}},
+                          "Overflow64"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2863,7 +2901,9 @@
                       declId = NamePair {
                         nameC = CName "overflow64",
                         nameHsIdent = HsIdentifier
-                          "Overflow64"}},
+                          "Overflow64"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2982,7 +3022,9 @@
             declId = NamePair {
               nameC = CName "alignA",
               nameHsIdent = HsIdentifier
-                "AlignA"}},
+                "AlignA"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -3076,7 +3118,9 @@
               declId = NamePair {
                 nameC = CName "alignA",
                 nameHsIdent = HsIdentifier
-                  "AlignA"}},
+                  "AlignA"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -3175,7 +3219,9 @@
                       declId = NamePair {
                         nameC = CName "alignA",
                         nameHsIdent = HsIdentifier
-                          "AlignA"}},
+                          "AlignA"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3276,7 +3322,9 @@
                       declId = NamePair {
                         nameC = CName "alignA",
                         nameHsIdent = HsIdentifier
-                          "AlignA"}},
+                          "AlignA"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3394,7 +3442,9 @@
             declId = NamePair {
               nameC = CName "alignB",
               nameHsIdent = HsIdentifier
-                "AlignB"}},
+                "AlignB"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -3488,7 +3538,9 @@
               declId = NamePair {
                 nameC = CName "alignB",
                 nameHsIdent = HsIdentifier
-                  "AlignB"}},
+                  "AlignB"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -3587,7 +3639,9 @@
                       declId = NamePair {
                         nameC = CName "alignB",
                         nameHsIdent = HsIdentifier
-                          "AlignB"}},
+                          "AlignB"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3688,7 +3742,9 @@
                       declId = NamePair {
                         nameC = CName "alignB",
                         nameHsIdent = HsIdentifier
-                          "AlignB"}},
+                          "AlignB"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

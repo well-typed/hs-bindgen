@@ -7,7 +7,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "primitive",
           nameHsIdent = HsIdentifier
-            "Primitive"}},
+            "Primitive"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

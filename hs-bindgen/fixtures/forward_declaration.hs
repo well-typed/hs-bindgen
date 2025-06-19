@@ -34,7 +34,9 @@
             declId = NamePair {
               nameC = CName "S1",
               nameHsIdent = HsIdentifier
-                "S1"}},
+                "S1"},
+            declOrigin = NameOriginInSource,
+            declAliases = [CName "S1_t"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -98,7 +100,9 @@
               declId = NamePair {
                 nameC = CName "S1",
                 nameHsIdent = HsIdentifier
-                  "S1"}},
+                  "S1"},
+              declOrigin = NameOriginInSource,
+              declAliases = [CName "S1_t"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -167,7 +171,9 @@
                       declId = NamePair {
                         nameC = CName "S1",
                         nameHsIdent = HsIdentifier
-                          "S1"}},
+                          "S1"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [CName "S1_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -236,7 +242,9 @@
                       declId = NamePair {
                         nameC = CName "S1",
                         nameHsIdent = HsIdentifier
-                          "S1"}},
+                          "S1"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [CName "S1_t"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -301,7 +309,9 @@
           declId = NamePair {
             nameC = CName "S1_t",
             nameHsIdent = HsIdentifier
-              "S1_t"}},
+              "S1_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -314,8 +324,8 @@
             typedefType = TypeStruct
               NamePair {
                 nameC = CName "S1",
-                nameHsIdent = HsIdentifier
-                  "S1"}},
+                nameHsIdent = HsIdentifier "S1"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -371,7 +381,9 @@
             declId = NamePair {
               nameC = CName "S2",
               nameHsIdent = HsIdentifier
-                "S2"}},
+                "S2"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -435,7 +447,9 @@
               declId = NamePair {
                 nameC = CName "S2",
                 nameHsIdent = HsIdentifier
-                  "S2"}},
+                  "S2"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -504,7 +518,9 @@
                       declId = NamePair {
                         nameC = CName "S2",
                         nameHsIdent = HsIdentifier
-                          "S2"}},
+                          "S2"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -573,7 +589,9 @@
                       declId = NamePair {
                         nameC = CName "S2",
                         nameHsIdent = HsIdentifier
-                          "S2"}},
+                          "S2"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

@@ -6,8 +6,9 @@ TranslationUnit {
         "type_attributes.h:8:8",
         declId = NamePair {
           nameC = CName "S",
-          nameHsIdent = HsIdentifier
-            "S"}},
+          nameHsIdent = HsIdentifier "S"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -45,7 +46,9 @@ TranslationUnit {
           nameC = CName
             "more_aligned_int",
           nameHsIdent = HsIdentifier
-            "More_aligned_int"}},
+            "More_aligned_int"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -70,7 +73,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "S2",
           nameHsIdent = HsIdentifier
-            "S2"}},
+            "S2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -108,7 +113,9 @@ TranslationUnit {
           nameC = CName
             "my_unpacked_struct",
           nameHsIdent = HsIdentifier
-            "My_unpacked_struct"}},
+            "My_unpacked_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -157,7 +164,9 @@ TranslationUnit {
           nameC = CName
             "my_packed_struct",
           nameHsIdent = HsIdentifier
-            "My_packed_struct"}},
+            "My_packed_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -203,7 +212,8 @@ TranslationUnit {
                   nameC = CName
                     "my_unpacked_struct",
                   nameHsIdent = HsIdentifier
-                    "My_unpacked_struct"},
+                    "My_unpacked_struct"}
+                NameOriginInSource,
               structFieldOffset = 40,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -220,7 +230,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "wait",
           nameHsIdent = HsIdentifier
-            "Wait"}},
+            "Wait"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclUnionOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -236,7 +248,12 @@ TranslationUnit {
           nameC = CName
             "wait_status_ptr_t",
           nameHsIdent = HsIdentifier
-            "Wait_status_ptr_t"}},
+            "Wait_status_ptr_t"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "type_attributes.h:26:9"),
+        declAliases = [
+          CName "wait_status_ptr_t"]},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -271,7 +288,8 @@ TranslationUnit {
                   NamePair {
                     nameC = CName "wait",
                     nameHsIdent = HsIdentifier
-                      "Wait"})}]},
+                      "Wait"}
+                  NameOriginInSource)}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -285,7 +303,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "T1",
           nameHsIdent = HsIdentifier
-            "T1"}},
+            "T1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -310,7 +330,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "short_a",
           nameHsIdent = HsIdentifier
-            "Short_a"}},
+            "Short_a"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

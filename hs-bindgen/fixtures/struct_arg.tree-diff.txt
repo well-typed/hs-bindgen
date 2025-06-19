@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "thing",
           nameHsIdent = HsIdentifier
-            "Thing"}},
+            "Thing"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -38,7 +40,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "thing_fun_1",
           nameHsIdent = HsIdentifier
-            "thing_fun_1"}},
+            "thing_fun_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -46,7 +50,8 @@ TranslationUnit {
               NamePair {
                 nameC = CName "thing",
                 nameHsIdent = HsIdentifier
-                  "Thing"}],
+                  "Thing"}
+              NameOriginInSource],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed),
           functionHeader =
@@ -63,7 +68,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "thing_fun_2",
           nameHsIdent = HsIdentifier
-            "thing_fun_2"}},
+            "thing_fun_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -73,7 +80,8 @@ TranslationUnit {
             NamePair {
               nameC = CName "thing",
               nameHsIdent = HsIdentifier
-                "Thing"},
+                "Thing"}
+            NameOriginInSource,
           functionHeader =
           "struct_arg.h"},
       declSpec = DeclSpec
@@ -88,7 +96,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "thing_fun_3a",
           nameHsIdent = HsIdentifier
-            "thing_fun_3a"}},
+            "thing_fun_3a"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -98,14 +108,16 @@ TranslationUnit {
               NamePair {
                 nameC = CName "thing",
                 nameHsIdent = HsIdentifier
-                  "Thing"},
+                  "Thing"}
+              NameOriginInSource,
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypeStruct
             NamePair {
               nameC = CName "thing",
               nameHsIdent = HsIdentifier
-                "Thing"},
+                "Thing"}
+            NameOriginInSource,
           functionHeader =
           "struct_arg.h"},
       declSpec = DeclSpec
@@ -120,7 +132,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "thing_fun_3b",
           nameHsIdent = HsIdentifier
-            "thing_fun_3b"}},
+            "thing_fun_3b"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -130,7 +144,8 @@ TranslationUnit {
               NamePair {
                 nameC = CName "thing",
                 nameHsIdent = HsIdentifier
-                  "Thing"},
+                  "Thing"}
+              NameOriginInSource,
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim

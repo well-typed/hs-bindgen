@@ -21,7 +21,9 @@
           declId = NamePair {
             nameC = CName "MY_TYPE",
             nameHsIdent = HsIdentifier
-              "MY_TYPE"}},
+              "MY_TYPE"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -175,12 +177,13 @@
                 nameC = CName "y",
                 nameHsIdent = HsIdentifier
                   "bar_y"},
-              structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = CName "MY_TYPE",
-                    nameHsIdent = HsIdentifier
-                      "MY_TYPE"}),
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = CName "MY_TYPE",
+                  nameHsIdent = HsIdentifier
+                    "MY_TYPE"}
+                NameOriginInSource,
               structFieldOffset = 32,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -191,7 +194,11 @@
             declId = NamePair {
               nameC = CName "bar",
               nameHsIdent = HsIdentifier
-                "Bar"}},
+                "Bar"},
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "macro_typedef_struct.h:3:9"),
+            declAliases = [CName "bar"]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -217,12 +224,13 @@
                     nameC = CName "y",
                     nameHsIdent = HsIdentifier
                       "bar_y"},
-                  structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = CName "MY_TYPE",
-                        nameHsIdent = HsIdentifier
-                          "MY_TYPE"}),
+                  structFieldType =
+                  TypeMacroTypedef
+                    NamePair {
+                      nameC = CName "MY_TYPE",
+                      nameHsIdent = HsIdentifier
+                        "MY_TYPE"}
+                    NameOriginInSource,
                   structFieldOffset = 32,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -278,12 +286,13 @@
                   nameC = CName "y",
                   nameHsIdent = HsIdentifier
                     "bar_y"},
-                structFieldType = TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = CName "MY_TYPE",
-                      nameHsIdent = HsIdentifier
-                        "MY_TYPE"}),
+                structFieldType =
+                TypeMacroTypedef
+                  NamePair {
+                    nameC = CName "MY_TYPE",
+                    nameHsIdent = HsIdentifier
+                      "MY_TYPE"}
+                  NameOriginInSource,
                 structFieldOffset = 32,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -294,7 +303,11 @@
               declId = NamePair {
                 nameC = CName "bar",
                 nameHsIdent = HsIdentifier
-                  "Bar"}},
+                  "Bar"},
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "macro_typedef_struct.h:3:9"),
+              declAliases = [CName "bar"]},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -320,12 +333,13 @@
                       nameC = CName "y",
                       nameHsIdent = HsIdentifier
                         "bar_y"},
-                    structFieldType = TypeTypedef
-                      (TypedefRegular
-                        NamePair {
-                          nameC = CName "MY_TYPE",
-                          nameHsIdent = HsIdentifier
-                            "MY_TYPE"}),
+                    structFieldType =
+                    TypeMacroTypedef
+                      NamePair {
+                        nameC = CName "MY_TYPE",
+                        nameHsIdent = HsIdentifier
+                          "MY_TYPE"}
+                      NameOriginInSource,
                     structFieldOffset = 32,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -386,12 +400,13 @@
                           nameC = CName "y",
                           nameHsIdent = HsIdentifier
                             "bar_y"},
-                        structFieldType = TypeTypedef
-                          (TypedefRegular
-                            NamePair {
-                              nameC = CName "MY_TYPE",
-                              nameHsIdent = HsIdentifier
-                                "MY_TYPE"}),
+                        structFieldType =
+                        TypeMacroTypedef
+                          NamePair {
+                            nameC = CName "MY_TYPE",
+                            nameHsIdent = HsIdentifier
+                              "MY_TYPE"}
+                          NameOriginInSource,
                         structFieldOffset = 32,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -402,7 +417,11 @@
                       declId = NamePair {
                         nameC = CName "bar",
                         nameHsIdent = HsIdentifier
-                          "Bar"}},
+                          "Bar"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "macro_typedef_struct.h:3:9"),
+                      declAliases = [CName "bar"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -428,12 +447,13 @@
                               nameC = CName "y",
                               nameHsIdent = HsIdentifier
                                 "bar_y"},
-                            structFieldType = TypeTypedef
-                              (TypedefRegular
-                                NamePair {
-                                  nameC = CName "MY_TYPE",
-                                  nameHsIdent = HsIdentifier
-                                    "MY_TYPE"}),
+                            structFieldType =
+                            TypeMacroTypedef
+                              NamePair {
+                                nameC = CName "MY_TYPE",
+                                nameHsIdent = HsIdentifier
+                                  "MY_TYPE"}
+                              NameOriginInSource,
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -496,12 +516,13 @@
                           nameC = CName "y",
                           nameHsIdent = HsIdentifier
                             "bar_y"},
-                        structFieldType = TypeTypedef
-                          (TypedefRegular
-                            NamePair {
-                              nameC = CName "MY_TYPE",
-                              nameHsIdent = HsIdentifier
-                                "MY_TYPE"}),
+                        structFieldType =
+                        TypeMacroTypedef
+                          NamePair {
+                            nameC = CName "MY_TYPE",
+                            nameHsIdent = HsIdentifier
+                              "MY_TYPE"}
+                          NameOriginInSource,
                         structFieldOffset = 32,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -512,7 +533,11 @@
                       declId = NamePair {
                         nameC = CName "bar",
                         nameHsIdent = HsIdentifier
-                          "Bar"}},
+                          "Bar"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "macro_typedef_struct.h:3:9"),
+                      declAliases = [CName "bar"]},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -538,12 +563,13 @@
                               nameC = CName "y",
                               nameHsIdent = HsIdentifier
                                 "bar_y"},
-                            structFieldType = TypeTypedef
-                              (TypedefRegular
-                                NamePair {
-                                  nameC = CName "MY_TYPE",
-                                  nameHsIdent = HsIdentifier
-                                    "MY_TYPE"}),
+                            structFieldType =
+                            TypeMacroTypedef
+                              NamePair {
+                                nameC = CName "MY_TYPE",
+                                nameHsIdent = HsIdentifier
+                                  "MY_TYPE"}
+                              NameOriginInSource,
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},

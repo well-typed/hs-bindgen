@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "first",
           nameHsIdent = HsIdentifier
-            "First"}},
+            "First"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -47,7 +49,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "second",
           nameHsIdent = HsIdentifier
-            "Second"}},
+            "Second"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -98,7 +102,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "same",
           nameHsIdent = HsIdentifier
-            "Same"}},
+            "Same"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -141,7 +147,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "nonseq",
           nameHsIdent = HsIdentifier
-            "Nonseq"}},
+            "Nonseq"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -192,7 +200,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "packed",
           nameHsIdent = HsIdentifier
-            "Packed"}},
+            "Packed"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -244,7 +254,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "enumA",
           nameHsIdent = HsIdentifier
-            "EnumA"}},
+            "EnumA"},
+        declOrigin = NameOriginGenerated
+          (AnonId "enums.h:30:9"),
+        declAliases = [CName "enumA"]},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -287,7 +300,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "enumB",
           nameHsIdent = HsIdentifier
-            "EnumB"}},
+            "EnumB"},
+        declOrigin = NameOriginInSource,
+        declAliases = [CName "enumB"]},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -330,7 +345,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "enumC",
           nameHsIdent = HsIdentifier
-            "EnumC"}},
+            "EnumC"},
+        declOrigin = NameOriginInSource,
+        declAliases = [CName "enumC"]},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -373,7 +390,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "enumD",
           nameHsIdent = HsIdentifier
-            "EnumD"}},
+            "EnumD"},
+        declOrigin = NameOriginInSource,
+        declAliases = [
+          CName "enumD_t"]},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -416,7 +436,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "enumD_t",
           nameHsIdent = HsIdentifier
-            "EnumD_t"}},
+            "EnumD_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -430,7 +452,8 @@ TranslationUnit {
             NamePair {
               nameC = CName "enumD",
               nameHsIdent = HsIdentifier
-                "EnumD"}},
+                "EnumD"}
+            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

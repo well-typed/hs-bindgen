@@ -33,7 +33,9 @@
             declId = NamePair {
               nameC = CName "thing",
               nameHsIdent = HsIdentifier
-                "Thing"}},
+                "Thing"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -96,7 +98,9 @@
               declId = NamePair {
                 nameC = CName "thing",
                 nameHsIdent = HsIdentifier
-                  "Thing"}},
+                  "Thing"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -164,7 +168,9 @@
                       declId = NamePair {
                         nameC = CName "thing",
                         nameHsIdent = HsIdentifier
-                          "Thing"}},
+                          "Thing"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -232,7 +238,9 @@
                       declId = NamePair {
                         nameC = CName "thing",
                         nameHsIdent = HsIdentifier
-                          "Thing"}},
+                          "Thing"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -307,7 +315,8 @@
               NamePair {
                 nameC = CName "thing",
                 nameHsIdent = HsIdentifier
-                  "Thing"}],
+                  "Thing"}
+              NameOriginInSource],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed),
           functionHeader =
@@ -345,7 +354,8 @@
             NamePair {
               nameC = CName "thing",
               nameHsIdent = HsIdentifier
-                "Thing"},
+                "Thing"}
+            NameOriginInSource,
           functionHeader =
           "struct_arg.h"}},
   DeclSimple,
@@ -390,14 +400,16 @@
               NamePair {
                 nameC = CName "thing",
                 nameHsIdent = HsIdentifier
-                  "Thing"},
+                  "Thing"}
+              NameOriginInSource,
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypeStruct
             NamePair {
               nameC = CName "thing",
               nameHsIdent = HsIdentifier
-                "Thing"},
+                "Thing"}
+            NameOriginInSource,
           functionHeader =
           "struct_arg.h"}},
   DeclSimple,
@@ -436,7 +448,8 @@
               NamePair {
                 nameC = CName "thing",
                 nameHsIdent = HsIdentifier
-                  "Thing"},
+                  "Thing"}
+              NameOriginInSource,
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim

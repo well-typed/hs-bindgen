@@ -6,7 +6,6 @@ module HsBindgen.BindingSpec.Gen (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import Clang.CNameSpelling
 import Clang.Paths
 import HsBindgen.BindingSpec (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -66,7 +65,7 @@ genBindingSpec headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
-type Spec = (CNameSpelling, BindingSpec.Omittable BindingSpec.TypeSpec)
+type Spec = (BindingSpec.CSpelling, BindingSpec.Omittable BindingSpec.TypeSpec)
 
 -- TODO aliases
 getStructSpec :: HsModuleName -> Hs.Struct n -> Spec
@@ -74,8 +73,8 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
     Nothing -> panicPure "getStructSpec: structOrigin is Nothing"
     Just originDecl ->
       let cname = MangleNames.nameC $ C.declId (Origin.declInfo originDecl)
-          -- TODO correct CNameSpelling depends on how named
-          cnameSpelling = CNameSpelling $ "struct " <> getCName cname
+          -- TODO correct CSpelling depends on how named
+          cspelling = BindingSpec.CSpelling $ "struct " <> getCName cname
           hsIdentifier = HsIdentifier $ getHsName (Hs.structName hsStruct)
           MangleNames.DeclSpec typeSpec' = Origin.declSpec originDecl
           typeSpec = BindingSpec.TypeSpec {
@@ -85,14 +84,14 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
                  BindingSpec.typeSpecInstances typeSpec'
                    <> mkInstSpecs (Hs.structInstances hsStruct)
             }
-      in  (cnameSpelling, BindingSpec.Require typeSpec)
+      in  (cspelling, BindingSpec.Require typeSpec)
 
 -- TODO aliases
 getEmptyDataSpec :: HsModuleName -> Hs.EmptyData -> Spec
 getEmptyDataSpec hsModuleName edata =
     let originDecl = Hs.emptyDataOrigin edata
         cname = MangleNames.nameC $ C.declId (Origin.declInfo originDecl)
-        cnameSpelling = CNameSpelling $ case Origin.declKind originDecl of
+        cspelling = BindingSpec.CSpelling $ case Origin.declKind originDecl of
           Origin.OpaqueStruct -> "struct " <> getCName cname
           Origin.OpaqueEnum   -> "enum "   <> getCName cname
           Origin.OpaqueUnion  -> "union "  <> getCName cname
@@ -102,14 +101,14 @@ getEmptyDataSpec hsModuleName edata =
           , typeSpecIdentifier = Just hsIdentifier
           , typeSpecInstances  = Map.empty
           }
-    in  (cnameSpelling, BindingSpec.Require typeSpec)
+    in  (cspelling, BindingSpec.Require typeSpec)
 
 -- TODO aliases
 getNewtypeSpec :: HsModuleName -> Hs.Newtype -> Spec
 getNewtypeSpec hsModuleName hsNewtype =
     let originDecl = Hs.newtypeOrigin hsNewtype
         cname = MangleNames.nameC $ C.declId (Origin.declInfo originDecl)
-        cnameSpelling = CNameSpelling $ case Origin.declKind originDecl of
+        cspelling = BindingSpec.CSpelling $ case Origin.declKind originDecl of
           Origin.Enum{}    -> "enum " <> getCName cname
           Origin.Typedef{} -> getCName cname
           Origin.Union{}   -> "union " <> getCName cname
@@ -123,7 +122,7 @@ getNewtypeSpec hsModuleName hsNewtype =
               BindingSpec.typeSpecInstances typeSpec'
                 <> mkInstSpecs (Hs.newtypeInstances hsNewtype)
           }
-    in  (cnameSpelling, BindingSpec.Require typeSpec)
+    in  (cspelling, BindingSpec.Require typeSpec)
 
 mkInstSpecs ::
      Set HsTypeClass

@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "MyEnum",
           nameHsIdent = HsIdentifier
-            "MyEnum"}},
+            "MyEnum"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {

@@ -20,7 +20,9 @@
           declId = NamePair {
             nameC = CName "uint32_t",
             nameHsIdent = HsIdentifier
-              "Uint32_t"}},
+              "Uint32_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -154,7 +156,9 @@
           declId = NamePair {
             nameC = CName "uint64_t",
             nameHsIdent = HsIdentifier
-              "Uint64_t"}},
+              "Uint64_t"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -331,7 +335,9 @@
             declId = NamePair {
               nameC = CName "foo",
               nameHsIdent = HsIdentifier
-                "Foo"}},
+                "Foo"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -443,7 +449,9 @@
               declId = NamePair {
                 nameC = CName "foo",
                 nameHsIdent = HsIdentifier
-                  "Foo"}},
+                  "Foo"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -560,7 +568,9 @@
                       declId = NamePair {
                         nameC = CName "foo",
                         nameHsIdent = HsIdentifier
-                          "Foo"}},
+                          "Foo"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -679,7 +689,9 @@
                       declId = NamePair {
                         nameC = CName "foo",
                         nameHsIdent = HsIdentifier
-                          "Foo"}},
+                          "Foo"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

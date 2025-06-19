@@ -7,7 +7,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "unionA",
           nameHsIdent = HsIdentifier
-            "UnionA"}},
+            "UnionA"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -52,7 +54,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "exA",
           nameHsIdent = HsIdentifier
-            "ExA"}},
+            "ExA"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -71,7 +75,8 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "unionA",
                   nameHsIdent = HsIdentifier
-                    "UnionA"},
+                    "UnionA"}
+                NameOriginInSource,
               structFieldOffset = 0,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -87,7 +92,10 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "exB_fieldB1",
           nameHsIdent = HsIdentifier
-            "ExB_fieldB1"}},
+            "ExB_fieldB1"},
+        declOrigin = NameOriginGenerated
+          (AnonId "nested_unions.h:9:9"),
+        declAliases = []},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -132,7 +140,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "exB",
           nameHsIdent = HsIdentifier
-            "ExB"}},
+            "ExB"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -151,7 +161,9 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "exB_fieldB1",
                   nameHsIdent = HsIdentifier
-                    "ExB_fieldB1"},
+                    "ExB_fieldB1"}
+                (NameOriginGenerated
+                  (AnonId "nested_unions.h:9:9")),
               structFieldOffset = 0,
               structFieldWidth = Nothing}],
           structFlam = Nothing},

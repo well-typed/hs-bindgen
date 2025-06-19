@@ -26,7 +26,6 @@ module HsBindgen.Frontend.AST.Internal (
   , Type(..)
     -- * Qualified names
   , QualId(..)
-  , declNamespace
   , declQualId
     -- * Show
   , ValidPass
@@ -34,7 +33,6 @@ module HsBindgen.Frontend.AST.Internal (
 
 import Prelude hiding (Enum)
 
-import Clang.CNameSpelling (CNameSpelling)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -44,6 +42,7 @@ import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell (ExtHsRef)
 import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 
@@ -91,8 +90,10 @@ data Decl p = Decl {
     }
 
 data DeclInfo p = DeclInfo{
-      declLoc :: SingleLoc
-    , declId  :: Id p
+      declLoc     :: SingleLoc
+    , declId      :: Id p
+    , declOrigin  :: C.NameOrigin
+    , declAliases :: [CName]
     }
 
 data DeclKind p =
@@ -206,15 +207,15 @@ data CheckedMacroExpr = CheckedMacroExpr{
 
 data Type p =
     TypePrim PrimType
-  | TypeStruct (Id p)
-  | TypeUnion (Id p)
-  | TypeEnum (Id p)
+  | TypeStruct (Id p) C.NameOrigin
+  | TypeUnion (Id p) C.NameOrigin
+  | TypeEnum (Id p) C.NameOrigin
   | TypeTypedef (TypedefRef p)
 
     -- | Macro-defined type
     --
     -- These behave very similar to 'TypeTypedef'.
-  | TypeMacroTypedef (Id p)
+  | TypeMacroTypedef (Id p) C.NameOrigin
 
   | TypePointer (Type p)
   | TypeFun [Type p] (Type p)
@@ -238,35 +239,42 @@ data Type p =
   | TypeIncompleteArray (Type p)
 
     -- | TODO: Docs
-  | TypeExtBinding CNameSpelling ExtHsRef BindingSpec.TypeSpec
+  | TypeExtBinding BindingSpec.CSpelling ExtHsRef BindingSpec.TypeSpec
 
 {-------------------------------------------------------------------------------
   Qualified names
 -------------------------------------------------------------------------------}
 
-data QualId p = QualId (Id p) Namespace
+data QualId p = QualId (Id p) C.NameKind
 
 deriving instance Show (Id p) => Show (QualId p)
 deriving instance Eq   (Id p) => Eq   (QualId p)
 deriving instance Ord  (Id p) => Ord  (QualId p)
 
 instance (PrettyTrace (Id p)) => PrettyTrace (QualId p) where
-  prettyTrace (QualId x ns) = prettyTrace ns <> " " <> prettyTrace x
+  prettyTrace (QualId x nameKind) =
+    let prefix = case nameKind of
+          NameKindOrdinary -> ""
+          NameKindStruct   -> "struct "
+          NameKindUnion    -> "union "
+          NameKindEnum     -> "enum "
+    in  prefix <> prettyTrace x
 
-declNamespace :: DeclKind p -> Namespace
-declNamespace DeclStruct{}       = NamespaceStruct
-declNamespace DeclStructOpaque{} = NamespaceStruct
-declNamespace DeclUnion{}        = NamespaceUnion
-declNamespace DeclUnionOpaque{}  = NamespaceUnion
-declNamespace DeclEnum{}         = NamespaceEnum
-declNamespace DeclEnumOpaque{}   = NamespaceEnum
-declNamespace DeclTypedef{}      = NamespaceTypedef
-declNamespace DeclMacro{}        = NamespaceMacro
-declNamespace DeclFunction{}     = NamespaceFunction
+declNameKind :: DeclKind p -> NameKind
+declNameKind = \case
+    DeclStruct{}       -> NameKindStruct
+    DeclStructOpaque{} -> NameKindStruct
+    DeclUnion{}        -> NameKindUnion
+    DeclUnionOpaque{}  -> NameKindUnion
+    DeclEnum{}         -> NameKindEnum
+    DeclEnumOpaque{}   -> NameKindEnum
+    DeclTypedef{}      -> NameKindOrdinary
+    DeclMacro{}        -> NameKindOrdinary
+    DeclFunction{}     -> NameKindOrdinary
 
 declQualId :: Decl p -> QualId p
 declQualId Decl{declInfo = DeclInfo{declId}, declKind} =
-    QualId (declId) (declNamespace declKind)
+    QualId (declId) (declNameKind declKind)
 
 {-------------------------------------------------------------------------------
   Instances

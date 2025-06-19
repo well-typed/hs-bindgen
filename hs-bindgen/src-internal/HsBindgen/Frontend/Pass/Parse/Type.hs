@@ -12,6 +12,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -79,9 +80,9 @@ fromDecl ty = do
     decl   <- clang_getTypeDeclaration ty
     declId <- getDeclId decl
     dispatchDecl decl $ \case
-      CXCursor_EnumDecl    -> return $ C.TypeEnum    declId
-      CXCursor_StructDecl  -> return $ C.TypeStruct  declId
-      CXCursor_UnionDecl   -> return $ C.TypeUnion   declId
+      CXCursor_EnumDecl    -> return $ C.TypeEnum    declId C.NameOriginInSource
+      CXCursor_StructDecl  -> return $ C.TypeStruct  declId C.NameOriginInSource
+      CXCursor_UnionDecl   -> return $ C.TypeUnion   declId C.NameOriginInSource
       CXCursor_TypedefDecl -> return $ C.TypeTypedef (typedefName declId)
       kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where

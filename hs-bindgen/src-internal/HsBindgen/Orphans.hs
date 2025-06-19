@@ -11,7 +11,6 @@ import Data.Type.Equality ((:~:)(Refl))
 import DeBruijn.Idx (Idx, idxToInt)
 import Unsafe.Coerce (unsafeCoerce)
 
-import Clang.CNameSpelling
 import Clang.Paths
 
 {-------------------------------------------------------------------------------
@@ -26,10 +25,6 @@ instance Aeson.FromJSON CHeaderIncludePath where
 
 instance Aeson.ToJSON CHeaderIncludePath where
   toJSON = Aeson.String . Text.pack . renderCHeaderIncludePath
-
-deriving newtype instance Aeson.FromJSON CNameSpelling
-
-deriving newtype instance Aeson.ToJSON CNameSpelling
 
 {-------------------------------------------------------------------------------
   DeBruijn

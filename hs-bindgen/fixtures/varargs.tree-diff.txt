@@ -5,8 +5,9 @@ TranslationUnit {
         declLoc = "varargs.h:5:6",
         declId = NamePair {
           nameC = CName "g",
-          nameHsIdent = HsIdentifier
-            "g"}},
+          nameHsIdent = HsIdentifier "g"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclFunction
         Function {
           functionArgs = [],

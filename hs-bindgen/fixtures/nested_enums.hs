@@ -20,7 +20,9 @@
           declId = NamePair {
             nameC = CName "enumA",
             nameHsIdent = HsIdentifier
-              "EnumA"}},
+              "EnumA"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -327,7 +329,8 @@
                 NamePair {
                   nameC = CName "enumA",
                   nameHsIdent = HsIdentifier
-                    "EnumA"},
+                    "EnumA"}
+                NameOriginInSource,
               structFieldOffset = 0,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -337,7 +340,9 @@
             declId = NamePair {
               nameC = CName "exA",
               nameHsIdent = HsIdentifier
-                "ExA"}},
+                "ExA"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -356,7 +361,8 @@
                     NamePair {
                       nameC = CName "enumA",
                       nameHsIdent = HsIdentifier
-                        "EnumA"},
+                        "EnumA"}
+                    NameOriginInSource,
                   structFieldOffset = 0,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -398,7 +404,8 @@
                   NamePair {
                     nameC = CName "enumA",
                     nameHsIdent = HsIdentifier
-                      "EnumA"},
+                      "EnumA"}
+                  NameOriginInSource,
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -408,7 +415,9 @@
               declId = NamePair {
                 nameC = CName "exA",
                 nameHsIdent = HsIdentifier
-                  "ExA"}},
+                  "ExA"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -427,7 +436,8 @@
                       NamePair {
                         nameC = CName "enumA",
                         nameHsIdent = HsIdentifier
-                          "EnumA"},
+                          "EnumA"}
+                      NameOriginInSource,
                     structFieldOffset = 0,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -474,7 +484,8 @@
                           NamePair {
                             nameC = CName "enumA",
                             nameHsIdent = HsIdentifier
-                              "EnumA"},
+                              "EnumA"}
+                          NameOriginInSource,
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -484,7 +495,9 @@
                       declId = NamePair {
                         nameC = CName "exA",
                         nameHsIdent = HsIdentifier
-                          "ExA"}},
+                          "ExA"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -503,7 +516,8 @@
                               NamePair {
                                 nameC = CName "enumA",
                                 nameHsIdent = HsIdentifier
-                                  "EnumA"},
+                                  "EnumA"}
+                              NameOriginInSource,
                             structFieldOffset = 0,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -550,7 +564,8 @@
                           NamePair {
                             nameC = CName "enumA",
                             nameHsIdent = HsIdentifier
-                              "EnumA"},
+                              "EnumA"}
+                          NameOriginInSource,
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -560,7 +575,9 @@
                       declId = NamePair {
                         nameC = CName "exA",
                         nameHsIdent = HsIdentifier
-                          "ExA"}},
+                          "ExA"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -579,7 +596,8 @@
                               NamePair {
                                 nameC = CName "enumA",
                                 nameHsIdent = HsIdentifier
-                                  "EnumA"},
+                                  "EnumA"}
+                              NameOriginInSource,
                             structFieldOffset = 0,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -627,7 +645,10 @@
           declId = NamePair {
             nameC = CName "exB_fieldB1",
             nameHsIdent = HsIdentifier
-              "ExB_fieldB1"}},
+              "ExB_fieldB1"},
+          declOrigin = NameOriginGenerated
+            (AnonId "nested_enums.h:9:9"),
+          declAliases = []},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -934,7 +955,9 @@
                 NamePair {
                   nameC = CName "exB_fieldB1",
                   nameHsIdent = HsIdentifier
-                    "ExB_fieldB1"},
+                    "ExB_fieldB1"}
+                (NameOriginGenerated
+                  (AnonId "nested_enums.h:9:9")),
               structFieldOffset = 0,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -944,7 +967,9 @@
             declId = NamePair {
               nameC = CName "exB",
               nameHsIdent = HsIdentifier
-                "ExB"}},
+                "ExB"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -963,7 +988,9 @@
                     NamePair {
                       nameC = CName "exB_fieldB1",
                       nameHsIdent = HsIdentifier
-                        "ExB_fieldB1"},
+                        "ExB_fieldB1"}
+                    (NameOriginGenerated
+                      (AnonId "nested_enums.h:9:9")),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -1005,7 +1032,9 @@
                   NamePair {
                     nameC = CName "exB_fieldB1",
                     nameHsIdent = HsIdentifier
-                      "ExB_fieldB1"},
+                      "ExB_fieldB1"}
+                  (NameOriginGenerated
+                    (AnonId "nested_enums.h:9:9")),
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -1015,7 +1044,9 @@
               declId = NamePair {
                 nameC = CName "exB",
                 nameHsIdent = HsIdentifier
-                  "ExB"}},
+                  "ExB"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1034,7 +1065,9 @@
                       NamePair {
                         nameC = CName "exB_fieldB1",
                         nameHsIdent = HsIdentifier
-                          "ExB_fieldB1"},
+                          "ExB_fieldB1"}
+                      (NameOriginGenerated
+                        (AnonId "nested_enums.h:9:9")),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -1081,7 +1114,9 @@
                           NamePair {
                             nameC = CName "exB_fieldB1",
                             nameHsIdent = HsIdentifier
-                              "ExB_fieldB1"},
+                              "ExB_fieldB1"}
+                          (NameOriginGenerated
+                            (AnonId "nested_enums.h:9:9")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1091,7 +1126,9 @@
                       declId = NamePair {
                         nameC = CName "exB",
                         nameHsIdent = HsIdentifier
-                          "ExB"}},
+                          "ExB"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1110,7 +1147,9 @@
                               NamePair {
                                 nameC = CName "exB_fieldB1",
                                 nameHsIdent = HsIdentifier
-                                  "ExB_fieldB1"},
+                                  "ExB_fieldB1"}
+                              (NameOriginGenerated
+                                (AnonId "nested_enums.h:9:9")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1157,7 +1196,9 @@
                           NamePair {
                             nameC = CName "exB_fieldB1",
                             nameHsIdent = HsIdentifier
-                              "ExB_fieldB1"},
+                              "ExB_fieldB1"}
+                          (NameOriginGenerated
+                            (AnonId "nested_enums.h:9:9")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1167,7 +1208,9 @@
                       declId = NamePair {
                         nameC = CName "exB",
                         nameHsIdent = HsIdentifier
-                          "ExB"}},
+                          "ExB"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1186,7 +1229,9 @@
                               NamePair {
                                 nameC = CName "exB_fieldB1",
                                 nameHsIdent = HsIdentifier
-                                  "ExB_fieldB1"},
+                                  "ExB_fieldB1"}
+                              (NameOriginGenerated
+                                (AnonId "nested_enums.h:9:9")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},

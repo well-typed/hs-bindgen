@@ -45,6 +45,10 @@ findNamedUseOf :: RenameEnv -> C.QualId HandleMacros -> Maybe UseOfDecl
 findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qid =
     DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse (coercePass qid)
 
+findAliasesOf :: RenameEnv -> C.QualId HandleMacros -> [CName]
+findAliasesOf RenameEnv{envDeclUse} =
+    DeclUseGraph.findAliasesOf envDeclUse . coercePass
+
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
@@ -54,28 +58,27 @@ findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qid =
 -- Returns 'Nothing' if the declaration is anonymous and unused.
 nameDecl :: RenameEnv -> C.Decl HandleMacros -> Maybe (C.Decl NameAnon)
 nameDecl env decl = do
-    name <- nameDeclId env declId (C.declNamespace declKind)
+    (name, origin) <- case declId of
+      DeclNamed n -> Just (n, C.NameOriginInSource)
+      DeclAnon anonId ->
+        (, C.NameOriginGenerated anonId) . nameForAnon
+          <$> findNamedUseOf env qid
     return $ C.Decl{
         declInfo = C.DeclInfo{
-            declId = name
+            declId      = name
           , declLoc
+          , declOrigin  = origin
+          , declAliases = findAliasesOf env qid
           }
       , declKind = nameUseSites env declKind
       , declAnn
       }
   where
-    C.Decl{declInfo = C.DeclInfo{declLoc, declId}, declKind, declAnn} = decl
+    C.Decl{declInfo, declKind, declAnn} = decl
+    C.DeclInfo{declLoc, declId} = declInfo
 
--- | Rename 'DeclId'
---
--- Returns 'Nothing' if this is an anonymous type without any use.
-nameDeclId :: RenameEnv -> DeclId -> C.Namespace -> Maybe CName
-nameDeclId _       (DeclNamed n) _  = Just n
-nameDeclId env uid@(DeclAnon  _) ns =
-    nameForAnon <$> findNamedUseOf env qid
-  where
     qid :: C.QualId HandleMacros
-    qid = C.QualId uid ns
+    qid = C.declQualId decl
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -156,20 +159,20 @@ instance NameUseSites C.Type where
       go :: C.Type HandleMacros -> C.Type NameAnon
       go (C.TypePrim prim) =
           C.TypePrim prim
-      go (C.TypeStruct uid) =
-          let qid = C.QualId uid C.NamespaceStruct
-          in C.TypeStruct (nameUseSite qid)
-      go (C.TypeUnion uid) =
-          let qid = C.QualId uid C.NamespaceUnion
-          in C.TypeUnion (nameUseSite qid)
-      go (C.TypeEnum uid) =
-          let qid = C.QualId uid C.NamespaceEnum
-          in C.TypeEnum (nameUseSite qid)
+      go (C.TypeStruct uid _) =
+          let qid = C.QualId uid C.NameKindStruct
+          in uncurry C.TypeStruct (nameUseSite qid)
+      go (C.TypeUnion uid _) =
+          let qid = C.QualId uid C.NameKindUnion
+          in uncurry C.TypeUnion (nameUseSite qid)
+      go (C.TypeEnum uid _) =
+          let qid = C.QualId uid C.NameKindEnum
+          in uncurry C.TypeEnum (nameUseSite qid)
       go (C.TypeTypedef name) =
           C.TypeTypedef name
-      go (C.TypeMacroTypedef uid) =
-          let qid = C.QualId uid C.NamespaceMacro
-          in C.TypeMacroTypedef (nameUseSite qid)
+      go (C.TypeMacroTypedef uid _) =
+          let qid = C.QualId uid C.NameKindOrdinary
+          in uncurry C.TypeMacroTypedef (nameUseSite qid)
       go (C.TypePointer ty) =
           C.TypePointer (go ty)
       go (C.TypeFun args res) =
@@ -186,14 +189,15 @@ instance NameUseSites C.Type where
       -- Rename specific use site
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: C.QualId HandleMacros -> CName
-      nameUseSite qid@(C.QualId uid _namespace) =
+      nameUseSite :: C.QualId HandleMacros -> (CName, C.NameOrigin)
+      nameUseSite qid@(C.QualId uid _nameKind) =
           case uid of
-            DeclNamed name -> name
-            DeclAnon  _    ->
+            DeclNamed name   -> (name, C.NameOriginInSource)
+            DeclAnon  anonId ->
              case findNamedUseOf env qid of
-               Just useOfAnon -> nameForAnon useOfAnon
-               Nothing        -> panicPure "impossible"
+               Just useOfAnon ->
+                 (nameForAnon useOfAnon, C.NameOriginGenerated anonId)
+               Nothing -> panicPure "impossible"
 
 {-------------------------------------------------------------------------------
   Name generation
@@ -206,13 +210,13 @@ instance NameUseSites C.Type where
 -- | Construct name for anonymous declaration
 nameForAnon :: UseOfDecl -> CName
 nameForAnon = \case
-      UsedByNamed (UsedInTypedef ByValue) (name, _namespace) ->
+      UsedByNamed (UsedInTypedef ByValue) (name, _nameKind) ->
         name
-      UsedByNamed (UsedInTypedef ByRef) (name, _namespace) ->
+      UsedByNamed (UsedInTypedef ByRef) (name, _nameKind) ->
         name <> "_Deref"
-      UsedByNamed (UsedInField _valOrRef field) (name, _namespace) ->
+      UsedByNamed (UsedInField _valOrRef field) (name, _nameKind) ->
         name <> "_" <> field
-      UsedByNamed (UsedInFunction _valOrRef) (name, _namespace) ->
+      UsedByNamed (UsedInFunction _valOrRef) (name, _nameKind) ->
         name
       UsedByAnon (UsedInTypedef _valOrRef) _useOfAnon ->
         panicPure $ "nameForAnon: unexpected anonymous typedef"

@@ -36,9 +36,11 @@ instance (
 instance (
       Id p ~ Id p'
     ) => CoercePass DeclInfo p p' where
-  coercePass DeclInfo{declLoc, declId} = DeclInfo{
+  coercePass DeclInfo{declLoc, declId, declOrigin, declAliases} = DeclInfo{
         declLoc
       , declId
+      , declOrigin
+      , declAliases
       }
 
 instance (
@@ -169,18 +171,18 @@ instance (
       Id p ~ Id p'
     , TypedefRef p ~ TypedefRef p'
     ) => CoercePass Type p p' where
-  coercePass (TypePrim prim)           = TypePrim prim
-  coercePass (TypeStruct name)         = TypeStruct name
-  coercePass (TypeUnion name)          = TypeUnion name
-  coercePass (TypeEnum name)           = TypeEnum name
-  coercePass (TypeTypedef typedef)     = TypeTypedef typedef
-  coercePass (TypeMacroTypedef name)   = TypeMacroTypedef name
-  coercePass (TypePointer typ)         = TypePointer (coercePass typ)
-  coercePass (TypeFun args res)        = TypeFun (map coercePass args) (coercePass res)
-  coercePass  TypeVoid                 = TypeVoid
-  coercePass (TypeConstArray n typ)    = TypeConstArray n (coercePass typ)
-  coercePass (TypeIncompleteArray typ) = TypeIncompleteArray (coercePass typ)
-  coercePass (TypeExtBinding c r s)    = TypeExtBinding c r s
+  coercePass (TypePrim prim)                = TypePrim prim
+  coercePass (TypeStruct name origin)       = TypeStruct name origin
+  coercePass (TypeUnion name origin)        = TypeUnion name origin
+  coercePass (TypeEnum name origin)         = TypeEnum name origin
+  coercePass (TypeTypedef typedef)          = TypeTypedef typedef
+  coercePass (TypeMacroTypedef name origin) = TypeMacroTypedef name origin
+  coercePass (TypePointer typ)              = TypePointer (coercePass typ)
+  coercePass (TypeFun args res)             = TypeFun (map coercePass args) (coercePass res)
+  coercePass  TypeVoid                      = TypeVoid
+  coercePass (TypeConstArray n typ)         = TypeConstArray n (coercePass typ)
+  coercePass (TypeIncompleteArray typ)      = TypeIncompleteArray (coercePass typ)
+  coercePass (TypeExtBinding c r s)         = TypeExtBinding c r s
 
 instance (
      Id p ~ Id p'

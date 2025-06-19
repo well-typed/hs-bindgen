@@ -12,9 +12,11 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     -- * Query
   , UseOfDecl(..)
   , findNamedUseOf
+  , findAliasesOf
   ) where
 
 import Control.Monad.State
+import Data.Set qualified as Set
 
 import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
@@ -27,6 +29,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -52,7 +55,7 @@ fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
-    UsedByNamed Usage (CName, Namespace)
+    UsedByNamed Usage (CName, C.NameKind)
   | UsedByAnon Usage UseOfDecl
   deriving stock (Show)
 
@@ -73,13 +76,26 @@ findNamedUseOf declIndex (Wrap graph) =
         case uid of
           DeclNamed name -> do
             f <- get
-            return $ Right . Just $ f (UsedByNamed u (name, ns))
+            return $ Right . Just $ f (UsedByNamed u (name, nk))
           DeclAnon _anonId -> do
             modify (. UsedByAnon u)
             return $ Left qid
       where
-        qid@(C.QualId uid ns) = C.declQualId d
+        qid@(C.QualId uid nk) = C.declQualId d
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =
         panicPure "findUseOfAnon: impossible multiple use of anon decl"
+
+{-------------------------------------------------------------------------------
+  Query: aliases of declarations
+-------------------------------------------------------------------------------}
+
+findAliasesOf :: DeclUseGraph -> C.QualId Parse -> [CName]
+findAliasesOf (Wrap graph) =
+    mapMaybe (uncurry aux) . Set.toList . DynGraph.neighbors graph
+  where
+    aux :: C.QualId Parse -> Usage -> Maybe CName
+    aux (C.QualId (DeclNamed cname) _) (UsedInTypedef UseDeclGraph.ByValue) =
+      Just cname
+    aux _ _ = Nothing

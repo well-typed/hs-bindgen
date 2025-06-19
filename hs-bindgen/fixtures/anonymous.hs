@@ -51,7 +51,10 @@
             declId = NamePair {
               nameC = CName "S1_c",
               nameHsIdent = HsIdentifier
-                "S1_c"}},
+                "S1_c"},
+            declOrigin = NameOriginGenerated
+              (AnonId "anonymous.h:3:3"),
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -143,7 +146,10 @@
               declId = NamePair {
                 nameC = CName "S1_c",
                 nameHsIdent = HsIdentifier
-                  "S1_c"}},
+                  "S1_c"},
+              declOrigin = NameOriginGenerated
+                (AnonId "anonymous.h:3:3"),
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -240,7 +246,10 @@
                       declId = NamePair {
                         nameC = CName "S1_c",
                         nameHsIdent = HsIdentifier
-                          "S1_c"}},
+                          "S1_c"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId "anonymous.h:3:3"),
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -339,7 +348,10 @@
                       declId = NamePair {
                         nameC = CName "S1_c",
                         nameHsIdent = HsIdentifier
-                          "S1_c"}},
+                          "S1_c"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId "anonymous.h:3:3"),
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -421,7 +433,9 @@
                 NamePair {
                   nameC = CName "S1_c",
                   nameHsIdent = HsIdentifier
-                    "S1_c"},
+                    "S1_c"}
+                (NameOriginGenerated
+                  (AnonId "anonymous.h:3:3")),
               structFieldOffset = 0,
               structFieldWidth = Nothing}},
         Field {
@@ -449,7 +463,9 @@
             declId = NamePair {
               nameC = CName "S1",
               nameHsIdent = HsIdentifier
-                "S1"}},
+                "S1"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -468,7 +484,9 @@
                     NamePair {
                       nameC = CName "S1_c",
                       nameHsIdent = HsIdentifier
-                        "S1_c"},
+                        "S1_c"}
+                    (NameOriginGenerated
+                      (AnonId "anonymous.h:3:3")),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -519,7 +537,9 @@
                   NamePair {
                     nameC = CName "S1_c",
                     nameHsIdent = HsIdentifier
-                      "S1_c"},
+                      "S1_c"}
+                  (NameOriginGenerated
+                    (AnonId "anonymous.h:3:3")),
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}},
           Field {
@@ -547,7 +567,9 @@
               declId = NamePair {
                 nameC = CName "S1",
                 nameHsIdent = HsIdentifier
-                  "S1"}},
+                  "S1"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -566,7 +588,9 @@
                       NamePair {
                         nameC = CName "S1_c",
                         nameHsIdent = HsIdentifier
-                          "S1_c"},
+                          "S1_c"}
+                      (NameOriginGenerated
+                        (AnonId "anonymous.h:3:3")),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing},
                   StructField {
@@ -622,7 +646,9 @@
                           NamePair {
                             nameC = CName "S1_c",
                             nameHsIdent = HsIdentifier
-                              "S1_c"},
+                              "S1_c"}
+                          (NameOriginGenerated
+                            (AnonId "anonymous.h:3:3")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -650,7 +676,9 @@
                       declId = NamePair {
                         nameC = CName "S1",
                         nameHsIdent = HsIdentifier
-                          "S1"}},
+                          "S1"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -669,7 +697,9 @@
                               NamePair {
                                 nameC = CName "S1_c",
                                 nameHsIdent = HsIdentifier
-                                  "S1_c"},
+                                  "S1_c"}
+                              (NameOriginGenerated
+                                (AnonId "anonymous.h:3:3")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -727,7 +757,9 @@
                           NamePair {
                             nameC = CName "S1_c",
                             nameHsIdent = HsIdentifier
-                              "S1_c"},
+                              "S1_c"}
+                          (NameOriginGenerated
+                            (AnonId "anonymous.h:3:3")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -755,7 +787,9 @@
                       declId = NamePair {
                         nameC = CName "S1",
                         nameHsIdent = HsIdentifier
-                          "S1"}},
+                          "S1"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -774,7 +808,9 @@
                               NamePair {
                                 nameC = CName "S1_c",
                                 nameHsIdent = HsIdentifier
-                                  "S1_c"},
+                                  "S1_c"}
+                              (NameOriginGenerated
+                                (AnonId "anonymous.h:3:3")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -847,7 +883,10 @@
             declId = NamePair {
               nameC = CName "S2_inner_deep",
               nameHsIdent = HsIdentifier
-                "S2_inner_deep"}},
+                "S2_inner_deep"},
+            declOrigin = NameOriginGenerated
+              (AnonId "anonymous.h:15:5"),
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -912,7 +951,10 @@
               declId = NamePair {
                 nameC = CName "S2_inner_deep",
                 nameHsIdent = HsIdentifier
-                  "S2_inner_deep"}},
+                  "S2_inner_deep"},
+              declOrigin = NameOriginGenerated
+                (AnonId "anonymous.h:15:5"),
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -982,7 +1024,10 @@
                       declId = NamePair {
                         nameC = CName "S2_inner_deep",
                         nameHsIdent = HsIdentifier
-                          "S2_inner_deep"}},
+                          "S2_inner_deep"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId "anonymous.h:15:5"),
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1052,7 +1097,10 @@
                       declId = NamePair {
                         nameC = CName "S2_inner_deep",
                         nameHsIdent = HsIdentifier
-                          "S2_inner_deep"}},
+                          "S2_inner_deep"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId "anonymous.h:15:5"),
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1148,7 +1196,9 @@
                 NamePair {
                   nameC = CName "S2_inner_deep",
                   nameHsIdent = HsIdentifier
-                    "S2_inner_deep"},
+                    "S2_inner_deep"}
+                (NameOriginGenerated
+                  (AnonId "anonymous.h:15:5")),
               structFieldOffset = 32,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -1158,7 +1208,10 @@
             declId = NamePair {
               nameC = CName "S2_inner",
               nameHsIdent = HsIdentifier
-                "S2_inner"}},
+                "S2_inner"},
+            declOrigin = NameOriginGenerated
+              (AnonId "anonymous.h:13:3"),
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1188,7 +1241,9 @@
                     NamePair {
                       nameC = CName "S2_inner_deep",
                       nameHsIdent = HsIdentifier
-                        "S2_inner_deep"},
+                        "S2_inner_deep"}
+                    (NameOriginGenerated
+                      (AnonId "anonymous.h:15:5")),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -1248,7 +1303,9 @@
                   NamePair {
                     nameC = CName "S2_inner_deep",
                     nameHsIdent = HsIdentifier
-                      "S2_inner_deep"},
+                      "S2_inner_deep"}
+                  (NameOriginGenerated
+                    (AnonId "anonymous.h:15:5")),
                 structFieldOffset = 32,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -1258,7 +1315,10 @@
               declId = NamePair {
                 nameC = CName "S2_inner",
                 nameHsIdent = HsIdentifier
-                  "S2_inner"}},
+                  "S2_inner"},
+              declOrigin = NameOriginGenerated
+                (AnonId "anonymous.h:13:3"),
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1288,7 +1348,9 @@
                       NamePair {
                         nameC = CName "S2_inner_deep",
                         nameHsIdent = HsIdentifier
-                          "S2_inner_deep"},
+                          "S2_inner_deep"}
+                      (NameOriginGenerated
+                        (AnonId "anonymous.h:15:5")),
                     structFieldOffset = 32,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -1353,7 +1415,9 @@
                           NamePair {
                             nameC = CName "S2_inner_deep",
                             nameHsIdent = HsIdentifier
-                              "S2_inner_deep"},
+                              "S2_inner_deep"}
+                          (NameOriginGenerated
+                            (AnonId "anonymous.h:15:5")),
                         structFieldOffset = 32,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1363,7 +1427,10 @@
                       declId = NamePair {
                         nameC = CName "S2_inner",
                         nameHsIdent = HsIdentifier
-                          "S2_inner"}},
+                          "S2_inner"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId "anonymous.h:13:3"),
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1393,7 +1460,9 @@
                               NamePair {
                                 nameC = CName "S2_inner_deep",
                                 nameHsIdent = HsIdentifier
-                                  "S2_inner_deep"},
+                                  "S2_inner_deep"}
+                              (NameOriginGenerated
+                                (AnonId "anonymous.h:15:5")),
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1460,7 +1529,9 @@
                           NamePair {
                             nameC = CName "S2_inner_deep",
                             nameHsIdent = HsIdentifier
-                              "S2_inner_deep"},
+                              "S2_inner_deep"}
+                          (NameOriginGenerated
+                            (AnonId "anonymous.h:15:5")),
                         structFieldOffset = 32,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1470,7 +1541,10 @@
                       declId = NamePair {
                         nameC = CName "S2_inner",
                         nameHsIdent = HsIdentifier
-                          "S2_inner"}},
+                          "S2_inner"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId "anonymous.h:13:3"),
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1500,7 +1574,9 @@
                               NamePair {
                                 nameC = CName "S2_inner_deep",
                                 nameHsIdent = HsIdentifier
-                                  "S2_inner_deep"},
+                                  "S2_inner_deep"}
+                              (NameOriginGenerated
+                                (AnonId "anonymous.h:15:5")),
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1561,7 +1637,9 @@
                 NamePair {
                   nameC = CName "S2_inner",
                   nameHsIdent = HsIdentifier
-                    "S2_inner"},
+                    "S2_inner"}
+                (NameOriginGenerated
+                  (AnonId "anonymous.h:13:3")),
               structFieldOffset = 0,
               structFieldWidth = Nothing}},
         Field {
@@ -1589,7 +1667,9 @@
             declId = NamePair {
               nameC = CName "S2",
               nameHsIdent = HsIdentifier
-                "S2"}},
+                "S2"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1608,7 +1688,9 @@
                     NamePair {
                       nameC = CName "S2_inner",
                       nameHsIdent = HsIdentifier
-                        "S2_inner"},
+                        "S2_inner"}
+                    (NameOriginGenerated
+                      (AnonId "anonymous.h:13:3")),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -1661,7 +1743,9 @@
                   NamePair {
                     nameC = CName "S2_inner",
                     nameHsIdent = HsIdentifier
-                      "S2_inner"},
+                      "S2_inner"}
+                  (NameOriginGenerated
+                    (AnonId "anonymous.h:13:3")),
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}},
           Field {
@@ -1689,7 +1773,9 @@
               declId = NamePair {
                 nameC = CName "S2",
                 nameHsIdent = HsIdentifier
-                  "S2"}},
+                  "S2"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1708,7 +1794,9 @@
                       NamePair {
                         nameC = CName "S2_inner",
                         nameHsIdent = HsIdentifier
-                          "S2_inner"},
+                          "S2_inner"}
+                      (NameOriginGenerated
+                        (AnonId "anonymous.h:13:3")),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing},
                   StructField {
@@ -1766,7 +1854,9 @@
                           NamePair {
                             nameC = CName "S2_inner",
                             nameHsIdent = HsIdentifier
-                              "S2_inner"},
+                              "S2_inner"}
+                          (NameOriginGenerated
+                            (AnonId "anonymous.h:13:3")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -1794,7 +1884,9 @@
                       declId = NamePair {
                         nameC = CName "S2",
                         nameHsIdent = HsIdentifier
-                          "S2"}},
+                          "S2"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1813,7 +1905,9 @@
                               NamePair {
                                 nameC = CName "S2_inner",
                                 nameHsIdent = HsIdentifier
-                                  "S2_inner"},
+                                  "S2_inner"}
+                              (NameOriginGenerated
+                                (AnonId "anonymous.h:13:3")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -1873,7 +1967,9 @@
                           NamePair {
                             nameC = CName "S2_inner",
                             nameHsIdent = HsIdentifier
-                              "S2_inner"},
+                              "S2_inner"}
+                          (NameOriginGenerated
+                            (AnonId "anonymous.h:13:3")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -1901,7 +1997,9 @@
                       declId = NamePair {
                         nameC = CName "S2",
                         nameHsIdent = HsIdentifier
-                          "S2"}},
+                          "S2"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1920,7 +2018,9 @@
                               NamePair {
                                 nameC = CName "S2_inner",
                                 nameHsIdent = HsIdentifier
-                                  "S2_inner"},
+                                  "S2_inner"}
+                              (NameOriginGenerated
+                                (AnonId "anonymous.h:13:3")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -2011,7 +2111,10 @@
             declId = NamePair {
               nameC = CName "S3_c",
               nameHsIdent = HsIdentifier
-                "S3_c"}},
+                "S3_c"},
+            declOrigin = NameOriginGenerated
+              (AnonId "anonymous.h:25:3"),
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2103,7 +2206,10 @@
               declId = NamePair {
                 nameC = CName "S3_c",
                 nameHsIdent = HsIdentifier
-                  "S3_c"}},
+                  "S3_c"},
+              declOrigin = NameOriginGenerated
+                (AnonId "anonymous.h:25:3"),
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2200,7 +2306,10 @@
                       declId = NamePair {
                         nameC = CName "S3_c",
                         nameHsIdent = HsIdentifier
-                          "S3_c"}},
+                          "S3_c"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId "anonymous.h:25:3"),
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2299,7 +2408,10 @@
                       declId = NamePair {
                         nameC = CName "S3_c",
                         nameHsIdent = HsIdentifier
-                          "S3_c"}},
+                          "S3_c"},
+                      declOrigin = NameOriginGenerated
+                        (AnonId "anonymous.h:25:3"),
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2387,7 +2499,9 @@
                     NamePair {
                       nameC = CName "S3_c",
                       nameHsIdent = HsIdentifier
-                        "S3_c"})),
+                        "S3_c"}
+                    (NameOriginGenerated
+                      (AnonId "anonymous.h:25:3")))),
               structFieldOffset = 0,
               structFieldWidth = Nothing}},
         Field {
@@ -2415,7 +2529,9 @@
             declId = NamePair {
               nameC = CName "S3",
               nameHsIdent = HsIdentifier
-                "S3"}},
+                "S3"},
+            declOrigin = NameOriginInSource,
+            declAliases = []},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2436,7 +2552,9 @@
                         NamePair {
                           nameC = CName "S3_c",
                           nameHsIdent = HsIdentifier
-                            "S3_c"})),
+                            "S3_c"}
+                        (NameOriginGenerated
+                          (AnonId "anonymous.h:25:3")))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2493,7 +2611,9 @@
                       NamePair {
                         nameC = CName "S3_c",
                         nameHsIdent = HsIdentifier
-                          "S3_c"})),
+                          "S3_c"}
+                      (NameOriginGenerated
+                        (AnonId "anonymous.h:25:3")))),
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}},
           Field {
@@ -2521,7 +2641,9 @@
               declId = NamePair {
                 nameC = CName "S3",
                 nameHsIdent = HsIdentifier
-                  "S3"}},
+                  "S3"},
+              declOrigin = NameOriginInSource,
+              declAliases = []},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2542,7 +2664,9 @@
                           NamePair {
                             nameC = CName "S3_c",
                             nameHsIdent = HsIdentifier
-                              "S3_c"})),
+                              "S3_c"}
+                          (NameOriginGenerated
+                            (AnonId "anonymous.h:25:3")))),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2604,7 +2728,9 @@
                               NamePair {
                                 nameC = CName "S3_c",
                                 nameHsIdent = HsIdentifier
-                                  "S3_c"})),
+                                  "S3_c"}
+                              (NameOriginGenerated
+                                (AnonId "anonymous.h:25:3")))),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2632,7 +2758,9 @@
                       declId = NamePair {
                         nameC = CName "S3",
                         nameHsIdent = HsIdentifier
-                          "S3"}},
+                          "S3"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2653,7 +2781,9 @@
                                   NamePair {
                                     nameC = CName "S3_c",
                                     nameHsIdent = HsIdentifier
-                                      "S3_c"})),
+                                      "S3_c"}
+                                  (NameOriginGenerated
+                                    (AnonId "anonymous.h:25:3")))),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -2717,7 +2847,9 @@
                               NamePair {
                                 nameC = CName "S3_c",
                                 nameHsIdent = HsIdentifier
-                                  "S3_c"})),
+                                  "S3_c"}
+                              (NameOriginGenerated
+                                (AnonId "anonymous.h:25:3")))),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2745,7 +2877,9 @@
                       declId = NamePair {
                         nameC = CName "S3",
                         nameHsIdent = HsIdentifier
-                          "S3"}},
+                          "S3"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = []},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2766,7 +2900,9 @@
                                   NamePair {
                                     nameC = CName "S3_c",
                                     nameHsIdent = HsIdentifier
-                                      "S3_c"})),
+                                      "S3_c"}
+                                  (NameOriginGenerated
+                                    (AnonId "anonymous.h:25:3")))),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {

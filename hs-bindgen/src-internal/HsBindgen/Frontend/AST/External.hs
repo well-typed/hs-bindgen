@@ -48,7 +48,6 @@ module HsBindgen.Frontend.AST.External (
 
 import Prelude hiding (Enum)
 
-import Clang.CNameSpelling (CNameSpelling)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -57,6 +56,7 @@ import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
@@ -85,8 +85,10 @@ data Decl = Decl {
   deriving stock (Show, Eq, Generic)
 
 data DeclInfo = DeclInfo{
-      declLoc :: SingleLoc
-    , declId  :: MangleNames.NamePair
+      declLoc     :: SingleLoc
+    , declId      :: MangleNames.NamePair
+    , declOrigin  :: C.NameOrigin
+    , declAliases :: [CName]
     }
   deriving stock (Show, Eq, Generic)
 
@@ -212,10 +214,11 @@ data CheckedMacroType = CheckedMacroType{
 -- For type /declarations/ see 'Decl'.
 data Type =
     TypePrim PrimType
-  | TypeStruct MangleNames.NamePair
-  | TypeUnion MangleNames.NamePair
-  | TypeEnum MangleNames.NamePair
+  | TypeStruct MangleNames.NamePair C.NameOrigin
+  | TypeUnion MangleNames.NamePair C.NameOrigin
+  | TypeEnum MangleNames.NamePair C.NameOrigin
   | TypeTypedef TypedefRef
+  | TypeMacroTypedef MangleNames.NamePair C.NameOrigin
   | TypePointer Type
   | TypeConstArray Natural Type
   | TypeFun [Type] Type
@@ -236,7 +239,7 @@ data Type =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray Type
-  | TypeExtBinding CNameSpelling ExtHsRef BindingSpec.TypeSpec
+  | TypeExtBinding BindingSpec.CSpelling ExtHsRef BindingSpec.TypeSpec
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow Type
 

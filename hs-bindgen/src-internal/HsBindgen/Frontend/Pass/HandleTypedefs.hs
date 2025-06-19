@@ -55,9 +55,9 @@ squashTypedef ::
   -> Maybe (C.Type HandleTypedefs)
 squashTypedef typedefName C.Typedef{typedefType = typ} =
     case typ of
-      C.TypeStruct n -> guard (n == typedefName) >> return (C.TypeStruct n)
-      C.TypeUnion  n -> guard (n == typedefName) >> return (C.TypeUnion  n)
-      C.TypeEnum   n -> guard (n == typedefName) >> return (C.TypeEnum   n)
+      C.TypeStruct n o -> guard (n == typedefName) >> return (C.TypeStruct n o)
+      C.TypeUnion  n o -> guard (n == typedefName) >> return (C.TypeUnion  n o)
+      C.TypeEnum   n o -> guard (n == typedefName) >> return (C.TypeEnum   n o)
       _otherwise     -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -159,12 +159,12 @@ instance HandleUseSites C.Type where
 
       -- Simple cases
 
-      go (C.TypePrim prim)         = C.TypePrim prim
-      go (C.TypeStruct name)       = C.TypeStruct name
-      go (C.TypeUnion name)        = C.TypeUnion name
-      go (C.TypeEnum name)         = C.TypeEnum name
-      go (C.TypeMacroTypedef name) = C.TypeMacroTypedef name
-      go (C.TypeVoid)              = C.TypeVoid
+      go (C.TypePrim prim)                = C.TypePrim prim
+      go (C.TypeStruct name origin)       = C.TypeStruct name origin
+      go (C.TypeUnion name origin)        = C.TypeUnion name origin
+      go (C.TypeEnum name origin)         = C.TypeEnum name origin
+      go (C.TypeMacroTypedef name origin) = C.TypeMacroTypedef name origin
+      go (C.TypeVoid)                     = C.TypeVoid
       go (C.TypeExtBinding cSpelling extHsRef typeSpec) =
           C.TypeExtBinding cSpelling extHsRef typeSpec
 

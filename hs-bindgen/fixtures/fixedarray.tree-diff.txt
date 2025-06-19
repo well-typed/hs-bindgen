@@ -6,7 +6,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "triple",
           nameHsIdent = HsIdentifier
-            "Triple"}},
+            "Triple"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -32,7 +34,9 @@ TranslationUnit {
         declId = NamePair {
           nameC = CName "Example",
           nameHsIdent = HsIdentifier
-            "Example"}},
+            "Example"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

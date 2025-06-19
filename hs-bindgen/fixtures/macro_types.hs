@@ -20,7 +20,9 @@
           declId = NamePair {
             nameC = CName "PtrInt",
             nameHsIdent = HsIdentifier
-              "PtrInt"}},
+              "PtrInt"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -87,7 +89,9 @@
           declId = NamePair {
             nameC = CName "PtrPtrChar",
             nameHsIdent = HsIdentifier
-              "PtrPtrChar"}},
+              "PtrPtrChar"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -156,7 +160,9 @@
           declId = NamePair {
             nameC = CName "Arr1",
             nameHsIdent = HsIdentifier
-              "Arr1"}},
+              "Arr1"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -213,7 +219,9 @@
           declId = NamePair {
             nameC = CName "Arr2",
             nameHsIdent = HsIdentifier
-              "Arr2"}},
+              "Arr2"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -274,7 +282,9 @@
           declId = NamePair {
             nameC = CName "Arr3",
             nameHsIdent = HsIdentifier
-              "Arr3"}},
+              "Arr3"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -337,7 +347,9 @@
           declId = NamePair {
             nameC = CName "Fun1",
             nameHsIdent = HsIdentifier
-              "Fun1"}},
+              "Fun1"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -389,7 +401,9 @@
           declId = NamePair {
             nameC = CName "Fun2",
             nameHsIdent = HsIdentifier
-              "Fun2"}},
+              "Fun2"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -461,7 +475,9 @@
           declId = NamePair {
             nameC = CName "Fun3",
             nameHsIdent = HsIdentifier
-              "Fun3"}},
+              "Fun3"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -539,7 +555,9 @@
           declId = NamePair {
             nameC = CName "Fun4",
             nameHsIdent = HsIdentifier
-              "Fun4"}},
+              "Fun4"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -606,7 +624,9 @@
           declId = NamePair {
             nameC = CName "Fun5",
             nameHsIdent = HsIdentifier
-              "Fun5"}},
+              "Fun5"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -660,7 +680,9 @@
           declId = NamePair {
             nameC = CName "MTy",
             nameHsIdent = HsIdentifier
-              "MTy"}},
+              "MTy"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -761,7 +783,9 @@
           declId = NamePair {
             nameC = CName "tty",
             nameHsIdent = HsIdentifier
-              "Tty"}},
+              "Tty"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -771,12 +795,12 @@
               newtypeField = HsName
                 "@NsVar"
                 "un_Tty"},
-            typedefType = TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "MTy",
-                  nameHsIdent = HsIdentifier
-                    "MTy"})},
+            typedefType = TypeMacroTypedef
+              NamePair {
+                nameC = CName "MTy",
+                nameHsIdent = HsIdentifier
+                  "MTy"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -866,7 +890,9 @@
           declId = NamePair {
             nameC = CName "UINT8_T",
             nameHsIdent = HsIdentifier
-              "UINT8_T"}},
+              "UINT8_T"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1001,7 +1027,9 @@
           declId = NamePair {
             nameC = CName "BOOLEAN_T",
             nameHsIdent = HsIdentifier
-              "BOOLEAN_T"}},
+              "BOOLEAN_T"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1011,12 +1039,12 @@
               newtypeField = HsName
                 "@NsVar"
                 "un_BOOLEAN_T"},
-            macroType = TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "UINT8_T",
-                  nameHsIdent = HsIdentifier
-                    "UINT8_T"})},
+            macroType = TypeMacroTypedef
+              NamePair {
+                nameC = CName "UINT8_T",
+                nameHsIdent = HsIdentifier
+                  "UINT8_T"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1139,7 +1167,9 @@
           declId = NamePair {
             nameC = CName "boolean_T",
             nameHsIdent = HsIdentifier
-              "Boolean_T"}},
+              "Boolean_T"},
+          declOrigin = NameOriginInSource,
+          declAliases = []},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1149,12 +1179,12 @@
               newtypeField = HsName
                 "@NsVar"
                 "un_Boolean_T"},
-            typedefType = TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = CName "BOOLEAN_T",
-                  nameHsIdent = HsIdentifier
-                    "BOOLEAN_T"})},
+            typedefType = TypeMacroTypedef
+              NamePair {
+                nameC = CName "BOOLEAN_T",
+                nameHsIdent = HsIdentifier
+                  "BOOLEAN_T"}
+              NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
