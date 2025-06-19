@@ -15,9 +15,8 @@ module HsBindgen.Frontend.RootHeader (
   , lookup
   ) where
 
+import Data.Maybe (listToMaybe)
 import Prelude hiding (lookup)
-
-import Data.List.Compat ((!?))
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -72,3 +71,17 @@ lookup :: RootHeader -> SingleLoc -> Maybe CHeaderIncludePath
 lookup rootHeader loc = do
     guard $ singleLocPath loc == name
     return $ rootHeader `at` loc
+
+{-------------------------------------------------------------------------------
+  Auxiliary functions
+-------------------------------------------------------------------------------}
+
+-- | List index (subscript) operator, starting from 0
+--
+-- Returns 'Nothing' if the index is out of bounds
+(!?) :: [a] -> Int -> Maybe a
+xs !? n
+    | n < 0     = Nothing
+    | otherwise = listToMaybe $ drop n xs
+infixl 9 !?
+{-# INLINABLE (!?) #-}
