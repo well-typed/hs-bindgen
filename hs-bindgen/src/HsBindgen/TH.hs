@@ -85,9 +85,11 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 loadExtBindings ::
      Tracer TH.Q (TraceWithCallStack Trace.Trace)
   -> Args.ClangArgs
+  -> Bool -- ^ Automatically include @stdlib@?
   -> [FilePath]
   -> TH.Q (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
-loadExtBindings tracer args = TH.runIO . BindingSpec.load tracer' args
+loadExtBindings tracer args isAutoStdlib =
+    TH.runIO . Pipeline.loadExtBindings tracer' args isAutoStdlib
   where
     tracer' :: Tracer IO (TraceWithCallStack ExtraClangArgsLog)
     tracer' = useTrace Trace.TraceExtraClangArgs $ natTracer TH.runQ tracer

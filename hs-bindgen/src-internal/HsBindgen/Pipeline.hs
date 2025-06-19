@@ -28,8 +28,9 @@ module HsBindgen.Pipeline (
   , hashIncludeWith
   , genBindingsFromCHeader
 
-    -- * External bindings generation
+    -- * External bindings
   , genExtBindings
+  , loadExtBindings
 
     -- * Test generation
   , genTests
@@ -50,11 +51,13 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
-import HsBindgen.BindingSpec (ResolvedBindingSpec)
+import HsBindgen.BindingSpec (ResolvedBindingSpec, UnresolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen (genBindingSpec)
+import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate (..))
+import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.GenTests qualified as GenTests
@@ -64,10 +67,11 @@ import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
+import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Util.Trace (Trace)
-import HsBindgen.Util.Tracer (TraceWithCallStack)
+import HsBindgen.Util.Tracer
 
 #ifdef MIN_VERSION_th_compat
 import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
@@ -222,12 +226,18 @@ hashInclude ::
   -> TH.Q [TH.Dec]
 hashInclude fps HashIncludeOpts {..} = do
   quoteIncludeDirs <- toFilePaths extraIncludeDirs
+  let args = def {
+          clangQuoteIncludePathDirs = CIncludePathDir <$> quoteIncludeDirs
+        }
+      tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
+  extBindings <-
+    TH.runIO . withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
+      snd <$> loadExtBindings tracer args True []
   let opts :: Opts
       opts = def {
-        optsClangArgs = def {
-            clangQuoteIncludePathDirs  = CIncludePathDir <$> quoteIncludeDirs
-          }
-      }
+          optsClangArgs   = args
+        , optsExtBindings = extBindings
+        }
   hashIncludeWith opts fps
   where
     toFilePath :: FilePath -> QuoteIncludeDir -> FilePath
@@ -278,7 +288,7 @@ genBindingsFromCHeader opts unit = do
     C.TranslationUnit{unitDecls, unitDeps} = unit
 
 {-------------------------------------------------------------------------------
-  External bindings generation
+  External bindings
 -------------------------------------------------------------------------------}
 
 -- | Generate external bindings configuration
@@ -295,6 +305,20 @@ genExtBindings PPOpts{..} headerIncludePaths path =
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
+
+-- | Load external bindings
+loadExtBindings ::
+     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+  -> ClangArgs
+  -> Bool -- ^ Automatically include @stdlib@?
+  -> [FilePath]
+  -> IO (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
+loadExtBindings tracer args isAutoStdlib = BindingSpec.load tracer args stdSpec
+  where
+    stdSpec :: UnresolvedBindingSpec
+    stdSpec
+      | isAutoStdlib = Stdlib.bindings
+      | otherwise    = BindingSpec.empty
 
 {-------------------------------------------------------------------------------
   Test generation

@@ -32,7 +32,7 @@ module HsBindgen.Lib (
 
     -- ** External bindings
   , ResolvedBindingSpec
-  , loadExtBindings
+  , Pipeline.loadExtBindings
   , emptyExtBindings
   , Resolve.ResolveHeaderException(..)
 
@@ -62,7 +62,6 @@ module HsBindgen.Lib (
   , FilePath.joinPath
   ) where
 
-import Control.Tracer (Tracer)
 import System.FilePath qualified as FilePath
 
 import Clang.Args qualified as Args
@@ -72,7 +71,6 @@ import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
@@ -129,13 +127,6 @@ genExtBindings ::
   -> IO ()
 genExtBindings ppOpts headerIncludePaths fp =
     Pipeline.genExtBindings ppOpts headerIncludePaths fp . unwrapHsDecls
-
-loadExtBindings ::
-     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
-  -> Args.ClangArgs
-  -> [FilePath]
-  -> IO (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
-loadExtBindings = BindingSpec.load
 
 emptyExtBindings :: ResolvedBindingSpec
 emptyExtBindings = BindingSpec.empty
