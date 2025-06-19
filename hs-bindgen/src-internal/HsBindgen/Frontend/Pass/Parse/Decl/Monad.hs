@@ -24,7 +24,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , unknownCursorKind
     -- * Utility: dispatching
   , dispatch
-  , dispatchWithArg
+  , dispatchFold
   ) where
 
 import Control.Tracer (Tracer)
@@ -201,9 +201,7 @@ recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
   Errors
 -------------------------------------------------------------------------------}
 
-unknownCursorKind ::
-     (MonadIO m, HasCallStack)
-  => CXCursorKind -> CXCursor -> m x
+unknownCursorKind :: (MonadIO m, HasCallStack) => CXCursorKind -> Fold m x
 unknownCursorKind kind curr = do
     loc      <- HighLevel.clang_getCursorLocation' curr
     spelling <- clang_getCursorKindSpelling (simpleEnum kind)
@@ -220,16 +218,16 @@ unknownCursorKind kind curr = do
   Utility: dispatching based on the cursor kind
 -------------------------------------------------------------------------------}
 
-dispatch :: CXCursor -> (CXCursorKind -> ParseDecl b) -> ParseDecl b
+dispatch :: MonadIO m => CXCursor -> (CXCursorKind -> m a) -> m a
 dispatch curr k = do
     mKind <- fromSimpleEnum <$> clang_getCursorKind curr
     case mKind of
       Right kind -> k kind
       Left  i    -> panicIO $ "Unrecognized CXCursorKind " ++ show i
 
--- | Convenience wrapper that repeats the argument
-dispatchWithArg ::
-     CXCursor
-  -> (CXCursorKind -> CXCursor -> ParseDecl b)
-  -> ParseDecl b
-dispatchWithArg x f = dispatch x $ \kind -> f kind x
+dispatchFold ::
+     MonadIO m
+  => CXCursor
+  -> (CXCursorKind -> Fold m a)
+  -> m (Next m a)
+dispatchFold x f = dispatch x $ \kind -> f kind x

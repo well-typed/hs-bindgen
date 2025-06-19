@@ -140,21 +140,29 @@ instance Exception ParseTypeException where
   Utility: dispatching based on the cursor kind
 -------------------------------------------------------------------------------}
 
-dispatch :: CXType -> (CXTypeKind -> ParseType a) -> ParseType a
+dispatch ::
+     MonadError ParseTypeException m
+  => CXType -> (CXTypeKind -> m a) -> m a
 dispatch curr k = do
     let mKind = fromSimpleEnum $ cxtKind curr
     case mKind of
       Right kind -> k kind
       Left  i    -> throwError $ UnexpectedTypeKind (Left i)
 
--- | Convenience wrapper that repeats the argument
+-- | This is similar to 'HsBindgen.Frontend.Pass.Parse.Decl.Monad.dispatchFold',
+-- but we don't deal with folds when parsing types.
 dispatchWithArg ::
-     CXType
-  -> (CXTypeKind -> CXType -> ParseType a)
-  -> ParseType a
+     MonadError ParseTypeException m
+  => CXType
+  -> (CXTypeKind -> CXType -> m a)
+  -> m a
 dispatchWithArg x f = dispatch x $ \kind -> f kind x
 
-dispatchDecl :: CXCursor -> (CXCursorKind -> ParseType b) -> ParseType b
+dispatchDecl ::
+     ( MonadIO m
+     , MonadError ParseTypeException m
+     )
+  => CXCursor -> (CXCursorKind -> m b) -> m b
 dispatchDecl curr k = do
     mKind <- fromSimpleEnum <$> clang_getCursorKind curr
     case mKind of
