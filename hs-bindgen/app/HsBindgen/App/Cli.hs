@@ -4,6 +4,7 @@ module HsBindgen.App.Cli (
   , Mode(..)
   , getCli
   , pureParseModePreprocess
+  , BindingSpecMode(..)
   ) where
 
 import Data.Default
@@ -58,6 +59,9 @@ data Mode =
       , genTestsInputs     :: [CHeaderIncludePath]
       }
   | ModeLiterate FilePath FilePath
+  | ModeBindingSpec {
+        modeBindingSpec :: BindingSpecMode
+      }
   deriving (Show)
 
 {-------------------------------------------------------------------------------
@@ -90,6 +94,9 @@ parseMode = subparser $ mconcat [
         ]
     , cmd "gentests" parseModeGenTests $ mconcat [
           progDesc "Generate tests for generated Haskell code"
+        ]
+    , cmd "binding-spec" (ModeBindingSpec <$> parseBindingSpecMode) $ mconcat [
+          progDesc "Binding specification commands"
         ]
     ]
 
@@ -182,3 +189,22 @@ parseGenExtBindings =
       , metavar "PATH"
       , long "gen-external-bindings"
       ]
+
+{-------------------------------------------------------------------------------
+  Binding spec mode
+-------------------------------------------------------------------------------}
+
+data BindingSpecMode =
+    BindingSpecModeBase
+  | BindingSpecModeRuntime
+  deriving (Show)
+
+parseBindingSpecMode :: Parser BindingSpecMode
+parseBindingSpecMode = subparser $ mconcat [
+      cmd "base" (pure BindingSpecModeBase) $ mconcat [
+          progDesc "Write base external binding specification"
+        ]
+    , cmd "runtime" (pure BindingSpecModeRuntime) $ mconcat [
+          progDesc "Write hs-bindgen-runtime external binding specification"
+        ]
+    ]

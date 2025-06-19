@@ -34,6 +34,8 @@ module HsBindgen.Lib (
   , ResolvedBindingSpec
   , Pipeline.loadExtBindings
   , emptyExtBindings
+  , baseExtBindingsYaml
+  , runtimeExtBindingsYaml
   , Resolve.ResolveHeaderException(..)
 
     -- ** Translation options
@@ -62,6 +64,7 @@ module HsBindgen.Lib (
   , FilePath.joinPath
   ) where
 
+import Data.ByteString (ByteString)
 import System.FilePath qualified as FilePath
 
 import Clang.Args qualified as Args
@@ -70,6 +73,7 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
@@ -130,6 +134,12 @@ genExtBindings ppOpts headerIncludePaths fp =
 
 emptyExtBindings :: ResolvedBindingSpec
 emptyExtBindings = BindingSpec.empty
+
+baseExtBindingsYaml :: ByteString
+baseExtBindingsYaml = BindingSpec.encodeYaml Stdlib.baseBindings
+
+runtimeExtBindingsYaml :: ByteString
+runtimeExtBindingsYaml = BindingSpec.encodeYaml Stdlib.runtimeBindings
 
 {-------------------------------------------------------------------------------
   Test generation
