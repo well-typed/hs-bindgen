@@ -2055,8 +2055,8 @@
               nameC = CName "AnonA_xy",
               nameHsIdent = HsIdentifier
                 "AnonA_xy"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId "unions.h:35:5"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -2150,8 +2150,8 @@
                 nameC = CName "AnonA_xy",
                 nameHsIdent = HsIdentifier
                   "AnonA_xy"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId "unions.h:35:5"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -2250,8 +2250,8 @@
                         nameC = CName "AnonA_xy",
                         nameHsIdent = HsIdentifier
                           "AnonA_xy"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "unions.h:35:5"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -2352,8 +2352,8 @@
                         nameC = CName "AnonA_xy",
                         nameHsIdent = HsIdentifier
                           "AnonA_xy"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "unions.h:35:5"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -2466,8 +2466,8 @@
               nameC = CName "AnonA_polar",
               nameHsIdent = HsIdentifier
                 "AnonA_polar"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId "unions.h:36:5"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -2563,8 +2563,8 @@
                 nameC = CName "AnonA_polar",
                 nameHsIdent = HsIdentifier
                   "AnonA_polar"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId "unions.h:36:5"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -2665,8 +2665,8 @@
                         nameC = CName "AnonA_polar",
                         nameHsIdent = HsIdentifier
                           "AnonA_polar"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "unions.h:36:5"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -2769,8 +2769,8 @@
                         nameC = CName "AnonA_polar",
                         nameHsIdent = HsIdentifier
                           "AnonA_polar"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "unions.h:36:5"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -2879,7 +2879,8 @@
                     nameC = CName "AnonA_xy",
                     nameHsIdent = HsIdentifier
                       "AnonA_xy"}
-                  NameOriginGenerated},
+                  (NameOriginGenerated
+                    (AnonId "unions.h:35:5"))},
               UnionField {
                 unionFieldLoc =
                 "unions.h:36:36",
@@ -2892,7 +2893,8 @@
                     nameC = CName "AnonA_polar",
                     nameHsIdent = HsIdentifier
                       "AnonA_polar"}
-                  NameOriginGenerated}]},
+                  (NameOriginGenerated
+                    (AnonId "unions.h:36:5"))}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

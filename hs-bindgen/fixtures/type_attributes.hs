@@ -1868,8 +1868,9 @@
               "wait_status_ptr_t",
             nameHsIdent = HsIdentifier
               "Wait_status_ptr_t"},
-          declOrigin =
-          NameOriginGenerated,
+          declOrigin = NameOriginGenerated
+            (AnonId
+              "type_attributes.h:26:9"),
           declAliases = [
             CName "wait_status_ptr_t"]},
         declKind = Union

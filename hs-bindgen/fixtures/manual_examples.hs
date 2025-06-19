@@ -3722,8 +3722,9 @@
               nameC = CName "rect_lower_left",
               nameHsIdent = HsIdentifier
                 "Rect_lower_left"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "manual_examples.h:89:3"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -3820,8 +3821,9 @@
                 nameC = CName "rect_lower_left",
                 nameHsIdent = HsIdentifier
                   "Rect_lower_left"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "manual_examples.h:89:3"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -3923,8 +3925,9 @@
                         nameC = CName "rect_lower_left",
                         nameHsIdent = HsIdentifier
                           "Rect_lower_left"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "manual_examples.h:89:3"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -4028,8 +4031,9 @@
                         nameC = CName "rect_lower_left",
                         nameHsIdent = HsIdentifier
                           "Rect_lower_left"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "manual_examples.h:89:3"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -4146,8 +4150,9 @@
                 "rect_upper_right",
               nameHsIdent = HsIdentifier
                 "Rect_upper_right"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "manual_examples.h:94:3"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -4245,8 +4250,9 @@
                   "rect_upper_right",
                 nameHsIdent = HsIdentifier
                   "Rect_upper_right"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "manual_examples.h:94:3"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -4349,8 +4355,9 @@
                           "rect_upper_right",
                         nameHsIdent = HsIdentifier
                           "Rect_upper_right"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "manual_examples.h:94:3"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -4455,8 +4462,9 @@
                           "rect_upper_right",
                         nameHsIdent = HsIdentifier
                           "Rect_upper_right"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "manual_examples.h:94:3"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -4548,7 +4556,9 @@
                   nameC = CName "rect_lower_left",
                   nameHsIdent = HsIdentifier
                     "Rect_lower_left"}
-                NameOriginGenerated,
+                (NameOriginGenerated
+                  (AnonId
+                    "manual_examples.h:89:3")),
               structFieldOffset = 0,
               structFieldWidth = Nothing}},
         Field {
@@ -4573,7 +4583,9 @@
                     "rect_upper_right",
                   nameHsIdent = HsIdentifier
                     "Rect_upper_right"}
-                NameOriginGenerated,
+                (NameOriginGenerated
+                  (AnonId
+                    "manual_examples.h:94:3")),
               structFieldOffset = 64,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -4606,7 +4618,9 @@
                       nameC = CName "rect_lower_left",
                       nameHsIdent = HsIdentifier
                         "Rect_lower_left"}
-                    NameOriginGenerated,
+                    (NameOriginGenerated
+                      (AnonId
+                        "manual_examples.h:89:3")),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -4622,7 +4636,9 @@
                         "rect_upper_right",
                       nameHsIdent = HsIdentifier
                         "Rect_upper_right"}
-                    NameOriginGenerated,
+                    (NameOriginGenerated
+                      (AnonId
+                        "manual_examples.h:94:3")),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -4665,7 +4681,9 @@
                     nameC = CName "rect_lower_left",
                     nameHsIdent = HsIdentifier
                       "Rect_lower_left"}
-                  NameOriginGenerated,
+                  (NameOriginGenerated
+                    (AnonId
+                      "manual_examples.h:89:3")),
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}},
           Field {
@@ -4690,7 +4708,9 @@
                       "rect_upper_right",
                     nameHsIdent = HsIdentifier
                       "Rect_upper_right"}
-                  NameOriginGenerated,
+                  (NameOriginGenerated
+                    (AnonId
+                      "manual_examples.h:94:3")),
                 structFieldOffset = 64,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -4723,7 +4743,9 @@
                         nameC = CName "rect_lower_left",
                         nameHsIdent = HsIdentifier
                           "Rect_lower_left"}
-                      NameOriginGenerated,
+                      (NameOriginGenerated
+                        (AnonId
+                          "manual_examples.h:89:3")),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing},
                   StructField {
@@ -4739,7 +4761,9 @@
                           "rect_upper_right",
                         nameHsIdent = HsIdentifier
                           "Rect_upper_right"}
-                      NameOriginGenerated,
+                      (NameOriginGenerated
+                        (AnonId
+                          "manual_examples.h:94:3")),
                     structFieldOffset = 64,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -4787,7 +4811,9 @@
                             nameC = CName "rect_lower_left",
                             nameHsIdent = HsIdentifier
                               "Rect_lower_left"}
-                          NameOriginGenerated,
+                          (NameOriginGenerated
+                            (AnonId
+                              "manual_examples.h:89:3")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -4812,7 +4838,9 @@
                               "rect_upper_right",
                             nameHsIdent = HsIdentifier
                               "Rect_upper_right"}
-                          NameOriginGenerated,
+                          (NameOriginGenerated
+                            (AnonId
+                              "manual_examples.h:94:3")),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -4845,7 +4873,9 @@
                                 nameC = CName "rect_lower_left",
                                 nameHsIdent = HsIdentifier
                                   "Rect_lower_left"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId
+                                  "manual_examples.h:89:3")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -4861,7 +4891,9 @@
                                   "rect_upper_right",
                                 nameHsIdent = HsIdentifier
                                   "Rect_upper_right"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId
+                                  "manual_examples.h:94:3")),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -4911,7 +4943,9 @@
                             nameC = CName "rect_lower_left",
                             nameHsIdent = HsIdentifier
                               "Rect_lower_left"}
-                          NameOriginGenerated,
+                          (NameOriginGenerated
+                            (AnonId
+                              "manual_examples.h:89:3")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -4936,7 +4970,9 @@
                               "rect_upper_right",
                             nameHsIdent = HsIdentifier
                               "Rect_upper_right"}
-                          NameOriginGenerated,
+                          (NameOriginGenerated
+                            (AnonId
+                              "manual_examples.h:94:3")),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -4969,7 +5005,9 @@
                                 nameC = CName "rect_lower_left",
                                 nameHsIdent = HsIdentifier
                                   "Rect_lower_left"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId
+                                  "manual_examples.h:89:3")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -4985,7 +5023,9 @@
                                   "rect_upper_right",
                                 nameHsIdent = HsIdentifier
                                   "Rect_upper_right"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId
+                                  "manual_examples.h:94:3")),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -5067,8 +5107,9 @@
               nameC = CName "config_Deref",
               nameHsIdent = HsIdentifier
                 "Config_Deref"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "manual_examples.h:100:9"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -5165,8 +5206,9 @@
                 nameC = CName "config_Deref",
                 nameHsIdent = HsIdentifier
                   "Config_Deref"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "manual_examples.h:100:9"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -5268,8 +5310,9 @@
                         nameC = CName "config_Deref",
                         nameHsIdent = HsIdentifier
                           "Config_Deref"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "manual_examples.h:100:9"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -5373,8 +5416,9 @@
                         nameC = CName "config_Deref",
                         nameHsIdent = HsIdentifier
                           "Config_Deref"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "manual_examples.h:100:9"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -5479,7 +5523,9 @@
                   nameC = CName "config_Deref",
                   nameHsIdent = HsIdentifier
                     "Config_Deref"}
-                NameOriginGenerated)},
+                (NameOriginGenerated
+                  (AnonId
+                    "manual_examples.h:100:9")))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

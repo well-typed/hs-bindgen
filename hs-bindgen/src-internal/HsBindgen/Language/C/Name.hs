@@ -18,7 +18,7 @@ import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 
 -- | Identity of an anonymous declaration
 newtype AnonId = AnonId SingleLoc
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyTrace AnonId where
   prettyTrace (AnonId loc) = "<" ++ show loc ++ ">"
@@ -80,7 +80,7 @@ data NameOrigin =
     -- | Name is generated
     --
     -- The name may not be used to construct a valid C type.
-  | NameOriginGenerated
+  | NameOriginGenerated AnonId
 
     -- | Name is renamed
     --

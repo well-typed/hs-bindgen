@@ -1060,8 +1060,9 @@
               nameC = CName "S3_t",
               nameHsIdent = HsIdentifier
                 "S3_t"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "simple_structs.h:15:9"),
             declAliases = [CName "S3_t"]},
           declKind = Struct
             Struct {
@@ -1131,8 +1132,9 @@
                 nameC = CName "S3_t",
                 nameHsIdent = HsIdentifier
                   "S3_t"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "simple_structs.h:15:9"),
               declAliases = [CName "S3_t"]},
             declKind = Struct
               Struct {
@@ -1207,8 +1209,9 @@
                         nameC = CName "S3_t",
                         nameHsIdent = HsIdentifier
                           "S3_t"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "simple_structs.h:15:9"),
                       declAliases = [CName "S3_t"]},
                     declKind = Struct
                       Struct {
@@ -1283,8 +1286,9 @@
                         nameC = CName "S3_t",
                         nameHsIdent = HsIdentifier
                           "S3_t"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "simple_structs.h:15:9"),
                       declAliases = [CName "S3_t"]},
                     declKind = Struct
                       Struct {
@@ -2781,8 +2785,9 @@
               nameC = CName "S7a_Deref",
               nameHsIdent = HsIdentifier
                 "S7a_Deref"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "simple_structs.h:34:9"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -2883,8 +2888,9 @@
                 nameC = CName "S7a_Deref",
                 nameHsIdent = HsIdentifier
                   "S7a_Deref"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "simple_structs.h:34:9"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -2990,8 +2996,9 @@
                         nameC = CName "S7a_Deref",
                         nameHsIdent = HsIdentifier
                           "S7a_Deref"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "simple_structs.h:34:9"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -3099,8 +3106,9 @@
                         nameC = CName "S7a_Deref",
                         nameHsIdent = HsIdentifier
                           "S7a_Deref"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "simple_structs.h:34:9"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -3207,7 +3215,9 @@
                   nameC = CName "S7a_Deref",
                   nameHsIdent = HsIdentifier
                     "S7a_Deref"}
-                NameOriginGenerated)},
+                (NameOriginGenerated
+                  (AnonId
+                    "simple_structs.h:34:9")))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -3288,8 +3298,9 @@
               nameC = CName "S7b_Deref",
               nameHsIdent = HsIdentifier
                 "S7b_Deref"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "simple_structs.h:35:9"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -3390,8 +3401,9 @@
                 nameC = CName "S7b_Deref",
                 nameHsIdent = HsIdentifier
                   "S7b_Deref"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "simple_structs.h:35:9"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -3497,8 +3509,9 @@
                         nameC = CName "S7b_Deref",
                         nameHsIdent = HsIdentifier
                           "S7b_Deref"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "simple_structs.h:35:9"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -3606,8 +3619,9 @@
                         nameC = CName "S7b_Deref",
                         nameHsIdent = HsIdentifier
                           "S7b_Deref"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "simple_structs.h:35:9"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -3718,7 +3732,9 @@
                       nameC = CName "S7b_Deref",
                       nameHsIdent = HsIdentifier
                         "S7b_Deref"}
-                    NameOriginGenerated)))},
+                    (NameOriginGenerated
+                      (AnonId
+                        "simple_structs.h:35:9")))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

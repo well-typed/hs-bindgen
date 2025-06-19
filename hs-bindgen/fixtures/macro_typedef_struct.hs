@@ -195,8 +195,9 @@
               nameC = CName "bar",
               nameHsIdent = HsIdentifier
                 "Bar"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "macro_typedef_struct.h:3:9"),
             declAliases = [CName "bar"]},
           declKind = Struct
             Struct {
@@ -303,8 +304,9 @@
                 nameC = CName "bar",
                 nameHsIdent = HsIdentifier
                   "Bar"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "macro_typedef_struct.h:3:9"),
               declAliases = [CName "bar"]},
             declKind = Struct
               Struct {
@@ -416,8 +418,9 @@
                         nameC = CName "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "macro_typedef_struct.h:3:9"),
                       declAliases = [CName "bar"]},
                     declKind = Struct
                       Struct {
@@ -531,8 +534,9 @@
                         nameC = CName "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "macro_typedef_struct.h:3:9"),
                       declAliases = [CName "bar"]},
                     declKind = Struct
                       Struct {

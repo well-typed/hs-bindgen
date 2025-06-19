@@ -52,8 +52,8 @@
               nameC = CName "vector",
               nameHsIdent = HsIdentifier
                 "Vector"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId "vector.h:1:9"),
             declAliases = [CName "vector"]},
           declKind = Struct
             Struct {
@@ -147,8 +147,8 @@
                 nameC = CName "vector",
                 nameHsIdent = HsIdentifier
                   "Vector"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId "vector.h:1:9"),
               declAliases = [CName "vector"]},
             declKind = Struct
               Struct {
@@ -247,8 +247,8 @@
                         nameC = CName "vector",
                         nameHsIdent = HsIdentifier
                           "Vector"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "vector.h:1:9"),
                       declAliases = [CName "vector"]},
                     declKind = Struct
                       Struct {
@@ -349,8 +349,8 @@
                         nameC = CName "vector",
                         nameHsIdent = HsIdentifier
                           "Vector"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "vector.h:1:9"),
                       declAliases = [CName "vector"]},
                     declKind = Struct
                       Struct {
@@ -449,5 +449,6 @@
                     nameC = CName "vector",
                     nameHsIdent = HsIdentifier
                       "Vector"}
-                  NameOriginGenerated))),
+                  (NameOriginGenerated
+                    (AnonId "vector.h:1:9"))))),
           functionHeader = "vector.h"}}]

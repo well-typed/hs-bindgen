@@ -601,8 +601,9 @@
                 "another_typedef_struct_t",
               nameHsIdent = HsIdentifier
                 "Another_typedef_struct_t"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "distilled_lib_1.h:12:9"),
             declAliases = [
               CName
                 "another_typedef_struct_t"]},
@@ -706,8 +707,9 @@
                   "another_typedef_struct_t",
                 nameHsIdent = HsIdentifier
                   "Another_typedef_struct_t"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "distilled_lib_1.h:12:9"),
               declAliases = [
                 CName
                   "another_typedef_struct_t"]},
@@ -816,8 +818,9 @@
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_struct_t"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "distilled_lib_1.h:12:9"),
                       declAliases = [
                         CName
                           "another_typedef_struct_t"]},
@@ -928,8 +931,9 @@
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_struct_t"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "distilled_lib_1.h:12:9"),
                       declAliases = [
                         CName
                           "another_typedef_struct_t"]},
@@ -1019,8 +1023,9 @@
               "another_typedef_enum_e",
             nameHsIdent = HsIdentifier
               "Another_typedef_enum_e"},
-          declOrigin =
-          NameOriginGenerated,
+          declOrigin = NameOriginGenerated
+            (AnonId
+              "distilled_lib_1.h:13:9"),
           declAliases = [
             CName
               "another_typedef_enum_e"]},
@@ -1771,7 +1776,9 @@
                         "another_typedef_struct_t",
                       nameHsIdent = HsIdentifier
                         "Another_typedef_struct_t"}
-                    NameOriginGenerated)),
+                    (NameOriginGenerated
+                      (AnonId
+                        "distilled_lib_1.h:12:9")))),
               structFieldOffset = 64,
               structFieldWidth = Nothing}},
         Field {
@@ -1802,7 +1809,9 @@
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_struct_t"}
-                      NameOriginGenerated))),
+                      (NameOriginGenerated
+                        (AnonId
+                          "distilled_lib_1.h:12:9"))))),
               structFieldOffset = 128,
               structFieldWidth = Nothing}},
         Field {
@@ -1876,7 +1885,9 @@
                         "another_typedef_enum_e",
                       nameHsIdent = HsIdentifier
                         "Another_typedef_enum_e"}
-                    NameOriginGenerated)),
+                    (NameOriginGenerated
+                      (AnonId
+                        "distilled_lib_1.h:13:9")))),
               structFieldOffset = 480,
               structFieldWidth = Nothing}},
         Field {
@@ -1908,7 +1919,9 @@
                           "another_typedef_enum_e",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_enum_e"}
-                      NameOriginGenerated))),
+                      (NameOriginGenerated
+                        (AnonId
+                          "distilled_lib_1.h:13:9"))))),
               structFieldOffset = 512,
               structFieldWidth = Nothing}},
         Field {
@@ -1944,7 +1957,9 @@
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_enum_e"}
-                        NameOriginGenerated)))),
+                        (NameOriginGenerated
+                          (AnonId
+                            "distilled_lib_1.h:13:9")))))),
               structFieldOffset = 640,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -2042,7 +2057,9 @@
                             "another_typedef_struct_t",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_struct_t"}
-                        NameOriginGenerated)),
+                        (NameOriginGenerated
+                          (AnonId
+                            "distilled_lib_1.h:12:9")))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2063,7 +2080,9 @@
                               "another_typedef_struct_t",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_struct_t"}
-                          NameOriginGenerated))),
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:12:9"))))),
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2110,7 +2129,9 @@
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_enum_e"}
-                        NameOriginGenerated)),
+                        (NameOriginGenerated
+                          (AnonId
+                            "distilled_lib_1.h:13:9")))),
                   structFieldOffset = 480,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2131,7 +2152,9 @@
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_enum_e"}
-                          NameOriginGenerated))),
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:13:9"))))),
                   structFieldOffset = 512,
                   structFieldWidth = Nothing},
                 StructField {
@@ -2154,7 +2177,9 @@
                                 "another_typedef_enum_e",
                               nameHsIdent = HsIdentifier
                                 "Another_typedef_enum_e"}
-                            NameOriginGenerated)))),
+                            (NameOriginGenerated
+                              (AnonId
+                                "distilled_lib_1.h:13:9")))))),
                   structFieldOffset = 640,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -2292,7 +2317,9 @@
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_struct_t"}
-                      NameOriginGenerated)),
+                      (NameOriginGenerated
+                        (AnonId
+                          "distilled_lib_1.h:12:9")))),
                 structFieldOffset = 64,
                 structFieldWidth = Nothing}},
           Field {
@@ -2323,7 +2350,9 @@
                             "another_typedef_struct_t",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_struct_t"}
-                        NameOriginGenerated))),
+                        (NameOriginGenerated
+                          (AnonId
+                            "distilled_lib_1.h:12:9"))))),
                 structFieldOffset = 128,
                 structFieldWidth = Nothing}},
           Field {
@@ -2397,7 +2426,9 @@
                           "another_typedef_enum_e",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_enum_e"}
-                      NameOriginGenerated)),
+                      (NameOriginGenerated
+                        (AnonId
+                          "distilled_lib_1.h:13:9")))),
                 structFieldOffset = 480,
                 structFieldWidth = Nothing}},
           Field {
@@ -2429,7 +2460,9 @@
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_enum_e"}
-                        NameOriginGenerated))),
+                        (NameOriginGenerated
+                          (AnonId
+                            "distilled_lib_1.h:13:9"))))),
                 structFieldOffset = 512,
                 structFieldWidth = Nothing}},
           Field {
@@ -2465,7 +2498,9 @@
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_enum_e"}
-                          NameOriginGenerated)))),
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:13:9")))))),
                 structFieldOffset = 640,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -2563,7 +2598,9 @@
                               "another_typedef_struct_t",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_struct_t"}
-                          NameOriginGenerated)),
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:12:9")))),
                     structFieldOffset = 64,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2584,7 +2621,9 @@
                                 "another_typedef_struct_t",
                               nameHsIdent = HsIdentifier
                                 "Another_typedef_struct_t"}
-                            NameOriginGenerated))),
+                            (NameOriginGenerated
+                              (AnonId
+                                "distilled_lib_1.h:12:9"))))),
                     structFieldOffset = 128,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2631,7 +2670,9 @@
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_enum_e"}
-                          NameOriginGenerated)),
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:13:9")))),
                     structFieldOffset = 480,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2652,7 +2693,9 @@
                                 "another_typedef_enum_e",
                               nameHsIdent = HsIdentifier
                                 "Another_typedef_enum_e"}
-                            NameOriginGenerated))),
+                            (NameOriginGenerated
+                              (AnonId
+                                "distilled_lib_1.h:13:9"))))),
                     structFieldOffset = 512,
                     structFieldWidth = Nothing},
                   StructField {
@@ -2675,7 +2718,9 @@
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_enum_e"}
-                              NameOriginGenerated)))),
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:13:9")))))),
                     structFieldOffset = 640,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -2818,7 +2863,9 @@
                                   "another_typedef_struct_t",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_struct_t"}
-                              NameOriginGenerated)),
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:12:9")))),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2849,7 +2896,9 @@
                                     "another_typedef_struct_t",
                                   nameHsIdent = HsIdentifier
                                     "Another_typedef_struct_t"}
-                                NameOriginGenerated))),
+                                (NameOriginGenerated
+                                  (AnonId
+                                    "distilled_lib_1.h:12:9"))))),
                         structFieldOffset = 128,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2923,7 +2972,9 @@
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_enum_e"}
-                              NameOriginGenerated)),
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:13:9")))),
                         structFieldOffset = 480,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2955,7 +3006,9 @@
                                     "another_typedef_enum_e",
                                   nameHsIdent = HsIdentifier
                                     "Another_typedef_enum_e"}
-                                NameOriginGenerated))),
+                                (NameOriginGenerated
+                                  (AnonId
+                                    "distilled_lib_1.h:13:9"))))),
                         structFieldOffset = 512,
                         structFieldWidth = Nothing}},
                   Field {
@@ -2991,7 +3044,9 @@
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_enum_e"}
-                                  NameOriginGenerated)))),
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:13:9")))))),
                         structFieldOffset = 640,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -3089,7 +3144,9 @@
                                       "another_typedef_struct_t",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_struct_t"}
-                                  NameOriginGenerated)),
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:12:9")))),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3110,7 +3167,9 @@
                                         "another_typedef_struct_t",
                                       nameHsIdent = HsIdentifier
                                         "Another_typedef_struct_t"}
-                                    NameOriginGenerated))),
+                                    (NameOriginGenerated
+                                      (AnonId
+                                        "distilled_lib_1.h:12:9"))))),
                             structFieldOffset = 128,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3157,7 +3216,9 @@
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_enum_e"}
-                                  NameOriginGenerated)),
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:13:9")))),
                             structFieldOffset = 480,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3178,7 +3239,9 @@
                                         "another_typedef_enum_e",
                                       nameHsIdent = HsIdentifier
                                         "Another_typedef_enum_e"}
-                                    NameOriginGenerated))),
+                                    (NameOriginGenerated
+                                      (AnonId
+                                        "distilled_lib_1.h:13:9"))))),
                             structFieldOffset = 512,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3201,7 +3264,9 @@
                                           "another_typedef_enum_e",
                                         nameHsIdent = HsIdentifier
                                           "Another_typedef_enum_e"}
-                                      NameOriginGenerated)))),
+                                      (NameOriginGenerated
+                                        (AnonId
+                                          "distilled_lib_1.h:13:9")))))),
                             structFieldOffset = 640,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -3355,7 +3420,9 @@
                                   "another_typedef_struct_t",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_struct_t"}
-                              NameOriginGenerated)),
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:12:9")))),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}},
                   Field {
@@ -3386,7 +3453,9 @@
                                     "another_typedef_struct_t",
                                   nameHsIdent = HsIdentifier
                                     "Another_typedef_struct_t"}
-                                NameOriginGenerated))),
+                                (NameOriginGenerated
+                                  (AnonId
+                                    "distilled_lib_1.h:12:9"))))),
                         structFieldOffset = 128,
                         structFieldWidth = Nothing}},
                   Field {
@@ -3460,7 +3529,9 @@
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_enum_e"}
-                              NameOriginGenerated)),
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:13:9")))),
                         structFieldOffset = 480,
                         structFieldWidth = Nothing}},
                   Field {
@@ -3492,7 +3563,9 @@
                                     "another_typedef_enum_e",
                                   nameHsIdent = HsIdentifier
                                     "Another_typedef_enum_e"}
-                                NameOriginGenerated))),
+                                (NameOriginGenerated
+                                  (AnonId
+                                    "distilled_lib_1.h:13:9"))))),
                         structFieldOffset = 512,
                         structFieldWidth = Nothing}},
                   Field {
@@ -3528,7 +3601,9 @@
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_enum_e"}
-                                  NameOriginGenerated)))),
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:13:9")))))),
                         structFieldOffset = 640,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -3626,7 +3701,9 @@
                                       "another_typedef_struct_t",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_struct_t"}
-                                  NameOriginGenerated)),
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:12:9")))),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3647,7 +3724,9 @@
                                         "another_typedef_struct_t",
                                       nameHsIdent = HsIdentifier
                                         "Another_typedef_struct_t"}
-                                    NameOriginGenerated))),
+                                    (NameOriginGenerated
+                                      (AnonId
+                                        "distilled_lib_1.h:12:9"))))),
                             structFieldOffset = 128,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3694,7 +3773,9 @@
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_enum_e"}
-                                  NameOriginGenerated)),
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:13:9")))),
                             structFieldOffset = 480,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3715,7 +3796,9 @@
                                         "another_typedef_enum_e",
                                       nameHsIdent = HsIdentifier
                                         "Another_typedef_enum_e"}
-                                    NameOriginGenerated))),
+                                    (NameOriginGenerated
+                                      (AnonId
+                                        "distilled_lib_1.h:13:9"))))),
                             structFieldOffset = 512,
                             structFieldWidth = Nothing},
                           StructField {
@@ -3738,7 +3821,9 @@
                                           "another_typedef_enum_e",
                                         nameHsIdent = HsIdentifier
                                           "Another_typedef_enum_e"}
-                                      NameOriginGenerated)))),
+                                      (NameOriginGenerated
+                                        (AnonId
+                                          "distilled_lib_1.h:13:9")))))),
                             structFieldOffset = 640,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -3997,8 +4082,9 @@
               "a_typedef_enum_e",
             nameHsIdent = HsIdentifier
               "A_typedef_enum_e"},
-          declOrigin =
-          NameOriginGenerated,
+          declOrigin = NameOriginGenerated
+            (AnonId
+              "distilled_lib_1.h:64:9"),
           declAliases = [
             CName "a_typedef_enum_e"]},
         declKind = Enum

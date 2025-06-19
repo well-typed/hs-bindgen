@@ -455,8 +455,8 @@
               nameC = CName "foo_bar",
               nameHsIdent = HsIdentifier
                 "Foo_bar"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId "flam.h:10:2"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -546,8 +546,8 @@
                 nameC = CName "foo_bar",
                 nameHsIdent = HsIdentifier
                   "Foo_bar"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId "flam.h:10:2"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -642,8 +642,8 @@
                         nameC = CName "foo_bar",
                         nameHsIdent = HsIdentifier
                           "Foo_bar"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "flam.h:10:2"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -740,8 +740,8 @@
                         nameC = CName "foo_bar",
                         nameHsIdent = HsIdentifier
                           "Foo_bar"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "flam.h:10:2"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -864,7 +864,8 @@
                       nameC = CName "foo_bar",
                       nameHsIdent = HsIdentifier
                         "Foo_bar"}
-                    NameOriginGenerated,
+                    (NameOriginGenerated
+                      (AnonId "flam.h:10:2")),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing}},
           declSpec = DeclSpec
@@ -941,7 +942,8 @@
                         nameC = CName "foo_bar",
                         nameHsIdent = HsIdentifier
                           "Foo_bar"}
-                      NameOriginGenerated,
+                      (NameOriginGenerated
+                        (AnonId "flam.h:10:2")),
                     structFieldOffset = 32,
                     structFieldWidth = Nothing}},
             declSpec = DeclSpec
@@ -1023,7 +1025,8 @@
                                 nameC = CName "foo_bar",
                                 nameHsIdent = HsIdentifier
                                   "Foo_bar"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId "flam.h:10:2")),
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}},
                     declSpec = DeclSpec
@@ -1105,7 +1108,8 @@
                                 nameC = CName "foo_bar",
                                 nameHsIdent = HsIdentifier
                                   "Foo_bar"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId "flam.h:10:2")),
                             structFieldOffset = 32,
                             structFieldWidth = Nothing}},
                     declSpec = DeclSpec
@@ -1197,7 +1201,8 @@
                         nameC = CName "foo_bar",
                         nameHsIdent = HsIdentifier
                           "Foo_bar"}
-                      NameOriginGenerated,
+                      (NameOriginGenerated
+                        (AnonId "flam.h:10:2")),
                     structFieldOffset = 32,
                     structFieldWidth = Nothing}},
             declSpec = DeclSpec

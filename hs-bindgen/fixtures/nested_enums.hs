@@ -646,8 +646,8 @@
             nameC = CName "exB_fieldB1",
             nameHsIdent = HsIdentifier
               "ExB_fieldB1"},
-          declOrigin =
-          NameOriginGenerated,
+          declOrigin = NameOriginGenerated
+            (AnonId "nested_enums.h:9:9"),
           declAliases = []},
         declKind = Enum
           Enum {
@@ -956,7 +956,8 @@
                   nameC = CName "exB_fieldB1",
                   nameHsIdent = HsIdentifier
                     "ExB_fieldB1"}
-                NameOriginGenerated,
+                (NameOriginGenerated
+                  (AnonId "nested_enums.h:9:9")),
               structFieldOffset = 0,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -988,7 +989,8 @@
                       nameC = CName "exB_fieldB1",
                       nameHsIdent = HsIdentifier
                         "ExB_fieldB1"}
-                    NameOriginGenerated,
+                    (NameOriginGenerated
+                      (AnonId "nested_enums.h:9:9")),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -1031,7 +1033,8 @@
                     nameC = CName "exB_fieldB1",
                     nameHsIdent = HsIdentifier
                       "ExB_fieldB1"}
-                  NameOriginGenerated,
+                  (NameOriginGenerated
+                    (AnonId "nested_enums.h:9:9")),
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -1063,7 +1066,8 @@
                         nameC = CName "exB_fieldB1",
                         nameHsIdent = HsIdentifier
                           "ExB_fieldB1"}
-                      NameOriginGenerated,
+                      (NameOriginGenerated
+                        (AnonId "nested_enums.h:9:9")),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -1111,7 +1115,8 @@
                             nameC = CName "exB_fieldB1",
                             nameHsIdent = HsIdentifier
                               "ExB_fieldB1"}
-                          NameOriginGenerated,
+                          (NameOriginGenerated
+                            (AnonId "nested_enums.h:9:9")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1143,7 +1148,8 @@
                                 nameC = CName "exB_fieldB1",
                                 nameHsIdent = HsIdentifier
                                   "ExB_fieldB1"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId "nested_enums.h:9:9")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -1191,7 +1197,8 @@
                             nameC = CName "exB_fieldB1",
                             nameHsIdent = HsIdentifier
                               "ExB_fieldB1"}
-                          NameOriginGenerated,
+                          (NameOriginGenerated
+                            (AnonId "nested_enums.h:9:9")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -1223,7 +1230,8 @@
                                 nameC = CName "exB_fieldB1",
                                 nameHsIdent = HsIdentifier
                                   "ExB_fieldB1"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId "nested_enums.h:9:9")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},

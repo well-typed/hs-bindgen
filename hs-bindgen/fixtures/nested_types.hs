@@ -940,8 +940,8 @@
               nameC = CName "ex3_ex3_struct",
               nameHsIdent = HsIdentifier
                 "Ex3_ex3_struct"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId "nested_types.h:12:5"),
             declAliases = []},
           declKind = Struct
             Struct {
@@ -1041,8 +1041,8 @@
                 nameC = CName "ex3_ex3_struct",
                 nameHsIdent = HsIdentifier
                   "Ex3_ex3_struct"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId "nested_types.h:12:5"),
               declAliases = []},
             declKind = Struct
               Struct {
@@ -1147,8 +1147,8 @@
                         nameC = CName "ex3_ex3_struct",
                         nameHsIdent = HsIdentifier
                           "Ex3_ex3_struct"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "nested_types.h:12:5"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -1255,8 +1255,8 @@
                         nameC = CName "ex3_ex3_struct",
                         nameHsIdent = HsIdentifier
                           "Ex3_ex3_struct"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId "nested_types.h:12:5"),
                       declAliases = []},
                     declKind = Struct
                       Struct {
@@ -1350,7 +1350,8 @@
                   nameC = CName "ex3_ex3_struct",
                   nameHsIdent = HsIdentifier
                     "Ex3_ex3_struct"}
-                NameOriginGenerated,
+                (NameOriginGenerated
+                  (AnonId "nested_types.h:12:5")),
               structFieldOffset = 0,
               structFieldWidth = Nothing}},
         Field {
@@ -1400,7 +1401,8 @@
                       nameC = CName "ex3_ex3_struct",
                       nameHsIdent = HsIdentifier
                         "Ex3_ex3_struct"}
-                    NameOriginGenerated,
+                    (NameOriginGenerated
+                      (AnonId "nested_types.h:12:5")),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -1454,7 +1456,8 @@
                     nameC = CName "ex3_ex3_struct",
                     nameHsIdent = HsIdentifier
                       "Ex3_ex3_struct"}
-                  NameOriginGenerated,
+                  (NameOriginGenerated
+                    (AnonId "nested_types.h:12:5")),
                 structFieldOffset = 0,
                 structFieldWidth = Nothing}},
           Field {
@@ -1504,7 +1507,8 @@
                         nameC = CName "ex3_ex3_struct",
                         nameHsIdent = HsIdentifier
                           "Ex3_ex3_struct"}
-                      NameOriginGenerated,
+                      (NameOriginGenerated
+                        (AnonId "nested_types.h:12:5")),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing},
                   StructField {
@@ -1563,7 +1567,8 @@
                             nameC = CName "ex3_ex3_struct",
                             nameHsIdent = HsIdentifier
                               "Ex3_ex3_struct"}
-                          NameOriginGenerated,
+                          (NameOriginGenerated
+                            (AnonId "nested_types.h:12:5")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -1613,7 +1618,8 @@
                                 nameC = CName "ex3_ex3_struct",
                                 nameHsIdent = HsIdentifier
                                   "Ex3_ex3_struct"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId "nested_types.h:12:5")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
@@ -1674,7 +1680,8 @@
                             nameC = CName "ex3_ex3_struct",
                             nameHsIdent = HsIdentifier
                               "Ex3_ex3_struct"}
-                          NameOriginGenerated,
+                          (NameOriginGenerated
+                            (AnonId "nested_types.h:12:5")),
                         structFieldOffset = 0,
                         structFieldWidth = Nothing}},
                   Field {
@@ -1724,7 +1731,8 @@
                                 nameC = CName "ex3_ex3_struct",
                                 nameHsIdent = HsIdentifier
                                   "Ex3_ex3_struct"}
-                              NameOriginGenerated,
+                              (NameOriginGenerated
+                                (AnonId "nested_types.h:12:5")),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {

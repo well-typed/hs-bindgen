@@ -724,8 +724,9 @@
               nameC = CName "struct2",
               nameHsIdent = HsIdentifier
                 "Struct2"},
-            declOrigin =
-            NameOriginGenerated,
+            declOrigin = NameOriginGenerated
+              (AnonId
+                "macro_in_fundecl_vs_typedef.h:19:9"),
             declAliases = [
               CName "struct2"]},
           declKind = Struct
@@ -792,8 +793,9 @@
                 nameC = CName "struct2",
                 nameHsIdent = HsIdentifier
                   "Struct2"},
-              declOrigin =
-              NameOriginGenerated,
+              declOrigin = NameOriginGenerated
+                (AnonId
+                  "macro_in_fundecl_vs_typedef.h:19:9"),
               declAliases = [
                 CName "struct2"]},
             declKind = Struct
@@ -865,8 +867,9 @@
                         nameC = CName "struct2",
                         nameHsIdent = HsIdentifier
                           "Struct2"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "macro_in_fundecl_vs_typedef.h:19:9"),
                       declAliases = [
                         CName "struct2"]},
                     declKind = Struct
@@ -938,8 +941,9 @@
                         nameC = CName "struct2",
                         nameHsIdent = HsIdentifier
                           "Struct2"},
-                      declOrigin =
-                      NameOriginGenerated,
+                      declOrigin = NameOriginGenerated
+                        (AnonId
+                          "macro_in_fundecl_vs_typedef.h:19:9"),
                       declAliases = [
                         CName "struct2"]},
                     declKind = Struct
@@ -1684,7 +1688,9 @@
                       nameC = CName "struct2",
                       nameHsIdent = HsIdentifier
                         "Struct2"}
-                    NameOriginGenerated))),
+                    (NameOriginGenerated
+                      (AnonId
+                        "macro_in_fundecl_vs_typedef.h:19:9"))))),
             TypeMacroTypedef
               NamePair {
                 nameC = CName "MC",

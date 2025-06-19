@@ -1611,8 +1611,8 @@
             nameC = CName "enumA",
             nameHsIdent = HsIdentifier
               "EnumA"},
-          declOrigin =
-          NameOriginGenerated,
+          declOrigin = NameOriginGenerated
+            (AnonId "enums.h:30:9"),
           declAliases = [CName "enumA"]},
         declKind = Enum
           Enum {

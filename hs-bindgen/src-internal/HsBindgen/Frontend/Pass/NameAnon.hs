@@ -60,8 +60,9 @@ nameDecl :: RenameEnv -> C.Decl HandleMacros -> Maybe (C.Decl NameAnon)
 nameDecl env decl = do
     (name, origin) <- case declId of
       DeclNamed n -> Just (n, C.NameOriginInSource)
-      DeclAnon{} ->
-        (, C.NameOriginGenerated) . nameForAnon <$> findNamedUseOf env qid
+      DeclAnon anonId ->
+        (, C.NameOriginGenerated anonId) . nameForAnon
+          <$> findNamedUseOf env qid
     return $ C.Decl{
         declInfo = C.DeclInfo{
             declId      = name
@@ -191,11 +192,12 @@ instance NameUseSites C.Type where
       nameUseSite :: C.QualId HandleMacros -> (CName, C.NameOrigin)
       nameUseSite qid@(C.QualId uid _nameKind) =
           case uid of
-            DeclNamed name -> (name, C.NameOriginInSource)
-            DeclAnon  _    ->
+            DeclNamed name   -> (name, C.NameOriginInSource)
+            DeclAnon  anonId ->
              case findNamedUseOf env qid of
-               Just useOfAnon -> (nameForAnon useOfAnon, C.NameOriginGenerated)
-               Nothing        -> panicPure "impossible"
+               Just useOfAnon ->
+                 (nameForAnon useOfAnon, C.NameOriginGenerated anonId)
+               Nothing -> panicPure "impossible"
 
 {-------------------------------------------------------------------------------
   Name generation

@@ -81,8 +81,8 @@ getDeclInfo curr = do
     declId  <- getDeclId curr
     declLoc <- HighLevel.clang_getCursorLocation' curr
     let declOrigin = case declId of
-          DeclNamed{} -> C.NameOriginInSource
-          DeclAnon{}  -> C.NameOriginGenerated
+          DeclNamed{}     -> C.NameOriginInSource
+          DeclAnon anonId -> C.NameOriginGenerated anonId
         declAliases = []
     return C.DeclInfo{declId, declLoc, declOrigin, declAliases}
 

@@ -50,6 +50,7 @@ instance ToExpr Paths.CHeaderIncludePath where
 
 instance ToExpr (C.MTerm C.Ps)
 instance ToExpr (C.XVar C.Ps)
+instance ToExpr C.AnonId
 instance ToExpr C.CheckedMacro
 instance ToExpr C.CheckedMacroExpr
 instance ToExpr C.CheckedMacroType
