@@ -12,7 +12,7 @@ module HsBindgen.Lib (
   , preprocessPure
   , preprocessIO
 
-    -- * External bindings generation
+    -- * Binding specification generation
   , genExtBindings
 
     -- * Test generation
@@ -33,10 +33,10 @@ module HsBindgen.Lib (
     -- ** External bindings
   , ResolvedBindingSpec
   , Pipeline.loadExtBindings
+  , Resolve.ResolveHeaderException(..)
   , emptyExtBindings
   , baseExtBindingsYaml
   , runtimeExtBindingsYaml
-  , Resolve.ResolveHeaderException(..)
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
@@ -120,7 +120,7 @@ preprocessIO ::
 preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
-  External bindings
+  Binding specification generation
 -------------------------------------------------------------------------------}
 
 genExtBindings ::
@@ -131,6 +131,10 @@ genExtBindings ::
   -> IO ()
 genExtBindings ppOpts headerIncludePaths fp =
     Pipeline.genExtBindings ppOpts headerIncludePaths fp . unwrapHsDecls
+
+{-------------------------------------------------------------------------------
+  External bindings
+-------------------------------------------------------------------------------}
 
 emptyExtBindings :: ResolvedBindingSpec
 emptyExtBindings = BindingSpec.empty
