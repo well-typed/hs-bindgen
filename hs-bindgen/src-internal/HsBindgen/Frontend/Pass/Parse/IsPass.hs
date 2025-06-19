@@ -2,7 +2,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
     -- * Identity
   , DeclId(..)
-  , AnonId(..)
   , isNamedDecl
   , isAnonDecl
   , getDeclId
@@ -63,10 +62,6 @@ instance IsPass Parse where
 data DeclId =
     DeclNamed CName
   | DeclAnon AnonId
-  deriving stock (Show, Eq, Ord)
-
--- | Identity of an anonymous declaration
-newtype AnonId = AnonId SingleLoc
   deriving stock (Show, Eq, Ord)
 
 isNamedDecl :: DeclId -> Maybe CName
@@ -132,9 +127,6 @@ isNotTagged curr = do
 instance PrettyTrace DeclId where
   prettyTrace (DeclNamed name)   = prettyTrace name
   prettyTrace (DeclAnon  anonId) = prettyTrace anonId
-
-instance PrettyTrace AnonId where
-  prettyTrace (AnonId loc) = "<" ++ show loc ++ ">"
 
 {-------------------------------------------------------------------------------
   Macros

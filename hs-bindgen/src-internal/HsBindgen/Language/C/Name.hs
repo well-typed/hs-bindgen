@@ -1,18 +1,27 @@
 module HsBindgen.Language.C.Name (
     -- * Types
-    CName(..)
+    AnonId(..)
+  , CName(..)
   , NameKind(..)
   , NameOrigin(..)
   ) where
 
 import Data.Text (unpack)
 
+import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
   Names and namespaces
 -------------------------------------------------------------------------------}
+
+-- | Identity of an anonymous declaration
+newtype AnonId = AnonId SingleLoc
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyTrace AnonId where
+  prettyTrace (AnonId loc) = "<" ++ show loc ++ ">"
 
 -- TODO Rename CName to Name, for qualified import
 
