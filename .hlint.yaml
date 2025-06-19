@@ -36,6 +36,7 @@
 - ignore: {name: "Fuse foldr/<$>"}
 - ignore: {name: "Use map once"}
 - ignore: {name: "Use section"}
+- ignore: {name: "Redundant lambda"}
 
 # Specify additional command line arguments
 #

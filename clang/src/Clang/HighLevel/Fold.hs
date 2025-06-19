@@ -5,7 +5,10 @@ module Clang.HighLevel.Fold (
     -- * Folds
     Fold
   , Next(..)
+    -- * Construction
+  , continueWith
   , recursePure
+    -- * Execution
   , clang_visitChildren
   ) where
 
@@ -64,6 +67,9 @@ instance Functor m => Functor (Next m) where
   fmap f (Break x)     = Break (fmap f x)
   fmap f (Continue x)  = Continue (fmap f x)
   fmap f (Recurse r g) = Recurse r (fmap (fmap f) . g)
+
+continueWith :: Applicative m => Maybe a -> Fold m a
+continueWith x = \_curr -> pure (Continue x)
 
 recursePure :: Applicative m => Fold m b -> ([b] -> Maybe a) -> Next m a
 recursePure r f = Recurse r (pure . f)
