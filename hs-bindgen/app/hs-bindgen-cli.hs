@@ -54,7 +54,7 @@ execMode Cli{..} = \case
               , ppOptsRender = preprocessRenderOpts
               }
           preprocessIO ppOpts preprocessOutput decls
-          case preprocessGenExtBindings of
+          case preprocessGenBindingSpec of
             Nothing   -> return ()
             Just path -> genExtBindings ppOpts preprocessInputs path decls
 
