@@ -3,6 +3,9 @@
 -- Intended for qualified import.
 --
 -- > import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
+--
+-- The types for these bindings are defined in @HsBindgen.Runtime.Prelude@ in
+-- the @hs-bindgen-runtime@ library, in the same order.
 module HsBindgen.BindingSpec.Stdlib (
     -- * Bindings
     bindings

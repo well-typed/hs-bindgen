@@ -1,4 +1,8 @@
 -- | Types used by the C standard library external binding specification
+--
+-- The binding specification for the types in this module is defined in
+-- @HsBindgen.BindingSpec.Stdlib@ in the @hs-bindgen:internal@ library, in the
+-- same order.
 module HsBindgen.Runtime.Prelude (
     -- * Primitive types
     -- $PrimitiveTypes
