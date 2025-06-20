@@ -2,7 +2,6 @@
 module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 
 import Control.Monad
-import Control.Monad.Catch (handle)
 import Data.Bifunctor
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -30,7 +29,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 -------------------------------------------------------------------------------}
 
 foldDecl :: HasCallStack => Fold ParseDecl [C.Decl Parse]
-foldDecl = simpleFold $ \curr -> handle (handleTypeException curr) $
+foldDecl = foldWithHandler handleTypeException $ \curr ->
     evalPredicate curr >>= \case
       Right () ->
         dispatchFold curr $ \case
@@ -63,14 +62,14 @@ foldDecl = simpleFold $ \curr -> handle (handleTypeException curr) $
 handleTypeException ::
      CXCursor
   -> ParseTypeException
-  -> ParseDecl (Next ParseDecl [C.Decl Parse])
+  -> ParseDecl (Maybe [C.Decl Parse])
 handleTypeException curr err = do
     info <- getDeclInfo curr
     recordTrace $ UnsupportedType{
         unsupportedTypeContext   = info
       , unsupportedTypeException = err
       }
-    foldContinue
+    return Nothing
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations

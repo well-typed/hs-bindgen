@@ -150,8 +150,21 @@ test-suite test-clang-bindings
   main-is:        test-clang-bindings.hs
   hs-source-dirs: test
 
+  default-extensions:
+      DeriveAnyClass
+      DerivingStrategies
+      LambdaCase
+
   other-modules:
-      TestClangBindings.Traversal
+      Test.Meta.IsConcrete
+      Test.Test.Exceptions
+      Test.Util.AST
+      Test.Util.Clang
+      Test.Util.FoldException
+      Test.Util.Input
+      Test.Util.Input.Examples
+      Test.Util.Input.StructForest
+      Test.Util.Shape
 
   build-depends:
       -- Internal dependencies
@@ -159,9 +172,12 @@ test-suite test-clang-bindings
   build-depends:
       -- Inherited dependencies
     , data-default
+    , mtl
+    , text
   build-depends:
       -- New dependencies
-    , containers  >= 0.6  && < 0.8
-    , tasty       >= 1.5  && < 1.6
-    , tasty-hunit >= 0.10 && < 0.11
-
+    , containers       >= 0.6  && < 0.8
+    , QuickCheck       >= 2.15 && < 2.17
+    , tasty            >= 1.5  && < 1.6
+    , tasty-hunit      >= 0.10 && < 0.11
+    , tasty-quickcheck >= 0.11 && < 0.12

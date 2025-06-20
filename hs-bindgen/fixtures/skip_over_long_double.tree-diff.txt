@@ -1,0 +1,63 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "skip_over_long_double.h:7:6",
+        declId = NamePair {
+          nameC = CName "fun2",
+          nameHsIdent = HsIdentifier
+            "fun2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypeVoid,
+          functionHeader =
+          "skip_over_long_double.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "skip_over_long_double.h:13:8",
+        declId = NamePair {
+          nameC = CName "struct2",
+          nameHsIdent = HsIdentifier
+            "Struct2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Struct2"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "skip_over_long_double.h:14:7",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "struct2_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "skip_over_long_double"]}

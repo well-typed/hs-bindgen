@@ -16,6 +16,7 @@ import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.C.Tc.Macro (TcMacroError (TcErrors))
 import HsBindgen.Frontend (FrontendTrace (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (Redeclaration))
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros (MacroError (MacroErrorTc))
 import HsBindgen.Frontend.Pass.MangleNames (MangleError (MissingDeclaration))
 import HsBindgen.Frontend.Pass.Parse.IsPass (ParseTrace (..))
@@ -108,6 +109,17 @@ tests packageRoot getExtBindings getRustBindgen =
         , ("redeclaration_identical"     , defaultTracePredicate)
         , ("simple_func"                 , defaultTracePredicate)
         , ("simple_structs"              , defaultTracePredicate)
+        , ("skip_over_long_double"       ,
+           -- We expect a warning in two declarations
+           customTracePredicate ["fun1", "struct1"] $ \case
+            TraceFrontend (FrontendParse (UnsupportedType{
+                  unsupportedTypeContext
+                , unsupportedTypeException = UnsupportedLongDouble
+                })) ->
+              Just . Expected . prettyTrace $ C.declId unsupportedTypeContext
+            _otherTrace ->
+              Nothing
+          )
         , ("struct_arg"                  , defaultTracePredicate)
         , ("type_naturals"               , defaultTracePredicate)
         , ("typedef_vs_macro"            , defaultTracePredicate)
