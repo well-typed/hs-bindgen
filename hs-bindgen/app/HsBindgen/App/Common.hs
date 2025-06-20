@@ -115,9 +115,9 @@ parsePredicate = fmap aux . many . asum $ [
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs = do
-    -- ApplicativeDo to be able reorder arguments for --help, and uses record
-    -- construction (i.a. to avoid bool or string/path blindness) instead of
-    -- positional one.
+    -- ApplicativeDo to be able to reorder arguments for --help, and to use
+    -- record construction (i.e., to avoid bool or string/path blindness)
+    -- instead of positional one.
     clangTarget <- optional parseTarget
     clangCStandard <- fmap Just parseCStandard
     clangStdInc <- fmap not parseNoStdInc
