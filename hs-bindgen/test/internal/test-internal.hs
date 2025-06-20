@@ -303,4 +303,4 @@ initExtBindings packageRoot =
     getExtBindings :: IO ResolvedBindingSpec
     getExtBindings = withTracePredicate defaultTracePredicate $ \tracer ->
       let args = getClangArgs packageRoot []
-      in  snd <$> Pipeline.loadExtBindings tracer args True []
+      in  snd <$> Pipeline.loadExtBindings tracer args UseStdlibBindingSpecs []

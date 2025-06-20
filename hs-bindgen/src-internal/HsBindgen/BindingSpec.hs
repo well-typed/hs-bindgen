@@ -40,10 +40,10 @@ module HsBindgen.BindingSpec (
   ) where
 
 import Control.Applicative (asum)
-import Control.Exception (Exception(..))
+import Control.Exception (Exception (..))
 import Control.Monad ((<=<))
 import Control.Tracer (Tracer)
-import Data.Aeson ((.=), (.:), (.:?), (.!=))
+import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types qualified as Aeson
@@ -53,7 +53,7 @@ import Data.Either (partitionEithers)
 import Data.Function (on)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
-import Data.Proxy (Proxy(Proxy))
+import Data.Proxy (Proxy (Proxy))
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Typeable (Typeable, typeRep)

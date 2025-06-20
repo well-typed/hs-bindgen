@@ -37,7 +37,7 @@ data GlobalOpts = GlobalOpts {
       globalOptsTracerConf  :: TracerConf
     , globalOptsPredicate   :: Predicate
     , globalOptsClangArgs   :: ClangArgs
-    , globalOptsNoStdlib    :: Bool
+    , globalOptsStdlibSpecs :: StdlibBindingSpecs
     , globalOptsExtBindings :: [FilePath]
     }
   deriving stock (Show)
@@ -48,7 +48,7 @@ parseGlobalOpts =
       <$> parseTracerConf
       <*> parsePredicate
       <*> parseClangArgs
-      <*> parseNoStdlib
+      <*> parseStdlibSpecs
       <*> parseExtBindings
 
 parseTracerConf :: Parser TracerConf
@@ -117,9 +117,9 @@ parsePredicate = fmap aux . many . asum $ [
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs = do
-    -- ApplicativeDo to be able reorder arguments for --help, and uses record
-    -- construction (i.a. to avoid bool or string/path blindness) instead of
-    -- positional one.
+    -- ApplicativeDo to be able to reorder arguments for --help, and to use
+    -- record construction (i.e., to avoid bool or string/path blindness)
+    -- instead of positional one.
     clangTarget <- optional parseTarget
     clangCStandard <- fmap Just parseCStandard
     clangStdInc <- fmap not parseNoStdInc
@@ -237,10 +237,10 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
           Left "Target must be set using hs-bindgen --target option"
       | otherwise = Right s
 
-parseNoStdlib :: Parser Bool
-parseNoStdlib = switch $ mconcat [
+parseStdlibSpecs :: Parser StdlibBindingSpecs
+parseStdlibSpecs = flag UseStdlibBindingSpecs NoStdlibBindingSpecs $ mconcat [
       long "no-stdlib"
-    , help "Do not automatically use stdlib external binding specifications"
+    , help "Do not automatically use stdlib descriptive binding specifications"
     ]
 
 parseExtBindings :: Parser [FilePath]
@@ -276,7 +276,7 @@ loadExtBindings' tracer GlobalOpts{..} = do
       loadExtBindings
         (useTrace TraceExtraClangArgs tracer)
         globalOptsClangArgs
-        (not globalOptsNoStdlib)
+        globalOptsStdlibSpecs
         globalOptsExtBindings
     mapM_ submitTrace resolveErrs
     return extBindings

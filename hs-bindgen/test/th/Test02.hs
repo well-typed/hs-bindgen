@@ -20,7 +20,7 @@ $(do
           }
     extBindings <-
       withTracePredicate defaultTracePredicate $ \tracer ->
-        snd <$> loadExtBindings tracer args True []
+        snd <$> loadExtBindings tracer args UseStdlibBindingSpecs []
     let opts :: Opts
         opts = def {
             optsClangArgs   = args

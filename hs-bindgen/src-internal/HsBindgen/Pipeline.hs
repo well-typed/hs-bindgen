@@ -30,6 +30,7 @@ module HsBindgen.Pipeline (
 
     -- * External bindings
   , genExtBindings
+  , StdlibBindingSpecs (..)
   , loadExtBindings
 
     -- * Test generation
@@ -232,7 +233,7 @@ hashInclude fps HashIncludeOpts {..} = do
       tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
   extBindings <-
     TH.runIO . withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
-      snd <$> loadExtBindings tracer args True []
+      snd <$> loadExtBindings tracer args UseStdlibBindingSpecs []
   let opts :: Opts
       opts = def {
           optsClangArgs   = args
@@ -306,19 +307,25 @@ genExtBindings PPOpts{..} headerIncludePaths path =
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
 
+data StdlibBindingSpecs =
+    -- | Automatically include @stdlib@.
+    UseStdlibBindingSpecs
+  | NoStdlibBindingSpecs
+  deriving stock (Show, Eq)
+
 -- | Load external bindings
 loadExtBindings ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
   -> ClangArgs
-  -> Bool -- ^ Automatically include @stdlib@?
+  -> StdlibBindingSpecs
   -> [FilePath]
   -> IO (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
-loadExtBindings tracer args isAutoStdlib = BindingSpec.load tracer args stdSpec
+loadExtBindings tracer args stdlibSpecs = BindingSpec.load tracer args stdSpec
   where
     stdSpec :: UnresolvedBindingSpec
-    stdSpec
-      | isAutoStdlib = Stdlib.bindings
-      | otherwise    = BindingSpec.empty
+    stdSpec = case stdlibSpecs of
+      UseStdlibBindingSpecs -> Stdlib.bindings
+      NoStdlibBindingSpecs  -> BindingSpec.empty
 
 {-------------------------------------------------------------------------------
   Test generation

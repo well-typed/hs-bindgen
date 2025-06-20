@@ -58,7 +58,10 @@ data Mode =
       , genTestsOutput     :: FilePath
       , genTestsInputs     :: [CHeaderIncludePath]
       }
-  | ModeLiterate FilePath FilePath
+  | ModeLiterate {
+        literateInput  :: FilePath
+      , literateOutput :: FilePath
+      }
   | ModeBindingSpec {
         modeBindingSpec :: BindingSpecMode
       }
@@ -132,7 +135,7 @@ parseModeLiterate :: Parser Mode
 parseModeLiterate = do
     _ <- strOption @String $ mconcat [ short 'h', metavar "IGNORED" ]
 
-    input <- strArgument $ mconcat [ metavar "IN" ]
+    input  <- strArgument $ mconcat [ metavar "IN" ]
     output <- strArgument $ mconcat [ metavar "OUT" ]
     return (ModeLiterate input output)
 
