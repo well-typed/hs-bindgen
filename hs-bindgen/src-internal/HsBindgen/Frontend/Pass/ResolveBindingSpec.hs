@@ -24,7 +24,6 @@ import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
@@ -411,13 +410,7 @@ instance Resolve C.Type where
 -------------------------------------------------------------------------------}
 
 qualIdCSpelling :: C.QualId NameAnon -> BindingSpec.CSpelling
-qualIdCSpelling (C.QualId cname nameKind) =
-    let prefix = case nameKind of
-          C.NameKindOrdinary -> ""
-          C.NameKindStruct   -> "struct "
-          C.NameKindUnion    -> "union "
-          C.NameKindEnum     -> "enum "
-    in  BindingSpec.CSpelling $ prefix <> getCName cname
+qualIdCSpelling (C.QualId cname nameKind) = BindingSpec.spell nameKind cname
 
 getExtHsRef ::
      BindingSpec.CSpelling

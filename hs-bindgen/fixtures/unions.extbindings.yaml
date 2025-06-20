@@ -1,6 +1,6 @@
 types:
 - headers: unions.h
-  cname: struct AnonA_polar
+  cname: AnonA_polar
   module: Example
   identifier: AnonA_polar
   instances:
@@ -8,7 +8,7 @@ types:
   - Show
   - Storable
 - headers: unions.h
-  cname: struct AnonA_xy
+  cname: AnonA_xy
   module: Example
   identifier: AnonA_xy
   instances:
