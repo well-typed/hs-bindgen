@@ -8,6 +8,14 @@ types:
   - Show
   - Storable
 - headers: simple_structs.h
+  cname: S3_t
+  module: Example
+  identifier: S3_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
   cname: S7a
   module: Example
   identifier: S7a
@@ -17,12 +25,28 @@ types:
   - Show
   - Storable
 - headers: simple_structs.h
+  cname: S7a_Deref
+  module: Example
+  identifier: S7a_Deref
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
   cname: S7b
   module: Example
   identifier: S7b
   instances:
   - Eq
   - Ord
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: S7b_Deref
+  module: Example
+  identifier: S7b_Deref
+  instances:
+  - Eq
   - Show
   - Storable
 - headers: simple_structs.h
@@ -37,14 +61,6 @@ types:
   cname: struct S2
   module: Example
   identifier: S2
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: struct S3_t
-  module: Example
-  identifier: S3_t
   instances:
   - Eq
   - Show
@@ -69,22 +85,6 @@ types:
   cname: struct S6
   module: Example
   identifier: S6
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: struct S7a_Deref
-  module: Example
-  identifier: S7a_Deref
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: struct S7b_Deref
-  module: Example
-  identifier: S7b_Deref
   instances:
   - Eq
   - Show

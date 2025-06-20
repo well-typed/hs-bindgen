@@ -18,7 +18,7 @@ types:
   - Real
   - Storable
 - headers: macro_typedef_struct.h
-  cname: struct bar
+  cname: bar
   module: Example
   identifier: Bar
   instances:

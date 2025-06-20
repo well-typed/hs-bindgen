@@ -9,6 +9,8 @@ module HsBindgen.BindingSpec (
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
   , CSpelling(..)
+  , spell
+  , ordinaryCSpelling
   , Omittable(..)
   , TypeSpec(..)
   , defaultTypeSpec
@@ -69,6 +71,7 @@ import Clang.Paths
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
@@ -115,6 +118,19 @@ newtype CSpelling = CSpelling { getCSpelling :: Text }
 deriving newtype instance Aeson.FromJSON CSpelling
 
 deriving newtype instance Aeson.ToJSON CSpelling
+
+spell :: C.NameKind -> C.CName -> CSpelling
+spell nameKind name = CSpelling $ prefixFor nameKind <> C.getCName name
+  where
+    prefixFor :: C.NameKind -> Text
+    prefixFor = \case
+      C.NameKindOrdinary -> ""
+      C.NameKindStruct   -> "struct "
+      C.NameKindUnion    -> "union "
+      C.NameKindEnum     -> "enum "
+
+ordinaryCSpelling :: C.CName -> CSpelling
+ordinaryCSpelling = CSpelling . C.getCName
 
 --------------------------------------------------------------------------------
 

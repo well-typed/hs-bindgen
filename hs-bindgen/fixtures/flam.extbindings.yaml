@@ -1,5 +1,13 @@
 types:
 - headers: flam.h
+  cname: foo_bar
+  module: Example
+  identifier: Foo_bar
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: flam.h
   cname: struct diff
   module: Example
   identifier: Diff
@@ -11,14 +19,6 @@ types:
   cname: struct foo
   module: Example
   identifier: Foo
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: flam.h
-  cname: struct foo_bar
-  module: Example
-  identifier: Foo_bar
   instances:
   - Eq
   - Show

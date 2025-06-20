@@ -98,6 +98,14 @@ types:
   - Show
   - Storable
 - headers: manual_examples.h
+  cname: config_Deref
+  module: Example
+  identifier: Config_Deref
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
   cname: data
   module: Example
   identifier: Data
@@ -186,9 +194,17 @@ types:
   - Show
   - Storable
 - headers: manual_examples.h
-  cname: struct config_Deref
+  cname: rect_lower_left
   module: Example
-  identifier: Config_Deref
+  identifier: Rect_lower_left
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
+  cname: rect_upper_right
+  module: Example
+  identifier: Rect_upper_right
   instances:
   - Eq
   - Show
@@ -217,22 +233,6 @@ types:
   cname: struct rect
   module: Example
   identifier: Rect
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: struct rect_lower_left
-  module: Example
-  identifier: Rect_lower_left
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: struct rect_upper_right
-  module: Example
-  identifier: Rect_upper_right
   instances:
   - Eq
   - Show

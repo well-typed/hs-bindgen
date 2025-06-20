@@ -1,6 +1,6 @@
 types:
 - headers: vector.h
-  cname: struct vector
+  cname: vector
   module: Example
   identifier: Vector
   instances:
