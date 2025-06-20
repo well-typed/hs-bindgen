@@ -37,6 +37,7 @@
 - ignore: {name: "Use map once"}
 - ignore: {name: "Use section"}
 - ignore: {name: "Redundant lambda"}
+- ignore: {name: "Use const"}
 
 # Specify additional command line arguments
 #

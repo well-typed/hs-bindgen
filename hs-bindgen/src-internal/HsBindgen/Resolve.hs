@@ -96,8 +96,8 @@ resolveHeader' tracer args target =
     visit = simpleFold $ \curr -> do
         mResolved <- tryResolve generatedName target curr
         case mResolved of
-          Nothing   -> return $ Continue Nothing
-          Just path -> return $ Break (Just path)
+          Nothing   -> foldContinue
+          Just path -> foldBreakWith path
 
     generatedName :: FilePath
     generatedName = "hs-bindgen-resolve.h"

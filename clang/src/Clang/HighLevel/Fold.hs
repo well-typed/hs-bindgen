@@ -4,12 +4,22 @@
 module Clang.HighLevel.Fold (
     -- * Folds
     Fold -- opaque
-  , Next(..)
+  , Next -- opaque
     -- * Construction
   , simpleFold
   , runFold
-  , continueWith
-  , recursePure
+    -- * Fold-specific operations
+  , foldBreak
+  , foldBreakWith
+  , foldBreakOpt
+  , foldContinue
+  , foldContinueWith
+  , foldContinueOpt
+  , foldRecurse
+  , foldRecurseWith
+  , foldRecurseOpt
+  , foldRecursePure
+  , foldRecursePureOpt
     -- * Execution
   , clang_visitChildren
   ) where
@@ -53,24 +63,73 @@ runFold Fold{getNext} = getNext
 --
 -- This is the equivalent of 'CXChildVisitResult'
 data Next m a where
-  -- | Stop folding early
-  --
-  -- This is the equivalent of 'CXChildVisit_Break'.
-  Break :: Maybe a -> Next m a
-
-  -- | Continue with the next sibling of the current node
-  --
-  -- This is the equivalent of 'CXChildVisit_Continue'.
+  Break    :: Maybe a -> Next m a
   Continue :: Maybe a -> Next m a
+  Recurse  :: Fold m b -> ([b] -> m (Maybe a)) -> Next m a
 
-  -- | Recurse into the children of the current node
-  --
-  -- We can specify a different 'Fold' to process the children, and must
-  -- provide a "summarize" function which turns the results obtained from
-  -- processing the children into a result for the parent.
-  --
-  -- This is the equivalent of 'CXChildVisit_Recurse'.
-  Recurse :: Fold m b -> ([b] -> m (Maybe a)) -> Next m a
+{-------------------------------------------------------------------------------
+  Constructing 'Next' ('Next' itself is intentionally opaque)
+-------------------------------------------------------------------------------}
+
+-- | Stop folding early, without a result
+--
+-- See also 'foldBreakWith' and 'foldBreakOpt'.
+--
+-- This is the equivalent of 'CXChildVisit_Break'.
+foldBreak :: Monad m => m (Next m a)
+foldBreak = foldBreakOpt Nothing
+
+-- | Like 'foldBreak', but producing a result
+foldBreakWith :: Monad m => a -> m (Next m a)
+foldBreakWith = foldBreakOpt . Just
+
+-- | Generalization of 'foldBreak' and 'foldBreakWith' with optional result
+foldBreakOpt :: Monad m => Maybe a -> m (Next m a)
+foldBreakOpt = pure . Break
+
+-- | Continue with the next sibling of the current node, without a result
+--
+-- See also 'foldContinueWith' and 'foldContinueOpt'.
+--
+-- This is the equivalent of 'CXChildVisit_Continue'.
+foldContinue :: Monad m => m (Next m a)
+foldContinue = foldContinueOpt Nothing
+
+-- | Like 'foldContinue', but producing a result
+foldContinueWith :: Monad m => a -> m (Next m a)
+foldContinueWith = foldContinueOpt . Just
+
+-- | Generalization of 'foldContinue' and 'foldContinueWith' with optional result
+foldContinueOpt :: Monad m => Maybe a -> m (Next m a)
+foldContinueOpt = pure . Continue
+
+-- | Recurse into the children of the current node, without producing a result
+--
+-- We can specify a different 'Fold' to process the children, and must
+-- provide a "summarize" function which turns the results obtained from
+-- processing the children into a result for the parent.
+--
+-- See also 'foldRecurseWith'.
+--
+-- This is the equivalent of 'CXChildVisit_Recurse'.
+foldRecurse :: Monad m => Fold m () -> m (Next m a)
+foldRecurse fold = foldRecursePureOpt fold (const Nothing)
+
+-- | Like 'foldRecurse', but producing a result
+foldRecurseWith :: Monad m => Fold m b -> ([b] -> m a) -> m (Next m a)
+foldRecurseWith fold summarize = foldRecurseOpt fold (fmap Just . summarize)
+
+-- | Generalization of 'foldRecurseWith' with an /optional/ result
+foldRecurseOpt :: Monad m => Fold m b -> ([b] -> m (Maybe a)) -> m (Next m a)
+foldRecurseOpt fold summarize = pure $ Recurse fold summarize
+
+-- | Pure variant on 'foldRecurseWith'
+foldRecursePure :: Monad m => Fold m b -> ([b] -> a) -> m (Next m a)
+foldRecursePure fold summarize = foldRecurseWith fold (pure . summarize)
+
+-- | Pure variant on 'foldRecurseOpt'
+foldRecursePureOpt :: Monad m => Fold m b -> ([b] -> Maybe a) -> m (Next m a)
+foldRecursePureOpt fold summarize = foldRecurseOpt fold (pure . summarize)
 
 {-------------------------------------------------------------------------------
   Combinators
@@ -85,12 +144,6 @@ instance Functor m => Functor (Fold m) where
   fmap f Fold{getNext} = Fold{
         getNext = \curr -> fmap f <$> getNext curr
       }
-
-continueWith :: Applicative m => Maybe a -> Fold m a
-continueWith x = simpleFold $ \_curr -> pure (Continue x)
-
-recursePure :: Applicative m => Fold m b -> ([b] -> Maybe a) -> Next m a
-recursePure r f = Recurse r (pure . f)
 
 {-------------------------------------------------------------------------------
   Internal: partial results
