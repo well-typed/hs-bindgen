@@ -12,7 +12,7 @@ import Control.Tracer
 import Clang.LowLevel.Core
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.C.Predicate (Predicate)
+import HsBindgen.C.Predicate (Predicate (SelectAll))
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.Pass.HandleMacros
@@ -22,6 +22,7 @@ import HsBindgen.Frontend.Pass.NameAnon
 import HsBindgen.Frontend.Pass.Parse (parseDecls)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec
+import HsBindgen.Frontend.Pass.Slice
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
@@ -80,13 +81,25 @@ processTranslationUnit ::
   -> RootHeader
   -> Predicate
   -> CXTranslationUnit -> IO Ext.TranslationUnit
-processTranslationUnit tracer extSpec rootHeader predicate unit = do
+processTranslationUnit tracer extSpec rootHeader selectionPredicate unit = do
+    -- TODO: Receive slicing specifications via argument.
+    -- let sliceSpec = NoSlice
+    let sliceSpec = Slice
+
     (includeGraph, isMainFile, getMainHeader) <- processIncludes rootHeader unit
+
+    let selectionPredicateParse = case sliceSpec of
+          -- When program slicing is used, we select all declarations, sort
+          -- them, assemble the use-decl graph, and then slice declarations with
+          -- transitive dependencies.
+          Slice   -> SelectAll
+          NoSlice -> selectionPredicate
+
     afterParse <-
       parseDecls
         (contramap (fmap FrontendParse) tracer)
         rootHeader
-        predicate
+        selectionPredicateParse
         includeGraph
         isMainFile
         getMainHeader
@@ -100,8 +113,10 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
 
     let (afterSort, sortErrors) =
           sortDecls afterParse
+        (afterSlice, _sliceErrors) =
+          sliceDecls sliceSpec isMainFile afterSort
         (afterHandleMacros, macroErrors) =
-          handleMacros afterSort
+          handleMacros afterSlice
         afterNameAnon =
           nameAnon afterHandleMacros
         (afterResolveBindingSpec, bindingSpecErrors) =
@@ -115,6 +130,8 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
     --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
     forM_ sortErrors        $ traceWithCallStack tracer . FrontendSort
+    -- TODO: Slice errors.
+    -- forM_ sliceErrors       $ traceWithCallStack tracer . FrontendSlice
     forM_ macroErrors       $ traceWithCallStack tracer . FrontendMacro
     forM_ bindingSpecErrors $ traceWithCallStack tracer . FrontendBindingSpec
     forM_ mangleErrors      $ traceWithCallStack tracer . FrontendNameMangler

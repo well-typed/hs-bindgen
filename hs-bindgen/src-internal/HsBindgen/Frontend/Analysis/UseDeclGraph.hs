@@ -15,6 +15,7 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
   , fromSortedDecls
     -- * Query
   , toDecls
+  , getTransitiveDeps
     -- * Debugging
   , dumpMermaid
   ) where
@@ -109,6 +110,9 @@ toDecls index (Wrap graph) =
     -- happen when we areusing external binding specifications.
     mapMaybe (`DeclIndex.lookup` index) . DynGraph.postorderForest $
       DynGraph.dff graph
+
+getTransitiveDeps :: UseDeclGraph -> C.QualId Parse -> Set (C.QualId Parse)
+getTransitiveDeps = DynGraph.reaches . unwrap
 
 {-------------------------------------------------------------------------------
   Construction auxiliary: sort key
