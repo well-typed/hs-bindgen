@@ -7,8 +7,7 @@
 module Test02 where
 
 import HsBindgen.TH
-
-import Test.Internal.Trace (degradeKnownTraces)
+import Test.Internal.Tracer (defaultTracePredicate, withTracePredicate)
 
 -- Used by generated code
 import HsBindgen.Runtime.Prelude qualified
@@ -19,9 +18,8 @@ $(do
         args = def {
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
-        tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
     extBindings <-
-      withTracerStdOut tracerConf degradeKnownTraces $ \tracer ->
+      withTracePredicate defaultTracePredicate $ \tracer ->
         snd <$> loadExtBindings tracer args True []
     let opts :: Opts
         opts = def {

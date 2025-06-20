@@ -5,7 +5,7 @@ module HsBindgen.Util.Trace (
 import Control.Exception (Exception (displayException))
 import Data.Text (unpack)
 
-import Clang.HighLevel.Types (Diagnostic (diagnosticFormatted),
+import Clang.HighLevel.Types (Diagnostic (diagnosticCategoryText, diagnosticFormatted),
                               diagnosticIsError)
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Frontend (FrontendTrace)
@@ -27,7 +27,8 @@ data Trace = TraceDiagnostic Diagnostic
 
 instance PrettyTrace Trace where
   prettyTrace = \case
-    TraceDiagnostic x     -> unpack $ diagnosticFormatted x
+    TraceDiagnostic x     -> unpack $
+      diagnosticCategoryText x <> ": " <> diagnosticFormatted x
     TraceExtraClangArgs x -> prettyTrace x
     TraceFrontend x       -> prettyTrace x
     TraceResolveHeader x  -> displayException x

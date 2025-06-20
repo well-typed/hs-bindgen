@@ -6,7 +6,7 @@ import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 
 import HsBindgen.Clang.Args
 import HsBindgen.Lib
-import Test.Internal.Tracer (withTracerTest)
+import Test.Internal.Tracer (defaultTracePredicate, withTracePredicate)
 
 type EnvVar = String
 type Content = String
@@ -26,10 +26,9 @@ withEnv xs k = do
 assertWithEnv :: (Eq a, Show a) => [(EnvVar, Content)] -> IO a -> a -> Assertion
 assertWithEnv xs k x = withEnv xs k >>= \r -> r @?= x
 
-
-tests :: IO AnsiColor -> TestTree
-tests getAnsiColor = do
-  testGroup "HsBindgen.Clang.Args" [ getExtraClangArgsTests getAnsiColor
+tests :: TestTree
+tests = do
+  testGroup "HsBindgen.Clang.Args" [ getExtraClangArgsTests
                                    , splitArgumentsTests
                                    ]
 
@@ -52,8 +51,8 @@ splitArgumentsTests = testGroup "splitStringArguments"
     , testCase "escape&quote" $ splitArguments "a\\ \"b c\"\\ d"       @?= ["a b c d"]
     ]
 
-getExtraClangArgsTests :: IO AnsiColor -> TestTree
-getExtraClangArgsTests getAnsiColor = testGroup "getExtraClangArgs" [
+getExtraClangArgsTests :: TestTree
+getExtraClangArgsTests = testGroup "getExtraClangArgs" [
           testCase "!target" $
             assertExtraClangArgs [(eDef, "native")] Nothing ["native"]
         , -- Without target, we ignore target-specific `clang` arguments.
@@ -72,6 +71,6 @@ getExtraClangArgsTests getAnsiColor = testGroup "getExtraClangArgs" [
             assertExtraClangArgs [(eDef, "native"), (eLnx, "")] (Just Target_Linux_X86_64) ["native"]
         ]
   where assertExtraClangArgs :: [(EnvVar, Content)] -> Maybe Target -> [String] -> IO ()
-        assertExtraClangArgs xs mtarget x =
-          withTracerTest getAnsiColor $ \tracer ->
+        assertExtraClangArgs xs mtarget x = do
+          withTracePredicate defaultTracePredicate $ \tracer ->
             assertWithEnv xs (getExtraClangArgs (useTrace TraceExtraClangArgs tracer) mtarget) x

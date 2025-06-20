@@ -5,20 +5,21 @@ import Test.Tasty.HUnit (testCase, (@?=))
 
 import HsBindgen.C.Parser (getTargetTriple)
 import HsBindgen.Lib
-import Test.Internal.Tracer (withTracerTest)
+import Test.Internal.Tracer (defaultTracePredicate, withTracePredicate)
 
 {-------------------------------------------------------------------------------
   Tests
 -------------------------------------------------------------------------------}
 
-tests :: IO AnsiColor -> ClangArgs -> TestTree
-tests getAnsiColor args = testGroup "HsBindgen.C.Parser"
-    [ testGetTargetTriple getAnsiColor args
+tests :: ClangArgs -> TestTree
+tests args = testGroup "HsBindgen.C.Parser"
+    [ testGetTargetTriple args
     ]
 
-testGetTargetTriple :: IO AnsiColor -> ClangArgs -> TestTree
-testGetTargetTriple getAnsiColor args = testCase "getTargetTriple" $ do
-    triple <- withTracerTest getAnsiColor $ \tracer -> getTargetTriple (useTrace TraceExtraClangArgs tracer) args
+testGetTargetTriple :: ClangArgs -> TestTree
+testGetTargetTriple args = testCase "getTargetTriple" $ do
+    triple <- withTracePredicate defaultTracePredicate $ \tracer ->
+      getTargetTriple (useTrace TraceExtraClangArgs tracer) args
 
     -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
     -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"

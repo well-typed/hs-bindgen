@@ -322,7 +322,6 @@ test-suite test-internal
       Test.Internal.TreeDiff.Orphans
       -- Common
       Test.Internal.Tasty
-      Test.Internal.Trace
       Test.Internal.Tracer
   build-depends:
       -- Internal dependencies
@@ -333,12 +332,13 @@ test-suite test-internal
     , deepseq
   build-depends:
       -- Inherited dependencies
-    , ansi-terminal
     , contra-tracer
     , bytestring
+    , containers
     , debruijn
     , mtl
     , template-haskell
+    , text
     , vec
   build-depends:
       -- External dependencies
@@ -367,7 +367,6 @@ test-suite test-th
       Test02
       -- Common
       Test.Internal.Tasty
-      Test.Internal.Trace
       Test.Internal.Tracer
 
   default-language: Haskell2010
@@ -378,7 +377,6 @@ test-suite test-th
     , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
-    , ansi-terminal
     , base <5
     , containers
     , contra-tracer
@@ -401,7 +399,6 @@ test-suite test-pp
       Test02
       -- Common
       Test.Internal.Tasty
-      Test.Internal.Trace
       Test.Internal.Tracer
 
   default-language: Haskell2010
@@ -421,7 +418,6 @@ test-suite test-pp
     , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
-    , ansi-terminal
     , base <5
     , containers
     , contra-tracer
