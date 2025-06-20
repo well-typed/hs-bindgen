@@ -47,6 +47,7 @@ library
       HsBindgen.Runtime.FlexibleArrayMember
       HsBindgen.Runtime.LibC
       HsBindgen.Runtime.Marshal
+      HsBindgen.Runtime.Prelude
       HsBindgen.Runtime.Syntax
       HsBindgen.Runtime.SizedByteArray
       HsBindgen.Runtime.Bitfield

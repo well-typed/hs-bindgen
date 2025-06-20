@@ -11,8 +11,7 @@ import HsBindgen.TH
 import Test.Internal.Trace (degradeKnownTraces)
 
 -- Used by generated code
-import Data.Word qualified
-import HsBindgen.Runtime.LibC qualified
+import HsBindgen.Runtime.Prelude qualified
 
 $(do
     dir <- getPackageRoot

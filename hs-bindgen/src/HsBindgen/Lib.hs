@@ -35,8 +35,7 @@ module HsBindgen.Lib (
   , Pipeline.loadExtBindings
   , Resolve.ResolveHeaderException(..)
   , emptyExtBindings
-  , baseExtBindingsYaml
-  , runtimeExtBindingsYaml
+  , stdlibExtBindingsYaml
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
@@ -139,11 +138,8 @@ genExtBindings ppOpts headerIncludePaths fp =
 emptyExtBindings :: ResolvedBindingSpec
 emptyExtBindings = BindingSpec.empty
 
-baseExtBindingsYaml :: ByteString
-baseExtBindingsYaml = BindingSpec.encodeYaml Stdlib.baseBindings
-
-runtimeExtBindingsYaml :: ByteString
-runtimeExtBindingsYaml = BindingSpec.encodeYaml Stdlib.runtimeBindings
+stdlibExtBindingsYaml :: ByteString
+stdlibExtBindingsYaml = BindingSpec.encodeYaml Stdlib.bindings
 
 {-------------------------------------------------------------------------------
   Test generation

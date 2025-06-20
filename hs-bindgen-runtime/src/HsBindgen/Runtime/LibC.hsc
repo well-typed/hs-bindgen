@@ -1,13 +1,5 @@
+-- | C standard library types that are not in @base@
 module HsBindgen.Runtime.LibC (
-    -- * Primitive Types
-    -- $PrimitiveTypes
-
-    -- * Boolean Types
-    -- $BooleanTypes
-
-    -- * Integral Types
-    -- $IntegralTypes
-
     -- * Floating Types
     CFenvT
   , CFexceptT
@@ -17,14 +9,7 @@ module HsBindgen.Runtime.LibC (
   , CLdivT(..)
   , CLldivT(..)
 
-    -- * Standard Definitions
-    -- $StandardDefinitions
-
-    -- * Non-Local Jump Types
-    -- $NonLocalJumpTypes
-
     -- * Wide Character Types
-    -- $WideCharacterTypes
   , CWintT(..)
   , CMbstateT
   , CWctransT(..)
@@ -32,17 +17,8 @@ module HsBindgen.Runtime.LibC (
   , CChar16T(..)
   , CChar32T(..)
 
-    -- * Localization Types
-
     -- * Time Types
-    -- $TimeTypes
   , CTm(..)
-
-    -- * File Types
-    -- $FileTypes
-
-    -- * Signal Types
-    -- $SignalTypes
   ) where
 
 import Data.Bits (Bits, FiniteBits)
@@ -58,146 +34,6 @@ import HsBindgen.Runtime.Marshal
 #include <locale.h>
 #include <stdlib.h>
 #include <time.h>
-
-{-------------------------------------------------------------------------------
-  Primitive Types
--------------------------------------------------------------------------------}
-
--- $PrimitiveTypes
---
--- The following types are available in all C standards.  The corresponding
--- Haskell types are defined in @base@ with platform-specific implementations.
---
--- Integral types:
---
--- * @char@ corresponds to Haskell type 'C.CChar'.
--- * @unsigned char@ corresponds to Haskell type 'C.CUChar'.
--- * @short@ corresponds to Haskell type 'C.CShort'.
--- * @unsigned short@ corresponds to Haskell type 'C.CUShort'.
--- * @int@ corresponds to Haskell type 'C.CInt'.
--- * @unsigned int@ corresponds to Haskell type 'C.CUInt'.
--- * @long@ corresponds to Haskell type 'C.CLong'.
--- * @unsigned long@ corresponds to Haskell type 'C.CULong'.
--- * @long long@ corresponds to Haskell type 'C.CLLong'.
--- * @unsigned long long@ corresponds to Haskell type 'C.CULLong'.
---
--- Floating types:
---
--- * @float@ corresponds to Haskell type 'C.CFloat'.
--- * @double@ corresponds to Haskell type 'C.CDouble'.
--- * @long double@ is not yet supported.
---
--- Other types:
---
--- * @char*@ corresponds to Haskell type 'Foreign.C.String.CString'.
-
-{-------------------------------------------------------------------------------
-  Boolean Types
--------------------------------------------------------------------------------}
-
--- $BooleanTypes
---
--- Boolean data types have integral representations where @0@ represents 'False'
--- and @1@ represents 'True'.
---
--- C standards prior to C99 did not include a boolean type.  C99 defined
--- @_Bool@, which was deprecated in C23.  C23 defines a @bool@ type.  Relevant
--- macros are defined in the @stdbool.h@ header file.
---
--- 'C.CBool' is defined in @base@ with a platform-specific implementation.  It
--- should be compatible with boolean types across all of the C standards.  Only
--- values @0@ and @1@ may be used even though the representation allows for
--- other values.
-
-{-------------------------------------------------------------------------------
-  Integral Types
--------------------------------------------------------------------------------}
-
--- $IntegralTypes
---
--- The following C types are available since C99 and are provided by the
--- @stdint.h@ and @inttypes.h@ header files.
---
--- * @int8_t@ is a signed integral type with exactly 8 bits.  'Data.Int.Int8' is
---   the corresponding Haskell type.
--- * @int16_t@ is a signed integral type with exactly 16 bits.  'Data.Int.Int16'
---   is the corresponding Haskell type.
--- * @int32_t@ is a signed integral type with exactly 32 bits.  'Data.Int.Int32'
---   is the corresponding Haskell type.
--- * @int64_t@ is a signed integral type with exactly 64 bits.  'Data.Int.Int64'
---   is the corresponding Haskell type.
--- * @uint8_t@ is an unsigned integral type with exactly 8 bits.
---   'Data.Word.Word8' is the corresponding Haskell type.
--- * @uint16_t@ is an unsigned integral type with exactly 16 bits.
---   'Data.Word.Word16' is the corresponding Haskell type.
--- * @uint32_t@ is an unsigned integral type with exactly 32 bits.
---   'Data.Word.Word32' is the corresponding Haskell type.
--- * @uint64_t@ is an unsigned integral type with exactly 64 bits.
---   'Data.Word.Word64' is the corresponding Haskell type.
--- * @int_least8_t@ is a signed integral type with at least 8 bits, such that no
---   other signed integral type exists with a smaller size and at least 8 bits.
---   'Data.Int.Int8' is the corresponding Haskell type.
--- * @int_least16_t@ is a signed integral type with at least 16 bits, such that
---   no other signed integral type exists with a smaller size and at least 16
---   bits.  'Data.Int.Int16' is the corresponding Haskell type.
--- * @int_least32_t@ is a signed integral type with at least 32 bits, such that
---   no other signed integral type exists with a smaller size and at least 32
---   bits.  'Data.Int.Int32' is the corresponding Haskell type.
--- * @int_least64_t@ is a signed integral type with at least 64 bits, such that
---   no other signed integral type exists with a smaller size and at least 64
---   bits.  'Data.Int.Int64' is the corresponding Haskell type.
--- * @uint_least8_t@ is an unsigned integral type with at least 8 bits, such
---   that no other unsigned integral type exists with a smaller size and at
---   least 8 bits.  'Data.Word.Word8' is the corresponding Haskell type.
--- * @uint_least16_t@ is an unsigned integral type with at least 16 bits, such
---   that no other unsigned integral type exists with a smaller size and at
---   least 16 bits.  'Data.Word.Word16' is the corresponding Haskell type.
--- * @uint_least32_t@ is an unsigned integral type with at least 32 bits, such
---   that no other unsigned integral type exists with a smaller size and at
---   least 32 bits.  'Data.Word.Word32' is the corresponding Haskell type.
--- * @uint_least64_t@ is an unsigned integral type with at least 64 bits, such
---   that no other unsigned integral type exists with a smaller size and at
---   least 64 bits.  'Data.Word.Word64' is the corresponding Haskell type.
--- * @int_fast8_t@ is a signed integral type with at least 8 bits, such that it
---   is at least as fast as any other signed integral type that has at least 8
---   bits.  'Data.Int.Int8' is the corresponding Haskell type.
--- * @int_fast16_t@ is a signed integral type with at least 16 bits, such that
---   it is at least as fast as any other signed integral type that has at least
---   16 bits.  'Data.Int.Int16' is the corresponding Haskell type.
--- * @int_fast32_t@ is a signed integral type with at least 32 bits, such that
---   it is at least as fast as any other signed integral type that has at least
---   32 bits.  'Data.Int.Int32' is the corresponding Haskell type.
--- * @int_fast64_t@ is a signed integral type with at least 64 bits, such that
---   it is at least as fast as any other signed integral type that has at least
---   64 bits.  'Data.Int.Int64' is the corresponding Haskell type.
--- * @uint_fast8_t@ is an unsigned integral type with at least 8 bits, such that
---   it is at least as fast as any other unsigned integral type that has at
---   least 8 bits.  'Data.Word.Word8' is the corresponding Haskell type.
--- * @uint_fast16_t@ is an unsigned integral type with at least 16 bits, such
---   that it is at least as fast as any other unsigned integral type that has at
---   least 16 bits.  'Data.Word.Word16' is the corresponding Haskell type.
--- * @uint_fast32_t@ is an unsigned integral type with at least 32 bits, such
---   that it is at least as fast as any other unsigned integral type that has at
---   least 32 bits.  'Data.Word.Word32' is the corresponding Haskell type.
--- * @uint_fast64_t@ is an unsigned integral type with at least 64 bits, such
---   that it is at least as fast as any other unsigned integral type that has at
---   least 64 bits.  'Data.Word.Word64' is the corresponding Haskell type.
--- * @intmax_t@ is the signed integral type with the maximum width supported.
---   'C.CIntMax', defined in @base@ with a platform-specific implementation, is
---   the corresponding Haskell type.
--- * @uintmax_t@ is the unsigned integral type with the maximum width supported.
---   'C.CUIntMax', defined in @base@ with a platform-specific implementation, is
---   the corresponding Haskell type.
--- * @intptr_t@ is a signed integral type capable of holding a value converted
---   from a void pointer and then be converted back to that type with a value
---   that compares equal to the original pointer.  'C.CIntPtr', defined in
---   @base@ with a platform-specific implementation, is the corresponding
---   Haskell type.
--- * @uintptr_t@ is an unsigned integral type capable of holding a value
---   converted from a void pointer and then be converted back to that type with
---   a value that compares equal to the original pointer.  'C.CUIntPtr', defined
---   in @base@ with a platform-specific implementation, is the corresponding
---   Haskell type.
 
 {-------------------------------------------------------------------------------
   Floating Types
@@ -297,40 +133,11 @@ instance ReadRaw CImaxdivT where
   Standard Definitions
 -------------------------------------------------------------------------------}
 
--- $StandardDefinitions
---
--- @size_t@ is an unsigned integral type used to represent the size of objects
--- in memory and dereference elements of an array.  It is defined in the
--- @stddef.h@ header file, and it is made available in many other header files
--- that use it.  'C.CSize', defined in @base@ with a platform-specific
--- implementation, is the corresponding Haskell type.
---
--- @ptrdiff_t@ is a type that represents the result of pointer subtraction.  It
--- is defined in the @stddef.h@ header file.  'C.CPtrdiff`, defined in @base@
--- with a platform-specific implementation, is the corresponding Haskell type.
-
 -- TODO CMaxAlignT @max_align_t@ (uses long double, C11, stddef.h)
-
-{-------------------------------------------------------------------------------
-  Non-Local Jump Types
--------------------------------------------------------------------------------}
-
--- $NonLocalJumpTypes
---
--- @jmp_buf@ holds information to restore the calling environment.  It is
--- defined in the @setjmp.h@ header file.  'C.CJmpBuf', defined in @base@ as an
--- opaque type, may only be used with a 'Ptr'.
 
 {-------------------------------------------------------------------------------
   Wide Character Types
 -------------------------------------------------------------------------------}
-
--- $WideCharacterTypes
---
--- @wchar_t@ represents wide characters.  It is available since C95.  It is
--- defined in the @stddef.h@ and @wchar.h@ header files, and it is made
--- available in other header files that use it.  'C.CWchar', defined in @base@
--- with a platform-specific implementation, is the corresponding Haskell type.
 
 -- | C @wint_t@ type
 --
@@ -440,20 +247,6 @@ newtype CChar32T = CChar32T Word32
   Time Types
 -------------------------------------------------------------------------------}
 
--- $TimeTypes
---
--- @time_t@ represents a point in time.  It is not portable, as libraries may
--- use different time representations.  It is defined in the @time.h@ header
--- file, and it is made available in other header files that use it.  'C.CTime',
--- defined in @base@ with a platform-specific implementation, is the
--- corresponding Haskell type.
---
--- @clock_t@ represents clock tick counts, in units of time of a constant but
--- system-specific duration.  It is defined in the @time.h@ header file, and it
--- is made available in other header files that use it.  'C.CClock', defined in
--- @base@ with a platform-specific implementation, is the corresponding Haskell
--- type.
-
 -- | C @struct tm@ type
 --
 -- @struct tm@ holds the components of a calendar time, called the
@@ -502,29 +295,3 @@ instance WriteRaw CTm where
     (#poke struct tm, tm_wday)  ptr cTm_wday
     (#poke struct tm, tm_yday)  ptr cTm_yday
     (#poke struct tm, tm_isdst) ptr cTm_isdst
-
-{-------------------------------------------------------------------------------
-  File Types
--------------------------------------------------------------------------------}
-
--- $FileTypes
---
--- @FILE@ identifies and contains information that controls a stream.  It is
--- defined in the @stdio.h@ header file, and it is made available in other
--- header files that use it.  'C.CFile', defined in @base@ as an opaque type,
--- may only be used with a 'Ptr'.
---
--- @fpos_t@ contains information that specifies a position within a file.  It is
--- defined in the @stdio.h@ header file.  'C.CFpos', defined in @base@ as an
--- opaque type, may only be used with a 'Ptr'.
-
-{-------------------------------------------------------------------------------
-  Signal Types
--------------------------------------------------------------------------------}
-
--- $SignalTypes
---
--- @sig_atomic_t@ is an integral type that represents an object that can be
--- accessed as an atomic entity even in the presence of asynchronous signals.
--- It is defined in the @signal.h@ header file.  'C.CSigAtomic', defined in
--- @base@ with a platform-specific implementation.

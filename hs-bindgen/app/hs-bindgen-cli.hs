@@ -72,8 +72,7 @@ execMode Cli{..} = \case
         =<< translateCHeaders "TODO" opts genTestsInputs
 
     ModeLiterate input output -> execLiterate input output
-    ModeBindingSpec BindingSpecModeBase    -> BS.putStr baseExtBindingsYaml
-    ModeBindingSpec BindingSpecModeRuntime -> BS.putStr runtimeExtBindingsYaml
+    ModeBindingSpec BindingSpecModeStdlib -> BS.putStr stdlibExtBindingsYaml
   where
     cmdOpts :: Opts
     cmdOpts = def {

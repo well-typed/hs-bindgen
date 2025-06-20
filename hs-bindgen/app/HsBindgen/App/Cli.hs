@@ -195,16 +195,12 @@ parseGenExtBindings =
 -------------------------------------------------------------------------------}
 
 data BindingSpecMode =
-    BindingSpecModeBase
-  | BindingSpecModeRuntime
+    BindingSpecModeStdlib
   deriving (Show)
 
 parseBindingSpecMode :: Parser BindingSpecMode
 parseBindingSpecMode = subparser $ mconcat [
-      cmd "base" (pure BindingSpecModeBase) $ mconcat [
-          progDesc "Write base external binding specification"
-        ]
-    , cmd "runtime" (pure BindingSpecModeRuntime) $ mconcat [
-          progDesc "Write hs-bindgen-runtime external binding specification"
+      cmd "stdlib" (pure BindingSpecModeStdlib) $ mconcat [
+          progDesc "Write stdlib external binding specification"
         ]
     ]
