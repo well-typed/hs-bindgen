@@ -3,6 +3,7 @@ module Main (main) where
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
 import Control.Tracer (Tracer)
+import Data.ByteString qualified as BS
 import Data.Char (isLetter)
 import GHC.Stack (HasCallStack)
 import System.Exit (ExitCode, exitFailure)
@@ -71,6 +72,7 @@ execMode Cli{..} = \case
         =<< translateCHeaders "TODO" opts genTestsInputs
 
     ModeLiterate input output -> execLiterate input output
+    ModeBindingSpec BindingSpecModeStdlib -> BS.putStr stdlibExtBindingsYaml
   where
     cmdOpts :: Opts
     cmdOpts = def {

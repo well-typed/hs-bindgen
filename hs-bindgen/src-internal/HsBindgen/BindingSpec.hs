@@ -344,14 +344,15 @@ empty = BindingSpec {
 load ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
   -> ClangArgs
+  -> UnresolvedBindingSpec
   -> [FilePath]
   -> IO (Set ResolveHeaderException, ResolvedBindingSpec)
-load tracer args paths = throwExceptions =<< do
-    (errs, uspec) <-
+load tracer args stdSpec paths = throwExceptions =<< do
+    (errs, uspecs) <-
       first (map ReadBindingSpecException) . partitionEithers
         <$> mapM readFile paths
     (resolveErrs, specs) <-
-      first Set.unions . unzip <$> mapM (resolve tracer args) uspec
+      first Set.unions . unzip <$> mapM (resolve tracer args) (stdSpec : uspecs)
     return $ case first MergeBindingSpecException (merge specs) of
       Right spec
         | null errs -> Right (resolveErrs, spec)

@@ -20,16 +20,18 @@ main = do
 execMode :: HasCallStack
   => Dev -> Mode -> IO ()
 execMode Dev{..} = \case
-    ModeParse{..} -> genBindings >>= print
-      where
-        genBindings :: IO TranslationUnit
-        genBindings = withTracerStdOut (globalOptsTracerConf devGlobalOpts) DefaultLogLevel $
-          \tracer -> do extBindings <- loadExtBindings' tracer devGlobalOpts
-                        let opts :: Opts
-                            opts = def {
-                                optsClangArgs   = globalOptsClangArgs devGlobalOpts
-                              , optsExtBindings = extBindings
-                              , optsPredicate   = globalOptsPredicate devGlobalOpts
-                              , optsTracer      = tracer
-                              }
-                        Pipeline.parseCHeaders opts parseInputPaths
+    ModeParse{..} -> genBindings parseInputPaths >>= print
+  where
+    genBindings :: [CHeaderIncludePath] -> IO TranslationUnit
+    genBindings inputPaths =
+      withTracerStdOut (globalOptsTracerConf devGlobalOpts) DefaultLogLevel $
+        \tracer -> do
+          extBindings <- loadExtBindings' tracer devGlobalOpts
+          let opts :: Opts
+              opts = def {
+                  optsClangArgs   = globalOptsClangArgs devGlobalOpts
+                , optsExtBindings = extBindings
+                , optsPredicate   = globalOptsPredicate devGlobalOpts
+                , optsTracer      = tracer
+                }
+          Pipeline.parseCHeaders opts inputPaths

@@ -11,8 +11,7 @@ import HsBindgen.TH
 import Test.Internal.Trace (degradeKnownTraces)
 
 -- Used by generated code
-import Data.Word qualified
-import HsBindgen.Runtime.LibC qualified
+import HsBindgen.Runtime.Prelude qualified
 
 $(do
     dir <- getPackageRoot
@@ -21,11 +20,9 @@ $(do
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
         tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
-    extBindings <- snd <$> (withTracerStdOut tracerConf degradeKnownTraces $
-      \tracer -> loadExtBindings tracer args [
-        joinPath [dir, "bindings", "base.yaml"]
-      , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]
-      ])
+    extBindings <-
+      withTracerStdOut tracerConf degradeKnownTraces $ \tracer ->
+        snd <$> loadExtBindings tracer args True []
     let opts :: Opts
         opts = def {
             optsClangArgs   = args

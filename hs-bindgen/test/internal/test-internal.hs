@@ -4,7 +4,7 @@ module Main (main) where
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.List qualified as List
 import Data.TreeDiff.Golden (ediffGolden1)
-import Test.Tasty (TestName, TestTree, defaultMain, testGroup)
+import Test.Tasty (TestName, TestTree, defaultMain, testGroup, withResource)
 import Test.Tasty.HUnit (assertBool, testCase)
 
 import Clang.Paths
@@ -27,8 +27,8 @@ import Test.HsBindgen.Util.Tracer qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
-import Test.Internal.Tracer (withAnsiColor, withTracerTestCustom,
-                             withWriterTracer)
+import Test.Internal.Tracer (withAnsiColor, withTracerTest,
+                             withTracerTestCustom, withWriterTracer)
 import Test.Internal.TreeDiff.Orphans ()
 
 #if __GLASGOW_HASKELL__ >=904
@@ -43,15 +43,21 @@ main :: IO ()
 main = do
     packageRoot <- findPackageDirectory "hs-bindgen"
     defaultMain $ withRustBindgen $ \getRustBindgen ->
-      withAnsiColor $ \getAnsiColor -> do
-        tests packageRoot getAnsiColor getRustBindgen
+      withAnsiColor $ \getAnsiColor ->
+        initExtBindings packageRoot getAnsiColor $ \getExtBindings ->
+          tests packageRoot getAnsiColor getExtBindings getRustBindgen
 
 {-------------------------------------------------------------------------------
   Tests
 -------------------------------------------------------------------------------}
 
-tests :: FilePath -> IO AnsiColor -> IO FilePath -> TestTree
-tests packageRoot getAnsiColor getRustBindgen =
+tests ::
+     FilePath
+  -> IO AnsiColor
+  -> IO ResolvedBindingSpec
+  -> IO FilePath
+  -> TestTree
+tests packageRoot getAnsiColor getExtBindings getRustBindgen =
   testGroup "test-internal" [
       Test.HsBindgen.C.Parser.tests getAnsiColor (argsWith [])
     , Test.HsBindgen.Clang.Args.tests getAnsiColor
@@ -217,10 +223,13 @@ tests packageRoot getAnsiColor getRustBindgen =
     mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
 
     withOpts :: (String -> IO ()) -> (Opts -> IO a) -> IO a
-    withOpts report action = withTracerTestCustom report getAnsiColor $
+    withOpts report action = do
+      extBindings <- getExtBindings
+      withTracerTestCustom report getAnsiColor $
         \tracer' -> action $ (def :: Opts) {
-            optsClangArgs = argsWith [ "examples/golden", "examples/golden-norust" ]
-          , optsTracer = tracer'
+            optsClangArgs   = argsWith [ "examples/golden", "examples/golden-norust" ]
+          , optsExtBindings = extBindings
+          , optsTracer      = tracer'
           }
 
     ppOpts :: Pipeline.PPOpts
@@ -240,3 +249,20 @@ tests packageRoot getAnsiColor getRustBindgen =
              Pipeline.translateCHeaders "failWithTraceTest" opts [headerIncludePath]
       assertBool msg $ any (predicate . tTrace) traces
 
+{-------------------------------------------------------------------------------
+  Auxiliary functions
+-------------------------------------------------------------------------------}
+
+initExtBindings ::
+     FilePath
+  -> IO AnsiColor
+  -> (IO ResolvedBindingSpec -> TestTree)
+  -> TestTree
+initExtBindings packageRoot getAnsiColor =
+    withResource getExtBindings (const (return ()))
+  where
+    getExtBindings :: IO ResolvedBindingSpec
+    getExtBindings = withTracerTest getAnsiColor $ \tracer ->
+      let tracer' = useTrace TraceExtraClangArgs tracer
+          args = getClangArgs packageRoot []
+      in  snd <$> Pipeline.loadExtBindings tracer' args True []

@@ -12,7 +12,7 @@ module HsBindgen.Lib (
   , preprocessPure
   , preprocessIO
 
-    -- * External bindings generation
+    -- * Binding specification generation
   , genExtBindings
 
     -- * Test generation
@@ -32,9 +32,10 @@ module HsBindgen.Lib (
 
     -- ** External bindings
   , ResolvedBindingSpec
-  , loadExtBindings
-  , emptyExtBindings
+  , Pipeline.loadExtBindings
   , Resolve.ResolveHeaderException(..)
+  , emptyExtBindings
+  , stdlibExtBindingsYaml
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
@@ -62,7 +63,7 @@ module HsBindgen.Lib (
   , FilePath.joinPath
   ) where
 
-import Control.Tracer (Tracer)
+import Data.ByteString (ByteString)
 import System.FilePath qualified as FilePath
 
 import Clang.Args qualified as Args
@@ -71,8 +72,8 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
@@ -118,7 +119,7 @@ preprocessIO ::
 preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
-  External bindings
+  Binding specification generation
 -------------------------------------------------------------------------------}
 
 genExtBindings ::
@@ -130,15 +131,15 @@ genExtBindings ::
 genExtBindings ppOpts headerIncludePaths fp =
     Pipeline.genExtBindings ppOpts headerIncludePaths fp . unwrapHsDecls
 
-loadExtBindings ::
-     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
-  -> Args.ClangArgs
-  -> [FilePath]
-  -> IO (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
-loadExtBindings = BindingSpec.load
+{-------------------------------------------------------------------------------
+  External bindings
+-------------------------------------------------------------------------------}
 
 emptyExtBindings :: ResolvedBindingSpec
 emptyExtBindings = BindingSpec.empty
+
+stdlibExtBindingsYaml :: ByteString
+stdlibExtBindingsYaml = BindingSpec.encodeYaml Stdlib.bindings
 
 {-------------------------------------------------------------------------------
   Test generation
