@@ -8,7 +8,7 @@ module HsBindgen.Resolve (
 
 import Control.Exception (Exception (displayException))
 import Control.Monad ((<=<))
-import Control.Monad.Except (runExceptT, throwError)
+import Control.Monad.Trans.Maybe (MaybeT(..), runMaybeT)
 import Data.Maybe (listToMaybe)
 import Data.Text qualified as Text
 
@@ -60,56 +60,51 @@ instance HasSource ResolveHeaderException where
 resolveHeader' ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
   -> ClangArgs
-  -> CHeaderIncludePath
+  -> CHeaderIncludePath -- ^ The header we want to resolve
   -> IO (Either ResolveHeaderException SourcePath)
-resolveHeader' tracer args headerIncludePath =
-  withExtraClangArgs tracer args $ \args' ->
-    HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withUnsavedFile headerName headerContent $ \file -> do
-        let onFailure :: SimpleEnum CXErrorCode -> IO a
-            onFailure err = panicPure $
-                   "Clang parse translation unit error during header resolution: "
-                ++ show err
-        HighLevel.withTranslationUnit2 index (Just headerSourcePath) args' [file] opts onFailure $ \unit -> do
-          rootCursor <- clang_getTranslationUnitCursor unit
-          maybe (Left (ResolveHeaderNotFound headerIncludePath)) Right
-            .   listToMaybe
-            <$> HighLevel.clang_visitChildren rootCursor visit
+resolveHeader' tracer args target =
+    withExtraClangArgs tracer args                           $ \args' ->
+    HighLevel.withIndex DontDisplayDiagnostics               $ \index ->
+    HighLevel.withUnsavedFile generatedName generatedContent $ \file  ->
+    withTranslationUnit index args' file                     $ \unit  -> do
+      rootCursor <- clang_getTranslationUnitCursor unit
+      maybe (Left (ResolveHeaderNotFound target)) Right
+        .   listToMaybe
+        <$> HighLevel.clang_visitChildren rootCursor visit
   where
+    onFailure :: SimpleEnum CXErrorCode -> IO a
+    onFailure err = panicPure $
+           "Clang parse translation unit error during header resolution: "
+        ++ show err
+
+    withTranslationUnit ::
+         CXIndex
+      -> ClangArgs
+      -> CXUnsavedFile
+      -> (CXTranslationUnit -> IO a)
+      -> IO a
+    withTranslationUnit index args' file =
+        HighLevel.withTranslationUnit2
+          index
+          (Just $ SourcePath $ Text.pack generatedName)
+          args'
+          [file]
+          opts
+          onFailure
+
     visit :: Fold IO SourcePath
-    visit = simpleFold $ \cursor -> either return return <=< runExceptT $ do
-      srcPath <-
-            fmap singleLocPath . HighLevel.clang_getExpansionLocation
-        =<< clang_getCursorLocation cursor
-      -- skip builtin macros
-      when (nullSourcePath srcPath) $ throwError (Continue Nothing)
-      -- only parse the generated header
-      unless (srcPath == headerSourcePath) $
-        throwError (Break Nothing)
-      -- only parse the inclusion directive
-      eCursorKind <- fromSimpleEnum <$> clang_getCursorKind cursor
-      unless (eCursorKind == Right CXCursor_InclusionDirective) $
-        throwError (Break Nothing)
-      -- check that the inclusion directive is for the specified header
-      displayName <- clang_getCursorDisplayName cursor
-      unless (displayName == headerIncludePath') $ throwError (Break Nothing)
-      path <- clang_getFileName =<< clang_getIncludedFile cursor
-      -- check that the included header was found
-      when (Text.null path) $ throwError (Break Nothing)
-      return $ Break (Just (SourcePath path))
+    visit = simpleFold $ \curr -> do
+        mResolved <- tryResolve generatedName target curr
+        case mResolved of
+          Nothing   -> return $ Continue Nothing
+          Just path -> return $ Break (Just path)
 
-    headerIncludePath' :: Text
-    headerIncludePath' = Text.pack $ getCHeaderIncludePath headerIncludePath
+    generatedName :: FilePath
+    generatedName = "hs-bindgen-resolve.h"
 
-    headerName :: FilePath
-    headerName = "hs-bindgen-resolve.h"
-
-    headerSourcePath :: SourcePath
-    headerSourcePath = SourcePath $ Text.pack headerName
-
-    headerContent :: String
-    headerContent = case headerIncludePath of
-      CHeaderSystemIncludePath path -> "#include <" ++ path ++ ">"
+    generatedContent :: String
+    generatedContent = case target of
+      CHeaderSystemIncludePath path -> "#include <"  ++ path ++ ">"
       CHeaderQuoteIncludePath  path -> "#include \"" ++ path ++ "\""
 
     opts :: BitfieldEnum CXTranslationUnit_Flags
@@ -122,3 +117,43 @@ resolveHeader :: Tracer IO (TraceWithCallStack ExtraClangArgsLog)
               -> IO SourcePath
 resolveHeader tracer args =
     either (throwIO . HsBindgenException) return <=< resolveHeader' tracer args
+
+{-------------------------------------------------------------------------------
+  Internal: look for the relevant part of the clang AST
+-------------------------------------------------------------------------------}
+
+-- | Try to resolve the target using the current cursor, if possible
+tryResolve ::
+     FilePath            -- ^ Generated header
+  -> CHeaderIncludePath  -- ^ Path we want to resolve
+  -> CXCursor
+  -> IO (Maybe SourcePath)
+tryResolve generatedName target curr = runMaybeT $ do
+    srcPath     <- singleLocPath  <$> HighLevel.clang_getCursorLocation' curr
+    eCursorKind <- fromSimpleEnum <$> clang_getCursorKind curr
+    displayName <- clang_getCursorDisplayName curr
+    path        <- clang_getFileName =<< clang_getIncludedFile curr
+
+    -- Skip builtin macros
+    when (nullSourcePath srcPath) $
+      cannotResolve
+    -- Only parse the generated header
+    unless (srcPath == SourcePath (Text.pack generatedName)) $
+      cannotResolve
+    -- Only parse the inclusion directive
+    unless (eCursorKind == Right CXCursor_InclusionDirective) $
+      cannotResolve
+    -- Check that the inclusion directive is for the specified header
+    unless (displayName == target') $
+      cannotResolve
+    -- Check that the included header was found
+    when (Text.null path) $
+      cannotResolve
+
+    return $ SourcePath path
+  where
+    target' :: Text
+    target' = Text.pack $ getCHeaderIncludePath target
+
+    cannotResolve :: MaybeT IO ()
+    cannotResolve = MaybeT $ return Nothing

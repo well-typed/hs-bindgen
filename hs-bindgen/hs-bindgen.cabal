@@ -190,6 +190,7 @@ library internal
     , template-haskell   >= 2.18      && < 2.24
     , text               >= 1.2       && < 2.2
     , time               >= 1.11      && < 1.15
+    , transformers       >= 0.5       && < 0.7
     , unliftio-core      ^>=0.2.1.0
     , vec                >= 0.5       && < 0.6
     , witherable         >= 0.4.2     && < 0.6
