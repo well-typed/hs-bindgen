@@ -24,12 +24,22 @@ module Clang.HighLevel.Types (
   , diagnosticIsError
     -- * Folds
   , Fold
-  , Next(..)
+  , Next
     -- ** Construction
   , simpleFold
   , runFold
-  , continueWith
-  , recursePure
+    -- ** Fold-specific functionality
+  , foldBreak
+  , foldBreakWith
+  , foldBreakOpt
+  , foldContinue
+  , foldContinueWith
+  , foldContinueOpt
+  , foldRecurse
+  , foldRecurseWith
+  , foldRecurseOpt
+  , foldRecursePure
+  , foldRecursePureOpt
     -- * User-provided names
   , UserProvided
   , getUserProvided

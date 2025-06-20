@@ -110,10 +110,11 @@ processIncludes rootHeader unit = do
     includes <- HighLevel.clang_visitChildren root $ simpleFold $ \curr -> do
                   mKind <- fromSimpleEnum <$> clang_getCursorKind curr
                   case mKind of
-                    Right CXCursor_InclusionDirective ->
-                      Continue . Just <$> processInclude rootHeader curr
+                    Right CXCursor_InclusionDirective -> do
+                      include <- processInclude rootHeader curr
+                      foldContinueWith include
                     _otherwise ->
-                      return $ Continue Nothing
+                      foldContinue
 
     let includeGraph :: IncludeGraph
         includeGraph = IncludeGraph.fromList $

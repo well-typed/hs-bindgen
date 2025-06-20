@@ -4,16 +4,27 @@
 module Clang.HighLevel.Fold (
     -- * Folds
     Fold -- opaque
-  , Next(..)
+  , Next -- opaque
     -- * Construction
   , simpleFold
   , runFold
-  , continueWith
-  , recursePure
+    -- * Fold-specific operations
+  , foldBreak
+  , foldBreakWith
+  , foldBreakOpt
+  , foldContinue
+  , foldContinueWith
+  , foldContinueOpt
+  , foldRecurse
+  , foldRecurseWith
+  , foldRecurseOpt
+  , foldRecursePure
+  , foldRecursePureOpt
     -- * Execution
   , clang_visitChildren
   ) where
 
+import Control.Exception
 import Control.Monad (forM_)
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.IO.Unlift (MonadUnliftIO (withRunInIO))
@@ -52,24 +63,73 @@ runFold Fold{getNext} = getNext
 --
 -- This is the equivalent of 'CXChildVisitResult'
 data Next m a where
-  -- | Stop folding early
-  --
-  -- This is the equivalent of 'CXChildVisit_Break'.
-  Break :: Maybe a -> Next m a
-
-  -- | Continue with the next sibling of the current node
-  --
-  -- This is the equivalent of 'CXChildVisit_Continue'.
+  Break    :: Maybe a -> Next m a
   Continue :: Maybe a -> Next m a
+  Recurse  :: Fold m b -> ([b] -> m (Maybe a)) -> Next m a
 
-  -- | Recurse into the children of the current node
-  --
-  -- We can specify a different 'Fold' to process the children, and must
-  -- provide a "summarize" function which turns the results obtained from
-  -- processing the children into a result for the parent.
-  --
-  -- This is the equivalent of 'CXChildVisit_Recurse'.
-  Recurse :: Fold m b -> ([b] -> m (Maybe a)) -> Next m a
+{-------------------------------------------------------------------------------
+  Constructing 'Next' ('Next' itself is intentionally opaque)
+-------------------------------------------------------------------------------}
+
+-- | Stop folding early, without a result
+--
+-- See also 'foldBreakWith' and 'foldBreakOpt'.
+--
+-- This is the equivalent of 'CXChildVisit_Break'.
+foldBreak :: Monad m => m (Next m a)
+foldBreak = foldBreakOpt Nothing
+
+-- | Like 'foldBreak', but producing a result
+foldBreakWith :: Monad m => a -> m (Next m a)
+foldBreakWith = foldBreakOpt . Just
+
+-- | Generalization of 'foldBreak' and 'foldBreakWith' with optional result
+foldBreakOpt :: Monad m => Maybe a -> m (Next m a)
+foldBreakOpt = pure . Break
+
+-- | Continue with the next sibling of the current node, without a result
+--
+-- See also 'foldContinueWith' and 'foldContinueOpt'.
+--
+-- This is the equivalent of 'CXChildVisit_Continue'.
+foldContinue :: Monad m => m (Next m a)
+foldContinue = foldContinueOpt Nothing
+
+-- | Like 'foldContinue', but producing a result
+foldContinueWith :: Monad m => a -> m (Next m a)
+foldContinueWith = foldContinueOpt . Just
+
+-- | Generalization of 'foldContinue' and 'foldContinueWith' with optional result
+foldContinueOpt :: Monad m => Maybe a -> m (Next m a)
+foldContinueOpt = pure . Continue
+
+-- | Recurse into the children of the current node, without producing a result
+--
+-- We can specify a different 'Fold' to process the children, and must
+-- provide a "summarize" function which turns the results obtained from
+-- processing the children into a result for the parent.
+--
+-- See also 'foldRecurseWith'.
+--
+-- This is the equivalent of 'CXChildVisit_Recurse'.
+foldRecurse :: Monad m => Fold m () -> m (Next m a)
+foldRecurse fold = foldRecursePureOpt fold (const Nothing)
+
+-- | Like 'foldRecurse', but producing a result
+foldRecurseWith :: Monad m => Fold m b -> ([b] -> m a) -> m (Next m a)
+foldRecurseWith fold summarize = foldRecurseOpt fold (fmap Just . summarize)
+
+-- | Generalization of 'foldRecurseWith' with an /optional/ result
+foldRecurseOpt :: Monad m => Fold m b -> ([b] -> m (Maybe a)) -> m (Next m a)
+foldRecurseOpt fold summarize = pure $ Recurse fold summarize
+
+-- | Pure variant on 'foldRecurseWith'
+foldRecursePure :: Monad m => Fold m b -> ([b] -> a) -> m (Next m a)
+foldRecursePure fold summarize = foldRecurseWith fold (pure . summarize)
+
+-- | Pure variant on 'foldRecurseOpt'
+foldRecursePureOpt :: Monad m => Fold m b -> ([b] -> Maybe a) -> m (Next m a)
+foldRecursePureOpt fold summarize = foldRecurseOpt fold (pure . summarize)
 
 {-------------------------------------------------------------------------------
   Combinators
@@ -85,11 +145,43 @@ instance Functor m => Functor (Fold m) where
         getNext = \curr -> fmap f <$> getNext curr
       }
 
-continueWith :: Applicative m => Maybe a -> Fold m a
-continueWith x = simpleFold $ \_curr -> pure (Continue x)
+{-------------------------------------------------------------------------------
+  Internal: partial results
+-------------------------------------------------------------------------------}
 
-recursePure :: Applicative m => Fold m b -> ([b] -> Maybe a) -> Next m a
-recursePure r f = Recurse r (pure . f)
+type PartialResults a = IORef (Either SomeException [a])
+
+newPartialResults :: IO (PartialResults a)
+newPartialResults = newIORef (Right [])
+
+addPartialResult :: PartialResults a -> a -> IO ()
+addPartialResult partial a = modifyIORef partial $
+    either unexpectedException $ \as -> Right (a:as)
+
+_recordException :: PartialResults a -> SomeException -> IO ()
+_recordException partial newErr = modifyIORef partial $
+    either unexpectedException $ \_as -> Left newErr
+
+-- | Existing exceptions are impossible
+--
+-- We 'Break' after the first exception (see implementation of
+-- 'clang_visitChildren' below), so when we update the partial results, we never
+-- expect to see an exception already present.
+--
+-- The use of @error@ here is an exception in its own right, which we don't
+-- propagate (it will be caught in the low-level 'Core.clang_visitChildren'
+-- function). However, that's okay: if this @error@ ever triggers, it indicates
+-- a bug in this infrastructure, which can't really be handlded anyway.
+unexpectedException :: SomeException -> a
+unexpectedException err = error $ concat [
+      "The impossible happened: we break at the first exception, "
+    , "yet here we are: " ++ show err
+    ]
+
+getPartialResults :: PartialResults a -> IO [a]
+getPartialResults partial =
+        readIORef partial
+    >>= either throwIO (return . reverse)
 
 {-------------------------------------------------------------------------------
   Internal: stack
@@ -103,7 +195,7 @@ data Processing m a = Processing {
     , currentFold :: Fold m a
 
       -- | Results collected so far (in reverse order)
-    , partialResults :: IORef [a]
+    , partialResults :: PartialResults a
     }
 
 data Stack m a where
@@ -117,7 +209,7 @@ topProcessing (Push   p _ _) = p
 topParent :: Stack m a -> CXCursor
 topParent = parent . topProcessing
 
-topResults :: Stack m a -> IORef [a]
+topResults :: Stack m a -> PartialResults a
 topResults = partialResults . topProcessing
 
 data SomeStack m where
@@ -128,7 +220,7 @@ initStack ::
   -> Fold m a
   -> IO (Stack m a)
 initStack root topLevelFold = do
-    partialResults <- newIORef []
+    partialResults <- newPartialResults
     let p = Processing {
             parent      = root
           , currentFold = topLevelFold
@@ -142,7 +234,7 @@ push ::
   -> ([b] -> m (Maybe a))
   -> Stack m a -> IO (Stack m b)
 push newParent fold collect stack = do
-    partialResults <- newIORef []
+    partialResults <- newPartialResults
     let p = Processing {
             parent      = newParent
           , currentFold = fold
@@ -169,9 +261,9 @@ popUntil runInIO someStack newParent = do
             Bottom _ ->
               error "popUntil: something has gone horribly wrong"
             Push p collect stack' -> do
-              as <- readIORef (partialResults p)
-              mb <- runInIO $ collect (reverse as)
-              forM_ mb $ \b -> modifyIORef (topResults stack') (b:)
+              as <- getPartialResults (partialResults p)
+              mb <- runInIO $ collect as
+              forM_ mb $ addPartialResult (topResults stack')
               loop stack'
 
 {-------------------------------------------------------------------------------
@@ -194,7 +286,7 @@ clang_visitChildren root topLevelFold = withRunInIO $ \runInIO -> do
     someStack <- newIORef $ SomeStack stack
     _terminatedEarly <- Core.clang_visitChildren root $ visitor runInIO someStack
     popUntil runInIO someStack root
-    reverse <$> readIORef (topResults stack)
+    getPartialResults (topResults stack)
   where
     visitor ::
          (forall b. m b -> IO b)
@@ -209,10 +301,10 @@ clang_visitChildren root topLevelFold = withRunInIO $ \runInIO -> do
         next <- runInIO $ runFold (currentFold p) current
         case next of
           Break ma -> do
-            forM_ ma $ modifyIORef (partialResults p) . (:)
+            forM_ ma $ addPartialResult (partialResults p)
             return $ simpleEnum CXChildVisit_Break
           Continue ma -> do
-            forM_ ma $ modifyIORef (partialResults p) . (:)
+            forM_ ma $ addPartialResult (partialResults p)
             return $ simpleEnum CXChildVisit_Continue
           Recurse fold collect -> do
             stack' <- push current fold collect stack

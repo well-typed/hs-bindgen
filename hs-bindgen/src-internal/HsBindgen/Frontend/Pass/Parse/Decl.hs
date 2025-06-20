@@ -34,34 +34,31 @@ foldDecl = simpleFold $ \curr -> handle (handleTypeException curr) $
     evalPredicate curr >>= \case
       Right () ->
         dispatchFold curr $ \case
-          CXCursor_InclusionDirective -> continueWith Nothing
-
-          CXCursor_EnumDecl        -> enumDecl
-          CXCursor_FunctionDecl    -> functionDecl
-          CXCursor_MacroDefinition -> macroDefinition
-          CXCursor_MacroExpansion  -> macroExpansion
-          CXCursor_StructDecl      -> structDecl
-          CXCursor_TypedefDecl     -> typedefDecl
-          CXCursor_UnexposedDecl   -> unexposedDecl
-          CXCursor_UnionDecl       -> unionDecl
-          CXCursor_VarDecl         -> varDecl
-
-          CXCursor_AlignedAttr   -> attribute
-          CXCursor_PackedAttr    -> attribute
-          CXCursor_UnexposedAttr -> attribute
-
-          kind -> unknownCursorKind kind
+          CXCursor_AlignedAttr        -> attribute
+          CXCursor_EnumDecl           -> enumDecl
+          CXCursor_FunctionDecl       -> functionDecl
+          CXCursor_InclusionDirective -> inclusionDirective
+          CXCursor_MacroDefinition    -> macroDefinition
+          CXCursor_MacroExpansion     -> macroExpansion
+          CXCursor_PackedAttr         -> attribute
+          CXCursor_StructDecl         -> structDecl
+          CXCursor_TypedefDecl        -> typedefDecl
+          CXCursor_UnexposedAttr      -> attribute
+          CXCursor_UnexposedDecl      -> unexposedDecl
+          CXCursor_UnionDecl          -> unionDecl
+          CXCursor_VarDecl            -> varDecl
+          kind                        -> unknownCursorKind kind
       Left skipReason ->
         -- We need to keep track of skipped declarations so that they can be
         -- given external bindings.
         case skipReason of
           Predicate.SkipPredicate{} -> do
             recordNonSelectedDecl curr
-            return $ Continue Nothing
+            foldContinue
           Predicate.SkipBuiltin{} ->
-            return $ Continue Nothing
+            foldContinue
           Predicate.SkipUnexposed{} ->
-            return $ Continue Nothing
+            foldContinue
 
 handleTypeException ::
      CXCursor
@@ -73,7 +70,7 @@ handleTypeException curr err = do
         unsupportedTypeContext   = info
       , unsupportedTypeException = err
       }
-    return $ Continue Nothing
+    foldContinue
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations
@@ -103,6 +100,13 @@ getReparseInfo = \curr -> do
   Functions for each kind of declaration
 -------------------------------------------------------------------------------}
 
+-- | Inclusion directive
+--
+-- We have already processed these (see 'processIncludes'), so here we just
+-- skip over them.
+inclusionDirective :: Fold ParseDecl [C.Decl Parse]
+inclusionDirective = simpleFold $ \_ -> foldContinue
+
 -- | Macros
 --
 -- In this phase, we return macro declaraitons simply as a list of tokens. We
@@ -119,7 +123,8 @@ macroDefinition = simpleFold $ \curr -> do
           , declKind = C.DeclMacro body
           , declAnn  = NoAnn
           }
-    Continue . Just . (:[]) . mkDecl <$> getUnparsedMacro unit curr
+    decl <- mkDecl <$> getUnparsedMacro unit curr
+    foldContinueWith [decl]
 
 structDecl :: Fold ParseDecl [C.Decl Parse]
 structDecl = simpleFold $ \curr -> do
@@ -171,9 +176,9 @@ structDecl = simpleFold $ \curr -> do
                 used, unused :: [C.Decl Parse]
                 (used, unused) = detectStructImplicitFields otherDecls fields
 
-        return $ Recurse (declOrFieldDecl structFieldDecl) $ \xs -> do
+        foldRecurseWith (declOrFieldDecl structFieldDecl) $ \xs -> do
           (decls, fields) <- partitionChildren xs
-          return $ Just $ decls ++ [mkStruct fields]
+          return $ decls ++ [mkStruct fields]
       DeclarationOpaque -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -181,9 +186,9 @@ structDecl = simpleFold $ \curr -> do
               , declKind = C.DeclStructOpaque
               , declAnn  = NoAnn
               }
-        return $ Continue $ Just [decl]
+        foldContinueWith [decl]
       DeclarationForward _ ->
-        return $ Continue $ Nothing
+        foldContinue
 
 unionDecl :: Fold ParseDecl [C.Decl Parse]
 unionDecl = simpleFold $ \curr -> do
@@ -219,9 +224,9 @@ unionDecl = simpleFold $ \curr -> do
                 fields     :: [C.UnionField Parse]
                 (otherDecls, fields) = first concat $ partitionEithers xs
 
-        return $ Recurse (declOrFieldDecl unionFieldDecl) $ \xs -> do
+        foldRecurseWith (declOrFieldDecl unionFieldDecl) $ \xs -> do
           (decls, fields) <- partitionChildren xs
-          return $ Just $ decls ++ [mkUnion fields]
+          return $ decls ++ [mkUnion fields]
       DeclarationOpaque -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -229,9 +234,9 @@ unionDecl = simpleFold $ \curr -> do
               , declKind = C.DeclUnionOpaque
               , declAnn  = NoAnn
               }
-        return $ Continue $ Just [decl]
+        foldContinueWith [decl]
       DeclarationForward _ ->
-        return $ Continue $ Nothing
+        foldContinue
   where
 
 declOrFieldDecl ::
@@ -242,7 +247,7 @@ declOrFieldDecl fieldDecl = simpleFold $ \curr -> do
     case kind of
       Right CXCursor_FieldDecl -> do
         field <- fieldDecl curr
-        return $ Continue . Just . Right $ field
+        foldContinueWith $ Right field
       _otherwise -> do
         fmap Left <$> runFold foldDecl curr
 
@@ -297,13 +302,13 @@ typedefDecl = simpleFold $ \curr -> do
               }
           , declAnn  = NoAnn
           }
-    return $ Continue $ Just [decl]
+    foldContinueWith [decl]
 
 macroExpansion :: Fold ParseDecl [C.Decl Parse]
 macroExpansion = simpleFold $ \curr -> do
     loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
     recordMacroExpansionAt loc
-    return $ Continue Nothing
+    foldContinue
 
 enumDecl :: Fold ParseDecl [C.Decl Parse]
 enumDecl = simpleFold $ \curr -> do
@@ -329,7 +334,7 @@ enumDecl = simpleFold $ \curr -> do
               , declAnn  = NoAnn
               }
 
-        pure $ recursePure parseConstant (Just . (:[]) . mkEnum)
+        foldRecursePure parseConstant ((:[]) . mkEnum)
       DeclarationOpaque -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -337,9 +342,9 @@ enumDecl = simpleFold $ \curr -> do
               , declKind = C.DeclEnumOpaque
               , declAnn  = NoAnn
               }
-        pure $ Continue $ Just [decl]
+        foldContinueWith [decl]
       DeclarationForward _ ->
-        pure $ Continue $ Nothing
+        foldContinue
   where
     parseConstant :: Fold ParseDecl (C.EnumConstant Parse)
     parseConstant = simpleFold $ \curr ->
@@ -353,7 +358,7 @@ enumConstantDecl = simpleFold $ \curr -> do
     enumConstantLoc   <- HighLevel.clang_getCursorLocation' curr
     enumConstantName  <- CName <$> clang_getCursorDisplayName curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
-    pure $ Continue $ Just C.EnumConstant {
+    foldContinueWith C.EnumConstant {
         enumConstantLoc
       , enumConstantName
       , enumConstantValue
@@ -378,7 +383,7 @@ functionDecl = simpleFold $ \curr -> do
           , declAnn  = NoAnn
           }
     -- TODO (#684): Handle inline type declarations.
-    pure $ Continue $ Just [decl]
+    foldContinueWith [decl]
   where
     guardTypeFunction ::
          C.Type Parse
@@ -394,7 +399,7 @@ functionDecl = simpleFold $ \curr -> do
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/42>
 varDecl :: Fold ParseDecl [C.Decl Parse]
-varDecl = continueWith Nothing
+varDecl = simpleFold $ \_ -> foldContinue
 
 -- | Unexposed declarations
 --
@@ -404,14 +409,14 @@ unexposedDecl :: Fold ParseDecl [C.Decl Parse]
 unexposedDecl = simpleFold $ \curr -> do
     skippedLoc <- HighLevel.clang_getCursorLocation' curr
     recordTrace $ Skipped $ Predicate.SkipUnexposed{skippedLoc}
-    return $ Continue Nothing
+    foldContinue
 
 -- | Attributes (alignment, packed, ..)
 --
 -- These attributes are recorded as children of the record declaration, so we
 -- can just skip over them.
 attribute :: Fold ParseDecl a
-attribute = continueWith Nothing
+attribute = simpleFold $ \_ -> foldContinue
 
 {-------------------------------------------------------------------------------
   Auxiliary: detect implicit fields

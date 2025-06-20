@@ -62,8 +62,8 @@ clangAstDump opts@Options{..} = do
               loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
               case loc of
                 (file, _, _)
-                  | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
-                  | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
+                  | optSameFile && SourcePath file /= src -> foldContinue
+                  | not optBuiltin && isBuiltIn file      -> foldContinue
                   | otherwise                             -> runFold (foldDecls opts) cursor
   where
     tracerConf :: TracerConf
@@ -152,9 +152,9 @@ foldDecls opts@Options{..} = simpleFold $ \cursor -> do
         traceU 2 "brief" =<< clang_Cursor_getBriefCommentText cursor
         dumpComment 2 Nothing =<< clang_Cursor_getParsedComment cursor
 
-    pure $ if isRecurse
-      then recursePure (foldDecls opts) (const Nothing)
-      else Continue Nothing
+    if isRecurse
+      then foldRecurse (foldDecls opts)
+      else foldContinue
   where
     dumpParents :: CXCursor -> IO ()
     dumpParents cursor = do

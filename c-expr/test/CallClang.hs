@@ -170,7 +170,7 @@ getExpansionTypeMapping clangArgs tys =
       inMain <- liftIO $ Clang.clang_Location_isFromMainFile loc
       if not inMain
       then
-        return $ Clang.Continue Nothing
+        Clang.foldContinue
       else do
         cursorKind <- liftIO $ Clang.fromSimpleEnum <$> Clang.clang_getCursorKind cursor
         case cursorKind of
@@ -178,15 +178,14 @@ getExpansionTypeMapping clangArgs tys =
             | Clang.CXCursor_FunctionDecl <- kind
             -> do
               mbFunNm <- liftIO $ Clang.getUserProvided <$> Clang.clang_getCursorSpelling cursor
-              return $
-                case mbFunNm of
-                  Just funNm
-                    | let ( nm, nb ) = Text.splitAt 6 funNm
-                    , nm == "testFn"
-                    , Just i <- readMaybe ( Text.unpack nb )
-                    -> Clang.recursePure ( getCanonicalType ( Just i ) ) listToMaybe
-                  _ ->
-                    Clang.Continue Nothing
+              case mbFunNm of
+                Just funNm
+                  | let ( nm, nb ) = Text.splitAt 6 funNm
+                  , nm == "testFn"
+                  , Just i <- readMaybe ( Text.unpack nb )
+                  -> Clang.foldRecursePureOpt ( getCanonicalType ( Just i ) ) listToMaybe
+                _ ->
+                  Clang.foldContinue
             | Just nb <- inTestFunDecl
             , Clang.CXCursor_DeclRefExpr <- kind
             -> do
@@ -200,8 +199,8 @@ getExpansionTypeMapping clangArgs tys =
                     = Just ( lhsTy, cxTy )
                     | otherwise
                     = Nothing
-              return $ Clang.Continue res
-          _ -> return $ Clang.recursePure ( getCanonicalType inTestFunDecl ) listToMaybe
+              Clang.foldContinueOpt res
+          _ -> Clang.foldRecursePureOpt ( getCanonicalType inTestFunDecl ) listToMaybe
 
     tyPairs :: IntMap CType
     tyPairs = IntMap.fromList [ (i, ty) | i <- [ (1 :: Int) .. ] | ty <- tys ]
@@ -266,30 +265,29 @@ queryClangForResultType clangArgs tys op =
       inMain <- Clang.clang_Location_isFromMainFile loc
       if not inMain
       then
-        return $ Clang.Continue Nothing
+        Clang.foldContinue
       else do
         cursorKind <- Clang.fromSimpleEnum <$> Clang.clang_getCursorKind cursor
         case cursorKind of
           Right kind
             | Clang.CXCursor_CStyleCastExpr <- kind
-            -> return $ Clang.recursePure ( extractType ( inTestFunDecl, True ) ) listToMaybe
+            -> Clang.foldRecursePureOpt ( extractType ( inTestFunDecl, True ) ) listToMaybe
             | Clang.CXCursor_FunctionDecl <- kind
             -> do
               funNm <- Clang.getUserProvided <$> Clang.clang_getCursorSpelling cursor
-              return $
-                if funNm == Just "testFunction"
-                then
-                  Clang.recursePure ( extractType ( True, False ) ) listToMaybe
-                else
-                  Clang.Continue Nothing
+              if funNm == Just "testFunction"
+              then
+                Clang.foldRecursePureOpt ( extractType ( True, False ) ) listToMaybe
+              else
+                Clang.foldContinue
             | inTestFunDecl
             , inCast
             , kind == Clang.CXCursor_UnaryOperator || kind == Clang.CXCursor_BinaryOperator
             -> do
               cxTy <- Clang.clang_getCursorType cursor
               mbTy <- parseClangType cxTy
-              return $ Clang.Break mbTy
-          _ -> return $ Clang.recursePure ( extractType ( inTestFunDecl, inCast ) ) listToMaybe
+              Clang.foldBreakOpt mbTy
+          _ -> Clang.foldRecursePureOpt ( extractType ( inTestFunDecl, inCast ) ) listToMaybe
 
 clangWithTranslationUnit ::
      Clang.ClangArgs
