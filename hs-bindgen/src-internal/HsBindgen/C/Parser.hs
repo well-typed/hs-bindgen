@@ -30,6 +30,7 @@ import HsBindgen.Clang.Args (ExtraClangArgsLog, withExtraClangArgs)
 import HsBindgen.Errors
 import HsBindgen.Frontend (processTranslationUnit)
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Pass.Slice (ProgramSlicing)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
@@ -73,10 +74,11 @@ parseCHeaders ::
      Tracer IO (TraceWithCallStack Trace)
   -> ClangArgs
   -> Predicate
+  -> ProgramSlicing
   -> ResolvedBindingSpec
   -> [CHeaderIncludePath]
   -> IO C.TranslationUnit
-parseCHeaders tracer args predicate extSpec mainFiles =
+parseCHeaders tracer args predicate programSlicing extSpec mainFiles =
   withExtraClangArgs (useTrace TraceExtraClangArgs tracer) args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file -> do
@@ -93,6 +95,7 @@ parseCHeaders tracer args predicate extSpec mainFiles =
             extSpec
             rootHeader
             predicate
+            programSlicing
             unit
   where
     rootHeader :: RootHeader

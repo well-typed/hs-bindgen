@@ -1,10 +1,24 @@
 -- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stdint.h
--- addDependentFile examples/golden/fixedwidth.h
+-- addDependentFile examples/golden/program_slicing.h
+newtype Uint32_t = Uint32_t {un_Uint32_t :: CUInt}
+deriving newtype instance Storable Uint32_t
+deriving stock instance Eq Uint32_t
+deriving stock instance Ord Uint32_t
+deriving stock instance Read Uint32_t
+deriving stock instance Show Uint32_t
+deriving newtype instance Enum Uint32_t
+deriving newtype instance Ix Uint32_t
+deriving newtype instance Bounded Uint32_t
+deriving newtype instance Bits Uint32_t
+deriving newtype instance FiniteBits Uint32_t
+deriving newtype instance Integral Uint32_t
+deriving newtype instance Num Uint32_t
+deriving newtype instance Real Uint32_t
 data Foo
     = Foo {foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64,
-           foo_thirty_two :: HsBindgen.Runtime.Prelude.Word32}
+           foo_thirty_two :: Uint32_t}
 instance Storable Foo
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;

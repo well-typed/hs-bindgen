@@ -186,6 +186,9 @@ recordNonSelectedDecl curr = do
                   NonSelectedDecls.insert cQualName sourcePath $
                     stateNonSelectedDecls st
               }
+        -- We __do not track unselected anonymous declarations__. If we want to
+        -- use descriptive binding specification with anonymous declarations, we
+        -- __must__ select these declarations.
         DeclAnon{} -> return ()
       Nothing -> return ()
 

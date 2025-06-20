@@ -32,12 +32,15 @@ module HsBindgen.TH (
   , Hs.Strategy(..)
   , Hs.HsTypeClass(..)
 
-    -- ** Predicates
+    -- ** Selection predicates
   , Predicate.Predicate(..)
   , Predicate.Regex -- opaque
 
+    -- ** Program slicing
+  , Slice.ProgramSlicing(..)
+
     -- ** Logging
-  , Trace.Trace (..)
+  , Trace.Trace(..)
   , module HsBindgen.Util.Tracer
 
     -- * Paths
@@ -55,6 +58,7 @@ import Clang.Paths qualified as Paths
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
+import HsBindgen.Frontend.Pass.Slice qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports as Default (Default (..))

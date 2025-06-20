@@ -21,130 +21,11 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 import qualified Text.Read
 
 $(CAPI.addCSource "#include \"distilled_lib_1.h\"\nint32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }\n")
-
-newtype Uint8_t = Uint8_t
-  { un_Uint8_t :: FC.CUChar
-  }
-
-deriving newtype instance F.Storable Uint8_t
-
-deriving stock instance Eq Uint8_t
-
-deriving stock instance Ord Uint8_t
-
-deriving stock instance Read Uint8_t
-
-deriving stock instance Show Uint8_t
-
-deriving newtype instance Enum Uint8_t
-
-deriving newtype instance Ix.Ix Uint8_t
-
-deriving newtype instance Bounded Uint8_t
-
-deriving newtype instance Bits.Bits Uint8_t
-
-deriving newtype instance FiniteBits Uint8_t
-
-deriving newtype instance Integral Uint8_t
-
-deriving newtype instance Num Uint8_t
-
-deriving newtype instance Real Uint8_t
-
-newtype Uint16_t = Uint16_t
-  { un_Uint16_t :: FC.CUShort
-  }
-
-deriving newtype instance F.Storable Uint16_t
-
-deriving stock instance Eq Uint16_t
-
-deriving stock instance Ord Uint16_t
-
-deriving stock instance Read Uint16_t
-
-deriving stock instance Show Uint16_t
-
-deriving newtype instance Enum Uint16_t
-
-deriving newtype instance Ix.Ix Uint16_t
-
-deriving newtype instance Bounded Uint16_t
-
-deriving newtype instance Bits.Bits Uint16_t
-
-deriving newtype instance FiniteBits Uint16_t
-
-deriving newtype instance Integral Uint16_t
-
-deriving newtype instance Num Uint16_t
-
-deriving newtype instance Real Uint16_t
-
-newtype Uint32_t = Uint32_t
-  { un_Uint32_t :: FC.CUInt
-  }
-
-deriving newtype instance F.Storable Uint32_t
-
-deriving stock instance Eq Uint32_t
-
-deriving stock instance Ord Uint32_t
-
-deriving stock instance Read Uint32_t
-
-deriving stock instance Show Uint32_t
-
-deriving newtype instance Enum Uint32_t
-
-deriving newtype instance Ix.Ix Uint32_t
-
-deriving newtype instance Bounded Uint32_t
-
-deriving newtype instance Bits.Bits Uint32_t
-
-deriving newtype instance FiniteBits Uint32_t
-
-deriving newtype instance Integral Uint32_t
-
-deriving newtype instance Num Uint32_t
-
-deriving newtype instance Real Uint32_t
-
-newtype Int32_t = Int32_t
-  { un_Int32_t :: FC.CInt
-  }
-
-deriving newtype instance F.Storable Int32_t
-
-deriving stock instance Eq Int32_t
-
-deriving stock instance Ord Int32_t
-
-deriving stock instance Read Int32_t
-
-deriving stock instance Show Int32_t
-
-deriving newtype instance Enum Int32_t
-
-deriving newtype instance Ix.Ix Int32_t
-
-deriving newtype instance Bounded Int32_t
-
-deriving newtype instance Bits.Bits Int32_t
-
-deriving newtype instance FiniteBits Int32_t
-
-deriving newtype instance Integral Int32_t
-
-deriving newtype instance Num Int32_t
-
-deriving newtype instance Real Int32_t
 
 data Another_typedef_struct_t = Another_typedef_struct_t
   { another_typedef_struct_t_foo :: FC.CInt
@@ -318,13 +199,13 @@ deriving newtype instance Real Var_t
 
 data A_typedef_struct = A_typedef_struct
   { a_typedef_struct_field_0 :: FC.CBool
-  , a_typedef_struct_field_1 :: Uint8_t
-  , a_typedef_struct_field_2 :: Uint16_t
-  , a_typedef_struct_field_3 :: Uint32_t
+  , a_typedef_struct_field_1 :: HsBindgen.Runtime.Prelude.Word8
+  , a_typedef_struct_field_2 :: HsBindgen.Runtime.Prelude.Word16
+  , a_typedef_struct_field_3 :: HsBindgen.Runtime.Prelude.Word32
   , a_typedef_struct_field_4 :: Another_typedef_struct_t
   , a_typedef_struct_field_5 :: F.Ptr Another_typedef_struct_t
   , a_typedef_struct_field_6 :: F.Ptr Void
-  , a_typedef_struct_field_7 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 7) Uint32_t
+  , a_typedef_struct_field_7 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.Prelude.Word32
   , a_typedef_struct_field_8 :: Another_typedef_enum_e
   , a_typedef_struct_field_9 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) Another_typedef_enum_e
   , a_typedef_struct_field_10 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Another_typedef_enum_e)
@@ -487,10 +368,10 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
-foreign import ccall safe "testmodule_some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
+foreign import ccall safe "testmodule_some_fun" some_fun :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (F.Ptr HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
 
 newtype Callback_t = Callback_t
-  { un_Callback_t :: F.FunPtr ((F.Ptr Void) -> Uint32_t -> IO Uint32_t)
+  { un_Callback_t :: F.FunPtr ((F.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
   }
 
 deriving newtype instance F.Storable Callback_t

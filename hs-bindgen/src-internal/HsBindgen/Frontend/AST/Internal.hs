@@ -58,7 +58,10 @@ data TranslationUnit p = TranslationUnit{
       -- some declarations. For example,
       --
       -- * The 'Parse' pass filters out declarations not matching the selection
-      --   predicate.
+      --   predicate (without program slicing).
+      --
+      -- * If program slicing is enabled, the 'Slice' pass filters selected
+      --   declarations and their transitive dependencies.
       --
       -- * The 'ResolveBindingSpec' pass removes declarations for which we have
       --   existing external bindings, as well as declarations omitted by a

@@ -12,7 +12,7 @@ import Control.Tracer
 import Clang.LowLevel.Core
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.C.Predicate (Predicate)
+import HsBindgen.C.Predicate (Predicate (SelectAll))
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.Pass.HandleMacros
@@ -22,6 +22,7 @@ import HsBindgen.Frontend.Pass.NameAnon
 import HsBindgen.Frontend.Pass.Parse (parseDecls)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec
+import HsBindgen.Frontend.Pass.Slice
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
@@ -37,11 +38,12 @@ import HsBindgen.Util.Tracer
 --
 -- 1. 'Parse'
 -- 2. 'Sort'
--- 3. 'HandleMacros'
--- 4. 'NameAnon'
--- 5. 'ResolveBindingSpec'
--- 6. 'HandleTypedefs'
--- 7. 'MangleNames'
+-- 3. 'Slice'
+-- 4. 'HandleMacros'
+-- 5. 'NameAnon'
+-- 6. 'ResolveBindingSpec'
+-- 7. 'HandleTypedefs'
+-- 8. 'MangleNames'
 --
 -- Although the passes and their order are subject to change, we have to honor
 -- various constraints:
@@ -79,14 +81,20 @@ processTranslationUnit ::
   -> ResolvedBindingSpec
   -> RootHeader
   -> Predicate
+  -> ProgramSlicing
   -> CXTranslationUnit -> IO Ext.TranslationUnit
-processTranslationUnit tracer extSpec rootHeader predicate unit = do
+processTranslationUnit tracer extSpec rootHeader selectionPredicate programSlicing unit = do
+
     (includeGraph, isMainFile, getMainHeader) <- processIncludes rootHeader unit
+    let selectionPredicateParse = case programSlicing of
+          EnableProgramSlicing  -> SelectAll
+          DisableProgramSlicing -> selectionPredicate
+
     afterParse <-
       parseDecls
         (contramap (fmap FrontendParse) tracer)
         rootHeader
-        predicate
+        selectionPredicateParse
         includeGraph
         isMainFile
         getMainHeader
@@ -100,8 +108,10 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
 
     let (afterSort, sortErrors) =
           sortDecls afterParse
+        (afterSlice, sliceErrors) =
+          sliceDecls programSlicing selectionPredicate isMainFile afterSort
         (afterHandleMacros, macroErrors) =
-          handleMacros afterSort
+          handleMacros afterSlice
         afterNameAnon =
           nameAnon afterHandleMacros
         (afterResolveBindingSpec, bindingSpecErrors) =
@@ -115,6 +125,7 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
     --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
     forM_ sortErrors        $ traceWithCallStack tracer . FrontendSort
+    forM_ sliceErrors       $ traceWithCallStack tracer . FrontendSlice
     forM_ macroErrors       $ traceWithCallStack tracer . FrontendMacro
     forM_ bindingSpecErrors $ traceWithCallStack tracer . FrontendBindingSpec
     forM_ mangleErrors      $ traceWithCallStack tracer . FrontendNameMangler
@@ -129,8 +140,9 @@ processTranslationUnit tracer extSpec rootHeader predicate unit = do
 --
 -- Most passes in the frontend have their own set of trace messages.
 data FrontendTrace =
-    FrontendSort SortError
-  | FrontendParse ParseTrace
+    FrontendParse ParseTrace
+  | FrontendSort SortError
+  | FrontendSlice SliceError
   | FrontendMacro MacroError
   | FrontendBindingSpec BindingSpecError
   | FrontendNameMangler MangleError
@@ -138,16 +150,18 @@ data FrontendTrace =
 
 instance PrettyTrace FrontendTrace where
   prettyTrace = \case
-    FrontendSort        x -> prettyTrace x
     FrontendParse       x -> prettyTrace x
+    FrontendSort        x -> prettyTrace x
+    FrontendSlice      x -> prettyTrace x
     FrontendMacro       x -> prettyTrace x
     FrontendBindingSpec x -> show x -- TODO
     FrontendNameMangler x -> prettyTrace x
 
 instance HasDefaultLogLevel FrontendTrace where
   getDefaultLogLevel = \case
-    FrontendSort        x -> getDefaultLogLevel x
     FrontendParse       x -> getDefaultLogLevel x
+    FrontendSort        x -> getDefaultLogLevel x
+    FrontendSlice      x -> getDefaultLogLevel x
     FrontendMacro       x -> getDefaultLogLevel x
     FrontendBindingSpec _ -> Error
     FrontendNameMangler x -> getDefaultLogLevel x

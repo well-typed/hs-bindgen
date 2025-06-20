@@ -68,7 +68,7 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
           globalOptsClangArgs
           globalOptsStdlibSpecs
           globalOptsExtBindings
-      let opts = (def :: Opts) {
+      let opts = cmdOpts {
               optsExtBindings = extBindings
             }
           ppOpts = (def :: PPOpts) {
@@ -94,8 +94,9 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
   where
     cmdOpts :: Opts
     cmdOpts = def {
-        optsClangArgs  = globalOptsClangArgs
-      , optsPredicate  = globalOptsPredicate
+        optsClangArgs       = globalOptsClangArgs
+      , optsPredicate       = globalOptsPredicate
+      , optsProgramSlicing  = globalOptsProgramSlicing
       }
     withTracer :: (Tracer IO (TraceWithCallStack Trace) -> IO b) -> IO b
     withTracer = withTracerStdOut globalOptsTracerConf DefaultLogLevel

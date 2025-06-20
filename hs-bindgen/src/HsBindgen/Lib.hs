@@ -43,12 +43,15 @@ module HsBindgen.Lib (
   , Hs.Strategy(..)
   , Hs.HsTypeClass(..)
 
-    -- ** Predicates
+    -- ** Selection predicates
   , Predicate.Predicate(..)
   , Predicate.Regex -- opaque
 
+    -- ** Program slicing
+  , Slice.ProgramSlicing(..)
+
     -- ** Logging
-  , Trace.Trace (..)
+  , Trace.Trace(..)
   , module HsBindgen.Util.Tracer
 
     -- ** Preprocessor
@@ -77,6 +80,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
+import HsBindgen.Frontend.Pass.Slice qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports

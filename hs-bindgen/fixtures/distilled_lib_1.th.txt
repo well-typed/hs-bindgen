@@ -1,63 +1,10 @@
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/distilled_lib_1.h
 -- #include "distilled_lib_1.h"
 -- int32_t test_internal_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }
-newtype Uint8_t = Uint8_t {un_Uint8_t :: CUChar}
-deriving newtype instance Storable Uint8_t
-deriving stock instance Eq Uint8_t
-deriving stock instance Ord Uint8_t
-deriving stock instance Read Uint8_t
-deriving stock instance Show Uint8_t
-deriving newtype instance Enum Uint8_t
-deriving newtype instance Ix Uint8_t
-deriving newtype instance Bounded Uint8_t
-deriving newtype instance Bits Uint8_t
-deriving newtype instance FiniteBits Uint8_t
-deriving newtype instance Integral Uint8_t
-deriving newtype instance Num Uint8_t
-deriving newtype instance Real Uint8_t
-newtype Uint16_t = Uint16_t {un_Uint16_t :: CUShort}
-deriving newtype instance Storable Uint16_t
-deriving stock instance Eq Uint16_t
-deriving stock instance Ord Uint16_t
-deriving stock instance Read Uint16_t
-deriving stock instance Show Uint16_t
-deriving newtype instance Enum Uint16_t
-deriving newtype instance Ix Uint16_t
-deriving newtype instance Bounded Uint16_t
-deriving newtype instance Bits Uint16_t
-deriving newtype instance FiniteBits Uint16_t
-deriving newtype instance Integral Uint16_t
-deriving newtype instance Num Uint16_t
-deriving newtype instance Real Uint16_t
-newtype Uint32_t = Uint32_t {un_Uint32_t :: CUInt}
-deriving newtype instance Storable Uint32_t
-deriving stock instance Eq Uint32_t
-deriving stock instance Ord Uint32_t
-deriving stock instance Read Uint32_t
-deriving stock instance Show Uint32_t
-deriving newtype instance Enum Uint32_t
-deriving newtype instance Ix Uint32_t
-deriving newtype instance Bounded Uint32_t
-deriving newtype instance Bits Uint32_t
-deriving newtype instance FiniteBits Uint32_t
-deriving newtype instance Integral Uint32_t
-deriving newtype instance Num Uint32_t
-deriving newtype instance Real Uint32_t
-newtype Int32_t = Int32_t {un_Int32_t :: CInt}
-deriving newtype instance Storable Int32_t
-deriving stock instance Eq Int32_t
-deriving stock instance Ord Int32_t
-deriving stock instance Read Int32_t
-deriving stock instance Show Int32_t
-deriving newtype instance Enum Int32_t
-deriving newtype instance Ix Int32_t
-deriving newtype instance Bounded Int32_t
-deriving newtype instance Bits Int32_t
-deriving newtype instance FiniteBits Int32_t
-deriving newtype instance Integral Int32_t
-deriving newtype instance Num Int32_t
-deriving newtype instance Real Int32_t
 data Another_typedef_struct_t
     = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt,
                                 another_typedef_struct_t_bar :: CChar}
@@ -139,13 +86,14 @@ deriving newtype instance Num Var_t
 deriving newtype instance Real Var_t
 data A_typedef_struct
     = A_typedef_struct {a_typedef_struct_field_0 :: CBool,
-                        a_typedef_struct_field_1 :: Uint8_t,
-                        a_typedef_struct_field_2 :: Uint16_t,
-                        a_typedef_struct_field_3 :: Uint32_t,
+                        a_typedef_struct_field_1 :: HsBindgen.Runtime.Prelude.Word8,
+                        a_typedef_struct_field_2 :: HsBindgen.Runtime.Prelude.Word16,
+                        a_typedef_struct_field_3 :: HsBindgen.Runtime.Prelude.Word32,
                         a_typedef_struct_field_4 :: Another_typedef_struct_t,
                         a_typedef_struct_field_5 :: (Ptr Another_typedef_struct_t),
                         a_typedef_struct_field_6 :: (Ptr Void),
-                        a_typedef_struct_field_7 :: (ConstantArray 7 Uint32_t),
+                        a_typedef_struct_field_7 :: (ConstantArray 7
+                                                                   HsBindgen.Runtime.Prelude.Word32),
                         a_typedef_struct_field_8 :: Another_typedef_enum_e,
                         a_typedef_struct_field_9 :: (ConstantArray 4
                                                                    Another_typedef_enum_e),
@@ -224,10 +172,13 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 foreign import ccall safe "test_internal_some_fun" some_fun :: Ptr A_type_t ->
-                                                               Uint32_t -> Ptr Uint8_t -> IO Int32_t
+                                                               HsBindgen.Runtime.Prelude.Word32 ->
+                                                               Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                               IO HsBindgen.Runtime.Prelude.Int32
 newtype Callback_t
     = Callback_t {un_Callback_t :: (FunPtr (Ptr Void ->
-                                            Uint32_t -> IO Uint32_t))}
+                                            HsBindgen.Runtime.Prelude.Word32 ->
+                                            IO HsBindgen.Runtime.Prelude.Word32))}
 deriving newtype instance Storable Callback_t
 deriving stock instance Eq Callback_t
 deriving stock instance Ord Callback_t

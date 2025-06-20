@@ -24,7 +24,7 @@ import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
+import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
@@ -35,7 +35,7 @@ import HsBindgen.Util.Tracer
 
 -- | Sort and typecheck macros, and reparse declarations
 handleMacros ::
-      C.TranslationUnit Sort
+      C.TranslationUnit Slice
   -> (C.TranslationUnit HandleMacros, [MacroError])
 handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     first reassemble $ runM . fmap catMaybes $ mapM processDecl unitDecls
@@ -47,7 +47,7 @@ handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
         , unitAnn
         }
 
-processDecl :: C.Decl Sort -> M (Maybe (C.Decl HandleMacros))
+processDecl :: C.Decl Slice -> M (Maybe (C.Decl HandleMacros))
 processDecl C.Decl{declInfo, declKind} =
     case declKind of
       C.DeclMacro   macro   -> processMacro info' macro
@@ -71,7 +71,7 @@ processDecl C.Decl{declInfo, declKind} =
 
 processStruct ::
      C.DeclInfo HandleMacros
-  -> C.Struct Sort
+  -> C.Struct Slice
   -> M (C.Decl HandleMacros)
 processStruct info C.Struct{..} =
     mkDecl <$> mapM processStructField structFields
@@ -83,7 +83,7 @@ processStruct info C.Struct{..} =
         , declAnn  = NoAnn
         }
 
-processStructField :: C.StructField Sort -> M (C.StructField HandleMacros)
+processStructField :: C.StructField Slice -> M (C.StructField HandleMacros)
 processStructField C.StructField{..} =
     case structFieldAnn of
       ReparseNotNeeded ->
@@ -110,7 +110,7 @@ processStructField C.StructField{..} =
 
 processUnion ::
      C.DeclInfo HandleMacros
-  -> C.Union Sort
+  -> C.Union Slice
   -> M (C.Decl HandleMacros)
 processUnion info C.Union{..} =
     combineFields <$> mapM processUnionField unionFields
@@ -122,7 +122,7 @@ processUnion info C.Union{..} =
         , declAnn  = NoAnn
         }
 
-processUnionField :: C.UnionField Sort -> M (C.UnionField HandleMacros)
+processUnionField :: C.UnionField Slice -> M (C.UnionField HandleMacros)
 processUnionField C.UnionField{..} =
     case unionFieldAnn of
       ReparseNotNeeded ->
@@ -160,7 +160,7 @@ processOpaque kind info =
 
 processEnum ::
      C.DeclInfo HandleMacros
-  -> C.Enum Sort
+  -> C.Enum Slice
   -> M (C.Decl HandleMacros)
 processEnum info C.Enum{..} =
     mkDecl <$> mapM processEnumConstant enumConstants
@@ -177,13 +177,13 @@ processEnum info C.Enum{..} =
         }
 
 processEnumConstant ::
-     C.EnumConstant Sort
+     C.EnumConstant Slice
   -> M (C.EnumConstant HandleMacros)
 processEnumConstant C.EnumConstant{..} = return C.EnumConstant{..}
 
 processTypedef ::
      C.DeclInfo HandleMacros
-  -> C.Typedef Sort
+  -> C.Typedef Slice
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
     modify $ \st -> st{
@@ -261,7 +261,7 @@ processMacro info (UnparsedMacro tokens) =
 
 processFunction ::
      C.DeclInfo HandleMacros
-  -> C.Function Sort
+  -> C.Function Slice
   -> M (C.Decl HandleMacros)
 processFunction info C.Function {..} =
     case functionAnn of

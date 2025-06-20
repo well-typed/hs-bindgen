@@ -19,26 +19,17 @@ import HsBindgen.Guasi
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
-import Test.Internal.Tracer (TracePredicate, withTracePredicate)
 
 goldenTh :: HasCallStack
   => FilePath
   -> TestName
-  -> TracePredicate Trace
+  -> ((Opts -> IO String) -> IO String)
   -> TestTree
-goldenTh packageRoot name predicate = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \_ -> do
-    withTracePredicate predicate $ \tracer -> do
-      -- -<.> does weird stuff for filenames with multiple dots;
-      -- I usually simply avoid using it.
-      let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-          opts :: Pipeline.Opts
-          opts = def {
-              Pipeline.optsClangArgs = getClangArgs packageRoot [
-                  "examples/golden"
-                , "examples/golden-norust"
-                ]
-            , Pipeline.optsTracer    = tracer
-            }
+goldenTh packageRoot name withOpts = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \_ -> do
+    -- -<.> does weird stuff for filenames with multiple dots;
+    -- I usually simply avoid using it.
+    let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
+    withOpts $ \opts -> do
       unit <- Pipeline.parseCHeaders opts [headerIncludePath]
 
       let decls :: Qu [TH.Dec]

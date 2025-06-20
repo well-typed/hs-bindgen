@@ -32,9 +32,10 @@ execMode Dev{..} = \case
                            (globalOptsExtBindings devGlobalOpts)
           let opts :: Opts
               opts = def {
-                  optsClangArgs   = globalOptsClangArgs devGlobalOpts
-                , optsExtBindings = extBindings
-                , optsPredicate   = globalOptsPredicate devGlobalOpts
-                , optsTracer      = tracer
+                  optsClangArgs      = globalOptsClangArgs devGlobalOpts
+                , optsExtBindings    = extBindings
+                , optsPredicate      = globalOptsPredicate devGlobalOpts
+                , optsProgramSlicing = globalOptsProgramSlicing devGlobalOpts
+                , optsTracer         = tracer
                 }
           Pipeline.parseCHeaders opts inputPaths

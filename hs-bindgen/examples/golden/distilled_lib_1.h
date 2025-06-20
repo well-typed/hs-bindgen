@@ -4,10 +4,7 @@
 
 /* amendmends */
 #include <stdbool.h>
-typedef unsigned char  uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned int   uint32_t;
-typedef signed   int   int32_t;
+#include <stdint.h>
 
 typedef struct { int foo; char bar; } another_typedef_struct_t;
 typedef enum { FOO, BAR } another_typedef_enum_e;

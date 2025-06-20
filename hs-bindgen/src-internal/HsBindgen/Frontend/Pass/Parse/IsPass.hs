@@ -38,20 +38,20 @@ import HsBindgen.Util.Tracer
 type Parse :: Pass
 data Parse a deriving anyclass ValidPass
 
-type family ParseAnn (ix :: Symbol) :: Star where
-  ParseAnn "TranslationUnit" = NonSelectedDecls
-  ParseAnn "StructField"     = ReparseInfo
-  ParseAnn "UnionField"      = ReparseInfo
-  ParseAnn "Typedef"         = ReparseInfo
-  ParseAnn "Function"        = ReparseInfo
-  ParseAnn _                 = NoAnn
+type family AnnParse (ix :: Symbol) :: Star where
+  AnnParse "TranslationUnit" = NonSelectedDecls
+  AnnParse "StructField"     = ReparseInfo
+  AnnParse "UnionField"      = ReparseInfo
+  AnnParse "Typedef"         = ReparseInfo
+  AnnParse "Function"        = ReparseInfo
+  AnnParse _                 = NoAnn
 
 instance IsPass Parse where
   type Id         Parse = DeclId
   type FieldName  Parse = CName
   type TypedefRef Parse = CName
   type MacroBody  Parse = UnparsedMacro
-  type Ann ix     Parse = ParseAnn ix
+  type Ann ix     Parse = AnnParse ix
 
 {-------------------------------------------------------------------------------
   Identity
