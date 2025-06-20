@@ -548,12 +548,12 @@ instance Aeson.FromJSON ATypeSpecMapping where
     return ATypeSpecMapping{..}
 
 instance Aeson.ToJSON ATypeSpecMapping where
-  toJSON ATypeSpecMapping{..} = objectWithOptionalFields [
-      "headers"    .=! listToJSON aTypeSpecMappingHeaders
-    , "cname"      .=! aTypeSpecMappingCName
-    , "module"     .=? aTypeSpecMappingModule
-    , "identifier" .=? aTypeSpecMappingIdentifier
-    , "instances"  .=? omitWhenNull aTypeSpecMappingInstances
+  toJSON ATypeSpecMapping{..} = Aeson.Object . KM.fromList $ catMaybes [
+      Just ("headers" .= listToJSON aTypeSpecMappingHeaders)
+    , Just ("cname"   .= aTypeSpecMappingCName)
+    , ("module"     .=) <$> aTypeSpecMappingModule
+    , ("identifier" .=) <$> aTypeSpecMappingIdentifier
+    , ("instances"  .=) <$> omitWhenNull aTypeSpecMappingInstances
     ]
 
 --------------------------------------------------------------------------------
@@ -586,10 +586,10 @@ instance Aeson.ToJSON AInstanceSpecMapping where
     | isNothing aInstanceSpecMappingStrategy
         && null aInstanceSpecMappingConstraints =
           Aeson.toJSON aInstanceSpecMappingClass
-    | otherwise = objectWithOptionalFields [
-          "class"       .=! aInstanceSpecMappingClass
-        , "strategy"    .=? aInstanceSpecMappingStrategy
-        , "constraints" .=? omitWhenNull aInstanceSpecMappingConstraints
+    | otherwise = Aeson.Object . KM.fromList $ catMaybes [
+          Just ("class" .= aInstanceSpecMappingClass)
+        , ("strategy"    .=) <$> aInstanceSpecMappingStrategy
+        , ("constraints" .=) <$> omitWhenNull aInstanceSpecMappingConstraints
         ]
 
 --------------------------------------------------------------------------------
@@ -764,22 +764,6 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
 {-------------------------------------------------------------------------------
   Auxiliary: Aeson helpers
 -------------------------------------------------------------------------------}
-
--- | Create an object 'Aeson.Value', supporting optional fields
-objectWithOptionalFields :: [Maybe Aeson.Pair] -> Aeson.Value
-objectWithOptionalFields = Aeson.Object . KM.fromList . catMaybes
-
--- | Construct a required field, for use with 'objectWithOptionalFields'
-(.=!) :: (Aeson.KeyValue e kv, Aeson.ToJSON v) => Aeson.Key -> v -> Maybe kv
-key .=! x = Just (key .= x)
-
--- | Construct an optional field, for use with 'objectWithOptionalFields'
-(.=?) ::
-     (Aeson.KeyValue e kv, Aeson.ToJSON v)
-  => Aeson.Key
-  -> Maybe v
-  -> Maybe kv
-key .=? mX = (key .=) <$> mX
 
 -- | Omit empty lists, for use with 'objectWithOptionalFields' and '(.=?)'
 omitWhenNull :: [a] -> Maybe [a]
