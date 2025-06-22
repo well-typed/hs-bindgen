@@ -62,6 +62,9 @@ data Mode =
   | ModeBindingSpec {
         modeBindingSpec :: BindingSpecMode
       }
+  | ModeResolve {
+        resolveInputs :: [CHeaderIncludePath]
+      }
   deriving (Show)
 
 {-------------------------------------------------------------------------------
@@ -97,6 +100,9 @@ parseMode = subparser $ mconcat [
         ]
     , cmd "binding-spec" (ModeBindingSpec <$> parseBindingSpecMode) $ mconcat [
           progDesc "Binding specification commands"
+        ]
+    , cmd "resolve" parseModeResolve $ mconcat [
+          progDesc "Resolve C headers to source paths, for debugging"
         ]
     ]
 
@@ -204,3 +210,12 @@ parseBindingSpecMode = subparser $ mconcat [
           progDesc "Write stdlib external binding specification"
         ]
     ]
+
+{-------------------------------------------------------------------------------
+  Debugging modes
+-------------------------------------------------------------------------------}
+
+parseModeResolve :: Parser Mode
+parseModeResolve =
+    ModeResolve
+      <$> some parseInput

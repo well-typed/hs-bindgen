@@ -57,12 +57,14 @@ module HsBindgen.Lib (
 
     -- * Paths
   , Paths.CHeaderIncludePath -- opaque
+  , resolveHeader
   , Paths.parseCHeaderIncludePath
   , Paths.CIncludePathDir(..)
   , (FilePath.</>)
   , FilePath.joinPath
   ) where
 
+import Control.Tracer (Tracer)
 import Data.ByteString (ByteString)
 import System.FilePath qualified as FilePath
 
@@ -74,6 +76,7 @@ import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Predicate qualified as Predicate
+import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
@@ -153,3 +156,16 @@ genTests ::
   -> IO ()
 genTests ppOpts headerIncludePaths testDir =
     Pipeline.genTests ppOpts headerIncludePaths testDir . unwrapHsDecls
+
+{-------------------------------------------------------------------------------
+  Paths
+-------------------------------------------------------------------------------}
+
+-- | Resolve a header, used for debugging
+resolveHeader ::
+     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+  -> Args.ClangArgs
+  -> Paths.CHeaderIncludePath -- ^ The header we want to resolve
+  -> IO (Either Resolve.ResolveHeaderException FilePath)
+resolveHeader tracer args =
+    fmap (fmap Paths.getSourcePath) . Resolve.resolveHeader' tracer args
