@@ -27,6 +27,7 @@ module Clang.HighLevel.Types (
   , Next
     -- ** Construction
   , simpleFold
+  , foldWithHandler
   , runFold
     -- ** Fold-specific functionality
   , foldBreak

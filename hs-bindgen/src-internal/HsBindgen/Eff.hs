@@ -10,7 +10,6 @@ module HsBindgen.Eff (
   assertEff,
 ) where
 
-import Control.Monad.Catch (MonadThrow, MonadCatch, MonadMask)
 import Control.Monad.Reader (Reader, ReaderT (..), MonadReader)
 import Control.Monad.State (State, MonadState (state))
 import Data.IORef (IORef, newIORef, readIORef, atomicModifyIORef)
@@ -25,6 +24,10 @@ import HsBindgen.Errors
   We work mostly in @IO@, and limited by @MonadUnliftIO@,
   but sometimes we need more effects: @Eff@ wrapping @ReaderT r IO@
   pattern can mimick many other monads.
+
+  NOTE: This is intentionally /not/ a member of 'MonadCatch'. We use 'Eff'
+  primarily for folding, and exception handling in folding requires special
+  care. See detailed discussion of 'foldWithHandler' in the @clang@ bindings.
 -------------------------------------------------------------------------------}
 
 newtype Eff m a = Eff {
@@ -36,9 +39,6 @@ newtype Eff m a = Eff {
     , Monad
     , MonadIO
     , MonadUnliftIO
-    , MonadThrow
-    , MonadCatch
-    , MonadMask
     )
 
 wrapEff :: (Support m -> IO a) -> Eff m a

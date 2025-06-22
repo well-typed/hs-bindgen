@@ -226,7 +226,7 @@ dispatch curr k = do
       Left  i    -> panicIO $ "Unrecognized CXCursorKind " ++ show i
 
 dispatchFold ::
-     MonadIO m
+     MonadUnliftIO m
   => CXCursor
   -> (CXCursorKind -> Fold m a)
   -> m (Next m a)
