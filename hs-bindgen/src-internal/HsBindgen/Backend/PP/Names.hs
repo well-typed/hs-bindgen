@@ -223,6 +223,7 @@ resolveGlobal = \case
     CharValue_fromAddr    -> importQ 'C.Char.charValueFromAddr
     CAPI_with             -> importQ 'Foreign.with
     CAPI_allocaAndPeek    -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
+    ConstantArray_withPtr -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
 
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded

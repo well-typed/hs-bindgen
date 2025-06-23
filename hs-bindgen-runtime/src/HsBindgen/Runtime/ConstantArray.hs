@@ -2,6 +2,7 @@
 module HsBindgen.Runtime.ConstantArray (
     ConstantArray,
     repeat,
+    toList,
     withPtr,
 ) where
 
@@ -25,6 +26,9 @@ type role ConstantArray nominal nominal
 
 repeat :: forall n a. (KnownNat n, Storable a) => a -> ConstantArray n a
 repeat x = CA (VS.replicate (intVal (Proxy @n)) x)
+
+toList :: Storable a => ConstantArray n a -> [a]
+toList (CA v) = VS.toList v
 
 -- | Retrieve the underlying pointer
 --

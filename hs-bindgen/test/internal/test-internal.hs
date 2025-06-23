@@ -121,6 +121,7 @@ tests packageRoot getExtBindings getRustBindgen =
               Nothing
           )
         , ("struct_arg"                  , defaultTracePredicate)
+        , ("fixedarray_arg"              , defaultTracePredicate)
         , ("type_naturals"               , defaultTracePredicate)
         , ("typedef_vs_macro"            , defaultTracePredicate)
         , ("typedefs"                    , defaultTracePredicate)

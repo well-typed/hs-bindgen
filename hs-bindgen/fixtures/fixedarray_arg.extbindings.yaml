@@ -1,0 +1,9 @@
+types:
+- headers: fixedarray_arg.h
+  cname: triple
+  module: Example
+  identifier: Triple
+  instances:
+  - Eq
+  - Show
+  - Storable
