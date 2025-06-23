@@ -8,9 +8,6 @@ module HsBindgen.BindingSpec (
     BindingSpec(..)
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
-  , CSpelling(..)
-  , spell
-  , ordinaryCSpelling
   , Omittable(..)
   , TypeSpec(..)
   , defaultTypeSpec
@@ -23,7 +20,6 @@ module HsBindgen.BindingSpec (
   , WriteBindingSpecException(..)
   , MergeBindingSpecException(..)
   , BindingSpecException(..)
-  , BindingSpecExceptions(..)
     -- * API
   , empty
   , load
@@ -88,13 +84,12 @@ import HsBindgen.Util.Tracer (TraceWithCallStack)
 newtype BindingSpec header = BindingSpec {
       -- | Type specifications
       --
-      -- C types are identified using a 'CSpelling' and a set of headers where
-      -- the type may be (transitively) declared.  For a given 'CSpelling', the
-      -- corresponding sets of headers are disjoint.  The type is therefore
-      -- equivalent to @'Map' 'CSpelling' ('Map' header 'Omittable Type')@, but
-      -- this type is used as an optimization.  In most cases, each 'CSpelling'
-      -- is mapped to a singleton list with a singleton set of headers.
-      bindingSpecTypes :: Map CSpelling [(Set header, Omittable TypeSpec)]
+      -- A C type is identified using a 'C.Spelling' and a set of headers that
+      -- provide the type.  For a given 'C.Spelling', the sets of headers are
+      -- disjoint.  The type of this map is therefore equivalent to
+      -- @'Map' 'C.Spelling' ('Map' header 'Omittable' 'TypeSpec')@, but this
+      -- type is used as an optimization.
+      bindingSpecTypes :: Map C.Spelling [(Set header, Omittable TypeSpec)]
     }
   deriving stock (Eq, Generic, Show)
 
@@ -103,34 +98,6 @@ type UnresolvedBindingSpec = BindingSpec CHeaderIncludePath
 
 -- | Binding specification with resolved headers
 type ResolvedBindingSpec = BindingSpec SourcePath
-
---------------------------------------------------------------------------------
-
--- | C spelling
---
--- A value must specify @struct@, @union@, or @enum@ when required.
---
--- Examples: @int8_t@, @struct tm@
-newtype CSpelling = CSpelling { getCSpelling :: Text }
-  -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Eq, IsString, Ord, Show)
-
-deriving newtype instance Aeson.FromJSON CSpelling
-
-deriving newtype instance Aeson.ToJSON CSpelling
-
-spell :: C.NameKind -> C.CName -> CSpelling
-spell nameKind name = CSpelling $ prefixFor nameKind <> C.getCName name
-  where
-    prefixFor :: C.NameKind -> Text
-    prefixFor = \case
-      C.NameKindOrdinary -> ""
-      C.NameKindStruct   -> "struct "
-      C.NameKindUnion    -> "union "
-      C.NameKindEnum     -> "enum "
-
-ordinaryCSpelling :: C.CName -> CSpelling
-ordinaryCSpelling = CSpelling . C.getCName
 
 --------------------------------------------------------------------------------
 
@@ -245,36 +212,35 @@ data ReadBindingSpecException =
     ReadBindingSpecAesonError FilePath String
   | -- | YAML parsing error
     ReadBindingSpecYamlError FilePath Yaml.ParseException
-  | -- | YAML parsing warnings (which should be treated like errors)
-    ReadBindingSpecYamlWarning FilePath [Data.Yaml.Internal.Warning]
-    -- | Multiple entries for the same C name and header in the same file
-  | ReadBindingSpecConflict FilePath (Set (CSpelling, CHeaderIncludePath))
+  | -- | YAML parsing warning (which should be treated as an error)
+    ReadBindingSpecYamlWarning FilePath Data.Yaml.Internal.Warning
+  | -- | Invalid C name
+    ReadBindingSpecInvalidCName FilePath Text
+  | -- | Multiple entries for the same C type
+    ReadBindingSpecConflict FilePath C.Spelling CHeaderIncludePath
   deriving stock (Show)
 
 instance Exception ReadBindingSpecException where
   displayException = \case
-    ReadBindingSpecUnknownExtension path -> "unknown extension: " ++ path
+    ReadBindingSpecUnknownExtension path ->
+      "unknown binding specification extension: " ++ path
     ReadBindingSpecAesonError path err ->
       "error parsing JSON: " ++ path ++ ": " ++ err
-    ReadBindingSpecYamlError path err -> unlines [
-        "error parsing YAML: " ++ path
-      , Yaml.prettyPrintParseException err
-      ]
-    ReadBindingSpecYamlWarning path warnings ->
-      unlines $
-          ("duplicate keys in YAML file: " ++ path)
-        : [ "  " ++ Aeson.formatPath jsonPath
-          | Data.Yaml.Internal.DuplicateKey jsonPath <- warnings
-          ]
-    ReadBindingSpecConflict path conflicts ->
-      unlines $
-          ( "multiple entries for same C name and header: "
-              ++ path
-          )
-        : [ "  " ++ Text.unpack (getCSpelling cspelling)
-              ++ ' ' : getCHeaderIncludePath header
-          | (cspelling, header) <- Set.toAscList conflicts
-          ]
+    ReadBindingSpecYamlError path err ->
+      -- 'unlines' is used because the pretty-printed error includes newlines
+      unlines [
+          "error parsing YAML: " ++ path
+        , Yaml.prettyPrintParseException err
+        ]
+    ReadBindingSpecYamlWarning path warning -> case warning of
+      Data.Yaml.Internal.DuplicateKey jsonPath ->
+        "duplicate key in " ++ path ++ ": " ++ Aeson.formatPath jsonPath
+    ReadBindingSpecInvalidCName path t ->
+      "invalid C name in " ++ path ++ ": " ++ Text.unpack t
+    ReadBindingSpecConflict path cSpelling header ->
+      "multiple entries in " ++ path ++ " for C type: "
+        ++ Text.unpack (C.spellingText cSpelling)
+        ++ " (" ++ getCHeaderIncludePath header ++ ")"
 
 --------------------------------------------------------------------------------
 
@@ -286,28 +252,26 @@ newtype WriteBindingSpecException =
 
 instance Exception WriteBindingSpecException where
   displayException = \case
-    WriteBindingSpecUnknownExtension path -> "unknown extension: " ++ path
+    WriteBindingSpecUnknownExtension path ->
+      "unknown binding specification extension: " ++ path
 
 --------------------------------------------------------------------------------
 
 -- | Failed to merge binding specifications
-newtype MergeBindingSpecException =
-    -- | Multiple binding specifications for the same C name and header
-    MergeBindingSpecConflict (Set CSpelling)
+data MergeBindingSpecException =
+    -- | Multiple binding specifications for the same C type
+    MergeBindingSpecConflict C.Spelling
   deriving stock (Show)
 
 instance Exception MergeBindingSpecException where
   displayException = \case
-    MergeBindingSpecConflict cspellings->
-      unlines $
-          "conflicting binding specifications for same C name and header:"
-        : [ "  " ++ Text.unpack (getCSpelling cspelling)
-          | cspelling <- Set.toAscList cspellings
-          ]
+    MergeBindingSpecConflict cSpelling ->
+      "conflicting binding specifications for C type: "
+        ++ Text.unpack (C.spellingText cSpelling)
 
 --------------------------------------------------------------------------------
 
--- | Failed loading, resolving, or merging binding specifications
+-- | Failed loading or merging binding specifications
 data BindingSpecException =
     ReadBindingSpecException  ReadBindingSpecException
   | MergeBindingSpecException MergeBindingSpecException
@@ -317,16 +281,6 @@ instance Exception BindingSpecException where
   displayException = \case
     ReadBindingSpecException  e -> displayException e
     MergeBindingSpecException e -> displayException e
-
---------------------------------------------------------------------------------
-
--- | Failed loading, resolving, or merging binding specifications
-newtype BindingSpecExceptions = BindingSpecExceptions [BindingSpecException]
-  deriving stock (Show)
-
-instance Exception BindingSpecExceptions where
-  displayException (BindingSpecExceptions es) =
-    unlines $ map displayException es
 
 {-------------------------------------------------------------------------------
   API
@@ -341,37 +295,38 @@ empty = BindingSpec {
 -- | Load, resolve, and merge binding specifications
 --
 -- The format is determined by filename extension.
+--
+-- This function throws a @'MultiException' 'BindingSpecException'@ on error.
 load ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> [FilePath]
   -> IO (Set ResolveHeaderException, ResolvedBindingSpec)
-load tracer args stdSpec paths = throwExceptions =<< do
-    (errs, uspecs) <-
-      first (map ReadBindingSpecException) . partitionEithers
-        <$> mapM readFile paths
+load tracer args stdSpec paths = do
+    (readErrss, uspecs) <- partitionEithers <$> mapM readFile paths
+    let readErrs = ReadBindingSpecException <$> mconcat readErrss
     (resolveErrs, specs) <-
       first Set.unions . unzip <$> mapM (resolve tracer args) (stdSpec : uspecs)
-    return $ case first MergeBindingSpecException (merge specs) of
+    case first (fmap MergeBindingSpecException) (merge specs) of
       Right spec
-        | null errs -> Right (resolveErrs, spec)
-        | otherwise -> Left $ BindingSpecExceptions errs
-      Left mergeErr -> Left $ BindingSpecExceptions (errs ++ [mergeErr])
-  where
-    throwExceptions :: Either BindingSpecExceptions x -> IO x
-    throwExceptions = either throwIO return
+        | null readErrss -> return (resolveErrs, spec)
+        | otherwise      -> throwIO readErrs
+      Left mergeErrs -> throwIO $ readErrs <> mergeErrs
 
--- | Lookup the 'TypeSpec' associated with a C name spelling where there is at
--- least one header in common with the specified set
+-- | Lookup the @'Omittable' 'TypeSpec'@ associated with a C type
 lookupTypeSpec ::
-     CSpelling
+     C.Spelling
   -> Set SourcePath
   -> ResolvedBindingSpec
   -> Maybe (Omittable TypeSpec)
-lookupTypeSpec cspelling headers =
-    fmap snd . List.find (not . Set.disjoint headers . fst)
-      <=< Map.lookup cspelling . bindingSpecTypes
+lookupTypeSpec cSpelling headers =
+        lookupBy (not . Set.disjoint headers)
+    <=< Map.lookup cSpelling . bindingSpecTypes
+  where
+    -- 'List.lookup' using a predicate
+    lookupBy :: (a -> Bool) -> [(a, b)] -> Maybe b
+    lookupBy p = fmap snd . List.find (p . fst)
 
 {-------------------------------------------------------------------------------
   API: YAML/JSON
@@ -382,32 +337,35 @@ lookupTypeSpec cspelling headers =
 -- The format is determined by the filename extension.
 readFile ::
      FilePath
-  -> IO (Either ReadBindingSpecException UnresolvedBindingSpec)
+  -> IO (Either (MultiException ReadBindingSpecException) UnresolvedBindingSpec)
 readFile path
     | ".yaml" `List.isSuffixOf` path = readFileYaml path
     | ".json" `List.isSuffixOf` path = readFileJson path
-    | otherwise = return $ Left (ReadBindingSpecUnknownExtension path)
+    | otherwise = return . Left $
+        MultiException [ReadBindingSpecUnknownExtension path]
 
 -- | Read a binding specification from a JSON file
 readFileJson ::
      FilePath
-  -> IO (Either ReadBindingSpecException UnresolvedBindingSpec)
+  -> IO (Either (MultiException ReadBindingSpecException) UnresolvedBindingSpec)
 readFileJson path = do
     ees <- Aeson.eitherDecodeFileStrict' path
     return $ case ees of
       Right spec -> fromABindingSpec path spec
-      Left err   -> Left (ReadBindingSpecAesonError path err)
+      Left err   -> Left $ MultiException [ReadBindingSpecAesonError path err]
 
 -- | Read a binding specification from a YAML file
 readFileYaml ::
      FilePath
-  -> IO (Either ReadBindingSpecException UnresolvedBindingSpec)
+  -> IO (Either (MultiException ReadBindingSpecException) UnresolvedBindingSpec)
 readFileYaml path = do
     eews <- Yaml.decodeFileWithWarnings path
     return $ case eews of
-      Right ([], spec) -> fromABindingSpec path spec
-      Right (warnings, _) -> Left (ReadBindingSpecYamlWarning path warnings)
-      Left err -> Left (ReadBindingSpecYamlError path err)
+      Right ([], spec)    -> fromABindingSpec path spec
+      Right (warnings, _) -> Left $
+        MultiException (ReadBindingSpecYamlWarning path <$> warnings)
+      Left err            -> Left $
+        MultiException [ReadBindingSpecYamlError path err]
 
 -- | Encode a binding specification as JSON
 encodeJson :: UnresolvedBindingSpec -> BSL.ByteString
@@ -449,21 +407,18 @@ resolve ::
   -> IO (Set ResolveHeaderException, ResolvedBindingSpec)
 resolve tracer args uSpec = do
     let types = bindingSpecTypes uSpec
-        cPaths = Set.toAscList . mconcat $ fst <$> mconcat (Map.elems types)
+        cPaths = Set.toAscList . mconcat $ fst <$> concat (Map.elems types)
     (errs, headerMap) <- bimap Set.fromList Map.fromList . partitionEithers
       <$> mapM
             (\cPath -> fmap (cPath,) <$> resolveHeader' tracer args cPath)
             cPaths
-    let resolveSet :: Set CHeaderIncludePath -> Set SourcePath
-        resolveSet =
-            Set.fromList
-          . mapMaybe (`Map.lookup` headerMap)
-          . Set.toList
+    let resolveSet :: Set CHeaderIncludePath -> Maybe (Set SourcePath)
+        resolveSet headers =
+          case mapMaybe (`Map.lookup` headerMap) (Set.toList headers) of
+            []    -> Nothing
+            paths -> Just (Set.fromList paths)
         resolve1 :: (Set CHeaderIncludePath, a) -> Maybe (Set SourcePath, a)
-        resolve1 (sU, x) = case resolveSet sU of
-          sR
-            | Set.null sR -> Nothing
-            | otherwise   -> Just (sR, x)
+        resolve1 (headers, x) = (, x) <$> resolveSet headers
         resolve' :: [(Set CHeaderIncludePath, a)] -> Maybe [(Set SourcePath, a)]
         resolve' lU = case mapMaybe resolve1 lU of
           lR
@@ -481,7 +436,7 @@ resolve tracer args uSpec = do
 -- | Merge binding specifications
 merge ::
      [ResolvedBindingSpec]
-  -> Either MergeBindingSpecException ResolvedBindingSpec
+  -> Either (MultiException MergeBindingSpecException) ResolvedBindingSpec
 merge = \case
     []   -> Right empty
     x:xs -> do
@@ -490,24 +445,25 @@ merge = \case
       return BindingSpec{..}
   where
     mergeTypes ::
-         Set CSpelling
-      -> Map CSpelling [(Set SourcePath, a)]
-      -> [(CSpelling, [(Set SourcePath, a)])]
-      -> Either MergeBindingSpecException (Map CSpelling [(Set SourcePath, a)])
+         Set C.Spelling
+      -> Map C.Spelling [(Set SourcePath, a)]
+      -> [(C.Spelling, [(Set SourcePath, a)])]
+      -> Either
+           (MultiException MergeBindingSpecException)
+           (Map C.Spelling [(Set SourcePath, a)])
     mergeTypes dupSet acc = \case
       []
         | Set.null dupSet -> Right acc
-        | otherwise       -> Left $ MergeBindingSpecConflict dupSet
-      (cspelling, rs):ps ->
-        case Map.insertLookupWithKey (const (++)) cspelling rs acc of
+        | otherwise       -> Left . MultiException $
+            MergeBindingSpecConflict <$> Set.toList dupSet
+      (cSpelling, rs):ps ->
+        case Map.insertLookupWithKey (const (++)) cSpelling rs acc of
           (Nothing, acc') -> mergeTypes dupSet acc' ps
-          (Just ls, acc') ->
-            let lHeaders = Set.unions $ fst <$> ls
-                rHeaders = Set.unions $ fst <$> rs
-                iHeaders = Set.intersection lHeaders rHeaders
-            in  if Set.null iHeaders
-                  then mergeTypes dupSet acc' ps
-                  else mergeTypes (Set.insert cspelling dupSet) acc' ps
+          (Just ls, acc')
+            | Set.disjoint
+                (Set.unions (fst <$> ls))
+                (Set.unions (fst <$> rs)) -> mergeTypes dupSet acc' ps
+            | otherwise -> mergeTypes (Set.insert cSpelling dupSet) acc' ps
 
 {-------------------------------------------------------------------------------
   Auxiliary: Specification files
@@ -548,7 +504,7 @@ instance Aeson.ToJSON ABindingSpec where
 
 data ATypeSpecMapping = ATypeSpecMapping {
       aTypeSpecMappingHeaders    :: [CHeaderIncludePath]
-    , aTypeSpecMappingCName      :: CSpelling
+    , aTypeSpecMappingCName      :: Text
     , aTypeSpecMappingModule     :: Maybe HsModuleName
     , aTypeSpecMappingIdentifier :: Maybe HsIdentifier
     , aTypeSpecMappingInstances  :: [AOmittable AInstanceSpecMapping]
@@ -636,7 +592,7 @@ instance Aeson.ToJSON AConstraintSpec where
 fromABindingSpec ::
      FilePath
   -> ABindingSpec
-  -> Either ReadBindingSpecException UnresolvedBindingSpec
+  -> Either (MultiException ReadBindingSpecException) UnresolvedBindingSpec
 fromABindingSpec path ABindingSpec{..} = do
     bindingSpecTypes <- mkTypeMap aBindingSpecTypes
     return BindingSpec{..}
@@ -644,31 +600,35 @@ fromABindingSpec path ABindingSpec{..} = do
     mkTypeMap ::
          [AOmittable ATypeSpecMapping]
       -> Either
-           ReadBindingSpecException
-           (Map CSpelling [(Set CHeaderIncludePath, Omittable TypeSpec)])
-    mkTypeMap = mkTypeMapErr . foldr mkTypeMapInsert (Map.empty, Map.empty)
+           (MultiException ReadBindingSpecException)
+           (Map C.Spelling [(Set CHeaderIncludePath, Omittable TypeSpec)])
+    mkTypeMap =
+      mkTypeMapErr . foldr mkTypeMapInsert (Set.empty, Map.empty, Map.empty)
 
     mkTypeMapErr ::
-         (Map CSpelling (Set CHeaderIncludePath), a)
-      -> Either ReadBindingSpecException a
-    mkTypeMapErr (dupMap, x)
-      | Map.null dupMap = Right x
-      | otherwise = Left . ReadBindingSpecConflict path $ Set.fromList [
-            (cspelling, header)
-          | (cspelling, headers) <- Map.toList dupMap
-          , header <- Set.toList headers
-          ]
+         (Set Text, Map C.Spelling (Set CHeaderIncludePath), a)
+      -> Either (MultiException ReadBindingSpecException) a
+    mkTypeMapErr (invalids, conflicts, x)
+      | Set.null invalids && Map.null conflicts = Right x
+      | otherwise = Left . MultiException $
+          (ReadBindingSpecInvalidCName path <$> Set.toList invalids) ++
+            [ ReadBindingSpecConflict path cSpelling header
+            | (cSpelling, headers) <- Map.toList conflicts
+            , header <- Set.toList headers
+            ]
 
     mkTypeMapInsert ::
          AOmittable ATypeSpecMapping
-      -> ( Map CSpelling (Set CHeaderIncludePath)
-         , Map CSpelling [(Set CHeaderIncludePath, Omittable TypeSpec)]
+      -> ( Set Text
+         , Map C.Spelling (Set CHeaderIncludePath)
+         , Map C.Spelling [(Set CHeaderIncludePath, Omittable TypeSpec)]
          )
-      -> ( Map CSpelling (Set CHeaderIncludePath)
-         , Map CSpelling [(Set CHeaderIncludePath, Omittable TypeSpec)]
+      -> ( Set Text
+         , Map C.Spelling (Set CHeaderIncludePath)
+         , Map C.Spelling [(Set CHeaderIncludePath, Omittable TypeSpec)]
          )
-    mkTypeMapInsert aoTypeMapping (dupMap, accMap) =
-      let (cspelling, headers, oTypeSpec) = case aoTypeMapping of
+    mkTypeMapInsert aoTypeMapping (invalids, conflicts, acc) =
+      let (cname, headers, oTypeSpec) = case aoTypeMapping of
             ARequire ATypeSpecMapping{..} ->
               let typ = TypeSpec {
                       typeSpecModule     = aTypeSpecMappingModule
@@ -679,25 +639,29 @@ fromABindingSpec path ABindingSpec{..} = do
               in  (aTypeSpecMappingCName, aTypeSpecMappingHeaders, Require typ)
             AOmit ATypeSpecMapping{..} ->
               (aTypeSpecMappingCName, aTypeSpecMappingHeaders, Omit)
-          newV = [(Set.fromList headers, oTypeSpec)]
-          x = Map.insertLookupWithKey (const (++)) cspelling newV accMap
-      in  case x of
-            (Nothing,   accMap') -> (dupMap, accMap')
-            (Just oldV, accMap') ->
-              (mkTypeMapDup cspelling newV oldV dupMap, accMap')
+      in  case C.parseSpelling cname of
+            Nothing -> (Set.insert cname invalids, conflicts, acc)
+            Just cSpelling ->
+              let newV = [(Set.fromList headers, oTypeSpec)]
+                  x = Map.insertLookupWithKey (const (++)) cSpelling newV acc
+              in  case x of
+                    (Nothing,   acc') -> (invalids, conflicts, acc')
+                    (Just oldV, acc') ->
+                      let conflicts' =
+                            mkTypeMapDup cSpelling newV oldV conflicts
+                      in  (invalids, conflicts', acc')
 
     mkTypeMapDup ::
-         CSpelling
+         C.Spelling
       -> [(Set CHeaderIncludePath, a)]
       -> [(Set CHeaderIncludePath, a)]
-      -> Map CSpelling (Set CHeaderIncludePath)
-      -> Map CSpelling (Set CHeaderIncludePath)
-    mkTypeMapDup cspelling newV oldV dupMap =
-      let commonHeaders =
-            Set.intersection (mconcat (fst <$> newV)) (mconcat (fst <$> oldV))
-      in  if Set.null commonHeaders
-            then dupMap
-            else Map.insertWith Set.union cspelling commonHeaders dupMap
+      -> Map C.Spelling (Set CHeaderIncludePath)
+      -> Map C.Spelling (Set CHeaderIncludePath)
+    mkTypeMapDup cSpelling newV oldV =
+      case Set.intersection (mconcat (fst <$> newV)) (mconcat (fst <$> oldV)) of
+        commonHeaders
+          | Set.null commonHeaders -> id
+          | otherwise -> Map.insertWith Set.union cSpelling commonHeaders
 
     -- duplicates ignored, last value retained
     mkInstanceMap ::
@@ -723,7 +687,7 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
         case oType of
           Require TypeSpec{..} -> ARequire ATypeSpecMapping {
               aTypeSpecMappingHeaders    = Set.toAscList headers
-            , aTypeSpecMappingCName      = cspelling
+            , aTypeSpecMappingCName      = C.spellingText cSpelling
             , aTypeSpecMappingModule     = typeSpecModule
             , aTypeSpecMappingIdentifier = typeSpecIdentifier
             , aTypeSpecMappingInstances  = [
@@ -744,12 +708,12 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
             }
           Omit -> AOmit ATypeSpecMapping {
               aTypeSpecMappingHeaders    = Set.toAscList headers
-            , aTypeSpecMappingCName      = cspelling
+            , aTypeSpecMappingCName      = C.spellingText cSpelling
             , aTypeSpecMappingModule     = Nothing
             , aTypeSpecMappingIdentifier = Nothing
             , aTypeSpecMappingInstances  = []
             }
-      | (cspelling, xs) <- Map.toAscList bindingSpecTypes
+      | (cSpelling, xs) <- Map.toAscList bindingSpecTypes
       , (headers, oType) <- xs
       ]
 

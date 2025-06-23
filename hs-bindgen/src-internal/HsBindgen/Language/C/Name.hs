@@ -3,17 +3,20 @@ module HsBindgen.Language.C.Name (
     AnonId(..)
   , CName(..)
   , NameKind(..)
+  , Spelling(..)
+  , spellingText
+  , parseSpelling
   , NameOrigin(..)
   ) where
 
-import Data.Text (unpack)
+import Data.Text qualified as Text
 
 import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
-  Names and namespaces
+  AnonId
 -------------------------------------------------------------------------------}
 
 -- | Identity of an anonymous declaration
@@ -22,6 +25,10 @@ newtype AnonId = AnonId SingleLoc
 
 instance PrettyTrace AnonId where
   prettyTrace (AnonId loc) = "<" ++ show loc ++ ">"
+
+{-------------------------------------------------------------------------------
+  CName
+-------------------------------------------------------------------------------}
 
 -- TODO Rename CName to Name, for qualified import
 
@@ -37,7 +44,11 @@ newtype CName = CName {
   deriving stock (Generic)
 
 instance PrettyTrace CName where
-  prettyTrace (CName name) = unpack name
+  prettyTrace = Text.unpack . getCName
+
+{-------------------------------------------------------------------------------
+  NameKind
+-------------------------------------------------------------------------------}
 
 -- | C name kind
 --
@@ -67,6 +78,37 @@ data NameKind =
 
 instance PrettyTrace NameKind where
   prettyTrace = show
+
+{-------------------------------------------------------------------------------
+  Spelling
+-------------------------------------------------------------------------------}
+
+data Spelling = Spelling {
+      spellingName :: CName
+    , spellingKind :: NameKind
+    }
+  deriving stock (Eq, Generic, Ord, Show)
+
+spellingText :: Spelling -> Text
+spellingText Spelling{..} =
+    let prefix = case spellingKind of
+          NameKindOrdinary -> ""
+          NameKindStruct   -> "struct "
+          NameKindUnion    -> "union "
+          NameKindEnum     -> "enum "
+    in  prefix <> getCName spellingName
+
+parseSpelling :: Text -> Maybe Spelling
+parseSpelling t = case Text.words t of
+    [n]           -> Just $ Spelling (CName n) NameKindOrdinary
+    ["struct", n] -> Just $ Spelling (CName n) NameKindStruct
+    ["union",  n] -> Just $ Spelling (CName n) NameKindUnion
+    ["enum",   n] -> Just $ Spelling (CName n) NameKindEnum
+    _otherwise    -> Nothing
+
+{-------------------------------------------------------------------------------
+  NameOrigin
+-------------------------------------------------------------------------------}
 
 -- | C name origin
 --

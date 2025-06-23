@@ -55,7 +55,7 @@ fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
-    UsedByNamed Usage (CName, C.NameKind)
+    UsedByNamed Usage C.Spelling
   | UsedByAnon Usage UseOfDecl
   deriving stock (Show)
 
@@ -76,7 +76,7 @@ findNamedUseOf declIndex (Wrap graph) =
         case uid of
           DeclNamed name -> do
             f <- get
-            return $ Right . Just $ f (UsedByNamed u (name, nk))
+            return $ Right . Just $ f (UsedByNamed u (C.Spelling name nk))
           DeclAnon _anonId -> do
             modify (. UsedByAnon u)
             return $ Left qid

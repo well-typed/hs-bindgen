@@ -10,16 +10,6 @@ types:
   - Show
   - Storable
 - headers: nested_enums.h
-  cname: exB_fieldB1
-  module: Example
-  identifier: ExB_fieldB1
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: nested_enums.h
   cname: struct exA
   module: Example
   identifier: ExA
@@ -33,5 +23,15 @@ types:
   identifier: ExB
   instances:
   - Eq
+  - Show
+  - Storable
+- headers: nested_enums.h
+  cname: exB_fieldB1
+  module: Example
+  identifier: ExB_fieldB1
+  instances:
+  - Eq
+  - Ord
+  - Read
   - Show
   - Storable

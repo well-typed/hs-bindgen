@@ -72,6 +72,7 @@ instance ToExpr C.PrimSign
 instance ToExpr C.PrimSignChar
 instance ToExpr C.PrimType
 instance ToExpr C.RecordNames
+instance ToExpr C.Spelling
 instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TranslationUnit
@@ -80,9 +81,6 @@ instance ToExpr C.Typedef
 instance ToExpr C.TypedefRef
 instance ToExpr C.Union
 instance ToExpr C.UnionField
-
-instance ToExpr BindingSpec.CSpelling where
-  toExpr = toExpr . BindingSpec.getCSpelling
 
 instance ToExpr BindingSpec.TypeSpec
 instance ToExpr BindingSpec.InstanceSpec

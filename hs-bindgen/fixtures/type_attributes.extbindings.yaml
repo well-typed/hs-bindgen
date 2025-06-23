@@ -1,5 +1,21 @@
 types:
 - headers: type_attributes.h
+  cname: struct S
+  module: Example
+  identifier: S
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: type_attributes.h
+  cname: struct S2
+  module: Example
+  identifier: S2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: type_attributes.h
   cname: T1
   module: Example
   identifier: T1
@@ -36,6 +52,22 @@ types:
   - Real
   - Storable
 - headers: type_attributes.h
+  cname: struct my_packed_struct
+  module: Example
+  identifier: My_packed_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: type_attributes.h
+  cname: struct my_unpacked_struct
+  module: Example
+  identifier: My_unpacked_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: type_attributes.h
   cname: short_a
   module: Example
   identifier: Short_a
@@ -52,38 +84,6 @@ types:
   - Integral
   - Num
   - Real
-  - Storable
-- headers: type_attributes.h
-  cname: struct S
-  module: Example
-  identifier: S
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: type_attributes.h
-  cname: struct S2
-  module: Example
-  identifier: S2
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: type_attributes.h
-  cname: struct my_packed_struct
-  module: Example
-  identifier: My_packed_struct
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: type_attributes.h
-  cname: struct my_unpacked_struct
-  module: Example
-  identifier: My_unpacked_struct
-  instances:
-  - Eq
-  - Show
   - Storable
 - headers: type_attributes.h
   cname: union wait

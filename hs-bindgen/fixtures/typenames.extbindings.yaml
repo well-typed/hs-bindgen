@@ -1,15 +1,5 @@
 types:
 - headers: typenames.h
-  cname: enum foo
-  module: Example
-  identifier: Foo
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: typenames.h
   cname: foo
   module: Example
   identifier: Foo
@@ -25,4 +15,14 @@ types:
   - Real
   - RealFloat
   - RealFrac
+  - Storable
+- headers: typenames.h
+  cname: enum foo
+  module: Example
+  identifier: Foo
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
   - Storable

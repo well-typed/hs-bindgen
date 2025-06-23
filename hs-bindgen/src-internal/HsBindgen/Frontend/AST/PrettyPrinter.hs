@@ -6,10 +6,10 @@ module HsBindgen.Frontend.AST.PrettyPrinter (
 
 import Data.Text qualified as Text
 
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Pretty-printers
@@ -65,8 +65,8 @@ showsType x TypeVoid                  = showString "void " . x
 showsType x (TypeIncompleteArray t)   = showsType (x . showString "[]") t
 showsType x (TypeExtBinding c _ _)    = showCSpelling c . showChar ' ' . x
 
-showCSpelling :: BindingSpec.CSpelling -> ShowS
-showCSpelling = showString . Text.unpack . BindingSpec.getCSpelling
+showCSpelling :: C.Spelling -> ShowS
+showCSpelling = showString . Text.unpack . C.spellingText
 
 -- TODO: Currently 'NamePair' contains a 'CName' which /we/ constructed.
 -- We might want to extend 'CName' with an additional field which tells us

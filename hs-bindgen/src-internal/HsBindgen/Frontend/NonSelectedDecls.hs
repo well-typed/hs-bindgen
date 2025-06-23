@@ -34,7 +34,7 @@ import HsBindgen.Language.C.Name qualified as C
 -- then you need to make sure that you /traverse/ @rect@, so that the
 -- @RenameAnon@ pass can do its work.
 newtype NonSelectedDecls = NonSelectedDecls {
-      unNonSelectedDecls :: Map (CName, C.NameKind) SourcePath
+      unNonSelectedDecls :: Map C.Spelling SourcePath
     }
   deriving (Eq, Show)
 
@@ -46,11 +46,11 @@ empty :: NonSelectedDecls
 empty = NonSelectedDecls Map.empty
 
 insert ::
-     (CName, C.NameKind)
+     C.Spelling
   -> SourcePath
   -> NonSelectedDecls
   -> NonSelectedDecls
 insert k v = NonSelectedDecls . Map.insert k v . unNonSelectedDecls
 
-lookup :: (CName, C.NameKind) -> NonSelectedDecls -> Maybe SourcePath
+lookup :: C.Spelling -> NonSelectedDecls -> Maybe SourcePath
 lookup k = Map.lookup k . unNonSelectedDecls

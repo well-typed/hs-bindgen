@@ -1,13 +1,5 @@
 types:
 - headers: nested_types.h
-  cname: ex3_ex3_struct
-  module: Example
-  identifier: Ex3_ex3_struct
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: nested_types.h
   cname: struct bar
   module: Example
   identifier: Bar
@@ -19,6 +11,14 @@ types:
   cname: struct ex3
   module: Example
   identifier: Ex3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: nested_types.h
+  cname: ex3_ex3_struct
+  module: Example
+  identifier: Ex3_ex3_struct
   instances:
   - Eq
   - Show

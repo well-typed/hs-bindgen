@@ -1,8 +1,24 @@
 types:
 - headers: anonymous.h
+  cname: struct S1
+  module: Example
+  identifier: S1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: anonymous.h
   cname: S1_c
   module: Example
   identifier: S1_c
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: anonymous.h
+  cname: struct S2
+  module: Example
+  identifier: S2
   instances:
   - Eq
   - Show
@@ -24,33 +40,17 @@ types:
   - Show
   - Storable
 - headers: anonymous.h
-  cname: S3_c
-  module: Example
-  identifier: S3_c
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: anonymous.h
-  cname: struct S1
-  module: Example
-  identifier: S1
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: anonymous.h
-  cname: struct S2
-  module: Example
-  identifier: S2
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: anonymous.h
   cname: struct S3
   module: Example
   identifier: S3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: anonymous.h
+  cname: S3_c
+  module: Example
+  identifier: S3_c
   instances:
   - Eq
   - Show

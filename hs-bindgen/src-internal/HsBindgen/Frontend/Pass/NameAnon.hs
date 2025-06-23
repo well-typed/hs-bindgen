@@ -210,14 +210,14 @@ instance NameUseSites C.Type where
 -- | Construct name for anonymous declaration
 nameForAnon :: UseOfDecl -> CName
 nameForAnon = \case
-      UsedByNamed (UsedInTypedef ByValue) (name, _nameKind) ->
-        name
-      UsedByNamed (UsedInTypedef ByRef) (name, _nameKind) ->
-        name <> "_Deref"
-      UsedByNamed (UsedInField _valOrRef field) (name, _nameKind) ->
-        name <> "_" <> field
-      UsedByNamed (UsedInFunction _valOrRef) (name, _nameKind) ->
-        name
+      UsedByNamed (UsedInTypedef ByValue) cSpelling ->
+        C.spellingName cSpelling
+      UsedByNamed (UsedInTypedef ByRef) cSpelling ->
+        C.spellingName cSpelling <> "_Deref"
+      UsedByNamed (UsedInField _valOrRef field) cSpelling ->
+        C.spellingName cSpelling <> "_" <> field
+      UsedByNamed (UsedInFunction _valOrRef) cSpelling ->
+        C.spellingName cSpelling
       UsedByAnon (UsedInTypedef _valOrRef) _useOfAnon ->
         panicPure $ "nameForAnon: unexpected anonymous typedef"
       UsedByAnon (UsedInField _valOrRef field) useOfAnon ->

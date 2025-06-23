@@ -181,9 +181,10 @@ recordNonSelectedDecl curr = do
           sourcePath <-
             singleLocPath <$> HighLevel.clang_getCursorLocation' curr
           wrapEff $ \ParseSupport{parseState} -> do
+            let cSpelling = C.Spelling cname nameKind
             modifyIORef parseState $ \st -> st{
                 stateNonSelectedDecls =
-                  NonSelectedDecls.insert (cname, nameKind) sourcePath $
+                  NonSelectedDecls.insert cSpelling sourcePath $
                     stateNonSelectedDecls st
               }
         DeclAnon{} -> return ()

@@ -44,22 +44,6 @@ types:
   - Show
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
-  cname: struct struct3
-  module: Example
-  identifier: Struct3
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: macro_in_fundecl_vs_typedef.h
-  cname: struct struct4
-  module: Example
-  identifier: Struct4
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: macro_in_fundecl_vs_typedef.h
   cname: struct2
   module: Example
   identifier: Struct2
@@ -68,9 +52,25 @@ types:
   - Show
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
+  cname: struct struct3
+  module: Example
+  identifier: Struct3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
   cname: struct3_t
   module: Example
   identifier: Struct3_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct struct4
+  module: Example
+  identifier: Struct4
   instances:
   - Eq
   - Show

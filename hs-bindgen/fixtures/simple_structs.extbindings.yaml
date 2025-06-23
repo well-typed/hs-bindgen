@@ -1,5 +1,21 @@
 types:
 - headers: simple_structs.h
+  cname: struct S1
+  module: Example
+  identifier: S1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S2
+  module: Example
+  identifier: S2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
   cname: S2_t
   module: Example
   identifier: S2_t
@@ -11,6 +27,30 @@ types:
   cname: S3_t
   module: Example
   identifier: S3_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S4
+  module: Example
+  identifier: S4
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S5
+  module: Example
+  identifier: S5
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S6
+  module: Example
+  identifier: S6
   instances:
   - Eq
   - Show
@@ -45,46 +85,6 @@ types:
   cname: S7b_Deref
   module: Example
   identifier: S7b_Deref
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: struct S1
-  module: Example
-  identifier: S1
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: struct S2
-  module: Example
-  identifier: S2
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: struct S4
-  module: Example
-  identifier: S4
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: struct S5
-  module: Example
-  identifier: S5
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: struct S6
-  module: Example
-  identifier: S6
   instances:
   - Eq
   - Show
