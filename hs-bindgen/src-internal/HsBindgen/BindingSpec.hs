@@ -87,17 +87,22 @@ newtype BindingSpec header = BindingSpec {
       -- A C type is identified using a 'C.QualName' and a set of headers that
       -- provide the type.  For a given 'C.QualName', the sets of headers are
       -- disjoint.  The type of this map is therefore equivalent to
-      -- @'Map' 'C.QualName' ('Map' header 'Omittable' 'TypeSpec')@, but this
+      -- @'Map' 'C.QualName' ('Map' header ('Omittable' 'TypeSpec'))@, but this
       -- type is used as an optimization.
       bindingSpecTypes :: Map C.QualName [(Set header, Omittable TypeSpec)]
     }
   deriving stock (Eq, Generic, Show)
 
 -- | Binding specification with unresolved headers
+--
+-- The headers are as specified in a C include directive, relative to a
+-- directory in the C include search path.
 type UnresolvedBindingSpec = BindingSpec CHeaderIncludePath
 
 -- | Binding specification with resolved headers
-type ResolvedBindingSpec = BindingSpec SourcePath
+--
+-- The resolved header is the filesystem path in the current environment.
+type ResolvedBindingSpec = BindingSpec (CHeaderIncludePath, SourcePath)
 
 --------------------------------------------------------------------------------
 
@@ -321,7 +326,7 @@ lookupTypeSpec ::
   -> ResolvedBindingSpec
   -> Maybe (Omittable TypeSpec)
 lookupTypeSpec cQualName headers =
-        lookupBy (not . Set.disjoint headers)
+        lookupBy (not . Set.disjoint headers . Set.map snd)
     <=< Map.lookup cQualName . bindingSpecTypes
   where
     -- 'List.lookup' using a predicate
@@ -412,14 +417,23 @@ resolve tracer args uSpec = do
       <$> mapM
             (\cPath -> fmap (cPath,) <$> resolveHeader' tracer args cPath)
             cPaths
-    let resolveSet :: Set CHeaderIncludePath -> Maybe (Set SourcePath)
+    let lookup' :: CHeaderIncludePath -> Maybe (CHeaderIncludePath, SourcePath)
+        lookup' header = (header,) <$> Map.lookup header headerMap
+        resolveSet ::
+             Set CHeaderIncludePath
+          -> Maybe (Set (CHeaderIncludePath, SourcePath))
         resolveSet headers =
-          case mapMaybe (`Map.lookup` headerMap) (Set.toList headers) of
+          -- ignore headers that are not found
+          case mapMaybe lookup' (Set.toList headers) of
             []    -> Nothing
-            paths -> Just (Set.fromList paths)
-        resolve1 :: (Set CHeaderIncludePath, a) -> Maybe (Set SourcePath, a)
+            pairs -> Just (Set.fromList pairs)
+        resolve1 ::
+             (Set CHeaderIncludePath, a)
+          -> Maybe (Set (CHeaderIncludePath, SourcePath), a)
         resolve1 (headers, x) = (, x) <$> resolveSet headers
-        resolve' :: [(Set CHeaderIncludePath, a)] -> Maybe [(Set SourcePath, a)]
+        resolve' ::
+             [(Set CHeaderIncludePath, a)]
+          -> Maybe [(Set (CHeaderIncludePath, SourcePath), a)]
         resolve' lU = case mapMaybe resolve1 lU of
           lR
             | null lR   -> Nothing
@@ -446,11 +460,11 @@ merge = \case
   where
     mergeTypes ::
          Set C.QualName
-      -> Map C.QualName [(Set SourcePath, a)]
-      -> [(C.QualName, [(Set SourcePath, a)])]
+      -> Map C.QualName [(Set (CHeaderIncludePath, SourcePath), a)]
+      -> [(C.QualName, [(Set (CHeaderIncludePath, SourcePath), a)])]
       -> Either
            (MultiException MergeBindingSpecException)
-           (Map C.QualName [(Set SourcePath, a)])
+           (Map C.QualName [(Set (CHeaderIncludePath, SourcePath), a)])
     mergeTypes dupSet acc = \case
       []
         | Set.null dupSet -> Right acc
