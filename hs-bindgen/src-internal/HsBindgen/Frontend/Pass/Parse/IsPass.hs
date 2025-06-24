@@ -100,7 +100,7 @@ getDeclId curr = do
 -- | Check if the cursor is for a non-tagged declaration
 --
 -- This function returns 'True' if the cursor is for a @struct@, @union@, or
--- @enum@ declaration and the underlying tokens starts with that keyword and a
+-- @enum@ declaration and the underlying tokens start with that keyword and a
 -- left bracket.
 isNotTagged :: MonadIO m => CXCursor -> m Bool
 isNotTagged curr = do
