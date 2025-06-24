@@ -1,5 +1,11 @@
 types:
 - headers: unions.h
+  cname: union AnonA
+  module: Example
+  identifier: AnonA
+  instances:
+  - Storable
+- headers: unions.h
   cname: AnonA_polar
   module: Example
   identifier: AnonA_polar
@@ -41,12 +47,6 @@ types:
   cname: struct DimB
   module: Example
   identifier: DimB
-  instances:
-  - Storable
-- headers: unions.h
-  cname: union AnonA
-  module: Example
-  identifier: AnonA
   instances:
   - Storable
 - headers: unions.h

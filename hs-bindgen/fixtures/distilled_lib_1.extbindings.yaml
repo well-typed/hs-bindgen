@@ -28,6 +28,14 @@ types:
   - Show
   - Storable
 - headers: distilled_lib_1.h
+  cname: struct a_typedef_struct
+  module: Example
+  identifier: A_typedef_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: distilled_lib_1.h
   cname: a_typedef_struct_t
   module: Example
   identifier: A_typedef_struct_t
@@ -79,14 +87,6 @@ types:
   - Integral
   - Num
   - Real
-  - Storable
-- headers: distilled_lib_1.h
-  cname: struct a_typedef_struct
-  module: Example
-  identifier: A_typedef_struct
-  instances:
-  - Eq
-  - Show
   - Storable
 - headers: distilled_lib_1.h
   cname: uint16_t

@@ -2,6 +2,7 @@ module HsBindgen.Errors (
     HsBindgenException (..),
     hsBindgenExceptionToException,
     hsBindgenExceptionFromException,
+    MultiException (..),
     TODOException (..),
     throwPure_TODO,
     throwIO_TODO,
@@ -11,9 +12,10 @@ module HsBindgen.Errors (
     pleaseReport,
 ) where
 
-import GHC.Stack (CallStack, callStack, prettyCallStack)
 import Control.Exception (SomeException (..), Exception (..), throw)
 import Data.Typeable (cast)
+import GHC.Stack (CallStack, callStack, prettyCallStack)
+
 import HsBindgen.Imports
 
 -------------------------------------------------------------------------------
@@ -37,6 +39,19 @@ hsBindgenExceptionFromException x = do
 
 instance Exception HsBindgenException where
     displayException (HsBindgenException e) = displayException e
+
+-------------------------------------------------------------------------------
+-- MultiException
+-------------------------------------------------------------------------------
+
+newtype MultiException a = MultiException { getMultiExceptions :: [a] }
+    deriving newtype (Functor, Monoid, Semigroup)
+
+instance Exception a => Exception (MultiException a) where
+    displayException = unlines . map displayException . getMultiExceptions
+
+instance Show a => Show (MultiException a) where
+    show = ("MultiException " ++) . show . getMultiExceptions
 
 -------------------------------------------------------------------------------
 -- TODOs

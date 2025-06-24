@@ -39,7 +39,7 @@ import HsBindgen.Language.C qualified as C
 --
 -- This graph has edges from def sites to use sites.
 newtype DeclUseGraph = Wrap {
-      unwrap :: DynGraph Usage (C.QualId Parse)
+      unwrap :: DynGraph Usage QualDeclId
     }
   deriving stock (Show, Eq)
 
@@ -55,12 +55,12 @@ fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
-    UsedByNamed Usage (CName, C.NameKind)
+    UsedByNamed Usage C.QualName
   | UsedByAnon Usage UseOfDecl
   deriving stock (Show)
 
 -- | Find direct or indirect use by a named declaration, if it exists
-findNamedUseOf :: DeclIndex -> DeclUseGraph -> C.QualId Parse -> Maybe UseOfDecl
+findNamedUseOf :: DeclIndex -> DeclUseGraph -> QualDeclId -> Maybe UseOfDecl
 findNamedUseOf declIndex (Wrap graph) =
       flip evalState id
     . DynGraph.findTrailFrom
@@ -71,17 +71,17 @@ findNamedUseOf declIndex (Wrap graph) =
          [(C.Decl Parse, Usage)] -- ^ Direct use sites
       -> State
            (UseOfDecl -> UseOfDecl)
-           (Either (C.QualId Parse) (Maybe UseOfDecl))
+           (Either QualDeclId (Maybe UseOfDecl))
     aux [(d, u)] = do
         case uid of
           DeclNamed name -> do
             f <- get
-            return $ Right . Just $ f (UsedByNamed u (name, nk))
+            return $ Right . Just $ f (UsedByNamed u (C.QualName name nk))
           DeclAnon _anonId -> do
             modify (. UsedByAnon u)
             return $ Left qid
       where
-        qid@(C.QualId uid nk) = C.declQualId d
+        qid@(QualDeclId uid nk) = declQualDeclId d
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =
@@ -91,11 +91,11 @@ findNamedUseOf declIndex (Wrap graph) =
   Query: aliases of declarations
 -------------------------------------------------------------------------------}
 
-findAliasesOf :: DeclUseGraph -> C.QualId Parse -> [CName]
+findAliasesOf :: DeclUseGraph -> QualDeclId -> [CName]
 findAliasesOf (Wrap graph) =
     mapMaybe (uncurry aux) . Set.toList . DynGraph.neighbors graph
   where
-    aux :: C.QualId Parse -> Usage -> Maybe CName
-    aux (C.QualId (DeclNamed cname) _) (UsedInTypedef UseDeclGraph.ByValue) =
+    aux :: QualDeclId -> Usage -> Maybe CName
+    aux (QualDeclId (DeclNamed cname) _) (UsedInTypedef UseDeclGraph.ByValue) =
       Just cname
     aux _ _ = Nothing

@@ -3,17 +3,20 @@ module HsBindgen.Language.C.Name (
     AnonId(..)
   , CName(..)
   , NameKind(..)
+  , QualName(..)
+  , qualNameText
+  , parseQualName
   , NameOrigin(..)
   ) where
 
-import Data.Text (unpack)
+import Data.Text qualified as Text
 
 import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
-  Names and namespaces
+  AnonId
 -------------------------------------------------------------------------------}
 
 -- | Identity of an anonymous declaration
@@ -22,6 +25,10 @@ newtype AnonId = AnonId SingleLoc
 
 instance PrettyTrace AnonId where
   prettyTrace (AnonId loc) = "<" ++ show loc ++ ">"
+
+{-------------------------------------------------------------------------------
+  CName
+-------------------------------------------------------------------------------}
 
 -- TODO Rename CName to Name, for qualified import
 
@@ -37,7 +44,11 @@ newtype CName = CName {
   deriving stock (Generic)
 
 instance PrettyTrace CName where
-  prettyTrace (CName name) = unpack name
+  prettyTrace = Text.unpack . getCName
+
+{-------------------------------------------------------------------------------
+  NameKind
+-------------------------------------------------------------------------------}
 
 -- | C name kind
 --
@@ -67,6 +78,40 @@ data NameKind =
 
 instance PrettyTrace NameKind where
   prettyTrace = show
+
+{-------------------------------------------------------------------------------
+  QualName
+-------------------------------------------------------------------------------}
+
+data QualName = QualName {
+      qualNameName :: CName
+    , qualNameKind :: NameKind
+    }
+  deriving stock (Eq, Generic, Ord, Show)
+
+instance PrettyTrace QualName where
+  prettyTrace = Text.unpack . qualNameText
+
+qualNameText :: QualName -> Text
+qualNameText QualName{..} =
+    let prefix = case qualNameKind of
+          NameKindOrdinary -> ""
+          NameKindStruct   -> "struct "
+          NameKindUnion    -> "union "
+          NameKindEnum     -> "enum "
+    in  prefix <> getCName qualNameName
+
+parseQualName :: Text -> Maybe QualName
+parseQualName t = case Text.words t of
+    [n]           -> Just $ QualName (CName n) NameKindOrdinary
+    ["struct", n] -> Just $ QualName (CName n) NameKindStruct
+    ["union",  n] -> Just $ QualName (CName n) NameKindUnion
+    ["enum",   n] -> Just $ QualName (CName n) NameKindEnum
+    _otherwise    -> Nothing
+
+{-------------------------------------------------------------------------------
+  NameOrigin
+-------------------------------------------------------------------------------}
 
 -- | C name origin
 --

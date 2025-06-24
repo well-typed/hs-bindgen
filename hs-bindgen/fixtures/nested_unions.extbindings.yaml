@@ -1,11 +1,5 @@
 types:
 - headers: nested_unions.h
-  cname: exB_fieldB1
-  module: Example
-  identifier: ExB_fieldB1
-  instances:
-  - Storable
-- headers: nested_unions.h
   cname: struct exA
   module: Example
   identifier: ExA
@@ -15,6 +9,12 @@ types:
   cname: struct exB
   module: Example
   identifier: ExB
+  instances:
+  - Storable
+- headers: nested_unions.h
+  cname: exB_fieldB1
+  module: Example
+  identifier: ExB_fieldB1
   instances:
   - Storable
 - headers: nested_unions.h

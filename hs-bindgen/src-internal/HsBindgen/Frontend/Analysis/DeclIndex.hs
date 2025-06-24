@@ -35,7 +35,7 @@ import HsBindgen.Util.Tracer
 --
 -- This excludes declarations that were not excluded by the selection predicate.
 newtype DeclIndex = Wrap {
-      unwrap :: Map (C.QualId Parse) (C.Decl Parse)
+      unwrap :: Map QualDeclId (C.Decl Parse)
     }
   deriving stock (Show, Eq)
 
@@ -45,8 +45,8 @@ newtype DeclIndex = Wrap {
 
 -- | Construction state (internal type)
 data PartialIndex = PartialIndex{
-      index  :: !(Map (C.QualId Parse) (C.Decl Parse))
-    , errors :: !(Map (C.QualId Parse) DeclIndexError)
+      index  :: !(Map QualDeclId (C.Decl Parse))
+    , errors :: !(Map QualDeclId DeclIndexError)
     }
 
 fromDecls :: [C.Decl Parse] -> (DeclIndex, [DeclIndexError])
@@ -76,8 +76,8 @@ fromDecls decls =
                          Just e  -> Map.insert qid e errors
             }
      where
-       qid :: C.QualId Parse
-       qid = C.declQualId decl
+       qid :: QualDeclId
+       qid = declQualDeclId decl
 
     insert ::
          C.Decl Parse
@@ -100,7 +100,7 @@ fromDecls decls =
                 -- for macros; for other kinds of declarations, clang will have
                 -- reported an error already.
                 failure $ Redeclaration{
-                    redeclarationId  = C.declQualId new
+                    redeclarationId  = declQualDeclId new
                   , redeclarationOld = C.declLoc $ C.declInfo old
                   , redeclarationNew = C.declLoc $ C.declInfo new
                   }
@@ -131,7 +131,7 @@ sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
 
 data DeclIndexError =
     Redeclaration {
-        redeclarationId  :: C.QualId Parse
+        redeclarationId  :: QualDeclId
       , redeclarationOld :: SingleLoc
       , redeclarationNew :: SingleLoc
       }
@@ -157,10 +157,10 @@ instance HasDefaultLogLevel DeclIndexError where
   Query
 -------------------------------------------------------------------------------}
 
-lookup :: C.QualId Parse -> DeclIndex -> Maybe (C.Decl Parse)
-lookup uid = Map.lookup uid . unwrap
+lookup :: QualDeclId -> DeclIndex -> Maybe (C.Decl Parse)
+lookup qid = Map.lookup qid . unwrap
 
-(!) :: HasCallStack => DeclIndex -> C.QualId Parse -> C.Decl Parse
-(!) ud uid =
-    fromMaybe (panicPure $ "Unknown key: " ++ show uid) $
-       lookup uid ud
+(!) :: HasCallStack => DeclIndex -> QualDeclId -> C.Decl Parse
+(!) declIndex qid =
+    fromMaybe (panicPure $ "Unknown key: " ++ show qid) $
+       lookup qid declIndex

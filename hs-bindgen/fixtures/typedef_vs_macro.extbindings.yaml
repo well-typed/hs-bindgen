@@ -1,5 +1,13 @@
 types:
 - headers: typedef_vs_macro.h
+  cname: struct ExampleStruct
+  module: Example
+  identifier: ExampleStruct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_vs_macro.h
   cname: M1
   module: Example
   identifier: M1
@@ -87,14 +95,6 @@ types:
   - Integral
   - Num
   - Real
-  - Storable
-- headers: typedef_vs_macro.h
-  cname: struct ExampleStruct
-  module: Example
-  identifier: ExampleStruct
-  instances:
-  - Eq
-  - Show
   - Storable
 - headers: typedef_vs_macro.h
   cname: struct foo

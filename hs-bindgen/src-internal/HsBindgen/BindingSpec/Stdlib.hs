@@ -16,7 +16,9 @@ import Data.Set qualified as Set
 
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
@@ -31,7 +33,7 @@ bindings = BindingSpec.BindingSpec{bindingSpecTypes}
   where
     bindingSpecTypes ::
       Map
-        BindingSpec.CSpelling
+        C.QualName
         [(Set CHeaderIncludePath, BindingSpec.Omittable BindingSpec.TypeSpec)]
     bindingSpecTypes = Map.fromList [
         -- Integral types
@@ -161,15 +163,16 @@ mkH :: [FilePath] -> Set CHeaderIncludePath
 mkH = Set.fromList . map CHeaderSystemIncludePath
 
 mkT ::
-     BindingSpec.CSpelling
+     Text
   -> HsIdentifier
   -> [HsTypeClass]
   -> Set CHeaderIncludePath
-  -> ( BindingSpec.CSpelling
+  -> ( C.QualName
      , [(Set CHeaderIncludePath , BindingSpec.Omittable BindingSpec.TypeSpec)]
      )
-mkT spelling hsId insts headers =
-    (spelling,) . pure . (headers,) $ BindingSpec.Require typeSpec
+mkT t hsId insts headers = case C.parseQualName t of
+    Just cQualName -> (cQualName, [(headers, BindingSpec.Require typeSpec)])
+    Nothing -> panicPure $ "invalid qualified name: " ++ show t
   where
     typeSpec :: BindingSpec.TypeSpec
     typeSpec = BindingSpec.TypeSpec {

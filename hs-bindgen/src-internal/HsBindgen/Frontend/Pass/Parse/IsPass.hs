@@ -5,6 +5,8 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , isNamedDecl
   , isAnonDecl
   , getDeclId
+  , QualDeclId(..)
+  , declQualDeclId
     -- * Macros
   , UnparsedMacro(..)
   , ReparseInfo(..)
@@ -26,6 +28,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -97,7 +100,7 @@ getDeclId curr = do
 -- | Check if the cursor is for a non-tagged declaration
 --
 -- This function returns 'True' if the cursor is for a @struct@, @union@, or
--- @enum@ declaration and the underlying tokens starts with that keyword and a
+-- @enum@ declaration and the underlying tokens start with that keyword and a
 -- left bracket.
 isNotTagged :: MonadIO m => CXCursor -> m Bool
 isNotTagged curr = do
@@ -127,6 +130,23 @@ isNotTagged curr = do
 instance PrettyTrace DeclId where
   prettyTrace (DeclNamed name)   = prettyTrace name
   prettyTrace (DeclAnon  anonId) = prettyTrace anonId
+
+-- | Qualified declaration identity
+data QualDeclId = QualDeclId DeclId C.NameKind
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyTrace QualDeclId where
+  prettyTrace (QualDeclId declId cNameKind) =
+    let prefix = case cNameKind of
+          C.NameKindOrdinary -> ""
+          C.NameKindStruct   -> "struct "
+          C.NameKindUnion    -> "union "
+          C.NameKindEnum     -> "enum "
+    in  prefix <> prettyTrace declId
+
+declQualDeclId :: Id p ~ DeclId => C.Decl p -> QualDeclId
+declQualDeclId C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
+    QualDeclId declId (C.declKindNameKind declKind)
 
 {-------------------------------------------------------------------------------
   Macros

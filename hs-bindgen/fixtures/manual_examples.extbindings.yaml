@@ -1,5 +1,15 @@
 types:
 - headers: manual_examples.h
+  cname: enum CXCursorKind
+  module: Example
+  identifier: CXCursorKind
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: manual_examples.h
   cname: DAY
   module: Example
   identifier: DAY
@@ -16,6 +26,16 @@ types:
   - Integral
   - Num
   - Real
+  - Storable
+- headers: manual_examples.h
+  cname: enum HTTP_status
+  module: Example
+  identifier: HTTP_status
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
   - Storable
 - headers: manual_examples.h
   cname: MONTH
@@ -124,23 +144,11 @@ types:
   - Real
   - Storable
 - headers: manual_examples.h
-  cname: enum CXCursorKind
+  cname: struct date
   module: Example
-  identifier: CXCursorKind
+  identifier: Date
   instances:
   - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: enum HTTP_status
-  module: Example
-  identifier: HTTP_status
-  instances:
-  - Eq
-  - Ord
-  - Read
   - Show
   - Storable
 - headers: manual_examples.h
@@ -154,6 +162,14 @@ types:
   - Show
   - Storable
 - headers: manual_examples.h
+  cname: struct employee
+  module: Example
+  identifier: Employee
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
   cname: enum index
   module: Example
   identifier: Index
@@ -161,6 +177,40 @@ types:
   - Eq
   - Ord
   - Read
+  - Show
+  - Storable
+- headers: manual_examples.h
+  cname: union occupation
+  module: Example
+  identifier: Occupation
+  instances:
+  - Storable
+- headers: manual_examples.h
+  cname: struct person
+  module: Example
+  identifier: Person
+- headers: manual_examples.h
+  cname: struct rect
+  module: Example
+  identifier: Rect
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
+  cname: rect_lower_left
+  module: Example
+  identifier: Rect_lower_left
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
+  cname: rect_upper_right
+  module: Example
+  identifier: Rect_upper_right
+  instances:
+  - Eq
   - Show
   - Storable
 - headers: manual_examples.h
@@ -184,71 +234,9 @@ types:
   - Show
   - Storable
 - headers: manual_examples.h
-  cname: enum vote
-  module: Example
-  identifier: Vote
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: rect_lower_left
-  module: Example
-  identifier: Rect_lower_left
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: rect_upper_right
-  module: Example
-  identifier: Rect_upper_right
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: struct date
-  module: Example
-  identifier: Date
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: struct employee
-  module: Example
-  identifier: Employee
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: struct person
-  module: Example
-  identifier: Person
-- headers: manual_examples.h
-  cname: struct rect
-  module: Example
-  identifier: Rect
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
   cname: struct student
   module: Example
   identifier: Student
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: manual_examples.h
-  cname: struct triple
-  module: Example
-  identifier: Triple
   instances:
   - Eq
   - Show
@@ -272,10 +260,22 @@ types:
   - Real
   - Storable
 - headers: manual_examples.h
-  cname: union occupation
+  cname: struct triple
   module: Example
-  identifier: Occupation
+  identifier: Triple
   instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
+  cname: enum vote
+  module: Example
+  identifier: Vote
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
   - Storable
 - headers: manual_examples.h
   cname: 数字

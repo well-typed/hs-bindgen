@@ -165,8 +165,8 @@ instance HandleUseSites C.Type where
       go (C.TypeEnum name origin)         = C.TypeEnum name origin
       go (C.TypeMacroTypedef name origin) = C.TypeMacroTypedef name origin
       go (C.TypeVoid)                     = C.TypeVoid
-      go (C.TypeExtBinding cSpelling extHsRef typeSpec) =
-          C.TypeExtBinding cSpelling extHsRef typeSpec
+      go (C.TypeExtBinding cQualName extHsRef typeSpec) =
+          C.TypeExtBinding cQualName extHsRef typeSpec
 
       -- Recursive cases
 

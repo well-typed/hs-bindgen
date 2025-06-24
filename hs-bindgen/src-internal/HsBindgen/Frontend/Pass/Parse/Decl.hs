@@ -476,8 +476,8 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclStruct struct -> C.structFields struct
           _otherwise          -> []
 
-    fieldDeps :: [C.QualId Parse]
+    fieldDeps :: [QualDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = C.declQualId decl `elem` fieldDeps
+    declIsUsed decl = declQualDeclId decl `elem` fieldDeps

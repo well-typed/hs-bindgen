@@ -10,6 +10,8 @@ module HsBindgen.Frontend.AST.Internal (
   , Decl(..)
   , DeclInfo(..)
   , DeclKind(..)
+  , declKindNameKind
+  , declQualName
   , Struct(..)
   , StructField(..)
   , Union(..)
@@ -24,9 +26,6 @@ module HsBindgen.Frontend.AST.Internal (
   , CheckedMacroExpr(..)
     -- * Types (at use sites)
   , Type(..)
-    -- * Qualified names
-  , QualId(..)
-  , declQualId
     -- * Show
   , ValidPass
   ) where
@@ -44,7 +43,6 @@ import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell (ExtHsRef)
-import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -106,6 +104,22 @@ data DeclKind p =
   | DeclEnumOpaque
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
+
+declKindNameKind :: DeclKind p -> NameKind
+declKindNameKind = \case
+    DeclStruct{}       -> NameKindStruct
+    DeclStructOpaque{} -> NameKindStruct
+    DeclUnion{}        -> NameKindUnion
+    DeclUnionOpaque{}  -> NameKindUnion
+    DeclTypedef{}      -> NameKindOrdinary
+    DeclEnum{}         -> NameKindEnum
+    DeclEnumOpaque{}   -> NameKindEnum
+    DeclMacro{}        -> NameKindOrdinary
+    DeclFunction{}     -> NameKindOrdinary
+
+declQualName :: Id p ~ CName => Decl p -> C.QualName
+declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
+    C.QualName declId (declKindNameKind declKind)
 
 data Struct p = Struct {
       structSizeof    :: Int
@@ -239,42 +253,7 @@ data Type p =
   | TypeIncompleteArray (Type p)
 
     -- | TODO: Docs
-  | TypeExtBinding BindingSpec.CSpelling ExtHsRef BindingSpec.TypeSpec
-
-{-------------------------------------------------------------------------------
-  Qualified names
--------------------------------------------------------------------------------}
-
-data QualId p = QualId (Id p) C.NameKind
-
-deriving instance Show (Id p) => Show (QualId p)
-deriving instance Eq   (Id p) => Eq   (QualId p)
-deriving instance Ord  (Id p) => Ord  (QualId p)
-
-instance (PrettyTrace (Id p)) => PrettyTrace (QualId p) where
-  prettyTrace (QualId x nameKind) =
-    let prefix = case nameKind of
-          NameKindOrdinary -> ""
-          NameKindStruct   -> "struct "
-          NameKindUnion    -> "union "
-          NameKindEnum     -> "enum "
-    in  prefix <> prettyTrace x
-
-declNameKind :: DeclKind p -> NameKind
-declNameKind = \case
-    DeclStruct{}       -> NameKindStruct
-    DeclStructOpaque{} -> NameKindStruct
-    DeclUnion{}        -> NameKindUnion
-    DeclUnionOpaque{}  -> NameKindUnion
-    DeclEnum{}         -> NameKindEnum
-    DeclEnumOpaque{}   -> NameKindEnum
-    DeclTypedef{}      -> NameKindOrdinary
-    DeclMacro{}        -> NameKindOrdinary
-    DeclFunction{}     -> NameKindOrdinary
-
-declQualId :: Decl p -> QualId p
-declQualId Decl{declInfo = DeclInfo{declId}, declKind} =
-    QualId (declId) (declNameKind declKind)
+  | TypeExtBinding C.QualName ExtHsRef BindingSpec.TypeSpec
 
 {-------------------------------------------------------------------------------
   Instances

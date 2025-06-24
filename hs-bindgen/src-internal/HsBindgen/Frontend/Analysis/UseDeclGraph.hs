@@ -21,7 +21,6 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
 
 import Data.List qualified as List
 import Data.Map qualified as Map
-import Data.Ord (comparing)
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -46,11 +45,11 @@ import HsBindgen.Imports
 -- Whenever declaration A uses (depends on) declaration B, there will be
 -- an edge from A to B in this graph.
 newtype UseDeclGraph = Wrap {
-      unwrap :: DynGraph Usage (C.QualId Parse)
+      unwrap :: DynGraph Usage QualDeclId
     }
   deriving stock (Show, Eq)
 
-toDynGraph :: UseDeclGraph -> DynGraph Usage (C.QualId Parse)
+toDynGraph :: UseDeclGraph -> DynGraph Usage QualDeclId
 toDynGraph = unwrap
 
 {-------------------------------------------------------------------------------
@@ -59,8 +58,7 @@ toDynGraph = unwrap
 
 fromDecls :: IncludeGraph -> [C.Decl Parse] -> UseDeclGraph
 fromDecls includeGraph decls =
-      fromSortedDecls $
-        List.sortBy (comparing $ annSortKey sourceMap) decls
+      fromSortedDecls $ List.sortOn (annSortKey sourceMap) decls
   where
     sourcePaths :: [SourcePath]
     sourcePaths = IncludeGraph.toSortedList includeGraph
@@ -73,21 +71,21 @@ fromSortedDecls decls = Wrap $
     -- We first insert all declarations, so that they are assigned vertices.
     -- Since we do this in source order, this ensures that we preserve source
     -- order as much as possible in 'toDecls' (modulo dependencies).
-    let vertices :: DynGraph Usage (C.QualId Parse)
+    let vertices :: DynGraph Usage QualDeclId
         vertices = foldl' (flip addVertex) DynGraph.empty decls
     in foldl' (flip addEdges) vertices decls
   where
     addVertex, addEdges ::
          C.Decl Parse
-      -> DynGraph Usage (C.QualId Parse) -> DynGraph Usage (C.QualId Parse)
-    addVertex d g = DynGraph.insertVertex (C.declQualId d) g
+      -> DynGraph Usage QualDeclId -> DynGraph Usage QualDeclId
+    addVertex d g = DynGraph.insertVertex (declQualDeclId d) g
     addEdges  d g = foldl' (flip (addEdge d)) g (depsOfDecl $ C.declKind d)
 
     addEdge ::
          C.Decl Parse
-      -> (Usage, C.QualId Parse)
-      -> DynGraph Usage (C.QualId Parse) -> DynGraph Usage (C.QualId Parse)
-    addEdge d (l, d') = DynGraph.insertEdge (C.declQualId d) l d'
+      -> (Usage, QualDeclId)
+      -> DynGraph Usage QualDeclId -> DynGraph Usage QualDeclId
+    addEdge d (l, d') = DynGraph.insertEdge (declQualDeclId d) l d'
 
 {-------------------------------------------------------------------------------
   Query

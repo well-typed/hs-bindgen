@@ -9,6 +9,7 @@ import Control.Monad.RWS (MonadReader, MonadState, RWS)
 import Control.Monad.RWS qualified as RWS
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 
 import Clang.HighLevel.Types
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
@@ -55,26 +56,28 @@ resolveBindingSpec
       }
 
 data BindingSpecError =
-    BindingSpecExtHsRefNoModule BindingSpec.CSpelling
-  | BindingSpecExtHsRefNoIdentifier BindingSpec.CSpelling
-  | BindingSpecOmittedTypeUse BindingSpec.CSpelling
-  | BindingSpecTypeNotUsed BindingSpec.CSpelling
+    BindingSpecExtHsRefNoModule C.QualName
+  | BindingSpecExtHsRefNoIdentifier C.QualName
+  | BindingSpecOmittedTypeUse C.QualName
+  | BindingSpecTypeNotUsed C.QualName
   deriving stock (Show, Eq)
 
 instance Exception BindingSpecError where
   toException = hsBindgenExceptionToException
   fromException = hsBindgenExceptionFromException
   displayException = \case
-    BindingSpecExtHsRefNoModule cspelling ->
-      "no Haskell module specified in " ++ show cspelling
-        ++ " external binding specification"
-    BindingSpecExtHsRefNoIdentifier cspelling ->
-      "no Haskell identifier specified in " ++ show cspelling
-        ++ " external binding specification"
-    BindingSpecOmittedTypeUse cspelling ->
-      "omitted type " ++ show cspelling ++ " used"
-    BindingSpecTypeNotUsed cspelling ->
-      "binding specification for type " ++ show cspelling ++ " not used"
+      BindingSpecExtHsRefNoModule cQualName ->
+        "Haskell module not specified in binding specification: "
+          ++ Text.unpack (C.qualNameText cQualName)
+      BindingSpecExtHsRefNoIdentifier cQualName ->
+        "Haskell identifier not specified in binding specification: "
+          ++ Text.unpack (C.qualNameText cQualName)
+      BindingSpecOmittedTypeUse cQualName ->
+        "type omitted by binding specification used: "
+          ++ Text.unpack (C.qualNameText cQualName)
+      BindingSpecTypeNotUsed cQualName ->
+        "binding specification for type not used: "
+          ++ Text.unpack (C.qualNameText cQualName)
 
 {-------------------------------------------------------------------------------
   Internal: monad
@@ -120,9 +123,9 @@ data MEnv = MEnv {
 
 data MState = MState {
       stateErrors      :: [BindingSpecError] -- ^ Stored in reverse order
-    , stateExtTypes    :: Map (C.QualId NameAnon) (C.Type ResolveBindingSpec)
-    , stateNoConfTypes :: Set BindingSpec.CSpelling
-    , stateOmitTypes   :: Set (C.QualId NameAnon)
+    , stateExtTypes    :: Map C.QualName (C.Type ResolveBindingSpec)
+    , stateNoConfTypes :: Set C.QualName
+    , stateOmitTypes   :: Set C.QualName
     }
   deriving (Show)
 
@@ -140,22 +143,22 @@ insertError e st = st {
     }
 
 insertExtType ::
-     C.QualId NameAnon
+     C.QualName
   -> C.Type ResolveBindingSpec
   -> MState
   -> MState
-insertExtType qualId typ st = st {
-      stateExtTypes = Map.insert qualId typ (stateExtTypes st)
+insertExtType cQualName typ st = st {
+      stateExtTypes = Map.insert cQualName typ (stateExtTypes st)
     }
 
-deleteNoConfType :: BindingSpec.CSpelling -> MState -> MState
-deleteNoConfType cspelling st = st {
-      stateNoConfTypes = Set.delete cspelling (stateNoConfTypes st)
+deleteNoConfType :: C.QualName -> MState -> MState
+deleteNoConfType cQualName st = st {
+      stateNoConfTypes = Set.delete cQualName (stateNoConfTypes st)
     }
 
-insertOmittedType :: C.QualId NameAnon -> MState -> MState
-insertOmittedType qualId st = st {
-      stateOmitTypes = Set.insert qualId (stateOmitTypes st)
+insertOmittedType :: C.QualName -> MState -> MState
+insertOmittedType cQualName st = st {
+      stateOmitTypes = Set.insert cQualName (stateOmitTypes st)
     }
 
 {-------------------------------------------------------------------------------
@@ -180,32 +183,31 @@ resolveTop ::
      C.Decl NameAnon
   -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.TypeSpec))
 resolveTop decl = RWS.ask >>= \MEnv{..} -> do
-    let qualId     = C.declQualId decl
-        cspelling  = qualIdCSpelling qualId
+    let cQualName  = C.declQualName decl
         sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
         declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
-    isExt <- case BindingSpec.lookupTypeSpec cspelling declPaths envExtSpec of
+    isExt <- case BindingSpec.lookupTypeSpec cQualName declPaths envExtSpec of
       Just (BindingSpec.Require typeSpec) ->
-        case getExtHsRef cspelling typeSpec of
+        case getExtHsRef cQualName typeSpec of
           Right extHsRef -> do
-            let ty = C.TypeExtBinding cspelling extHsRef typeSpec
-            RWS.modify' $ insertExtType qualId ty
+            let ty = C.TypeExtBinding cQualName extHsRef typeSpec
+            RWS.modify' $ insertExtType cQualName ty
             return True
           Left e -> do
             RWS.modify' $ insertError e
             return False
       Just BindingSpec.Omit -> do
-        RWS.modify' $ insertError (BindingSpecOmittedTypeUse cspelling)
+        RWS.modify' $ insertError (BindingSpecOmittedTypeUse cQualName)
         return False
       Nothing -> return False
     if isExt
       then return Nothing
-      else case BindingSpec.lookupTypeSpec cspelling declPaths envConfSpec of
+      else case BindingSpec.lookupTypeSpec cQualName declPaths envConfSpec of
         Just (BindingSpec.Require typeSpec) -> do
-          RWS.modify' $ deleteNoConfType cspelling
+          RWS.modify' $ deleteNoConfType cQualName
           return $ Just (decl, Just typeSpec)
         Just BindingSpec.Omit -> do
-          RWS.modify' $ deleteNoConfType cspelling . insertOmittedType qualId
+          RWS.modify' $ deleteNoConfType cQualName . insertOmittedType cQualName
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
 
@@ -363,8 +365,8 @@ instance Resolve C.Type where
       C.TypeVoid -> return C.TypeVoid
       C.TypeConstArray n t -> C.TypeConstArray n <$> resolve t
       C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> resolve t
-      C.TypeExtBinding cSpelling extHsRef typeSpec ->
-        return (C.TypeExtBinding cSpelling extHsRef typeSpec)
+      C.TypeExtBinding cQualName extHsRef typeSpec ->
+        return (C.TypeExtBinding cQualName extHsRef typeSpec)
     where
       aux ::
            (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)
@@ -373,35 +375,33 @@ instance Resolve C.Type where
         -> M (C.Type ResolveBindingSpec)
       aux mk uid nameKind =
         RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
-          let qualId    = C.QualId uid nameKind
-              cspelling = qualIdCSpelling qualId
+          let cQualName = C.QualName uid nameKind
           -- check for type omitted by binding specification
-          when (Set.member qualId stateOmitTypes) $
-            RWS.modify' $ insertError (BindingSpecOmittedTypeUse cspelling)
+          when (Set.member cQualName stateOmitTypes) $
+            RWS.modify' $ insertError (BindingSpecOmittedTypeUse cQualName)
           -- check for selected external binding
-          case Map.lookup qualId stateExtTypes of
+          case Map.lookup cQualName stateExtTypes of
             Just ty -> return ty
             Nothing -> do
               -- check for external binding of non-selected type
-              let k = (uid, nameKind)
-              case NonSelectedDecls.lookup k envNonSelectedDecls of
+              case NonSelectedDecls.lookup cQualName envNonSelectedDecls of
                 Nothing -> return (mk uid)
                 Just sourcePath -> do
                   let declPaths =
                         IncludeGraph.reaches envIncludeGraph sourcePath
-                  case BindingSpec.lookupTypeSpec cspelling declPaths envExtSpec of
+                  case BindingSpec.lookupTypeSpec cQualName declPaths envExtSpec of
                     Just (BindingSpec.Require typeSpec) ->
-                      case getExtHsRef cspelling typeSpec of
+                      case getExtHsRef cQualName typeSpec of
                         Right extHsRef -> do
-                          let ty = C.TypeExtBinding cspelling extHsRef typeSpec
-                          RWS.modify' $ insertExtType qualId ty
+                          let ty = C.TypeExtBinding cQualName extHsRef typeSpec
+                          RWS.modify' $ insertExtType cQualName ty
                           return ty
                         Left e -> do
                           RWS.modify' $ insertError e
                           return (mk uid)
                     Just BindingSpec.Omit -> do
                       RWS.modify' $
-                        insertError (BindingSpecOmittedTypeUse cspelling)
+                        insertError (BindingSpecOmittedTypeUse cQualName)
                       return (mk uid)
                     Nothing -> return (mk uid)
 
@@ -409,19 +409,16 @@ instance Resolve C.Type where
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
 
-qualIdCSpelling :: C.QualId NameAnon -> BindingSpec.CSpelling
-qualIdCSpelling (C.QualId cname nameKind) = BindingSpec.spell nameKind cname
-
 getExtHsRef ::
-     BindingSpec.CSpelling
+     C.QualName
   -> BindingSpec.TypeSpec
   -> Either BindingSpecError ExtHsRef
-getExtHsRef cspelling typeSpec = do
+getExtHsRef cQualName typeSpec = do
     extHsRefModule <-
-      maybe (Left (BindingSpecExtHsRefNoModule cspelling)) Right $
+      maybe (Left (BindingSpecExtHsRefNoModule cQualName)) Right $
         BindingSpec.typeSpecModule typeSpec
     extHsRefIdentifier <-
-      maybe (Left (BindingSpecExtHsRefNoIdentifier cspelling)) Right $
+      maybe (Left (BindingSpecExtHsRefNoIdentifier cQualName)) Right $
         BindingSpec.typeSpecIdentifier typeSpec
     return ExtHsRef{extHsRefModule, extHsRefIdentifier}
 

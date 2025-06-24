@@ -1,9 +1,5 @@
 types:
 - headers: opaque_declaration.h
-  cname: enum quu
-  module: Example
-  identifier: Quu
-- headers: opaque_declaration.h
   cname: struct bar
   module: Example
   identifier: Bar
@@ -27,3 +23,7 @@ types:
   cname: union opaque_union
   module: Example
   identifier: Opaque_union
+- headers: opaque_declaration.h
+  cname: enum quu
+  module: Example
+  identifier: Quu
