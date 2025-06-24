@@ -843,7 +843,7 @@ typ' ctx = go ctx
         goArrayUnknownSize c ty
     go _ (C.TypeFun xs y) =
         foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
-    go _ (C.TypeExtBinding _cSpelling extId ty) =
+    go _ (C.TypeExtBinding _cQualName extId ty) =
         Hs.HsExtBinding extId ty
 
     goPrim :: C.PrimType -> HsPrimType

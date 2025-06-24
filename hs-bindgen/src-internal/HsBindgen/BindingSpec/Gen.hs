@@ -55,9 +55,9 @@ genBindingSpec headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
          Spec
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
-    insertType (cSpelling, oTypeSpec) spec = spec {
+    insertType (cQualName, oTypeSpec) spec = spec {
         BindingSpec.bindingSpecTypes =
-          Map.insert cSpelling [(headers, oTypeSpec)] $
+          Map.insert cQualName [(headers, oTypeSpec)] $
             BindingSpec.bindingSpecTypes spec
       }
 
@@ -68,14 +68,14 @@ genBindingSpec headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
-type Spec = (C.Spelling, BindingSpec.Omittable BindingSpec.TypeSpec)
+type Spec = (C.QualName, BindingSpec.Omittable BindingSpec.TypeSpec)
 
 -- TODO aliases
 getStructSpec :: HsModuleName -> Hs.Struct n -> Spec
 getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
     Nothing -> panicPure "getStructSpec: structOrigin is Nothing"
     Just originDecl ->
-      let cSpelling = getCSpelling (HsOrigin.declInfo originDecl) $
+      let cQualName = getCQualName (HsOrigin.declInfo originDecl) $
             case HsOrigin.declKind originDecl of
               HsOrigin.Struct{} -> C.NameKindStruct
           hsIdentifier = HsIdentifier $ getHsName (Hs.structName hsStruct)
@@ -87,13 +87,13 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
                  BindingSpec.typeSpecInstances typeSpec'
                    <> mkInstSpecs (Hs.structInstances hsStruct)
             }
-      in  (cSpelling, BindingSpec.Require typeSpec)
+      in  (cQualName, BindingSpec.Require typeSpec)
 
 -- TODO aliases
 getEmptyDataSpec :: HsModuleName -> Hs.EmptyData -> Spec
 getEmptyDataSpec hsModuleName edata =
     let originDecl = Hs.emptyDataOrigin edata
-        cSpelling = getCSpelling (HsOrigin.declInfo originDecl) $
+        cQualName = getCQualName (HsOrigin.declInfo originDecl) $
           case HsOrigin.declKind originDecl of
             HsOrigin.OpaqueStruct -> C.NameKindStruct
             HsOrigin.OpaqueEnum   -> C.NameKindEnum
@@ -104,13 +104,13 @@ getEmptyDataSpec hsModuleName edata =
           , typeSpecIdentifier = Just hsIdentifier
           , typeSpecInstances  = Map.empty
           }
-    in  (cSpelling, BindingSpec.Require typeSpec)
+    in  (cQualName, BindingSpec.Require typeSpec)
 
 -- TODO aliases
 getNewtypeSpec :: HsModuleName -> Hs.Newtype -> Spec
 getNewtypeSpec hsModuleName hsNewtype =
     let originDecl = Hs.newtypeOrigin hsNewtype
-        cSpelling = getCSpelling (HsOrigin.declInfo originDecl) $
+        cQualName = getCQualName (HsOrigin.declInfo originDecl) $
           case HsOrigin.declKind originDecl of
             HsOrigin.Enum{}    -> C.NameKindEnum
             HsOrigin.Typedef{} -> C.NameKindOrdinary
@@ -125,15 +125,15 @@ getNewtypeSpec hsModuleName hsNewtype =
               BindingSpec.typeSpecInstances typeSpec'
                 <> mkInstSpecs (Hs.newtypeInstances hsNewtype)
           }
-    in  (cSpelling, BindingSpec.Require typeSpec)
+    in  (cQualName, BindingSpec.Require typeSpec)
 
-getCSpelling :: C.DeclInfo -> C.NameKind -> C.Spelling
-getCSpelling declInfo cNameKind = case C.declOrigin declInfo of
-    C.NameOriginInSource    -> C.Spelling cName cNameKind
+getCQualName :: C.DeclInfo -> C.NameKind -> C.QualName
+getCQualName declInfo cNameKind = case C.declOrigin declInfo of
+    C.NameOriginInSource    -> C.QualName cName cNameKind
     C.NameOriginGenerated{} ->
       let cName' = fromMaybe cName (listToMaybe (C.declAliases declInfo))
-      in  C.Spelling cName' C.NameKindOrdinary
-    C.NameOriginRenamedFrom fromCName -> C.Spelling fromCName cNameKind
+      in  C.QualName cName' C.NameKindOrdinary
+    C.NameOriginRenamedFrom fromCName -> C.QualName fromCName cNameKind
   where
     cName :: CName
     cName = MangleNames.nameC (C.declId declInfo)

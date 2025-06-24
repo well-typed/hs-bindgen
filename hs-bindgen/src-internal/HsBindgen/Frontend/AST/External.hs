@@ -239,7 +239,7 @@ data Type =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray Type
-  | TypeExtBinding C.Spelling ExtHsRef BindingSpec.TypeSpec
+  | TypeExtBinding C.QualName ExtHsRef BindingSpec.TypeSpec
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow Type
 

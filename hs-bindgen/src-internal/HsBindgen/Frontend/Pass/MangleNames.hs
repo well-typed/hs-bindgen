@@ -58,19 +58,19 @@ mangleNames unit =
   even if there are errors.
 -------------------------------------------------------------------------------}
 
-type NameMap = Map (C.QualId HandleTypedefs) HsIdentifier
+type NameMap = Map C.QualName  HsIdentifier
 
 data MangleError =
     CouldNotMangle Text
-  | MissingDeclaration (C.QualId HandleTypedefs)
+  | MissingDeclaration C.QualName
   deriving stock (Show, Eq)
 
 instance PrettyTrace MangleError where
   prettyTrace (CouldNotMangle name) =
     "Could not mangle C name: " <> unpack name
-  prettyTrace (MissingDeclaration qualId) =
+  prettyTrace (MissingDeclaration cQualName) =
       concat [ "Missing declaration: '"
-             , prettyTrace qualId
+             , prettyTrace cQualName
              , "'; did you select the declaration?"
              ]
 
@@ -87,7 +87,7 @@ chooseNames fc decls =
 nameForDecl ::
      FixCandidate Maybe
   -> C.Decl HandleTypedefs
-  -> ((C.QualId HandleTypedefs, HsIdentifier), Maybe MangleError)
+  -> ((C.QualName, HsIdentifier), Maybe MangleError)
 nameForDecl fc decl =
     case typeSpecIdentifier of
       Just hsName -> (choose hsName, Nothing)
@@ -97,8 +97,8 @@ nameForDecl fc decl =
     C.Decl{declInfo = C.DeclInfo{declId = cName}, declKind, declAnn} = decl
     BindingSpec.TypeSpec{typeSpecIdentifier} = declAnn
 
-    choose :: HsIdentifier -> (C.QualId HandleTypedefs, HsIdentifier)
-    choose hsName = (C.declQualId decl, hsName)
+    choose :: HsIdentifier -> (C.QualName, HsIdentifier)
+    choose hsName = (C.declQualName decl, hsName)
 
 fromCName :: forall ns.
      SingNamespace ns
@@ -155,17 +155,17 @@ class MangleDecl a where
        C.DeclInfo NameMangler
     -> a HandleTypedefs -> M (a NameMangler)
 
-mangleQualId :: C.QualId HandleTypedefs -> M NamePair
-mangleQualId qualId@(C.QualId cName _namespace) = do
+mangleQualName :: C.QualName -> M NamePair
+mangleQualName cQualName@(C.QualName cName _namespace) = do
     nm <- asks envNameMap
-    case Map.lookup qualId nm of
+    case Map.lookup cQualName nm of
       Just hsName -> pure $ NamePair cName hsName
       Nothing     -> do
         -- NB: We did not register any declaration with the given ID. This is
         -- most likely because the user did not select the declaration. If the
         -- declaration was completely missing, Clang would have complained
         -- already.
-        modify (MissingDeclaration qualId :)
+        modify (MissingDeclaration cQualName :)
         -- Use a fake Haskell ID.
         pure $ NamePair cName (HsIdentifier "MissingDeclaration")
 
@@ -252,7 +252,7 @@ instance Mangle C.TranslationUnit where
 
 instance Mangle C.Decl where
   mangle decl = do
-      declId' <- mangleQualId (C.declQualId decl)
+      declId' <- mangleQualName (C.declQualName decl)
 
       let info :: C.DeclInfo NameMangler
           info = C.DeclInfo{declId = declId', ..}
@@ -398,16 +398,19 @@ instance MangleDecl C.CheckedMacroType where
 
 instance Mangle C.Type where
   mangle (C.TypeStruct name origin) =
-      (`C.TypeStruct` origin) <$> mangleQualId (C.QualId name C.NameKindStruct)
+      (`C.TypeStruct` origin)
+        <$> mangleQualName (C.QualName name C.NameKindStruct)
   mangle (C.TypeUnion name origin) =
-      (`C.TypeUnion` origin) <$> mangleQualId (C.QualId name C.NameKindUnion)
+      (`C.TypeUnion` origin)
+        <$> mangleQualName (C.QualName name C.NameKindUnion)
   mangle (C.TypeEnum name origin) =
-      (`C.TypeEnum` origin) <$> mangleQualId (C.QualId name C.NameKindEnum)
+      (`C.TypeEnum` origin)
+        <$> mangleQualName (C.QualName name C.NameKindEnum)
   mangle (C.TypeTypedef ref) =
       C.TypeTypedef <$> mangle ref
   mangle (C.TypeMacroTypedef name origin) =
       (`C.TypeMacroTypedef` origin)
-        <$> mangleQualId (C.QualId name C.NameKindOrdinary)
+        <$> mangleQualName (C.QualName name C.NameKindOrdinary)
   mangle (C.TypePointer typ) =
       C.TypePointer <$> mangle typ
   mangle (C.TypeFun args res) =
@@ -424,7 +427,7 @@ instance Mangle C.Type where
 
 instance Mangle RenamedTypedefRef where
   mangle (TypedefRegular name) =
-      TypedefRegular <$> mangleQualId (C.QualId name C.NameKindOrdinary)
+      TypedefRegular <$> mangleQualName (C.QualName name C.NameKindOrdinary)
   mangle (TypedefSquashed cName ty) =
       TypedefSquashed cName <$> mangle ty
 

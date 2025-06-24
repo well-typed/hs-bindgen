@@ -84,12 +84,12 @@ import HsBindgen.Util.Tracer (TraceWithCallStack)
 newtype BindingSpec header = BindingSpec {
       -- | Type specifications
       --
-      -- A C type is identified using a 'C.Spelling' and a set of headers that
-      -- provide the type.  For a given 'C.Spelling', the sets of headers are
+      -- A C type is identified using a 'C.QualName' and a set of headers that
+      -- provide the type.  For a given 'C.QualName', the sets of headers are
       -- disjoint.  The type of this map is therefore equivalent to
-      -- @'Map' 'C.Spelling' ('Map' header 'Omittable' 'TypeSpec')@, but this
+      -- @'Map' 'C.QualName' ('Map' header 'Omittable' 'TypeSpec')@, but this
       -- type is used as an optimization.
-      bindingSpecTypes :: Map C.Spelling [(Set header, Omittable TypeSpec)]
+      bindingSpecTypes :: Map C.QualName [(Set header, Omittable TypeSpec)]
     }
   deriving stock (Eq, Generic, Show)
 
@@ -217,7 +217,7 @@ data ReadBindingSpecException =
   | -- | Invalid C name
     ReadBindingSpecInvalidCName FilePath Text
   | -- | Multiple entries for the same C type
-    ReadBindingSpecConflict FilePath C.Spelling CHeaderIncludePath
+    ReadBindingSpecConflict FilePath C.QualName CHeaderIncludePath
   deriving stock (Show)
 
 instance Exception ReadBindingSpecException where
@@ -237,9 +237,9 @@ instance Exception ReadBindingSpecException where
         "duplicate key in " ++ path ++ ": " ++ Aeson.formatPath jsonPath
     ReadBindingSpecInvalidCName path t ->
       "invalid C name in " ++ path ++ ": " ++ Text.unpack t
-    ReadBindingSpecConflict path cSpelling header ->
+    ReadBindingSpecConflict path cQualName header ->
       "multiple entries in " ++ path ++ " for C type: "
-        ++ Text.unpack (C.spellingText cSpelling)
+        ++ Text.unpack (C.qualNameText cQualName)
         ++ " (" ++ getCHeaderIncludePath header ++ ")"
 
 --------------------------------------------------------------------------------
@@ -260,14 +260,14 @@ instance Exception WriteBindingSpecException where
 -- | Failed to merge binding specifications
 data MergeBindingSpecException =
     -- | Multiple binding specifications for the same C type
-    MergeBindingSpecConflict C.Spelling
+    MergeBindingSpecConflict C.QualName
   deriving stock (Show)
 
 instance Exception MergeBindingSpecException where
   displayException = \case
-    MergeBindingSpecConflict cSpelling ->
+    MergeBindingSpecConflict cQualName ->
       "conflicting binding specifications for C type: "
-        ++ Text.unpack (C.spellingText cSpelling)
+        ++ Text.unpack (C.qualNameText cQualName)
 
 --------------------------------------------------------------------------------
 
@@ -316,13 +316,13 @@ load tracer args stdSpec paths = do
 
 -- | Lookup the @'Omittable' 'TypeSpec'@ associated with a C type
 lookupTypeSpec ::
-     C.Spelling
+     C.QualName
   -> Set SourcePath
   -> ResolvedBindingSpec
   -> Maybe (Omittable TypeSpec)
-lookupTypeSpec cSpelling headers =
+lookupTypeSpec cQualName headers =
         lookupBy (not . Set.disjoint headers)
-    <=< Map.lookup cSpelling . bindingSpecTypes
+    <=< Map.lookup cQualName . bindingSpecTypes
   where
     -- 'List.lookup' using a predicate
     lookupBy :: (a -> Bool) -> [(a, b)] -> Maybe b
@@ -445,25 +445,25 @@ merge = \case
       return BindingSpec{..}
   where
     mergeTypes ::
-         Set C.Spelling
-      -> Map C.Spelling [(Set SourcePath, a)]
-      -> [(C.Spelling, [(Set SourcePath, a)])]
+         Set C.QualName
+      -> Map C.QualName [(Set SourcePath, a)]
+      -> [(C.QualName, [(Set SourcePath, a)])]
       -> Either
            (MultiException MergeBindingSpecException)
-           (Map C.Spelling [(Set SourcePath, a)])
+           (Map C.QualName [(Set SourcePath, a)])
     mergeTypes dupSet acc = \case
       []
         | Set.null dupSet -> Right acc
         | otherwise       -> Left . MultiException $
             MergeBindingSpecConflict <$> Set.toList dupSet
-      (cSpelling, rs):ps ->
-        case Map.insertLookupWithKey (const (++)) cSpelling rs acc of
+      (cQualName, rs):ps ->
+        case Map.insertLookupWithKey (const (++)) cQualName rs acc of
           (Nothing, acc') -> mergeTypes dupSet acc' ps
           (Just ls, acc')
             | Set.disjoint
                 (Set.unions (fst <$> ls))
                 (Set.unions (fst <$> rs)) -> mergeTypes dupSet acc' ps
-            | otherwise -> mergeTypes (Set.insert cSpelling dupSet) acc' ps
+            | otherwise -> mergeTypes (Set.insert cQualName dupSet) acc' ps
 
 {-------------------------------------------------------------------------------
   Auxiliary: Specification files
@@ -601,31 +601,31 @@ fromABindingSpec path ABindingSpec{..} = do
          [AOmittable ATypeSpecMapping]
       -> Either
            (MultiException ReadBindingSpecException)
-           (Map C.Spelling [(Set CHeaderIncludePath, Omittable TypeSpec)])
+           (Map C.QualName [(Set CHeaderIncludePath, Omittable TypeSpec)])
     mkTypeMap =
       mkTypeMapErr . foldr mkTypeMapInsert (Set.empty, Map.empty, Map.empty)
 
     mkTypeMapErr ::
-         (Set Text, Map C.Spelling (Set CHeaderIncludePath), a)
+         (Set Text, Map C.QualName (Set CHeaderIncludePath), a)
       -> Either (MultiException ReadBindingSpecException) a
     mkTypeMapErr (invalids, conflicts, x)
       | Set.null invalids && Map.null conflicts = Right x
       | otherwise = Left . MultiException $
           (ReadBindingSpecInvalidCName path <$> Set.toList invalids) ++
-            [ ReadBindingSpecConflict path cSpelling header
-            | (cSpelling, headers) <- Map.toList conflicts
+            [ ReadBindingSpecConflict path cQualName header
+            | (cQualName, headers) <- Map.toList conflicts
             , header <- Set.toList headers
             ]
 
     mkTypeMapInsert ::
          AOmittable ATypeSpecMapping
       -> ( Set Text
-         , Map C.Spelling (Set CHeaderIncludePath)
-         , Map C.Spelling [(Set CHeaderIncludePath, Omittable TypeSpec)]
+         , Map C.QualName (Set CHeaderIncludePath)
+         , Map C.QualName [(Set CHeaderIncludePath, Omittable TypeSpec)]
          )
       -> ( Set Text
-         , Map C.Spelling (Set CHeaderIncludePath)
-         , Map C.Spelling [(Set CHeaderIncludePath, Omittable TypeSpec)]
+         , Map C.QualName (Set CHeaderIncludePath)
+         , Map C.QualName [(Set CHeaderIncludePath, Omittable TypeSpec)]
          )
     mkTypeMapInsert aoTypeMapping (invalids, conflicts, acc) =
       let (cname, headers, oTypeSpec) = case aoTypeMapping of
@@ -639,29 +639,29 @@ fromABindingSpec path ABindingSpec{..} = do
               in  (aTypeSpecMappingCName, aTypeSpecMappingHeaders, Require typ)
             AOmit ATypeSpecMapping{..} ->
               (aTypeSpecMappingCName, aTypeSpecMappingHeaders, Omit)
-      in  case C.parseSpelling cname of
+      in  case C.parseQualName cname of
             Nothing -> (Set.insert cname invalids, conflicts, acc)
-            Just cSpelling ->
+            Just cQualName ->
               let newV = [(Set.fromList headers, oTypeSpec)]
-                  x = Map.insertLookupWithKey (const (++)) cSpelling newV acc
+                  x = Map.insertLookupWithKey (const (++)) cQualName newV acc
               in  case x of
                     (Nothing,   acc') -> (invalids, conflicts, acc')
                     (Just oldV, acc') ->
                       let conflicts' =
-                            mkTypeMapDup cSpelling newV oldV conflicts
+                            mkTypeMapDup cQualName newV oldV conflicts
                       in  (invalids, conflicts', acc')
 
     mkTypeMapDup ::
-         C.Spelling
+         C.QualName
       -> [(Set CHeaderIncludePath, a)]
       -> [(Set CHeaderIncludePath, a)]
-      -> Map C.Spelling (Set CHeaderIncludePath)
-      -> Map C.Spelling (Set CHeaderIncludePath)
-    mkTypeMapDup cSpelling newV oldV =
+      -> Map C.QualName (Set CHeaderIncludePath)
+      -> Map C.QualName (Set CHeaderIncludePath)
+    mkTypeMapDup cQualName newV oldV =
       case Set.intersection (mconcat (fst <$> newV)) (mconcat (fst <$> oldV)) of
         commonHeaders
           | Set.null commonHeaders -> id
-          | otherwise -> Map.insertWith Set.union cSpelling commonHeaders
+          | otherwise -> Map.insertWith Set.union cQualName commonHeaders
 
     -- duplicates ignored, last value retained
     mkInstanceMap ::
@@ -687,7 +687,7 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
         case oType of
           Require TypeSpec{..} -> ARequire ATypeSpecMapping {
               aTypeSpecMappingHeaders    = Set.toAscList headers
-            , aTypeSpecMappingCName      = C.spellingText cSpelling
+            , aTypeSpecMappingCName      = C.qualNameText cQualName
             , aTypeSpecMappingModule     = typeSpecModule
             , aTypeSpecMappingIdentifier = typeSpecIdentifier
             , aTypeSpecMappingInstances  = [
@@ -708,12 +708,12 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
             }
           Omit -> AOmit ATypeSpecMapping {
               aTypeSpecMappingHeaders    = Set.toAscList headers
-            , aTypeSpecMappingCName      = C.spellingText cSpelling
+            , aTypeSpecMappingCName      = C.qualNameText cQualName
             , aTypeSpecMappingModule     = Nothing
             , aTypeSpecMappingIdentifier = Nothing
             , aTypeSpecMappingInstances  = []
             }
-      | (cSpelling, xs) <- Map.toAscList bindingSpecTypes
+      | (cQualName, xs) <- Map.toAscList bindingSpecTypes
       , (headers, oType) <- xs
       ]
 

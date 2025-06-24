@@ -41,13 +41,12 @@ data RenameEnv = RenameEnv {
     , envDeclUse   :: DeclUseGraph
     }
 
-findNamedUseOf :: RenameEnv -> C.QualId HandleMacros -> Maybe UseOfDecl
+findNamedUseOf :: RenameEnv -> QualDeclId -> Maybe UseOfDecl
 findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qid =
-    DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse (coercePass qid)
+    DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse qid
 
-findAliasesOf :: RenameEnv -> C.QualId HandleMacros -> [CName]
-findAliasesOf RenameEnv{envDeclUse} =
-    DeclUseGraph.findAliasesOf envDeclUse . coercePass
+findAliasesOf :: RenameEnv -> QualDeclId -> [CName]
+findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -77,8 +76,8 @@ nameDecl env decl = do
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{declLoc, declId} = declInfo
 
-    qid :: C.QualId HandleMacros
-    qid = C.declQualId decl
+    qid :: QualDeclId
+    qid = declQualDeclId decl
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -160,18 +159,18 @@ instance NameUseSites C.Type where
       go (C.TypePrim prim) =
           C.TypePrim prim
       go (C.TypeStruct uid _) =
-          let qid = C.QualId uid C.NameKindStruct
+          let qid = QualDeclId uid C.NameKindStruct
           in uncurry C.TypeStruct (nameUseSite qid)
       go (C.TypeUnion uid _) =
-          let qid = C.QualId uid C.NameKindUnion
+          let qid = QualDeclId uid C.NameKindUnion
           in uncurry C.TypeUnion (nameUseSite qid)
       go (C.TypeEnum uid _) =
-          let qid = C.QualId uid C.NameKindEnum
+          let qid = QualDeclId uid C.NameKindEnum
           in uncurry C.TypeEnum (nameUseSite qid)
       go (C.TypeTypedef name) =
           C.TypeTypedef name
       go (C.TypeMacroTypedef uid _) =
-          let qid = C.QualId uid C.NameKindOrdinary
+          let qid = QualDeclId uid C.NameKindOrdinary
           in uncurry C.TypeMacroTypedef (nameUseSite qid)
       go (C.TypePointer ty) =
           C.TypePointer (go ty)
@@ -179,8 +178,8 @@ instance NameUseSites C.Type where
           C.TypeFun (map go args) (go res)
       go (C.TypeVoid) =
           C.TypeVoid
-      go (C.TypeExtBinding cSpelling extHsRef typeSpec) =
-          C.TypeExtBinding cSpelling extHsRef typeSpec
+      go (C.TypeExtBinding cQualName extHsRef typeSpec) =
+          C.TypeExtBinding cQualName extHsRef typeSpec
       go (C.TypeConstArray n ty) =
           C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) =
@@ -189,8 +188,8 @@ instance NameUseSites C.Type where
       -- Rename specific use site
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: C.QualId HandleMacros -> (CName, C.NameOrigin)
-      nameUseSite qid@(C.QualId uid _nameKind) =
+      nameUseSite :: QualDeclId -> (CName, C.NameOrigin)
+      nameUseSite qid@(QualDeclId uid _nameKind) =
           case uid of
             DeclNamed name   -> (name, C.NameOriginInSource)
             DeclAnon  anonId ->
@@ -210,14 +209,14 @@ instance NameUseSites C.Type where
 -- | Construct name for anonymous declaration
 nameForAnon :: UseOfDecl -> CName
 nameForAnon = \case
-      UsedByNamed (UsedInTypedef ByValue) cSpelling ->
-        C.spellingName cSpelling
-      UsedByNamed (UsedInTypedef ByRef) cSpelling ->
-        C.spellingName cSpelling <> "_Deref"
-      UsedByNamed (UsedInField _valOrRef field) cSpelling ->
-        C.spellingName cSpelling <> "_" <> field
-      UsedByNamed (UsedInFunction _valOrRef) cSpelling ->
-        C.spellingName cSpelling
+      UsedByNamed (UsedInTypedef ByValue) cQualName ->
+        C.qualNameName cQualName
+      UsedByNamed (UsedInTypedef ByRef) cQualName ->
+        C.qualNameName cQualName <> "_Deref"
+      UsedByNamed (UsedInField _valOrRef field) cQualName ->
+        C.qualNameName cQualName <> "_" <> field
+      UsedByNamed (UsedInFunction _valOrRef) cQualName ->
+        C.qualNameName cQualName
       UsedByAnon (UsedInTypedef _valOrRef) _useOfAnon ->
         panicPure $ "nameForAnon: unexpected anonymous typedef"
       UsedByAnon (UsedInField _valOrRef field) useOfAnon ->

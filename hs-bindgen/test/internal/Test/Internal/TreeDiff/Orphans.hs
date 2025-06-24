@@ -71,8 +71,8 @@ instance ToExpr C.PrimIntType
 instance ToExpr C.PrimSign
 instance ToExpr C.PrimSignChar
 instance ToExpr C.PrimType
+instance ToExpr C.QualName
 instance ToExpr C.RecordNames
-instance ToExpr C.Spelling
 instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TranslationUnit

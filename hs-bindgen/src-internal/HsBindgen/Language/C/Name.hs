@@ -3,9 +3,9 @@ module HsBindgen.Language.C.Name (
     AnonId(..)
   , CName(..)
   , NameKind(..)
-  , Spelling(..)
-  , spellingText
-  , parseSpelling
+  , QualName(..)
+  , qualNameText
+  , parseQualName
   , NameOrigin(..)
   ) where
 
@@ -80,30 +80,33 @@ instance PrettyTrace NameKind where
   prettyTrace = show
 
 {-------------------------------------------------------------------------------
-  Spelling
+  QualName
 -------------------------------------------------------------------------------}
 
-data Spelling = Spelling {
-      spellingName :: CName
-    , spellingKind :: NameKind
+data QualName = QualName {
+      qualNameName :: CName
+    , qualNameKind :: NameKind
     }
   deriving stock (Eq, Generic, Ord, Show)
 
-spellingText :: Spelling -> Text
-spellingText Spelling{..} =
-    let prefix = case spellingKind of
+instance PrettyTrace QualName where
+  prettyTrace = Text.unpack . qualNameText
+
+qualNameText :: QualName -> Text
+qualNameText QualName{..} =
+    let prefix = case qualNameKind of
           NameKindOrdinary -> ""
           NameKindStruct   -> "struct "
           NameKindUnion    -> "union "
           NameKindEnum     -> "enum "
-    in  prefix <> getCName spellingName
+    in  prefix <> getCName qualNameName
 
-parseSpelling :: Text -> Maybe Spelling
-parseSpelling t = case Text.words t of
-    [n]           -> Just $ Spelling (CName n) NameKindOrdinary
-    ["struct", n] -> Just $ Spelling (CName n) NameKindStruct
-    ["union",  n] -> Just $ Spelling (CName n) NameKindUnion
-    ["enum",   n] -> Just $ Spelling (CName n) NameKindEnum
+parseQualName :: Text -> Maybe QualName
+parseQualName t = case Text.words t of
+    [n]           -> Just $ QualName (CName n) NameKindOrdinary
+    ["struct", n] -> Just $ QualName (CName n) NameKindStruct
+    ["union",  n] -> Just $ QualName (CName n) NameKindUnion
+    ["enum",   n] -> Just $ QualName (CName n) NameKindEnum
     _otherwise    -> Nothing
 
 {-------------------------------------------------------------------------------

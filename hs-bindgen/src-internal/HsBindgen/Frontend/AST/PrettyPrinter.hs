@@ -63,10 +63,10 @@ showsType x (TypeFun args res)        = showsFunctionType (showParen True x) (zi
   named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                  = showString "void " . x
 showsType x (TypeIncompleteArray t)   = showsType (x . showString "[]") t
-showsType x (TypeExtBinding c _ _)    = showCSpelling c . showChar ' ' . x
+showsType x (TypeExtBinding q _ _)    = showCQualName q . showChar ' ' . x
 
-showCSpelling :: C.Spelling -> ShowS
-showCSpelling = showString . Text.unpack . C.spellingText
+showCQualName :: C.QualName -> ShowS
+showCQualName = showString . Text.unpack . C.qualNameText
 
 -- TODO: Currently 'NamePair' contains a 'CName' which /we/ constructed.
 -- We might want to extend 'CName' with an additional field which tells us

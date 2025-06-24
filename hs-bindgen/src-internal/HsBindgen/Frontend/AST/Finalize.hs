@@ -256,8 +256,8 @@ instance Finalize Int.Type where
   finalize (Int.TypeConstArray n typ)        = Ext.TypeConstArray n (finalize typ)
   finalize (Int.TypeIncompleteArray typ)     = Ext.TypeIncompleteArray (finalize typ)
 
-  finalize (Int.TypeExtBinding cSpelling ref typeSpec) =
-      Ext.TypeExtBinding cSpelling ref typeSpec
+  finalize (Int.TypeExtBinding cQualName ref typeSpec) =
+      Ext.TypeExtBinding cQualName ref typeSpec
 
   finalize (Int.TypeMacroTypedef name origin) =
       Ext.TypeMacroTypedef name origin

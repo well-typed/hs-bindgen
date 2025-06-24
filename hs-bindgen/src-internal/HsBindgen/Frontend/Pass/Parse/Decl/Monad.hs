@@ -178,13 +178,13 @@ recordNonSelectedDecl curr = do
     case mNameKind of
       Just nameKind -> getDeclId curr >>= \case
         DeclNamed cname -> do
+          let cQualName = C.QualName cname nameKind
           sourcePath <-
             singleLocPath <$> HighLevel.clang_getCursorLocation' curr
-          wrapEff $ \ParseSupport{parseState} -> do
-            let cSpelling = C.Spelling cname nameKind
+          wrapEff $ \ParseSupport{parseState} ->
             modifyIORef parseState $ \st -> st{
                 stateNonSelectedDecls =
-                  NonSelectedDecls.insert cSpelling sourcePath $
+                  NonSelectedDecls.insert cQualName sourcePath $
                     stateNonSelectedDecls st
               }
         DeclAnon{} -> return ()

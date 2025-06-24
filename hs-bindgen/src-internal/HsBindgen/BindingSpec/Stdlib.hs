@@ -33,7 +33,7 @@ bindings = BindingSpec.BindingSpec{bindingSpecTypes}
   where
     bindingSpecTypes ::
       Map
-        C.Spelling
+        C.QualName
         [(Set CHeaderIncludePath, BindingSpec.Omittable BindingSpec.TypeSpec)]
     bindingSpecTypes = Map.fromList [
         -- Integral types
@@ -167,12 +167,12 @@ mkT ::
   -> HsIdentifier
   -> [HsTypeClass]
   -> Set CHeaderIncludePath
-  -> ( C.Spelling
+  -> ( C.QualName
      , [(Set CHeaderIncludePath , BindingSpec.Omittable BindingSpec.TypeSpec)]
      )
-mkT t hsId insts headers = case C.parseSpelling t of
-    Just cSpelling -> (cSpelling, [(headers, BindingSpec.Require typeSpec)])
-    Nothing -> panicPure $ "invalid spelling: " ++ show t
+mkT t hsId insts headers = case C.parseQualName t of
+    Just cQualName -> (cQualName, [(headers, BindingSpec.Require typeSpec)])
+    Nothing -> panicPure $ "invalid qualified name: " ++ show t
   where
     typeSpec :: BindingSpec.TypeSpec
     typeSpec = BindingSpec.TypeSpec {

@@ -28,7 +28,7 @@ data ValOrRef = ByValue | ByRef
   Get all dependencies
 -------------------------------------------------------------------------------}
 
-depsOfDecl :: DeclKind Parse -> [(Usage, QualId Parse)]
+depsOfDecl :: DeclKind Parse -> [(Usage, QualDeclId)]
 depsOfDecl (DeclStruct Struct{..}) =
     concatMap (depsOfField structFieldName structFieldType) structFields
 depsOfDecl DeclStructOpaque =
@@ -44,8 +44,8 @@ depsOfDecl DeclEnumOpaque =
 depsOfDecl (DeclTypedef ty) =
     map (uncurry aux) $ depsOfTypedef ty
   where
-    aux :: ValOrRef -> QualId Parse -> (Usage, QualId Parse)
-    aux isPtr uid = (UsedInTypedef isPtr, uid)
+    aux :: ValOrRef -> QualDeclId -> (Usage, QualDeclId)
+    aux isPtr qid = (UsedInTypedef isPtr, qid)
 depsOfDecl (DeclMacro _ts) =
     -- We cannot know the dependencies of a macro until we parse it, but we
     -- can't parse it until we have sorted all declarations, which requires
@@ -55,21 +55,21 @@ depsOfDecl (DeclMacro _ts) =
 depsOfDecl (DeclFunction (Function {..})) =
     map (uncurry aux) $ concatMap depsOfType (functionRes : functionArgs)
   where
-    aux :: ValOrRef -> QualId Parse -> (Usage, QualId Parse)
-    aux isPtr uid = (UsedInFunction isPtr, uid)
+    aux :: ValOrRef -> QualDeclId -> (Usage, QualDeclId)
+    aux isPtr qid = (UsedInFunction isPtr, qid)
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a.
      (a Parse -> FieldName Parse)
   -> (a Parse -> Type Parse)
-  -> a Parse -> [(Usage, QualId Parse)]
+  -> a Parse -> [(Usage, QualDeclId)]
 depsOfField getName getType field =
     map (uncurry aux) $ depsOfType $ getType field
   where
-    aux :: ValOrRef -> QualId Parse -> (Usage, QualId Parse)
-    aux isPtr uid = (UsedInField isPtr (getName field), uid)
+    aux :: ValOrRef -> QualDeclId -> (Usage, QualDeclId)
+    aux isPtr qid = (UsedInField isPtr (getName field), qid)
 
-depsOfTypedef :: Typedef Parse -> [(ValOrRef, QualId Parse)]
+depsOfTypedef :: Typedef Parse -> [(ValOrRef, QualDeclId)]
 depsOfTypedef = depsOfType . typedefType
 
 -- | The declarations this type depends on
@@ -78,14 +78,14 @@ depsOfTypedef = depsOfType . typedefType
 --
 -- NOTE: We are only interested in /direct/ dependencies here; transitive
 -- dependencies will materialize when we build the graph.
-depsOfType :: Type Parse -> [(ValOrRef, QualId Parse)]
+depsOfType :: Type Parse -> [(ValOrRef, QualDeclId)]
 depsOfType = \case
     TypePrim{}             -> []
-    TypeStruct uid _       -> [(ByValue, QualId uid C.NameKindStruct)]
-    TypeUnion uid _        -> [(ByValue, QualId uid C.NameKindUnion)]
-    TypeEnum uid _         -> [(ByValue, QualId uid C.NameKindEnum)]
-    TypeTypedef uid        -> [(ByValue, QualId (DeclNamed uid) C.NameKindOrdinary)]
-    TypeMacroTypedef uid _ -> [(ByValue, QualId uid C.NameKindOrdinary)]
+    TypeStruct uid _       -> [(ByValue, QualDeclId uid C.NameKindStruct)]
+    TypeUnion uid _        -> [(ByValue, QualDeclId uid C.NameKindUnion)]
+    TypeEnum uid _         -> [(ByValue, QualDeclId uid C.NameKindEnum)]
+    TypeTypedef uid        -> [(ByValue, QualDeclId (DeclNamed uid) C.NameKindOrdinary)]
+    TypeMacroTypedef uid _ -> [(ByValue, QualDeclId uid C.NameKindOrdinary)]
     TypePointer ty         -> first (const ByRef) <$> depsOfType ty
     TypeFun args res       -> concatMap depsOfType args <> depsOfType res
     TypeVoid               -> []
