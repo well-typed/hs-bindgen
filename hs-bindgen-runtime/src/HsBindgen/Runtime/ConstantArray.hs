@@ -1,12 +1,15 @@
+{-# LANGUAGE ViewPatterns #-}
 module HsBindgen.Runtime.ConstantArray (
     ConstantArray,
     repeat,
+    withPtr,
 ) where
 
-import Prelude (($), Eq, Show, Int, undefined, fromIntegral, (*), return)
+import Prelude (IO, ($), Eq, Show, Int, undefined, fromIntegral, (*), return)
 import GHC.TypeNats (KnownNat, Nat, natVal)
+import Data.Coerce (Coercible, coerce)
 import Data.Proxy (Proxy (..))
-import Foreign.Ptr (castPtr)
+import Foreign.Ptr (Ptr, castPtr)
 import Foreign.ForeignPtr (withForeignPtr, mallocForeignPtr)
 import Foreign.Storable (Storable (..))
 import Foreign.Marshal.Utils (copyBytes)
@@ -22,6 +25,16 @@ type role ConstantArray nominal nominal
 
 repeat :: forall n a. (KnownNat n, Storable a) => a -> ConstantArray n a
 repeat x = CA (VS.replicate (intVal (Proxy @n)) x)
+
+-- | Retrieve the underlying pointer
+--
+-- Coercible abstraction to look through the `newtype`s wrappers of typedefs.
+--
+withPtr :: (Coercible b (ConstantArray n a), Storable a) => b -> (Ptr a -> IO a) -> IO a
+withPtr (coerce -> CA v) k = do
+    -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
+    VS.MVector _ fptr <- VS.thaw v
+    withForeignPtr fptr k
 
 instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
     sizeOf _ = intVal (Proxy @n) * sizeOf (undefined :: a)
