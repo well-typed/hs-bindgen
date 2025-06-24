@@ -1,15 +1,21 @@
+{-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Structs where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.Bitfield
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.FlexibleArrayMember
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.Prelude
+import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
+
+$(CAPI.addCSource "#include \"structs.h\"\nstruct surname *Structs_surname_init (char arg1[]) { return surname_init(arg1); }\nvoid Structs_surname_deinit (struct surname *arg1) { surname_deinit(arg1); }\n")
 
 data Door = Door
   { door_height :: FC.CFloat
@@ -171,14 +177,14 @@ deriving stock instance Show Aula_setup
 deriving stock instance Eq Aula_setup
 
 data Surname = Surname
-  { surname_len :: FC.CInt
+  { surname_len :: HsBindgen.Runtime.Prelude.CSize
   }
 
 instance F.Storable Surname where
 
-  sizeOf = \_ -> (4 :: Int)
+  sizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  alignment = \_ -> (8 :: Int)
 
   peek =
     \ptr0 ->
@@ -198,4 +204,8 @@ deriving stock instance Eq Surname
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Surname where
 
-  flexibleArrayMemberOffset = \_ty0 -> 4
+  flexibleArrayMemberOffset = \_ty0 -> 8
+
+foreign import ccall safe "Structs_surname_init" surname_init :: (F.Ptr FC.CChar) -> IO (F.Ptr Surname)
+
+foreign import ccall safe "Structs_surname_deinit" surname_deinit :: (F.Ptr Surname) -> IO ()

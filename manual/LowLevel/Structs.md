@@ -108,13 +108,11 @@ struct aula1 {
 };
 ```
 
-<!-- TODO: https://github.com/well-typed/hs-bindgen/issues/659 -->
-
-At the moment, `hs-bindgen` can not generate bindings for the above declaration,
-because `libclang` [does not provide enough
-information](https://github.com/llvm/llvm-project/issues/122257). We [plan to
-support implicit fields](https://github.com/well-typed/hs-bindgen/issues/659) in
-the future.
+Somtimes, we refer to such fields as _implicit fields_. `libclang` [does not
+provide enough information about the alignment of implicit
+fields](https://github.com/llvm/llvm-project/issues/122257), and so `hs-bindgen`
+does not support implicit fields yet. We [plan to support implicit
+fields](https://github.com/well-typed/hs-bindgen/issues/659) in the future.
 
 ### Embedded declaration (with variable name)
 
@@ -270,7 +268,18 @@ data WithFlexibleArrayMember element struct = WithFlexibleArrayMember
     }
 ```
 
-> **TODO**: Implement FLAM and use in Haskell code (`RunManual`).
+For example,
+```haskell
+bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_deinit $
+  \ptr -> do
+    (surname :: Surname) <- peek ptr
+    putStrLn $ "The length of the surname is: " <> show (surname_len surname)
+    (surnameWithFlam :: WithFlexibleArrayMember CChar Surname) <-
+      FLAM.peekWithFLAM ptr
+    let name :: Vector CChar
+        name = FLAM.flamExtra surnameWithFlam
+    print $ VS.map castCCharToChar name
+```
 
 ## Opaque structs
 

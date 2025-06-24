@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 /* -------------------------------------------------------------------------- */
 /* Nested structures. */
 
@@ -13,7 +15,9 @@ struct room {
   struct door door2;
 };
 
-/* TODO: https://github.com/well-typed/hs-bindgen/issues/659 */
+/* Embedded anonymous structures lead to an error while generating bindings. */
+/* Issue https://github.com/well-typed/hs-bindgen/issues/659. */
+
 /* /\* Declare nested structure in an embedded way. The embedded structure is */
 /*    anonymous. *\/ */
 /* struct aula1 { */
@@ -49,6 +53,10 @@ struct aula_setup {
 /* Flexible array members. */
 
 struct surname {
-  int len;
+  size_t len;
   char data[];
 };
+
+struct surname *surname_init(char nm[]);
+
+void surname_deinit(struct surname *ptr);
