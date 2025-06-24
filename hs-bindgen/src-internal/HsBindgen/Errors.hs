@@ -2,7 +2,6 @@ module HsBindgen.Errors (
     HsBindgenException (..),
     hsBindgenExceptionToException,
     hsBindgenExceptionFromException,
-    MultiException (..),
     TODOException (..),
     throwPure_TODO,
     throwIO_TODO,
@@ -39,19 +38,6 @@ hsBindgenExceptionFromException x = do
 
 instance Exception HsBindgenException where
     displayException (HsBindgenException e) = displayException e
-
--------------------------------------------------------------------------------
--- MultiException
--------------------------------------------------------------------------------
-
-newtype MultiException a = MultiException { getMultiExceptions :: [a] }
-    deriving newtype (Functor, Monoid, Semigroup)
-
-instance Exception a => Exception (MultiException a) where
-    displayException = unlines . map displayException . getMultiExceptions
-
-instance Show a => Show (MultiException a) where
-    show = ("MultiException " ++) . show . getMultiExceptions
 
 -------------------------------------------------------------------------------
 -- TODOs
