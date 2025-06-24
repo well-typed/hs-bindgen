@@ -2,6 +2,7 @@ module Main (main) where
 
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
+import Control.Monad (foldM, unless)
 import Control.Tracer (Tracer)
 import Data.ByteString qualified as BS
 import Data.Char (isLetter)
@@ -72,7 +73,18 @@ execMode Cli{..} = \case
         =<< translateCHeaders "TODO" opts genTestsInputs
 
     ModeLiterate input output -> execLiterate input output
+
     ModeBindingSpec BindingSpecModeStdlib -> BS.putStr stdlibExtBindingsYaml
+
+    ModeResolve{..} -> do
+      isSuccess <- withTracer $ \tracer ->
+        let tracer' = useTrace TraceExtraClangArgs tracer
+            args    = optsClangArgs cmdOpts
+            step isSuccess header = resolveHeader tracer' args header >>= \case
+              Right path -> isSuccess <$ putStrLn path
+              Left  err  -> False     <$ putStrLn (displayException err)
+        in  foldM step True resolveInputs
+      unless isSuccess exitFailure
   where
     cmdOpts :: Opts
     cmdOpts = def {
