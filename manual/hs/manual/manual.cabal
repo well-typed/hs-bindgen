@@ -21,13 +21,17 @@ executable run-manual
   main-is:         RunManual.hs
   ghc-options:     -main-is RunManual
   hs-source-dirs:  app, generated
-  extra-libraries: example
+  extra-libraries: example, structs
 
   build-depends:
+    -- Internal.
     , c-expr
     , hs-bindgen-runtime
     , hs-game
     , hs-vector
+
+    -- External.
+    , vector
 
   other-modules:
       Example

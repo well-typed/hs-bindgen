@@ -2,13 +2,17 @@
 
 module RunManual (main) where
 
+import Control.Exception (bracket)
+import Data.List (intersperse)
+import Data.Vector.Storable qualified as VS
 import Foreign
+import Foreign.C (castCCharToChar, withCString)
 import Foreign.C qualified as FC
 import System.IO.Unsafe
 import Text.Read (readEither)
 
 import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
-import HsBindgen.Runtime.FlexibleArrayMember (HasFlexibleArrayLength (..))
+import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 
 import Example
 import Structs
@@ -54,7 +58,7 @@ averageTriple triple = unsafePerformIO $
   Structs
 -------------------------------------------------------------------------------}
 
-instance HasFlexibleArrayLength FC.CChar Surname where
+instance FLAM.HasFlexibleArrayLength FC.CChar Surname where
   flexibleArrayMemberLength x = fromIntegral (surname_len x)
 
 {-------------------------------------------------------------------------------
@@ -86,6 +90,9 @@ readEitherIndexWith upperBound x = case readEither x of
 
 main :: IO ()
 main = do
+
+    section "Simple"
+
     --
     -- Simple struct
     --
@@ -99,15 +106,19 @@ main = do
 
     print (indexTriple triple A)
 
+
     --
     -- Typedefs
+    section "Typedefs"
     --
 
     print (sumTriple triple)
     print (averageTriple triple)
 
+
     --
     -- Macros
+    section "Macros"
     --
 
     buffer <- mallocForeignPtrBytes 8
@@ -124,6 +135,7 @@ main = do
 
     --
     -- Unions
+    section "Unions"
     --
 
     do let occupation = set_occupation_student Student{
@@ -141,6 +153,7 @@ main = do
 
     --
     -- Awkward names
+    section "Awkward names"
     --
 
     拜拜
@@ -148,7 +161,8 @@ main = do
     import'
 
     --
-    -- External bindings
+    -- Descriptive binding specifications
+    section "Descriptive binding specifications"
     --
 
     v <- new_vector 2 1
@@ -162,7 +176,23 @@ main = do
     move_player $ Game_state nullPtr
 
     --
+    -- Structs
+    section "Structs"
+    --
+
+    bracket (withCString "Rich" $ \cstr -> surname_alloc cstr) surname_free $
+      \ptr -> do
+        (surname :: Surname) <- peek ptr
+        putStrLn $ "The length of the surname is: " <> show (surname_len surname)
+        (surnameWithFlam :: FLAM.WithFlexibleArrayMember FC.CChar Surname) <-
+          FLAM.peekWithFLAM ptr
+        let name :: VS.Vector FC.CChar
+            name = FLAM.flamExtra surnameWithFlam
+        print $ VS.map castCCharToChar name
+
+    --
     -- Enums
+    section "Enums"
     --
 
     print [Ok, minBound]
@@ -183,3 +213,13 @@ main = do
     print $ (read "HTTP_status 200" :: HTTP_status) == (read "Ok" :: HTTP_status)
     -- Read instance (overriding).
     print $ (readEitherIndexWith 100 "Index (-1)")
+
+{-------------------------------------------------------------------------------
+  Aux
+-------------------------------------------------------------------------------}
+
+section :: String -> IO ()
+section s = do
+  putStrLn ""
+  putStrLn $ "* ̲" <> intersperse '̲' s
+  putStrLn ""

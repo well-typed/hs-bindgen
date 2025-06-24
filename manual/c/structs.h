@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 /* -------------------------------------------------------------------------- */
 /* Nested structures. */
 
@@ -13,15 +15,18 @@ struct room {
   struct door door2;
 };
 
-/* Declare nested structure in an embedded way. The embedded structure is
-   anonymous. */
-struct aula1 {
-  struct {
-    float door_height;
-    float door_width;
-  };
-  int n_doors;
-};
+/* Embedded anonymous structures lead to an error while generating bindings. */
+/* Issue https://github.com/well-typed/hs-bindgen/issues/659. */
+
+/* /\* Declare nested structure in an embedded way. The embedded structure is */
+/*    anonymous. *\/ */
+/* struct aula1 { */
+/*   struct { */
+/*     float door_height; */
+/*     float door_width; */
+/*   }; */
+/*   int n_doors; */
+/* }; */
 
 /* Declare nested structure in an embedded way. The embedded structure has a
    variable name.  */
@@ -48,6 +53,17 @@ struct aula_setup {
 /* Flexible array members. */
 
 struct surname {
-  int len;
+  size_t len;
   char data[];
 };
+
+struct surname *surname_alloc(char nm[]);
+
+void surname_free(struct surname *ptr);
+
+/* -------------------------------------------------------------------------- */
+/* Opaque. */
+
+struct square;
+
+struct square *create_square(double side_length);

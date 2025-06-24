@@ -5,9 +5,9 @@
 module Game.World where
 
 import qualified Game.State
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
 
--- #include "game_world.h"
--- void Game.World_move_world (game_state arg1);
+$(CAPI.addCSource "#include \"game_world.h\"\nvoid GameWorld_move_world (game_state arg1) { move_world(arg1); }\n")
 
-foreign import capi safe "game_world.h move_world" move_world :: Game.State.Game_state -> IO ()
+foreign import ccall safe "GameWorld_move_world" move_world :: Game.State.Game_state -> IO ()

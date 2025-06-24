@@ -1,6 +1,6 @@
 PROJECT_ROOT=../..
 
-default: libexample.so libvector.so libgame.so
+default: libexample.so libvector.so libgame.so libstructs.so
 
 .PHONY: clean
 clean:
@@ -37,4 +37,8 @@ game_world.o: game_world.c game_world.h
 game_player.o: game_player.c game_player.h
 	gcc -Wall -o game_player.o -c -fPIC game_player.c
 
+libstructs.so: structs.o
+	gcc -Wall -o libstructs.so -shared structs.o
 
+structs.o: structs.c structs.h
+	gcc -Wall -o structs.o -c -fPIC structs.c

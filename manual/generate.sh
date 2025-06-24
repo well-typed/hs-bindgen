@@ -2,70 +2,70 @@
 
 PROJECT_ROOT=..
 
-# Basic examples
+echo "Basic examples"
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -i manual_examples.h \
     -I ${PROJECT_ROOT}/hs-bindgen/examples \
     -o hs/manual/generated/Example.hs \
-    --module Example
+    --module Example \
+    manual_examples.h
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -i structs.h \
     -I c \
     -o hs/manual/generated/Structs.hs \
-    --module Structs
+    --module Structs \
+    structs.h
 
-# External bindings: vector example
+echo "External bindings: vector example"
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -i vector.h \
     -I c \
     -o hs/hs-vector/generated/Vector.hs \
     --gen-external-bindings external/vector.yaml \
-    --module Vector
+    --module Vector \
+    vector.h
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -i vector_rotate.h \
     -I c \
     -o hs/hs-vector/generated/Vector/Rotate.hs \
     --external-bindings external/vector.yaml \
-    --module Vector.Rotate
+    --module Vector.Rotate \
+    vector_rotate.h
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -i vector_length.h \
     -I c \
     -o hs/hs-vector/generated/Vector/Length.hs \
     --external-bindings external/vector.yaml \
-    --external-bindings external/length.yaml \
-    --module Vector.Length
+    --module Vector.Length \
+    vector_length.h
 
-# External bindings: game example
+echo "External bindings: game example"
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -i game_internal.h \
     -I c \
     -o hs/hs-game/generated/Game/State.hs \
-    --module Game.State
+    --gen-external-bindings external/game.yaml \
+    --module Game.State \
+    game_internal.h
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -i game_world.h \
     -I c \
     -o hs/hs-game/generated/Game/World.hs \
     --external-bindings external/game.yaml \
-    --module Game.World
+    --module Game.World \
+    game_world.h
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -i game_player.h \
     -I c \
     -o hs/hs-game/generated/Game/Player.hs \
     --external-bindings external/game.yaml \
-    --module Game.Player
+    --module Game.Player \
+    game_player.h

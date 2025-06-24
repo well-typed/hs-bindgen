@@ -44,7 +44,7 @@ struct StructFLAM {
     long numbers[];
 };
 
-static inline struct StructFLAM *flam_init(int n) {
+static inline struct StructFLAM *flam_alloc(int n) {
     struct StructFLAM *ptr = malloc(sizeof(struct StructFLAM) + sizeof(long) * n);
     if (ptr) {
         ptr->length = n;
@@ -55,7 +55,7 @@ static inline struct StructFLAM *flam_init(int n) {
     return ptr;
 }
 
-static inline void flam_deinit(struct StructFLAM *ptr) {
+static inline void flam_free(struct StructFLAM *ptr) {
     free(ptr);
 }
 

@@ -1,4 +1,6 @@
+{-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -9,8 +11,12 @@ module Structs where
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.Bitfield
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.FlexibleArrayMember
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.Prelude
+import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
+
+$(CAPI.addCSource "#include \"structs.h\"\nstruct surname *Structs_surname_alloc (char arg1[]) { return surname_alloc(arg1); }\nvoid Structs_surname_free (struct surname *arg1) { surname_free(arg1); }\nstruct square *Structs_create_square (double arg1) { return create_square(arg1); }\n")
 
 data Door = Door
   { door_height :: FC.CFloat
@@ -69,32 +75,6 @@ instance F.Storable Room where
 deriving stock instance Show Room
 
 deriving stock instance Eq Room
-
-data Aula1 = Aula1
-  { aula1_n_doors :: FC.CInt
-  }
-
-instance F.Storable Aula1 where
-
-  sizeOf = \_ -> (12 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Aula1
-      <*> F.peekByteOff ptr0 (8 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Aula1 aula1_n_doors2 ->
-            F.pokeByteOff ptr0 (8 :: Int) aula1_n_doors2
-
-deriving stock instance Show Aula1
-
-deriving stock instance Eq Aula1
 
 data Aula2_door = Aula2_door
   { aula2_door_height :: FC.CFloat
@@ -198,14 +178,14 @@ deriving stock instance Show Aula_setup
 deriving stock instance Eq Aula_setup
 
 data Surname = Surname
-  { surname_len :: FC.CInt
+  { surname_len :: HsBindgen.Runtime.Prelude.CSize
   }
 
 instance F.Storable Surname where
 
-  sizeOf = \_ -> (4 :: Int)
+  sizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  alignment = \_ -> (8 :: Int)
 
   peek =
     \ptr0 ->
@@ -225,4 +205,12 @@ deriving stock instance Eq Surname
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Surname where
 
-  flexibleArrayMemberOffset = \_ty0 -> 4
+  flexibleArrayMemberOffset = \_ty0 -> 8
+
+foreign import ccall safe "Structs_surname_alloc" surname_alloc :: (F.Ptr FC.CChar) -> IO (F.Ptr Surname)
+
+foreign import ccall safe "Structs_surname_free" surname_free :: (F.Ptr Surname) -> IO ()
+
+data Square
+
+foreign import ccall safe "Structs_create_square" create_square :: FC.CDouble -> IO (F.Ptr Square)
