@@ -28,23 +28,19 @@ cabal run hs-bindgen-cli -- \
     --module Vector \
     vector.h
 
-# TODO: --select-all should not be necessary.
 cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-vector/generated/Vector/Rotate.hs \
     --external-bindings external/vector.yaml \
-    --select-all \
     --module Vector.Rotate \
     vector_rotate.h
 
-# TODO: --select-all should not be necessary.
 cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-vector/generated/Vector/Length.hs \
     --external-bindings external/vector.yaml \
-    --select-all \
     --module Vector.Length \
     vector_length.h
 
