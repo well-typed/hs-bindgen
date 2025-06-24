@@ -97,7 +97,7 @@ test01 = testGroup "test_01"
 
     , testCase "flam" $ do
         let n = 10
-        bracket (Test01.flam_init n) Test01.flam_deinit $ \ptr -> do
+        bracket (Test01.flam_alloc n) Test01.flam_free $ \ptr -> do
             hdr <- peek ptr
             Test01.structFLAM_length hdr @?= n
 

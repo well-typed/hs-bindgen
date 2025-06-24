@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -15,7 +16,7 @@ import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include \"structs.h\"\nstruct surname *Structs_surname_init (char arg1[]) { return surname_init(arg1); }\nvoid Structs_surname_deinit (struct surname *arg1) { surname_deinit(arg1); }\n")
+$(CAPI.addCSource "#include \"structs.h\"\nstruct surname *Structs_surname_alloc (char arg1[]) { return surname_alloc(arg1); }\nvoid Structs_surname_free (struct surname *arg1) { surname_free(arg1); }\nstruct square *Structs_create_square (double arg1) { return create_square(arg1); }\n")
 
 data Door = Door
   { door_height :: FC.CFloat
@@ -206,6 +207,10 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar S
 
   flexibleArrayMemberOffset = \_ty0 -> 8
 
-foreign import ccall safe "Structs_surname_init" surname_init :: (F.Ptr FC.CChar) -> IO (F.Ptr Surname)
+foreign import ccall safe "Structs_surname_alloc" surname_alloc :: (F.Ptr FC.CChar) -> IO (F.Ptr Surname)
 
-foreign import ccall safe "Structs_surname_deinit" surname_deinit :: (F.Ptr Surname) -> IO ()
+foreign import ccall safe "Structs_surname_free" surname_free :: (F.Ptr Surname) -> IO ()
+
+data Square
+
+foreign import ccall safe "Structs_create_square" create_square :: FC.CDouble -> IO (F.Ptr Square)

@@ -180,7 +180,7 @@ main = do
     section "Structs"
     --
 
-    bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_deinit $
+    bracket (withCString "Rich" $ \cstr -> surname_alloc cstr) surname_free $
       \ptr -> do
         (surname :: Surname) <- peek ptr
         putStrLn $ "The length of the surname is: " <> show (surname_len surname)

@@ -18,9 +18,9 @@ struct triple {
 
 ```haskell
 data Triple = Triple
-  { triple_a :: FC.CInt
-  , triple_b :: FC.CInt
-  , triple_c :: FC.CInt
+  { triple_a :: CInt
+  , triple_b :: CInt
+  , triple_c :: CInt
   }
 
 instance F.Storable Triple where ...
@@ -81,8 +81,8 @@ creates the following bindings (instances omitted for brevity):
 
 ```haskell
 data Door = Door
-  { door_height :: FC.CFloat
-  , door_width :: FC.CFloat
+  { door_height :: CFloat
+  , door_width :: CFloat
   }
 
 data Room = Room
@@ -134,13 +134,13 @@ struct aula2 {
 
 ```haskell
 data Aula2_door = Aula2_door
-  { aula2_door_height :: FC.CFloat
-  , aula2_door_width :: FC.CFloat
+  { aula2_door_height :: CFloat
+  , aula2_door_width :: CFloat
   }
 
 data Aula2 = Aula2
   { aula2_door :: Aula2_door
-  , aula2_n_doors :: FC.CInt
+  , aula2_n_doors :: CInt
   }
 ```
 
@@ -166,11 +166,11 @@ structure in their `Storable` instance:
 
 ```haskell
 data Aula_setup = Aula_setup
-  { aula_setup_window_id :: FC.CChar
-  , aula_setup_tilt :: FC.CInt
-  , aula_setup_close_blinds :: FC.CInt
-  , aula_setup_projector_id :: FC.CChar
-  , aula_setup_power_mode :: FC.CInt
+  { aula_setup_window_id :: CChar
+  , aula_setup_tilt :: CInt
+  , aula_setup_close_blinds :: CInt
+  , aula_setup_projector_id :: CChar
+  , aula_setup_power_mode :: CInt
   }
 
 instance F.Storable Aula_setup where
@@ -221,7 +221,7 @@ structure:
 
 ```haskell
 data Surname = Surname
-  { surname_len :: FC.CInt
+  { surname_len :: CInt
   }
 ```
 
@@ -229,7 +229,7 @@ We provide additional tools to handle the FLAM. First, the generated data type
 is instance of `HasFlexibleArrayMember`:
 
 ```haskell
-instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Surname where
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember CChar Surname where
   flexibleArrayMemberOffset = \_ty0 -> 4
 ```
 
@@ -243,13 +243,12 @@ class HasFlexibleArrayMember element struct => HasFlexibleArrayLength element st
 Let us define such an instance:
 
 ```haskell
-instance HasFlexibleArrayLength FC.CChar Surname where
+instance HasFlexibleArrayLength CChar Surname where
   flexibleArrayMemberLength x = fromIntegral (surname_len x)
 ```
 
 Then, we can use the FLAM-specific `peek` and `poke` functions `peekWithFLAM`,
-and `pokeWithFLAM`. The type signatures specialized to `Surname`, and with
-removed `FC` qualifiers are:
+and `pokeWithFLAM`. The type signatures specialized to `Surname` are:
 
 ```haskell
 peekWithFLAM :: (Storable Surname, Storable CChar, HasFlexibleArrayLength CChar Surname)
@@ -264,13 +263,13 @@ where `WithFlexibleArrayMember` combines the structure with the FLAM:
 ```haskell
 data WithFlexibleArrayMember element struct = WithFlexibleArrayMember
     { flamStruct :: struct
-    , flamExtra  :: VS.Vector element
+    , flamExtra  :: Vector element
     }
 ```
 
 For example,
 ```haskell
-bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_deinit $
+bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_free $
   \ptr -> do
     (surname :: Surname) <- peek ptr
     putStrLn $ "The length of the surname is: " <> show (surname_len surname)
@@ -278,9 +277,30 @@ bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_deinit $
       FLAM.peekWithFLAM ptr
     let name :: Vector CChar
         name = FLAM.flamExtra surnameWithFlam
-    print $ VS.map castCCharToChar name
+    print $ Vector.map castCCharToChar name
 ```
 
 ## Opaque structs
 
-> **TODO**.
+Opaque objects conceal their implementation details, providing an interface that
+ensures specific constraints are maintained throughout the object's lifetime.
+For example,
+
+```c
+struct square;
+
+struct square create_square(double side_length);
+```
+
+Consequently, `hs-bindgen` generates an opaque data type, while also generating
+bindings for the provided interface:
+
+```haskell
+data Square
+
+foreign import ccall safe "Structs_create_square" create_square
+  :: CDouble -> IO (Ptr Square)
+```
+
+Note that opaque types do not get a Storable instance, and therefore can not be
+used by value.

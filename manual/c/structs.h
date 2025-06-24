@@ -57,6 +57,13 @@ struct surname {
   char data[];
 };
 
-struct surname *surname_init(char nm[]);
+struct surname *surname_alloc(char nm[]);
 
-void surname_deinit(struct surname *ptr);
+void surname_free(struct surname *ptr);
+
+/* -------------------------------------------------------------------------- */
+/* Opaque. */
+
+struct square;
+
+struct square *create_square(double side_length);

@@ -4,8 +4,8 @@
 
 #include "structs.h"
 
-struct surname *surname_init(char nm[]) {
-  size_t n = strlen(nm) + 1;
+struct surname *surname_alloc(char nm[]) {
+  size_t n = strlen(nm);
   struct surname *ptr = malloc(sizeof(struct surname) + n * sizeof(char));
   if (ptr) {
     ptr->len = n;
@@ -14,4 +14,7 @@ struct surname *surname_init(char nm[]) {
   return ptr;
 }
 
-void surname_deinit(struct surname *ptr) { free(ptr); }
+void surname_free(struct surname *ptr) { free(ptr); }
+
+// Unimplemented.
+struct square *create_square(double side_length) { return NULL; };
