@@ -6,7 +6,6 @@ module HsBindgen.App.Common (
     -- * Input option
   , parseInput
     -- * Auxiliary hs-bindgen functions
-  , loadExtBindings'
   , environmentVariablesFooter
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -14,13 +13,11 @@ module HsBindgen.App.Common (
   ) where
 
 import Control.Exception (Exception (displayException))
-import Control.Tracer (Tracer)
 import Data.Bifunctor (Bifunctor (bimap), first)
 import Data.Char qualified as Char
 import Data.List qualified as List
 import Data.Text (Text)
 import Data.Text qualified as Text
-import GHC.Stack (HasCallStack)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
@@ -265,22 +262,6 @@ parseInput =
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
-
--- | Load exernal bindings, tracing any errors
-loadExtBindings' :: HasCallStack =>
-     Tracer IO (TraceWithCallStack Trace)
-  -> GlobalOpts
-  -> IO ResolvedBindingSpec
-loadExtBindings' tracer GlobalOpts{..} = do
-    (resolveErrs, extBindings) <-
-      loadExtBindings
-        (useTrace TraceExtraClangArgs tracer)
-        globalOptsClangArgs
-        globalOptsStdlibSpecs
-        globalOptsExtBindings
-    mapM_ submitTrace resolveErrs
-    return extBindings
-  where submitTrace = traceWithCallStack (useTrace TraceResolveHeader tracer)
 
 environmentVariablesFooter :: ParserPrefs -> Doc
 environmentVariablesFooter p =

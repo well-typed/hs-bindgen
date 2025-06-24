@@ -21,7 +21,6 @@ module Test.Internal.Tracer
 import Control.Exception (Exception, throwIO)
 import Control.Monad.Except (MonadError (throwError), runExceptT)
 import Control.Monad.IO.Class (MonadIO (liftIO))
-import Control.Tracer (Tracer (..), emit)
 import Data.Dynamic (Typeable)
 import Data.Foldable qualified as Foldable
 import Data.IORef (IORef, modifyIORef', newIORef, readIORef)
@@ -30,7 +29,8 @@ import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
 
 import HsBindgen.Lib (HasDefaultLogLevel (getDefaultLogLevel), Level (..),
-                      PrettyTrace (prettyTrace), TraceWithCallStack (tTrace))
+                      PrettyTrace (prettyTrace), TraceWithCallStack (tTrace),
+                      Tracer (Tracer), emit)
 
 data TraceExpectation = Expected String | Tolerated | Unexpected
   deriving stock (Show, Eq, Ord)

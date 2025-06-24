@@ -1,8 +1,6 @@
 -- | Parse the clang AST
 module HsBindgen.Frontend.Pass.Parse (parseDecls) where
 
-import Control.Tracer (Tracer)
-
 import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 

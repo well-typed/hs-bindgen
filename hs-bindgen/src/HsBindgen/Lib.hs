@@ -65,7 +65,6 @@ module HsBindgen.Lib (
   , FilePath.joinPath
   ) where
 
-import Control.Tracer (Tracer)
 import Data.ByteString (ByteString)
 import System.FilePath qualified as FilePath
 

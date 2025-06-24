@@ -38,7 +38,6 @@ module HsBindgen.Pipeline (
   ) where
 
 import Control.Monad ((<=<))
-import Control.Tracer (Tracer, nullTracer)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
@@ -58,7 +57,6 @@ import HsBindgen.BindingSpec.Gen (genBindingSpec)
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate (..))
-import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.GenTests qualified as GenTests
@@ -68,10 +66,9 @@ import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
-import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
-import HsBindgen.Util.Trace (Trace)
+import HsBindgen.Util.Trace (Trace (TraceExtraClangArgs, TraceResolveHeader))
 import HsBindgen.Util.Tracer
 
 #ifdef MIN_VERSION_th_compat
@@ -233,7 +230,7 @@ hashInclude fps HashIncludeOpts {..} = do
       tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
   extBindings <-
     TH.runIO . withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
-      snd <$> loadExtBindings tracer args UseStdlibBindingSpecs []
+      loadExtBindings tracer args UseStdlibBindingSpecs []
   let opts :: Opts
       opts = def {
           optsClangArgs   = args
@@ -315,12 +312,16 @@ data StdlibBindingSpecs =
 
 -- | Load external bindings
 loadExtBindings ::
-     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+     Tracer IO (TraceWithCallStack Trace)
   -> ClangArgs
   -> StdlibBindingSpecs
   -> [FilePath]
-  -> IO (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
-loadExtBindings tracer args stdlibSpecs = BindingSpec.load tracer args stdSpec
+  -> IO ResolvedBindingSpec
+loadExtBindings tracer args stdlibSpecs =
+    BindingSpec.load
+      (useTrace TraceExtraClangArgs tracer)
+      (useTrace TraceResolveHeader tracer)
+      args stdSpec
   where
     stdSpec :: UnresolvedBindingSpec
     stdSpec = case stdlibSpecs of
