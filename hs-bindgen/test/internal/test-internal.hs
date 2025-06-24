@@ -180,21 +180,24 @@ tests packageRoot getExtBindings getRustBindgen =
             (singleTracePredicate "UnsupportedLongDouble" $ \case
               TraceFrontend (FrontendParse (UnsupportedType _ UnsupportedLongDouble))
                 -> Just (Expected "UnsupportedLongDouble")
-              _otherTrace -> Nothing
+              _otherTrace
+                -> Nothing
             )
         , expectTrace
             "implicit_fields_struct"
             (singleTracePredicate "UnsupportedImplicitFields" $ \case
               TraceFrontend (FrontendParse (UnsupportedImplicitFields {}))
                 -> Just (Expected "UnsupportedImplicitFields")
-              _otherTrace -> Nothing
+              _otherTrace
+                -> Nothing
             )
         , expectTrace
             "declaration_unselected_b"
             (singleTracePredicate "MissingDeclaration" $ \case
               TraceFrontend (FrontendMangleNames (MissingDeclaration {}))
                 -> Just (Expected "MissingDeclaration")
-              _otherTrace -> Nothing
+              _otherTrace
+                -> Nothing
             )
         , expectTrace
             "redeclaration_different"
@@ -203,7 +206,30 @@ tests packageRoot getExtBindings getRustBindgen =
                 -> Just (Expected "Redeclaration")
               TraceClang (ClangDiagnostic x) | "macro redefined" `Text.isInfixOf` diagnosticSpelling x
                 -> Just Tolerated
-              _otherTrace -> Nothing
+              _otherTrace
+                -> Nothing
+            )
+
+        , expectTrace
+            "fixedarray_res_a"
+            (singleTracePredicate "BracketsNotAllowed" $ \case
+              TraceClang (ClangDiagnostic x) | "brackets are not allowed here" `Text.isInfixOf` diagnosticSpelling x
+                -> Just (Expected "BracketsNotAllowed")
+              TraceClang _
+                -> Just Tolerated
+              _otherTrace
+                -> Nothing
+            )
+
+        , expectTrace
+            "fixedarray_res_b"
+            (singleTracePredicate "CannotReturnArrayType" $ \case
+              TraceClang (ClangDiagnostic x) | "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+                -> Just (Expected "CannotReturnArrayType")
+              TraceClang _
+                -> Just Tolerated
+              _otherTrace
+                -> Nothing
             )
         ]
     ]
