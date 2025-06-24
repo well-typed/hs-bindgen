@@ -3,14 +3,19 @@
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE LambdaCase #-}
 
 module Test02 where
 
 import HsBindgen.TH
-import Test.Internal.Tracer (defaultTracePredicate, withTracePredicate)
+import Test.Internal.Tracer (TraceExpectation (..), TracePredicate,
+                             customTracePredicate, defaultTracePredicate,
+                             singleTracePredicate, withTracePredicate)
 
 -- Used by generated code
+import Clang.Paths (getCHeaderIncludePath)
 import HsBindgen.Runtime.Prelude qualified
+
 
 $(do
     dir <- getPackageRoot
@@ -18,9 +23,16 @@ $(do
         args = def {
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
+        -- `uchar.h` is not available on MacOS.
+        uCharHeaderNotFound :: TracePredicate Trace
+        uCharHeaderNotFound = customTracePredicate [] $ \case
+          TraceResolveHeader (ResolveHeaderNotFound h)
+            | getCHeaderIncludePath h == "uchar.h"
+              -> Just Tolerated
+          _otherTrace -> Nothing
     extBindings <-
-      withTracePredicate defaultTracePredicate $ \tracer ->
-        snd <$> loadExtBindings tracer args True []
+      withTracePredicate uCharHeaderNotFound $ \tracer ->
+        loadExtBindings tracer args UseStdlibBindingSpecs []
     let opts :: Opts
         opts = def {
             optsClangArgs   = args

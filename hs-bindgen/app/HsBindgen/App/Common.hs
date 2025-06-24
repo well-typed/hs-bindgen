@@ -6,7 +6,6 @@ module HsBindgen.App.Common (
     -- * Input option
   , parseInput
     -- * Auxiliary hs-bindgen functions
-  , loadExtBindings'
   , environmentVariablesFooter
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -14,13 +13,11 @@ module HsBindgen.App.Common (
   ) where
 
 import Control.Exception (Exception (displayException))
-import Control.Tracer (Tracer)
 import Data.Bifunctor (Bifunctor (bimap), first)
 import Data.Char qualified as Char
 import Data.List qualified as List
 import Data.Text (Text)
 import Data.Text qualified as Text
-import GHC.Stack (HasCallStack)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
@@ -37,7 +34,7 @@ data GlobalOpts = GlobalOpts {
       globalOptsTracerConf  :: TracerConf
     , globalOptsPredicate   :: Predicate
     , globalOptsClangArgs   :: ClangArgs
-    , globalOptsNoStdlib    :: Bool
+    , globalOptsStdlibSpecs :: StdlibBindingSpecs
     , globalOptsExtBindings :: [FilePath]
     }
   deriving stock (Show)
@@ -48,7 +45,7 @@ parseGlobalOpts =
       <$> parseTracerConf
       <*> parsePredicate
       <*> parseClangArgs
-      <*> parseNoStdlib
+      <*> parseStdlibSpecs
       <*> parseExtBindings
 
 parseTracerConf :: Parser TracerConf
@@ -117,9 +114,9 @@ parsePredicate = fmap aux . many . asum $ [
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs = do
-    -- ApplicativeDo to be able reorder arguments for --help, and uses record
-    -- construction (i.a. to avoid bool or string/path blindness) instead of
-    -- positional one.
+    -- ApplicativeDo to be able to reorder arguments for --help, and to use
+    -- record construction (i.e., to avoid bool or string/path blindness)
+    -- instead of positional one.
     clangTarget <- optional parseTarget
     clangCStandard <- fmap Just parseCStandard
     clangStdInc <- fmap not parseNoStdInc
@@ -237,10 +234,10 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
           Left "Target must be set using hs-bindgen --target option"
       | otherwise = Right s
 
-parseNoStdlib :: Parser Bool
-parseNoStdlib = switch $ mconcat [
+parseStdlibSpecs :: Parser StdlibBindingSpecs
+parseStdlibSpecs = flag UseStdlibBindingSpecs NoStdlibBindingSpecs $ mconcat [
       long "no-stdlib"
-    , help "Do not automatically use stdlib external binding specifications"
+    , help "Do not automatically use stdlib descriptive binding specifications"
     ]
 
 parseExtBindings :: Parser [FilePath]
@@ -265,22 +262,6 @@ parseInput =
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
-
--- | Load exernal bindings, tracing any errors
-loadExtBindings' :: HasCallStack =>
-     Tracer IO (TraceWithCallStack Trace)
-  -> GlobalOpts
-  -> IO ResolvedBindingSpec
-loadExtBindings' tracer GlobalOpts{..} = do
-    (resolveErrs, extBindings) <-
-      loadExtBindings
-        (useTrace TraceExtraClangArgs tracer)
-        globalOptsClangArgs
-        (not globalOptsNoStdlib)
-        globalOptsExtBindings
-    mapM_ submitTrace resolveErrs
-    return extBindings
-  where submitTrace = traceWithCallStack (useTrace TraceResolveHeader tracer)
 
 environmentVariablesFooter :: ParserPrefs -> Doc
 environmentVariablesFooter p =

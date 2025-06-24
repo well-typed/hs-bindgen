@@ -3,7 +3,6 @@ module Main (main) where
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
 import Control.Monad (foldM, unless)
-import Control.Tracer (Tracer)
 import Data.ByteString qualified as BS
 import Data.Char (isLetter)
 import GHC.Stack (HasCallStack)
@@ -21,8 +20,8 @@ import HsBindgen.Lib
 
 main :: IO ()
 main = handle exceptionHandler $ do
-    cli@Cli{..} <- getCli
-    execMode cli cliMode
+    cli <- getCli
+    execMode cli
 
 data LiterateFileException = LiterateFileException FilePath String
   deriving Show
@@ -33,12 +32,15 @@ instance Exception LiterateFileException where
     displayException (LiterateFileException path err) =
       "error loading " ++ path ++ ": " ++ err
 
-execMode :: HasCallStack => Cli -> Mode -> IO ()
-execMode Cli{..} = \case
+execMode :: HasCallStack => Cli -> IO ()
+execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
     ModePreprocess{..} -> genDecls >>= outputDecls
       where
         genDecls = withTracer $ \tracer -> do
-          extBindings <- loadExtBindings' tracer cliGlobalOpts
+          extBindings <- loadExtBindings tracer
+                           globalOptsClangArgs
+                           globalOptsStdlibSpecs
+                           globalOptsExtBindings
           let opts = cmdOpts {
                   optsExtBindings = extBindings
                 , optsTranslation = preprocessTranslationOpts
@@ -61,7 +63,11 @@ execMode Cli{..} = \case
             Just path -> genExtBindings ppOpts preprocessInputs path decls
 
     ModeGenTests{..} -> do
-      extBindings <- withTracer $ \tracer -> loadExtBindings' tracer cliGlobalOpts
+      extBindings <- withTracer $ \tracer ->
+        loadExtBindings tracer
+          globalOptsClangArgs
+          globalOptsStdlibSpecs
+          globalOptsExtBindings
       let opts = (def :: Opts) {
               optsExtBindings = extBindings
             }
@@ -88,20 +94,21 @@ execMode Cli{..} = \case
   where
     cmdOpts :: Opts
     cmdOpts = def {
-        optsClangArgs  = globalOptsClangArgs cliGlobalOpts
-      , optsPredicate  = globalOptsPredicate cliGlobalOpts
+        optsClangArgs  = globalOptsClangArgs
+      , optsPredicate  = globalOptsPredicate
       }
     withTracer :: (Tracer IO (TraceWithCallStack Trace) -> IO b) -> IO b
-    withTracer = withTracerStdOut (globalOptsTracerConf cliGlobalOpts) DefaultLogLevel
+    withTracer = withTracerStdOut globalOptsTracerConf DefaultLogLevel
 
 execLiterate :: FilePath -> FilePath -> IO ()
 execLiterate input output = do
     args <- maybe (throw' "cannot parse literate file") return . readMaybe
       =<< readFile input
     case pureParseModePreprocess args of
-      Just cli -> execMode cli $ case cliMode cli of
+      Just cli -> execMode cli { cliMode = case cliMode cli of
         mode@ModePreprocess{} -> mode { preprocessOutput = Just output }
         mode                  -> mode
+        }
       Nothing -> throw' "cannot parse arguments in literate file"
   where
     throw' :: String -> IO a

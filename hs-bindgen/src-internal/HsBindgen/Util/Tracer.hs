@@ -28,6 +28,8 @@ module HsBindgen.Util.Tracer (
   , withTracerFile
   , withTracerCustom
   , withTracerCustom'
+  -- | Reexports
+  , module Control.Tracer
   ) where
 
 import Control.Applicative (ZipList (ZipList, getZipList))
@@ -35,7 +37,7 @@ import Control.Exception (Exception (..), throwIO)
 import Control.Monad (when)
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import Control.Tracer (Contravariant (contramap), Tracer (Tracer), emit,
-                       squelchUnless, traceWith)
+                       natTracer, nullTracer, squelchUnless, traceWith)
 import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)

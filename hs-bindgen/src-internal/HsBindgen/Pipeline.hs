@@ -30,6 +30,7 @@ module HsBindgen.Pipeline (
 
     -- * External bindings
   , genExtBindings
+  , StdlibBindingSpecs (..)
   , loadExtBindings
 
     -- * Test generation
@@ -37,7 +38,6 @@ module HsBindgen.Pipeline (
   ) where
 
 import Control.Monad ((<=<))
-import Control.Tracer (Tracer, nullTracer)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
@@ -57,7 +57,6 @@ import HsBindgen.BindingSpec.Gen (genBindingSpec)
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate (..))
-import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.GenTests qualified as GenTests
@@ -67,10 +66,9 @@ import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
-import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
-import HsBindgen.Util.Trace (Trace)
+import HsBindgen.Util.Trace (Trace (TraceExtraClangArgs, TraceResolveHeader))
 import HsBindgen.Util.Tracer
 
 #ifdef MIN_VERSION_th_compat
@@ -232,7 +230,7 @@ hashInclude fps HashIncludeOpts {..} = do
       tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
   extBindings <-
     TH.runIO . withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
-      snd <$> loadExtBindings tracer args True []
+      loadExtBindings tracer args UseStdlibBindingSpecs []
   let opts :: Opts
       opts = def {
           optsClangArgs   = args
@@ -306,19 +304,29 @@ genExtBindings PPOpts{..} headerIncludePaths path =
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
 
+data StdlibBindingSpecs =
+    -- | Automatically include @stdlib@.
+    UseStdlibBindingSpecs
+  | NoStdlibBindingSpecs
+  deriving stock (Show, Eq)
+
 -- | Load external bindings
 loadExtBindings ::
-     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+     Tracer IO (TraceWithCallStack Trace)
   -> ClangArgs
-  -> Bool -- ^ Automatically include @stdlib@?
+  -> StdlibBindingSpecs
   -> [FilePath]
-  -> IO (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
-loadExtBindings tracer args isAutoStdlib = BindingSpec.load tracer args stdSpec
+  -> IO ResolvedBindingSpec
+loadExtBindings tracer args stdlibSpecs =
+    BindingSpec.load
+      (useTrace TraceExtraClangArgs tracer)
+      (useTrace TraceResolveHeader tracer)
+      args stdSpec
   where
     stdSpec :: UnresolvedBindingSpec
-    stdSpec
-      | isAutoStdlib = Stdlib.bindings
-      | otherwise    = BindingSpec.empty
+    stdSpec = case stdlibSpecs of
+      UseStdlibBindingSpecs -> Stdlib.bindings
+      NoStdlibBindingSpecs  -> BindingSpec.empty
 
 {-------------------------------------------------------------------------------
   Test generation

@@ -22,6 +22,7 @@ module HsBindgen.TH (
 
     -- ** External bindings
   , ResolvedBindingSpec -- opaque
+  , StdlibBindingSpecs(..)
   , loadExtBindings
   , emptyExtBindings
   , Resolve.ResolveHeaderException(..)
@@ -46,8 +47,6 @@ module HsBindgen.TH (
   , THSyntax.getPackageRoot
   ) where
 
-import Control.Tracer (Tracer, natTracer)
-import Data.Set (Set)
 import Language.Haskell.TH qualified as TH
 import System.FilePath qualified as FilePath
 
@@ -56,10 +55,10 @@ import Clang.Paths qualified as Paths
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports as Default (Default (..))
+import HsBindgen.Pipeline (StdlibBindingSpecs)
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Trace qualified as Trace
@@ -85,14 +84,14 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 loadExtBindings ::
      Tracer TH.Q (TraceWithCallStack Trace.Trace)
   -> Args.ClangArgs
-  -> Bool -- ^ Automatically include @stdlib@?
+  -> StdlibBindingSpecs
   -> [FilePath]
-  -> TH.Q (Set Resolve.ResolveHeaderException, ResolvedBindingSpec)
-loadExtBindings tracer args isAutoStdlib =
-    TH.runIO . Pipeline.loadExtBindings tracer' args isAutoStdlib
+  -> TH.Q ResolvedBindingSpec
+loadExtBindings tracer args stdlibSpecs =
+    TH.runIO . Pipeline.loadExtBindings tracer' args stdlibSpecs
   where
-    tracer' :: Tracer IO (TraceWithCallStack ExtraClangArgsLog)
-    tracer' = useTrace Trace.TraceExtraClangArgs $ natTracer TH.runQ tracer
+    tracer' :: Tracer IO (TraceWithCallStack Trace.Trace)
+    tracer' = natTracer TH.runQ tracer
 
 emptyExtBindings :: ResolvedBindingSpec
 emptyExtBindings = BindingSpec.empty

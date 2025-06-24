@@ -220,8 +220,6 @@ library
   build-depends:
       -- Inherited dependencies
     , bytestring
-    , containers
-    , contra-tracer
     , filepath
     , template-haskell
 
@@ -248,7 +246,6 @@ executable hs-bindgen-cli
   build-depends:
       -- Inherited dependencies
     , bytestring
-    , contra-tracer
     , data-default
   build-depends:
       -- External dependencies
@@ -275,9 +272,6 @@ executable hs-bindgen-dev
       -- Internal dependencies
     , hs-bindgen
     , hs-bindgen:internal
-  build-depends:
-      -- Inherited dependencies
-    , contra-tracer
   build-depends:
       -- External dependencies
     , optparse-applicative >= 0.18      && < 0.19
@@ -332,7 +326,6 @@ test-suite test-internal
     , deepseq
   build-depends:
       -- Inherited dependencies
-    , contra-tracer
     , bytestring
     , containers
     , debruijn
@@ -379,7 +372,6 @@ test-suite test-th
       -- Inherited dependencies
     , base <5
     , containers
-    , contra-tracer
     , mtl
   build-depends:
       -- External dependencies
@@ -420,7 +412,6 @@ test-suite test-pp
       -- Inherited dependencies
     , base <5
     , containers
-    , contra-tracer
     , mtl
   build-depends:
       -- External dependencies

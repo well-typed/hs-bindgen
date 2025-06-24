@@ -40,10 +40,10 @@ module HsBindgen.BindingSpec (
   ) where
 
 import Control.Applicative (asum)
-import Control.Exception (Exception(..))
+import Control.Exception (Exception (..))
 import Control.Monad ((<=<))
 import Control.Tracer (Tracer)
-import Data.Aeson ((.=), (.:), (.:?), (.!=))
+import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types qualified as Aeson
@@ -53,7 +53,7 @@ import Data.Either (partitionEithers)
 import Data.Function (on)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
-import Data.Proxy (Proxy(Proxy))
+import Data.Proxy (Proxy (Proxy))
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Typeable (Typeable, typeRep)
@@ -71,7 +71,7 @@ import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
-import HsBindgen.Util.Tracer (TraceWithCallStack)
+import HsBindgen.Util.Tracer (TraceWithCallStack, traceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Types
@@ -304,18 +304,18 @@ empty = BindingSpec {
 -- This function throws a @'MultiException' 'BindingSpecException'@ on error.
 load ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+  -> Tracer IO (TraceWithCallStack ResolveHeaderException)
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> [FilePath]
-  -> IO (Set ResolveHeaderException, ResolvedBindingSpec)
-load tracer args stdSpec paths = do
+  -> IO ResolvedBindingSpec
+load tracerClangArgs tracerResolve args stdSpec paths = do
     (readErrss, uspecs) <- partitionEithers <$> mapM readFile paths
     let readErrs = ReadBindingSpecException <$> mconcat readErrss
-    (resolveErrs, specs) <-
-      first Set.unions . unzip <$> mapM (resolve tracer args) (stdSpec : uspecs)
+    specs <- mapM (resolve tracerClangArgs tracerResolve args) (stdSpec : uspecs)
     case first (fmap MergeBindingSpecException) (merge specs) of
       Right spec
-        | null readErrss -> return (resolveErrs, spec)
+        | null readErrss -> return spec
         | otherwise      -> throwIO readErrs
       Left mergeErrs -> throwIO $ readErrs <> mergeErrs
 
@@ -407,16 +407,18 @@ writeFileYaml path = BSS.writeFile path . encodeYaml' . toABindingSpec
 -- | Resolve headers in a binding specification
 resolve ::
      Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+  -> Tracer IO (TraceWithCallStack ResolveHeaderException)
   -> ClangArgs
   -> UnresolvedBindingSpec
-  -> IO (Set ResolveHeaderException, ResolvedBindingSpec)
-resolve tracer args uSpec = do
+  -> IO ResolvedBindingSpec
+resolve tracerClangArgs tracerResolve args uSpec = do
     let types = bindingSpecTypes uSpec
         cPaths = Set.toAscList . mconcat $ fst <$> concat (Map.elems types)
     (errs, headerMap) <- bimap Set.fromList Map.fromList . partitionEithers
       <$> mapM
-            (\cPath -> fmap (cPath,) <$> resolveHeader' tracer args cPath)
+            (\cPath -> fmap (cPath,) <$> resolveHeader' tracerClangArgs args cPath)
             cPaths
+    mapM_ (traceWithCallStack tracerResolve) errs
     let lookup' :: CHeaderIncludePath -> Maybe (CHeaderIncludePath, SourcePath)
         lookup' header = (header,) <$> Map.lookup header headerMap
         resolveSet ::
@@ -441,7 +443,7 @@ resolve tracer args uSpec = do
         rSpec = BindingSpec {
             bindingSpecTypes = Map.mapMaybe resolve' types
           }
-    return (errs, rSpec)
+    return rSpec
 
 {-------------------------------------------------------------------------------
   API: Merging

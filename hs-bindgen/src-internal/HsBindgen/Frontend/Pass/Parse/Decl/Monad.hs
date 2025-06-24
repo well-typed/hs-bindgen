@@ -27,7 +27,6 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , dispatchFold
   ) where
 
-import Control.Tracer (Tracer)
 import Data.IORef
 import Data.Set qualified as Set
 import Data.Text qualified as Text

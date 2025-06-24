@@ -32,6 +32,7 @@ module HsBindgen.Lib (
 
     -- ** External bindings
   , ResolvedBindingSpec
+  , StdlibBindingSpecs(..)
   , Pipeline.loadExtBindings
   , Resolve.ResolveHeaderException(..)
   , emptyExtBindings
@@ -64,7 +65,6 @@ module HsBindgen.Lib (
   , FilePath.joinPath
   ) where
 
-import Control.Tracer (Tracer)
 import Data.ByteString (ByteString)
 import System.FilePath qualified as FilePath
 
@@ -82,6 +82,7 @@ import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Imports as Default (Default (..))
 import HsBindgen.ModuleUnique
+import HsBindgen.Pipeline (StdlibBindingSpecs (NoStdlibBindingSpecs))
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Trace qualified as Trace
