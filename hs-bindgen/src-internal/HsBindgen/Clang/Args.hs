@@ -2,36 +2,31 @@
 
 module HsBindgen.Clang.Args (
     withExtraClangArgs
-  , ExtraClangArgsLog
+  , ExtraClangArgsMsg(..)
   -- Exported for tests.
   , splitArguments
   , getExtraClangArgs
   ) where
 
-
 import Control.Monad.IO.Class (MonadIO (liftIO))
-import System.Environment (lookupEnv)
-
-import Clang.Args
-import Control.Tracer (Tracer)
 import Data.Maybe (isJust)
 import GHC.ResponseFile (unescapeArgs)
 import GHC.Stack (HasCallStack)
-import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              HasSource (getSource), Level (Debug, Info),
-                              PrettyTrace (prettyTrace), Source (HsBindgen),
-                              TraceWithCallStack, traceWithCallStack)
+import System.Environment (lookupEnv)
+
+import Clang.Args
+import HsBindgen.Util.Tracer
 
 extraClangArgsEnvNameBase :: String
 extraClangArgsEnvNameBase = "BINDGEN_EXTRA_CLANG_ARGS"
 
-data ExtraClangArgsLog =
+data ExtraClangArgsMsg =
     ExtraClangArgsNone
   | ExtraClangArgsParsed { envName    :: String
                          , envArgs    :: [String] }
   deriving stock (Show, Eq)
 
-instance PrettyTrace ExtraClangArgsLog where
+instance PrettyForTrace ExtraClangArgsMsg where
   prettyTrace = \case
     ExtraClangArgsNone ->
       "No " <> extraClangArgsEnvNameBase <> " environment variables"
@@ -39,12 +34,12 @@ instance PrettyTrace ExtraClangArgsLog where
       "Picked up evironment variable " <> envName <>
       "; parsed 'libclang' arguments: " <> show envArgs
 
-instance HasDefaultLogLevel ExtraClangArgsLog where
+instance HasDefaultLogLevel ExtraClangArgsMsg where
   getDefaultLogLevel = \case
     ExtraClangArgsNone -> Debug
     ExtraClangArgsParsed {} -> Info
 
-instance HasSource ExtraClangArgsLog where
+instance HasSource ExtraClangArgsMsg where
   getSource = const HsBindgen
 
 -- | Run a continuation honoring @libclang@-specific environment variables.
@@ -64,7 +59,7 @@ instance HasSource ExtraClangArgsLog where
 -- The values are split into separate command line arguments using
 -- 'splitArguments'.
 withExtraClangArgs :: (HasCallStack, MonadIO m)
-  => Tracer m (TraceWithCallStack ExtraClangArgsLog)
+  => Tracer m ExtraClangArgsMsg
   -> ClangArgs -> (ClangArgs -> m a) -> m a
 withExtraClangArgs tracer args k = do
   extraClangArgs <- getExtraClangArgs tracer (fst <$> clangTarget args)
@@ -89,18 +84,17 @@ splitArguments = unescapeArgs
 --
 -- For expectations, see 'Test.HsNindgen.C.Environment.envTests'.
 getExtraClangArgs :: (HasCallStack, MonadIO m)
-  => Tracer m (TraceWithCallStack ExtraClangArgsLog) -> Maybe Target -> m [String]
+  => Tracer m ExtraClangArgsMsg -> Maybe Target -> m [String]
 getExtraClangArgs tracer mtarget = do
   extraClangArgsStr <- liftIO $ lookupEnv extraClangArgsEnvName
   case extraClangArgsStr of
     Nothing ->
       if isJust mtarget
       then getExtraClangArgs tracer Nothing -- Always fall back to no target.
-      else traceWithCallStack tracer ExtraClangArgsNone >> pure []
+      else traceWith tracer ExtraClangArgsNone >> pure []
     Just content -> do
       let args = splitArguments content
-      traceWithCallStack tracer
-        (ExtraClangArgsParsed extraClangArgsEnvName args)
+      traceWith tracer $ ExtraClangArgsParsed extraClangArgsEnvName args
       pure args
   where
     extraClangArgsEnvName = getExtraClangArgsEnvName mtarget

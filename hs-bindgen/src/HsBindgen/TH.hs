@@ -40,7 +40,7 @@ module HsBindgen.TH (
   , Slice.ProgramSlicing(..)
 
     -- ** Logging
-  , Trace.Trace(..)
+  , TraceMsg(..)
   , module HsBindgen.Util.Tracer
 
     -- * Paths
@@ -65,7 +65,7 @@ import HsBindgen.Imports as Default (Default (..))
 import HsBindgen.Pipeline (StdlibBindingSpecs)
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
-import HsBindgen.Util.Trace qualified as Trace
+import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer hiding (withTracerFile)
 
 #ifdef MIN_VERSION_th_compat
@@ -86,7 +86,7 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 loadExtBindings ::
-     Tracer TH.Q (TraceWithCallStack Trace.Trace)
+     Tracer TH.Q TraceMsg
   -> Args.ClangArgs
   -> StdlibBindingSpecs
   -> [FilePath]
@@ -94,7 +94,7 @@ loadExtBindings ::
 loadExtBindings tracer args stdlibSpecs =
     TH.runIO . Pipeline.loadExtBindings tracer' args stdlibSpecs
   where
-    tracer' :: Tracer IO (TraceWithCallStack Trace.Trace)
+    tracer' :: Tracer IO TraceMsg
     tracer' = natTracer TH.runQ tracer
 
 emptyExtBindings :: ResolvedBindingSpec

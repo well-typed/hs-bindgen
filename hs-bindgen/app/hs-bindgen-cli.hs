@@ -84,7 +84,7 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
 
     ModeResolve{..} -> do
       isSuccess <- withTracer $ \tracer ->
-        let tracer' = useTrace TraceExtraClangArgs tracer
+        let tracer' = contramap TraceExtraClangArgs tracer
             args    = optsClangArgs cmdOpts
             step isSuccess header = resolveHeader tracer' args header >>= \case
               Right path -> isSuccess <$ putStrLn path
@@ -98,7 +98,7 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
       , optsPredicate       = globalOptsPredicate
       , optsProgramSlicing  = globalOptsProgramSlicing
       }
-    withTracer :: (Tracer IO (TraceWithCallStack Trace) -> IO b) -> IO b
+    withTracer :: (Tracer IO TraceMsg -> IO b) -> IO b
     withTracer = withTracerStdOut globalOptsTracerConf DefaultLogLevel
 
 execLiterate :: FilePath -> FilePath -> IO ()

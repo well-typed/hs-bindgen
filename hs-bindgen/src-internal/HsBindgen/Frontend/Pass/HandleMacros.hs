@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Pass.HandleMacros (
     handleMacros
-  , MacroError(..)
+  , HandleMacrosMsg(..)
   ) where
 
 import Control.Monad.State
@@ -36,7 +36,7 @@ import HsBindgen.Util.Tracer
 -- | Sort and typecheck macros, and reparse declarations
 handleMacros ::
       C.TranslationUnit Slice
-  -> (C.TranslationUnit HandleMacros, [MacroError])
+  -> (C.TranslationUnit HandleMacros, [HandleMacrosMsg])
 handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     first reassemble $ runM . fmap catMaybes $ mapM processDecl unitDecls
   where
@@ -313,7 +313,7 @@ newtype M a = WrapM {
     )
 
 data MacroState = MacroState {
-      stateErrors     :: [MacroError]  -- ^ Stored in reverse order
+      stateErrors     :: [HandleMacrosMsg]  -- ^ Stored in reverse order
     , stateMacroTypes :: MacroTypes
     , stateTypedefs   :: Set CName
     }
@@ -331,7 +331,7 @@ macroTypeEnv MacroState{stateMacroTypes, stateTypedefs} = Macro.TypeEnv{
     , typeEnvTypedefs = stateTypedefs
     }
 
-runM :: M a -> (a, [MacroError])
+runM :: M a -> (a, [HandleMacrosMsg])
 runM = fmap stateErrors . flip runState initMacroState . unwrapM
 
 {-------------------------------------------------------------------------------
@@ -339,7 +339,7 @@ runM = fmap stateErrors . flip runState initMacroState . unwrapM
 -------------------------------------------------------------------------------}
 
 -- TODO: We might want source location information here
-data MacroError =
+data HandleMacrosMsg =
     -- | We could not parse the macro
     MacroErrorReparse ReparseError
 
@@ -356,7 +356,7 @@ data MacroError =
   | MacroErrorUnsupportedType String
   deriving stock (Show, Eq)
 
-instance PrettyTrace MacroError where
+instance PrettyForTrace HandleMacrosMsg where
   prettyTrace = \case
       MacroErrorReparse x ->
         prettyTrace x
@@ -373,7 +373,7 @@ instance PrettyTrace MacroError where
 --
 -- We use 'Info' for macros that are /always/ unsupported, and 'Warning' for
 -- macros that we might perhaps except to be supported but something went wrong.
-instance HasDefaultLogLevel MacroError where
+instance HasDefaultLogLevel HandleMacrosMsg where
   getDefaultLogLevel = \case
     MacroErrorReparse{}         -> Warning
     MacroErrorTc{}              -> Warning
@@ -388,7 +388,7 @@ instance HasDefaultLogLevel MacroError where
 type Reparse a =
      Macro.TypeEnv
   -> [Token TokenSpelling]
-  -> Either MacroError a
+  -> Either HandleMacrosMsg a
 
 -- | Run parser
 --

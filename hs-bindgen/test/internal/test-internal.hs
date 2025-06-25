@@ -17,14 +17,14 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.C.Reparse.Infra (ReparseError (..))
 import HsBindgen.C.Tc.Macro (TcMacroError (TcErrors))
-import HsBindgen.Frontend (FrontendTrace (..))
+import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (Redeclaration))
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.HandleMacros (MacroError (MacroErrorReparse, MacroErrorTc))
-import HsBindgen.Frontend.Pass.MangleNames (MangleError (MissingDeclaration))
-import HsBindgen.Frontend.Pass.Parse.IsPass (ParseTrace (..))
+import HsBindgen.Frontend.Pass.HandleMacros (HandleMacrosMsg (..))
+import HsBindgen.Frontend.Pass.MangleNames (MangleNamesMsg (..))
+import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
-import HsBindgen.Frontend.Pass.Sort (SortError (..))
+import HsBindgen.Frontend.Pass.Sort (SortMsg (..))
 import HsBindgen.Imports
 import HsBindgen.Language.C.Name (NameKind (..), QualName (..))
 import HsBindgen.Language.Haskell qualified as Hs
@@ -85,7 +85,7 @@ tests packageRoot getExtBindings getRustBindgen =
         , ("bool"                        , defaultTracePredicate)
         , ("distilled_lib_1"             ,
             customTracePredicate ["MacroErrorTc", "MacroErrorTc"] $ \case
-              (TraceFrontend (FrontendMacro (MacroErrorTc (TcErrors _)) ))
+              (TraceFrontend (FrontendHandleMacros (MacroErrorTc (TcErrors _)) ))
                 -> Just $ Expected "MacroErrorTc"
               _otherTrace -> Nothing
           )
@@ -150,7 +150,7 @@ tests packageRoot getExtBindings getRustBindgen =
     , testGroup "examples/golden/opts" [
           goldenWith "program_slicing"
             (singleTracePredicate "UnexpectedPrimitiveType" $ \case
-              (TraceFrontend (FrontendMacro (MacroErrorReparse err)))
+              (TraceFrontend (FrontendHandleMacros (MacroErrorReparse err)))
                 | "Unexpected primitive type \"unsigned\"" `List.isInfixOf` (reparseError err)
                 -> Just $ Expected "UnexpectedPrimitiveType"
               _otherTrace -> Nothing
@@ -191,7 +191,7 @@ tests packageRoot getExtBindings getRustBindgen =
         , expectTrace
             "declaration_unselected_b"
             (singleTracePredicate "MissingDeclaration" $ \case
-              TraceFrontend (FrontendNameMangler (MissingDeclaration {}))
+              TraceFrontend (FrontendMangleNames (MissingDeclaration {}))
                 -> Just (Expected "MissingDeclaration")
               _otherTrace -> Nothing
             )
@@ -210,20 +210,20 @@ tests packageRoot getExtBindings getRustBindgen =
     argsWith :: [FilePath] -> ClangArgs
     argsWith includeDirs = getClangArgs packageRoot includeDirs
 
-    golden :: TestName -> TracePredicate Trace -> TestTree
+    golden :: TestName -> TracePredicate TraceMsg -> TestTree
     golden name predicate = goldenWith name predicate id
 
-    goldenWith :: TestName -> TracePredicate Trace -> (Opts -> Opts) -> TestTree
+    goldenWith :: TestName -> TracePredicate TraceMsg -> (Opts -> Opts) -> TestTree
     goldenWith name predicate changeOpts =
       testGroup name $ goldenNoRust' name predicate changeOpts
                        ++ [goldenRust getRustBindgen name]
 
-    goldenRustPanic :: TestName -> TracePredicate Trace -> TestTree
+    goldenRustPanic :: TestName -> TracePredicate TraceMsg -> TestTree
     goldenRustPanic name predicate = testGroup name $
       rustExpectPanic getRustBindgen name :
       goldenNoRust' name predicate id
 
-    goldenNoRust' :: TestName -> TracePredicate Trace -> (Opts -> Opts) -> [TestTree]
+    goldenNoRust' :: TestName -> TracePredicate TraceMsg -> (Opts -> Opts) -> [TestTree]
     goldenNoRust' name predicate changeOpts = [
           goldenTreeDiff name predicate changeOpts
         , goldenHs name predicate changeOpts
@@ -238,7 +238,7 @@ tests packageRoot getExtBindings getRustBindgen =
         , goldenExtBindings name predicate changeOpts
         ]
 
-    goldenTreeDiff :: TestName -> TracePredicate Trace -> (Opts -> Opts) -> TestTree
+    goldenTreeDiff :: TestName -> TracePredicate TraceMsg -> (Opts -> Opts) -> TestTree
     goldenTreeDiff name predicate changeOpts = do
       let target = "fixtures" </> (name ++ ".tree-diff.txt")
           headerIncludePath = mkHeaderIncludePath name
@@ -246,7 +246,7 @@ tests packageRoot getExtBindings getRustBindgen =
         withOpts changeOpts predicate $ \opts ->
           Pipeline.parseCHeaders opts [headerIncludePath]
 
-    goldenHs :: TestName -> TracePredicate Trace -> (Opts -> Opts) -> TestTree
+    goldenHs :: TestName -> TracePredicate TraceMsg -> (Opts -> Opts) -> TestTree
     goldenHs name predicate changeOpts = do
       let target = "fixtures" </> (name ++ ".hs")
           headerIncludePath = mkHeaderIncludePath name
@@ -254,7 +254,7 @@ tests packageRoot getExtBindings getRustBindgen =
         withOpts changeOpts predicate $ \opts ->
           Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
 
-    goldenExtensions :: TestName -> TracePredicate Trace -> (Opts -> Opts) -> TestTree
+    goldenExtensions :: TestName -> TracePredicate TraceMsg -> (Opts -> Opts) -> TestTree
     goldenExtensions name predicate changeOpts = do
       let target = "fixtures" </> (name ++ ".exts.txt")
           headerIncludePath = mkHeaderIncludePath name
@@ -266,7 +266,7 @@ tests packageRoot getExtBindings getRustBindgen =
                 Pipeline.genExtensions
               $ Pipeline.genSHsDecls decls
 
-    goldenPP :: TestName -> TracePredicate Trace -> (Opts -> Opts) -> TestTree
+    goldenPP :: TestName -> TracePredicate TraceMsg -> (Opts -> Opts) -> TestTree
     goldenPP name predicate changeOpts = do
       let target = "fixtures" </> (name ++ ".pp.hs")
           headerIncludePath = mkHeaderIncludePath name
@@ -275,7 +275,7 @@ tests packageRoot getExtBindings getRustBindgen =
           decls <- Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
           return $ Pipeline.preprocessPure ppOpts decls
 
-    goldenExtBindings :: TestName -> TracePredicate Trace -> (Opts -> Opts) -> TestTree
+    goldenExtBindings :: TestName -> TracePredicate TraceMsg -> (Opts -> Opts) -> TestTree
     goldenExtBindings name predicate changeOpts = do
       let target = "fixtures" </> (name ++ ".extbindings.yaml")
           headerIncludePath = mkHeaderIncludePath name
@@ -294,7 +294,7 @@ tests packageRoot getExtBindings getRustBindgen =
     mkHeaderIncludePath :: String -> CHeaderIncludePath
     mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
 
-    withOpts :: (Opts -> Opts) -> TracePredicate Trace -> (Opts -> IO a) -> IO a
+    withOpts :: (Opts -> Opts) -> TracePredicate TraceMsg -> (Opts -> IO a) -> IO a
     withOpts changeOpts predicate action = do
       extBindings <- getExtBindings
       withTracePredicate predicate $
@@ -311,7 +311,7 @@ tests packageRoot getExtBindings getRustBindgen =
         Pipeline.ppOptsModule = HsModuleOpts { hsModuleOptsName = "Example" }
       }
 
-    expectTrace :: TestName -> TracePredicate Trace -> TestTree
+    expectTrace :: TestName -> TracePredicate TraceMsg -> TestTree
     expectTrace name predicate = testCase name $ do
       withTracePredicate predicate $ \tracer -> do
         let headerIncludePath = mkHeaderIncludePath name

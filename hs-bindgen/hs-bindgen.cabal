@@ -157,9 +157,9 @@ library internal
       HsBindgen.Resolve
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
+      HsBindgen.TraceMsg
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
-      HsBindgen.Util.Trace
       HsBindgen.Util.Tracer
       Text.SimplePrettyPrint
   other-extensions:

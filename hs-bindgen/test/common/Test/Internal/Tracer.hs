@@ -29,8 +29,7 @@ import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
 
 import HsBindgen.Lib (HasDefaultLogLevel (getDefaultLogLevel), Level (..),
-                      PrettyTrace (prettyTrace), TraceWithCallStack (tTrace),
-                      Tracer (Tracer), emit)
+                      PrettyForTrace (prettyTrace), Tracer, simpleTracer)
 
 data TraceExpectation = Expected String | Tolerated | Unexpected
   deriving stock (Show, Eq, Ord)
@@ -79,7 +78,7 @@ data TraceExpectationException a = TraceExpectationException {
     , expectedTracesWithWrongCounts :: [WrongCount]
     }
 
-instance (PrettyTrace a, HasDefaultLogLevel a)
+instance (PrettyForTrace a, HasDefaultLogLevel a)
   => Show (TraceExpectationException a) where
   show (TraceExpectationException {..}) = unlines $
        (if null unexpectedTraces then []
@@ -95,7 +94,7 @@ instance (PrettyTrace a, HasDefaultLogLevel a)
             , ", actual count: "  , show actualCount
             ]
 
-instance (Typeable a, PrettyTrace a, HasDefaultLogLevel a)
+instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a)
   => Exception (TraceExpectationException a)
 
 checkTracePredicate :: MonadError (TraceExpectationException a) m
@@ -135,19 +134,19 @@ checkTracePredicate (TracePredicate predicate expectedCounts) traces =
 -- > withWriterTracer :: (MonadWriter [a] m1, Monad m2) => (Tracer m1 a -> m2 b) -> m2 (b, [a])
 -- > withWriterTracer action = runWriterT (WriterT $ (, []) <$> (action mkWriterTracer))
 withTracePredicate
-  :: forall m a b. (MonadIO m, PrettyTrace a, HasDefaultLogLevel a, Typeable a)
-  => TracePredicate a -> (Tracer m (TraceWithCallStack a) -> m b) -> m b
+  :: forall m a b. (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, Typeable a)
+  => TracePredicate a -> (Tracer m a -> m b) -> m b
 withTracePredicate predicate action = do
   tracesRef <- liftIO $ newIORef []
   actionRes <- action $ mkWriterTracer tracesRef
   traces <- liftIO $ readIORef tracesRef
-  eitherError <- runExceptT (checkTracePredicate predicate $ map tTrace traces)
+  eitherError <- runExceptT (checkTracePredicate predicate traces)
   case eitherError of
     Left  e -> liftIO $ throwIO e
     Right _ -> pure actionRes
 
 mkWriterTracer :: MonadIO m => IORef [a] -> Tracer m a
-mkWriterTracer tracesRef = Tracer $ emit addTrace
+mkWriterTracer tracesRef = simpleTracer addTrace
   where addTrace trace = liftIO $ modifyIORef' tracesRef (\xs -> trace : xs)
 
 {-------------------------------------------------------------------------------

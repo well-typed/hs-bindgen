@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Pass.MangleNames (
     mangleNames
-  , MangleError(..)
+  , MangleNamesMsg(..)
   ) where
 
 import Control.Monad.Reader
@@ -21,7 +21,7 @@ import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              Level (Error), PrettyTrace (prettyTrace))
+                              Level (Error), PrettyForTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -35,7 +35,7 @@ import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
 
 mangleNames ::
      C.TranslationUnit HandleTypedefs
-  -> (C.TranslationUnit NameMangler, [MangleError])
+  -> (C.TranslationUnit NameMangler, [MangleNamesMsg])
 mangleNames unit =
     (unit', errors1 ++ errors2)
   where
@@ -44,11 +44,11 @@ mangleNames unit =
     fc = FixCandidate.fixCandidateDefault
 
     nameMap :: NameMap
-    errors1 :: [MangleError]
+    errors1 :: [MangleNamesMsg]
     (nameMap, errors1) = chooseNames fc (C.unitDecls unit)
 
     unit'   :: C.TranslationUnit NameMangler
-    errors2 :: [MangleError]
+    errors2 :: [MangleNamesMsg]
     (unit', errors2) = runM fc nameMap $ mangle unit
 
 {-------------------------------------------------------------------------------
@@ -60,12 +60,12 @@ mangleNames unit =
 
 type NameMap = Map C.QualName  HsIdentifier
 
-data MangleError =
+data MangleNamesMsg =
     CouldNotMangle Text
   | MissingDeclaration C.QualName
   deriving stock (Show, Eq)
 
-instance PrettyTrace MangleError where
+instance PrettyForTrace MangleNamesMsg where
   prettyTrace (CouldNotMangle name) =
     "Could not mangle C name: " <> unpack name
   prettyTrace (MissingDeclaration cQualName) =
@@ -74,12 +74,12 @@ instance PrettyTrace MangleError where
              , "'; did you select the declaration?"
              ]
 
-instance HasDefaultLogLevel MangleError where
+instance HasDefaultLogLevel MangleNamesMsg where
   getDefaultLogLevel = const Error
 
 chooseNames ::
      FixCandidate Maybe
-  -> [C.Decl HandleTypedefs] -> (NameMap, [MangleError])
+  -> [C.Decl HandleTypedefs] -> (NameMap, [MangleNamesMsg])
 chooseNames fc decls =
     bimap Map.fromList catMaybes $
       unzip $ map (nameForDecl fc) decls
@@ -87,7 +87,7 @@ chooseNames fc decls =
 nameForDecl ::
      FixCandidate Maybe
   -> C.Decl HandleTypedefs
-  -> ((C.QualName, HsIdentifier), Maybe MangleError)
+  -> ((C.QualName, HsIdentifier), Maybe MangleNamesMsg)
 nameForDecl fc decl =
     case typeSpecIdentifier of
       Just hsName -> (choose hsName, Nothing)
@@ -105,7 +105,7 @@ fromCName :: forall ns.
   => FixCandidate Maybe
   -> Proxy ns
   -> CName
-  -> (HsIdentifier, Maybe MangleError)
+  -> (HsIdentifier, Maybe MangleNamesMsg)
 fromCName fc _ (CName cName) =
     case mFixed of
       Just (HsName hsName) -> (HsIdentifier hsName, Nothing)
@@ -119,13 +119,13 @@ fromCName fc _ (CName cName) =
 -------------------------------------------------------------------------------}
 
 newtype M a = WrapM {
-      unwrapM :: StateT [MangleError] (Reader Env) a
+      unwrapM :: StateT [MangleNamesMsg] (Reader Env) a
     }
   deriving newtype (
       Functor
     , Applicative
     , Monad
-    , MonadState [MangleError]
+    , MonadState [MangleNamesMsg]
     , MonadReader Env
     )
 
@@ -134,7 +134,7 @@ data Env = Env{
     , envFixCandidate :: FixCandidate Maybe
     }
 
-runM :: FixCandidate Maybe -> NameMap -> M a -> (a, [MangleError])
+runM :: FixCandidate Maybe -> NameMap -> M a -> (a, [MangleNamesMsg])
 runM fc nm = flip runReader env . flip runStateT [] . unwrapM
   where
     env :: Env

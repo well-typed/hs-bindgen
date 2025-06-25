@@ -69,7 +69,7 @@ import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
-import HsBindgen.Util.Trace (Trace (TraceExtraClangArgs, TraceResolveHeader))
+import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 #ifdef MIN_VERSION_th_compat
@@ -89,7 +89,7 @@ data Opts = Opts {
     , optsTranslation    :: Hs.TranslationOpts
     , optsPredicate      :: Predicate
     , optsProgramSlicing :: ProgramSlicing
-    , optsTracer         :: Tracer IO (TraceWithCallStack Trace)
+    , optsTracer         :: Tracer IO TraceMsg
     }
 
 instance Default Opts where
@@ -315,15 +315,15 @@ data StdlibBindingSpecs =
 
 -- | Load external bindings
 loadExtBindings ::
-     Tracer IO (TraceWithCallStack Trace)
+     Tracer IO TraceMsg
   -> ClangArgs
   -> StdlibBindingSpecs
   -> [FilePath]
   -> IO ResolvedBindingSpec
 loadExtBindings tracer args stdlibSpecs =
     BindingSpec.load
-      (useTrace TraceExtraClangArgs tracer)
-      (useTrace TraceResolveHeader tracer)
+      (contramap TraceExtraClangArgs tracer)
+      (contramap TraceResolveHeader tracer)
       args stdSpec
   where
     stdSpec :: UnresolvedBindingSpec
