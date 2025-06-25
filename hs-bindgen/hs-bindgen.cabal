@@ -125,6 +125,8 @@ library internal
       HsBindgen.Frontend.Pass.Parse.Type.Monad
       HsBindgen.Frontend.Pass.ResolveBindingSpec
       HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+      HsBindgen.Frontend.Pass.Slice
+      HsBindgen.Frontend.Pass.Slice.IsPass
       HsBindgen.Frontend.Pass.Sort
       HsBindgen.Frontend.Pass.Sort.IsPass
       HsBindgen.Frontend.ProcessIncludes

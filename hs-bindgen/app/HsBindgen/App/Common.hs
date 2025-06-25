@@ -6,7 +6,7 @@ module HsBindgen.App.Common (
     -- * Input option
   , parseInput
     -- * Auxiliary hs-bindgen functions
-  , environmentVariablesFooter
+  , footerWith
     -- * Auxiliary optparse-applicative functions
   , cmd
   , cmd'
@@ -21,7 +21,7 @@ import Data.Text qualified as Text
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
-                                 vcat)
+                                 vcat, (<+>))
 import Prettyprinter.Util (reflow)
 
 import HsBindgen.Lib
@@ -31,11 +31,12 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      globalOptsTracerConf  :: TracerConf
-    , globalOptsPredicate   :: Predicate
-    , globalOptsClangArgs   :: ClangArgs
-    , globalOptsStdlibSpecs :: StdlibBindingSpecs
-    , globalOptsExtBindings :: [FilePath]
+      globalOptsTracerConf     :: TracerConf
+    , globalOptsPredicate      :: Predicate
+    , globalOptsProgramSlicing :: ProgramSlicing
+    , globalOptsClangArgs      :: ClangArgs
+    , globalOptsStdlibSpecs    :: StdlibBindingSpecs
+    , globalOptsExtBindings    :: [FilePath]
     }
   deriving stock (Show)
 
@@ -44,6 +45,7 @@ parseGlobalOpts =
     GlobalOpts
       <$> parseTracerConf
       <*> parsePredicate
+      <*> parseProgramSlicing
       <*> parseClangArgs
       <*> parseStdlibSpecs
       <*> parseExtBindings
@@ -104,13 +106,21 @@ parsePredicate = fmap aux . many . asum $ [
         ]
     , flag' SelectFromMainFiles $ mconcat [
           long "select-from-main-files"
-        , help "Only process elements from the main files (this is the default)"
+        , help "Only process elements from main files (default)"
         ]
     ]
   where
     aux :: [Predicate] -> Predicate
     aux [] = SelectFromMainFiles
     aux ps = mconcat ps
+
+parseProgramSlicing :: Parser ProgramSlicing
+parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat [
+      long "enable-program-slicing"
+    , help $ "Enable program slicing: "
+        <> "Select declarations using the selection predicate, "
+        <> "and also select their transitive dependencies"
+    ]
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs = do
@@ -262,6 +272,27 @@ parseInput =
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
+
+-- | Footer of command line help.
+footerWith :: ParserPrefs -> Doc
+footerWith p = vcat [ environmentVariablesFooter p
+                    , ""
+                    , selectSliceFooter p
+                    ]
+
+selectSliceFooter :: ParserPrefs -> Doc
+selectSliceFooter _ =
+   vcat [ pretty ("Selection and program slicing:" :: String)
+        , "-" <+> align (reflow $ mconcat [
+            "Program slicing disabled (default): "
+          , "Only select declarations according to the selection predicate."
+          ])
+        , "-" <+> align (reflow $ mconcat [
+            "Program slicing enabled ('--enable-program-slicing'): "
+            , "Select declarations using the selection predicate, "
+            , "and also select their transitive dependencies."
+          ])
+        ]
 
 environmentVariablesFooter :: ParserPrefs -> Doc
 environmentVariablesFooter p =

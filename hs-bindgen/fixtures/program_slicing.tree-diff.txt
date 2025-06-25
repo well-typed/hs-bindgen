@@ -2,7 +2,39 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "fixedwidth.h:3:8",
+        declLoc = "alltypes.h:131:25",
+        declId = NamePair {
+          nameC = CName "uint32_t",
+          nameHsIdent = HsIdentifier
+            "Uint32_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = [
+          CName "uint_fast16_t",
+          CName "uint_fast32_t",
+          CName "uint_least32_t"]},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Uint32_t",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Uint32_t"},
+          typedefType = TypePrim
+            (PrimIntegral
+              PrimInt
+              Unsigned)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "program_slicing.h:3:8",
         declId = NamePair {
           nameC = CName "foo",
           nameHsIdent = HsIdentifier
@@ -18,7 +50,7 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldLoc =
-              "fixedwidth.h:4:11",
+              "program_slicing.h:4:12",
               structFieldName = NamePair {
                 nameC = CName "sixty_four",
                 nameHsIdent = HsIdentifier
@@ -141,125 +173,17 @@ TranslationUnit {
               structFieldWidth = Nothing},
             StructField {
               structFieldLoc =
-              "fixedwidth.h:5:11",
+              "program_slicing.h:5:12",
               structFieldName = NamePair {
                 nameC = CName "thirty_two",
                 nameHsIdent = HsIdentifier
                   "foo_thirty_two"},
-              structFieldType = TypeExtBinding
-                QualName {
-                  qualNameName = CName "uint32_t",
-                  qualNameKind = NameKindOrdinary}
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
-                TypeSpec {
-                  typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
-                  typeSpecInstances = Map.fromList
-                    [
-                      _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bounded
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Read
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        FiniteBits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Integral
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Num
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Real
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Storable
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = [
-                              ]})]},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "uint32_t",
+                    nameHsIdent = HsIdentifier
+                      "Uint32_t"}),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -273,4 +197,4 @@ TranslationUnit {
     "stdint",
     "alltypes",
     "stdint",
-    "fixedwidth"]}
+    "program_slicing"]}

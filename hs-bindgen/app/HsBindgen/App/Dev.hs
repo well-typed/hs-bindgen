@@ -22,7 +22,7 @@ getDev = customExecParser p opts
     opts = info (parseDev <**> helper) $
       mconcat [
           header "hs-bindgen development utilities"
-        , footerDoc (Just $ environmentVariablesFooter p)
+        , footerDoc (Just $ footerWith p)
         ]
 
 {-------------------------------------------------------------------------------

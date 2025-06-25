@@ -3,13 +3,13 @@ module HsBindgen.Frontend.Pass.Sort.IsPass (
   , DeclMeta(..)
   ) where
 
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse, ReparseInfo)
 import HsBindgen.Imports
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -21,16 +21,20 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 type Sort :: Pass
 data Sort a deriving anyclass ValidPass
 
-type family AnalyzeAnn (ix :: Symbol) :: Star where
-  AnalyzeAnn "TranslationUnit" = DeclMeta
-  AnalyzeAnn ix                = Ann ix Parse
+type family AnnSort (ix :: Symbol) :: Star where
+  AnnSort "TranslationUnit" = DeclMeta
+  AnnSort "StructField"     = ReparseInfo
+  AnnSort "UnionField"      = ReparseInfo
+  AnnSort "Typedef"         = ReparseInfo
+  AnnSort "Function"        = ReparseInfo
+  AnnSort _                 = NoAnn
 
 instance IsPass Sort where
   type Id         Sort = Id         Parse
   type FieldName  Sort = FieldName  Parse
   type TypedefRef Sort = TypedefRef Parse
   type MacroBody  Sort = MacroBody  Parse
-  type Ann ix     Sort = AnalyzeAnn ix
+  type Ann ix     Sort = AnnSort ix
 
 {-------------------------------------------------------------------------------
   Information about the declarations

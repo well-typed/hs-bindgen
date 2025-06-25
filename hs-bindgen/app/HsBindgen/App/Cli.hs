@@ -27,7 +27,7 @@ getCli = customExecParser p opts
     opts = info (parseCli <**> helper) $
       mconcat [
           header "hs-bindgen - generate Haskell bindings from C headers"
-        , footerDoc (Just $ environmentVariablesFooter p)
+        , footerDoc (Just $ footerWith p)
         ]
 
 {-------------------------------------------------------------------------------

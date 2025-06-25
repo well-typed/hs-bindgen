@@ -59,6 +59,7 @@ import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Pass.Slice (ProgramSlicing (DisableProgramSlicing))
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
@@ -83,20 +84,22 @@ import Language.Haskell.TH.Syntax (getPackageRoot)
 
 -- | Options for both the preprocessor and TH APIs
 data Opts = Opts {
-      optsClangArgs   :: ClangArgs
-    , optsExtBindings :: ResolvedBindingSpec
-    , optsTranslation :: Hs.TranslationOpts
-    , optsPredicate   :: Predicate
-    , optsTracer      :: Tracer IO (TraceWithCallStack Trace)
+      optsClangArgs      :: ClangArgs
+    , optsExtBindings    :: ResolvedBindingSpec
+    , optsTranslation    :: Hs.TranslationOpts
+    , optsPredicate      :: Predicate
+    , optsProgramSlicing :: ProgramSlicing
+    , optsTracer         :: Tracer IO (TraceWithCallStack Trace)
     }
 
 instance Default Opts where
   def = Opts {
-      optsClangArgs   = def
-    , optsExtBindings = BindingSpec.empty
-    , optsTranslation = def
-    , optsPredicate   = SelectFromMainFiles
-    , optsTracer      = nullTracer
+      optsClangArgs      = def
+    , optsExtBindings    = BindingSpec.empty
+    , optsTranslation    = def
+    , optsPredicate      = SelectFromMainFiles
+    , optsProgramSlicing = DisableProgramSlicing
+    , optsTracer         = nullTracer
     }
 
 -- | Additional options for the preprocessor API
@@ -122,7 +125,7 @@ parseCHeaders ::
    -> [CHeaderIncludePath]
    -> IO C.TranslationUnit
 parseCHeaders Opts{..} =
-    C.parseCHeaders optsTracer optsClangArgs optsPredicate optsExtBindings
+    C.parseCHeaders optsTracer optsClangArgs optsPredicate optsProgramSlicing optsExtBindings
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Opts -> [C.Decl] -> [Hs.Decl]

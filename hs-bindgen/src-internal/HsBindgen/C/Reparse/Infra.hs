@@ -86,7 +86,7 @@ instance PrettyTrace ReparseError where
           reparseError
         , reparseErrorTokens
         } = unlines [
-        reparseError
+        "Reparse error: " <> reparseError
       , intercalate " " (
             map
               (Text.unpack . getTokenSpelling . tokenSpelling)
