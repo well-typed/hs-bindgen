@@ -13,7 +13,7 @@ import Data.Text qualified as Text
 
 import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
+import HsBindgen.Util.Tracer (PrettyForTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
   AnonId
@@ -23,7 +23,7 @@ import HsBindgen.Util.Tracer (PrettyTrace (prettyTrace))
 newtype AnonId = AnonId SingleLoc
   deriving stock (Show, Eq, Ord, Generic)
 
-instance PrettyTrace AnonId where
+instance PrettyForTrace AnonId where
   prettyTrace (AnonId loc) = "<" ++ show loc ++ ">"
 
 {-------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ newtype CName = CName {
   deriving newtype (Show, Eq, Ord, IsString, Semigroup)
   deriving stock (Generic)
 
-instance PrettyTrace CName where
+instance PrettyForTrace CName where
   prettyTrace = Text.unpack . getCName
 
 {-------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ data NameKind =
   | NameKindEnum
   deriving stock (Show, Eq, Ord, Generic)
 
-instance PrettyTrace NameKind where
+instance PrettyForTrace NameKind where
   prettyTrace = show
 
 {-------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ data QualName = QualName {
     }
   deriving stock (Eq, Generic, Ord, Show)
 
-instance PrettyTrace QualName where
+instance PrettyForTrace QualName where
   prettyTrace = Text.unpack . qualNameText
 
 qualNameText :: QualName -> Text
@@ -134,5 +134,5 @@ data NameOrigin =
   | NameOriginRenamedFrom CName
   deriving stock (Show, Eq, Ord, Generic)
 
-instance PrettyTrace NameOrigin where
+instance PrettyForTrace NameOrigin where
   prettyTrace = show

@@ -12,7 +12,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , ReparseInfo(..)
   , getUnparsedMacro
     -- * Tracing
-  , ParseTrace(..)
+  , ParseMsg(..)
   ) where
 
 import Clang.Enum.Simple
@@ -127,7 +127,7 @@ isNotTagged curr = do
             ]
           _otherwise -> False
 
-instance PrettyTrace DeclId where
+instance PrettyForTrace DeclId where
   prettyTrace (DeclNamed name)   = prettyTrace name
   prettyTrace (DeclAnon  anonId) = prettyTrace anonId
 
@@ -135,7 +135,7 @@ instance PrettyTrace DeclId where
 data QualDeclId = QualDeclId DeclId C.NameKind
   deriving stock (Show, Eq, Ord)
 
-instance PrettyTrace QualDeclId where
+instance PrettyForTrace QualDeclId where
   prettyTrace (QualDeclId declId cNameKind) =
     let prefix = case cNameKind of
           C.NameKindOrdinary -> ""
@@ -179,7 +179,7 @@ getUnparsedMacro unit curr = do
   Trace messages
 -------------------------------------------------------------------------------}
 
-data ParseTrace =
+data ParseMsg =
     -- | We skipped over a declaration
     Skipped Predicate.SkipReason
 
@@ -202,7 +202,7 @@ data ParseTrace =
       }
   deriving stock (Show, Eq)
 
-instance PrettyTrace ParseTrace where
+instance PrettyForTrace ParseMsg where
   prettyTrace = \case
       Skipped reason ->
           prettyTrace reason
@@ -225,11 +225,11 @@ instance PrettyTrace ParseTrace where
         , "."
         ]
 
-instance HasDefaultLogLevel ParseTrace where
+instance HasDefaultLogLevel ParseMsg where
   getDefaultLogLevel = \case
       Skipped reason              -> getDefaultLogLevel reason
       UnsupportedImplicitFields{} -> Error
       UnsupportedType _ctxt err   -> getDefaultLogLevel err
 
-instance HasSource ParseTrace where
+instance HasSource ParseMsg where
     getSource = const HsBindgen

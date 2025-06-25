@@ -3,11 +3,10 @@
 -- Intended for unqualified import.
 module HsBindgen.Frontend (
     processTranslationUnit
-  , FrontendTrace(..)
+  , FrontendMsg(..)
   ) where
 
 import Control.Monad
-import Control.Tracer
 
 import Clang.LowLevel.Core
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
@@ -77,7 +76,7 @@ import HsBindgen.Util.Tracer
 --   and must therefore happen after 'ResolveBindingSpec'. It could be put into
 --   the 'Hs' phase, but we have to draw the line somewhere.
 processTranslationUnit ::
-     Tracer IO (TraceWithCallStack FrontendTrace)
+     Tracer IO FrontendMsg
   -> ResolvedBindingSpec
   -> RootHeader
   -> Predicate
@@ -92,7 +91,7 @@ processTranslationUnit tracer extSpec rootHeader selectionPredicate programSlici
 
     afterParse <-
       parseDecls
-        (contramap (fmap FrontendParse) tracer)
+        (contramap FrontendParse tracer)
         rootHeader
         selectionPredicateParse
         includeGraph
@@ -124,11 +123,11 @@ processTranslationUnit tracer extSpec rootHeader selectionPredicate programSlici
     -- writeFile "usedecl.mermaid" $
     --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
-    forM_ sortErrors        $ traceWithCallStack tracer . FrontendSort
-    forM_ sliceErrors       $ traceWithCallStack tracer . FrontendSlice
-    forM_ macroErrors       $ traceWithCallStack tracer . FrontendMacro
-    forM_ bindingSpecErrors $ traceWithCallStack tracer . FrontendBindingSpec
-    forM_ mangleErrors      $ traceWithCallStack tracer . FrontendNameMangler
+    forM_ sortErrors        $ traceWith tracer . FrontendSort
+    forM_ sliceErrors       $ traceWith tracer . FrontendSlice
+    forM_ macroErrors       $ traceWith tracer . FrontendHandleMacros
+    forM_ bindingSpecErrors $ traceWith tracer . FrontendResolveBindingSpecs
+    forM_ mangleErrors      $ traceWith tracer . FrontendMangleNames
 
     return $ finalize afterMangleNames
 
@@ -139,34 +138,34 @@ processTranslationUnit tracer extSpec rootHeader selectionPredicate programSlici
 -- | Trace messages from the frontend
 --
 -- Most passes in the frontend have their own set of trace messages.
-data FrontendTrace =
-    FrontendParse ParseTrace
-  | FrontendSort SortError
-  | FrontendSlice SliceError
-  | FrontendMacro MacroError
-  | FrontendBindingSpec BindingSpecError
-  | FrontendNameMangler MangleError
+data FrontendMsg =
+    FrontendParse ParseMsg
+  | FrontendSort SortMsg
+  | FrontendSlice SliceMsg
+  | FrontendHandleMacros HandleMacrosMsg
+  | FrontendResolveBindingSpecs ResolveBindingSpecsMsg
+  | FrontendMangleNames MangleNamesMsg
   deriving stock (Show, Eq)
 
-instance PrettyTrace FrontendTrace where
+instance PrettyForTrace FrontendMsg where
   prettyTrace = \case
-    FrontendParse       x -> prettyTrace x
-    FrontendSort        x -> prettyTrace x
-    FrontendSlice      x -> prettyTrace x
-    FrontendMacro       x -> prettyTrace x
-    FrontendBindingSpec x -> show x -- TODO
-    FrontendNameMangler x -> prettyTrace x
+    FrontendParse               x -> prettyTrace x
+    FrontendSort                x -> prettyTrace x
+    FrontendSlice               x -> prettyTrace x
+    FrontendHandleMacros        x -> prettyTrace x
+    FrontendResolveBindingSpecs x -> show x -- TODO
+    FrontendMangleNames         x -> prettyTrace x
 
-instance HasDefaultLogLevel FrontendTrace where
+instance HasDefaultLogLevel FrontendMsg where
   getDefaultLogLevel = \case
-    FrontendParse       x -> getDefaultLogLevel x
-    FrontendSort        x -> getDefaultLogLevel x
-    FrontendSlice      x -> getDefaultLogLevel x
-    FrontendMacro       x -> getDefaultLogLevel x
-    FrontendBindingSpec _ -> Error
-    FrontendNameMangler x -> getDefaultLogLevel x
+    FrontendParse               x -> getDefaultLogLevel x
+    FrontendSort                x -> getDefaultLogLevel x
+    FrontendSlice               x -> getDefaultLogLevel x
+    FrontendHandleMacros        x -> getDefaultLogLevel x
+    FrontendResolveBindingSpecs _ -> Error
+    FrontendMangleNames         x -> getDefaultLogLevel x
 
-instance HasSource FrontendTrace where
+instance HasSource FrontendMsg where
   getSource = \case
     FrontendParse x -> getSource x
     _otherwise      -> HsBindgen

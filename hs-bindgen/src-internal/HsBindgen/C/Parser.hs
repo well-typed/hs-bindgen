@@ -12,7 +12,6 @@ module HsBindgen.C.Parser (
   ) where
 
 import Control.Exception
-import Control.Tracer (Tracer)
 import Data.List qualified as List
 import Data.Maybe qualified as Maybe
 import Data.Text qualified as Text
@@ -26,7 +25,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.C.Predicate (Predicate)
-import HsBindgen.Clang.Args (ExtraClangArgsLog, withExtraClangArgs)
+import HsBindgen.Clang.Args (ExtraClangArgsMsg, withExtraClangArgs)
 import HsBindgen.Errors
 import HsBindgen.Frontend (processTranslationUnit)
 import HsBindgen.Frontend.AST.External qualified as C
@@ -34,8 +33,8 @@ import HsBindgen.Frontend.Pass.Slice (ProgramSlicing)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
-import HsBindgen.Util.Trace (Trace (..))
-import HsBindgen.Util.Tracer (TraceWithCallStack, traceWithCallStack, useTrace)
+import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Parsing
@@ -71,7 +70,7 @@ instance Exception ParseCHeadersException where
 
 parseCHeaders ::
      HasCallStack =>
-     Tracer IO (TraceWithCallStack Trace)
+     Tracer IO TraceMsg
   -> ClangArgs
   -> Predicate
   -> ProgramSlicing
@@ -79,7 +78,7 @@ parseCHeaders ::
   -> [CHeaderIncludePath]
   -> IO C.TranslationUnit
 parseCHeaders tracer args predicate programSlicing extSpec mainFiles =
-  withExtraClangArgs (useTrace TraceExtraClangArgs tracer) args $ \args' ->
+  withExtraClangArgs (contramap TraceExtraClangArgs tracer) args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file -> do
         let onFailure :: SimpleEnum CXErrorCode -> IO a
@@ -88,10 +87,9 @@ parseCHeaders tracer args predicate programSlicing extSpec mainFiles =
           (errors, warnings) <- List.partition diagnosticIsError
             <$> HighLevel.clang_getDiagnostics unit Nothing
           unless (null errors) $ throwIO (getError errors)
-          forM_ warnings $ traceWithCallStack
-                             (useTrace TraceDiagnostic tracer)
+          forM_ warnings $ traceWith (contramap TraceDiagnostic tracer)
           processTranslationUnit
-            (useTrace TraceFrontend tracer)
+            (contramap TraceFrontend tracer)
             extSpec
             rootHeader
             predicate
@@ -132,8 +130,7 @@ parseCHeaders tracer args predicate programSlicing extSpec mainFiles =
   Debugging/development
 -------------------------------------------------------------------------------}
 
-getTargetTriple ::
-  Tracer IO (TraceWithCallStack ExtraClangArgsLog) -> ClangArgs -> IO Text
+getTargetTriple :: Tracer IO ExtraClangArgsMsg -> ClangArgs -> IO Text
 getTargetTriple tracer args =
   withExtraClangArgs tracer args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->

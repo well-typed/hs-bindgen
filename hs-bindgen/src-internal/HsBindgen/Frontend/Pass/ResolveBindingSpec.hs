@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Pass.ResolveBindingSpec (
     resolveBindingSpec
-  , BindingSpecError(..)
+  , ResolveBindingSpecsMsg(..)
   ) where
 
 import Control.Exception (Exception (..))
@@ -36,7 +36,7 @@ resolveBindingSpec ::
      ResolvedBindingSpec -- ^ Configuration binding specification
   -> ResolvedBindingSpec -- ^ External binding specification
   -> C.TranslationUnit NameAnon
-  -> (C.TranslationUnit ResolveBindingSpec, [BindingSpecError])
+  -> (C.TranslationUnit ResolveBindingSpec, [ResolveBindingSpecsMsg])
 resolveBindingSpec
   confSpec
   extSpec
@@ -55,14 +55,14 @@ resolveBindingSpec
       , ..
       }
 
-data BindingSpecError =
+data ResolveBindingSpecsMsg =
     BindingSpecExtHsRefNoModule C.QualName
   | BindingSpecExtHsRefNoIdentifier C.QualName
   | BindingSpecOmittedTypeUse C.QualName
   | BindingSpecTypeNotUsed C.QualName
   deriving stock (Show, Eq)
 
-instance Exception BindingSpecError where
+instance Exception ResolveBindingSpecsMsg where
   toException = hsBindgenExceptionToException
   fromException = hsBindgenExceptionFromException
   displayException = \case
@@ -122,7 +122,7 @@ data MEnv = MEnv {
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      stateErrors      :: [BindingSpecError] -- ^ Stored in reverse order
+      stateErrors      :: [ResolveBindingSpecsMsg] -- ^ Stored in reverse order
     , stateExtTypes    :: Map C.QualName (C.Type ResolveBindingSpec)
     , stateNoConfTypes :: Set C.QualName
     , stateOmitTypes   :: Set C.QualName
@@ -137,7 +137,7 @@ initMState confSpec = MState {
     , stateOmitTypes   = Set.empty
     }
 
-insertError :: BindingSpecError -> MState -> MState
+insertError :: ResolveBindingSpecsMsg -> MState -> MState
 insertError e st = st {
       stateErrors = e : stateErrors st
     }
@@ -412,7 +412,7 @@ instance Resolve C.Type where
 getExtHsRef ::
      C.QualName
   -> BindingSpec.TypeSpec
-  -> Either BindingSpecError ExtHsRef
+  -> Either ResolveBindingSpecsMsg ExtHsRef
 getExtHsRef cQualName typeSpec = do
     extHsRefModule <-
       maybe (Left (BindingSpecExtHsRefNoModule cQualName)) Right $

@@ -1,7 +1,7 @@
 module HsBindgen.Frontend.Pass.Slice (
     ProgramSlicing (..)
   , sliceDecls
-  , SliceError (..)
+  , SliceMsg (..)
   ) where
 
 import Data.Foldable qualified as Foldable
@@ -22,9 +22,7 @@ import HsBindgen.Frontend.Pass.Slice.IsPass (Slice)
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta (declNonSelected, declUsage),
                                             Sort)
 import HsBindgen.Language.C.Name qualified as C
-import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              HasSource (getSource), Level (Error),
-                              PrettyTrace (prettyTrace), Source (HsBindgen))
+import HsBindgen.Util.Tracer
 
 data ProgramSlicing =
   -- | Enable program slicing: Select declarations using the selection predicate
@@ -38,7 +36,7 @@ sliceDecls ::
   -> Predicate
   -> IsMainFile
   -> C.TranslationUnit Sort
-  -> (C.TranslationUnit Slice, [SliceError])
+  -> (C.TranslationUnit Slice, [SliceMsg])
 sliceDecls programSlicing _selectionPredicate isMainFile unitSort = case programSlicing of
   DisableProgramSlicing -> (unitSlice, [])
   -- When program slicing is enabled, we select all declarations while parsing.
@@ -78,7 +76,7 @@ sliceDecls programSlicing _selectionPredicate isMainFile unitSort = case program
         declMeta' :: DeclMeta
         declMeta' = (C.unitAnn unitSlice) { declNonSelected = nonSelectedDecls'}
 
-        errors :: [SliceError]
+        errors :: [SliceMsg]
         errors = map TransitiveDependencyUnavailable $ Set.toList unavailableTransitiveDeps
      in
       (unitSlice { C.unitDecls = slicedDecls, C.unitAnn = declMeta' }, errors)
@@ -100,15 +98,15 @@ sliceDecls programSlicing _selectionPredicate isMainFile unitSort = case program
   Errors
 -------------------------------------------------------------------------------}
 
-data SliceError = TransitiveDependencyUnavailable QualDeclId
+data SliceMsg = TransitiveDependencyUnavailable QualDeclId
   deriving stock (Show, Eq)
 
-instance PrettyTrace SliceError where
+instance PrettyForTrace SliceMsg where
   prettyTrace (TransitiveDependencyUnavailable qualId) =
     "Program slicing: Transitive dependency unavailable: " <> prettyTrace qualId
 
-instance HasDefaultLogLevel SliceError where
+instance HasDefaultLogLevel SliceMsg where
   getDefaultLogLevel = const Error
 
-instance HasSource SliceError where
+instance HasSource SliceMsg where
   getSource = const HsBindgen

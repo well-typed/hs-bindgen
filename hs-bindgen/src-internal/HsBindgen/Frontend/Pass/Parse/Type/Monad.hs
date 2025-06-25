@@ -89,7 +89,7 @@ data ParseTypeException =
   | UnsupportedLongDouble
   deriving stock (Show, Eq)
 
-instance PrettyTrace ParseTypeException where
+instance PrettyForTrace ParseTypeException where
   prettyTrace = \case
     UnexpectedTypeKind (Right kind) -> concat [
         "Unexpected type kind "

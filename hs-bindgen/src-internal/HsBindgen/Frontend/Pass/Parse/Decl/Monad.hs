@@ -87,7 +87,7 @@ data Env = Env {
     , envIsMainFile    :: IsMainFile
     , envGetMainHeader :: GetMainHeader
     , envPredicate     :: Predicate
-    , envTracer        :: Tracer IO (TraceWithCallStack ParseTrace)
+    , envTracer        :: Tracer IO ParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -104,7 +104,7 @@ evalPredicate curr = wrapEff $ \ParseSupport{parseEnv} -> do
       Predicate.match (envIsMainFile parseEnv) (envPredicate parseEnv) curr
     case matchResult of
       Right ()    -> return ()
-      Left reason -> traceWithCallStack (envTracer parseEnv) (Skipped reason)
+      Left reason -> traceWith (envTracer parseEnv) (Skipped reason)
     return matchResult
 
 {-------------------------------------------------------------------------------
@@ -196,9 +196,9 @@ recordNonSelectedDecl curr = do
   Logging
 -------------------------------------------------------------------------------}
 
-recordTrace :: HasCallStack => ParseTrace -> ParseDecl ()
+recordTrace :: HasCallStack => ParseMsg -> ParseDecl ()
 recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
-    traceWithCallStack (envTracer parseEnv) trace
+    traceWith (envTracer parseEnv) trace
 
 {-------------------------------------------------------------------------------
   Errors

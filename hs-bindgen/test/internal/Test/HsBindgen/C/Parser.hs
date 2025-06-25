@@ -19,7 +19,7 @@ tests args = testGroup "HsBindgen.C.Parser"
 testGetTargetTriple :: ClangArgs -> TestTree
 testGetTargetTriple args = testCase "getTargetTriple" $ do
     triple <- withTracePredicate defaultTracePredicate $ \tracer ->
-      getTargetTriple (useTrace TraceExtraClangArgs tracer) args
+      getTargetTriple (contramap TraceExtraClangArgs tracer) args
 
     -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
     -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"

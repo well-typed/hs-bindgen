@@ -51,7 +51,7 @@ module HsBindgen.Lib (
   , Slice.ProgramSlicing(..)
 
     -- ** Logging
-  , Trace.Trace(..)
+  , TraceMsg(..)
   , module HsBindgen.Util.Tracer
 
     -- ** Preprocessor
@@ -79,7 +79,7 @@ import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Clang.Args (ExtraClangArgsLog)
+import HsBindgen.Clang.Args (ExtraClangArgsMsg)
 import HsBindgen.Frontend.Pass.Slice qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
@@ -89,7 +89,7 @@ import HsBindgen.ModuleUnique
 import HsBindgen.Pipeline (StdlibBindingSpecs (NoStdlibBindingSpecs))
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
-import HsBindgen.Util.Trace qualified as Trace
+import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ genTests ppOpts headerIncludePaths testDir =
 
 -- | Resolve a header, used for debugging
 resolveHeader ::
-     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+     Tracer IO ExtraClangArgsMsg
   -> Args.ClangArgs
   -> Paths.CHeaderIncludePath -- ^ The header we want to resolve
   -> IO (Either Resolve.ResolveHeaderException FilePath)

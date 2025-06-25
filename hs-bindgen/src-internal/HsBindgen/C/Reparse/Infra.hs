@@ -35,7 +35,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer (PrettyTrace (..))
+import HsBindgen.Util.Tracer (PrettyForTrace (..))
 
 {-------------------------------------------------------------------------------
   Parser type
@@ -81,7 +81,7 @@ data ReparseError = ReparseError {
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Exception)
 
-instance PrettyTrace ReparseError where
+instance PrettyForTrace ReparseError where
   prettyTrace ReparseError{
           reparseError
         , reparseErrorTokens

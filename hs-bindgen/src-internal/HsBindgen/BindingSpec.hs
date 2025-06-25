@@ -42,7 +42,6 @@ module HsBindgen.BindingSpec (
 import Control.Applicative (asum)
 import Control.Exception (Exception (..))
 import Control.Monad ((<=<))
-import Control.Tracer (Tracer)
 import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.KeyMap qualified as KM
@@ -64,14 +63,14 @@ import Prelude hiding (readFile, writeFile)
 
 import Clang.Args
 import Clang.Paths
-import HsBindgen.Clang.Args (ExtraClangArgsLog)
+import HsBindgen.Clang.Args (ExtraClangArgsMsg)
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
-import HsBindgen.Util.Tracer (TraceWithCallStack, traceWithCallStack)
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Types
@@ -303,8 +302,8 @@ empty = BindingSpec {
 --
 -- This function throws a @'MultiException' 'BindingSpecException'@ on error.
 load ::
-     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
-  -> Tracer IO (TraceWithCallStack ResolveHeaderException)
+     Tracer IO ExtraClangArgsMsg
+  -> Tracer IO ResolveHeaderException
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> [FilePath]
@@ -406,8 +405,8 @@ writeFileYaml path = BSS.writeFile path . encodeYaml' . toABindingSpec
 
 -- | Resolve headers in a binding specification
 resolve ::
-     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
-  -> Tracer IO (TraceWithCallStack ResolveHeaderException)
+     Tracer IO ExtraClangArgsMsg
+  -> Tracer IO ResolveHeaderException
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> IO ResolvedBindingSpec
@@ -418,7 +417,7 @@ resolve tracerClangArgs tracerResolve args uSpec = do
       <$> mapM
             (\cPath -> fmap (cPath,) <$> resolveHeader' tracerClangArgs args cPath)
             cPaths
-    mapM_ (traceWithCallStack tracerResolve) errs
+    mapM_ (traceWith tracerResolve) errs
     let lookup' :: CHeaderIncludePath -> Maybe (CHeaderIncludePath, SourcePath)
         lookup' header = (header,) <$> Map.lookup header headerMap
         resolveSet ::

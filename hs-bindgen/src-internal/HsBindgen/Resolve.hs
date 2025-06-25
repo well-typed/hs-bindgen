@@ -19,14 +19,10 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import Control.Tracer (Tracer)
-import HsBindgen.Clang.Args (ExtraClangArgsLog, withExtraClangArgs)
+import HsBindgen.Clang.Args (ExtraClangArgsMsg, withExtraClangArgs)
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              HasSource (getSource), Level (..),
-                              PrettyTrace (prettyTrace), Source (HsBindgen),
-                              TraceWithCallStack)
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Error type
@@ -42,7 +38,7 @@ instance Exception ResolveHeaderException where
     ResolveHeaderNotFound headerIncludePath ->
       "header not found: " ++ getCHeaderIncludePath headerIncludePath
 
-instance PrettyTrace ResolveHeaderException where
+instance PrettyForTrace ResolveHeaderException where
   prettyTrace = displayException
 
 instance HasDefaultLogLevel ResolveHeaderException where
@@ -58,7 +54,7 @@ instance HasSource ResolveHeaderException where
 
 -- | Resolve a header
 resolveHeader' ::
-     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+     Tracer IO ExtraClangArgsMsg
   -> ClangArgs
   -> CHeaderIncludePath -- ^ The header we want to resolve
   -> IO (Either ResolveHeaderException SourcePath)
@@ -111,10 +107,11 @@ resolveHeader' tracer args target =
     opts = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
 
 -- | Resolve a header, throwing an 'HsBindgenException' on error
-resolveHeader :: Tracer IO (TraceWithCallStack ExtraClangArgsLog)
-              -> ClangArgs
-              -> CHeaderIncludePath
-              -> IO SourcePath
+resolveHeader ::
+     Tracer IO ExtraClangArgsMsg
+  -> ClangArgs
+  -> CHeaderIncludePath
+  -> IO SourcePath
 resolveHeader tracer args =
     either (throwIO . HsBindgenException) return <=< resolveHeader' tracer args
 

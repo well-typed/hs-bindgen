@@ -73,4 +73,4 @@ getExtraClangArgsTests = testGroup "getExtraClangArgs" [
   where assertExtraClangArgs :: [(EnvVar, Content)] -> Maybe Target -> [String] -> IO ()
         assertExtraClangArgs xs mtarget x = do
           withTracePredicate defaultTracePredicate $ \tracer ->
-            assertWithEnv xs (getExtraClangArgs (useTrace TraceExtraClangArgs tracer) mtarget) x
+            assertWithEnv xs (getExtraClangArgs (contramap TraceExtraClangArgs tracer) mtarget) x

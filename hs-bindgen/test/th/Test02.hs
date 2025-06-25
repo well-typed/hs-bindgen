@@ -25,7 +25,7 @@ $(do
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
         -- `uchar.h` is not available on MacOS.
-        uCharHeaderNotFound :: TracePredicate Trace
+        uCharHeaderNotFound :: TracePredicate TraceMsg
         uCharHeaderNotFound = customTracePredicate [] $ \case
           TraceResolveHeader (ResolveHeaderNotFound h)
             | getCHeaderIncludePath h == "uchar.h"

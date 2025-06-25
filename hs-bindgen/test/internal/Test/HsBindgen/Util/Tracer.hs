@@ -15,7 +15,7 @@ import Test.Internal.Tracer (TraceExpectation (Expected),
 
 data TestTrace = TestDebug String | TestInfo String | TestWarning String | TestError String
 
-instance PrettyTrace TestTrace where
+instance PrettyForTrace TestTrace where
   prettyTrace = \case
     TestDebug x   -> x
     TestInfo  x   -> x
@@ -53,7 +53,7 @@ testTracerIO customLogLevel traces = do
       -- and not by the tests (e.g., 'withTracePredicate').
       withTracer = withTracerCustom' DisableAnsiColor tracerConf customLogLevel noOutput
   (_, maxLogLevel) <- withTracer $ \tracer -> do
-    mapM_ (traceWithCallStack tracer) traces
+    mapM_ (traceWith tracer) traces
   pure maxLogLevel
 
 tests :: TestTree
@@ -84,42 +84,42 @@ tests = testGroup "HsBindgen.Util.Tracer"
               tracerConf = defaultTracerConf { tVerbosity = Verbosity Debug }
               withTracer = withTracerCustom DisableAnsiColor tracerConf DefaultLogLevel noOutput
           withTracer $ \tracer -> do
-            traceWithCallStack tracer er
+            traceWith tracer er
     ]
   , testGroup "withTracePredicate"
     [ testCase "ok-debug" $
           withTracePredicate defaultTracePredicate $ \tracer ->
-            traceWithCallStack tracer db
+            traceWith tracer db
     , testCase "ok-info" $
           withTracePredicate defaultTracePredicate $ \tracer ->
-            traceWithCallStack tracer info
+            traceWith tracer info
     , testCase "!ok-warning" $
         assertException "Expected TraceExpectationException" proxy $
           withTracePredicate defaultTracePredicate $ \tracer ->
-            traceWithCallStack tracer wn
+            traceWith tracer wn
     , testCase "!ok-error" $
         assertException "Expected TraceExpectationException" proxy $
           withTracePredicate defaultTracePredicate $ \tracer ->
-            traceWithCallStack tracer er
+            traceWith tracer er
     , testCase "ok-custom-warning" $
         withTracePredicate (customTracePredicate ["Warning"] expectWar) $
           \tracer -> do
-            traceWithCallStack tracer wn
+            traceWith tracer wn
     , testCase "ok-custom-error" $
         withTracePredicate (customTracePredicate ["Error"] expectErr) $
           \tracer -> do
-            traceWithCallStack tracer er
+            traceWith tracer er
     , testCase "!ok-custom-too-many" $
         assertException "Expected TraceExpectationException" proxy $
           withTracePredicate (customTracePredicate ["Warning"] expectWar) $
             \tracer -> do
-              traceWithCallStack tracer wn
-              traceWithCallStack tracer wn
+              traceWith tracer wn
+              traceWith tracer wn
     , testCase "!ok-custom-too-few" $
         assertException "Expected TraceExpectationException" proxy $
           withTracePredicate (customTracePredicate ["Warning"] expectWar) $
             \tracer -> do
-              traceWithCallStack tracer db
+              traceWith tracer db
     ]
   ]
   where db        = TestDebug   "Debug message."
