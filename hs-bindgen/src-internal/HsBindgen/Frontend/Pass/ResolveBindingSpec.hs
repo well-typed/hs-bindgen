@@ -27,6 +27,7 @@ import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
+import HsBindgen.Util.Monad (mapMaybeM)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -421,11 +422,3 @@ getExtHsRef cQualName typeSpec = do
       maybe (Left (BindingSpecExtHsRefNoIdentifier cQualName)) Right $
         BindingSpec.typeSpecIdentifier typeSpec
     return ExtHsRef{extHsRefModule, extHsRefIdentifier}
-
-mapMaybeM :: forall a b m. Monad m => (a -> m (Maybe b)) -> [a] -> m [b]
-mapMaybeM f = foldr aux (pure [])
-  where
-    aux :: a -> m [b] -> m [b]
-    aux x doRest = f x >>= \case
-      Just y  -> (y :) <$> doRest
-      Nothing -> doRest

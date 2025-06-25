@@ -24,7 +24,7 @@ import Clang.Paths
 import HsBindgen.Clang
 import HsBindgen.Resolve (resolveHeader)
 import HsBindgen.TraceMsg
-import HsBindgen.Util.Tracer qualified as Tracer
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Options
@@ -64,9 +64,9 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    Tracer.withTracerStdOut tracerConf Tracer.DefaultLogLevel $ \tracer -> do
-      let tracerResolve   = Tracer.contramap TraceResolveHeader  tracer
-          tracerClang     = Tracer.contramap TraceClang          tracer
+    withTracerStdOut tracerConf DefaultLogLevel $ \tracer -> do
+      let tracerResolve = contramap TraceResolveHeader tracer
+          tracerClang   = contramap TraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return
           =<< resolveHeader tracerResolve cArgs optFile
       let setup :: ClangSetup
@@ -86,9 +86,9 @@ clangAstDump opts@Options{..} = do
               | otherwise                             -> runFold (foldDecls opts) cursor
   where
 
-    tracerConf :: Tracer.TracerConf
-    tracerConf = Tracer.defaultTracerConf {
-        Tracer.tVerbosity = Tracer.Verbosity Tracer.Warning
+    tracerConf :: TracerConf
+    tracerConf = defaultTracerConf {
+        tVerbosity = Verbosity Warning
       }
 
     cArgs :: ClangArgs
