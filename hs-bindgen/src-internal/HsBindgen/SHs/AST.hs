@@ -235,7 +235,7 @@ deriving stock instance Show (SAlt ctx)
 
 -- | Simple declarations
 data SDecl =
-    DVar (HsName NsVar) (Maybe ClosedType) ClosedExpr
+    DVar (HsName NsVar) ClosedType ClosedExpr
   | DInst Instance
   | DRecord Record
   | DNewtype Newtype

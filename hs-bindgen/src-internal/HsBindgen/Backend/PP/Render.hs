@@ -11,7 +11,6 @@ module HsBindgen.Backend.PP.Render (
 
 import Data.Char qualified
 import Data.List qualified as List
-import Data.Maybe (maybeToList)
 import Data.Text qualified as Text
 import Data.Word
 import GHC.Exts (Int (..), sizeofByteArray#)
@@ -103,10 +102,8 @@ instance Pretty ImportListItem where
 instance Pretty SDecl where
   pretty = \case
     DComment s -> "--" <+> string s
-    DVar name mbTy expr ->
-      fsep
-        [ pretty name <+> string "::" <+> pretty ty
-        | ty <- maybeToList mbTy ]
+    DVar name ty expr ->
+      (pretty name <+> string "::" <+> pretty ty)
       $$
       fsep
         [ pretty name <+> char '='

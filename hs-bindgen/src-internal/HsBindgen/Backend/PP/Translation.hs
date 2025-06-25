@@ -138,8 +138,8 @@ instance Monoid ImportAcc where
 resolveDeclImports :: SDecl -> ImportAcc
 resolveDeclImports = \case
     DComment {} -> mempty
-    DVar _name mbTy e ->
-      maybe mempty resolveTypeImports mbTy <> resolveExprImports e
+    DVar _name ty e ->
+      resolveTypeImports ty <> resolveExprImports e
     DInst Instance{..} -> mconcat $
         resolveGlobalImports instanceClass
       : map (resolveGlobalImports . fst) instanceDecs

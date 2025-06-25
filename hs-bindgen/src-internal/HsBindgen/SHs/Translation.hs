@@ -152,7 +152,7 @@ translateTypeClass Hs.WriteRaw   = TGlobal WriteRaw_class
 translateVarDecl :: Hs.VarDecl -> SDecl
 translateVarDecl Hs.VarDecl {..} = DVar
     varDeclName
-    (Just (translateSigma varDeclType))
+    (translateSigma varDeclType)
     (translateBody varDeclBody)
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
@@ -385,12 +385,12 @@ toNameHint (HsName t) = NameHint (T.unpack t)
 
 translateUnionGetter :: HsName NsTypeConstr -> HsType -> HsName NsVar -> SDecl
 translateUnionGetter u f n = DVar n
-    (Just $ TFun (TCon u) (translateType f))
+    (TFun (TCon u) (translateType f))
     (EGlobal ByteArray_getUnionPayload)
 
 translateUnionSetter :: HsName NsTypeConstr -> HsType -> HsName NsVar -> SDecl
 translateUnionSetter u f n = DVar n
-    (Just $ TFun (translateType f) (TCon u))
+    (TFun (translateType f) (TCon u))
     (EGlobal ByteArray_setUnionPayload)
 
 {-------------------------------------------------------------------------------
