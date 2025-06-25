@@ -5,7 +5,6 @@ import Control.Exception (Exception (..), SomeException (..), fromException,
 import Control.Monad (foldM, unless)
 import Data.ByteString qualified as BS
 import Data.Char (isLetter)
-import GHC.Stack (HasCallStack)
 import System.Exit (ExitCode, exitFailure)
 import Text.Read (readMaybe)
 
@@ -32,7 +31,7 @@ instance Exception LiterateFileException where
     displayException (LiterateFileException path err) =
       "error loading " ++ path ++ ": " ++ err
 
-execMode :: HasCallStack => Cli -> IO ()
+execMode :: Cli -> IO ()
 execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
     ModePreprocess{..} -> genDecls >>= outputDecls
       where
@@ -84,11 +83,13 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
 
     ModeResolve{..} -> do
       isSuccess <- withTracer $ \tracer ->
-        let tracer' = contramap TraceExtraClangArgs tracer
-            args    = optsClangArgs cmdOpts
-            step isSuccess header = resolveHeader tracer' args header >>= \case
-              Right path -> isSuccess <$ putStrLn path
-              Left  err  -> False     <$ putStrLn (displayException err)
+        let tracerResolve = contramap TraceResolveHeader  tracer
+            args          = optsClangArgs cmdOpts
+            step isSuccess header =
+              resolveHeader tracerResolve args header >>= \case
+                Just path -> isSuccess <$ putStrLn path
+                Nothing ->
+                  False <$ putStrLn ("header not found: " ++ show header)
         in  foldM step True resolveInputs
       unless isSuccess exitFailure
   where

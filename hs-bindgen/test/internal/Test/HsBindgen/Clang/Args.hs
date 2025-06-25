@@ -4,7 +4,7 @@ import System.Environment (setEnv, unsetEnv)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 
-import HsBindgen.Clang.Args
+import HsBindgen.Clang (splitArguments, getExtraClangArgs)
 import HsBindgen.Lib
 import Test.Internal.Tracer (defaultTracePredicate, withTracePredicate)
 
@@ -73,4 +73,4 @@ getExtraClangArgsTests = testGroup "getExtraClangArgs" [
   where assertExtraClangArgs :: [(EnvVar, Content)] -> Maybe Target -> [String] -> IO ()
         assertExtraClangArgs xs mtarget x = do
           withTracePredicate defaultTracePredicate $ \tracer ->
-            assertWithEnv xs (getExtraClangArgs (contramap TraceExtraClangArgs tracer) mtarget) x
+            assertWithEnv xs (getExtraClangArgs tracer mtarget) x

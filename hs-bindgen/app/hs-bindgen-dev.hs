@@ -1,7 +1,5 @@
 module Main (main) where
 
-import GHC.Stack (HasCallStack)
-
 import HsBindgen.App.Common
 import HsBindgen.App.Dev
 import HsBindgen.Frontend.AST.External (TranslationUnit)
@@ -17,8 +15,7 @@ main = do
     dev@Dev{..} <- getDev
     execMode dev devMode
 
-execMode :: HasCallStack
-  => Dev -> Mode -> IO ()
+execMode :: Dev -> Mode -> IO ()
 execMode Dev{..} = \case
     ModeParse{..} -> genBindings parseInputPaths >>= print
   where

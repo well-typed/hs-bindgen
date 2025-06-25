@@ -25,7 +25,7 @@ module HsBindgen.TH (
   , StdlibBindingSpecs(..)
   , loadExtBindings
   , emptyExtBindings
-  , Resolve.ResolveHeaderException(..)
+  , Resolve.ResolveHeaderMsg(..)
 
     -- ** Translation options
   , Hs.TranslationOpts(..)

@@ -6,6 +6,7 @@
 module HsBindgen.Frontend.AST.External (
     -- * Top-level
     TranslationUnit(..)
+  , emptyTranslationUnit
     -- * Declarations
   , Decl(..)
   , DeclInfo(..)
@@ -72,6 +73,12 @@ data TranslationUnit = TranslationUnit{
     , unitDeps :: [SourcePath]
     }
   deriving stock (Show, Eq, Generic)
+
+emptyTranslationUnit :: TranslationUnit
+emptyTranslationUnit = TranslationUnit{
+      unitDecls = []
+    , unitDeps  = []
+    }
 
 {-------------------------------------------------------------------------------
   Declarations

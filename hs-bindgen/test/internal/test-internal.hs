@@ -17,6 +17,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.C.Reparse.Infra (ReparseError (..))
 import HsBindgen.C.Tc.Macro (TcMacroError (TcErrors))
+import HsBindgen.Clang (ClangMsg(..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (Redeclaration))
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -77,7 +78,7 @@ tests packageRoot getExtBindings getRustBindgen =
         , ("anonymous"                   , defaultTracePredicate)
         , ("attributes"                  ,
            singleTracePredicate "DiagnosticNullability" $ \case
-            (TraceDiagnostic x) | diagnosticCategoryText x == "Nullability Issue"
+            TraceClang (ClangDiagnostic x) | diagnosticCategoryText x == "Nullability Issue"
               -> Just (Expected "DiagnosticNullability")
             _otherTrace -> Nothing
           )
@@ -85,7 +86,7 @@ tests packageRoot getExtBindings getRustBindgen =
         , ("bool"                        , defaultTracePredicate)
         , ("distilled_lib_1"             ,
             customTracePredicate ["MacroErrorTc", "MacroErrorTc"] $ \case
-              (TraceFrontend (FrontendHandleMacros (MacroErrorTc (TcErrors _)) ))
+              TraceFrontend (FrontendHandleMacros (MacroErrorTc (TcErrors _)))
                 -> Just $ Expected "MacroErrorTc"
               _otherTrace -> Nothing
           )
@@ -133,7 +134,7 @@ tests packageRoot getExtBindings getRustBindgen =
         , ("unions"                      , defaultTracePredicate)
         , ("unnamed-struct"              ,
            singleTracePredicate "DiagnosticSemanticIssue" $ \case
-            (TraceDiagnostic x) | diagnosticCategoryText x == "Semantic Issue"
+            TraceClang (ClangDiagnostic x) | diagnosticCategoryText x == "Semantic Issue"
               -> Just (Expected "DiagnosticSemanticIssue")
             _otherTrace -> Nothing
           )
@@ -200,7 +201,7 @@ tests packageRoot getExtBindings getRustBindgen =
             (singleTracePredicate "Redeclaration" $ \case
               TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {})))
                 -> Just (Expected "Redeclaration")
-              TraceDiagnostic x | "macro redefined" `Text.isInfixOf` diagnosticSpelling x
+              TraceClang (ClangDiagnostic x) | "macro redefined" `Text.isInfixOf` diagnosticSpelling x
                 -> Just Tolerated
               _otherTrace -> Nothing
             )

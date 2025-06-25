@@ -21,11 +21,10 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
-import HsBindgen.Clang.Args (withExtraClangArgs)
+import HsBindgen.Clang
 import HsBindgen.Resolve (resolveHeader)
-import HsBindgen.Util.Tracer (CustomLogLevel (DefaultLogLevel), Level (Warning),
-                              TracerConf (tVerbosity), Verbosity (Verbosity),
-                              defaultTracerConf, withTracerStdOut)
+import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer qualified as Tracer
 
 {-------------------------------------------------------------------------------
   Options
@@ -44,6 +43,19 @@ data Options = Options {
     }
 
 {-------------------------------------------------------------------------------
+  Errors
+-------------------------------------------------------------------------------}
+
+data AstDumpException =
+    HeaderNotFound
+  | ClangError
+  deriving stock (Show)
+
+instance Exception AstDumpException where
+  displayException HeaderNotFound = "header not found"
+  displayException ClangError     = "clang error"
+
+{-------------------------------------------------------------------------------
   Implementation
 -------------------------------------------------------------------------------}
 
@@ -52,22 +64,32 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
-      withExtraClangArgs tracer cArgs $ \cArgs' -> do
-        src <- resolveHeader tracer cArgs' optFile
-        HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-          HighLevel.withTranslationUnit index (Just src) cArgs' [] cOpts $ \unit -> do
-            rootCursor <- clang_getTranslationUnitCursor unit
-            void . HighLevel.clang_visitChildren rootCursor $ simpleFold $ \cursor -> do
-              loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
-              case loc of
-                (file, _, _)
-                  | optSameFile && SourcePath file /= src -> foldContinue
-                  | not optBuiltin && isBuiltIn file      -> foldContinue
-                  | otherwise                             -> runFold (foldDecls opts) cursor
+    Tracer.withTracerStdOut tracerConf Tracer.DefaultLogLevel $ \tracer -> do
+      let tracerResolve   = Tracer.contramap TraceResolveHeader  tracer
+          tracerClang     = Tracer.contramap TraceClang          tracer
+      src <- maybe (throwIO HeaderNotFound) return
+          =<< resolveHeader tracerResolve cArgs optFile
+      let setup :: ClangSetup
+          setup = (defaultClangSetup cArgs $ ClangInputFile src) {
+                clangFlags = cOpts
+              }
+
+      (>>= maybe (throwIO ClangError) return)
+          . withClang tracerClang setup $ \unit -> Just <$> do
+        rootCursor <- clang_getTranslationUnitCursor unit
+        void . HighLevel.clang_visitChildren rootCursor $ simpleFold $ \cursor -> do
+          loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
+          case loc of
+            (file, _, _)
+              | optSameFile && SourcePath file /= src -> foldContinue
+              | not optBuiltin && isBuiltIn file      -> foldContinue
+              | otherwise                             -> runFold (foldDecls opts) cursor
   where
-    tracerConf :: TracerConf
-    tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
+
+    tracerConf :: Tracer.TracerConf
+    tracerConf = Tracer.defaultTracerConf {
+        Tracer.tVerbosity = Tracer.Verbosity Tracer.Warning
+      }
 
     cArgs :: ClangArgs
     cArgs = def {
@@ -85,6 +107,7 @@ clangAstDump opts@Options{..} = do
 
     isBuiltIn :: Text -> Bool
     isBuiltIn = (`elem` [T.pack "<built-in>", T.pack "<command line>"])
+
 
 foldDecls :: Options -> Fold IO ()
 foldDecls opts@Options{..} = simpleFold $ \cursor -> do

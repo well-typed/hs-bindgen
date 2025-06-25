@@ -120,8 +120,7 @@ instance Default PPOpts where
 
 -- | Parse C headers
 parseCHeaders ::
-      HasCallStack
-   => Opts
+      Opts
    -> [CHeaderIncludePath]
    -> IO C.TranslationUnit
 parseCHeaders Opts{..} =
@@ -160,8 +159,7 @@ genExtensions = foldMap requiredExtensions
 -------------------------------------------------------------------------------}
 
 -- | Parse a C header and generate @Hs@ declarations
-translateCHeaders :: HasCallStack
-  => ModuleUnique -> Opts -> [CHeaderIncludePath] -> IO [Hs.Decl]
+translateCHeaders :: ModuleUnique -> Opts -> [CHeaderIncludePath] -> IO [Hs.Decl]
 translateCHeaders mu opts headerIncludePaths = do
     C.TranslationUnit{unitDecls} <- parseCHeaders opts headerIncludePaths
     return $ genHsDecls mu opts unitDecls
@@ -251,7 +249,7 @@ hashInclude fps HashIncludeOpts {..} = do
       pure $ map (toFilePath root) xs
 
 -- | Generate bindings for the given C headers
-hashIncludeWith :: HasCallStack =>
+hashIncludeWith ::
      Opts
   -> [FilePath] -- ^ Input headers, as written in C @#include@
   -> TH.Q [TH.Dec]
@@ -322,8 +320,8 @@ loadExtBindings ::
   -> IO ResolvedBindingSpec
 loadExtBindings tracer args stdlibSpecs =
     BindingSpec.load
-      (contramap TraceExtraClangArgs tracer)
-      (contramap TraceResolveHeader tracer)
+      (contramap TraceResolveBindingSpec tracer)
+      BindingSpec.ResolveExternalBindingSpecHeader
       args stdSpec
   where
     stdSpec :: UnresolvedBindingSpec

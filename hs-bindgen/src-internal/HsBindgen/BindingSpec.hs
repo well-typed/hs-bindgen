@@ -11,6 +11,8 @@ module HsBindgen.BindingSpec (
   , Omittable(..)
   , TypeSpec(..)
   , defaultTypeSpec
+    -- ** Trace messages
+  , ResolveBindingSpecMsg(..)
     -- ** Instances
   , InstanceSpec(..)
   , StrategySpec(..)
@@ -63,13 +65,13 @@ import Prelude hiding (readFile, writeFile)
 
 import Clang.Args
 import Clang.Paths
-import HsBindgen.Clang.Args (ExtraClangArgsMsg)
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
+import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -302,16 +304,17 @@ empty = BindingSpec {
 --
 -- This function throws a @'MultiException' 'BindingSpecException'@ on error.
 load ::
-     Tracer IO ExtraClangArgsMsg
-  -> Tracer IO ResolveHeaderException
+     Tracer IO ResolveBindingSpecMsg
+  -> (ResolveHeaderMsg -> ResolveBindingSpecMsg)
+     -- ^ Are we dealing with external or prescriptive bindings?
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> [FilePath]
   -> IO ResolvedBindingSpec
-load tracerClangArgs tracerResolve args stdSpec paths = do
+load tracer injResolveHeader args stdSpec paths = do
     (readErrss, uspecs) <- partitionEithers <$> mapM readFile paths
     let readErrs = ReadBindingSpecException <$> mconcat readErrss
-    specs <- mapM (resolve tracerClangArgs tracerResolve args) (stdSpec : uspecs)
+    specs <- mapM (resolve tracer injResolveHeader args) (stdSpec : uspecs)
     case first (fmap MergeBindingSpecException) (merge specs) of
       Right spec
         | null readErrss -> return spec
@@ -400,24 +403,72 @@ writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFileYaml path = BSS.writeFile path . encodeYaml' . toABindingSpec
 
 {-------------------------------------------------------------------------------
+  Trace messages
+-------------------------------------------------------------------------------}
+
+-- TODO: Additional messages (e.g. "type dropped")
+data ResolveBindingSpecMsg =
+    ResolveExternalBindingSpecHeader ResolveHeaderMsg
+  | ResolvePrescriptiveBindingSpecHeader ResolveHeaderMsg
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace ResolveBindingSpecMsg where
+  prettyTrace = \case
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/798>
+      -- We might want nicer formatting here.
+      ResolveExternalBindingSpecHeader x -> concat [
+          "during resolution of external binding specification: "
+        , prettyTrace x
+        ]
+      ResolvePrescriptiveBindingSpecHeader x -> concat [
+          "during resolution of prescriptive binding specification: "
+        , prettyTrace x
+        ]
+
+instance HasDefaultLogLevel ResolveBindingSpecMsg where
+  getDefaultLogLevel = \case
+      ResolveExternalBindingSpecHeader _x ->
+        -- Any errors that happen while resolving /external/ headers are 'Info'
+        -- only: the only consequence is that those headers will then not match
+        -- against anything (and we might generate separate warnings/errors
+        -- for that anyway while resolving the binding specification).
+        Info
+      ResolvePrescriptiveBindingSpecHeader x ->
+        -- However, any errors that happen during /prescriptive/ binding specs
+        -- truly are errors.
+        getDefaultLogLevel x
+
+instance HasSource ResolveBindingSpecMsg where
+  getSource = \case
+      ResolveExternalBindingSpecHeader     x -> getSource x
+      ResolvePrescriptiveBindingSpecHeader x -> getSource x
+
+{-------------------------------------------------------------------------------
   API: Header resolution
 -------------------------------------------------------------------------------}
 
 -- | Resolve headers in a binding specification
 resolve ::
-     Tracer IO ExtraClangArgsMsg
-  -> Tracer IO ResolveHeaderException
+     Tracer IO ResolveBindingSpecMsg
+  -> (ResolveHeaderMsg -> ResolveBindingSpecMsg)
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> IO ResolvedBindingSpec
-resolve tracerClangArgs tracerResolve args uSpec = do
+resolve tracer injResolveHeader args uSpec = do
     let types = bindingSpecTypes uSpec
-        cPaths = Set.toAscList . mconcat $ fst <$> concat (Map.elems types)
-    (errs, headerMap) <- bimap Set.fromList Map.fromList . partitionEithers
-      <$> mapM
-            (\cPath -> fmap (cPath,) <$> resolveHeader' tracerClangArgs args cPath)
-            cPaths
-    mapM_ (traceWith tracerResolve) errs
+
+    headerMap <-
+      let headers :: [CHeaderIncludePath]
+          headers = Set.toAscList . mconcat $ fst <$> concat (Map.elems types)
+
+          resolveHeader' ::
+                CHeaderIncludePath
+             -> IO (Maybe (CHeaderIncludePath, SourcePath))
+          resolveHeader' header = fmap (header,) <$>
+              resolveHeader (contramap injResolveHeader tracer) args header
+
+      in  Map.fromList <$> mapMaybeM resolveHeader' headers
+
     let lookup' :: CHeaderIncludePath -> Maybe (CHeaderIncludePath, SourcePath)
         lookup' header = (header,) <$> Map.lookup header headerMap
         resolveSet ::
