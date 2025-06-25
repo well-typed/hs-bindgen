@@ -88,6 +88,7 @@ mkGlobal = \case
       CharValue_fromAddr    -> 'C.Char.charValueFromAddr
       CAPI_with             -> 'Foreign.with
       CAPI_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
+      ConstantArray_withPtr -> 'HsBindgen.Runtime.ConstantArray.withPtr
 
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
@@ -275,6 +276,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ByteArray_getUnionPayload -> TH.varE name
     CAPI_with             -> TH.varE name
     CAPI_allocaAndPeek    -> TH.varE name
+    ConstantArray_withPtr -> TH.varE name
 
     -- Other type classes
     Bits_class        -> panicPure "class in expression"

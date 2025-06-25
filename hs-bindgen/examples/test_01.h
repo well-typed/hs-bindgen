@@ -115,4 +115,17 @@ static inline struct thing thing_fun_3(struct thing x) {
     return res;
 }
 
+/* Fixed size array arguments */
+static inline int sum3(int x, int xs[3]) {
+    xs[0] *= 2;
+    return x + xs[0] + xs[1] + xs[2];
+}
+
+typedef int triple[3];
+
+static inline int sum3b(int x, triple xs) {
+    xs[0] *= 3;
+    return x + xs[0] + xs[1] + xs[2];
+}
+
 #endif

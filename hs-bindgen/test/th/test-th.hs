@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ImportQualifiedPost #-}
@@ -158,6 +159,19 @@ test01 = testGroup "test_01"
 
         res' <- Test01.thing_fun_3 (Test01.Thing 6)
         Test01.Thing 12 @?= res'
+
+    , testCase "fixed-size-array" $ do
+        let v = CA.repeat 4 :: CA.ConstantArray 3 CInt
+        res <- CA.withPtr v (\ptr -> Test01.sum3_wrapper 5 ptr)
+        21 @?= res
+        [4,4,4] @?= CA.toList v -- modification in sum3 aren't visible in original array.
+
+        res' <- Test01.sum3 7 v
+        23 @?= res'
+
+        let t = Test01.Triple v
+        res'' <- Test01.sum3b 9 t
+        29 @?= res''
     ]
 
 thing_fun_1 :: Test01.Thing -> IO CInt

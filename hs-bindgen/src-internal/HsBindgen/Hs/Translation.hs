@@ -897,29 +897,36 @@ floatingType = \case
 -------------------------------------------------------------------------------}
 
 data WrappedType
-    = WrapType C.Type
-    | FancyType C.Type
+    = WrapType C.Type -- ^ ordinary, "primitive" types which can be handled by Haskell FFI directly
+    | HeapType C.Type -- ^ types passed on heap
+    | CAType C.Type Natural C.Type -- ^ constant arrays. The C ABI is to pass these as pointers, but we need a wrapper on Haskell side.
   deriving Show
 
+-- | Type in low-level Haskell wrapper
 unwrapType :: WrappedType -> C.Type
-unwrapType (WrapType ty) = ty
-unwrapType (FancyType ty) = C.TypePointer ty
+unwrapType (WrapType ty)   = ty
+unwrapType (HeapType ty)   = C.TypePointer ty
+unwrapType (CAType _ _ ty) = C.TypePointer ty
 
+-- | Type in high-level Haskell wrapper
 unwrapOrigType :: WrappedType -> C.Type
-unwrapOrigType (WrapType ty) = ty
-unwrapOrigType (FancyType ty) = ty
+unwrapOrigType (WrapType ty)    = ty
+unwrapOrigType (HeapType ty)    = ty
+unwrapOrigType (CAType oty _ _) = oty
 
 isVoidW :: WrappedType -> Bool
 isVoidW = C.isVoid . unwrapType
 
-isWrappedFancy :: WrappedType -> Bool
-isWrappedFancy (WrapType _) = False
-isWrappedFancy (FancyType _) = True
+-- | Whether wrapped type is HeapType.
+isWrappedHeap :: WrappedType -> Bool
+isWrappedHeap WrapType {} = False
+isWrappedHeap HeapType {} = True
+isWrappedHeap CAType {}   = False
 
 -- | userland-api C wrapper.
 wrapperDecl
-    :: String    -- ^ true C name
-    -> String    -- ^ wrapper name
+    :: String         -- ^ true C name
+    -> String         -- ^ wrapper name
     -> WrappedType    -- ^ result type
     -> [WrappedType]  -- ^ arguments
     -> PC.Decl
@@ -929,7 +936,7 @@ wrapperDecl innerName wrapperName res args
         PC.FunDefn wrapperName C.TypeVoid (unwrapType <$> args')
           [PC.Expr $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
 
-    | isWrappedFancy res
+    | isWrappedHeap res
     = PC.withArgs args $ \args' ->
         PC.FunDefn wrapperName C.TypeVoid (unwrapType <$> (args' :> res))
           [PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call innerName (callArgs args' (IS <$> PC.argsToIdx args'))]
@@ -940,7 +947,7 @@ wrapperDecl innerName wrapperName res args
           [PC.Return $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
   where
     callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
-    callArgs tys ids = toList (zipWithEnv f tys ids) where f ty idx = if isWrappedFancy ty then PC.DeRef (PC.Var idx) else PC.Var idx
+    callArgs tys ids = toList (zipWithEnv f tys ids) where f ty idx = if isWrappedHeap ty then PC.DeRef (PC.Var idx) else PC.Var idx
 
 hsWrapperDecl
     :: HsName NsVar   -- ^ haskell name
@@ -948,18 +955,21 @@ hsWrapperDecl
     -> WrappedType    -- ^ result type
     -> [WrappedType]  -- ^ arguments
     -> SHs.SDecl
-hsWrapperDecl hiName loName res args
-  | isWrappedFancy res
-  = SHs.DVar
-    hiName
-    (Just (SHs.translateType hsty))
-    (goA EmptyEnv args)
+hsWrapperDecl hiName loName res args = case res of
+  HeapType {} ->
+    SHs.DVar
+      hiName
+      (Just (SHs.translateType hsty))
+      (goA EmptyEnv args)
 
-  | otherwise
-  = SHs.DVar
-    hiName
-    (Just (SHs.translateType hsty))
-    (goB EmptyEnv args)
+  WrapType {} ->
+    SHs.DVar
+      hiName
+      (Just (SHs.translateType hsty))
+      (goB EmptyEnv args)
+
+  CAType {} ->
+    panicPure "ConstantArray cannot occur as a result type"
   where
     hsty = foldr HsFun (HsIO $ typ' CFunRes $ unwrapOrigType res) (typ' CFunArg . unwrapOrigType <$> args)
 
@@ -974,15 +984,19 @@ hsWrapperDecl hiName loName res args
           [ SHs.ELam "z" $ shsApps (SHs.EFree loName) (map SHs.EBound (fmap IS zs ++ [IZ]))
           ]
 
-    goA' (tys :> ty) (xs :> x) zs
-        | isWrappedFancy ty
-        = shsApps (SHs.EGlobal SHs.CAPI_with)
-          [ SHs.EBound x
-          , SHs.ELam "y" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
-          ]
+    goA' (tys :> ty) (xs :> x) zs = case ty of
+        HeapType {} -> shsApps (SHs.EGlobal SHs.CAPI_with)
+            [ SHs.EBound x
+            , SHs.ELam "y" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
+            ]
 
-        | otherwise
-        = goA' tys xs (x : zs)
+        CAType {} -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr)
+            [ SHs.EBound x
+            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
+            ]
+
+        WrapType {} ->
+            goA' tys xs (x : zs)
 
     -- wrapper for non-fancy result.
     goB :: Env ctx WrappedType -> [WrappedType] -> SHs.SExpr ctx
@@ -993,15 +1007,19 @@ hsWrapperDecl hiName loName res args
     goB' EmptyEnv    EmptyEnv  zs
         = shsApps (SHs.EFree loName) (map SHs.EBound zs)
 
-    goB' (tys :> ty) (xs :> x) zs
-        | isWrappedFancy ty
-        = shsApps (SHs.EGlobal SHs.CAPI_with)
+    goB' (tys :> ty) (xs :> x) zs = case ty of
+        HeapType {} -> shsApps (SHs.EGlobal SHs.CAPI_with)
           [ SHs.EBound x
           , SHs.ELam "y" $ goB' tys (IS <$> xs) (IZ : fmap IS zs)
           ]
 
-        | otherwise
-        = goB' tys xs (x : zs)
+        CAType {} -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr)
+            [ SHs.EBound x
+            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) (IZ : fmap IS zs)
+            ]
+
+        WrapType {} ->
+            goB' tys xs (x : zs)
 
 shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
 shsApps = foldl' SHs.EApp
@@ -1024,47 +1042,50 @@ functionDecs mu typedefs info f _spec =
         , foreignImportDeclOrigin = Origin.Function f
         }
     ] ++
-    -- TODO: Hs wrapper if any type is fancy
     [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res args
     | anyFancy
     ]
   where
-    anyFancy = any isWrappedFancy (res : args)
+    -- fancy types are heap types or constant arrays,
+    -- i.e. ones we create high-level wrapper.
+    anyFancy = any p (res : args) where
+        p WrapType {} = False
+        p HeapType {} = True
+        p CAType {}   = True
 
     highlevelName = C.nameHs (C.declId info)
     importName
         | anyFancy   = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
         | otherwise  = highlevelName
 
-    wrapType :: C.Type -> WrappedType
-    wrapType ty
-        | isFancy ty = FancyType ty
-        | otherwise = WrapType ty
-
     res = wrapType $ C.functionRes f
     args = wrapType <$> C.functionArgs f
 
     -- types which we cannot pass directly using C FFI.
-    isFancy :: C.Type -> Bool
-    isFancy C.TypeStruct {}     = True
-    isFancy C.TypeUnion {}      = True
-    isFancy C.TypeConstArray {} = True
-    isFancy (C.TypeTypedef ref) =
-        case ref of
+    wrapType :: C.Type -> WrappedType
+    wrapType oty = go oty
+      where
+        go C.TypeStruct {}         = HeapType oty
+        go C.TypeUnion {}          = HeapType oty
+        go (C.TypeConstArray n ty) = CAType oty n ty
+        go (C.TypeTypedef ref)     = case ref of
           C.TypedefRegular n ->
             let t = Map.findWithDefault (panicPure $ "Unbound typedef " ++ show n) (C.nameC n) typedefs
-            in isFancy t
+            in go t
           C.TypedefSquashed _n ty' ->
-            isFancy ty'
-    isFancy _ = False
+            go ty'
+        go _ = WrapType oty
 
     importType :: HsType
-    importType
-        | isWrappedFancy res
-        = foldr HsFun (HsIO $ typ' CFunRes C.TypeVoid) (typ' CFunArg . unwrapType <$> (args ++ [res]))
+    importType = case res of
+        HeapType {} ->
+            foldr HsFun (HsIO $ typ' CFunRes C.TypeVoid) (typ' CFunArg . unwrapType <$> (args ++ [res]))
 
-        | otherwise
-        = foldr HsFun (HsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
+        WrapType {} ->
+            foldr HsFun (HsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
+
+        CAType {} ->
+            panicPure "ConstantArray cannot occur as a result type"
 
     -- below is generation of C wrapper for userland-capi.
     innerName :: String

@@ -1,0 +1,16 @@
+-- addDependentFile examples/golden/fixedarray_arg.h
+-- #include "fixedarray_arg.h"
+-- signed int test_internal_fun_1 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }
+-- signed int test_internal_fun_2 (signed int *arg1) { return fun_2(arg1); }
+foreign import ccall safe "test_internal_fun_1" fun_1_wrapper :: CInt ->
+                                                                 Ptr CInt -> IO CInt
+fun_1 :: CInt -> ConstantArray 3 CInt -> IO CInt
+fun_1 = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_1_wrapper x_0 ptr_2)
+newtype Triple = Triple {un_Triple :: (ConstantArray 3 CInt)}
+deriving newtype instance Storable Triple
+deriving stock instance Eq Triple
+deriving stock instance Show Triple
+foreign import ccall safe "test_internal_fun_2" fun_2_wrapper :: Ptr CInt ->
+                                                                 IO CInt
+fun_2 :: Triple -> IO CInt
+fun_2 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_2_wrapper ptr_1)

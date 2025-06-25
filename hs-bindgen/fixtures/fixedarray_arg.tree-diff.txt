@@ -1,0 +1,90 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "fixedarray_arg.h:1:5",
+        declId = NamePair {
+          nameC = CName "fun_1",
+          nameHsIdent = HsIdentifier
+            "fun_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed),
+          functionHeader =
+          "fixedarray_arg.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "fixedarray_arg.h:3:13",
+        declId = NamePair {
+          nameC = CName "triple",
+          nameHsIdent = HsIdentifier
+            "Triple"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Triple",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Triple"},
+          typedefType = TypeConstArray
+            3
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "fixedarray_arg.h:4:5",
+        declId = NamePair {
+          nameC = CName "fun_2",
+          nameHsIdent = HsIdentifier
+            "fun_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "triple",
+                  nameHsIdent = HsIdentifier
+                    "Triple"})],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed),
+          functionHeader =
+          "fixedarray_arg.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["fixedarray_arg"]}

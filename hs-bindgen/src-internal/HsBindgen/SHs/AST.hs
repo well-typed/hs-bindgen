@@ -68,6 +68,7 @@ data Global =
   | ByteArray_getUnionPayload
   | CAPI_with
   | CAPI_allocaAndPeek
+  | ConstantArray_withPtr
 
     -- Other type classes
   | Bits_class
