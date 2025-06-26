@@ -959,13 +959,13 @@ hsWrapperDecl hiName loName res args = case res of
   HeapType {} ->
     SHs.DVar
       hiName
-      (Just (SHs.translateType hsty))
+      (SHs.translateType hsty)
       (goA EmptyEnv args)
 
   WrapType {} ->
     SHs.DVar
       hiName
-      (Just (SHs.translateType hsty))
+      (SHs.translateType hsty)
       (goB EmptyEnv args)
 
   CAType {} ->

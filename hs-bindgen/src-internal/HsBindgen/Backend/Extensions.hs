@@ -15,7 +15,7 @@ requiredExtensions = \case
     DComment {} ->
         Set.empty
     DVar _name ty _expr ->
-        foldMap typeExtensions ty
+        typeExtensions ty
     DInst x -> Set.fromList $ catMaybes [
           if length (instanceArgs x) >= 2
             then Just TH.MultiParamTypeClasses

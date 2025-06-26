@@ -487,10 +487,9 @@ mkPrimType = TH.conT . mkGlobalP
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
       DComment {} -> return []
-      DVar x Nothing   f -> singleton <$> simpleDecl (hsNameToTH x) f
-      DVar x (Just ty) f -> sequence
+      DVar x ty tm -> sequence
           [ TH.sigD (hsNameToTH x) (mkType EmptyEnv ty)
-          , simpleDecl (hsNameToTH x) f
+          , simpleDecl (hsNameToTH x) tm
           ]
 
       DInst i  -> singleton <$> TH.instanceD
