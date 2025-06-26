@@ -15,3 +15,35 @@ types:
   - Eq
   - Show
   - Storable
+- headers: attributes.h
+  cname: struct bar
+  module: Example
+  identifier: Bar
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: attributes.h
+  cname: baz
+  module: Example
+  identifier: Baz
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: attributes.h
+  cname: struct foo
+  module: Example
+  identifier: Foo
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: attributes.h
+  cname: qux
+  module: Example
+  identifier: Qux
+  instances:
+  - Eq
+  - Show
+  - Storable

@@ -15,12 +15,10 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , ParseMsg(..)
   ) where
 
-import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
@@ -83,49 +81,18 @@ getDeclId curr = do
     -- tag, even if there is a @typedef@ for the type.
     --
     -- @clang_Cursor_isAnonymous@ does not do what we need.  It returns 'False'
-    -- for an anonymous declaration if there is a @typedef@ for the type.
+    -- for an anonymous declaration if there is a @typedef@ for the type.  In
+    -- older versions of LLVM, one could check @clang_getCursorSpelling@ for an
+    -- empty result, but this has changed in later versions of LLVM.
     --
-    -- In older versions of LLVM, one could check @clang_getCursorSpelling@ for
-    -- an empty result, but this has changed in later versions of LLVM.  It is
-    -- recommended to not parse cursor or type spellings for this purpose.
-    --
-    -- We instead check for non-tagged declarations.  See 'isNotTagged' below.
-    notTagged <- isNotTagged curr
-    if notTagged then
-      DeclAnon . AnonId . multiLocExpansion <$>
-        HighLevel.clang_getCursorLocation curr
-    else
-      DeclNamed . CName <$> clang_getCursorSpelling curr
-
--- | Check if the cursor is for a non-tagged declaration
---
--- This function returns 'True' if the cursor is for a @struct@, @union@, or
--- @enum@ declaration and the underlying tokens start with that keyword and a
--- left bracket.
-isNotTagged :: MonadIO m => CXCursor -> m Bool
-isNotTagged curr = do
-    kind <- clang_getCursorKind curr
-    let mKeyword = case fromSimpleEnum kind of
-          Right CXCursor_StructDecl -> Just "struct"
-          Right CXCursor_UnionDecl  -> Just "union"
-          Right CXCursor_EnumDecl   -> Just "enum"
-          _otherwise                -> Nothing
-    case mKeyword of
-      Nothing      -> return False
-      Just keyword -> do
-        unit <-
-          maybe (panicIO "isNotTagged: unable to get translation unit") return
-            =<< clang_Cursor_getTranslationUnit curr
-        tokens <- HighLevel.clang_tokenize unit . fmap multiLocExpansion
-          =<< HighLevel.clang_getCursorExtent curr
-        return $ case tokens of
-          token0 : token1 : _rest -> and [
-              fromSimpleEnum (tokenKind token0) == Right CXToken_Keyword
-            , tokenSpelling token0 == TokenSpelling keyword
-            , fromSimpleEnum (tokenKind token1) == Right CXToken_Punctuation
-            , tokenSpelling token1 == TokenSpelling "{"
-            ]
-          _otherwise -> False
+    -- See https://github.com/well-typed/hs-bindgen/issues/795
+    userProvided <- HighLevel.clang_getCursorSpelling curr
+    case getUserProvided userProvided of
+      Just name ->
+        return $ DeclNamed (CName name)
+      Nothing ->
+        DeclAnon . AnonId . multiLocExpansion
+          <$> HighLevel.clang_getCursorLocation curr
 
 instance PrettyForTrace DeclId where
   prettyTrace (DeclNamed name)   = prettyTrace name

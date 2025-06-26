@@ -1,4 +1,44 @@
 -- addDependentFile examples/golden/attributes.h
+data Foo = Foo {foo_c :: CChar, foo_i :: CInt}
+instance Storable Foo
+    where {sizeOf = \_ -> 5 :: Int;
+           alignment = \_ -> 1 :: Int;
+           peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Foo foo_c_3
+                                         foo_i_4 -> pokeByteOff ptr_1 (0 :: Int) foo_c_3 >> pokeByteOff ptr_1 (1 :: Int) foo_i_4}}
+deriving stock instance Show Foo
+deriving stock instance Eq Foo
+data Bar = Bar {bar_c :: CChar, bar_i :: CInt}
+instance Storable Bar
+    where {sizeOf = \_ -> 5 :: Int;
+           alignment = \_ -> 1 :: Int;
+           peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Bar bar_c_3
+                                         bar_i_4 -> pokeByteOff ptr_1 (0 :: Int) bar_c_3 >> pokeByteOff ptr_1 (1 :: Int) bar_i_4}}
+deriving stock instance Show Bar
+deriving stock instance Eq Bar
+data Baz = Baz {baz_c :: CChar, baz_i :: CInt}
+instance Storable Baz
+    where {sizeOf = \_ -> 5 :: Int;
+           alignment = \_ -> 1 :: Int;
+           peek = \ptr_0 -> (pure Baz <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Baz baz_c_3
+                                         baz_i_4 -> pokeByteOff ptr_1 (0 :: Int) baz_c_3 >> pokeByteOff ptr_1 (1 :: Int) baz_i_4}}
+deriving stock instance Show Baz
+deriving stock instance Eq Baz
+data Qux = Qux {qux_c :: CChar, qux_i :: CInt}
+instance Storable Qux
+    where {sizeOf = \_ -> 5 :: Int;
+           alignment = \_ -> 1 :: Int;
+           peek = \ptr_0 -> (pure Qux <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Qux qux_c_3
+                                         qux_i_4 -> pokeByteOff ptr_1 (0 :: Int) qux_c_3 >> pokeByteOff ptr_1 (1 :: Int) qux_i_4}}
+deriving stock instance Show Qux
+deriving stock instance Eq Qux
 data C__SFILE
     = C__SFILE {__sFILE__r :: CInt,
                 __sFILE__w :: CInt,
