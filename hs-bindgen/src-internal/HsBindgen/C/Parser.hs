@@ -5,27 +5,21 @@
 -- > import HsBindgen.C.Parser qualified as C
 module HsBindgen.C.Parser (
     -- * Parsing
-    ParseCHeadersException(..)
-  , parseCHeaders
+--    ParseCHeadersException(..)
+    parseCHeaders
     -- * Debugging/development
   , getTargetTriple
   ) where
 
 import Control.Exception
-import Data.List qualified as List
-import Data.Maybe qualified as Maybe
-import Data.Text qualified as Text
 
 import Clang.Args
 import Clang.Enum.Bitfield
-import Clang.Enum.Simple
-import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.C.Predicate (Predicate)
-import HsBindgen.Clang.Args (ExtraClangArgsMsg, withExtraClangArgs)
+import HsBindgen.Clang
 import HsBindgen.Errors
 import HsBindgen.Frontend (processTranslationUnit)
 import HsBindgen.Frontend.AST.External qualified as C
@@ -40,36 +34,7 @@ import HsBindgen.Util.Tracer
   Parsing
 -------------------------------------------------------------------------------}
 
--- | Failed to parse the C source
---
--- This is thrown by 'parseCHeaders'.
-data ParseCHeadersException =
-    -- | Input header file not found
-    ParseCHeadersInputFileNotFound CHeaderIncludePath
-
-    -- | Errors in the C file
-    --
-    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/174> We should
-    -- have a pretty renderer for diagnostics. For now we rely on
-    -- 'diagnosticFormatted'.
-  | ParseCHeadersCErrors [Text]
-
-    -- | We failed to process file for some other reason
-  | ParseCHeadersUnknownError (SimpleEnum CXErrorCode)
-  deriving stock (Show)
-
-instance Exception ParseCHeadersException where
-  toException = hsBindgenExceptionToException
-  fromException = hsBindgenExceptionFromException
-  displayException = \case
-    ParseCHeadersInputFileNotFound path ->
-      "header not found: " ++ getCHeaderIncludePath path
-    ParseCHeadersCErrors errs -> unlines $ map Text.unpack errs
-    ParseCHeadersUnknownError errCode ->
-      "unknown error parsing C headers: " ++ show errCode
-
 parseCHeaders ::
-     HasCallStack =>
      Tracer IO TraceMsg
   -> ClangArgs
   -> Predicate
@@ -78,24 +43,26 @@ parseCHeaders ::
   -> [CHeaderIncludePath]
   -> IO C.TranslationUnit
 parseCHeaders tracer args predicate programSlicing extSpec mainFiles =
-  withExtraClangArgs (contramap TraceExtraClangArgs tracer) args $ \args' ->
-    HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withUnsavedFile hFilePath hContent $ \file -> do
-        let onFailure :: SimpleEnum CXErrorCode -> IO a
-            onFailure err = throwIO $ ParseCHeadersUnknownError err
-        HighLevel.withTranslationUnit2 index (Just RootHeader.name) args' [file] opts onFailure $ \unit -> do
-          (errors, warnings) <- List.partition diagnosticIsError
-            <$> HighLevel.clang_getDiagnostics unit Nothing
-          unless (null errors) $ throwIO (getError errors)
-          forM_ warnings $ traceWith (contramap TraceDiagnostic tracer)
-          processTranslationUnit
-            (contramap TraceFrontend tracer)
-            extSpec
-            rootHeader
-            predicate
-            programSlicing
-            unit
+    fmap (fromMaybe C.emptyTranslationUnit) $
+    withClang (contramap TraceClang tracer) setup $ \unit -> Just <$> do
+      processTranslationUnit
+        (contramap TraceFrontend tracer)
+        extSpec
+        rootHeader
+        predicate
+        programSlicing
+        unit
   where
+    setup :: ClangSetup
+    setup = (defaultClangSetup args $ ClangInputMemory hFilePath hContent) {
+          clangFlags = bitfieldEnum [
+              CXTranslationUnit_SkipFunctionBodies
+            , CXTranslationUnit_DetailedPreprocessingRecord
+            , CXTranslationUnit_IncludeAttributedTypes
+            , CXTranslationUnit_VisitImplicitAttributes
+            ]
+        }
+
     rootHeader :: RootHeader
     rootHeader = RootHeader.fromMainFiles mainFiles
 
@@ -105,55 +72,18 @@ parseCHeaders tracer args predicate programSlicing extSpec mainFiles =
     hContent :: String
     hContent = RootHeader.content rootHeader
 
-    opts :: BitfieldEnum CXTranslationUnit_Flags
-    opts = bitfieldEnum [
-          CXTranslationUnit_SkipFunctionBodies
-        , CXTranslationUnit_DetailedPreprocessingRecord
-        , CXTranslationUnit_IncludeAttributedTypes
-        , CXTranslationUnit_VisitImplicitAttributes
-        ]
-
-    getError :: [Diagnostic] -> ParseCHeadersException
-    getError diags =
-      case (Maybe.listToMaybe (mapMaybe getInputFileNotFoundError diags)) of
-        Just e  -> e
-        Nothing -> ParseCHeadersCErrors $ map diagnosticFormatted diags
-
-    getInputFileNotFoundError :: Diagnostic -> Maybe ParseCHeadersException
-    getInputFileNotFoundError Diagnostic{..} = do
-      let sloc = multiLocExpansion diagnosticLocation
-      headerIncludePath <- RootHeader.lookup rootHeader sloc
-      guard $ " file not found" `Text.isSuffixOf` diagnosticSpelling
-      return $ ParseCHeadersInputFileNotFound headerIncludePath
-
 {-------------------------------------------------------------------------------
   Debugging/development
 -------------------------------------------------------------------------------}
 
-getTargetTriple :: Tracer IO ExtraClangArgsMsg -> ClangArgs -> IO Text
+getTargetTriple :: Tracer IO ClangMsg -> ClangArgs -> IO Text
 getTargetTriple tracer args =
-  withExtraClangArgs tracer args $ \args' ->
-    HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withUnsavedFile hName hContent $ \file -> do
-        let onFailure :: SimpleEnum CXErrorCode -> IO Text
-            onFailure err = panicPure $
-                   "Clang parse translation unit error while getting target triple: "
-                ++ show err
-        HighLevel.withTranslationUnit2 index (Just hPath) args' [file] opts onFailure $ \unit ->
-          bracket
-            (clang_getTranslationUnitTargetInfo unit)
-            clang_TargetInfo_dispose
-            clang_TargetInfo_getTriple
+    fmap (fromMaybe (panicPure "getTargetTriple failed")) $
+    withClang tracer setup $ \unit -> Just <$>
+      bracket
+        (clang_getTranslationUnitTargetInfo unit)
+        clang_TargetInfo_dispose
+        clang_TargetInfo_getTriple
   where
-    hName :: FilePath
-    hName = "hs-bindgen-triple.h"
-
-    hPath :: SourcePath
-    hPath = SourcePath $ Text.pack hName
-
-    hContent :: String
-    hContent = ""
-
-    opts :: BitfieldEnum CXTranslationUnit_Flags
-    opts = bitfieldEnum []
-
+    setup :: ClangSetup
+    setup = defaultClangSetup args $ ClangInputMemory "hs-bindgen-triple.h" ""

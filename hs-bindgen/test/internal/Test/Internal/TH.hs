@@ -8,7 +8,6 @@ module Test.Internal.TH (
 
 import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Generics qualified as SYB
-import GHC.Stack (HasCallStack)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import System.FilePath (makeRelative)
@@ -20,8 +19,8 @@ import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
 
-goldenTh :: HasCallStack
-  => FilePath
+goldenTh ::
+     FilePath
   -> TestName
   -> ((Opts -> IO String) -> IO String)
   -> TestTree

@@ -88,7 +88,7 @@ library internal
       HsBindgen.C.Reparse.Type
       HsBindgen.C.Tc.Macro
       HsBindgen.C.Tc.Macro.Type
-      HsBindgen.Clang.Args
+      HsBindgen.Clang
       HsBindgen.Config.FixCandidate
       HsBindgen.Config.FixCandidate.ReservedNames
       HsBindgen.Debug
@@ -158,6 +158,7 @@ library internal
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
       HsBindgen.TraceMsg
+      HsBindgen.Util.Monad
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Tracer

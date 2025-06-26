@@ -18,6 +18,11 @@ module HsBindgen.Lib (
     -- * Test generation
   , genTests
 
+    -- * Debugging
+    -- ** Header resolution
+  , resolveHeader
+  , Resolve.ResolveHeaderMsg(..)
+
     -- * Options
   , module Default
   , ModuleUnique(..)
@@ -34,7 +39,6 @@ module HsBindgen.Lib (
   , ResolvedBindingSpec
   , StdlibBindingSpecs(..)
   , Pipeline.loadExtBindings
-  , Resolve.ResolveHeaderException(..)
   , emptyExtBindings
   , stdlibExtBindingsYaml
 
@@ -61,7 +65,6 @@ module HsBindgen.Lib (
 
     -- * Paths
   , Paths.CHeaderIncludePath -- opaque
-  , resolveHeader
   , Paths.parseCHeaderIncludePath
   , Paths.CIncludePathDir(..)
   , (FilePath.</>)
@@ -79,7 +82,6 @@ import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Clang.Args (ExtraClangArgsMsg)
 import HsBindgen.Frontend.Pass.Slice qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
@@ -105,8 +107,8 @@ newtype HsDecls = WrapHsDecls {
     }
 
 -- | Translate C headers to Haskell declarations
-translateCHeaders :: HasCallStack
-  => ModuleUnique -> Pipeline.Opts -> [Paths.CHeaderIncludePath] -> IO HsDecls
+translateCHeaders ::
+     ModuleUnique -> Pipeline.Opts -> [Paths.CHeaderIncludePath] -> IO HsDecls
 translateCHeaders mu opts =
     fmap WrapHsDecls . Pipeline.translateCHeaders mu opts
 
@@ -168,9 +170,10 @@ genTests ppOpts headerIncludePaths testDir =
 
 -- | Resolve a header, used for debugging
 resolveHeader ::
-     Tracer IO ExtraClangArgsMsg
+     Tracer IO Resolve.ResolveHeaderMsg
   -> Args.ClangArgs
   -> Paths.CHeaderIncludePath -- ^ The header we want to resolve
-  -> IO (Either Resolve.ResolveHeaderException FilePath)
-resolveHeader tracer args =
-    fmap (fmap Paths.getSourcePath) . Resolve.resolveHeader' tracer args
+  -> IO (Maybe FilePath)
+resolveHeader tracer args path =
+    fmap Paths.getSourcePath <$>
+      Resolve.resolveHeader tracer args path

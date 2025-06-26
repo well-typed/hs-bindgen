@@ -1,119 +1,94 @@
 module HsBindgen.Resolve (
-    -- * Error type
-    ResolveHeaderException(..)
+    -- * Trace messages
+    ResolveHeaderMsg(..)
     -- * API
-  , resolveHeader'
   , resolveHeader
   ) where
 
-import Control.Exception (Exception (displayException))
-import Control.Monad ((<=<))
 import Control.Monad.Trans.Maybe (MaybeT(..), runMaybeT)
 import Data.Maybe (listToMaybe)
 import Data.Text qualified as Text
 
 import Clang.Args
-import Clang.Enum.Bitfield
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import HsBindgen.Clang.Args (ExtraClangArgsMsg, withExtraClangArgs)
-import HsBindgen.Errors
+import HsBindgen.Clang
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
-  Error type
+  Trace messages
 -------------------------------------------------------------------------------}
 
--- | Failed to resolve a header
-newtype ResolveHeaderException =
-    ResolveHeaderNotFound CHeaderIncludePath
-  deriving stock (Eq, Ord, Show)
+data ResolveHeaderMsg =
+    ResolveHeaderClang ClangMsg
+  | ResolveHeaderSuccess  CHeaderIncludePath SourcePath
+  | ResolveHeaderNotFound CHeaderIncludePath
+  deriving stock (Eq, Show)
 
-instance Exception ResolveHeaderException where
-  displayException = \case
-    ResolveHeaderNotFound headerIncludePath ->
-      "header not found: " ++ getCHeaderIncludePath headerIncludePath
+instance HasDefaultLogLevel ResolveHeaderMsg where
+  getDefaultLogLevel = \case
+    ResolveHeaderClang x    -> getDefaultLogLevel x
+    ResolveHeaderSuccess{}  -> Info
+    ResolveHeaderNotFound{} -> Error
 
-instance PrettyForTrace ResolveHeaderException where
-  prettyTrace = displayException
+instance HasSource ResolveHeaderMsg where
+  getSource = \case
+    ResolveHeaderClang x    -> getSource x
+    ResolveHeaderSuccess{}  -> HsBindgen
+    ResolveHeaderNotFound{} -> HsBindgen
 
-instance HasDefaultLogLevel ResolveHeaderException where
-  -- 'Warning', not 'Error'; see https://github.com/well-typed/hs-bindgen/issues/479.
-  getDefaultLogLevel = const Warning
-
-instance HasSource ResolveHeaderException where
-  getSource = const HsBindgen
+instance PrettyForTrace ResolveHeaderMsg where
+  prettyTrace = \case
+    ResolveHeaderClang msg -> concat [
+        "during header resolution: "
+      , prettyTrace msg
+      ]
+    ResolveHeaderSuccess header path -> unwords [
+        "header"
+      , getCHeaderIncludePath header
+      , "resolved to"
+      , getSourcePath path
+      ]
+    ResolveHeaderNotFound header -> unwords [
+        "header"
+      , getCHeaderIncludePath header
+      , "not found"
+      ]
 
 {-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
 
 -- | Resolve a header
-resolveHeader' ::
-     Tracer IO ExtraClangArgsMsg
+resolveHeader ::
+     Tracer IO ResolveHeaderMsg
   -> ClangArgs
   -> CHeaderIncludePath -- ^ The header we want to resolve
-  -> IO (Either ResolveHeaderException SourcePath)
-resolveHeader' tracer args target =
-    withExtraClangArgs tracer args                           $ \args' ->
-    HighLevel.withIndex DontDisplayDiagnostics               $ \index ->
-    HighLevel.withUnsavedFile generatedName generatedContent $ \file  ->
-    withTranslationUnit index args' file                     $ \unit  -> do
+  -> IO (Maybe SourcePath)
+resolveHeader tracer args target =
+    withClang (contramap ResolveHeaderClang tracer) setup $ \unit -> do
       rootCursor <- clang_getTranslationUnitCursor unit
-      maybe (Left (ResolveHeaderNotFound target)) Right
-        .   listToMaybe
-        <$> HighLevel.clang_visitChildren rootCursor visit
+      mPath <- listToMaybe <$> HighLevel.clang_visitChildren rootCursor visit
+      traceWith tracer $
+        maybe (ResolveHeaderNotFound target) (ResolveHeaderSuccess target) mPath
+      return mPath
   where
-    onFailure :: SimpleEnum CXErrorCode -> IO a
-    onFailure err = panicPure $
-           "Clang parse translation unit error during header resolution: "
-        ++ show err
-
-    withTranslationUnit ::
-         CXIndex
-      -> ClangArgs
-      -> CXUnsavedFile
-      -> (CXTranslationUnit -> IO a)
-      -> IO a
-    withTranslationUnit index args' file =
-        HighLevel.withTranslationUnit2
-          index
-          (Just $ SourcePath $ Text.pack generatedName)
-          args'
-          [file]
-          opts
-          onFailure
+    setup :: ClangSetup
+    setup = defaultClangSetup args $ ClangInputMemory "hs-bindgen-resolve.h" $
+        case target of
+          CHeaderSystemIncludePath path -> "#include <"  ++ path ++ ">"
+          CHeaderQuoteIncludePath  path -> "#include \"" ++ path ++ "\""
 
     visit :: Fold IO SourcePath
     visit = simpleFold $ \curr -> do
-        mResolved <- tryResolve generatedName target curr
+        mResolved <- tryResolve target curr
         case mResolved of
           Nothing   -> foldContinue
           Just path -> foldBreakWith path
-
-    generatedName :: FilePath
-    generatedName = "hs-bindgen-resolve.h"
-
-    generatedContent :: String
-    generatedContent = case target of
-      CHeaderSystemIncludePath path -> "#include <"  ++ path ++ ">"
-      CHeaderQuoteIncludePath  path -> "#include \"" ++ path ++ "\""
-
-    opts :: BitfieldEnum CXTranslationUnit_Flags
-    opts = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
-
--- | Resolve a header, throwing an 'HsBindgenException' on error
-resolveHeader ::
-     Tracer IO ExtraClangArgsMsg
-  -> ClangArgs
-  -> CHeaderIncludePath
-  -> IO SourcePath
-resolveHeader tracer args =
-    either (throwIO . HsBindgenException) return <=< resolveHeader' tracer args
 
 {-------------------------------------------------------------------------------
   Internal: look for the relevant part of the clang AST
@@ -121,11 +96,10 @@ resolveHeader tracer args =
 
 -- | Try to resolve the target using the current cursor, if possible
 tryResolve ::
-     FilePath            -- ^ Generated header
-  -> CHeaderIncludePath  -- ^ Path we want to resolve
+     CHeaderIncludePath  -- ^ Path we want to resolve
   -> CXCursor
   -> IO (Maybe SourcePath)
-tryResolve generatedName target curr = runMaybeT $ do
+tryResolve target curr = runMaybeT $ do
     srcPath     <- singleLocPath  <$> HighLevel.clang_getCursorLocation' curr
     eCursorKind <- fromSimpleEnum <$> clang_getCursorKind curr
     displayName <- clang_getCursorDisplayName curr
@@ -135,7 +109,7 @@ tryResolve generatedName target curr = runMaybeT $ do
     when (nullSourcePath srcPath) $
       cannotResolve
     -- Only parse the generated header
-    unless (srcPath == SourcePath (Text.pack generatedName)) $
+    unless (srcPath == SourcePath (Text.pack "hs-bindgen-resolve.h")) $
       cannotResolve
     -- Only parse the inclusion directive
     unless (eCursorKind == Right CXCursor_InclusionDirective) $

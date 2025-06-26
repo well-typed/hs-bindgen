@@ -5,14 +5,11 @@ module HsBindgen.TraceMsg (
     TraceMsg(..)
   ) where
 
-import Control.Exception (Exception (displayException))
-import Data.Text (unpack)
-
-import Clang.HighLevel.Types
-import HsBindgen.Clang.Args (ExtraClangArgsMsg(..))
+import HsBindgen.Clang (ClangMsg(..))
 import HsBindgen.Frontend (FrontendMsg(..))
-import HsBindgen.Resolve (ResolveHeaderException)
+import HsBindgen.Resolve (ResolveHeaderMsg(..))
 import HsBindgen.Util.Tracer
+import HsBindgen.BindingSpec (ResolveBindingSpecMsg)
 
 {-------------------------------------------------------------------------------
   HsBindgen traces
@@ -22,32 +19,29 @@ import HsBindgen.Util.Tracer
 --
 -- Lazy on purpose to avoid evaluation when traces are not reported.
 data TraceMsg =
-    TraceDiagnostic Diagnostic
-  | TraceExtraClangArgs ExtraClangArgsMsg
+    TraceClang ClangMsg
+  | TraceResolveBindingSpec ResolveBindingSpecMsg
   | TraceFrontend FrontendMsg
-  | TraceResolveHeader ResolveHeaderException
+  | TraceResolveHeader ResolveHeaderMsg
   deriving stock (Show, Eq)
 
 instance PrettyForTrace TraceMsg where
   prettyTrace = \case
-    TraceDiagnostic x     -> unpack $
-      diagnosticCategoryText x <> ": " <> diagnosticFormatted x
-    TraceExtraClangArgs x -> prettyTrace x
-    TraceFrontend x       -> prettyTrace x
-    TraceResolveHeader x  -> displayException x
+    TraceClang              x -> prettyTrace x
+    TraceResolveBindingSpec x -> prettyTrace x
+    TraceFrontend           x -> prettyTrace x
+    TraceResolveHeader      x -> prettyTrace x
 
 instance HasDefaultLogLevel TraceMsg where
   getDefaultLogLevel = \case
-    -- We must evluate the diagnostic here to determine if it is an error.
-    TraceDiagnostic x | diagnosticIsError x -> Error
-    TraceDiagnostic _                       -> Warning
-    TraceExtraClangArgs x                   -> getDefaultLogLevel x
-    TraceFrontend x                         -> getDefaultLogLevel x
-    TraceResolveHeader x                    -> getDefaultLogLevel x
+    TraceClang              x -> getDefaultLogLevel x
+    TraceResolveBindingSpec x -> getDefaultLogLevel x
+    TraceFrontend           x -> getDefaultLogLevel x
+    TraceResolveHeader      x -> getDefaultLogLevel x
 
 instance HasSource TraceMsg where
   getSource = \case
-    TraceDiagnostic _     -> Libclang
-    TraceExtraClangArgs x -> getSource x
-    TraceFrontend x       -> getSource x
-    TraceResolveHeader x  -> getSource x
+    TraceClang              x -> getSource x
+    TraceResolveBindingSpec x -> getSource x
+    TraceFrontend           x -> getSource x
+    TraceResolveHeader      x -> getSource x
