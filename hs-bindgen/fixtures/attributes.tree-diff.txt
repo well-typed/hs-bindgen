@@ -2,7 +2,197 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "attributes.h:8:16",
+        declLoc = "attributes.h:10:36",
+        declId = NamePair {
+          nameC = CName "foo",
+          nameHsIdent = HsIdentifier
+            "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Foo"),
+          structSizeof = 5,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "attributes.h:11:10",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "foo_c"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "attributes.h:12:10",
+              structFieldName = NamePair {
+                nameC = CName "i",
+                nameHsIdent = HsIdentifier
+                  "foo_i"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:16:15",
+        declId = NamePair {
+          nameC = CName "bar",
+          nameHsIdent = HsIdentifier
+            "Bar"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Bar"),
+          structSizeof = 5,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "attributes.h:17:10",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "bar_c"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "attributes.h:18:10",
+              structFieldName = NamePair {
+                nameC = CName "i",
+                nameHsIdent = HsIdentifier
+                  "bar_i"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:22:9",
+        declId = NamePair {
+          nameC = CName "baz",
+          nameHsIdent = HsIdentifier
+            "Baz"},
+        declOrigin = NameOriginGenerated
+          (AnonId "attributes.h:22:9"),
+        declAliases = [CName "baz"]},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Baz"),
+          structSizeof = 5,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "attributes.h:23:10",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "baz_c"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "attributes.h:24:10",
+              structFieldName = NamePair {
+                nameC = CName "i",
+                nameHsIdent = HsIdentifier
+                  "baz_i"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:28:9",
+        declId = NamePair {
+          nameC = CName "qux",
+          nameHsIdent = HsIdentifier
+            "Qux"},
+        declOrigin = NameOriginGenerated
+          (AnonId "attributes.h:28:9"),
+        declAliases = [CName "qux"]},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Qux"),
+          structSizeof = 5,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "attributes.h:29:10",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "qux_c"},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "attributes.h:30:10",
+              structFieldName = NamePair {
+                nameC = CName "i",
+                nameHsIdent = HsIdentifier
+                  "qux_i"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:34:16",
         declId = NamePair {
           nameC = CName "__sFILE",
           nameHsIdent = HsIdentifier
@@ -18,7 +208,7 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldLoc =
-              "attributes.h:9:9",
+              "attributes.h:35:9",
               structFieldName = NamePair {
                 nameC = CName "_r",
                 nameHsIdent = HsIdentifier
@@ -29,7 +219,7 @@ TranslationUnit {
               structFieldWidth = Nothing},
             StructField {
               structFieldLoc =
-              "attributes.h:10:9",
+              "attributes.h:36:9",
               structFieldName = NamePair {
                 nameC = CName "_w",
                 nameHsIdent = HsIdentifier
@@ -40,7 +230,7 @@ TranslationUnit {
               structFieldWidth = Nothing},
             StructField {
               structFieldLoc =
-              "attributes.h:11:19",
+              "attributes.h:37:22",
               structFieldName = NamePair {
                 nameC = CName "_close",
                 nameHsIdent = HsIdentifier
@@ -61,7 +251,7 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "attributes.h:12:3",
+        declLoc = "attributes.h:38:3",
         declId = NamePair {
           nameC = CName "FILE",
           nameHsIdent = HsIdentifier
