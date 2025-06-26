@@ -33,33 +33,33 @@ instance Exception LiterateFileException where
 
 execMode :: Cli -> IO ()
 execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
-    ModePreprocess{..} -> genDecls >>= outputDecls
-      where
-        genDecls = withTracer $ \tracer -> do
-          extBindings <- loadExtBindings tracer
-                           globalOptsClangArgs
-                           globalOptsStdlibSpecs
-                           globalOptsExtBindings
-          let opts = cmdOpts {
-                  optsExtBindings = extBindings
-                , optsTranslation = preprocessTranslationOpts
-                , optsTracer      = tracer
-                }
-          -- to avoid potential issues it would be great to include unitid in module unique
-          -- but AFAIK there is no way to get one for preprocessor
-          -- https://github.com/well-typed/hs-bindgen/issues/502
-          let mu :: ModuleUnique
-              mu = ModuleUnique $ filter isLetter $ hsModuleOptsName $ preprocessModuleOpts
-          translateCHeaders mu opts preprocessInputs
-        outputDecls decls = do
-          let ppOpts = (def :: PPOpts) {
-                ppOptsModule = preprocessModuleOpts
-              , ppOptsRender = preprocessRenderOpts
-              }
-          preprocessIO ppOpts preprocessOutput decls
-          case preprocessGenExtBindings of
-            Nothing   -> return ()
-            Just path -> genExtBindings ppOpts preprocessInputs path decls
+    ModePreprocess{..} -> withTracer $ \tracer -> do
+      extBindings <-
+        loadExtBindings
+          tracer
+          globalOptsClangArgs
+          globalOptsStdlibSpecs
+          globalOptsExtBindings
+      let opts = cmdOpts {
+              optsExtBindings = extBindings
+            , optsTranslation = preprocessTranslationOpts
+            , optsTracer      = tracer
+            }
+          ppOpts = (def :: PPOpts) {
+              ppOptsModule = preprocessModuleOpts
+            , ppOptsRender = preprocessRenderOpts
+            }
+      -- to avoid potential issues it would be great to include unitid in module
+      -- unique but AFAIK there is no way to get one for preprocessor
+      -- https://github.com/well-typed/hs-bindgen/issues/502
+      let mu :: ModuleUnique
+          mu = ModuleUnique $
+            filter isLetter (hsModuleOptsName preprocessModuleOpts)
+      hsDecls <- translateCHeaders mu opts preprocessInputs
+      preprocessIO ppOpts preprocessOutput hsDecls
+      case preprocessGenExtBindings of
+        Nothing   -> return ()
+        Just path -> genExtBindings opts ppOpts preprocessInputs path hsDecls
 
     ModeGenTests{..} -> do
       extBindings <- withTracer $ \tracer ->

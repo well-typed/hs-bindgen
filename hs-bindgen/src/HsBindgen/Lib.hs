@@ -133,13 +133,14 @@ preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
 -------------------------------------------------------------------------------}
 
 genExtBindings ::
-     Pipeline.PPOpts
+     Pipeline.Opts
+  -> Pipeline.PPOpts
   -> [Paths.CHeaderIncludePath]
   -> FilePath
   -> HsDecls
   -> IO ()
-genExtBindings ppOpts headerIncludePaths fp =
-    Pipeline.genExtBindings ppOpts headerIncludePaths fp . unwrapHsDecls
+genExtBindings opts ppOpts headerIncludePaths fp =
+    Pipeline.genExtBindings opts ppOpts headerIncludePaths fp . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   External bindings

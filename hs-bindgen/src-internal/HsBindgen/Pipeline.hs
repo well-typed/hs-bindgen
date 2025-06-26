@@ -37,7 +37,6 @@ module HsBindgen.Pipeline (
   , genTests
   ) where
 
-import Control.Monad ((<=<))
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
@@ -57,7 +56,6 @@ import HsBindgen.BindingSpec.Gen (genBindingSpec)
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate (..))
-import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.Slice (ProgramSlicing (DisableProgramSlicing))
 import HsBindgen.GenTests qualified as GenTests
@@ -292,18 +290,24 @@ genBindingsFromCHeader opts unit = do
 
 -- | Generate external bindings configuration
 genExtBindings ::
-     PPOpts
+     Opts
+  -> PPOpts
   -> [CHeaderIncludePath]
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genExtBindings PPOpts{..} headerIncludePaths path =
-        either (throwIO . HsBindgenException) return
-    <=< BindingSpec.writeFile path
-    .   genBindingSpec headerIncludePaths moduleName
+genExtBindings Opts{..} PPOpts{..} headerIncludePaths path =
+      BindingSpec.writeFile tracer path
+    . genBindingSpec headerIncludePaths moduleName
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
+
+    tracer :: Tracer IO BindingSpec.WriteBindingSpecMsg
+    tracer =
+      contramap
+        (TraceBindingSpec . BindingSpec.WriteBindingSpecMsg)
+        optsTracer
 
 data StdlibBindingSpecs =
     -- | Automatically include @stdlib@.
@@ -320,9 +324,10 @@ loadExtBindings ::
   -> IO ResolvedBindingSpec
 loadExtBindings tracer args stdlibSpecs =
     BindingSpec.load
-      (contramap TraceResolveBindingSpec tracer)
+      (contramap TraceBindingSpec tracer)
       BindingSpec.ResolveExternalBindingSpecHeader
-      args stdSpec
+      args
+      stdSpec
   where
     stdSpec :: UnresolvedBindingSpec
     stdSpec = case stdlibSpecs of
