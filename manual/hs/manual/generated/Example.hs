@@ -24,21 +24,13 @@ import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.ByteArray
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 import qualified Text.Read
 
--- #include "manual_examples.h"
--- void Example_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4);
--- signed int Example_index_triple (struct triple *arg1, enum index arg2);
--- sum Example_sum_triple (struct triple *arg1);
--- average Example_average_triple (struct triple *arg1);
--- YEAR Example_getYear (date *arg1);
--- void Example_print_occupation (signed int arg1, union occupation *arg2);
--- void Example_拜拜 (void);
--- void Example_ϒ (void);
--- void Example_import (void);
+$(CAPI.addCSource "#include \"manual_examples.h\"\nvoid Example_mk_triple (signed int arg1, signed int arg2, signed int arg3, triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }\nsigned int Example_index_triple (triple *arg1, index arg2) { return index_triple(arg1, arg2); }\nsum Example_sum_triple (triple *arg1) { return sum_triple(arg1); }\naverage Example_average_triple (triple *arg1) { return average_triple(arg1); }\nYEAR Example_getYear (date *arg1) { return getYear(arg1); }\nvoid Example_print_occupation (signed int arg1, occupation *arg2) { print_occupation(arg1, arg2); }\nvoid Example_\25308\25308 (void) { \25308\25308(); }\nvoid Example_\978 (void) { \978(); }\nvoid Example_import (void) { import(); }\n")
 
 data Triple = Triple
   { triple_a :: FC.CInt
@@ -72,7 +64,7 @@ deriving stock instance Show Triple
 
 deriving stock instance Eq Triple
 
-foreign import capi safe "manual_examples.h mk_triple" mk_triple :: FC.CInt -> FC.CInt -> FC.CInt -> (F.Ptr Triple) -> IO ()
+foreign import ccall safe "Example_mk_triple" mk_triple :: FC.CInt -> FC.CInt -> FC.CInt -> (F.Ptr Triple) -> IO ()
 
 newtype Index = Index
   { un_Index :: FC.CUInt
@@ -152,7 +144,7 @@ pattern B = Index 1
 pattern C :: Index
 pattern C = Index 2
 
-foreign import capi safe "manual_examples.h index_triple" index_triple :: (F.Ptr Triple) -> Index -> IO FC.CInt
+foreign import ccall safe "Example_index_triple" index_triple :: (F.Ptr Triple) -> Index -> IO FC.CInt
 
 newtype Sum = Sum
   { un_Sum :: FC.CInt
@@ -212,9 +204,9 @@ deriving newtype instance RealFloat Average
 
 deriving newtype instance RealFrac Average
 
-foreign import capi safe "manual_examples.h sum_triple" sum_triple :: (F.Ptr Triple) -> IO Sum
+foreign import ccall safe "Example_sum_triple" sum_triple :: (F.Ptr Triple) -> IO Sum
 
-foreign import capi safe "manual_examples.h average_triple" average_triple :: (F.Ptr Triple) -> IO Average
+foreign import ccall safe "Example_average_triple" average_triple :: (F.Ptr Triple) -> IO Average
 
 fIELD_OFFSET :: FC.CInt
 fIELD_OFFSET = (4 :: FC.CInt)
@@ -347,7 +339,7 @@ deriving stock instance Show Date
 
 deriving stock instance Eq Date
 
-foreign import capi safe "manual_examples.h getYear" getYear :: (F.Ptr Date) -> IO YEAR
+foreign import ccall safe "Example_getYear" getYear :: (F.Ptr Date) -> IO YEAR
 
 data Student = Student
   { student_university :: F.Ptr FC.CChar
@@ -377,6 +369,8 @@ instance F.Storable Student where
 deriving stock instance Show Student
 
 deriving stock instance Eq Student
+
+data Person
 
 data Employee = Employee
   { employee_company :: F.Ptr FC.CChar
@@ -432,9 +426,7 @@ set_occupation_employee :: Employee -> Occupation
 set_occupation_employee =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
-data Person
-
-foreign import capi safe "manual_examples.h print_occupation" print_occupation :: FC.CInt -> (F.Ptr Occupation) -> IO ()
+foreign import ccall safe "Example_print_occupation" print_occupation :: FC.CInt -> (F.Ptr Occupation) -> IO ()
 
 data Rect_lower_left = Rect_lower_left
   { rect_lower_left_x :: FC.CInt
@@ -594,7 +586,7 @@ deriving newtype instance Num Adio'0301s
 
 deriving newtype instance Real Adio'0301s
 
-foreign import capi safe "manual_examples.h 拜拜" 拜拜 :: IO ()
+foreign import ccall safe "Example_拜拜" 拜拜 :: IO ()
 
 newtype C数字 = C数字
   { un_C数字 :: FC.CInt
@@ -626,7 +618,7 @@ deriving newtype instance Num C数字
 
 deriving newtype instance Real C数字
 
-foreign import capi safe "manual_examples.h ϒ" cϒ :: IO ()
+foreign import ccall safe "Example_ϒ" cϒ :: IO ()
 
 newtype Data = Data
   { un_Data :: FC.CInt
@@ -658,7 +650,7 @@ deriving newtype instance Num Data
 
 deriving newtype instance Real Data
 
-foreign import capi safe "manual_examples.h import" import' :: IO ()
+foreign import ccall safe "Example_import" import' :: IO ()
 
 newtype Signal = Signal
   { un_Signal :: FC.CUInt

@@ -2,11 +2,16 @@
 
 PROJECT_ROOT=..
 
-echo "Basic examples"
+# Exit on first error
+set -e
+
+echo "# "
+echo "# Basic examples"
+echo "# "
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -I ${PROJECT_ROOT}/hs-bindgen/examples \
+    -I ${PROJECT_ROOT}/hs-bindgen/examples/golden \
     -o hs/manual/generated/Example.hs \
     --module Example \
     manual_examples.h
@@ -18,7 +23,9 @@ cabal run hs-bindgen-cli -- \
     --module Structs \
     structs.h
 
-echo "External bindings: vector example"
+echo "# "
+echo "# External bindings: vector example"
+echo "# "
 
 cabal run hs-bindgen-cli -- \
   preprocess \
@@ -44,7 +51,9 @@ cabal run hs-bindgen-cli -- \
     --module Vector.Length \
     vector_length.h
 
-echo "External bindings: game example"
+echo "# "
+echo "# External bindings: game example"
+echo "# "
 
 cabal run hs-bindgen-cli -- \
   preprocess \
