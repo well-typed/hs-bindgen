@@ -21,7 +21,7 @@ module HsBindgen.Pipeline (
   , preprocessIO
 
     -- * Template Haskell API
-  , QuoteIncludeDir (..)
+  , QuoteIncludePathDir (..)
   , HashIncludeOpts (..)
   , hashInclude
   , hashInclude'
@@ -187,7 +187,7 @@ preprocessIO ppOpts fp = genPP ppOpts fp . genModule ppOpts . genSHsDecls
 -- normal file path right away.
 
 -- | Project-specific (quoted) C include directory
-data QuoteIncludeDir =
+data QuoteIncludePathDir =
     -- | Relative to package root.
     PackageRoot FilePath
   | QuoteIncludeDir FilePath
@@ -195,7 +195,7 @@ data QuoteIncludeDir =
 
 -- | Options
 newtype HashIncludeOpts = HashIncludeOpts {
-    extraIncludeDirs :: [QuoteIncludeDir]
+    extraIncludeDirs :: [QuoteIncludePathDir]
   }
   deriving stock (Eq, Show)
 
@@ -228,10 +228,12 @@ hashInclude ::
   -> TH.Q [TH.Dec]
 hashInclude fps HashIncludeOpts {..} = do
   quoteIncludeDirs <- toFilePaths extraIncludeDirs
-  let args = def {
+  let args :: ClangArgs
+      args = def {
           clangQuoteIncludePathDirs = CIncludePathDir <$> quoteIncludeDirs
         }
-      tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
+      tracerConf :: TracerConf
+      tracerConf = def { tVerbosity = Verbosity Warning }
   extBindingSpec <-
     TH.runIO . withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
       loadExtBindingSpecs tracer args UseStdlibBindingSpec []
@@ -242,11 +244,11 @@ hashInclude fps HashIncludeOpts {..} = do
         }
   hashIncludeWith opts fps
   where
-    toFilePath :: FilePath -> QuoteIncludeDir -> FilePath
+    toFilePath :: FilePath -> QuoteIncludePathDir -> FilePath
     toFilePath root (PackageRoot     x) = root </> x
     toFilePath _    (QuoteIncludeDir x) = x
 
-    toFilePaths :: [QuoteIncludeDir] -> TH.Q [FilePath]
+    toFilePaths :: [QuoteIncludePathDir] -> TH.Q [FilePath]
     toFilePaths xs = do
       root <- getPackageRoot
       pure $ map (toFilePath root) xs

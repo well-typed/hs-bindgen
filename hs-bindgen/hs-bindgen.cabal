@@ -211,6 +211,8 @@ library
   exposed-modules:
       HsBindgen.Lib
       HsBindgen.TH
+  other-modules:
+      HsBindgen.Common
   reexported-modules:
     , HsBindgen.Config.FixCandidate
     , HsBindgen.Config.FixCandidate.ReservedNames

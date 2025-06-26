@@ -48,7 +48,7 @@ assertMaxLevelWithCustomLogLevel customLogLevel traces expectedLevel = do
 testTracerIO :: CustomLogLevel TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
   let noOutput _ = pure ()
-      tracerConf = defaultTracerConf { tVerbosity = Verbosity Debug }
+      tracerConf = def { tVerbosity = Verbosity Debug }
       -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,
       -- and not by the tests (e.g., 'withTracePredicate').
       withTracer = withTracerCustom' DisableAnsiColor tracerConf customLogLevel noOutput
@@ -81,7 +81,7 @@ tests = testGroup "HsBindgen.Util.Tracer"
     [ testCase "exception" $
         assertException "Expected ErrorTraceException" (Proxy :: Proxy ErrorTraceException) $ do
           let noOutput _ = pure ()
-              tracerConf = defaultTracerConf { tVerbosity = Verbosity Debug }
+              tracerConf = def { tVerbosity = Verbosity Debug }
               withTracer = withTracerCustom DisableAnsiColor tracerConf DefaultLogLevel noOutput
           withTracer $ \tracer -> do
             traceWith tracer er

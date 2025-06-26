@@ -24,7 +24,6 @@ module HsBindgen.Util.Tracer (
   , ShowTimeStamp (..)
   , ShowCallStack (..)
   , TracerConf (..)
-  , defaultTracerConf
   , CustomLogLevel (..)
     -- * Tracers
   , withTracerStdOut
@@ -37,7 +36,7 @@ import Control.Applicative (ZipList (ZipList, getZipList))
 import Control.Exception (Exception (..), throwIO)
 import Control.Monad (when)
 import Control.Monad.IO.Class (MonadIO (liftIO))
-import Control.Tracer (Contravariant(..))
+import Control.Tracer (Contravariant (..))
 import Control.Tracer qualified as ContraTracer
 import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
@@ -50,6 +49,7 @@ import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             hSupportsANSIColor, setSGRCode)
 import System.IO (Handle, IOMode (AppendMode), hPutStrLn, stdout, withFile)
 
+import Data.Default (Default (..))
 import HsBindgen.Errors (hsBindgenExceptionFromException,
                          hsBindgenExceptionToException)
 
@@ -190,12 +190,12 @@ data TracerConf = TracerConf {
   }
   deriving stock (Show, Eq)
 
-defaultTracerConf :: TracerConf
-defaultTracerConf = TracerConf
-  { tVerbosity      = (Verbosity Info)
-  , tShowTimeStamp  = DisableTimeStamp
-  , tShowCallStack  = DisableCallStack
-  }
+instance Default TracerConf where
+  def = TracerConf
+    { tVerbosity      = (Verbosity Info)
+    , tShowTimeStamp  = DisableTimeStamp
+    , tShowCallStack  = DisableCallStack
+    }
 
 -- | Sometimes, we want to change log levels. For example, we want to suppress
 -- specific traces in tests.
