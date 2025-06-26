@@ -102,8 +102,8 @@ data SliceMsg = TransitiveDependencyUnavailable QualDeclId
   deriving stock (Show, Eq)
 
 instance PrettyForTrace SliceMsg where
-  prettyTrace (TransitiveDependencyUnavailable qualId) =
-    "Program slicing: Transitive dependency unavailable: " <> prettyTrace qualId
+  prettyForTrace (TransitiveDependencyUnavailable qualId) =
+    "Program slicing: Transitive dependency unavailable: " <> prettyForTrace qualId
 
 instance HasDefaultLogLevel SliceMsg where
   getDefaultLogLevel = const Error

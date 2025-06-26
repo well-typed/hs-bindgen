@@ -55,7 +55,7 @@ data SortMsg =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace SortMsg where
-  prettyTrace (SortErrorDeclIndex x) = prettyTrace x
+  prettyForTrace (SortErrorDeclIndex x) = prettyForTrace x
 
 instance HasDefaultLogLevel SortMsg where
   getDefaultLogLevel (SortErrorDeclIndex x) = getDefaultLogLevel x

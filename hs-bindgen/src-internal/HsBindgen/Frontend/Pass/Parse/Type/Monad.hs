@@ -90,7 +90,7 @@ data ParseTypeException =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseTypeException where
-  prettyTrace = \case
+  prettyForTrace = \case
     UnexpectedTypeKind (Right kind) -> concat [
         "Unexpected type kind "
       , show kind
@@ -134,7 +134,7 @@ instance HasDefaultLogLevel ParseTypeException where
     UnsupportedLongDouble       -> Warning
 
 instance Exception ParseTypeException where
-  displayException = prettyTrace
+  displayException = prettyForTrace
 
 {-------------------------------------------------------------------------------
   Utility: dispatching based on the cursor kind

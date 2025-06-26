@@ -8,15 +8,17 @@ import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 
 import HsBindgen.Lib
 
-import Test.Internal.Tasty (assertException)
-import Test.Internal.Tracer (TraceExpectation (Expected),
-                             TraceExpectationException, customTracePredicate,
-                             defaultTracePredicate, withTracePredicate)
+import Test.Internal.Tasty
+import Test.Internal.Tracer
 
-data TestTrace = TestDebug String | TestInfo String | TestWarning String | TestError String
+data TestTrace =
+    TestDebug String
+  | TestInfo String
+  | TestWarning String
+  | TestError String
 
 instance PrettyForTrace TestTrace where
-  prettyTrace = \case
+  prettyForTrace = \case
     TestDebug x   -> x
     TestInfo  x   -> x
     TestWarning x -> x
@@ -102,22 +104,22 @@ tests = testGroup "HsBindgen.Util.Tracer"
           withTracePredicate defaultTracePredicate $ \tracer ->
             traceWith tracer er
     , testCase "ok-custom-warning" $
-        withTracePredicate (customTracePredicate ["Warning"] expectWar) $
+        withTracePredicate expectWar $
           \tracer -> do
             traceWith tracer wn
     , testCase "ok-custom-error" $
-        withTracePredicate (customTracePredicate ["Error"] expectErr) $
+        withTracePredicate expectErr $
           \tracer -> do
             traceWith tracer er
     , testCase "!ok-custom-too-many" $
         assertException "Expected TraceExpectationException" proxy $
-          withTracePredicate (customTracePredicate ["Warning"] expectWar) $
+          withTracePredicate expectWar $
             \tracer -> do
               traceWith tracer wn
               traceWith tracer wn
     , testCase "!ok-custom-too-few" $
         assertException "Expected TraceExpectationException" proxy $
-          withTracePredicate (customTracePredicate ["Warning"] expectWar) $
+          withTracePredicate expectWar $
             \tracer -> do
               traceWith tracer db
     ]
@@ -127,9 +129,9 @@ tests = testGroup "HsBindgen.Util.Tracer"
         wn        = TestWarning "Warning!"
         er        = TestError   "Error!"
         proxy     = Proxy :: Proxy (TraceExpectationException TestTrace)
-        expectWar = \case
-          TestWarning _   -> Just (Expected "Warning")
-          _otherTrace     -> Nothing
-        expectErr = \case
-          TestError _   -> Just (Expected "Error")
+        expectWar = singleTracePredicate $ \case
+          TestWarning _ -> Just $ Expected ()
+          _otherTrace   -> Nothing
+        expectErr = singleTracePredicate $ \case
+          TestError _   -> Just $ Expected ()
           _otherTrace   -> Nothing

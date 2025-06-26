@@ -148,13 +148,13 @@ data FrontendMsg =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace FrontendMsg where
-  prettyTrace = \case
-    FrontendParse               x -> prettyTrace x
-    FrontendSort                x -> prettyTrace x
-    FrontendSlice               x -> prettyTrace x
-    FrontendHandleMacros        x -> prettyTrace x
+  prettyForTrace = \case
+    FrontendParse               x -> prettyForTrace x
+    FrontendSort                x -> prettyForTrace x
+    FrontendSlice               x -> prettyForTrace x
+    FrontendHandleMacros        x -> prettyForTrace x
     FrontendResolveBindingSpecs x -> show x -- TODO
-    FrontendMangleNames         x -> prettyTrace x
+    FrontendMangleNames         x -> prettyForTrace x
 
 instance HasDefaultLogLevel FrontendMsg where
   getDefaultLogLevel = \case

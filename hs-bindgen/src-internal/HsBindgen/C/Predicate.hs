@@ -76,7 +76,7 @@ data SkipReason =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace SkipReason where
-  prettyTrace = \case
+  prettyForTrace = \case
       SkipBuiltin{skippedName} -> concat [
           "Skipped built-in: "
         , show skippedName

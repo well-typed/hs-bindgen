@@ -21,7 +21,7 @@ import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.C.Reparse.Infra (ReparseError (..))
 import HsBindgen.C.Tc.Macro (TcMacroError (TcErrors))
-import HsBindgen.Clang (ClangMsg(..))
+import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (Redeclaration))
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -44,10 +44,7 @@ import Test.HsBindgen.Util.Tracer qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
-import Test.Internal.Tracer (TraceExpectation (Expected, Tolerated),
-                             TracePredicate, customTracePredicate,
-                             defaultTracePredicate, singleTracePredicate,
-                             withTracePredicate)
+import Test.Internal.Tracer
 import Test.Internal.TreeDiff.Orphans ()
 
 #if __GLASGOW_HASKELL__ >=904
@@ -83,10 +80,12 @@ tests packageRoot getExtBindingSpec getRustBindgen =
           ("adios"                       , defaultTracePredicate)
         , ("anonymous"                   , defaultTracePredicate)
         , ("attributes"                  ,
-           singleTracePredicate "DiagnosticNullability" $ \case
-            TraceClang (ClangDiagnostic x) | diagnosticCategoryText x == "Nullability Issue"
-              -> Just (Expected "DiagnosticNullability")
-            _otherTrace -> Nothing
+           singleTracePredicate $ \case
+            TraceClang (ClangDiagnostic x)
+              | diagnosticCategoryText x == "Nullability Issue"
+              -> Just $ Expected ()
+            _otherTrace
+              -> Nothing
           )
         , ("bitfields"                   , defaultTracePredicate)
         , ("bool"                        , defaultTracePredicate)
@@ -127,7 +126,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
                   unsupportedTypeContext
                 , unsupportedTypeException = UnsupportedLongDouble
                 })) ->
-              Just . Expected . prettyTrace $ C.declId unsupportedTypeContext
+              Just . Expected . prettyForTrace $ C.declId unsupportedTypeContext
             _otherTrace ->
               Nothing
           )
@@ -139,41 +138,44 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         , ("typenames"                   , defaultTracePredicate)
         , ("unions"                      , defaultTracePredicate)
         , ("unnamed-struct"              ,
-           singleTracePredicate "DiagnosticSemanticIssue" $ \case
+           singleTracePredicate $ \case
             TraceClang (ClangDiagnostic x) | diagnosticCategoryText x == "Semantic Issue"
-              -> Just (Expected "DiagnosticSemanticIssue")
-            _otherTrace -> Nothing
+              -> Just $ Expected ()
+            _otherTrace
+              -> Nothing
           )
         , ("uses_utf8"                   , defaultTracePredicate)
         , ("varargs"                     ,
-           singleTracePredicate "Variadic" $ \case
+           singleTracePredicate $ \case
             TraceFrontend (FrontendParse (UnsupportedType _ UnsupportedVariadicFunction))
-              -> Just (Expected "Variadic")
-            _otherTrace -> Nothing
+              -> Just $ Expected ()
+            _otherTrace
+              -> Nothing
           )
         , ("vector"                      , defaultTracePredicate)
         ]
     -- Tests that require special @hs-bindgen@ options.
     , testGroup "examples/golden/opts" [
-        goldenWith "program_slicing"
-          (singleTracePredicate "UnexpectedPrimitiveType" $ \case
-            (TraceFrontend (FrontendHandleMacros (MacroErrorReparse err)))
-              | "Unexpected primitive type \"unsigned\"" `List.isInfixOf` (reparseError err)
-              -> Just $ Expected "UnexpectedPrimitiveType"
-            _otherTrace -> Nothing
-          )
-          ( \opts ->
-              -- Ensure that program slicing and external binding specification
-              -- work well together. Remove `uint32_t` from the binding
-              -- specifications, and select it using program slicing instead.
-              let (BindingSpec specMap) = Pipeline.optsExtBindingSpec opts
-                  uInt32T = QualName {qualNameName = "uint32_t", qualNameKind = NameKindOrdinary}
-              in  opts {
-                      Pipeline.optsPredicate      = SelectAll
-                    , Pipeline.optsProgramSlicing = EnableProgramSlicing
-                    , Pipeline.optsExtBindingSpec = BindingSpec $ Map.delete uInt32T specMap
-                    }
-          )
+          goldenWith "program_slicing"
+            (singleTracePredicate $ \case
+              (TraceFrontend (FrontendHandleMacros (MacroErrorReparse err)))
+                | "Unexpected primitive type \"unsigned\"" `List.isInfixOf` (reparseError err)
+                -> Just $ Expected ()
+              _otherTrace
+                -> Nothing
+            )
+            (\opts ->
+               -- Ensure that program slicing and external binding specification
+               -- work well together. Remove `uint32_t` from the binding
+               -- specifications, and select it using program slicing instead.
+               let (BindingSpec specMap) = Pipeline.optsExtBindingSpec opts
+                   uInt32T = QualName {qualNameName = "uint32_t", qualNameKind = NameKindOrdinary}
+                in opts {
+                Pipeline.optsPredicate      = SelectAll
+              , Pipeline.optsProgramSlicing = EnableProgramSlicing
+              , Pipeline.optsExtBindingSpec = BindingSpec $ Map.delete uInt32T specMap
+              }
+            )
        ]
     -- @rs-bindgen@ panics on these
     , testGroup "examples/golden-norust" $ map (uncurry goldenRustPanic) [
@@ -183,55 +185,56 @@ tests packageRoot getExtBindingSpec getRustBindgen =
     , testGroup "examples/failing" [
           expectTrace
             "long_double"
-            (singleTracePredicate "UnsupportedLongDouble" $ \case
+            (singleTracePredicate $ \case
               TraceFrontend (FrontendParse (UnsupportedType _ UnsupportedLongDouble))
-                -> Just (Expected "UnsupportedLongDouble")
+                -> Just $ Expected ()
               _otherTrace
                 -> Nothing
             )
         , expectTrace
             "implicit_fields_struct"
-            (singleTracePredicate "UnsupportedImplicitFields" $ \case
+            (singleTracePredicate $ \case
               TraceFrontend (FrontendParse (UnsupportedImplicitFields {}))
-                -> Just (Expected "UnsupportedImplicitFields")
+                -> Just $ Expected ()
               _otherTrace
                 -> Nothing
             )
         , expectTrace
             "declaration_unselected_b"
-            (singleTracePredicate "MissingDeclaration" $ \case
+            (singleTracePredicate $ \case
               TraceFrontend (FrontendMangleNames (MissingDeclaration {}))
-                -> Just (Expected "MissingDeclaration")
+                -> Just $ Expected ()
               _otherTrace
                 -> Nothing
             )
         , expectTrace
             "redeclaration_different"
-            (singleTracePredicate "Redeclaration" $ \case
+            (singleTracePredicate $ \case
               TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {})))
-                -> Just (Expected "Redeclaration")
-              TraceClang (ClangDiagnostic x) | "macro redefined" `Text.isInfixOf` diagnosticSpelling x
+                -> Just (Expected ())
+              TraceClang (ClangDiagnostic x)
+                | "macro redefined" `Text.isInfixOf` diagnosticSpelling x
                 -> Just Tolerated
               _otherTrace
                 -> Nothing
             )
-
         , expectTrace
             "fixedarray_res_a"
-            (singleTracePredicate "BracketsNotAllowed" $ \case
-              TraceClang (ClangDiagnostic x) | "brackets are not allowed here" `Text.isInfixOf` diagnosticSpelling x
-                -> Just (Expected "BracketsNotAllowed")
+            (singleTracePredicate $ \case
+              TraceClang (ClangDiagnostic x)
+                | "brackets are not allowed here" `Text.isInfixOf` diagnosticSpelling x
+                -> Just (Expected ())
               TraceClang _
                 -> Just Tolerated
               _otherTrace
                 -> Nothing
             )
-
         , expectTrace
             "fixedarray_res_b"
-            (singleTracePredicate "CannotReturnArrayType" $ \case
-              TraceClang (ClangDiagnostic x) | "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
-                -> Just (Expected "CannotReturnArrayType")
+            (singleTracePredicate $ \case
+              TraceClang (ClangDiagnostic x)
+                | "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+                -> Just (Expected ())
               TraceClang _
                 -> Just Tolerated
               _otherTrace

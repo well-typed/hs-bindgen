@@ -95,21 +95,21 @@ getDeclId curr = do
           <$> HighLevel.clang_getCursorLocation curr
 
 instance PrettyForTrace DeclId where
-  prettyTrace (DeclNamed name)   = prettyTrace name
-  prettyTrace (DeclAnon  anonId) = prettyTrace anonId
+  prettyForTrace (DeclNamed name)   = prettyForTrace name
+  prettyForTrace (DeclAnon  anonId) = prettyForTrace anonId
 
 -- | Qualified declaration identity
 data QualDeclId = QualDeclId DeclId C.NameKind
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace QualDeclId where
-  prettyTrace (QualDeclId declId cNameKind) =
+  prettyForTrace (QualDeclId declId cNameKind) =
     let prefix = case cNameKind of
           C.NameKindOrdinary -> ""
           C.NameKindStruct   -> "struct "
           C.NameKindUnion    -> "union "
           C.NameKindEnum     -> "enum "
-    in  prefix <> prettyTrace declId
+    in  prefix <> prettyForTrace declId
 
 declQualDeclId :: Id p ~ DeclId => C.Decl p -> QualDeclId
 declQualDeclId C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
@@ -170,9 +170,9 @@ data ParseMsg =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseMsg where
-  prettyTrace = \case
+  prettyForTrace = \case
       Skipped reason ->
-          prettyTrace reason
+          prettyForTrace reason
       UnsupportedImplicitFields {..} -> concat [
           "Unsupported implicit fields "
         , show unsupportedImplicitFields
@@ -181,14 +181,14 @@ instance PrettyForTrace ParseMsg where
         ]
       UnsupportedType {..} -> concat [
           "Encountered unsupported type while parsing "
-        , prettyTrace (C.declId unsupportedTypeContext)
+        , prettyForTrace (C.declId unsupportedTypeContext)
         , " at "
         , show (C.declLoc unsupportedTypeContext)
         , ": "
-        , prettyTrace unsupportedTypeException
+        , prettyForTrace unsupportedTypeException
         , ". "
         , "No bindings generated for "
-        , prettyTrace (C.declId unsupportedTypeContext)
+        , prettyForTrace (C.declId unsupportedTypeContext)
         , "."
         ]
 
