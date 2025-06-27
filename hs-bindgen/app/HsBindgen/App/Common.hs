@@ -7,6 +7,7 @@ module HsBindgen.App.Common (
   , parseInputs
     -- * Auxiliary hs-bindgen functions
   , withTracer
+  , fromMaybeWithFatalError
   , loadExtBindingSpecs'
   , loadPrescriptiveBindingSpec'
   , getOpts
@@ -17,6 +18,7 @@ module HsBindgen.App.Common (
   ) where
 
 import Control.Exception (Exception (displayException))
+import Control.Monad.IO.Class (MonadIO)
 import Data.Bifunctor (Bifunctor (bimap), first)
 import Data.Char qualified as Char
 import Data.List qualified as List
@@ -292,9 +294,12 @@ parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
 
-withTracer :: GlobalOpts -> (Tracer IO TraceMsg -> IO b) -> IO b
+withTracer :: GlobalOpts -> (Tracer IO TraceMsg -> IO b) -> IO (Maybe b)
 withTracer GlobalOpts{..} =
     withTracerStdOut globalOptsTracerConf DefaultLogLevel
+
+fromMaybeWithFatalError :: MonadIO m => Maybe b -> m b
+fromMaybeWithFatalError k = maybe fatalError pure k
 
 loadExtBindingSpecs' :: Tracer IO TraceMsg -> GlobalOpts -> IO BindingSpec
 loadExtBindingSpecs' tracer GlobalOpts{..} =

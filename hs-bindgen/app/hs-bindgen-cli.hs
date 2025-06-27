@@ -39,15 +39,15 @@ execCli Cli{..} = case cliCmd of
 
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
 execPreprocess globalOpts PreprocessOpts{..} = do
-    hsDecls <- doTranslate
+    hsDecls <- doTranslate >>= fromMaybeWithFatalError
     preprocessIO ppOpts preprocessOutput hsDecls
     case preprocessGenBindingSpec of
-      Nothing   -> return ()
-      Just path -> withTracer globalOpts $ \tracer ->
-        genBindingSpec tracer ppOpts preprocessInputs path hsDecls
-
+      Nothing   -> pure ()
+      Just path ->  fromMaybeWithFatalError =<<
+        withTracer globalOpts (\tracer ->
+          genBindingSpec tracer ppOpts preprocessInputs path hsDecls)
   where
-    doTranslate :: IO HsDecls
+    doTranslate :: IO (Maybe HsDecls)
     doTranslate = withTracer globalOpts $ \tracer -> do
       extSpec <- loadExtBindingSpecs' tracer globalOpts
       pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
@@ -68,10 +68,10 @@ execPreprocess globalOpts PreprocessOpts{..} = do
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
 execGenTests globalOpts GenTestsOpts{..} = do
-    hsDecls <- doTranslate
+    hsDecls <- doTranslate >>= fromMaybeWithFatalError
     genTests ppOpts genTestsInputs genTestsOutput hsDecls
   where
-    doTranslate :: IO HsDecls
+    doTranslate :: IO (Maybe HsDecls)
     doTranslate = withTracer globalOpts $ \tracer -> do
       extSpec <- loadExtBindingSpecs' tracer globalOpts
       pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
@@ -108,19 +108,20 @@ execLiterate LiterateOpts{..} = do
 
 execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
 execBindingSpec globalOpts@GlobalOpts{..} BindingSpecCmdStdlib = do
-    spec <- withTracer globalOpts $ \tracer ->
-      getStdlibBindingSpec tracer globalOptsClangArgs
+    spec <- fromMaybeWithFatalError =<< withTracer globalOpts (\tracer ->
+      getStdlibBindingSpec tracer globalOptsClangArgs)
     BS.putStr $ encodeBindingSpecYaml spec
 
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
-execResolve globalOpts@GlobalOpts{..} ResolveOpts{..} =
-    withTracer globalOpts $ \tracer -> do
+execResolve globalOpts@GlobalOpts{..} ResolveOpts{..} = do
+    mErr <- withTracer globalOpts $ \tracer -> do
       let tracerResolve = contramap TraceResolveHeader  tracer
       forM_ resolveInputs $ \header -> do
         mPath <- resolveHeader tracerResolve globalOptsClangArgs header
         putStrLn . unwords $ case mPath of
           Just path -> [show header, "resolves to", show path]
           Nothing   -> [show header, "not found"]
+    fromMaybeWithFatalError mErr
 
 -- to avoid potential issues it would be great to include unitid in module
 -- unique but AFAIK there is no way to get one for preprocessor
