@@ -7,6 +7,7 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 
 import HsBindgen.Lib
+import Text.SimplePrettyPrint (string)
 
 import Test.Internal.Tasty
 import Test.Internal.Tracer
@@ -19,10 +20,10 @@ data TestTrace =
 
 instance PrettyForTrace TestTrace where
   prettyForTrace = \case
-    TestDebug x   -> x
-    TestInfo  x   -> x
-    TestWarning x -> x
-    TestError x   -> x
+    TestDebug x   -> string x
+    TestInfo  x   -> string x
+    TestWarning x -> string x
+    TestError x   -> string x
 
 instance HasDefaultLogLevel TestTrace where
   getDefaultLogLevel = \case

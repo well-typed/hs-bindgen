@@ -24,6 +24,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (hcat, showToCtxDoc, textToCtxDoc)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -77,21 +78,21 @@ data SkipReason =
 
 instance PrettyForTrace SkipReason where
   prettyForTrace = \case
-      SkipBuiltin{skippedName} -> concat [
+      SkipBuiltin{skippedName} -> hcat [
           "Skipped built-in: "
-        , show skippedName
+        , showToCtxDoc skippedName
         ]
-      SkipPredicate{..} -> Text.unpack $ mconcat [
+      SkipPredicate{..} -> hcat [
           "Skipped "
-        , skippedName
+        , textToCtxDoc skippedName
         , " at "
-        , Text.pack (show skippedLoc)
+        , showToCtxDoc skippedLoc
         , ": "
-        , skippedReason
+        , textToCtxDoc skippedReason
         ]
-      SkipUnexposed{skippedLoc} -> concat [
+      SkipUnexposed{skippedLoc} -> hcat [
           "Skipped unexposed declaration at "
-        , show skippedLoc
+        , showToCtxDoc skippedLoc
         ]
 
 instance HasDefaultLogLevel SkipReason where

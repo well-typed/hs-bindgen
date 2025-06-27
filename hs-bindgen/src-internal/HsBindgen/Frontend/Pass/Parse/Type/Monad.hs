@@ -1,5 +1,4 @@
 -- | Monad for parsing types
---
 -- Intended for unqualified import (unless context is unambiguous).
 --
 -- > import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType)
@@ -24,6 +23,8 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (mkContext, renderCtxDoc, showToCtxDoc, string,
+                               vcat, (><))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -91,36 +92,24 @@ data ParseTypeException =
 
 instance PrettyForTrace ParseTypeException where
   prettyForTrace = \case
-    UnexpectedTypeKind (Right kind) -> concat [
-        "Unexpected type kind "
-      , show kind
-      , ".\n"
-      , pleaseReport
+    UnexpectedTypeKind (Right kind) -> vcat [
+        "Unexpected type kind " >< showToCtxDoc kind >< "."
+      , string pleaseReport
       ]
-    UnexpectedTypeKind (Left i) -> concat [
-        "Unknown type kind "
-      , show i
-      , ".\n"
-      , pleaseReport
+    UnexpectedTypeKind (Left i) -> vcat [
+        "Unknown type kind " >< showToCtxDoc i >< "."
+      , string pleaseReport
       ]
-    UnexpectedTypeDecl (Right kind) -> concat [
-        "Unexpected type declaration "
-      , show kind
-      , ".\n"
-      , pleaseReport
+    UnexpectedTypeDecl (Right kind) -> vcat [
+        "Unexpected type declaration " >< showToCtxDoc kind >< "."
+      , string pleaseReport
       ]
-    UnexpectedTypeDecl (Left i) -> concat [
-        "Unknown type declaration "
-      , show i
-      , ".\n"
-      , pleaseReport
+    UnexpectedTypeDecl (Left i) -> vcat [
+        "Unknown type declaration " >< showToCtxDoc i ><  "."
+      , string pleaseReport
       ]
-    UnsupportedVariadicFunction -> concat [
-        "Unsupported variadic (varargs) function."
-      ]
-    UnsupportedLongDouble -> concat [
-        "Unsupported long double."
-      ]
+    UnsupportedVariadicFunction -> "Unsupported variadic (varargs) function."
+    UnsupportedLongDouble -> "Unsupported long double."
 
 -- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
 --
@@ -134,7 +123,7 @@ instance HasDefaultLogLevel ParseTypeException where
     UnsupportedLongDouble       -> Warning
 
 instance Exception ParseTypeException where
-  displayException = prettyForTrace
+  displayException = renderCtxDoc (mkContext 100) . prettyForTrace
 
 {-------------------------------------------------------------------------------
   Utility: dispatching based on the cursor kind

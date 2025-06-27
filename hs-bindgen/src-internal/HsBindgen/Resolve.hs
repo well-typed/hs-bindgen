@@ -18,6 +18,7 @@ import Clang.Paths
 import HsBindgen.Clang
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (hang, hsep, string)
 
 {-------------------------------------------------------------------------------
   Trace messages
@@ -43,19 +44,17 @@ instance HasSource ResolveHeaderMsg where
 
 instance PrettyForTrace ResolveHeaderMsg where
   prettyForTrace = \case
-    ResolveHeaderClang msg -> concat [
-        "during header resolution: "
-      , prettyForTrace msg
-      ]
-    ResolveHeaderSuccess header path -> unwords [
+    ResolveHeaderClang msg -> hang
+      "during header resolution:" 2 (prettyForTrace msg)
+    ResolveHeaderSuccess header path -> hsep [
         "header"
-      , getCHeaderIncludePath header
+      , string $ getCHeaderIncludePath header
       , "resolved to"
-      , getSourcePath path
+      , string $ getSourcePath path
       ]
-    ResolveHeaderNotFound header -> unwords [
+    ResolveHeaderNotFound header -> hsep [
         "header"
-      , getCHeaderIncludePath header
+      , string $ getCHeaderIncludePath header
       , "not found"
       ]
 

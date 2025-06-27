@@ -26,6 +26,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -138,12 +139,12 @@ data DeclIndexError =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace DeclIndexError where
-  prettyForTrace Redeclaration{..} = concat [
+  prettyForTrace Redeclaration{..} = hcat [
         prettyForTrace redeclarationId
       , " declared at "
-      , show redeclarationOld
+      , showToCtxDoc redeclarationOld
       , " was redeclared at "
-      , show redeclarationNew
+      , showToCtxDoc redeclarationNew
       , ". No binding generated."
       ]
 

@@ -372,6 +372,7 @@ test-suite test-th
       -- Internal dependencies
     , clang
     , hs-bindgen
+    , hs-bindgen:internal
     , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
@@ -412,6 +413,7 @@ test-suite test-pp
     , c-expr
     , clang
     , hs-bindgen
+    , hs-bindgen:internal
     , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
