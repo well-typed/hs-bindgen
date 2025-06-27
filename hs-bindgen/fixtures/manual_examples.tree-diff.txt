@@ -1660,5 +1660,30 @@ TranslationUnit {
           typeSpecModule = Nothing,
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:182:19",
+        declId = NamePair {
+          nameC = CName "mod_10",
+          nameHsIdent = HsIdentifier
+            "mod_10"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed),
+          functionHeader =
+          "manual_examples.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
             []}}],
   unitDeps = ["manual_examples"]}

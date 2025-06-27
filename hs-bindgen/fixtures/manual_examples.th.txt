@@ -9,6 +9,7 @@
 -- void test_internal_拜拜 (void) { 拜拜(); }
 -- void test_internal_ϒ (void) { ϒ(); }
 -- void test_internal_import (void) { import(); }
+-- signed int test_internal_mod_10 (signed int arg1) { return mod_10(arg1); }
 data Triple
     = Triple {triple_a :: CInt, triple_b :: CInt, triple_c :: CInt}
 instance Storable Triple
@@ -531,3 +532,5 @@ pattern CXCursor_OpenACCUpdateConstruct :: CXCursorKind
 pattern CXCursor_OpenACCUpdateConstruct = CXCursorKind 331
 pattern CXCursor_LastStmt :: CXCursorKind
 pattern CXCursor_LastStmt = CXCursorKind 331
+foreign import ccall safe "test_internal_mod_10" mod_10 :: CInt ->
+                                                           IO CInt

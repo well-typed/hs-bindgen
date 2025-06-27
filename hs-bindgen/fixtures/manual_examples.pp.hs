@@ -30,7 +30,7 @@ import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 import qualified Text.Read
 
-$(CAPI.addCSource "#include \"manual_examples.h\"\nvoid testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }\nsigned int testmodule_index_triple (triple *arg1, index arg2) { return index_triple(arg1, arg2); }\nsum testmodule_sum_triple (triple *arg1) { return sum_triple(arg1); }\naverage testmodule_average_triple (triple *arg1) { return average_triple(arg1); }\nYEAR testmodule_getYear (date *arg1) { return getYear(arg1); }\nvoid testmodule_print_occupation (signed int arg1, occupation *arg2) { print_occupation(arg1, arg2); }\nvoid testmodule_\25308\25308 (void) { \25308\25308(); }\nvoid testmodule_\978 (void) { \978(); }\nvoid testmodule_import (void) { import(); }\n")
+$(CAPI.addCSource "#include \"manual_examples.h\"\nvoid testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }\nsigned int testmodule_index_triple (triple *arg1, index arg2) { return index_triple(arg1, arg2); }\nsum testmodule_sum_triple (triple *arg1) { return sum_triple(arg1); }\naverage testmodule_average_triple (triple *arg1) { return average_triple(arg1); }\nYEAR testmodule_getYear (date *arg1) { return getYear(arg1); }\nvoid testmodule_print_occupation (signed int arg1, occupation *arg2) { print_occupation(arg1, arg2); }\nvoid testmodule_\25308\25308 (void) { \25308\25308(); }\nvoid testmodule_\978 (void) { \978(); }\nvoid testmodule_import (void) { import(); }\nsigned int testmodule_mod_10 (signed int arg1) { return mod_10(arg1); }\n")
 
 data Triple = Triple
   { triple_a :: FC.CInt
@@ -1125,3 +1125,5 @@ pattern CXCursor_OpenACCUpdateConstruct = CXCursorKind 331
 
 pattern CXCursor_LastStmt :: CXCursorKind
 pattern CXCursor_LastStmt = CXCursorKind 331
+
+foreign import ccall safe "testmodule_mod_10" mod_10 :: FC.CInt -> IO FC.CInt
