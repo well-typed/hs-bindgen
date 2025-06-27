@@ -26,6 +26,7 @@ import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (showToCtxDoc)
 
 {-------------------------------------------------------------------------------
   Construction
@@ -153,7 +154,7 @@ instance PrettyForTrace FrontendMsg where
     FrontendSort                x -> prettyForTrace x
     FrontendSlice               x -> prettyForTrace x
     FrontendHandleMacros        x -> prettyForTrace x
-    FrontendResolveBindingSpecs x -> show x -- TODO
+    FrontendResolveBindingSpecs x -> showToCtxDoc x -- TODO
     FrontendMangleNames         x -> prettyForTrace x
 
 instance HasDefaultLogLevel FrontendMsg where

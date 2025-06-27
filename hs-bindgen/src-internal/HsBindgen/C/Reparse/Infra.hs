@@ -23,7 +23,6 @@ module HsBindgen.C.Reparse.Infra (
   , anythingMatchingBrackets
   ) where
 
-import Data.List (intercalate)
 import Data.Text qualified as Text
 import Text.Parsec hiding (token, tokens)
 import Text.Parsec qualified as Parsec
@@ -36,6 +35,7 @@ import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (..))
+import Text.SimplePrettyPrint (hsep, textToCtxDoc, vcat, (><))
 
 {-------------------------------------------------------------------------------
   Parser type
@@ -85,13 +85,9 @@ instance PrettyForTrace ReparseError where
   prettyForTrace ReparseError{
           reparseError
         , reparseErrorTokens
-        } = unlines [
-        "Reparse error: " <> reparseError
-      , intercalate " " (
-            map
-              (Text.unpack . getTokenSpelling . tokenSpelling)
-              reparseErrorTokens
-          )
+        } = vcat [
+        "Reparse error: " >< fromString reparseError
+      , hsep $ map (textToCtxDoc . getTokenSpelling . tokenSpelling) reparseErrorTokens
       ]
 
 {-------------------------------------------------------------------------------

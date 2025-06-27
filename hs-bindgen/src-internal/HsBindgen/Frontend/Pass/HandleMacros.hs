@@ -6,7 +6,6 @@ module HsBindgen.Frontend.Pass.HandleMacros (
 import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 import Data.Vec.Lazy qualified as Vec
 
 import Clang.HighLevel.Types
@@ -28,6 +27,7 @@ import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (string, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -361,13 +361,13 @@ instance PrettyForTrace HandleMacrosMsg where
       MacroErrorReparse x ->
         prettyForTrace x
       MacroErrorTc x ->
-        Text.unpack $ Macro.pprTcMacroError x
+        textToCtxDoc $ Macro.pprTcMacroError x
       MacroErrorEmpty ->
         "Unsupported empty macro"
       MacroErrorAttribute ->
         "Unsupported attribute macro"
       MacroErrorUnsupportedType err ->
-        "Unsupported type: " ++ err
+        "Unsupported type: " >< string err
 
 -- | Default log level
 --

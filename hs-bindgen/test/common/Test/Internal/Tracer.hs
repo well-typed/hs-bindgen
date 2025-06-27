@@ -1,13 +1,14 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TupleSections #-}
-{-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE TypeSynonymInstances #-}
-{-# LANGUAGE FlexibleInstances #-}
 
 module Test.Internal.Tracer
   ( -- * Predicate
@@ -33,6 +34,8 @@ import Data.Maybe (fromMaybe)
 
 import HsBindgen.Errors
 import HsBindgen.Lib
+import Text.SimplePrettyPrint (CtxDoc, cat, defaultContext, hang, renderCtxDoc,
+                               showToCtxDoc, string, vcat, (><))
 
 {-------------------------------------------------------------------------------
   Trace predicates
@@ -142,18 +145,18 @@ mkWriterTracer tracesRef = simpleTracer addTrace
 
 data TraceExpectationException a = TraceExpectationException {
       unexpectedTraces              :: [a]
-    , expectedTracesWithWrongCounts :: [String]
+    , expectedTracesWithWrongCounts :: [CtxDoc]
     }
 
 instance (PrettyForTrace a, HasDefaultLogLevel a)
   => Show (TraceExpectationException a) where
-  show (TraceExpectationException {..}) = unlines $
+  show (TraceExpectationException {..}) = renderCtxDoc defaultContext $ vcat $
        (if null unexpectedTraces then []
           else "Unexpected traces:" : map formatTrace unexpectedTraces)
     ++ (if null expectedTracesWithWrongCounts then []
           else "Expected traces with wrong counts:" : expectedTracesWithWrongCounts)
     where formatTrace trace =
-            show (getDefaultLogLevel trace) <> ": " <> prettyForTrace trace
+            hang (showToCtxDoc (getDefaultLogLevel trace) >< ":") 2 (prettyForTrace trace)
 
 instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a)
   => Exception (TraceExpectationException a)
@@ -163,13 +166,13 @@ instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a)
 -------------------------------------------------------------------------------}
 
 class WrongCountMsg b where
-  wrongCount :: b -> Int -> Int -> String
+  wrongCount :: b -> Int -> Int -> CtxDoc
 
 instance WrongCountMsg String where
-  wrongCount name expectedCount actualCount = concat
-    [ "Name: ",             name
-    , ", expected count: ", show expectedCount
-    , ", actual count: "  , show actualCount
+  wrongCount name expectedCount actualCount = cat
+    [ "Name: ",             string name
+    , ", expected count: ", showToCtxDoc expectedCount
+    , ", actual count: "  , showToCtxDoc actualCount
     ]
 
 instance WrongCountMsg () where

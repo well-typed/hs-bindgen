@@ -70,6 +70,7 @@ import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (hang, string, textToCtxDoc, vcat, (><))
 
 {-------------------------------------------------------------------------------
   Types
@@ -242,20 +243,20 @@ instance HasSource ReadBindingSpecMsg where
 instance PrettyForTrace ReadBindingSpecMsg where
   prettyForTrace = \case
     ReadBindingSpecUnknownExtension path ->
-      "unknown binding specification extension: " ++ path
+      "unknown binding specification extension: " >< string path
     ReadBindingSpecAesonError path msg ->
-      "error parsing JSON: " ++ path ++ ": " ++ msg
+      "error parsing JSON: " >< string path >< ": " >< string msg
     ReadBindingSpecYamlError path msg ->
       -- 'unlines' is used because the pretty-printed error includes newlines
-      unlines ["error parsing YAML: " ++ path, msg]
+      vcat ["error parsing YAML: " >< string path, string msg]
     ReadBindingSpecYamlWarning path msg ->
-      "error parsing YAML: " ++ path ++ ": " ++ msg
+      "error parsing YAML: " >< string path >< ": " >< string msg
     ReadBindingSpecInvalidCName path t ->
-      "invalid C name in " ++ path ++ ": " ++ Text.unpack t
+      "invalid C name in " >< string path >< ": " >< textToCtxDoc t
     ReadBindingSpecConflict path cQualName header ->
-      "multiple entries in " ++ path ++ " for C type: "
-        ++ Text.unpack (C.qualNameText cQualName)
-        ++ " (" ++ getCHeaderIncludePath header ++ ")"
+      "multiple entries in " >< string path >< " for C type: "
+        >< textToCtxDoc (C.qualNameText cQualName)
+        >< " (" >< string (getCHeaderIncludePath header) >< ")"
 
 --------------------------------------------------------------------------------
 
@@ -285,16 +286,14 @@ instance HasSource ResolveBindingSpecMsg where
 
 instance PrettyForTrace ResolveBindingSpecMsg where
   prettyForTrace = \case
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/798>
-    -- We might want nicer formatting here.
-    ResolveExternalBindingSpecHeader x -> concat [
-        "during resolution of external binding specification: "
-      , prettyForTrace x
-      ]
-    ResolvePrescriptiveBindingSpecHeader x -> concat [
-        "during resolution of prescriptive binding specification: "
-      , prettyForTrace x
-      ]
+    ResolveExternalBindingSpecHeader x -> hang
+        "during resolution of external binding specification:"
+        2
+        (prettyForTrace x)
+    ResolvePrescriptiveBindingSpecHeader x -> hang
+        "during resolution of prescriptive binding specification:"
+        2
+        (prettyForTrace x)
 
 --------------------------------------------------------------------------------
 
@@ -314,7 +313,7 @@ instance PrettyForTrace MergeBindingSpecMsg where
   prettyForTrace = \case
     MergeBindingSpecConflict cQualName ->
       "conflicting binding specifications for C type: "
-        ++ Text.unpack (C.qualNameText cQualName)
+        >< textToCtxDoc (C.qualNameText cQualName)
 
 --------------------------------------------------------------------------------
 
@@ -333,7 +332,7 @@ instance HasSource WriteBindingSpecMsg where
 instance PrettyForTrace WriteBindingSpecMsg where
   prettyForTrace = \case
     WriteBindingSpecUnknownExtension path ->
-      "unknown binding specification extension: " ++ path
+      "unknown binding specification extension: " >< string path
 
 --------------------------------------------------------------------------------
 

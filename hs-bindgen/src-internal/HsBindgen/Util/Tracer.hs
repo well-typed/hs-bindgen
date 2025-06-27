@@ -38,6 +38,7 @@ import Control.Monad (when)
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import Control.Tracer (Contravariant (..))
 import Control.Tracer qualified as ContraTracer
+import Data.Default (Default (..))
 import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
@@ -49,9 +50,9 @@ import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             hSupportsANSIColor, setSGRCode)
 import System.IO (Handle, IOMode (AppendMode), hPutStrLn, stdout, withFile)
 
-import Data.Default (Default (..))
 import HsBindgen.Errors (hsBindgenExceptionFromException,
                          hsBindgenExceptionToException)
+import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Definition and main API
@@ -136,8 +137,7 @@ getColorForLevel = \case
 
 -- | Convert values to textual representations used in traces.
 class PrettyForTrace a where
-  -- Issue #650: use 'Text'.
-  prettyForTrace :: a -> String
+  prettyForTrace :: a -> CtxDoc
 
 -- | Get default (or suggested) log level of values used in traces.
 class HasDefaultLogLevel a where
@@ -310,10 +310,16 @@ mkTracer ansiColor (TracerConf {..}) customLogLevel maxLogLevelRef report =
         EnableTimeStamp -> Just <$> liftIO getCurrentTime
       mapM_ report $ getZipList $ formatLines time level source <*> traces
       when (tShowCallStack == EnableCallStack) $
-        mapM_ (report . indent) $ lines $ prettyCallStack msgCallStack
+        report $ renderCtxDoc (indentContext 2 context)
+          $ string $ prettyCallStack msgCallStack
       where level = getLogLevel msgWithoutCallStack
             source = getSource msgWithoutCallStack
-            traces = ZipList $ lines $ prettyForTrace msgWithoutCallStack
+            traces = ZipList $ lines
+              $ renderCtxDoc context
+              $ prettyForTrace msgWithoutCallStack
+
+    context :: Context
+    context = mkContext 120
 
     updateMaxLogLevel :: Level -> m ()
     updateMaxLogLevel level = liftIO $ modifyIORef maxLogLevelRef $ max level

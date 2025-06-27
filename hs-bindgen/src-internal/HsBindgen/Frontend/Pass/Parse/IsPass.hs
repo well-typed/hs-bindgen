@@ -28,6 +28,7 @@ import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (hcat, showToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -109,7 +110,7 @@ instance PrettyForTrace QualDeclId where
           C.NameKindStruct   -> "struct "
           C.NameKindUnion    -> "union "
           C.NameKindEnum     -> "enum "
-    in  prefix <> prettyForTrace declId
+    in  prefix >< prettyForTrace declId
 
 declQualDeclId :: Id p ~ DeclId => C.Decl p -> QualDeclId
 declQualDeclId C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
@@ -173,17 +174,17 @@ instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
       Skipped reason ->
           prettyForTrace reason
-      UnsupportedImplicitFields {..} -> concat [
+      UnsupportedImplicitFields {..} -> hcat [
           "Unsupported implicit fields "
-        , show unsupportedImplicitFields
+        , showToCtxDoc unsupportedImplicitFields
         , " in "
-        , show unsupportedImplicitFieldsIn
+        , showToCtxDoc unsupportedImplicitFieldsIn
         ]
-      UnsupportedType {..} -> concat [
+      UnsupportedType {..} -> hcat [
           "Encountered unsupported type while parsing "
         , prettyForTrace (C.declId unsupportedTypeContext)
         , " at "
-        , show (C.declLoc unsupportedTypeContext)
+        , showToCtxDoc (C.declLoc unsupportedTypeContext)
         , ": "
         , prettyForTrace unsupportedTypeException
         , ". "

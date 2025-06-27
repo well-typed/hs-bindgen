@@ -30,6 +30,7 @@ import Clang.Paths
 
 import Clang.HighLevel.Types
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint (showToCtxDoc, string, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Top-level call into clang
@@ -110,8 +111,8 @@ data ClangMsg =
 instance PrettyForTrace ClangMsg where
   prettyForTrace = \case
       ClangExtraArgs  x -> prettyForTrace x
-      ClangErrorCode  x -> "clang error " ++ show x
-      ClangDiagnostic x -> Text.unpack $ diagnosticFormatted x
+      ClangErrorCode  x -> "clang error " >< showToCtxDoc x
+      ClangDiagnostic x -> textToCtxDoc $ diagnosticFormatted x
 
 instance HasDefaultLogLevel ClangMsg where
   getDefaultLogLevel = \case
@@ -141,10 +142,10 @@ data ExtraClangArgsMsg =
 instance PrettyForTrace ExtraClangArgsMsg where
   prettyForTrace = \case
     ExtraClangArgsNone ->
-      "No " <> extraClangArgsEnvNameBase <> " environment variables"
+      "No " >< string extraClangArgsEnvNameBase >< " environment variables"
     ExtraClangArgsParsed {..} ->
-      "Picked up evironment variable " <> envName <>
-      "; parsed 'libclang' arguments: " <> show envArgs
+      "Picked up evironment variable " >< string envName ><
+      "; parsed 'libclang' arguments: " >< showToCtxDoc envArgs
 
 instance HasDefaultLogLevel ExtraClangArgsMsg where
   getDefaultLogLevel = \case

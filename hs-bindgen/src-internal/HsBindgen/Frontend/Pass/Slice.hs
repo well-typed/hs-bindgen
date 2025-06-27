@@ -23,6 +23,7 @@ import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta (declNonSelected, declUsage
                                             Sort)
 import HsBindgen.Language.C.Name qualified as C
 import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint ((><))
 
 data ProgramSlicing =
   -- | Enable program slicing: Select declarations using the selection predicate
@@ -103,7 +104,7 @@ data SliceMsg = TransitiveDependencyUnavailable QualDeclId
 
 instance PrettyForTrace SliceMsg where
   prettyForTrace (TransitiveDependencyUnavailable qualId) =
-    "Program slicing: Transitive dependency unavailable: " <> prettyForTrace qualId
+    "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
 
 instance HasDefaultLogLevel SliceMsg where
   getDefaultLogLevel = const Error

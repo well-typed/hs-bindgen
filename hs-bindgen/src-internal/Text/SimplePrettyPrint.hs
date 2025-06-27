@@ -20,11 +20,12 @@
 module Text.SimplePrettyPrint where
 
 import Data.List qualified as List
-import Data.String (IsString(fromString))
+import Data.String (IsString (fromString))
+import Data.Text qualified as Text
 import Text.PrettyPrint.HughesPJ qualified as PP
 
 #if MIN_VERSION_base(4,19,0)
-import GHC.TypeError (Unsatisfiable, ErrorMessage (..))
+import GHC.TypeError (ErrorMessage (..), Unsatisfiable)
 #endif
 
 {-------------------------------------------------------------------------------
@@ -142,6 +143,10 @@ string = CtxDoc . const . PP.text
 -- | Create a document with the result of 'show'
 showToCtxDoc :: Show a => a -> CtxDoc
 showToCtxDoc = string . show
+
+-- | Create a document with the specified 'Text'
+textToCtxDoc :: Text.Text -> CtxDoc
+textToCtxDoc = string . Text.unpack
 
 -- | Horizontally join two documents
 --

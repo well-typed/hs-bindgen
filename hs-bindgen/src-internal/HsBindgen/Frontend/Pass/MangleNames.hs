@@ -7,7 +7,6 @@ import Control.Monad.Reader
 import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Proxy
-import Data.Text (unpack)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
@@ -22,6 +21,7 @@ import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
                               Level (Error), PrettyForTrace (prettyForTrace))
+import Text.SimplePrettyPrint (hcat, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -67,12 +67,12 @@ data MangleNamesMsg =
 
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace (CouldNotMangle name) =
-    "Could not mangle C name: " <> unpack name
-  prettyForTrace (MissingDeclaration cQualName) =
-      concat [ "Missing declaration: '"
-             , prettyForTrace cQualName
-             , "'; did you select the declaration?"
-             ]
+    "Could not mangle C name: " >< textToCtxDoc name
+  prettyForTrace (MissingDeclaration cQualName) = hcat [
+      "Missing declaration: '"
+    , prettyForTrace cQualName
+    , "'; did you select the declaration?"
+    ]
 
 instance HasDefaultLogLevel MangleNamesMsg where
   getDefaultLogLevel = const Error

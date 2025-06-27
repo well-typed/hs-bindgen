@@ -126,7 +126,8 @@ tests packageRoot getExtBindingSpec getRustBindgen =
                   unsupportedTypeContext
                 , unsupportedTypeException = UnsupportedLongDouble
                 })) ->
-              Just . Expected . prettyForTrace $ C.declId unsupportedTypeContext
+              Just . Expected . show . prettyForTrace $
+                C.declId unsupportedTypeContext
             _otherTrace ->
               Nothing
           )

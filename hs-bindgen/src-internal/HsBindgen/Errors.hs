@@ -11,7 +11,7 @@ module HsBindgen.Errors (
     pleaseReport,
 ) where
 
-import Control.Exception (SomeException (..), Exception (..), throw)
+import Control.Exception (Exception (..), SomeException (..), throw)
 import Data.Typeable (cast)
 import GHC.Stack (CallStack, callStack, prettyCallStack)
 
