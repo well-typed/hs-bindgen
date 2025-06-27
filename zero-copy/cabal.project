@@ -1,0 +1,1 @@
+packages: ., ../clang, ../hs-bindgen, ../hs-bindgen-runtime, ../c-expr
