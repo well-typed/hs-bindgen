@@ -138,8 +138,8 @@ data DeclIndexError =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace DeclIndexError where
-  prettyTrace Redeclaration{..} = concat [
-        prettyTrace redeclarationId
+  prettyForTrace Redeclaration{..} = concat [
+        prettyForTrace redeclarationId
       , " declared at "
       , show redeclarationOld
       , " was redeclared at "

@@ -82,7 +82,7 @@ data ReparseError = ReparseError {
   deriving anyclass (Exception)
 
 instance PrettyForTrace ReparseError where
-  prettyTrace ReparseError{
+  prettyForTrace ReparseError{
           reparseError
         , reparseErrorTokens
         } = unlines [

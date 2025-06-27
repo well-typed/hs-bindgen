@@ -137,7 +137,7 @@ getColorForLevel = \case
 -- | Convert values to textual representations used in traces.
 class PrettyForTrace a where
   -- Issue #650: use 'Text'.
-  prettyTrace :: a -> String
+  prettyForTrace :: a -> String
 
 -- | Get default (or suggested) log level of values used in traces.
 class HasDefaultLogLevel a where
@@ -313,7 +313,7 @@ mkTracer ansiColor (TracerConf {..}) customLogLevel maxLogLevelRef report =
         mapM_ (report . indent) $ lines $ prettyCallStack msgCallStack
       where level = getLogLevel msgWithoutCallStack
             source = getSource msgWithoutCallStack
-            traces = ZipList $ lines $ prettyTrace msgWithoutCallStack
+            traces = ZipList $ lines $ prettyForTrace msgWithoutCallStack
 
     updateMaxLogLevel :: Level -> m ()
     updateMaxLogLevel level = liftIO $ modifyIORef maxLogLevelRef $ max level

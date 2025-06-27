@@ -240,7 +240,7 @@ instance HasSource ReadBindingSpecMsg where
   getSource = const HsBindgen
 
 instance PrettyForTrace ReadBindingSpecMsg where
-  prettyTrace = \case
+  prettyForTrace = \case
     ReadBindingSpecUnknownExtension path ->
       "unknown binding specification extension: " ++ path
     ReadBindingSpecAesonError path msg ->
@@ -284,16 +284,16 @@ instance HasSource ResolveBindingSpecMsg where
     ResolvePrescriptiveBindingSpecHeader x -> getSource x
 
 instance PrettyForTrace ResolveBindingSpecMsg where
-  prettyTrace = \case
+  prettyForTrace = \case
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/798>
     -- We might want nicer formatting here.
     ResolveExternalBindingSpecHeader x -> concat [
         "during resolution of external binding specification: "
-      , prettyTrace x
+      , prettyForTrace x
       ]
     ResolvePrescriptiveBindingSpecHeader x -> concat [
         "during resolution of prescriptive binding specification: "
-      , prettyTrace x
+      , prettyForTrace x
       ]
 
 --------------------------------------------------------------------------------
@@ -311,7 +311,7 @@ instance HasSource MergeBindingSpecMsg where
   getSource = const HsBindgen
 
 instance PrettyForTrace MergeBindingSpecMsg where
-  prettyTrace = \case
+  prettyForTrace = \case
     MergeBindingSpecConflict cQualName ->
       "conflicting binding specifications for C type: "
         ++ Text.unpack (C.qualNameText cQualName)
@@ -331,7 +331,7 @@ instance HasSource WriteBindingSpecMsg where
   getSource = const HsBindgen
 
 instance PrettyForTrace WriteBindingSpecMsg where
-  prettyTrace = \case
+  prettyForTrace = \case
     WriteBindingSpecUnknownExtension path ->
       "unknown binding specification extension: " ++ path
 
@@ -360,11 +360,11 @@ instance HasSource BindingSpecMsg where
     WriteBindingSpecMsg   x -> getSource x
 
 instance PrettyForTrace BindingSpecMsg where
-  prettyTrace = \case
-    ReadBindingSpecMsg    x -> prettyTrace x
-    ResolveBindingSpecMsg x -> prettyTrace x
-    MergeBindingSpecMsg   x -> prettyTrace x
-    WriteBindingSpecMsg   x -> prettyTrace x
+  prettyForTrace = \case
+    ReadBindingSpecMsg    x -> prettyForTrace x
+    ResolveBindingSpecMsg x -> prettyForTrace x
+    MergeBindingSpecMsg   x -> prettyForTrace x
+    WriteBindingSpecMsg   x -> prettyForTrace x
 
 {-------------------------------------------------------------------------------
   API

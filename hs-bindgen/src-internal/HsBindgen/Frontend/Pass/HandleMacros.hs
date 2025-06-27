@@ -357,9 +357,9 @@ data HandleMacrosMsg =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace HandleMacrosMsg where
-  prettyTrace = \case
+  prettyForTrace = \case
       MacroErrorReparse x ->
-        prettyTrace x
+        prettyForTrace x
       MacroErrorTc x ->
         Text.unpack $ Macro.pprTcMacroError x
       MacroErrorEmpty ->

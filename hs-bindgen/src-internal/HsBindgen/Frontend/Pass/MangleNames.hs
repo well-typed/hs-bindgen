@@ -21,7 +21,7 @@ import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              Level (Error), PrettyForTrace (prettyTrace))
+                              Level (Error), PrettyForTrace (prettyForTrace))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -66,11 +66,11 @@ data MangleNamesMsg =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace MangleNamesMsg where
-  prettyTrace (CouldNotMangle name) =
+  prettyForTrace (CouldNotMangle name) =
     "Could not mangle C name: " <> unpack name
-  prettyTrace (MissingDeclaration cQualName) =
+  prettyForTrace (MissingDeclaration cQualName) =
       concat [ "Missing declaration: '"
-             , prettyTrace cQualName
+             , prettyForTrace cQualName
              , "'; did you select the declaration?"
              ]
 

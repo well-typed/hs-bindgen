@@ -5,7 +5,7 @@ module HsBindgen.Resolve (
   , resolveHeader
   ) where
 
-import Control.Monad.Trans.Maybe (MaybeT(..), runMaybeT)
+import Control.Monad.Trans.Maybe (MaybeT (..), runMaybeT)
 import Data.Maybe (listToMaybe)
 import Data.Text qualified as Text
 
@@ -42,10 +42,10 @@ instance HasSource ResolveHeaderMsg where
     ResolveHeaderNotFound{} -> HsBindgen
 
 instance PrettyForTrace ResolveHeaderMsg where
-  prettyTrace = \case
+  prettyForTrace = \case
     ResolveHeaderClang msg -> concat [
         "during header resolution: "
-      , prettyTrace msg
+      , prettyForTrace msg
       ]
     ResolveHeaderSuccess header path -> unwords [
         "header"

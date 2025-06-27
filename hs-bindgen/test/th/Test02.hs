@@ -11,7 +11,7 @@ module Test02 where
 import HsBindgen.TH
 import Test.Internal.Tracer (TraceExpectation (..), TracePredicate,
                              customTracePredicate, defaultTracePredicate,
-                             singleTracePredicate, withTracePredicate)
+                             withTracePredicate)
 
 -- Used by generated code
 import Clang.Paths (getCHeaderIncludePath)

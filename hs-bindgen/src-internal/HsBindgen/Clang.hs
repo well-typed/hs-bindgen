@@ -28,8 +28,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Util.Tracer
 import Clang.HighLevel.Types
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Top-level call into clang
@@ -108,8 +108,8 @@ data ClangMsg =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ClangMsg where
-  prettyTrace = \case
-      ClangExtraArgs  x -> prettyTrace x
+  prettyForTrace = \case
+      ClangExtraArgs  x -> prettyForTrace x
       ClangErrorCode  x -> "clang error " ++ show x
       ClangDiagnostic x -> Text.unpack $ diagnosticFormatted x
 
@@ -139,7 +139,7 @@ data ExtraClangArgsMsg =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ExtraClangArgsMsg where
-  prettyTrace = \case
+  prettyForTrace = \case
     ExtraClangArgsNone ->
       "No " <> extraClangArgsEnvNameBase <> " environment variables"
     ExtraClangArgsParsed {..} ->

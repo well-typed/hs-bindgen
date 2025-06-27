@@ -26,11 +26,11 @@ data TraceMsg =
   deriving stock (Show, Eq)
 
 instance PrettyForTrace TraceMsg where
-  prettyTrace = \case
-    TraceBindingSpec   x -> prettyTrace x
-    TraceClang         x -> prettyTrace x
-    TraceFrontend      x -> prettyTrace x
-    TraceResolveHeader x -> prettyTrace x
+  prettyForTrace = \case
+    TraceBindingSpec   x -> prettyForTrace x
+    TraceClang         x -> prettyForTrace x
+    TraceFrontend      x -> prettyForTrace x
+    TraceResolveHeader x -> prettyForTrace x
 
 instance HasDefaultLogLevel TraceMsg where
   getDefaultLogLevel = \case
