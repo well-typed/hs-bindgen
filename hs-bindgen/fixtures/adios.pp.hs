@@ -2,7 +2,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Example where
@@ -20,62 +19,14 @@ $(CAPI.addCSource "#include \"adios.h\"\nvoid testmodule_\978 (void) { \978(); }
 newtype Adio'0301s = Adio'0301s
   { un_Adio'0301s :: FC.CInt
   }
-
-deriving newtype instance F.Storable Adio'0301s
-
-deriving stock instance Eq Adio'0301s
-
-deriving stock instance Ord Adio'0301s
-
-deriving stock instance Read Adio'0301s
-
-deriving stock instance Show Adio'0301s
-
-deriving newtype instance Enum Adio'0301s
-
-deriving newtype instance Ix.Ix Adio'0301s
-
-deriving newtype instance Bounded Adio'0301s
-
-deriving newtype instance Bits.Bits Adio'0301s
-
-deriving newtype instance FiniteBits Adio'0301s
-
-deriving newtype instance Integral Adio'0301s
-
-deriving newtype instance Num Adio'0301s
-
-deriving newtype instance Real Adio'0301s
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 newtype C数字 = C数字
   { un_C数字 :: FC.CInt
   }
-
-deriving newtype instance F.Storable C数字
-
-deriving stock instance Eq C数字
-
-deriving stock instance Ord C数字
-
-deriving stock instance Read C数字
-
-deriving stock instance Show C数字
-
-deriving newtype instance Enum C数字
-
-deriving newtype instance Ix.Ix C数字
-
-deriving newtype instance Bounded C数字
-
-deriving newtype instance Bits.Bits C数字
-
-deriving newtype instance FiniteBits C数字
-
-deriving newtype instance Integral C数字
-
-deriving newtype instance Num C数字
-
-deriving newtype instance Real C数字
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 foreign import ccall safe "testmodule_ϒ" cϒ :: IO ()
 

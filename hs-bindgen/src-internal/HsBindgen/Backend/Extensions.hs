@@ -26,8 +26,9 @@ requiredExtensions = \case
         ]
     DRecord r ->
         recordExtensions r
-    DNewtype{} ->
-        Set.empty
+        <> nestedDeriving (dataDeriv r)
+    DNewtype n ->
+        nestedDeriving (newtypeDeriv n)
     DEmptyData{} ->
         Set.singleton TH.EmptyDataDecls
     DDerivingInstance strategy ty ->
@@ -41,6 +42,12 @@ requiredExtensions = \case
         Set.singleton TH.PatternSynonyms
     DCSource{} ->
         Set.singleton TH.TemplateHaskell
+
+-- | Extensions for deriving clauses that are part of the datatype declaration
+nestedDeriving :: [(Strategy ClosedType, [Global])] -> Set TH.Extension
+nestedDeriving deriv =
+       Set.singleton TH.DerivingStrategies
+    <> mconcat (map (strategyExtensions . fst) deriv)
 
 recordExtensions :: Record -> Set TH.Extension
 recordExtensions r = foldMap fieldExtensions (dataFields r)

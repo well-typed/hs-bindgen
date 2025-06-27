@@ -181,7 +181,7 @@ data Global =
   | ByteArray_type
   | SizedByteArray_type
   | PrimType HsPrimType
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
 
 type ClosedExpr = SExpr EmptyCtx
 
@@ -285,6 +285,7 @@ data Record = Record {
     , dataCon    :: HsName NsConstr
     , dataFields :: [Field]
     , dataOrigin :: Origin.Decl Origin.Struct
+    , dataDeriv  :: [(Hs.Strategy ClosedType, [Global])]
     }
   deriving stock (Show)
 
@@ -299,6 +300,7 @@ data Newtype = Newtype {
     , newtypeCon    :: HsName NsConstr
     , newtypeField  :: Field
     , newtypeOrigin :: Origin.Decl Origin.Newtype
+    , newtypeDeriv  :: [(Hs.Strategy ClosedType, [Global])]
     }
   deriving stock (Show)
 

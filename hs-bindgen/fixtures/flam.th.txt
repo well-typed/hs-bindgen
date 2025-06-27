@@ -1,16 +1,16 @@
 -- addDependentFile examples/golden/flam.h
-data Pascal = Pascal {pascal_len :: CInt}
+data Pascal = Pascal {pascal_len :: CInt} deriving stock (Eq, Show)
 instance Storable Pascal
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Pascal <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Pascal pascal_len_3 -> pokeByteOff ptr_1 (0 :: Int) pascal_len_3}}
-deriving stock instance Show Pascal
-deriving stock instance Eq Pascal
 instance HasFlexibleArrayMember CChar Pascal
     where {flexibleArrayMemberOffset = \_ty_0 -> 4}
-data Foo_bar = Foo_bar {foo_bar_x :: CInt, foo_bar_y :: CInt}
+data Foo_bar
+    = Foo_bar {foo_bar_x :: CInt, foo_bar_y :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Foo_bar
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -18,20 +18,18 @@ instance Storable Foo_bar
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo_bar foo_bar_x_3
                                              foo_bar_y_4 -> pokeByteOff ptr_1 (0 :: Int) foo_bar_x_3 >> pokeByteOff ptr_1 (4 :: Int) foo_bar_y_4}}
-deriving stock instance Show Foo_bar
-deriving stock instance Eq Foo_bar
-data Foo = Foo {foo_len :: CInt}
+data Foo = Foo {foo_len :: CInt} deriving stock (Eq, Show)
 instance Storable Foo
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo foo_len_3 -> pokeByteOff ptr_1 (0 :: Int) foo_len_3}}
-deriving stock instance Show Foo
-deriving stock instance Eq Foo
 instance HasFlexibleArrayMember Foo_bar Foo
     where {flexibleArrayMemberOffset = \_ty_0 -> 4}
-data Diff = Diff {diff_first :: CLong, diff_second :: CChar}
+data Diff
+    = Diff {diff_first :: CLong, diff_second :: CChar}
+    deriving stock (Eq, Show)
 instance Storable Diff
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -39,7 +37,5 @@ instance Storable Diff
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Diff diff_first_3
                                           diff_second_4 -> pokeByteOff ptr_1 (0 :: Int) diff_first_3 >> pokeByteOff ptr_1 (8 :: Int) diff_second_4}}
-deriving stock instance Show Diff
-deriving stock instance Eq Diff
 instance HasFlexibleArrayMember CChar Diff
     where {flexibleArrayMemberOffset = \_ty_0 -> 9}

@@ -1,11 +1,12 @@
 -- addDependentFile examples/golden/fixedarray.h
-newtype Triple = Triple {un_Triple :: (ConstantArray 3 CInt)}
-deriving newtype instance Storable Triple
-deriving stock instance Eq Triple
-deriving stock instance Show Triple
+newtype Triple
+    = Triple {un_Triple :: (ConstantArray 3 CInt)}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
 data Example
     = Example {example_triple :: (ConstantArray 3 CInt),
                example_sudoku :: (ConstantArray 3 (ConstantArray 3 CInt))}
+    deriving stock (Eq, Show)
 instance Storable Example
     where {sizeOf = \_ -> 48 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -13,5 +14,3 @@ instance Storable Example
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Example example_triple_3
                                              example_sudoku_4 -> pokeByteOff ptr_1 (0 :: Int) example_triple_3 >> pokeByteOff ptr_1 (12 :: Int) example_sudoku_4}}
-deriving stock instance Show Example
-deriving stock instance Eq Example

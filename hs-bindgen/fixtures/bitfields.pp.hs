@@ -1,6 +1,5 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -17,6 +16,7 @@ data Flags = Flags
   , flags_fieldY :: FC.CChar
   , flags_bits :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Flags where
 
@@ -46,15 +46,12 @@ instance F.Storable Flags where
             >> F.pokeByteOff ptr0 (2 :: Int) flags_fieldY6
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (24 :: Int) (2 :: Int) flags_bits7
 
-deriving stock instance Show Flags
-
-deriving stock instance Eq Flags
-
 data Overflow32 = Overflow32
   { overflow32_x :: FC.CInt
   , overflow32_y :: FC.CInt
   , overflow32_z :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Overflow32 where
 
@@ -78,15 +75,12 @@ instance F.Storable Overflow32 where
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (32 :: Int) (17 :: Int) overflow32_y3
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (64 :: Int) (17 :: Int) overflow32_z4
 
-deriving stock instance Show Overflow32
-
-deriving stock instance Eq Overflow32
-
 data Overflow32b = Overflow32b
   { overflow32b_x :: FC.CLong
   , overflow32b_y :: FC.CLong
   , overflow32b_z :: FC.CLong
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Overflow32b where
 
@@ -110,15 +104,12 @@ instance F.Storable Overflow32b where
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (17 :: Int) (17 :: Int) overflow32b_y3
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (34 :: Int) (17 :: Int) overflow32b_z4
 
-deriving stock instance Show Overflow32b
-
-deriving stock instance Eq Overflow32b
-
 data Overflow32c = Overflow32c
   { overflow32c_x :: FC.CLong
   , overflow32c_y :: FC.CInt
   , overflow32c_z :: FC.CLong
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Overflow32c where
 
@@ -142,14 +133,11 @@ instance F.Storable Overflow32c where
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (32 :: Int) (17 :: Int) overflow32c_y3
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (64 :: Int) (17 :: Int) overflow32c_z4
 
-deriving stock instance Show Overflow32c
-
-deriving stock instance Eq Overflow32c
-
 data Overflow64 = Overflow64
   { overflow64_x :: FC.CLong
   , overflow64_y :: FC.CLong
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Overflow64 where
 
@@ -171,14 +159,11 @@ instance F.Storable Overflow64 where
                HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (0 :: Int) (33 :: Int) overflow64_x2
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (64 :: Int) (33 :: Int) overflow64_y3
 
-deriving stock instance Show Overflow64
-
-deriving stock instance Eq Overflow64
-
 data AlignA = AlignA
   { alignA_x :: FC.CUChar
   , alignA_y :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable AlignA where
 
@@ -200,14 +185,11 @@ instance F.Storable AlignA where
                HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (0 :: Int) (1 :: Int) alignA_x2
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (1 :: Int) (10 :: Int) alignA_y3
 
-deriving stock instance Show AlignA
-
-deriving stock instance Eq AlignA
-
 data AlignB = AlignB
   { alignB_x :: FC.CUChar
   , alignB_y :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable AlignB where
 
@@ -228,7 +210,3 @@ instance F.Storable AlignB where
           AlignB alignB_x2 alignB_y3 ->
                HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (0 :: Int) (7 :: Int) alignB_x2
             >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (32 :: Int) (31 :: Int) alignB_y3
-
-deriving stock instance Show AlignB
-
-deriving stock instance Eq AlignB

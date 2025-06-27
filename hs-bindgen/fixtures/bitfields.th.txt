@@ -6,6 +6,7 @@ data Flags
              flags_flagC :: CInt,
              flags_fieldY :: CChar,
              flags_bits :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Flags
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -17,12 +18,11 @@ instance Storable Flags
                                            flags_flagC_6
                                            flags_fieldY_7
                                            flags_bits_8 -> pokeByteOff ptr_1 (0 :: Int) flags_fieldX_3 >> (pokeBitOffWidth ptr_1 (8 :: Int) (1 :: Int) flags_flagA_4 >> (pokeBitOffWidth ptr_1 (9 :: Int) (1 :: Int) flags_flagB_5 >> (pokeBitOffWidth ptr_1 (10 :: Int) (1 :: Int) flags_flagC_6 >> (pokeByteOff ptr_1 (2 :: Int) flags_fieldY_7 >> pokeBitOffWidth ptr_1 (24 :: Int) (2 :: Int) flags_bits_8))))}}
-deriving stock instance Show Flags
-deriving stock instance Eq Flags
 data Overflow32
     = Overflow32 {overflow32_x :: CInt,
                   overflow32_y :: CInt,
                   overflow32_z :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Overflow32
     where {sizeOf = \_ -> 12 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -31,12 +31,11 @@ instance Storable Overflow32
                                     {Overflow32 overflow32_x_3
                                                 overflow32_y_4
                                                 overflow32_z_5 -> pokeBitOffWidth ptr_1 (0 :: Int) (17 :: Int) overflow32_x_3 >> (pokeBitOffWidth ptr_1 (32 :: Int) (17 :: Int) overflow32_y_4 >> pokeBitOffWidth ptr_1 (64 :: Int) (17 :: Int) overflow32_z_5)}}
-deriving stock instance Show Overflow32
-deriving stock instance Eq Overflow32
 data Overflow32b
     = Overflow32b {overflow32b_x :: CLong,
                    overflow32b_y :: CLong,
                    overflow32b_z :: CLong}
+    deriving stock (Eq, Show)
 instance Storable Overflow32b
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -45,12 +44,11 @@ instance Storable Overflow32b
                                     {Overflow32b overflow32b_x_3
                                                  overflow32b_y_4
                                                  overflow32b_z_5 -> pokeBitOffWidth ptr_1 (0 :: Int) (17 :: Int) overflow32b_x_3 >> (pokeBitOffWidth ptr_1 (17 :: Int) (17 :: Int) overflow32b_y_4 >> pokeBitOffWidth ptr_1 (34 :: Int) (17 :: Int) overflow32b_z_5)}}
-deriving stock instance Show Overflow32b
-deriving stock instance Eq Overflow32b
 data Overflow32c
     = Overflow32c {overflow32c_x :: CLong,
                    overflow32c_y :: CInt,
                    overflow32c_z :: CLong}
+    deriving stock (Eq, Show)
 instance Storable Overflow32c
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -59,10 +57,9 @@ instance Storable Overflow32c
                                     {Overflow32c overflow32c_x_3
                                                  overflow32c_y_4
                                                  overflow32c_z_5 -> pokeBitOffWidth ptr_1 (0 :: Int) (17 :: Int) overflow32c_x_3 >> (pokeBitOffWidth ptr_1 (32 :: Int) (17 :: Int) overflow32c_y_4 >> pokeBitOffWidth ptr_1 (64 :: Int) (17 :: Int) overflow32c_z_5)}}
-deriving stock instance Show Overflow32c
-deriving stock instance Eq Overflow32c
 data Overflow64
     = Overflow64 {overflow64_x :: CLong, overflow64_y :: CLong}
+    deriving stock (Eq, Show)
 instance Storable Overflow64
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -70,9 +67,9 @@ instance Storable Overflow64
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Overflow64 overflow64_x_3
                                                 overflow64_y_4 -> pokeBitOffWidth ptr_1 (0 :: Int) (33 :: Int) overflow64_x_3 >> pokeBitOffWidth ptr_1 (64 :: Int) (33 :: Int) overflow64_y_4}}
-deriving stock instance Show Overflow64
-deriving stock instance Eq Overflow64
-data AlignA = AlignA {alignA_x :: CUChar, alignA_y :: CInt}
+data AlignA
+    = AlignA {alignA_x :: CUChar, alignA_y :: CInt}
+    deriving stock (Eq, Show)
 instance Storable AlignA
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -80,9 +77,9 @@ instance Storable AlignA
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {AlignA alignA_x_3
                                             alignA_y_4 -> pokeBitOffWidth ptr_1 (0 :: Int) (1 :: Int) alignA_x_3 >> pokeBitOffWidth ptr_1 (1 :: Int) (10 :: Int) alignA_y_4}}
-deriving stock instance Show AlignA
-deriving stock instance Eq AlignA
-data AlignB = AlignB {alignB_x :: CUChar, alignB_y :: CInt}
+data AlignB
+    = AlignB {alignB_x :: CUChar, alignB_y :: CInt}
+    deriving stock (Eq, Show)
 instance Storable AlignB
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -90,5 +87,3 @@ instance Storable AlignB
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {AlignB alignB_x_3
                                             alignB_y_4 -> pokeBitOffWidth ptr_1 (0 :: Int) (7 :: Int) alignB_x_3 >> pokeBitOffWidth ptr_1 (32 :: Int) (31 :: Int) alignB_y_4}}
-deriving stock instance Show AlignB
-deriving stock instance Eq AlignB

@@ -1,40 +1,38 @@
 -- addDependentFile examples/golden-norust/type_attributes.h
-data S = S {s_f :: (ConstantArray 3 CShort)}
+data S
+    = S {s_f :: (ConstantArray 3 CShort)}
+    deriving stock (Eq, Show)
 instance Storable S
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 8 :: Int;
            peek = \ptr_0 -> pure S <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S s_f_3 -> pokeByteOff ptr_1 (0 :: Int) s_f_3}}
-deriving stock instance Show S
-deriving stock instance Eq S
 newtype More_aligned_int
     = More_aligned_int {un_More_aligned_int :: CInt}
-deriving newtype instance Storable More_aligned_int
-deriving stock instance Eq More_aligned_int
-deriving stock instance Ord More_aligned_int
-deriving stock instance Read More_aligned_int
-deriving stock instance Show More_aligned_int
-deriving newtype instance Enum More_aligned_int
-deriving newtype instance Ix More_aligned_int
-deriving newtype instance Bounded More_aligned_int
-deriving newtype instance Bits More_aligned_int
-deriving newtype instance FiniteBits More_aligned_int
-deriving newtype instance Integral More_aligned_int
-deriving newtype instance Num More_aligned_int
-deriving newtype instance Real More_aligned_int
-data S2 = S2 {s2_f :: (ConstantArray 3 CShort)}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+data S2
+    = S2 {s2_f :: (ConstantArray 3 CShort)}
+    deriving stock (Eq, Show)
 instance Storable S2
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 16 :: Int;
            peek = \ptr_0 -> pure S2 <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S2 s2_f_3 -> pokeByteOff ptr_1 (0 :: Int) s2_f_3}}
-deriving stock instance Show S2
-deriving stock instance Eq S2
 data My_unpacked_struct
     = My_unpacked_struct {my_unpacked_struct_c :: CChar,
                           my_unpacked_struct_i :: CInt}
+    deriving stock (Eq, Show)
 instance Storable My_unpacked_struct
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -42,12 +40,11 @@ instance Storable My_unpacked_struct
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {My_unpacked_struct my_unpacked_struct_c_3
                                                         my_unpacked_struct_i_4 -> pokeByteOff ptr_1 (0 :: Int) my_unpacked_struct_c_3 >> pokeByteOff ptr_1 (4 :: Int) my_unpacked_struct_i_4}}
-deriving stock instance Show My_unpacked_struct
-deriving stock instance Eq My_unpacked_struct
 data My_packed_struct
     = My_packed_struct {my_packed_struct_c :: CChar,
                         my_packed_struct_i :: CInt,
                         my_packed_struct_s :: My_unpacked_struct}
+    deriving stock (Eq, Show)
 instance Storable My_packed_struct
     where {sizeOf = \_ -> 13 :: Int;
            alignment = \_ -> 1 :: Int;
@@ -56,8 +53,6 @@ instance Storable My_packed_struct
                                     {My_packed_struct my_packed_struct_c_3
                                                       my_packed_struct_i_4
                                                       my_packed_struct_s_5 -> pokeByteOff ptr_1 (0 :: Int) my_packed_struct_c_3 >> (pokeByteOff ptr_1 (1 :: Int) my_packed_struct_i_4 >> pokeByteOff ptr_1 (5 :: Int) my_packed_struct_s_5)}}
-deriving stock instance Show My_packed_struct
-deriving stock instance Eq My_packed_struct
 data Wait
 newtype Wait_status_ptr_t
     = Wait_status_ptr_t {un_Wait_status_ptr_t :: ByteArray}
@@ -71,31 +66,27 @@ get_wait_status_ptr_t___up :: Wait_status_ptr_t -> Ptr Wait
 get_wait_status_ptr_t___up = getUnionPayload
 set_wait_status_ptr_t___up :: Ptr Wait -> Wait_status_ptr_t
 set_wait_status_ptr_t___up = setUnionPayload
-newtype T1 = T1 {un_T1 :: CInt}
-deriving newtype instance Storable T1
-deriving stock instance Eq T1
-deriving stock instance Ord T1
-deriving stock instance Read T1
-deriving stock instance Show T1
-deriving newtype instance Enum T1
-deriving newtype instance Ix T1
-deriving newtype instance Bounded T1
-deriving newtype instance Bits T1
-deriving newtype instance FiniteBits T1
-deriving newtype instance Integral T1
-deriving newtype instance Num T1
-deriving newtype instance Real T1
-newtype Short_a = Short_a {un_Short_a :: CShort}
-deriving newtype instance Storable Short_a
-deriving stock instance Eq Short_a
-deriving stock instance Ord Short_a
-deriving stock instance Read Short_a
-deriving stock instance Show Short_a
-deriving newtype instance Enum Short_a
-deriving newtype instance Ix Short_a
-deriving newtype instance Bounded Short_a
-deriving newtype instance Bits Short_a
-deriving newtype instance FiniteBits Short_a
-deriving newtype instance Integral Short_a
-deriving newtype instance Num Short_a
-deriving newtype instance Real Short_a
+newtype T1
+    = T1 {un_T1 :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype Short_a
+    = Short_a {un_Short_a :: CShort}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)

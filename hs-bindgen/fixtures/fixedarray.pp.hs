@@ -2,7 +2,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -14,17 +13,14 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 newtype Triple = Triple
   { un_Triple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
-
-deriving newtype instance F.Storable Triple
-
-deriving stock instance Eq Triple
-
-deriving stock instance Show Triple
+  deriving stock (Eq, Show)
+  deriving newtype (F.Storable)
 
 data Example = Example
   { example_triple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   , example_sudoku :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Example where
 
@@ -45,7 +41,3 @@ instance F.Storable Example where
           Example example_triple2 example_sudoku3 ->
                F.pokeByteOff ptr0 (0 :: Int) example_triple2
             >> F.pokeByteOff ptr0 (12 :: Int) example_sudoku3
-
-deriving stock instance Show Example
-
-deriving stock instance Eq Example

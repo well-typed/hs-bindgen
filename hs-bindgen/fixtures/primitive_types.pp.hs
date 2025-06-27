@@ -1,6 +1,5 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -38,6 +37,7 @@ data Primitive = Primitive
   , primitive_f :: FC.CFloat
   , primitive_d :: FC.CDouble
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Primitive where
 
@@ -138,7 +138,3 @@ instance F.Storable Primitive where
               >> F.pokeByteOff ptr0 (128 :: Int) primitive_ulli27
               >> F.pokeByteOff ptr0 (136 :: Int) primitive_f28
               >> F.pokeByteOff ptr0 (144 :: Int) primitive_d29
-
-deriving stock instance Show Primitive
-
-deriving stock instance Eq Primitive

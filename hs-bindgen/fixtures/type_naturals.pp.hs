@@ -3,7 +3,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -32,39 +31,23 @@ k = g (11.77 :: FC.CDouble) (f (f (2 :: FC.CInt) m) n)
 newtype Arr1 = Arr1
   { un_Arr1 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
-
-deriving newtype instance F.Storable Arr1
-
-deriving stock instance Eq Arr1
-
-deriving stock instance Show Arr1
+  deriving stock (Eq, Show)
+  deriving newtype (F.Storable)
 
 newtype Arr2 = Arr2
   { un_Arr2 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 8) FC.CInt
   }
-
-deriving newtype instance F.Storable Arr2
-
-deriving stock instance Eq Arr2
-
-deriving stock instance Show Arr2
+  deriving stock (Eq, Show)
+  deriving newtype (F.Storable)
 
 newtype Arr3 = Arr3
   { un_Arr3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 18) FC.CInt
   }
-
-deriving newtype instance F.Storable Arr3
-
-deriving stock instance Eq Arr3
-
-deriving stock instance Show Arr3
+  deriving stock (Eq, Show)
+  deriving newtype (F.Storable)
 
 newtype Arr4 = Arr4
   { un_Arr4 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 252) FC.CInt
   }
-
-deriving newtype instance F.Storable Arr4
-
-deriving stock instance Eq Arr4
-
-deriving stock instance Show Arr4
+  deriving stock (Eq, Show)
+  deriving newtype (F.Storable)

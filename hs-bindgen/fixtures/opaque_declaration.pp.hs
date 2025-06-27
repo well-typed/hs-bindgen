@@ -1,7 +1,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -14,6 +13,7 @@ data Bar = Bar
   { bar_ptrA :: F.Ptr Foo
   , bar_ptrB :: F.Ptr Bar
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Bar where
 
@@ -35,12 +35,9 @@ instance F.Storable Bar where
                F.pokeByteOff ptr0 (0 :: Int) bar_ptrA2
             >> F.pokeByteOff ptr0 (8 :: Int) bar_ptrB3
 
-deriving stock instance Show Bar
-
-deriving stock instance Eq Bar
-
 data Baz = Baz
   {}
+  deriving stock (Eq, Show)
 
 instance F.Storable Baz where
 
@@ -55,10 +52,6 @@ instance F.Storable Baz where
       \s1 ->
         case s1 of
           Baz -> return ()
-
-deriving stock instance Show Baz
-
-deriving stock instance Eq Baz
 
 data Quu
 

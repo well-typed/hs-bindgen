@@ -1,7 +1,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -15,37 +14,14 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 newtype MY_TYPE = MY_TYPE
   { un_MY_TYPE :: FC.CInt
   }
-
-deriving newtype instance F.Storable MY_TYPE
-
-deriving stock instance Eq MY_TYPE
-
-deriving stock instance Ord MY_TYPE
-
-deriving stock instance Read MY_TYPE
-
-deriving stock instance Show MY_TYPE
-
-deriving newtype instance Enum MY_TYPE
-
-deriving newtype instance Ix.Ix MY_TYPE
-
-deriving newtype instance Bounded MY_TYPE
-
-deriving newtype instance Bits.Bits MY_TYPE
-
-deriving newtype instance FiniteBits MY_TYPE
-
-deriving newtype instance Integral MY_TYPE
-
-deriving newtype instance Num MY_TYPE
-
-deriving newtype instance Real MY_TYPE
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 data Bar = Bar
   { bar_x :: FC.CInt
   , bar_y :: MY_TYPE
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Bar where
 
@@ -66,7 +42,3 @@ instance F.Storable Bar where
           Bar bar_x2 bar_y3 ->
                F.pokeByteOff ptr0 (0 :: Int) bar_x2
             >> F.pokeByteOff ptr0 (4 :: Int) bar_y3
-
-deriving stock instance Show Bar
-
-deriving stock instance Eq Bar

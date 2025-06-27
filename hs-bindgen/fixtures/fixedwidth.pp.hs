@@ -1,6 +1,5 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -12,6 +11,7 @@ data Foo = Foo
   { foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64
   , foo_thirty_two :: HsBindgen.Runtime.Prelude.Word32
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Foo where
 
@@ -32,7 +32,3 @@ instance F.Storable Foo where
           Foo foo_sixty_four2 foo_thirty_two3 ->
                F.pokeByteOff ptr0 (0 :: Int) foo_sixty_four2
             >> F.pokeByteOff ptr0 (8 :: Int) foo_thirty_two3
-
-deriving stock instance Show Foo
-
-deriving stock instance Eq Foo

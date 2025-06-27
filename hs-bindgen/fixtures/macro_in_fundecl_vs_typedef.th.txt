@@ -10,34 +10,30 @@
 -- void test_internal_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }
 -- void test_internal_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }
 -- void test_internal_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }
-newtype MC = MC {un_MC :: CChar}
-deriving newtype instance Storable MC
-deriving stock instance Eq MC
-deriving stock instance Ord MC
-deriving stock instance Read MC
-deriving stock instance Show MC
-deriving newtype instance Enum MC
-deriving newtype instance Ix MC
-deriving newtype instance Bounded MC
-deriving newtype instance Bits MC
-deriving newtype instance FiniteBits MC
-deriving newtype instance Integral MC
-deriving newtype instance Num MC
-deriving newtype instance Real MC
-newtype TC = TC {un_TC :: CChar}
-deriving newtype instance Storable TC
-deriving stock instance Eq TC
-deriving stock instance Ord TC
-deriving stock instance Read TC
-deriving stock instance Show TC
-deriving newtype instance Enum TC
-deriving newtype instance Ix TC
-deriving newtype instance Bounded TC
-deriving newtype instance Bits TC
-deriving newtype instance FiniteBits TC
-deriving newtype instance Integral TC
-deriving newtype instance Num TC
-deriving newtype instance Real TC
+newtype MC
+    = MC {un_MC :: CChar}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype TC
+    = TC {un_TC :: CChar}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
 foreign import ccall safe "test_internal_quux1" quux1 :: MC ->
                                                          TC -> IO CChar
 foreign import ccall safe "test_internal_quux2" quux2 :: MC ->
@@ -46,46 +42,46 @@ foreign import ccall safe "test_internal_wam1" wam1 :: CFloat ->
                                                        Ptr TC -> IO (Ptr MC)
 foreign import ccall safe "test_internal_wam2" wam2 :: CFloat ->
                                                        Ptr MC -> IO (Ptr TC)
-data Struct1 = Struct1 {struct1_a :: CInt}
+data Struct1
+    = Struct1 {struct1_a :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Struct1
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Struct1 <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Struct1 struct1_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct1_a_3}}
-deriving stock instance Show Struct1
-deriving stock instance Eq Struct1
-data Struct2 = Struct2 {struct2_a :: CInt}
+data Struct2
+    = Struct2 {struct2_a :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Struct2
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Struct2 <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Struct2 struct2_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_a_3}}
-deriving stock instance Show Struct2
-deriving stock instance Eq Struct2
-data Struct3 = Struct3 {struct3_a :: CInt}
+data Struct3
+    = Struct3 {struct3_a :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Struct3
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Struct3 <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Struct3 struct3_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct3_a_3}}
-deriving stock instance Show Struct3
-deriving stock instance Eq Struct3
-newtype Struct3_t = Struct3_t {un_Struct3_t :: Struct3}
-deriving newtype instance Storable Struct3_t
-deriving stock instance Eq Struct3_t
-deriving stock instance Show Struct3_t
-data Struct4 = Struct4 {struct4_a :: CInt}
+newtype Struct3_t
+    = Struct3_t {un_Struct3_t :: Struct3}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+data Struct4
+    = Struct4 {struct4_a :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Struct4
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Struct4 <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Struct4 struct4_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct4_a_3}}
-deriving stock instance Show Struct4
-deriving stock instance Eq Struct4
 foreign import ccall safe "test_internal_struct_typedef1" struct_typedef1 :: Ptr Struct2 ->
                                                                              MC -> IO Unit
 foreign import ccall safe "test_internal_struct_typedef2" struct_typedef2 :: Ptr Struct3_t ->

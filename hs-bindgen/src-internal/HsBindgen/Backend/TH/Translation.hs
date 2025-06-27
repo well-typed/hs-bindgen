@@ -509,7 +509,13 @@ mkDecl = \case
               | f <- dataFields d
               ]
         in singleton <$>
-          TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [TH.recC (hsNameToTH (dataCon d)) fields] []
+          TH.dataD
+            (TH.cxt [])
+            (hsNameToTH $ dataType d)
+            []
+            Nothing
+            [TH.recC (hsNameToTH (dataCon d)) fields]
+            (nestedDeriving $ dataDeriv d)
 
       DEmptyData d -> singleton <$>
           TH.dataD (TH.cxt []) (hsNameToTH (emptyDataName d)) [] Nothing [] []
@@ -520,7 +526,15 @@ mkDecl = \case
               TH.bangType
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv (fieldType (newtypeField n)))
-        in singleton <$> TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
+        in singleton <$>
+             TH.newtypeD
+               (TH.cxt [])
+               (hsNameToTH $ newtypeName n)
+               []
+               Nothing
+               (TH.recC (hsNameToTH (newtypeCon n))
+               [field])
+               (nestedDeriving $ newtypeDeriv n)
 
       DDerivingInstance s ty -> do
           s' <- strategy s
@@ -558,6 +572,17 @@ mkDecl = \case
                 (TH.TySynEqn Nothing)
                 (mkType EmptyEnv (TApp (TGlobal g) typArg))
                 (mkType EmptyEnv typSyn)
+
+-- | Nested deriving clauses (part of a datatype declaration)
+nestedDeriving :: forall q.
+     Quote q
+  => [(Hs.Strategy ClosedType, [Global])] -> [q TH.DerivClause]
+nestedDeriving = map aux
+  where
+    aux :: (Hs.Strategy ClosedType, [Global]) -> q TH.DerivClause
+    aux (s, clss) = do
+        s' <- strategy s
+        TH.derivClause (Just s') (map (TH.conT . mkGlobal) clss)
 
 strategy :: Quote q => Hs.Strategy ClosedType -> q TH.DerivStrategy
 strategy Hs.DeriveNewtype  = return TH.NewtypeStrategy

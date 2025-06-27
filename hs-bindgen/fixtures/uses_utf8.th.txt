@@ -1,13 +1,13 @@
 -- addDependentFile examples/golden/uses_utf8.h
-newtype MyEnum = MyEnum {un_MyEnum :: CUInt}
+newtype MyEnum
+    = MyEnum {un_MyEnum :: CUInt}
+    deriving stock (Eq, Ord)
 instance Storable MyEnum
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MyEnum un_MyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) un_MyEnum_3}}
-deriving stock instance Eq MyEnum
-deriving stock instance Ord MyEnum
 instance CEnum MyEnum
     where {type CEnumZ MyEnum = CUInt;
            toCEnum = MyEnum;

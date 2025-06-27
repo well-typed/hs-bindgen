@@ -144,10 +144,15 @@ resolveDeclImports = \case
         resolveGlobalImports instanceClass
       : map (resolveGlobalImports . fst) instanceDecs
       ++ map (resolveExprImports . snd) instanceDecs
-    DRecord Record{..} -> mconcat $
-      map (resolveTypeImports . fieldType) dataFields
+    DRecord Record{..} -> mconcat [
+        mconcat $ map (resolveTypeImports . fieldType) dataFields
+      , resolveNestedDeriv dataDeriv
+      ]
     DEmptyData _name -> mempty
-    DNewtype Newtype{..} -> resolveTypeImports $ fieldType newtypeField
+    DNewtype Newtype{..} -> mconcat [
+        resolveTypeImports $ fieldType newtypeField
+      , resolveNestedDeriv newtypeDeriv
+      ]
     DDerivingInstance s ty -> resolveStrategyImports s <> resolveTypeImports ty
     DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
     DPatternSynonym PatternSynonym {..} ->
@@ -155,6 +160,15 @@ resolveDeclImports = \case
         resolvePatExprImports patSynRHS
     DCSource _ ->
         ImportAcc (Set.singleton (HsImportModule "HsBindgen.Runtime.CAPI" (Just "CAPI")), Map.empty)
+
+-- | Resolve nested deriving clauses (part of a datatype declaration)
+resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Global])] -> ImportAcc
+resolveNestedDeriv = mconcat . map aux
+  where
+    aux :: (Hs.Strategy ClosedType, [Global]) -> ImportAcc
+    aux (strategy, cls) = mconcat $
+          resolveStrategyImports strategy
+        : map resolveGlobalImports cls
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc

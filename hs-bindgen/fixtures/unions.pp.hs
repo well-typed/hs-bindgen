@@ -17,6 +17,7 @@ data Dim2 = Dim2
   { dim2_x :: FC.CInt
   , dim2_y :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Dim2 where
 
@@ -38,15 +39,12 @@ instance F.Storable Dim2 where
                F.pokeByteOff ptr0 (0 :: Int) dim2_x2
             >> F.pokeByteOff ptr0 (4 :: Int) dim2_y3
 
-deriving stock instance Show Dim2
-
-deriving stock instance Eq Dim2
-
 data Dim3 = Dim3
   { dim3_x :: FC.CInt
   , dim3_y :: FC.CInt
   , dim3_z :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Dim3 where
 
@@ -69,10 +67,6 @@ instance F.Storable Dim3 where
                F.pokeByteOff ptr0 (0 :: Int) dim3_x2
             >> F.pokeByteOff ptr0 (4 :: Int) dim3_y3
             >> F.pokeByteOff ptr0 (8 :: Int) dim3_z4
-
-deriving stock instance Show Dim3
-
-deriving stock instance Eq Dim3
 
 newtype DimPayload = DimPayload
   { un_DimPayload :: Data.Array.Byte.ByteArray
@@ -164,6 +158,7 @@ data AnonA_xy = AnonA_xy
   { anonA_xy_x :: FC.CDouble
   , anonA_xy_y :: FC.CDouble
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable AnonA_xy where
 
@@ -185,14 +180,11 @@ instance F.Storable AnonA_xy where
                F.pokeByteOff ptr0 (0 :: Int) anonA_xy_x2
             >> F.pokeByteOff ptr0 (8 :: Int) anonA_xy_y3
 
-deriving stock instance Show AnonA_xy
-
-deriving stock instance Eq AnonA_xy
-
 data AnonA_polar = AnonA_polar
   { anonA_polar_r :: FC.CDouble
   , anonA_polar_p :: FC.CDouble
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable AnonA_polar where
 
@@ -213,10 +205,6 @@ instance F.Storable AnonA_polar where
           AnonA_polar anonA_polar_r2 anonA_polar_p3 ->
                F.pokeByteOff ptr0 (0 :: Int) anonA_polar_r2
             >> F.pokeByteOff ptr0 (8 :: Int) anonA_polar_p3
-
-deriving stock instance Show AnonA_polar
-
-deriving stock instance Eq AnonA_polar
 
 newtype AnonA = AnonA
   { un_AnonA :: Data.Array.Byte.ByteArray

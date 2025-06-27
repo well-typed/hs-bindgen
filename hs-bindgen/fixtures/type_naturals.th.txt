@@ -17,19 +17,19 @@ g = \u_0 -> \x_1 -> \y_2 -> (+) ((*) (10 :: CInt) x_1) ((*) (16 :: CInt) y_2)
 k :: forall a_0 . (Add CInt (MultRes CInt a_0), Mult CInt a_0) =>
      a_0 -> AddRes CInt (MultRes CInt a_0)
 k = g (11.769999999999999573674358543939888477325439453125 :: CDouble) (f (f (2 :: CInt) m) n)
-newtype Arr1 = Arr1 {un_Arr1 :: (ConstantArray 3 CInt)}
-deriving newtype instance Storable Arr1
-deriving stock instance Eq Arr1
-deriving stock instance Show Arr1
-newtype Arr2 = Arr2 {un_Arr2 :: (ConstantArray 8 CInt)}
-deriving newtype instance Storable Arr2
-deriving stock instance Eq Arr2
-deriving stock instance Show Arr2
-newtype Arr3 = Arr3 {un_Arr3 :: (ConstantArray 18 CInt)}
-deriving newtype instance Storable Arr3
-deriving stock instance Eq Arr3
-deriving stock instance Show Arr3
-newtype Arr4 = Arr4 {un_Arr4 :: (ConstantArray 252 CInt)}
-deriving newtype instance Storable Arr4
-deriving stock instance Eq Arr4
-deriving stock instance Show Arr4
+newtype Arr1
+    = Arr1 {un_Arr1 :: (ConstantArray 3 CInt)}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+newtype Arr2
+    = Arr2 {un_Arr2 :: (ConstantArray 8 CInt)}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+newtype Arr3
+    = Arr3 {un_Arr3 :: (ConstantArray 18 CInt)}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+newtype Arr4
+    = Arr4 {un_Arr4 :: (ConstantArray 252 CInt)}
+    deriving stock (Eq, Show)
+    deriving newtype Storable

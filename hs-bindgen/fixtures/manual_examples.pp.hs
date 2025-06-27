@@ -37,6 +37,7 @@ data Triple = Triple
   , triple_b :: FC.CInt
   , triple_c :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Triple where
 
@@ -60,15 +61,12 @@ instance F.Storable Triple where
             >> F.pokeByteOff ptr0 (4 :: Int) triple_b3
             >> F.pokeByteOff ptr0 (8 :: Int) triple_c4
 
-deriving stock instance Show Triple
-
-deriving stock instance Eq Triple
-
 foreign import ccall safe "testmodule_mk_triple" mk_triple :: FC.CInt -> FC.CInt -> FC.CInt -> (F.Ptr Triple) -> IO ()
 
 newtype Index = Index
   { un_Index :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Index where
 
@@ -86,10 +84,6 @@ instance F.Storable Index where
       \s1 ->
         case s1 of
           Index un_Index2 -> F.pokeByteOff ptr0 (0 :: Int) un_Index2
-
-deriving stock instance Eq Index
-
-deriving stock instance Ord Index
 
 instance HsBindgen.Runtime.CEnum.CEnum Index where
 
@@ -143,60 +137,14 @@ foreign import ccall safe "testmodule_index_triple" index_triple :: (F.Ptr Tripl
 newtype Sum = Sum
   { un_Sum :: FC.CInt
   }
-
-deriving newtype instance F.Storable Sum
-
-deriving stock instance Eq Sum
-
-deriving stock instance Ord Sum
-
-deriving stock instance Read Sum
-
-deriving stock instance Show Sum
-
-deriving newtype instance Enum Sum
-
-deriving newtype instance Ix.Ix Sum
-
-deriving newtype instance Bounded Sum
-
-deriving newtype instance Bits.Bits Sum
-
-deriving newtype instance FiniteBits Sum
-
-deriving newtype instance Integral Sum
-
-deriving newtype instance Num Sum
-
-deriving newtype instance Real Sum
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 newtype Average = Average
   { un_Average :: FC.CDouble
   }
-
-deriving newtype instance F.Storable Average
-
-deriving stock instance Eq Average
-
-deriving stock instance Ord Average
-
-deriving stock instance Read Average
-
-deriving stock instance Show Average
-
-deriving newtype instance Enum Average
-
-deriving newtype instance Floating Average
-
-deriving newtype instance Fractional Average
-
-deriving newtype instance Num Average
-
-deriving newtype instance Real Average
-
-deriving newtype instance RealFloat Average
-
-deriving newtype instance RealFrac Average
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
 
 foreign import ccall safe "testmodule_sum_triple" sum_triple :: (F.Ptr Triple) -> IO Sum
 
@@ -214,98 +162,27 @@ pTR_TO_FIELD = \ptr0 -> (+) ptr0 (4 :: FC.CInt)
 newtype YEAR = YEAR
   { un_YEAR :: FC.CInt
   }
-
-deriving newtype instance F.Storable YEAR
-
-deriving stock instance Eq YEAR
-
-deriving stock instance Ord YEAR
-
-deriving stock instance Read YEAR
-
-deriving stock instance Show YEAR
-
-deriving newtype instance Enum YEAR
-
-deriving newtype instance Ix.Ix YEAR
-
-deriving newtype instance Bounded YEAR
-
-deriving newtype instance Bits.Bits YEAR
-
-deriving newtype instance FiniteBits YEAR
-
-deriving newtype instance Integral YEAR
-
-deriving newtype instance Num YEAR
-
-deriving newtype instance Real YEAR
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 newtype MONTH = MONTH
   { un_MONTH :: FC.CInt
   }
-
-deriving newtype instance F.Storable MONTH
-
-deriving stock instance Eq MONTH
-
-deriving stock instance Ord MONTH
-
-deriving stock instance Read MONTH
-
-deriving stock instance Show MONTH
-
-deriving newtype instance Enum MONTH
-
-deriving newtype instance Ix.Ix MONTH
-
-deriving newtype instance Bounded MONTH
-
-deriving newtype instance Bits.Bits MONTH
-
-deriving newtype instance FiniteBits MONTH
-
-deriving newtype instance Integral MONTH
-
-deriving newtype instance Num MONTH
-
-deriving newtype instance Real MONTH
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 newtype DAY = DAY
   { un_DAY :: FC.CInt
   }
-
-deriving newtype instance F.Storable DAY
-
-deriving stock instance Eq DAY
-
-deriving stock instance Ord DAY
-
-deriving stock instance Read DAY
-
-deriving stock instance Show DAY
-
-deriving newtype instance Enum DAY
-
-deriving newtype instance Ix.Ix DAY
-
-deriving newtype instance Bounded DAY
-
-deriving newtype instance Bits.Bits DAY
-
-deriving newtype instance FiniteBits DAY
-
-deriving newtype instance Integral DAY
-
-deriving newtype instance Num DAY
-
-deriving newtype instance Real DAY
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 data Date = Date
   { date_year :: YEAR
   , date_month :: MONTH
   , date_day :: DAY
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Date where
 
@@ -329,16 +206,13 @@ instance F.Storable Date where
             >> F.pokeByteOff ptr0 (4 :: Int) date_month3
             >> F.pokeByteOff ptr0 (8 :: Int) date_day4
 
-deriving stock instance Show Date
-
-deriving stock instance Eq Date
-
 foreign import ccall safe "testmodule_getYear" getYear :: (F.Ptr Date) -> IO YEAR
 
 data Student = Student
   { student_university :: F.Ptr FC.CChar
   , student_year :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Student where
 
@@ -360,10 +234,6 @@ instance F.Storable Student where
                F.pokeByteOff ptr0 (0 :: Int) student_university2
             >> F.pokeByteOff ptr0 (8 :: Int) student_year3
 
-deriving stock instance Show Student
-
-deriving stock instance Eq Student
-
 data Person
 
 data Employee = Employee
@@ -371,6 +241,7 @@ data Employee = Employee
   , employee_supervisor :: F.Ptr Person
   , employee_salary :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Employee where
 
@@ -393,10 +264,6 @@ instance F.Storable Employee where
                F.pokeByteOff ptr0 (0 :: Int) employee_company2
             >> F.pokeByteOff ptr0 (8 :: Int) employee_supervisor3
             >> F.pokeByteOff ptr0 (16 :: Int) employee_salary4
-
-deriving stock instance Show Employee
-
-deriving stock instance Eq Employee
 
 newtype Occupation = Occupation
   { un_Occupation :: Data.Array.Byte.ByteArray
@@ -422,6 +289,7 @@ data Rect_lower_left = Rect_lower_left
   { rect_lower_left_x :: FC.CInt
   , rect_lower_left_y :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Rect_lower_left where
 
@@ -443,14 +311,11 @@ instance F.Storable Rect_lower_left where
                F.pokeByteOff ptr0 (0 :: Int) rect_lower_left_x2
             >> F.pokeByteOff ptr0 (4 :: Int) rect_lower_left_y3
 
-deriving stock instance Show Rect_lower_left
-
-deriving stock instance Eq Rect_lower_left
-
 data Rect_upper_right = Rect_upper_right
   { rect_upper_right_x :: FC.CInt
   , rect_upper_right_y :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Rect_upper_right where
 
@@ -472,14 +337,11 @@ instance F.Storable Rect_upper_right where
                F.pokeByteOff ptr0 (0 :: Int) rect_upper_right_x2
             >> F.pokeByteOff ptr0 (4 :: Int) rect_upper_right_y3
 
-deriving stock instance Show Rect_upper_right
-
-deriving stock instance Eq Rect_upper_right
-
 data Rect = Rect
   { rect_lower_left :: Rect_lower_left
   , rect_upper_right :: Rect_upper_right
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Rect where
 
@@ -501,14 +363,11 @@ instance F.Storable Rect where
                F.pokeByteOff ptr0 (0 :: Int) rect_lower_left2
             >> F.pokeByteOff ptr0 (8 :: Int) rect_upper_right3
 
-deriving stock instance Show Rect
-
-deriving stock instance Eq Rect
-
 data Config_Deref = Config_Deref
   { config_Deref_width :: FC.CInt
   , config_Deref_height :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Config_Deref where
 
@@ -530,121 +389,40 @@ instance F.Storable Config_Deref where
                F.pokeByteOff ptr0 (0 :: Int) config_Deref_width2
             >> F.pokeByteOff ptr0 (4 :: Int) config_Deref_height3
 
-deriving stock instance Show Config_Deref
-
-deriving stock instance Eq Config_Deref
-
 newtype Config = Config
   { un_Config :: F.Ptr Config_Deref
   }
-
-deriving newtype instance F.Storable Config
-
-deriving stock instance Eq Config
-
-deriving stock instance Ord Config
-
-deriving stock instance Show Config
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable)
 
 newtype Adio'0301s = Adio'0301s
   { un_Adio'0301s :: FC.CInt
   }
-
-deriving newtype instance F.Storable Adio'0301s
-
-deriving stock instance Eq Adio'0301s
-
-deriving stock instance Ord Adio'0301s
-
-deriving stock instance Read Adio'0301s
-
-deriving stock instance Show Adio'0301s
-
-deriving newtype instance Enum Adio'0301s
-
-deriving newtype instance Ix.Ix Adio'0301s
-
-deriving newtype instance Bounded Adio'0301s
-
-deriving newtype instance Bits.Bits Adio'0301s
-
-deriving newtype instance FiniteBits Adio'0301s
-
-deriving newtype instance Integral Adio'0301s
-
-deriving newtype instance Num Adio'0301s
-
-deriving newtype instance Real Adio'0301s
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 foreign import ccall safe "testmodule_拜拜" 拜拜 :: IO ()
 
 newtype C数字 = C数字
   { un_C数字 :: FC.CInt
   }
-
-deriving newtype instance F.Storable C数字
-
-deriving stock instance Eq C数字
-
-deriving stock instance Ord C数字
-
-deriving stock instance Read C数字
-
-deriving stock instance Show C数字
-
-deriving newtype instance Enum C数字
-
-deriving newtype instance Ix.Ix C数字
-
-deriving newtype instance Bounded C数字
-
-deriving newtype instance Bits.Bits C数字
-
-deriving newtype instance FiniteBits C数字
-
-deriving newtype instance Integral C数字
-
-deriving newtype instance Num C数字
-
-deriving newtype instance Real C数字
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 foreign import ccall safe "testmodule_ϒ" cϒ :: IO ()
 
 newtype Data = Data
   { un_Data :: FC.CInt
   }
-
-deriving newtype instance F.Storable Data
-
-deriving stock instance Eq Data
-
-deriving stock instance Ord Data
-
-deriving stock instance Read Data
-
-deriving stock instance Show Data
-
-deriving newtype instance Enum Data
-
-deriving newtype instance Ix.Ix Data
-
-deriving newtype instance Bounded Data
-
-deriving newtype instance Bits.Bits Data
-
-deriving newtype instance FiniteBits Data
-
-deriving newtype instance Integral Data
-
-deriving newtype instance Num Data
-
-deriving newtype instance Real Data
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 foreign import ccall safe "testmodule_import" import' :: IO ()
 
 newtype Signal = Signal
   { un_Signal :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Signal where
 
@@ -662,10 +440,6 @@ instance F.Storable Signal where
       \s1 ->
         case s1 of
           Signal un_Signal2 -> F.pokeByteOff ptr0 (0 :: Int) un_Signal2
-
-deriving stock instance Eq Signal
-
-deriving stock instance Ord Signal
 
 instance HsBindgen.Runtime.CEnum.CEnum Signal where
 
@@ -724,6 +498,7 @@ pattern Stop = Signal 4
 newtype HTTP_status = HTTP_status
   { un_HTTP_status :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable HTTP_status where
 
@@ -741,10 +516,6 @@ instance F.Storable HTTP_status where
       \s1 ->
         case s1 of
           HTTP_status un_HTTP_status2 -> F.pokeByteOff ptr0 (0 :: Int) un_HTTP_status2
-
-deriving stock instance Eq HTTP_status
-
-deriving stock instance Ord HTTP_status
 
 instance HsBindgen.Runtime.CEnum.CEnum HTTP_status where
 
@@ -798,6 +569,7 @@ pattern Not_found = HTTP_status 404
 newtype Descending = Descending
   { un_Descending :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Descending where
 
@@ -815,10 +587,6 @@ instance F.Storable Descending where
       \s1 ->
         case s1 of
           Descending un_Descending2 -> F.pokeByteOff ptr0 (0 :: Int) un_Descending2
-
-deriving stock instance Eq Descending
-
-deriving stock instance Ord Descending
 
 instance HsBindgen.Runtime.CEnum.CEnum Descending where
 
@@ -877,6 +645,7 @@ pattern Z = Descending 98
 newtype Result = Result
   { un_Result :: FC.CInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Result where
 
@@ -894,10 +663,6 @@ instance F.Storable Result where
       \s1 ->
         case s1 of
           Result un_Result2 -> F.pokeByteOff ptr0 (0 :: Int) un_Result2
-
-deriving stock instance Eq Result
-
-deriving stock instance Ord Result
 
 instance HsBindgen.Runtime.CEnum.CEnum Result where
 
@@ -956,6 +721,7 @@ pattern Already_done = Result 2
 newtype Vote = Vote
   { un_Vote :: FC.CUChar
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Vote where
 
@@ -973,10 +739,6 @@ instance F.Storable Vote where
       \s1 ->
         case s1 of
           Vote un_Vote2 -> F.pokeByteOff ptr0 (0 :: Int) un_Vote2
-
-deriving stock instance Eq Vote
-
-deriving stock instance Ord Vote
 
 instance HsBindgen.Runtime.CEnum.CEnum Vote where
 
@@ -1031,6 +793,7 @@ pattern Abstain = Vote 2
 newtype CXCursorKind = CXCursorKind
   { un_CXCursorKind :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable CXCursorKind where
 
@@ -1048,10 +811,6 @@ instance F.Storable CXCursorKind where
       \s1 ->
         case s1 of
           CXCursorKind un_CXCursorKind2 -> F.pokeByteOff ptr0 (0 :: Int) un_CXCursorKind2
-
-deriving stock instance Eq CXCursorKind
-
-deriving stock instance Ord CXCursorKind
 
 instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
 

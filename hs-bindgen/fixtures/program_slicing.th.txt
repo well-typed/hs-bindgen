@@ -2,23 +2,22 @@
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/program_slicing.h
-newtype Uint32_t = Uint32_t {un_Uint32_t :: CUInt}
-deriving newtype instance Storable Uint32_t
-deriving stock instance Eq Uint32_t
-deriving stock instance Ord Uint32_t
-deriving stock instance Read Uint32_t
-deriving stock instance Show Uint32_t
-deriving newtype instance Enum Uint32_t
-deriving newtype instance Ix Uint32_t
-deriving newtype instance Bounded Uint32_t
-deriving newtype instance Bits Uint32_t
-deriving newtype instance FiniteBits Uint32_t
-deriving newtype instance Integral Uint32_t
-deriving newtype instance Num Uint32_t
-deriving newtype instance Real Uint32_t
+newtype Uint32_t
+    = Uint32_t {un_Uint32_t :: CUInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
 data Foo
     = Foo {foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64,
            foo_thirty_two :: Uint32_t}
+    deriving stock (Eq, Show)
 instance Storable Foo
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -26,5 +25,3 @@ instance Storable Foo
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo foo_sixty_four_3
                                          foo_thirty_two_4 -> pokeByteOff ptr_1 (0 :: Int) foo_sixty_four_3 >> pokeByteOff ptr_1 (8 :: Int) foo_thirty_two_4}}
-deriving stock instance Show Foo
-deriving stock instance Eq Foo

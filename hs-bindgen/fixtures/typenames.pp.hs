@@ -2,7 +2,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 
 module Example where
@@ -17,6 +16,8 @@ import qualified Text.Read
 newtype Foo = Foo
   { un_Foo :: FC.CUInt
   }
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
 
 instance F.Storable Foo where
 
@@ -34,10 +35,6 @@ instance F.Storable Foo where
       \s1 ->
         case s1 of
           Foo un_Foo2 -> F.pokeByteOff ptr0 (0 :: Int) un_Foo2
-
-deriving stock instance Eq Foo
-
-deriving stock instance Ord Foo
 
 instance HsBindgen.Runtime.CEnum.CEnum Foo where
 
@@ -86,27 +83,5 @@ pattern FOO2 = Foo 1
 newtype Foo = Foo
   { un_Foo :: FC.CDouble
   }
-
-deriving newtype instance F.Storable Foo
-
-deriving stock instance Eq Foo
-
-deriving stock instance Ord Foo
-
-deriving stock instance Read Foo
-
-deriving stock instance Show Foo
-
-deriving newtype instance Enum Foo
-
-deriving newtype instance Floating Foo
-
-deriving newtype instance Fractional Foo
-
-deriving newtype instance Num Foo
-
-deriving newtype instance Real Foo
-
-deriving newtype instance RealFloat Foo
-
-deriving newtype instance RealFrac Foo
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)

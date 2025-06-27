@@ -66,6 +66,7 @@ import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
 import HsBindgen.SHs.AST qualified as SHs
+import HsBindgen.SHs.Simplify (simplifySHs)
 import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -135,7 +136,7 @@ genHsDecls mu Opts{..} = Hs.generateDeclarations optsTranslation mu
 
 -- | Generate @SHs@ declarations
 genSHsDecls :: [Hs.Decl] -> [SHs.SDecl]
-genSHsDecls = SHs.translateDecls
+genSHsDecls = simplifySHs . SHs.translateDecls
 
 -- | Generate a preprocessor 'Backend.PP.HsModule'
 genModule :: PPOpts -> [SHs.SDecl] -> Backend.PP.HsModule

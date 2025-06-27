@@ -1,7 +1,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 
 module Example where
@@ -16,6 +15,7 @@ import qualified Text.Read
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable EnumA where
 
@@ -33,10 +33,6 @@ instance F.Storable EnumA where
       \s1 ->
         case s1 of
           EnumA un_EnumA2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
-
-deriving stock instance Eq EnumA
-
-deriving stock instance Ord EnumA
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
@@ -85,6 +81,7 @@ pattern VALA_2 = EnumA 1
 data ExA = ExA
   { exA_fieldA1 :: EnumA
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable ExA where
 
@@ -103,13 +100,10 @@ instance F.Storable ExA where
         case s1 of
           ExA exA_fieldA12 -> F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
 
-deriving stock instance Show ExA
-
-deriving stock instance Eq ExA
-
 newtype ExB_fieldB1 = ExB_fieldB1
   { un_ExB_fieldB1 :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable ExB_fieldB1 where
 
@@ -127,10 +121,6 @@ instance F.Storable ExB_fieldB1 where
       \s1 ->
         case s1 of
           ExB_fieldB1 un_ExB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) un_ExB_fieldB12
-
-deriving stock instance Eq ExB_fieldB1
-
-deriving stock instance Ord ExB_fieldB1
 
 instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 
@@ -180,6 +170,7 @@ pattern VALB_2 = ExB_fieldB1 1
 data ExB = ExB
   { exB_fieldB1 :: ExB_fieldB1
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable ExB where
 
@@ -197,7 +188,3 @@ instance F.Storable ExB where
       \s1 ->
         case s1 of
           ExB exB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) exB_fieldB12
-
-deriving stock instance Show ExB
-
-deriving stock instance Eq ExB
