@@ -7,8 +7,8 @@
 -- The types for these bindings are defined in @HsBindgen.Runtime.Prelude@ in
 -- the @hs-bindgen-runtime@ library, in the same order.
 module HsBindgen.BindingSpec.Stdlib (
-    -- * Bindings
-    bindings
+    -- * Binding specification
+    bindingSpec
   ) where
 
 import Data.Map.Strict qualified as Map
@@ -27,9 +27,11 @@ import HsBindgen.Language.Haskell
 
 -- | All standard library bindings
 --
--- This includes 'baseBindings' and 'runtimeBindings'.
-bindings :: BindingSpec.UnresolvedBindingSpec
-bindings = BindingSpec.BindingSpec{bindingSpecTypes}
+-- These bindings include types defined in @base@ as well as
+-- @hs-bindgen-runtime@.  They are all re-exported from module
+-- @HsBindgen.Runtime.Prelude@ to simplify imports.
+bindingSpec :: BindingSpec.UnresolvedBindingSpec
+bindingSpec = BindingSpec.BindingSpec{bindingSpecTypes}
   where
     bindingSpecTypes ::
       Map

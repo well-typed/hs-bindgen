@@ -14,12 +14,14 @@ import HsBindgen.Language.C
 
 -- | Resolve binding specification
 --
--- For every C name, we resolve
+-- For every C name, we resolve:
 --
--- * External binding specification ("we already have bindings for this").
---   Such declarations are removed from the AST.
--- * Input binding specification
---   ("we want to adjust how to generate the binding for this").
+-- * External binding specification, which is used to specify existing bindings
+--   that should be used, external from the module being generated.  Matching
+--   types are replaced with external references, and matching declarations are
+--   removed from the AST.
+-- * Prescriptive binding specification, which is used to configure how bindings
+--   are generated.  This information is added to the AST as annotations.
 type ResolveBindingSpec :: Pass
 data ResolveBindingSpec a deriving anyclass (ValidPass)
 

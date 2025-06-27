@@ -34,18 +34,18 @@ import HsBindgen.Util.Monad (mapMaybeM)
 -------------------------------------------------------------------------------}
 
 resolveBindingSpec ::
-     ResolvedBindingSpec -- ^ Configuration binding specification
+     ResolvedBindingSpec -- ^ Prescriptive binding specification
   -> ResolvedBindingSpec -- ^ External binding specification
   -> C.TranslationUnit NameAnon
   -> (C.TranslationUnit ResolveBindingSpec, [ResolveBindingSpecsMsg])
 resolveBindingSpec
-  confSpec
+  pSpec
   extSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     let (decls, MState{..}) =
-          runM confSpec extSpec unitIncludeGraph (declNonSelected unitAnn) $
+          runM pSpec extSpec unitIncludeGraph (declNonSelected unitAnn) $
             resolveDecls unitDecls
-        notUsedErrs = BindingSpecTypeNotUsed <$> Set.toAscList stateNoConfTypes
+        notUsedErrs = BindingSpecTypeNotUsed <$> Set.toAscList stateNoPTypes
     in  (reassemble decls, reverse stateErrors ++ notUsedErrs)
   where
     reassemble ::
@@ -94,15 +94,15 @@ newtype M a = WrapM (RWS MEnv () MState a)
     )
 
 runM ::
-     ResolvedBindingSpec -- ^ Configuration binding specification
+     ResolvedBindingSpec -- ^ Prescriptive binding specification
   -> ResolvedBindingSpec -- ^ External binding specification
   -> IncludeGraph
   -> NonSelectedDecls
   -> M a
   -> (a, MState)
-runM confSpec extSpec includeGraph nonSelectedDecls (WrapM m) =
-    let env        = MEnv confSpec extSpec includeGraph nonSelectedDecls
-        state0     = initMState confSpec
+runM pSpec extSpec includeGraph nonSelectedDecls (WrapM m) =
+    let env        = MEnv pSpec extSpec includeGraph nonSelectedDecls
+        state0     = initMState pSpec
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
 
@@ -111,7 +111,7 @@ runM confSpec extSpec includeGraph nonSelectedDecls (WrapM m) =
 -------------------------------------------------------------------------------}
 
 data MEnv = MEnv {
-      envConfSpec         :: ResolvedBindingSpec
+      envPSpec            :: ResolvedBindingSpec
     , envExtSpec          :: ResolvedBindingSpec
     , envIncludeGraph     :: IncludeGraph
     , envNonSelectedDecls :: NonSelectedDecls
@@ -123,19 +123,19 @@ data MEnv = MEnv {
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      stateErrors      :: [ResolveBindingSpecsMsg] -- ^ Stored in reverse order
-    , stateExtTypes    :: Map C.QualName (C.Type ResolveBindingSpec)
-    , stateNoConfTypes :: Set C.QualName
-    , stateOmitTypes   :: Set C.QualName
+      stateErrors    :: [ResolveBindingSpecsMsg] -- ^ Stored in reverse order
+    , stateExtTypes  :: Map C.QualName (C.Type ResolveBindingSpec)
+    , stateNoPTypes  :: Set C.QualName
+    , stateOmitTypes :: Set C.QualName
     }
   deriving (Show)
 
 initMState :: ResolvedBindingSpec -> MState
-initMState confSpec = MState {
-      stateErrors      = []
-    , stateExtTypes    = Map.empty
-    , stateNoConfTypes = Map.keysSet $ BindingSpec.bindingSpecTypes confSpec
-    , stateOmitTypes   = Set.empty
+initMState pSpec = MState {
+      stateErrors    = []
+    , stateExtTypes  = Map.empty
+    , stateNoPTypes  = Map.keysSet $ BindingSpec.bindingSpecTypes pSpec
+    , stateOmitTypes = Set.empty
     }
 
 insertError :: ResolveBindingSpecsMsg -> MState -> MState
@@ -152,9 +152,9 @@ insertExtType cQualName typ st = st {
       stateExtTypes = Map.insert cQualName typ (stateExtTypes st)
     }
 
-deleteNoConfType :: C.QualName -> MState -> MState
-deleteNoConfType cQualName st = st {
-      stateNoConfTypes = Set.delete cQualName (stateNoConfTypes st)
+deleteNoPType :: C.QualName -> MState -> MState
+deleteNoPType cQualName st = st {
+      stateNoPTypes = Set.delete cQualName (stateNoPTypes st)
     }
 
 insertOmittedType :: C.QualName -> MState -> MState
@@ -203,12 +203,12 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
       Nothing -> return False
     if isExt
       then return Nothing
-      else case BindingSpec.lookupTypeSpec cQualName declPaths envConfSpec of
+      else case BindingSpec.lookupTypeSpec cQualName declPaths envPSpec of
         Just (BindingSpec.Require typeSpec) -> do
-          RWS.modify' $ deleteNoConfType cQualName
+          RWS.modify' $ deleteNoPType cQualName
           return $ Just (decl, Just typeSpec)
         Just BindingSpec.Omit -> do
-          RWS.modify' $ deleteNoConfType cQualName . insertOmittedType cQualName
+          RWS.modify' $ deleteNoPType cQualName . insertOmittedType cQualName
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
 

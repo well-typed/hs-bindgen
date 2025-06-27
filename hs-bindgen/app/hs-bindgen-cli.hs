@@ -34,16 +34,16 @@ instance Exception LiterateFileException where
 execMode :: Cli -> IO ()
 execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
     ModePreprocess{..} -> withTracer $ \tracer -> do
-      extBindings <-
-        loadExtBindings
+      extBindingSpec <-
+        loadExtBindingSpecs
           tracer
           globalOptsClangArgs
-          globalOptsStdlibSpecs
+          globalOptsStdlibSpecConf
           globalOptsExtBindings
       let opts = cmdOpts {
-              optsExtBindings = extBindings
-            , optsTranslation = preprocessTranslationOpts
-            , optsTracer      = tracer
+              optsExtBindingSpec = extBindingSpec
+            , optsTranslation    = preprocessTranslationOpts
+            , optsTracer         = tracer
             }
           ppOpts = (def :: PPOpts) {
               ppOptsModule = preprocessModuleOpts
@@ -57,18 +57,18 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
             filter isLetter (hsModuleOptsName preprocessModuleOpts)
       hsDecls <- translateCHeaders mu opts preprocessInputs
       preprocessIO ppOpts preprocessOutput hsDecls
-      case preprocessGenExtBindings of
+      case preprocessGenBindingSpec of
         Nothing   -> return ()
-        Just path -> genExtBindings opts ppOpts preprocessInputs path hsDecls
+        Just path -> genBindingSpec opts ppOpts preprocessInputs path hsDecls
 
     ModeGenTests{..} -> do
-      extBindings <- withTracer $ \tracer ->
-        loadExtBindings tracer
+      extBindingSpec <- withTracer $ \tracer ->
+        loadExtBindingSpecs tracer
           globalOptsClangArgs
-          globalOptsStdlibSpecs
+          globalOptsStdlibSpecConf
           globalOptsExtBindings
       let opts = cmdOpts {
-              optsExtBindings = extBindings
+              optsExtBindingSpec = extBindingSpec
             }
           ppOpts = (def :: PPOpts) {
               ppOptsModule = genTestsModuleOpts
@@ -79,7 +79,7 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
 
     ModeLiterate input output -> execLiterate input output
 
-    ModeBindingSpec BindingSpecModeStdlib -> BS.putStr stdlibExtBindingsYaml
+    ModeBindingSpec BindingSpecModeStdlib -> BS.putStr stdlibExtBindingSpecYaml
 
     ModeResolve{..} -> do
       isSuccess <- withTracer $ \tracer ->

@@ -28,10 +28,10 @@ module HsBindgen.Pipeline (
   , hashIncludeWith
   , genBindingsFromCHeader
 
-    -- * External bindings
-  , genExtBindings
-  , StdlibBindingSpecs (..)
-  , loadExtBindings
+    -- * Binding specifications
+  , genBindingSpec
+  , StdlibBindingSpecConf (..)
+  , loadExtBindingSpecs
 
     -- * Test generation
   , genTests
@@ -52,7 +52,7 @@ import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.BindingSpec (ResolvedBindingSpec, UnresolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.BindingSpec.Gen (genBindingSpec)
+import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate (..))
@@ -83,7 +83,7 @@ import Language.Haskell.TH.Syntax (getPackageRoot)
 -- | Options for both the preprocessor and TH APIs
 data Opts = Opts {
       optsClangArgs      :: ClangArgs
-    , optsExtBindings    :: ResolvedBindingSpec
+    , optsExtBindingSpec :: ResolvedBindingSpec
     , optsTranslation    :: Hs.TranslationOpts
     , optsPredicate      :: Predicate
     , optsProgramSlicing :: ProgramSlicing
@@ -93,7 +93,7 @@ data Opts = Opts {
 instance Default Opts where
   def = Opts {
       optsClangArgs      = def
-    , optsExtBindings    = BindingSpec.empty
+    , optsExtBindingSpec = BindingSpec.empty
     , optsTranslation    = def
     , optsPredicate      = SelectFromMainFiles
     , optsProgramSlicing = DisableProgramSlicing
@@ -122,7 +122,12 @@ parseCHeaders ::
    -> [CHeaderIncludePath]
    -> IO C.TranslationUnit
 parseCHeaders Opts{..} =
-    C.parseCHeaders optsTracer optsClangArgs optsPredicate optsProgramSlicing optsExtBindings
+    C.parseCHeaders
+      optsTracer
+      optsClangArgs
+      optsPredicate
+      optsProgramSlicing
+      optsExtBindingSpec
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Opts -> [C.Decl] -> [Hs.Decl]
@@ -227,13 +232,13 @@ hashInclude fps HashIncludeOpts {..} = do
           clangQuoteIncludePathDirs = CIncludePathDir <$> quoteIncludeDirs
         }
       tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
-  extBindings <-
+  extBindingSpec <-
     TH.runIO . withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
-      loadExtBindings tracer args UseStdlibBindingSpecs []
+      loadExtBindingSpecs tracer args UseStdlibBindingSpec []
   let opts :: Opts
       opts = def {
-          optsClangArgs   = args
-        , optsExtBindings = extBindings
+          optsClangArgs      = args
+        , optsExtBindingSpec = extBindingSpec
         }
   hashIncludeWith opts fps
   where
@@ -285,20 +290,20 @@ genBindingsFromCHeader opts unit = do
     C.TranslationUnit{unitDecls, unitDeps} = unit
 
 {-------------------------------------------------------------------------------
-  External bindings
+  Binding specifications
 -------------------------------------------------------------------------------}
 
--- | Generate external bindings configuration
-genExtBindings ::
+-- | Generate binding specification
+genBindingSpec ::
      Opts
   -> PPOpts
   -> [CHeaderIncludePath]
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genExtBindings Opts{..} PPOpts{..} headerIncludePaths path =
+genBindingSpec Opts{..} PPOpts{..} headerIncludePaths path =
       BindingSpec.writeFile tracer path
-    . genBindingSpec headerIncludePaths moduleName
+    . BindingSpec.genBindingSpec headerIncludePaths moduleName
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
@@ -309,20 +314,27 @@ genExtBindings Opts{..} PPOpts{..} headerIncludePaths path =
         (TraceBindingSpec . BindingSpec.WriteBindingSpecMsg)
         optsTracer
 
-data StdlibBindingSpecs =
-    -- | Automatically include @stdlib@.
-    UseStdlibBindingSpecs
-  | NoStdlibBindingSpecs
+-- | Configure if the @stdlib@ binding specification should be used
+data StdlibBindingSpecConf =
+    -- | Automatically include @stdlib@
+    UseStdlibBindingSpec
+  | NoStdlibBindingSpec
   deriving stock (Show, Eq)
 
--- | Load external bindings
-loadExtBindings ::
+-- | Load external binding specifications
+--
+-- The format is determined by filename extension.  The following formats are
+-- supported:
+--
+-- * YAML (@.yaml@ extension)
+-- * JSON (@.json@ extension)
+loadExtBindingSpecs ::
      Tracer IO TraceMsg
   -> ClangArgs
-  -> StdlibBindingSpecs
+  -> StdlibBindingSpecConf
   -> [FilePath]
   -> IO ResolvedBindingSpec
-loadExtBindings tracer args stdlibSpecs =
+loadExtBindingSpecs tracer args stdlibSpec =
     BindingSpec.load
       (contramap TraceBindingSpec tracer)
       BindingSpec.ResolveExternalBindingSpecHeader
@@ -330,9 +342,9 @@ loadExtBindings tracer args stdlibSpecs =
       stdSpec
   where
     stdSpec :: UnresolvedBindingSpec
-    stdSpec = case stdlibSpecs of
-      UseStdlibBindingSpecs -> Stdlib.bindings
-      NoStdlibBindingSpecs  -> BindingSpec.empty
+    stdSpec = case stdlibSpec of
+      UseStdlibBindingSpec -> Stdlib.bindingSpec
+      NoStdlibBindingSpec  -> BindingSpec.empty
 
 {-------------------------------------------------------------------------------
   Test generation

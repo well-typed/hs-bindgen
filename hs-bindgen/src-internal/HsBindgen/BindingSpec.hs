@@ -77,6 +77,16 @@ import HsBindgen.Util.Tracer
 
 -- | Binding specification
 --
+-- This type serves two purposes:
+--
+-- * A /prescriptive binding specification/ is used to configure how bindings
+--   are generated.
+-- * An /external binding specification/ is used to specify existing bindings
+--   that should be used, /external/ from the module being generated.
+--
+-- Note that a /generated binding specification/ may be used for either/both of
+-- these two purposes.
+--
 -- The @header@ type parameter determines the representation of header paths.
 -- See 'UnresolvedBindingSpec' and 'ResolvedBindingSpec'.
 newtype BindingSpec header = BindingSpec {

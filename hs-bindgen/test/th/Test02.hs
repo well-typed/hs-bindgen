@@ -31,13 +31,13 @@ $(do
             | getCHeaderIncludePath h == "uchar.h"
               -> Just Tolerated
           _otherTrace -> Nothing
-    extBindings <-
+    extBindingSpec <-
       withTracePredicate uCharHeaderNotFound $ \tracer ->
-        loadExtBindings tracer args UseStdlibBindingSpecs []
+        loadExtBindingSpecs tracer args UseStdlibBindingSpec []
     let opts :: Opts
         opts = def {
-            optsClangArgs   = args
-          , optsExtBindings = extBindings
+            optsClangArgs      = args
+          , optsExtBindingSpec = extBindingSpec
           }
     hashIncludeWith opts ["test_02.h"]
  )
