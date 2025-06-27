@@ -338,9 +338,9 @@ tests packageRoot getExtBindingSpec getRustBindgen =
       -> (Pipeline.Opts -> Pipeline.Opts)
       -> TestTree
     goldenExtBindings name predicate changeOpts = do
-      let target = "fixtures" </> (name ++ ".extbindings.yaml")
+      let target = "fixtures" </> (name ++ ".bindingspec.yaml")
           headerIncludePath = mkHeaderIncludePath name
-      goldenVsStringDiff_ "extbindings" target $ \_ ->
+      goldenVsStringDiff_ "bindingspec" target $ \_ ->
         withOpts changeOpts predicate $ \opts -> do
           decls <-
             Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
