@@ -27,7 +27,6 @@ module HsBindgen.Util.Tracer (
   , CustomLogLevel (..)
     -- * Tracers
   , withTracerStdOut
-  , withTracerFile
   , withTracerCustom
   , withTracerCustom'
   ) where
@@ -48,7 +47,7 @@ import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleLayer (Foreground),
                             SGR (SetColor, SetConsoleIntensity),
                             hSupportsANSIColor, setSGRCode)
-import System.IO (Handle, IOMode (AppendMode), hPutStrLn, stdout, withFile)
+import System.IO (Handle, stdout)
 
 import HsBindgen.Errors (hsBindgenExceptionFromException,
                          hsBindgenExceptionToException)
@@ -224,22 +223,6 @@ withTracerStdOut tracerConf customLogLevel action = do
   ansiColor <- getAnsiColor stdout
   withExceptionOnError $ \ref ->
     action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
-
--- | Run an action with a tracer writing to a file. Do not use ANSI colors.
---
--- Throw exception after performing action if an 'Error' trace was emitted.
-withTracerFile
-  :: (PrettyForTrace a, HasDefaultLogLevel a, HasSource a)
-  => FilePath
-  -> TracerConf
-  -> CustomLogLevel a
-  -> (Tracer IO a -> IO b)
-  -> IO b
-withTracerFile file tracerConf customLogLevel action =
-  withFile file AppendMode $ \handle ->
-    withExceptionOnError $ \ref ->
-      action $
-        mkTracer DisableAnsiColor tracerConf customLogLevel ref (hPutStrLn handle)
 
 -- | Run an action with a tracer using a custom report function.
 --
