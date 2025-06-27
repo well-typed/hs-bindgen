@@ -6,6 +6,9 @@ module HsBindgen.App.Common (
     -- * Input option
   , parseInput
     -- * Auxiliary hs-bindgen functions
+  , withTracer
+  , loadExtBindingSpecs'
+  , getOpts
   , footerWith
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -273,6 +276,25 @@ parseInput =
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
+
+withTracer :: GlobalOpts -> (Tracer IO TraceMsg -> IO b) -> IO b
+withTracer GlobalOpts{..} =
+    withTracerStdOut globalOptsTracerConf DefaultLogLevel
+
+loadExtBindingSpecs' :: Tracer IO TraceMsg -> GlobalOpts -> IO BindingSpec
+loadExtBindingSpecs' tracer GlobalOpts{..} =
+    loadExtBindingSpecs
+      tracer
+      globalOptsClangArgs
+      globalOptsStdlibSpecConf
+      globalOptsExtBindings
+
+getOpts :: GlobalOpts -> Opts
+getOpts GlobalOpts{..} = def {
+      optsClangArgs      = globalOptsClangArgs
+    , optsPredicate      = globalOptsPredicate
+    , optsProgramSlicing = globalOptsProgramSlicing
+    }
 
 -- | Footer of command line help.
 footerWith :: ParserPrefs -> Doc
