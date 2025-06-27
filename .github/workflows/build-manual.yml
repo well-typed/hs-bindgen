@@ -1,0 +1,139 @@
+# .github/workflows/build-manual.yml
+#
+# This CI job specifically checks that the 'manual' can be generated,
+# built, and run from a clean state on multiple operating systems.
+#
+name: Build Manual
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-manual:
+    name: Build and Test the manual on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # We are not running this job on ARM MacOS machines because the manual
+        # showcases the use of UTF-8 characters that the Apple Assembler does
+        # not support.
+        os: [ubuntu-latest]
+        llvm: ['16']
+
+    steps:
+      - name: 1. Set up Haskell (GHC and Cabal)
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: '9.4.8'
+          cabal-version: 'latest'
+
+      - name: 2. Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v2.0.7
+        with:
+          version: ${{ matrix.llvm }}
+          # This is needed because this action's default env path is wrong for
+          # some reason
+          env: false
+          # LLVM_PATH will be this one
+          directory: ${{ runner.temp }}/llvm
+
+        # Given that we disabled the setting of the env flags above, we need
+        # to set the right LLVM_CONFIG.
+      - name: 3. Set LLVM_CONFIG Environment Variable
+        shell: bash
+        run: |
+          echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
+
+        # Tell hs-bindgen where libclang and the headers are.
+      - name: 4. Export LIBCLANG_PATH
+        shell: bash
+        run: |
+          echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
+
+      - name: 5. Set BINDGEN_EXTRA_CLANG_ARGS using Clang
+        shell: bash
+        # This incantation is a bit awkward because we have to parse clang's
+        # output. gcc's one is much shorter but maybe we don't want to use gcc
+        # explicitly.
+        # BINDGEN_EXTRA_CLANG_ARGS=$(gcc -E -Wp,-v -xc /dev/null 2>&1 | grep '^ /' | sed 's/^ /-I/' | tr '\n' ' ')
+        run: |
+          CLANG_ARGS=$(${LLVM_PATH}/bin/clang -v -E -xc /dev/null 2>&1 | awk '/#include <...> search starts here/{f=1;next}/End of search list./{f=0}f{sub(/^[ \t]*/,"",$0);s=s " -I"$0}END{print substr(s,2)}')
+          echo "BINDGEN_EXTRA_CLANG_ARGS=$CLANG_ARGS" >> "$GITHUB_ENV"
+
+      - name: 6. Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 7. Create cabal.project.local in manual/
+        # This file ensures subsequent cabal commands (like in generate.sh)
+        # can find the necessary C headers and libraries.
+        run: |
+          echo "Writing cabal.project.local to configure C paths..."
+          # Using a Heredoc for better readability
+          cat <<EOF > manual/cabal.project.local
+          package manual
+            extra-include-dirs:
+                ${{ github.workspace }}/hs-bindgen/examples/golden
+              , ${{ github.workspace }}/manual/c
+            extra-lib-dirs:
+                ${{ github.workspace }}/hs-bindgen/examples/golden
+              , ${{ github.workspace }}/manual/c
+
+          package hs-game
+            extra-include-dirs: ${{ github.workspace }}/manual/c
+            extra-lib-dirs:     ${{ github.workspace }}/manual/c
+
+          package hs-vector
+            extra-include-dirs: ${{ github.workspace }}/manual/c
+            extra-lib-dirs:     ${{ github.workspace }}/manual/c
+          EOF
+
+      - name: 8. Create cabal.project.local in manual/hs
+        # This step seems redundant if the working directory for the build/run
+        # is set correctly. However, keeping it for consistency with the
+        # original file.
+        run: |
+          echo "Writing cabal.project.local to configure C paths..."
+          cat <<EOF > manual/hs/cabal.project.local
+          package manual
+            extra-include-dirs:
+                ${{ github.workspace }}/hs-bindgen/examples/golden
+              , ${{ github.workspace }}/manual/c
+            extra-lib-dirs:
+                ${{ github.workspace }}/hs-bindgen/examples/golden
+              , ${{ github.workspace }}/manual/c
+
+          package hs-game
+            extra-include-dirs: ${{ github.workspace }}/manual/c
+            extra-lib-dirs:     ${{ github.workspace }}/manual/c
+
+          package hs-vector
+            extra-include-dirs: ${{ github.workspace }}/manual/c
+            extra-lib-dirs:     ${{ github.workspace }}/manual/c
+          EOF
+
+
+      - name: 9. Build the C libraries
+        working-directory: ./manual/c
+        run: make
+
+      - name: 10. Run binding generation script
+        working-directory: ./manual
+        run: ./generate.sh
+
+      # If needed, this action allows one to SSH into the CI Job machine and
+      # figure out what's going on.
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+
+      - name: 11. Run the manual executable
+        run: |
+          export LD_LIBRARY_PATH=${{ github.workspace }}/manual/c/:$LD_LIBRARY_PATH
+          cd manual/hs
+          cabal run manual
