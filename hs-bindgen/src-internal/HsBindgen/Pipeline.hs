@@ -297,24 +297,22 @@ genBindingsFromCHeader opts unit = do
 
 -- | Generate binding specification
 genBindingSpec ::
-     Opts
+     Tracer IO TraceMsg
   -> PPOpts
   -> [CHeaderIncludePath]
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genBindingSpec Opts{..} PPOpts{..} headerIncludePaths path =
-      BindingSpec.writeFile tracer path
+genBindingSpec tracer PPOpts{..} headerIncludePaths path =
+      BindingSpec.writeFile tracer' path
     . BindingSpec.genBindingSpec headerIncludePaths moduleName
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
 
-    tracer :: Tracer IO BindingSpec.WriteBindingSpecMsg
-    tracer =
-      contramap
-        (TraceBindingSpec . BindingSpec.WriteBindingSpecMsg)
-        optsTracer
+    tracer' :: Tracer IO BindingSpec.WriteBindingSpecMsg
+    tracer' =
+      contramap (TraceBindingSpec . BindingSpec.WriteBindingSpecMsg) tracer
 
 -- | Configure if the @stdlib@ binding specification should be used
 data StdlibBindingSpecConf =

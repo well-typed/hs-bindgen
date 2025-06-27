@@ -33,33 +33,36 @@ instance Exception LiterateFileException where
 
 execMode :: Cli -> IO ()
 execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
-    ModePreprocess{..} -> withTracer $ \tracer -> do
-      extBindingSpec <-
-        loadExtBindingSpecs
-          tracer
-          globalOptsClangArgs
-          globalOptsStdlibSpecConf
-          globalOptsExtBindings
-      let opts = cmdOpts {
-              optsExtBindingSpec = extBindingSpec
-            , optsTranslation    = preprocessTranslationOpts
-            , optsTracer         = tracer
-            }
-          ppOpts = (def :: PPOpts) {
-              ppOptsModule = preprocessModuleOpts
-            , ppOptsRender = preprocessRenderOpts
-            }
-      -- to avoid potential issues it would be great to include unitid in module
-      -- unique but AFAIK there is no way to get one for preprocessor
-      -- https://github.com/well-typed/hs-bindgen/issues/502
-      let mu :: ModuleUnique
-          mu = ModuleUnique $
-            filter isLetter (hsModuleOptsName preprocessModuleOpts)
-      hsDecls <- translateCHeaders mu opts preprocessInputs
-      preprocessIO ppOpts preprocessOutput hsDecls
-      case preprocessGenBindingSpec of
-        Nothing   -> return ()
-        Just path -> genBindingSpec opts ppOpts preprocessInputs path hsDecls
+    ModePreprocess{..} -> do
+      hsDecls <- withTracer $ \tracer -> do
+        extBindingSpec <-
+          loadExtBindingSpecs
+            tracer
+            globalOptsClangArgs
+            globalOptsStdlibSpecConf
+            globalOptsExtBindings
+        -- to avoid potential issues it would be great to include unitid in module
+        -- unique but AFAIK there is no way to get one for preprocessor
+        -- https://github.com/well-typed/hs-bindgen/issues/502
+        let mu :: ModuleUnique
+            mu = ModuleUnique $
+              filter isLetter (hsModuleOptsName preprocessModuleOpts)
+            opts = cmdOpts {
+                optsExtBindingSpec = extBindingSpec
+              , optsTranslation    = preprocessTranslationOpts
+              , optsTracer         = tracer
+              }
+        translateCHeaders mu opts preprocessInputs
+      withTracer $ \tracer -> do
+        let ppOpts = (def :: PPOpts) {
+                ppOptsModule = preprocessModuleOpts
+              , ppOptsRender = preprocessRenderOpts
+              }
+        preprocessIO ppOpts preprocessOutput hsDecls
+        case preprocessGenBindingSpec of
+          Nothing   -> return ()
+          Just path ->
+            genBindingSpec tracer ppOpts preprocessInputs path hsDecls
 
     ModeGenTests{..} -> do
       extBindingSpec <- withTracer $ \tracer ->
