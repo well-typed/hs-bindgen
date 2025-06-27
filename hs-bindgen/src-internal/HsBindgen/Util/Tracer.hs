@@ -18,7 +18,6 @@ module HsBindgen.Util.Tracer (
   , Source (..)
   , HasSource (..)
   , Verbosity (..)
-  , ErrorTraceException (..)
     -- * Tracer configuration
   , AnsiColor (..)
   , ShowTimeStamp (..)
@@ -28,11 +27,11 @@ module HsBindgen.Util.Tracer (
     -- * Tracers
   , withTracerStdOut
   , withTracerCustom
+  , fatalError
   , withTracerCustom'
   ) where
 
 import Control.Applicative (ZipList (ZipList, getZipList))
-import Control.Exception (Exception (..), throwIO)
 import Control.Monad (when)
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import Control.Tracer (Contravariant (..))
@@ -47,10 +46,9 @@ import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleLayer (Foreground),
                             SGR (SetColor, SetConsoleIntensity),
                             hSupportsANSIColor, setSGRCode)
+import System.Exit (exitFailure)
 import System.IO (Handle, stdout)
 
-import HsBindgen.Errors (hsBindgenExceptionFromException,
-                         hsBindgenExceptionToException)
 import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
@@ -159,15 +157,6 @@ class HasSource a where
 newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
 
-data ErrorTraceException = ErrorTraceException
-
-instance Show ErrorTraceException where
-  show _ = "An error happened while generating bindings (see above)"
-
-instance Exception ErrorTraceException where
-  toException = hsBindgenExceptionToException
-  fromException = hsBindgenExceptionFromException
-
 {-------------------------------------------------------------------------------
   Tracer configuration
 -------------------------------------------------------------------------------}
@@ -208,7 +197,7 @@ data CustomLogLevel a = DefaultLogLevel | CustomLogLevel (a -> Level)
 --
 -- Use ANSI colors, if available.
 --
--- Throw exception after performing action if an 'Error' trace was emitted.
+-- Return a 'TraceExceptionError' if an 'Error' trace was emitted.
 withTracerStdOut ::
      ( MonadIO m
      , PrettyForTrace a
@@ -218,15 +207,15 @@ withTracerStdOut ::
   => TracerConf
   -> CustomLogLevel a
   -> (Tracer m a -> m b)
-  -> m b
+  -> m (Maybe b)
 withTracerStdOut tracerConf customLogLevel action = do
   ansiColor <- getAnsiColor stdout
-  withExceptionOnError $ \ref ->
+  withNothingOnError $ \ref ->
     action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
 
 -- | Run an action with a tracer using a custom report function.
 --
--- Throw exception after performing action if an 'Error' trace was emitted.
+-- Return a 'TraceExceptionError' if an 'Error' trace was emitted.
 withTracerCustom
   :: forall m a b. (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, HasSource a)
   => AnsiColor
@@ -234,14 +223,22 @@ withTracerCustom
   -> CustomLogLevel a
   -> (String -> m ())
   -> (Tracer m a -> m b)
-  -> m b
+  -> m (Maybe b)
 withTracerCustom ansiColor tracerConf customLogLevel report action =
-  exceptionOnError (withTracerCustom' ansiColor tracerConf customLogLevel report action)
+  nothingOnError (withTracerCustom' ansiColor tracerConf customLogLevel report action)
+
+-- | Report that errors happened while generating bindings and exit with failure.
+fatalError :: MonadIO m => m a
+fatalError = liftIO $ do
+  putStrLn "An error happened (see above)"
+  exitFailure
 
 -- | Run an action with a tracer using a custom report function.
 --
--- Do not throw exception on 'Error' traces; instead return the maximum log
--- level of traces.
+-- Return the maximum log level of traces.
+--
+-- We do not export this function from the public interface, but use it in
+-- tests.
 withTracerCustom' :: (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a,  HasSource a)
   => AnsiColor
   -> TracerConf
@@ -357,13 +354,13 @@ withColor EnableAnsiColor    level = withColor' (getColorForLevel level)
         resetColor :: String
         resetColor = setSGRCode []
 
-exceptionOnError :: MonadIO m => m (a, Level) -> m a
-exceptionOnError k = k >>= \case
-  (_, Error) -> liftIO $ throwIO ErrorTraceException
-  (r, _    ) -> pure r
+nothingOnError :: MonadIO m => m (a, Level) -> m (Maybe a)
+nothingOnError k = k >>= \case
+  (_, Error) -> pure $ Nothing
+  (r, _    ) -> pure $ Just r
 
-withExceptionOnError :: MonadIO m => (IORef Level -> m a) -> m a
-withExceptionOnError action = exceptionOnError (withIORef Debug action)
+withNothingOnError :: MonadIO m => (IORef Level -> m a) -> m (Maybe a)
+withNothingOnError action = nothingOnError (withIORef Debug action)
 
 withIORef :: MonadIO m => b -> (IORef b -> m a) -> m (a, b)
 withIORef initialValue action = do
