@@ -87,7 +87,7 @@ clangAstDump opts@Options{..} = do
   where
 
     tracerConf :: TracerConf
-    tracerConf = defaultTracerConf {
+    tracerConf = def {
         tVerbosity = Verbosity Warning
       }
 

@@ -1,7 +1,7 @@
--- | Main entry point for using @hs-bindgen@-as-a-library
+-- | Main entry point for using @hs-bindgen@ as a library.
 --
 -- Intended for unqualified import.
---
+
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.Lib (
     -- * Parsing and translating
@@ -21,42 +21,36 @@ module HsBindgen.Lib (
     -- * Debugging
     -- ** Header resolution
   , resolveHeader
-  , Resolve.ResolveHeaderMsg(..)
 
     -- * Options
-  , module Default
   , ModuleUnique(..)
-  , Pipeline.Opts(..)
+  , Common.Opts(..)
 
     -- ** Clang arguments
-  , Args.ClangArgs(..)
-  , Args.Target(..)
-  , Args.TargetEnv(..)
-  , Args.targetTriple
-  , Args.CStandard(..)
+  , Common.ClangArgs(..)
+  , Common.Target(..)
+  , Common.TargetEnv(..)
+  , Common.targetTriple
+  , Common.CStandard(..)
 
     -- ** Binding specifications
-  , BindingSpec -- opaque
+  , Common.BindingSpec -- opaque
   , Pipeline.loadExtBindingSpecs
-  , emptyBindingSpec
-  , StdlibBindingSpecConf(..)
+  , Common.emptyBindingSpec
+  , Common.StdlibBindingSpecConf(..)
   , stdlibExtBindingSpecYaml
 
     -- ** Translation options
-  , Hs.TranslationOpts(..)
-  , Hs.Strategy(..)
-  , Hs.HsTypeClass(..)
+  , Common.TranslationOpts(..)
+  , Common.Strategy(..)
+  , Common.HsTypeClass(..)
 
     -- ** Selection predicates
-  , Predicate.Predicate(..)
-  , Predicate.Regex -- opaque
+  , Common.Predicate(..)
+  , Common.Regex -- opaque
 
     -- ** Program slicing
-  , Slice.ProgramSlicing(..)
-
-    -- ** Logging
-  , TraceMsg(..)
-  , module HsBindgen.Util.Tracer
+  , Common.ProgramSlicing(..)
 
     -- ** Preprocessor
   , Pipeline.PPOpts(..)
@@ -66,32 +60,56 @@ module HsBindgen.Lib (
     -- * Paths
   , Paths.CHeaderIncludePath -- opaque
   , Paths.parseCHeaderIncludePath
-  , Paths.CIncludePathDir(..)
-  , (FilePath.</>)
-  , FilePath.joinPath
+  , Common.CIncludePathDir(..)
+  , (Common.</>)
+  , Common.joinPath
+
+    -- * Logging
+  , Common.TraceMsg(..)
+  , Common.ResolveHeaderMsg(..)
+    -- ** Tracer definition and main API
+  , Common.Tracer -- opaque
+  , Common.Contravariant(..)
+  , Common.traceWith
+  , Common.simpleTracer
+    -- ** Data types and typeclasses useful for tracing
+  , Common.Level(..)
+  , Common.PrettyForTrace(..)
+  , Common.HasDefaultLogLevel(..)
+  , Common.Source(..)
+  , Common.HasSource(..)
+  , Common.Verbosity(..)
+  , Common.ErrorTraceException(..)
+    -- ** Tracer configuration
+  , Common.AnsiColor(..)
+  , Common.ShowTimeStamp(..)
+  , Common.ShowCallStack(..)
+  , Common.TracerConf(..)
+  , Common.CustomLogLevel(..)
+    -- ** Tracers
+  , Common.withTracerStdOut
+  , Common.withTracerCustom
+  , Common.withTracerCustom'
+
+    -- * Re-exports
+  , Common.Default (..)
   ) where
 
 import Data.ByteString (ByteString)
-import System.FilePath qualified as FilePath
+
+import HsBindgen.Common qualified as Common
 
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
-import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
-import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Frontend.Pass.Slice qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.Translation qualified as Hs
-import HsBindgen.Imports
-import HsBindgen.Imports as Default (Default (..))
-import HsBindgen.ModuleUnique
-import HsBindgen.Pipeline (StdlibBindingSpecConf (NoStdlibBindingSpec))
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
-import HsBindgen.TraceMsg
+
+import HsBindgen.ModuleUnique
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -145,12 +163,6 @@ genBindingSpec opts ppOpts headerIncludePaths fp =
 {-------------------------------------------------------------------------------
   Binding specifications
 -------------------------------------------------------------------------------}
-
--- TODO use opaque wrapper
-type BindingSpec = ResolvedBindingSpec
-
-emptyBindingSpec :: BindingSpec
-emptyBindingSpec = BindingSpec.empty
 
 stdlibExtBindingSpecYaml :: ByteString
 stdlibExtBindingSpecYaml = BindingSpec.encodeYaml Stdlib.bindingSpec
