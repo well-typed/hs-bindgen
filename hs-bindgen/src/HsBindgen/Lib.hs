@@ -13,7 +13,7 @@ module HsBindgen.Lib (
   , preprocessIO
 
     -- * Binding specification generation
-  , genExtBindings
+  , genBindingSpec
 
     -- * Test generation
   , genTests
@@ -35,12 +35,12 @@ module HsBindgen.Lib (
   , Args.targetTriple
   , Args.CStandard(..)
 
-    -- ** External bindings
-  , ResolvedBindingSpec
-  , StdlibBindingSpecs(..)
-  , Pipeline.loadExtBindings
-  , emptyExtBindings
-  , stdlibExtBindingsYaml
+    -- ** Binding specifications
+  , BindingSpec -- opaque
+  , Pipeline.loadExtBindingSpecs
+  , emptyBindingSpec
+  , StdlibBindingSpecConf(..)
+  , stdlibExtBindingSpecYaml
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
@@ -88,7 +88,7 @@ import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Imports as Default (Default (..))
 import HsBindgen.ModuleUnique
-import HsBindgen.Pipeline (StdlibBindingSpecs (NoStdlibBindingSpecs))
+import HsBindgen.Pipeline (StdlibBindingSpecConf (NoStdlibBindingSpec))
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.TraceMsg
@@ -132,25 +132,28 @@ preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
   Binding specification generation
 -------------------------------------------------------------------------------}
 
-genExtBindings ::
+genBindingSpec ::
      Pipeline.Opts
   -> Pipeline.PPOpts
   -> [Paths.CHeaderIncludePath]
   -> FilePath
   -> HsDecls
   -> IO ()
-genExtBindings opts ppOpts headerIncludePaths fp =
-    Pipeline.genExtBindings opts ppOpts headerIncludePaths fp . unwrapHsDecls
+genBindingSpec opts ppOpts headerIncludePaths fp =
+    Pipeline.genBindingSpec opts ppOpts headerIncludePaths fp . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
-  External bindings
+  Binding specifications
 -------------------------------------------------------------------------------}
 
-emptyExtBindings :: ResolvedBindingSpec
-emptyExtBindings = BindingSpec.empty
+-- TODO use opaque wrapper
+type BindingSpec = ResolvedBindingSpec
 
-stdlibExtBindingsYaml :: ByteString
-stdlibExtBindingsYaml = BindingSpec.encodeYaml Stdlib.bindings
+emptyBindingSpec :: BindingSpec
+emptyBindingSpec = BindingSpec.empty
+
+stdlibExtBindingSpecYaml :: ByteString
+stdlibExtBindingSpecYaml = BindingSpec.encodeYaml Stdlib.bindingSpec
 
 {-------------------------------------------------------------------------------
   Test generation

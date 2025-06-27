@@ -65,7 +65,7 @@ data TranslationUnit p = TranslationUnit{
       --
       -- * The 'ResolveBindingSpec' pass removes declarations for which we have
       --   existing external bindings, as well as declarations omitted by a
-      --   configuration binding specification.
+      --   prescriptive binding specification.
       unitDecls :: [Decl p]
 
       -- | Include graph

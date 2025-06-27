@@ -35,7 +35,7 @@ data GlobalOpts = GlobalOpts {
     , globalOptsPredicate      :: Predicate
     , globalOptsProgramSlicing :: ProgramSlicing
     , globalOptsClangArgs      :: ClangArgs
-    , globalOptsStdlibSpecs    :: StdlibBindingSpecs
+    , globalOptsStdlibSpecConf :: StdlibBindingSpecConf
     , globalOptsExtBindings    :: [FilePath]
     }
   deriving stock (Show)
@@ -47,7 +47,7 @@ parseGlobalOpts =
       <*> parsePredicate
       <*> parseProgramSlicing
       <*> parseClangArgs
-      <*> parseStdlibSpecs
+      <*> parseStdlibBindingSpecConf
       <*> parseExtBindings
 
 parseTracerConf :: Parser TracerConf
@@ -244,11 +244,12 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
           Left "Target must be set using hs-bindgen --target option"
       | otherwise = Right s
 
-parseStdlibSpecs :: Parser StdlibBindingSpecs
-parseStdlibSpecs = flag UseStdlibBindingSpecs NoStdlibBindingSpecs $ mconcat [
-      long "no-stdlib"
-    , help "Do not automatically use stdlib descriptive binding specifications"
-    ]
+parseStdlibBindingSpecConf :: Parser StdlibBindingSpecConf
+parseStdlibBindingSpecConf = flag UseStdlibBindingSpec NoStdlibBindingSpec $
+    mconcat [
+        long "no-stdlib"
+      , help "Do not automatically use stdlib external binding specification"
+      ]
 
 parseExtBindings :: Parser [FilePath]
 parseExtBindings = many . strOption $ mconcat [

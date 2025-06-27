@@ -7,6 +7,10 @@ module HsBindgen.TH (
   , Pipeline.hashInclude
   , Pipeline.hashIncludeWith
 
+    -- * Debugging
+    -- ** Header resolution
+  , Resolve.ResolveHeaderMsg(..)
+
     -- * Options
   , module Default
   , Pipeline.Opts(..)
@@ -20,12 +24,11 @@ module HsBindgen.TH (
   , Args.targetTriple
   , Args.CStandard(..)
 
-    -- ** External bindings
-  , ResolvedBindingSpec -- opaque
-  , StdlibBindingSpecs(..)
-  , loadExtBindings
-  , emptyExtBindings
-  , Resolve.ResolveHeaderMsg(..)
+    -- ** Binding specifications
+  , BindingSpec -- opaque
+  , loadExtBindingSpecs
+  , emptyBindingSpec
+  , StdlibBindingSpecConf(..)
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
@@ -62,7 +65,7 @@ import HsBindgen.Frontend.Pass.Slice qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports as Default (Default (..))
-import HsBindgen.Pipeline (StdlibBindingSpecs)
+import HsBindgen.Pipeline (StdlibBindingSpecConf (..))
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.TraceMsg
@@ -75,27 +78,30 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 #endif
 
 {-------------------------------------------------------------------------------
-  External bindings
+  Binding specifications
 -------------------------------------------------------------------------------}
 
--- | Load external bindings from configuration files
+-- TODO use opaque wrapper
+type BindingSpec = ResolvedBindingSpec
+
+-- | Load external binding specifications
 --
 -- The format is determined by filename extension.  The following formats are
 -- supported:
 --
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
-loadExtBindings ::
+loadExtBindingSpecs ::
      Tracer TH.Q TraceMsg
   -> Args.ClangArgs
-  -> StdlibBindingSpecs
+  -> StdlibBindingSpecConf
   -> [FilePath]
-  -> TH.Q ResolvedBindingSpec
-loadExtBindings tracer args stdlibSpecs =
-    TH.runIO . Pipeline.loadExtBindings tracer' args stdlibSpecs
+  -> TH.Q BindingSpec
+loadExtBindingSpecs tracer args stdlibConf =
+    TH.runIO . Pipeline.loadExtBindingSpecs tracer' args stdlibConf
   where
     tracer' :: Tracer IO TraceMsg
     tracer' = natTracer TH.runQ tracer
 
-emptyExtBindings :: ResolvedBindingSpec
-emptyExtBindings = BindingSpec.empty
+emptyBindingSpec :: BindingSpec
+emptyBindingSpec = BindingSpec.empty

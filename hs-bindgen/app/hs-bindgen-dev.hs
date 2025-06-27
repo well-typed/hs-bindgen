@@ -23,14 +23,15 @@ execMode Dev{..} = \case
     genBindings inputPaths =
       withTracerStdOut (globalOptsTracerConf devGlobalOpts) DefaultLogLevel $
         \tracer -> do
-          extBindings <- loadExtBindings tracer
-                           (globalOptsClangArgs devGlobalOpts)
-                           (globalOptsStdlibSpecs devGlobalOpts)
-                           (globalOptsExtBindings devGlobalOpts)
+          extBindingSpec <-
+            loadExtBindingSpecs tracer
+              (globalOptsClangArgs devGlobalOpts)
+              (globalOptsStdlibSpecConf devGlobalOpts)
+              (globalOptsExtBindings devGlobalOpts)
           let opts :: Opts
               opts = def {
                   optsClangArgs      = globalOptsClangArgs devGlobalOpts
-                , optsExtBindings    = extBindings
+                , optsExtBindingSpec = extBindingSpec
                 , optsPredicate      = globalOptsPredicate devGlobalOpts
                 , optsProgramSlicing = globalOptsProgramSlicing devGlobalOpts
                 , optsTracer         = tracer

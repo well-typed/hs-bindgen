@@ -101,9 +101,9 @@ processTranslationUnit tracer extSpec rootHeader selectionPredicate programSlici
 
     -- writeFile "includegraph.mermaid" $ IncludeGraph.dumpMermaid includeGraph
 
-    -- TODO receive configuration binding specifications via argument
-    let confSpec :: ResolvedBindingSpec
-        confSpec = BindingSpec.empty
+    -- TODO receive prescriptive binding specification via argument
+    let pSpec :: ResolvedBindingSpec
+        pSpec = BindingSpec.empty
 
     let (afterSort, sortErrors) =
           sortDecls afterParse
@@ -114,7 +114,7 @@ processTranslationUnit tracer extSpec rootHeader selectionPredicate programSlici
         afterNameAnon =
           nameAnon afterHandleMacros
         (afterResolveBindingSpec, bindingSpecErrors) =
-          resolveBindingSpec confSpec extSpec afterNameAnon
+          resolveBindingSpec pSpec extSpec afterNameAnon
         afterHandleTypedefs =
           handleTypedefs afterResolveBindingSpec
         (afterMangleNames, mangleErrors) =

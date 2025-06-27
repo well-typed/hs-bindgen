@@ -161,8 +161,8 @@ main = do
     import'
 
     --
-    -- Descriptive binding specifications
-    section "Descriptive binding specifications"
+    -- External binding specifications
+    section "External binding specifications"
     --
 
     v <- new_vector 2 1
