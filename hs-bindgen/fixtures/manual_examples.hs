@@ -8432,4 +8432,30 @@
               "CXCursor_LastStmt",
             nameHsIdent = HsIdentifier
               "CXCursor_LastStmt"},
-          enumConstantValue = 331}}]
+          enumConstantValue = 331}},
+  DeclInlineCInclude
+    "manual_examples.h",
+  DeclInlineC
+    "signed int testmodule_mod_10 (signed int arg1) { return mod_10(arg1); }",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mod_10",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCInt)
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "testmodule_mod_10",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      Function
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed),
+          functionHeader =
+          "manual_examples.h"}}]

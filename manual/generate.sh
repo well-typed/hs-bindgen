@@ -31,7 +31,7 @@ cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-vector/generated/Vector.hs \
-    --gen-external-bindings external/vector.yaml \
+    --gen-binding-spec external/vector.yaml \
     --module Vector \
     vector.h
 
@@ -59,7 +59,7 @@ cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-game/generated/Game/State.hs \
-    --gen-external-bindings external/game.yaml \
+    --gen-binding-spec external/game.yaml \
     --module Game.State \
     game_internal.h
 

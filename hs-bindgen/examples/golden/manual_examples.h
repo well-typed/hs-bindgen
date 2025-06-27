@@ -171,3 +171,12 @@ enum CXCursorKind {
   CXCursor_OpenACCUpdateConstruct = 331,
   CXCursor_LastStmt = CXCursor_OpenACCUpdateConstruct,
 };
+
+/**
+ * Static inline function
+ *
+ * NOTE: @static inline@ functions are not available outside the scope of
+ * the header. See <https://stackoverflow.com/a/47821267/742991>
+ */
+
+static inline int mod_10(int x) { return x % 10; }
