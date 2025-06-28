@@ -26,8 +26,17 @@ extern "C" {
     );
 }
 extern "C" {
+    /** Error cases
+
+ See 'UnexpectedAnonInSignature' for discussion (of both these error cases
+ and the edge cases below).*/
     pub fn f1(arg: [u32; 2usize]);
 }
+extern "C" {
+    pub fn f2(arg: u32);
+}
+/** Edge cases: these result in warnings from clang, but in principle we can
+ generate bindings for these.*/
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _bindgen_ty_1 {
@@ -46,7 +55,9 @@ const _: () = {
     ][::std::mem::offset_of!(_bindgen_ty_1, y) - 4usize];
 };
 extern "C" {
-    pub fn f2(arg: _bindgen_ty_1);
+    /** Edge cases: these result in warnings from clang, but in principle we can
+ generate bindings for these.*/
+    pub fn f3(arg: _bindgen_ty_1);
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -83,10 +94,7 @@ const _: () = {
     ][::std::mem::offset_of!(_bindgen_ty_3, y) - 4usize];
 };
 extern "C" {
-    pub fn f3(p1: _bindgen_ty_2, p2: _bindgen_ty_3);
-}
-extern "C" {
-    pub fn f4(arg: u32);
+    pub fn f4(p1: _bindgen_ty_2, p2: _bindgen_ty_3);
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

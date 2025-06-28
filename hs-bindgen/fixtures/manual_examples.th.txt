@@ -10,6 +10,7 @@
 -- void test_internal_ϒ (void) { ϒ(); }
 -- void test_internal_import (void) { import(); }
 -- signed int test_internal_mod_10 (signed int arg1) { return mod_10(arg1); }
+-- void test_internal_printGlobalConfig (void) { printGlobalConfig(); }
 data Triple
     = Triple {triple_a :: CInt, triple_b :: CInt, triple_c :: CInt}
     deriving stock (Eq, Show)
@@ -505,3 +506,16 @@ pattern CXCursor_LastStmt :: CXCursorKind
 pattern CXCursor_LastStmt = CXCursorKind 331
 foreign import ccall safe "test_internal_mod_10" mod_10 :: CInt ->
                                                            IO CInt
+data GlobalConfig
+    = GlobalConfig {globalConfig_numThreads :: CInt,
+                    globalConfig_numWorkers :: CInt}
+    deriving stock (Eq, Show)
+instance Storable GlobalConfig
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure GlobalConfig <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {GlobalConfig globalConfig_numThreads_3
+                                                  globalConfig_numWorkers_4 -> pokeByteOff ptr_1 (0 :: Int) globalConfig_numThreads_3 >> pokeByteOff ptr_1 (4 :: Int) globalConfig_numWorkers_4}}
+foreign import ccall safe "&globalConfig" globalConfig :: Ptr GlobalConfig
+foreign import ccall safe "test_internal_printGlobalConfig" printGlobalConfig :: IO Unit

@@ -115,13 +115,32 @@ natTracer f =
 --
 -- Careful, the derived 'Ord' instance is used when determining if a trace
 -- should be emitted, or not.
-data Level = Debug | Info | Warning | Error
+data Level =
+    -- | Useful only for debugging hs-bindgen itself
+    Debug
+
+    -- | Regular progress, perhaps useful for debugging hs-bindgen config
+    --
+    -- E.g.: "Why why `foo` not selected?"
+  | Info
+
+    -- | Normal but significant condition the user should be aware of
+    --
+    -- E.g.: "binding global variable may result in duplicate symbols"
+  | Notice
+
+    -- | We may produce incomplete bindings
+  | Warning
+
+    -- | We are unable to produce /any/ bindings at all
+  | Error
   deriving stock (Show, Eq, Ord)
 
 alignLevel :: Level -> String
 alignLevel = \case
   Debug   -> "Debug  "
   Info    -> "Info   "
+  Notice  -> "Notice "
   Warning -> "Warning"
   Error   -> "Error  "
 
@@ -129,6 +148,7 @@ getColorForLevel :: Level -> Color
 getColorForLevel = \case
   Debug   -> White
   Info    -> Green
+  Notice  -> Yellow
   Warning -> Yellow
   Error   -> Red
 

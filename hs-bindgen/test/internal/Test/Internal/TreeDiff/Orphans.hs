@@ -20,6 +20,7 @@ import HsBindgen.C.Tc.Macro qualified as CMacro
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type qualified as HsType
+import HsBindgen.Hs.CallConv qualified as Hs
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -106,6 +107,9 @@ instance ToExpr Hs.HsModuleName
 instance ToExpr Hs.HsIdentifier
 instance ToExpr Hs.HsTypeClass
 instance ToExpr Hs.ExtHsRef
+
+instance ToExpr Hs.CallConv
+instance ToExpr Hs.ImportStyle
 
 instance ToExpr (C.MExpr C.Ps) where
   toExpr = \case

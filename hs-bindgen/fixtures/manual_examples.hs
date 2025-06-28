@@ -561,10 +561,9 @@
                 (HsPrimType HsPrimUnit))))),
       foreignImportOrigName =
       "testmodule_mk_triple",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -935,10 +934,9 @@
           (HsIO (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "testmodule_index_triple",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -1225,10 +1223,9 @@
               "Sum"))),
       foreignImportOrigName =
       "testmodule_sum_triple",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -1269,10 +1266,9 @@
               "Average"))),
       foreignImportOrigName =
       "testmodule_average_triple",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -2439,10 +2435,9 @@
               "YEAR"))),
       foreignImportOrigName =
       "testmodule_getYear",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -3685,10 +3680,9 @@
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_print_occupation",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -5778,10 +5772,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_\25308\25308",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -5935,10 +5928,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_\978",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -6066,10 +6058,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_import",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -8529,13 +8520,481 @@
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "testmodule_mod_10",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}}]
+            (PrimIntegral PrimInt Signed)}},
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
+        "GlobalConfig",
+      structConstr = HsName
+        "@NsConstr"
+        "GlobalConfig",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "globalConfig_numThreads",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:199:7",
+              structFieldName = NamePair {
+                nameC = CName "numThreads",
+                nameHsIdent = HsIdentifier
+                  "globalConfig_numThreads"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}},
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "globalConfig_numWorkers",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:200:7",
+              structFieldName = NamePair {
+                nameC = CName "numWorkers",
+                nameHsIdent = HsIdentifier
+                  "globalConfig_numWorkers"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc =
+            "manual_examples.h:198:8",
+            declId = NamePair {
+              nameC = CName "globalConfig",
+              nameHsIdent = HsIdentifier
+                "GlobalConfig"},
+            declOrigin = NameOriginInSource,
+            declAliases = [],
+            declHeader =
+            "manual_examples.h"},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName
+                  "@NsConstr"
+                  "GlobalConfig"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:199:7",
+                  structFieldName = NamePair {
+                    nameC = CName "numThreads",
+                    nameHsIdent = HsIdentifier
+                      "globalConfig_numThreads"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "manual_examples.h:200:7",
+                  structFieldName = NamePair {
+                    nameC = CName "numWorkers",
+                    nameHsIdent = HsIdentifier
+                      "globalConfig_numWorkers"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "GlobalConfig",
+        structConstr = HsName
+          "@NsConstr"
+          "GlobalConfig",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "globalConfig_numThreads",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = StructField
+              StructField {
+                structFieldLoc =
+                "manual_examples.h:199:7",
+                structFieldName = NamePair {
+                  nameC = CName "numThreads",
+                  nameHsIdent = HsIdentifier
+                    "globalConfig_numThreads"},
+                structFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed),
+                structFieldOffset = 0,
+                structFieldWidth = Nothing}},
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "globalConfig_numWorkers",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = StructField
+              StructField {
+                structFieldLoc =
+                "manual_examples.h:200:7",
+                structFieldName = NamePair {
+                  nameC = CName "numWorkers",
+                  nameHsIdent = HsIdentifier
+                    "globalConfig_numWorkers"},
+                structFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed),
+                structFieldOffset = 32,
+                structFieldWidth = Nothing}}],
+        structOrigin = Just
+          Decl {
+            declInfo = DeclInfo {
+              declLoc =
+              "manual_examples.h:198:8",
+              declId = NamePair {
+                nameC = CName "globalConfig",
+                nameHsIdent = HsIdentifier
+                  "GlobalConfig"},
+              declOrigin = NameOriginInSource,
+              declAliases = [],
+              declHeader =
+              "manual_examples.h"},
+            declKind = Struct
+              Struct {
+                structNames = RecordNames
+                  (HsName
+                    "@NsConstr"
+                    "GlobalConfig"),
+                structSizeof = 8,
+                structAlignment = 4,
+                structFields = [
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:199:7",
+                    structFieldName = NamePair {
+                      nameC = CName "numThreads",
+                      nameHsIdent = HsIdentifier
+                        "globalConfig_numThreads"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 0,
+                    structFieldWidth = Nothing},
+                  StructField {
+                    structFieldLoc =
+                    "manual_examples.h:200:7",
+                    structFieldName = NamePair {
+                      nameC = CName "numWorkers",
+                      nameHsIdent = HsIdentifier
+                        "globalConfig_numWorkers"},
+                    structFieldType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    structFieldOffset = 32,
+                    structFieldWidth = Nothing}],
+                structFlam = Nothing},
+            declSpec = DeclSpec
+              TypeSpec {
+                typeSpecModule = Nothing,
+                typeSpecIdentifier = Nothing,
+                typeSpecInstances = Map.fromList
+                  []}},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
+      StorableInstance {
+        storableSizeOf = 8,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "GlobalConfig",
+                structConstr = HsName
+                  "@NsConstr"
+                  "GlobalConfig",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "globalConfig_numThreads",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "manual_examples.h:199:7",
+                        structFieldName = NamePair {
+                          nameC = CName "numThreads",
+                          nameHsIdent = HsIdentifier
+                            "globalConfig_numThreads"},
+                        structFieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "globalConfig_numWorkers",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "manual_examples.h:200:7",
+                        structFieldName = NamePair {
+                          nameC = CName "numWorkers",
+                          nameHsIdent = HsIdentifier
+                            "globalConfig_numWorkers"},
+                        structFieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:198:8",
+                      declId = NamePair {
+                        nameC = CName "globalConfig",
+                        nameHsIdent = HsIdentifier
+                          "GlobalConfig"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "GlobalConfig"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:199:7",
+                            structFieldName = NamePair {
+                              nameC = CName "numThreads",
+                              nameHsIdent = HsIdentifier
+                                "globalConfig_numThreads"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:200:7",
+                            structFieldName = NamePair {
+                              nameC = CName "numWorkers",
+                              nameHsIdent = HsIdentifier
+                                "globalConfig_numWorkers"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
+            [
+              PeekByteOff (Idx 0) 0,
+              PeekByteOff (Idx 0) 4]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "GlobalConfig",
+                structConstr = HsName
+                  "@NsConstr"
+                  "GlobalConfig",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "globalConfig_numThreads",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "manual_examples.h:199:7",
+                        structFieldName = NamePair {
+                          nameC = CName "numThreads",
+                          nameHsIdent = HsIdentifier
+                            "globalConfig_numThreads"},
+                        structFieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        structFieldOffset = 0,
+                        structFieldWidth = Nothing}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "globalConfig_numWorkers",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin = StructField
+                      StructField {
+                        structFieldLoc =
+                        "manual_examples.h:200:7",
+                        structFieldName = NamePair {
+                          nameC = CName "numWorkers",
+                          nameHsIdent = HsIdentifier
+                            "globalConfig_numWorkers"},
+                        structFieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        structFieldOffset = 32,
+                        structFieldWidth = Nothing}}],
+                structOrigin = Just
+                  Decl {
+                    declInfo = DeclInfo {
+                      declLoc =
+                      "manual_examples.h:198:8",
+                      declId = NamePair {
+                        nameC = CName "globalConfig",
+                        nameHsIdent = HsIdentifier
+                          "GlobalConfig"},
+                      declOrigin = NameOriginInSource,
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
+                    declKind = Struct
+                      Struct {
+                        structNames = RecordNames
+                          (HsName
+                            "@NsConstr"
+                            "GlobalConfig"),
+                        structSizeof = 8,
+                        structAlignment = 4,
+                        structFields = [
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:199:7",
+                            structFieldName = NamePair {
+                              nameC = CName "numThreads",
+                              nameHsIdent = HsIdentifier
+                                "globalConfig_numThreads"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 0,
+                            structFieldWidth = Nothing},
+                          StructField {
+                            structFieldLoc =
+                            "manual_examples.h:200:7",
+                            structFieldName = NamePair {
+                              nameC = CName "numWorkers",
+                              nameHsIdent = HsIdentifier
+                                "globalConfig_numWorkers"},
+                            structFieldType = TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            structFieldOffset = 32,
+                            structFieldWidth = Nothing}],
+                        structFlam = Nothing},
+                    declSpec = DeclSpec
+                      TypeSpec {
+                        typeSpecModule = Nothing,
+                        typeSpecIdentifier = Nothing,
+                        typeSpecInstances = Map.fromList
+                          []}},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
+              (Add 2)
+              (Seq
+                [
+                  PokeByteOff (Idx 3) 0 (Idx 0),
+                  PokeByteOff
+                    (Idx 3)
+                    4
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "GlobalConfig"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "GlobalConfig"),
+  DeclInlineCInclude
+    "manual_examples.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "globalConfig",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "GlobalConfig")),
+      foreignImportOrigName =
+      "globalConfig",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypeStruct
+          NamePair {
+            nameC = CName "globalConfig",
+            nameHsIdent = HsIdentifier
+              "GlobalConfig"}
+          NameOriginInSource)},
+  DeclInlineCInclude
+    "manual_examples.h",
+  DeclInlineC
+    "void testmodule_printGlobalConfig (void) { printGlobalConfig(); }",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "printGlobalConfig",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimUnit),
+      foreignImportOrigName =
+      "testmodule_printGlobalConfig",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid}}]
