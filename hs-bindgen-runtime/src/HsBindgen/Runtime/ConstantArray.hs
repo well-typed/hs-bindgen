@@ -3,7 +3,9 @@ module HsBindgen.Runtime.ConstantArray (
     ConstantArray
     -- * Construction
   , repeat
+  , fromList
     -- * Query
+  , toVector
   , toList
   , withPtr
   ) where
@@ -20,6 +22,7 @@ import Foreign.Storable (Storable (..))
 import GHC.TypeNats (KnownNat, Nat, natVal)
 
 import HsBindgen.Runtime.Marshal (ReadRaw, StaticSize, WriteRaw)
+import GHC.Stack
 
 {-------------------------------------------------------------------------------
   Definition
@@ -60,9 +63,28 @@ instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
 repeat :: forall n a. (KnownNat n, Storable a) => a -> ConstantArray n a
 repeat x = CA (VS.replicate (intVal (Proxy @n)) x)
 
+-- | Construct 'ConstantArray' from list
+--
+-- Precondition: the list must have the right number of elements.
+fromList :: forall n a.
+     (KnownNat n, Storable a, HasCallStack)
+  => [a] -> ConstantArray n a
+fromList xs
+  | length xs == n = CA (VS.fromList xs)
+  | otherwise = error $ "fromList: expected " ++ show n ++ " elements"
+  where
+    n = intVal (Proxy @n)
+
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
+
+-- | Get the underlying 'Vector' representation (@O(1)@)
+--
+-- This loses the type-level size information, but makes the full 'Vector'
+-- API available.
+toVector :: ConstantArray n a -> VS.Vector a
+toVector (CA xs) = xs
 
 toList :: Storable a => ConstantArray n a -> [a]
 toList (CA v) = VS.toList v
