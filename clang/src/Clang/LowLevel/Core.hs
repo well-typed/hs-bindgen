@@ -93,10 +93,12 @@ module Clang.LowLevel.Core (
     -- * Cursor manipulations
   , CXCursor(..)
   , CXCursorKind(..)
+  , CXTLSKind(..)
   , clang_getTranslationUnitCursor
   , clang_equalCursors
   , clang_getCursorSemanticParent
   , clang_getCursorLexicalParent
+  , clang_getCursorTLSKind
   , clang_Cursor_getArgument
   , clang_getNullCursor
   , clang_getCursorKind
@@ -121,6 +123,7 @@ module Clang.LowLevel.Core (
   , CXTypeKind(..)
   , CXTypeLayoutError(..)
   , CXType(..)
+  , CX_StorageClass(..)
   , cxtKind
   , clang_getCursorType
   , clang_getTypeKindSpelling
@@ -136,12 +139,16 @@ module Clang.LowLevel.Core (
   , clang_Type_getAlignOf
   , clang_Type_isTransparentTagTypedef
   , clang_Cursor_getOffsetOfField
+  , clang_Cursor_getStorageClass
   , clang_Cursor_isAnonymous
   , clang_Cursor_isAnonymousRecordDecl
   , clang_getEnumConstantDeclValue
   , clang_getCanonicalType
   , clang_getTypedefName
   , clang_getUnqualifiedType
+  , clang_isConstQualifiedType
+  , clang_isVolatileQualifiedType
+  , clang_isRestrictQualifiedType
   , clang_getTypeDeclaration
   , clang_isFunctionTypeVariadic
   , clang_getResultType
@@ -794,6 +801,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_getTranslationUnitCursor"
 foreign import capi unsafe "wrap_Cursor_getTranslationUnit"
   wrap_Cursor_getTranslationUnit :: R CXCursor_ -> IO CXTranslationUnit
 
+foreign import capi unsafe "wrap_getCursorTLSKind"
+  wrap_getCursorTLSKind :: R CXCursor_ -> IO (SimpleEnum CXTLSKind)
+
 -- | Retrieve the cursor that represents the given translation unit.
 --
 -- The translation unit cursor can be used to start traversing the various
@@ -886,6 +896,11 @@ clang_getCursorLexicalParent :: MonadIO m => CXCursor -> m CXCursor
 clang_getCursorLexicalParent cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorLexicalParent cursor'
+
+clang_getCursorTLSKind :: MonadIO m => CXCursor -> m (SimpleEnum CXTLSKind)
+clang_getCursorTLSKind cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getCursorTLSKind cursor'
 
 clang_Cursor_getArgument :: MonadIO m => CXCursor -> Int -> m CXCursor
 clang_Cursor_getArgument cursor i = liftIO $
@@ -1181,6 +1196,9 @@ foreign import capi unsafe "clang_wrappers.h"
 foreign import capi unsafe "clang_wrappers.h"
   wrap_getUnqualifiedType :: R CXType_ -> W CXType_ -> IO ()
 
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Cursor_getStorageClass :: R CXCursor_ -> IO (SimpleEnum CX_StorageClass)
+
 -- | Extract the @kind@ field from a @CXType@ struct
 --
 -- <https://clang.llvm.org/doxygen/structCXType.html#ab27a7510dc88b0ec80cff04ec89901aa>
@@ -1322,6 +1340,21 @@ clang_Cursor_getOffsetOfField cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       wrap_Cursor_getOffsetOfField cursor'
 
+-- | Returns the storage class for a function or variable declaration.
+--
+-- Throws 'CallFailed' if the passed in Cursor is not a function or variable
+-- declaration.
+--
+-- NOTE: Storage classes cannot be combined.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga230c7904f3878469d772f3e464b9c83d>
+clang_Cursor_getStorageClass ::
+     MonadIO m
+  => CXCursor -> m (SimpleEnum CX_StorageClass)
+clang_Cursor_getStorageClass cursor = liftIO $ ensure (/= coerceSimpleEnum 0) $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_Cursor_getStorageClass cursor'
+
 -- | Determine whether the given cursor represents an anonymous tag or
 -- namespace.
 --
@@ -1440,6 +1473,39 @@ clang_getUnqualifiedType typ = liftIO $ do
       Right{}                  -> pure ()
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getUnqualifiedType typ'
+
+-- | Determine whether a 'CXType' has the @const@ qualifier set, without
+-- looking through typedefs that may have added "const" at a different level.
+--
+-- See also 'clang_getCanonicalType'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8c3f8029254d5862bcd595d6c8778e5b>
+clang_isConstQualifiedType :: MonadIO m => CXType -> m Bool
+clang_isConstQualifiedType typ = liftIO $ do
+    onHaskellHeap typ $ \typ' ->
+      cToBool <$> wrap_isConstQualifiedType typ'
+
+-- | Determine whether a 'CXType' has the @volatile@ qualifier set, without
+-- looking through typedefs that may have added "volatile" at a different level.
+--
+-- See also 'clang_getCanonicalType'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaac0ac93cded7d1e5c60f539daaed13ec>
+clang_isVolatileQualifiedType :: MonadIO m => CXType -> m Bool
+clang_isVolatileQualifiedType typ = liftIO $ do
+    onHaskellHeap typ $ \typ' ->
+      cToBool <$> wrap_isVolatileQualifiedType typ'
+
+-- | Determine whether a 'CXType' has the @restrict@ qualifier set, without
+-- looking through typedefs that may have added "restrict" at a different level.
+--
+-- See also 'clang_getCanonicalType'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga12375c30c12b0c3ede87492605db1d0c>
+clang_isRestrictQualifiedType :: MonadIO m => CXType -> m Bool
+clang_isRestrictQualifiedType typ = liftIO $ do
+    onHaskellHeap typ $ \typ' ->
+      cToBool <$> wrap_isRestrictQualifiedType typ'
 
 -- | Return the cursor for the declaration of the given type.
 --
