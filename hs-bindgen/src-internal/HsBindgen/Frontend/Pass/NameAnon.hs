@@ -209,13 +209,16 @@ instance NameUseSites C.Type where
 -- | Construct name for anonymous declaration
 nameForAnon :: UseOfDecl -> CName
 nameForAnon = \case
-      UsedByNamed (UsedInTypedef ByValue) cQualName ->
-        C.qualNameName cQualName
-      UsedByNamed (UsedInTypedef ByRef) cQualName ->
-        C.qualNameName cQualName <> "_Deref"
-      UsedByNamed (UsedInField _valOrRef field) cQualName ->
-        C.qualNameName cQualName <> "_" <> field
-      UsedByNamed (UsedInFunction _valOrRef) cQualName ->
-        C.qualNameName cQualName
-      UsedByFieldOfAnon _valOrRef field useOfAnon ->
-        nameForAnon useOfAnon <> "_" <> field
+      UsedByNamed (UsedInTypedef ByValue) typedefName ->
+        C.qualNameName typedefName
+      UsedByNamed (UsedInTypedef ByRef) typedefName ->
+        C.qualNameName typedefName <> "_Deref"
+      UsedByNamed (UsedInField _valOrRef fieldName) typeName ->
+        C.qualNameName typeName <> "_" <> fieldName
+      UsedByFieldOfAnon _valOrRef fieldName useOfAnon ->
+        nameForAnon useOfAnon <> "_" <> fieldName
+
+      -- Anonymous declarations used by functions cannot happen: we rule these
+      -- out in the parser (see 'functionDecl').
+      UsedByNamed (UsedInFunction _valOrRef) _functionName ->
+        panicPure "nameForAnon: unexpected anonymous declaration in signature"

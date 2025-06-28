@@ -11,6 +11,8 @@ module HsBindgen.Language.C.Name (
 
 import Data.Text qualified as Text
 
+import Clang.HighLevel (ShowFile(..))
+import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
@@ -24,8 +26,13 @@ import Text.SimplePrettyPrint (showToCtxDoc, textToCtxDoc, (><))
 newtype AnonId = AnonId SingleLoc
   deriving stock (Show, Eq, Ord, Generic)
 
+-- | We mimick the syntax used by clang itself for anonymous declarations
 instance PrettyForTrace AnonId where
-  prettyForTrace (AnonId loc) = "<" >< showToCtxDoc loc >< ">"
+  prettyForTrace (AnonId loc) = fromString $ concat [
+        "(unnamed at "
+      , HighLevel.prettySingleLoc ShowFile loc
+      , ")"
+      ]
 
 {-------------------------------------------------------------------------------
   CName
@@ -45,7 +52,7 @@ newtype CName = CName {
   deriving stock (Generic)
 
 instance PrettyForTrace CName where
-  prettyForTrace = textToCtxDoc . getCName
+  prettyForTrace (CName name) = "'" >< textToCtxDoc name >< "'"
 
 {-------------------------------------------------------------------------------
   NameKind

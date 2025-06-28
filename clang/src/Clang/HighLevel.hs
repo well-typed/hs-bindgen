@@ -17,6 +17,12 @@ module Clang.HighLevel (
   , clang_getPresumedLocation
   , clang_getSpellingLocation
   , clang_getFileLocation
+    -- ** Pretty-printing
+  , ShowFile(..)
+  , prettySingleLoc
+  , prettyMultiLoc
+  , prettyRangeSingleLoc
+  , prettyRangeMultiLoc
     -- ** Convenience wrappers
     -- *** for @CXSourceLocation@
   , clang_getDiagnosticLocation

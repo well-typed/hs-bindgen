@@ -1,0 +1,13 @@
+types:
+- headers: decls_in_signature.h
+  cname: struct opaque
+  module: Example
+  identifier: Opaque
+- headers: decls_in_signature.h
+  cname: struct outside
+  module: Example
+  identifier: Outside
+  instances:
+  - Eq
+  - Show
+  - Storable
