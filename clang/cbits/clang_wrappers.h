@@ -162,6 +162,10 @@ static inline CXTranslationUnit wrap_Cursor_getTranslationUnit(const CXCursor* c
     return clang_Cursor_getTranslationUnit(*cursor);
 }
 
+static inline enum CXTLSKind wrap_getCursorTLSKind(const CXCursor* cursor) {
+    return clang_getCursorTLSKind(*cursor);
+}
+
 /**
  * Traversing the AST with cursors
  *
@@ -254,6 +258,10 @@ static inline void wrap_getUnqualifiedType(const CXType* CT, CXType* result) {
     #if CINDEX_VERSION_MINOR >= 63
         *result = clang_getUnqualifiedType(*CT);
     #endif
+}
+
+static inline enum CX_StorageClass wrap_Cursor_getStorageClass(const CXCursor* C) {
+    return clang_Cursor_getStorageClass(*C);
 }
 
 /**

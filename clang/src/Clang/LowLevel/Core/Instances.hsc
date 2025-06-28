@@ -821,3 +821,41 @@ instance IsSimpleEnum CXDiagnosticSeverity where
   simpleFromC (#const CXDiagnostic_Fatal)   = Just CXDiagnostic_Fatal
 
   simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
+  CX_StorageClass
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CX_StorageClass where
+  simpleToC CX_SC_None                 = #const CX_SC_None
+  simpleToC CX_SC_Extern               = #const CX_SC_Extern
+  simpleToC CX_SC_Static               = #const CX_SC_Static
+  simpleToC CX_SC_PrivateExtern        = #const CX_SC_PrivateExtern
+  simpleToC CX_SC_OpenCLWorkGroupLocal = #const CX_SC_OpenCLWorkGroupLocal
+  simpleToC CX_SC_Auto                 = #const CX_SC_Auto
+  simpleToC CX_SC_Register             = #const CX_SC_Register
+
+  simpleFromC (#const CX_SC_None)                 = Just CX_SC_None
+  simpleFromC (#const CX_SC_Extern)               = Just CX_SC_Extern
+  simpleFromC (#const CX_SC_Static)               = Just CX_SC_Static
+  simpleFromC (#const CX_SC_PrivateExtern)        = Just CX_SC_PrivateExtern
+  simpleFromC (#const CX_SC_OpenCLWorkGroupLocal) = Just CX_SC_OpenCLWorkGroupLocal
+  simpleFromC (#const CX_SC_Auto)                 = Just CX_SC_Auto
+  simpleFromC (#const CX_SC_Register)             = Just CX_SC_Register
+
+  simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
+  CXTLSKind
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXTLSKind where
+  simpleToC CXTLS_None    = #const CXTLS_None
+  simpleToC CXTLS_Dynamic = #const CXTLS_Dynamic
+  simpleToC CXTLS_Static  = #const CXTLS_Static
+
+  simpleFromC (#const CXTLS_None)    = Just CXTLS_None
+  simpleFromC (#const CXTLS_Dynamic) = Just CXTLS_Dynamic
+  simpleFromC (#const CXTLS_Static)  = Just CXTLS_Static
+
+  simpleFromC _otherwise = Nothing

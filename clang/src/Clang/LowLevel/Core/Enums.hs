@@ -11,6 +11,8 @@ module Clang.LowLevel.Core.Enums (
   , CXCursorKind(..)
   , CXDiagnosticDisplayOptions(..)
   , CXDiagnosticSeverity(..)
+  , CX_StorageClass(..)
+  , CXTLSKind(..)
   ) where
 
 import GHC.Generics (Generic)
@@ -1267,4 +1269,38 @@ data CXDiagnosticSeverity =
     -- | This diagnostic indicates that the code is ill-formed such that future
     -- parser recovery is unlikely to produce useful results.
   | CXDiagnostic_Fatal
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
+
+{-------------------------------------------------------------------------------
+  CX_StorageClass
+-------------------------------------------------------------------------------}
+
+-- | Represents the storage classes as declared in the source.
+--
+-- NOTE: We omit @CX_SC_Invalid@ (zero) for the case that the passed cursor in
+-- not a declaration (and throw an error instead).
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga03a15eaa53465d7f3ce7d88743241d7e>
+data CX_StorageClass =
+    CX_SC_None
+  | CX_SC_Extern
+  | CX_SC_Static
+  | CX_SC_PrivateExtern
+  | CX_SC_OpenCLWorkGroupLocal
+  | CX_SC_Auto
+  | CX_SC_Register
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
+
+{-------------------------------------------------------------------------------
+  CXTLSKind
+-------------------------------------------------------------------------------}
+
+-- | Describe the \"thread-local storage (TLS) kind\" of the declaration
+-- referred to by a cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga4e9aabb46d683642ef49f542be4f1257>
+data CXTLSKind =
+    CXTLS_None
+  | CXTLS_Dynamic
+  | CXTLS_Static
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
