@@ -28,7 +28,8 @@ import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (hcat, showToCtxDoc, (><))
+import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
@@ -151,15 +152,6 @@ data ParseMsg =
     -- | We skipped over a declaration
     Skipped Predicate.SkipReason
 
-    -- | Struct with implicit fields
-  | UnsupportedImplicitFields {
-        -- | Name of the (outer) struct (which has implicit fields)
-        unsupportedImplicitFieldsIn :: DeclId
-
-        -- | The names of the implicit fields
-      , unsupportedImplicitFields :: [DeclId]
-      }
-
     -- | Unsupported type
     --
     -- Since types don't necessarily have associated source locations, we
@@ -168,36 +160,40 @@ data ParseMsg =
         unsupportedTypeContext   :: C.DeclInfo Parse
       , unsupportedTypeException :: ParseTypeException
       }
+
+    -- | Struct with implicit fields
+  | UnsupportedImplicitFields (C.DeclInfo Parse)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
       Skipped reason ->
           prettyForTrace reason
-      UnsupportedImplicitFields {..} -> hcat [
-          "Unsupported implicit fields "
-        , showToCtxDoc unsupportedImplicitFields
-        , " in "
-        , showToCtxDoc unsupportedImplicitFieldsIn
-        ]
-      UnsupportedType {..} -> hcat [
+      UnsupportedType {..} -> PP.hcat [
           "Encountered unsupported type while parsing "
-        , prettyForTrace (C.declId unsupportedTypeContext)
-        , " at "
-        , showToCtxDoc (C.declLoc unsupportedTypeContext)
+        , idAt unsupportedTypeContext
         , ": "
         , prettyForTrace unsupportedTypeException
-        , ". "
-        , "No bindings generated for "
-        , prettyForTrace (C.declId unsupportedTypeContext)
-        , "."
         ]
+      UnsupportedImplicitFields info -> PP.hcat [
+          "Unsupported implicit fields in "
+        , idAt info
+        ]
+    where
+      idAt :: C.DeclInfo Parse -> PP.CtxDoc
+      idAt info = PP.hcat [
+            prettyForTrace (C.declId info)
+          , " at "
+          , PP.showToCtxDoc (C.declLoc info)
+          ]
 
+
+-- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel ParseMsg where
   getDefaultLogLevel = \case
       Skipped reason              -> getDefaultLogLevel reason
-      UnsupportedImplicitFields{} -> Error
       UnsupportedType _ctxt err   -> getDefaultLogLevel err
+      UnsupportedImplicitFields{} -> Warning
 
 instance HasSource ParseMsg where
     getSource = const HsBindgen

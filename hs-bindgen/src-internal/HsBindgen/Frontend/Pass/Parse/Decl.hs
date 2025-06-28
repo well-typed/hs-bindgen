@@ -1,11 +1,8 @@
 -- | Fold declarations
 module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 
-import Control.Monad
-import Data.Bifunctor
 import Data.Either (partitionEithers)
 import Data.List qualified as List
-import GHC.Stack
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
@@ -20,9 +17,10 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
+import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -157,16 +155,12 @@ structDecl = simpleFold $ \curr -> do
         -- error when it happens. Hopefully this is anyway very rare.
         let partitionChildren :: [
                  Either [C.Decl Parse] (C.StructField Parse)]
-              -> ParseDecl ([C.Decl Parse], [C.StructField Parse])
-            partitionChildren xs = do
-                unless (null unused) $
-                  recordTrace $ UnsupportedImplicitFields {
-                      unsupportedImplicitFieldsIn =
-                        C.declId info
-                    , unsupportedImplicitFields =
-                        map (C.declId . C.declInfo) unused
-                    }
-                return (used, fields)
+              -> ParseDecl (Maybe ([C.Decl Parse], [C.StructField Parse]))
+            partitionChildren xs
+              | null unused = return $ Just (used, fields)
+              | otherwise   = do
+                  recordTrace $ UnsupportedImplicitFields info
+                  return Nothing
               where
                 otherDecls :: [C.Decl Parse]
                 fields     :: [C.StructField Parse]
@@ -176,8 +170,13 @@ structDecl = simpleFold $ \curr -> do
                 (used, unused) = detectStructImplicitFields otherDecls fields
 
         foldRecurseWith (declOrFieldDecl structFieldDecl) $ \xs -> do
-          (decls, fields) <- partitionChildren xs
-          return $ decls ++ [mkStruct fields]
+          mPartitioned <- partitionChildren xs
+          case mPartitioned of
+            Just (decls, fields) ->
+              return $ decls ++ [mkStruct fields]
+            Nothing ->
+              -- If the struct has implicit fields, don't generate anything.
+              return []
       DeclarationOpaque -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
