@@ -11,9 +11,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_by",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -29,9 +29,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_forall",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -47,9 +47,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_mdo",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -65,9 +65,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_pattern",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -83,9 +83,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_proc",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -101,9 +101,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_rec",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -119,9 +119,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_using",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -137,9 +137,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_anyclass",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -155,9 +155,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_capi",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -173,9 +173,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_cases",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -191,9 +191,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_ccall",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -209,9 +209,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_dynamic",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -227,9 +227,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_export",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -245,9 +245,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_family",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -263,9 +263,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_group",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -281,9 +281,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_interruptible",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -299,9 +299,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_javascript",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -317,9 +317,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_label",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -335,9 +335,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_prim",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -353,9 +353,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_role",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -371,9 +371,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_safe",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -389,9 +389,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_stdcall",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -407,9 +407,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_stock",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -425,9 +425,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_unsafe",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -443,9 +443,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_via",
-      foreignImportHeader = "names.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}}]

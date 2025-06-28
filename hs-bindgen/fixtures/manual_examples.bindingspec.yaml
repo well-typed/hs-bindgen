@@ -170,6 +170,14 @@ types:
   - Show
   - Storable
 - headers: manual_examples.h
+  cname: struct globalConfig
+  module: Example
+  identifier: GlobalConfig
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual_examples.h
   cname: enum index
   module: Example
   identifier: Index

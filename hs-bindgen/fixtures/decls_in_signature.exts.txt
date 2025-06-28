@@ -1,4 +1,7 @@
 CApiFFI
 TemplateHaskell
+DataKinds
+StandaloneDeriving
 DerivingStrategies
+DerivingVia
 EmptyDataDecls

@@ -30,6 +30,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros (HandleMacrosMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsg (..))
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId (DeclId)
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
 import HsBindgen.Frontend.Pass.Slice (ProgramSlicing (..))
 import HsBindgen.Frontend.Pass.Sort (SortMsg (..))
@@ -90,9 +91,9 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         , ("bitfields"                   , defaultTracePredicate)
         , ("bool"                        , defaultTracePredicate)
         , ("decls_in_signature"          ,
-            customTracePredicate ["'f1'", "'f2'", "'f3'", "'f4'", "'f5'"] $ \case
-              TraceFrontend (FrontendParse (UnsupportedDeclsInSignature{unsupportedDeclsInSignatureFun}))
-                -> Just . Expected . show . prettyForTrace $ C.declId unsupportedDeclsInSignatureFun
+            customTracePredicate' ["f3", "f4", "f5"] $ \case
+              TraceFrontend (FrontendParse (UnexpectedAnonInSignature info))
+                -> Just $ Expected (C.declId info)
               TraceClang (ClangDiagnostic _diag)
                 -> Just Tolerated
               _otherTrace
@@ -110,6 +111,34 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         , ("fixedwidth"                  , defaultTracePredicate)
         , ("flam"                        , defaultTracePredicate)
         , ("forward_declaration"         , defaultTracePredicate)
+        , ("globals"                     ,
+           let declsWithWarnings :: [DeclId]
+               declsWithWarnings = [
+                   -- non-extern non-static globals
+                   "nesInteger"
+                 , "nesFloating"
+                 , "nesString1"
+                 , "nesString2"
+                 , "nesCharacter"
+                 , "nesParen"
+                 , "nesUnary"
+                 , "nesBinary"
+                 , "nesConditional"
+                 , "nesCast"
+                 , "nesCompound"
+                 , "nesInitList"
+                 -- , "nesBool" -- TODO
+                   -- Other warnings
+                 , "unusableAnon"
+                 ] in
+           customTracePredicate' declsWithWarnings $ \case
+            TraceFrontend (FrontendParse (PotentialDuplicateGlobal info))
+             -> Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (UnexpectedAnonInExtern info))
+             -> Just $ Expected (C.declId info)
+            _otherTrace
+             -> Nothing
+          )
         , ("headers"                     , defaultTracePredicate)
         , ("macro_functions"             , defaultTracePredicate)
         , ("macro_in_fundecl_vs_typedef" , defaultTracePredicate)
@@ -131,13 +160,9 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         , ("simple_structs"              , defaultTracePredicate)
         , ("skip_over_long_double"       ,
            -- We expect a warning in two declarations
-           customTracePredicate ["'fun1'", "'struct1'"] $ \case
-            TraceFrontend (FrontendParse (UnsupportedType{
-                  unsupportedTypeContext
-                , unsupportedTypeException = UnsupportedLongDouble
-                })) ->
-              Just . Expected . show . prettyForTrace $
-                C.declId unsupportedTypeContext
+           customTracePredicate' ["fun1", "struct1"] $ \case
+            TraceFrontend (FrontendParse (UnsupportedType info UnsupportedLongDouble)) ->
+              Just $ Expected (C.declId info)
             _otherTrace ->
               Nothing
           )
@@ -224,6 +249,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
     , testGroup "examples/failing" [
           expectTrace
             "long_double"
+            configExamplesFailing
             (singleTracePredicate $ \case
               TraceFrontend (FrontendParse (UnsupportedType _ UnsupportedLongDouble))
                 -> Just $ Expected ()
@@ -232,6 +258,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
             )
         , expectTrace
             "implicit_fields_struct"
+            configExamplesFailing
             (singleTracePredicate $ \case
               TraceFrontend (FrontendParse (UnsupportedImplicitFields {}))
                 -> Just $ Expected ()
@@ -240,6 +267,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
             )
         , expectTrace
             "declaration_unselected_b"
+            configExamplesFailing
             (singleTracePredicate $ \case
               TraceFrontend (FrontendMangleNames (MissingDeclaration {}))
                 -> Just $ Expected ()
@@ -248,6 +276,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
             )
         , expectTrace
             "redeclaration_different"
+            configExamplesFailing
             (singleTracePredicate $ \case
               TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {})))
                 -> Just (Expected ())
@@ -259,6 +288,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
             )
         , expectTrace
             "fixedarray_res_a"
+            configExamplesFailing
             (singleTracePredicate $ \case
               TraceClang (ClangDiagnostic x)
                 | "brackets are not allowed here" `Text.isInfixOf` diagnosticSpelling x
@@ -270,12 +300,28 @@ tests packageRoot getExtBindingSpec getRustBindgen =
             )
         , expectTrace
             "fixedarray_res_b"
+            configExamplesFailing
             (singleTracePredicate $ \case
               TraceClang (ClangDiagnostic x)
                 | "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
                 -> Just (Expected ())
               TraceClang _
                 -> Just Tolerated
+              _otherTrace
+                -> Nothing
+            )
+        , expectTrace
+            "thread_local"
+            (configExamplesFailing{
+                -- @thread_local@ requires C23
+                configClangArgs = (configClangArgs configExamplesFailing){
+                    clangCStandard = Just C23
+                  }
+              }
+            )
+            (singleTracePredicate $ \case
+              TraceFrontend (FrontendParse (UnsupportedTLS{}))
+                -> Just $ Expected ()
               _otherTrace
                 -> Nothing
             )
@@ -416,8 +462,8 @@ tests packageRoot getExtBindingSpec getRustBindgen =
       , configHsModuleOpts = HsModuleOpts { hsModuleOptsName = "Example" }
       }
 
-    failConfig :: Config
-    failConfig = def {
+    configExamplesFailing :: Config
+    configExamplesFailing = def {
         configClangArgs = argsWith [
             "examples/failing"
           ]
@@ -436,12 +482,12 @@ tests packageRoot getExtBindingSpec getRustBindgen =
       let pSpec = Pipeline.emptyBindingSpec
       withTracePredicate predicate $ \tracer -> action tracer extSpec pSpec
 
-    expectTrace :: TestName -> TracePredicate TraceMsg -> TestTree
-    expectTrace name predicate = testCase name $ do
+    expectTrace :: TestName -> Config -> TracePredicate TraceMsg -> TestTree
+    expectTrace name config predicate = testCase name $ do
       withBindgenResources predicate getExtBindingSpec $ \tracer extSpec pSpec -> do
         let headerIncludePath = mkHeaderIncludePath name
         void $ Pipeline.translateCHeaders
-          "failWithTraceTest" tracer failConfig extSpec pSpec [headerIncludePath]
+          "failWithTraceTest" tracer config extSpec pSpec [headerIncludePath]
 
     checkVersion ::
          (TestName, (Int, Int, Int) -> Bool, TracePredicate TraceMsg)

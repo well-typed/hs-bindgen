@@ -12,36 +12,47 @@ import HsBindgen.Hs.AST (Strategy (..))
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
-    DComment {} ->
-        Set.empty
-    DVar _name ty _expr ->
+    DComment {} -> mconcat [
+      ]
+    DVar _name ty _expr -> mconcat [
         typeExtensions ty
-    DInst x -> Set.fromList $ catMaybes [
-          if length (instanceArgs x) >= 2
-            then Just TH.MultiParamTypeClasses
-            else Nothing
-        , if null (instanceTypes x)
-            then Nothing
-            else Just TH.TypeFamilies
-        ]
-    DRecord r ->
+      ]
+    DInst x -> mconcat . concat $ [
+        [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
+      , [ext TH.TypeFamilies          | not (null (instanceTypes x))]
+      ]
+    DRecord r -> mconcat [
         recordExtensions r
-        <> nestedDeriving (dataDeriv r)
-    DNewtype n ->
+      , nestedDeriving (dataDeriv r)
+      ]
+    DNewtype n -> mconcat [
         nestedDeriving (newtypeDeriv n)
-    DEmptyData{} ->
-        Set.singleton TH.EmptyDataDecls
-    DDerivingInstance strategy ty ->
-        Set.fromList [ TH.DerivingStrategies , TH.StandaloneDeriving ]
-        <> strategyExtensions strategy
-        <> typeExtensions ty
-    DForeignImport{} ->
+      ]
+    DEmptyData{} -> mconcat [
+        ext TH.EmptyDataDecls
+      ]
+    DDerivingInstance strategy ty -> mconcat [
+        Set.fromList [
+            TH.DerivingStrategies
+          , TH.StandaloneDeriving
+          ]
+      , strategyExtensions strategy
+      , typeExtensions ty
+      ]
+    DForeignImport ForeignImport{foreignImportType} -> mconcat [
         -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774
-        Set.singleton TH.CApiFFI
-    DPatternSynonym{} ->
-        Set.singleton TH.PatternSynonyms
-    DCSource{} ->
-        Set.singleton TH.TemplateHaskell
+        ext TH.CApiFFI
+      , typeExtensions foreignImportType
+      ]
+    DPatternSynonym{} -> mconcat [
+        ext TH.PatternSynonyms
+      ]
+    DCSource{} -> mconcat [
+        ext TH.TemplateHaskell
+      ]
+  where
+    ext :: TH.Extension -> Set TH.Extension
+    ext = Set.singleton
 
 -- | Extensions for deriving clauses that are part of the datatype declaration
 nestedDeriving :: [(Strategy ClosedType, [Global])] -> Set TH.Extension

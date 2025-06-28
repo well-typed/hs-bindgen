@@ -257,6 +257,30 @@ pub const CXCursorKind_CXCursor_CompoundStmt: CXCursorKind = 202;
 pub const CXCursorKind_CXCursor_OpenACCUpdateConstruct: CXCursorKind = 331;
 pub const CXCursorKind_CXCursor_LastStmt: CXCursorKind = 331;
 pub type CXCursorKind = ::std::os::raw::c_uint;
+/// Globals
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct globalConfig {
+    pub numThreads: ::std::os::raw::c_int,
+    pub numWorkers: ::std::os::raw::c_int,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of globalConfig"][::std::mem::size_of::<globalConfig>() - 8usize];
+    ["Alignment of globalConfig"][::std::mem::align_of::<globalConfig>() - 4usize];
+    [
+        "Offset of field: globalConfig::numThreads",
+    ][::std::mem::offset_of!(globalConfig, numThreads) - 0usize];
+    [
+        "Offset of field: globalConfig::numWorkers",
+    ][::std::mem::offset_of!(globalConfig, numWorkers) - 4usize];
+};
+extern "C" {
+    pub static mut globalConfig: globalConfig;
+}
+extern "C" {
+    pub fn printGlobalConfig();
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct person {

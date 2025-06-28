@@ -14,10 +14,9 @@
           (HsPrimType HsPrimCDouble)),
       foreignImportOrigName =
       "testmodule_erf",
-      foreignImportHeader =
-      "simple_func.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -43,10 +42,9 @@
               (HsPrimType HsPrimCDouble)))),
       foreignImportOrigName =
       "testmodule_bad_fma",
-      foreignImportHeader =
-      "simple_func.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -70,10 +68,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_no_args",
-      foreignImportHeader =
-      "simple_func.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -90,10 +87,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_no_args_no_void",
-      foreignImportHeader =
-      "simple_func.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -113,10 +109,9 @@
           (HsIO (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "testmodule_fun",
-      foreignImportHeader =
-      "simple_func.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim

@@ -1,5 +1,19 @@
 types:
 - headers: decls_in_signature.h
+  cname: struct named_struct
+  module: Example
+  identifier: Named_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: decls_in_signature.h
+  cname: union named_union
+  module: Example
+  identifier: Named_union
+  instances:
+  - Storable
+- headers: decls_in_signature.h
   cname: struct opaque
   module: Example
   identifier: Opaque

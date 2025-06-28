@@ -146,6 +146,7 @@ library internal
       HsBindgen.Hs.AST.Type
       HsBindgen.Hs.Origin
       HsBindgen.Hs.Translation
+      HsBindgen.Hs.CallConv
       HsBindgen.Imports
       HsBindgen.Language.C
       HsBindgen.Language.C.Literal

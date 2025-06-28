@@ -8,8 +8,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , ParseMsg(..)
   ) where
 
-import Data.List qualified as List
-
+import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -79,6 +78,11 @@ getUnparsedMacro unit curr = do
   Trace messages
 -------------------------------------------------------------------------------}
 
+-- | Parse messages
+--
+-- We distinguish between \"unsupported\", which refers to C features that
+-- one could reasonably expect to be supported eventually, and \"unexpected\",
+-- for strange C input.
 data ParseMsg =
     -- | We skipped over a declaration
     Skipped Predicate.SkipReason
@@ -87,17 +91,14 @@ data ParseMsg =
     --
     -- Since types don't necessarily have associated source locations, we
     -- instead record information about the enclosing declaration.
-  | UnsupportedType {
-        unsupportedTypeContext   :: C.DeclInfo Parse
-      , unsupportedTypeException :: ParseTypeException
-      }
+  | UnsupportedType (C.DeclInfo Parse) ParseTypeException
 
     -- | Struct with implicit fields
   | UnsupportedImplicitFields (C.DeclInfo Parse)
 
-    -- | Function signature with nested declarations
+    -- | Unexpected anonymous declaration inside function signature
     --
-    -- Examples:
+    -- Consider:
     --
     -- > void f(struct named { int x; int y; } arg);
     -- > void g(struct { int x; int y; } arg);
@@ -116,19 +117,51 @@ data ParseMsg =
     --
     -- > type definition not allowed
     --
-    -- Since it seems that such declarations are therefore anyway unusable, we
-    -- don't support them either. This avoids having to think about how to
-    -- /name/ such anonymous structs; we should perhaps use the function
-    -- parameters, but function signatures don't always list them; the name of
-    -- the function may not suffice, because there might be more than one; for
-    -- example in
+    -- It's not entirely clear if C23/WG14-N3037 affects this or not; @gcc@
+    -- warns about both declarations even with @-std=c2x@.
     --
-    -- > #define point struct { int x; int y; }
-    -- > void h(point p1, point p2);
-  | UnsupportedDeclsInSignature {
-        unsupportedDeclsInSignatureFun   :: C.DeclInfo Parse
-      , unsupportedDeclsInSignatureDecls :: [DeclId]
-      }
+    -- For our purposes, only the anonymous case is really problematic (we have
+    -- no way of assigning a name to the struct). Since it is relatively clear
+    -- that the anonymous version is anyway unusable (callers would have no way
+    -- of constructing any values), we rule them out.
+  | UnexpectedAnonInSignature (C.DeclInfo Parse)
+
+    -- | Unexpected anonymous declaration inside @extern@
+    --
+    -- Something like
+    --
+    -- > extern struct { .. } config;
+    --
+    -- does not make sense: this declares the existence of some externally
+    -- defined global variable, but it is impossible to actually define said
+    -- global variable; an attempt such as
+    --
+    -- > #include "config.h"
+    -- > struct { .. } config = ..
+    --
+    -- will result in an error: "conflicting types for 'config'".
+    --
+    -- The /header/ however by itself will not result in a @clang@ warning, so
+    -- we detect the siutation and warn the user in @hs-bindgen@.
+    --
+    -- (As of C23, the situation is different for /named/ structs: multiple
+    -- uses of a struct with the same name are considered compatible as of
+    -- WG14-N3037.)
+  | UnexpectedAnonInExtern (C.DeclInfo Parse)
+
+    -- | Thread local variables
+    --
+    -- <https://github.com/well-typed/hs-bindgen/issues/828>
+  | UnsupportedTLS (C.DeclInfo Parse)
+
+    -- | Variable declaration
+  | UnknownStorageClass (C.DeclInfo Parse) (SimpleEnum CX_StorageClass)
+
+    -- | Global variables without `extern` or `static`
+    --
+    -- Such definitions can lead to duplicate symbols (linker errors) if they
+    -- are included more than once (see manual section on globals for details).
+  | PotentialDuplicateGlobal (C.DeclInfo Parse)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace (C.DeclInfo Parse) where
@@ -147,31 +180,53 @@ instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
       Skipped reason ->
           prettyForTrace reason
-      UnsupportedType {..} -> PP.hcat [
-          "Encountered unsupported type while parsing "
-        , prettyForTrace unsupportedTypeContext
-        , ": "
-        , prettyForTrace unsupportedTypeException
+      UnsupportedType info err -> noBindingsGenerated info $
+          prettyForTrace err
+      UnsupportedImplicitFields info -> noBindingsGenerated info $
+          "unsupported implicit fields"
+      UnexpectedAnonInSignature info -> noBindingsGenerated info $
+          "unexpected anonymous declaration in function signature"
+      UnexpectedAnonInExtern info -> noBindingsGenerated info $
+          "unexpected anonymous declaration in global variable"
+      UnsupportedTLS info -> noBindingsGenerated info $
+          "unsupported thread-local variable"
+      UnknownStorageClass info storage -> noBindingsGenerated info $ PP.hsep [
+          "unsupported storage class"
+        , PP.showToCtxDoc storage
         ]
-      UnsupportedImplicitFields info -> PP.hsep [
-          "Unsupported implicit fields in"
-        , prettyForTrace info
+      PotentialDuplicateGlobal info -> PP.hcat [
+          "Bindings generated for "
+        , idAt info
+        , " may result in duplicate symbols; "
+        , "consider using 'static' or 'extern'"
         ]
-      UnsupportedDeclsInSignature{..} -> PP.hsep [
-          "Unsupported nested declarations in"
-        , prettyForTrace unsupportedDeclsInSignatureFun
-        , "of"
-        , PP.hcat $ List.intersperse ", " $
-            map prettyForTrace unsupportedDeclsInSignatureDecls
-        ]
+    where
+      noBindingsGenerated :: C.DeclInfo Parse -> PP.CtxDoc -> PP.CtxDoc
+      noBindingsGenerated info reason = PP.hcat [
+            "No bindings generated for "
+          , idAt info
+          , ": "
+          , reason
+          ]
+
+      idAt :: C.DeclInfo Parse -> PP.CtxDoc
+      idAt info = PP.hcat [
+            prettyForTrace (C.declId info)
+          , " at "
+          , PP.showToCtxDoc (C.declLoc info)
+          ]
 
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel ParseMsg where
   getDefaultLogLevel = \case
-      Skipped reason                -> getDefaultLogLevel reason
-      UnsupportedType _ctxt err     -> getDefaultLogLevel err
-      UnsupportedImplicitFields{}   -> Warning
-      UnsupportedDeclsInSignature{} -> Warning
+      Skipped reason              -> getDefaultLogLevel reason
+      UnsupportedType _ctxt err   -> getDefaultLogLevel err
+      UnsupportedImplicitFields{} -> Warning
+      UnexpectedAnonInSignature{} -> Warning
+      UnexpectedAnonInExtern{}    -> Warning
+      UnsupportedTLS{}            -> Warning
+      UnknownStorageClass{}       -> Warning
+      PotentialDuplicateGlobal{}  -> Notice
 
 instance HasSource ParseMsg where
     getSource = const HsBindgen

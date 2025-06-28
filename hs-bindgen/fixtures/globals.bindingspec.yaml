@@ -1,0 +1,17 @@
+types:
+- headers: globals.h
+  cname: struct config
+  module: Example
+  identifier: Config
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: globals.h
+  cname: struct inline_struct
+  module: Example
+  identifier: Inline_struct
+  instances:
+  - Eq
+  - Show
+  - Storable

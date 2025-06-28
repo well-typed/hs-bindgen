@@ -207,7 +207,7 @@ hashInclude ::
 hashInclude fps HashIncludeOpts {..} = do
   quoteIncludeDirs <- toFilePaths extraIncludeDirs
   let tracerConf :: TracerConfig
-      tracerConf = def { tVerbosity = Verbosity Warning }
+      tracerConf = def { tVerbosity = Verbosity Notice }
   maybeDecls <- withTracerStdOut tracerConf $ \tracer -> do
     let args :: ClangArgs
         args = def {

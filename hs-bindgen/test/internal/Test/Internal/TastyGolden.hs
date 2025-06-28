@@ -83,7 +83,10 @@ runGoldenSteps (GoldenSteps getGolden getTested cmp update) progress opts = do
         Left e
             | Just _ <- fromException @AsyncException e -> throwIO e
             | otherwise ->
-                return $ testFailed $ displayException (e :: SomeException)
+                return $ testFailed $ concat [
+                    displayException (e :: SomeException)
+                  , unlines msgs
+                  ]
 
         Right new -> do
             -- get expected value

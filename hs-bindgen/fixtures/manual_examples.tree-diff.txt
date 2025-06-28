@@ -1743,5 +1743,103 @@ TranslationUnit {
           typeSpecModule = Nothing,
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:198:8",
+        declId = NamePair {
+          nameC = CName "globalConfig",
+          nameHsIdent = HsIdentifier
+            "GlobalConfig"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "GlobalConfig"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:199:7",
+              structFieldName = NamePair {
+                nameC = CName "numThreads",
+                nameHsIdent = HsIdentifier
+                  "globalConfig_numThreads"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "manual_examples.h:200:7",
+              structFieldName = NamePair {
+                nameC = CName "numWorkers",
+                nameHsIdent = HsIdentifier
+                  "globalConfig_numWorkers"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:203:28",
+        declId = NamePair {
+          nameC = CName "globalConfig",
+          nameHsIdent = HsIdentifier
+            "globalConfig"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
+      declKind = DeclExtern
+        (TypeStruct
+          NamePair {
+            nameC = CName "globalConfig",
+            nameHsIdent = HsIdentifier
+              "GlobalConfig"}
+          NameOriginInSource),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "manual_examples.h:205:6",
+        declId = NamePair {
+          nameC = CName
+            "printGlobalConfig",
+          nameHsIdent = HsIdentifier
+            "printGlobalConfig"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
             []}}],
   unitDeps = ["manual_examples"]}

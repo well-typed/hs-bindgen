@@ -9503,10 +9503,9 @@
                               ]})]})))),
       foreignImportOrigName =
       "testmodule_some_fun",
-      foreignImportHeader =
-      "distilled_lib_1.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -10393,4 +10392,26 @@
     Show
     (HsName
       "@NsTypeConstr"
-      "Callback_t")]
+      "Callback_t"),
+  DeclInlineCInclude
+    "distilled_lib_1.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "v",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "Var_t")),
+      foreignImportOrigName = "v",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = CName "var_t",
+              nameHsIdent = HsIdentifier
+                "Var_t"}))}]
