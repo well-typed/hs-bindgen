@@ -101,6 +101,8 @@ instance HandleUseSites DeclKind where
       C.DeclTypedef typedef -> C.DeclTypedef (handleUseSites td typedef)
       C.DeclMacro macro     -> C.DeclMacro (handleUseSites td macro)
       C.DeclFunction fun    -> C.DeclFunction (handleUseSites td fun)
+      C.DeclExtern ty       -> C.DeclExtern (handleUseSites td ty)
+      C.DeclConst ty        -> C.DeclConst (handleUseSites td ty)
 
 instance HandleUseSites C.Struct where
   handleUseSites td C.Struct{..} = C.Struct{

@@ -12,6 +12,7 @@ import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId (DeclId)
 import HsBindgen.Frontend.Pass.Slice.IsPass (ProgramSlicing (..))
 import HsBindgen.Language.C.Name
 import HsBindgen.Pipeline qualified as Pipeline
@@ -122,7 +123,7 @@ testCases = [
       -- Tets that require a trace predicate
       --
 
-    , testTraceCustom "decls_in_signature" ["f1", "f2", "f3", "f4", "f5"] $ \case
+    , testTraceCustom "decls_in_signature" ["f3", "f4", "f5"] $ \case
         TraceFrontend (FrontendParse (UnexpectedAnonInSignature info)) ->
           Just . Expected $ C.declId info
         TraceClang (ClangDiagnostic _diag) ->
@@ -194,23 +195,57 @@ testCases = [
       -- Miscellaneous other tests that require special treatment
       --
 
-      -- Tests for which rust-bindgen fails (but we don't)
     , (defaultTest "fun_attributes") {
-          testTracePredicate = customTracePredicate' ["my_printf"] $ \case
+          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
+          -- We are currently issueing a "non-extern non'static global" warning
+          -- for @i@, which may not be correct @visibility@ is @hidden@.
+          testTracePredicate = customTracePredicate' ["my_printf", "i"] $ \case
              TraceFrontend (FrontendParse (UnsupportedType info UnsupportedVariadicFunction)) ->
+               Just $ Expected (C.declId info)
+             TraceFrontend (FrontendParse (PotentialDuplicateGlobal info)) ->
                Just $ Expected (C.declId info)
              _otherwise ->
                Nothing
-        , testRustBindgenFails = True
+        , testRustBindgen = RustBindgenFail
+        }
+    , let declsWithWarnings :: [DeclId]
+          declsWithWarnings = [
+                -- non-extern non-static globals
+                "nesInteger"
+              , "nesFloating"
+              , "nesString1"
+              , "nesString2"
+              , "nesCharacter"
+              , "nesParen"
+              , "nesUnary"
+              , "nesBinary"
+              , "nesConditional"
+              , "nesCast"
+              , "nesCompound"
+              , "nesInitList"
+              , "nesBool"
+              , "streamBinary"
+              , "streamBinary_len"
+              , "some_global_struct"
+                -- Other warnings
+              , "unusableAnon"
+              ]
+      in (defaultTest "globals") {
+          -- Getting different output from (the same version of) rust-bindgen
+          -- for this test on CI than locally. Unsure why, compiled against
+          -- different llvm version? For now we just disable it.
+          testRustBindgen    = RustBindgenIgnore
+        , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
+            TraceFrontend (FrontendParse (PotentialDuplicateGlobal info)) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (UnexpectedAnonInExtern info)) ->
+              Just $ Expected (C.declId info)
+            _otherwise ->
+              Nothing
         }
     , (defaultTest "macro_strings") {
-          testRustBindgenFails = True
+          testRustBindgen = RustBindgenFail
         }
-    , (defaultTest "type_attributes") {
-          testRustBindgenFails = True
-        }
-
-      -- We can only properly detect /all/ anonymous structs with clang 19
     , (defaultTest "named_vs_anon"){
           testClangVersion   = Just $ (>= (19, 1, 0))
         , testTracePredicate = customTracePredicate [] $ \case
@@ -219,10 +254,9 @@ testCases = [
             _otherwise ->
               Nothing
         }
-
-      -- Check that program slicing generates bindings for uint32_t if we
-      -- remove it from the standard external binding specification
     , (defaultTest "program_slicing"){
+          -- Check that program slicing generates bindings for uint32_t if we
+          -- remove it from the standard external binding specification
           testOnConfig = \cfg -> cfg{
               configPredicate      = SelectAll
             , configProgramSlicing = EnableProgramSlicing
@@ -253,5 +287,16 @@ testCases = [
                 else Nothing
             _otherwise ->
               Nothing
+        }
+    , (defaultFailingTest "thread_local"){
+          testClangVersion   = Just $ (>= (16, 0, 0))
+        , testTracePredicate = singleTracePredicate $ \case
+            TraceFrontend (FrontendParse (UnsupportedTLS{})) ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+        }
+    , (defaultTest "type_attributes") {
+          testRustBindgen = RustBindgenFail
         }
     ]

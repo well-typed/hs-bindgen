@@ -15,22 +15,22 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test
-  | testRustBindgenFails test
-  = checkPanic testResources test
-
-  | otherwise
-  = goldenAnsiDiff "rust" fixture $ \report -> do
-      result <- callRustBindgen testResources input
-      case result of
-        RustBindgenSuccess stdout ->
-          return $ ActualValue stdout
-        RustBindgenFailed exitCode stderr -> do
-          report $ "Exit code: " <> show exitCode
-          report $ "stderr: "    <> stderr
-          return $ ActualFailed "rust-bindgen failed"
-        RustBindgenNotCalled ->
-          return $ ActualSkipped "rust-bindgen not available"
+check testResources test =
+    case testRustBindgen test of
+      RustBindgenIgnore -> testGroup "rust" []
+      RustBindgenFail   -> checkPanic testResources test
+      RustBindgenRun    ->
+        goldenAnsiDiff "rust" fixture $ \report -> do
+          result <- callRustBindgen testResources input
+          case result of
+            RustBindgenSuccess stdout ->
+              return $ ActualValue stdout
+            RustBindgenFailed exitCode stderr -> do
+              report $ "Exit code: " <> show exitCode
+              report $ "stderr: "    <> stderr
+              return $ ActualFailed "rust-bindgen failed"
+            RustBindgenNotCalled ->
+              return $ ActualSkipped "rust-bindgen not available"
   where
     input, fixture :: FilePath
     input   = "examples" </> "golden" </> (testName test ++ ".h")

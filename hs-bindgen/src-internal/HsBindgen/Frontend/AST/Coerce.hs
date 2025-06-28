@@ -46,6 +46,7 @@ instance (
     , CoercePass Union    p p'
     , CoercePass Typedef  p p'
     , CoercePass Function p p'
+    , CoercePass Type     p p'
     , MacroBody p ~ MacroBody p'
     ) => CoercePass DeclKind p p' where
   coercePass = \case
@@ -58,6 +59,8 @@ instance (
     DeclEnumOpaque        -> DeclEnumOpaque
     DeclMacro macro       -> DeclMacro macro
     DeclFunction function -> DeclFunction (coercePass function)
+    DeclExtern ty         -> DeclExtern (coercePass ty)
+    DeclConst ty          -> DeclConst (coercePass ty)
 
 instance (
       CoercePass StructField p p'

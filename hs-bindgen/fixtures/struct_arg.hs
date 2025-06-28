@@ -309,10 +309,9 @@
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "testmodule_thing_fun_1",
-      foreignImportHeader =
-      "struct_arg.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeStruct
@@ -344,10 +343,9 @@
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_thing_fun_2",
-      foreignImportHeader =
-      "struct_arg.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -388,10 +386,9 @@
                 (HsPrimType HsPrimUnit))))),
       foreignImportOrigName =
       "testmodule_thing_fun_3a",
-      foreignImportHeader =
-      "struct_arg.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -434,10 +431,9 @@
               (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
       "testmodule_thing_fun_3b",
-      foreignImportHeader =
-      "struct_arg.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim

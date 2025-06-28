@@ -73,7 +73,7 @@ parseVerbosity =
       mconcat [ short 'v'
               , long "verbosity"
               , metavar "INT"
-              , value 1
+              , value 2
               , help "Specify verbosity (0: error, 1: warning, 2: notice, 3: info, 4: debug);"
               , showDefault
               ])

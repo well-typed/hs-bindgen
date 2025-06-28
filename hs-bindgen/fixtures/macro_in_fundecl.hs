@@ -565,10 +565,9 @@
             (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
       "testmodule_quux",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeMacroTypedef
@@ -605,10 +604,9 @@
                   "C"))))),
       foreignImportOrigName =
       "testmodule_wam",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -646,10 +644,9 @@
               (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
       "testmodule_foo1",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -690,10 +687,9 @@
               (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
       "testmodule_foo2",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeMacroTypedef
@@ -738,10 +734,9 @@
                   "C"))))),
       foreignImportOrigName =
       "testmodule_foo3",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -780,10 +775,9 @@
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "testmodule_bar1",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -817,10 +811,9 @@
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "testmodule_bar2",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeMacroTypedef
@@ -857,10 +850,9 @@
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "testmodule_bar3",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -899,10 +891,9 @@
                     "I")))))),
       foreignImportOrigName =
       "testmodule_bar4",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -937,10 +928,9 @@
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "testmodule_baz1",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -975,10 +965,9 @@
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "testmodule_baz2",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeMacroTypedef
@@ -1018,10 +1007,9 @@
                     "I")))))),
       foreignImportOrigName =
       "testmodule_baz3",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -1050,10 +1038,9 @@
           (HsName "@NsTypeConstr" "I")),
       foreignImportOrigName =
       "testmodule_no_args_no_void",
-      foreignImportHeader =
-      "macro_in_fundecl.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeMacroTypedef

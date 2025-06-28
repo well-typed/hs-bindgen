@@ -34,6 +34,7 @@ import HsBindgen.Errors
 import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.CallConv
 import HsBindgen.Imports
 import HsBindgen.Language.C (canBeRepresentedAsRational)
 import HsBindgen.Language.Haskell
@@ -540,12 +541,39 @@ mkDecl = \case
           s' <- strategy s
           singleton <$> TH.standaloneDerivWithStrategyD (Just s') (TH.cxt []) (mkType EmptyEnv ty)
 
-      DForeignImport ForeignImport {..} ->
-           singleton . TH.ForeignD . TH.ImportF TH.CCall TH.Safe
-              (Text.unpack foreignImportOrigName)
-              (hsNameToTH foreignImportName)
-              <$>
-              (mkType EmptyEnv foreignImportType)
+      DForeignImport ForeignImport {..} -> fmap (singleton . TH.ForeignD) $ do
+          -- Variable names here refer to the syntax of foreign declarations at
+          -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
+          --
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
+          -- We should generate both safe and unsafe bindings.
+          let safety :: TH.Safety
+              safety = TH.Safe
+
+              callconv :: TH.Callconv
+              impent   :: String
+              (callconv, impent) =
+                case foreignImportCallConv of
+                  CallConvUserlandCAPI -> (TH.CCall,
+                      Text.unpack foreignImportOrigName
+                    )
+                  CallConvGhcCAPI header -> (TH.CApi, concat [
+                      header
+                    , Text.unpack foreignImportOrigName
+                    ])
+                  CallConvGhcCCall style -> (TH.CCall, concat [
+                      case style of
+                        ImportAsValue -> ""
+                        ImportAsPtr   -> "&"
+                    , Text.unpack foreignImportOrigName
+                    ])
+
+          TH.ImportF
+            <$> pure callconv
+            <*> pure safety
+            <*> pure impent
+            <*> pure (hsNameToTH foreignImportName)
+            <*> mkType EmptyEnv foreignImportType
 
       DPatternSynonym ps -> sequence
           [ TH.patSynSigD

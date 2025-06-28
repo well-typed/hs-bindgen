@@ -384,12 +384,13 @@ functionDecl info = simpleFold $ \curr -> do
               }
           , declAnn  = NoAnn
           }
-    foldRecurseWith parmDecl $ \nestedDecls -> do
-      case concat nestedDecls of
-        [] -> return [decl]
-        _  -> do
-          recordTrace $ UnexpectedAnonInSignature info
-          return []
+    foldRecurseWith nestedDecl $ \nestedDecls -> do
+      let (anonDecls, otherDecls) = partitionAnonDecls (concat nestedDecls)
+      if not (null anonDecls) then do
+        recordTrace $ UnexpectedAnonInSignature info
+        return []
+      else do
+        return $ otherDecls ++ [decl]
   where
     guardTypeFunction ::
          C.Type Parse
@@ -402,17 +403,17 @@ functionDecl info = simpleFold $ \curr -> do
             panicIO $ "Expected function type, but got " <> show otherType
 
     -- Look for (unsupported) declarations inside function parameters
-    parmDecl :: Fold ParseDecl [DeclId]
-    parmDecl = simpleFold $ \curr -> do
+    nestedDecl :: Fold ParseDecl [C.Decl Parse]
+    nestedDecl = simpleFold $ \curr -> do
         kind <- fromSimpleEnum <$> clang_getCursorKind curr
         case kind of
           -- 'ParmDecl' sometimes appear in nested in the AST
           Right CXCursor_ParmDecl ->
-            foldRecurseWith parmDecl (return . concat)
+            foldRecurseWith nestedDecl (return . concat)
 
-          -- Found a nested declaration
-          Right CXCursor_StructDecl -> report curr
-          Right CXCursor_UnionDecl  -> report curr
+          -- Nested declarations
+          Right CXCursor_StructDecl -> runFold foldDecl curr
+          Right CXCursor_UnionDecl  -> runFold foldDecl curr
 
           -- Harmless
           Right CXCursor_TypeRef        -> foldContinue
@@ -436,17 +437,101 @@ functionDecl info = simpleFold $ \curr -> do
           _otherwise -> do
             loc <- HighLevel.clang_getCursorLocation' curr
             panicIO $ "Unexpected " ++ show kind ++ " at " ++ show loc
-      where
-        report :: CXCursor -> ParseDecl (Next ParseDecl [DeclId])
-        report curr = do
-          decl <- getDeclId curr
-          foldContinueWith [decl]
 
 -- | Global variable declaration
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/42>
 varDecl :: Fold ParseDecl [C.Decl Parse]
-varDecl = simpleFold $ \_ -> foldContinue
+varDecl = simpleFold $ \curr -> do
+    info <- getDeclInfo curr
+    typ  <- fromCXType =<< clang_getCursorType curr
+    cls  <- classifyVarDecl curr
+    let mkDecl :: C.DeclKind Parse -> C.Decl Parse
+        mkDecl kind = C.Decl{
+            declInfo = info
+          , declKind = kind
+          , declAnn  = NoAnn
+          }
+
+    -- TODO: https://github.com/well-typed/hs-bindgen/issues/831
+    -- Call 'getReparseInfo' to support macro types in globals.
+
+    foldRecurseWith nestedDecl $ \nestedDecls -> do
+      let (anonDecls, otherDecls) = partitionAnonDecls (concat nestedDecls)
+      if not (null anonDecls) then do
+        recordTrace $ UnexpectedAnonInExtern info
+        return []
+      else (otherDecls ++) <$> do
+        case cls of
+          VarGlobal isExtern -> do
+            unless isExtern $
+              recordTrace $ PotentialDuplicateGlobal info
+            return [mkDecl $ C.DeclExtern typ]
+          VarConst isExternOrStatic -> do
+            unless isExternOrStatic $
+              recordTrace $ PotentialDuplicateGlobal info
+            return [mkDecl $ C.DeclConst typ]
+          VarThreadLocal -> do
+            recordTrace $ UnsupportedTLS info
+            return []
+          VarUnsupported storage -> do
+            recordTrace $ UnknownStorageClass info storage
+            return []
+  where
+    -- Look for nested declarations inside the global variable type
+    nestedDecl :: Fold ParseDecl [C.Decl Parse]
+    nestedDecl = simpleFold $ \curr -> do
+        kind <- fromSimpleEnum <$> clang_getCursorKind curr
+        case kind of
+          -- Reference to previously declared type can safely be skipped
+          Right CXCursor_TypeRef -> foldContinue
+
+          -- Nested /new/ declarations
+          Right CXCursor_StructDecl -> runFold foldDecl curr
+          Right CXCursor_UnionDecl  -> runFold foldDecl curr
+
+          -- Initializers
+          --
+          -- It's a bit annoying that we have to explicitly enumerate them, but
+          -- a catch-all may result in us ignoring nodes that we shouldn't.
+          --
+          -- The order here roughly matches the order of 'CXCursor'.
+          -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013>
+          Right CXCursor_IntegerLiteral      -> foldContinue
+          Right CXCursor_FloatingLiteral     -> foldContinue
+          -- TODO: CXCursor_ImaginaryLiteral
+          Right CXCursor_StringLiteral       -> foldContinue
+          Right CXCursor_ParenExpr           -> foldContinue
+          Right CXCursor_UnaryOperator       -> foldContinue
+          Right CXCursor_BinaryOperator      -> foldContinue
+          Right CXCursor_ConditionalOperator -> foldContinue
+          Right CXCursor_CStyleCastExpr      -> foldContinue
+          Right CXCursor_InitListExpr        -> foldContinue
+          Right CXCursor_CXXBoolLiteralExpr  -> foldContinue -- Since C23
+
+          -- Some initializers are \"unexposed\".
+          --
+          -- Not sure exactly when clang decides to expose an expression and
+          -- when it does not, but it seems it does this when constructing
+          -- /pointers/ to values, such as
+          --
+          -- > char* x = "hi";              // CXCursor_StringLiteral?
+          -- > int*  y = (int []){2, 4, 6}; // CXCursor_CompoundLiteralExpr?
+          --
+          -- String literals /are/ exposed when declaring an array:
+          --
+          -- > char z = "hi";
+          --
+          -- The only other example I'm currently aware of is characters
+          -- ('CXCursor_CharacterLiteral').
+          Right CXCursor_UnexposedExpr -> foldContinue
+
+          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
+          -- Take visibility into account.
+          Right CXCursor_VisibilityAttr -> foldContinue
+
+          -- Panic on anything we don't recognize
+          _otherwise -> do
+            loc <- HighLevel.clang_getCursorLocation' curr
+            panicIO $ "Unexpected " ++ show kind ++ " at " ++ show loc
 
 -- | Unexposed declarations
 --
@@ -465,8 +550,19 @@ attribute :: Fold ParseDecl a
 attribute = simpleFold $ \_ -> foldContinue
 
 {-------------------------------------------------------------------------------
-  Auxiliary: detect implicit fields
+  Internal auxiliary
 -------------------------------------------------------------------------------}
+
+-- | Partition declarations into anonymous and non-anonymous
+--
+-- We are only interested in the name of the declaration /itself/; if a named
+-- declaration /contains/ anonymous declarations, that's perfectly fine.
+partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
+partitionAnonDecls = List.partition (declIdIsAnon . C.declId . C.declInfo)
+  where
+    declIdIsAnon :: DeclId -> Bool
+    declIdIsAnon (DeclAnon _)  = True
+    declIdIsAnon (DeclNamed _) = False
 
 -- | Detect implicit fields inside a struct
 --
@@ -528,3 +624,61 @@ detectStructImplicitFields nestedDecls outerFields =
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = declQualDeclId decl `elem` fieldDeps
+
+data VarClassification =
+    -- | The simplest case: a simple global variable
+    --
+    -- > extern int simpleGlobal;
+    --
+    -- We record if the variable is declared @extern@ or not (if it isn't,
+    -- we issue a warning, as this may result in duplicate symbols).
+    VarGlobal Bool
+
+    -- | Global constants
+    --
+    -- > extern const int globalConstant;
+    -- > static const int staticConst = 123;
+    --
+    -- We record if the variable is declared @extern@ or @static@, for the same
+    -- reason as in 'VarGlobal'.
+    --
+    -- NOTE: `static` can be useful to be able to specify the /value/ of the
+    -- constant in the header file (perhaps so that the compiler can inline it).
+    -- However, `static` does not make sense without `const`: this would be a
+    -- mutable variable, but it would be local to any C file that included the
+    -- header; it would be invisible to the C API.
+    --
+    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/829>
+    -- We could in principle expose the /value/ of the constant, if we know it.
+  | VarConst Bool
+
+    -- | Thread local variables
+    --
+    -- We don't currently support thread-local variables.
+    -- <https://github.com/well-typed/hs-bindgen/issues/828>
+    --
+    -- This is a special case of 'VarUnsupported', for better error reporting.
+  | VarThreadLocal
+
+    -- | Unsupported storage class
+  | VarUnsupported (SimpleEnum CX_StorageClass)
+  deriving stock (Show)
+
+classifyVarDecl :: MonadIO m => CXCursor -> m VarClassification
+classifyVarDecl curr = do
+    tls <- clang_getCursorTLSKind curr
+    case fromSimpleEnum tls of
+      Right CXTLS_None -> do
+        storage   <- clang_Cursor_getStorageClass curr
+        typ       <- clang_getCursorType curr
+        canonical <- clang_getCanonicalType typ
+        isConst   <- clang_isConstQualifiedType canonical
+        case (fromSimpleEnum storage, isConst) of
+          (Right CX_SC_Extern , False) -> return $ VarGlobal True
+          (Right CX_SC_None   , False) -> return $ VarGlobal False
+          (Right CX_SC_Extern , True ) -> return $ VarConst True
+          (Right CX_SC_Static , True ) -> return $ VarConst True
+          (Right CX_SC_None   , True)  -> return $ VarConst False
+          _otherwise -> return $ VarUnsupported storage
+      _otherwise ->
+        return VarThreadLocal

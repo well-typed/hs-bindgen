@@ -24,6 +24,7 @@ import DeBruijn (Ctx, EmptyCtx, Idx, Add)
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.CallConv
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
@@ -308,7 +309,7 @@ data ForeignImport = ForeignImport
     { foreignImportName     :: HsName NsVar
     , foreignImportType     :: ClosedType
     , foreignImportOrigName :: Text
-    , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    , foreignImportCallConv :: CallConv
     , foreignImportOrigin   :: Origin.ForeignImport
     }
   deriving stock (Show)

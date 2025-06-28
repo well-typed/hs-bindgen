@@ -121,6 +121,8 @@ instance NameUseSites C.DeclKind where
       C.DeclTypedef typedef  -> C.DeclTypedef (nameUseSites env typedef)
       C.DeclMacro macro      -> C.DeclMacro (nameUseSites env macro)
       C.DeclFunction fun     -> C.DeclFunction (nameUseSites env fun)
+      C.DeclExtern ty        -> C.DeclExtern (nameUseSites env ty)
+      C.DeclConst ty         -> C.DeclConst (nameUseSites env ty)
 
 instance NameUseSites C.Struct where
   nameUseSites env C.Struct{..} = C.Struct{
@@ -241,7 +243,9 @@ nameForAnon = \case
       UsedByFieldOfAnon _valOrRef fieldName useOfAnon ->
         nameForAnon useOfAnon <> "_" <> fieldName
 
-      -- Anonymous declarations used by functions cannot happen: we rule these
-      -- out in the parser (see 'functionDecl').
+      -- Anonymous declarations in functions or globals are unsupported. See
+      -- 'functionDecl' and 'varDecl' in "HsBindgen.Frontend.Pass.Parse.Decl".
+      UsedByNamed (UsedInVar _valOrRef) _varName ->
+        panicPure "unsupported anonymous declaration in global"
       UsedByNamed (UsedInFunction _valOrRef) _functionName ->
-        panicPure "nameForAnon: unexpected anonymous declaration in signature"
+        panicPure "unsupported anonymous declaration in signature"

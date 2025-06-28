@@ -332,10 +332,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule___f1",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -352,10 +351,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_f1",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -383,10 +381,9 @@
               (HsPrimType HsPrimVoid)))),
       foreignImportOrigName =
       "testmodule_my_memalign",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeTypedef
@@ -427,10 +424,9 @@
               (HsPrimType HsPrimVoid)))),
       foreignImportOrigName =
       "testmodule_my_calloc",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeTypedef
@@ -468,10 +464,9 @@
               (HsPrimType HsPrimVoid)))),
       foreignImportOrigName =
       "testmodule_my_realloc",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer TypeVoid,
@@ -502,10 +497,9 @@
             (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
       "testmodule_my_alloc1",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeTypedef
@@ -535,10 +529,9 @@
             (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
       "testmodule_my_alloc2",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeTypedef
@@ -563,10 +556,9 @@
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "testmodule_square",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -586,10 +578,9 @@
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_old_fn",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypePrim
@@ -612,10 +603,9 @@
               (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
       "testmodule_my_dgettext",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -654,10 +644,9 @@
                   "FILE"))))),
       foreignImportOrigName =
       "testmodule_fdopen",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -692,10 +681,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_f2",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -722,10 +710,9 @@
                 (HsPrimType HsPrimVoid))))),
       foreignImportOrigName =
       "testmodule_my_memcpy",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer TypeVoid,
@@ -751,10 +738,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_fatal",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -772,10 +758,9 @@
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "testmodule_hash",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -804,10 +789,9 @@
             (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
       "testmodule_mymalloc",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeTypedef
@@ -831,10 +815,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_foobar",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -851,10 +834,9 @@
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_core2_func",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypePrim
@@ -872,10 +854,9 @@
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_sse3_func",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypePrim
@@ -893,13 +874,27 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_f3",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "i",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName = "i",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed))},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -913,10 +908,9 @@
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_fn",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypePrim
@@ -934,10 +928,9 @@
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_y",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypePrim
@@ -955,10 +948,9 @@
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_x1",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypePrim
@@ -976,10 +968,9 @@
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_x2",
-      foreignImportHeader =
-      "fun_attributes.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypePrim

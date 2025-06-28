@@ -46,15 +46,17 @@ handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
 processDecl :: C.Decl Slice -> M (Maybe (C.Decl HandleMacros))
 processDecl C.Decl{declInfo, declKind} =
     case declKind of
-      C.DeclMacro   macro   -> processMacro info' macro
+      C.DeclMacro macro     -> processMacro info' macro
       C.DeclTypedef typedef -> Just <$> processTypedef info' typedef
-      C.DeclStruct  struct  -> Just <$> processStruct info' struct
+      C.DeclStruct struct   -> Just <$> processStruct info' struct
       C.DeclStructOpaque    -> Just <$> processOpaque C.DeclStructOpaque info'
-      C.DeclUnion   union   -> Just <$> processUnion info' union
+      C.DeclUnion union     -> Just <$> processUnion info' union
       C.DeclUnionOpaque     -> Just <$> processOpaque C.DeclUnionOpaque info'
-      C.DeclEnum    enum    -> Just <$> processEnum info' enum
+      C.DeclEnum enum       -> Just <$> processEnum info' enum
       C.DeclEnumOpaque      -> Just <$> processOpaque C.DeclEnumOpaque info'
       C.DeclFunction fun    -> Just <$> processFunction info' fun
+      C.DeclExtern ty       -> Just <$> processGlobal info' C.DeclExtern ty
+      C.DeclConst ty        -> Just <$> processGlobal info' C.DeclConst ty
   where
     info' :: C.DeclInfo HandleMacros
     info' = coercePass declInfo
@@ -291,6 +293,22 @@ processFunction info C.Function {..} =
              }
          , declAnn = NoAnn
          }
+
+-- | Globals (externs or constants)
+--
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/831>
+-- We don't yet reparse these.
+processGlobal ::
+     C.DeclInfo HandleMacros
+  -> (C.Type HandleMacros -> C.DeclKind HandleMacros)
+  -> C.Type Slice
+  -> M (C.Decl HandleMacros)
+processGlobal info f ty =
+    return $ C.Decl{
+        declInfo = info
+      , declKind = f (coercePass ty)
+      , declAnn  = NoAnn
+      }
 
 {-------------------------------------------------------------------------------
   Internal: monad used for parsing macros

@@ -172,3 +172,4 @@ newtype Callback_t
                                             IO HsBindgen.Runtime.Prelude.Word32))}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+foreign import ccall safe "&v" v :: Ptr Var_t

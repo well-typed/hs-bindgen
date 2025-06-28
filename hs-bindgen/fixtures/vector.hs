@@ -434,10 +434,9 @@
                   "Vector"))))),
       foreignImportOrigName =
       "testmodule_new_vector",
-      foreignImportHeader =
-      "vector.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim

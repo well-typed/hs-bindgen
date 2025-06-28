@@ -23,6 +23,7 @@ import HsBindgen.Backend.PP.Names
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type (HsPrimType (..))
+import HsBindgen.Hs.CallConv
 import HsBindgen.Imports
 import HsBindgen.Language.C (canBeRepresentedAsRational)
 import HsBindgen.Language.Haskell
@@ -153,13 +154,41 @@ instance Pretty SDecl where
             ]
 
     DForeignImport ForeignImport{..} ->
-      let importStr = Text.unpack foreignImportOrigName
-      in hsep [ "foreign import ccall safe"
-              , "\"" >< string importStr >< "\""
-              , pretty foreignImportName
-              , "::"
-              , pretty foreignImportType
-              ]
+      -- Variable names here refer to the syntax of foreign declarations at
+      -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
+      --
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
+      -- We should generate both safe and unsafe bindings.
+      let safety :: CtxDoc
+          safety = "safe"
+
+          -- TODO: We should escape special characters inside these import
+          -- strings (at the very least quotes in filenames?)
+          callconv, impent :: CtxDoc
+          (callconv, impent) =
+            case foreignImportCallConv of
+              CallConvUserlandCAPI -> ("ccall",
+                  string $ Text.unpack foreignImportOrigName
+                )
+              CallConvGhcCAPI header -> ("capi", hcat [
+                  string header
+                , string $ Text.unpack foreignImportOrigName
+                ])
+              CallConvGhcCCall style -> ("capi", hcat [
+                  case style of
+                    ImportAsValue -> ""
+                    ImportAsPtr   -> "&"
+                , string $ Text.unpack foreignImportOrigName
+                ])
+      in hsep [
+          "foreign import"
+        , callconv
+        , safety
+        , "\"" >< impent >< "\""
+        , pretty foreignImportName
+        , "::"
+        , pretty foreignImportType
+        ]
 
     DDerivingInstance s t -> "deriving" <+> strategy s <+> "instance" <+> pretty t
 

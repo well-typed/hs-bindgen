@@ -243,10 +243,9 @@
             (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
       "testmodule_quux1",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeMacroTypedef
@@ -284,10 +283,9 @@
                 "TC")))),
       foreignImportOrigName =
       "testmodule_quux2",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeMacroTypedef
@@ -327,10 +325,9 @@
                   "MC"))))),
       foreignImportOrigName =
       "testmodule_wam1",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -371,10 +368,9 @@
                   "TC"))))),
       foreignImportOrigName =
       "testmodule_wam2",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -1695,10 +1691,9 @@
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef1",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -1740,10 +1735,9 @@
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef2",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -1780,10 +1774,9 @@
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_typedef3",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -1823,10 +1816,9 @@
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name1",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -1863,10 +1855,9 @@
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name2",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
@@ -1903,10 +1894,9 @@
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
       "testmodule_struct_name3",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer
