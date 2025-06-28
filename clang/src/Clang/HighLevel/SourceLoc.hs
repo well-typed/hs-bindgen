@@ -17,6 +17,15 @@ module Clang.HighLevel.SourceLoc (
   , clang_getPresumedLocation
   , clang_getSpellingLocation
   , clang_getFileLocation
+    -- * Pretty-printing
+    --
+    -- We export these separately, because the 'Show' instance also adds quotes
+    -- (in order to produce valid Haskell syntax).
+  , ShowFile(..)
+  , prettySingleLoc
+  , prettyMultiLoc
+  , prettyRangeSingleLoc
+  , prettyRangeMultiLoc
     -- * Convenience wrappers
     -- * for @CXSourceLocation@
   , clang_getDiagnosticLocation
@@ -164,8 +173,8 @@ rangeContainsLoc Range{rangeStart, rangeEnd} loc = do
   instances which we do not (yet?) define.
 -------------------------------------------------------------------------------}
 
-instance Show SingleLoc         where show = show . prettySingleLoc True
-instance Show MultiLoc          where show = show . prettyMultiLoc  True
+instance Show SingleLoc         where show = show . prettySingleLoc ShowFile
+instance Show MultiLoc          where show = show . prettyMultiLoc  ShowFile
 instance Show (Range SingleLoc) where show = show . prettyRangeSingleLoc
 instance Show (Range MultiLoc)  where show = show . prettyRangeMultiLoc
 
@@ -178,12 +187,12 @@ deriving stock instance {-# OVERLAPPABLE #-} Show a => Show (Range a)
   @SourceRange::print@ in @clang@.
 -------------------------------------------------------------------------------}
 
-type ShowFile = Bool
+data ShowFile = ShowFile | HideFile
 
 prettySingleLoc :: ShowFile -> SingleLoc -> String
 prettySingleLoc showFile loc =
     intercalate ":" . concat $ [
-        [ getSourcePath singleLocPath | showFile ]
+        [ getSourcePath singleLocPath | ShowFile <- [showFile] ]
       , [ show singleLocLine
         , show singleLocColumn
         ]
@@ -209,7 +218,9 @@ prettyMultiLoc showFile multiLoc =
     aux :: SingleLoc -> [Char]
     aux loc =
         prettySingleLoc
-          (singleLocPath loc /= singleLocPath multiLocExpansion)
+          (if singleLocPath loc == singleLocPath multiLocExpansion
+             then HideFile
+             else ShowFile)
           loc
 
 prettyRangeSingleLoc :: Range SingleLoc -> String
@@ -229,9 +240,11 @@ prettySourceRangeWith ::
   -> Range a -> String
 prettySourceRangeWith path pretty Range{rangeStart, rangeEnd} = concat [
       "<"
-    , pretty True rangeStart
+    , pretty ShowFile rangeStart
     , "-"
-    , pretty (path rangeStart /= path rangeEnd) rangeEnd
+    , pretty
+        (if path rangeStart == path rangeEnd then HideFile else ShowFile)
+        rangeEnd
     , ">"
     ]
 

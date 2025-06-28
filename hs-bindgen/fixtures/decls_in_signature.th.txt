@@ -1,0 +1,19 @@
+-- addDependentFile examples/golden/decls_in_signature.h
+-- #include "decls_in_signature.h"
+-- void test_internal_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }
+data Opaque
+data Outside
+    = Outside {outside_x :: CInt, outside_y :: CInt}
+    deriving stock (Eq, Show)
+instance Storable Outside
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Outside <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Outside outside_x_3
+                                             outside_y_4 -> pokeByteOff ptr_1 (0 :: Int) outside_x_3 >> pokeByteOff ptr_1 (4 :: Int) outside_y_4}}
+foreign import ccall safe "test_internal_normal" normal_wrapper :: Ptr Opaque ->
+                                                                   Ptr Outside ->
+                                                                   Ptr Outside -> IO Unit
+normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
+normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)

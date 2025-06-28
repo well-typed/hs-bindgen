@@ -89,11 +89,21 @@ tests packageRoot getExtBindingSpec getRustBindgen =
           )
         , ("bitfields"                   , defaultTracePredicate)
         , ("bool"                        , defaultTracePredicate)
+        , ("decls_in_signature"          ,
+            customTracePredicate ["'f1'", "'f2'", "'f3'", "'f4'", "'f5'"] $ \case
+              TraceFrontend (FrontendParse (UnsupportedDeclsInSignature{unsupportedDeclsInSignatureFun}))
+                -> Just . Expected . show . prettyForTrace $ C.declId unsupportedDeclsInSignatureFun
+              TraceClang (ClangDiagnostic _diag)
+                -> Just Tolerated
+              _otherTrace
+                -> Nothing
+          )
         , ("distilled_lib_1"             ,
-            customTracePredicate ["MacroErrorTc", "MacroErrorTc"] $ \case
-              TraceFrontend (FrontendHandleMacros (MacroErrorTc (TcErrors _)))
-                -> Just $ Expected "MacroErrorTc"
-              _otherTrace -> Nothing
+           customTracePredicate ["MacroErrorTc", "MacroErrorTc"] $ \case
+            TraceFrontend (FrontendHandleMacros (MacroErrorTc (TcErrors _)))
+              -> Just $ Expected "MacroErrorTc"
+            _otherTrace
+              -> Nothing
           )
         , ("enums"                       , defaultTracePredicate)
         , ("fixedarray"                  , defaultTracePredicate)
@@ -121,7 +131,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         , ("simple_structs"              , defaultTracePredicate)
         , ("skip_over_long_double"       ,
            -- We expect a warning in two declarations
-           customTracePredicate ["fun1", "struct1"] $ \case
+           customTracePredicate ["'fun1'", "'struct1'"] $ \case
             TraceFrontend (FrontendParse (UnsupportedType{
                   unsupportedTypeContext
                 , unsupportedTypeException = UnsupportedLongDouble

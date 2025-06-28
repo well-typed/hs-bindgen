@@ -380,8 +380,15 @@ functionDecl = simpleFold $ \curr -> do
               }
           , declAnn  = NoAnn
           }
-    -- TODO (#684): Handle inline type declarations.
-    foldContinueWith [decl]
+    foldRecurseWith parmDecl $ \nestedDecls -> do
+      case concat nestedDecls of
+        [] -> return [decl]
+        ds -> do
+          recordTrace UnsupportedDeclsInSignature{
+              unsupportedDeclsInSignatureFun   = info
+            , unsupportedDeclsInSignatureDecls = ds
+            }
+          return []
   where
     guardTypeFunction ::
          C.Type Parse
@@ -392,6 +399,35 @@ functionDecl = simpleFold $ \curr -> do
             pure (args, res)
           otherType ->
             panicIO $ "Expected function type, but got " <> show otherType
+
+    -- Look for (unsupported) declarations inside function parameters
+    parmDecl :: Fold ParseDecl [DeclId]
+    parmDecl = simpleFold $ \curr -> do
+        kind <- fromSimpleEnum <$> clang_getCursorKind curr
+        case kind of
+          -- 'ParmDecl' sometimes appear in nested in the AST
+          Right CXCursor_ParmDecl ->
+            foldRecurseWith parmDecl (return . concat)
+
+          -- Found a nested declaration
+          Right CXCursor_StructDecl -> report curr
+          Right CXCursor_UnionDecl  -> report curr
+
+          -- Harmless
+          Right CXCursor_TypeRef        -> foldContinue
+          Right CXCursor_IntegerLiteral -> foldContinue
+          Right CXCursor_UnexposedAttr  -> foldContinue
+
+          -- Panic on anything we don't recognize
+          -- We could instead use 'foldContinue' here, but this is safer.
+          _otherwise -> do
+            loc <- HighLevel.clang_getCursorLocation' curr
+            panicIO $ "Unexpected " ++ show kind ++ " at " ++ show loc
+      where
+        report :: CXCursor -> ParseDecl (Next ParseDecl [DeclId])
+        report curr = do
+          decl <- getDeclId curr
+          foldContinueWith [decl]
 
 -- | Global variable declaration
 --

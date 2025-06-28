@@ -1,0 +1,109 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "decls_in_signature.h:2:8",
+        declId = NamePair {
+          nameC = CName "opaque",
+          nameHsIdent = HsIdentifier
+            "Opaque"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclStructOpaque,
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "decls_in_signature.h:3:8",
+        declId = NamePair {
+          nameC = CName "outside",
+          nameHsIdent = HsIdentifier
+            "Outside"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Outside"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "decls_in_signature.h:4:7",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "outside_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "decls_in_signature.h:5:7",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "outside_y"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "decls_in_signature.h:7:6",
+        declId = NamePair {
+          nameC = CName "normal",
+          nameHsIdent = HsIdentifier
+            "normal"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = CName "opaque",
+                  nameHsIdent = HsIdentifier
+                    "Opaque"}
+                NameOriginInSource),
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = CName "outside",
+                  nameHsIdent = HsIdentifier
+                    "Outside"}
+                NameOriginInSource),
+            TypeStruct
+              NamePair {
+                nameC = CName "outside",
+                nameHsIdent = HsIdentifier
+                  "Outside"}
+              NameOriginInSource],
+          functionRes = TypeVoid,
+          functionHeader =
+          "decls_in_signature.h"},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "decls_in_signature"]}
