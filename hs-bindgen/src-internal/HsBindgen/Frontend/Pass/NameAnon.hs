@@ -217,9 +217,5 @@ nameForAnon = \case
         C.qualNameName cQualName <> "_" <> field
       UsedByNamed (UsedInFunction _valOrRef) cQualName ->
         C.qualNameName cQualName
-      UsedByAnon (UsedInTypedef _valOrRef) _useOfAnon ->
-        panicPure $ "nameForAnon: unexpected anonymous typedef"
-      UsedByAnon (UsedInField _valOrRef field) useOfAnon ->
+      UsedByFieldOfAnon _valOrRef field useOfAnon ->
         nameForAnon useOfAnon <> "_" <> field
-      UsedByAnon (UsedInFunction _valOrRef) _useOfAnon ->
-        panicPure $ "nameForAnon: unexpected anonymous argument or return type"

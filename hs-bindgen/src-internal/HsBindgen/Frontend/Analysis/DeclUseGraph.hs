@@ -23,9 +23,11 @@ import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph, Usage (..))
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
+import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -56,7 +58,7 @@ fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
 
 data UseOfDecl =
     UsedByNamed Usage C.QualName
-  | UsedByAnon Usage UseOfDecl
+  | UsedByFieldOfAnon ValOrRef (FieldName Parse) UseOfDecl
   deriving stock (Show)
 
 -- | Find direct or indirect use by a named declaration, if it exists
@@ -78,7 +80,7 @@ findNamedUseOf declIndex (Wrap graph) =
             f <- get
             return $ Right . Just $ f (UsedByNamed u (C.QualName name nk))
           DeclAnon _anonId -> do
-            modify (. UsedByAnon u)
+            modify (. usedByAnon d u)
             return $ Left qid
       where
         qid@(QualDeclId uid nk) = declQualDeclId d
@@ -86,6 +88,13 @@ findNamedUseOf declIndex (Wrap graph) =
         return $ Right Nothing
     aux (_:_:_) =
         panicPure "findUseOfAnon: impossible multiple use of anon decl"
+
+    usedByAnon :: C.Decl Parse -> Usage -> UseOfDecl -> UseOfDecl
+    usedByAnon _ (UsedInField valOrRef name) =
+        UsedByFieldOfAnon valOrRef name
+    usedByAnon d _otherwise =
+        -- Anonymous functions or typedefs do not exist
+        panicPure $ "Unexpected anonymous " ++ show d
 
 {-------------------------------------------------------------------------------
   Query: aliases of declarations
