@@ -1,3 +1,2 @@
-StandaloneDeriving
 DerivingStrategies
 GeneralizedNewtypeDeriving

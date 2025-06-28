@@ -1,20 +1,17 @@
 -- addDependentFile examples/golden/typedefs.h
-newtype Myint = Myint {un_Myint :: CInt}
-deriving newtype instance Storable Myint
-deriving stock instance Eq Myint
-deriving stock instance Ord Myint
-deriving stock instance Read Myint
-deriving stock instance Show Myint
-deriving newtype instance Enum Myint
-deriving newtype instance Ix Myint
-deriving newtype instance Bounded Myint
-deriving newtype instance Bits Myint
-deriving newtype instance FiniteBits Myint
-deriving newtype instance Integral Myint
-deriving newtype instance Num Myint
-deriving newtype instance Real Myint
-newtype Intptr = Intptr {un_Intptr :: (Ptr CInt)}
-deriving newtype instance Storable Intptr
-deriving stock instance Eq Intptr
-deriving stock instance Ord Intptr
-deriving stock instance Show Intptr
+newtype Myint
+    = Myint {un_Myint :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype Intptr
+    = Intptr {un_Intptr :: (Ptr CInt)}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable

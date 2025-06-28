@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Example where
@@ -27,12 +26,8 @@ fun_1 =
 newtype Triple = Triple
   { un_Triple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
-
-deriving newtype instance F.Storable Triple
-
-deriving stock instance Eq Triple
-
-deriving stock instance Show Triple
+  deriving stock (Eq, Show)
+  deriving newtype (F.Storable)
 
 foreign import ccall safe "testmodule_fun_2" fun_2_wrapper :: (F.Ptr FC.CInt) -> IO FC.CInt
 

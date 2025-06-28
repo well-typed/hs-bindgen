@@ -1,7 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Example where
@@ -17,6 +16,7 @@ data Vector = Vector
   { vector_x :: FC.CDouble
   , vector_y :: FC.CDouble
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Vector where
 
@@ -37,9 +37,5 @@ instance F.Storable Vector where
           Vector vector_x2 vector_y3 ->
                F.pokeByteOff ptr0 (0 :: Int) vector_x2
             >> F.pokeByteOff ptr0 (8 :: Int) vector_y3
-
-deriving stock instance Show Vector
-
-deriving stock instance Eq Vector
 
 foreign import ccall safe "testmodule_new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)

@@ -1,13 +1,11 @@
 -- addDependentFile examples/golden/enums.h
-newtype First = First {un_First :: CUInt}
+newtype First = First {un_First :: CUInt} deriving stock (Eq, Ord)
 instance Storable First
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {First un_First_3 -> pokeByteOff ptr_1 (0 :: Int) un_First_3}}
-deriving stock instance Eq First
-deriving stock instance Ord First
 instance CEnum First
     where {type CEnumZ First = CUInt;
            toCEnum = First;
@@ -31,15 +29,15 @@ pattern FIRST1 :: First
 pattern FIRST1 = First 0
 pattern FIRST2 :: First
 pattern FIRST2 = First 1
-newtype Second = Second {un_Second :: CInt}
+newtype Second
+    = Second {un_Second :: CInt}
+    deriving stock (Eq, Ord)
 instance Storable Second
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Second un_Second_3 -> pokeByteOff ptr_1 (0 :: Int) un_Second_3}}
-deriving stock instance Eq Second
-deriving stock instance Ord Second
 instance CEnum Second
     where {type CEnumZ Second = CInt;
            toCEnum = Second;
@@ -66,15 +64,13 @@ pattern SECOND_B :: Second
 pattern SECOND_B = Second 0
 pattern SECOND_C :: Second
 pattern SECOND_C = Second 1
-newtype Same = Same {un_Same :: CUInt}
+newtype Same = Same {un_Same :: CUInt} deriving stock (Eq, Ord)
 instance Storable Same
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Same un_Same_3 -> pokeByteOff ptr_1 (0 :: Int) un_Same_3}}
-deriving stock instance Eq Same
-deriving stock instance Ord Same
 instance CEnum Same
     where {type CEnumZ Same = CUInt;
            toCEnum = Same;
@@ -97,15 +93,15 @@ pattern SAME_A :: Same
 pattern SAME_A = Same 1
 pattern SAME_B :: Same
 pattern SAME_B = Same 1
-newtype Nonseq = Nonseq {un_Nonseq :: CUInt}
+newtype Nonseq
+    = Nonseq {un_Nonseq :: CUInt}
+    deriving stock (Eq, Ord)
 instance Storable Nonseq
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Nonseq <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Nonseq un_Nonseq_3 -> pokeByteOff ptr_1 (0 :: Int) un_Nonseq_3}}
-deriving stock instance Eq Nonseq
-deriving stock instance Ord Nonseq
 instance CEnum Nonseq
     where {type CEnumZ Nonseq = CUInt;
            toCEnum = Nonseq;
@@ -128,15 +124,15 @@ pattern NONSEQ_B :: Nonseq
 pattern NONSEQ_B = Nonseq 301
 pattern NONSEQ_C :: Nonseq
 pattern NONSEQ_C = Nonseq 404
-newtype Packed = Packed {un_Packed :: CUChar}
+newtype Packed
+    = Packed {un_Packed :: CUChar}
+    deriving stock (Eq, Ord)
 instance Storable Packed
     where {sizeOf = \_ -> 1 :: Int;
            alignment = \_ -> 1 :: Int;
            peek = \ptr_0 -> pure Packed <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Packed un_Packed_3 -> pokeByteOff ptr_1 (0 :: Int) un_Packed_3}}
-deriving stock instance Eq Packed
-deriving stock instance Ord Packed
 instance CEnum Packed
     where {type CEnumZ Packed = CUChar;
            toCEnum = Packed;
@@ -163,15 +159,13 @@ pattern PACKED_B :: Packed
 pattern PACKED_B = Packed 1
 pattern PACKED_C :: Packed
 pattern PACKED_C = Packed 2
-newtype EnumA = EnumA {un_EnumA :: CUInt}
+newtype EnumA = EnumA {un_EnumA :: CUInt} deriving stock (Eq, Ord)
 instance Storable EnumA
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3}}
-deriving stock instance Eq EnumA
-deriving stock instance Ord EnumA
 instance CEnum EnumA
     where {type CEnumZ EnumA = CUInt;
            toCEnum = EnumA;
@@ -195,15 +189,13 @@ pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
 pattern A_BAR :: EnumA
 pattern A_BAR = EnumA 1
-newtype EnumB = EnumB {un_EnumB :: CUInt}
+newtype EnumB = EnumB {un_EnumB :: CUInt} deriving stock (Eq, Ord)
 instance Storable EnumB
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumB un_EnumB_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumB_3}}
-deriving stock instance Eq EnumB
-deriving stock instance Ord EnumB
 instance CEnum EnumB
     where {type CEnumZ EnumB = CUInt;
            toCEnum = EnumB;
@@ -227,15 +219,13 @@ pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
 pattern B_BAR :: EnumB
 pattern B_BAR = EnumB 1
-newtype EnumC = EnumC {un_EnumC :: CUInt}
+newtype EnumC = EnumC {un_EnumC :: CUInt} deriving stock (Eq, Ord)
 instance Storable EnumC
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumC un_EnumC_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumC_3}}
-deriving stock instance Eq EnumC
-deriving stock instance Ord EnumC
 instance CEnum EnumC
     where {type CEnumZ EnumC = CUInt;
            toCEnum = EnumC;
@@ -259,15 +249,13 @@ pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
-newtype EnumD = EnumD {un_EnumD :: CUInt}
+newtype EnumD = EnumD {un_EnumD :: CUInt} deriving stock (Eq, Ord)
 instance Storable EnumD
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure EnumD <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumD un_EnumD_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumD_3}}
-deriving stock instance Eq EnumD
-deriving stock instance Ord EnumD
 instance CEnum EnumD
     where {type CEnumZ EnumD = CUInt;
            toCEnum = EnumD;
@@ -291,9 +279,7 @@ pattern D_FOO :: EnumD
 pattern D_FOO = EnumD 0
 pattern D_BAR :: EnumD
 pattern D_BAR = EnumD 1
-newtype EnumD_t = EnumD_t {un_EnumD_t :: EnumD}
-deriving newtype instance Storable EnumD_t
-deriving stock instance Eq EnumD_t
-deriving stock instance Ord EnumD_t
-deriving stock instance Read EnumD_t
-deriving stock instance Show EnumD_t
+newtype EnumD_t
+    = EnumD_t {un_EnumD_t :: EnumD}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype Storable

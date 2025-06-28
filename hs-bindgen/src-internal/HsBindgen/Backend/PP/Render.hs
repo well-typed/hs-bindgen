@@ -128,9 +128,12 @@ instance Pretty SDecl where
 
     DRecord Record{..} ->
       let d = hsep ["data", pretty dataType, char '=', pretty dataCon]
-      in  hang d 2 $ vlist '{' '}'
-            [ hsep [pretty (fieldName f), "::", pretty (fieldType f)]
-            | f <- dataFields
+      in  hang d 2 $ vcat [
+              vlist '{' '}'
+                [ hsep [pretty (fieldName f), "::", pretty (fieldType f)]
+                | f <- dataFields
+                ]
+            , nestedDeriving dataDeriv
             ]
 
     DEmptyData d ->
@@ -138,12 +141,15 @@ instance Pretty SDecl where
 
     DNewtype Newtype{..} ->
       let d = hsep ["newtype", pretty newtypeName, char '=', pretty newtypeCon]
-      in  hang d 2 $ vlist '{' '}'
-            [ hsep
-                [ pretty (fieldName newtypeField)
-                , "::"
-                , pretty (fieldType newtypeField)
+      in  hang d 2 $ vcat [
+              vlist '{' '}'
+                [ hsep
+                    [ pretty (fieldName newtypeField)
+                    , "::"
+                    , pretty (fieldType newtypeField)
+                    ]
                 ]
+            , nestedDeriving newtypeDeriv
             ]
 
     DForeignImport ForeignImport{..} ->
@@ -165,6 +171,21 @@ instance Pretty SDecl where
     DCSource src ->
       -- the single string literal is quite ugly, but it's simple
       "$(CAPI.addCSource" <+> fromString (show src) >< ")"
+
+-- | Nested deriving clauses (as part of a datatype declaration)
+nestedDeriving :: [(Hs.Strategy ClosedType, [Global])] -> CtxDoc
+nestedDeriving deriv = vcat [
+      hsep [
+          "deriving"
+        , strategy s
+        , hcat . concat $ [
+              ["("]
+            , List.intersperse (", ") $ map (pretty . resolve) clss
+            , [")"]
+            ]
+        ]
+    | (s, clss) <- deriv
+    ]
 
 strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"

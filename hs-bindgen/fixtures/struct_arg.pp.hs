@@ -1,7 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Example where
@@ -17,6 +16,7 @@ $(CAPI.addCSource "#include \"struct_arg.h\"\nsigned int testmodule_thing_fun_1 
 data Thing = Thing
   { thing_x :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Thing where
 
@@ -34,10 +34,6 @@ instance F.Storable Thing where
       \s1 ->
         case s1 of
           Thing thing_x2 -> F.pokeByteOff ptr0 (0 :: Int) thing_x2
-
-deriving stock instance Show Thing
-
-deriving stock instance Eq Thing
 
 foreign import ccall safe "testmodule_thing_fun_1" thing_fun_1_wrapper :: (F.Ptr Thing) -> IO FC.CInt
 

@@ -5,7 +5,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 
@@ -31,6 +30,7 @@ data Another_typedef_struct_t = Another_typedef_struct_t
   { another_typedef_struct_t_foo :: FC.CInt
   , another_typedef_struct_t_bar :: FC.CChar
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Another_typedef_struct_t where
 
@@ -52,13 +52,10 @@ instance F.Storable Another_typedef_struct_t where
                F.pokeByteOff ptr0 (0 :: Int) another_typedef_struct_t_foo2
             >> F.pokeByteOff ptr0 (4 :: Int) another_typedef_struct_t_bar3
 
-deriving stock instance Show Another_typedef_struct_t
-
-deriving stock instance Eq Another_typedef_struct_t
-
 newtype Another_typedef_enum_e = Another_typedef_enum_e
   { un_Another_typedef_enum_e :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Another_typedef_enum_e where
 
@@ -77,10 +74,6 @@ instance F.Storable Another_typedef_enum_e where
         case s1 of
           Another_typedef_enum_e un_Another_typedef_enum_e2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Another_typedef_enum_e2
-
-deriving stock instance Eq Another_typedef_enum_e
-
-deriving stock instance Ord Another_typedef_enum_e
 
 instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
@@ -140,62 +133,14 @@ sOME_DEFINED_CONSTANT = (4 :: FC.CInt)
 newtype A_type_t = A_type_t
   { un_A_type_t :: FC.CInt
   }
-
-deriving newtype instance F.Storable A_type_t
-
-deriving stock instance Eq A_type_t
-
-deriving stock instance Ord A_type_t
-
-deriving stock instance Read A_type_t
-
-deriving stock instance Show A_type_t
-
-deriving newtype instance Enum A_type_t
-
-deriving newtype instance Ix.Ix A_type_t
-
-deriving newtype instance Bounded A_type_t
-
-deriving newtype instance Bits.Bits A_type_t
-
-deriving newtype instance FiniteBits A_type_t
-
-deriving newtype instance Integral A_type_t
-
-deriving newtype instance Num A_type_t
-
-deriving newtype instance Real A_type_t
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 newtype Var_t = Var_t
   { un_Var_t :: FC.CInt
   }
-
-deriving newtype instance F.Storable Var_t
-
-deriving stock instance Eq Var_t
-
-deriving stock instance Ord Var_t
-
-deriving stock instance Read Var_t
-
-deriving stock instance Show Var_t
-
-deriving newtype instance Enum Var_t
-
-deriving newtype instance Ix.Ix Var_t
-
-deriving newtype instance Bounded Var_t
-
-deriving newtype instance Bits.Bits Var_t
-
-deriving newtype instance FiniteBits Var_t
-
-deriving newtype instance Integral Var_t
-
-deriving newtype instance Num Var_t
-
-deriving newtype instance Real Var_t
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 data A_typedef_struct = A_typedef_struct
   { a_typedef_struct_field_0 :: FC.CBool
@@ -210,6 +155,7 @@ data A_typedef_struct = A_typedef_struct
   , a_typedef_struct_field_9 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) Another_typedef_enum_e
   , a_typedef_struct_field_10 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Another_typedef_enum_e)
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable A_typedef_struct where
 
@@ -260,19 +206,11 @@ instance F.Storable A_typedef_struct where
               >> F.pokeByteOff ptr0 (64 :: Int) a_typedef_struct_field_911
               >> F.pokeByteOff ptr0 (80 :: Int) a_typedef_struct_field_1012
 
-deriving stock instance Show A_typedef_struct
-
-deriving stock instance Eq A_typedef_struct
-
 newtype A_typedef_struct_t = A_typedef_struct_t
   { un_A_typedef_struct_t :: A_typedef_struct
   }
-
-deriving newtype instance F.Storable A_typedef_struct_t
-
-deriving stock instance Eq A_typedef_struct_t
-
-deriving stock instance Show A_typedef_struct_t
+  deriving stock (Eq, Show)
+  deriving newtype (F.Storable)
 
 a_DEFINE_0 :: FC.CInt
 a_DEFINE_0 = (0 :: FC.CInt)
@@ -289,6 +227,7 @@ tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 newtype A_typedef_enum_e = A_typedef_enum_e
   { un_A_typedef_enum_e :: FC.CUChar
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable A_typedef_enum_e where
 
@@ -307,10 +246,6 @@ instance F.Storable A_typedef_enum_e where
         case s1 of
           A_typedef_enum_e un_A_typedef_enum_e2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_A_typedef_enum_e2
-
-deriving stock instance Eq A_typedef_enum_e
-
-deriving stock instance Ord A_typedef_enum_e
 
 instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
@@ -373,11 +308,5 @@ foreign import ccall safe "testmodule_some_fun" some_fun :: (F.Ptr A_type_t) -> 
 newtype Callback_t = Callback_t
   { un_Callback_t :: F.FunPtr ((F.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
   }
-
-deriving newtype instance F.Storable Callback_t
-
-deriving stock instance Eq Callback_t
-
-deriving stock instance Ord Callback_t
-
-deriving stock instance Show Callback_t
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable)

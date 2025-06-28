@@ -1,13 +1,21 @@
 -- addDependentFile examples/golden/typenames.h
-newtype Foo = Foo {un_Foo :: CUInt}
+newtype Foo
+    = Foo {un_Foo :: CUInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Enum,
+                      Floating,
+                      Fractional,
+                      Num,
+                      Real,
+                      RealFloat,
+                      RealFrac)
 instance Storable Foo
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo un_Foo_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_3}}
-deriving stock instance Eq Foo
-deriving stock instance Ord Foo
 instance CEnum Foo
     where {type CEnumZ Foo = CUInt;
            toCEnum = Foo;
@@ -31,16 +39,14 @@ pattern FOO1 :: Foo
 pattern FOO1 = Foo 0
 pattern FOO2 :: Foo
 pattern FOO2 = Foo 1
-newtype Foo = Foo {un_Foo :: CDouble}
-deriving newtype instance Storable Foo
-deriving stock instance Eq Foo
-deriving stock instance Ord Foo
-deriving stock instance Read Foo
-deriving stock instance Show Foo
-deriving newtype instance Enum Foo
-deriving newtype instance Floating Foo
-deriving newtype instance Fractional Foo
-deriving newtype instance Num Foo
-deriving newtype instance Real Foo
-deriving newtype instance RealFloat Foo
-deriving newtype instance RealFrac Foo
+newtype Foo
+    = Foo {un_Foo :: CDouble}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Enum,
+                      Floating,
+                      Fractional,
+                      Num,
+                      Real,
+                      RealFloat,
+                      RealFrac)

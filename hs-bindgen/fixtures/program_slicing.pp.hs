@@ -1,7 +1,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -16,37 +15,14 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 newtype Uint32_t = Uint32_t
   { un_Uint32_t :: FC.CUInt
   }
-
-deriving newtype instance F.Storable Uint32_t
-
-deriving stock instance Eq Uint32_t
-
-deriving stock instance Ord Uint32_t
-
-deriving stock instance Read Uint32_t
-
-deriving stock instance Show Uint32_t
-
-deriving newtype instance Enum Uint32_t
-
-deriving newtype instance Ix.Ix Uint32_t
-
-deriving newtype instance Bounded Uint32_t
-
-deriving newtype instance Bits.Bits Uint32_t
-
-deriving newtype instance FiniteBits Uint32_t
-
-deriving newtype instance Integral Uint32_t
-
-deriving newtype instance Num Uint32_t
-
-deriving newtype instance Real Uint32_t
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 data Foo = Foo
   { foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64
   , foo_thirty_two :: Uint32_t
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Foo where
 
@@ -67,7 +43,3 @@ instance F.Storable Foo where
           Foo foo_sixty_four2 foo_thirty_two3 ->
                F.pokeByteOff ptr0 (0 :: Int) foo_sixty_four2
             >> F.pokeByteOff ptr0 (8 :: Int) foo_thirty_two3
-
-deriving stock instance Show Foo
-
-deriving stock instance Eq Foo

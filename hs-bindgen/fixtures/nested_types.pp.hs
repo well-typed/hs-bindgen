@@ -1,6 +1,5 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -12,6 +11,7 @@ data Foo = Foo
   { foo_i :: FC.CInt
   , foo_c :: FC.CChar
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Foo where
 
@@ -33,14 +33,11 @@ instance F.Storable Foo where
                F.pokeByteOff ptr0 (0 :: Int) foo_i2
             >> F.pokeByteOff ptr0 (4 :: Int) foo_c3
 
-deriving stock instance Show Foo
-
-deriving stock instance Eq Foo
-
 data Bar = Bar
   { bar_foo1 :: Foo
   , bar_foo2 :: Foo
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Bar where
 
@@ -62,14 +59,11 @@ instance F.Storable Bar where
                F.pokeByteOff ptr0 (0 :: Int) bar_foo12
             >> F.pokeByteOff ptr0 (8 :: Int) bar_foo23
 
-deriving stock instance Show Bar
-
-deriving stock instance Eq Bar
-
 data Ex3_ex3_struct = Ex3_ex3_struct
   { ex3_ex3_struct_ex3_a :: FC.CInt
   , ex3_ex3_struct_ex3_b :: FC.CChar
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Ex3_ex3_struct where
 
@@ -91,14 +85,11 @@ instance F.Storable Ex3_ex3_struct where
                F.pokeByteOff ptr0 (0 :: Int) ex3_ex3_struct_ex3_a2
             >> F.pokeByteOff ptr0 (4 :: Int) ex3_ex3_struct_ex3_b3
 
-deriving stock instance Show Ex3_ex3_struct
-
-deriving stock instance Eq Ex3_ex3_struct
-
 data Ex3 = Ex3
   { ex3_ex3_struct :: Ex3_ex3_struct
   , ex3_ex3_c :: FC.CFloat
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Ex3 where
 
@@ -120,14 +111,11 @@ instance F.Storable Ex3 where
                F.pokeByteOff ptr0 (0 :: Int) ex3_ex3_struct2
             >> F.pokeByteOff ptr0 (8 :: Int) ex3_ex3_c3
 
-deriving stock instance Show Ex3
-
-deriving stock instance Eq Ex3
-
 data Ex4_even = Ex4_even
   { ex4_even_value :: FC.CDouble
   , ex4_even_next :: F.Ptr Ex4_odd
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Ex4_even where
 
@@ -149,14 +137,11 @@ instance F.Storable Ex4_even where
                F.pokeByteOff ptr0 (0 :: Int) ex4_even_value2
             >> F.pokeByteOff ptr0 (8 :: Int) ex4_even_next3
 
-deriving stock instance Show Ex4_even
-
-deriving stock instance Eq Ex4_even
-
 data Ex4_odd = Ex4_odd
   { ex4_odd_value :: FC.CInt
   , ex4_odd_next :: F.Ptr Ex4_even
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Ex4_odd where
 
@@ -177,7 +162,3 @@ instance F.Storable Ex4_odd where
           Ex4_odd ex4_odd_value2 ex4_odd_next3 ->
                F.pokeByteOff ptr0 (0 :: Int) ex4_odd_value2
             >> F.pokeByteOff ptr0 (8 :: Int) ex4_odd_next3
-
-deriving stock instance Show Ex4_odd
-
-deriving stock instance Eq Ex4_odd

@@ -1,6 +1,8 @@
 -- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/bool.h
-data Bools1 = Bools1 {bools1_x :: CBool, bools1_y :: CBool}
+data Bools1
+    = Bools1 {bools1_x :: CBool, bools1_y :: CBool}
+    deriving stock (Eq, Show)
 instance Storable Bools1
     where {sizeOf = \_ -> 2 :: Int;
            alignment = \_ -> 1 :: Int;
@@ -8,9 +10,9 @@ instance Storable Bools1
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Bools1 bools1_x_3
                                             bools1_y_4 -> pokeByteOff ptr_1 (0 :: Int) bools1_x_3 >> pokeByteOff ptr_1 (1 :: Int) bools1_y_4}}
-deriving stock instance Show Bools1
-deriving stock instance Eq Bools1
-data Bools2 = Bools2 {bools2_x :: CBool, bools2_y :: CBool}
+data Bools2
+    = Bools2 {bools2_x :: CBool, bools2_y :: CBool}
+    deriving stock (Eq, Show)
 instance Storable Bools2
     where {sizeOf = \_ -> 2 :: Int;
            alignment = \_ -> 1 :: Int;
@@ -18,23 +20,21 @@ instance Storable Bools2
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Bools2 bools2_x_3
                                             bools2_y_4 -> pokeByteOff ptr_1 (0 :: Int) bools2_x_3 >> pokeByteOff ptr_1 (1 :: Int) bools2_y_4}}
-deriving stock instance Show Bools2
-deriving stock instance Eq Bools2
-newtype BOOL = BOOL {un_BOOL :: CBool}
-deriving newtype instance Storable BOOL
-deriving stock instance Eq BOOL
-deriving stock instance Ord BOOL
-deriving stock instance Read BOOL
-deriving stock instance Show BOOL
-deriving newtype instance Enum BOOL
-deriving newtype instance Ix BOOL
-deriving newtype instance Bounded BOOL
-deriving newtype instance Bits BOOL
-deriving newtype instance FiniteBits BOOL
-deriving newtype instance Integral BOOL
-deriving newtype instance Num BOOL
-deriving newtype instance Real BOOL
-data Bools3 = Bools3 {bools3_x :: BOOL, bools3_y :: BOOL}
+newtype BOOL
+    = BOOL {un_BOOL :: CBool}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+data Bools3
+    = Bools3 {bools3_x :: BOOL, bools3_y :: BOOL}
+    deriving stock (Eq, Show)
 instance Storable Bools3
     where {sizeOf = \_ -> 2 :: Int;
            alignment = \_ -> 1 :: Int;
@@ -42,5 +42,3 @@ instance Storable Bools3
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Bools3 bools3_x_3
                                             bools3_y_4 -> pokeByteOff ptr_1 (0 :: Int) bools3_x_3 >> pokeByteOff ptr_1 (1 :: Int) bools3_y_4}}
-deriving stock instance Show Bools3
-deriving stock instance Eq Bools3

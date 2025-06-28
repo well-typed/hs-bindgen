@@ -1,7 +1,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 
 module Example where
@@ -16,6 +15,7 @@ import qualified Text.Read
 newtype MyEnum = MyEnum
   { un_MyEnum :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable MyEnum where
 
@@ -33,10 +33,6 @@ instance F.Storable MyEnum where
       \s1 ->
         case s1 of
           MyEnum un_MyEnum2 -> F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
-
-deriving stock instance Eq MyEnum
-
-deriving stock instance Ord MyEnum
 
 instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 

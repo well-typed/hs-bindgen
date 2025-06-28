@@ -2,6 +2,7 @@
 data Linked_list_A_s
     = Linked_list_A_s {linked_list_A_s_x :: CInt,
                        linked_list_A_s_next :: (Ptr Linked_list_A_s)}
+    deriving stock (Eq, Show)
 instance Storable Linked_list_A_s
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -9,16 +10,14 @@ instance Storable Linked_list_A_s
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Linked_list_A_s linked_list_A_s_x_3
                                                      linked_list_A_s_next_4 -> pokeByteOff ptr_1 (0 :: Int) linked_list_A_s_x_3 >> pokeByteOff ptr_1 (8 :: Int) linked_list_A_s_next_4}}
-deriving stock instance Show Linked_list_A_s
-deriving stock instance Eq Linked_list_A_s
 newtype Linked_list_A_t
     = Linked_list_A_t {un_Linked_list_A_t :: Linked_list_A_s}
-deriving newtype instance Storable Linked_list_A_t
-deriving stock instance Eq Linked_list_A_t
-deriving stock instance Show Linked_list_A_t
+    deriving stock (Eq, Show)
+    deriving newtype Storable
 data Linked_list_B_t
     = Linked_list_B_t {linked_list_B_t_x :: CInt,
                        linked_list_B_t_next :: (Ptr Linked_list_B_t)}
+    deriving stock (Eq, Show)
 instance Storable Linked_list_B_t
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -26,5 +25,3 @@ instance Storable Linked_list_B_t
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Linked_list_B_t linked_list_B_t_x_3
                                                      linked_list_B_t_next_4 -> pokeByteOff ptr_1 (0 :: Int) linked_list_B_t_x_3 >> pokeByteOff ptr_1 (8 :: Int) linked_list_B_t_next_4}}
-deriving stock instance Show Linked_list_B_t
-deriving stock instance Eq Linked_list_B_t

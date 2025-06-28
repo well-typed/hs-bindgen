@@ -1,7 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Example where
@@ -18,6 +17,7 @@ foreign import ccall safe "testmodule_fun2" fun2 :: FC.CInt -> IO ()
 data Struct2 = Struct2
   { struct2_x :: FC.CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Struct2 where
 
@@ -35,7 +35,3 @@ instance F.Storable Struct2 where
       \s1 ->
         case s1 of
           Struct2 struct2_x2 -> F.pokeByteOff ptr0 (0 :: Int) struct2_x2
-
-deriving stock instance Show Struct2
-
-deriving stock instance Eq Struct2

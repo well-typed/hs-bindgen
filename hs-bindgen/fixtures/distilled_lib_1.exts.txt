@@ -2,7 +2,6 @@ CApiFFI
 TemplateHaskell
 TypeFamilies
 DataKinds
-StandaloneDeriving
 DerivingStrategies
 GeneralizedNewtypeDeriving
 ExplicitForAll

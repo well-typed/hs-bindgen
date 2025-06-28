@@ -1,5 +1,4 @@
 CApiFFI
 TemplateHaskell
-StandaloneDeriving
 DerivingStrategies
 GeneralizedNewtypeDeriving

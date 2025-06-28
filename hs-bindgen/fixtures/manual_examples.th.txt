@@ -12,6 +12,7 @@
 -- signed int test_internal_mod_10 (signed int arg1) { return mod_10(arg1); }
 data Triple
     = Triple {triple_a :: CInt, triple_b :: CInt, triple_c :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Triple
     where {sizeOf = \_ -> 12 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -20,20 +21,16 @@ instance Storable Triple
                                     {Triple triple_a_3
                                             triple_b_4
                                             triple_c_5 -> pokeByteOff ptr_1 (0 :: Int) triple_a_3 >> (pokeByteOff ptr_1 (4 :: Int) triple_b_4 >> pokeByteOff ptr_1 (8 :: Int) triple_c_5)}}
-deriving stock instance Show Triple
-deriving stock instance Eq Triple
 foreign import ccall safe "test_internal_mk_triple" mk_triple :: CInt ->
                                                                  CInt ->
                                                                  CInt -> Ptr Triple -> IO Unit
-newtype Index = Index {un_Index :: CUInt}
+newtype Index = Index {un_Index :: CUInt} deriving stock (Eq, Ord)
 instance Storable Index
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Index <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Index un_Index_3 -> pokeByteOff ptr_1 (0 :: Int) un_Index_3}}
-deriving stock instance Eq Index
-deriving stock instance Ord Index
 instance CEnum Index
     where {type CEnumZ Index = CUInt;
            toCEnum = Index;
@@ -61,33 +58,29 @@ pattern C :: Index
 pattern C = Index 2
 foreign import ccall safe "test_internal_index_triple" index_triple :: Ptr Triple ->
                                                                        Index -> IO CInt
-newtype Sum = Sum {un_Sum :: CInt}
-deriving newtype instance Storable Sum
-deriving stock instance Eq Sum
-deriving stock instance Ord Sum
-deriving stock instance Read Sum
-deriving stock instance Show Sum
-deriving newtype instance Enum Sum
-deriving newtype instance Ix Sum
-deriving newtype instance Bounded Sum
-deriving newtype instance Bits Sum
-deriving newtype instance FiniteBits Sum
-deriving newtype instance Integral Sum
-deriving newtype instance Num Sum
-deriving newtype instance Real Sum
-newtype Average = Average {un_Average :: CDouble}
-deriving newtype instance Storable Average
-deriving stock instance Eq Average
-deriving stock instance Ord Average
-deriving stock instance Read Average
-deriving stock instance Show Average
-deriving newtype instance Enum Average
-deriving newtype instance Floating Average
-deriving newtype instance Fractional Average
-deriving newtype instance Num Average
-deriving newtype instance Real Average
-deriving newtype instance RealFloat Average
-deriving newtype instance RealFrac Average
+newtype Sum
+    = Sum {un_Sum :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype Average
+    = Average {un_Average :: CDouble}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Enum,
+                      Floating,
+                      Fractional,
+                      Num,
+                      Real,
+                      RealFloat,
+                      RealFrac)
 foreign import ccall safe "test_internal_sum_triple" sum_triple :: Ptr Triple ->
                                                                    IO Sum
 foreign import ccall safe "test_internal_average_triple" average_triple :: Ptr Triple ->
@@ -98,50 +91,45 @@ ePSILON :: CDouble
 ePSILON = 0.1000000000000000055511151231257827021181583404541015625 :: CDouble
 pTR_TO_FIELD :: forall a_0 . Add a_0 CInt => a_0 -> AddRes a_0 CInt
 pTR_TO_FIELD = \ptr_0 -> (+) ptr_0 (4 :: CInt)
-newtype YEAR = YEAR {un_YEAR :: CInt}
-deriving newtype instance Storable YEAR
-deriving stock instance Eq YEAR
-deriving stock instance Ord YEAR
-deriving stock instance Read YEAR
-deriving stock instance Show YEAR
-deriving newtype instance Enum YEAR
-deriving newtype instance Ix YEAR
-deriving newtype instance Bounded YEAR
-deriving newtype instance Bits YEAR
-deriving newtype instance FiniteBits YEAR
-deriving newtype instance Integral YEAR
-deriving newtype instance Num YEAR
-deriving newtype instance Real YEAR
-newtype MONTH = MONTH {un_MONTH :: CInt}
-deriving newtype instance Storable MONTH
-deriving stock instance Eq MONTH
-deriving stock instance Ord MONTH
-deriving stock instance Read MONTH
-deriving stock instance Show MONTH
-deriving newtype instance Enum MONTH
-deriving newtype instance Ix MONTH
-deriving newtype instance Bounded MONTH
-deriving newtype instance Bits MONTH
-deriving newtype instance FiniteBits MONTH
-deriving newtype instance Integral MONTH
-deriving newtype instance Num MONTH
-deriving newtype instance Real MONTH
-newtype DAY = DAY {un_DAY :: CInt}
-deriving newtype instance Storable DAY
-deriving stock instance Eq DAY
-deriving stock instance Ord DAY
-deriving stock instance Read DAY
-deriving stock instance Show DAY
-deriving newtype instance Enum DAY
-deriving newtype instance Ix DAY
-deriving newtype instance Bounded DAY
-deriving newtype instance Bits DAY
-deriving newtype instance FiniteBits DAY
-deriving newtype instance Integral DAY
-deriving newtype instance Num DAY
-deriving newtype instance Real DAY
+newtype YEAR
+    = YEAR {un_YEAR :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype MONTH
+    = MONTH {un_MONTH :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype DAY
+    = DAY {un_DAY :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
 data Date
     = Date {date_year :: YEAR, date_month :: MONTH, date_day :: DAY}
+    deriving stock (Eq, Show)
 instance Storable Date
     where {sizeOf = \_ -> 12 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -150,12 +138,11 @@ instance Storable Date
                                     {Date date_year_3
                                           date_month_4
                                           date_day_5 -> pokeByteOff ptr_1 (0 :: Int) date_year_3 >> (pokeByteOff ptr_1 (4 :: Int) date_month_4 >> pokeByteOff ptr_1 (8 :: Int) date_day_5)}}
-deriving stock instance Show Date
-deriving stock instance Eq Date
 foreign import ccall safe "test_internal_getYear" getYear :: Ptr Date ->
                                                              IO YEAR
 data Student
     = Student {student_university :: (Ptr CChar), student_year :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Student
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -163,13 +150,12 @@ instance Storable Student
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Student student_university_3
                                              student_year_4 -> pokeByteOff ptr_1 (0 :: Int) student_university_3 >> pokeByteOff ptr_1 (8 :: Int) student_year_4}}
-deriving stock instance Show Student
-deriving stock instance Eq Student
 data Person
 data Employee
     = Employee {employee_company :: (Ptr CChar),
                 employee_supervisor :: (Ptr Person),
                 employee_salary :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Employee
     where {sizeOf = \_ -> 24 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -178,8 +164,6 @@ instance Storable Employee
                                     {Employee employee_company_3
                                               employee_supervisor_4
                                               employee_salary_5 -> pokeByteOff ptr_1 (0 :: Int) employee_company_3 >> (pokeByteOff ptr_1 (8 :: Int) employee_supervisor_4 >> pokeByteOff ptr_1 (16 :: Int) employee_salary_5)}}
-deriving stock instance Show Employee
-deriving stock instance Eq Employee
 newtype Occupation = Occupation {un_Occupation :: ByteArray}
 deriving via (SizedByteArray 24 8) instance Storable Occupation
 get_occupation_student :: Occupation -> Student
@@ -196,6 +180,7 @@ foreign import ccall safe "test_internal_print_occupation" print_occupation :: C
 data Rect_lower_left
     = Rect_lower_left {rect_lower_left_x :: CInt,
                        rect_lower_left_y :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Rect_lower_left
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -203,11 +188,10 @@ instance Storable Rect_lower_left
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Rect_lower_left rect_lower_left_x_3
                                                      rect_lower_left_y_4 -> pokeByteOff ptr_1 (0 :: Int) rect_lower_left_x_3 >> pokeByteOff ptr_1 (4 :: Int) rect_lower_left_y_4}}
-deriving stock instance Show Rect_lower_left
-deriving stock instance Eq Rect_lower_left
 data Rect_upper_right
     = Rect_upper_right {rect_upper_right_x :: CInt,
                         rect_upper_right_y :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Rect_upper_right
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -215,11 +199,10 @@ instance Storable Rect_upper_right
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Rect_upper_right rect_upper_right_x_3
                                                       rect_upper_right_y_4 -> pokeByteOff ptr_1 (0 :: Int) rect_upper_right_x_3 >> pokeByteOff ptr_1 (4 :: Int) rect_upper_right_y_4}}
-deriving stock instance Show Rect_upper_right
-deriving stock instance Eq Rect_upper_right
 data Rect
     = Rect {rect_lower_left :: Rect_lower_left,
             rect_upper_right :: Rect_upper_right}
+    deriving stock (Eq, Show)
 instance Storable Rect
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -227,11 +210,10 @@ instance Storable Rect
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Rect rect_lower_left_3
                                           rect_upper_right_4 -> pokeByteOff ptr_1 (0 :: Int) rect_lower_left_3 >> pokeByteOff ptr_1 (8 :: Int) rect_upper_right_4}}
-deriving stock instance Show Rect
-deriving stock instance Eq Rect
 data Config_Deref
     = Config_Deref {config_Deref_width :: CInt,
                     config_Deref_height :: CInt}
+    deriving stock (Eq, Show)
 instance Storable Config_Deref
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -239,67 +221,58 @@ instance Storable Config_Deref
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Config_Deref config_Deref_width_3
                                                   config_Deref_height_4 -> pokeByteOff ptr_1 (0 :: Int) config_Deref_width_3 >> pokeByteOff ptr_1 (4 :: Int) config_Deref_height_4}}
-deriving stock instance Show Config_Deref
-deriving stock instance Eq Config_Deref
-newtype Config = Config {un_Config :: (Ptr Config_Deref)}
-deriving newtype instance Storable Config
-deriving stock instance Eq Config
-deriving stock instance Ord Config
-deriving stock instance Show Config
-newtype Adio'0301s = Adio'0301s {un_Adio'0301s :: CInt}
-deriving newtype instance Storable Adio'0301s
-deriving stock instance Eq Adio'0301s
-deriving stock instance Ord Adio'0301s
-deriving stock instance Read Adio'0301s
-deriving stock instance Show Adio'0301s
-deriving newtype instance Enum Adio'0301s
-deriving newtype instance Ix Adio'0301s
-deriving newtype instance Bounded Adio'0301s
-deriving newtype instance Bits Adio'0301s
-deriving newtype instance FiniteBits Adio'0301s
-deriving newtype instance Integral Adio'0301s
-deriving newtype instance Num Adio'0301s
-deriving newtype instance Real Adio'0301s
+newtype Config
+    = Config {un_Config :: (Ptr Config_Deref)}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+newtype Adio'0301s
+    = Adio'0301s {un_Adio'0301s :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
 foreign import ccall safe "test_internal_\25308\25308" 拜拜 :: IO Unit
-newtype C数字 = C数字 {un_C数字 :: CInt}
-deriving newtype instance Storable C数字
-deriving stock instance Eq C数字
-deriving stock instance Ord C数字
-deriving stock instance Read C数字
-deriving stock instance Show C数字
-deriving newtype instance Enum C数字
-deriving newtype instance Ix C数字
-deriving newtype instance Bounded C数字
-deriving newtype instance Bits C数字
-deriving newtype instance FiniteBits C数字
-deriving newtype instance Integral C数字
-deriving newtype instance Num C数字
-deriving newtype instance Real C数字
+newtype C数字
+    = C数字 {un_C数字 :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
 foreign import ccall safe "test_internal_\978" cϒ :: IO Unit
-newtype Data = Data {un_Data :: CInt}
-deriving newtype instance Storable Data
-deriving stock instance Eq Data
-deriving stock instance Ord Data
-deriving stock instance Read Data
-deriving stock instance Show Data
-deriving newtype instance Enum Data
-deriving newtype instance Ix Data
-deriving newtype instance Bounded Data
-deriving newtype instance Bits Data
-deriving newtype instance FiniteBits Data
-deriving newtype instance Integral Data
-deriving newtype instance Num Data
-deriving newtype instance Real Data
+newtype Data
+    = Data {un_Data :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
 foreign import ccall safe "test_internal_import" import' :: IO Unit
-newtype Signal = Signal {un_Signal :: CUInt}
+newtype Signal
+    = Signal {un_Signal :: CUInt}
+    deriving stock (Eq, Ord)
 instance Storable Signal
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Signal <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Signal un_Signal_3 -> pokeByteOff ptr_1 (0 :: Int) un_Signal_3}}
-deriving stock instance Eq Signal
-deriving stock instance Ord Signal
 instance CEnum Signal
     where {type CEnumZ Signal = CUInt;
            toCEnum = Signal;
@@ -329,15 +302,15 @@ pattern Resume :: Signal
 pattern Resume = Signal 3
 pattern Stop :: Signal
 pattern Stop = Signal 4
-newtype HTTP_status = HTTP_status {un_HTTP_status :: CUInt}
+newtype HTTP_status
+    = HTTP_status {un_HTTP_status :: CUInt}
+    deriving stock (Eq, Ord)
 instance Storable HTTP_status
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure HTTP_status <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {HTTP_status un_HTTP_status_3 -> pokeByteOff ptr_1 (0 :: Int) un_HTTP_status_3}}
-deriving stock instance Eq HTTP_status
-deriving stock instance Ord HTTP_status
 instance CEnum HTTP_status
     where {type CEnumZ HTTP_status = CUInt;
            toCEnum = HTTP_status;
@@ -366,15 +339,15 @@ pattern Unauthorized :: HTTP_status
 pattern Unauthorized = HTTP_status 401
 pattern Not_found :: HTTP_status
 pattern Not_found = HTTP_status 404
-newtype Descending = Descending {un_Descending :: CUInt}
+newtype Descending
+    = Descending {un_Descending :: CUInt}
+    deriving stock (Eq, Ord)
 instance Storable Descending
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Descending <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Descending un_Descending_3 -> pokeByteOff ptr_1 (0 :: Int) un_Descending_3}}
-deriving stock instance Eq Descending
-deriving stock instance Ord Descending
 instance CEnum Descending
     where {type CEnumZ Descending = CUInt;
            toCEnum = Descending;
@@ -402,15 +375,15 @@ pattern Y_alias :: Descending
 pattern Y_alias = Descending 99
 pattern Z :: Descending
 pattern Z = Descending 98
-newtype Result = Result {un_Result :: CInt}
+newtype Result
+    = Result {un_Result :: CInt}
+    deriving stock (Eq, Ord)
 instance Storable Result
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Result <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Result un_Result_3 -> pokeByteOff ptr_1 (0 :: Int) un_Result_3}}
-deriving stock instance Eq Result
-deriving stock instance Ord Result
 instance CEnum Result
     where {type CEnumZ Result = CInt;
            toCEnum = Result;
@@ -440,15 +413,13 @@ pattern Postponed :: Result
 pattern Postponed = Result 1
 pattern Already_done :: Result
 pattern Already_done = Result 2
-newtype Vote = Vote {un_Vote :: CUChar}
+newtype Vote = Vote {un_Vote :: CUChar} deriving stock (Eq, Ord)
 instance Storable Vote
     where {sizeOf = \_ -> 1 :: Int;
            alignment = \_ -> 1 :: Int;
            peek = \ptr_0 -> pure Vote <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Vote un_Vote_3 -> pokeByteOff ptr_1 (0 :: Int) un_Vote_3}}
-deriving stock instance Eq Vote
-deriving stock instance Ord Vote
 instance CEnum Vote
     where {type CEnumZ Vote = CUChar;
            toCEnum = Vote;
@@ -475,15 +446,15 @@ pattern Against :: Vote
 pattern Against = Vote 1
 pattern Abstain :: Vote
 pattern Abstain = Vote 2
-newtype CXCursorKind = CXCursorKind {un_CXCursorKind :: CUInt}
+newtype CXCursorKind
+    = CXCursorKind {un_CXCursorKind :: CUInt}
+    deriving stock (Eq, Ord)
 instance Storable CXCursorKind
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure CXCursorKind <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {CXCursorKind un_CXCursorKind_3 -> pokeByteOff ptr_1 (0 :: Int) un_CXCursorKind_3}}
-deriving stock instance Eq CXCursorKind
-deriving stock instance Ord CXCursorKind
 instance CEnum CXCursorKind
     where {type CEnumZ CXCursorKind = CUInt;
            toCEnum = CXCursorKind;

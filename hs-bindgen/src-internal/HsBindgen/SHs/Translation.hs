@@ -104,6 +104,7 @@ translateDeclData struct = DRecord $ Record
         case Hs.structOrigin struct of
           Just origin -> origin
           Nothing     -> panicPure "Missing structOrigin"
+    , dataDeriv = []
     }
 
 translateDeclEmpty :: Hs.EmptyData -> SDecl
@@ -122,6 +123,7 @@ translateNewtype n = DNewtype $ Newtype
         , fieldOrigin = Hs.fieldOrigin $ Hs.newtypeField n
         }
     , newtypeOrigin = Hs.newtypeOrigin n
+    , newtypeDeriv  = []
     }
 
 translateDeriveInstance :: Hs.Strategy Hs.HsType -> HsTypeClass -> HsName NsTypeConstr -> SDecl

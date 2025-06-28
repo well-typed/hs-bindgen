@@ -1,74 +1,66 @@
 -- addDependentFile examples/golden/typedef_vs_macro.h
-newtype T1 = T1 {un_T1 :: CInt}
-deriving newtype instance Storable T1
-deriving stock instance Eq T1
-deriving stock instance Ord T1
-deriving stock instance Read T1
-deriving stock instance Show T1
-deriving newtype instance Enum T1
-deriving newtype instance Ix T1
-deriving newtype instance Bounded T1
-deriving newtype instance Bits T1
-deriving newtype instance FiniteBits T1
-deriving newtype instance Integral T1
-deriving newtype instance Num T1
-deriving newtype instance Real T1
-newtype T2 = T2 {un_T2 :: CChar}
-deriving newtype instance Storable T2
-deriving stock instance Eq T2
-deriving stock instance Ord T2
-deriving stock instance Read T2
-deriving stock instance Show T2
-deriving newtype instance Enum T2
-deriving newtype instance Ix T2
-deriving newtype instance Bounded T2
-deriving newtype instance Bits T2
-deriving newtype instance FiniteBits T2
-deriving newtype instance Integral T2
-deriving newtype instance Num T2
-deriving newtype instance Real T2
-newtype M1 = M1 {un_M1 :: CInt}
-deriving newtype instance Storable M1
-deriving stock instance Eq M1
-deriving stock instance Ord M1
-deriving stock instance Read M1
-deriving stock instance Show M1
-deriving newtype instance Enum M1
-deriving newtype instance Ix M1
-deriving newtype instance Bounded M1
-deriving newtype instance Bits M1
-deriving newtype instance FiniteBits M1
-deriving newtype instance Integral M1
-deriving newtype instance Num M1
-deriving newtype instance Real M1
-newtype M2 = M2 {un_M2 :: CChar}
-deriving newtype instance Storable M2
-deriving stock instance Eq M2
-deriving stock instance Ord M2
-deriving stock instance Read M2
-deriving stock instance Show M2
-deriving newtype instance Enum M2
-deriving newtype instance Ix M2
-deriving newtype instance Bounded M2
-deriving newtype instance Bits M2
-deriving newtype instance FiniteBits M2
-deriving newtype instance Integral M2
-deriving newtype instance Num M2
-deriving newtype instance Real M2
-newtype M3 = M3 {un_M3 :: (ConstantArray 3 CInt)}
-deriving newtype instance Storable M3
-deriving stock instance Eq M3
-deriving stock instance Show M3
-newtype M4 = M4 {un_M4 :: (Ptr CInt)}
-deriving newtype instance Storable M4
-deriving stock instance Eq M4
-deriving stock instance Ord M4
-deriving stock instance Show M4
+newtype T1
+    = T1 {un_T1 :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype T2
+    = T2 {un_T2 :: CChar}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype M1
+    = M1 {un_M1 :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype M2
+    = M2 {un_M2 :: CChar}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype M3
+    = M3 {un_M3 :: (ConstantArray 3 CInt)}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+newtype M4
+    = M4 {un_M4 :: (Ptr CInt)}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
 data ExampleStruct
     = ExampleStruct {exampleStruct_t1 :: T1,
                      exampleStruct_t2 :: T2,
                      exampleStruct_m1 :: M1,
                      exampleStruct_m2 :: M2}
+    deriving stock (Eq, Show)
 instance Storable ExampleStruct
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -78,28 +70,22 @@ instance Storable ExampleStruct
                                                    exampleStruct_t2_4
                                                    exampleStruct_m1_5
                                                    exampleStruct_m2_6 -> pokeByteOff ptr_1 (0 :: Int) exampleStruct_t1_3 >> (pokeByteOff ptr_1 (4 :: Int) exampleStruct_t2_4 >> (pokeByteOff ptr_1 (8 :: Int) exampleStruct_m1_5 >> pokeByteOff ptr_1 (12 :: Int) exampleStruct_m2_6))}}
-deriving stock instance Show ExampleStruct
-deriving stock instance Eq ExampleStruct
-newtype Uint64_t = Uint64_t {un_Uint64_t :: CInt}
-deriving newtype instance Storable Uint64_t
-deriving stock instance Eq Uint64_t
-deriving stock instance Ord Uint64_t
-deriving stock instance Read Uint64_t
-deriving stock instance Show Uint64_t
-deriving newtype instance Enum Uint64_t
-deriving newtype instance Ix Uint64_t
-deriving newtype instance Bounded Uint64_t
-deriving newtype instance Bits Uint64_t
-deriving newtype instance FiniteBits Uint64_t
-deriving newtype instance Integral Uint64_t
-deriving newtype instance Num Uint64_t
-deriving newtype instance Real Uint64_t
-data Foo = Foo {foo_a :: (Ptr Uint64_t)}
+newtype Uint64_t
+    = Uint64_t {un_Uint64_t :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+data Foo = Foo {foo_a :: (Ptr Uint64_t)} deriving stock (Eq, Show)
 instance Storable Foo
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 8 :: Int;
            peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo foo_a_3 -> pokeByteOff ptr_1 (0 :: Int) foo_a_3}}
-deriving stock instance Show Foo
-deriving stock instance Eq Foo

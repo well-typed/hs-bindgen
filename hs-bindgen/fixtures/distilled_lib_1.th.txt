@@ -8,6 +8,7 @@
 data Another_typedef_struct_t
     = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt,
                                 another_typedef_struct_t_bar :: CChar}
+    deriving stock (Eq, Show)
 instance Storable Another_typedef_struct_t
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -15,18 +16,15 @@ instance Storable Another_typedef_struct_t
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Another_typedef_struct_t another_typedef_struct_t_foo_3
                                                               another_typedef_struct_t_bar_4 -> pokeByteOff ptr_1 (0 :: Int) another_typedef_struct_t_foo_3 >> pokeByteOff ptr_1 (4 :: Int) another_typedef_struct_t_bar_4}}
-deriving stock instance Show Another_typedef_struct_t
-deriving stock instance Eq Another_typedef_struct_t
 newtype Another_typedef_enum_e
     = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
+    deriving stock (Eq, Ord)
 instance Storable Another_typedef_enum_e
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Another_typedef_enum_e un_Another_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_Another_typedef_enum_e_3}}
-deriving stock instance Eq Another_typedef_enum_e
-deriving stock instance Ord Another_typedef_enum_e
 instance CEnum Another_typedef_enum_e
     where {type CEnumZ Another_typedef_enum_e = CUInt;
            toCEnum = Another_typedef_enum_e;
@@ -56,34 +54,30 @@ b :: CInt
 b = 3 :: CInt
 sOME_DEFINED_CONSTANT :: CInt
 sOME_DEFINED_CONSTANT = 4 :: CInt
-newtype A_type_t = A_type_t {un_A_type_t :: CInt}
-deriving newtype instance Storable A_type_t
-deriving stock instance Eq A_type_t
-deriving stock instance Ord A_type_t
-deriving stock instance Read A_type_t
-deriving stock instance Show A_type_t
-deriving newtype instance Enum A_type_t
-deriving newtype instance Ix A_type_t
-deriving newtype instance Bounded A_type_t
-deriving newtype instance Bits A_type_t
-deriving newtype instance FiniteBits A_type_t
-deriving newtype instance Integral A_type_t
-deriving newtype instance Num A_type_t
-deriving newtype instance Real A_type_t
-newtype Var_t = Var_t {un_Var_t :: CInt}
-deriving newtype instance Storable Var_t
-deriving stock instance Eq Var_t
-deriving stock instance Ord Var_t
-deriving stock instance Read Var_t
-deriving stock instance Show Var_t
-deriving newtype instance Enum Var_t
-deriving newtype instance Ix Var_t
-deriving newtype instance Bounded Var_t
-deriving newtype instance Bits Var_t
-deriving newtype instance FiniteBits Var_t
-deriving newtype instance Integral Var_t
-deriving newtype instance Num Var_t
-deriving newtype instance Real Var_t
+newtype A_type_t
+    = A_type_t {un_A_type_t :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+newtype Var_t
+    = Var_t {un_Var_t :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
 data A_typedef_struct
     = A_typedef_struct {a_typedef_struct_field_0 :: CBool,
                         a_typedef_struct_field_1 :: HsBindgen.Runtime.Prelude.Word8,
@@ -100,6 +94,7 @@ data A_typedef_struct
                         a_typedef_struct_field_10 :: (ConstantArray 5
                                                                     (ConstantArray 3
                                                                                    Another_typedef_enum_e))}
+    deriving stock (Eq, Show)
 instance Storable A_typedef_struct
     where {sizeOf = \_ -> 140 :: Int;
            alignment = \_ -> 1 :: Int;
@@ -116,13 +111,10 @@ instance Storable A_typedef_struct
                                                       a_typedef_struct_field_8_11
                                                       a_typedef_struct_field_9_12
                                                       a_typedef_struct_field_10_13 -> pokeByteOff ptr_1 (0 :: Int) a_typedef_struct_field_0_3 >> (pokeByteOff ptr_1 (1 :: Int) a_typedef_struct_field_1_4 >> (pokeByteOff ptr_1 (2 :: Int) a_typedef_struct_field_2_5 >> (pokeByteOff ptr_1 (4 :: Int) a_typedef_struct_field_3_6 >> (pokeByteOff ptr_1 (8 :: Int) a_typedef_struct_field_4_7 >> (pokeByteOff ptr_1 (16 :: Int) a_typedef_struct_field_5_8 >> (pokeByteOff ptr_1 (24 :: Int) a_typedef_struct_field_6_9 >> (pokeByteOff ptr_1 (32 :: Int) a_typedef_struct_field_7_10 >> (pokeByteOff ptr_1 (60 :: Int) a_typedef_struct_field_8_11 >> (pokeByteOff ptr_1 (64 :: Int) a_typedef_struct_field_9_12 >> pokeByteOff ptr_1 (80 :: Int) a_typedef_struct_field_10_13)))))))))}}
-deriving stock instance Show A_typedef_struct
-deriving stock instance Eq A_typedef_struct
 newtype A_typedef_struct_t
     = A_typedef_struct_t {un_A_typedef_struct_t :: A_typedef_struct}
-deriving newtype instance Storable A_typedef_struct_t
-deriving stock instance Eq A_typedef_struct_t
-deriving stock instance Show A_typedef_struct_t
+    deriving stock (Eq, Show)
+    deriving newtype Storable
 a_DEFINE_0 :: CInt
 a_DEFINE_0 = 0 :: CInt
 a_DEFINE_1 :: CUInt
@@ -133,14 +125,13 @@ tWO_ARGS :: (,) CInt CInt
 tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
 newtype A_typedef_enum_e
     = A_typedef_enum_e {un_A_typedef_enum_e :: CUChar}
+    deriving stock (Eq, Ord)
 instance Storable A_typedef_enum_e
     where {sizeOf = \_ -> 1 :: Int;
            alignment = \_ -> 1 :: Int;
            peek = \ptr_0 -> pure A_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {A_typedef_enum_e un_A_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_A_typedef_enum_e_3}}
-deriving stock instance Eq A_typedef_enum_e
-deriving stock instance Ord A_typedef_enum_e
 instance CEnum A_typedef_enum_e
     where {type CEnumZ A_typedef_enum_e = CUChar;
            toCEnum = A_typedef_enum_e;
@@ -179,7 +170,5 @@ newtype Callback_t
     = Callback_t {un_Callback_t :: (FunPtr (Ptr Void ->
                                             HsBindgen.Runtime.Prelude.Word32 ->
                                             IO HsBindgen.Runtime.Prelude.Word32))}
-deriving newtype instance Storable Callback_t
-deriving stock instance Eq Callback_t
-deriving stock instance Ord Callback_t
-deriving stock instance Show Callback_t
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable

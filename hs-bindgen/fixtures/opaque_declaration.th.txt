@@ -1,6 +1,8 @@
 -- addDependentFile examples/golden/opaque_declaration.h
 data Foo
-data Bar = Bar {bar_ptrA :: (Ptr Foo), bar_ptrB :: (Ptr Bar)}
+data Bar
+    = Bar {bar_ptrA :: (Ptr Foo), bar_ptrB :: (Ptr Bar)}
+    deriving stock (Eq, Show)
 instance Storable Bar
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
@@ -8,16 +10,12 @@ instance Storable Bar
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Bar bar_ptrA_3
                                          bar_ptrB_4 -> pokeByteOff ptr_1 (0 :: Int) bar_ptrA_3 >> pokeByteOff ptr_1 (8 :: Int) bar_ptrB_4}}
-deriving stock instance Show Bar
-deriving stock instance Eq Bar
-data Baz = Baz {}
+data Baz = Baz {} deriving stock (Eq, Show)
 instance Storable Baz
     where {sizeOf = \_ -> 0 :: Int;
            alignment = \_ -> 1 :: Int;
            peek = \ptr_0 -> pure Baz;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Baz -> return ()}}
-deriving stock instance Show Baz
-deriving stock instance Eq Baz
 data Quu
 data Opaque_union

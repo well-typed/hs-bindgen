@@ -156,6 +156,7 @@ library internal
       HsBindgen.PrettyC
       HsBindgen.Resolve
       HsBindgen.SHs.AST
+      HsBindgen.SHs.Simplify
       HsBindgen.SHs.Translation
       HsBindgen.TraceMsg
       HsBindgen.Util.Monad

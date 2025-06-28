@@ -2,7 +2,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 
 module Example where
@@ -17,6 +16,7 @@ import qualified Text.Read
 newtype First = First
   { un_First :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable First where
 
@@ -34,10 +34,6 @@ instance F.Storable First where
       \s1 ->
         case s1 of
           First un_First2 -> F.pokeByteOff ptr0 (0 :: Int) un_First2
-
-deriving stock instance Eq First
-
-deriving stock instance Ord First
 
 instance HsBindgen.Runtime.CEnum.CEnum First where
 
@@ -86,6 +82,7 @@ pattern FIRST2 = First 1
 newtype Second = Second
   { un_Second :: FC.CInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Second where
 
@@ -103,10 +100,6 @@ instance F.Storable Second where
       \s1 ->
         case s1 of
           Second un_Second2 -> F.pokeByteOff ptr0 (0 :: Int) un_Second2
-
-deriving stock instance Eq Second
-
-deriving stock instance Ord Second
 
 instance HsBindgen.Runtime.CEnum.CEnum Second where
 
@@ -161,6 +154,7 @@ pattern SECOND_C = Second 1
 newtype Same = Same
   { un_Same :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Same where
 
@@ -178,10 +172,6 @@ instance F.Storable Same where
       \s1 ->
         case s1 of
           Same un_Same2 -> F.pokeByteOff ptr0 (0 :: Int) un_Same2
-
-deriving stock instance Eq Same
-
-deriving stock instance Ord Same
 
 instance HsBindgen.Runtime.CEnum.CEnum Same where
 
@@ -230,6 +220,7 @@ pattern SAME_B = Same 1
 newtype Nonseq = Nonseq
   { un_Nonseq :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Nonseq where
 
@@ -247,10 +238,6 @@ instance F.Storable Nonseq where
       \s1 ->
         case s1 of
           Nonseq un_Nonseq2 -> F.pokeByteOff ptr0 (0 :: Int) un_Nonseq2
-
-deriving stock instance Eq Nonseq
-
-deriving stock instance Ord Nonseq
 
 instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
@@ -295,6 +282,7 @@ pattern NONSEQ_C = Nonseq 404
 newtype Packed = Packed
   { un_Packed :: FC.CUChar
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable Packed where
 
@@ -312,10 +300,6 @@ instance F.Storable Packed where
       \s1 ->
         case s1 of
           Packed un_Packed2 -> F.pokeByteOff ptr0 (0 :: Int) un_Packed2
-
-deriving stock instance Eq Packed
-
-deriving stock instance Ord Packed
 
 instance HsBindgen.Runtime.CEnum.CEnum Packed where
 
@@ -370,6 +354,7 @@ pattern PACKED_C = Packed 2
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable EnumA where
 
@@ -387,10 +372,6 @@ instance F.Storable EnumA where
       \s1 ->
         case s1 of
           EnumA un_EnumA2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
-
-deriving stock instance Eq EnumA
-
-deriving stock instance Ord EnumA
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
@@ -439,6 +420,7 @@ pattern A_BAR = EnumA 1
 newtype EnumB = EnumB
   { un_EnumB :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable EnumB where
 
@@ -456,10 +438,6 @@ instance F.Storable EnumB where
       \s1 ->
         case s1 of
           EnumB un_EnumB2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumB2
-
-deriving stock instance Eq EnumB
-
-deriving stock instance Ord EnumB
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
@@ -508,6 +486,7 @@ pattern B_BAR = EnumB 1
 newtype EnumC = EnumC
   { un_EnumC :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable EnumC where
 
@@ -525,10 +504,6 @@ instance F.Storable EnumC where
       \s1 ->
         case s1 of
           EnumC un_EnumC2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumC2
-
-deriving stock instance Eq EnumC
-
-deriving stock instance Ord EnumC
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
@@ -577,6 +552,7 @@ pattern C_BAR = EnumC 1
 newtype EnumD = EnumD
   { un_EnumD :: FC.CUInt
   }
+  deriving stock (Eq, Ord)
 
 instance F.Storable EnumD where
 
@@ -594,10 +570,6 @@ instance F.Storable EnumD where
       \s1 ->
         case s1 of
           EnumD un_EnumD2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumD2
-
-deriving stock instance Eq EnumD
-
-deriving stock instance Ord EnumD
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
@@ -646,13 +618,5 @@ pattern D_BAR = EnumD 1
 newtype EnumD_t = EnumD_t
   { un_EnumD_t :: EnumD
   }
-
-deriving newtype instance F.Storable EnumD_t
-
-deriving stock instance Eq EnumD_t
-
-deriving stock instance Ord EnumD_t
-
-deriving stock instance Read EnumD_t
-
-deriving stock instance Show EnumD_t
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable)

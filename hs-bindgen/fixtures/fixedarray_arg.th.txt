@@ -6,10 +6,10 @@ foreign import ccall safe "test_internal_fun_1" fun_1_wrapper :: CInt ->
                                                                  Ptr CInt -> IO CInt
 fun_1 :: CInt -> ConstantArray 3 CInt -> IO CInt
 fun_1 = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_1_wrapper x_0 ptr_2)
-newtype Triple = Triple {un_Triple :: (ConstantArray 3 CInt)}
-deriving newtype instance Storable Triple
-deriving stock instance Eq Triple
-deriving stock instance Show Triple
+newtype Triple
+    = Triple {un_Triple :: (ConstantArray 3 CInt)}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
 foreign import ccall safe "test_internal_fun_2" fun_2_wrapper :: Ptr CInt ->
                                                                  IO CInt
 fun_2 :: Triple -> IO CInt
