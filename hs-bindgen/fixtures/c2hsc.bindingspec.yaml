@@ -1,0 +1,27 @@
+types:
+- headers: c2hsc.h
+  cname: MyCoolStruct
+  module: Example
+  identifier: MyCoolStruct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: c2hsc.h
+  cname: an_pchar
+  module: Example
+  identifier: An_pchar
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: c2hsc.h
+  cname: foo
+  module: Example
+  identifier: Foo
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable

@@ -1,0 +1,109 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "c2hsc.h:8:21",
+        declId = NamePair {
+          nameC = CName "an_pchar",
+          nameHsIdent = HsIdentifier
+            "An_pchar"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "An_pchar",
+            newtypeField = HsName
+              "@NsVar"
+              "un_An_pchar"},
+          typedefType = TypePointer
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "c2hsc.h:11:9",
+        declId = NamePair {
+          nameC = CName "MyCoolStruct",
+          nameHsIdent = HsIdentifier
+            "MyCoolStruct"},
+        declOrigin = NameOriginGenerated
+          (AnonId "c2hsc.h:11:9"),
+        declAliases = [
+          CName "MyCoolStruct"]},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "MyCoolStruct"),
+          structSizeof = 2040,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "c2hsc.h:12:10",
+              structFieldName = NamePair {
+                nameC = CName "listOfNames",
+                nameHsIdent = HsIdentifier
+                  "myCoolStruct_listOfNames"},
+              structFieldType = TypeConstArray
+                8
+                (TypeConstArray
+                  255
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "c2hsc.h:16:15",
+        declId = NamePair {
+          nameC = CName "foo",
+          nameHsIdent = HsIdentifier
+            "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Foo",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Foo"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["c2hsc"]}

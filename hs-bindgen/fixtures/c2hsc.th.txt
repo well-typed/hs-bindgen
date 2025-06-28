@@ -1,0 +1,19 @@
+-- addDependentFile examples/golden/c2hsc.h
+newtype An_pchar
+    = An_pchar {un_An_pchar :: (Ptr CChar)}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+data MyCoolStruct
+    = MyCoolStruct {myCoolStruct_listOfNames :: (ConstantArray 8
+                                                               (ConstantArray 255 CChar))}
+    deriving stock (Eq, Show)
+instance Storable MyCoolStruct
+    where {sizeOf = \_ -> 2040 :: Int;
+           alignment = \_ -> 1 :: Int;
+           peek = \ptr_0 -> pure MyCoolStruct <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MyCoolStruct myCoolStruct_listOfNames_3 -> pokeByteOff ptr_1 (0 :: Int) myCoolStruct_listOfNames_3}}
+newtype Foo
+    = Foo {un_Foo :: (FunPtr (CInt -> IO CInt))}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable

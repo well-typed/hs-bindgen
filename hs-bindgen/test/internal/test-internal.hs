@@ -89,6 +89,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
           )
         , ("bitfields"                   , defaultTracePredicate)
         , ("bool"                        , defaultTracePredicate)
+        , ("c2hsc"                       , defaultTracePredicate)
         , ("distilled_lib_1"             ,
             customTracePredicate ["MacroErrorTc", "MacroErrorTc"] $ \case
               TraceFrontend (FrontendHandleMacros (MacroErrorTc (TcErrors _)))
