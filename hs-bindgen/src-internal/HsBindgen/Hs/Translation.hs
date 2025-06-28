@@ -310,6 +310,10 @@ generateDecs opts mu typedefs (C.Decl info kind spec) =
         return $ functionDecs mu typedefs info f spec
       C.DeclMacro macro ->
         macroDecs opts info macro spec
+      C.DeclExtern ty ->
+        return $ globalExtern info ty spec
+      C.DeclConst ty ->
+        return $ globalConst info ty spec
 
 {-------------------------------------------------------------------------------
   Structs
@@ -1035,11 +1039,12 @@ functionDecs mu typedefs info f _spec =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.functionHeader f
     , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName       = importName
-        , foreignImportType       = importType
-        , foreignImportOrigName   = T.pack wrapperName
-        , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
-        , foreignImportDeclOrigin = Origin.Function f
+        { foreignImportName     = importName
+        , foreignImportType     = importType
+        , foreignImportOrigName = T.pack wrapperName
+        , foreignImportHeader   = getCHeaderIncludePath $ C.functionHeader f
+        , foreignImportOrigin   = Origin.Function f
+        , foreignImportByRef    = False
         }
     ] ++
     [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res args
@@ -1093,6 +1098,25 @@ functionDecs mu typedefs info f _spec =
 
     wrapperName :: String
     wrapperName = unModuleUnique mu ++ "_" ++ innerName
+
+{-------------------------------------------------------------------------------
+  Globals
+-------------------------------------------------------------------------------}
+
+globalExtern :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
+globalExtern info ty _spec = [
+      Hs.DeclForeignImport Hs.ForeignImportDecl{
+          foreignImportName     = C.nameHs (C.declId info)
+        , foreignImportType     = HsPtr $ typ ty
+        , foreignImportOrigName = getCName $ C.nameC (C.declId info)
+        , foreignImportHeader   = "TODO" -- TODO
+        , foreignImportOrigin   = Origin.Global ty
+        , foreignImportByRef    = True
+        }
+    ]
+
+globalConst :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
+globalConst = throwPure_TODO 41 "Constants not yet supported"
 
 {-------------------------------------------------------------------------------
   Macro

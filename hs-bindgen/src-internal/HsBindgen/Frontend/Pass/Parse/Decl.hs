@@ -430,10 +430,31 @@ functionDecl = simpleFold $ \curr -> do
           foldContinueWith [decl]
 
 -- | Global variable declaration
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/42>
 varDecl :: Fold ParseDecl [C.Decl Parse]
-varDecl = simpleFold $ \_ -> foldContinue
+varDecl = simpleFold $ \curr -> do
+    info <- getDeclInfo curr
+    typ  <- fromCXType =<< clang_getCursorType curr
+    cls  <- classifyVarDecl curr
+    let mkDecl :: C.DeclKind Parse -> C.Decl Parse
+        mkDecl kind = C.Decl{
+            declInfo = info
+          , declKind = kind
+          , declAnn  = NoAnn
+          }
+    case cls of
+      VarExtern ->
+        foldContinueWith [mkDecl $ C.DeclExtern typ]
+      VarConst ->
+        foldContinueWith [mkDecl $ C.DeclConst typ]
+      VarGlobal -> do
+        recordTrace $ UnexpectedGlobal info
+        foldContinue
+      VarThreadLocal -> do
+        recordTrace $ UnsupportedTLS info
+        foldContinue
+      VarUnsupported storage isConst -> do
+        recordTrace $ UnknownStorageClass info storage isConst
+        foldContinue
 
 -- | Unexposed declarations
 --
@@ -453,7 +474,7 @@ attribute :: Fold ParseDecl a
 attribute = simpleFold $ \_ -> foldContinue
 
 {-------------------------------------------------------------------------------
-  Auxiliary: detect implicit fields
+  Internal auxiliary
 -------------------------------------------------------------------------------}
 
 -- | Detect implicit fields inside a struct
@@ -516,3 +537,62 @@ detectStructImplicitFields nestedDecls outerFields =
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = declQualDeclId decl `elem` fieldDeps
+
+data VarClassification =
+    -- | The simplest case: a simple global variable
+    --
+    -- > extern int simpleGlobal;
+    VarExtern
+
+    -- | Global constants
+    --
+    -- This covers both @extern@ and @static@ constants
+    -- > extern const int globalConstant;
+    -- > static const int staticConst = 123;
+    --
+    -- NOTE: `static` can be useful to be able to specify the /value/ of the
+    -- constant in the header file (perhaps so that the compiler can inline it).
+    -- However, `static` does not make sense without `const`: this would be a
+    -- mutable variable, but it would be local to any C file that included the
+    -- header; it would be invisible to the C API.
+    --
+    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/829>
+    -- We could in principle expose the /value/ of the constant, if we know it.
+  | VarConst
+
+    -- | Declaration of a global variable (without static or extern)
+    --
+    -- This is a bug (such declarations do not belong in header)
+  | VarGlobal
+
+    -- | Thread local variables
+    --
+    -- We don't currently support thread-local variables.
+    -- <https://github.com/well-typed/hs-bindgen/issues/828>
+    --
+    -- This is a special case of 'VarUnsupported', for better error reporting.
+  | VarThreadLocal
+
+    -- | Unsupported variable declaration
+    --
+    -- We record the storage class and whether or not the variable is `const`.
+  | VarUnsupported (SimpleEnum CX_StorageClass) Bool
+  deriving stock (Show)
+
+classifyVarDecl :: MonadIO m => CXCursor -> m VarClassification
+classifyVarDecl curr = do
+    tls <- clang_getCursorTLSKind curr
+    case fromSimpleEnum tls of
+      Right CXTLS_None -> do
+        storage   <- clang_Cursor_getStorageClass curr
+        typ       <- clang_getCursorType curr
+        canonical <- clang_getCanonicalType typ
+        isConst   <- clang_isConstQualifiedType canonical
+        case (fromSimpleEnum storage, isConst) of
+          (Right CX_SC_Extern , False) -> return VarExtern
+          (Right CX_SC_Extern , True ) -> return VarConst
+          (Right CX_SC_Static , True ) -> return VarConst
+          (Right CX_SC_None   , _    ) -> return VarGlobal
+          _otherwise -> return $ VarUnsupported storage isConst
+      _otherwise ->
+        return VarThreadLocal

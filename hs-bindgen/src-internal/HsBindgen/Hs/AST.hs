@@ -108,11 +108,12 @@ data Newtype = Newtype {
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName       :: HsName NsVar
-    , foreignImportType       :: HsType
-    , foreignImportOrigName   :: Text
-    , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
-    , foreignImportDeclOrigin :: Origin.ForeignImport
+    { foreignImportName     :: HsName NsVar
+    , foreignImportType     :: HsType
+    , foreignImportOrigName :: Text
+    , foreignImportHeader   :: FilePath
+    , foreignImportOrigin   :: Origin.ForeignImport
+    , foreignImportByRef    :: Bool
     }
   deriving stock (Generic, Show)
 

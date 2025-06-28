@@ -153,13 +153,17 @@ instance Pretty SDecl where
             ]
 
     DForeignImport ForeignImport{..} ->
-      let importStr = Text.unpack foreignImportOrigName
-      in hsep [ "foreign import ccall safe"
-              , "\"" >< string importStr >< "\""
-              , pretty foreignImportName
-              , "::"
-              , pretty foreignImportType
+      hsep [ "foreign import ccall safe"
+          , hcat [
+                "\""
+              , if foreignImportByRef then "&" else ""
+              , string $ Text.unpack foreignImportOrigName
+              , "\""
               ]
+          , pretty foreignImportName
+          , "::"
+          , pretty foreignImportType
+          ]
 
     DDerivingInstance s t -> "deriving" <+> strategy s <+> "instance" <+> pretty t
 

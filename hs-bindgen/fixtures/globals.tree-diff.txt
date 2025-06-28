@@ -1,0 +1,21 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:6:12",
+        declId = NamePair {
+          nameC = CName "simpleGlobal",
+          nameHsIdent = HsIdentifier
+            "simpleGlobal"},
+        declOrigin = NameOriginInSource,
+        declAliases = []},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["globals"]}

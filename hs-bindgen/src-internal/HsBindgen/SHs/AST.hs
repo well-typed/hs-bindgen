@@ -308,8 +308,9 @@ data ForeignImport = ForeignImport
     { foreignImportName     :: HsName NsVar
     , foreignImportType     :: ClosedType
     , foreignImportOrigName :: Text
-    , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    , foreignImportHeader   :: FilePath
     , foreignImportOrigin   :: Origin.ForeignImport
+    , foreignImportByRef    :: Bool
     }
   deriving stock (Show)
 

@@ -97,6 +97,8 @@ instance NameUseSites C.DeclKind where
       C.DeclTypedef typedef  -> C.DeclTypedef (nameUseSites env typedef)
       C.DeclMacro macro      -> C.DeclMacro (nameUseSites env macro)
       C.DeclFunction fun     -> C.DeclFunction (nameUseSites env fun)
+      C.DeclExtern ty        -> C.DeclExtern (nameUseSites env ty)
+      C.DeclConst ty         -> C.DeclConst (nameUseSites env ty)
 
 instance NameUseSites C.Struct where
   nameUseSites env C.Struct{..} = C.Struct{
@@ -215,6 +217,13 @@ nameForAnon = \case
         C.qualNameName typedefName <> "_Deref"
       UsedByNamed (UsedInField _valOrRef fieldName) typeName ->
         C.qualNameName typeName <> "_" <> fieldName
+      UsedByNamed (UsedInVar _valOrRef) varName ->
+        -- We reuse the variable name as the name of the struct. Admittedly
+        -- this is a bit dubious, as in C this will result in name clashes;
+        -- in Haskell, however, it won't: one will be capitalized.
+        -- TODO: But perhaps this is nonetheless problematic: it would make it
+        -- impossible to distinguish between the two in external bindings.
+        C.qualNameName varName
       UsedByFieldOfAnon _valOrRef fieldName useOfAnon ->
         nameForAnon useOfAnon <> "_" <> fieldName
 

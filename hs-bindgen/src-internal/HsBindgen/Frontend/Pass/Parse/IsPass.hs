@@ -17,6 +17,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
 
 import Data.List qualified as List
 
+import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -200,6 +201,21 @@ data ParseMsg =
         unsupportedDeclsInSignatureFun   :: C.DeclInfo Parse
       , unsupportedDeclsInSignatureDecls :: [DeclId]
       }
+
+    -- | Global variables should not be declared in headers
+  | UnexpectedGlobal (C.DeclInfo Parse)
+
+    -- | Thread local variables
+    --
+    -- <https://github.com/well-typed/hs-bindgen/issues/828>
+  | UnsupportedTLS (C.DeclInfo Parse)
+
+    -- | Variable declaration
+  | UnknownStorageClass {
+        unsupportedVarDeclInfo    :: C.DeclInfo Parse
+      , unsupportedVarDeclStorage :: SimpleEnum CX_StorageClass
+      , unsupportedVarDeclConst   :: Bool
+      }
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseMsg where
@@ -223,6 +239,26 @@ instance PrettyForTrace ParseMsg where
         , PP.hcat $ List.intersperse ", " $
             map prettyForTrace unsupportedDeclsInSignatureDecls
         ]
+      UnexpectedGlobal info -> PP.vcat [
+          PP.hsep [
+            "Unexpected global variable"
+          , idAt info
+          ]
+        , "Perhaps use extern or static?"
+        ]
+      UnsupportedTLS info -> PP.hsep [
+          "Unsupported thread-local variable"
+        , idAt info
+        ]
+      UnknownStorageClass{..} -> PP.hsep [
+          "Unsupported"
+        , if unsupportedVarDeclConst
+            then "constant"
+            else "global variable"
+        , idAt unsupportedVarDeclInfo
+        , "with unknown storage class"
+        , PP.showToCtxDoc unsupportedVarDeclStorage
+        ]
     where
       idAt :: C.DeclInfo Parse -> PP.CtxDoc
       idAt info = PP.hcat [
@@ -238,6 +274,9 @@ instance HasDefaultLogLevel ParseMsg where
       UnsupportedType _ctxt err     -> getDefaultLogLevel err
       UnsupportedImplicitFields{}   -> Warning
       UnsupportedDeclsInSignature{} -> Warning
+      UnexpectedGlobal{}            -> Warning
+      UnsupportedTLS{}              -> Warning
+      UnknownStorageClass{}         -> Warning
 
 instance HasSource ParseMsg where
     getSource = const HsBindgen
