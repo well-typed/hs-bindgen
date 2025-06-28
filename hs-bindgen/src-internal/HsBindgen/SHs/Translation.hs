@@ -160,11 +160,8 @@ translateVarDecl Hs.VarDecl {..} = DVar
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
 translateForeignImportDecl Hs.ForeignImportDecl {..} =
     [  DForeignImport ForeignImport
-        { foreignImportName     = foreignImportName
-        , foreignImportType     = translateType foreignImportType
-        , foreignImportOrigName = foreignImportOrigName
-        , foreignImportHeader   = foreignImportHeader
-        , foreignImportOrigin   = foreignImportDeclOrigin
+        { foreignImportType = translateType foreignImportType
+        , ..
         }
     ]
 

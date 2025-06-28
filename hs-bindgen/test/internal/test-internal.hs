@@ -110,6 +110,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         , ("fixedwidth"                  , defaultTracePredicate)
         , ("flam"                        , defaultTracePredicate)
         , ("forward_declaration"         , defaultTracePredicate)
+        , ("globals"                     , defaultTracePredicate)
         , ("headers"                     , defaultTracePredicate)
         , ("macro_functions"             , defaultTracePredicate)
         , ("macro_in_fundecl_vs_typedef" , defaultTracePredicate)

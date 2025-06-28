@@ -54,8 +54,9 @@ data EmptyData =
   | OpaqueUnion
   deriving stock (Generic, Show)
 
-newtype ForeignImport =
+data ForeignImport =
     Function C.Function
+  | Global C.Type
   deriving stock (Generic, Show)
 
 newtype PatSyn =

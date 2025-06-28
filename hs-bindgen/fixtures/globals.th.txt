@@ -1,0 +1,2 @@
+-- addDependentFile examples/golden/globals.h
+foreign import ccall safe "simpleGlobal" simpleGlobal :: Ptr CInt
