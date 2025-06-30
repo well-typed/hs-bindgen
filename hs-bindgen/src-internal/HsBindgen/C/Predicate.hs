@@ -5,11 +5,13 @@
 -- > import HsBindgen.C.Predicate (Predicate(..))
 -- > import HsBindgen.C.Predicate qualified as Predicate
 module HsBindgen.C.Predicate (
-    Predicate(..)
+    Predicate (..)
   , Regex -- opaque
+    -- * Trace messages
+  , SkipReason (..)
+  , Match (..)
     -- * Execution (this is internal API)
   , IsMainFile
-  , SkipReason (..)
   , match
   ) where
 
@@ -22,7 +24,7 @@ import Clang.Paths
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (CtxDoc, hcat, showToCtxDoc, textToCtxDoc, (><))
+import Text.SimplePrettyPrint (hcat, showToCtxDoc, textToCtxDoc)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -40,6 +42,11 @@ data Predicate =
     -- Used to define the 'Semigroup' instance.
   | SelectIfBoth Predicate Predicate
 
+    -- | Logical negation
+    --
+    -- Used to negate selection predicates
+  | SelectNegate Predicate
+
     -- | Include definitions in main files (and not in included files)
   | SelectFromMainFiles
 
@@ -48,7 +55,7 @@ data Predicate =
 
     -- | Match element against regex
   | SelectByElementName Regex
-  deriving (Show)
+  deriving (Show, Eq)
 
 instance Semigroup Predicate where
   (<>) = SelectIfBoth
@@ -57,46 +64,45 @@ instance Monoid Predicate where
   mempty = SelectAll
 
 {-------------------------------------------------------------------------------
-  Log messages (during matching)
+  Trace messages (during matching)
 -------------------------------------------------------------------------------}
 
 data SkipReason =
     SkipBuiltin {
-         skippedName :: Maybe Text
-       }
-  | SkipPredicate {
-        skippedName   :: Maybe Text
-      , skippedLoc    :: SingleLoc
-      , skippedReason :: Text
+        skippedName :: Text
       }
+  | SkipPredicate Match
   | SkipUnexposed {
         skippedLoc :: SingleLoc
+      }
+  deriving stock (Show, Eq)
+
+data Match = Match {
+          matchName   :: Text
+        , matchLoc    :: SingleLoc
+        , matchReason :: Text
       }
   deriving stock (Show, Eq)
 
 instance PrettyForTrace SkipReason where
   prettyForTrace = \case
       SkipBuiltin{skippedName} -> hcat [
-          "Skipped built-in: "
-        , prettySkippedName skippedName
+          "Skipped built-in: '"
+        , textToCtxDoc skippedName
+        , "'"
         ]
-      SkipPredicate{..} -> hcat [
-          "Skipped "
-        , prettySkippedName skippedName
-        , " at "
-        , showToCtxDoc skippedLoc
+      (SkipPredicate Match{..}) -> hcat [
+          "Skipped '"
+        , textToCtxDoc matchName
+        , "' at "
+        , showToCtxDoc matchLoc
         , ": "
-        , textToCtxDoc skippedReason
+        , textToCtxDoc matchReason
         ]
       SkipUnexposed{skippedLoc} -> hcat [
           "Skipped unexposed declaration at "
         , showToCtxDoc skippedLoc
         ]
-    where
-      prettySkippedName :: Maybe Text -> CtxDoc
-      prettySkippedName = \case
-        Nothing -> "an anonymous declaration"
-        Just nm -> "'" >< textToCtxDoc nm >< "'"
 
 instance HasDefaultLogLevel SkipReason where
   getDefaultLogLevel = \case
@@ -116,6 +122,10 @@ instance HasDefaultLogLevel SkipReason where
 -- this module. See "HsBindgen.Frontend.ProcessIncludes" for discussion.
 type IsMainFile = SingleLoc -> Bool
 
+type Skip = Match
+
+type Include = Match
+
 -- | Match filter
 --
 -- If the filter does not match, we report the reason why.
@@ -124,57 +134,57 @@ match isMainFile predicate loc mQualName = do
     let skipBuiltIn :: Either SkipReason ()
         skipBuiltIn =
             when (nullSourcePath sourcePath) $
-              Left SkipBuiltin{skippedName = qualName}
+              Left SkipBuiltin{skippedName = matchName}
           where
             sourcePath :: SourcePath
             sourcePath = singleLocPath loc
 
-        skip :: Text -> Either SkipReason a
-        skip skippedReason =
-              Left SkipPredicate{
-                  skippedName = qualName
-                , skippedReason
-                , skippedLoc = loc
-                }
+        skip :: Text -> Either Skip Include
+        skip = Left . getMatch
 
-        accept :: Either a ()
-        accept = pure ()
+        include :: Text -> Either Skip Include
+        include = Right . getMatch
 
-        qualName :: Maybe Text
-        qualName = qualNameText <$> mQualName
+        getMatch :: Text -> Match
+        getMatch matchReason =
+            Match{
+                matchName
+              , matchLoc = loc
+              , matchReason
+              }
 
-        go :: Predicate -> Either SkipReason ()
-        go SelectAll =
-            accept
-        go (SelectIfBoth p q) = do
-            go p
-            go q
-        go SelectFromMainFiles = do
-            unless (isMainFile loc) $
-              skip "Not from main files"
-        go (SelectByFileName re) = do
-            let filename = case singleLocPath loc of SourcePath t -> t
-            unless (matchTest re filename) $
-              skip $ mconcat [
-                  "File name '"
-                , filename
-                , "' does not match "
-                , Text.pack $ show re
-                ]
-        go (SelectByElementName re) = case qualNameText <$> mQualName of
-            Just qualElementName
-              | matchTest re qualElementName -> accept
-              | otherwise ->
-                  skip $ mconcat [
-                      "Element name '"
-                    , qualElementName
-                    , "' does not match "
-                    , Text.pack $ show re
-                    ]
-            Nothing -> skip "Anonymous declarations do not match regular expression predicates"
+        matchName :: Text
+        matchName = maybe "anonymous declaration" qualNameText mQualName
+
+        go :: Predicate -> Either Skip Include
+        go = \case
+            SelectAll -> include "Select all declarations"
+            (SelectIfBoth p1 p2) -> go p1 >> go p2
+            (SelectNegate p1) -> case go p1 of
+              Left  skp -> include $ "Negation of: " <> matchReason skp
+              Right inc -> skip $ "Negation of: " <> matchReason inc
+            SelectFromMainFiles
+              | isMainFile loc -> include "From main files"
+              | otherwise      -> skip "Not from main files"
+            (SelectByFileName re)
+              | matchTest re filename -> include (msg "matches")
+              | otherwise             -> skip (msg "does not match")
+                where
+                  (SourcePath filename) = singleLocPath loc
+                  msg verb = mconcat [ "File name '" <> filename <> "' "
+                                     , verb <> " " <> Text.pack (show re)
+                                     ]
+            (SelectByElementName re) -> case qualNameText <$> mQualName of
+              Just qualElementName
+                | matchTest re qualElementName -> include (msg "matches")
+              _noMatchOrAnon -> skip (msg "does not match")
+              where
+                msg verb = mconcat [ "Element name '" <> matchName <> "' "
+                                   , verb <> " " <> Text.pack (show re)
+                                   ]
 
     skipBuiltIn
-    go predicate
+    bimap SkipPredicate (const ()) (go predicate)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs
@@ -185,6 +195,9 @@ data Regex = Regex {
       regexString   :: String
     , regexCompiled :: PCRE.Regex
     }
+
+instance Eq Regex where
+  x == y = regexString x == regexString y
 
 -- | Validatity of the 'Show' instance depends on the 'IsString' instance
 instance Show Regex where

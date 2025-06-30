@@ -106,11 +106,23 @@ parsePredicate = fmap aux . many . asum $ [
         ]
     , fmap SelectByFileName $ strOption $ mconcat [
           long "select-by-filename"
-        , help "Match filename against PCRE"
+        , help "Select files with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (SelectNegate . SelectByFileName) $ strOption $ mconcat [
+          long "skip-by-filename"
+        , help "Skip files with names that match PCRE"
+        , metavar "PCRE"
         ]
     , fmap SelectByElementName $ strOption $ mconcat [
           long "select-by-element-name"
-        , help "Match element name against PCRE"
+        , help "Select elements with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (SelectNegate . SelectByElementName) $ strOption $ mconcat [
+          long "skip-by-element-name"
+        , help "Skip elements with names that match PCRE"
+        , metavar "PCRE"
         ]
     , flag' SelectFromMainFiles $ mconcat [
           long "select-from-main-files"
