@@ -5733,7 +5733,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "manual_examples.h:111:13",
+          "manual_examples.h:116:13",
           declId = NamePair {
             nameC = CName "\25968\23383",
             nameHsIdent = HsIdentifier
@@ -5890,7 +5890,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "manual_examples.h:113:13",
+          "manual_examples.h:123:13",
           declId = NamePair {
             nameC = CName "data",
             nameHsIdent = HsIdentifier
@@ -6021,7 +6021,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "manual_examples.h:120:6",
+          "manual_examples.h:130:6",
           declId = NamePair {
             nameC = CName "signal",
             nameHsIdent = HsIdentifier
@@ -6044,7 +6044,7 @@
             enumConstants = [
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:121:3",
+                "manual_examples.h:131:3",
                 enumConstantName = NamePair {
                   nameC = CName "start",
                   nameHsIdent = HsIdentifier
@@ -6052,7 +6052,7 @@
                 enumConstantValue = 1},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:122:3",
+                "manual_examples.h:132:3",
                 enumConstantName = NamePair {
                   nameC = CName "pause",
                   nameHsIdent = HsIdentifier
@@ -6060,7 +6060,7 @@
                 enumConstantValue = 2},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:123:3",
+                "manual_examples.h:133:3",
                 enumConstantName = NamePair {
                   nameC = CName "resume",
                   nameHsIdent = HsIdentifier
@@ -6068,7 +6068,7 @@
                 enumConstantValue = 3},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:124:3",
+                "manual_examples.h:134:3",
                 enumConstantName = NamePair {
                   nameC = CName "stop",
                   nameHsIdent = HsIdentifier
@@ -6296,7 +6296,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:121:3",
+          "manual_examples.h:131:3",
           enumConstantName = NamePair {
             nameC = CName "start",
             nameHsIdent = HsIdentifier
@@ -6317,7 +6317,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:122:3",
+          "manual_examples.h:132:3",
           enumConstantName = NamePair {
             nameC = CName "pause",
             nameHsIdent = HsIdentifier
@@ -6338,7 +6338,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:123:3",
+          "manual_examples.h:133:3",
           enumConstantName = NamePair {
             nameC = CName "resume",
             nameHsIdent = HsIdentifier
@@ -6359,7 +6359,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:124:3",
+          "manual_examples.h:134:3",
           enumConstantName = NamePair {
             nameC = CName "stop",
             nameHsIdent = HsIdentifier
@@ -6383,7 +6383,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "manual_examples.h:127:6",
+          "manual_examples.h:137:6",
           declId = NamePair {
             nameC = CName "HTTP_status",
             nameHsIdent = HsIdentifier
@@ -6406,7 +6406,7 @@
             enumConstants = [
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:128:3",
+                "manual_examples.h:138:3",
                 enumConstantName = NamePair {
                   nameC = CName "ok",
                   nameHsIdent = HsIdentifier
@@ -6414,7 +6414,7 @@
                 enumConstantValue = 200},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:129:3",
+                "manual_examples.h:139:3",
                 enumConstantName = NamePair {
                   nameC = CName "moved",
                   nameHsIdent = HsIdentifier
@@ -6422,7 +6422,7 @@
                 enumConstantValue = 301},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:130:3",
+                "manual_examples.h:140:3",
                 enumConstantName = NamePair {
                   nameC = CName "bad_request",
                   nameHsIdent = HsIdentifier
@@ -6430,7 +6430,7 @@
                 enumConstantValue = 400},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:131:3",
+                "manual_examples.h:141:3",
                 enumConstantName = NamePair {
                   nameC = CName "unauthorized",
                   nameHsIdent = HsIdentifier
@@ -6438,7 +6438,7 @@
                 enumConstantValue = 401},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:132:3",
+                "manual_examples.h:142:3",
                 enumConstantName = NamePair {
                   nameC = CName "not_found",
                   nameHsIdent = HsIdentifier
@@ -6651,7 +6651,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:128:3",
+          "manual_examples.h:138:3",
           enumConstantName = NamePair {
             nameC = CName "ok",
             nameHsIdent = HsIdentifier
@@ -6672,7 +6672,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:129:3",
+          "manual_examples.h:139:3",
           enumConstantName = NamePair {
             nameC = CName "moved",
             nameHsIdent = HsIdentifier
@@ -6693,7 +6693,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:130:3",
+          "manual_examples.h:140:3",
           enumConstantName = NamePair {
             nameC = CName "bad_request",
             nameHsIdent = HsIdentifier
@@ -6714,7 +6714,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:131:3",
+          "manual_examples.h:141:3",
           enumConstantName = NamePair {
             nameC = CName "unauthorized",
             nameHsIdent = HsIdentifier
@@ -6735,7 +6735,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:132:3",
+          "manual_examples.h:142:3",
           enumConstantName = NamePair {
             nameC = CName "not_found",
             nameHsIdent = HsIdentifier
@@ -6759,7 +6759,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "manual_examples.h:135:6",
+          "manual_examples.h:145:6",
           declId = NamePair {
             nameC = CName "descending",
             nameHsIdent = HsIdentifier
@@ -6782,21 +6782,21 @@
             enumConstants = [
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:136:3",
+                "manual_examples.h:146:3",
                 enumConstantName = NamePair {
                   nameC = CName "X",
                   nameHsIdent = HsIdentifier "X"},
                 enumConstantValue = 100},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:137:3",
+                "manual_examples.h:147:3",
                 enumConstantName = NamePair {
                   nameC = CName "Y",
                   nameHsIdent = HsIdentifier "Y"},
                 enumConstantValue = 99},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:138:3",
+                "manual_examples.h:148:3",
                 enumConstantName = NamePair {
                   nameC = CName "Y_alias",
                   nameHsIdent = HsIdentifier
@@ -6804,7 +6804,7 @@
                 enumConstantValue = 99},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:139:3",
+                "manual_examples.h:149:3",
                 enumConstantName = NamePair {
                   nameC = CName "Z",
                   nameHsIdent = HsIdentifier "Z"},
@@ -7032,7 +7032,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:136:3",
+          "manual_examples.h:146:3",
           enumConstantName = NamePair {
             nameC = CName "X",
             nameHsIdent = HsIdentifier "X"},
@@ -7052,7 +7052,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:137:3",
+          "manual_examples.h:147:3",
           enumConstantName = NamePair {
             nameC = CName "Y",
             nameHsIdent = HsIdentifier "Y"},
@@ -7072,7 +7072,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:138:3",
+          "manual_examples.h:148:3",
           enumConstantName = NamePair {
             nameC = CName "Y_alias",
             nameHsIdent = HsIdentifier
@@ -7093,7 +7093,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:139:3",
+          "manual_examples.h:149:3",
           enumConstantName = NamePair {
             nameC = CName "Z",
             nameHsIdent = HsIdentifier "Z"},
@@ -7116,7 +7116,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "manual_examples.h:142:6",
+          "manual_examples.h:152:6",
           declId = NamePair {
             nameC = CName "result",
             nameHsIdent = HsIdentifier
@@ -7139,7 +7139,7 @@
             enumConstants = [
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:143:3",
+                "manual_examples.h:153:3",
                 enumConstantName = NamePair {
                   nameC = CName "failed",
                   nameHsIdent = HsIdentifier
@@ -7147,7 +7147,7 @@
                 enumConstantValue = `-1`},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:144:3",
+                "manual_examples.h:154:3",
                 enumConstantName = NamePair {
                   nameC = CName "success",
                   nameHsIdent = HsIdentifier
@@ -7155,7 +7155,7 @@
                 enumConstantValue = 0},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:145:3",
+                "manual_examples.h:155:3",
                 enumConstantName = NamePair {
                   nameC = CName "postponed",
                   nameHsIdent = HsIdentifier
@@ -7163,7 +7163,7 @@
                 enumConstantValue = 1},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:146:3",
+                "manual_examples.h:156:3",
                 enumConstantName = NamePair {
                   nameC = CName "already_done",
                   nameHsIdent = HsIdentifier
@@ -7399,7 +7399,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:143:3",
+          "manual_examples.h:153:3",
           enumConstantName = NamePair {
             nameC = CName "failed",
             nameHsIdent = HsIdentifier
@@ -7420,7 +7420,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:144:3",
+          "manual_examples.h:154:3",
           enumConstantName = NamePair {
             nameC = CName "success",
             nameHsIdent = HsIdentifier
@@ -7441,7 +7441,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:145:3",
+          "manual_examples.h:155:3",
           enumConstantName = NamePair {
             nameC = CName "postponed",
             nameHsIdent = HsIdentifier
@@ -7462,7 +7462,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:146:3",
+          "manual_examples.h:156:3",
           enumConstantName = NamePair {
             nameC = CName "already_done",
             nameHsIdent = HsIdentifier
@@ -7486,7 +7486,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "manual_examples.h:149:6",
+          "manual_examples.h:159:6",
           declId = NamePair {
             nameC = CName "vote",
             nameHsIdent = HsIdentifier
@@ -7510,7 +7510,7 @@
             enumConstants = [
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:150:3",
+                "manual_examples.h:160:3",
                 enumConstantName = NamePair {
                   nameC = CName "infavour",
                   nameHsIdent = HsIdentifier
@@ -7518,7 +7518,7 @@
                 enumConstantValue = 0},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:151:3",
+                "manual_examples.h:161:3",
                 enumConstantName = NamePair {
                   nameC = CName "against",
                   nameHsIdent = HsIdentifier
@@ -7526,7 +7526,7 @@
                 enumConstantValue = 1},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:152:3",
+                "manual_examples.h:162:3",
                 enumConstantName = NamePair {
                   nameC = CName "abstain",
                   nameHsIdent = HsIdentifier
@@ -7753,7 +7753,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:150:3",
+          "manual_examples.h:160:3",
           enumConstantName = NamePair {
             nameC = CName "infavour",
             nameHsIdent = HsIdentifier
@@ -7774,7 +7774,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:151:3",
+          "manual_examples.h:161:3",
           enumConstantName = NamePair {
             nameC = CName "against",
             nameHsIdent = HsIdentifier
@@ -7795,7 +7795,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:152:3",
+          "manual_examples.h:162:3",
           enumConstantName = NamePair {
             nameC = CName "abstain",
             nameHsIdent = HsIdentifier
@@ -7819,7 +7819,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "manual_examples.h:157:6",
+          "manual_examples.h:167:6",
           declId = NamePair {
             nameC = CName "CXCursorKind",
             nameHsIdent = HsIdentifier
@@ -7842,7 +7842,7 @@
             enumConstants = [
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:158:3",
+                "manual_examples.h:168:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_FirstExpr",
@@ -7851,7 +7851,7 @@
                 enumConstantValue = 100},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:159:3",
+                "manual_examples.h:169:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_UnexposedExpr",
@@ -7860,7 +7860,7 @@
                 enumConstantValue = 100},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:160:3",
+                "manual_examples.h:170:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_DeclRefExpr",
@@ -7869,7 +7869,7 @@
                 enumConstantValue = 101},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:161:3",
+                "manual_examples.h:171:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_MemberRefExpr",
@@ -7878,7 +7878,7 @@
                 enumConstantValue = 102},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:163:3",
+                "manual_examples.h:173:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_PackIndexingExpr",
@@ -7887,7 +7887,7 @@
                 enumConstantValue = 156},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:164:3",
+                "manual_examples.h:174:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_LastExpr",
@@ -7896,7 +7896,7 @@
                 enumConstantValue = 156},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:166:3",
+                "manual_examples.h:176:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_FirstStmt",
@@ -7905,7 +7905,7 @@
                 enumConstantValue = 200},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:167:3",
+                "manual_examples.h:177:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_UnexposedStmt",
@@ -7914,7 +7914,7 @@
                 enumConstantValue = 200},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:168:3",
+                "manual_examples.h:178:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_LabelStmt",
@@ -7923,7 +7923,7 @@
                 enumConstantValue = 201},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:169:3",
+                "manual_examples.h:179:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_CompoundStmt",
@@ -7932,7 +7932,7 @@
                 enumConstantValue = 202},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:171:3",
+                "manual_examples.h:181:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_OpenACCUpdateConstruct",
@@ -7941,7 +7941,7 @@
                 enumConstantValue = 331},
               EnumConstant {
                 enumConstantLoc =
-                "manual_examples.h:172:3",
+                "manual_examples.h:182:3",
                 enumConstantName = NamePair {
                   nameC = CName
                     "CXCursor_LastStmt",
@@ -8184,7 +8184,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:158:3",
+          "manual_examples.h:168:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_FirstExpr",
@@ -8206,7 +8206,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:159:3",
+          "manual_examples.h:169:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_UnexposedExpr",
@@ -8228,7 +8228,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:160:3",
+          "manual_examples.h:170:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_DeclRefExpr",
@@ -8250,7 +8250,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:161:3",
+          "manual_examples.h:171:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_MemberRefExpr",
@@ -8272,7 +8272,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:163:3",
+          "manual_examples.h:173:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_PackIndexingExpr",
@@ -8294,7 +8294,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:164:3",
+          "manual_examples.h:174:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_LastExpr",
@@ -8316,7 +8316,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:166:3",
+          "manual_examples.h:176:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_FirstStmt",
@@ -8338,7 +8338,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:167:3",
+          "manual_examples.h:177:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_UnexposedStmt",
@@ -8360,7 +8360,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:168:3",
+          "manual_examples.h:178:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_LabelStmt",
@@ -8382,7 +8382,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:169:3",
+          "manual_examples.h:179:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_CompoundStmt",
@@ -8404,7 +8404,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:171:3",
+          "manual_examples.h:181:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_OpenACCUpdateConstruct",
@@ -8426,7 +8426,7 @@
       patSynOrigin = EnumConstant
         EnumConstant {
           enumConstantLoc =
-          "manual_examples.h:172:3",
+          "manual_examples.h:182:3",
           enumConstantName = NamePair {
             nameC = CName
               "CXCursor_LastStmt",
