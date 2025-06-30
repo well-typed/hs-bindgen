@@ -9,6 +9,8 @@ echo "# "
 echo "# Basic examples"
 echo "# "
 
+mkdir -p hs/manual/generated
+
 cabal run hs-bindgen-cli -- \
   preprocess \
     -I ${PROJECT_ROOT}/hs-bindgen/examples/golden \
@@ -35,6 +37,8 @@ cabal run hs-bindgen-cli -- \
     --module Vector \
     vector.h
 
+mkdir -p hs/hs-vector/generated/Vector
+
 cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
@@ -54,6 +58,8 @@ cabal run hs-bindgen-cli -- \
 echo "# "
 echo "# External bindings: game example"
 echo "# "
+
+mkdir -p hs/hs-game/generated/Game
 
 cabal run hs-bindgen-cli -- \
   preprocess \
