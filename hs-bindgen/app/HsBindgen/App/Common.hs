@@ -4,7 +4,7 @@ module HsBindgen.App.Common (
     GlobalOpts(..)
   , parseGlobalOpts
     -- * Input option
-  , parseInput
+  , parseInputs
     -- * Auxiliary hs-bindgen functions
   , withTracer
   , loadExtBindingSpecs'
@@ -262,16 +262,21 @@ parseExtBindings = many . strOption $ mconcat [
     ]
 
 {-------------------------------------------------------------------------------
-  Input option
+  Input arguments
 -------------------------------------------------------------------------------}
 
-parseInput :: Parser CHeaderIncludePath
-parseInput =
-    argument (eitherReader $ first displayException . parseCHeaderIncludePath) $
-      mconcat $ [
-          help "Input C header, relative to an include path directory"
-        , metavar "HEADER"
-        ]
+-- | Parse one or more input header arguments
+--
+-- This uses standard syntax for one or more arguments, which
+-- @optparse-applicative@ does not get right when just using 'some'.
+parseInputs :: Parser [CHeaderIncludePath]
+parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
+      help "Input C header(s), relative to an include path directory"
+    , metavar "HEADER..."
+    ]
+  where
+    parseHeader :: String -> Either String CHeaderIncludePath
+    parseHeader = first displayException . parseCHeaderIncludePath
 
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions

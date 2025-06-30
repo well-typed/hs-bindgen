@@ -108,7 +108,7 @@ parsePreprocessOpts =
       <*> parseHsRenderOpts
       <*> parseOutput
       <*> optional parseGenBindingSpec
-      <*> some parseInput
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Test generation command
@@ -130,7 +130,7 @@ parseGenTestsOpts =
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseGenTestsOutput
-      <*> some parseInput
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Literate command
@@ -177,7 +177,7 @@ data ResolveOpts = ResolveOpts {
 parseResolveOpts :: Parser ResolveOpts
 parseResolveOpts =
     ResolveOpts
-      <$> some parseInput
+      <$> parseInputs
 
 {-------------------------------------------------------------------------------
   Translation options

@@ -67,4 +67,4 @@ newtype ParseOpts = ParseOpts {
 parseParseOpts :: Parser ParseOpts
 parseParseOpts =
     ParseOpts
-      <$> some parseInput
+      <$> parseInputs
