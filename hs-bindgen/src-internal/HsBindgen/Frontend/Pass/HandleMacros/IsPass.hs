@@ -4,7 +4,7 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
 
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.C

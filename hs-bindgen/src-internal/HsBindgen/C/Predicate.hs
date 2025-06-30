@@ -13,18 +13,16 @@ module HsBindgen.C.Predicate (
   , match
   ) where
 
-import Control.Monad.Except (ExceptT, runExceptT, throwError)
 import Data.Text qualified as Text
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text ()
 
-import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
-import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.Imports
+import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (hcat, showToCtxDoc, textToCtxDoc)
+import Text.SimplePrettyPrint (CtxDoc, hcat, showToCtxDoc, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -64,10 +62,10 @@ instance Monoid Predicate where
 
 data SkipReason =
     SkipBuiltin {
-         skippedName :: Text
+         skippedName :: Maybe Text
        }
   | SkipPredicate {
-        skippedName   :: Text
+        skippedName   :: Maybe Text
       , skippedLoc    :: SingleLoc
       , skippedReason :: Text
       }
@@ -80,11 +78,11 @@ instance PrettyForTrace SkipReason where
   prettyForTrace = \case
       SkipBuiltin{skippedName} -> hcat [
           "Skipped built-in: "
-        , showToCtxDoc skippedName
+        , prettySkippedName skippedName
         ]
       SkipPredicate{..} -> hcat [
           "Skipped "
-        , textToCtxDoc skippedName
+        , prettySkippedName skippedName
         , " at "
         , showToCtxDoc skippedLoc
         , ": "
@@ -94,6 +92,11 @@ instance PrettyForTrace SkipReason where
           "Skipped unexposed declaration at "
         , showToCtxDoc skippedLoc
         ]
+    where
+      prettySkippedName :: Maybe Text -> CtxDoc
+      prettySkippedName = \case
+        Nothing -> "an anonymous declaration"
+        Just nm -> "'" >< textToCtxDoc nm >< "'"
 
 instance HasDefaultLogLevel SkipReason where
   getDefaultLogLevel = \case
@@ -116,35 +119,33 @@ type IsMainFile = SingleLoc -> Bool
 -- | Match filter
 --
 -- If the filter does not match, we report the reason why.
-match :: forall m.
-     MonadIO m
-  => IsMainFile
-  -> Predicate
-  -> CXCursor -> m (Either SkipReason ())
-match isMainFile predicate curr = runExceptT $ do
-    loc <- HighLevel.clang_getCursorLocation' curr
-
-    let skipBuiltIn :: ExceptT SkipReason m ()
+match :: IsMainFile -> Predicate -> SingleLoc -> Maybe QualName -> Either SkipReason ()
+match isMainFile predicate loc mQualName = do
+    let skipBuiltIn :: Either SkipReason ()
         skipBuiltIn =
-            when (nullSourcePath sourcePath) $ do
-              skippedName <- clang_getCursorSpelling curr
-              throwError SkipBuiltin{skippedName}
+            when (nullSourcePath sourcePath) $
+              Left SkipBuiltin{skippedName = qualName}
           where
             sourcePath :: SourcePath
             sourcePath = singleLocPath loc
 
-        skip :: Text -> ExceptT SkipReason m a
-        skip skippedReason = do
-              skippedName <- clang_getCursorSpelling curr
-              throwError SkipPredicate{
-                  skippedName
+        skip :: Text -> Either SkipReason a
+        skip skippedReason =
+              Left SkipPredicate{
+                  skippedName = qualName
                 , skippedReason
                 , skippedLoc = loc
                 }
 
-        go :: Predicate -> ExceptT SkipReason m ()
+        accept :: Either a ()
+        accept = pure ()
+
+        qualName :: Maybe Text
+        qualName = qualNameText <$> mQualName
+
+        go :: Predicate -> Either SkipReason ()
         go SelectAll =
-            pure ()
+            accept
         go (SelectIfBoth p q) = do
             go p
             go q
@@ -160,16 +161,17 @@ match isMainFile predicate curr = runExceptT $ do
                 , "' does not match "
                 , Text.pack $ show re
                 ]
-        go (SelectByElementName re) = do
-            elementName <- clang_getCursorSpelling curr
-            unless (matchTest re elementName) $ do
-              skip $ mconcat [
-                  "Element name '"
-                , elementName
-                , "' does not match "
-                , Text.pack $ show re
-                ]
-
+        go (SelectByElementName re) = case qualNameText <$> mQualName of
+            Just qualElementName
+              | matchTest re qualElementName -> accept
+              | otherwise ->
+                  skip $ mconcat [
+                      "Element name '"
+                    , qualElementName
+                    , "' does not match "
+                    , Text.pack $ show re
+                    ]
+            Nothing -> skip "Anonymous declarations do not match regular expression predicates"
 
     skipBuiltIn
     go predicate

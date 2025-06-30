@@ -3,6 +3,7 @@ module HsBindgen.Language.C.Name (
     AnonId(..)
   , CName(..)
   , NameKind(..)
+  , toNameKindFromCXCursorKind
   , QualName(..)
   , qualNameText
   , parseQualName
@@ -11,9 +12,10 @@ module HsBindgen.Language.C.Name (
 
 import Data.Text qualified as Text
 
-import Clang.HighLevel (ShowFile(..))
+import Clang.HighLevel (ShowFile (..))
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (SingleLoc)
+import Clang.LowLevel.Core
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 import Text.SimplePrettyPrint (showToCtxDoc, textToCtxDoc, (><))
@@ -86,6 +88,15 @@ data NameKind =
 
 instance PrettyForTrace NameKind where
   prettyForTrace = showToCtxDoc
+
+toNameKindFromCXCursorKind :: CXCursorKind -> Maybe NameKind
+toNameKindFromCXCursorKind = \case
+      CXCursor_MacroDefinition -> Just NameKindOrdinary
+      CXCursor_StructDecl      -> Just NameKindStruct
+      CXCursor_UnionDecl       -> Just NameKindUnion
+      CXCursor_TypedefDecl     -> Just NameKindOrdinary
+      CXCursor_EnumDecl        -> Just NameKindEnum
+      _kind                    -> Nothing
 
 {-------------------------------------------------------------------------------
   QualName

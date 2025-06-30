@@ -24,6 +24,7 @@ import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (hcat, showToCtxDoc)

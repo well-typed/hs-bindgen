@@ -7,9 +7,10 @@ module HsBindgen.Frontend.AST.Deps (
 
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Frontend.Pass.Parse.IsPass
 
 {-------------------------------------------------------------------------------
   Definitions

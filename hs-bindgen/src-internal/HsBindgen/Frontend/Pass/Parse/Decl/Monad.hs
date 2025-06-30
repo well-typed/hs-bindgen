@@ -44,10 +44,12 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.C.Name (QualName)
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -98,10 +100,10 @@ evalGetMainHeader :: SourcePath -> ParseDecl CHeaderIncludePath
 evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
     return $ (envGetMainHeader parseEnv) path
 
-evalPredicate :: CXCursor -> ParseDecl (Either Predicate.SkipReason ())
-evalPredicate curr = wrapEff $ \ParseSupport{parseEnv} -> do
-    matchResult <-
-      Predicate.match (envIsMainFile parseEnv) (envPredicate parseEnv) curr
+evalPredicate :: SingleLoc -> Maybe QualName -> ParseDecl (Either Predicate.SkipReason ())
+evalPredicate loc mQualName = wrapEff $ \ParseSupport{parseEnv} -> do
+    let matchResult =
+          Predicate.match (envIsMainFile parseEnv) (envPredicate parseEnv) loc mQualName
     case matchResult of
       Right ()    -> return ()
       Left reason -> traceWith (envTracer parseEnv) (Skipped reason)
@@ -161,19 +163,7 @@ checkHasMacroExpansion extent = do
 
 recordNonSelectedDecl :: CXCursor -> ParseDecl ()
 recordNonSelectedDecl curr = do
-    mNameKind <- dispatch curr $ return . \case
-      CXCursor_MacroDefinition -> Just C.NameKindOrdinary
-      CXCursor_StructDecl      -> Just C.NameKindStruct
-      CXCursor_UnionDecl       -> Just C.NameKindUnion
-      CXCursor_TypedefDecl     -> Just C.NameKindOrdinary
-      CXCursor_EnumDecl        -> Just C.NameKindEnum
-      -- We intentionally do selection as part of parsing, rather than a
-      -- separate step: if the user does not select certain declarations
-      -- (perhaps because they live deep in the bowels of some system
-      -- libraries), we also do not need to parse them. Since 'recordSource' is
-      -- called on all declarations, selected or not, we must ensure that we
-      -- don't error out on such unsupported cases.
-      _kind                    -> Nothing
+    mNameKind <- dispatch curr $ return . C.toNameKindFromCXCursorKind
     case mNameKind of
       Just nameKind -> getDeclId curr >>= \case
         DeclNamed cname -> do
@@ -190,6 +180,12 @@ recordNonSelectedDecl curr = do
         -- use descriptive binding specification with anonymous declarations, we
         -- __must__ select these declarations.
         DeclAnon{} -> return ()
+      -- We intentionally do selection as part of parsing, rather than a
+      -- separate step: if the user does not select certain declarations
+      -- (perhaps because they live deep in the bowels of some system
+      -- libraries), we also do not need to parse them. Since 'recordSource' is
+      -- called on all declarations, selected or not, we must ensure that we
+      -- don't error out on such unsupported cases.
       Nothing -> return ()
 
 {-------------------------------------------------------------------------------
