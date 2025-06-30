@@ -20,8 +20,8 @@ execMode Dev{..} = \case
     ModeParse{..} -> genBindings parseInputPaths >>= print
   where
     genBindings :: [CHeaderIncludePath] -> IO TranslationUnit
-    genBindings inputPaths =
-      withTracerStdOut (globalOptsTracerConf devGlobalOpts) DefaultLogLevel $
+    genBindings inputPaths = do
+      maybeRes <- withTracerStdOut (globalOptsTracerConf devGlobalOpts) DefaultLogLevel $
         \tracer -> do
           extBindingSpec <-
             loadExtBindingSpecs tracer
@@ -37,3 +37,6 @@ execMode Dev{..} = \case
                 , optsTracer         = tracer
                 }
           Pipeline.parseCHeaders opts inputPaths
+      case maybeRes of
+        Nothing   -> fatalError
+        Just unit -> pure unit

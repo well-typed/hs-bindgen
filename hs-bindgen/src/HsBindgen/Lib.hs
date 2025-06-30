@@ -79,7 +79,6 @@ module HsBindgen.Lib (
   , Common.Source(..)
   , Common.HasSource(..)
   , Common.Verbosity(..)
-  , Common.ErrorTraceException(..)
     -- ** Tracer configuration
   , Common.AnsiColor(..)
   , Common.ShowTimeStamp(..)
@@ -89,7 +88,7 @@ module HsBindgen.Lib (
     -- ** Tracers
   , Common.withTracerStdOut
   , Common.withTracerCustom
-  , Common.withTracerCustom'
+  , Tracer.fatalError
 
     -- * Re-exports
   , Common.Default (..)
@@ -108,6 +107,7 @@ import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
+import HsBindgen.Util.Tracer qualified as Tracer
 
 import HsBindgen.ModuleUnique
 import HsBindgen.Util.Tracer

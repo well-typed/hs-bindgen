@@ -34,7 +34,7 @@ instance Exception LiterateFileException where
 execMode :: Cli -> IO ()
 execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
     ModePreprocess{..} -> do
-      hsDecls <- withTracer $ \tracer -> do
+      maybeHsDecls <- withTracer $ \tracer -> do
         extBindingSpec <-
           loadExtBindingSpecs
             tracer
@@ -53,7 +53,8 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
               , optsTracer         = tracer
               }
         translateCHeaders mu opts preprocessInputs
-      withTracer $ \tracer -> do
+      hsDecls <- maybe fatalError pure maybeHsDecls
+      maybeSuccess <- withTracer $ \tracer -> do
         let ppOpts = (def :: PPOpts) {
                 ppOptsModule = preprocessModuleOpts
               , ppOptsRender = preprocessRenderOpts
@@ -63,13 +64,15 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
           Nothing   -> return ()
           Just path ->
             genBindingSpec tracer ppOpts preprocessInputs path hsDecls
+      maybe fatalError pure maybeSuccess
 
     ModeGenTests{..} -> do
-      extBindingSpec <- withTracer $ \tracer ->
+      maybeExtBindingSpec <- withTracer $ \tracer ->
         loadExtBindingSpecs tracer
           globalOptsClangArgs
           globalOptsStdlibSpecConf
           globalOptsExtBindings
+      extBindingSpec <- maybe fatalError pure maybeExtBindingSpec
       let opts = cmdOpts {
               optsExtBindingSpec = extBindingSpec
             }
@@ -85,7 +88,7 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
     ModeBindingSpec BindingSpecModeStdlib -> BS.putStr stdlibExtBindingSpecYaml
 
     ModeResolve{..} -> do
-      isSuccess <- withTracer $ \tracer ->
+      maybeIsSuccess <- withTracer $ \tracer ->
         let tracerResolve = contramap TraceResolveHeader  tracer
             args          = optsClangArgs cmdOpts
             step isSuccess header =
@@ -94,7 +97,9 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
                 Nothing ->
                   False <$ putStrLn ("header not found: " ++ show header)
         in  foldM step True resolveInputs
-      unless isSuccess exitFailure
+      case maybeIsSuccess of
+        Nothing -> fatalError
+        Just isSuccess -> unless isSuccess exitFailure
   where
     cmdOpts :: Opts
     cmdOpts = def {
@@ -102,8 +107,8 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
       , optsPredicate       = globalOptsPredicate
       , optsProgramSlicing  = globalOptsProgramSlicing
       }
-    withTracer :: (Tracer IO TraceMsg -> IO b) -> IO b
-    withTracer = withTracerStdOut globalOptsTracerConf DefaultLogLevel
+    withTracer :: (Tracer IO TraceMsg -> IO b) -> IO (Maybe b)
+    withTracer action = withTracerStdOut globalOptsTracerConf DefaultLogLevel action
 
 execLiterate :: FilePath -> FilePath -> IO ()
 execLiterate input output = do

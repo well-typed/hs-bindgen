@@ -7,6 +7,7 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 
 import HsBindgen.Lib
+import HsBindgen.Util.Tracer (withTracerCustom')
 import Text.SimplePrettyPrint (string)
 
 import Test.Internal.Tasty
@@ -80,14 +81,13 @@ tests = testGroup "HsBindgen.Util.Tracer"
     , testCase "error2"   $ assertMaxLevelWithDegrade [wn, er, wn] Info
     , testCase "error3"   $ assertMaxLevelWithDegrade [er, wn] Info
     ]
-  , testGroup "ExceptionOnError"
-    [ testCase "exception" $
-        assertException "Expected ErrorTraceException" (Proxy :: Proxy ErrorTraceException) $ do
+  , testGroup "LeftOnError"
+    [ testCase "left" $ do
           let noOutput _ = pure ()
               tracerConf = def { tVerbosity = Verbosity Debug }
               withTracer = withTracerCustom DisableAnsiColor tracerConf DefaultLogLevel noOutput
-          withTracer $ \tracer -> do
-            traceWith tracer er
+          res <- withTracer $ \tracer -> do traceWith tracer er
+          res @?= Nothing
     ]
   , testGroup "withTracePredicate"
     [ testCase "ok-debug" $
