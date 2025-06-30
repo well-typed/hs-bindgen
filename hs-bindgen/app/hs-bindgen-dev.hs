@@ -14,11 +14,11 @@ main :: IO ()
 main = execDev =<< getDev
 
 execDev :: Dev -> IO ()
-execDev Dev{..} = case devMode of
-    DevModeParse mode -> execParse devGlobalOpts mode
+execDev Dev{..} = case devCmd of
+    DevCmdParse cmdOpts -> execParse devGlobalOpts cmdOpts
 
-execParse :: GlobalOpts -> ParseMode -> IO ()
-execParse globalOpts ParseMode{..} = print =<< doParse
+execParse :: GlobalOpts -> ParseOpts -> IO ()
+execParse globalOpts ParseOpts{..} = print =<< doParse
   where
     doParse :: IO TranslationUnit
     doParse = withTracer globalOpts $ \tracer -> do

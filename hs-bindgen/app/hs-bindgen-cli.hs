@@ -30,15 +30,15 @@ instance Exception LiterateFileException where
       "error loading " ++ path ++ ": " ++ err
 
 execCli :: Cli -> IO ()
-execCli Cli{..} = case cliMode of
-    CliModePreprocess  mode -> execPreprocess      cliGlobalOpts mode
-    CliModeGenTests    mode -> execGenTests        cliGlobalOpts mode
-    CliModeLiterate    mode -> execLiterate                      mode
-    CliModeBindingSpec mode -> execModeBindingSpec cliGlobalOpts mode
-    CliModeResolve     mode -> execModeResolve     cliGlobalOpts mode
+execCli Cli{..} = case cliCmd of
+    CliCmdPreprocess  cmdOpts -> execPreprocess      cliGlobalOpts cmdOpts
+    CliCmdGenTests    cmdOpts -> execGenTests        cliGlobalOpts cmdOpts
+    CliCmdLiterate    cmdOpts -> execLiterate                      cmdOpts
+    CliCmdBindingSpec subCmd  -> execBindingSpec     cliGlobalOpts subCmd
+    CliCmdResolve     cmdOpts -> execResolve         cliGlobalOpts cmdOpts
 
-execPreprocess :: GlobalOpts -> PreprocessMode -> IO ()
-execPreprocess globalOpts PreprocessMode{..} = do
+execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
+execPreprocess globalOpts PreprocessOpts{..} = do
     hsDecls <- doTranslate
     preprocessIO ppOpts preprocessOutput hsDecls
     case preprocessGenBindingSpec of
@@ -64,8 +64,8 @@ execPreprocess globalOpts PreprocessMode{..} = do
       , ppOptsRender = preprocessRenderOpts
       }
 
-execGenTests :: GlobalOpts -> GenTestsMode -> IO ()
-execGenTests globalOpts GenTestsMode{..} = do
+execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
+execGenTests globalOpts GenTestsOpts{..} = do
     hsDecls <- doTranslate
     genTests ppOpts genTestsInputs genTestsOutput hsDecls
   where
@@ -86,30 +86,30 @@ execGenTests globalOpts GenTestsMode{..} = do
       , ppOptsRender = genTestsRenderOpts
       }
 
-execLiterate :: LiterateMode -> IO ()
-execLiterate LiterateMode{..} = do
+execLiterate :: LiterateOpts -> IO ()
+execLiterate LiterateOpts{..} = do
     args <- maybe (throw' "cannot parse literate file") return . readMaybe
       =<< readFile literateInput
-    case pureParseModePreprocess args of
+    case pureParseCmdPreprocess args of
       Just cli -> execCli cli {
-          cliMode = case cliMode cli of
-            CliModePreprocess mode -> CliModePreprocess $
-              mode { preprocessOutput = Just literateOutput }
-            cliMode'               -> cliMode'
+          cliCmd = case cliCmd cli of
+            CliCmdPreprocess cmdOpts -> CliCmdPreprocess $
+              cmdOpts { preprocessOutput = Just literateOutput }
+            cliCmd'                  -> cliCmd'
         }
       Nothing -> throw' "cannot parse arguments in literate file"
   where
     throw' :: String -> IO a
     throw' = throwIO . LiterateFileException literateInput
 
-execModeBindingSpec :: GlobalOpts -> BindingSpecMode -> IO ()
-execModeBindingSpec globalOpts@GlobalOpts{..} BindingSpecModeStdlib = do
+execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
+execBindingSpec globalOpts@GlobalOpts{..} BindingSpecCmdStdlib = do
     spec <- withTracer globalOpts $ \tracer ->
       getStdlibBindingSpec tracer globalOptsClangArgs
     BS.putStr $ encodeBindingSpecYaml spec
 
-execModeResolve :: GlobalOpts -> ResolveMode -> IO ()
-execModeResolve globalOpts@GlobalOpts{..} ResolveMode{..} =
+execResolve :: GlobalOpts -> ResolveOpts -> IO ()
+execResolve globalOpts@GlobalOpts{..} ResolveOpts{..} =
     withTracer globalOpts $ \tracer -> do
       let tracerResolve = contramap TraceResolveHeader  tracer
       forM_ resolveInputs $ \header -> do

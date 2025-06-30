@@ -1,7 +1,7 @@
 module HsBindgen.App.Dev (
     Dev(..)
-  , DevMode(..)
-  , ParseMode(..)
+  , DevCmd(..)
+  , ParseOpts(..)
   , getDev
   ) where
 
@@ -33,7 +33,7 @@ getDev = customExecParser p opts
 -- | Command line arguments
 data Dev = Dev {
       devGlobalOpts :: GlobalOpts
-    , devMode       :: DevMode
+    , devCmd        :: DevCmd
     }
   deriving (Show)
 
@@ -41,30 +41,30 @@ parseDev :: Parser Dev
 parseDev =
     Dev
       <$> parseGlobalOpts
-      <*> parseDevMode
+      <*> parseDevCmd
 
-data DevMode =
+data DevCmd =
     -- | Just parse the C headers
-    DevModeParse ParseMode
+    DevCmdParse ParseOpts
   deriving (Show)
 
-parseDevMode :: Parser DevMode
-parseDevMode = subparser $ mconcat [
-      cmd "parse" (DevModeParse <$> parseParseMode) $ mconcat [
+parseDevCmd :: Parser DevCmd
+parseDevCmd = subparser $ mconcat [
+      cmd "parse" (DevCmdParse <$> parseParseOpts) $ mconcat [
           progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
         ]
     ]
 
 {-------------------------------------------------------------------------------
-  Parse mode
+  Parse command
 -------------------------------------------------------------------------------}
 
-data ParseMode = ParseMode {
+newtype ParseOpts = ParseOpts {
       parseInputPaths :: [CHeaderIncludePath]
     }
   deriving (Show)
 
-parseParseMode :: Parser ParseMode
-parseParseMode =
-    ParseMode
+parseParseOpts :: Parser ParseOpts
+parseParseOpts =
+    ParseOpts
       <$> some parseInput

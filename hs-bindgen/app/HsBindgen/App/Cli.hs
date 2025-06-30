@@ -1,14 +1,14 @@
 {-# LANGUAGE ApplicativeDo #-}
 module HsBindgen.App.Cli (
     Cli(..)
-  , CliMode(..)
-  , PreprocessMode(..)
-  , GenTestsMode(..)
-  , LiterateMode(..)
-  , BindingSpecMode(..)
-  , ResolveMode(..)
+  , CliCmd(..)
+  , PreprocessOpts(..)
+  , GenTestsOpts(..)
+  , LiterateOpts(..)
+  , BindingSpecCmd(..)
+  , ResolveOpts(..)
   , getCli
-  , pureParseModePreprocess
+  , pureParseCmdPreprocess
   ) where
 
 import Data.Default
@@ -41,7 +41,7 @@ getCli = customExecParser p opts
 -- | Command line arguments
 data Cli = Cli {
       cliGlobalOpts :: GlobalOpts
-    , cliMode       :: CliMode
+    , cliCmd        :: CliCmd
     }
   deriving (Show)
 
@@ -49,48 +49,48 @@ parseCli :: Parser Cli
 parseCli =
     Cli
       <$> parseGlobalOpts
-      <*> parseCliMode
+      <*> parseCliCmd
 
-data CliMode =
-    -- | The main mode: preprocess C headers to Haskell modules
-    CliModePreprocess  PreprocessMode
+data CliCmd =
+    -- | The main command: preprocess C headers to Haskell modules
+    CliCmdPreprocess  PreprocessOpts
     -- | Generate tests for generated Haskell code
-  | CliModeGenTests    GenTestsMode
-  | CliModeLiterate    LiterateMode
-  | CliModeBindingSpec BindingSpecMode
-  | CliModeResolve     ResolveMode
+  | CliCmdGenTests    GenTestsOpts
+  | CliCmdLiterate    LiterateOpts
+  | CliCmdBindingSpec BindingSpecCmd
+  | CliCmdResolve     ResolveOpts
   deriving (Show)
 
-parseCliMode :: Parser CliMode
-parseCliMode = subparser $ mconcat [
-      cmd "preprocess" (CliModePreprocess <$> parsePreprocessMode) $ mconcat [
-          progDesc "Generate Haskell module from C header"
+parseCliCmd :: Parser CliCmd
+parseCliCmd = subparser $ mconcat [
+      cmd "preprocess" (CliCmdPreprocess <$> parsePreprocessOpts) $ mconcat [
+          progDesc "Generate Haskell module from C headers"
         ]
-    , cmd "gentests" (CliModeGenTests <$> parseGenTestsMode) $ mconcat [
+    , cmd "gentests" (CliCmdGenTests <$> parseGenTestsOpts) $ mconcat [
           progDesc "Generate tests for generated Haskell code"
         ]
-    , cmd' "literate" (CliModeLiterate <$> parseLiterateMode) $ mconcat [
+    , cmd' "literate" (CliCmdLiterate <$> parseLiterateOpts) $ mconcat [
           progDesc "Generate Haskell module from C header, acting as literate Haskell preprocessor"
         ]
-    , cmd "binding-spec" (CliModeBindingSpec <$> parseBindingSpecMode) $ mconcat [
+    , cmd "binding-spec" (CliCmdBindingSpec <$> parseBindingSpecCmd) $ mconcat [
           progDesc "Binding specification commands"
         ]
-    , cmd "resolve" (CliModeResolve <$> parseResolveMode) $ mconcat [
+    , cmd "resolve" (CliCmdResolve <$> parseResolveOpts) $ mconcat [
           progDesc "Resolve C headers to source paths, for debugging"
         ]
     ]
 
-pureParseModePreprocess :: [String] -> Maybe Cli
-pureParseModePreprocess =
+pureParseCmdPreprocess :: [String] -> Maybe Cli
+pureParseCmdPreprocess =
       getParseResult
     . execParserPure (prefs subparserInline) (info parseCli mempty)
     . ("preprocess" :)
 
 {-------------------------------------------------------------------------------
-  Preprocess mode
+  Preprocess command
 -------------------------------------------------------------------------------}
 
-data PreprocessMode = PreprocessMode {
+data PreprocessOpts = PreprocessOpts {
       preprocessTranslationOpts :: TranslationOpts
     , preprocessModuleOpts      :: HsModuleOpts
     , preprocessRenderOpts      :: HsRenderOpts
@@ -100,9 +100,9 @@ data PreprocessMode = PreprocessMode {
     }
   deriving (Show)
 
-parsePreprocessMode :: Parser PreprocessMode
-parsePreprocessMode =
-    PreprocessMode
+parsePreprocessOpts :: Parser PreprocessOpts
+parsePreprocessOpts =
+    PreprocessOpts
       <$> parseTranslationOpts
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
@@ -111,10 +111,10 @@ parsePreprocessMode =
       <*> some parseInput
 
 {-------------------------------------------------------------------------------
-  Test generation mode
+  Test generation command
 -------------------------------------------------------------------------------}
 
-data GenTestsMode = GenTestsMode {
+data GenTestsOpts = GenTestsOpts {
       genTestsTranslationOpts :: TranslationOpts
     , genTestsModuleOpts      :: HsModuleOpts
     , genTestsRenderOpts      :: HsRenderOpts
@@ -123,9 +123,9 @@ data GenTestsMode = GenTestsMode {
     }
   deriving (Show)
 
-parseGenTestsMode :: Parser GenTestsMode
-parseGenTestsMode =
-    GenTestsMode
+parseGenTestsOpts :: Parser GenTestsOpts
+parseGenTestsOpts =
+    GenTestsOpts
       <$> parseTranslationOpts
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
@@ -133,50 +133,50 @@ parseGenTestsMode =
       <*> some parseInput
 
 {-------------------------------------------------------------------------------
-  Literate mode
+  Literate command
 -------------------------------------------------------------------------------}
 
-data LiterateMode = LiterateMode {
+data LiterateOpts = LiterateOpts {
       literateInput  :: FilePath
     , literateOutput :: FilePath
     }
   deriving (Show)
 
-parseLiterateMode :: Parser LiterateMode
-parseLiterateMode = do
+parseLiterateOpts :: Parser LiterateOpts
+parseLiterateOpts = do
     _ <- strOption @String $ mconcat [ short 'h', metavar "IGNORED" ]
 
     input  <- strArgument $ mconcat [ metavar "IN" ]
     output <- strArgument $ mconcat [ metavar "OUT" ]
-    return (LiterateMode input output)
+    return (LiterateOpts input output)
 
 {-------------------------------------------------------------------------------
-  Binding spec mode
+  Binding spec commands
 -------------------------------------------------------------------------------}
 
-data BindingSpecMode =
-    BindingSpecModeStdlib
+data BindingSpecCmd =
+    BindingSpecCmdStdlib
   deriving (Show)
 
-parseBindingSpecMode :: Parser BindingSpecMode
-parseBindingSpecMode = subparser $ mconcat [
-      cmd "stdlib" (pure BindingSpecModeStdlib) $ mconcat [
+parseBindingSpecCmd :: Parser BindingSpecCmd
+parseBindingSpecCmd = subparser $ mconcat [
+      cmd "stdlib" (pure BindingSpecCmdStdlib) $ mconcat [
           progDesc "Write stdlib external binding specification"
         ]
     ]
 
 {-------------------------------------------------------------------------------
-  Resolve mode
+  Resolve command
 -------------------------------------------------------------------------------}
 
-data ResolveMode = ResolveMode {
+data ResolveOpts = ResolveOpts {
       resolveInputs :: [CHeaderIncludePath]
     }
   deriving (Show)
 
-parseResolveMode :: Parser ResolveMode
-parseResolveMode =
-    ResolveMode
+parseResolveOpts :: Parser ResolveOpts
+parseResolveOpts =
+    ResolveOpts
       <$> some parseInput
 
 {-------------------------------------------------------------------------------
