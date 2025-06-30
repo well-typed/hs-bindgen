@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module RunManual (main) where
@@ -156,8 +157,16 @@ main = do
     section "Awkward names"
     --
 
+#if defined(darwin_HOST_OS)
+    -- On macOS, call the safe functions defined in your bindings module.
+    -- We assume they are named `gamma` and `byeBye` in Haskell.
+    byeBye
+    gamma
+#else
+    -- On other platforms, call the functions with Unicode names.
     拜拜
     cϒ
+#endif
     import'
 
     --

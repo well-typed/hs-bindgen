@@ -68,13 +68,23 @@ void print_occupation(int tag, occupation* o) {
  * Awkward names
  */
 
-void 拜拜(void) {
-    printf("C function '拜拜' (byebye)\n");
-}
+#if defined(__APPLE__)
+  // Required since Apple's GCC Assembler does not allow non-ASCII characters
+  void ByeBye() {
+      printf("This is the ByeBye function (macOS version).\n");
+  }
+  void Gamma() {
+      printf("This is the Gamma function (macOS version).\n");
+  }
+#else
+  void 拜拜(void) {
+      printf("C function '拜拜' (byebye)\n");
+  }
 
-void ϒ(void) {
-    printf("C function 'ϒ' (U+03D2 Greek Upsilon with Hook Symbol)\n");
-}
+  void ϒ(void) {
+      printf("C function 'ϒ' (U+03D2 Greek Upsilon with Hook Symbol)\n");
+  }
+#endif
 
 void import(void) {
     printf("C function 'import'\n");

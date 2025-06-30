@@ -107,9 +107,19 @@ typedef struct {
  */
 
 typedef int adiós;
+// Required since Apple's GCC Assembler does not allow non-ASCII characters
+#if defined(__APPLE__)
+void ByeBye(void);
+#else
 void 拜拜(void);
+#endif
 typedef int 数字;
+// Required since Apple's GCC Assembler does not allow non-ASCII characters
+#if defined(__APPLE__)
+void Gamma(void);
+#else
 void ϒ(void);
+#endif
 typedef int data;
 void import(void);
 
