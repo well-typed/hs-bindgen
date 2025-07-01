@@ -4,9 +4,9 @@ module HsBindgen.Common (
     Pipeline.Opts(..)
 
     -- * Binding specifications
-  , BindingSpec -- opaque
+  , Pipeline.BindingSpec -- opaque
   , Pipeline.StdlibBindingSpecConf(..)
-  , emptyBindingSpec
+  , Pipeline.emptyBindingSpec
 
     -- ** Clang arguments
   , Args.ClangArgs(..)
@@ -69,7 +69,6 @@ import System.FilePath qualified as FilePath
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Frontend.Pass.Slice qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
@@ -80,13 +79,3 @@ import HsBindgen.TraceMsg qualified as TraceMsg
 import HsBindgen.Util.Tracer qualified as Tracer
 
 import HsBindgen.Imports (Default (..))
-
-{-------------------------------------------------------------------------------
-  Binding specifications
--------------------------------------------------------------------------------}
-
- -- TODO use opaque wrapper
-type BindingSpec = BindingSpec.ResolvedBindingSpec
-
-emptyBindingSpec :: BindingSpec.ResolvedBindingSpec
-emptyBindingSpec = BindingSpec.empty

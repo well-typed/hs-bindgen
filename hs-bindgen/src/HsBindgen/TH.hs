@@ -25,9 +25,9 @@ module HsBindgen.TH (
 
     -- ** Binding specifications
   , Common.BindingSpec -- opaque
-  , loadExtBindingSpecs
   , Common.emptyBindingSpec
   , Common.StdlibBindingSpecConf(..)
+  , loadExtBindingSpecs
 
     -- ** Translation options
   , Common.TranslationOpts(..)

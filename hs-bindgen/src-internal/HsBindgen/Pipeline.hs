@@ -29,14 +29,21 @@ module HsBindgen.Pipeline (
   , genBindingsFromCHeader
 
     -- * Binding specifications
-  , genBindingSpec
+  , BindingSpec (..)
+  , emptyBindingSpec
   , StdlibBindingSpecConf (..)
   , loadExtBindingSpecs
+  , getStdlibBindingSpec
+  , encodeBindingSpecJson
+  , encodeBindingSpecYaml
+  , genBindingSpec
 
     -- * Test generation
   , genTests
   ) where
 
+import Data.ByteString qualified as BSS
+import Data.ByteString.Lazy qualified as BSL
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
@@ -50,7 +57,6 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
-import HsBindgen.BindingSpec (ResolvedBindingSpec, UnresolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
@@ -84,7 +90,7 @@ import Language.Haskell.TH.Syntax (getPackageRoot)
 -- | Options for both the preprocessor and TH APIs
 data Opts = Opts {
       optsClangArgs      :: ClangArgs
-    , optsExtBindingSpec :: ResolvedBindingSpec
+    , optsExtBindingSpec :: BindingSpec
     , optsTranslation    :: Hs.TranslationOpts
     , optsPredicate      :: Predicate
     , optsProgramSlicing :: ProgramSlicing
@@ -94,7 +100,7 @@ data Opts = Opts {
 instance Default Opts where
   def = Opts {
       optsClangArgs      = def
-    , optsExtBindingSpec = BindingSpec.empty
+    , optsExtBindingSpec = emptyBindingSpec
     , optsTranslation    = def
     , optsPredicate      = SelectFromMainFiles
     , optsProgramSlicing = DisableProgramSlicing
@@ -128,7 +134,7 @@ parseCHeaders Opts{..} =
       optsClangArgs
       optsPredicate
       optsProgramSlicing
-      optsExtBindingSpec
+      (bindingSpecResolved optsExtBindingSpec)
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Opts -> [C.Decl] -> [Hs.Decl]
@@ -296,24 +302,28 @@ genBindingsFromCHeader opts unit = do
   Binding specifications
 -------------------------------------------------------------------------------}
 
--- | Generate binding specification
-genBindingSpec ::
-     Tracer IO TraceMsg
-  -> PPOpts
-  -> [CHeaderIncludePath]
-  -> FilePath
-  -> [Hs.Decl]
-  -> IO ()
-genBindingSpec tracer PPOpts{..} headerIncludePaths path =
-      BindingSpec.writeFile tracer' path
-    . BindingSpec.genBindingSpec headerIncludePaths moduleName
-  where
-    moduleName :: HsModuleName
-    moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
+-- | Binding specification
+--
+-- A binding specification serves two purposes:
+--
+-- * A /prescriptive binding specification/ is used to configure how bindings
+--   are generated.
+-- * An /external binding specification/ is used to specify existing bindings
+--   that should be used, /external/ from the module being generated.
+--
+-- Note that a /generated binding specification/ may be used for either/both of
+-- these two purposes.
+data BindingSpec = BindingSpec {
+      bindingSpecUnresolved :: BindingSpec.UnresolvedBindingSpec
+    , bindingSpecResolved   :: BindingSpec.ResolvedBindingSpec
+    }
 
-    tracer' :: Tracer IO BindingSpec.WriteBindingSpecMsg
-    tracer' =
-      contramap (TraceBindingSpec . BindingSpec.WriteBindingSpecMsg) tracer
+-- | Empty binding specification
+emptyBindingSpec :: BindingSpec
+emptyBindingSpec = BindingSpec {
+      bindingSpecUnresolved = BindingSpec.empty
+    , bindingSpecResolved   = BindingSpec.empty
+    }
 
 -- | Configure if the @stdlib@ binding specification should be used
 data StdlibBindingSpecConf =
@@ -334,18 +344,51 @@ loadExtBindingSpecs ::
   -> ClangArgs
   -> StdlibBindingSpecConf
   -> [FilePath]
-  -> IO ResolvedBindingSpec
+  -> IO BindingSpec
 loadExtBindingSpecs tracer args stdlibSpec =
-    BindingSpec.load
-      (contramap TraceBindingSpec tracer)
-      BindingSpec.ResolveExternalBindingSpecHeader
-      args
-      stdSpec
+      fmap (uncurry BindingSpec)
+    . BindingSpec.load
+        (contramap TraceBindingSpec tracer)
+        BindingSpec.ResolveExternalBindingSpecHeader
+        args
+        stdSpec
   where
-    stdSpec :: UnresolvedBindingSpec
+    stdSpec :: BindingSpec.UnresolvedBindingSpec
     stdSpec = case stdlibSpec of
       UseStdlibBindingSpec -> Stdlib.bindingSpec
       NoStdlibBindingSpec  -> BindingSpec.empty
+
+getStdlibBindingSpec ::
+     Tracer IO TraceMsg
+  -> ClangArgs
+  -> IO BindingSpec
+getStdlibBindingSpec tracer args =
+    loadExtBindingSpecs tracer args UseStdlibBindingSpec []
+
+encodeBindingSpecJson :: BindingSpec -> BSL.ByteString
+encodeBindingSpecJson = BindingSpec.encodeJson . bindingSpecUnresolved
+
+encodeBindingSpecYaml :: BindingSpec -> BSS.ByteString
+encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
+
+-- | Generate binding specification
+genBindingSpec ::
+     Tracer IO TraceMsg
+  -> PPOpts
+  -> [CHeaderIncludePath]
+  -> FilePath
+  -> [Hs.Decl]
+  -> IO ()
+genBindingSpec tracer PPOpts{..} headerIncludePaths path =
+      BindingSpec.writeFile tracer' path
+    . BindingSpec.genBindingSpec headerIncludePaths moduleName
+  where
+    moduleName :: HsModuleName
+    moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
+
+    tracer' :: Tracer IO BindingSpec.WriteBindingSpecMsg
+    tracer' =
+      contramap (TraceBindingSpec . BindingSpec.WriteBindingSpecMsg) tracer
 
 {-------------------------------------------------------------------------------
   Test generation

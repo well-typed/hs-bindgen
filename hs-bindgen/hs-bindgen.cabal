@@ -225,7 +225,6 @@ library
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
-    , bytestring
     , filepath
     , template-haskell
 

@@ -34,10 +34,10 @@ module HsBindgen.BindingSpec (
   , writeFile
   , writeFileJson
   , writeFileYaml
-    -- ** Header resolution
-  , resolve
     -- ** Merging
   , merge
+    -- ** Header resolution
+  , resolve
   ) where
 
 import Control.Applicative (asum)
@@ -381,7 +381,7 @@ empty = BindingSpec {
       bindingSpecTypes = Map.empty
     }
 
--- | Load, resolve, and merge binding specifications
+-- | Load, merge, and resolve binding specifications
 --
 -- The format is determined by filename extension.
 load ::
@@ -391,16 +391,18 @@ load ::
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> [FilePath]
-  -> IO ResolvedBindingSpec
+  -> IO (UnresolvedBindingSpec, ResolvedBindingSpec)
 load tracer injResolveHeader args stdSpec paths = do
-    let tracerRead = contramap ReadBindingSpecMsg tracer
     uspecs <- mapM (readFile tracerRead) paths
-    let tracerResolve = contramap ResolveBindingSpecMsg tracer
-    specs <-
-      mapM (resolve tracerResolve injResolveHeader args) (stdSpec : uspecs)
-    let (mergeMsgs, spec) = merge specs
+    let (mergeMsgs, uspec) = merge (stdSpec : uspecs)
     mapM_ (traceWith tracer . MergeBindingSpecMsg) mergeMsgs
-    return spec
+    (uspec,) <$> resolve tracerResolve injResolveHeader args uspec
+  where
+    tracerRead :: Tracer IO ReadBindingSpecMsg
+    tracerRead = contramap ReadBindingSpecMsg tracer
+
+    tracerResolve :: Tracer IO ResolveBindingSpecMsg
+    tracerResolve = contramap ResolveBindingSpecMsg tracer
 
 -- | Lookup the @'Omittable' 'TypeSpec'@ associated with a C type
 lookupTypeSpec ::
@@ -497,6 +499,41 @@ writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFileYaml path = BSS.writeFile path . encodeYaml' . toABindingSpec
 
 {-------------------------------------------------------------------------------
+  API: Merging
+-------------------------------------------------------------------------------}
+
+-- | Merge binding specifications
+merge ::
+     [UnresolvedBindingSpec]
+  -> ([MergeBindingSpecMsg], UnresolvedBindingSpec)
+merge = \case
+    [] -> ([], empty)
+    spec:specs ->
+      let (typeErrs, bsTypes) =
+              first mkTypeErrs
+            . foldl' mergeTypes (Set.empty, bindingSpecTypes spec)
+            $ concatMap (Map.toList . bindingSpecTypes) specs
+          spec' = BindingSpec {
+              bindingSpecTypes = bsTypes
+            }
+      in  (typeErrs, spec')
+  where
+    mkTypeErrs :: Set C.QualName -> [MergeBindingSpecMsg]
+    mkTypeErrs = fmap MergeBindingSpecConflict . Set.toList
+
+    mergeTypes ::
+         (Set C.QualName, Map C.QualName [(Set CHeaderIncludePath, a)])
+      -> (C.QualName, [(Set CHeaderIncludePath, a)])
+      -> (Set C.QualName, Map C.QualName [(Set CHeaderIncludePath, a)])
+    mergeTypes (dupSet, acc) (cQualName, rs) =
+      case Map.insertLookupWithKey (const (++)) cQualName rs acc of
+        (Nothing, acc') -> (dupSet, acc')
+        (Just ls, acc')
+          | Set.disjoint (Set.unions (fst <$> ls)) (Set.unions (fst <$> rs)) ->
+              (dupSet, acc')
+          | otherwise -> (Set.insert cQualName dupSet, acc')
+
+{-------------------------------------------------------------------------------
   API: Header resolution
 -------------------------------------------------------------------------------}
 
@@ -561,45 +598,6 @@ resolve tracer injResolveHeader args uSpec = do
       -> IO (Maybe (CHeaderIncludePath, SourcePath))
     resolveHeader' uHeader =
       fmap (uHeader,) <$> resolveHeader resolveTracer args uHeader
-
-{-------------------------------------------------------------------------------
-  API: Merging
--------------------------------------------------------------------------------}
-
--- | Merge binding specifications
-merge ::
-     [ResolvedBindingSpec]
-  -> ([MergeBindingSpecMsg], ResolvedBindingSpec)
-merge = \case
-    [] -> ([], empty)
-    spec:specs ->
-      let (typeErrs, bsTypes) =
-              first mkTypeErrs
-            . foldl' mergeTypes (Set.empty, bindingSpecTypes spec)
-            $ concatMap (Map.toList . bindingSpecTypes) specs
-          spec' = BindingSpec {
-              bindingSpecTypes = bsTypes
-            }
-      in  (typeErrs, spec')
-  where
-    mkTypeErrs :: Set C.QualName -> [MergeBindingSpecMsg]
-    mkTypeErrs = fmap MergeBindingSpecConflict . Set.toList
-
-    mergeTypes ::
-         ( Set C.QualName
-         , Map C.QualName [(Set (CHeaderIncludePath, SourcePath), a)]
-         )
-      -> (C.QualName, [(Set (CHeaderIncludePath, SourcePath), a)])
-      -> ( Set C.QualName
-         , Map C.QualName [(Set (CHeaderIncludePath, SourcePath), a)]
-         )
-    mergeTypes (dupSet, acc) (cQualName, rs) =
-      case Map.insertLookupWithKey (const (++)) cQualName rs acc of
-        (Nothing, acc') -> (dupSet, acc')
-        (Just ls, acc')
-          | Set.disjoint (Set.unions (fst <$> ls)) (Set.unions (fst <$> rs)) ->
-              (dupSet, acc')
-          | otherwise -> (Set.insert cQualName dupSet, acc')
 
 {-------------------------------------------------------------------------------
   Auxiliary: Specification files
