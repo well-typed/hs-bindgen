@@ -12,9 +12,8 @@ usage() {
 
 failures=(
     # GCC compilation errors (error happens when parsing inlined C source).
-    "adios.pp.hs"           # NFC.
-    "manual_examples.pp.hs" # NFC.
-    "weird01.pp.hs"         # "Declaration does not declare anything" error.
+    # None (Yay)!
+
     # GHC compilation errors.
     "macro_functions.pp.hs"  # Import error ("type" keyword required).
     "macro_in_fundecl.pp.hs" # "Illegal type" error.
@@ -23,15 +22,17 @@ failures=(
     "typedef_vs_macro.pp.hs" # "Illegal type" error.
     "typenames.pp.hs"        # "Multiple declarations" error.
     "type_naturals.pp.hs"    # "Illegal type" error.
-    "vector.pp.hs"           # "unknown type name ‘import’" (wrong import from 'vector-algorithms/vector.h')?
 )
 
 compile_one() {
     file="$1"
     echo "Compiling $file"
     cabal exec -- \
-        ghc -fforce-recomp \
-        -optc -I"../examples" \
+        ghc -fforce-recomp -optc \
+        -I"../examples" \
+        -I"../examples/failing" \
+        -I"../examples/golden" \
+        -I"../examples/golden-norust" \
         "$file"
 }
 
