@@ -11,29 +11,20 @@ import HsBindgen.Pipeline qualified as Pipeline
 -------------------------------------------------------------------------------}
 
 main :: IO ()
-main = do
-    dev@Dev{..} <- getDev
-    execMode dev devMode
+main = execDev =<< getDev
 
-execMode :: Dev -> Mode -> IO ()
-execMode Dev{..} = \case
-    ModeParse{..} -> genBindings parseInputPaths >>= print
+execDev :: Dev -> IO ()
+execDev Dev{..} = case devCmd of
+    DevCmdParse cmdOpts -> execParse devGlobalOpts cmdOpts
+
+execParse :: GlobalOpts -> ParseOpts -> IO ()
+execParse globalOpts ParseOpts{..} = print =<< doParse
   where
-    genBindings :: [CHeaderIncludePath] -> IO TranslationUnit
-    genBindings inputPaths =
-      withTracerStdOut (globalOptsTracerConf devGlobalOpts) DefaultLogLevel $
-        \tracer -> do
-          extBindingSpec <-
-            loadExtBindingSpecs tracer
-              (globalOptsClangArgs devGlobalOpts)
-              (globalOptsStdlibSpecConf devGlobalOpts)
-              (globalOptsExtBindings devGlobalOpts)
-          let opts :: Opts
-              opts = def {
-                  optsClangArgs      = globalOptsClangArgs devGlobalOpts
-                , optsExtBindingSpec = extBindingSpec
-                , optsPredicate      = globalOptsPredicate devGlobalOpts
-                , optsProgramSlicing = globalOptsProgramSlicing devGlobalOpts
-                , optsTracer         = tracer
-                }
-          Pipeline.parseCHeaders opts inputPaths
+    doParse :: IO TranslationUnit
+    doParse = withTracer globalOpts $ \tracer -> do
+      extBindingSpec <- loadExtBindingSpecs' tracer globalOpts
+      let opts = (getOpts globalOpts) {
+              optsExtBindingSpec = extBindingSpec
+            , optsTracer         = tracer
+            }
+      Pipeline.parseCHeaders opts parseInputPaths

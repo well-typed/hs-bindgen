@@ -2,7 +2,7 @@ module Main (main) where
 
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
-import Control.Monad (foldM, unless)
+import Control.Monad (forM_)
 import Data.ByteString qualified as BS
 import Data.Char (isLetter)
 import System.Exit (ExitCode, exitFailure)
@@ -18,9 +18,7 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 main :: IO ()
-main = handle exceptionHandler $ do
-    cli <- getCli
-    execMode cli
+main = handle exceptionHandler $ execCli =<< getCli
 
 data LiterateFileException = LiterateFileException FilePath String
   deriving Show
@@ -31,96 +29,100 @@ instance Exception LiterateFileException where
     displayException (LiterateFileException path err) =
       "error loading " ++ path ++ ": " ++ err
 
-execMode :: Cli -> IO ()
-execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
-    ModePreprocess{..} -> do
-      hsDecls <- withTracer $ \tracer -> do
-        extBindingSpec <-
-          loadExtBindingSpecs
-            tracer
-            globalOptsClangArgs
-            globalOptsStdlibSpecConf
-            globalOptsExtBindings
-        -- to avoid potential issues it would be great to include unitid in module
-        -- unique but AFAIK there is no way to get one for preprocessor
-        -- https://github.com/well-typed/hs-bindgen/issues/502
-        let mu :: ModuleUnique
-            mu = ModuleUnique $
-              filter isLetter (hsModuleOptsName preprocessModuleOpts)
-            opts = cmdOpts {
-                optsExtBindingSpec = extBindingSpec
-              , optsTranslation    = preprocessTranslationOpts
-              , optsTracer         = tracer
-              }
-        translateCHeaders mu opts preprocessInputs
-      withTracer $ \tracer -> do
-        let ppOpts = (def :: PPOpts) {
-                ppOptsModule = preprocessModuleOpts
-              , ppOptsRender = preprocessRenderOpts
-              }
-        preprocessIO ppOpts preprocessOutput hsDecls
-        case preprocessGenBindingSpec of
-          Nothing   -> return ()
-          Just path ->
-            genBindingSpec tracer ppOpts preprocessInputs path hsDecls
+execCli :: Cli -> IO ()
+execCli Cli{..} = case cliCmd of
+    CliCmdPreprocess  cmdOpts -> execPreprocess      cliGlobalOpts cmdOpts
+    CliCmdGenTests    cmdOpts -> execGenTests        cliGlobalOpts cmdOpts
+    CliCmdLiterate    cmdOpts -> execLiterate                      cmdOpts
+    CliCmdBindingSpec subCmd  -> execBindingSpec     cliGlobalOpts subCmd
+    CliCmdResolve     cmdOpts -> execResolve         cliGlobalOpts cmdOpts
 
-    ModeGenTests{..} -> do
-      extBindingSpec <- withTracer $ \tracer ->
-        loadExtBindingSpecs tracer
-          globalOptsClangArgs
-          globalOptsStdlibSpecConf
-          globalOptsExtBindings
-      let opts = cmdOpts {
-              optsExtBindingSpec = extBindingSpec
-            }
-          ppOpts = (def :: PPOpts) {
-              ppOptsModule = genTestsModuleOpts
-            , ppOptsRender = genTestsRenderOpts
-            }
-      genTests ppOpts genTestsInputs genTestsOutput
-        =<< translateCHeaders "TODO" opts genTestsInputs
+execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
+execPreprocess globalOpts PreprocessOpts{..} = do
+    hsDecls <- doTranslate
+    preprocessIO ppOpts preprocessOutput hsDecls
+    case preprocessGenBindingSpec of
+      Nothing   -> return ()
+      Just path -> withTracer globalOpts $ \tracer ->
+        genBindingSpec tracer ppOpts preprocessInputs path hsDecls
 
-    ModeLiterate input output -> execLiterate input output
-
-    ModeBindingSpec BindingSpecModeStdlib -> do
-      spec <- withTracer $ \tracer ->
-        getStdlibBindingSpec tracer globalOptsClangArgs
-      BS.putStr $ encodeBindingSpecYaml spec
-
-    ModeResolve{..} -> do
-      isSuccess <- withTracer $ \tracer ->
-        let tracerResolve = contramap TraceResolveHeader  tracer
-            args          = optsClangArgs cmdOpts
-            step isSuccess header =
-              resolveHeader tracerResolve args header >>= \case
-                Just path -> isSuccess <$ putStrLn path
-                Nothing ->
-                  False <$ putStrLn ("header not found: " ++ show header)
-        in  foldM step True resolveInputs
-      unless isSuccess exitFailure
   where
-    cmdOpts :: Opts
-    cmdOpts = def {
-        optsClangArgs       = globalOptsClangArgs
-      , optsPredicate       = globalOptsPredicate
-      , optsProgramSlicing  = globalOptsProgramSlicing
-      }
-    withTracer :: (Tracer IO TraceMsg -> IO b) -> IO b
-    withTracer = withTracerStdOut globalOptsTracerConf DefaultLogLevel
+    doTranslate :: IO HsDecls
+    doTranslate = withTracer globalOpts $ \tracer -> do
+      extBindingSpec <- loadExtBindingSpecs' tracer globalOpts
+      let mu = getModuleUnique preprocessModuleOpts
+          opts = (getOpts globalOpts) {
+              optsExtBindingSpec = extBindingSpec
+            , optsTranslation    = preprocessTranslationOpts
+            , optsTracer         = tracer
+            }
+      translateCHeaders mu opts preprocessInputs
 
-execLiterate :: FilePath -> FilePath -> IO ()
-execLiterate input output = do
+    ppOpts :: PPOpts
+    ppOpts = def {
+        ppOptsModule = preprocessModuleOpts
+      , ppOptsRender = preprocessRenderOpts
+      }
+
+execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
+execGenTests globalOpts GenTestsOpts{..} = do
+    hsDecls <- doTranslate
+    genTests ppOpts genTestsInputs genTestsOutput hsDecls
+  where
+    doTranslate :: IO HsDecls
+    doTranslate = withTracer globalOpts $ \tracer -> do
+      extBindingSpec <- loadExtBindingSpecs' tracer globalOpts
+      let mu = getModuleUnique genTestsModuleOpts
+          opts = (getOpts globalOpts) {
+              optsExtBindingSpec = extBindingSpec
+            , optsTranslation    = genTestsTranslationOpts
+            , optsTracer         = tracer
+            }
+      translateCHeaders mu opts genTestsInputs
+
+    ppOpts :: PPOpts
+    ppOpts = def {
+        ppOptsModule = genTestsModuleOpts
+      , ppOptsRender = genTestsRenderOpts
+      }
+
+execLiterate :: LiterateOpts -> IO ()
+execLiterate LiterateOpts{..} = do
     args <- maybe (throw' "cannot parse literate file") return . readMaybe
-      =<< readFile input
-    case pureParseModePreprocess args of
-      Just cli -> execMode cli { cliMode = case cliMode cli of
-        mode@ModePreprocess{} -> mode { preprocessOutput = Just output }
-        mode                  -> mode
+      =<< readFile literateInput
+    case pureParseCmdPreprocess args of
+      Just cli -> execCli cli {
+          cliCmd = case cliCmd cli of
+            CliCmdPreprocess cmdOpts -> CliCmdPreprocess $
+              cmdOpts { preprocessOutput = Just literateOutput }
+            cliCmd'                  -> cliCmd'
         }
       Nothing -> throw' "cannot parse arguments in literate file"
   where
     throw' :: String -> IO a
-    throw' = throwIO . LiterateFileException input
+    throw' = throwIO . LiterateFileException literateInput
+
+execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
+execBindingSpec globalOpts@GlobalOpts{..} BindingSpecCmdStdlib = do
+    spec <- withTracer globalOpts $ \tracer ->
+      getStdlibBindingSpec tracer globalOptsClangArgs
+    BS.putStr $ encodeBindingSpecYaml spec
+
+execResolve :: GlobalOpts -> ResolveOpts -> IO ()
+execResolve globalOpts@GlobalOpts{..} ResolveOpts{..} =
+    withTracer globalOpts $ \tracer -> do
+      let tracerResolve = contramap TraceResolveHeader  tracer
+      forM_ resolveInputs $ \header -> do
+        mPath <- resolveHeader tracerResolve globalOptsClangArgs header
+        putStrLn . unwords $ case mPath of
+          Just path -> [show header, "resolves to", show path]
+          Nothing   -> [show header, "not found"]
+
+-- to avoid potential issues it would be great to include unitid in module
+-- unique but AFAIK there is no way to get one for preprocessor
+-- https://github.com/well-typed/hs-bindgen/issues/502
+getModuleUnique :: HsModuleOpts -> ModuleUnique
+getModuleUnique = ModuleUnique . filter isLetter . hsModuleOptsName
 
 {-------------------------------------------------------------------------------
   Exception handling
