@@ -8,7 +8,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Bools1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bool.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -51,7 +52,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Bools2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bool.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -94,7 +96,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "BOOL"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bool.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -120,7 +123,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Bools3"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bool.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

@@ -17,5 +17,4 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "varargs.h"}}]
+          functionRes = TypeVoid}}]

@@ -75,13 +75,19 @@ handleTypeException curr err = do
 
 getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr -> do
-    declId  <- getDeclId curr
-    declLoc <- HighLevel.clang_getCursorLocation' curr
+    declId     <- getDeclId curr
+    declLoc    <- HighLevel.clang_getCursorLocation' curr
+    declHeader <- evalGetMainHeader $ singleLocPath declLoc
     let declOrigin = case declId of
           DeclNamed{}     -> C.NameOriginInSource
           DeclAnon anonId -> C.NameOriginGenerated anonId
-        declAliases = []
-    return C.DeclInfo{declId, declLoc, declOrigin, declAliases}
+    return C.DeclInfo{
+        declId
+      , declLoc
+      , declOrigin
+      , declAliases = []
+      , declHeader
+      }
 
 getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
 getReparseInfo = \curr -> do
@@ -367,8 +373,7 @@ functionDecl = simpleFold $ \curr -> do
     info <- getDeclInfo curr
     typ  <- fromCXType =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
-    functionAnn    <- getReparseInfo curr
-    functionHeader <- evalGetMainHeader $ singleLocPath (C.declLoc info)
+    functionAnn <- getReparseInfo curr
     let decl :: C.Decl Parse
         decl = C.Decl{
             declInfo = info
@@ -376,7 +381,6 @@ functionDecl = simpleFold $ \curr -> do
                 functionArgs
               , functionRes
               , functionAnn
-              , functionHeader
               }
           , declAnn  = NoAnn
           }

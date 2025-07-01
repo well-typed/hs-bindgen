@@ -22,7 +22,8 @@
             nameHsIdent = HsIdentifier
               "EnumA"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "nested_enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -342,7 +343,8 @@
               nameHsIdent = HsIdentifier
                 "ExA"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_enums.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -417,7 +419,8 @@
                 nameHsIdent = HsIdentifier
                   "ExA"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_enums.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -497,7 +500,8 @@
                         nameHsIdent = HsIdentifier
                           "ExA"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_enums.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -577,7 +581,8 @@
                         nameHsIdent = HsIdentifier
                           "ExA"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_enums.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -648,7 +653,8 @@
               "ExB_fieldB1"},
           declOrigin = NameOriginGenerated
             (AnonId "nested_enums.h:9:9"),
-          declAliases = []},
+          declAliases = [],
+          declHeader = "nested_enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -969,7 +975,8 @@
               nameHsIdent = HsIdentifier
                 "ExB"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_enums.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1046,7 +1053,8 @@
                 nameHsIdent = HsIdentifier
                   "ExB"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_enums.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1128,7 +1136,8 @@
                         nameHsIdent = HsIdentifier
                           "ExB"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_enums.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1210,7 +1219,8 @@
                         nameHsIdent = HsIdentifier
                           "ExB"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_enums.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

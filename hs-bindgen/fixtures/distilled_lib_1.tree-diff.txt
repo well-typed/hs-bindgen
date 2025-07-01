@@ -15,7 +15,9 @@ TranslationUnit {
             "distilled_lib_1.h:9:9"),
         declAliases = [
           CName
-            "another_typedef_struct_t"]},
+            "another_typedef_struct_t"],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -69,8 +71,9 @@ TranslationUnit {
           (AnonId
             "distilled_lib_1.h:10:9"),
         declAliases = [
-          CName
-            "another_typedef_enum_e"]},
+          CName "another_typedef_enum_e"],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -115,7 +118,9 @@ TranslationUnit {
           nameC = CName "A",
           nameHsIdent = HsIdentifier "a"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -142,7 +147,9 @@ TranslationUnit {
           nameC = CName "B",
           nameHsIdent = HsIdentifier "b"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -171,7 +178,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "sOME_DEFINED_CONSTANT"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -199,7 +208,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "A_type_t"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -226,7 +237,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Var_t"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -255,7 +268,9 @@ TranslationUnit {
             "A_typedef_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [
-          CName "a_typedef_struct_t"]},
+          CName "a_typedef_struct_t"],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -912,7 +927,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "A_typedef_struct_t"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -944,7 +961,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "a_DEFINE_0"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -972,7 +991,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "a_DEFINE_1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -1001,7 +1022,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "a_DEFINE_2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -1029,7 +1052,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "tWO_ARGS"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -1071,7 +1096,9 @@ TranslationUnit {
           (AnonId
             "distilled_lib_1.h:61:9"),
         declAliases = [
-          CName "a_typedef_enum_e"]},
+          CName "a_typedef_enum_e"],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1134,7 +1161,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "some_fun"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -1487,9 +1516,7 @@ TranslationUnit {
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = [
-                          ]})]},
-          functionHeader =
-          "distilled_lib_1.h"},
+                          ]})]}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1505,7 +1532,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Callback_t"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

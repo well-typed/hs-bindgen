@@ -72,7 +72,9 @@
               nameHsIdent = HsIdentifier
                 "Triple"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "triple"]},
+            declAliases = [CName "triple"],
+            declHeader =
+            "manual_examples.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -196,7 +198,9 @@
                 nameHsIdent = HsIdentifier
                   "Triple"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "triple"]},
+              declAliases = [CName "triple"],
+              declHeader =
+              "manual_examples.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -325,7 +329,9 @@
                         nameHsIdent = HsIdentifier
                           "Triple"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "triple"]},
+                      declAliases = [CName "triple"],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -457,7 +463,9 @@
                         nameHsIdent = HsIdentifier
                           "Triple"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "triple"]},
+                      declAliases = [CName "triple"],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -575,9 +583,7 @@
                       nameHsIdent = HsIdentifier
                         "Triple"}
                     NameOriginInSource)))],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"}},
+          functionRes = TypeVoid}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -602,7 +608,9 @@
             nameHsIdent = HsIdentifier
               "Index"},
           declOrigin = NameOriginInSource,
-          declAliases = [CName "index"]},
+          declAliases = [CName "index"],
+          declHeader =
+          "manual_examples.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -953,9 +961,7 @@
                       "Index"}
                   NameOriginInSource))],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "manual_examples.h"}},
+            (PrimIntegral PrimInt Signed)}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -980,7 +986,9 @@
             nameHsIdent = HsIdentifier
               "Sum"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1089,7 +1097,9 @@
             nameHsIdent = HsIdentifier
               "Average"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1236,9 +1246,7 @@
               NamePair {
                 nameC = CName "sum",
                 nameHsIdent = HsIdentifier
-                  "Sum"}),
-          functionHeader =
-          "manual_examples.h"}},
+                  "Sum"})}},
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
@@ -1282,9 +1290,7 @@
               NamePair {
                 nameC = CName "average",
                 nameHsIdent = HsIdentifier
-                  "Average"}),
-          functionHeader =
-          "manual_examples.h"}},
+                  "Average"})}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -1415,7 +1421,9 @@
             nameHsIdent = HsIdentifier
               "YEAR"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1524,7 +1532,9 @@
             nameHsIdent = HsIdentifier
               "MONTH"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1659,7 +1669,9 @@
             nameHsIdent = HsIdentifier
               "DAY"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1834,7 +1846,9 @@
               nameHsIdent = HsIdentifier
                 "Date"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "date"]},
+            declAliases = [CName "date"],
+            declHeader =
+            "manual_examples.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1990,7 +2004,9 @@
                 nameHsIdent = HsIdentifier
                   "Date"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "date"]},
+              declAliases = [CName "date"],
+              declHeader =
+              "manual_examples.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2151,7 +2167,9 @@
                         nameHsIdent = HsIdentifier
                           "Date"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "date"]},
+                      declAliases = [CName "date"],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2315,7 +2333,9 @@
                         nameHsIdent = HsIdentifier
                           "Date"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "date"]},
+                      declAliases = [CName "date"],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2440,9 +2460,7 @@
               nameC = CName "YEAR",
               nameHsIdent = HsIdentifier
                 "YEAR"}
-            NameOriginInSource,
-          functionHeader =
-          "manual_examples.h"}},
+            NameOriginInSource}},
   DeclData
     Struct {
       structName = HsName
@@ -2501,7 +2519,9 @@
               nameHsIdent = HsIdentifier
                 "Student"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "manual_examples.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2602,7 +2622,9 @@
                 nameHsIdent = HsIdentifier
                   "Student"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "manual_examples.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2708,7 +2730,9 @@
                         nameHsIdent = HsIdentifier
                           "Student"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2816,7 +2840,9 @@
                         nameHsIdent = HsIdentifier
                           "Student"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2892,7 +2918,9 @@
             nameHsIdent = HsIdentifier
               "Person"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -2984,7 +3012,9 @@
               nameHsIdent = HsIdentifier
                 "Employee"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "manual_examples.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -3127,7 +3157,9 @@
                 nameHsIdent = HsIdentifier
                   "Employee"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "manual_examples.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -3275,7 +3307,9 @@
                         nameHsIdent = HsIdentifier
                           "Employee"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3426,7 +3460,9 @@
                         nameHsIdent = HsIdentifier
                           "Employee"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3529,7 +3565,9 @@
               "Occupation"},
           declOrigin = NameOriginInSource,
           declAliases = [
-            CName "occupation"]},
+            CName "occupation"],
+          declHeader =
+          "manual_examples.h"},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -3665,9 +3703,7 @@
                       nameHsIdent = HsIdentifier
                         "Occupation"}
                     NameOriginInSource)))],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"}},
+          functionRes = TypeVoid}},
   DeclData
     Struct {
       structName = HsName
@@ -3725,7 +3761,9 @@
             declOrigin = NameOriginGenerated
               (AnonId
                 "manual_examples.h:89:3"),
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "manual_examples.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -3824,7 +3862,9 @@
               declOrigin = NameOriginGenerated
                 (AnonId
                   "manual_examples.h:89:3"),
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "manual_examples.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -3928,7 +3968,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "manual_examples.h:89:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -4034,7 +4076,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "manual_examples.h:89:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -4153,7 +4197,9 @@
             declOrigin = NameOriginGenerated
               (AnonId
                 "manual_examples.h:94:3"),
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "manual_examples.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -4253,7 +4299,9 @@
               declOrigin = NameOriginGenerated
                 (AnonId
                   "manual_examples.h:94:3"),
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "manual_examples.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -4358,7 +4406,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "manual_examples.h:94:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -4465,7 +4515,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "manual_examples.h:94:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -4598,7 +4650,9 @@
               nameHsIdent = HsIdentifier
                 "Rect"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "manual_examples.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -4723,7 +4777,9 @@
                 nameHsIdent = HsIdentifier
                   "Rect"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "manual_examples.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -4853,7 +4909,9 @@
                         nameHsIdent = HsIdentifier
                           "Rect"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -4985,7 +5043,9 @@
                         nameHsIdent = HsIdentifier
                           "Rect"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -5110,7 +5170,9 @@
             declOrigin = NameOriginGenerated
               (AnonId
                 "manual_examples.h:100:9"),
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "manual_examples.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -5209,7 +5271,9 @@
               declOrigin = NameOriginGenerated
                 (AnonId
                   "manual_examples.h:100:9"),
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "manual_examples.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -5313,7 +5377,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "manual_examples.h:100:9"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -5419,7 +5485,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "manual_examples.h:100:9"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "manual_examples.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -5507,7 +5575,9 @@
             nameHsIdent = HsIdentifier
               "Config"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -5582,7 +5652,9 @@
             nameHsIdent = HsIdentifier
               "Adio'0301s"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -5712,9 +5784,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"}},
+          functionRes = TypeVoid}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -5739,7 +5809,9 @@
             nameHsIdent = HsIdentifier
               "C\25968\23383"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -5869,9 +5941,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"}},
+          functionRes = TypeVoid}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -5896,7 +5966,9 @@
             nameHsIdent = HsIdentifier
               "Data"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -6000,9 +6072,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"}},
+          functionRes = TypeVoid}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -6027,7 +6097,9 @@
             nameHsIdent = HsIdentifier
               "Signal"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -6389,7 +6461,9 @@
             nameHsIdent = HsIdentifier
               "HTTP_status"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -6765,7 +6839,9 @@
             nameHsIdent = HsIdentifier
               "Descending"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -7122,7 +7198,9 @@
             nameHsIdent = HsIdentifier
               "Result"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -7492,7 +7570,9 @@
             nameHsIdent = HsIdentifier
               "Vote"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -7825,7 +7905,9 @@
             nameHsIdent = HsIdentifier
               "CXCursorKind"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "manual_examples.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -8456,6 +8538,4 @@
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "manual_examples.h"}}]
+            (PrimIntegral PrimInt Signed)}}]

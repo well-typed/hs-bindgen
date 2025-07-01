@@ -54,7 +54,8 @@
                 "Vector"},
             declOrigin = NameOriginGenerated
               (AnonId "vector.h:1:9"),
-            declAliases = [CName "vector"]},
+            declAliases = [CName "vector"],
+            declHeader = "vector.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -149,7 +150,8 @@
                   "Vector"},
               declOrigin = NameOriginGenerated
                 (AnonId "vector.h:1:9"),
-              declAliases = [CName "vector"]},
+              declAliases = [CName "vector"],
+              declHeader = "vector.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -249,7 +251,8 @@
                           "Vector"},
                       declOrigin = NameOriginGenerated
                         (AnonId "vector.h:1:9"),
-                      declAliases = [CName "vector"]},
+                      declAliases = [CName "vector"],
+                      declHeader = "vector.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -351,7 +354,8 @@
                           "Vector"},
                       declOrigin = NameOriginGenerated
                         (AnonId "vector.h:1:9"),
-                      declAliases = [CName "vector"]},
+                      declAliases = [CName "vector"],
+                      declHeader = "vector.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -450,5 +454,4 @@
                     nameHsIdent = HsIdentifier
                       "Vector"}
                   (NameOriginGenerated
-                    (AnonId "vector.h:1:9"))))),
-          functionHeader = "vector.h"}}]
+                    (AnonId "vector.h:1:9")))))}}]

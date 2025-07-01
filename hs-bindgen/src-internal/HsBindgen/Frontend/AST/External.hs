@@ -96,6 +96,7 @@ data DeclInfo = DeclInfo{
     , declId      :: MangleNames.NamePair
     , declOrigin  :: C.NameOrigin
     , declAliases :: [CName]
+    , declHeader  :: CHeaderIncludePath
     }
   deriving stock (Show, Eq, Generic)
 
@@ -191,9 +192,8 @@ data Typedef = Typedef {
 -------------------------------------------------------------------------------}
 
 data Function = Function {
-      functionArgs   :: [Type]
-    , functionRes    :: Type
-    , functionHeader :: CHeaderIncludePath
+      functionArgs :: [Type]
+    , functionRes  :: Type
     }
   deriving stock (Show, Eq, Generic)
 

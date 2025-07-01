@@ -40,7 +40,9 @@
               nameC = CName "S",
               nameHsIdent = HsIdentifier "S"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "type_attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -114,7 +116,9 @@
                 nameC = CName "S",
                 nameHsIdent = HsIdentifier "S"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "type_attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -193,7 +197,9 @@
                         nameC = CName "S",
                         nameHsIdent = HsIdentifier "S"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "type_attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -272,7 +278,9 @@
                         nameC = CName "S",
                         nameHsIdent = HsIdentifier "S"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "type_attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -344,7 +352,9 @@
             nameHsIdent = HsIdentifier
               "More_aligned_int"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "type_attributes.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -497,7 +507,9 @@
               nameHsIdent = HsIdentifier
                 "S2"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "type_attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -572,7 +584,9 @@
                 nameHsIdent = HsIdentifier
                   "S2"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "type_attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -652,7 +666,9 @@
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "type_attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -732,7 +748,9 @@
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "type_attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -837,7 +855,9 @@
               nameHsIdent = HsIdentifier
                 "My_unpacked_struct"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "type_attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -939,7 +959,9 @@
                 nameHsIdent = HsIdentifier
                   "My_unpacked_struct"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "type_attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1046,7 +1068,9 @@
                         nameHsIdent = HsIdentifier
                           "My_unpacked_struct"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "type_attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1155,7 +1179,9 @@
                         nameHsIdent = HsIdentifier
                           "My_unpacked_struct"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "type_attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1301,7 +1327,9 @@
               nameHsIdent = HsIdentifier
                 "My_packed_struct"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "type_attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1444,7 +1472,9 @@
                 nameHsIdent = HsIdentifier
                   "My_packed_struct"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "type_attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1592,7 +1622,9 @@
                         nameHsIdent = HsIdentifier
                           "My_packed_struct"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "type_attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1743,7 +1775,9 @@
                         nameHsIdent = HsIdentifier
                           "My_packed_struct"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "type_attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1837,7 +1871,9 @@
             nameHsIdent = HsIdentifier
               "Wait"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "type_attributes.h"},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
           TypeSpec {
@@ -1872,7 +1908,9 @@
             (AnonId
               "type_attributes.h:26:9"),
           declAliases = [
-            CName "wait_status_ptr_t"]},
+            CName "wait_status_ptr_t"],
+          declHeader =
+          "type_attributes.h"},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -1988,7 +2026,9 @@
             nameHsIdent = HsIdentifier
               "T1"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "type_attributes.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -2097,7 +2137,9 @@
             nameHsIdent = HsIdentifier
               "Short_a"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "type_attributes.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

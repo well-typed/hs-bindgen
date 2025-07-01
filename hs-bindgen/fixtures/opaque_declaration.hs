@@ -13,7 +13,9 @@
             nameHsIdent = HsIdentifier
               "Foo"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "opaque_declaration.h"},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -88,7 +90,9 @@
               nameHsIdent = HsIdentifier
                 "Bar"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "opaque_declaration.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -205,7 +209,9 @@
                 nameHsIdent = HsIdentifier
                   "Bar"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "opaque_declaration.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -327,7 +333,9 @@
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "opaque_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -451,7 +459,9 @@
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "opaque_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -535,7 +545,9 @@
               nameHsIdent = HsIdentifier
                 "Baz"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "opaque_declaration.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -572,7 +584,9 @@
                 nameHsIdent = HsIdentifier
                   "Baz"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "opaque_declaration.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -614,7 +628,9 @@
                         nameHsIdent = HsIdentifier
                           "Baz"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "opaque_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -656,7 +672,9 @@
                         nameHsIdent = HsIdentifier
                           "Baz"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "opaque_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -697,7 +715,9 @@
             nameHsIdent = HsIdentifier
               "Quu"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "opaque_declaration.h"},
         declKind = OpaqueEnum,
         declSpec = DeclSpec
           TypeSpec {
@@ -719,7 +739,9 @@
             nameHsIdent = HsIdentifier
               "Opaque_union"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "opaque_declaration.h"},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
           TypeSpec {

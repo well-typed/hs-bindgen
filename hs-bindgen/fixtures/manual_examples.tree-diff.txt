@@ -10,7 +10,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Triple"},
         declOrigin = NameOriginInSource,
-        declAliases = [CName "triple"]},
+        declAliases = [CName "triple"],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -67,7 +69,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "mk_triple"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -87,9 +91,7 @@ TranslationUnit {
                       nameHsIdent = HsIdentifier
                         "Triple"}
                     NameOriginInSource)))],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -105,7 +107,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Index"},
         declOrigin = NameOriginInSource,
-        declAliases = [CName "index"]},
+        declAliases = [CName "index"],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -156,7 +160,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "index_triple"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -180,9 +186,7 @@ TranslationUnit {
                       "Index"}
                   NameOriginInSource))],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "manual_examples.h"},
+            (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -198,7 +202,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Sum"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -225,7 +231,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Average"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -252,7 +260,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "sum_triple"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -271,9 +281,7 @@ TranslationUnit {
               NamePair {
                 nameC = CName "sum",
                 nameHsIdent = HsIdentifier
-                  "Sum"}),
-          functionHeader =
-          "manual_examples.h"},
+                  "Sum"})},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -289,7 +297,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "average_triple"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -308,9 +318,7 @@ TranslationUnit {
               NamePair {
                 nameC = CName "average",
                 nameHsIdent = HsIdentifier
-                  "Average"}),
-          functionHeader =
-          "manual_examples.h"},
+                  "Average"})},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -326,7 +334,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "fIELD_OFFSET"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -354,7 +364,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "ePSILON"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -385,7 +397,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "pTR_TO_FIELD"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -419,7 +433,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "YEAR"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -447,7 +463,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "MONTH"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -475,7 +493,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "DAY"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -503,7 +523,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Date"},
         declOrigin = NameOriginInSource,
-        declAliases = [CName "date"]},
+        declAliases = [CName "date"],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -575,7 +597,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "getYear"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -594,9 +618,7 @@ TranslationUnit {
               nameC = CName "YEAR",
               nameHsIdent = HsIdentifier
                 "YEAR"}
-            NameOriginInSource,
-          functionHeader =
-          "manual_examples.h"},
+            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -612,7 +634,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Student"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -661,7 +685,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Person"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -678,7 +704,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Employee"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -744,7 +772,9 @@ TranslationUnit {
             "Occupation"},
         declOrigin = NameOriginInSource,
         declAliases = [
-          CName "occupation"]},
+          CName "occupation"],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -799,7 +829,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "print_occupation"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -815,9 +847,7 @@ TranslationUnit {
                       nameHsIdent = HsIdentifier
                         "Occupation"}
                     NameOriginInSource)))],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -835,7 +865,9 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId
             "manual_examples.h:89:3"),
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -886,7 +918,9 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId
             "manual_examples.h:94:3"),
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -934,7 +968,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Rect"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -995,7 +1031,9 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId
             "manual_examples.h:100:9"),
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -1043,7 +1081,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Config"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1077,7 +1117,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Adio'0301s"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1104,13 +1146,13 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "\25308\25308"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1126,7 +1168,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "C\25968\23383"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1153,13 +1197,13 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "c\978"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1175,7 +1219,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Data"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1202,13 +1248,13 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "import'"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1224,7 +1270,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Signal"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1286,7 +1334,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "HTTP_status"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1356,7 +1406,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Descending"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1415,7 +1467,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Result"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1477,7 +1531,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Vote"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1532,7 +1588,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "CXCursorKind"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1670,16 +1728,16 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "mod_10"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "manual_examples.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "manual_examples.h"},
+            (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

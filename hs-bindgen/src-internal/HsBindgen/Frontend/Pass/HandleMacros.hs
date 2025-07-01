@@ -60,10 +60,8 @@ processDecl C.Decl{declInfo, declKind} =
       C.DeclEnumOpaque      -> Just <$> processOpaque C.DeclEnumOpaque info'
       C.DeclFunction fun    -> Just <$> processFunction info' fun
   where
-    C.DeclInfo{declId, declLoc, declOrigin, declAliases} = declInfo
-
     info' :: C.DeclInfo HandleMacros
-    info' = C.DeclInfo{declId, declLoc, declOrigin, declAliases}
+    info' = coercePass declInfo
 
 {-------------------------------------------------------------------------------
   Function for each kind of declaration

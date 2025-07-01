@@ -9,7 +9,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "S1"},
         declOrigin = NameOriginInSource,
-        declAliases = [CName "S1_t"]},
+        declAliases = [CName "S1_t"],
+        declHeader =
+        "forward_declaration.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -44,7 +46,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "S1_t"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "forward_declaration.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -74,7 +78,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "S2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "forward_declaration.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

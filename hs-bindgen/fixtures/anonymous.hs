@@ -54,7 +54,8 @@
                 "S1_c"},
             declOrigin = NameOriginGenerated
               (AnonId "anonymous.h:3:3"),
-            declAliases = []},
+            declAliases = [],
+            declHeader = "anonymous.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -149,7 +150,8 @@
                   "S1_c"},
               declOrigin = NameOriginGenerated
                 (AnonId "anonymous.h:3:3"),
-              declAliases = []},
+              declAliases = [],
+              declHeader = "anonymous.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -249,7 +251,8 @@
                           "S1_c"},
                       declOrigin = NameOriginGenerated
                         (AnonId "anonymous.h:3:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -351,7 +354,8 @@
                           "S1_c"},
                       declOrigin = NameOriginGenerated
                         (AnonId "anonymous.h:3:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -465,7 +469,8 @@
               nameHsIdent = HsIdentifier
                 "S1"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "anonymous.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -569,7 +574,8 @@
                 nameHsIdent = HsIdentifier
                   "S1"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "anonymous.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -678,7 +684,8 @@
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -789,7 +796,8 @@
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -886,7 +894,8 @@
                 "S2_inner_deep"},
             declOrigin = NameOriginGenerated
               (AnonId "anonymous.h:15:5"),
-            declAliases = []},
+            declAliases = [],
+            declHeader = "anonymous.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -954,7 +963,8 @@
                   "S2_inner_deep"},
               declOrigin = NameOriginGenerated
                 (AnonId "anonymous.h:15:5"),
-              declAliases = []},
+              declAliases = [],
+              declHeader = "anonymous.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1027,7 +1037,8 @@
                           "S2_inner_deep"},
                       declOrigin = NameOriginGenerated
                         (AnonId "anonymous.h:15:5"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1100,7 +1111,8 @@
                           "S2_inner_deep"},
                       declOrigin = NameOriginGenerated
                         (AnonId "anonymous.h:15:5"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1211,7 +1223,8 @@
                 "S2_inner"},
             declOrigin = NameOriginGenerated
               (AnonId "anonymous.h:13:3"),
-            declAliases = []},
+            declAliases = [],
+            declHeader = "anonymous.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1318,7 +1331,8 @@
                   "S2_inner"},
               declOrigin = NameOriginGenerated
                 (AnonId "anonymous.h:13:3"),
-              declAliases = []},
+              declAliases = [],
+              declHeader = "anonymous.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1430,7 +1444,8 @@
                           "S2_inner"},
                       declOrigin = NameOriginGenerated
                         (AnonId "anonymous.h:13:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1544,7 +1559,8 @@
                           "S2_inner"},
                       declOrigin = NameOriginGenerated
                         (AnonId "anonymous.h:13:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1669,7 +1685,8 @@
               nameHsIdent = HsIdentifier
                 "S2"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "anonymous.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1775,7 +1792,8 @@
                 nameHsIdent = HsIdentifier
                   "S2"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "anonymous.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1886,7 +1904,8 @@
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1999,7 +2018,8 @@
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2114,7 +2134,8 @@
                 "S3_c"},
             declOrigin = NameOriginGenerated
               (AnonId "anonymous.h:25:3"),
-            declAliases = []},
+            declAliases = [],
+            declHeader = "anonymous.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2209,7 +2230,8 @@
                   "S3_c"},
               declOrigin = NameOriginGenerated
                 (AnonId "anonymous.h:25:3"),
-              declAliases = []},
+              declAliases = [],
+              declHeader = "anonymous.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2309,7 +2331,8 @@
                           "S3_c"},
                       declOrigin = NameOriginGenerated
                         (AnonId "anonymous.h:25:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2411,7 +2434,8 @@
                           "S3_c"},
                       declOrigin = NameOriginGenerated
                         (AnonId "anonymous.h:25:3"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2531,7 +2555,8 @@
               nameHsIdent = HsIdentifier
                 "S3"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "anonymous.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2643,7 +2668,8 @@
                 nameHsIdent = HsIdentifier
                   "S3"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "anonymous.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2760,7 +2786,8 @@
                         nameHsIdent = HsIdentifier
                           "S3"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2879,7 +2906,8 @@
                         nameHsIdent = HsIdentifier
                           "S3"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "anonymous.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

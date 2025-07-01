@@ -10,7 +10,9 @@ TranslationUnit {
             "Linked_list_A_s"},
         declOrigin = NameOriginInSource,
         declAliases = [
-          CName "linked_list_A_t"]},
+          CName "linked_list_A_t"],
+        declHeader =
+        "recursive_struct.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -63,7 +65,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Linked_list_A_t"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "recursive_struct.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -95,7 +99,9 @@ TranslationUnit {
             "Linked_list_B_t"},
         declOrigin = NameOriginInSource,
         declAliases = [
-          CName "linked_list_B_t"]},
+          CName "linked_list_B_t"],
+        declHeader =
+        "recursive_struct.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

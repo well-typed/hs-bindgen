@@ -23,9 +23,7 @@
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimFloating PrimDouble),
-          functionHeader =
-          "simple_func.h"}},
+            (PrimFloating PrimDouble)}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -58,9 +56,7 @@
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimFloating PrimDouble),
-          functionHeader =
-          "simple_func.h"}},
+            (PrimFloating PrimDouble)}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -80,9 +76,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "simple_func.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -102,9 +96,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "simple_func.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -134,6 +126,4 @@
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "simple_func.h"}}]
+            (PrimIntegral PrimInt Signed)}}]

@@ -22,7 +22,8 @@
             nameHsIdent = HsIdentifier
               "First"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -319,7 +320,8 @@
             nameHsIdent = HsIdentifier
               "Second"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -658,7 +660,8 @@
             nameHsIdent = HsIdentifier
               "Same"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -957,7 +960,8 @@
             nameHsIdent = HsIdentifier
               "Nonseq"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -1272,7 +1276,8 @@
             nameHsIdent = HsIdentifier
               "Packed"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -1613,7 +1618,8 @@
               "EnumA"},
           declOrigin = NameOriginGenerated
             (AnonId "enums.h:30:9"),
-          declAliases = [CName "enumA"]},
+          declAliases = [CName "enumA"],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -1914,7 +1920,8 @@
             nameHsIdent = HsIdentifier
               "EnumB"},
           declOrigin = NameOriginInSource,
-          declAliases = [CName "enumB"]},
+          declAliases = [CName "enumB"],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -2215,7 +2222,8 @@
             nameHsIdent = HsIdentifier
               "EnumC"},
           declOrigin = NameOriginInSource,
-          declAliases = [CName "enumC"]},
+          declAliases = [CName "enumC"],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -2516,8 +2524,8 @@
             nameHsIdent = HsIdentifier
               "EnumD"},
           declOrigin = NameOriginInSource,
-          declAliases = [
-            CName "enumD_t"]},
+          declAliases = [CName "enumD_t"],
+          declHeader = "enums.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -2820,7 +2828,8 @@
             nameHsIdent = HsIdentifier
               "EnumD_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "enums.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

@@ -7,12 +7,12 @@ TranslationUnit {
           nameC = CName "g",
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "varargs.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "varargs.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

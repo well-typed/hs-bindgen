@@ -56,7 +56,9 @@
               nameHsIdent = HsIdentifier
                 "S1"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -155,7 +157,9 @@
                 nameHsIdent = HsIdentifier
                   "S1"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -259,7 +263,9 @@
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -365,7 +371,9 @@
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -497,7 +505,9 @@
               nameHsIdent = HsIdentifier
                 "S2"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "S2_t"]},
+            declAliases = [CName "S2_t"],
+            declHeader =
+            "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -625,7 +635,9 @@
                 nameHsIdent = HsIdentifier
                   "S2"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "S2_t"]},
+              declAliases = [CName "S2_t"],
+              declHeader =
+              "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -758,7 +770,9 @@
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S2_t"]},
+                      declAliases = [CName "S2_t"],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -894,7 +908,9 @@
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S2_t"]},
+                      declAliases = [CName "S2_t"],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -987,7 +1003,9 @@
             nameHsIdent = HsIdentifier
               "S2_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "simple_structs.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1063,7 +1081,9 @@
             declOrigin = NameOriginGenerated
               (AnonId
                 "simple_structs.h:15:9"),
-            declAliases = [CName "S3_t"]},
+            declAliases = [CName "S3_t"],
+            declHeader =
+            "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1135,7 +1155,9 @@
               declOrigin = NameOriginGenerated
                 (AnonId
                   "simple_structs.h:15:9"),
-              declAliases = [CName "S3_t"]},
+              declAliases = [CName "S3_t"],
+              declHeader =
+              "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1212,7 +1234,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "simple_structs.h:15:9"),
-                      declAliases = [CName "S3_t"]},
+                      declAliases = [CName "S3_t"],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1289,7 +1313,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "simple_structs.h:15:9"),
-                      declAliases = [CName "S3_t"]},
+                      declAliases = [CName "S3_t"],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1410,7 +1436,9 @@
               nameHsIdent = HsIdentifier
                 "S4"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1540,7 +1568,9 @@
                 nameHsIdent = HsIdentifier
                   "S4"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1675,7 +1705,9 @@
                         nameHsIdent = HsIdentifier
                           "S4"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1813,7 +1845,9 @@
                         nameHsIdent = HsIdentifier
                           "S4"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1940,7 +1974,9 @@
               nameHsIdent = HsIdentifier
                 "S5"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "S5"]},
+            declAliases = [CName "S5"],
+            declHeader =
+            "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2039,7 +2075,9 @@
                 nameHsIdent = HsIdentifier
                   "S5"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "S5"]},
+              declAliases = [CName "S5"],
+              declHeader =
+              "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2143,7 +2181,9 @@
                         nameHsIdent = HsIdentifier
                           "S5"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S5"]},
+                      declAliases = [CName "S5"],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2249,7 +2289,9 @@
                         nameHsIdent = HsIdentifier
                           "S5"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S5"]},
+                      declAliases = [CName "S5"],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2363,7 +2405,9 @@
               nameHsIdent = HsIdentifier
                 "S6"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "S6"]},
+            declAliases = [CName "S6"],
+            declHeader =
+            "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2462,7 +2506,9 @@
                 nameHsIdent = HsIdentifier
                   "S6"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "S6"]},
+              declAliases = [CName "S6"],
+              declHeader =
+              "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2566,7 +2612,9 @@
                         nameHsIdent = HsIdentifier
                           "S6"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S6"]},
+                      declAliases = [CName "S6"],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2672,7 +2720,9 @@
                         nameHsIdent = HsIdentifier
                           "S6"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S6"]},
+                      declAliases = [CName "S6"],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2788,7 +2838,9 @@
             declOrigin = NameOriginGenerated
               (AnonId
                 "simple_structs.h:34:9"),
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2891,7 +2943,9 @@
               declOrigin = NameOriginGenerated
                 (AnonId
                   "simple_structs.h:34:9"),
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2999,7 +3053,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "simple_structs.h:34:9"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3109,7 +3165,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "simple_structs.h:34:9"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3199,7 +3257,9 @@
             nameHsIdent = HsIdentifier
               "S7a"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "simple_structs.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -3301,7 +3361,9 @@
             declOrigin = NameOriginGenerated
               (AnonId
                 "simple_structs.h:35:9"),
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -3404,7 +3466,9 @@
               declOrigin = NameOriginGenerated
                 (AnonId
                   "simple_structs.h:35:9"),
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -3512,7 +3576,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "simple_structs.h:35:9"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3622,7 +3688,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "simple_structs.h:35:9"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3714,7 +3782,9 @@
             nameHsIdent = HsIdentifier
               "S7b"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "simple_structs.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

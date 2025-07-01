@@ -22,7 +22,9 @@
             nameC = CName "I",
             nameHsIdent = HsIdentifier "I"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_in_fundecl.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -130,7 +132,9 @@
             nameC = CName "C",
             nameHsIdent = HsIdentifier "C"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_in_fundecl.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -239,7 +243,9 @@
             nameC = CName "F",
             nameHsIdent = HsIdentifier "F"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_in_fundecl.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -342,7 +348,9 @@
             nameC = CName "L",
             nameHsIdent = HsIdentifier "L"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_in_fundecl.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -450,7 +458,9 @@
             nameC = CName "S",
             nameHsIdent = HsIdentifier "S"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_in_fundecl.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -571,9 +581,7 @@
                 (PrimSignImplicit Nothing))],
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing)),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+              (PrimSignImplicit Nothing))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -616,9 +624,7 @@
               NamePair {
                 nameC = CName "C",
                 nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+              NameOriginInSource)}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -661,9 +667,7 @@
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed)))),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                  (Just Signed))))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -709,9 +713,7 @@
           functionRes = TypePointer
             (TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                (PrimSignImplicit Nothing)))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -758,9 +760,7 @@
               NamePair {
                 nameC = CName "C",
                 nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+              NameOriginInSource)}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -794,9 +794,9 @@
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
               (TypePrim
-                (PrimIntegral PrimInt Signed))),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -834,9 +834,9 @@
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
               (TypePrim
-                (PrimIntegral PrimInt Signed))),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -874,9 +874,9 @@
                     nameHsIdent = HsIdentifier "S"}
                   NameOriginInSource]
               (TypePrim
-                (PrimIntegral PrimInt Signed))),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -916,9 +916,7 @@
                 NamePair {
                   nameC = CName "I",
                   nameHsIdent = HsIdentifier "I"}
-                NameOriginInSource)),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                NameOriginInSource))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -955,9 +953,7 @@
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                    Signed))))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -998,9 +994,7 @@
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                    Signed))))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1041,9 +1035,7 @@
                   NamePair {
                     nameC = CName "I",
                     nameHsIdent = HsIdentifier "I"}
-                  NameOriginInSource))),
-          functionHeader =
-          "macro_in_fundecl.h"}},
+                  NameOriginInSource)))}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1068,6 +1060,4 @@
             NamePair {
               nameC = CName "I",
               nameHsIdent = HsIdentifier "I"}
-            NameOriginInSource,
-          functionHeader =
-          "macro_in_fundecl.h"}}]
+            NameOriginInSource}}]

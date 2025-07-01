@@ -23,7 +23,8 @@
             nameHsIdent = HsIdentifier
               "Triple"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "fixedarray.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -127,7 +128,8 @@
               nameHsIdent = HsIdentifier
                 "Example"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "fixedarray.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -237,7 +239,8 @@
                 nameHsIdent = HsIdentifier
                   "Example"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "fixedarray.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -352,7 +355,8 @@
                         nameHsIdent = HsIdentifier
                           "Example"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "fixedarray.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -469,7 +473,8 @@
                         nameHsIdent = HsIdentifier
                           "Example"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "fixedarray.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

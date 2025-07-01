@@ -22,7 +22,8 @@
             nameHsIdent = HsIdentifier
               "Adio'0301s"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "adios.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -156,7 +157,8 @@
             nameHsIdent = HsIdentifier
               "C\25968\23383"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "adios.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -284,8 +286,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "void testmodule_\25308\25308 (void) { \25308\25308(); }",
@@ -303,8 +304,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "void testmodule_Say\25308\25308 (void) { Say\25308\25308(); }",
@@ -322,5 +322,4 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h"}}]
+          functionRes = TypeVoid}}]

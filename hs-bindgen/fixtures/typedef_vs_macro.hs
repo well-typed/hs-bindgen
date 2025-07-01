@@ -23,7 +23,9 @@
             nameHsIdent = HsIdentifier
               "T1"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "typedef_vs_macro.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -132,7 +134,9 @@
             nameHsIdent = HsIdentifier
               "T2"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "typedef_vs_macro.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -243,7 +247,9 @@
             nameHsIdent = HsIdentifier
               "M1"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "typedef_vs_macro.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -352,7 +358,9 @@
             nameHsIdent = HsIdentifier
               "M2"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "typedef_vs_macro.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -463,7 +471,9 @@
             nameHsIdent = HsIdentifier
               "M3"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "typedef_vs_macro.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -521,7 +531,9 @@
             nameHsIdent = HsIdentifier
               "M4"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "typedef_vs_macro.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -665,7 +677,9 @@
               nameHsIdent = HsIdentifier
                 "ExampleStruct"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "typedef_vs_macro.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -852,7 +866,9 @@
                 nameHsIdent = HsIdentifier
                   "ExampleStruct"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "typedef_vs_macro.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1044,7 +1060,9 @@
                         nameHsIdent = HsIdentifier
                           "ExampleStruct"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "typedef_vs_macro.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1240,7 +1258,9 @@
                         nameHsIdent = HsIdentifier
                           "ExampleStruct"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "typedef_vs_macro.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1365,7 +1385,9 @@
             nameHsIdent = HsIdentifier
               "Uint64_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "typedef_vs_macro.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1521,7 +1543,9 @@
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "typedef_vs_macro.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1600,7 +1624,9 @@
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "typedef_vs_macro.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1684,7 +1710,9 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "typedef_vs_macro.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1768,7 +1796,9 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "typedef_vs_macro.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

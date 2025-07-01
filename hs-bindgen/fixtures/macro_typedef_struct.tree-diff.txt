@@ -9,7 +9,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "MY_TYPE"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_typedef_struct.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -39,7 +41,9 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId
             "macro_typedef_struct.h:3:9"),
-        declAliases = [CName "bar"]},
+        declAliases = [CName "bar"],
+        declHeader =
+        "macro_typedef_struct.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

@@ -22,7 +22,8 @@
             nameHsIdent = HsIdentifier
               "MyEnum"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "uses_utf8.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {

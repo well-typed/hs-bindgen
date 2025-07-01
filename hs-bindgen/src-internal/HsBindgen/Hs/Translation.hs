@@ -1032,13 +1032,13 @@ functionDecs ::
   -> C.DeclSpec
   -> [Hs.Decl]
 functionDecs mu typedefs info f _spec =
-    [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.functionHeader f
+    [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.declHeader info
     , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = importName
         , foreignImportType       = importType
         , foreignImportOrigName   = T.pack wrapperName
-        , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
+        , foreignImportHeader     = getCHeaderIncludePath $ C.declHeader info
         , foreignImportDeclOrigin = Origin.Function f
         }
     ] ++

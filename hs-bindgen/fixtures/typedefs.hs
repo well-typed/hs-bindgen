@@ -22,7 +22,8 @@
             nameHsIdent = HsIdentifier
               "Myint"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "typedefs.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -156,7 +157,8 @@
             nameHsIdent = HsIdentifier
               "Intptr"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "typedefs.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

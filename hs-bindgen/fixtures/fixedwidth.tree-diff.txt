@@ -8,7 +8,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Foo"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "fixedwidth.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

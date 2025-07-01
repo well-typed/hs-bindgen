@@ -23,7 +23,9 @@
             nameHsIdent = HsIdentifier
               "MC"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_in_fundecl_vs_typedef.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -133,7 +135,9 @@
             nameHsIdent = HsIdentifier
               "TC"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_in_fundecl_vs_typedef.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -258,9 +262,7 @@
                     "TC"})],
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing)),
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+              (PrimSignImplicit Nothing))}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -301,9 +303,7 @@
               NamePair {
                 nameC = CName "TC",
                 nameHsIdent = HsIdentifier
-                  "TC"}),
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+                  "TC"})}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -347,9 +347,7 @@
               NamePair {
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource),
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+              NameOriginInSource)}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -393,9 +391,7 @@
                 NamePair {
                   nameC = CName "TC",
                   nameHsIdent = HsIdentifier
-                    "TC"})),
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+                    "TC"}))}},
   DeclData
     Struct {
       structName = HsName
@@ -433,7 +429,9 @@
               nameHsIdent = HsIdentifier
                 "Struct1"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "macro_in_fundecl_vs_typedef.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -499,7 +497,9 @@
                 nameHsIdent = HsIdentifier
                   "Struct1"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "macro_in_fundecl_vs_typedef.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -570,7 +570,9 @@
                         nameHsIdent = HsIdentifier
                           "Struct1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -641,7 +643,9 @@
                         nameHsIdent = HsIdentifier
                           "Struct1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -727,8 +731,9 @@
             declOrigin = NameOriginGenerated
               (AnonId
                 "macro_in_fundecl_vs_typedef.h:19:9"),
-            declAliases = [
-              CName "struct2"]},
+            declAliases = [CName "struct2"],
+            declHeader =
+            "macro_in_fundecl_vs_typedef.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -796,8 +801,9 @@
               declOrigin = NameOriginGenerated
                 (AnonId
                   "macro_in_fundecl_vs_typedef.h:19:9"),
-              declAliases = [
-                CName "struct2"]},
+              declAliases = [CName "struct2"],
+              declHeader =
+              "macro_in_fundecl_vs_typedef.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -870,8 +876,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "macro_in_fundecl_vs_typedef.h:19:9"),
-                      declAliases = [
-                        CName "struct2"]},
+                      declAliases = [CName "struct2"],
+                      declHeader =
+                      "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -944,8 +951,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "macro_in_fundecl_vs_typedef.h:19:9"),
-                      declAliases = [
-                        CName "struct2"]},
+                      declAliases = [CName "struct2"],
+                      declHeader =
+                      "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1030,7 +1038,9 @@
                 "Struct3"},
             declOrigin = NameOriginInSource,
             declAliases = [
-              CName "struct3_t"]},
+              CName "struct3_t"],
+            declHeader =
+            "macro_in_fundecl_vs_typedef.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1097,7 +1107,9 @@
                   "Struct3"},
               declOrigin = NameOriginInSource,
               declAliases = [
-                CName "struct3_t"]},
+                CName "struct3_t"],
+              declHeader =
+              "macro_in_fundecl_vs_typedef.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1169,7 +1181,9 @@
                           "Struct3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [
-                        CName "struct3_t"]},
+                        CName "struct3_t"],
+                      declHeader =
+                      "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1241,7 +1255,9 @@
                           "Struct3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [
-                        CName "struct3_t"]},
+                        CName "struct3_t"],
+                      declHeader =
+                      "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1314,7 +1330,9 @@
             nameHsIdent = HsIdentifier
               "Struct3_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_in_fundecl_vs_typedef.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1393,8 +1411,9 @@
               nameHsIdent = HsIdentifier
                 "Struct4"},
             declOrigin = NameOriginInSource,
-            declAliases = [
-              CName "struct4"]},
+            declAliases = [CName "struct4"],
+            declHeader =
+            "macro_in_fundecl_vs_typedef.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1460,8 +1479,9 @@
                 nameHsIdent = HsIdentifier
                   "Struct4"},
               declOrigin = NameOriginInSource,
-              declAliases = [
-                CName "struct4"]},
+              declAliases = [CName "struct4"],
+              declHeader =
+              "macro_in_fundecl_vs_typedef.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1532,8 +1552,9 @@
                         nameHsIdent = HsIdentifier
                           "Struct4"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [
-                        CName "struct4"]},
+                      declAliases = [CName "struct4"],
+                      declHeader =
+                      "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1604,8 +1625,9 @@
                         nameHsIdent = HsIdentifier
                           "Struct4"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [
-                        CName "struct4"]},
+                      declAliases = [CName "struct4"],
+                      declHeader =
+                      "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1696,9 +1718,7 @@
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1738,9 +1758,7 @@
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1783,9 +1801,7 @@
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1825,9 +1841,7 @@
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1867,9 +1881,7 @@
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1909,6 +1921,4 @@
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"}}]
+          functionRes = TypeVoid}}]

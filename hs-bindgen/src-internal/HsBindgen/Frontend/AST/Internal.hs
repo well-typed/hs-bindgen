@@ -95,6 +95,21 @@ data DeclInfo p = DeclInfo{
     , declId      :: Id p
     , declOrigin  :: C.NameOrigin
     , declAliases :: [CName]
+
+      -- | User-specified header that provides this declaration
+      --
+      -- Note that the declaration may not be in this header directly, but in
+      -- one of its (transitive) includes.
+      --
+      -- If the user specifies /multiple/ headers, all of which directly or
+      -- indirectly contain the same declaration, then either
+      --
+      -- 1. the C headers will need to explicitly check
+      --    (if this is already defined, do nothing), or
+      -- 2. This is an error in the C code.
+      --
+      -- This means that there is always a /single/ header to choose here.
+    , declHeader :: CHeaderIncludePath
     }
 
 data DeclKind p =
@@ -177,21 +192,6 @@ data Function p = Function {
       functionArgs :: [Type p]
     , functionRes  :: Type p
     , functionAnn  :: Ann "Function" p
-
-      -- | User-specified header that includes the declaration of this function
-      --
-      -- Note that the function may not be declared in this header directly, but
-      -- in one of its transitive includes.
-      --
-      -- If the user specifies /multiple/ headers, all of which directly or
-      -- indirectly define the same function, then either
-      --
-      -- 1. the C headers will need to explicitly check
-      --    (if this is already defined, do nothing), or
-      -- 2. This is an error in the C code.
-      --
-      -- This means that there is always a /single/ header to choose here.
-    , functionHeader :: CHeaderIncludePath
     }
 
 {-------------------------------------------------------------------------------

@@ -495,7 +495,8 @@
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "fixedwidth.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1255,7 +1256,8 @@
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "fixedwidth.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2020,7 +2022,8 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "fixedwidth.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2787,7 +2790,8 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "fixedwidth.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

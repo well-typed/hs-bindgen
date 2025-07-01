@@ -34,7 +34,8 @@
               nameHsIdent = HsIdentifier
                 "Pascal"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "flam.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -109,7 +110,8 @@
                 nameHsIdent = HsIdentifier
                   "Pascal"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "flam.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -189,7 +191,8 @@
                         nameHsIdent = HsIdentifier
                           "Pascal"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "flam.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -269,7 +272,8 @@
                         nameHsIdent = HsIdentifier
                           "Pascal"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "flam.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -363,7 +367,8 @@
                 nameHsIdent = HsIdentifier
                   "Pascal"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "flam.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -457,7 +462,8 @@
                 "Foo_bar"},
             declOrigin = NameOriginGenerated
               (AnonId "flam.h:10:2"),
-            declAliases = []},
+            declAliases = [],
+            declHeader = "flam.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -548,7 +554,8 @@
                   "Foo_bar"},
               declOrigin = NameOriginGenerated
                 (AnonId "flam.h:10:2"),
-              declAliases = []},
+              declAliases = [],
+              declHeader = "flam.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -644,7 +651,8 @@
                           "Foo_bar"},
                       declOrigin = NameOriginGenerated
                         (AnonId "flam.h:10:2"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "flam.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -742,7 +750,8 @@
                           "Foo_bar"},
                       declOrigin = NameOriginGenerated
                         (AnonId "flam.h:10:2"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "flam.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -834,7 +843,8 @@
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "flam.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -912,7 +922,8 @@
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "flam.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -995,7 +1006,8 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "flam.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1078,7 +1090,8 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "flam.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1171,7 +1184,8 @@
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "flam.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1272,7 +1286,8 @@
               nameHsIdent = HsIdentifier
                 "Diff"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "flam.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1378,7 +1393,8 @@
                 nameHsIdent = HsIdentifier
                   "Diff"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "flam.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1489,7 +1505,8 @@
                         nameHsIdent = HsIdentifier
                           "Diff"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "flam.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1602,7 +1619,8 @@
                         nameHsIdent = HsIdentifier
                           "Diff"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "flam.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1724,7 +1742,8 @@
                 nameHsIdent = HsIdentifier
                   "Diff"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "flam.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames

@@ -546,7 +546,9 @@
               nameHsIdent = HsIdentifier
                 "Primitive"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "primitive_types.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1445,7 +1447,9 @@
                 nameHsIdent = HsIdentifier
                   "Primitive"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "primitive_types.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2349,7 +2353,9 @@
                         nameHsIdent = HsIdentifier
                           "Primitive"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "primitive_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3281,7 +3287,9 @@
                         nameHsIdent = HsIdentifier
                           "Primitive"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "primitive_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

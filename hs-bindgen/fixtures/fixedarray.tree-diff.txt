@@ -8,7 +8,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Triple"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "fixedarray.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -36,7 +37,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Example"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "fixedarray.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

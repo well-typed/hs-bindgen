@@ -65,16 +65,17 @@ nameDecl env decl = do
     return $ C.Decl{
         declInfo = C.DeclInfo{
             declId      = name
-          , declLoc
           , declOrigin  = origin
           , declAliases = findAliasesOf env qid
+          , declLoc
+          , declHeader
           }
       , declKind = nameUseSites env declKind
       , declAnn
       }
   where
     C.Decl{declInfo, declKind, declAnn} = decl
-    C.DeclInfo{declLoc, declId} = declInfo
+    C.DeclInfo{declId, declLoc, declHeader} = declInfo
 
     qid :: QualDeclId
     qid = declQualDeclId decl

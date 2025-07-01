@@ -28,9 +28,7 @@
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "fixedarray_arg.h"}},
+            (PrimIntegral PrimInt Signed)}},
   DeclSimple,
   DeclNewtype
     Newtype {
@@ -57,7 +55,9 @@
             nameHsIdent = HsIdentifier
               "Triple"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "fixedarray_arg.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -124,7 +124,5 @@
                   nameHsIdent = HsIdentifier
                     "Triple"})],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "fixedarray_arg.h"}},
+            (PrimIntegral PrimInt Signed)}},
   DeclSimple]
