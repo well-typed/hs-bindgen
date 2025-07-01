@@ -23,7 +23,9 @@
             nameHsIdent = HsIdentifier
               "MY_TYPE"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "macro_typedef_struct.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -198,7 +200,9 @@
             declOrigin = NameOriginGenerated
               (AnonId
                 "macro_typedef_struct.h:3:9"),
-            declAliases = [CName "bar"]},
+            declAliases = [CName "bar"],
+            declHeader =
+            "macro_typedef_struct.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -307,7 +311,9 @@
               declOrigin = NameOriginGenerated
                 (AnonId
                   "macro_typedef_struct.h:3:9"),
-              declAliases = [CName "bar"]},
+              declAliases = [CName "bar"],
+              declHeader =
+              "macro_typedef_struct.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -421,7 +427,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "macro_typedef_struct.h:3:9"),
-                      declAliases = [CName "bar"]},
+                      declAliases = [CName "bar"],
+                      declHeader =
+                      "macro_typedef_struct.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -537,7 +545,9 @@
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "macro_typedef_struct.h:3:9"),
-                      declAliases = [CName "bar"]},
+                      declAliases = [CName "bar"],
+                      declHeader =
+                      "macro_typedef_struct.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

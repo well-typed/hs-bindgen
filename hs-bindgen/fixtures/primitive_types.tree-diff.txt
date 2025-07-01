@@ -9,7 +9,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Primitive"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "primitive_types.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

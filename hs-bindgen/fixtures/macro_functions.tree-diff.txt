@@ -10,7 +10,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "iNCR"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -44,7 +46,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "aDD"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -75,7 +79,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "iD"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -99,7 +105,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "cONST"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -125,7 +133,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "cMP"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -157,7 +167,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "fUN1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -199,7 +211,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "fUN2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -240,7 +254,9 @@ TranslationUnit {
           nameC = CName "G",
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -287,7 +303,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "dIV1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -329,7 +347,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "dIV2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_functions.h"},
       declKind =
       DeclMacro
         (MacroExpr

@@ -22,7 +22,8 @@
             nameHsIdent = HsIdentifier
               "PtrInt"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -91,7 +92,8 @@
             nameHsIdent = HsIdentifier
               "PtrPtrChar"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -162,7 +164,8 @@
             nameHsIdent = HsIdentifier
               "Arr1"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -221,7 +224,8 @@
             nameHsIdent = HsIdentifier
               "Arr2"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -284,7 +288,8 @@
             nameHsIdent = HsIdentifier
               "Arr3"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -349,7 +354,8 @@
             nameHsIdent = HsIdentifier
               "Fun1"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -403,7 +409,8 @@
             nameHsIdent = HsIdentifier
               "Fun2"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -477,7 +484,8 @@
             nameHsIdent = HsIdentifier
               "Fun3"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -557,7 +565,8 @@
             nameHsIdent = HsIdentifier
               "Fun4"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -626,7 +635,8 @@
             nameHsIdent = HsIdentifier
               "Fun5"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -682,7 +692,8 @@
             nameHsIdent = HsIdentifier
               "MTy"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -785,7 +796,8 @@
             nameHsIdent = HsIdentifier
               "Tty"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -892,7 +904,8 @@
             nameHsIdent = HsIdentifier
               "UINT8_T"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1029,7 +1042,8 @@
             nameHsIdent = HsIdentifier
               "BOOLEAN_T"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1169,7 +1183,8 @@
             nameHsIdent = HsIdentifier
               "Boolean_T"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "macro_types.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

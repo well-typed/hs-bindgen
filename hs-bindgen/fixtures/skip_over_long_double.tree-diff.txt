@@ -9,15 +9,15 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "fun2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "skip_over_long_double.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
-          functionRes = TypeVoid,
-          functionHeader =
-          "skip_over_long_double.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -33,7 +33,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Struct2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "skip_over_long_double.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

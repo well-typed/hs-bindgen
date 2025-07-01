@@ -9,7 +9,8 @@ TranslationUnit {
             "Vector"},
         declOrigin = NameOriginGenerated
           (AnonId "vector.h:1:9"),
-        declAliases = [CName "vector"]},
+        declAliases = [CName "vector"],
+        declHeader = "vector.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -54,7 +55,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "new_vector"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "vector.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -72,8 +74,7 @@ TranslationUnit {
                     nameHsIdent = HsIdentifier
                       "Vector"}
                   (NameOriginGenerated
-                    (AnonId "vector.h:1:9"))))),
-          functionHeader = "vector.h"},
+                    (AnonId "vector.h:1:9")))))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

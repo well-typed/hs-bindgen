@@ -9,7 +9,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Foo"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "opaque_declaration.h"},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -26,7 +28,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Bar"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "opaque_declaration.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -82,7 +86,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Baz"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "opaque_declaration.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -106,7 +112,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Quu"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "opaque_declaration.h"},
       declKind = DeclEnumOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -123,7 +131,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Opaque_union"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "opaque_declaration.h"},
       declKind = DeclUnionOpaque,
       declSpec = DeclSpec
         TypeSpec {

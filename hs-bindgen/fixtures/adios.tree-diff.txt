@@ -8,7 +8,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Adio'0301s"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "adios.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -34,7 +35,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "C\25968\23383"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "adios.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -60,12 +62,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "c\978"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "adios.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -80,12 +82,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "\25308\25308"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "adios.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -100,12 +102,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "say\25308\25308"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "adios.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

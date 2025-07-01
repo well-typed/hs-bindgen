@@ -36,12 +36,9 @@ instance (
 instance (
       Id p ~ Id p'
     ) => CoercePass DeclInfo p p' where
-  coercePass DeclInfo{declLoc, declId, declOrigin, declAliases} = DeclInfo{
-        declLoc
-      , declId
-      , declOrigin
-      , declAliases
-      }
+  coercePass info = DeclInfo{..}
+    where
+      DeclInfo{declLoc, declId, declOrigin, declAliases, declHeader} = info
 
 instance (
       CoercePass Struct   p p'
@@ -149,7 +146,6 @@ instance (
         functionArgs = map coercePass functionArgs
       , functionRes  = coercePass functionRes
       , functionAnn
-      , functionHeader
       }
 
 instance (

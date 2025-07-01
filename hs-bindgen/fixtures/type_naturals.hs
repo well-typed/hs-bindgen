@@ -522,7 +522,8 @@
             nameHsIdent = HsIdentifier
               "Arr1"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "type_naturals.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -581,7 +582,8 @@
             nameHsIdent = HsIdentifier
               "Arr2"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "type_naturals.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -640,7 +642,8 @@
             nameHsIdent = HsIdentifier
               "Arr3"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "type_naturals.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -699,7 +702,8 @@
             nameHsIdent = HsIdentifier
               "Arr4"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "type_naturals.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {

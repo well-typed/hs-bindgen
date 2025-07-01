@@ -51,7 +51,8 @@
               nameHsIdent = HsIdentifier
                 "Bools1"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "bool.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -141,7 +142,8 @@
                 nameHsIdent = HsIdentifier
                   "Bools1"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "bool.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -236,7 +238,8 @@
                         nameHsIdent = HsIdentifier
                           "Bools1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "bool.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -333,7 +336,8 @@
                         nameHsIdent = HsIdentifier
                           "Bools1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "bool.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -442,7 +446,8 @@
               nameHsIdent = HsIdentifier
                 "Bools2"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "bool.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -532,7 +537,8 @@
                 nameHsIdent = HsIdentifier
                   "Bools2"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "bool.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -627,7 +633,8 @@
                         nameHsIdent = HsIdentifier
                           "Bools2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "bool.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -724,7 +731,8 @@
                         nameHsIdent = HsIdentifier
                           "Bools2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "bool.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -804,7 +812,8 @@
             nameHsIdent = HsIdentifier
               "BOOL"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "bool.h"},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -950,7 +959,8 @@
               nameHsIdent = HsIdentifier
                 "Bools3"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "bool.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1060,7 +1070,8 @@
                 nameHsIdent = HsIdentifier
                   "Bools3"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "bool.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1175,7 +1186,8 @@
                         nameHsIdent = HsIdentifier
                           "Bools3"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "bool.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1292,7 +1304,8 @@
                         nameHsIdent = HsIdentifier
                           "Bools3"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "bool.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

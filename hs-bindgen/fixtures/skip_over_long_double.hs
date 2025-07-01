@@ -21,9 +21,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
-          functionRes = TypeVoid,
-          functionHeader =
-          "skip_over_long_double.h"}},
+          functionRes = TypeVoid}},
   DeclData
     Struct {
       structName = HsName
@@ -61,7 +59,9 @@
               nameHsIdent = HsIdentifier
                 "Struct2"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "skip_over_long_double.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -127,7 +127,9 @@
                 nameHsIdent = HsIdentifier
                   "Struct2"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "skip_over_long_double.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -198,7 +200,9 @@
                         nameHsIdent = HsIdentifier
                           "Struct2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "skip_over_long_double.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -269,7 +273,9 @@
                         nameHsIdent = HsIdentifier
                           "Struct2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "skip_over_long_double.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

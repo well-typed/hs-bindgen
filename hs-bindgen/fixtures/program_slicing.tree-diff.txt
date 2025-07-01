@@ -11,7 +11,9 @@ TranslationUnit {
         declAliases = [
           CName "uint_fast16_t",
           CName "uint_fast32_t",
-          CName "uint_least32_t"]},
+          CName "uint_least32_t"],
+        declHeader =
+        "program_slicing.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -40,7 +42,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Foo"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "program_slicing.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

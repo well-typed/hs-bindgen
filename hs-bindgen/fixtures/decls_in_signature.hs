@@ -13,7 +13,9 @@
             nameHsIdent = HsIdentifier
               "Opaque"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "decls_in_signature.h"},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -76,7 +78,9 @@
               nameHsIdent = HsIdentifier
                 "Outside"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "decls_in_signature.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -171,7 +175,9 @@
                 nameHsIdent = HsIdentifier
                   "Outside"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "decls_in_signature.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -271,7 +277,9 @@
                         nameHsIdent = HsIdentifier
                           "Outside"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "decls_in_signature.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -373,7 +381,9 @@
                         nameHsIdent = HsIdentifier
                           "Outside"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "decls_in_signature.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -489,7 +499,5 @@
                 nameHsIdent = HsIdentifier
                   "Outside"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "decls_in_signature.h"}},
+          functionRes = TypeVoid}},
   DeclSimple]

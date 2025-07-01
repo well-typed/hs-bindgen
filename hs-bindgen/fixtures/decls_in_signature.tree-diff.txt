@@ -9,7 +9,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Opaque"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "decls_in_signature.h"},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -26,7 +28,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Outside"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "decls_in_signature.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -72,7 +76,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "normal"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "decls_in_signature.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -96,9 +102,7 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "Outside"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "decls_in_signature.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

@@ -8,7 +8,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Flags"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bitfields.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -101,7 +102,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Overflow32"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bitfields.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -159,7 +161,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Overflow32b"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bitfields.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -217,7 +220,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Overflow32c"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bitfields.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -275,7 +279,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Overflow64"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bitfields.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -322,7 +327,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "AlignA"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bitfields.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -368,7 +374,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "AlignB"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "bitfields.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

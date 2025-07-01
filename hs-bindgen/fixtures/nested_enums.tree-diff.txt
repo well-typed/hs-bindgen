@@ -8,7 +8,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "EnumA"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "nested_enums.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -53,7 +54,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "ExA"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "nested_enums.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -92,7 +94,8 @@ TranslationUnit {
             "ExB_fieldB1"},
         declOrigin = NameOriginGenerated
           (AnonId "nested_enums.h:9:9"),
-        declAliases = []},
+        declAliases = [],
+        declHeader = "nested_enums.h"},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -137,7 +140,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "ExB"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "nested_enums.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

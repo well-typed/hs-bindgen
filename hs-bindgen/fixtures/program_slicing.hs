@@ -25,7 +25,9 @@
           declAliases = [
             CName "uint_fast16_t",
             CName "uint_fast32_t",
-            CName "uint_least32_t"]},
+            CName "uint_least32_t"],
+          declHeader =
+          "program_slicing.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -420,7 +422,9 @@
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "program_slicing.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -858,7 +862,9 @@
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "program_slicing.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1301,7 +1307,9 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "program_slicing.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1746,7 +1754,9 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "program_slicing.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

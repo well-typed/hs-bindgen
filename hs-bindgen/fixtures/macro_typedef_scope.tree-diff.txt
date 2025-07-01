@@ -9,7 +9,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "T1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_typedef_scope.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -37,7 +39,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "T2"},
         declOrigin = NameOriginInSource,
-        declAliases = [CName "T4"]},
+        declAliases = [CName "T4"],
+        declHeader =
+        "macro_typedef_scope.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -67,7 +71,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "T3"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_typedef_scope.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -99,7 +105,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "T4"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_typedef_scope.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

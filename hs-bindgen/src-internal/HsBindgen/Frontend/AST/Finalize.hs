@@ -65,6 +65,7 @@ instance Finalize Int.DeclInfo where
       , declId
       , declOrigin
       , declAliases
+      , declHeader
       }
     where
       Int.DeclInfo{
@@ -72,6 +73,7 @@ instance Finalize Int.DeclInfo where
         , declId
         , declOrigin
         , declAliases
+        , declHeader
         } = info
 
 instance Finalize Int.DeclKind where
@@ -211,16 +213,14 @@ instance Finalize Int.Function where
   type Finalized Int.Function = Ext.Function
 
   finalize function = Ext.Function{
-        functionArgs   = map finalize functionArgs
-      , functionRes    = finalize functionRes
-      , functionHeader = functionHeader
+        functionArgs = map finalize functionArgs
+      , functionRes  = finalize functionRes
       }
     where
       Int.Function {
           functionArgs
         , functionRes
         , functionAnn = NoAnn
-        , functionHeader
         } = function
 
 instance Finalize Int.CheckedMacro where

@@ -51,7 +51,8 @@
               nameHsIdent = HsIdentifier
                 "Dim2"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "unions.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -141,7 +142,8 @@
                 nameHsIdent = HsIdentifier
                   "Dim2"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "unions.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -236,7 +238,8 @@
                         nameHsIdent = HsIdentifier
                           "Dim2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -333,7 +336,8 @@
                         nameHsIdent = HsIdentifier
                           "Dim2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -455,7 +459,8 @@
               nameHsIdent = HsIdentifier
                 "Dim3"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "unions.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -572,7 +577,8 @@
                 nameHsIdent = HsIdentifier
                   "Dim3"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "unions.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -694,7 +700,8 @@
                         nameHsIdent = HsIdentifier
                           "Dim3"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -819,7 +826,8 @@
                         nameHsIdent = HsIdentifier
                           "Dim3"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -905,7 +913,8 @@
             nameHsIdent = HsIdentifier
               "DimPayload"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "unions.h"},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -1055,7 +1064,8 @@
               nameHsIdent = HsIdentifier
                 "Dim"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "unions.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1159,7 +1169,8 @@
                 nameHsIdent = HsIdentifier
                   "Dim"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "unions.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1268,7 +1279,8 @@
                         nameHsIdent = HsIdentifier
                           "Dim"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1379,7 +1391,8 @@
                         nameHsIdent = HsIdentifier
                           "Dim"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1453,7 +1466,8 @@
               "DimPayloadB"},
           declOrigin = NameOriginInSource,
           declAliases = [
-            CName "DimPayloadB"]},
+            CName "DimPayloadB"],
+          declHeader = "unions.h"},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -1606,7 +1620,8 @@
               nameHsIdent = HsIdentifier
                 "DimB"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "unions.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1716,7 +1731,8 @@
                 nameHsIdent = HsIdentifier
                   "DimB"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "unions.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1831,7 +1847,8 @@
                         nameHsIdent = HsIdentifier
                           "DimB"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1948,7 +1965,8 @@
                         nameHsIdent = HsIdentifier
                           "DimB"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2057,7 +2075,8 @@
                 "AnonA_xy"},
             declOrigin = NameOriginGenerated
               (AnonId "unions.h:35:5"),
-            declAliases = []},
+            declAliases = [],
+            declHeader = "unions.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2152,7 +2171,8 @@
                   "AnonA_xy"},
               declOrigin = NameOriginGenerated
                 (AnonId "unions.h:35:5"),
-              declAliases = []},
+              declAliases = [],
+              declHeader = "unions.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2252,7 +2272,8 @@
                           "AnonA_xy"},
                       declOrigin = NameOriginGenerated
                         (AnonId "unions.h:35:5"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2354,7 +2375,8 @@
                           "AnonA_xy"},
                       declOrigin = NameOriginGenerated
                         (AnonId "unions.h:35:5"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2468,7 +2490,8 @@
                 "AnonA_polar"},
             declOrigin = NameOriginGenerated
               (AnonId "unions.h:36:5"),
-            declAliases = []},
+            declAliases = [],
+            declHeader = "unions.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2565,7 +2588,8 @@
                   "AnonA_polar"},
               declOrigin = NameOriginGenerated
                 (AnonId "unions.h:36:5"),
-              declAliases = []},
+              declAliases = [],
+              declHeader = "unions.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2667,7 +2691,8 @@
                           "AnonA_polar"},
                       declOrigin = NameOriginGenerated
                         (AnonId "unions.h:36:5"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2771,7 +2796,8 @@
                           "AnonA_polar"},
                       declOrigin = NameOriginGenerated
                         (AnonId "unions.h:36:5"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2854,7 +2880,8 @@
             nameHsIdent = HsIdentifier
               "AnonA"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "unions.h"},
         declKind = Union
           Union {
             unionNames = NewtypeNames {

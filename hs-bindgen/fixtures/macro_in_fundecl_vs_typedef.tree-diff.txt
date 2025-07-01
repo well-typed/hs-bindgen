@@ -9,7 +9,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "MC"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -38,7 +40,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "TC"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -67,7 +71,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "quux1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -84,9 +90,7 @@ TranslationUnit {
                     "TC"})],
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing)),
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+              (PrimSignImplicit Nothing))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -102,7 +106,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "quux2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -119,9 +125,7 @@ TranslationUnit {
               NamePair {
                 nameC = CName "TC",
                 nameHsIdent = HsIdentifier
-                  "TC"}),
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+                  "TC"})},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -137,7 +141,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "wam1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -155,9 +161,7 @@ TranslationUnit {
               NamePair {
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource),
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+              NameOriginInSource)},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -173,7 +177,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "wam2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -191,9 +197,7 @@ TranslationUnit {
                 NamePair {
                   nameC = CName "TC",
                   nameHsIdent = HsIdentifier
-                    "TC"})),
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+                    "TC"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -209,7 +213,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Struct1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -246,8 +252,9 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId
             "macro_in_fundecl_vs_typedef.h:19:9"),
-        declAliases = [
-          CName "struct2"]},
+        declAliases = [CName "struct2"],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -283,7 +290,9 @@ TranslationUnit {
             "Struct3"},
         declOrigin = NameOriginInSource,
         declAliases = [
-          CName "struct3_t"]},
+          CName "struct3_t"],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -318,7 +327,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Struct3_t"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -349,8 +360,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Struct4"},
         declOrigin = NameOriginInSource,
-        declAliases = [
-          CName "struct4"]},
+        declAliases = [CName "struct4"],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -385,7 +397,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "struct_typedef1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -406,9 +420,7 @@ TranslationUnit {
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -424,7 +436,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "struct_typedef2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -440,9 +454,7 @@ TranslationUnit {
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -458,7 +470,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "struct_typedef3"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -477,9 +491,7 @@ TranslationUnit {
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -495,7 +507,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "struct_name1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -511,9 +525,7 @@ TranslationUnit {
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -529,7 +541,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "struct_name2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -545,9 +559,7 @@ TranslationUnit {
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -563,7 +575,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "struct_name3"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "macro_in_fundecl_vs_typedef.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -579,9 +593,7 @@ TranslationUnit {
                 nameC = CName "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

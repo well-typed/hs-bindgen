@@ -16,8 +16,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_forall (void) { forall(); }",
@@ -35,8 +34,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_mdo (void) { mdo(); }",
@@ -54,8 +52,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_pattern (void) { pattern(); }",
@@ -73,8 +70,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_proc (void) { proc(); }",
@@ -92,8 +88,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_rec (void) { rec(); }",
@@ -111,8 +106,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_using (void) { using(); }",
@@ -130,8 +124,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_anyclass (void) { anyclass(); }",
@@ -149,8 +142,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_capi (void) { capi(); }",
@@ -168,8 +160,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_cases (void) { cases(); }",
@@ -187,8 +178,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_ccall (void) { ccall(); }",
@@ -206,8 +196,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_dynamic (void) { dynamic(); }",
@@ -225,8 +214,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_export (void) { export(); }",
@@ -244,8 +232,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_family (void) { family(); }",
@@ -263,8 +250,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_group (void) { group(); }",
@@ -282,8 +268,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_interruptible (void) { interruptible(); }",
@@ -301,8 +286,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_javascript (void) { javascript(); }",
@@ -320,8 +304,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_label (void) { label(); }",
@@ -339,8 +322,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_prim (void) { prim(); }",
@@ -358,8 +340,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_role (void) { role(); }",
@@ -377,8 +358,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_safe (void) { safe(); }",
@@ -396,8 +376,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_stdcall (void) { stdcall(); }",
@@ -415,8 +394,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_stock (void) { stock(); }",
@@ -434,8 +412,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_unsafe (void) { unsafe(); }",
@@ -453,8 +430,7 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}},
+          functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_via (void) { via(); }",
@@ -472,5 +448,4 @@
       Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "names.h"}}]
+          functionRes = TypeVoid}}]

@@ -35,7 +35,8 @@
               nameHsIdent = HsIdentifier
                 "Thing"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "struct_arg.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -100,7 +101,8 @@
                 nameHsIdent = HsIdentifier
                   "Thing"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "struct_arg.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -170,7 +172,8 @@
                         nameHsIdent = HsIdentifier
                           "Thing"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "struct_arg.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -240,7 +243,8 @@
                         nameHsIdent = HsIdentifier
                           "Thing"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "struct_arg.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -318,9 +322,7 @@
                   "Thing"}
               NameOriginInSource],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "struct_arg.h"}},
+            (PrimIntegral PrimInt Signed)}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -355,9 +357,7 @@
               nameC = CName "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
-            NameOriginInSource,
-          functionHeader =
-          "struct_arg.h"}},
+            NameOriginInSource}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -409,9 +409,7 @@
               nameC = CName "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
-            NameOriginInSource,
-          functionHeader =
-          "struct_arg.h"}},
+            NameOriginInSource}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -455,7 +453,5 @@
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit
-                (Just Signed))),
-          functionHeader =
-          "struct_arg.h"}},
+                (Just Signed)))}},
   DeclSimple]

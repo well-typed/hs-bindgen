@@ -61,7 +61,9 @@
                 "distilled_lib_1.h:9:9"),
             declAliases = [
               CName
-                "another_typedef_struct_t"]},
+                "another_typedef_struct_t"],
+            declHeader =
+            "distilled_lib_1.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -167,7 +169,9 @@
                   "distilled_lib_1.h:9:9"),
               declAliases = [
                 CName
-                  "another_typedef_struct_t"]},
+                  "another_typedef_struct_t"],
+              declHeader =
+              "distilled_lib_1.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -278,7 +282,9 @@
                           "distilled_lib_1.h:9:9"),
                       declAliases = [
                         CName
-                          "another_typedef_struct_t"]},
+                          "another_typedef_struct_t"],
+                      declHeader =
+                      "distilled_lib_1.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -391,7 +397,9 @@
                           "distilled_lib_1.h:9:9"),
                       declAliases = [
                         CName
-                          "another_typedef_struct_t"]},
+                          "another_typedef_struct_t"],
+                      declHeader =
+                      "distilled_lib_1.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -482,8 +490,9 @@
             (AnonId
               "distilled_lib_1.h:10:9"),
           declAliases = [
-            CName
-              "another_typedef_enum_e"]},
+            CName "another_typedef_enum_e"],
+          declHeader =
+          "distilled_lib_1.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -860,7 +869,9 @@
             nameHsIdent = HsIdentifier
               "A_type_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "distilled_lib_1.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -995,7 +1006,9 @@
             nameHsIdent = HsIdentifier
               "Var_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "distilled_lib_1.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -2289,7 +2302,9 @@
                 "A_typedef_struct"},
             declOrigin = NameOriginInSource,
             declAliases = [
-              CName "a_typedef_struct_t"]},
+              CName "a_typedef_struct_t"],
+            declHeader =
+            "distilled_lib_1.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -4122,7 +4137,9 @@
                   "A_typedef_struct"},
               declOrigin = NameOriginInSource,
               declAliases = [
-                CName "a_typedef_struct_t"]},
+                CName "a_typedef_struct_t"],
+              declHeader =
+              "distilled_lib_1.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -5960,7 +5977,9 @@
                           "A_typedef_struct"},
                       declOrigin = NameOriginInSource,
                       declAliases = [
-                        CName "a_typedef_struct_t"]},
+                        CName "a_typedef_struct_t"],
+                      declHeader =
+                      "distilled_lib_1.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -7809,7 +7828,9 @@
                           "A_typedef_struct"},
                       declOrigin = NameOriginInSource,
                       declAliases = [
-                        CName "a_typedef_struct_t"]},
+                        CName "a_typedef_struct_t"],
+                      declHeader =
+                      "distilled_lib_1.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -8514,7 +8535,9 @@
             nameHsIdent = HsIdentifier
               "A_typedef_struct_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "distilled_lib_1.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -8709,7 +8732,9 @@
             (AnonId
               "distilled_lib_1.h:61:9"),
           declAliases = [
-            CName "a_typedef_enum_e"]},
+            CName "a_typedef_enum_e"],
+          declHeader =
+          "distilled_lib_1.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -9769,9 +9794,7 @@
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = [
-                          ]})]},
-          functionHeader =
-          "distilled_lib_1.h"}},
+                          ]})]}}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -10021,7 +10044,9 @@
             nameHsIdent = HsIdentifier
               "Callback_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "distilled_lib_1.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

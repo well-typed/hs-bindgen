@@ -36,7 +36,9 @@
               nameHsIdent = HsIdentifier
                 "S1"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "S1_t"]},
+            declAliases = [CName "S1_t"],
+            declHeader =
+            "forward_declaration.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -102,7 +104,9 @@
                 nameHsIdent = HsIdentifier
                   "S1"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "S1_t"]},
+              declAliases = [CName "S1_t"],
+              declHeader =
+              "forward_declaration.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -173,7 +177,9 @@
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S1_t"]},
+                      declAliases = [CName "S1_t"],
+                      declHeader =
+                      "forward_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -244,7 +250,9 @@
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S1_t"]},
+                      declAliases = [CName "S1_t"],
+                      declHeader =
+                      "forward_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -311,7 +319,9 @@
             nameHsIdent = HsIdentifier
               "S1_t"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader =
+          "forward_declaration.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -383,7 +393,9 @@
               nameHsIdent = HsIdentifier
                 "S2"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader =
+            "forward_declaration.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -449,7 +461,9 @@
                 nameHsIdent = HsIdentifier
                   "S2"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader =
+              "forward_declaration.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -520,7 +534,9 @@
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "forward_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -591,7 +607,9 @@
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader =
+                      "forward_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

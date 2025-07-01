@@ -8,7 +8,8 @@ TranslationUnit {
           nameC = CName "N",
           nameHsIdent = HsIdentifier "n"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -34,7 +35,8 @@ TranslationUnit {
           nameC = CName "M",
           nameHsIdent = HsIdentifier "m"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -65,7 +67,8 @@ TranslationUnit {
           nameC = CName "F",
           nameHsIdent = HsIdentifier "f"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -113,7 +116,8 @@ TranslationUnit {
           nameC = CName "G",
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -162,7 +166,8 @@ TranslationUnit {
           nameC = CName "K",
           nameHsIdent = HsIdentifier "k"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind =
       DeclMacro
         (MacroExpr
@@ -223,7 +228,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Arr1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -255,7 +261,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Arr2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -287,7 +294,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Arr3"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -319,7 +327,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Arr4"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "type_naturals.h"},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {

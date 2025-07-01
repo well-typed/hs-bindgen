@@ -55,7 +55,8 @@
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -153,7 +154,8 @@
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -256,7 +258,8 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -361,7 +364,8 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -474,7 +478,8 @@
               nameHsIdent = HsIdentifier
                 "Bar"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -572,7 +577,8 @@
                 nameHsIdent = HsIdentifier
                   "Bar"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -675,7 +681,8 @@
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -780,7 +787,8 @@
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -894,7 +902,8 @@
                 "Baz"},
             declOrigin = NameOriginGenerated
               (AnonId "attributes.h:22:9"),
-            declAliases = [CName "baz"]},
+            declAliases = [CName "baz"],
+            declHeader = "attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -993,7 +1002,8 @@
                   "Baz"},
               declOrigin = NameOriginGenerated
                 (AnonId "attributes.h:22:9"),
-              declAliases = [CName "baz"]},
+              declAliases = [CName "baz"],
+              declHeader = "attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1097,7 +1107,8 @@
                           "Baz"},
                       declOrigin = NameOriginGenerated
                         (AnonId "attributes.h:22:9"),
-                      declAliases = [CName "baz"]},
+                      declAliases = [CName "baz"],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1203,7 +1214,8 @@
                           "Baz"},
                       declOrigin = NameOriginGenerated
                         (AnonId "attributes.h:22:9"),
-                      declAliases = [CName "baz"]},
+                      declAliases = [CName "baz"],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1317,7 +1329,8 @@
                 "Qux"},
             declOrigin = NameOriginGenerated
               (AnonId "attributes.h:28:9"),
-            declAliases = [CName "qux"]},
+            declAliases = [CName "qux"],
+            declHeader = "attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1416,7 +1429,8 @@
                   "Qux"},
               declOrigin = NameOriginGenerated
                 (AnonId "attributes.h:28:9"),
-              declAliases = [CName "qux"]},
+              declAliases = [CName "qux"],
+              declHeader = "attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1520,7 +1534,8 @@
                           "Qux"},
                       declOrigin = NameOriginGenerated
                         (AnonId "attributes.h:28:9"),
-                      declAliases = [CName "qux"]},
+                      declAliases = [CName "qux"],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1626,7 +1641,8 @@
                           "Qux"},
                       declOrigin = NameOriginGenerated
                         (AnonId "attributes.h:28:9"),
-                      declAliases = [CName "qux"]},
+                      declAliases = [CName "qux"],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1760,7 +1776,8 @@
               nameHsIdent = HsIdentifier
                 "C__SFILE"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "FILE"]},
+            declAliases = [CName "FILE"],
+            declHeader = "attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1891,7 +1908,8 @@
                 nameHsIdent = HsIdentifier
                   "C__SFILE"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "FILE"]},
+              declAliases = [CName "FILE"],
+              declHeader = "attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2027,7 +2045,8 @@
                         nameHsIdent = HsIdentifier
                           "C__SFILE"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "FILE"]},
+                      declAliases = [CName "FILE"],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2166,7 +2185,8 @@
                         nameHsIdent = HsIdentifier
                           "C__SFILE"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "FILE"]},
+                      declAliases = [CName "FILE"],
+                      declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2265,7 +2285,8 @@
             nameHsIdent = HsIdentifier
               "FILE"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "attributes.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

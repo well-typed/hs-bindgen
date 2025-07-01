@@ -8,7 +8,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Foo"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "attributes.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -55,7 +56,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Bar"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "attributes.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -103,7 +105,8 @@ TranslationUnit {
             "Baz"},
         declOrigin = NameOriginGenerated
           (AnonId "attributes.h:22:9"),
-        declAliases = [CName "baz"]},
+        declAliases = [CName "baz"],
+        declHeader = "attributes.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -151,7 +154,8 @@ TranslationUnit {
             "Qux"},
         declOrigin = NameOriginGenerated
           (AnonId "attributes.h:28:9"),
-        declAliases = [CName "qux"]},
+        declAliases = [CName "qux"],
+        declHeader = "attributes.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -198,7 +202,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "C__SFILE"},
         declOrigin = NameOriginInSource,
-        declAliases = [CName "FILE"]},
+        declAliases = [CName "FILE"],
+        declHeader = "attributes.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -257,7 +262,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "FILE"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader = "attributes.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

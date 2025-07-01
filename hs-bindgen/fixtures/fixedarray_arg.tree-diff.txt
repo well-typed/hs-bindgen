@@ -9,7 +9,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "fun_1"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "fixedarray_arg.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -20,9 +22,7 @@ TranslationUnit {
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "fixedarray_arg.h"},
+            (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -38,7 +38,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "Triple"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "fixedarray_arg.h"},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -67,7 +69,9 @@ TranslationUnit {
           nameHsIdent = HsIdentifier
             "fun_2"},
         declOrigin = NameOriginInSource,
-        declAliases = []},
+        declAliases = [],
+        declHeader =
+        "fixedarray_arg.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -78,9 +82,7 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Triple"})],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "fixedarray_arg.h"},
+            (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

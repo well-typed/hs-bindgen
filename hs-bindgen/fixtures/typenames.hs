@@ -22,7 +22,8 @@
             nameHsIdent = HsIdentifier
               "Foo"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "typenames.h"},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -319,7 +320,8 @@
             nameHsIdent = HsIdentifier
               "Foo"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "typenames.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

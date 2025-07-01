@@ -22,7 +22,8 @@
             nameHsIdent = HsIdentifier
               "UnionA"},
           declOrigin = NameOriginInSource,
-          declAliases = []},
+          declAliases = [],
+          declHeader = "nested_unions.h"},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -144,7 +145,8 @@
               nameHsIdent = HsIdentifier
                 "ExA"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_unions.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -219,7 +221,8 @@
                 nameHsIdent = HsIdentifier
                   "ExA"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_unions.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -299,7 +302,8 @@
                         nameHsIdent = HsIdentifier
                           "ExA"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -379,7 +383,8 @@
                         nameHsIdent = HsIdentifier
                           "ExA"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -441,7 +446,8 @@
               "ExB_fieldB1"},
           declOrigin = NameOriginGenerated
             (AnonId "nested_unions.h:9:9"),
-          declAliases = []},
+          declAliases = [],
+          declHeader = "nested_unions.h"},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -564,7 +570,8 @@
               nameHsIdent = HsIdentifier
                 "ExB"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_unions.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -641,7 +648,8 @@
                 nameHsIdent = HsIdentifier
                   "ExB"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_unions.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -723,7 +731,8 @@
                         nameHsIdent = HsIdentifier
                           "ExB"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -805,7 +814,8 @@
                         nameHsIdent = HsIdentifier
                           "ExB"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_unions.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames

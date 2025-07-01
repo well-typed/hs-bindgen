@@ -55,7 +55,8 @@
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_types.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -153,7 +154,8 @@
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_types.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -256,7 +258,8 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -361,7 +364,8 @@
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -480,7 +484,8 @@
               nameHsIdent = HsIdentifier
                 "Bar"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_types.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -590,7 +595,8 @@
                 nameHsIdent = HsIdentifier
                   "Bar"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_types.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -705,7 +711,8 @@
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -822,7 +829,8 @@
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -942,7 +950,8 @@
                 "Ex3_ex3_struct"},
             declOrigin = NameOriginGenerated
               (AnonId "nested_types.h:12:5"),
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_types.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1043,7 +1052,8 @@
                   "Ex3_ex3_struct"},
               declOrigin = NameOriginGenerated
                 (AnonId "nested_types.h:12:5"),
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_types.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1149,7 +1159,8 @@
                           "Ex3_ex3_struct"},
                       declOrigin = NameOriginGenerated
                         (AnonId "nested_types.h:12:5"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1257,7 +1268,8 @@
                           "Ex3_ex3_struct"},
                       declOrigin = NameOriginGenerated
                         (AnonId "nested_types.h:12:5"),
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1381,7 +1393,8 @@
               nameHsIdent = HsIdentifier
                 "Ex3"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_types.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1487,7 +1500,8 @@
                 nameHsIdent = HsIdentifier
                   "Ex3"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_types.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1598,7 +1612,8 @@
                         nameHsIdent = HsIdentifier
                           "Ex3"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1711,7 +1726,8 @@
                         nameHsIdent = HsIdentifier
                           "Ex3"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1834,7 +1850,8 @@
               nameHsIdent = HsIdentifier
                 "Ex4_even"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_types.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1942,7 +1959,8 @@
                 nameHsIdent = HsIdentifier
                   "Ex4_even"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_types.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2055,7 +2073,8 @@
                         nameHsIdent = HsIdentifier
                           "Ex4_even"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2170,7 +2189,8 @@
                         nameHsIdent = HsIdentifier
                           "Ex4_even"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2296,7 +2316,8 @@
               nameHsIdent = HsIdentifier
                 "Ex4_odd"},
             declOrigin = NameOriginInSource,
-            declAliases = []},
+            declAliases = [],
+            declHeader = "nested_types.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2403,7 +2424,8 @@
                 nameHsIdent = HsIdentifier
                   "Ex4_odd"},
               declOrigin = NameOriginInSource,
-              declAliases = []},
+              declAliases = [],
+              declHeader = "nested_types.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2515,7 +2537,8 @@
                         nameHsIdent = HsIdentifier
                           "Ex4_odd"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2629,7 +2652,8 @@
                         nameHsIdent = HsIdentifier
                           "Ex4_odd"},
                       declOrigin = NameOriginInSource,
-                      declAliases = []},
+                      declAliases = [],
+                      declHeader = "nested_types.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
