@@ -260,10 +260,10 @@ instance PrettyForTrace ReadBindingSpecMsg where
 
 --------------------------------------------------------------------------------
 
--- TODO: Additional messages (e.g. "type dropped")
 data ResolveBindingSpecMsg =
     ResolveExternalBindingSpecHeader ResolveHeaderMsg
   | ResolvePrescriptiveBindingSpecHeader ResolveHeaderMsg
+  | ResolveBindingSpecTypeDropped C.QualName
   deriving stock (Show, Eq)
 
 instance HasDefaultLogLevel ResolveBindingSpecMsg where
@@ -278,22 +278,28 @@ instance HasDefaultLogLevel ResolveBindingSpecMsg where
       -- However, any errors that happen during /prescriptive/ binding specs
       -- truly are errors.
       getDefaultLogLevel x
+    ResolveBindingSpecTypeDropped{} -> Info
 
 instance HasSource ResolveBindingSpecMsg where
   getSource = \case
     ResolveExternalBindingSpecHeader     x -> getSource x
     ResolvePrescriptiveBindingSpecHeader x -> getSource x
+    ResolveBindingSpecTypeDropped{}        -> HsBindgen
 
 instance PrettyForTrace ResolveBindingSpecMsg where
   prettyForTrace = \case
-    ResolveExternalBindingSpecHeader x -> hang
+    ResolveExternalBindingSpecHeader x ->
+      hang
         "during resolution of external binding specification:"
         2
         (prettyForTrace x)
-    ResolvePrescriptiveBindingSpecHeader x -> hang
+    ResolvePrescriptiveBindingSpecHeader x ->
+      hang
         "during resolution of prescriptive binding specification:"
         2
         (prettyForTrace x)
+    ResolveBindingSpecTypeDropped cQualName ->
+      "type dropped: " >< textToCtxDoc (C.qualNameText cQualName)
 
 --------------------------------------------------------------------------------
 
@@ -502,45 +508,59 @@ resolve ::
   -> UnresolvedBindingSpec
   -> IO ResolvedBindingSpec
 resolve tracer injResolveHeader args uSpec = do
-    let types = bindingSpecTypes uSpec
-
-    headerMap <-
-      let headers :: [CHeaderIncludePath]
-          headers = Set.toAscList . mconcat $ fst <$> concat (Map.elems types)
-
-          resolveHeader' ::
-                CHeaderIncludePath
-             -> IO (Maybe (CHeaderIncludePath, SourcePath))
-          resolveHeader' header = fmap (header,) <$>
-              resolveHeader (contramap injResolveHeader tracer) args header
-
-      in  Map.fromList <$> mapMaybeM resolveHeader' headers
+    headerMap <- Map.fromList <$> mapMaybeM resolveHeader' allHeaders
 
     let lookup' :: CHeaderIncludePath -> Maybe (CHeaderIncludePath, SourcePath)
-        lookup' header = (header,) <$> Map.lookup header headerMap
+        lookup' uHeader = (uHeader,) <$> Map.lookup uHeader headerMap
+
         resolveSet ::
              Set CHeaderIncludePath
           -> Maybe (Set (CHeaderIncludePath, SourcePath))
-        resolveSet headers =
+        resolveSet uHeaders =
           -- ignore headers that are not found
-          case mapMaybe lookup' (Set.toList headers) of
-            []    -> Nothing
-            pairs -> Just (Set.fromList pairs)
-        resolve1 ::
-             (Set CHeaderIncludePath, a)
-          -> Maybe (Set (CHeaderIncludePath, SourcePath), a)
-        resolve1 (headers, x) = (, x) <$> resolveSet headers
-        resolve' ::
-             [(Set CHeaderIncludePath, a)]
-          -> Maybe [(Set (CHeaderIncludePath, SourcePath), a)]
-        resolve' lU = case mapMaybe resolve1 lU of
-          lR
-            | null lR   -> Nothing
-            | otherwise -> Just lR
-        rSpec = BindingSpec {
-            bindingSpecTypes = Map.mapMaybe resolve' types
-          }
-    return rSpec
+          case mapMaybe lookup' (Set.toList uHeaders) of
+            []       -> Nothing
+            rHeaders -> Just (Set.fromList rHeaders)
+
+        resolveType ::
+             C.QualName
+          -> (Set CHeaderIncludePath, a)
+          -> IO (Maybe (Set (CHeaderIncludePath, SourcePath), a))
+        resolveType cQualName (uHeaders, x) = case resolveSet uHeaders of
+          Just rHeaders -> return $ Just (rHeaders, x)
+          Nothing       -> do
+            traceWith tracer $ ResolveBindingSpecTypeDropped cQualName
+            return Nothing
+
+        resolveTypes ::
+             C.QualName
+          -> [(Set CHeaderIncludePath, a)]
+          -> IO
+               ( Maybe
+                   (C.QualName, [(Set (CHeaderIncludePath, SourcePath), a)])
+               )
+        resolveTypes cQualName uKVs =
+          mapMaybeM (resolveType cQualName) uKVs >>= \case
+            rKVs
+              | null rKVs -> return Nothing
+              | otherwise -> return $ Just (cQualName, rKVs)
+
+    bindingSpecTypes <- Map.fromList <$>
+      mapMaybeM (uncurry resolveTypes) (Map.toList (bindingSpecTypes uSpec))
+    return BindingSpec {..}
+  where
+    allHeaders :: [CHeaderIncludePath]
+    allHeaders = Set.toAscList . mconcat $
+      fst <$> concat (Map.elems (bindingSpecTypes uSpec))
+
+    resolveTracer :: Tracer IO ResolveHeaderMsg
+    resolveTracer = contramap injResolveHeader tracer
+
+    resolveHeader' ::
+         CHeaderIncludePath
+      -> IO (Maybe (CHeaderIncludePath, SourcePath))
+    resolveHeader' uHeader =
+      fmap (uHeader,) <$> resolveHeader resolveTracer args uHeader
 
 {-------------------------------------------------------------------------------
   API: Merging
