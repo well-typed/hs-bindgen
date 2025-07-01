@@ -38,6 +38,7 @@ module HsBindgen.Lib (
   , Common.emptyBindingSpec
   , Common.StdlibBindingSpecConf(..)
   , Pipeline.loadExtBindingSpecs
+  , Pipeline.loadPrescriptiveBindingSpec
   , Pipeline.getStdlibBindingSpec
   , Pipeline.encodeBindingSpecJson
   , Pipeline.encodeBindingSpecYaml

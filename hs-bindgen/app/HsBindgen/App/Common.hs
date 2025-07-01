@@ -8,6 +8,7 @@ module HsBindgen.App.Common (
     -- * Auxiliary hs-bindgen functions
   , withTracer
   , loadExtBindingSpecs'
+  , loadPrescriptiveBindingSpec'
   , getOpts
   , footerWith
     -- * Auxiliary optparse-applicative functions
@@ -34,12 +35,13 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      globalOptsTracerConf     :: TracerConf
-    , globalOptsPredicate      :: Predicate
-    , globalOptsProgramSlicing :: ProgramSlicing
-    , globalOptsClangArgs      :: ClangArgs
-    , globalOptsStdlibSpecConf :: StdlibBindingSpecConf
-    , globalOptsExtBindings    :: [FilePath]
+      globalOptsTracerConf              :: TracerConf
+    , globalOptsPredicate               :: Predicate
+    , globalOptsProgramSlicing          :: ProgramSlicing
+    , globalOptsClangArgs               :: ClangArgs
+    , globalOptsStdlibSpecConf          :: StdlibBindingSpecConf
+    , globalOptsExtBindings             :: [FilePath]
+    , globalOptsPrescriptiveBindingSpec :: Maybe FilePath
     }
   deriving stock (Show)
 
@@ -52,6 +54,7 @@ parseGlobalOpts =
       <*> parseClangArgs
       <*> parseStdlibBindingSpecConf
       <*> parseExtBindings
+      <*> optional parsePrescriptiveBindingSpec
 
 parseTracerConf :: Parser TracerConf
 parseTracerConf = TracerConf <$> parseVerbosity
@@ -256,9 +259,16 @@ parseStdlibBindingSpecConf = flag UseStdlibBindingSpec NoStdlibBindingSpec $
 
 parseExtBindings :: Parser [FilePath]
 parseExtBindings = many . strOption $ mconcat [
-      long "external-bindings"
+      long "external-binding-spec"
     , metavar "FILE"
-    , help "External bindings configuration (YAML file)"
+    , help "External binding specification (YAML file)"
+    ]
+
+parsePrescriptiveBindingSpec :: Parser FilePath
+parsePrescriptiveBindingSpec = strOption $ mconcat [
+      long "prescriptive-binding-spec"
+    , metavar "FILE"
+    , help "Prescriptive binding specification (YAML file)"
     ]
 
 {-------------------------------------------------------------------------------
@@ -293,6 +303,15 @@ loadExtBindingSpecs' tracer GlobalOpts{..} =
       globalOptsClangArgs
       globalOptsStdlibSpecConf
       globalOptsExtBindings
+
+loadPrescriptiveBindingSpec' ::
+     Tracer IO TraceMsg
+  -> GlobalOpts
+  -> IO BindingSpec
+loadPrescriptiveBindingSpec' tracer GlobalOpts{..} =
+    case globalOptsPrescriptiveBindingSpec of
+      Just path -> loadPrescriptiveBindingSpec tracer globalOptsClangArgs path
+      Nothing   -> return emptyBindingSpec
 
 getOpts :: GlobalOpts -> Opts
 getOpts GlobalOpts{..} = def {

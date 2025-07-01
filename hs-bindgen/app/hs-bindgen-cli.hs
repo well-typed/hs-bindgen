@@ -49,12 +49,14 @@ execPreprocess globalOpts PreprocessOpts{..} = do
   where
     doTranslate :: IO HsDecls
     doTranslate = withTracer globalOpts $ \tracer -> do
-      extBindingSpec <- loadExtBindingSpecs' tracer globalOpts
+      extSpec <- loadExtBindingSpecs' tracer globalOpts
+      pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
       let mu = getModuleUnique preprocessModuleOpts
           opts = (getOpts globalOpts) {
-              optsExtBindingSpec = extBindingSpec
-            , optsTranslation    = preprocessTranslationOpts
-            , optsTracer         = tracer
+              optsExtBindingSpec          = extSpec
+            , optsPrescriptiveBindingSpec = pSpec
+            , optsTranslation             = preprocessTranslationOpts
+            , optsTracer                  = tracer
             }
       translateCHeaders mu opts preprocessInputs
 
@@ -71,12 +73,14 @@ execGenTests globalOpts GenTestsOpts{..} = do
   where
     doTranslate :: IO HsDecls
     doTranslate = withTracer globalOpts $ \tracer -> do
-      extBindingSpec <- loadExtBindingSpecs' tracer globalOpts
+      extSpec <- loadExtBindingSpecs' tracer globalOpts
+      pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
       let mu = getModuleUnique genTestsModuleOpts
           opts = (getOpts globalOpts) {
-              optsExtBindingSpec = extBindingSpec
-            , optsTranslation    = genTestsTranslationOpts
-            , optsTracer         = tracer
+              optsExtBindingSpec          = extSpec
+            , optsPrescriptiveBindingSpec = pSpec
+            , optsTranslation             = genTestsTranslationOpts
+            , optsTracer                  = tracer
             }
       translateCHeaders mu opts genTestsInputs
 

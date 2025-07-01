@@ -73,8 +73,8 @@ mapped to the type called `Vector` defined in module `Vector` from the
 `hs-vector` package (rather than _generating_ a definition for it).
 
 We can then use these external bindings when processing `vector_rotate.h`
-(command line flag `--external-bindings`). This will result in something like
-this:
+(command line flag `--external-binding-spec`). This will result in something
+like this:
 
 ```haskell
 import qualified Vector
@@ -123,9 +123,9 @@ types:
   identifier: Length
 ```
 
-If we then use `--external-bindings` _twice_ when processing `vector_length.h`
-(once for the external bindings for `vector.h` and once for the external bindings
-for `Length`), we get
+If we then use `--external-binding-spec` _twice_ when processing
+`vector_length.h` (once for the external bindings for `vector.h` and once for
+the external bindings for `Length`), we get
 
 ```haskell
 import qualified Vector

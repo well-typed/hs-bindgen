@@ -39,15 +39,17 @@ parseCHeaders ::
   -> ClangArgs
   -> Predicate
   -> ProgramSlicing
-  -> ResolvedBindingSpec
+  -> ResolvedBindingSpec -- ^ External binding specification
+  -> ResolvedBindingSpec -- ^ Prescriptive binding specification
   -> [CHeaderIncludePath]
   -> IO C.TranslationUnit
-parseCHeaders tracer args predicate programSlicing extSpec mainFiles =
+parseCHeaders tracer args predicate programSlicing extSpec pSpec mainFiles =
     fmap (fromMaybe C.emptyTranslationUnit) $
     withClang (contramap TraceClang tracer) setup $ \unit -> Just <$> do
       processTranslationUnit
         (contramap TraceFrontend tracer)
         extSpec
+        pSpec
         rootHeader
         predicate
         programSlicing
