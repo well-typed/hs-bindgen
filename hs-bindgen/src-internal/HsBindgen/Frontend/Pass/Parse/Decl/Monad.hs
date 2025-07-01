@@ -100,10 +100,11 @@ evalGetMainHeader :: SourcePath -> ParseDecl CHeaderIncludePath
 evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
     return $ (envGetMainHeader parseEnv) path
 
-evalPredicate :: SingleLoc -> Maybe QualName -> ParseDecl (Either Predicate.SkipReason ())
+evalPredicate :: SingleLoc -> Maybe QualName
+  -> ParseDecl (Either Predicate.SkipReason ())
 evalPredicate loc mQualName = wrapEff $ \ParseSupport{parseEnv} -> do
     let matchResult =
-          Predicate.match (envIsMainFile parseEnv) (envPredicate parseEnv) loc mQualName
+          Predicate.match (envIsMainFile parseEnv) loc mQualName (envPredicate parseEnv)
     case matchResult of
       Right ()    -> return ()
       Left reason -> traceWith (envTracer parseEnv) (Skipped reason)

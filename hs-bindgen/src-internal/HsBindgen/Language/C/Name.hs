@@ -84,7 +84,7 @@ data NameKind =
     --
     -- An enum name is written with an @enum@ prefix.
   | NameKindEnum
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
 
 instance PrettyForTrace NameKind where
   prettyForTrace = showToCtxDoc

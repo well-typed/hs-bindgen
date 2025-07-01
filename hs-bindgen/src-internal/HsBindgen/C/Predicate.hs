@@ -13,6 +13,7 @@ module HsBindgen.C.Predicate (
     -- * Execution (this is internal API)
   , IsMainFile
   , match
+  , matchPredicate
   ) where
 
 import Data.Text qualified as Text
@@ -126,11 +127,13 @@ type Skip = Match
 
 type Include = Match
 
--- | Match filter
+-- | Match predicate and skip built-ins
 --
--- If the filter does not match, we report the reason why.
-match :: IsMainFile -> Predicate -> SingleLoc -> Maybe QualName -> Either SkipReason ()
-match isMainFile predicate loc mQualName = do
+-- If the predicate does not match, we report the reason why.
+match
+  :: IsMainFile -> SingleLoc -> Maybe QualName
+  -> Predicate -> Either SkipReason ()
+match isMainFile loc mQualName predicate = do
     let skipBuiltIn :: Either SkipReason ()
         skipBuiltIn =
             when (nullSourcePath sourcePath) $
@@ -139,7 +142,18 @@ match isMainFile predicate loc mQualName = do
             sourcePath :: SourcePath
             sourcePath = singleLocPath loc
 
-        skip :: Text -> Either Skip Include
+        matchName :: Text
+        matchName = maybe "anonymous declaration" qualNameText mQualName
+
+    skipBuiltIn
+    bimap SkipPredicate (const ()) (matchPredicate isMainFile loc mQualName predicate)
+
+-- | Match predicate
+matchPredicate
+  :: IsMainFile -> SingleLoc -> Maybe QualName
+  -> Predicate -> Either Skip Include
+matchPredicate isMainFile loc mQualName = go
+  where skip :: Text -> Either Skip Include
         skip = Left . getMatch
 
         include :: Text -> Either Skip Include
@@ -182,9 +196,6 @@ match isMainFile predicate loc mQualName = do
                 msg verb = mconcat [ "Element name '" <> matchName <> "' "
                                    , verb <> " " <> Text.pack (show re)
                                    ]
-
-    skipBuiltIn
-    bimap SkipPredicate (const ()) (go predicate)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs

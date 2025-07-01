@@ -38,6 +38,7 @@ import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 import Test.HsBindgen.C.Parser qualified
+import Test.HsBindgen.C.Predicate qualified
 import Test.HsBindgen.Clang.Args qualified
 import Test.HsBindgen.Util.Tracer qualified
 import Test.Internal.Misc
@@ -69,6 +70,7 @@ tests :: FilePath -> IO Pipeline.BindingSpec -> IO FilePath -> TestTree
 tests packageRoot getExtBindingSpec getRustBindgen =
   testGroup "test-internal" [
       Test.HsBindgen.C.Parser.tests (argsWith [])
+    , Test.HsBindgen.C.Predicate.tests
     , Test.HsBindgen.Clang.Args.tests
     , Test.HsBindgen.Util.Tracer.tests
     , testGroup "examples/golden" $ map (uncurry golden) [
