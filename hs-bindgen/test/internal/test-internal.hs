@@ -15,7 +15,6 @@ import Clang.Args
 import Clang.HighLevel.Types (Diagnostic (diagnosticCategoryText, diagnosticSpelling))
 import Clang.Paths
 import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
-import HsBindgen.BindingSpec (BindingSpec (BindingSpec))
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
@@ -66,11 +65,7 @@ main = do
   Tests
 -------------------------------------------------------------------------------}
 
-tests ::
-     FilePath
-  -> IO BindingSpec.ResolvedBindingSpec
-  -> IO FilePath
-  -> TestTree
+tests :: FilePath -> IO Pipeline.BindingSpec -> IO FilePath -> TestTree
 tests packageRoot getExtBindingSpec getRustBindgen =
   testGroup "test-internal" [
       Test.HsBindgen.C.Parser.tests (argsWith [])
@@ -179,13 +174,29 @@ tests packageRoot getExtBindingSpec getRustBindgen =
                -- Ensure that program slicing and external binding specification
                -- work well together. Remove `uint32_t` from the binding
                -- specifications, and select it using program slicing instead.
-               let (BindingSpec specMap) = Pipeline.optsExtBindingSpec opts
-                   uInt32T = QualName {qualNameName = "uint32_t", qualNameKind = NameKindOrdinary}
-                in opts {
-                Pipeline.optsPredicate      = SelectAll
-              , Pipeline.optsProgramSlicing = EnableProgramSlicing
-              , Pipeline.optsExtBindingSpec = BindingSpec $ Map.delete uInt32T specMap
-              }
+               let uInt32T = QualName {
+                       qualNameName = "uint32_t"
+                     , qualNameKind = NameKindOrdinary
+                     }
+                   spec = Pipeline.BindingSpec {
+                       bindingSpecUnresolved =
+                           BindingSpec.BindingSpec
+                         . Map.delete uInt32T
+                         . BindingSpec.bindingSpecTypes
+                         . Pipeline.bindingSpecUnresolved
+                         $ Pipeline.optsExtBindingSpec opts
+                     , bindingSpecResolved =
+                           BindingSpec.BindingSpec
+                         . Map.delete uInt32T
+                         . BindingSpec.bindingSpecTypes
+                         . Pipeline.bindingSpecResolved
+                         $ Pipeline.optsExtBindingSpec opts
+                     }
+               in  opts {
+                       Pipeline.optsPredicate      = SelectAll
+                     , Pipeline.optsProgramSlicing = EnableProgramSlicing
+                     , Pipeline.optsExtBindingSpec = spec
+                     }
             )
        ]
     -- @rs-bindgen@ panics on these
@@ -409,12 +420,12 @@ tests packageRoot getExtBindingSpec getRustBindgen =
 
 initExtBindingSpec ::
      FilePath
-  -> (IO BindingSpec.ResolvedBindingSpec -> TestTree)
+  -> (IO Pipeline.BindingSpec -> TestTree)
   -> TestTree
 initExtBindingSpec packageRoot =
     withResource getExtBindingSpec (const (return ()))
   where
-    getExtBindingSpec :: IO BindingSpec.ResolvedBindingSpec
+    getExtBindingSpec :: IO Pipeline.BindingSpec
     getExtBindingSpec = withTracePredicate defaultTracePredicate $ \tracer ->
       let args = getClangArgs packageRoot []
       in  Pipeline.loadExtBindingSpecs

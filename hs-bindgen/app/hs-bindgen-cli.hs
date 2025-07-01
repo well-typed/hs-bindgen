@@ -82,7 +82,10 @@ execMode Cli{cliGlobalOpts=GlobalOpts{..}, ..} = case cliMode of
 
     ModeLiterate input output -> execLiterate input output
 
-    ModeBindingSpec BindingSpecModeStdlib -> BS.putStr stdlibExtBindingSpecYaml
+    ModeBindingSpec BindingSpecModeStdlib -> do
+      spec <- withTracer $ \tracer ->
+        getStdlibBindingSpec tracer globalOptsClangArgs
+      BS.putStr $ encodeBindingSpecYaml spec
 
     ModeResolve{..} -> do
       isSuccess <- withTracer $ \tracer ->

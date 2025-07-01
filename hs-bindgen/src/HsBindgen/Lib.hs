@@ -35,10 +35,12 @@ module HsBindgen.Lib (
 
     -- ** Binding specifications
   , Common.BindingSpec -- opaque
-  , Pipeline.loadExtBindingSpecs
   , Common.emptyBindingSpec
   , Common.StdlibBindingSpecConf(..)
-  , stdlibExtBindingSpecYaml
+  , Pipeline.loadExtBindingSpecs
+  , Pipeline.getStdlibBindingSpec
+  , Pipeline.encodeBindingSpecJson
+  , Pipeline.encodeBindingSpecYaml
 
     -- ** Translation options
   , Common.TranslationOpts(..)
@@ -95,16 +97,12 @@ module HsBindgen.Lib (
   , Common.Default (..)
   ) where
 
-import Data.ByteString (ByteString)
-
 import HsBindgen.Common qualified as Common
 
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
-import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
@@ -159,13 +157,6 @@ genBindingSpec ::
   -> IO ()
 genBindingSpec tracer ppOpts headerIncludePaths fp =
     Pipeline.genBindingSpec tracer ppOpts headerIncludePaths fp . unwrapHsDecls
-
-{-------------------------------------------------------------------------------
-  Binding specifications
--------------------------------------------------------------------------------}
-
-stdlibExtBindingSpecYaml :: ByteString
-stdlibExtBindingSpecYaml = BindingSpec.encodeYaml Stdlib.bindingSpec
 
 {-------------------------------------------------------------------------------
   Test generation
