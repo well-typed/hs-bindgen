@@ -22,6 +22,12 @@ failures=(
     "typedef_vs_macro.pp.hs" # "Illegal type" error.
     "typenames.pp.hs"        # "Multiple declarations" error.
     "type_naturals.pp.hs"    # "Illegal type" error.
+
+    # Notes.
+    #
+    # - "vector.pp.hs": Seems to be fixed, but may still be broken
+    #     "unknown type name ‘import’"
+    #     (wrong import from 'vector-algorithms/vector.h')?
 )
 
 compile_one() {
