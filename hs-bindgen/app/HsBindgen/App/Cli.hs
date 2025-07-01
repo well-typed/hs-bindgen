@@ -52,9 +52,7 @@ parseCli =
       <*> parseCliCmd
 
 data CliCmd =
-    -- | The main command: preprocess C headers to Haskell modules
     CliCmdPreprocess  PreprocessOpts
-    -- | Generate tests for generated Haskell code
   | CliCmdGenTests    GenTestsOpts
   | CliCmdLiterate    LiterateOpts
   | CliCmdBindingSpec BindingSpecCmd
