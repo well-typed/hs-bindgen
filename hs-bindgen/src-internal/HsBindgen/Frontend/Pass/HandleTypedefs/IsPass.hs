@@ -7,6 +7,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -28,6 +29,7 @@ instance IsPass HandleTypedefs where
   type FieldName  HandleTypedefs = CName
   type TypedefRef HandleTypedefs = RenamedTypedefRef HandleTypedefs
   type MacroBody  HandleTypedefs = C.CheckedMacro HandleTypedefs
+  type ExtBinding HandleTypedefs = ResolvedExtBinding
   type Ann ix     HandleTypedefs = AnnHandleTypedefs ix
 
 {-------------------------------------------------------------------------------

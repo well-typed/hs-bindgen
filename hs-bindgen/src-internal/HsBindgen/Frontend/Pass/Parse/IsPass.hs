@@ -53,6 +53,7 @@ instance IsPass Parse where
   type FieldName  Parse = CName
   type TypedefRef Parse = CName
   type MacroBody  Parse = UnparsedMacro
+  type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix
 
 {-------------------------------------------------------------------------------

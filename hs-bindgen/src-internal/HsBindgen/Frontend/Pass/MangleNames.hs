@@ -421,9 +421,9 @@ instance Mangle C.Type where
       C.TypeIncompleteArray <$> mangle typ
 
   -- The other entries do not need any name mangling
-  mangle (C.TypePrim prim)            = return $ C.TypePrim prim
-  mangle  C.TypeVoid                  = return $ C.TypeVoid
-  mangle (C.TypeExtBinding c ref typ) = return $ C.TypeExtBinding c ref typ
+  mangle (C.TypePrim prim)      = return $ C.TypePrim prim
+  mangle  C.TypeVoid            = return $ C.TypeVoid
+  mangle (C.TypeExtBinding ext) = return $ C.TypeExtBinding ext
 
 instance Mangle RenamedTypedefRef where
   mangle (TypedefRegular name) =
@@ -454,4 +454,3 @@ withDeclNamespace kind k =
         case macro of
           C.MacroType{} -> k (Proxy @NsTypeConstr)
           C.MacroExpr{} -> k (Proxy @NsVar)
-

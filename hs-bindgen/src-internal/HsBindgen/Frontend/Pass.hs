@@ -55,6 +55,9 @@ class IsPass (p :: Pass) where
   -- is the parsed and type-checked macro body.
   type MacroBody p :: Star
 
+  -- | Representation of external bindings
+  type ExtBinding p :: Star
+
   -- | Generic TTG-style annotation
   --
   -- For single-constructor datatypes, the index can simply be the name of the

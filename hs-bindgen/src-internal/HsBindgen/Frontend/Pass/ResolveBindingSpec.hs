@@ -12,6 +12,7 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 
 import Clang.HighLevel.Types
+import Clang.Paths
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
@@ -187,20 +188,7 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     let cQualName  = C.declQualName decl
         sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
         declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
-    isExt <- case BindingSpec.lookupTypeSpec cQualName declPaths envExtSpec of
-      Just (BindingSpec.Require typeSpec) ->
-        case getExtHsRef cQualName typeSpec of
-          Right extHsRef -> do
-            let ty = C.TypeExtBinding cQualName extHsRef typeSpec
-            RWS.modify' $ insertExtType cQualName ty
-            return True
-          Left e -> do
-            RWS.modify' $ insertError e
-            return False
-      Just BindingSpec.Omit -> do
-        RWS.modify' $ insertError (BindingSpecOmittedTypeUse cQualName)
-        return False
-      Nothing -> return False
+    isExt <- maybe False (\_ty -> True) <$> resolveExtBinding cQualName declPaths
     if isExt
       then return Nothing
       else case BindingSpec.lookupTypeSpec cQualName declPaths envPSpec of
@@ -351,23 +339,22 @@ instance Resolve C.CheckedMacroType where
 
 instance Resolve C.Type where
   resolve = \case
-      C.TypePrim t -> return (C.TypePrim t)
-      C.TypeStruct uid origin ->
-        aux (`C.TypeStruct` origin) uid C.NameKindStruct
-      C.TypeUnion uid origin ->
-        aux (`C.TypeUnion` origin) uid C.NameKindUnion
-      C.TypeEnum uid origin ->
-        aux (`C.TypeEnum` origin) uid C.NameKindEnum
-      C.TypeTypedef uid -> aux C.TypeTypedef uid C.NameKindOrdinary
-      C.TypeMacroTypedef uid origin ->
-        aux (`C.TypeMacroTypedef` origin) uid C.NameKindOrdinary
-      C.TypePointer t -> C.TypePointer <$> resolve t
-      C.TypeFun args res -> C.TypeFun <$> mapM resolve args <*> resolve res
-      C.TypeVoid -> return C.TypeVoid
-      C.TypeConstArray n t -> C.TypeConstArray n <$> resolve t
+      C.TypeStruct uid origin       -> aux (`C.TypeStruct` origin)       uid C.NameKindStruct
+      C.TypeUnion uid origin        -> aux (`C.TypeUnion` origin)        uid C.NameKindUnion
+      C.TypeEnum uid origin         -> aux (`C.TypeEnum` origin)         uid C.NameKindEnum
+      C.TypeTypedef uid             -> aux C.TypeTypedef                 uid C.NameKindOrdinary
+      C.TypeMacroTypedef uid origin -> aux (`C.TypeMacroTypedef` origin) uid C.NameKindOrdinary
+
+      -- Recursive cases
+      C.TypePointer t         -> C.TypePointer <$> resolve t
+      C.TypeFun args res      -> C.TypeFun <$> mapM resolve args <*> resolve res
+      C.TypeConstArray n t    -> C.TypeConstArray n <$> resolve t
       C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> resolve t
-      C.TypeExtBinding cQualName extHsRef typeSpec ->
-        return (C.TypeExtBinding cQualName extHsRef typeSpec)
+
+      -- Simple cases
+      C.TypePrim t         -> return (C.TypePrim t)
+      C.TypeVoid           -> return C.TypeVoid
+      C.TypeExtBinding ext -> absurd ext
     where
       aux ::
            (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)
@@ -390,25 +377,40 @@ instance Resolve C.Type where
                 Just sourcePath -> do
                   let declPaths =
                         IncludeGraph.reaches envIncludeGraph sourcePath
-                  case BindingSpec.lookupTypeSpec cQualName declPaths envExtSpec of
-                    Just (BindingSpec.Require typeSpec) ->
-                      case getExtHsRef cQualName typeSpec of
-                        Right extHsRef -> do
-                          let ty = C.TypeExtBinding cQualName extHsRef typeSpec
-                          RWS.modify' $ insertExtType cQualName ty
-                          return ty
-                        Left e -> do
-                          RWS.modify' $ insertError e
-                          return (mk uid)
-                    Just BindingSpec.Omit -> do
-                      RWS.modify' $
-                        insertError (BindingSpecOmittedTypeUse cQualName)
-                      return (mk uid)
-                    Nothing -> return (mk uid)
+                  maybe (mk uid) C.TypeExtBinding <$>
+                    resolveExtBinding cQualName declPaths
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
+
+-- | Lookup qualified name in the 'ResolvedBindingSpec'
+resolveExtBinding ::
+     C.QualName
+  -> Set SourcePath
+  -> M (Maybe ResolvedExtBinding)
+resolveExtBinding cQualName declPaths  = do
+    MEnv{envExtSpec} <- RWS.ask
+    case BindingSpec.lookupTypeSpec cQualName declPaths envExtSpec of
+      Just (BindingSpec.Require typeSpec) ->
+        case getExtHsRef cQualName typeSpec of
+          Right ref -> do
+            let resolved = ResolvedExtBinding {
+                    extCName  = cQualName
+                  , extHsRef  = ref
+                  , extHsSpec = typeSpec
+                  }
+            RWS.modify' $ insertExtType cQualName (C.TypeExtBinding resolved)
+            return (Just resolved)
+          Left e -> do
+            RWS.modify' $ insertError e
+            return Nothing
+      Just BindingSpec.Omit -> do
+        RWS.modify' $
+          insertError (BindingSpecOmittedTypeUse cQualName)
+        return Nothing
+      Nothing ->
+        return Nothing
 
 getExtHsRef ::
      C.QualName

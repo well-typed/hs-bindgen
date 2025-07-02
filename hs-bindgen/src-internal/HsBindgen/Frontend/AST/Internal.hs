@@ -34,7 +34,6 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
@@ -42,7 +41,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell (ExtHsRef)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -238,6 +236,7 @@ data Type p =
   | TypeFun [Type p] (Type p)
   | TypeVoid
   | TypeConstArray Natural (Type p)
+  | TypeExtBinding (ExtBinding p)
 
     -- | Arrays of unknown size
     --
@@ -254,9 +253,6 @@ data Type p =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray (Type p)
-
-    -- | TODO: Docs
-  | TypeExtBinding C.QualName ExtHsRef BindingSpec.TypeSpec
 
 {-------------------------------------------------------------------------------
   Instances
@@ -281,20 +277,25 @@ class ( IsPass p
         -- Identifiers
         --
         -- We often store identifiers in maps etc., so we insist on 'Ord'
+
       , Show (Id p)
-      , Ord  (Id p)
       , Show (FieldName p)
-      , Ord  (FieldName p)
 
-        -- | Typedefs
+      , Ord (Id p)
+      , Ord (FieldName p)
+
+        -- Other constructs
+
+      , Show (ExtBinding p)
+      , Show (MacroBody  p)
       , Show (TypedefRef p)
-      , Eq   (TypedefRef p)
 
-        -- Macros
-      , Show (MacroBody p)
-      , Eq   (MacroBody p)
+      , Eq (ExtBinding p)
+      , Eq (MacroBody  p)
+      , Eq (TypedefRef p)
 
         -- Annotations
+
       , ValidAnn "CheckedMacroType" p
       , ValidAnn "Decl"             p
       , ValidAnn "Enum"             p

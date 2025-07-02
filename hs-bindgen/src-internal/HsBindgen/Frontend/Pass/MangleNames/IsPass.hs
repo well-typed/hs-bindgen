@@ -12,6 +12,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
+import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -40,6 +41,7 @@ instance IsPass NameMangler where
   type FieldName  NameMangler = NamePair
   type TypedefRef NameMangler = RenamedTypedefRef NameMangler
   type MacroBody  NameMangler = CheckedMacro NameMangler
+  type ExtBinding NameMangler = ResolvedExtBinding
   type Ann ix     NameMangler = AnnNameMangler ix
 
 {-------------------------------------------------------------------------------

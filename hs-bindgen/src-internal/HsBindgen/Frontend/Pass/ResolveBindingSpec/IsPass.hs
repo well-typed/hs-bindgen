@@ -1,12 +1,15 @@
 module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
     ResolveBindingSpec
+  , ResolvedExtBinding(..)
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
+import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.Haskell (ExtHsRef)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -35,4 +38,17 @@ instance IsPass ResolveBindingSpec where
   type FieldName  ResolveBindingSpec = CName
   type TypedefRef ResolveBindingSpec = CName
   type MacroBody  ResolveBindingSpec = CheckedMacro ResolveBindingSpec
+  type ExtBinding ResolveBindingSpec = ResolvedExtBinding
   type Ann ix     ResolveBindingSpec = AnnResolveBindingSpec ix
+
+data ResolvedExtBinding = ResolvedExtBinding{
+      -- | Name of the C declaration for which we are using this binding
+      extCName :: QualName
+
+      -- | The Haskell type which will be used
+    , extHsRef :: ExtHsRef
+
+      -- | Additional information about the Haskell type
+    , extHsSpec :: BindingSpec.TypeSpec
+    }
+  deriving stock (Show, Eq, Generic)

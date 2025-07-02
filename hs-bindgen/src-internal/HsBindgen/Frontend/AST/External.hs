@@ -37,6 +37,7 @@ module HsBindgen.Frontend.AST.External (
   , Function(..)
     -- * Types
   , Type(..)
+  , ResolveBindingSpec.ResolvedExtBinding(..)
   , isVoid
     -- * Names
   , CName(..)
@@ -51,10 +52,10 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
+import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
@@ -246,7 +247,7 @@ data Type =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray Type
-  | TypeExtBinding C.QualName ExtHsRef BindingSpec.TypeSpec
+  | TypeExtBinding ResolveBindingSpec.ResolvedExtBinding
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow Type
 

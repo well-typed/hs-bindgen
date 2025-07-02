@@ -166,6 +166,7 @@ instance (
 instance (
       Id p ~ Id p'
     , TypedefRef p ~ TypedefRef p'
+    , ExtBinding p ~ ExtBinding p'
     ) => CoercePass Type p p' where
   coercePass (TypePrim prim)                = TypePrim prim
   coercePass (TypeStruct name origin)       = TypeStruct name origin
@@ -178,4 +179,4 @@ instance (
   coercePass  TypeVoid                      = TypeVoid
   coercePass (TypeConstArray n typ)         = TypeConstArray n (coercePass typ)
   coercePass (TypeIncompleteArray typ)      = TypeIncompleteArray (coercePass typ)
-  coercePass (TypeExtBinding c r s)         = TypeExtBinding c r s
+  coercePass (TypeExtBinding ext)           = TypeExtBinding ext
