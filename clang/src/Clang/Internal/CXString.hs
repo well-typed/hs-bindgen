@@ -1,6 +1,8 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 -- | Dealing with @CXString@
+--
+-- This has no exports: the Haskell representation of @CXString@ is 'Text'.
 module Clang.Internal.CXString () where
 
 import Control.Exception

@@ -53,11 +53,11 @@ getDeclId curr = do
     -- empty result, but this has changed in later versions of LLVM.
     --
     -- See https://github.com/well-typed/hs-bindgen/issues/795
-    userProvided <- HighLevel.clang_getCursorSpelling curr
-    case getUserProvided userProvided of
-      Just name ->
+    spelling <- HighLevel.clang_getCursorSpelling curr
+    case spelling of
+      Right (UserProvided name) ->
         return $ DeclNamed (CName name)
-      Nothing ->
+      Left (ClangGenerated _) ->
         DeclAnon . AnonId . multiLocExpansion
           <$> HighLevel.clang_getCursorLocation curr
 

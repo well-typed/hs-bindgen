@@ -94,8 +94,13 @@ newtype W tag = W (MutableByteArray# RealWorld)
 
 -- | Preallocate a buffer
 --
--- The definition of this class is not exported; instances are expected to be
--- derived through newtype deriving.
+-- NOTE: Although we only define one instance of 'Preallocate' here, the
+-- intention is that other instances are defined through newtype deriving, e.g.
+--
+-- > newtype CXType = CXType (OnHaskellHeap CXType_)
+-- >   deriving newtype (LivesOnHaskellHeap, Preallocate, Show)
+--
+-- "Clang.Internal.CXString" also provides another instance.
 class Preallocate a where
   type Writing a :: UnliftedType
 

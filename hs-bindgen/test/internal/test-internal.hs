@@ -14,6 +14,7 @@ import Test.Tasty.HUnit (testCase)
 import Clang.Args
 import Clang.HighLevel.Types (Diagnostic (diagnosticCategoryText, diagnosticSpelling))
 import Clang.Paths
+import Clang.Version
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
@@ -164,6 +165,17 @@ tests packageRoot getExtBindingSpec getRustBindgen =
               -> Nothing
           )
         , ("vector"                      , defaultTracePredicate)
+        ]
+       -- | Tests that require specific llvm version
+    , testGroup "examples/golden/" $ map (uncurry golden) . mapMaybe checkVersion $ [
+          ( "named_vs_anon"
+          , (>= (19, 1, 0))
+          , customTracePredicate [] $ \case
+              TraceFrontend (FrontendHandleMacros _)
+                -> Just Tolerated
+              _otherwise
+                -> Nothing
+          )
         ]
     -- Tests that require special @hs-bindgen@ options.
     , testGroup "examples/golden/opts" [
@@ -430,6 +442,14 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         let headerIncludePath = mkHeaderIncludePath name
         void $ Pipeline.translateCHeaders
           "failWithTraceTest" tracer failConfig extSpec pSpec [headerIncludePath]
+
+    checkVersion ::
+         (TestName, (Int, Int, Int) -> Bool, TracePredicate TraceMsg)
+      -> Maybe (TestName, TracePredicate TraceMsg)
+    checkVersion (name, versionPred, tracePred) =
+        case clangVersion of
+          ClangVersion version | versionPred version -> Just (name, tracePred)
+          _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

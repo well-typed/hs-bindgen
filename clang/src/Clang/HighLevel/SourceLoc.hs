@@ -358,19 +358,17 @@ clang_getDiagnosticFixIt diagnostic fixit = do
     (, replacement) <$> toRange range
 
 -- | Retrieve a range for a piece that forms the cursors spelling name.
---
--- TODO: This currently returns 'Range' 'SingleLoc' as I am assuming that the
--- relevant part of the returned range is the /spelling/ location. That
--- assumption may be false.
 clang_Cursor_getSpellingNameRange ::
      MonadIO m
   => Core.CXCursor
   -> CUInt
   -> CUInt
-  -> m (Range SingleLoc)
+  -> m (Maybe (Range MultiLoc))
 clang_Cursor_getSpellingNameRange cursor pieceIndex options = do
-    range <- Core.clang_Cursor_getSpellingNameRange cursor pieceIndex options
-    toRangeWith clang_getSpellingLocation range
+    mRange <- Core.clang_Cursor_getSpellingNameRange cursor pieceIndex options
+    case mRange of
+      Nothing    -> return Nothing
+      Just range -> Just <$> toRangeWith toMulti range
 
 -- | Retrieve the physical extent of the source construct referenced by the
 -- given cursor.

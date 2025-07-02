@@ -6,104 +6,6 @@
 #include "clang_wrappers_ffi.h"
 
 /**
- * Versioning
- */
-
-/**
- * Clang version
- *
- * See `getClangVersion` for discussion.
- */
-enum ClangVersion {
-  ClangOlderThan3_2   =   0,      /**< `clang  <  3.2`           */
-  Clang3              =  32,      /**< `clang >=  3.2 && <  4.0` */
-  Clang4              =  40,      /**< `clang >=  4.0 && <  5.0` */
-  Clang5              =  50,      /**< `clang >=  5.0 && <  6.0` */
-  Clang6              =  60,      /**< `clang >=  6.0 && <  7.0` */
-  Clang7              =  70,      /**< `clang >=  7.0 && <  8.0` */
-  Clang8              =  80,      /**< `clang >=  8.0 && <  9.0` */
-  Clang9_or_10        =  90,      /**< `clang >=  9.0 && < 11.0` */
-  Clang11             = 110,      /**< `clang >= 11.0 && < 11.1` */
-  Clang11_or_12       = 111,      /**< `clang >= 11.1 && < 13.0` */
-  Clang13_or_14_or_15 = 130,      /**< `clang >= 13.0 && < 16.0` */
-  Clang16             = 160,      /**< `clang >= 16.0 && < 17.0` */
-  Clang17_or_18_or_19 = 170,      /**< `clang >= 17.0 && < 20.0` */
-  ClangNewerThan19    = 1000000,  /**< `clang >= 20.0`           */
-};
-
-/**
- * Get `clang` version
- *
- * This is not a standard `libclang` function; `libclang` offers only
- * `clang_getClangVersion`, but this is described as
- *
- * ```
- * Return a version string, suitable for showing to a user, but not intended
- * to be parsed (the format is not guaranteed to be stable).
- * ```
- *
- * For this reason we provide `getClangVersion`, which _is_ intended to be
- * stable. We base this on `CINDEX_VERSION_MINOR` (and `CINDEX_VERSION_MAJOR`,
- * which is always expected to be `0`). Unfortunately the mapping from
- * `CINDEX_VERSION_MINOR` to `clang` version is not one-to-one:
- *
- * - Some `clang` versions share the same `CINDEX_VERSION_MINOR` version;
- *   e.g. `clang-9` and `clang-10` both have a `CINDEX_VERSION_MINOR` of `59`.
- * - Some `CINDEX_VERSION_MINOR` numbers don't correspond to any (official)
- *   `clang` release; for example, the last 8.x release is 8.0.1, with a
- *   `CINDEX_VERSION_MINOR` of `50` , and the first 9.x release, 9.0.0, has
- *   `CINDEX_VERSION_MINOR` set to `59`.
- *
- * On the assumption that `getClangVersion` is called to check if the clang
- * version is _at least_ some minimum bound, we take the conservative approach
- * in both these cases, returning `Clang9_or_10` also for `clang-10`, and
- * returning `Clang8` for a `CINDEX_VERSION_MINOR` of `51..58`.
- *
- * Returns `-1` if `CINDEX_VERSION_MINOR` or `CINDEX_VERSION_MAJOR` are not
- * defined, or if `CINDEX_VERSION_MAJOR` is not equal to zero.
- */
-static inline enum ClangVersion getClangVersion(void) {
-    // Implementation note: this mapping comes from git tags versus the
-    // values in `c-lang-c/Index.h`; we ignore tags of the shape `..-init`,
-    // as they still use the values from the _previous_ version.
-
-    #if !defined(CINDEX_VERSION_MINOR) || !defined(CINDEX_VERSION_MAJOR)
-    return (-1);
-    #endif
-
-    if (CINDEX_VERSION_MAJOR > 0)
-        return (-1);
-    else if (CINDEX_VERSION_MINOR < 6)
-        return ClangOlderThan3_2;
-    else if (CINDEX_VERSION_MINOR >=  6 && CINDEX_VERSION_MINOR < 37)
-        return Clang3;
-    else if (CINDEX_VERSION_MINOR >= 37 && CINDEX_VERSION_MINOR < 43)
-        return Clang4;
-    else if (CINDEX_VERSION_MINOR >= 43 && CINDEX_VERSION_MINOR < 45)
-        return Clang5;
-    else if (CINDEX_VERSION_MINOR >= 45 && CINDEX_VERSION_MINOR < 49)
-        return Clang6;
-    else if (CINDEX_VERSION_MINOR == 49)
-        return Clang7;
-    else if (CINDEX_VERSION_MINOR >= 50 && CINDEX_VERSION_MINOR < 59)
-        return Clang8;
-    else if (CINDEX_VERSION_MINOR == 59)
-        return Clang9_or_10;
-    else if (CINDEX_VERSION_MINOR == 60)
-        return Clang11;
-    else if (CINDEX_VERSION_MINOR == 61)
-        return Clang11_or_12;
-    else if (CINDEX_VERSION_MINOR == 62)
-        return Clang13_or_14_or_15;
-    else if (CINDEX_VERSION_MINOR == 63)
-        return Clang16;
-    else if (CINDEX_VERSION_MINOR == 64)
-        return Clang17_or_18_or_19;
-    else
-        return ClangNewerThan19;
-}
-
-/**
  * Wrappers for clang functions that take structs, or return them, by value.
  *
  * For functions that return structs by value, we instead expect a buffer to be
@@ -316,6 +218,10 @@ static inline void wrap_getRangeEnd(const CXSourceRange* range, CXSourceLocation
     *result = clang_getRangeEnd(*range);
 }
 
+static inline int wrap_Range_isNull(const CXSourceRange* range) {
+    return clang_Range_isNull(*range);
+}
+
 static inline void wrap_getExpansionLocation(const CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset) {
     clang_getExpansionLocation(*location, file, line, column, offset);
 }
@@ -355,6 +261,14 @@ static inline char* wrap_getCString(const CXString* string) {
 
 static inline void wrap_disposeString(const CXString* string) {
     clang_disposeString(*string);
+}
+
+/**
+ * Miscellaneous utility functions
+ */
+
+static inline void wrap_getClangVersion(CXString* result) {
+    *result = clang_getClangVersion();
 }
 
 /**

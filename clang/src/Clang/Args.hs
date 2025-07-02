@@ -13,6 +13,7 @@ module Clang.Args (
 
 import Control.Monad.Except
 import Data.Default (Default (..))
+import Data.Text (Text)
 
 import Clang.Paths
 import Clang.Version
@@ -104,26 +105,42 @@ fromClangArgs ClangArgs{..} = aux [
           | clangEnableGnu -> return ["-std=gnu99"]
           | otherwise      -> return ["-std=c99"]
         C11
-          | clangEnableGnu -> return $
-              if clangVersion == ClangOlderThan3_2
-                then ["-std=gnu1x"]
-                else ["-std=gnu11"]
-          | otherwise      -> return $
-              if clangVersion == ClangOlderThan3_2
-                then ["-std=c1x"]
-                else ["-std=c11"]
+          | clangEnableGnu ->
+              case clangVersion of
+                ClangVersion version
+                  | version < (3, 2, 0) -> return ["-std=gnu1x"]
+                  | otherwise           -> return ["-std=gnu11"]
+                ClangVersionUnknown version ->
+                  unknownClangVersion version
+          | otherwise ->
+              case clangVersion of
+                ClangVersion version
+                  | version < (3, 2, 0) -> return ["-std=c1x"]
+                  | otherwise           -> return ["-std=c11"]
+                ClangVersionUnknown version ->
+                  unknownClangVersion version
         C17
-          | clangVersion < Clang6 -> throwError "C17 requires clang-6 or later"
-          | clangEnableGnu -> return ["-std=gnu17"]
-          | otherwise      -> return ["-std=c17"]
-        -- We can use @-std=c23@ in @clang-18@ or later, but we have no reliable
-        -- way of testing for that.
+          | ClangVersionUnknown version <- clangVersion
+          -> unknownClangVersion version
+          | ClangVersion version <- clangVersion, version < (6, 0, 0)
+          -> throwError "C17 requires clang-6 or later"
+          | otherwise
+          -> if clangEnableGnu
+               then return ["-std=gnu17"]
+               else return ["-std=c17"]
         C23
-          | clangVersion < Clang9_or_10 ->
-              throwError "C23 requires clang-9 or later"
-          | clangEnableGnu -> return ["-std=gnu2x"]
-          | otherwise      -> return ["-std=c2x"]
-
+          | ClangVersionUnknown version <- clangVersion
+          -> unknownClangVersion version
+          | ClangVersion version <- clangVersion, version < (9, 0, 0)
+          -> throwError "C23 requires clang-9 or later"
+          | ClangVersion version <- clangVersion, version < (18, 0, 0)
+          -> if clangEnableGnu
+               then return ["-std=gnu2x"]
+               else return ["-std=c2x"]
+          | otherwise
+          -> if clangEnableGnu
+               then return ["-std=gnu23"]
+               else return ["-std=c23"]
     , return $
            [ "-nostdinc" | not clangStdInc ]
         ++ concat [
@@ -147,6 +164,10 @@ fromClangArgs ClangArgs{..} = aux [
       ->       Except String [String]
     ifGiven Nothing  _ = return []
     ifGiven (Just a) f = f a
+
+    unknownClangVersion :: Text -> Except String [String]
+    unknownClangVersion version =
+        throwError $ "Unknown clang version: " ++ show version
 
 {-------------------------------------------------------------------------------
   Cross-compilation
