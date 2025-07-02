@@ -10,10 +10,12 @@ module HsBindgen.C.Predicate (
     -- * Trace messages
   , SkipReason (..)
   , Match (..)
-    -- * Execution (this is internal API)
+    -- * Execution (internal API)
   , IsMainFile
   , match
   , matchPredicate
+    -- * Merging
+  , mergePredicates
   ) where
 
 import Data.Text qualified as Text
@@ -35,13 +37,23 @@ import Text.SimplePrettyPrint (hcat, showToCtxDoc, textToCtxDoc)
 data Predicate =
     -- | The filter that always matches
     --
-    -- Used to define @mempty@.
+    -- Base case when combining predicates with AND.
     SelectAll
+
+    -- | The filter that never matches
+    --
+    -- Base case when combining predicates with OR.
+  | SelectNone
 
     -- | Logical conjunction
     --
-    -- Used to define the 'Semigroup' instance.
+    -- Used to combine negated predicates.
   | SelectIfBoth Predicate Predicate
+
+    -- | Logical disjunction
+    --
+    -- Used to combine positive predicates.
+  | SelectIfEither Predicate Predicate
 
     -- | Logical negation
     --
@@ -57,12 +69,6 @@ data Predicate =
     -- | Match element against regex
   | SelectByElementName Regex
   deriving (Show, Eq)
-
-instance Semigroup Predicate where
-  (<>) = SelectIfBoth
-
-instance Monoid Predicate where
-  mempty = SelectAll
 
 {-------------------------------------------------------------------------------
   Trace messages (during matching)
@@ -112,7 +118,7 @@ instance HasDefaultLogLevel SkipReason where
       SkipUnexposed{} -> Warning
 
 {-------------------------------------------------------------------------------
-  Matching
+  Match
 
   NOTE: This is internal API (users construct filters, but don't use them).
 -------------------------------------------------------------------------------}
@@ -123,9 +129,10 @@ instance HasDefaultLogLevel SkipReason where
 -- this module. See "HsBindgen.Frontend.ProcessIncludes" for discussion.
 type IsMainFile = SingleLoc -> Bool
 
-type Skip = Match
 
-type Include = Match
+type SkipMsg = Text
+
+type SelectMsg = Text
 
 -- | Match predicate and skip built-ins
 --
@@ -142,23 +149,6 @@ match isMainFile loc mQualName predicate = do
             sourcePath :: SourcePath
             sourcePath = singleLocPath loc
 
-        matchName :: Text
-        matchName = maybe "anonymous declaration" qualNameText mQualName
-
-    skipBuiltIn
-    bimap SkipPredicate (const ()) (matchPredicate isMainFile loc mQualName predicate)
-
--- | Match predicate
-matchPredicate
-  :: IsMainFile -> SingleLoc -> Maybe QualName
-  -> Predicate -> Either Skip Include
-matchPredicate isMainFile loc mQualName = go
-  where skip :: Text -> Either Skip Include
-        skip = Left . getMatch
-
-        include :: Text -> Either Skip Include
-        include = Right . getMatch
-
         getMatch :: Text -> Match
         getMatch matchReason =
             Match{
@@ -170,18 +160,40 @@ matchPredicate isMainFile loc mQualName = go
         matchName :: Text
         matchName = maybe "anonymous declaration" qualNameText mQualName
 
-        go :: Predicate -> Either Skip Include
-        go = \case
-            SelectAll -> include "Select all declarations"
+    skipBuiltIn
+    bimap (SkipPredicate . getMatch) (const ()) $
+      matchPredicate isMainFile loc mQualName predicate
+
+-- | Match predicate
+matchPredicate
+  :: IsMainFile -> SingleLoc -> Maybe QualName
+  -> Predicate -> Either SkipMsg SelectMsg
+matchPredicate isMainFile loc mQualName = go
+  where skip, select :: Text -> Either SkipMsg SelectMsg
+        skip = Left
+        select = Right
+
+        matchName :: Text
+        matchName = maybe "anonymous declaration" qualNameText mQualName
+
+        go :: Predicate -> Either SkipMsg SelectMsg
+        go p = case reduce p of
+            SelectAll -> select "Select all declarations"
+            SelectNone -> skip "Select no declaration"
             (SelectIfBoth p1 p2) -> go p1 >> go p2
+            (SelectIfEither p1 p2) -> case go p1 of
+              Right sel1 -> select sel1
+              Left  skp1 -> case go p2 of
+                Right sel2 -> select sel2
+                Left _ -> skip skp1
             (SelectNegate p1) -> case go p1 of
-              Left  skp -> include $ "Negation of: " <> matchReason skp
-              Right inc -> skip $ "Negation of: " <> matchReason inc
+              Left  skp -> select $ "Negation of: " <> skp
+              Right sel -> skip $ "Negation of: " <> sel
             SelectFromMainFiles
-              | isMainFile loc -> include "From main files"
+              | isMainFile loc -> select "From main files"
               | otherwise      -> skip "Not from main files"
             (SelectByFileName re)
-              | matchTest re filename -> include (msg "matches")
+              | matchTest re filename -> select (msg "matches")
               | otherwise             -> skip (msg "does not match")
                 where
                   (SourcePath filename) = singleLocPath loc
@@ -190,12 +202,47 @@ matchPredicate isMainFile loc mQualName = go
                                      ]
             (SelectByElementName re) -> case qualNameText <$> mQualName of
               Just qualElementName
-                | matchTest re qualElementName -> include (msg "matches")
+                | matchTest re qualElementName -> select (msg "matches")
               _noMatchOrAnon -> skip (msg "does not match")
               where
                 msg verb = mconcat [ "Element name '" <> matchName <> "' "
                                    , verb <> " " <> Text.pack (show re)
                                    ]
+
+{-------------------------------------------------------------------------------
+  Reduce and merge
+-------------------------------------------------------------------------------}
+
+-- | Merge lists of negative and positive predicates
+--
+-- Combine the negative predicates using AND, and the positive predicates using
+-- OR.
+mergePredicates :: [Predicate] -> [Predicate] -> Predicate
+mergePredicates negatives positives =
+    let mergeNeg p q = reduce $ SelectIfBoth (reduce $ SelectNegate $ reduce p) q
+        neg = foldr mergeNeg SelectAll negatives
+        mergePos p q = reduce $ SelectIfEither (reduce p) q
+        pos = foldr mergePos SelectNone positives
+     in reduce $ SelectIfBoth neg pos
+
+-- Boolean logic reduction (internal API)
+reduce :: Predicate -> Predicate
+reduce = \case
+  (SelectNegate (SelectNegate p)) -> p
+  (SelectNegate SelectAll)        -> SelectNone
+  (SelectNegate SelectNone)       -> SelectAll
+  --
+  (SelectIfBoth SelectAll q) -> q
+  (SelectIfBoth p SelectAll) -> p
+  (SelectIfBoth p q)
+    | p == SelectNone || q == SelectNone -> SelectNone
+  --
+  (SelectIfEither SelectNone q) -> q
+  (SelectIfEither p SelectNone) -> p
+  (SelectIfEither p q)
+    | p == SelectAll  || q == SelectAll -> SelectAll
+  --
+  p -> p
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs

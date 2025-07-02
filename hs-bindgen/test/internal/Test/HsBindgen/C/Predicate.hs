@@ -8,11 +8,12 @@ import Data.Either (isRight)
 import Data.String (IsString (fromString))
 import Data.Text qualified as Text
 import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
                               Fun, Function (function),
                               NonNegative (getNonNegative), Property,
                               coarbitraryShow, elements, functionMap, oneof,
-                              pattern Fn, testProperty, (=/=))
+                              pattern Fn, testProperty, (=/=), (===))
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -20,23 +21,39 @@ import HsBindgen.C.Predicate
 import HsBindgen.Language.C
 
 tests :: TestTree
-tests = testGroup "selection-predicate" [
-      testProperty "all"                    prop_selectAll
-    , testProperty "from-main-file"         prop_selectFromMainFiles
-    , testProperty "by-file-name/all"       prop_selectByFileNameAll
-    , testProperty "by-file-name/needle"    prop_selectByFileNameNeedle
-    , testProperty "by-element-name/all"    prop_selectByElementNameAll
-    , testProperty "by-element-name/needle" prop_selectByElementNameNeedle
-    , testProperty "negate"                 prop_selectNegate
-    , testProperty "both"                   prop_selectIfBoth
-    ]
+tests = testGroup "predicate" [
+          testGroup "match" [
+            testProperty "all"                    prop_selectAll
+          , testProperty "none"                   prop_selectNone
+          , testProperty "and"                    prop_selectIfBoth
+          , testProperty "or"                     prop_selectIfEither
+          , testProperty "negate"                 prop_selectNegate
+          , testProperty "from-main-files"        prop_selectFromMainFiles
+          , testProperty "by-file-name/all"       prop_selectByFileNameAll
+          , testProperty "by-file-name/needle"    prop_selectByFileNameNeedle
+          , testProperty "by-element-name/all"    prop_selectByElementNameAll
+          , testProperty "by-element-name/needle" prop_selectByElementNameNeedle
+          ]
+        , testGroup "merge" [
+            testProperty "select/none"     prop_mergeSelectNone
+          , testProperty "select/add/all"  prop_mergeAddSelectAll
+          , testProperty "select/add/none" prop_mergeAddSelectNone
+          , testCase     "all/pos"         mergeAllPos
+          , testCase     "all/neg"         mergeAllNeg
+          , testCase     "skip/one"        mergeSkipOne
+          , testCase     "skip/two"        mergeSkipTwo
+          ]
+        ]
 
 {-------------------------------------------------------------------------------
-  Properties
+  Selection properties
 -------------------------------------------------------------------------------}
 
 prop_selectAll :: SingleLoc -> Maybe QualName -> Bool
 prop_selectAll loc name = select (const True) loc name SelectAll
+
+prop_selectNone :: SingleLoc -> Maybe QualName -> Bool
+prop_selectNone loc name = not $ select (const True) loc name SelectNone
 
 prop_selectIfBoth
   :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName
@@ -46,6 +63,15 @@ prop_selectIfBoth (Fn isMainFile) loc name p1 p2 =
       p2Res = select isMainFile loc name p2
       p1AndP2Res = select isMainFile loc name (SelectIfBoth p1 p2)
    in (p1Res && p2Res) == p1AndP2Res
+
+prop_selectIfEither
+  :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName
+  -> Predicate -> Predicate -> Bool
+prop_selectIfEither (Fn isMainFile) loc name p1 p2 =
+  let p1Res = select isMainFile loc name p1
+      p2Res = select isMainFile loc name p2
+      p1AndP2Res = select isMainFile loc name (SelectIfEither p1 p2)
+   in (p1Res || p2Res) == p1AndP2Res
 
 prop_selectNegate
   :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName -> Predicate -> Property
@@ -85,6 +111,35 @@ prop_selectByElementNameNeedle (Fn isMainFile) loc name =
       cname' = cname <> "NEEDLE" <> cname
       name' = name { qualNameName = CName cname'}
    in select isMainFile loc (Just name') (SelectByElementName "NEEDLE")
+
+{-------------------------------------------------------------------------------
+  Match tests and properties
+-------------------------------------------------------------------------------}
+
+prop_mergeSelectNone :: [Predicate] -> Property
+prop_mergeSelectNone ps = mergePredicates ps [] === SelectNone
+
+prop_mergeAddSelectAll :: [Predicate] -> [Predicate] -> Property
+prop_mergeAddSelectAll ps qs =
+  mergePredicates ps [SelectAll] === mergePredicates ps (SelectAll : qs)
+
+prop_mergeAddSelectNone :: [Predicate] -> [Predicate] -> Property
+prop_mergeAddSelectNone ps qs =
+  mergePredicates ps qs === mergePredicates (SelectNone : ps) qs
+
+mergeAllPos, mergeAllNeg :: Assertion
+mergeAllPos = mergePredicates [] [SelectAll] @?= SelectAll
+mergeAllNeg = mergePredicates [SelectNone] [SelectAll] @?= SelectAll
+
+mergeSkipOne :: Assertion
+mergeSkipOne = mergePredicates [SelectByElementName "a"] [SelectAll]
+                @?= SelectNegate (SelectByElementName "a")
+
+mergeSkipTwo :: Assertion
+mergeSkipTwo = mergePredicates [pa, pb] [SelectAll]
+                 @?= SelectIfBoth (SelectNegate pa) (SelectNegate pb)
+  where pa = SelectByElementName "a"
+        pb = SelectByElementName "b"
 
 {-------------------------------------------------------------------------------
   Helpers

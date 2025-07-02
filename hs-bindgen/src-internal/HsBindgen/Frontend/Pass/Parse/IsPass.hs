@@ -131,6 +131,18 @@ data ParseMsg =
       }
   deriving stock (Show, Eq)
 
+instance PrettyForTrace (C.DeclInfo Parse) where
+  prettyForTrace C.DeclInfo{declId, declLoc} =
+      case declId of
+        DeclNamed name -> PP.hcat [
+            prettyForTrace name
+          , " at "
+          , PP.showToCtxDoc declLoc
+          ]
+        DeclAnon anonId ->
+            -- No need to repeat the source location in this case
+            prettyForTrace anonId
+
 instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
       Skipped reason ->

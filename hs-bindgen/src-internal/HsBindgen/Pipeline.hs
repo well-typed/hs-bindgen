@@ -256,7 +256,7 @@ hashInclude fps HashIncludeOpts {..} = do
           }
     hashIncludeWith opts fps
   case maybeDecls of
-    Nothing    -> TH.reportError "An error happened while generating bindings (see above)"
+    Nothing    -> TH.reportError "An error happened (see above)"
                     >> pure []
     Just decls -> pure decls
   where
