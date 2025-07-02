@@ -33,6 +33,7 @@ module HsBindgen.Pipeline (
   , emptyBindingSpec
   , StdlibBindingSpecConf (..)
   , loadExtBindingSpecs
+  , loadPrescriptiveBindingSpec
   , getStdlibBindingSpec
   , encodeBindingSpecJson
   , encodeBindingSpecYaml
@@ -89,22 +90,24 @@ import Language.Haskell.TH.Syntax (getPackageRoot)
 
 -- | Options for both the preprocessor and TH APIs
 data Opts = Opts {
-      optsClangArgs      :: ClangArgs
-    , optsExtBindingSpec :: BindingSpec
-    , optsTranslation    :: Hs.TranslationOpts
-    , optsPredicate      :: Predicate
-    , optsProgramSlicing :: ProgramSlicing
-    , optsTracer         :: Tracer IO TraceMsg
+      optsClangArgs               :: ClangArgs
+    , optsExtBindingSpec          :: BindingSpec
+    , optsPrescriptiveBindingSpec :: BindingSpec
+    , optsTranslation             :: Hs.TranslationOpts
+    , optsPredicate               :: Predicate
+    , optsProgramSlicing          :: ProgramSlicing
+    , optsTracer                  :: Tracer IO TraceMsg
     }
 
 instance Default Opts where
   def = Opts {
-      optsClangArgs      = def
-    , optsExtBindingSpec = emptyBindingSpec
-    , optsTranslation    = def
-    , optsPredicate      = SelectFromMainFiles
-    , optsProgramSlicing = DisableProgramSlicing
-    , optsTracer         = nullTracer
+      optsClangArgs               = def
+    , optsExtBindingSpec          = emptyBindingSpec
+    , optsPrescriptiveBindingSpec = emptyBindingSpec
+    , optsTranslation             = def
+    , optsPredicate               = SelectFromMainFiles
+    , optsProgramSlicing          = DisableProgramSlicing
+    , optsTracer                  = nullTracer
     }
 
 -- | Additional options for the preprocessor API
@@ -135,6 +138,7 @@ parseCHeaders Opts{..} =
       optsPredicate
       optsProgramSlicing
       (bindingSpecResolved optsExtBindingSpec)
+      (bindingSpecResolved optsPrescriptiveBindingSpec)
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Opts -> [C.Decl] -> [Hs.Decl]
@@ -357,6 +361,26 @@ loadExtBindingSpecs tracer args stdlibSpec =
     stdSpec = case stdlibSpec of
       UseStdlibBindingSpec -> Stdlib.bindingSpec
       NoStdlibBindingSpec  -> BindingSpec.empty
+
+-- | Load prescriptive binding specification
+--
+-- The format is determined by filename extension.  The following formats are
+-- supported:
+--
+-- * YAML (@.yaml@ extension)
+-- * JSON (@.json@ extension)
+loadPrescriptiveBindingSpec ::
+     Tracer IO TraceMsg
+  -> ClangArgs
+  -> FilePath
+  -> IO BindingSpec
+loadPrescriptiveBindingSpec tracer args path = uncurry BindingSpec <$>
+    BindingSpec.load
+      (contramap TraceBindingSpec tracer)
+      BindingSpec.ResolvePrescriptiveBindingSpecHeader
+      args
+      BindingSpec.empty
+      [path]
 
 getStdlibBindingSpec ::
      Tracer IO TraceMsg

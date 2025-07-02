@@ -22,9 +22,11 @@ execParse globalOpts ParseOpts{..} = print =<< doParse
   where
     doParse :: IO TranslationUnit
     doParse = withTracer globalOpts $ \tracer -> do
-      extBindingSpec <- loadExtBindingSpecs' tracer globalOpts
+      extSpec <- loadExtBindingSpecs' tracer globalOpts
+      pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
       let opts = (getOpts globalOpts) {
-              optsExtBindingSpec = extBindingSpec
-            , optsTracer         = tracer
+              optsExtBindingSpec          = extSpec
+            , optsPrescriptiveBindingSpec = pSpec
+            , optsTracer                  = tracer
             }
       Pipeline.parseCHeaders opts parseInputPaths

@@ -10,7 +10,6 @@ import Control.Monad
 
 import Clang.LowLevel.Core
 import HsBindgen.BindingSpec (ResolvedBindingSpec)
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (SelectAll))
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
@@ -78,12 +77,20 @@ import Text.SimplePrettyPrint (showToCtxDoc)
 --   the 'Hs' phase, but we have to draw the line somewhere.
 processTranslationUnit ::
      Tracer IO FrontendMsg
-  -> ResolvedBindingSpec
+  -> ResolvedBindingSpec -- ^ External binding specification
+  -> ResolvedBindingSpec -- ^ Prescriptive binding specification
   -> RootHeader
   -> Predicate
   -> ProgramSlicing
   -> CXTranslationUnit -> IO Ext.TranslationUnit
-processTranslationUnit tracer extSpec rootHeader selectionPredicate programSlicing unit = do
+processTranslationUnit
+  tracer
+  extSpec
+  pSpec
+  rootHeader
+  selectionPredicate
+  programSlicing
+  unit = do
 
     (includeGraph, isMainFile, getMainHeader) <- processIncludes rootHeader unit
     let selectionPredicateParse = case programSlicing of
@@ -101,10 +108,6 @@ processTranslationUnit tracer extSpec rootHeader selectionPredicate programSlici
         unit
 
     -- writeFile "includegraph.mermaid" $ IncludeGraph.dumpMermaid includeGraph
-
-    -- TODO receive prescriptive binding specification via argument
-    let pSpec :: ResolvedBindingSpec
-        pSpec = BindingSpec.empty
 
     let (afterSort, sortErrors) =
           sortDecls afterParse

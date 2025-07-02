@@ -43,7 +43,7 @@ cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-vector/generated/Vector/Rotate.hs \
-    --external-bindings external/vector.yaml \
+    --external-binding-spec external/vector.yaml \
     --module Vector.Rotate \
     vector_rotate.h
 
@@ -51,7 +51,7 @@ cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-vector/generated/Vector/Length.hs \
-    --external-bindings external/vector.yaml \
+    --external-binding-spec external/vector.yaml \
     --module Vector.Length \
     vector_length.h
 
@@ -73,7 +73,7 @@ cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-game/generated/Game/World.hs \
-    --external-bindings external/game.yaml \
+    --external-binding-spec external/game.yaml \
     --module Game.World \
     game_world.h
 
@@ -81,6 +81,6 @@ cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
     -o hs/hs-game/generated/Game/Player.hs \
-    --external-bindings external/game.yaml \
+    --external-binding-spec external/game.yaml \
     --module Game.Player \
     game_player.h
