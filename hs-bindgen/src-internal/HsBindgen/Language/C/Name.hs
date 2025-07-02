@@ -16,6 +16,7 @@ import Clang.HighLevel (ShowFile (..))
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (SingleLoc)
 import Clang.LowLevel.Core
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 import Text.SimplePrettyPrint (showToCtxDoc, textToCtxDoc, (><))
@@ -91,12 +92,29 @@ instance PrettyForTrace NameKind where
 
 toNameKindFromCXCursorKind :: CXCursorKind -> Maybe NameKind
 toNameKindFromCXCursorKind = \case
-      CXCursor_MacroDefinition -> Just NameKindOrdinary
-      CXCursor_StructDecl      -> Just NameKindStruct
-      CXCursor_UnionDecl       -> Just NameKindUnion
-      CXCursor_TypedefDecl     -> Just NameKindOrdinary
-      CXCursor_EnumDecl        -> Just NameKindEnum
-      _kind                    -> Nothing
+      -- Ordinary.
+      CXCursor_FunctionDecl       -> Just NameKindOrdinary
+      CXCursor_MacroDefinition    -> Just NameKindOrdinary
+      CXCursor_TypedefDecl        -> Just NameKindOrdinary
+      CXCursor_VarDecl            -> Just NameKindOrdinary
+      -- Struct.
+      CXCursor_StructDecl         -> Just NameKindStruct
+      -- Union.
+      CXCursor_UnionDecl          -> Just NameKindUnion
+      -- Enum.
+      CXCursor_EnumDecl           -> Just NameKindEnum
+
+      -- Other.
+      CXCursor_PackedAttr         -> Nothing
+      CXCursor_AlignedAttr        -> Nothing
+      CXCursor_UnexposedAttr      -> Nothing
+      CXCursor_InclusionDirective -> Nothing
+      CXCursor_MacroExpansion     -> Nothing
+
+      -- NOTE: We ensure that we make an informed decision about whether we
+      -- convert a 'CXCursorKind' to a 'NameKind', or not.
+      _kind ->
+        panicPure $ "unhandled CXCursorKind: " <> show _kind
 
 {-------------------------------------------------------------------------------
   QualName

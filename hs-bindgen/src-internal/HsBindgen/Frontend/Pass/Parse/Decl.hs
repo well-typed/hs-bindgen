@@ -1,6 +1,7 @@
 -- | Fold declarations
 module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 
+import Control.Exception (evaluate)
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 
@@ -31,24 +32,27 @@ import HsBindgen.Language.C qualified as C
 foldDecl :: HasCallStack => Fold ParseDecl [C.Decl Parse]
 foldDecl = foldWithHandler handleTypeException $ \curr -> do
     info <- getDeclInfo curr
-    mNameKind <- dispatch curr $ return . C.toNameKindFromCXCursorKind
+    -- NOTE: Evaluate to WHNF to trigger potential panics.
+    mNameKind <- dispatch curr $ liftIO . evaluate . C.toNameKindFromCXCursorKind
     let mQualName = QualName <$> (C.isNamedDecl $ C.declId info) <*> mNameKind
     evalPredicate (C.declLoc info) mQualName >>= \case
       Right () ->
         -- NOTE Performance: 'dispatchFold' gets the 'CXCursorKind' again.
         dispatchFold curr $ \case
-          CXCursor_AlignedAttr        -> attribute
+          -- Kinds that we parse.
           CXCursor_EnumDecl           -> enumDecl info
           CXCursor_FunctionDecl       -> functionDecl info
-          CXCursor_InclusionDirective -> inclusionDirective
           CXCursor_MacroDefinition    -> macroDefinition info
-          CXCursor_MacroExpansion     -> macroExpansion
-          CXCursor_PackedAttr         -> attribute
           CXCursor_StructDecl         -> structDecl info
           CXCursor_TypedefDecl        -> typedefDecl info
-          CXCursor_UnexposedAttr      -> attribute
-          CXCursor_UnexposedDecl      -> unexposedDecl (C.declLoc info)
+          CXCursor_UnexposedDecl      -> unexposedDecl info
           CXCursor_UnionDecl          -> unionDecl info
+          -- Kinds that we skip over.
+          CXCursor_AlignedAttr        -> attribute
+          CXCursor_InclusionDirective -> inclusionDirective
+          CXCursor_MacroExpansion     -> macroExpansion
+          CXCursor_PackedAttr         -> attribute
+          CXCursor_UnexposedAttr      -> attribute
           CXCursor_VarDecl            -> varDecl
           kind                        -> unknownCursorKind kind
       Left skipReason ->
@@ -244,7 +248,6 @@ unionDecl info = simpleFold $ \curr -> do
         foldContinueWith [decl]
       DeclarationForward _ ->
         foldContinue
-  where
 
 declOrFieldDecl ::
      (CXCursor -> ParseDecl (a Parse))
@@ -443,9 +446,9 @@ varDecl = simpleFold $ \_ -> foldContinue
 --
 -- Since we not told what kind of declaration this is, we can't do much except
 -- issue a warning.
-unexposedDecl :: SingleLoc -> Fold ParseDecl [C.Decl Parse]
-unexposedDecl skippedLoc = simpleFold $ \_ -> do
-    recordTrace $ Skipped $ Predicate.SkipUnexposed{skippedLoc}
+unexposedDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
+unexposedDecl info = simpleFold $ \_ -> do
+    recordTrace $ Skipped $ Predicate.SkipUnexposed{skippedLoc = C.declLoc info}
     foldContinue
 
 -- | Attributes (alignment, packed, ..)
