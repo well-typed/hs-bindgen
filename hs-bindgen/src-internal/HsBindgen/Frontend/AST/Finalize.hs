@@ -245,22 +245,18 @@ instance Finalize Int.CheckedMacroType where
 instance Finalize Int.Type where
   type Finalized Int.Type = Ext.Type
 
-  finalize (Int.TypePrim prim)               = Ext.TypePrim prim
-  finalize (Int.TypeStruct name origin)      = Ext.TypeStruct name origin
-  finalize (Int.TypeUnion name origin)       = Ext.TypeUnion name origin
-  finalize (Int.TypeEnum name origin)        = Ext.TypeEnum name origin
-  finalize (Int.TypeTypedef ref)             = Ext.TypeTypedef (finalize ref)
-  finalize (Int.TypePointer typ)             = Ext.TypePointer (finalize typ)
-  finalize (Int.TypeFun args res)            = Ext.TypeFun (map finalize args) (finalize res)
-  finalize (Int.TypeVoid)                    = Ext.TypeVoid
-  finalize (Int.TypeConstArray n typ)        = Ext.TypeConstArray n (finalize typ)
-  finalize (Int.TypeIncompleteArray typ)     = Ext.TypeIncompleteArray (finalize typ)
-
-  finalize (Int.TypeExtBinding cQualName ref typeSpec) =
-      Ext.TypeExtBinding cQualName ref typeSpec
-
-  finalize (Int.TypeMacroTypedef name origin) =
-      Ext.TypeMacroTypedef name origin
+  finalize (Int.TypePrim prim)                = Ext.TypePrim prim
+  finalize (Int.TypeStruct name origin)       = Ext.TypeStruct name origin
+  finalize (Int.TypeUnion name origin)        = Ext.TypeUnion name origin
+  finalize (Int.TypeEnum name origin)         = Ext.TypeEnum name origin
+  finalize (Int.TypeTypedef ref)              = Ext.TypeTypedef (finalize ref)
+  finalize (Int.TypePointer typ)              = Ext.TypePointer (finalize typ)
+  finalize (Int.TypeFun args res)             = Ext.TypeFun (map finalize args) (finalize res)
+  finalize (Int.TypeVoid)                     = Ext.TypeVoid
+  finalize (Int.TypeConstArray n typ)         = Ext.TypeConstArray n (finalize typ)
+  finalize (Int.TypeIncompleteArray typ)      = Ext.TypeIncompleteArray (finalize typ)
+  finalize (Int.TypeExtBinding ext)           = Ext.TypeExtBinding ext
+  finalize (Int.TypeMacroTypedef name origin) = Ext.TypeMacroTypedef name origin
 
 instance Finalize Int.RenamedTypedefRef where
   type Finalized Int.RenamedTypedefRef = Ext.TypedefRef

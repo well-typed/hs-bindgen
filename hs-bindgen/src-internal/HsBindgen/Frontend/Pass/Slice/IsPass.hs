@@ -21,4 +21,5 @@ instance IsPass Slice where
   type FieldName  Slice = FieldName  Sort
   type TypedefRef Slice = TypedefRef Sort
   type MacroBody  Slice = MacroBody  Sort
+  type ExtBinding Slice = ExtBinding Sort
   type Ann ix     Slice = AnnSlice ix

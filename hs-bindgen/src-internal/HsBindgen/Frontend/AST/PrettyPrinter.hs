@@ -63,7 +63,7 @@ showsType x (TypeFun args res)        = showsFunctionType (showParen True x) (zi
   named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                  = showString "void " . x
 showsType x (TypeIncompleteArray t)   = showsType (x . showString "[]") t
-showsType x (TypeExtBinding q _ _)    = showCQualName q . showChar ' ' . x
+showsType x (TypeExtBinding ext)      = showCQualName (extCName ext) . showChar ' ' . x
 
 showCQualName :: C.QualName -> ShowS
 showCQualName = showString . Text.unpack . C.qualNameText
@@ -80,4 +80,3 @@ showsCName = showString . Text.unpack . getCName
 showsTypedefName :: TypedefRef -> String -> String
 showsTypedefName (TypedefRegular  nm    ) = showsName  nm
 showsTypedefName (TypedefSquashed nm _ty) = showsCName nm
-

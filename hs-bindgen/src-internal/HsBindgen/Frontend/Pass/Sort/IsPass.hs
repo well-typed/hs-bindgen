@@ -34,6 +34,7 @@ instance IsPass Sort where
   type FieldName  Sort = FieldName  Parse
   type TypedefRef Sort = TypedefRef Parse
   type MacroBody  Sort = MacroBody  Parse
+  type ExtBinding Sort = ExtBinding Parse
   type Ann ix     Sort = AnnSort ix
 
 {-------------------------------------------------------------------------------

@@ -157,8 +157,8 @@ instance NameUseSites C.Type where
   nameUseSites env = go
     where
       go :: C.Type HandleMacros -> C.Type NameAnon
-      go (C.TypePrim prim) =
-          C.TypePrim prim
+
+      -- Cases where we actually need to do work
       go (C.TypeStruct uid _) =
           let qid = QualDeclId uid C.NameKindStruct
           in uncurry C.TypeStruct (nameUseSite qid)
@@ -168,23 +168,22 @@ instance NameUseSites C.Type where
       go (C.TypeEnum uid _) =
           let qid = QualDeclId uid C.NameKindEnum
           in uncurry C.TypeEnum (nameUseSite qid)
-      go (C.TypeTypedef name) =
-          C.TypeTypedef name
       go (C.TypeMacroTypedef uid _) =
           let qid = QualDeclId uid C.NameKindOrdinary
           in uncurry C.TypeMacroTypedef (nameUseSite qid)
-      go (C.TypePointer ty) =
-          C.TypePointer (go ty)
-      go (C.TypeFun args res) =
-          C.TypeFun (map go args) (go res)
-      go (C.TypeVoid) =
-          C.TypeVoid
-      go (C.TypeExtBinding cQualName extHsRef typeSpec) =
-          C.TypeExtBinding cQualName extHsRef typeSpec
-      go (C.TypeConstArray n ty) =
-          C.TypeConstArray n (go ty)
-      go (C.TypeIncompleteArray ty) =
-          C.TypeIncompleteArray (go ty)
+
+      -- Recursive cases
+      go (C.TypePointer ty)         = C.TypePointer (go ty)
+      go (C.TypeFun args res)       = C.TypeFun (map go args) (go res)
+      go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
+      go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)
+
+      -- Simple cases
+      go (C.TypePrim prim)      = C.TypePrim prim
+      go (C.TypeTypedef name)   = C.TypeTypedef name
+      go (C.TypeVoid)           = C.TypeVoid
+      go (C.TypeExtBinding ext) = absurd ext
+
 
       -- Rename specific use site
       --

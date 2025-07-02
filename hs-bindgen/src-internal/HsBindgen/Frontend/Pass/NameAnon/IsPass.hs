@@ -4,6 +4,7 @@ import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass
+import HsBindgen.Imports
 import HsBindgen.Language.C (CName)
 
 {-------------------------------------------------------------------------------
@@ -22,4 +23,5 @@ instance IsPass NameAnon where
   type FieldName  NameAnon = CName
   type TypedefRef NameAnon = CName
   type MacroBody  NameAnon = C.CheckedMacro NameAnon
+  type ExtBinding NameAnon = Void
   type Ann ix     NameAnon = AnnNameAnon ix

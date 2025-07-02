@@ -26,4 +26,5 @@ instance IsPass HandleMacros where
   type FieldName  HandleMacros = CName
   type TypedefRef HandleMacros = CName
   type MacroBody  HandleMacros = CheckedMacro HandleMacros
+  type ExtBinding HandleMacros = Void
   type Ann ix     HandleMacros = AnnHandleMacros ix
