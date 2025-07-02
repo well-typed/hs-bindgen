@@ -136,6 +136,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
             _otherTrace ->
               Nothing
           )
+        , ("spec_examples"               , defaultTracePredicate)
         , ("struct_arg"                  , defaultTracePredicate)
         , ("fixedarray_arg"              , defaultTracePredicate)
         , ("type_naturals"               , defaultTracePredicate)
