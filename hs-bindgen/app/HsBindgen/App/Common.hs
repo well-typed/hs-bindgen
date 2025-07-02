@@ -294,10 +294,18 @@ parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
 
+-- | Run an action with a tracer.
+--
+-- Return 'Nothing' if errors happened.
 withTracer :: GlobalOpts -> (Tracer IO TraceMsg -> IO b) -> IO (Maybe b)
 withTracer GlobalOpts{..} =
     withTracerStdOut globalOptsTracerConf DefaultLogLevel
 
+-- | Extract the result or exit gracefully with an error message.
+--
+-- Helper function to be used in conjunction with 'withTracer'. We carefully
+-- separate running actions from error handling; before we continue to process
+-- the result.
 fromMaybeWithFatalError :: MonadIO m => Maybe b -> m b
 fromMaybeWithFatalError k = maybe fatalError pure k
 

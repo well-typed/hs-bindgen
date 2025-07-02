@@ -227,7 +227,7 @@ withTracerCustom
 withTracerCustom ansiColor tracerConf customLogLevel report action =
   nothingOnError (withTracerCustom' ansiColor tracerConf customLogLevel report action)
 
--- | Report that errors happened while generating bindings and exit with failure.
+-- | Report that errors happened and exit with failure.
 fatalError :: MonadIO m => m a
 fatalError = liftIO $ do
   putStrLn "An error happened (see above)"
