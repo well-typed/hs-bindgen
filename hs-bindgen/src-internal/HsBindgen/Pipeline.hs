@@ -245,15 +245,20 @@ hashInclude fps HashIncludeOpts {..} = do
         }
       tracerConf :: TracerConf
       tracerConf = def { tVerbosity = Verbosity Warning }
-  extBindingSpec <-
-    TH.runIO . withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
-      loadExtBindingSpecs tracer args UseStdlibBindingSpec []
-  let opts :: Opts
-      opts = def {
-          optsClangArgs      = args
-        , optsExtBindingSpec = extBindingSpec
-        }
-  hashIncludeWith opts fps
+  maybeDecls <- withTracerStdOut tracerConf DefaultLogLevel $ \tracer -> do
+    let tracerIO = natTracer TH.runQ tracer
+    extBindingSpec <- liftIO $
+      loadExtBindingSpecs tracerIO args UseStdlibBindingSpec []
+    let opts :: Opts
+        opts = def {
+            optsClangArgs      = args
+          , optsExtBindingSpec = extBindingSpec
+          }
+    hashIncludeWith opts fps
+  case maybeDecls of
+    Nothing    -> TH.reportError "An error happened while generating bindings (see above)"
+                    >> pure []
+    Just decls -> pure decls
   where
     toFilePath :: FilePath -> QuoteIncludePathDir -> FilePath
     toFilePath root (PackageRoot     x) = root </> x

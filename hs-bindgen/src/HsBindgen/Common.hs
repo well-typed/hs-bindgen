@@ -48,7 +48,6 @@ module HsBindgen.Common (
   , Tracer.Source(..)
   , Tracer.HasSource(..)
   , Tracer.Verbosity(..)
-  , Tracer.ErrorTraceException(..)
     -- ** Tracer configuration
   , Tracer.AnsiColor(..)
   , Tracer.ShowTimeStamp(..)
@@ -58,7 +57,6 @@ module HsBindgen.Common (
     -- ** Tracers
   , Tracer.withTracerStdOut
   , Tracer.withTracerCustom
-  , Tracer.withTracerCustom'
 
     -- * Re-exports
   , Default(..)

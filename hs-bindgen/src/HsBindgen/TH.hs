@@ -62,7 +62,6 @@ module HsBindgen.TH (
   , Common.Source(..)
   , Common.HasSource(..)
   , Common.Verbosity(..)
-  , Common.ErrorTraceException(..)
     -- ** Tracer configuration
   , Common.AnsiColor(..)
   , Common.ShowTimeStamp(..)
@@ -72,7 +71,6 @@ module HsBindgen.TH (
     -- ** Tracers
   , Common.withTracerStdOut
   , Common.withTracerCustom
-  , Common.withTracerCustom'
 
    -- * Re-exports
   , Common.Default(..)

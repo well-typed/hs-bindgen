@@ -64,7 +64,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    withTracerStdOut tracerConf DefaultLogLevel $ \tracer -> do
+    maybeRes <- withTracerStdOut tracerConf DefaultLogLevel $ \tracer -> do
       let tracerResolve = contramap TraceResolveHeader tracer
           tracerClang   = contramap TraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return
@@ -84,6 +84,9 @@ clangAstDump opts@Options{..} = do
               | optSameFile && SourcePath file /= src -> foldContinue
               | not optBuiltin && isBuiltIn file      -> foldContinue
               | otherwise                             -> runFold (foldDecls opts) cursor
+    case maybeRes of
+      Nothing -> fatalError
+      Just _  -> pure ()
   where
 
     tracerConf :: TracerConf

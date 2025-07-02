@@ -38,6 +38,7 @@
 - ignore: {name: "Use section"}
 - ignore: {name: "Redundant lambda"}
 - ignore: {name: "Use const"}
+- ignore: {name: "Avoid lambda using `infix`"}
 
 # Specify additional command line arguments
 #

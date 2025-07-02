@@ -18,9 +18,10 @@ execDev Dev{..} = case devCmd of
     DevCmdParse cmdOpts -> execParse devGlobalOpts cmdOpts
 
 execParse :: GlobalOpts -> ParseOpts -> IO ()
-execParse globalOpts ParseOpts{..} = print =<< doParse
+execParse globalOpts ParseOpts{..} =
+  doParse >>= fromMaybeWithFatalError >>= print
   where
-    doParse :: IO TranslationUnit
+    doParse :: IO (Maybe TranslationUnit)
     doParse = withTracer globalOpts $ \tracer -> do
       extSpec <- loadExtBindingSpecs' tracer globalOpts
       pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
