@@ -103,6 +103,18 @@ instance PrettyForTrace DeclId where
   prettyForTrace (DeclNamed name)   = prettyForTrace name
   prettyForTrace (DeclAnon  anonId) = prettyForTrace anonId
 
+instance PrettyForTrace (C.DeclInfo Parse) where
+  prettyForTrace C.DeclInfo{declId, declLoc} =
+      case declId of
+        DeclNamed name -> PP.hcat [
+            prettyForTrace name
+          , " at "
+          , PP.showToCtxDoc declLoc
+          ]
+        DeclAnon anonId ->
+            -- No need to repeat the source location in this case
+            prettyForTrace anonId
+
 -- | Qualified declaration identity
 data QualDeclId = QualDeclId DeclId C.NameKind
   deriving stock (Show, Eq, Ord)
@@ -209,28 +221,21 @@ instance PrettyForTrace ParseMsg where
           prettyForTrace reason
       UnsupportedType {..} -> PP.hcat [
           "Encountered unsupported type while parsing "
-        , idAt unsupportedTypeContext
+        , prettyForTrace unsupportedTypeContext
         , ": "
         , prettyForTrace unsupportedTypeException
         ]
       UnsupportedImplicitFields info -> PP.hsep [
           "Unsupported implicit fields in"
-        , idAt info
+        , prettyForTrace info
         ]
       UnsupportedDeclsInSignature{..} -> PP.hsep [
           "Unsupported nested declarations in"
-        , idAt unsupportedDeclsInSignatureFun
+        , prettyForTrace unsupportedDeclsInSignatureFun
         , "of"
         , PP.hcat $ List.intersperse ", " $
             map prettyForTrace unsupportedDeclsInSignatureDecls
         ]
-    where
-      idAt :: C.DeclInfo Parse -> PP.CtxDoc
-      idAt info = PP.hcat [
-            prettyForTrace (C.declId info)
-          , " at "
-          , PP.showToCtxDoc (C.declLoc info)
-          ]
 
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel ParseMsg where

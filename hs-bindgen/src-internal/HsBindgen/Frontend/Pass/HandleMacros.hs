@@ -333,7 +333,7 @@ runM :: M a -> (a, [HandleMacrosMsg])
 runM = fmap stateErrors . flip runState initMacroState . unwrapM
 
 {-------------------------------------------------------------------------------
-  Errors
+  Trace messages
 -------------------------------------------------------------------------------}
 
 -- TODO: We might want source location information here
