@@ -1,0 +1,348 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:10:15",
+        declId = NamePair {
+          nameC = CName "int16_T",
+          nameHsIdent = HsIdentifier
+            "Int16_T"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "spec_examples.h"},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Int16_T",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Int16_T"},
+          typedefType = TypePrim
+            (PrimIntegral
+              PrimShort
+              Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:11:13",
+        declId = NamePair {
+          nameC = CName "int32_T",
+          nameHsIdent = HsIdentifier
+            "Int32_T"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "spec_examples.h"},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Int32_T",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Int32_T"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:12:19",
+        declId = NamePair {
+          nameC = CName "int64_T",
+          nameHsIdent = HsIdentifier
+            "Int64_T"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "spec_examples.h"},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Int64_T",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Int64_T"},
+          typedefType = TypePrim
+            (PrimIntegral
+              PrimLongLong
+              Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:14:9",
+        declId = NamePair {
+          nameC = CName "cint16_T",
+          nameHsIdent = HsIdentifier
+            "Cint16_T"},
+        declOrigin = NameOriginGenerated
+          (AnonId "spec_examples.h:14:9"),
+        declAliases = [
+          CName "cint16_T"],
+        declHeader = "spec_examples.h"},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Cint16_T"),
+          structSizeof = 4,
+          structAlignment = 2,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "spec_examples.h:15:11",
+              structFieldName = NamePair {
+                nameC = CName "re",
+                nameHsIdent = HsIdentifier
+                  "cint16_T_re"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "int16_T",
+                    nameHsIdent = HsIdentifier
+                      "Int16_T"}),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "spec_examples.h:16:11",
+              structFieldName = NamePair {
+                nameC = CName "im",
+                nameHsIdent = HsIdentifier
+                  "cint16_T_im"},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "int16_T",
+                    nameHsIdent = HsIdentifier
+                      "Int16_T"}),
+              structFieldOffset = 16,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:19:8",
+        declId = NamePair {
+          nameC = CName "B",
+          nameHsIdent = HsIdentifier "B"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "spec_examples.h"},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "B"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:28:10",
+        declId = NamePair {
+          nameC = CName "C",
+          nameHsIdent = HsIdentifier "C"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "spec_examples.h"},
+      declKind = DeclStructOpaque,
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:23:8",
+        declId = NamePair {
+          nameC = CName "A",
+          nameHsIdent = HsIdentifier "A"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "spec_examples.h"},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "A"),
+          structSizeof = 152,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "spec_examples.h:24:10",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "a_x"},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "spec_examples.h:25:9",
+              structFieldName = NamePair {
+                nameC = CName "label",
+                nameHsIdent = HsIdentifier
+                  "a_label"},
+              structFieldType = TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "spec_examples.h:26:8",
+              structFieldName = NamePair {
+                nameC = CName "samples",
+                nameHsIdent = HsIdentifier
+                  "a_samples"},
+              structFieldType = TypeConstArray
+                128
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
+              structFieldOffset = 128,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "spec_examples.h:27:12",
+              structFieldName = NamePair {
+                nameC = CName "b",
+                nameHsIdent = HsIdentifier
+                  "a_b"},
+              structFieldType = TypeStruct
+                NamePair {
+                  nameC = CName "B",
+                  nameHsIdent = HsIdentifier "B"}
+                NameOriginInSource,
+              structFieldOffset = 1152,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "spec_examples.h:28:13",
+              structFieldName = NamePair {
+                nameC = CName "c",
+                nameHsIdent = HsIdentifier
+                  "a_c"},
+              structFieldType = TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = CName "C",
+                    nameHsIdent = HsIdentifier "C"}
+                  NameOriginInSource),
+              structFieldOffset = 1152,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:31:6",
+        declId = NamePair {
+          nameC = CName "resample",
+          nameHsIdent = HsIdentifier
+            "resample"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "spec_examples.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = CName "int32_T",
+                    nameHsIdent = HsIdentifier
+                      "Int32_T"})),
+            TypeConstArray
+              30720000
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "cint16_T")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "cint16_T",
+                      nameHsIdent = HsIdentifier
+                        "Cint16_T"}
+                    (NameOriginGenerated
+                      (AnonId
+                        "spec_examples.h:14:9"))))),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "int64_T",
+                  nameHsIdent = HsIdentifier
+                    "Int64_T"}),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "int64_T",
+                  nameHsIdent = HsIdentifier
+                    "Int64_T"}),
+            TypeConstArray
+              30720000
+              (TypeTypedef
+                (TypedefSquashed
+                  (CName "cint16_T")
+                  (TypeStruct
+                    NamePair {
+                      nameC = CName "cint16_T",
+                      nameHsIdent = HsIdentifier
+                        "Cint16_T"}
+                    (NameOriginGenerated
+                      (AnonId
+                        "spec_examples.h:14:9")))))],
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["spec_examples"]}

@@ -1,0 +1,6 @@
+CApiFFI
+TemplateHaskell
+DataKinds
+DerivingStrategies
+EmptyDataDecls
+GeneralizedNewtypeDeriving
