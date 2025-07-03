@@ -109,29 +109,30 @@ processTranslationUnit
 
     -- writeFile "includegraph.mermaid" $ IncludeGraph.dumpMermaid includeGraph
 
-    let (afterSort, sortErrors) =
+    let (afterSort, msgsSort) =
           sortDecls afterParse
-        (afterSlice, sliceErrors) =
+        (afterSlice, msgsSlice) =
           sliceDecls programSlicing selectionPredicate isMainFile afterSort
-        (afterHandleMacros, macroErrors) =
+        (afterHandleMacros, msgsHandleMacros) =
           handleMacros afterSlice
-        afterNameAnon =
+        (afterNameAnon, msgsNameAnon) =
           nameAnon afterHandleMacros
-        (afterResolveBindingSpec, bindingSpecErrors) =
+        (afterResolveBindingSpec, msgsResolveBindingSpecs) =
           resolveBindingSpec pSpec extSpec afterNameAnon
         afterHandleTypedefs =
           handleTypedefs afterResolveBindingSpec
-        (afterMangleNames, mangleErrors) =
+        (afterMangleNames, msgsMangleNames) =
           mangleNames afterHandleTypedefs
 
     -- writeFile "usedecl.mermaid" $
     --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
-    forM_ sortErrors        $ traceWith tracer . FrontendSort
-    forM_ sliceErrors       $ traceWith tracer . FrontendSlice
-    forM_ macroErrors       $ traceWith tracer . FrontendHandleMacros
-    forM_ bindingSpecErrors $ traceWith tracer . FrontendResolveBindingSpecs
-    forM_ mangleErrors      $ traceWith tracer . FrontendMangleNames
+    forM_ msgsSort                $ traceWith tracer . FrontendSort
+    forM_ msgsSlice               $ traceWith tracer . FrontendSlice
+    forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
+    forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
+    forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
+    forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
 
     return $ finalize afterMangleNames
 
@@ -147,6 +148,7 @@ data FrontendMsg =
   | FrontendSort SortMsg
   | FrontendSlice SliceMsg
   | FrontendHandleMacros HandleMacrosMsg
+  | FrontendNameAnon NameAnonMsg
   | FrontendResolveBindingSpecs ResolveBindingSpecsMsg
   | FrontendMangleNames MangleNamesMsg
   deriving stock (Show, Eq)
@@ -157,6 +159,7 @@ instance PrettyForTrace FrontendMsg where
     FrontendSort                x -> prettyForTrace x
     FrontendSlice               x -> prettyForTrace x
     FrontendHandleMacros        x -> prettyForTrace x
+    FrontendNameAnon            x -> prettyForTrace x
     FrontendResolveBindingSpecs x -> showToCtxDoc x -- TODO
     FrontendMangleNames         x -> prettyForTrace x
 
@@ -166,6 +169,7 @@ instance HasDefaultLogLevel FrontendMsg where
     FrontendSort                x -> getDefaultLogLevel x
     FrontendSlice               x -> getDefaultLogLevel x
     FrontendHandleMacros        x -> getDefaultLogLevel x
+    FrontendNameAnon            x -> getDefaultLogLevel x
     FrontendResolveBindingSpecs _ -> Error
     FrontendMangleNames         x -> getDefaultLogLevel x
 

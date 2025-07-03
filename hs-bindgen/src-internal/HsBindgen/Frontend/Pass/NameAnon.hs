@@ -1,4 +1,9 @@
-module HsBindgen.Frontend.Pass.NameAnon (nameAnon) where
+module HsBindgen.Frontend.Pass.NameAnon (
+    nameAnon
+  , NameAnonMsg(..)
+  ) where
+
+import Data.Either (partitionEithers)
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
@@ -14,23 +19,58 @@ import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C (CName)
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 -- | Assign name to all anonymous declarations
-nameAnon :: C.TranslationUnit HandleMacros -> C.TranslationUnit NameAnon
-nameAnon C.TranslationUnit{..} = C.TranslationUnit{
-      unitDecls = mapMaybe (nameDecl env) unitDecls
-    , ..
-    }
+nameAnon ::
+      C.TranslationUnit HandleMacros
+  -> (C.TranslationUnit NameAnon, [NameAnonMsg])
+nameAnon C.TranslationUnit{..} = (
+      C.TranslationUnit{
+          unitDecls = unitDecls'
+        , ..
+        }
+    , msgs
+    )
   where
+    msgs       :: [NameAnonMsg]
+    unitDecls' :: [C.Decl NameAnon]
+    (msgs, unitDecls') = partitionEithers (map (nameDecl env) unitDecls)
+
     env :: RenameEnv
     env = RenameEnv{
           envDeclIndex = declIndex unitAnn
         , envDeclUse   = DeclUseGraph.fromUseDecl (declUsage unitAnn)
         }
+
+{-------------------------------------------------------------------------------
+  Trace messages
+-------------------------------------------------------------------------------}
+
+data NameAnonMsg =
+    -- | Skipped unused anonymous declaration entirely
+    --
+    -- @clang@ will produce a warning for this ("declaration does not declare
+    -- anything"); we issue a separate message here in case we skip over
+    -- something that we shouldn't.
+    NameAnonSkipped (C.DeclInfo Parse)
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace NameAnonMsg where
+  prettyForTrace = \case
+      NameAnonSkipped info -> PP.hsep [
+          "Skipped unused anonynous declaration"
+        , prettyForTrace info
+        ]
+
+instance HasDefaultLogLevel NameAnonMsg where
+  getDefaultLogLevel = \case
+      NameAnonSkipped{} -> Debug -- clang already warned
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: environment used for renaming
@@ -54,15 +94,15 @@ findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
 
 -- | Declaration
 --
--- Returns 'Nothing' if the declaration is anonymous and unused.
-nameDecl :: RenameEnv -> C.Decl HandleMacros -> Maybe (C.Decl NameAnon)
+-- Returns 'Left' message if the declaration is anonymous and unused.
+nameDecl ::
+     RenameEnv
+  -> C.Decl HandleMacros
+  -> Either NameAnonMsg (C.Decl NameAnon)
 nameDecl env decl = do
-    (name, origin) <- case declId of
-      DeclNamed n -> Just (n, C.NameOriginInSource)
-      DeclAnon anonId ->
-        (, C.NameOriginGenerated anonId) . nameForAnon
-          <$> findNamedUseOf env qid
-    return $ C.Decl{
+    case mName of
+      Nothing             -> Left  $ NameAnonSkipped (coercePass declInfo)
+      Just (name, origin) -> Right $ C.Decl{
         declInfo = C.DeclInfo{
             declId      = name
           , declOrigin  = origin
@@ -79,6 +119,15 @@ nameDecl env decl = do
 
     qid :: QualDeclId
     qid = declQualDeclId decl
+
+    mName :: Maybe (CName, C.NameOrigin)
+    mName =
+        case declId of
+          DeclNamed n ->
+            Just (n, C.NameOriginInSource)
+          DeclAnon anonId ->
+            (, C.NameOriginGenerated anonId) . nameForAnon <$>
+              findNamedUseOf env qid
 
 {-------------------------------------------------------------------------------
   Use sites
