@@ -13,7 +13,7 @@ import Data.Text qualified as Text
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.BindingSpec (ResolvedBindingSpec)
+import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
@@ -35,16 +35,16 @@ import HsBindgen.Util.Monad (mapMaybeM)
 -------------------------------------------------------------------------------}
 
 resolveBindingSpec ::
-     ResolvedBindingSpec -- ^ Prescriptive binding specification
-  -> ResolvedBindingSpec -- ^ External binding specification
+     ExternalBindingSpec
+  -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
   -> (C.TranslationUnit ResolveBindingSpec, [ResolveBindingSpecsMsg])
 resolveBindingSpec
-  pSpec
   extSpec
+  pSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     let (decls, MState{..}) =
-          runM pSpec extSpec unitIncludeGraph (declNonSelected unitAnn) $
+          runM extSpec pSpec unitIncludeGraph (declNonSelected unitAnn) $
             resolveDecls unitDecls
         notUsedErrs = BindingSpecTypeNotUsed <$> Set.toAscList stateNoPTypes
     in  (reassemble decls, reverse stateErrors ++ notUsedErrs)
@@ -95,14 +95,14 @@ newtype M a = WrapM (RWS MEnv () MState a)
     )
 
 runM ::
-     ResolvedBindingSpec -- ^ Prescriptive binding specification
-  -> ResolvedBindingSpec -- ^ External binding specification
+     ExternalBindingSpec
+  -> PrescriptiveBindingSpec
   -> IncludeGraph
   -> NonSelectedDecls
   -> M a
   -> (a, MState)
-runM pSpec extSpec includeGraph nonSelectedDecls (WrapM m) =
-    let env        = MEnv pSpec extSpec includeGraph nonSelectedDecls
+runM extSpec pSpec includeGraph nonSelectedDecls (WrapM m) =
+    let env        = MEnv extSpec pSpec includeGraph nonSelectedDecls
         state0     = initMState pSpec
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
@@ -112,8 +112,8 @@ runM pSpec extSpec includeGraph nonSelectedDecls (WrapM m) =
 -------------------------------------------------------------------------------}
 
 data MEnv = MEnv {
-      envPSpec            :: ResolvedBindingSpec
-    , envExtSpec          :: ResolvedBindingSpec
+      envExtSpec          :: ExternalBindingSpec
+    , envPSpec            :: PrescriptiveBindingSpec
     , envIncludeGraph     :: IncludeGraph
     , envNonSelectedDecls :: NonSelectedDecls
     }
@@ -131,7 +131,7 @@ data MState = MState {
     }
   deriving (Show)
 
-initMState :: ResolvedBindingSpec -> MState
+initMState :: PrescriptiveBindingSpec -> MState
 initMState pSpec = MState {
       stateErrors    = []
     , stateExtTypes  = Map.empty
@@ -384,7 +384,7 @@ instance Resolve C.Type where
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
 
--- | Lookup qualified name in the 'ResolvedBindingSpec'
+-- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
 resolveExtBinding ::
      C.QualName
   -> Set SourcePath

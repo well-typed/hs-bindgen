@@ -8,6 +8,8 @@ module HsBindgen.BindingSpec (
     BindingSpec(..)
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
+  , ExternalBindingSpec
+  , PrescriptiveBindingSpec
   , Omittable(..)
   , TypeSpec(..)
   , defaultTypeSpec
@@ -111,6 +113,24 @@ type UnresolvedBindingSpec = BindingSpec CHeaderIncludePath
 --
 -- The resolved header is the filesystem path in the current environment.
 type ResolvedBindingSpec = BindingSpec (CHeaderIncludePath, SourcePath)
+
+-- | External binding specification (resolved)
+--
+-- This type alias is just used as documentation.  This type name is used
+-- because there is no need for a type alias for unresolved binding
+-- specifications.
+--
+-- See 'BindingSpec'.
+type ExternalBindingSpec = ResolvedBindingSpec
+
+-- | Prescriptive binding specification (resolved)
+--
+-- This type alias is just used as documentation.  This type name is used
+-- because there is no need for a type alias for unresolved binding
+-- specifications.
+--
+-- See 'BindingSpec'.
+type PrescriptiveBindingSpec = ResolvedBindingSpec
 
 --------------------------------------------------------------------------------
 

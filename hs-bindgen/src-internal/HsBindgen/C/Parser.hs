@@ -17,7 +17,7 @@ import Clang.Args
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
-import HsBindgen.BindingSpec (ResolvedBindingSpec)
+import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.Clang
 import HsBindgen.Errors
@@ -39,8 +39,8 @@ parseCHeaders ::
   -> ClangArgs
   -> Predicate
   -> ProgramSlicing
-  -> ResolvedBindingSpec -- ^ External binding specification
-  -> ResolvedBindingSpec -- ^ Prescriptive binding specification
+  -> ExternalBindingSpec
+  -> PrescriptiveBindingSpec
   -> [CHeaderIncludePath]
   -> IO C.TranslationUnit
 parseCHeaders tracer args predicate programSlicing extSpec pSpec mainFiles =
