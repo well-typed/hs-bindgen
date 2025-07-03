@@ -39,28 +39,23 @@ execCli Cli{..} = case cliCmd of
 
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
 execPreprocess globalOpts PreprocessOpts{..} = do
-    (hsDecls, mGenBindingSpecPath) <-
-      fromMaybeWithFatalError <=< withTracer globalOpts $ \tracer -> do
-        extSpec <- loadExtBindingSpecs' tracer globalOpts
-        pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
-        let mu = getModuleUnique preprocessModuleOpts
-            opts = (getOpts globalOpts) {
-                optsExtBindingSpec          = extSpec
-              , optsPrescriptiveBindingSpec = pSpec
-              , optsTranslation             = preprocessTranslationOpts
-              , optsTracer                  = tracer
-              }
-        hsDecls <- translateCHeaders mu opts preprocessInputs
-        mGenBindingSpecPath <- case preprocessGenBindingSpec of
-          Nothing   -> return Nothing
-          Just path -> parseBindingSpecPath tracer path
-        return (hsDecls, mGenBindingSpecPath)
+    hsDecls <- fromMaybeWithFatalError <=< withTracer globalOpts $ \tracer -> do
+      extSpec <- loadExtBindingSpecs' tracer globalOpts
+      pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
+      let mu = getModuleUnique preprocessModuleOpts
+          opts = (getOpts globalOpts) {
+              optsExtBindingSpec          = extSpec
+            , optsPrescriptiveBindingSpec = pSpec
+            , optsTranslation             = preprocessTranslationOpts
+            , optsTracer                  = tracer
+            }
+      translateCHeaders mu opts preprocessInputs
 
     preprocessIO ppOpts preprocessOutput hsDecls
-    case mGenBindingSpecPath of
-      Nothing                 -> return ()
-      Just genBindingSpecPath ->
-        genBindingSpec ppOpts preprocessInputs genBindingSpecPath hsDecls
+
+    case preprocessGenBindingSpec of
+      Nothing   -> return ()
+      Just path -> genBindingSpec ppOpts preprocessInputs path hsDecls
   where
     ppOpts :: PPOpts
     ppOpts = def {

@@ -404,11 +404,11 @@ encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
 genBindingSpec ::
      PPOpts
   -> [CHeaderIncludePath]
-  -> BindingSpec.Path
+  -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genBindingSpec PPOpts{..} headerIncludePaths bindingSpecPath =
-      BindingSpec.writeFile bindingSpecPath
+genBindingSpec PPOpts{..} headerIncludePaths path =
+      BindingSpec.writeFile path
     . BindingSpec.genBindingSpec headerIncludePaths moduleName
   where
     moduleName :: HsModuleName
