@@ -8,7 +8,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
   , DeclSpec(..)
   ) where
 
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass

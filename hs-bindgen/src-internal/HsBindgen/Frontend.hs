@@ -11,6 +11,7 @@ import Control.Monad
 import Clang.LowLevel.Core
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.C.Predicate (Predicate (SelectAll))
+import HsBindgen.Config
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.Pass.HandleMacros
@@ -77,31 +78,29 @@ import Text.SimplePrettyPrint (showToCtxDoc)
 --   the 'Hs' phase, but we have to draw the line somewhere.
 processTranslationUnit ::
      Tracer IO FrontendMsg
+  -> Config
   -> ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> RootHeader
-  -> Predicate
-  -> ProgramSlicing
   -> CXTranslationUnit -> IO Ext.TranslationUnit
 processTranslationUnit
   tracer
+  Config{..}
   extSpec
   pSpec
   rootHeader
-  selectionPredicate
-  programSlicing
   unit = do
 
     (includeGraph, isMainFile, getMainHeader) <- processIncludes rootHeader unit
-    let selectionPredicateParse = case programSlicing of
+    let predicateParse = case configProgramSlicing of
           EnableProgramSlicing  -> SelectAll
-          DisableProgramSlicing -> selectionPredicate
+          DisableProgramSlicing -> configPredicate
 
     afterParse <-
       parseDecls
         (contramap FrontendParse tracer)
         rootHeader
-        selectionPredicateParse
+        predicateParse
         includeGraph
         isMainFile
         getMainHeader
@@ -112,7 +111,7 @@ processTranslationUnit
     let (afterSort, msgsSort) =
           sortDecls afterParse
         (afterSlice, msgsSlice) =
-          sliceDecls programSlicing selectionPredicate isMainFile afterSort
+          sliceDecls configProgramSlicing configPredicate isMainFile afterSort
         (afterHandleMacros, msgsHandleMacros) =
           handleMacros afterSlice
         (afterNameAnon, msgsNameAnon) =

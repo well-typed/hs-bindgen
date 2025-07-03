@@ -8,7 +8,7 @@ import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Proxy
 
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Frontend.AST.Internal qualified as C

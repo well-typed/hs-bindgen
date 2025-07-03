@@ -64,7 +64,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    maybeRes <- withTracerStdOut tracerConf DefaultLogLevel $ \tracer -> do
+    maybeRes <- withTracerStdOut tracerConf $ \tracer -> do
       let tracerResolve = contramap TraceResolveHeader tracer
           tracerClang   = contramap TraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return
@@ -89,7 +89,7 @@ clangAstDump opts@Options{..} = do
       Just _  -> pure ()
   where
 
-    tracerConf :: TracerConf
+    tracerConf :: TracerConfig
     tracerConf = def {
         tVerbosity = Verbosity Warning
       }

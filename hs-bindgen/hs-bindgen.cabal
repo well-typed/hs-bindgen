@@ -77,6 +77,7 @@ library internal
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen
       HsBindgen.BindingSpec.Stdlib
+      HsBindgen.BindingSpec.Internal
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
@@ -89,6 +90,7 @@ library internal
       HsBindgen.C.Tc.Macro
       HsBindgen.C.Tc.Macro.Type
       HsBindgen.Clang
+      HsBindgen.Config
       HsBindgen.Config.FixCandidate
       HsBindgen.Config.FixCandidate.ReservedNames
       HsBindgen.Debug

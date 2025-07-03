@@ -21,7 +21,7 @@ module HsBindgen.SHs.AST (
 
 import DeBruijn (Ctx, EmptyCtx, Idx, Add)
 
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.Origin qualified as Origin

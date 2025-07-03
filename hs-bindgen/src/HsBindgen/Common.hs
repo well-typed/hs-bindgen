@@ -1,7 +1,7 @@
 module HsBindgen.Common (
 
     -- * Options
-    Pipeline.Opts(..)
+    Config.Config(..)
 
     -- * Binding specifications
   , Pipeline.BindingSpec -- opaque
@@ -52,7 +52,7 @@ module HsBindgen.Common (
   , Tracer.AnsiColor(..)
   , Tracer.ShowTimeStamp(..)
   , Tracer.ShowCallStack(..)
-  , Tracer.TracerConf(..)
+  , Tracer.TracerConfig(..)
   , Tracer.CustomLogLevel(..)
     -- ** Tracers
   , Tracer.withTracerStdOut
@@ -68,6 +68,7 @@ import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 
 import HsBindgen.C.Predicate qualified as Predicate
+import HsBindgen.Config qualified as Config
 import HsBindgen.Frontend.Pass.Slice qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs

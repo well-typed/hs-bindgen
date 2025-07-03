@@ -8,8 +8,8 @@ import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
 
 import Clang.Paths
-import HsBindgen.BindingSpec (UnresolvedBindingSpec)
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal (UnresolvedBindingSpec)
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames

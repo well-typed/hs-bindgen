@@ -1,12 +1,8 @@
 {-# LANGUAGE CPP #-}
 
 module HsBindgen.Pipeline (
-    -- * Options
-    Opts(..)
-  , PPOpts(..)
-
     -- * Translation pipeline components
-  , parseCHeaders
+    parseCHeaders
   , genHsDecls
   , genSHsDecls
   , genModule
@@ -58,13 +54,13 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
 import HsBindgen.C.Parser qualified as C
-import HsBindgen.C.Predicate (Predicate (..))
+import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Pass.Slice (ProgramSlicing (DisableProgramSlicing))
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
@@ -85,80 +81,43 @@ import Language.Haskell.TH.Syntax (getPackageRoot)
 #endif
 
 {-------------------------------------------------------------------------------
-  Options
--------------------------------------------------------------------------------}
-
--- | Options for both the preprocessor and TH APIs
-data Opts = Opts {
-      optsClangArgs               :: ClangArgs
-    , optsExtBindingSpec          :: BindingSpec
-    , optsPrescriptiveBindingSpec :: BindingSpec
-    , optsTranslation             :: Hs.TranslationOpts
-    , optsPredicate               :: Predicate
-    , optsProgramSlicing          :: ProgramSlicing
-    , optsTracer                  :: Tracer IO TraceMsg
-    }
-
-instance Default Opts where
-  def = Opts {
-      optsClangArgs               = def
-    , optsExtBindingSpec          = emptyBindingSpec
-    , optsPrescriptiveBindingSpec = emptyBindingSpec
-    , optsTranslation             = def
-    , optsPredicate               = SelectFromMainFiles
-    , optsProgramSlicing          = DisableProgramSlicing
-    , optsTracer                  = nullTracer
-    }
-
--- | Additional options for the preprocessor API
-data PPOpts = PPOpts {
-      ppOptsModule :: HsModuleOpts -- ^ Default module name: @Generated@
-    , ppOptsRender :: HsRenderOpts -- ^ Default line length: 120
-    }
-
-instance Default PPOpts where
-  def = PPOpts {
-      ppOptsModule = HsModuleOpts { hsModuleOptsName = "Generated" }
-    , ppOptsRender = HsRenderOpts { hsLineLength = 120 }
-    }
-
-{-------------------------------------------------------------------------------
   Translation pipeline components
 -------------------------------------------------------------------------------}
 
 -- | Parse C headers
 parseCHeaders ::
-      Opts
+      Tracer IO TraceMsg
+   -> Config
+   -> ExternalBindingSpec
+   -> PrescriptiveBindingSpec
    -> [CHeaderIncludePath]
    -> IO C.TranslationUnit
-parseCHeaders Opts{..} =
+parseCHeaders tracer config extSpec pSpec =
     C.parseCHeaders
-      optsTracer
-      optsClangArgs
-      optsPredicate
-      optsProgramSlicing
-      (bindingSpecResolved optsExtBindingSpec)
-      (bindingSpecResolved optsPrescriptiveBindingSpec)
+      tracer
+      config
+      extSpec
+      pSpec
 
 -- | Generate @Hs@ declarations
-genHsDecls :: ModuleUnique -> Opts -> [C.Decl] -> [Hs.Decl]
-genHsDecls mu Opts{..} = Hs.generateDeclarations optsTranslation mu
+genHsDecls :: ModuleUnique -> Config -> [C.Decl] -> [Hs.Decl]
+genHsDecls mu Config{..} = Hs.generateDeclarations configTranslation mu
 
 -- | Generate @SHs@ declarations
 genSHsDecls :: [Hs.Decl] -> [SHs.SDecl]
 genSHsDecls = simplifySHs . SHs.translateDecls
 
 -- | Generate a preprocessor 'Backend.PP.HsModule'
-genModule :: PPOpts -> [SHs.SDecl] -> Backend.PP.HsModule
-genModule PPOpts{..} = Backend.PP.translateModule ppOptsModule
+genModule :: Config -> [SHs.SDecl] -> Backend.PP.HsModule
+genModule Config{..} = Backend.PP.translateModule configHsModuleOpts
 
 -- | Generate bindings source code, written to a file or @STDOUT@
-genPP :: PPOpts -> Maybe FilePath -> Backend.PP.HsModule -> IO ()
-genPP PPOpts{..} fp = Backend.PP.renderIO ppOptsRender fp
+genPP :: Config -> Maybe FilePath -> Backend.PP.HsModule -> IO ()
+genPP Config{..} fp = Backend.PP.renderIO configHsRenderOpts fp
 
 -- | Generate bindings source code
-genPPString :: PPOpts -> Backend.PP.HsModule -> String
-genPPString PPOpts{..} = Backend.PP.render ppOptsRender
+genPPString :: Config -> Backend.PP.HsModule -> String
+genPPString Config{..} = Backend.PP.render configHsRenderOpts
 
 -- | Generate Template Haskell declarations
 genTH :: Guasi q => [SHs.SDecl] -> q [TH.Dec]
@@ -173,22 +132,30 @@ genExtensions = foldMap requiredExtensions
 -------------------------------------------------------------------------------}
 
 -- | Parse a C header and generate @Hs@ declarations
-translateCHeaders :: ModuleUnique -> Opts -> [CHeaderIncludePath] -> IO [Hs.Decl]
-translateCHeaders mu opts headerIncludePaths = do
-    C.TranslationUnit{unitDecls} <- parseCHeaders opts headerIncludePaths
-    return $ genHsDecls mu opts unitDecls
+translateCHeaders
+  :: ModuleUnique
+  -> Tracer IO TraceMsg
+  -> Config
+  -> ExternalBindingSpec
+  -> PrescriptiveBindingSpec
+  -> [CHeaderIncludePath]
+  -> IO [Hs.Decl]
+translateCHeaders mu tracer config extSpec pSpec headerIncludePaths = do
+    C.TranslationUnit{unitDecls} <-
+      parseCHeaders tracer config extSpec pSpec headerIncludePaths
+    return $ genHsDecls mu config unitDecls
 
 -- | Generate bindings for the given C header
-preprocessPure :: PPOpts -> [Hs.Decl] -> String
-preprocessPure ppOpts = genPPString ppOpts . genModule ppOpts . genSHsDecls
+preprocessPure :: Config -> [Hs.Decl] -> String
+preprocessPure config = genPPString config . genModule config . genSHsDecls
 
 -- | Generate bindings for the given C header
 preprocessIO ::
-     PPOpts
+     Config
   -> Maybe FilePath     -- ^ Output file or 'Nothing' for @STDOUT@
   -> [Hs.Decl]
   -> IO ()
-preprocessIO ppOpts fp = genPP ppOpts fp . genModule ppOpts . genSHsDecls
+preprocessIO config fp = genPP config fp . genModule config . genSHsDecls
 
 {-------------------------------------------------------------------------------
   Template Haskell API
@@ -239,25 +206,18 @@ hashInclude ::
   -> TH.Q [TH.Dec]
 hashInclude fps HashIncludeOpts {..} = do
   quoteIncludeDirs <- toFilePaths extraIncludeDirs
-  let args :: ClangArgs
-      args = def {
-          clangQuoteIncludePathDirs = CIncludePathDir <$> quoteIncludeDirs
-        }
-      tracerConf :: TracerConf
+  let tracerConf :: TracerConfig
       tracerConf = def { tVerbosity = Verbosity Warning }
-  maybeDecls <- withTracerStdOut tracerConf DefaultLogLevel $ \tracer -> do
-    let tracerIO = natTracer TH.runQ tracer
-    extBindingSpec <- liftIO $
-      loadExtBindingSpecs tracerIO args UseStdlibBindingSpec []
-    let opts :: Opts
-        opts = def {
-            optsClangArgs      = args
-          , optsExtBindingSpec = extBindingSpec
+  maybeDecls <- withTracerStdOut tracerConf $ \tracer -> do
+    let args :: ClangArgs
+        args = def {
+            clangQuoteIncludePathDirs = CIncludePathDir <$> quoteIncludeDirs
           }
-    hashIncludeWith opts fps
+        config :: Config
+        config = def { configClangArgs = args }
+    hashIncludeWith tracer config fps
   case maybeDecls of
-    Nothing    -> TH.reportError "An error happened (see above)"
-                    >> pure []
+    Nothing    -> TH.reportError "An error happened (see above)" >> pure []
     Just decls -> pure decls
   where
     toFilePath :: FilePath -> QuoteIncludePathDir -> FilePath
@@ -271,27 +231,39 @@ hashInclude fps HashIncludeOpts {..} = do
 
 -- | Generate bindings for the given C headers
 hashIncludeWith ::
-     Opts
+     Tracer TH.Q TraceMsg
+  -> Config
   -> [FilePath] -- ^ Input headers, as written in C @#include@
   -> TH.Q [TH.Dec]
-hashIncludeWith opts fps = do
+hashIncludeWith tracer config@Config{..} fps = do
     headerIncludePaths <-
       mapM (either (TH.runIO . throwIO) return . parseCHeaderIncludePath) fps
-    unit <- TH.runIO $ parseCHeaders opts headerIncludePaths
-    genBindingsFromCHeader opts unit
+    let tracerIO = natTracer TH.runQ tracer
+    -- TODO #703: For now, we only load binding spec defaults. We should
+    -- however, have configuration options.
+    extBindingSpec <- liftIO $
+      loadExtBindingSpecs tracerIO configClangArgs UseStdlibBindingSpec []
+    unit <- TH.runIO $
+      parseCHeaders
+        tracerIO
+        config
+        extBindingSpec
+        emptyBindingSpec
+        headerIncludePaths
+    genBindingsFromCHeader config unit
 
 -- | Non-IO part of 'hashIncludeWith'
 genBindingsFromCHeader
     :: Guasi q
-    => Opts
+    => Config
     -> C.TranslationUnit
     -> q [TH.Dec]
-genBindingsFromCHeader opts unit = do
+genBindingsFromCHeader config unit = do
     -- record dependencies, including transitively included headers
     mapM_ (addDependentFile . getSourcePath) unitDeps
 
     mu <- getModuleUnique
-    let sdecls = genSHsDecls $ genHsDecls mu opts unitDecls
+    let sdecls = genSHsDecls $ genHsDecls mu config unitDecls
 
     -- extensions checks.
     -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)
@@ -310,29 +282,6 @@ genBindingsFromCHeader opts unit = do
 {-------------------------------------------------------------------------------
   Binding specifications
 -------------------------------------------------------------------------------}
-
--- | Binding specification
---
--- A binding specification serves two purposes:
---
--- * A /prescriptive binding specification/ is used to configure how bindings
---   are generated.
--- * An /external binding specification/ is used to specify existing bindings
---   that should be used, /external/ from the module being generated.
---
--- Note that a /generated binding specification/ may be used for either/both of
--- these two purposes.
-data BindingSpec = BindingSpec {
-      bindingSpecUnresolved :: BindingSpec.UnresolvedBindingSpec
-    , bindingSpecResolved   :: BindingSpec.ResolvedBindingSpec
-    }
-
--- | Empty binding specification
-emptyBindingSpec :: BindingSpec
-emptyBindingSpec = BindingSpec {
-      bindingSpecUnresolved = BindingSpec.empty
-    , bindingSpecResolved   = BindingSpec.empty
-    }
 
 -- | Configure if the @stdlib@ binding specification should be used
 data StdlibBindingSpecConf =
@@ -402,28 +351,28 @@ encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
 
 -- | Generate binding specification
 genBindingSpec ::
-     PPOpts
+     Config
   -> [CHeaderIncludePath]
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genBindingSpec PPOpts{..} headerIncludePaths path =
+genBindingSpec Config{..} headerIncludePaths path =
       BindingSpec.writeFile path
     . BindingSpec.genBindingSpec headerIncludePaths moduleName
   where
     moduleName :: HsModuleName
-    moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
+    moduleName = HsModuleName $ Text.pack (hsModuleOptsName configHsModuleOpts)
 
 {-------------------------------------------------------------------------------
   Test generation
 -------------------------------------------------------------------------------}
 
 -- | Generate tests
-genTests :: PPOpts -> [CHeaderIncludePath] -> FilePath -> [Hs.Decl] -> IO ()
-genTests PPOpts{..} headerIncludePaths testDir decls =
+genTests :: Config -> [CHeaderIncludePath] -> FilePath -> [Hs.Decl] -> IO ()
+genTests Config{..} headerIncludePaths testDir decls =
     GenTests.genTests
       headerIncludePaths
       decls
-      (hsModuleOptsName ppOptsModule)
-      (hsLineLength ppOptsRender)
+      (hsModuleOptsName configHsModuleOpts)
+      (hsLineLength configHsRenderOpts)
       testDir

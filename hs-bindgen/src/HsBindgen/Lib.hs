@@ -24,7 +24,7 @@ module HsBindgen.Lib (
 
     -- * Options
   , ModuleUnique(..)
-  , Common.Opts(..)
+  , Common.Config(..)
 
     -- ** Clang arguments
   , Common.ClangArgs(..)
@@ -57,7 +57,6 @@ module HsBindgen.Lib (
   , Common.ProgramSlicing(..)
 
     -- ** Preprocessor
-  , Pipeline.PPOpts(..)
   , Backend.PP.HsModuleOpts(..)
   , Backend.PP.HsRenderOpts(..)
 
@@ -87,7 +86,7 @@ module HsBindgen.Lib (
   , Common.AnsiColor(..)
   , Common.ShowTimeStamp(..)
   , Common.ShowCallStack(..)
-  , Common.TracerConf(..)
+  , Common.TracerConfig(..)
   , Common.CustomLogLevel(..)
     -- ** Tracers
   , Common.withTracerStdOut
@@ -109,6 +108,7 @@ import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Tracer qualified as Tracer
 
+import HsBindgen.BindingSpec
 import HsBindgen.ModuleUnique
 import HsBindgen.Util.Tracer
 
@@ -126,39 +126,51 @@ newtype HsDecls = WrapHsDecls {
 
 -- | Translate C headers to Haskell declarations
 translateCHeaders ::
-     ModuleUnique -> Pipeline.Opts -> [Paths.CHeaderIncludePath] -> IO HsDecls
-translateCHeaders mu opts =
-    fmap WrapHsDecls . Pipeline.translateCHeaders mu opts
+     ModuleUnique
+     -> Tracer IO Common.TraceMsg
+     -> Common.Config
+     -> ExternalBindingSpec
+     -> PrescriptiveBindingSpec
+     -> [Paths.CHeaderIncludePath]
+     -> IO HsDecls
+translateCHeaders mu tracer config extSpec pSpec =
+    fmap WrapHsDecls .
+      Pipeline.translateCHeaders
+        mu
+        tracer
+        config
+        extSpec
+        pSpec
 
 {-------------------------------------------------------------------------------
   Preprocessor
 -------------------------------------------------------------------------------}
 
 -- | Generate bindings for the given C header
-preprocessPure :: Pipeline.PPOpts -> HsDecls -> String
-preprocessPure ppOpts = Pipeline.preprocessPure ppOpts . unwrapHsDecls
+preprocessPure :: Common.Config -> HsDecls -> String
+preprocessPure config = Pipeline.preprocessPure config . unwrapHsDecls
 
 -- | Generate bindings for the given C header
 preprocessIO ::
-     Pipeline.PPOpts
+     Common.Config
   -> Maybe FilePath -- ^ Output file or 'Nothing' for @STDOUT@
   -> HsDecls
   -> IO ()
-preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
+preprocessIO config fp = Pipeline.preprocessIO config fp . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   Binding specification generation
 -------------------------------------------------------------------------------}
 
 genBindingSpec ::
-     Pipeline.PPOpts
+     Common.Config
   -> [Paths.CHeaderIncludePath]
   -> FilePath
   -> HsDecls
   -> IO ()
-genBindingSpec ppOpts headerIncludePaths path =
+genBindingSpec config headerIncludePaths path =
       Pipeline.genBindingSpec
-        ppOpts
+        config
         headerIncludePaths
         path
     . unwrapHsDecls
@@ -168,13 +180,13 @@ genBindingSpec ppOpts headerIncludePaths path =
 -------------------------------------------------------------------------------}
 
 genTests ::
-     Pipeline.PPOpts
+     Common.Config
   -> [Paths.CHeaderIncludePath]
   -> FilePath -- ^ Test suite directory path
   -> HsDecls
   -> IO ()
-genTests ppOpts headerIncludePaths testDir =
-    Pipeline.genTests ppOpts headerIncludePaths testDir . unwrapHsDecls
+genTests config headerIncludePaths testDir =
+    Pipeline.genTests config headerIncludePaths testDir . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   Paths

@@ -22,7 +22,7 @@ module HsBindgen.Util.Tracer (
   , AnsiColor (..)
   , ShowTimeStamp (..)
   , ShowCallStack (..)
-  , TracerConf (..)
+  , TracerConfig (..)
   , CustomLogLevel (..)
     -- * Tracers
   , withTracerStdOut
@@ -171,15 +171,15 @@ data ShowCallStack = EnableCallStack | DisableCallStack
   deriving stock (Show, Eq)
 
 -- | Configuration of tracer.
-data TracerConf = TracerConf {
+data TracerConfig = TracerConfig {
     tVerbosity     :: !Verbosity
   , tShowTimeStamp :: !ShowTimeStamp
   , tShowCallStack :: !ShowCallStack
   }
   deriving stock (Show, Eq)
 
-instance Default TracerConf where
-  def = TracerConf
+instance Default TracerConfig where
+  def = TracerConfig
     { tVerbosity      = (Verbosity Info)
     , tShowTimeStamp  = DisableTimeStamp
     , tShowCallStack  = DisableCallStack
@@ -204,14 +204,13 @@ withTracerStdOut ::
      , HasDefaultLogLevel a
      , HasSource a
      )
-  => TracerConf
-  -> CustomLogLevel a
+  => TracerConfig
   -> (Tracer m a -> m b)
   -> m (Maybe b)
-withTracerStdOut tracerConf customLogLevel action = do
+withTracerStdOut tracerConf action = do
   ansiColor <- getAnsiColor stdout
   withNothingOnError $ \ref ->
-    action $ mkTracer ansiColor tracerConf customLogLevel ref (liftIO . putStrLn)
+    action $ mkTracer ansiColor tracerConf DefaultLogLevel ref (liftIO . putStrLn)
 
 -- | Run an action with a tracer using a custom report function.
 --
@@ -219,7 +218,7 @@ withTracerStdOut tracerConf customLogLevel action = do
 withTracerCustom
   :: forall m a b. (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, HasSource a)
   => AnsiColor
-  -> TracerConf
+  -> TracerConfig
   -> CustomLogLevel a
   -> (String -> m ())
   -> (Tracer m a -> m b)
@@ -241,7 +240,7 @@ fatalError = liftIO $ do
 -- tests.
 withTracerCustom' :: (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a,  HasSource a)
   => AnsiColor
-  -> TracerConf
+  -> TracerConfig
   -> CustomLogLevel a
   -> (String -> m ())
   -> (Tracer m a -> m b)
@@ -267,12 +266,12 @@ mkTracer :: forall m a.
      , HasSource a
      )
   => AnsiColor
-  -> TracerConf
+  -> TracerConfig
   -> CustomLogLevel a
   -> IORef Level
   -> (String -> m ())
   -> Tracer m a
-mkTracer ansiColor (TracerConf {..}) customLogLevel maxLogLevelRef report =
+mkTracer ansiColor (TracerConfig {..}) customLogLevel maxLogLevelRef report =
   squelchUnless isLogLevelHighEnough $ simpleWithCallStack $ traceAction
   where
     isLogLevelHighEnough :: a -> Bool

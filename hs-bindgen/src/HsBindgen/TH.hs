@@ -12,7 +12,7 @@ module HsBindgen.TH (
   , Pipeline.hashIncludeWith
 
     -- * Options
-  , Common.Opts(..)
+  , Common.Config(..)
   , Pipeline.QuoteIncludePathDir(..)
   , Pipeline.HashIncludeOpts(..)
 
@@ -67,7 +67,7 @@ module HsBindgen.TH (
   , Common.AnsiColor(..)
   , Common.ShowTimeStamp(..)
   , Common.ShowCallStack(..)
-  , Common.TracerConf(..)
+  , Common.TracerConfig(..)
   , Common.CustomLogLevel(..)
     -- ** Tracers
   , Common.withTracerStdOut
