@@ -13,6 +13,8 @@ module HsBindgen.Lib (
   , preprocessIO
 
     -- * Binding specification generation
+  , BindingSpecPath -- opaque
+  , parseBindingSpecPath
   , genBindingSpec
 
     -- * Test generation
@@ -103,6 +105,7 @@ import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
@@ -149,15 +152,35 @@ preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
   Binding specification generation
 -------------------------------------------------------------------------------}
 
-genBindingSpec ::
+newtype BindingSpecPath = WrapBindingSpecPath {
+      unwrapBindingSpecPath :: BindingSpec.Path
+    }
+
+parseBindingSpecPath ::
      Tracer IO Common.TraceMsg
-  -> Pipeline.PPOpts
-  -> [Paths.CHeaderIncludePath]
   -> FilePath
+  -> IO (Maybe BindingSpecPath)
+parseBindingSpecPath tracer path =
+    fmap WrapBindingSpecPath <$> BindingSpec.parsePath tracer' path
+  where
+    tracer' :: Tracer IO BindingSpec.BindingSpecParsePathMsg
+    tracer' =
+      contramap
+        (Common.TraceBindingSpec . BindingSpec.BindingSpecParsePathMsg)
+        tracer
+
+genBindingSpec ::
+     Pipeline.PPOpts
+  -> [Paths.CHeaderIncludePath]
+  -> BindingSpecPath
   -> HsDecls
   -> IO ()
-genBindingSpec tracer ppOpts headerIncludePaths fp =
-    Pipeline.genBindingSpec tracer ppOpts headerIncludePaths fp . unwrapHsDecls
+genBindingSpec ppOpts headerIncludePaths bindingSpecPath =
+      Pipeline.genBindingSpec
+        ppOpts
+        headerIncludePaths
+        (unwrapBindingSpecPath bindingSpecPath)
+    . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   Test generation

@@ -8,6 +8,7 @@ module HsBindgen.BindingSpec (
     BindingSpec(..)
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
+  , Path(..)
   , Omittable(..)
   , TypeSpec(..)
   , defaultTypeSpec
@@ -16,24 +17,21 @@ module HsBindgen.BindingSpec (
   , StrategySpec(..)
   , ConstraintSpec(..)
     -- ** Trace messages
-  , ReadBindingSpecMsg(..)
-  , ResolveBindingSpecMsg(..)
-  , MergeBindingSpecMsg(..)
-  , WriteBindingSpecMsg(..)
+  , BindingSpecParsePathMsg(..)
+  , BindingSpecReadMsg(..)
+  , BindingSpecResolveMsg(..)
+  , BindingSpecMergeMsg(..)
   , BindingSpecMsg(..)
     -- * API
   , empty
+  , parsePath
   , load
   , lookupTypeSpec
     -- ** YAML/JSON
   , readFile
-  , readFileJson
-  , readFileYaml
   , encodeJson
   , encodeYaml
   , writeFile
-  , writeFileJson
-  , writeFileYaml
     -- ** Merging
   , merge
     -- ** Header resolution
@@ -112,6 +110,14 @@ type UnresolvedBindingSpec = BindingSpec CHeaderIncludePath
 --
 -- The resolved header is the filesystem path in the current environment.
 type ResolvedBindingSpec = BindingSpec (CHeaderIncludePath, SourcePath)
+
+--------------------------------------------------------------------------------
+
+-- | Binding specification file path
+data Path =
+    PathJson FilePath
+  | PathYaml FilePath
+  deriving stock (Eq, Generic, Show)
 
 --------------------------------------------------------------------------------
 
@@ -218,158 +224,153 @@ data ConstraintSpec = ConstraintSpec {
   Types: Trace messages
 -------------------------------------------------------------------------------}
 
--- | Load binding specification file trace messages
-data ReadBindingSpecMsg =
+data BindingSpecParsePathMsg =
     -- | Unknown file extension
-    ReadBindingSpecUnknownExtension FilePath
-  | -- | Aeson parsing error
-    ReadBindingSpecAesonError FilePath String
-  | -- | YAML parsing error
-    ReadBindingSpecYamlError FilePath String
-  | -- | YAML parsing warning (which should be treated as an error)
-    ReadBindingSpecYamlWarning FilePath String
-  | -- | Invalid C name
-    ReadBindingSpecInvalidCName FilePath Text
-  | -- | Multiple entries for the same C type
-    ReadBindingSpecConflict FilePath C.QualName CHeaderIncludePath
+    BindingSpecParsePathUnknownExtension FilePath
   deriving stock (Eq, Show)
 
-instance HasDefaultLogLevel ReadBindingSpecMsg where
+instance HasDefaultLogLevel BindingSpecParsePathMsg where
   getDefaultLogLevel = const Error
 
-instance HasSource ReadBindingSpecMsg where
+instance HasSource BindingSpecParsePathMsg where
   getSource = const HsBindgen
 
-instance PrettyForTrace ReadBindingSpecMsg where
+instance PrettyForTrace BindingSpecParsePathMsg where
   prettyForTrace = \case
-    ReadBindingSpecUnknownExtension path ->
+    BindingSpecParsePathUnknownExtension path ->
       "unknown binding specification extension: " >< string path
-    ReadBindingSpecAesonError path msg ->
+
+--------------------------------------------------------------------------------
+
+-- | Load binding specification file trace messages
+data BindingSpecReadMsg =
+    -- | Aeson parsing error
+    BindingSpecReadAesonError FilePath String
+  | -- | YAML parsing error
+    BindingSpecReadYamlError FilePath String
+  | -- | YAML parsing warning (which should be treated as an error)
+    BindingSpecReadYamlWarning FilePath String
+  | -- | Invalid C name
+    BindingSpecReadInvalidCName FilePath Text
+  | -- | Multiple entries for the same C type
+    BindingSpecReadConflict FilePath C.QualName CHeaderIncludePath
+  deriving stock (Eq, Show)
+
+instance HasDefaultLogLevel BindingSpecReadMsg where
+  getDefaultLogLevel = const Error
+
+instance HasSource BindingSpecReadMsg where
+  getSource = const HsBindgen
+
+instance PrettyForTrace BindingSpecReadMsg where
+  prettyForTrace = \case
+    BindingSpecReadAesonError path msg ->
       "error parsing JSON: " >< string path >< ": " >< string msg
-    ReadBindingSpecYamlError path msg ->
+    BindingSpecReadYamlError path msg ->
       -- 'unlines' is used because the pretty-printed error includes newlines
       vcat ["error parsing YAML: " >< string path, string msg]
-    ReadBindingSpecYamlWarning path msg ->
+    BindingSpecReadYamlWarning path msg ->
       "error parsing YAML: " >< string path >< ": " >< string msg
-    ReadBindingSpecInvalidCName path t ->
+    BindingSpecReadInvalidCName path t ->
       "invalid C name in " >< string path >< ": " >< textToCtxDoc t
-    ReadBindingSpecConflict path cQualName header ->
+    BindingSpecReadConflict path cQualName header ->
       "multiple entries in " >< string path >< " for C type: "
         >< textToCtxDoc (C.qualNameText cQualName)
         >< " (" >< string (getCHeaderIncludePath header) >< ")"
 
 --------------------------------------------------------------------------------
 
-data ResolveBindingSpecMsg =
-    ResolveExternalBindingSpecHeader ResolveHeaderMsg
-  | ResolvePrescriptiveBindingSpecHeader ResolveHeaderMsg
-  | ResolveBindingSpecTypeDropped C.QualName
+data BindingSpecResolveMsg =
+    BindingSpecResolveExternalHeader ResolveHeaderMsg
+  | BindingSpecResolvePrescriptiveHeader ResolveHeaderMsg
+  | BindingSpecResolveTypeDropped C.QualName
   deriving stock (Show, Eq)
 
-instance HasDefaultLogLevel ResolveBindingSpecMsg where
+instance HasDefaultLogLevel BindingSpecResolveMsg where
   getDefaultLogLevel = \case
-    ResolveExternalBindingSpecHeader _x ->
+    BindingSpecResolveExternalHeader _x ->
       -- Any errors that happen while resolving /external/ headers are 'Info'
       -- only: the only consequence is that those headers will then not match
       -- against anything (and we might generate separate warnings/errors for
       -- that anyway while resolving the binding specification).
       Info
-    ResolvePrescriptiveBindingSpecHeader x ->
+    BindingSpecResolvePrescriptiveHeader x ->
       -- However, any errors that happen during /prescriptive/ binding specs
       -- truly are errors.
       getDefaultLogLevel x
-    ResolveBindingSpecTypeDropped{} -> Info
+    BindingSpecResolveTypeDropped{} -> Info
 
-instance HasSource ResolveBindingSpecMsg where
+instance HasSource BindingSpecResolveMsg where
   getSource = \case
-    ResolveExternalBindingSpecHeader     x -> getSource x
-    ResolvePrescriptiveBindingSpecHeader x -> getSource x
-    ResolveBindingSpecTypeDropped{}        -> HsBindgen
+    BindingSpecResolveExternalHeader     x -> getSource x
+    BindingSpecResolvePrescriptiveHeader x -> getSource x
+    BindingSpecResolveTypeDropped{}        -> HsBindgen
 
-instance PrettyForTrace ResolveBindingSpecMsg where
+instance PrettyForTrace BindingSpecResolveMsg where
   prettyForTrace = \case
-    ResolveExternalBindingSpecHeader x ->
+    BindingSpecResolveExternalHeader x ->
       hang
         "during resolution of external binding specification:"
         2
         (prettyForTrace x)
-    ResolvePrescriptiveBindingSpecHeader x ->
+    BindingSpecResolvePrescriptiveHeader x ->
       hang
         "during resolution of prescriptive binding specification:"
         2
         (prettyForTrace x)
-    ResolveBindingSpecTypeDropped cQualName ->
+    BindingSpecResolveTypeDropped cQualName ->
       "type dropped: " >< textToCtxDoc (C.qualNameText cQualName)
 
 --------------------------------------------------------------------------------
 
 -- | Merge binding specifications trace messages
-data MergeBindingSpecMsg =
+data BindingSpecMergeMsg =
     -- | Multiple binding specifications for the same C type
-    MergeBindingSpecConflict C.QualName
+    BindingSpecMergeConflict C.QualName
   deriving stock (Eq, Show)
 
-instance HasDefaultLogLevel MergeBindingSpecMsg where
+instance HasDefaultLogLevel BindingSpecMergeMsg where
   getDefaultLogLevel = const Error
 
-instance HasSource MergeBindingSpecMsg where
+instance HasSource BindingSpecMergeMsg where
   getSource = const HsBindgen
 
-instance PrettyForTrace MergeBindingSpecMsg where
+instance PrettyForTrace BindingSpecMergeMsg where
   prettyForTrace = \case
-    MergeBindingSpecConflict cQualName ->
+    BindingSpecMergeConflict cQualName ->
       "conflicting binding specifications for C type: "
         >< textToCtxDoc (C.qualNameText cQualName)
 
 --------------------------------------------------------------------------------
 
--- | Write binding specification file trace messages
-newtype WriteBindingSpecMsg =
-    -- | Unknown file extension
-    WriteBindingSpecUnknownExtension FilePath
-  deriving stock (Eq, Show)
-
-instance HasDefaultLogLevel WriteBindingSpecMsg where
-  getDefaultLogLevel = const Error
-
-instance HasSource WriteBindingSpecMsg where
-  getSource = const HsBindgen
-
-instance PrettyForTrace WriteBindingSpecMsg where
-  prettyForTrace = \case
-    WriteBindingSpecUnknownExtension path ->
-      "unknown binding specification extension: " >< string path
-
---------------------------------------------------------------------------------
-
 -- | All binding specification trace messages
 data BindingSpecMsg =
-    ReadBindingSpecMsg    ReadBindingSpecMsg
-  | ResolveBindingSpecMsg ResolveBindingSpecMsg
-  | MergeBindingSpecMsg   MergeBindingSpecMsg
-  | WriteBindingSpecMsg   WriteBindingSpecMsg
+    BindingSpecParsePathMsg BindingSpecParsePathMsg
+  | BindingSpecReadMsg      BindingSpecReadMsg
+  | BindingSpecResolveMsg   BindingSpecResolveMsg
+  | BindingSpecMergeMsg     BindingSpecMergeMsg
   deriving stock (Eq, Show)
 
 instance HasDefaultLogLevel BindingSpecMsg where
   getDefaultLogLevel = \case
-    ReadBindingSpecMsg    x -> getDefaultLogLevel x
-    ResolveBindingSpecMsg x -> getDefaultLogLevel x
-    MergeBindingSpecMsg   x -> getDefaultLogLevel x
-    WriteBindingSpecMsg   x -> getDefaultLogLevel x
+    BindingSpecParsePathMsg x -> getDefaultLogLevel x
+    BindingSpecReadMsg      x -> getDefaultLogLevel x
+    BindingSpecResolveMsg   x -> getDefaultLogLevel x
+    BindingSpecMergeMsg     x -> getDefaultLogLevel x
 
 instance HasSource BindingSpecMsg where
   getSource = \case
-    ReadBindingSpecMsg    x -> getSource x
-    ResolveBindingSpecMsg x -> getSource x
-    MergeBindingSpecMsg   x -> getSource x
-    WriteBindingSpecMsg   x -> getSource x
+    BindingSpecParsePathMsg x -> getSource x
+    BindingSpecReadMsg      x -> getSource x
+    BindingSpecResolveMsg   x -> getSource x
+    BindingSpecMergeMsg     x -> getSource x
 
 instance PrettyForTrace BindingSpecMsg where
   prettyForTrace = \case
-    ReadBindingSpecMsg    x -> prettyForTrace x
-    ResolveBindingSpecMsg x -> prettyForTrace x
-    MergeBindingSpecMsg   x -> prettyForTrace x
-    WriteBindingSpecMsg   x -> prettyForTrace x
+    BindingSpecParsePathMsg x -> prettyForTrace x
+    BindingSpecReadMsg      x -> prettyForTrace x
+    BindingSpecResolveMsg   x -> prettyForTrace x
+    BindingSpecMergeMsg     x -> prettyForTrace x
 
 {-------------------------------------------------------------------------------
   API
@@ -381,28 +382,41 @@ empty = BindingSpec {
       bindingSpecTypes = Map.empty
     }
 
+-- | Parse a binding specification path
+parsePath :: Tracer IO BindingSpecParsePathMsg -> FilePath -> IO (Maybe Path)
+parsePath tracer path
+    | ".yaml" `List.isSuffixOf` path = return $ Just (PathYaml path)
+    | ".json" `List.isSuffixOf` path = return $ Just (PathJson path)
+    | otherwise                      = do
+        traceWith tracer $ BindingSpecParsePathUnknownExtension path
+        return Nothing
+
 -- | Load, merge, and resolve binding specifications
 --
 -- The format is determined by filename extension.
 load ::
      Tracer IO BindingSpecMsg
-  -> (ResolveHeaderMsg -> ResolveBindingSpecMsg)
+  -> (ResolveHeaderMsg -> BindingSpecResolveMsg)
      -- ^ Are we dealing with external or prescriptive bindings?
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> [FilePath]
   -> IO (UnresolvedBindingSpec, ResolvedBindingSpec)
 load tracer injResolveHeader args stdSpec paths = do
-    uspecs <- mapM (readFile tracerRead) paths
+    bindingSpecPaths <- mapMaybeM (parsePath tracerPath) paths
+    uspecs <- mapM (readFile tracerRead) bindingSpecPaths
     let (mergeMsgs, uspec) = merge (stdSpec : uspecs)
-    mapM_ (traceWith tracer . MergeBindingSpecMsg) mergeMsgs
+    mapM_ (traceWith tracer . BindingSpecMergeMsg) mergeMsgs
     (uspec,) <$> resolve tracerResolve injResolveHeader args uspec
   where
-    tracerRead :: Tracer IO ReadBindingSpecMsg
-    tracerRead = contramap ReadBindingSpecMsg tracer
+    tracerPath :: Tracer IO BindingSpecParsePathMsg
+    tracerPath = contramap BindingSpecParsePathMsg tracer
 
-    tracerResolve :: Tracer IO ResolveBindingSpecMsg
-    tracerResolve = contramap ResolveBindingSpecMsg tracer
+    tracerRead :: Tracer IO BindingSpecReadMsg
+    tracerRead = contramap BindingSpecReadMsg tracer
+
+    tracerResolve :: Tracer IO BindingSpecResolveMsg
+    tracerResolve = contramap BindingSpecResolveMsg tracer
 
 -- | Lookup the @'Omittable' 'TypeSpec'@ associated with a C type
 lookupTypeSpec ::
@@ -423,51 +437,35 @@ lookupTypeSpec cQualName headers =
 -------------------------------------------------------------------------------}
 
 -- | Read a binding specification from a file
---
--- The format is determined by the filename extension.
-readFile ::
-     Tracer IO ReadBindingSpecMsg
-  -> FilePath
-  -> IO UnresolvedBindingSpec
-readFile tracer path
-    | ".yaml" `List.isSuffixOf` path = readFileYaml tracer path
-    | ".json" `List.isSuffixOf` path = readFileJson tracer path
-    | otherwise = do
-        traceWith tracer $ ReadBindingSpecUnknownExtension path
+readFile :: Tracer IO BindingSpecReadMsg -> Path -> IO UnresolvedBindingSpec
+readFile tracer = \case
+    PathYaml path -> readFileYaml path
+    PathJson path -> readFileJson path
+  where
+    readFileJson :: FilePath -> IO UnresolvedBindingSpec
+    readFileJson path = Aeson.eitherDecodeFileStrict' path >>= \case
+      Right aspec -> do
+        let (errs, spec) = fromABindingSpec path aspec
+        mapM_ (traceWith tracer) errs
+        return spec
+      Left err -> do
+        traceWith tracer $ BindingSpecReadAesonError path err
         return empty
 
--- | Read a binding specification from a JSON file
-readFileJson ::
-     Tracer IO ReadBindingSpecMsg
-  -> FilePath
-  -> IO UnresolvedBindingSpec
-readFileJson tracer path = Aeson.eitherDecodeFileStrict' path >>= \case
-    Right aspec -> do
-      let (errs, spec) = fromABindingSpec path aspec
-      mapM_ (traceWith tracer) errs
-      return spec
-    Left err -> do
-      traceWith tracer $ ReadBindingSpecAesonError path err
-      return empty
-
--- | Read a binding specification from a YAML file
-readFileYaml ::
-     Tracer IO ReadBindingSpecMsg
-  -> FilePath
-  -> IO UnresolvedBindingSpec
-readFileYaml tracer path = Yaml.decodeFileWithWarnings path >>= \case
-    Right (warnings, aspec) -> do
-      forM_ warnings $ \case
-        Data.Yaml.Internal.DuplicateKey jsonPath -> do
-          let msg = "duplicate key: " ++ Aeson.formatPath jsonPath
-          traceWith tracer $ ReadBindingSpecYamlWarning path msg
-      let (errs, spec) = fromABindingSpec path aspec
-      mapM_ (traceWith tracer) errs
-      return spec
-    Left err -> do
-      let msg = Yaml.prettyPrintParseException err
-      traceWith tracer $ ReadBindingSpecYamlError path msg
-      return empty
+    readFileYaml :: FilePath -> IO UnresolvedBindingSpec
+    readFileYaml path = Yaml.decodeFileWithWarnings path >>= \case
+      Right (warnings, aspec) -> do
+        forM_ warnings $ \case
+          Data.Yaml.Internal.DuplicateKey jsonPath -> do
+            let msg = "duplicate key: " ++ Aeson.formatPath jsonPath
+            traceWith tracer $ BindingSpecReadYamlWarning path msg
+        let (errs, spec) = fromABindingSpec path aspec
+        mapM_ (traceWith tracer) errs
+        return spec
+      Left err -> do
+        let msg = Yaml.prettyPrintParseException err
+        traceWith tracer $ BindingSpecReadYamlError path msg
+        return empty
 
 -- | Encode a binding specification as JSON
 encodeJson :: UnresolvedBindingSpec -> BSL.ByteString
@@ -478,25 +476,10 @@ encodeYaml :: UnresolvedBindingSpec -> BSS.ByteString
 encodeYaml = encodeYaml' . toABindingSpec
 
 -- | Write a binding specification to a file
---
--- The format is determined by the filename extension.
-writeFile ::
-     Tracer IO WriteBindingSpecMsg
-  -> FilePath
-  -> UnresolvedBindingSpec
-  -> IO ()
-writeFile tracer path spec
-    | ".yaml" `List.isSuffixOf` path = writeFileYaml path spec
-    | ".json" `List.isSuffixOf` path = writeFileJson path spec
-    | otherwise = traceWith tracer $ WriteBindingSpecUnknownExtension path
-
--- | Write a binding specification to a JSON file
-writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileJson path = BSL.writeFile path . encodeJson' . toABindingSpec
-
--- | Write a binding specification to a YAML file
-writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileYaml path = BSS.writeFile path . encodeYaml' . toABindingSpec
+writeFile :: Path -> UnresolvedBindingSpec -> IO ()
+writeFile = \case
+    PathYaml path -> BSS.writeFile path . encodeYaml
+    PathJson path -> BSL.writeFile path . encodeJson
 
 {-------------------------------------------------------------------------------
   API: Merging
@@ -505,7 +488,7 @@ writeFileYaml path = BSS.writeFile path . encodeYaml' . toABindingSpec
 -- | Merge binding specifications
 merge ::
      [UnresolvedBindingSpec]
-  -> ([MergeBindingSpecMsg], UnresolvedBindingSpec)
+  -> ([BindingSpecMergeMsg], UnresolvedBindingSpec)
 merge = \case
     [] -> ([], empty)
     spec:specs ->
@@ -518,8 +501,8 @@ merge = \case
             }
       in  (typeErrs, spec')
   where
-    mkTypeErrs :: Set C.QualName -> [MergeBindingSpecMsg]
-    mkTypeErrs = fmap MergeBindingSpecConflict . Set.toList
+    mkTypeErrs :: Set C.QualName -> [BindingSpecMergeMsg]
+    mkTypeErrs = fmap BindingSpecMergeConflict . Set.toList
 
     mergeTypes ::
          (Set C.QualName, Map C.QualName [(Set CHeaderIncludePath, a)])
@@ -539,8 +522,8 @@ merge = \case
 
 -- | Resolve headers in a binding specification
 resolve ::
-     Tracer IO ResolveBindingSpecMsg
-  -> (ResolveHeaderMsg -> ResolveBindingSpecMsg)
+     Tracer IO BindingSpecResolveMsg
+  -> (ResolveHeaderMsg -> BindingSpecResolveMsg)
   -> ClangArgs
   -> UnresolvedBindingSpec
   -> IO ResolvedBindingSpec
@@ -566,7 +549,7 @@ resolve tracer injResolveHeader args uSpec = do
         resolveType cQualName (uHeaders, x) = case resolveSet uHeaders of
           Just rHeaders -> return $ Just (rHeaders, x)
           Nothing       -> do
-            traceWith tracer $ ResolveBindingSpecTypeDropped cQualName
+            traceWith tracer $ BindingSpecResolveTypeDropped cQualName
             return Nothing
 
         resolveTypes ::
@@ -726,14 +709,14 @@ instance Aeson.ToJSON AConstraintSpec where
 fromABindingSpec ::
      FilePath
   -> ABindingSpec
-  -> ([ReadBindingSpecMsg], UnresolvedBindingSpec)
+  -> ([BindingSpecReadMsg], UnresolvedBindingSpec)
 fromABindingSpec path ABindingSpec{..} =
     let (typeErrs, bindingSpecTypes) = mkTypeMap aBindingSpecTypes
     in  (typeErrs, BindingSpec{..})
   where
     mkTypeMap ::
          [AOmittable ATypeSpecMapping]
-      -> ( [ReadBindingSpecMsg]
+      -> ( [BindingSpecReadMsg]
          , Map C.QualName [(Set CHeaderIncludePath, Omittable TypeSpec)]
          )
     mkTypeMap =
@@ -741,11 +724,11 @@ fromABindingSpec path ABindingSpec{..} =
 
     mkTypeMapErrs ::
          (Set Text, Map C.QualName (Set CHeaderIncludePath), a)
-      -> ([ReadBindingSpecMsg], a)
+      -> ([BindingSpecReadMsg], a)
     mkTypeMapErrs (invalids, conflicts, x) =
-      let invalidErrs = ReadBindingSpecInvalidCName path <$> Set.toList invalids
+      let invalidErrs = BindingSpecReadInvalidCName path <$> Set.toList invalids
           conflictErrs = [
-              ReadBindingSpecConflict path cQualName header
+              BindingSpecReadConflict path cQualName header
             | (cQualName, headers) <- Map.toList conflicts
             , header <- Set.toList headers
             ]
