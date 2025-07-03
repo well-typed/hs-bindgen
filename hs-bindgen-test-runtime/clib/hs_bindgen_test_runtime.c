@@ -218,7 +218,7 @@ unsigned long long hsbg_preturb_CULLong(long long size, unsigned long long n) {
 }
 
 bool hsbg_preturb_CBool(long long size, bool b) {
-  return (labs(size) % 2 == 1) != b;
+  return (llabs(size) % 2 == 1) != b;
 }
 
 intptr_t hsbg_preturb_CIntPtr(long long size, intptr_t n) { return n + size; }
@@ -239,13 +239,13 @@ time_t hsbg_preturb_CTime(long long size, time_t t) { return t + size; }
 
 float hsbg_preturb_CFloat(long long size, float x) {
   if (isnan(x)) {
-    return (labs(size) % 2 == 0) ? NAN : -0.0;
+    return (llabs(size) % 2 == 0) ? NAN : -0.0;
   }
   if (x == 0.0 && signbit(x)) {
-    return (labs(size) % 2 == 0) ? -0.0 : NAN;
+    return (llabs(size) % 2 == 0) ? -0.0 : NAN;
   }
   if (isinf(x)) {
-    return (labs(size) % 2 == 0) ? x : -x;
+    return (llabs(size) % 2 == 0) ? x : -x;
   }
 
   uint32_t const s_mask = 0x80000000;
@@ -288,13 +288,13 @@ float hsbg_preturb_CFloat(long long size, float x) {
 
 double hsbg_preturb_CDouble(long long size, double x) {
   if (isnan(x)) {
-    return (labs(size) % 2 == 0) ? NAN : -0.0;
+    return (llabs(size) % 2 == 0) ? NAN : -0.0;
   }
   if (x == 0.0 && signbit(x)) {
-    return (labs(size) % 2 == 0) ? -0.0 : NAN;
+    return (llabs(size) % 2 == 0) ? -0.0 : NAN;
   }
   if (isinf(x)) {
-    return (labs(size) % 2 == 0) ? x : -x;
+    return (llabs(size) % 2 == 0) ? x : -x;
   }
 
   uint64_t const s_mask = 0x8000000000000000;
