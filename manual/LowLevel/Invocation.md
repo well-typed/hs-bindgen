@@ -108,7 +108,7 @@ slightly depending on your distribution.
 
 #### Adding cabal.project.local
 
-You program might need some extra help figuring out where to fetch the C
+Your program might need some extra help figuring out where to fetch the C
 source files and headers. This can be done, amongst other ways, by creating a
 cabal.project.local file that points `extra-include-dirs` and `extra-lib-dirs`
 to the right folder.
@@ -142,7 +142,7 @@ Properly setting environment variables is crucial for `hs-bindgen` to find the n
   * `LD_LIBRARY_PATH`: To ensure that the C libraries you build can be found
                        at runtime, you need to add their location to this variable.
 
-      * **Example**: If your shared library `libexample.so` is in `/path/to/your/c/libs`, you would run:
+      * Example: If your shared library `libexample.so` is in `/path/to/your/c/libs`, you would run:
         ```bash
         export LD_LIBRARY_PATH=/path/to/your/c/libs:$LD_LIBRARY_PATH
         ```
@@ -150,7 +150,7 @@ Properly setting environment variables is crucial for `hs-bindgen` to find the n
   * `BINDGEN_EXTRA_CLANG_ARGS`: This variable allows you to pass extra arguments to `libclang`.
                                 This is particularly useful for specifying include directories.
 
-      * **To find your system's default include paths**, you can run:
+      * To find your system's default include paths, you can run:
         ```bash
         clang -v -E -xc /dev/null
         ```
@@ -210,7 +210,7 @@ sure to avoid using it on C function definitions.
   * `DYLD_LIBRARY_PATH`: This is the macOS equivalent of `LD_LIBRARY_PATH`. It
                          tells the dynamic linker where to find dynamic libraries (`.dylib` files).
 
-      * **Example**:
+      * Example:
         ```bash
         export DYLD_LIBRARY_PATH=/path/to/your/c/libs:$DYLD_LIBRARY_PATH
         ```
@@ -237,7 +237,7 @@ definitions.
 
 On Windows, the primary way the system finds DLLs at runtime is by searching
 the directories listed in the `PATH` environment variable. This is a crucial
-difference from Linux and macOS.
+difference from Linux and MacOS.
 
   * To ensure your application can find its required DLLs, add their directory to the `PATH`:
     ```powershell
