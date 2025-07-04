@@ -16,8 +16,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph,
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls, insert)
-import HsBindgen.Frontend.Pass.Parse.IsPass (DeclId (..), QualDeclId (..),
-                                             declQualDeclId)
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass (Slice)
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta (declNonSelected, declUsage),
                                             Sort)

@@ -23,6 +23,7 @@ import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C

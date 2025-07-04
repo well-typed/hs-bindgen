@@ -19,8 +19,9 @@ module HsBindgen.App.Common (
 
 import Control.Exception (Exception (displayException))
 import Control.Monad.IO.Class (MonadIO)
-import Data.Bifunctor (Bifunctor (bimap), first)
+import Data.Bifunctor (Bifunctor (bimap), first, second)
 import Data.Char qualified as Char
+import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -100,27 +101,43 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
 
 parsePredicate :: Parser Predicate
 parsePredicate = fmap aux . many . asum $ [
-      flag' SelectAll $ mconcat [
+      flag' (Right SelectAll) $ mconcat [
           long "select-all"
         , help "Process all elements"
         ]
-    , fmap SelectByFileName $ strOption $ mconcat [
+    , fmap (Right . SelectByFileName) $ strOption $ mconcat [
           long "select-by-filename"
-        , help "Match filename against PCRE"
+        , help "Select files with names that match PCRE"
+        , metavar "PCRE"
         ]
-    , fmap SelectByElementName $ strOption $ mconcat [
+    , fmap (Left . SelectByFileName) $ strOption $ mconcat [
+          long "skip-by-filename"
+        , help "Skip files with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (Right . SelectByElementName) $ strOption $ mconcat [
           long "select-by-element-name"
-        , help "Match element name against PCRE"
+        , help "Select elements with names that match PCRE"
+        , metavar "PCRE"
         ]
-    , flag' SelectFromMainFiles $ mconcat [
+    , fmap (Left . SelectByElementName) $ strOption $ mconcat [
+          long "skip-by-element-name"
+        , help "Skip elements with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , flag' (Right SelectFromMainFiles) $ mconcat [
           long "select-from-main-files"
         , help "Only process elements from main files (default)"
         ]
     ]
   where
-    aux :: [Predicate] -> Predicate
-    aux [] = SelectFromMainFiles
-    aux ps = mconcat ps
+    defSelectFromMainFiles :: [Predicate] -> [Predicate]
+    defSelectFromMainFiles [] = [SelectFromMainFiles]
+    defSelectFromMainFiles ps = ps
+    aux :: [Either Predicate Predicate] -> Predicate
+    aux ps = uncurry mergePredicates $
+               second defSelectFromMainFiles $
+                 partitionEithers ps
 
 parseProgramSlicing :: Parser ProgramSlicing
 parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat [

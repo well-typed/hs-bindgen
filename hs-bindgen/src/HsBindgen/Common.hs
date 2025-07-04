@@ -23,10 +23,10 @@ module HsBindgen.Common (
     -- ** Selection predicates
   , Predicate.Predicate(..)
   , Predicate.Regex -- opaque
+  , Predicate.mergePredicates
 
     -- ** Program slicing
   , Slice.ProgramSlicing(..)
-
 
     -- * Paths
   , Paths.CIncludePathDir(..)

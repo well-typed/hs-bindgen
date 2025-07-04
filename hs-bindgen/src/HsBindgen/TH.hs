@@ -37,6 +37,7 @@ module HsBindgen.TH (
     -- ** Selection predicates
   , Common.Predicate(..)
   , Common.Regex -- opaque
+  , Common.mergePredicates
 
     -- ** Program slicing
   , Common.ProgramSlicing(..)

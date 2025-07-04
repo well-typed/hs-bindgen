@@ -9,6 +9,7 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
 import HsBindgen.Language.C

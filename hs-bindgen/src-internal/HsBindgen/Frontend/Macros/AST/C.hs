@@ -23,7 +23,7 @@ import GHC.Natural (Natural)
 
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
-import HsBindgen.Frontend.Pass.Parse.IsPass (DeclId(..))
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 
