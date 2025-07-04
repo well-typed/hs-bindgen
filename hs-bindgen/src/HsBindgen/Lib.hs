@@ -150,14 +150,17 @@ preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
 -------------------------------------------------------------------------------}
 
 genBindingSpec ::
-     Tracer IO Common.TraceMsg
-  -> Pipeline.PPOpts
+     Pipeline.PPOpts
   -> [Paths.CHeaderIncludePath]
   -> FilePath
   -> HsDecls
   -> IO ()
-genBindingSpec tracer ppOpts headerIncludePaths fp =
-    Pipeline.genBindingSpec tracer ppOpts headerIncludePaths fp . unwrapHsDecls
+genBindingSpec ppOpts headerIncludePaths path =
+      Pipeline.genBindingSpec
+        ppOpts
+        headerIncludePaths
+        path
+    . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   Test generation

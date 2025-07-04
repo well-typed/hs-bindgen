@@ -2,7 +2,7 @@ module Main (main) where
 
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
-import Control.Monad (forM_)
+import Control.Monad ((<=<), forM_)
 import Data.ByteString qualified as BS
 import Data.Char (isLetter)
 import System.Exit (ExitCode, exitFailure)
@@ -39,16 +39,7 @@ execCli Cli{..} = case cliCmd of
 
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
 execPreprocess globalOpts PreprocessOpts{..} = do
-    hsDecls <- doTranslate >>= fromMaybeWithFatalError
-    preprocessIO ppOpts preprocessOutput hsDecls
-    case preprocessGenBindingSpec of
-      Nothing   -> pure ()
-      Just path ->  fromMaybeWithFatalError =<<
-        withTracer globalOpts (\tracer ->
-          genBindingSpec tracer ppOpts preprocessInputs path hsDecls)
-  where
-    doTranslate :: IO (Maybe HsDecls)
-    doTranslate = withTracer globalOpts $ \tracer -> do
+    hsDecls <- fromMaybeWithFatalError <=< withTracer globalOpts $ \tracer -> do
       extSpec <- loadExtBindingSpecs' tracer globalOpts
       pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
       let mu = getModuleUnique preprocessModuleOpts
@@ -60,6 +51,12 @@ execPreprocess globalOpts PreprocessOpts{..} = do
             }
       translateCHeaders mu opts preprocessInputs
 
+    preprocessIO ppOpts preprocessOutput hsDecls
+
+    case preprocessGenBindingSpec of
+      Nothing   -> return ()
+      Just path -> genBindingSpec ppOpts preprocessInputs path hsDecls
+  where
     ppOpts :: PPOpts
     ppOpts = def {
         ppOptsModule = preprocessModuleOpts
@@ -68,22 +65,21 @@ execPreprocess globalOpts PreprocessOpts{..} = do
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
 execGenTests globalOpts GenTestsOpts{..} = do
-    hsDecls <- doTranslate >>= fromMaybeWithFatalError
+    hsDecls <-
+      fromMaybeWithFatalError <=< withTracer globalOpts $ \tracer -> do
+        extSpec <- loadExtBindingSpecs' tracer globalOpts
+        pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
+        let mu = getModuleUnique genTestsModuleOpts
+            opts = (getOpts globalOpts) {
+                optsExtBindingSpec          = extSpec
+              , optsPrescriptiveBindingSpec = pSpec
+              , optsTranslation             = genTestsTranslationOpts
+              , optsTracer                  = tracer
+              }
+        translateCHeaders mu opts genTestsInputs
+
     genTests ppOpts genTestsInputs genTestsOutput hsDecls
   where
-    doTranslate :: IO (Maybe HsDecls)
-    doTranslate = withTracer globalOpts $ \tracer -> do
-      extSpec <- loadExtBindingSpecs' tracer globalOpts
-      pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
-      let mu = getModuleUnique genTestsModuleOpts
-          opts = (getOpts globalOpts) {
-              optsExtBindingSpec          = extSpec
-            , optsPrescriptiveBindingSpec = pSpec
-            , optsTranslation             = genTestsTranslationOpts
-            , optsTracer                  = tracer
-            }
-      translateCHeaders mu opts genTestsInputs
-
     ppOpts :: PPOpts
     ppOpts = def {
         ppOptsModule = genTestsModuleOpts

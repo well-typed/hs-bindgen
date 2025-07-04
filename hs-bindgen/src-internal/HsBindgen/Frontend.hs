@@ -9,7 +9,7 @@ module HsBindgen.Frontend (
 import Control.Monad
 
 import Clang.LowLevel.Core
-import HsBindgen.BindingSpec (ResolvedBindingSpec)
+import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.C.Predicate (Predicate (SelectAll))
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
@@ -77,8 +77,8 @@ import Text.SimplePrettyPrint (showToCtxDoc)
 --   the 'Hs' phase, but we have to draw the line somewhere.
 processTranslationUnit ::
      Tracer IO FrontendMsg
-  -> ResolvedBindingSpec -- ^ External binding specification
-  -> ResolvedBindingSpec -- ^ Prescriptive binding specification
+  -> ExternalBindingSpec
+  -> PrescriptiveBindingSpec
   -> RootHeader
   -> Predicate
   -> ProgramSlicing
@@ -118,7 +118,7 @@ processTranslationUnit
         (afterNameAnon, msgsNameAnon) =
           nameAnon afterHandleMacros
         (afterResolveBindingSpec, msgsResolveBindingSpecs) =
-          resolveBindingSpec pSpec extSpec afterNameAnon
+          resolveBindingSpec extSpec pSpec afterNameAnon
         afterHandleTypedefs =
           handleTypedefs afterResolveBindingSpec
         (afterMangleNames, msgsMangleNames) =

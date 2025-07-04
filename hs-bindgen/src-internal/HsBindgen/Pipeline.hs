@@ -358,7 +358,7 @@ loadExtBindingSpecs tracer args stdlibSpec =
       fmap (uncurry BindingSpec)
     . BindingSpec.load
         (contramap TraceBindingSpec tracer)
-        BindingSpec.ResolveExternalBindingSpecHeader
+        BindingSpec.BindingSpecResolveExternalHeader
         args
         stdSpec
   where
@@ -382,7 +382,7 @@ loadPrescriptiveBindingSpec ::
 loadPrescriptiveBindingSpec tracer args path = uncurry BindingSpec <$>
     BindingSpec.load
       (contramap TraceBindingSpec tracer)
-      BindingSpec.ResolvePrescriptiveBindingSpecHeader
+      BindingSpec.BindingSpecResolvePrescriptiveHeader
       args
       BindingSpec.empty
       [path]
@@ -402,22 +402,17 @@ encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
 
 -- | Generate binding specification
 genBindingSpec ::
-     Tracer IO TraceMsg
-  -> PPOpts
+     PPOpts
   -> [CHeaderIncludePath]
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genBindingSpec tracer PPOpts{..} headerIncludePaths path =
-      BindingSpec.writeFile tracer' path
+genBindingSpec PPOpts{..} headerIncludePaths path =
+      BindingSpec.writeFile path
     . BindingSpec.genBindingSpec headerIncludePaths moduleName
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
-
-    tracer' :: Tracer IO BindingSpec.WriteBindingSpecMsg
-    tracer' =
-      contramap (TraceBindingSpec . BindingSpec.WriteBindingSpecMsg) tracer
 
 {-------------------------------------------------------------------------------
   Test generation
