@@ -3,7 +3,7 @@ module HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (
   , RenamedTypedefRef(..)
   ) where
 
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass

@@ -2,8 +2,9 @@ module Main (main) where
 
 import HsBindgen.App.Common
 import HsBindgen.App.Dev
+
+-- It is OK to import some internal libraries for our development client.
 import HsBindgen.Frontend.AST.External (TranslationUnit)
-import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
 {-------------------------------------------------------------------------------
@@ -25,9 +26,10 @@ execParse globalOpts ParseOpts{..} =
     doParse = withTracer globalOpts $ \tracer -> do
       extSpec <- loadExtBindingSpecs' tracer globalOpts
       pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
-      let opts = (getOpts globalOpts) {
-              optsExtBindingSpec          = extSpec
-            , optsPrescriptiveBindingSpec = pSpec
-            , optsTracer                  = tracer
-            }
-      Pipeline.parseCHeaders opts parseInputPaths
+      let config = getConfig globalOpts
+      Pipeline.parseCHeaders
+        tracer
+        config
+        extSpec
+        pSpec
+        parseInputPaths

@@ -14,6 +14,7 @@ import System.FilePath (makeRelative)
 import Test.Tasty (TestName, TestTree)
 
 import Clang.Paths
+import HsBindgen.BindingSpec
 import HsBindgen.Guasi
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
@@ -22,36 +23,46 @@ import Test.Internal.Misc
 goldenTh ::
      FilePath
   -> TestName
-  -> ((Opts -> IO String) -> IO String)
+  -> Config
+  -> ((   Tracer IO TraceMsg
+       -> ExternalBindingSpec
+       -> PrescriptiveBindingSpec
+       -> IO String) -> IO String)
   -> TestTree
-goldenTh packageRoot name withOpts = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \_ -> do
-    -- -<.> does weird stuff for filenames with multiple dots;
-    -- I usually simply avoid using it.
-    let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-    withOpts $ \opts -> do
-      unit <- Pipeline.parseCHeaders opts [headerIncludePath]
+goldenTh packageRoot name config withBindgenResources =
+    goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \_ -> do
+      -- -<.> does weird stuff for filenames with multiple dots;
+      -- I usually simply avoid using it.
+      let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
+      withBindgenResources $ \tracer extSpec pSpec -> do
+        unit <- Pipeline.parseCHeaders
+                  tracer
+                  config
+                  extSpec
+                  pSpec
+                  [headerIncludePath]
 
-      let decls :: Qu [TH.Dec]
-          decls = Pipeline.genBindingsFromCHeader opts unit
+        let decls :: Qu [TH.Dec]
+            decls = Pipeline.genBindingsFromCHeader config unit
 
-          -- unqualify names, qualified names are noisy *and*
-          -- GHC.Base names have moved.
-          unqualNames :: [TH.Dec] -> [TH.Dec]
-          unqualNames = SYB.everywhere $ SYB.mkT mangleName
+            -- unqualify names, qualified names are noisy *and*
+            -- GHC.Base names have moved.
+            unqualNames :: [TH.Dec] -> [TH.Dec]
+            unqualNames = SYB.everywhere $ SYB.mkT mangleName
 
-          mangleName :: TH.Name -> TH.Name
-          mangleName n | n == ''()             = TH.Name (TH.OccName "Unit") TH.NameS
-          mangleName (TH.Name occ TH.NameG {}) = TH.Name occ TH.NameS
-          mangleName n = n
+            mangleName :: TH.Name -> TH.Name
+            mangleName n | n == ''()             = TH.Name (TH.OccName "Unit") TH.NameS
+            mangleName (TH.Name occ TH.NameG {}) = TH.Name occ TH.NameS
+            mangleName n = n
 
-      let (depfiles, csources, thdecs) = runQu decls
-      pure $ unlines $
-          -- here we might have headers outside of our package,
-          -- but in our test setup that SHOULD cause an error, as we use bundled stdlib,
-          -- And we will cause those on CI, which runs tests on different systems
-          [ "-- addDependentFile " ++ convertWindows (makeRelative packageRoot fp) | fp <- depfiles ] ++
-          [ "-- " ++ l | src <- csources, l <- lines src ] ++
-          [ show $ TH.ppr d | d <- unqualNames thdecs ]
+        let (depfiles, csources, thdecs) = runQu decls
+        pure $ unlines $
+            -- here we might have headers outside of our package,
+            -- but in our test setup that SHOULD cause an error, as we use bundled stdlib,
+            -- And we will cause those on CI, which runs tests on different systems
+            [ "-- addDependentFile " ++ convertWindows (makeRelative packageRoot fp) | fp <- depfiles ] ++
+            [ "-- " ++ l | src <- csources, l <- lines src ] ++
+            [ show $ TH.ppr d | d <- unqualNames thdecs ]
 
 convertWindows :: FilePath -> FilePath
 convertWindows = map f where

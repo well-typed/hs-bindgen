@@ -10,7 +10,7 @@ module HsBindgen.App.Common (
   , fromMaybeWithFatalError
   , loadExtBindingSpecs'
   , loadPrescriptiveBindingSpec'
-  , getOpts
+  , getConfig
   , footerWith
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -38,7 +38,7 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      globalOptsTracerConf              :: TracerConf
+      globalOptsTracerConfig            :: TracerConfig
     , globalOptsPredicate               :: Predicate
     , globalOptsProgramSlicing          :: ProgramSlicing
     , globalOptsClangArgs               :: ClangArgs
@@ -51,7 +51,7 @@ data GlobalOpts = GlobalOpts {
 parseGlobalOpts :: Parser GlobalOpts
 parseGlobalOpts =
     GlobalOpts
-      <$> parseTracerConf
+      <$> parseTracerConfig
       <*> parsePredicate
       <*> parseProgramSlicing
       <*> parseClangArgs
@@ -59,10 +59,12 @@ parseGlobalOpts =
       <*> parseExtBindings
       <*> optional parsePrescriptiveBindingSpec
 
-parseTracerConf :: Parser TracerConf
-parseTracerConf = TracerConf <$> parseVerbosity
-                             <*> parseShowTimeStamp
-                             <*> parseShowCallStack
+parseTracerConfig :: Parser TracerConfig
+parseTracerConfig =
+    TracerConfig
+      <$> parseVerbosity
+      <*> parseShowTimeStamp
+      <*> parseShowCallStack
 
 parseVerbosity :: Parser Verbosity
 parseVerbosity =
@@ -315,8 +317,7 @@ parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
 --
 -- Return 'Nothing' if errors happened.
 withTracer :: GlobalOpts -> (Tracer IO TraceMsg -> IO b) -> IO (Maybe b)
-withTracer GlobalOpts{..} =
-    withTracerStdOut globalOptsTracerConf DefaultLogLevel
+withTracer GlobalOpts{..} = withTracerStdOut globalOptsTracerConfig
 
 -- | Extract the result or exit gracefully with an error message.
 --
@@ -343,11 +344,11 @@ loadPrescriptiveBindingSpec' tracer GlobalOpts{..} =
       Just path -> loadPrescriptiveBindingSpec tracer globalOptsClangArgs path
       Nothing   -> return emptyBindingSpec
 
-getOpts :: GlobalOpts -> Opts
-getOpts GlobalOpts{..} = def {
-      optsClangArgs      = globalOptsClangArgs
-    , optsPredicate      = globalOptsPredicate
-    , optsProgramSlicing = globalOptsProgramSlicing
+getConfig :: GlobalOpts -> Config
+getConfig GlobalOpts{..} = def {
+      configClangArgs      = globalOptsClangArgs
+    , configPredicate      = globalOptsPredicate
+    , configProgramSlicing = globalOptsProgramSlicing
     }
 
 -- | Footer of command line help.

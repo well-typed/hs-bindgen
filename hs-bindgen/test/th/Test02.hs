@@ -31,13 +31,8 @@ $(do
             | getCHeaderIncludePath h == "uchar.h"
               -> Just Tolerated
           _otherTrace -> Nothing
-    extBindingSpec <-
-      withTracePredicate uCharHeaderNotFound $ \tracer ->
-        loadExtBindingSpecs tracer args UseStdlibBindingSpec []
-    let opts :: Opts
-        opts = def {
-            optsClangArgs      = args
-          , optsExtBindingSpec = extBindingSpec
-          }
-    hashIncludeWith opts ["test_02.h"]
+    withTracePredicate uCharHeaderNotFound $ \tracer -> do
+      let config :: Config
+          config = def { configClangArgs = args }
+      hashIncludeWith tracer config ["test_02.h"]
  )

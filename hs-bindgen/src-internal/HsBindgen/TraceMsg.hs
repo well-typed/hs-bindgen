@@ -5,7 +5,7 @@ module HsBindgen.TraceMsg (
     TraceMsg(..)
   ) where
 
-import HsBindgen.BindingSpec (BindingSpecMsg)
+import HsBindgen.BindingSpec.Internal (BindingSpecMsg)
 import HsBindgen.Clang (ClangMsg)
 import HsBindgen.Frontend (FrontendMsg)
 import HsBindgen.Resolve (ResolveHeaderMsg)

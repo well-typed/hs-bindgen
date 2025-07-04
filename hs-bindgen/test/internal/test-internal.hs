@@ -14,13 +14,15 @@ import Test.Tasty.HUnit (testCase)
 import Clang.Args
 import Clang.HighLevel.Types (Diagnostic (diagnosticCategoryText, diagnosticSpelling))
 import Clang.Paths
-import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Backend.PP.Translation
+import HsBindgen.BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.C.Reparse.Infra (ReparseError (..))
 import HsBindgen.C.Tc.Macro (TcMacroError (TcErrors))
 import HsBindgen.Clang (ClangMsg (..))
+import HsBindgen.Config
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (Redeclaration))
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -31,7 +33,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
 import HsBindgen.Frontend.Pass.Slice (ProgramSlicing (..))
 import HsBindgen.Frontend.Pass.Sort (SortMsg (..))
 import HsBindgen.Imports
-import HsBindgen.Language.C.Name (NameKind (..), QualName (..))
+import HsBindgen.Language.C.Name
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.TraceMsg
@@ -173,33 +175,33 @@ tests packageRoot getExtBindingSpec getRustBindgen =
               _otherTrace
                 -> Nothing
             )
-            (\opts ->
-               -- Ensure that program slicing and external binding specification
-               -- work well together. Remove `uint32_t` from the binding
-               -- specifications, and select it using program slicing instead.
-               let uInt32T = QualName {
-                       qualNameName = "uint32_t"
-                     , qualNameKind = NameKindOrdinary
-                     }
-                   spec = Pipeline.BindingSpec {
-                       bindingSpecUnresolved =
-                           BindingSpec.BindingSpec
-                         . Map.delete uInt32T
-                         . BindingSpec.bindingSpecTypes
-                         . Pipeline.bindingSpecUnresolved
-                         $ Pipeline.optsExtBindingSpec opts
-                     , bindingSpecResolved =
-                           BindingSpec.BindingSpec
-                         . Map.delete uInt32T
-                         . BindingSpec.bindingSpecTypes
-                         . Pipeline.bindingSpecResolved
-                         $ Pipeline.optsExtBindingSpec opts
-                     }
-               in  opts {
-                       Pipeline.optsPredicate      = SelectAll
-                     , Pipeline.optsProgramSlicing = EnableProgramSlicing
-                     , Pipeline.optsExtBindingSpec = spec
-                     }
+            testConfig {
+                 configPredicate      = SelectAll
+               , configProgramSlicing = EnableProgramSlicing
+               }
+            -- Ensure that program slicing and external binding specification
+            -- work well together. Remove `uint32_t` from the binding
+            -- specifications, and select it using program slicing instead.
+            (do
+              extSpec <- getExtBindingSpec
+              let uInt32T = QualName {
+                      qualNameName = "uint32_t"
+                    , qualNameKind = NameKindOrdinary
+                    }
+              pure $ Pipeline.BindingSpec {
+                  bindingSpecUnresolved =
+                      BindingSpec.BindingSpec
+                    . Map.delete uInt32T
+                    . BindingSpec.bindingSpecTypes
+                    . Pipeline.bindingSpecUnresolved
+                    $ extSpec
+                , bindingSpecResolved =
+                      BindingSpec.BindingSpec
+                    . Map.delete uInt32T
+                    . BindingSpec.bindingSpecTypes
+                    . Pipeline.bindingSpecResolved
+                    $ extSpec
+                }
             )
        ]
     -- @rs-bindgen@ panics on these
@@ -268,81 +270,84 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         ]
     ]
   where
-    argsWith :: [FilePath] -> ClangArgs
-    argsWith includeDirs = getClangArgs packageRoot includeDirs
-
     golden :: TestName -> TracePredicate TraceMsg -> TestTree
-    golden name predicate = goldenWith name predicate id
+    golden name predicate = goldenWith name predicate testConfig getExtBindingSpec
 
     goldenWith ::
          TestName
       -> TracePredicate TraceMsg
-      -> (Pipeline.Opts -> Pipeline.Opts)
+      -> Config
+      -> IO Pipeline.BindingSpec
       -> TestTree
-    goldenWith name predicate changeOpts =
-      testGroup name $ goldenNoRust' name predicate changeOpts
+    goldenWith name predicate config getExtSpec =
+      testGroup name $ goldenNoRust' name predicate config getExtSpec
                        ++ [goldenRust getRustBindgen name]
 
     goldenRustPanic :: TestName -> TracePredicate TraceMsg -> TestTree
     goldenRustPanic name predicate = testGroup name $
       rustExpectPanic getRustBindgen name :
-      goldenNoRust' name predicate id
+      goldenNoRust' name predicate testConfig getExtBindingSpec
 
     goldenNoRust' ::
          TestName
       -> TracePredicate TraceMsg
-      -> (Pipeline.Opts -> Pipeline.Opts)
+      -> Config
+      -> IO Pipeline.BindingSpec
       -> [TestTree]
-    goldenNoRust' name predicate changeOpts = [
-          goldenTreeDiff name predicate changeOpts
-        , goldenHs name predicate changeOpts
-        , goldenExtensions name predicate changeOpts
+    goldenNoRust' name predicate config getExtSpec = [
+          goldenTreeDiff name predicate config getExtSpec
+        , goldenHs name predicate config getExtSpec
+        , goldenExtensions name predicate config getExtSpec
 -- Pretty-printing of TH differs between GHC versions; for example, @()@ becomes
 -- @Unit@ in 9.8 <https://github.com/ghc-proposals/ghc-proposals/pull/475>.
 -- We therefore test TH only with one specific GHC version.
 #if __GLASGOW_HASKELL__ >=904
-        , goldenTh packageRoot name (withOpts changeOpts predicate)
+        , goldenTh packageRoot name config (withBindgenResources predicate getExtSpec)
 #endif
-        , goldenPP name predicate changeOpts
-        , goldenExtBindings name predicate changeOpts
+        , goldenPP name predicate config getExtSpec
+        , goldenExtBindings name predicate config getExtSpec
         ]
 
     goldenTreeDiff ::
          TestName
       -> TracePredicate TraceMsg
-      -> (Pipeline.Opts -> Pipeline.Opts)
+      -> Config
+      -> IO Pipeline.BindingSpec
       -> TestTree
-    goldenTreeDiff name predicate changeOpts = do
+    goldenTreeDiff name predicate config getExtSpec = do
       let target = "fixtures" </> (name ++ ".tree-diff.txt")
           headerIncludePath = mkHeaderIncludePath name
       ediffGolden1 goldenTestSteps "treediff" target $ \_ ->
-        withOpts changeOpts predicate $ \opts ->
-          Pipeline.parseCHeaders opts [headerIncludePath]
+        withBindgenResources predicate getExtSpec $ \tracer extSpec pSpec ->
+          Pipeline.parseCHeaders tracer config extSpec pSpec [headerIncludePath]
 
     goldenHs ::
          TestName
       -> TracePredicate TraceMsg
-      -> (Pipeline.Opts -> Pipeline.Opts)
+      -> Config
+      -> IO Pipeline.BindingSpec
       -> TestTree
-    goldenHs name predicate changeOpts = do
+    goldenHs name predicate config getExtSpec = do
       let target = "fixtures" </> (name ++ ".hs")
           headerIncludePath = mkHeaderIncludePath name
       ediffGolden1 goldenTestSteps "hs" target $ \_ ->
-        withOpts changeOpts predicate $ \opts ->
-          Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
+        withBindgenResources predicate getExtSpec $ \tracer extSpec pSpec ->
+          Pipeline.translateCHeaders
+            "testmodule" tracer config extSpec pSpec [headerIncludePath]
 
     goldenExtensions ::
          TestName
       -> TracePredicate TraceMsg
-      -> (Pipeline.Opts -> Pipeline.Opts)
+      -> Config
+      -> IO Pipeline.BindingSpec
       -> TestTree
-    goldenExtensions name predicate changeOpts = do
+    goldenExtensions name predicate config getExtSpec = do
       let target = "fixtures" </> (name ++ ".exts.txt")
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "exts" target $ \_ ->
-        withOpts changeOpts predicate $ \opts -> do
-          decls <-
-            Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
+        withBindgenResources predicate getExtSpec $ \tracer extSpec pSpec -> do
+          decls <- Pipeline.translateCHeaders
+            "testmodule" tracer config extSpec pSpec [headerIncludePath]
           return $ unlines $ map show $ List.sort $ toList $
                 Pipeline.genExtensions
               $ Pipeline.genSHsDecls decls
@@ -350,28 +355,32 @@ tests packageRoot getExtBindingSpec getRustBindgen =
     goldenPP ::
          TestName
       -> TracePredicate TraceMsg
-      -> (Pipeline.Opts -> Pipeline.Opts)
+      -> Config
+      -> IO Pipeline.BindingSpec
       -> TestTree
-    goldenPP name predicate changeOpts = do
+    goldenPP name predicate config getExtSpec = do
       let target = "fixtures" </> (name ++ ".pp.hs")
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "pp" target $ \_ ->
-        withOpts changeOpts predicate $ \opts -> do
-          decls <- Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
-          return $ Pipeline.preprocessPure ppOpts decls
+        withBindgenResources predicate getExtSpec $ \tracer extSpec pSpec -> do
+          decls <- Pipeline.translateCHeaders
+            "testmodule" tracer config extSpec pSpec [headerIncludePath]
+          return $ Pipeline.preprocessPure config decls
 
     goldenExtBindings ::
          TestName
       -> TracePredicate TraceMsg
-      -> (Pipeline.Opts -> Pipeline.Opts)
+      -> Config
+      -> IO Pipeline.BindingSpec
       -> TestTree
-    goldenExtBindings name predicate changeOpts = do
+    goldenExtBindings name predicate config getExtSpec = do
       let target = "fixtures" </> (name ++ ".bindingspec.yaml")
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "bindingspec" target $ \_ ->
-        withOpts changeOpts predicate $ \opts -> do
+        withBindgenResources predicate getExtSpec $ \tracer extSpec pSpec -> do
           decls <-
-            Pipeline.translateCHeaders "testmodule" opts [headerIncludePath]
+            Pipeline.translateCHeaders
+              "testmodule" tracer config extSpec pSpec [headerIncludePath]
           return . UTF8.toString . BindingSpec.encodeYaml $
             BindingSpec.genBindingSpec
               [headerIncludePath]
@@ -383,39 +392,44 @@ tests packageRoot getExtBindingSpec getRustBindgen =
     mkHeaderIncludePath :: String -> CHeaderIncludePath
     mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
 
-    withOpts ::
-         (Pipeline.Opts -> Pipeline.Opts)
-      -> TracePredicate TraceMsg
-      -> (Pipeline.Opts -> IO a)
-      -> IO a
-    withOpts changeOpts predicate action = do
-      extBindingSpec <- getExtBindingSpec
-      withTracePredicate predicate $
-        \tracer' -> action $ changeOpts $ (def :: Pipeline.Opts) {
-            Pipeline.optsClangArgs      = argsWith [
-                  "examples/golden"
-                , "examples/golden-norust"
-              ]
-          , Pipeline.optsExtBindingSpec = extBindingSpec
-          , Pipeline.optsTracer         = tracer'
-          }
+    argsWith :: [FilePath] -> ClangArgs
+    argsWith includeDirs = getClangArgs packageRoot includeDirs
 
-    ppOpts :: Pipeline.PPOpts
-    ppOpts = def {
-        Pipeline.ppOptsModule = HsModuleOpts { hsModuleOptsName = "Example" }
+    testConfig :: Config
+    testConfig = def {
+        configClangArgs = argsWith [
+            "examples/golden"
+          , "examples/golden-norust"
+          ]
+      , configHsModuleOpts = HsModuleOpts { hsModuleOptsName = "Example" }
       }
+
+    failConfig :: Config
+    failConfig = def {
+        configClangArgs = argsWith [
+            "examples/failing"
+          ]
+      }
+
+    withBindgenResources
+      :: TracePredicate TraceMsg
+      -> IO Pipeline.BindingSpec
+      -> (   Tracer IO TraceMsg
+          -> ExternalBindingSpec
+          -> PrescriptiveBindingSpec
+          -> IO a)
+      -> IO a
+    withBindgenResources predicate getExtSpec action = do
+      extSpec <- getExtSpec
+      let pSpec = Pipeline.emptyBindingSpec
+      withTracePredicate predicate $ \tracer -> action tracer extSpec pSpec
 
     expectTrace :: TestName -> TracePredicate TraceMsg -> TestTree
     expectTrace name predicate = testCase name $ do
-      withTracePredicate predicate $ \tracer -> do
+      withBindgenResources predicate getExtBindingSpec $ \tracer extSpec pSpec -> do
         let headerIncludePath = mkHeaderIncludePath name
-            opts :: Pipeline.Opts
-            opts = def {
-                Pipeline.optsClangArgs =
-                  getClangArgs packageRoot [ "examples/failing" ]
-              , Pipeline.optsTracer = tracer
-              }
-        void $ Pipeline.translateCHeaders "failWithTraceTest" opts [headerIncludePath]
+        void $ Pipeline.translateCHeaders
+          "failWithTraceTest" tracer failConfig extSpec pSpec [headerIncludePath]
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

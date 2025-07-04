@@ -3,7 +3,7 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
   , ResolvedExtBinding(..)
   ) where
 
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)

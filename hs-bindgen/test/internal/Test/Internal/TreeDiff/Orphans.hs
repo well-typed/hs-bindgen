@@ -3,7 +3,7 @@
 module Test.Internal.TreeDiff.Orphans where
 
 import Data.Foldable (toList)
-import Data.TreeDiff.Class (ToExpr(..))
+import Data.TreeDiff.Class (ToExpr (..))
 import Data.TreeDiff.Expr qualified as Expr
 import Data.TreeDiff.OMap qualified as OMap
 import Data.Vec.Lazy (Vec)
@@ -14,7 +14,7 @@ import System.FilePath qualified as FilePath
 import Clang.Enum.Simple
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as Paths
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.C.Reparse.Decl qualified as C
 import HsBindgen.C.Tc.Macro qualified as CMacro
 import HsBindgen.Frontend.AST.External qualified as C
@@ -25,10 +25,10 @@ import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
-import C.Type qualified as CExpr
 import C.Char qualified as CExpr
+import C.Type qualified as CExpr
 
-import DeBruijn (S, Add, addToInt, Idx, idxToInt, Size, sizeToInt)
+import DeBruijn (Add, Idx, S, Size, addToInt, idxToInt, sizeToInt)
 
 {-------------------------------------------------------------------------------
   base

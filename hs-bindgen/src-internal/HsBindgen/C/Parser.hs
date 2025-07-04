@@ -17,13 +17,12 @@ import Clang.Args
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
-import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
-import HsBindgen.C.Predicate (Predicate)
+import HsBindgen.BindingSpec
 import HsBindgen.Clang
+import HsBindgen.Config
 import HsBindgen.Errors
 import HsBindgen.Frontend (processTranslationUnit)
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Pass.Slice (ProgramSlicing)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
@@ -36,27 +35,24 @@ import HsBindgen.Util.Tracer
 
 parseCHeaders ::
      Tracer IO TraceMsg
-  -> ClangArgs
-  -> Predicate
-  -> ProgramSlicing
+  -> Config
   -> ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> [CHeaderIncludePath]
   -> IO C.TranslationUnit
-parseCHeaders tracer args predicate programSlicing extSpec pSpec mainFiles =
+parseCHeaders tracer config@Config{..} extSpec pSpec mainFiles =
     fmap (fromMaybe C.emptyTranslationUnit) $
     withClang (contramap TraceClang tracer) setup $ \unit -> Just <$> do
       processTranslationUnit
         (contramap TraceFrontend tracer)
+        config
         extSpec
         pSpec
         rootHeader
-        predicate
-        programSlicing
         unit
   where
     setup :: ClangSetup
-    setup = (defaultClangSetup args $ ClangInputMemory hFilePath hContent) {
+    setup = (defaultClangSetup configClangArgs $ ClangInputMemory hFilePath hContent) {
           clangFlags = bitfieldEnum [
               CXTranslationUnit_SkipFunctionBodies
             , CXTranslationUnit_DetailedPreprocessingRecord

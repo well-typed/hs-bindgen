@@ -5,7 +5,7 @@ module HsBindgen.Hs.AST.Type (
   hsPrimFloatTy
 ) where
 
-import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 
