@@ -38,8 +38,8 @@ clean:
 libexample${TARGET_EXT}: manual_examples.o
 	gcc ${EXTRAFLAGS} -Wall -shared -o libexample${TARGET_EXT} manual_examples.o
 
-manual_examples.o: manual_examples.c ${PROJECT_ROOT}/hs-bindgen/examples/golden/manual_examples.h
-	gcc ${EXTRAFLAGS} -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/examples/golden
+manual_examples.o: manual_examples.c manual_examples.h
+	gcc ${EXTRAFLAGS} -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/manual/c
 
 # Example for external bindings
 

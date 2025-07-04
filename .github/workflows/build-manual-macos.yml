@@ -103,19 +103,21 @@ jobs:
           cat <<EOF > cabal.project.local
           package manual
             extra-include-dirs:
-                ${{ github.workspace }}/hs-bindgen/examples/golden
-              , ${{ github.workspace }}/manual/c
+                ${{ github.workspace }}/manual/c
             extra-lib-dirs:
-                ${{ github.workspace }}/hs-bindgen/examples/golden
-              , ${{ github.workspace }}/manual/c
+                ${{ github.workspace }}/manual/c
 
           package hs-game
-            extra-include-dirs: ${{ github.workspace }}/manual/c
-            extra-lib-dirs:     ${{ github.workspace }}/manual/c
+            extra-include-dirs:
+                ${{ github.workspace }}/manual/c
+            extra-lib-dirs:
+                ${{ github.workspace }}/manual/c
 
           package hs-vector
-            extra-include-dirs: ${{ github.workspace }}/manual/c
-            extra-lib-dirs:     ${{ github.workspace }}/manual/c
+            extra-include-dirs:
+                ${{ github.workspace }}/manual/c
+            extra-lib-dirs:
+                ${{ github.workspace }}/manual/c
           EOF
 
       - name: Build hs-bindgen
