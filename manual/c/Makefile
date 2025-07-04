@@ -1,27 +1,30 @@
 PROJECT_ROOT=../..
 TARGET_EXT=.so
 
-# There's a quirk with Apple assembler and LLVM IR that do not accept
-# non-ASCII characters. So we only enable NON_ASCII characters by default.
+
+# There's a quirk with Apple and Windows assembler and LLVM IR that do not
+# accept Unicode characters. There's SUPPORTS_UNICODE flag that allows Unicode
+# characters and we only enable that for non-MacOS and non-LLVM backend
+# compilation
 #
 # Check inside manual_examples.{c,h} for where this macro flag is used.
-EXTRAFLAGS=-DNO_ASCII
+#
+EXTRAFLAGS:=
 
-# Simple OS detection. On Windows (via Git Bash, MinGW, etc.), OS is 'Windows_NT'.
+ifeq ($(shell uname -s),Linux)
+	EXTRAFLAGS:=-DSUPPORTS_UNICODE
+endif
+
+# On Windows we have to rename the output files to .dll extension
 ifeq ($(OS),Windows_NT)
 	TARGET_EXT=.dll
-	EXTRAFLAGS:=
 endif
 
-ifeq ($(shell uname -s) ,Linux)
+# If we are compiling with LLVM backend we can't use Unicode characters even
+# if we are on Linux, so if intending to compile with LLVM backend (i.e.
+# LLVM_BACKEND is set), we unset the SUPPORTS_UNICODE flag
+ifeq ($(LLVM_BACKEND),1)
 	EXTRAFLAGS:=
-endif
-
-# If we are compiling with LLVM backend we can't use non-ASCII characters even
-# if we are on Linux, so set this flag if intending to compile with LLVM
-# backend.
-ifeq ($(NO_ASCII),1)
-	EXTRAFLAGS=-DNO_ASCII
 endif
 
 default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT}
