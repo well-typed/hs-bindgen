@@ -1,0 +1,137 @@
+# .github/workflows/build-manual-ubuntu.yml
+#
+# This CI job specifically checks that the 'manual' can be generated,
+# built, and run from a clean state on Ubuntu.
+#
+name: Build and run the Manual (Ubuntu)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# If needed, this action allows one to SSH into the CI Job machine and
+# figure out what's going on.
+# - name: Setup tmate session
+#   uses: mxschmitt/action-tmate@v3
+
+# Ubuntu doesn't have an issue with Unicode characters so we set
+# SUPPORTS_UNICODE flag for Ubuntu
+env:
+  SUPPORTS_UNICODE: 1
+
+jobs:
+  build-manual-ubuntu:
+    name: Build and run the manual on Ubuntu and GHC ${{ matrix.ghc }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        llvm: ['16']
+        ghc: ['9.12.2']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      # This forces Git to always check out shell scripts with the correct
+      # Linux-style (LF) line endings.
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v2.0.7
+        with:
+          version: ${{ matrix.llvm }}
+          # For linux, this needs to be set to false, because this
+          # action's default env path is wrong for some reason.
+          env: false
+          # LLVM_PATH will be this one
+          directory: ${{ runner.temp }}/llvm
+
+      # Given that we disabled the setting of the env flags above, we need
+      # to set the right LLVM_CONFIG and LIBCLANG_PATH.
+      - name: Set LLVM_CONFIG and LIBCLANG_PATH Environment Variable
+        run: |
+          echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
+          echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
+
+      # For some reason in Ubuntu we need to pass C header files via this flag
+      #
+      # This incantation is a bit awkward because we have to parse clang's
+      # output.
+      # Note that we set -nostdinc because we want to override the default
+      # paths that clang uses, this is to make sure it finds them correctly.
+      - name: Set Set BINDGEN_EXTRA_CLANG_ARGS using Clang
+        run: |
+          CLANG_ARGS=$(clang -v -E -xc /dev/null 2>&1 | awk '/#include <...> search starts here/{f=1;next}/End of search list./{f=0}f{sub(/^[ \t]*/,"",$0);s=s " -I"$0}END{print substr(s,2)}')
+          echo "BINDGEN_EXTRA_CLANG_ARGS=-nostdinc $CLANG_ARGS" >> "$GITHUB_ENV"
+
+      # Note also that we are passing '-DSUPPORTS_UNICODE' this option passes
+      # SUPPORTS_UNICODE macro to libclang preprocessor.
+      - name: Set -DSUPPORTS_UNICODE in BINDGEN_EXTRA_CLANG_ARGS
+        run: |
+          echo "BINDGEN_EXTRA_CLANG_ARGS=-DSUPPORTS_UNICODE $BINDGEN_EXTRA_CLANG_ARGS" >> "$GITHUB_ENV"
+
+      - name: Set up Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: 'latest'
+
+      # This file only the first part of this file is needed to build the
+      # whole project, the others are needed to build the manual as they
+      # ensure subsequent cabal commands (like in generate.sh) can find the
+      # necessary C headers and libraries.
+      #
+      # Note that -DSUPPORTS_UNICODE is set, but is only needed to run the
+      # manual, not to actually compile the project.
+      - name: Create cabal.project.local
+        run: |
+          echo "Writing cabal.project.local to configure C paths..."
+          cat <<EOF > cabal.project.local
+          package *
+            ghc-options:
+              -optc-DSUPPORTS_UNICODE
+              -DSUPPORTS_UNICODE
+          package manual
+            extra-include-dirs:
+                ${{ github.workspace }}/hs-bindgen/examples/golden
+              , ${{ github.workspace }}/manual/c
+            extra-lib-dirs:
+                ${{ github.workspace }}/hs-bindgen/examples/golden
+              , ${{ github.workspace }}/manual/c
+
+          package hs-game
+            extra-include-dirs: ${{ github.workspace }}/manual/c
+            extra-lib-dirs:     ${{ github.workspace }}/manual/c
+
+          package hs-vector
+            extra-include-dirs: ${{ github.workspace }}/manual/c
+            extra-lib-dirs:     ${{ github.workspace }}/manual/c
+          EOF
+
+      - name: Build hs-bindgen
+        run: cabal build all
+
+      - name: Build the C libraries
+        working-directory: ./manual/c
+        run: make
+
+      - name: Run binding generation script
+        working-directory: ./manual
+        run: ./generate.sh
+
+      - name: Run the manual executable
+        working-directory: ./manual/hs
+        run: |
+          export LD_LIBRARY_PATH=${{ github.workspace }}/manual/c/:$LD_LIBRARY_PATH
+          cp ../../cabal.project.local .
+          cabal run manual
+
