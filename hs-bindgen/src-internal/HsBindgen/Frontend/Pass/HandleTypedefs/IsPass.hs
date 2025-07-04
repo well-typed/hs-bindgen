@@ -31,6 +31,8 @@ instance IsPass HandleTypedefs where
   type MacroBody  HandleTypedefs = C.CheckedMacro HandleTypedefs
   type ExtBinding HandleTypedefs = ResolvedExtBinding
   type Ann ix     HandleTypedefs = AnnHandleTypedefs ix
+  type Config     HandleTypedefs = NoConfig
+  type Msg        HandleTypedefs = NoMsg
 
 {-------------------------------------------------------------------------------
   Annotations

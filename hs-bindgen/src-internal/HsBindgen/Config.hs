@@ -8,7 +8,7 @@ import Clang.Args
 import HsBindgen.Backend.PP.Render
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.C.Predicate
-import HsBindgen.Frontend.Pass.Slice
+import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Hs.Translation
 
 -- | Configuration of @hs-bindgen@.

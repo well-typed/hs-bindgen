@@ -26,12 +26,12 @@ import HsBindgen.Config
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (Redeclaration))
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.HandleMacros (HandleMacrosMsg (..))
-import HsBindgen.Frontend.Pass.MangleNames (MangleNamesMsg (..))
-import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsg (..))
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
-import HsBindgen.Frontend.Pass.Slice (ProgramSlicing (..))
-import HsBindgen.Frontend.Pass.Sort (SortMsg (..))
+import HsBindgen.Frontend.Pass.Slice.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C.Name
 import HsBindgen.Language.Haskell qualified as Hs

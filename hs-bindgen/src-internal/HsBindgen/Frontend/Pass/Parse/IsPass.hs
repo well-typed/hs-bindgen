@@ -23,7 +23,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint qualified as PP
+import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Definition
@@ -47,6 +47,8 @@ instance IsPass Parse where
   type MacroBody  Parse = UnparsedMacro
   type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix
+  type Config     Parse = NoConfig
+  type Msg        Parse = ParseMsg
 
 {-------------------------------------------------------------------------------
   Macros
@@ -134,10 +136,10 @@ data ParseMsg =
 instance PrettyForTrace (C.DeclInfo Parse) where
   prettyForTrace C.DeclInfo{declId, declLoc} =
       case declId of
-        DeclNamed name -> PP.hcat [
+        DeclNamed name -> hcat [
             prettyForTrace name
           , " at "
-          , PP.showToCtxDoc declLoc
+          , showToCtxDoc declLoc
           ]
         DeclAnon anonId ->
             -- No need to repeat the source location in this case
@@ -147,21 +149,21 @@ instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
       Skipped reason ->
           prettyForTrace reason
-      UnsupportedType {..} -> PP.hcat [
+      UnsupportedType {..} -> hcat [
           "Encountered unsupported type while parsing "
         , prettyForTrace unsupportedTypeContext
         , ": "
         , prettyForTrace unsupportedTypeException
         ]
-      UnsupportedImplicitFields info -> PP.hsep [
+      UnsupportedImplicitFields info -> hsep [
           "Unsupported implicit fields in"
         , prettyForTrace info
         ]
-      UnsupportedDeclsInSignature{..} -> PP.hsep [
+      UnsupportedDeclsInSignature{..} -> hsep [
           "Unsupported nested declarations in"
         , prettyForTrace unsupportedDeclsInSignatureFun
         , "of"
-        , PP.hcat $ List.intersperse ", " $
+        , hcat $ List.intersperse ", " $
             map prettyForTrace unsupportedDeclsInSignatureDecls
         ]
 
