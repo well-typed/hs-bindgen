@@ -89,7 +89,7 @@ data Env = Env {
     , envIsMainFile    :: IsMainFile
     , envGetMainHeader :: GetMainHeader
     , envPredicate     :: Predicate
-    , envTracer        :: Tracer IO ParseMsg
+    , envTracer        :: Tracer IO (Msg Parse)
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -193,7 +193,7 @@ recordNonSelectedDecl curr = do
   Logging
 -------------------------------------------------------------------------------}
 
-recordTrace :: HasCallStack => ParseMsg -> ParseDecl ()
+recordTrace :: HasCallStack => Msg Parse -> ParseDecl ()
 recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
     traceWith (envTracer parseEnv) trace
 

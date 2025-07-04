@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (
     HandleTypedefs
   , RenamedTypedefRef(..)
+  , Msg(..)
   ) where
 
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
@@ -31,6 +32,7 @@ instance IsPass HandleTypedefs where
   type MacroBody  HandleTypedefs = C.CheckedMacro HandleTypedefs
   type ExtBinding HandleTypedefs = ResolvedExtBinding
   type Ann ix     HandleTypedefs = AnnHandleTypedefs ix
+  data Msg        HandleTypedefs = NoMsg
 
 {-------------------------------------------------------------------------------
   Annotations

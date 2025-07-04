@@ -12,7 +12,7 @@ import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.Slice (ProgramSlicing (..))
+import HsBindgen.Frontend.Pass.Slice.IsPass (ProgramSlicing (..))
 import HsBindgen.Language.C.Name
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.TraceMsg

@@ -1,6 +1,5 @@
 module HsBindgen.Frontend.Pass.HandleMacros (
     handleMacros
-  , HandleMacrosMsg(..)
   ) where
 
 import Control.Monad.State
@@ -9,10 +8,8 @@ import Data.Set qualified as Set
 import Data.Vec.Lazy qualified as Vec
 
 import Clang.HighLevel.Types
-import HsBindgen.C.Reparse (ReparseError)
 import HsBindgen.C.Reparse qualified as Reparse
 import HsBindgen.C.Reparse.Decl qualified as Reparse
-import HsBindgen.C.Tc.Macro (TcMacroError)
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.C.Tc.Macro.Type (MacroTypes)
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
@@ -27,8 +24,6 @@ import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
-import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (string, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -37,7 +32,7 @@ import Text.SimplePrettyPrint (string, textToCtxDoc, (><))
 -- | Sort and typecheck macros, and reparse declarations
 handleMacros ::
       C.TranslationUnit Slice
-  -> (C.TranslationUnit HandleMacros, [HandleMacrosMsg])
+  -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     first reassemble $ runM . fmap catMaybes $ mapM processDecl unitDecls
   where
@@ -312,7 +307,7 @@ newtype M a = WrapM {
     )
 
 data MacroState = MacroState {
-      stateErrors     :: [HandleMacrosMsg]  -- ^ Stored in reverse order
+      stateErrors     :: [Msg HandleMacros]  -- ^ Stored in reverse order
     , stateMacroTypes :: MacroTypes
     , stateTypedefs   :: Set CName
     }
@@ -330,55 +325,8 @@ macroTypeEnv MacroState{stateMacroTypes, stateTypedefs} = Macro.TypeEnv{
     , typeEnvTypedefs = stateTypedefs
     }
 
-runM :: M a -> (a, [HandleMacrosMsg])
+runM :: M a -> (a, [Msg HandleMacros])
 runM = fmap stateErrors . flip runState initMacroState . unwrapM
-
-{-------------------------------------------------------------------------------
-  Trace messages
--------------------------------------------------------------------------------}
-
--- TODO: We might want source location information here
-data HandleMacrosMsg =
-    -- | We could not parse the macro
-    MacroErrorReparse ReparseError
-
-    -- | We could not type-check the macro
-  | MacroErrorTc TcMacroError
-
-    -- | Unsupported macro: empty body
-  | MacroErrorEmpty
-
-    -- | Unsupported macro: defines C compiler attribute
-  | MacroErrorAttribute
-
-    -- | Macro that defines an unsupported type
-  | MacroErrorUnsupportedType String
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace HandleMacrosMsg where
-  prettyForTrace = \case
-      MacroErrorReparse x ->
-        prettyForTrace x
-      MacroErrorTc x ->
-        textToCtxDoc $ Macro.pprTcMacroError x
-      MacroErrorEmpty ->
-        "Unsupported empty macro"
-      MacroErrorAttribute ->
-        "Unsupported attribute macro"
-      MacroErrorUnsupportedType err ->
-        "Unsupported type: " >< string err
-
--- | Default log level
---
--- We use 'Info' for macros that are /always/ unsupported, and 'Warning' for
--- macros that we might perhaps except to be supported but something went wrong.
-instance HasDefaultLogLevel HandleMacrosMsg where
-  getDefaultLogLevel = \case
-    MacroErrorReparse{}         -> Warning
-    MacroErrorTc{}              -> Warning
-    MacroErrorEmpty{}           -> Info
-    MacroErrorAttribute{}       -> Info
-    MacroErrorUnsupportedType{} -> Info
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: convenience functions wrapping the macro infrastructure
@@ -387,7 +335,7 @@ instance HasDefaultLogLevel HandleMacrosMsg where
 type Reparse a =
      Macro.TypeEnv
   -> [Token TokenSpelling]
-  -> Either HandleMacrosMsg a
+  -> Either (Msg HandleMacros) a
 
 -- | Run parser
 --
