@@ -45,9 +45,6 @@
 -- /Note on pointers/: in the public API, all @libclang@ types are opaque.
 -- Internally, they are all newtypes around either 'Ptr' or 'OnHaskellHeap',
 -- depending on whether or not we own the value.
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/80> Ideally we would
--- bootstrap this (generate it using @hs-bindgen@ itself).
 module Clang.LowLevel.Core (
     -- * Top-level
     CXIndex
@@ -179,6 +176,7 @@ module Clang.LowLevel.Core (
   , CXFile
   , clang_getRangeStart
   , clang_getRangeEnd
+  , clang_Range_isNull
   , clang_getExpansionLocation
   , clang_getPresumedLocation
   , clang_getSpellingLocation
@@ -1150,15 +1148,22 @@ clang_Cursor_getSpellingNameRange ::
   -- ^ @pieceIndex@
   --
   -- The index of the spelling name piece. If this is greater than the actual
-  -- number of pieces, it will return a NULL (invalid) range.
+  -- number of pieces, it will return 'Nothing'.
   -> CUInt
   -- ^ @options@
   --
   -- Reserved.
-  -> m CXSourceRange
+  -> m (Maybe CXSourceRange)
 clang_Cursor_getSpellingNameRange cursor pieceIndex options = liftIO $
-    onHaskellHeap cursor $ \cursor' ->
-      preallocate_ $ wrap_Cursor_getSpellingNameRange cursor' pieceIndex options
+    onHaskellHeap cursor $ \cursor' -> do
+      -- We don't normally do multiple calls in the low-level bindings. However,
+      -- the docs for @clang_Cursor_getSpellingNameRange@ claim that it returns
+      -- NULL when @pieceIndex@ is out of range, but that is impossible: it does
+      -- not return a pointer. We therefore do a \"null range\" check instead.
+      result :: CXSourceRange <- preallocate_ $
+        wrap_Cursor_getSpellingNameRange cursor' pieceIndex options
+      isNull <- clang_Range_isNull result
+      return $ if isNull then Nothing else Just result
 
 -- | Determine whether the declaration pointed to by this cursor is also a
 -- definition of that entity.
@@ -1465,7 +1470,7 @@ clang_getTypedefName arg = liftIO $
 clang_getUnqualifiedType :: MonadIO m => CXType -> m CXType
 clang_getUnqualifiedType typ = liftIO $ do
     -- clang_getUnqualifiedType was added in Clang 16
-    requireClangVersion Clang16
+    requireClangVersion (16,0,0)
     -- clang_getUnqualifiedType segfaults when CT is invalid
     case fromSimpleEnum (cxtKind typ) of
       e@Left{}                 -> callFailed e
@@ -1806,6 +1811,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_getRangeStart"
 foreign import capi unsafe "clang_wrappers.h wrap_getRangeEnd"
   wrap_getRangeEnd :: R CXSourceRange_ -> W CXSourceLocation_ -> IO ()
 
+foreign import capi unsafe "clang_wrappers.h wrap_Range_isNull"
+  wrap_Range_isNull :: R CXSourceRange_ -> IO CInt
+
 foreign import capi unsafe "clang_wrappers.h wrap_getExpansionLocation"
   wrap_getExpansionLocation ::
        R CXSourceLocation_
@@ -1925,6 +1933,14 @@ clang_getRangeEnd :: MonadIO m => CXSourceRange -> m CXSourceLocation
 clang_getRangeEnd range = liftIO $
     onHaskellHeap range $ \range' ->
       preallocate_ $ wrap_getRangeEnd range'
+
+-- | Check if range is null
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#ga39213a93703e84c0accdba1f618d7fbb>
+clang_Range_isNull :: MonadIO m => CXSourceRange -> m Bool
+clang_Range_isNull range = liftIO $
+    onHaskellHeap range $ \range' ->
+      cToBool <$> wrap_Range_isNull range'
 
 -- | Retrieve the file, line, column, and offset represented by the given source
 -- location.

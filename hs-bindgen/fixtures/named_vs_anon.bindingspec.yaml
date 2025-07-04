@@ -1,0 +1,129 @@
+types:
+- headers: named_vs_anon.h
+  cname: struct a
+  module: Example
+  identifier: A
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct b_s
+  module: Example
+  identifier: B_s
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct c
+  module: Example
+  identifier: C
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct d
+  module: Example
+  identifier: D
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct e_s
+  module: Example
+  identifier: E_s
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: f
+  module: Example
+  identifier: F
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: g
+  module: Example
+  identifier: G
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: h
+  module: Example
+  identifier: H
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct struct1
+  module: Example
+  identifier: Struct1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct struct2_s
+  module: Example
+  identifier: Struct2_s
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct struct3
+  module: Example
+  identifier: Struct3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct struct4
+  module: Example
+  identifier: Struct4
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: struct struct5_s
+  module: Example
+  identifier: Struct5_s
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: typedef1
+  module: Example
+  identifier: Typedef1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: typedef2
+  module: Example
+  identifier: Typedef2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: typedef3
+  module: Example
+  identifier: Typedef3
+  instances:
+  - Eq
+  - Show
+  - Storable
