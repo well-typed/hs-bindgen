@@ -27,6 +27,7 @@ data Config = Config {
     , configHsModuleOpts   :: HsModuleOpts
     , configHsRenderOpts   :: HsRenderOpts
     }
+  deriving stock (Show)
 
 instance Default Config where
   def :: Config

@@ -73,10 +73,7 @@ handleTypeException ::
   -> ParseDecl (Maybe [C.Decl Parse])
 handleTypeException curr err = do
     info <- getDeclInfo curr
-    recordTrace $ UnsupportedType{
-        unsupportedTypeContext   = info
-      , unsupportedTypeException = err
-      }
+    recordTrace $ UnsupportedType info err
     return Nothing
 
 {-------------------------------------------------------------------------------
@@ -390,11 +387,8 @@ functionDecl info = simpleFold $ \curr -> do
     foldRecurseWith parmDecl $ \nestedDecls -> do
       case concat nestedDecls of
         [] -> return [decl]
-        ds -> do
-          recordTrace UnsupportedDeclsInSignature{
-              unsupportedDeclsInSignatureFun   = info
-            , unsupportedDeclsInSignatureDecls = ds
-            }
+        _  -> do
+          recordTrace $ UnexpectedAnonInSignature info
           return []
   where
     guardTypeFunction ::

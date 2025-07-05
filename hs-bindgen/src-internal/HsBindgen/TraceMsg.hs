@@ -3,12 +3,35 @@
 -- Intended for unqualified import.
 module HsBindgen.TraceMsg (
     TraceMsg(..)
+    -- * Messages from individual passes
+  , BindingSpecMsg(..)
+  , ClangMsg(..)
+  , DeclIndexError(..)
+  , Diagnostic(..)
+  , FrontendMsg(..)
+  , HandleMacrosMsg(..)
+  , MangleNamesMsg(..)
+  , ParseMsg(..)
+  , ParseTypeException(..)
+  , ReparseError(..)
+  , ResolveHeaderMsg(..)
+  , SortMsg(..)
+  , TcMacroError(..)
   ) where
 
-import HsBindgen.BindingSpec.Internal (BindingSpecMsg)
-import HsBindgen.Clang (ClangMsg)
-import HsBindgen.Frontend (FrontendMsg)
-import HsBindgen.Resolve (ResolveHeaderMsg)
+import Clang.HighLevel.Types (Diagnostic(..))
+import HsBindgen.BindingSpec.Internal (BindingSpecMsg(..))
+import HsBindgen.C.Reparse.Infra (ReparseError(..))
+import HsBindgen.C.Tc.Macro (TcMacroError(..))
+import HsBindgen.Clang (ClangMsg(..))
+import HsBindgen.Frontend (FrontendMsg(..))
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError(..))
+import HsBindgen.Frontend.Pass.HandleMacros (HandleMacrosMsg(..))
+import HsBindgen.Frontend.Pass.MangleNames (MangleNamesMsg(..))
+import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsg(..))
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException(..))
+import HsBindgen.Frontend.Pass.Sort (SortMsg(..))
+import HsBindgen.Resolve (ResolveHeaderMsg(..))
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
