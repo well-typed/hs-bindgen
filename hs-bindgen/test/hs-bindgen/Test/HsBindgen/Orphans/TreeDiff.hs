@@ -1,6 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
-module Test.Internal.TreeDiff.Orphans where
+module Test.HsBindgen.Orphans.TreeDiff () where
 
 import Data.Foldable (toList)
 import Data.TreeDiff.Class (ToExpr (..))

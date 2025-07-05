@@ -1,6 +1,9 @@
 {-# LANGUAGE CPP #-}
 
-module Main (main) where
+-- | Golden tests
+--
+-- This module is still in dire need of cleaning up.
+module Test.HsBindgen.Golden (tests) where
 
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.List qualified as List
@@ -8,7 +11,7 @@ import Data.Map qualified as Map
 import Data.Text qualified as Text
 import Data.TreeDiff.Golden (ediffGolden1)
 import System.FilePath ((</>))
-import Test.Tasty (TestName, TestTree, defaultMain, testGroup, withResource)
+import Test.Tasty (TestName, TestTree, testGroup)
 import Test.Tasty.HUnit (testCase)
 
 import Clang.Args
@@ -40,30 +43,16 @@ import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
-import Test.HsBindgen.C.Parser qualified
-import Test.HsBindgen.C.Predicate qualified
-import Test.HsBindgen.Clang.Args qualified
-import Test.HsBindgen.Util.Tracer qualified
-import Test.Internal.Misc
-import Test.Internal.Rust
-import Test.Internal.TastyGolden (goldenTestSteps)
-import Test.Internal.Tracer
-import Test.Internal.TreeDiff.Orphans ()
+import Test.Common.HsBindgen.TracePredicate
+import Test.Common.Util.Tasty
+import Test.Common.Util.Tasty.Golden
+import Test.HsBindgen.Orphans.TreeDiff ()
+import Test.HsBindgen.Util.Clang
+import Test.HsBindgen.Util.Rust
 
 #if __GLASGOW_HASKELL__ >=904
-import Test.Internal.TH
+import Test.HsBindgen.Golden.TH qualified as Golden.TH
 #endif
-
-{-------------------------------------------------------------------------------
-  Main
--------------------------------------------------------------------------------}
-
-main :: IO ()
-main = do
-    packageRoot <- findPackageDirectory "hs-bindgen"
-    defaultMain $ withRustBindgen $ \getRustBindgen ->
-        initExtBindingSpec packageRoot $ \getExtBindingSpec ->
-          tests packageRoot getExtBindingSpec getRustBindgen
 
 {-------------------------------------------------------------------------------
   Tests
@@ -71,12 +60,8 @@ main = do
 
 tests :: FilePath -> IO Pipeline.BindingSpec -> IO FilePath -> TestTree
 tests packageRoot getExtBindingSpec getRustBindgen =
-  testGroup "test-internal" [
-      Test.HsBindgen.C.Parser.tests (argsWith [])
-    , Test.HsBindgen.C.Predicate.tests
-    , Test.HsBindgen.Clang.Args.tests
-    , Test.HsBindgen.Util.Tracer.tests
-    , testGroup "examples/golden" $ map (uncurry golden) [
+    testGroup "Test.HsBindgen.Golden" [
+      testGroup "examples/golden" $ map (uncurry golden) [
           ("adios"                       , defaultTracePredicate)
         , ("anonymous"                   , defaultTracePredicate)
         , ("attributes"                  ,
@@ -279,8 +264,12 @@ tests packageRoot getExtBindingSpec getRustBindgen =
                 -> Nothing
             )
         ]
-    ]
+      ]
   where
+    -- TODO: Duplication with @test-hs-bindgen@
+    argsWith :: [FilePath] -> ClangArgs
+    argsWith includeDirs = getClangArgs packageRoot includeDirs
+
     golden :: TestName -> TracePredicate TraceMsg -> TestTree
     golden name predicate = goldenWith name predicate testConfig getExtBindingSpec
 
@@ -313,7 +302,7 @@ tests packageRoot getExtBindingSpec getRustBindgen =
 -- @Unit@ in 9.8 <https://github.com/ghc-proposals/ghc-proposals/pull/475>.
 -- We therefore test TH only with one specific GHC version.
 #if __GLASGOW_HASKELL__ >=904
-        , goldenTh packageRoot name config (withBindgenResources predicate getExtSpec)
+        , Golden.TH.tests packageRoot name config (withBindgenResources predicate getExtSpec)
 #endif
         , goldenPP name predicate config getExtSpec
         , goldenExtBindings name predicate config getExtSpec
@@ -403,8 +392,6 @@ tests packageRoot getExtBindingSpec getRustBindgen =
     mkHeaderIncludePath :: String -> CHeaderIncludePath
     mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
 
-    argsWith :: [FilePath] -> ClangArgs
-    argsWith includeDirs = getClangArgs packageRoot includeDirs
 
     testConfig :: Config
     testConfig = def {
@@ -450,22 +437,3 @@ tests packageRoot getExtBindingSpec getRustBindgen =
           ClangVersion version | versionPred version -> Just (name, tracePred)
           _otherwise -> Nothing
 
-{-------------------------------------------------------------------------------
-  Auxiliary functions
--------------------------------------------------------------------------------}
-
-initExtBindingSpec ::
-     FilePath
-  -> (IO Pipeline.BindingSpec -> TestTree)
-  -> TestTree
-initExtBindingSpec packageRoot =
-    withResource getExtBindingSpec (const (return ()))
-  where
-    getExtBindingSpec :: IO Pipeline.BindingSpec
-    getExtBindingSpec = withTracePredicate defaultTracePredicate $ \tracer ->
-      let args = getClangArgs packageRoot []
-      in  Pipeline.loadExtBindingSpecs
-            tracer
-            args
-            Pipeline.UseStdlibBindingSpec
-            []

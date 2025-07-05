@@ -1,8 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module Test.HsBindgen.C.Predicate
-  ( tests
-  ) where
+module Test.HsBindgen.Prop.Selection (tests) where
 
 import Data.Either (isRight)
 import Data.String (IsString (fromString))
@@ -21,7 +19,7 @@ import HsBindgen.C.Predicate
 import HsBindgen.Language.C
 
 tests :: TestTree
-tests = testGroup "predicate" [
+tests = testGroup "Test.HsBindgen.Prop.Selection" [
           testGroup "match" [
             testProperty "all"                    prop_selectAll
           , testProperty "none"                   prop_selectNone

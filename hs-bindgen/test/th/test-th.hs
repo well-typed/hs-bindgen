@@ -1,12 +1,9 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DataKinds   #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE ImportQualifiedPost #-}
-{-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE CPP         #-}      -- for CURRENT_COMPONENT_ID
 
--- For flexible array members:
-{-# OPTIONS_GHC -Wno-orphans #-}
+{-# OPTIONS_GHC -Wno-orphans #-}  -- For flexible array members
+
 module Main (main) where
 
 import Control.Exception (AssertionFailed (AssertionFailed),
@@ -30,9 +27,17 @@ import HsBindgen.Runtime.FlexibleArrayMember (FLAMLengthMismatch (FLAMLengthMism
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.LibC qualified as LibC
 
-import Test.Internal.Tasty (assertException)
-import Test01 qualified
-import Test02 qualified
+import Test.Common.Util.Tasty
+
+-- The way that this test is setup is a bit convoluted, using the same source
+-- files for both @test-th@ and @test-pp@.
+#ifdef TEST_PP
+import Test.PP.Test01 qualified as Test01
+import Test.PP.Test02 qualified as Test02
+#else
+import Test.TH.Test01 qualified as Test01
+import Test.TH.Test02 qualified as Test02
+#endif
 
 {-------------------------------------------------------------------------------
   Test01

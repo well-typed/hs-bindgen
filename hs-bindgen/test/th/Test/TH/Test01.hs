@@ -12,7 +12,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module Test01 where
+module Test.TH.Test01 where
 
  -- TODO: GHC issue, we need to import this
 import HsBindgen.Runtime.SizedByteArray (SizedByteArray (..))

@@ -1,10 +1,6 @@
 {-# LANGUAGE TemplateHaskellQuotes #-}
--- | Separate module for TH tests.
---
--- This module exists mainly to avoid hassle with unused imports and packages.
-module Test.Internal.TH (
-    goldenTh,
-) where
+-- | Golden tests for TH output.
+module Test.HsBindgen.Golden.TH (tests) where
 
 import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Generics qualified as SYB
@@ -18,9 +14,10 @@ import HsBindgen.BindingSpec
 import HsBindgen.Guasi
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
-import Test.Internal.Misc
 
-goldenTh ::
+import Test.Common.Util.Tasty
+
+tests ::
      FilePath
   -> TestName
   -> Config
@@ -29,7 +26,7 @@ goldenTh ::
        -> PrescriptiveBindingSpec
        -> IO String) -> IO String)
   -> TestTree
-goldenTh packageRoot name config withBindgenResources =
+tests packageRoot name config withBindgenResources =
     goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \_ -> do
       -- -<.> does weird stuff for filenames with multiple dots;
       -- I usually simply avoid using it.

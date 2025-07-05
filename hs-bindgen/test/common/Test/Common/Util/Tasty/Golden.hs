@@ -1,7 +1,7 @@
 -- | A fork of @tasty-golden" allowing to report progress. 'goldenTest' with 'testCaseSteps'.
-module Test.Internal.TastyGolden (
-    goldenTestSteps,
-) where
+module Test.Common.Util.Tasty.Golden (
+    goldenTestSteps
+  ) where
 
 import Control.DeepSeq (rnf)
 import Control.Exception (SomeException, AsyncException, Exception (..), throwIO, try, evaluate)
@@ -12,6 +12,10 @@ import System.IO.Error (isDoesNotExistError)
 
 import Test.Tasty.Options
 import Test.Tasty.Providers
+
+{-------------------------------------------------------------------------------
+  Public API
+-------------------------------------------------------------------------------}
 
 -- | A very general testing function.
 goldenTestSteps
@@ -38,6 +42,10 @@ goldenTestSteps
       -- ^ update the golden file
     -> TestTree
 goldenTestSteps t golden test cmp upd = singleTest t $ GoldenSteps golden test cmp upd
+
+{-------------------------------------------------------------------------------
+  Internals
+-------------------------------------------------------------------------------}
 
 data GoldenSteps where
     GoldenSteps
