@@ -1,4 +1,4 @@
--- addDependentFile examples/golden-norust/type_attributes.h
+-- addDependentFile examples/golden/type_attributes.h
 data S
     = S {s_f :: (ConstantArray 3 CShort)}
     deriving stock (Eq, Show)

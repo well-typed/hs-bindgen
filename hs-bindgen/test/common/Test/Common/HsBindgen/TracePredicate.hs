@@ -5,9 +5,11 @@ module Test.Common.HsBindgen.TracePredicate (
     -- * Predicate
     TraceExpectation (..)
   , TracePredicate -- opaque
+  , WrongCountMsg(..)
   , defaultTracePredicate
   , singleTracePredicate
   , customTracePredicate
+  , customTracePredicate'
   , TraceExpectationException
     -- * Tracer
   , withTracePredicate
@@ -24,6 +26,7 @@ import Data.Maybe (fromMaybe)
 import Data.Typeable (Typeable)
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Lib
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
@@ -170,13 +173,23 @@ instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a)
 class WrongCountMsg b where
   wrongCount :: b -> Int -> Int -> CtxDoc
 
-instance WrongCountMsg String where
+-- | The general case, with user-defined labels as documents
+instance WrongCountMsg CtxDoc where
   wrongCount name expectedCount actualCount = PP.cat
-    [ "Name: ",             PP.string name
+    [ "Name: ",             name
     , ", expected count: ", PP.showToCtxDoc expectedCount
     , ", actual count: "  , PP.showToCtxDoc actualCount
     ]
 
+-- | Traces with multiple outcome, with user-defined labels
+instance WrongCountMsg String where
+  wrongCount = wrongCount . PP.string
+
+-- | It is often useful to check for warnings/errors for specific declarations
+instance WrongCountMsg DeclId where
+  wrongCount = wrongCount . prettyForTrace
+
+-- | The most common case: traces with just one outcome
 instance WrongCountMsg () where
   wrongCount _ 1 n = case compare n 1 of
     LT -> "Expected a single trace but no trace was emitted"

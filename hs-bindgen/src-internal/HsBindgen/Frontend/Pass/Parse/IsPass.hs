@@ -8,8 +8,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , ParseMsg(..)
   ) where
 
-import Data.List qualified as List
-
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -87,10 +85,7 @@ data ParseMsg =
     --
     -- Since types don't necessarily have associated source locations, we
     -- instead record information about the enclosing declaration.
-  | UnsupportedType {
-        unsupportedTypeContext   :: C.DeclInfo Parse
-      , unsupportedTypeException :: ParseTypeException
-      }
+  | UnsupportedType (C.DeclInfo Parse) ParseTypeException
 
     -- | Struct with implicit fields
   | UnsupportedImplicitFields (C.DeclInfo Parse)
@@ -116,19 +111,14 @@ data ParseMsg =
     --
     -- > type definition not allowed
     --
-    -- Since it seems that such declarations are therefore anyway unusable, we
-    -- don't support them either. This avoids having to think about how to
-    -- /name/ such anonymous structs; we should perhaps use the function
-    -- parameters, but function signatures don't always list them; the name of
-    -- the function may not suffice, because there might be more than one; for
-    -- example in
+    -- It's not entirely clear if C23/WG14-N3037 affects this or not; @gcc@
+    -- warns about both declarations even with @-std=c2x@.
     --
-    -- > #define point struct { int x; int y; }
-    -- > void h(point p1, point p2);
-  | UnsupportedDeclsInSignature {
-        unsupportedDeclsInSignatureFun   :: C.DeclInfo Parse
-      , unsupportedDeclsInSignatureDecls :: [DeclId]
-      }
+    -- For our purposes, only the anonymous case is really problematic (we have
+    -- no way of assigning a name to the struct). Since it is relatively clear
+    -- that the anonymous version is anyway unusable (callers would have no way
+    -- of constructing any values), we rule them out.
+  | UnexpectedAnonInSignature (C.DeclInfo Parse)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace (C.DeclInfo Parse) where
@@ -147,31 +137,29 @@ instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
       Skipped reason ->
           prettyForTrace reason
-      UnsupportedType {..} -> PP.hcat [
-          "Encountered unsupported type while parsing "
-        , prettyForTrace unsupportedTypeContext
-        , ": "
-        , prettyForTrace unsupportedTypeException
-        ]
-      UnsupportedImplicitFields info -> PP.hsep [
-          "Unsupported implicit fields in"
-        , prettyForTrace info
-        ]
-      UnsupportedDeclsInSignature{..} -> PP.hsep [
-          "Unsupported nested declarations in"
-        , prettyForTrace unsupportedDeclsInSignatureFun
-        , "of"
-        , PP.hcat $ List.intersperse ", " $
-            map prettyForTrace unsupportedDeclsInSignatureDecls
-        ]
+      UnsupportedType info err -> noBindingsGenerated info $
+          prettyForTrace err
+      UnsupportedImplicitFields info -> noBindingsGenerated info $
+          "unsupported implicit fields"
+      UnexpectedAnonInSignature info -> noBindingsGenerated info $
+          "unexpected anonymous declaration in function signature"
+    where
+      noBindingsGenerated :: C.DeclInfo Parse -> PP.CtxDoc -> PP.CtxDoc
+      noBindingsGenerated info reason = PP.hcat [
+            "No bindings generated for "
+          , prettyForTrace info
+          , ": "
+          , reason
+          ]
+
 
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel ParseMsg where
   getDefaultLogLevel = \case
-      Skipped reason                -> getDefaultLogLevel reason
-      UnsupportedType _ctxt err     -> getDefaultLogLevel err
-      UnsupportedImplicitFields{}   -> Warning
-      UnsupportedDeclsInSignature{} -> Warning
+      Skipped reason              -> getDefaultLogLevel reason
+      UnsupportedType _ctxt err   -> getDefaultLogLevel err
+      UnsupportedImplicitFields{} -> Warning
+      UnexpectedAnonInSignature{} -> Warning
 
 instance HasSource ParseMsg where
     getSource = const HsBindgen

@@ -32,6 +32,9 @@ data DeclId =
   | DeclAnon AnonId
   deriving stock (Show, Eq, Ord)
 
+instance IsString DeclId where
+  fromString = DeclNamed . fromString
+
 isNamedDecl :: DeclId -> Maybe CName
 isNamedDecl (DeclNamed name) = Just name
 isNamedDecl (DeclAnon  _)    = Nothing

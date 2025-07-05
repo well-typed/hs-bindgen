@@ -9,14 +9,15 @@ import HsBindgen.Clang (splitArguments, getExtraClangArgs)
 import HsBindgen.Lib
 
 import Test.Common.HsBindgen.TracePredicate
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   List of tests
 -------------------------------------------------------------------------------}
 
-tests :: ClangArgs -> TestTree
-tests args = testGroup "Test.HsBindgen.Unit.ClangArgs" [
-      testCase "getTargetTriple" $ testGetTargetTriple args
+tests :: IO TestResources -> TestTree
+tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
+      testCase "getTargetTriple" $ testGetTargetTriple testResources
     , getExtraClangArgsTests
     , splitArgumentsTests
     ]
@@ -25,10 +26,12 @@ tests args = testGroup "Test.HsBindgen.Unit.ClangArgs" [
   Target triple
 -------------------------------------------------------------------------------}
 
-testGetTargetTriple :: ClangArgs -> Assertion
-testGetTargetTriple args = do
+testGetTargetTriple :: IO TestResources -> Assertion
+testGetTargetTriple testResources = do
+    clangArgs <- getTestDefaultClangArgs testResources []
+
     triple <- withTracePredicate defaultTracePredicate $ \tracer ->
-      getTargetTriple (contramap TraceClang tracer) args
+      getTargetTriple (contramap TraceClang tracer) clangArgs
 
     -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
     -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
