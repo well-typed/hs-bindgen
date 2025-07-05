@@ -18,7 +18,7 @@ class Finalize (a :: Pass -> Star) where
   finalize :: a Final -> Finalized a
 
 -- The final phase in the frontend
-type Final = NameMangler
+type Final = MangleNames
 
 {-------------------------------------------------------------------------------
   Instances

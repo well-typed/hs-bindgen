@@ -1,15 +1,17 @@
 module HsBindgen.Frontend.Pass.Sort.IsPass (
     Sort
   , DeclMeta(..)
+  , SortMsg(..)
   ) where
 
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse, ReparseInfo)
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -36,6 +38,8 @@ instance IsPass Sort where
   type MacroBody  Sort = MacroBody  Parse
   type ExtBinding Sort = ExtBinding Parse
   type Ann ix     Sort = AnnSort ix
+  type Config     Sort = NoConfig
+  type Msg        Sort = SortMsg
 
 {-------------------------------------------------------------------------------
   Information about the declarations
@@ -47,3 +51,17 @@ data DeclMeta = DeclMeta {
     , declNonSelected :: NonSelectedDecls
     }
   deriving stock (Show, Eq)
+
+{-------------------------------------------------------------------------------
+  Trace messages
+-------------------------------------------------------------------------------}
+
+data SortMsg =
+    SortErrorDeclIndex DeclIndexError
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace SortMsg where
+  prettyForTrace (SortErrorDeclIndex x) = prettyForTrace x
+
+instance HasDefaultLogLevel SortMsg where
+  getDefaultLogLevel (SortErrorDeclIndex x) = getDefaultLogLevel x

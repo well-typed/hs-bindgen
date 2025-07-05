@@ -1,21 +1,17 @@
 module HsBindgen.Frontend.Pass.ResolveBindingSpec (
     resolveBindingSpec
-  , ResolveBindingSpecsMsg(..)
   ) where
 
-import Control.Exception (Exception (..))
 import Control.Monad ((<=<))
 import Control.Monad.RWS (MonadReader, MonadState, RWS)
 import Control.Monad.RWS qualified as RWS
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpec
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
-import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -38,7 +34,7 @@ resolveBindingSpec ::
      ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
-  -> (C.TranslationUnit ResolveBindingSpec, [ResolveBindingSpecsMsg])
+  -> (C.TranslationUnit ResolveBindingSpec, [Msg ResolveBindingSpec])
 resolveBindingSpec
   extSpec
   pSpec
@@ -57,29 +53,6 @@ resolveBindingSpec
       , ..
       }
 
-data ResolveBindingSpecsMsg =
-    BindingSpecExtHsRefNoModule C.QualName
-  | BindingSpecExtHsRefNoIdentifier C.QualName
-  | BindingSpecOmittedTypeUse C.QualName
-  | BindingSpecTypeNotUsed C.QualName
-  deriving stock (Show, Eq)
-
-instance Exception ResolveBindingSpecsMsg where
-  toException = hsBindgenExceptionToException
-  fromException = hsBindgenExceptionFromException
-  displayException = \case
-      BindingSpecExtHsRefNoModule cQualName ->
-        "Haskell module not specified in binding specification: "
-          ++ Text.unpack (C.qualNameText cQualName)
-      BindingSpecExtHsRefNoIdentifier cQualName ->
-        "Haskell identifier not specified in binding specification: "
-          ++ Text.unpack (C.qualNameText cQualName)
-      BindingSpecOmittedTypeUse cQualName ->
-        "type omitted by binding specification used: "
-          ++ Text.unpack (C.qualNameText cQualName)
-      BindingSpecTypeNotUsed cQualName ->
-        "binding specification for type not used: "
-          ++ Text.unpack (C.qualNameText cQualName)
 
 {-------------------------------------------------------------------------------
   Internal: monad

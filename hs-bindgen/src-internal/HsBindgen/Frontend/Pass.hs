@@ -2,6 +2,8 @@ module HsBindgen.Frontend.Pass (
     Pass
   , IsPass(..)
   , NoAnn(..)
+  , NoConfig(..)
+  , NoMsg(..)
   ) where
 
 import HsBindgen.Imports
@@ -69,5 +71,20 @@ class IsPass (p :: Pass) where
   -- are showable, for example).
   type Ann (ix :: Symbol) p :: Star
 
+  -- | Configuration required to run the pass
+  type Config p :: Star
+
+  -- | Trace messages possibly emitted by the pass
+  type Msg p :: Star
+
 data NoAnn = NoAnn
   deriving stock (Show, Eq)
+
+data NoConfig = NoConfig
+  deriving stock (Show, Eq)
+
+data NoMsg = NoMsg
+  deriving stock (Show, Eq)
+
+-- TODO: Cyclic dependency.
+-- type PassResult p = (C.TranslationUnit p, [Msg p])
