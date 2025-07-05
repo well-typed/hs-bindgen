@@ -1,17 +1,11 @@
--- {-# OPTIONS_GHC -ddump-splices #-}
+{-# LANGUAGE LambdaCase         #-}
+{-# LANGUAGE TemplateHaskell    #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE ImportQualifiedPost #-}
-{-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE LambdaCase #-}
 
-module Test02 where
+module Test.TH.Test02 where
 
 import HsBindgen.TH
-import Test.Internal.Tracer (TraceExpectation (..), TracePredicate,
-                             customTracePredicate, defaultTracePredicate,
-                             withTracePredicate)
+import Test.Common.HsBindgen.TracePredicate
 
 -- Used by generated code
 import Clang.Paths (getCHeaderIncludePath)

@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP #-}
 -- | Separate module for running Rust's @bindgen@ (as comparison) tests.
-module Test.Internal.Rust (
+module Test.HsBindgen.Util.Rust (
     goldenRust,
     rustExpectPanic,
     withRustBindgen,
@@ -12,8 +12,9 @@ import Test.Tasty (TestTree, TestName)
 import Test.Tasty.HUnit (testCase)
 
 -- to avoid unused package warning
-import System.Process ()
+import System.Directory ()
 import System.IO.Temp ()
+import System.Process ()
 
 withRustBindgen :: (IO FilePath -> TestTree) -> TestTree
 withRustBindgen k = k (return "")
@@ -41,7 +42,7 @@ import System.IO.Temp (getCanonicalTemporaryDirectory, createTempDirectory)
 import System.Process qualified as P
 import System.Exit (ExitCode (..))
 
-import Test.Internal.Misc
+import Test.Common.Util.Tasty
 import Test.Tasty.HUnit (testCase, assertBool, (@?=))
 
 -- | The golden tests are tied to a specific version of @rust-bindgen@.

@@ -4,7 +4,7 @@
 
 -- | Test simple Template Haskell interface.
 
-module Simple where
+module Test.TH.Simple where
 
 import HsBindgen.TH
 

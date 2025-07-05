@@ -1,17 +1,8 @@
-{-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE ExistentialQuantification #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE ImportQualifiedPost #-}
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TupleSections #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-
-module Test.Internal.Tracer
-  ( -- * Predicate
+-- | Predicates on trace messages
+--
+-- Intended for unqualified import.
+module Test.Common.HsBindgen.TracePredicate (
+    -- * Predicate
     TraceExpectation (..)
   , TracePredicate -- opaque
   , defaultTracePredicate
@@ -22,20 +13,20 @@ module Test.Internal.Tracer
   , withTracePredicate
   ) where
 
-import Control.Exception (Exception, throwIO)
-import Control.Monad.Except (Except, MonadError (throwError), runExcept)
-import Control.Monad.IO.Class (MonadIO (liftIO))
-import Data.Dynamic (Typeable)
+import Control.Exception
+import Control.Monad.Except (Except, throwError, runExcept)
+import Control.Monad.IO.Class
 import Data.Foldable qualified as Foldable
-import Data.IORef (IORef, modifyIORef', newIORef, readIORef)
+import Data.IORef
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
+import Data.Typeable (Typeable)
 
 import HsBindgen.Errors
 import HsBindgen.Lib
-import Text.SimplePrettyPrint (CtxDoc, cat, defaultContext, hang, renderCtxDoc,
-                               showToCtxDoc, string, vcat, (><))
+import Text.SimplePrettyPrint (CtxDoc, (><))
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Trace predicates
@@ -149,14 +140,25 @@ data TraceExpectationException a = TraceExpectationException {
     }
 
 instance (PrettyForTrace a, HasDefaultLogLevel a)
-  => Show (TraceExpectationException a) where
-  show (TraceExpectationException {..}) = renderCtxDoc defaultContext $ vcat $
-       (if null unexpectedTraces then []
-          else "Unexpected traces:" : map formatTrace unexpectedTraces)
-    ++ (if null expectedTracesWithWrongCounts then []
-          else "Expected traces with wrong counts:" : expectedTracesWithWrongCounts)
-    where formatTrace trace =
-            hang (showToCtxDoc (getDefaultLogLevel trace) >< ":") 2 (prettyForTrace trace)
+      => Show (TraceExpectationException a) where
+  show (TraceExpectationException {..}) = PP.renderCtxDoc PP.defaultContext $
+      PP.vcat $
+           ( if null unexpectedTraces
+               then []
+               else "Unexpected traces:"
+                  : map formatTrace unexpectedTraces
+           )
+        ++ ( if null expectedTracesWithWrongCounts
+               then []
+               else "Expected traces with wrong counts:"
+                  : expectedTracesWithWrongCounts
+           )
+    where
+      formatTrace trace =
+        PP.hang
+          (PP.showToCtxDoc (getDefaultLogLevel trace) >< ":")
+          2
+          (prettyForTrace trace)
 
 instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a)
   => Exception (TraceExpectationException a)
@@ -169,10 +171,10 @@ class WrongCountMsg b where
   wrongCount :: b -> Int -> Int -> CtxDoc
 
 instance WrongCountMsg String where
-  wrongCount name expectedCount actualCount = cat
-    [ "Name: ",             string name
-    , ", expected count: ", showToCtxDoc expectedCount
-    , ", actual count: "  , showToCtxDoc actualCount
+  wrongCount name expectedCount actualCount = PP.cat
+    [ "Name: ",             PP.string name
+    , ", expected count: ", PP.showToCtxDoc expectedCount
+    , ", actual count: "  , PP.showToCtxDoc actualCount
     ]
 
 instance WrongCountMsg () where

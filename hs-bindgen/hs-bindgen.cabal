@@ -307,110 +307,126 @@ executable clang-ast-dump
       -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19
 
-test-suite test-internal
+library test-common
+  import:         lang
+  hs-source-dirs: test/common
+
+  exposed-modules:
+      Test.Common.HsBindgen.TracePredicate
+      Test.Common.Util.Cabal
+      Test.Common.Util.Tasty
+      Test.Common.Util.Tasty.Golden
+
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen
+    , hs-bindgen:internal
+    , ansi-diff
+  build-depends:
+      -- Inherited dependencies
+    , containers
+    , mtl
+    , bytestring
+    , directory
+    , filepath
+  build-depends:
+      -- External dependencies
+    , deepseq     >= 1.4    && < 1.6
+    , tasty       >= 1.5    && < 1.6
+    , tasty-hunit >= 0.10.2 && < 0.11
+    , utf8-string >= 1.0.2  && < 1.1
+
+test-suite test-hs-bindgen
   import:         lang
   type:           exitcode-stdio-1.0
-  main-is:        test-internal.hs
-  hs-source-dirs: test/internal, test/common
+  main-is:        test-hs-bindgen.hs
+  hs-source-dirs: test/hs-bindgen
+
   other-modules:
-      -- Internal
-      Test.HsBindgen.C.Parser
-      Test.HsBindgen.C.Predicate
-      Test.HsBindgen.Clang.Args
-      Test.HsBindgen.Util.Tracer
-      Test.Internal.Misc
-      Test.Internal.Rust
-      Test.Internal.TastyGolden
-      Test.Internal.TH
-      Test.Internal.TreeDiff.Orphans
-      -- Common
-      Test.Internal.Tasty
-      Test.Internal.Tracer
+      Test.HsBindgen.Golden
+      Test.HsBindgen.Golden.TH
+      Test.HsBindgen.Orphans.TreeDiff
+      Test.HsBindgen.Prop.Selection
+      Test.HsBindgen.Unit.ClangArgs
+      Test.HsBindgen.Unit.Tracer
+      Test.HsBindgen.Util.Clang
+      Test.HsBindgen.Util.Rust
+
   build-depends:
       -- Internal dependencies
     , c-expr
     , clang
     , hs-bindgen
     , hs-bindgen:internal
-    , deepseq
+    , test-common
   build-depends:
       -- Inherited dependencies
-    , bytestring
     , containers
     , debruijn
     , mtl
+    , tasty
+    , tasty-hunit
     , template-haskell
     , text
     , vec
+    , utf8-string
+    , filepath
+    , directory
   build-depends:
       -- External dependencies
-    , ansi-diff
-    , deepseq
-    , directory        ^>=1.3.6.2
-    , filepath         ^>=1.4.2.2 || ^>=1.5.2.0
-    , process
-    , syb              ^>=0.7.2.4
-    , tasty            ^>=1.5
-    , tasty-hunit      ^>=0.10.2
-    , tasty-quickcheck ^>=0.11.1
-    , temporary
-    , tree-diff        ^>=0.3.4
-    , utf8-string      ^>=1.0.2
+    , process          >= 1.6     && < 1.7
+    , temporary        >= 1.3     && < 1.4
+    , tree-diff        >= 0.3.4   && < 0.4
+    , tasty-quickcheck >= 0.11.1  && < 0.12
+    , syb              >= 0.7.2.4 && < 0.8
 
 test-suite test-th
-  type:           exitcode-stdio-1.0
-  main-is:        test-th.hs
-  hs-source-dirs: test/th, test/common
-  include-dirs:   examples
+  type:             exitcode-stdio-1.0
+  main-is:          test-th.hs
+  hs-source-dirs:   test/th
+  include-dirs:     examples
+  default-language: GHC2021
 
   other-modules:
-      -- TH
-      Simple
-      Test01
-      Test02
-      -- Common
-      Test.Internal.Tasty
-      Test.Internal.Tracer
+      Test.TH.Simple
+      Test.TH.Test01
+      Test.TH.Test02
 
-  default-language: Haskell2010
   build-depends:
       -- Internal dependencies
     , clang
     , hs-bindgen
     , hs-bindgen:internal
     , hs-bindgen-runtime
+    , test-common
   build-depends:
       -- Inherited dependencies
-    , base <5
+    , base
     , containers
     , mtl
+    , tasty
+    , tasty-hunit
   build-depends:
       -- External dependencies
-    , tasty ^>= 1.5
-    , tasty-hunit ^>=0.10.2
-    , vector ^>=0.13.2.0
+    , vector ^>= 0.13.2.0
 
 test-suite test-pp
-  type:           exitcode-stdio-1.0
-  main-is:        ../th/test-th.hs
-  hs-source-dirs: test/pp, test/common
-  include-dirs:   examples
+  type:             exitcode-stdio-1.0
+  main-is:          ../th/test-th.hs
+  hs-source-dirs:   test/pp
+  include-dirs:     examples
+  default-language: GHC2021
 
   other-modules:
-      -- PP
-      Test01
-      Test02
-      -- Common
-      Test.Internal.Tasty
-      Test.Internal.Tracer
-
-  default-language: Haskell2010
+      Test.PP.Test01
+      Test.PP.Test02
 
   -- Here we use literate haskell "hook" to avoid setting up true preprocessors
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
   -- The source files contains the actual options and arguments to be used with hs-bindgen
   ghc-options: -pgmL hs-bindgen-cli -optL literate
+  cpp-options: -DTEST_PP
 
   build-tool-depends: hs-bindgen:hs-bindgen-cli
   build-depends:
@@ -420,15 +436,16 @@ test-suite test-pp
     , hs-bindgen
     , hs-bindgen:internal
     , hs-bindgen-runtime
+    , test-common
   build-depends:
       -- Inherited dependencies
     , base <5
     , containers
     , mtl
+    , tasty
+    , tasty-hunit
   build-depends:
       -- External dependencies
-    , tasty ^>= 1.5
-    , tasty-hunit ^>=0.10.2
     , vector ^>=0.13.2.0
   if impl(ghc < 9.4)
     build-depends: data-array-byte

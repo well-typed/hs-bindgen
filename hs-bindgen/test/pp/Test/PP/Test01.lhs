@@ -1,4 +1,4 @@
 [ "--include-path=examples"
-, "--module=Test01"
+, "--module=Test.PP.Test01"
 , "test_01.h"
 ]
