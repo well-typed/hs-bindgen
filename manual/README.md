@@ -11,6 +11,7 @@
 * [Enums](LowLevel/Enums.md)
 * [Unions](LowLevel/Unions.md)
 * [Functions](LowLevel/Functions.md)
+* [Global variables and constants](LowLevel/Globals.md)
 * [External Bindings](LowLevel/ExternalBindings.md)
 
 ## Handwriting high-level bindings

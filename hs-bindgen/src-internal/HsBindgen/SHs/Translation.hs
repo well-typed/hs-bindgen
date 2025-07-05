@@ -43,6 +43,8 @@ translateDecls decls
 csources :: [Hs.Decl] -> String
 csources decls = unlines $ headers ++ bodies
   where
+    -- It is important that we don't include the same header more than once,
+    -- /especially/ for non-extern non-static globals.
     headers = ordNub
       [ "#include \"" ++ header ++ "\""
       | Hs.DeclInlineCInclude header <- decls
@@ -160,11 +162,8 @@ translateVarDecl Hs.VarDecl {..} = DVar
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
 translateForeignImportDecl Hs.ForeignImportDecl {..} =
     [  DForeignImport ForeignImport
-        { foreignImportName     = foreignImportName
-        , foreignImportType     = translateType foreignImportType
-        , foreignImportOrigName = foreignImportOrigName
-        , foreignImportHeader   = foreignImportHeader
-        , foreignImportOrigin   = foreignImportDeclOrigin
+        { foreignImportType = translateType foreignImportType
+        , ..
         }
     ]
 

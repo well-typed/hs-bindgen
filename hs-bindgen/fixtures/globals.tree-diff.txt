@@ -1,0 +1,520 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:8:12",
+        declId = NamePair {
+          nameC = CName "simpleGlobal",
+          nameHsIdent = HsIdentifier
+            "simpleGlobal"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:11:8",
+        declId = NamePair {
+          nameC = CName "config",
+          nameHsIdent = HsIdentifier
+            "Config"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Config"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "globals.h:12:7",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "config_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "globals.h:13:7",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "config_y"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:15:22",
+        declId = NamePair {
+          nameC = CName "compoundGlobal1",
+          nameHsIdent = HsIdentifier
+            "compoundGlobal1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypeStruct
+          NamePair {
+            nameC = CName "config",
+            nameHsIdent = HsIdentifier
+              "Config"}
+          NameOriginInSource),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:18:15",
+        declId = NamePair {
+          nameC = CName "inline_struct",
+          nameHsIdent = HsIdentifier
+            "Inline_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Inline_struct"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "globals.h:18:35",
+              structFieldName = NamePair {
+                nameC = CName "x",
+                nameHsIdent = HsIdentifier
+                  "inline_struct_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldLoc =
+              "globals.h:18:42",
+              structFieldName = NamePair {
+                nameC = CName "y",
+                nameHsIdent = HsIdentifier
+                  "inline_struct_y"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:18:47",
+        declId = NamePair {
+          nameC = CName "compoundGlobal2",
+          nameHsIdent = HsIdentifier
+            "compoundGlobal2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypeStruct
+          NamePair {
+            nameC = CName "inline_struct",
+            nameHsIdent = HsIdentifier
+              "Inline_struct"}
+          NameOriginInSource),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:37:9",
+        declId = NamePair {
+          nameC = CName "nesInteger",
+          nameHsIdent = HsIdentifier
+            "nesInteger"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:38:9",
+        declId = NamePair {
+          nameC = CName "nesFloating",
+          nameHsIdent = HsIdentifier
+            "nesFloating"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimFloating PrimFloat)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:40:9",
+        declId = NamePair {
+          nameC = CName "nesString1",
+          nameHsIdent = HsIdentifier
+            "nesString1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePointer
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed))))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:41:9",
+        declId = NamePair {
+          nameC = CName "nesString2",
+          nameHsIdent = HsIdentifier
+            "nesString2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypeConstArray
+          3
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed))))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:42:9",
+        declId = NamePair {
+          nameC = CName "nesCharacter",
+          nameHsIdent = HsIdentifier
+            "nesCharacter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed)))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:43:9",
+        declId = NamePair {
+          nameC = CName "nesParen",
+          nameHsIdent = HsIdentifier
+            "nesParen"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:44:9",
+        declId = NamePair {
+          nameC = CName "nesUnary",
+          nameHsIdent = HsIdentifier
+            "nesUnary"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:45:9",
+        declId = NamePair {
+          nameC = CName "nesBinary",
+          nameHsIdent = HsIdentifier
+            "nesBinary"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:46:9",
+        declId = NamePair {
+          nameC = CName "nesConditional",
+          nameHsIdent = HsIdentifier
+            "nesConditional"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:47:9",
+        declId = NamePair {
+          nameC = CName "nesCast",
+          nameHsIdent = HsIdentifier
+            "nesCast"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimFloating PrimFloat)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:48:9",
+        declId = NamePair {
+          nameC = CName "nesCompound",
+          nameHsIdent = HsIdentifier
+            "nesCompound"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypePointer
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:49:9",
+        declId = NamePair {
+          nameC = CName "nesInitList",
+          nameHsIdent = HsIdentifier
+            "nesInitList"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h"},
+      declKind = DeclExtern
+        (TypeConstArray
+          4
+          (TypeExtBinding
+            ResolvedExtBinding {
+              extCName = QualName {
+                qualNameName = CName "uint8_t",
+                qualNameKind =
+                NameKindOrdinary},
+              extHsRef = ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"},
+              extHsSpec = TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}})),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "stdint",
+    "alltypes",
+    "stdint",
+    "globals"]}

@@ -1,51 +1,42 @@
 [
-  DeclEmpty
-    EmptyData {
-      emptyDataName = HsName
-        "@NsTypeConstr"
-        "Opaque",
-      emptyDataOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "decls_in_signature.h:2:8",
-          declId = NamePair {
-            nameC = CName "opaque",
-            nameHsIdent = HsIdentifier
-              "Opaque"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader =
-          "decls_in_signature.h"},
-        declKind = OpaqueStruct,
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}}},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "simpleGlobal",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "simpleGlobal",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed))},
   DeclData
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "Outside",
+        "Config",
       structConstr = HsName
         "@NsConstr"
-        "Outside",
+        "Config",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "outside_x",
+            "config_x",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
               structFieldLoc =
-              "decls_in_signature.h:4:7",
+              "globals.h:12:7",
               structFieldName = NamePair {
                 nameC = CName "x",
                 nameHsIdent = HsIdentifier
-                  "outside_x"},
+                  "config_x"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
@@ -53,17 +44,17 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "outside_y",
+            "config_y",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
               structFieldLoc =
-              "decls_in_signature.h:5:7",
+              "globals.h:13:7",
               structFieldName = NamePair {
                 nameC = CName "y",
                 nameHsIdent = HsIdentifier
-                  "outside_y"},
+                  "config_y"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
@@ -71,41 +62,39 @@
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
-            declLoc =
-            "decls_in_signature.h:3:8",
+            declLoc = "globals.h:11:8",
             declId = NamePair {
-              nameC = CName "outside",
+              nameC = CName "config",
               nameHsIdent = HsIdentifier
-                "Outside"},
+                "Config"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "decls_in_signature.h"},
+            declHeader = "globals.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Outside"),
+                (HsName "@NsConstr" "Config"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
                 StructField {
                   structFieldLoc =
-                  "decls_in_signature.h:4:7",
+                  "globals.h:12:7",
                   structFieldName = NamePair {
                     nameC = CName "x",
                     nameHsIdent = HsIdentifier
-                      "outside_x"},
+                      "config_x"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
                   structFieldLoc =
-                  "decls_in_signature.h:5:7",
+                  "globals.h:13:7",
                   structFieldName = NamePair {
                     nameC = CName "y",
                     nameHsIdent = HsIdentifier
-                      "outside_y"},
+                      "config_y"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
@@ -124,25 +113,25 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Outside",
+          "Config",
         structConstr = HsName
           "@NsConstr"
-          "Outside",
+          "Config",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "outside_x",
+              "config_x",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
               StructField {
                 structFieldLoc =
-                "decls_in_signature.h:4:7",
+                "globals.h:12:7",
                 structFieldName = NamePair {
                   nameC = CName "x",
                   nameHsIdent = HsIdentifier
-                    "outside_x"},
+                    "config_x"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
@@ -150,17 +139,17 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "outside_y",
+              "config_y",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
               StructField {
                 structFieldLoc =
-                "decls_in_signature.h:5:7",
+                "globals.h:13:7",
                 structFieldName = NamePair {
                   nameC = CName "y",
                   nameHsIdent = HsIdentifier
-                    "outside_y"},
+                    "config_y"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
@@ -168,41 +157,39 @@
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
-              declLoc =
-              "decls_in_signature.h:3:8",
+              declLoc = "globals.h:11:8",
               declId = NamePair {
-                nameC = CName "outside",
+                nameC = CName "config",
                 nameHsIdent = HsIdentifier
-                  "Outside"},
+                  "Config"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader =
-              "decls_in_signature.h"},
+              declHeader = "globals.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
-                  (HsName "@NsConstr" "Outside"),
+                  (HsName "@NsConstr" "Config"),
                 structSizeof = 8,
                 structAlignment = 4,
                 structFields = [
                   StructField {
                     structFieldLoc =
-                    "decls_in_signature.h:4:7",
+                    "globals.h:12:7",
                     structFieldName = NamePair {
                       nameC = CName "x",
                       nameHsIdent = HsIdentifier
-                        "outside_x"},
+                        "config_x"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing},
                   StructField {
                     structFieldLoc =
-                    "decls_in_signature.h:5:7",
+                    "globals.h:13:7",
                     structFieldName = NamePair {
                       nameC = CName "y",
                       nameHsIdent = HsIdentifier
-                        "outside_y"},
+                        "config_y"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
@@ -226,25 +213,25 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Outside",
+                  "Config",
                 structConstr = HsName
                   "@NsConstr"
-                  "Outside",
+                  "Config",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "outside_x",
+                      "config_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "decls_in_signature.h:4:7",
+                        "globals.h:12:7",
                         structFieldName = NamePair {
                           nameC = CName "x",
                           nameHsIdent = HsIdentifier
-                            "outside_x"},
+                            "config_x"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -252,17 +239,17 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "outside_y",
+                      "config_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "decls_in_signature.h:5:7",
+                        "globals.h:13:7",
                         structFieldName = NamePair {
                           nameC = CName "y",
                           nameHsIdent = HsIdentifier
-                            "outside_y"},
+                            "config_y"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
@@ -270,41 +257,39 @@
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
-                      declLoc =
-                      "decls_in_signature.h:3:8",
+                      declLoc = "globals.h:11:8",
                       declId = NamePair {
-                        nameC = CName "outside",
+                        nameC = CName "config",
                         nameHsIdent = HsIdentifier
-                          "Outside"},
+                          "Config"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader =
-                      "decls_in_signature.h"},
+                      declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
-                          (HsName "@NsConstr" "Outside"),
+                          (HsName "@NsConstr" "Config"),
                         structSizeof = 8,
                         structAlignment = 4,
                         structFields = [
                           StructField {
                             structFieldLoc =
-                            "decls_in_signature.h:4:7",
+                            "globals.h:12:7",
                             structFieldName = NamePair {
                               nameC = CName "x",
                               nameHsIdent = HsIdentifier
-                                "outside_x"},
+                                "config_x"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
                             structFieldLoc =
-                            "decls_in_signature.h:5:7",
+                            "globals.h:13:7",
                             structFieldName = NamePair {
                               nameC = CName "y",
                               nameHsIdent = HsIdentifier
-                                "outside_y"},
+                                "config_y"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
@@ -330,25 +315,25 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Outside",
+                  "Config",
                 structConstr = HsName
                   "@NsConstr"
-                  "Outside",
+                  "Config",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "outside_x",
+                      "config_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "decls_in_signature.h:4:7",
+                        "globals.h:12:7",
                         structFieldName = NamePair {
                           nameC = CName "x",
                           nameHsIdent = HsIdentifier
-                            "outside_x"},
+                            "config_x"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -356,17 +341,17 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "outside_y",
+                      "config_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "decls_in_signature.h:5:7",
+                        "globals.h:13:7",
                         structFieldName = NamePair {
                           nameC = CName "y",
                           nameHsIdent = HsIdentifier
-                            "outside_y"},
+                            "config_y"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
@@ -374,41 +359,39 @@
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
-                      declLoc =
-                      "decls_in_signature.h:3:8",
+                      declLoc = "globals.h:11:8",
                       declId = NamePair {
-                        nameC = CName "outside",
+                        nameC = CName "config",
                         nameHsIdent = HsIdentifier
-                          "Outside"},
+                          "Config"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader =
-                      "decls_in_signature.h"},
+                      declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
-                          (HsName "@NsConstr" "Outside"),
+                          (HsName "@NsConstr" "Config"),
                         structSizeof = 8,
                         structAlignment = 4,
                         structFields = [
                           StructField {
                             structFieldLoc =
-                            "decls_in_signature.h:4:7",
+                            "globals.h:12:7",
                             structFieldName = NamePair {
                               nameC = CName "x",
                               nameHsIdent = HsIdentifier
-                                "outside_x"},
+                                "config_x"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
                             structFieldLoc =
-                            "decls_in_signature.h:5:7",
+                            "globals.h:13:7",
                             structFieldName = NamePair {
                               nameC = CName "y",
                               nameHsIdent = HsIdentifier
-                                "outside_y"},
+                                "config_y"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
@@ -435,94 +418,58 @@
     Show
     (HsName
       "@NsTypeConstr"
-      "Outside"),
+      "Config"),
   DeclNewtypeInstance
     DeriveStock
     Eq
     (HsName
       "@NsTypeConstr"
-      "Outside"),
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "void testmodule_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
+      "Config"),
+  DeclInlineCInclude "globals.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "normal_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Opaque")))
-        (HsFun
-          (HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Outside")))
-          (HsFun
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Outside")))
-            (HsIO
-              (HsPrimType HsPrimUnit)))),
+        "compoundGlobal1",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "Config")),
       foreignImportOrigName =
-      "testmodule_normal",
+      "compoundGlobal1",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            TypePointer
-              (TypeStruct
-                NamePair {
-                  nameC = CName "opaque",
-                  nameHsIdent = HsIdentifier
-                    "Opaque"}
-                NameOriginInSource),
-            TypePointer
-              (TypeStruct
-                NamePair {
-                  nameC = CName "outside",
-                  nameHsIdent = HsIdentifier
-                    "Outside"}
-                NameOriginInSource),
-            TypeStruct
-              NamePair {
-                nameC = CName "outside",
-                nameHsIdent = HsIdentifier
-                  "Outside"}
-              NameOriginInSource],
-          functionRes = TypeVoid}},
-  DeclSimple,
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypeStruct
+          NamePair {
+            nameC = CName "config",
+            nameHsIdent = HsIdentifier
+              "Config"}
+          NameOriginInSource)},
   DeclData
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "Named_struct",
+        "Inline_struct",
       structConstr = HsName
         "@NsConstr"
-        "Named_struct",
+        "Inline_struct",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "named_struct_x",
+            "inline_struct_x",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
               structFieldLoc =
-              "decls_in_signature.h:17:35",
+              "globals.h:18:35",
               structFieldName = NamePair {
                 nameC = CName "x",
                 nameHsIdent = HsIdentifier
-                  "named_struct_x"},
+                  "inline_struct_x"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
@@ -530,17 +477,17 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "named_struct_y",
+            "inline_struct_y",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
               structFieldLoc =
-              "decls_in_signature.h:17:42",
+              "globals.h:18:42",
               structFieldName = NamePair {
                 nameC = CName "y",
                 nameHsIdent = HsIdentifier
-                  "named_struct_y"},
+                  "inline_struct_y"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
@@ -548,43 +495,41 @@
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
-            declLoc =
-            "decls_in_signature.h:17:16",
+            declLoc = "globals.h:18:15",
             declId = NamePair {
-              nameC = CName "named_struct",
+              nameC = CName "inline_struct",
               nameHsIdent = HsIdentifier
-                "Named_struct"},
+                "Inline_struct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "decls_in_signature.h"},
+            declHeader = "globals.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
                 (HsName
                   "@NsConstr"
-                  "Named_struct"),
+                  "Inline_struct"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
                 StructField {
                   structFieldLoc =
-                  "decls_in_signature.h:17:35",
+                  "globals.h:18:35",
                   structFieldName = NamePair {
                     nameC = CName "x",
                     nameHsIdent = HsIdentifier
-                      "named_struct_x"},
+                      "inline_struct_x"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
                   structFieldLoc =
-                  "decls_in_signature.h:17:42",
+                  "globals.h:18:42",
                   structFieldName = NamePair {
                     nameC = CName "y",
                     nameHsIdent = HsIdentifier
-                      "named_struct_y"},
+                      "inline_struct_y"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
@@ -603,25 +548,25 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Named_struct",
+          "Inline_struct",
         structConstr = HsName
           "@NsConstr"
-          "Named_struct",
+          "Inline_struct",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "named_struct_x",
+              "inline_struct_x",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
               StructField {
                 structFieldLoc =
-                "decls_in_signature.h:17:35",
+                "globals.h:18:35",
                 structFieldName = NamePair {
                   nameC = CName "x",
                   nameHsIdent = HsIdentifier
-                    "named_struct_x"},
+                    "inline_struct_x"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
@@ -629,17 +574,17 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "named_struct_y",
+              "inline_struct_y",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
               StructField {
                 structFieldLoc =
-                "decls_in_signature.h:17:42",
+                "globals.h:18:42",
                 structFieldName = NamePair {
                   nameC = CName "y",
                   nameHsIdent = HsIdentifier
-                    "named_struct_y"},
+                    "inline_struct_y"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
@@ -647,43 +592,41 @@
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
-              declLoc =
-              "decls_in_signature.h:17:16",
+              declLoc = "globals.h:18:15",
               declId = NamePair {
-                nameC = CName "named_struct",
+                nameC = CName "inline_struct",
                 nameHsIdent = HsIdentifier
-                  "Named_struct"},
+                  "Inline_struct"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader =
-              "decls_in_signature.h"},
+              declHeader = "globals.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
                   (HsName
                     "@NsConstr"
-                    "Named_struct"),
+                    "Inline_struct"),
                 structSizeof = 8,
                 structAlignment = 4,
                 structFields = [
                   StructField {
                     structFieldLoc =
-                    "decls_in_signature.h:17:35",
+                    "globals.h:18:35",
                     structFieldName = NamePair {
                       nameC = CName "x",
                       nameHsIdent = HsIdentifier
-                        "named_struct_x"},
+                        "inline_struct_x"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
                     structFieldWidth = Nothing},
                   StructField {
                     structFieldLoc =
-                    "decls_in_signature.h:17:42",
+                    "globals.h:18:42",
                     structFieldName = NamePair {
                       nameC = CName "y",
                       nameHsIdent = HsIdentifier
-                        "named_struct_y"},
+                        "inline_struct_y"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
@@ -707,25 +650,25 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Named_struct",
+                  "Inline_struct",
                 structConstr = HsName
                   "@NsConstr"
-                  "Named_struct",
+                  "Inline_struct",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "named_struct_x",
+                      "inline_struct_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "decls_in_signature.h:17:35",
+                        "globals.h:18:35",
                         structFieldName = NamePair {
                           nameC = CName "x",
                           nameHsIdent = HsIdentifier
-                            "named_struct_x"},
+                            "inline_struct_x"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -733,17 +676,17 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "named_struct_y",
+                      "inline_struct_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "decls_in_signature.h:17:42",
+                        "globals.h:18:42",
                         structFieldName = NamePair {
                           nameC = CName "y",
                           nameHsIdent = HsIdentifier
-                            "named_struct_y"},
+                            "inline_struct_y"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
@@ -751,43 +694,41 @@
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
-                      declLoc =
-                      "decls_in_signature.h:17:16",
+                      declLoc = "globals.h:18:15",
                       declId = NamePair {
-                        nameC = CName "named_struct",
+                        nameC = CName "inline_struct",
                         nameHsIdent = HsIdentifier
-                          "Named_struct"},
+                          "Inline_struct"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader =
-                      "decls_in_signature.h"},
+                      declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
                           (HsName
                             "@NsConstr"
-                            "Named_struct"),
+                            "Inline_struct"),
                         structSizeof = 8,
                         structAlignment = 4,
                         structFields = [
                           StructField {
                             structFieldLoc =
-                            "decls_in_signature.h:17:35",
+                            "globals.h:18:35",
                             structFieldName = NamePair {
                               nameC = CName "x",
                               nameHsIdent = HsIdentifier
-                                "named_struct_x"},
+                                "inline_struct_x"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
                             structFieldLoc =
-                            "decls_in_signature.h:17:42",
+                            "globals.h:18:42",
                             structFieldName = NamePair {
                               nameC = CName "y",
                               nameHsIdent = HsIdentifier
-                                "named_struct_y"},
+                                "inline_struct_y"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
@@ -813,25 +754,25 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Named_struct",
+                  "Inline_struct",
                 structConstr = HsName
                   "@NsConstr"
-                  "Named_struct",
+                  "Inline_struct",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "named_struct_x",
+                      "inline_struct_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "decls_in_signature.h:17:35",
+                        "globals.h:18:35",
                         structFieldName = NamePair {
                           nameC = CName "x",
                           nameHsIdent = HsIdentifier
-                            "named_struct_x"},
+                            "inline_struct_x"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -839,17 +780,17 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "named_struct_y",
+                      "inline_struct_y",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "decls_in_signature.h:17:42",
+                        "globals.h:18:42",
                         structFieldName = NamePair {
                           nameC = CName "y",
                           nameHsIdent = HsIdentifier
-                            "named_struct_y"},
+                            "inline_struct_y"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
@@ -857,43 +798,41 @@
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
-                      declLoc =
-                      "decls_in_signature.h:17:16",
+                      declLoc = "globals.h:18:15",
                       declId = NamePair {
-                        nameC = CName "named_struct",
+                        nameC = CName "inline_struct",
                         nameHsIdent = HsIdentifier
-                          "Named_struct"},
+                          "Inline_struct"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader =
-                      "decls_in_signature.h"},
+                      declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
                           (HsName
                             "@NsConstr"
-                            "Named_struct"),
+                            "Inline_struct"),
                         structSizeof = 8,
                         structAlignment = 4,
                         structFields = [
                           StructField {
                             structFieldLoc =
-                            "decls_in_signature.h:17:35",
+                            "globals.h:18:35",
                             structFieldName = NamePair {
                               nameC = CName "x",
                               nameHsIdent = HsIdentifier
-                                "named_struct_x"},
+                                "inline_struct_x"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
                             structFieldWidth = Nothing},
                           StructField {
                             structFieldLoc =
-                            "decls_in_signature.h:17:42",
+                            "globals.h:18:42",
                             structFieldName = NamePair {
                               nameC = CName "y",
                               nameHsIdent = HsIdentifier
-                                "named_struct_y"},
+                                "inline_struct_y"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
@@ -920,177 +859,455 @@
     Show
     (HsName
       "@NsTypeConstr"
-      "Named_struct"),
+      "Inline_struct"),
   DeclNewtypeInstance
     DeriveStock
     Eq
     (HsName
       "@NsTypeConstr"
-      "Named_struct"),
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "void testmodule_f1 (struct named_struct *arg1) { f1(*arg1); }",
+      "Inline_struct"),
+  DeclInlineCInclude "globals.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "f1_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Named_struct")))
-        (HsIO (HsPrimType HsPrimUnit)),
+        "compoundGlobal2",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "Inline_struct")),
       foreignImportOrigName =
-      "testmodule_f1",
+      "compoundGlobal2",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            TypeStruct
-              NamePair {
-                nameC = CName "named_struct",
-                nameHsIdent = HsIdentifier
-                  "Named_struct"}
-              NameOriginInSource],
-          functionRes = TypeVoid}},
-  DeclSimple,
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Named_union",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Named_union",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Named_union",
-        fieldType = HsByteArray,
-        fieldOrigin = GeneratedField},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "decls_in_signature.h:20:15",
-          declId = NamePair {
-            nameC = CName "named_union",
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypeStruct
+          NamePair {
+            nameC = CName "inline_struct",
             nameHsIdent = HsIdentifier
-              "Named_union"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader =
-          "decls_in_signature.h"},
-        declKind = Union
-          Union {
-            unionNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Named_union",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Named_union"},
-            unionSizeof = 4,
-            unionAlignment = 4,
-            unionFields = [
-              UnionField {
-                unionFieldLoc =
-                "decls_in_signature.h:20:33",
-                unionFieldName = NamePair {
-                  nameC = CName "x",
-                  nameHsIdent = HsIdentifier
-                    "named_union_x"},
-                unionFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed)},
-              UnionField {
-                unionFieldLoc =
-                "decls_in_signature.h:20:41",
-                unionFieldName = NamePair {
-                  nameC = CName "y",
-                  nameHsIdent = HsIdentifier
-                    "named_union_y"},
-                unionFieldType = TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))}]},
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      newtypeInstances = Set.fromList
-        [Storable]},
-  DeclNewtypeInstance
-    (DeriveVia
-      (HsSizedByteArray 4 4))
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Named_union"),
-  DeclUnionGetter
-    (HsName
-      "@NsTypeConstr"
-      "Named_union")
-    (HsPrimType HsPrimCInt)
-    (HsName
-      "@NsVar"
-      "get_named_union_x"),
-  DeclUnionSetter
-    (HsName
-      "@NsTypeConstr"
-      "Named_union")
-    (HsPrimType HsPrimCInt)
-    (HsName
-      "@NsVar"
-      "set_named_union_x"),
-  DeclUnionGetter
-    (HsName
-      "@NsTypeConstr"
-      "Named_union")
-    (HsPrimType HsPrimCChar)
-    (HsName
-      "@NsVar"
-      "get_named_union_y"),
-  DeclUnionSetter
-    (HsName
-      "@NsTypeConstr"
-      "Named_union")
-    (HsPrimType HsPrimCChar)
-    (HsName
-      "@NsVar"
-      "set_named_union_y"),
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "void testmodule_f2 (union named_union *arg1) { f2(*arg1); }",
+              "Inline_struct"}
+          NameOriginInSource)},
+  DeclInlineCInclude "globals.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "f2_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Named_union")))
-        (HsIO (HsPrimType HsPrimUnit)),
+        "nesInteger",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_f2",
+      "nesInteger",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            TypeUnion
-              NamePair {
-                nameC = CName "named_union",
-                nameHsIdent = HsIdentifier
-                  "Named_union"}
-              NameOriginInSource],
-          functionRes = TypeVoid}},
-  DeclSimple]
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesFloating",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCFloat),
+      foreignImportOrigName =
+      "nesFloating",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimFloating PrimFloat))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesString1",
+      foreignImportType = HsPtr
+        (HsPtr
+          (HsPrimType HsPrimCChar)),
+      foreignImportOrigName =
+      "nesString1",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePointer
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed)))))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesString2",
+      foreignImportType = HsPtr
+        (HsConstArray
+          3
+          (HsPrimType HsPrimCChar)),
+      foreignImportOrigName =
+      "nesString2",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypeConstArray
+          3
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed)))))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesCharacter",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCChar),
+      foreignImportOrigName =
+      "nesCharacter",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed))))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesParen",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "nesParen",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesUnary",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "nesUnary",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesBinary",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "nesBinary",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesConditional",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "nesConditional",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesCast",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCFloat),
+      foreignImportOrigName =
+      "nesCast",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimFloating PrimFloat))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesCompound",
+      foreignImportType = HsPtr
+        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "nesCompound",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypePointer
+          (TypePrim
+            (PrimIntegral
+              PrimInt
+              Signed)))},
+  DeclInlineCInclude "globals.h",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nesInitList",
+      foreignImportType = HsPtr
+        (HsConstArray
+          4
+          (HsExtBinding
+            ExtHsRef {
+              extHsRefModule = HsModuleName
+                "HsBindgen.Runtime.Prelude",
+              extHsRefIdentifier =
+              HsIdentifier "Word8"}
+            TypeSpec {
+              typeSpecModule = Just
+                (HsModuleName
+                  "HsBindgen.Runtime.Prelude"),
+              typeSpecIdentifier = Just
+                (HsIdentifier "Word8"),
+              typeSpecInstances = Map.fromList
+                [
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]})),
+      foreignImportOrigName =
+      "nesInitList",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsPtr,
+      foreignImportOrigin = Global
+        (TypeConstArray
+          4
+          (TypeExtBinding
+            ResolvedExtBinding {
+              extCName = QualName {
+                qualNameName = CName "uint8_t",
+                qualNameKind =
+                NameKindOrdinary},
+              extHsRef = ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"},
+              extHsSpec = TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}}))}]

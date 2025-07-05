@@ -281,9 +281,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_\978",
-      foreignImportHeader = "adios.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -299,9 +299,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_\25308\25308",
-      foreignImportHeader = "adios.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}},
@@ -317,9 +317,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_Say\25308\25308",
-      foreignImportHeader = "adios.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}}]

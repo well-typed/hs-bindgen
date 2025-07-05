@@ -1799,6 +1799,30 @@ TranslationUnit {
           typeSpecModule = Nothing,
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "distilled_lib_1.h:91:14",
+        declId = NamePair {
+          nameC = CName "v",
+          nameHsIdent = HsIdentifier "v"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "distilled_lib_1.h"},
+      declKind = DeclExtern
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = CName "var_t",
+              nameHsIdent = HsIdentifier
+                "Var_t"})),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
             []}}],
   unitDeps = [
     "stdint",

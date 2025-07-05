@@ -1,0 +1,42 @@
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile examples/golden/globals.h
+-- #include "globals.h"
+foreign import ccall safe "&simpleGlobal" simpleGlobal :: Ptr CInt
+data Config
+    = Config {config_x :: CInt, config_y :: CInt}
+    deriving stock (Eq, Show)
+instance Storable Config
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Config <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Config config_x_3
+                                            config_y_4 -> pokeByteOff ptr_1 (0 :: Int) config_x_3 >> pokeByteOff ptr_1 (4 :: Int) config_y_4}}
+foreign import ccall safe "&compoundGlobal1" compoundGlobal1 :: Ptr Config
+data Inline_struct
+    = Inline_struct {inline_struct_x :: CInt, inline_struct_y :: CInt}
+    deriving stock (Eq, Show)
+instance Storable Inline_struct
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Inline_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Inline_struct inline_struct_x_3
+                                                   inline_struct_y_4 -> pokeByteOff ptr_1 (0 :: Int) inline_struct_x_3 >> pokeByteOff ptr_1 (4 :: Int) inline_struct_y_4}}
+foreign import ccall safe "&compoundGlobal2" compoundGlobal2 :: Ptr Inline_struct
+foreign import ccall safe "&nesInteger" nesInteger :: Ptr CInt
+foreign import ccall safe "&nesFloating" nesFloating :: Ptr CFloat
+foreign import ccall safe "&nesString1" nesString1 :: Ptr (Ptr CChar)
+foreign import ccall safe "&nesString2" nesString2 :: Ptr (ConstantArray 3
+                                                                         CChar)
+foreign import ccall safe "&nesCharacter" nesCharacter :: Ptr CChar
+foreign import ccall safe "&nesParen" nesParen :: Ptr CInt
+foreign import ccall safe "&nesUnary" nesUnary :: Ptr CInt
+foreign import ccall safe "&nesBinary" nesBinary :: Ptr CInt
+foreign import ccall safe "&nesConditional" nesConditional :: Ptr CInt
+foreign import ccall safe "&nesCast" nesCast :: Ptr CFloat
+foreign import ccall safe "&nesCompound" nesCompound :: Ptr (Ptr CInt)
+foreign import ccall safe "&nesInitList" nesInitList :: Ptr (ConstantArray 4
+                                                                           HsBindgen.Runtime.Prelude.Word8)

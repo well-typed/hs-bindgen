@@ -28,6 +28,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.CallConv
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.C (CName (..))
@@ -310,6 +311,10 @@ generateDecs opts mu typedefs (C.Decl info kind spec) =
         return $ functionDecs mu typedefs info f spec
       C.DeclMacro macro ->
         macroDecs opts info macro spec
+      C.DeclExtern ty ->
+        return $ globalExtern info ty spec
+      C.DeclConst ty ->
+        return $ globalConst info ty spec
 
 {-------------------------------------------------------------------------------
   Structs
@@ -1035,11 +1040,11 @@ functionDecs mu typedefs info f _spec =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.declHeader info
     , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName       = importName
-        , foreignImportType       = importType
-        , foreignImportOrigName   = T.pack wrapperName
-        , foreignImportHeader     = getCHeaderIncludePath $ C.declHeader info
-        , foreignImportDeclOrigin = Origin.Function f
+        { foreignImportName     = importName
+        , foreignImportType     = importType
+        , foreignImportOrigName = T.pack wrapperName
+        , foreignImportCallConv = CallConvUserlandCAPI
+        , foreignImportOrigin   = Origin.Function f
         }
     ] ++
     [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res args
@@ -1093,6 +1098,36 @@ functionDecs mu typedefs info f _spec =
 
     wrapperName :: String
     wrapperName = unModuleUnique mu ++ "_" ++ innerName
+
+{-------------------------------------------------------------------------------
+  Globals
+-------------------------------------------------------------------------------}
+
+-- | Global variables
+--
+-- For by-reference foreign imports, @capi@ vs @ccall@ makes no difference:
+-- @ghc@ does not create a wrapper. For non-extern non-static globals however it
+-- is important that the header is imported /somewhere/, otherwise the global
+-- variable is not linked in; we therefore add an explicit import. It is
+-- important that we don't import such headers more than once, but this is taken
+-- care of in 'csources'.
+globalExtern :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
+globalExtern info ty _spec = [
+      Hs.DeclInlineCInclude header
+    , Hs.DeclForeignImport Hs.ForeignImportDecl{
+          foreignImportName     = C.nameHs (C.declId info)
+        , foreignImportType     = HsPtr $ typ ty
+        , foreignImportOrigName = getCName $ C.nameC (C.declId info)
+        , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
+        , foreignImportOrigin   = Origin.Global ty
+        }
+    ]
+  where
+    header :: FilePath
+    header = getCHeaderIncludePath $ C.declHeader info
+
+globalConst :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
+globalConst = throwPure_TODO 41 "Constants not yet supported"
 
 {-------------------------------------------------------------------------------
   Macro

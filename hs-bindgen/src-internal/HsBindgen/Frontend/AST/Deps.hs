@@ -20,6 +20,7 @@ data Usage =
     UsedInTypedef ValOrRef
   | UsedInField ValOrRef (FieldName Parse)
   | UsedInFunction ValOrRef
+  | UsedInVar ValOrRef -- ^ Global or constant
   deriving stock (Show, Eq, Ord)
 
 data ValOrRef = ByValue | ByRef
@@ -58,6 +59,10 @@ depsOfDecl (DeclFunction (Function {..})) =
   where
     aux :: ValOrRef -> QualDeclId -> (Usage, QualDeclId)
     aux isPtr qid = (UsedInFunction isPtr, qid)
+depsOfDecl (DeclExtern ty) =
+    map (first UsedInVar) $ depsOfType ty
+depsOfDecl (DeclConst ty) =
+    map (first UsedInVar) $ depsOfType ty
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a.
