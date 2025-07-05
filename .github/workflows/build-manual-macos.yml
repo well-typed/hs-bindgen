@@ -1,0 +1,148 @@
+# .github/workflows/build-manual-macos.yml
+#
+# This CI job specifically checks that the 'manual' can be generated,
+# built, and run from a clean state on macOS.
+#
+name: Build and run the Manual (macOS)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+# If needed, this action allows one to SSH into the CI Job machine and
+# figure out what's going on.
+# - name: Setup tmate session
+#   uses: mxschmitt/action-tmate@v3
+
+# Since MacOS assembler has an issue with Unicode characters so we don't set
+# SUPPORTS_UNICODE flag
+
+jobs:
+  build-manual-macos:
+    name: Build and run the manual on macOS and GHC ${{ matrix.ghc }}
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        llvm: ['16']
+        ghc: ['9.12.2']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      # This forces Git to always check out shell scripts with the correct
+      # Linux-style (LF) line endings.
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v2.0.7
+        with:
+          version: ${{ matrix.llvm }}
+          # For macos, this needs to be set to false, because this
+          # action's default env path is wrong for some reason.
+          env: false
+          # LLVM_PATH will be this one
+          directory: ${{ runner.temp }}/llvm
+
+      # Given that we disabled the setting of the env flags above, we need
+      # to set the right LLVM_CONFIG and LIBCLANG_PATH.
+      - name: Set LLVM_CONFIG and LIBCLANG_PATH Environment Variable
+        run: |
+          echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
+          echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
+
+      # https://stackoverflow.com/questions/63342521/clang-on-macos-having-problems-with-its-includes
+      - name: macOS SDKROOT
+        run: |
+          export SDKROOT=$(xcrun --show-sdk-path --sdk macosx)
+          echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
+
+      # MacOS doesn't require to set BINDGEN_CLANG_ARGS in the same way Linux
+      # does.
+      #
+      # Note also that we are not passing '-DSUPPORTS_UNICODE', via
+      # BINDGEN_CLANG_ARGS. This option passes SUPPORTS_UNICODE macro to
+      # libclang preprocessor. In manual_examples.{c,h} and
+      # manual/app/RunManual.hs we have some CPP to replace 拜拜 and ϒ
+      # functions by ByeBye and Gamma. This is needed when building with LLVM
+      # or (non-LLVM) MacOS. The former because LLVM IR does not support
+      # Unicode characters and the latter because Apple's assembler also does
+      # not support Unicode characters. In this case we are enabling it
+      # because we are building with LLVM backend. This is only needed because
+      # when hs-bindgen-cli runs it creates a C-wrapper around functions which
+      # need to be compiled, however if it would be something other than a
+      # function like 'typedef int 数字;' it would work[^1].
+      #
+      # [^1]: It would work in all OSs except Windows.
+
+      - name: Set up Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: 'latest'
+
+      # This file is needed to build the project and call the generate.sh
+      # script, and also to build the manual as they ensure subsequent cabal
+      # commands (like in generate.sh) can find the necessary C headers and
+      # libraries.
+      #
+      # Note that -DSUPPORTS_UNICODE is not set because MacOS assembler
+      # doesn't support Unicode characters.
+      - name: Create cabal.project.local
+        run: |
+          echo "Writing cabal.project.local to configure C paths..."
+          cat <<EOF > cabal.project.local
+          package manual
+            extra-include-dirs:
+                ${{ github.workspace }}/manual/c
+            extra-lib-dirs:
+                ${{ github.workspace }}/manual/c
+
+          package hs-game
+            extra-include-dirs:
+                ${{ github.workspace }}/manual/c
+            extra-lib-dirs:
+                ${{ github.workspace }}/manual/c
+
+          package hs-vector
+            extra-include-dirs:
+                ${{ github.workspace }}/manual/c
+            extra-lib-dirs:
+                ${{ github.workspace }}/manual/c
+          EOF
+
+      - name: Cache Cabal dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ steps.setup-haskell.outputs.cabal-store }}
+            dist-newstyle
+          key: ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.ghc }}-
+
+      - name: Build hs-bindgen
+        run: cabal build all
+
+      - name: Build the C libraries
+        working-directory: ./manual/c
+        run: make
+
+      - name: Run binding generation script
+        working-directory: ./manual
+        run: ./generate.sh
+
+      - name: Run the manual executable
+        working-directory: ./manual/hs
+        run: |
+          export DYLD_LIBRARY_PATH=${{ github.workspace }}/manual/c/:$DYLD_LIBRARY_PATH
+          cp ../../cabal.project.local .
+          cabal run manual
+

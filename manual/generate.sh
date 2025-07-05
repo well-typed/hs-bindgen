@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-PROJECT_ROOT=..
-
 # Exit on first error
 set -e
 
@@ -13,7 +11,7 @@ mkdir -p hs/manual/generated
 
 cabal run hs-bindgen-cli -- \
   preprocess \
-    -I ${PROJECT_ROOT}/hs-bindgen/examples/golden \
+    -I c/ \
     -o hs/manual/generated/Example.hs \
     --module Example \
     manual_examples.h

@@ -118,7 +118,6 @@ tests packageRoot getExtBindingSpec getRustBindgen =
         , ("macro_typedef_struct"        , defaultTracePredicate)
         , ("macro_types"                 , defaultTracePredicate)
         , ("macros"                      , defaultTracePredicate)
-        , ("manual_examples"             , defaultTracePredicate)
         , ("names"                       , defaultTracePredicate)
         , ("nested_enums"                , defaultTracePredicate)
         , ("nested_types"                , defaultTracePredicate)
