@@ -135,20 +135,25 @@ package hs-vector
       <path-to-hs-bindgen>/manual/c
 ```
 
+Note that the example above is what you'd need to do in order to compile the
+manual from this repository. Ideally these directories are already specified
+in the .cabal file.
+
 #### Setting Environment Variables
 
 Properly setting environment variables is crucial for `hs-bindgen` to find the necessary tools and libraries in Linux.
 
   * `LD_LIBRARY_PATH`: To ensure that the C libraries you build can be found
-                       at runtime, you need to add their location to this variable.
+  at runtime, you need to add their location to this variable.
 
       * Example: If your shared library `libexample.so` is in `/path/to/your/c/libs`, you would run:
         ```bash
         export LD_LIBRARY_PATH=/path/to/your/c/libs:$LD_LIBRARY_PATH
         ```
 
-  * `BINDGEN_EXTRA_CLANG_ARGS`: This variable allows you to pass extra arguments to `libclang`.
-                                This is particularly useful for specifying include directories.
+  * `BINDGEN_EXTRA_CLANG_ARGS`: This variable allows you to pass extra
+  arguments to `libclang`. This is particularly useful for specifying include
+  directories.
 
       * To find your system's default include paths, you can run:
         ```bash
@@ -164,39 +169,49 @@ Properly setting environment variables is crucial for `hs-bindgen` to find the n
         then which header is used is order-dependent, which is not good.
 
       * In [CI](../../.github/workflows/build-manual-ubuntu.yml) we do a bit
-        of parsing to get the results automatically.
+        of parsing to get the results automatically. But it is not entirely
+        obvious why we needed to overwrite the include paths on the Linux
+        machine. Notice that we don't do that on other platforms so it might
+        just be a CI quirk.
 
-      * Note that setting this environment variable this is only needed in
-      Linux.
+      * Note that the common use of this environment variable is to set
+        preprocessor flags. So only overwrite the include paths if absolutely
+        needed.
 
-  * `LLVM_PATH`, `LLVM_CONFIG`: `hs-bindgen` may need to know where to find your LLVM installation.
+  * `LLVM_PATH`, `LLVM_CONFIG`: `hs-bindgen` may need to know where to find
+  your LLVM installation.
 
-    ```bash
-    export LLVM_PATH=/usr/lib/llvm-14
-    export LLVM_CONFIG=$LLVM_PATH/bin/llvm-config
-    ```
+  ```bash
+  export LLVM_PATH=/usr/lib/llvm-14
+  export LLVM_CONFIG=$LLVM_PATH/bin/llvm-config
+  ```
+
+  This is only needed when you want to use a version of LLVM/Clang that is
+  not in your current `PATH`.
 
   * `SUPPORTS_UNICODE`: This is only specific to building the manual. The
-                        manual has some Unicode Haskell definitions and depending on the platform
-                        these are supported or not. Linux supports them so if you want to build and
-                        run the manual using these Unicode definitions you should also set this flag
-                        and add `-DSUPPORTS_UNICODE` to `BINDGEN_EXTRA_CLANG_ARGS`
+  manual has some Unicode Haskell definitions and depending on the platform
+  these are supported or not. Linux supports them so if you want to build and
+  run the manual using these Unicode definitions you should also set this flag
+  and add `-DSUPPORTS_UNICODE` to `BINDGEN_EXTRA_CLANG_ARGS`
 
 #### Common Errors and Solutions
 
-  * Missing headers (`stddef.h`, etc.): If you encounter errors about missing standard headers,
-                                        it's a sign that `libclang` cannot find the
-                                        system's include directories. Setting `BINDGEN_EXTRA_CLANG_ARGS` as
-                                        described above is the solution.
+  * Missing headers (`stddef.h`, etc.): If you encounter errors about missing
+  standard headers, it's a sign that `libclang` cannot find the system's
+  include directories. Setting `BINDGEN_EXTRA_CLANG_ARGS` as described above
+  is the solution.
 
-  * Missing shared libraries (`libexample.so`): If you see an error like `cannot open shared object file: No such file or directory`,
-                                                it means the dynamic linker can't find your C library. Adding the library's directory
-                                                to `LD_LIBRARY_PATH` or making sure your cabal.project.local points to the right folder
-                                                will resolve this.
+  * Missing shared libraries (`libexample.so`): If you see an error like
+  `cannot open shared object file: No such file or directory`, it means the
+  dynamic linker can't find your C library. Adding the library's directory to
+  `LD_LIBRARY_PATH` or making sure your cabal.project.local points to the
+  right folder will resolve this.
 
-  * Unicode character issues with LLVM backend: When using the LLVM backend, you might encounter issues with Unicode characters in your C
-                                                code. This can sometimes manifest as errors at the assembler level. Ensure
-                                                your source files do not include Unicode.
+  * Unicode character issues with LLVM backend: When using the LLVM backend,
+  you might encounter issues with Unicode characters in your C code. This can
+  sometimes manifest as errors at the assembler level. Ensure your source
+  files do not include Unicode.
 
 ### MacOS
 
@@ -208,7 +223,7 @@ sure to avoid using it on C function definitions.
 #### Environment Variables
 
   * `DYLD_LIBRARY_PATH`: This is the macOS equivalent of `LD_LIBRARY_PATH`. It
-                         tells the dynamic linker where to find dynamic libraries (`.dylib` files).
+  tells the dynamic linker where to find dynamic libraries (`.dylib` files).
 
       * Example:
         ```bash
@@ -216,9 +231,8 @@ sure to avoid using it on C function definitions.
         ```
 
   * `BINDGEN_EXTRA_CLANG_ARGS`: On MacOS setting the include paths like we
-                                suggest to do in Linux is not required. If
-                                you need to see the section for Linux on how
-                                to set it up.
+  suggest to do in Linux is not required. If you need to see the section for
+  Linux on how to set it up.
 
 ### Windows
 
@@ -239,15 +253,17 @@ On Windows, the primary way the system finds DLLs at runtime is by searching
 the directories listed in the `PATH` environment variable. This is a crucial
 difference from Linux and MacOS.
 
-  * To ensure your application can find its required DLLs, add their directory to the `PATH`:
+  * To ensure your application can find its required DLLs, add their directory
+    to the `PATH`:
     ```powershell
     $env:PATH = "C:\path\to\your\c\libs;" + $env:PATH
     ```
 
 #### Environment Variables
 
-  * `LLVM_PATH`, `LLVM_CONFIG`, `LIBCLANG_PATH`: You need to point `hs-bindgen` to the LLVM/Clang installation that comes with GHC.
-                                                 Make sure these flags aren't already set to the right paths.
+  * `LLVM_PATH`, `LLVM_CONFIG`, `LIBCLANG_PATH`: You need to point
+  `hs-bindgen` to the LLVM/Clang installation that comes with GHC. Make sure
+  these flags aren't already set to the right paths.
 
     ```powershell
     $env:LLVM_PATH = "C:\ghcup\ghc\<your-ghc-version>\mingw"
@@ -256,18 +272,31 @@ difference from Linux and MacOS.
     ```
 
   * `BINDGEN_EXTRA_CLANG_ARGS`: On MacOS setting the include paths like we
-                                suggest to do in Linux is not required. If
-                                you need to see the section for Linux on how
-                                to set it up.
+  suggest to do in Linux is not required. If you need to see the section for
+  Linux on how to set it up.
 
 #### Common Errors and Solutions
 
   * Dynamic-link library loading order: If your application fails silently
-                                        or with an `ExitFailure` and a cryptic error code like `(-1073741515)`, it
-                                        is very likely a DLL loading issue. Adding the directory containing your C
-                                        libraries' DLLs to the system `PATH` is the solution.
+  or with an `ExitFailure` and a cryptic error code like `(-1073741515)`, it
+  is very likely a DLL loading issue. Adding the directory containing your C
+  libraries' DLLs to the system `PATH` is the solution.
 
-  * Resolving issues with underlying type mismatches (`FC.CInt` vs. `FC.CUInt`): You might encounter Haskell type errors where, for example, a
-                                                                                 C `int` is being interpreted as a `CUInt` instead of a `CInt`. This is
-                                                                                 often due to how different compilers and platforms define basic types.
-                                                                                 Carefully check your C and Haskell type definitions to ensure they match.
+  * Resolving issues with underlying type mismatches (`FC.CInt` vs.
+  `FC.CUInt`): You might encounter Haskell type errors where, for example, a C
+  `int` is being interpreted as a `CUInt` instead of a `CInt`. This is often
+  due to how different compilers and platforms define basic types. Carefully
+  check your C and Haskell type definitions to ensure they match.
+
+  Bindings generated by `hs-bindgen` are not portable. In order to create a
+  portable API, one must do so at a higher level, using CPP to create an
+  abstraction layer over the low-level, platform-specific bindings.
+
+  Given that `hs-bindgen` only supports generating bindings for a subset of
+  targets people use Hackage with, perhaps all generated bindings uploaded to
+  Hackage should include appropriate gates. Minimal example:
+
+  ```
+  if !(os(linux) && arch(x86_64))
+    buildable: false
+  ```
