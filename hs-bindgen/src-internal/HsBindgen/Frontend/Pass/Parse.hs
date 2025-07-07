@@ -19,7 +19,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 parseDecls ::
-     Tracer IO ParseMsg
+     Tracer IO (Msg Parse)
   -> RootHeader
   -> Predicate
   -> IncludeGraph

@@ -15,14 +15,20 @@ import HsBindgen.Config
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.Pass.HandleMacros
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs
 import HsBindgen.Frontend.Pass.MangleNames
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.NameAnon
+import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.Parse (parseDecls)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec
+import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Slice
+import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Frontend.Pass.Sort
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Util.Tracer
@@ -111,14 +117,14 @@ processTranslationUnit
     let (afterSort, msgsSort) =
           sortDecls afterParse
         (afterSlice, msgsSlice) =
-          sliceDecls configProgramSlicing configPredicate isMainFile afterSort
+          sliceDecls isMainFile sliceConfig afterSort
         (afterHandleMacros, msgsHandleMacros) =
           handleMacros afterSlice
         (afterNameAnon, msgsNameAnon) =
           nameAnon afterHandleMacros
         (afterResolveBindingSpec, msgsResolveBindingSpecs) =
           resolveBindingSpec extSpec pSpec afterNameAnon
-        afterHandleTypedefs =
+        (afterHandleTypedefs, _msgsHandleTypedefs) =
           handleTypedefs afterResolveBindingSpec
         (afterMangleNames, msgsMangleNames) =
           mangleNames afterHandleTypedefs
@@ -131,9 +137,13 @@ processTranslationUnit
     forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
     forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
     forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
+    -- No traces for 'HandleTypedefs'.
     forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
 
     return $ finalize afterMangleNames
+  where
+    sliceConfig :: SliceConfig
+    sliceConfig = SliceConfig configProgramSlicing configPredicate
 
 {-------------------------------------------------------------------------------
   Logging
@@ -143,13 +153,13 @@ processTranslationUnit
 --
 -- Most passes in the frontend have their own set of trace messages.
 data FrontendMsg =
-    FrontendParse ParseMsg
-  | FrontendSort SortMsg
-  | FrontendSlice SliceMsg
-  | FrontendHandleMacros HandleMacrosMsg
-  | FrontendNameAnon NameAnonMsg
-  | FrontendResolveBindingSpecs ResolveBindingSpecsMsg
-  | FrontendMangleNames MangleNamesMsg
+    FrontendParse (Msg Parse)
+  | FrontendSort (Msg Sort)
+  | FrontendSlice (Msg Slice)
+  | FrontendHandleMacros (Msg HandleMacros)
+  | FrontendNameAnon (Msg NameAnon)
+  | FrontendResolveBindingSpecs (Msg ResolveBindingSpec)
+  | FrontendMangleNames (Msg MangleNames)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace FrontendMsg where

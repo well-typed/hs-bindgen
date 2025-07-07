@@ -83,10 +83,12 @@ plausible version@(major, _minor, _patch) = or [
 
 -- | Historic @llvm@ releases
 --
--- See <https://releases.llvm.org/>
+-- See <https://releases.llvm.org/>, or
+-- https://github.com/llvm/llvm-project/releases/.
 historicReleases :: [(Int, Int, Int)]
 historicReleases = [
-      ( 19, 1, 1) -- 01 Oct 2024
+      ( 19, 1, 7) -- 14 Jan 2025
+    , ( 19, 1, 1) -- 01 Oct 2024
     , ( 19, 1, 0) -- 17 Sep 2024
     , ( 18, 1, 8) -- 20 Jun 2024
     , ( 18, 1, 7) -- 06 Jun 2024

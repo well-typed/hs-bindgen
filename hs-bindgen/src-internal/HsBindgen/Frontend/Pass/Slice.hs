@@ -1,7 +1,5 @@
 module HsBindgen.Frontend.Pass.Slice (
-    ProgramSlicing (..)
-  , sliceDecls
-  , SliceMsg (..)
+    sliceDecls
   ) where
 
 import Data.Foldable qualified as Foldable
@@ -10,34 +8,25 @@ import Data.Set (Set)
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types (SingleLoc (singleLocPath))
-import HsBindgen.C.Predicate (IsMainFile, Predicate)
+import HsBindgen.C.Predicate (IsMainFile)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph,
                                                  getTransitiveDeps)
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls, insert)
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
-import HsBindgen.Frontend.Pass.Slice.IsPass (Slice)
+import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta (declNonSelected, declUsage),
                                             Sort)
 import HsBindgen.Language.C.Name qualified as C
-import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint ((><))
-
-data ProgramSlicing =
-  -- | Enable program slicing: Select declarations using the selection predicate
-  -- /and/ their transitive dependencies.
-  EnableProgramSlicing
-  | DisableProgramSlicing
-  deriving stock (Show, Eq)
 
 sliceDecls ::
-     ProgramSlicing
-  -> Predicate
-  -> IsMainFile
+     IsMainFile
+  -> Config Slice
   -> C.TranslationUnit Sort
-  -> (C.TranslationUnit Slice, [SliceMsg])
-sliceDecls programSlicing _selectionPredicate isMainFile unitSort = case programSlicing of
+  -> (C.TranslationUnit Slice, [Msg Slice])
+sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing of
   DisableProgramSlicing -> (unitSlice, [])
   -- When program slicing is enabled, we select all declarations while parsing.
   -- Instead, we apply the selection predicate here, and also select all
@@ -76,7 +65,7 @@ sliceDecls programSlicing _selectionPredicate isMainFile unitSort = case program
         declMeta' :: DeclMeta
         declMeta' = (C.unitAnn unitSlice) { declNonSelected = nonSelectedDecls'}
 
-        errors :: [SliceMsg]
+        errors :: [Msg Slice]
         errors = map TransitiveDependencyUnavailable $ Set.toList unavailableTransitiveDeps
      in
       (unitSlice { C.unitDecls = slicedDecls, C.unitAnn = declMeta' }, errors)
@@ -94,19 +83,3 @@ sliceDecls programSlicing _selectionPredicate isMainFile unitSort = case program
          -- Refer to 'recordNonSelectedDecl'.
          _anonymous      -> nonSelectedDecls
 
-{-------------------------------------------------------------------------------
-  Errors
--------------------------------------------------------------------------------}
-
-data SliceMsg = TransitiveDependencyUnavailable QualDeclId
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace SliceMsg where
-  prettyForTrace (TransitiveDependencyUnavailable qualId) =
-    "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
-
-instance HasDefaultLogLevel SliceMsg where
-  getDefaultLogLevel = const Error
-
-instance HasSource SliceMsg where
-  getSource = const HsBindgen

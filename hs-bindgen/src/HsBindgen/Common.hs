@@ -69,7 +69,7 @@ import Clang.Paths qualified as Paths
 
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Config qualified as Config
-import HsBindgen.Frontend.Pass.Slice qualified as Slice
+import HsBindgen.Frontend.Pass.Slice.IsPass qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline

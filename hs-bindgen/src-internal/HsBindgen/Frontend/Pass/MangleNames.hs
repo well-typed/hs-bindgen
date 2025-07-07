@@ -1,6 +1,5 @@
 module HsBindgen.Frontend.Pass.MangleNames (
     mangleNames
-  , MangleNamesMsg(..)
   ) where
 
 import Control.Monad.Reader
@@ -19,9 +18,6 @@ import HsBindgen.Imports
 import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
-import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              Level (Error), PrettyForTrace (prettyForTrace))
-import Text.SimplePrettyPrint (hcat, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -35,7 +31,7 @@ import Text.SimplePrettyPrint (hcat, textToCtxDoc, (><))
 
 mangleNames ::
      C.TranslationUnit HandleTypedefs
-  -> (C.TranslationUnit NameMangler, [MangleNamesMsg])
+  -> (C.TranslationUnit MangleNames, [Msg MangleNames])
 mangleNames unit =
     (unit', errors1 ++ errors2)
   where
@@ -44,11 +40,11 @@ mangleNames unit =
     fc = FixCandidate.fixCandidateDefault
 
     nameMap :: NameMap
-    errors1 :: [MangleNamesMsg]
+    errors1 :: [Msg MangleNames]
     (nameMap, errors1) = chooseNames fc (C.unitDecls unit)
 
-    unit'   :: C.TranslationUnit NameMangler
-    errors2 :: [MangleNamesMsg]
+    unit'   :: C.TranslationUnit MangleNames
+    errors2 :: [Msg MangleNames]
     (unit', errors2) = runM fc nameMap $ mangle unit
 
 {-------------------------------------------------------------------------------
@@ -60,26 +56,9 @@ mangleNames unit =
 
 type NameMap = Map C.QualName  HsIdentifier
 
-data MangleNamesMsg =
-    CouldNotMangle Text
-  | MissingDeclaration C.QualName
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace MangleNamesMsg where
-  prettyForTrace (CouldNotMangle name) =
-    "Could not mangle C name: " >< textToCtxDoc name
-  prettyForTrace (MissingDeclaration cQualName) = hcat [
-      "Missing declaration: '"
-    , prettyForTrace cQualName
-    , "'; did you select the declaration?"
-    ]
-
-instance HasDefaultLogLevel MangleNamesMsg where
-  getDefaultLogLevel = const Error
-
 chooseNames ::
      FixCandidate Maybe
-  -> [C.Decl HandleTypedefs] -> (NameMap, [MangleNamesMsg])
+  -> [C.Decl HandleTypedefs] -> (NameMap, [Msg MangleNames])
 chooseNames fc decls =
     bimap Map.fromList catMaybes $
       unzip $ map (nameForDecl fc) decls
@@ -87,7 +66,7 @@ chooseNames fc decls =
 nameForDecl ::
      FixCandidate Maybe
   -> C.Decl HandleTypedefs
-  -> ((C.QualName, HsIdentifier), Maybe MangleNamesMsg)
+  -> ((C.QualName, HsIdentifier), Maybe (Msg MangleNames))
 nameForDecl fc decl =
     case typeSpecIdentifier of
       Just hsName -> (choose hsName, Nothing)
@@ -105,7 +84,7 @@ fromCName :: forall ns.
   => FixCandidate Maybe
   -> Proxy ns
   -> CName
-  -> (HsIdentifier, Maybe MangleNamesMsg)
+  -> (HsIdentifier, Maybe (Msg MangleNames))
 fromCName fc _ (CName cName) =
     case mFixed of
       Just (HsName hsName) -> (HsIdentifier hsName, Nothing)
@@ -119,13 +98,13 @@ fromCName fc _ (CName cName) =
 -------------------------------------------------------------------------------}
 
 newtype M a = WrapM {
-      unwrapM :: StateT [MangleNamesMsg] (Reader Env) a
+      unwrapM :: StateT [Msg MangleNames] (Reader Env) a
     }
   deriving newtype (
       Functor
     , Applicative
     , Monad
-    , MonadState [MangleNamesMsg]
+    , MonadState [Msg MangleNames]
     , MonadReader Env
     )
 
@@ -134,7 +113,7 @@ data Env = Env{
     , envFixCandidate :: FixCandidate Maybe
     }
 
-runM :: FixCandidate Maybe -> NameMap -> M a -> (a, [MangleNamesMsg])
+runM :: FixCandidate Maybe -> NameMap -> M a -> (a, [Msg MangleNames])
 runM fc nm = flip runReader env . flip runStateT [] . unwrapM
   where
     env :: Env
@@ -148,12 +127,12 @@ runM fc nm = flip runReader env . flip runStateT [] . unwrapM
 -------------------------------------------------------------------------------}
 
 class Mangle a where
-  mangle :: a HandleTypedefs -> M (a NameMangler)
+  mangle :: a HandleTypedefs -> M (a MangleNames)
 
 class MangleDecl a where
   mangleDecl ::
-       C.DeclInfo NameMangler
-    -> a HandleTypedefs -> M (a NameMangler)
+       C.DeclInfo MangleNames
+    -> a HandleTypedefs -> M (a MangleNames)
 
 mangleQualName :: C.QualName -> M NamePair
 mangleQualName cQualName@(C.QualName cName _namespace) = do
@@ -176,7 +155,7 @@ mangleQualName cQualName@(C.QualName cName _namespace) = do
   TODO: Perhaps some (or all) of this should be configurable.
 -------------------------------------------------------------------------------}
 
-mangleFieldName :: C.DeclInfo NameMangler -> CName -> M NamePair
+mangleFieldName :: C.DeclInfo MangleNames -> CName -> M NamePair
 mangleFieldName info fieldCName = do
     fc <- asks envFixCandidate
     let candidate = declCName <> "_" <> fieldCName
@@ -190,7 +169,7 @@ mangleFieldName info fieldCName = do
 --
 -- Since these live in the global namespace, we do not prepend the name of
 -- the enclosing enum.
-mangleEnumConstant :: C.DeclInfo NameMangler -> CName -> M NamePair
+mangleEnumConstant :: C.DeclInfo MangleNames -> CName -> M NamePair
 mangleEnumConstant _info cName = do
     fc <- asks envFixCandidate
     let (hsName, mError) = fromCName fc (Proxy @NsConstr) cName
@@ -200,7 +179,7 @@ mangleEnumConstant _info cName = do
 -- | Struct names
 --
 -- Right now we reuse the name of the type also for the constructor.
-mkStructNames :: C.DeclInfo NameMangler -> RecordNames
+mkStructNames :: C.DeclInfo MangleNames -> RecordNames
 mkStructNames info = RecordNames{
       recordConstr = nameHs declId
     }
@@ -208,7 +187,7 @@ mkStructNames info = RecordNames{
     C.DeclInfo{declId} = info
 
 -- | Generic construction of newtype names, given only the type name
-mkNewtypeNames :: C.DeclInfo NameMangler -> NewtypeNames
+mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkNewtypeNames info = NewtypeNames{
       newtypeConstr = nameHs declId
     , newtypeField  = "un_" <> nameHs declId
@@ -219,25 +198,25 @@ mkNewtypeNames info = NewtypeNames{
 -- | Union names
 --
 -- A union is represented by a newtype around the raw bytes.
-mkUnionNames :: C.DeclInfo NameMangler -> NewtypeNames
+mkUnionNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkUnionNames = mkNewtypeNames
 
 -- | Enum names
 --
 -- An enum is represented by a newtype around an integral value.
-mkEnumNames :: C.DeclInfo NameMangler -> NewtypeNames
+mkEnumNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkEnumNames = mkNewtypeNames
 
 -- | Typedef
 --
 -- Typedefs are represented by newtypes
-mkTypedefNames :: C.DeclInfo NameMangler -> NewtypeNames
+mkTypedefNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkTypedefNames = mkNewtypeNames
 
 -- | Macro types
 --
 -- These behave like typedefs.
-mkMacroTypeNames :: C.DeclInfo NameMangler -> NewtypeNames
+mkMacroTypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkMacroTypeNames = mkNewtypeNames
 
 {-------------------------------------------------------------------------------
@@ -246,7 +225,7 @@ mkMacroTypeNames = mkNewtypeNames
 
 instance Mangle C.TranslationUnit where
   mangle C.TranslationUnit{..} = do
-      let mk :: [C.Decl NameMangler] -> C.TranslationUnit NameMangler
+      let mk :: [C.Decl MangleNames] -> C.TranslationUnit MangleNames
           mk decls = C.TranslationUnit{unitDecls = decls, ..}
       mk <$> mapM mangle unitDecls
 
@@ -254,10 +233,10 @@ instance Mangle C.Decl where
   mangle decl = do
       declId' <- mangleQualName (C.declQualName decl)
 
-      let info :: C.DeclInfo NameMangler
+      let info :: C.DeclInfo MangleNames
           info = C.DeclInfo{declId = declId', ..}
 
-          mk :: C.DeclKind NameMangler -> C.Decl NameMangler
+          mk :: C.DeclKind MangleNames -> C.Decl MangleNames
           mk declKind' = C.Decl{
                 declInfo = info
               , declKind = declKind'
@@ -290,7 +269,7 @@ instance MangleDecl C.DeclKind where
 
 instance MangleDecl C.Struct where
   mangleDecl info C.Struct{..} = do
-      let mk :: [C.StructField NameMangler] -> C.Struct NameMangler
+      let mk :: [C.StructField MangleNames] -> C.Struct MangleNames
           mk structFields' = C.Struct{
                 structFields = structFields'
               , structAnn    = mkStructNames info
@@ -301,9 +280,9 @@ instance MangleDecl C.Struct where
 instance MangleDecl C.StructField where
   mangleDecl info C.StructField{..} = do
       let mk ::
-               FieldName NameMangler
-            -> C.Type NameMangler
-            -> C.StructField NameMangler
+               FieldName MangleNames
+            -> C.Type MangleNames
+            -> C.StructField MangleNames
           mk   structFieldName' structFieldType' = C.StructField{
                 structFieldName = structFieldName'
               , structFieldType = structFieldType'
@@ -314,7 +293,7 @@ instance MangleDecl C.StructField where
 
 instance MangleDecl C.Union where
   mangleDecl info C.Union{..} = do
-      let mk :: [C.UnionField NameMangler] -> C.Union NameMangler
+      let mk :: [C.UnionField MangleNames] -> C.Union MangleNames
           mk unionFields' = C.Union{
                 unionFields = unionFields'
               , unionAnn    = mkUnionNames info
@@ -325,9 +304,9 @@ instance MangleDecl C.Union where
 instance MangleDecl C.UnionField where
   mangleDecl info C.UnionField{..} = do
       let mk ::
-               FieldName NameMangler
-            -> C.Type NameMangler
-            -> C.UnionField NameMangler
+               FieldName MangleNames
+            -> C.Type MangleNames
+            -> C.UnionField MangleNames
           mk unionFieldName' unionFieldType' = C.UnionField{
                 unionFieldName = unionFieldName'
               , unionFieldType = unionFieldType'
@@ -339,9 +318,9 @@ instance MangleDecl C.UnionField where
 instance MangleDecl C.Enum where
   mangleDecl info C.Enum{..} = do
       let mk ::
-               C.Type NameMangler
-            -> [C.EnumConstant NameMangler]
-            -> C.Enum NameMangler
+               C.Type MangleNames
+            -> [C.EnumConstant MangleNames]
+            -> C.Enum MangleNames
           mk enumType' enumConstants' = C.Enum{
                 enumType      = enumType'
               , enumConstants = enumConstants'
@@ -353,7 +332,7 @@ instance MangleDecl C.Enum where
 
 instance MangleDecl C.EnumConstant where
   mangleDecl info C.EnumConstant{..} = do
-      let mk :: NamePair -> C.EnumConstant NameMangler
+      let mk :: NamePair -> C.EnumConstant MangleNames
           mk enumConstantName' = C.EnumConstant{
                 enumConstantName = enumConstantName'
               , ..
@@ -362,7 +341,7 @@ instance MangleDecl C.EnumConstant where
 
 instance MangleDecl C.Typedef where
   mangleDecl info C.Typedef{..} = do
-      let mk :: C.Type NameMangler -> C.Typedef NameMangler
+      let mk :: C.Type MangleNames -> C.Typedef MangleNames
           mk typedefType' = C.Typedef{
                 typedefType = typedefType'
               , typedefAnn  = mkTypedefNames info
@@ -372,9 +351,9 @@ instance MangleDecl C.Typedef where
 instance MangleDecl C.Function where
   mangleDecl _info C.Function{..} = do
       let mk ::
-               [C.Type NameMangler]
-            -> C.Type NameMangler
-            -> C.Function NameMangler
+               [C.Type MangleNames]
+            -> C.Type MangleNames
+            -> C.Function MangleNames
           mk functionArgs' functionRes' = C.Function{
                 functionArgs = functionArgs'
               , functionRes  = functionRes'
@@ -389,7 +368,7 @@ instance MangleDecl C.CheckedMacro where
 
 instance MangleDecl C.CheckedMacroType where
   mangleDecl info C.CheckedMacroType{..} = do
-    let mk :: C.Type NameMangler -> C.CheckedMacroType NameMangler
+    let mk :: C.Type MangleNames -> C.CheckedMacroType MangleNames
         mk macroType' = C.CheckedMacroType{
                macroType    = macroType'
              , macroTypeAnn = mkMacroTypeNames info

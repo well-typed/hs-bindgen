@@ -5,6 +5,7 @@ import Data.Map.Strict qualified as Map
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Imports
@@ -16,14 +17,17 @@ import HsBindgen.Language.C
 
 handleTypedefs ::
      C.TranslationUnit ResolveBindingSpec
-  -> C.TranslationUnit HandleTypedefs
-handleTypedefs C.TranslationUnit{..} = C.TranslationUnit{
-      unitDecls = mapMaybe (handleDecl td) unitDecls
-    , ..
-    }
+  -> (C.TranslationUnit HandleTypedefs, [Msg HandleTypedefs])
+handleTypedefs C.TranslationUnit{..} = (unit, [])
   where
     td :: Typedefs
     td = analyseTypedefs unitDecls
+
+    unit :: C.TranslationUnit HandleTypedefs
+    unit = C.TranslationUnit{
+      unitDecls = mapMaybe (handleDecl td) unitDecls
+    , ..
+    }
 
 {-------------------------------------------------------------------------------
   Analysis

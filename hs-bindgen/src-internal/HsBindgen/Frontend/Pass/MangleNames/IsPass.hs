@@ -1,11 +1,13 @@
 module HsBindgen.Frontend.Pass.MangleNames.IsPass (
-    NameMangler
+    MangleNames
     -- * Annotations
   , NamePair(..)
   , nameHs
   , RecordNames(..)
   , NewtypeNames(..)
   , DeclSpec(..)
+    -- * Trace messages
+  , Msg(..)
   ) where
 
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
@@ -16,33 +18,40 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Language.C.Name qualified as C
 import HsBindgen.Language.Haskell
+import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
--- | NameMangler
-type NameMangler :: Pass
-data NameMangler a deriving anyclass (ValidPass)
+-- | Mangle names pass
+type MangleNames :: Pass
+data MangleNames a deriving anyclass (ValidPass)
 
-type family AnnNameMangler ix where
-  AnnNameMangler "Decl"             = DeclSpec
-  AnnNameMangler "TranslationUnit"  = DeclMeta
-  AnnNameMangler "Struct"           = RecordNames
-  AnnNameMangler "Union"            = NewtypeNames
-  AnnNameMangler "Enum"             = NewtypeNames
-  AnnNameMangler "Typedef"          = NewtypeNames
-  AnnNameMangler "CheckedMacroType" = NewtypeNames
-  AnnNameMangler _                  = NoAnn
+type family AnnMangleNames ix where
+  AnnMangleNames "Decl"             = DeclSpec
+  AnnMangleNames "TranslationUnit"  = DeclMeta
+  AnnMangleNames "Struct"           = RecordNames
+  AnnMangleNames "Union"            = NewtypeNames
+  AnnMangleNames "Enum"             = NewtypeNames
+  AnnMangleNames "Typedef"          = NewtypeNames
+  AnnMangleNames "CheckedMacroType" = NewtypeNames
+  AnnMangleNames _                  = NoAnn
 
-instance IsPass NameMangler where
-  type Id         NameMangler = NamePair
-  type FieldName  NameMangler = NamePair
-  type TypedefRef NameMangler = RenamedTypedefRef NameMangler
-  type MacroBody  NameMangler = CheckedMacro NameMangler
-  type ExtBinding NameMangler = ResolvedExtBinding
-  type Ann ix     NameMangler = AnnNameMangler ix
+instance IsPass MangleNames where
+  type Id         MangleNames = NamePair
+  type FieldName  MangleNames = NamePair
+  type TypedefRef MangleNames = RenamedTypedefRef MangleNames
+  type MacroBody  MangleNames = CheckedMacro MangleNames
+  type ExtBinding MangleNames = ResolvedExtBinding
+  type Ann ix     MangleNames = AnnMangleNames ix
+  data Msg        MangleNames =
+      CouldNotMangle Text
+    | MissingDeclaration C.QualName
+    deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Identifiers
@@ -100,3 +109,20 @@ data NewtypeNames = NewtypeNames {
 -- have consequences for "Hs.Origin" also.
 newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
   deriving stock (Show, Eq, Generic)
+
+{-------------------------------------------------------------------------------
+  Trace messages
+-------------------------------------------------------------------------------}
+
+
+instance PrettyForTrace (Msg MangleNames) where
+  prettyForTrace (CouldNotMangle name) =
+    "Could not mangle C name: " >< textToCtxDoc name
+  prettyForTrace (MissingDeclaration cQualName) = hcat [
+      "Missing declaration: '"
+    , prettyForTrace cQualName
+    , "'; did you select the declaration?"
+    ]
+
+instance HasDefaultLogLevel (Msg MangleNames) where
+  getDefaultLogLevel = const Error

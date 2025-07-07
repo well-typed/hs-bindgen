@@ -1,16 +1,14 @@
 module HsBindgen.Frontend.Pass.Sort (
     sortDecls
-  , SortMsg(..)
   ) where
 
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Construction
@@ -18,7 +16,7 @@ import HsBindgen.Util.Tracer
 
 sortDecls ::
      C.TranslationUnit Parse
-  -> (C.TranslationUnit Sort, [SortMsg])
+  -> (C.TranslationUnit Sort, [Msg Sort])
 sortDecls unit@C.TranslationUnit{..} =
     let (declMeta, declIndexErrors) = mkDeclMeta unit
     in ( C.TranslationUnit{
@@ -32,7 +30,7 @@ sortDecls unit@C.TranslationUnit{..} =
        , declIndexErrors
        )
 
-mkDeclMeta :: C.TranslationUnit Parse -> (DeclMeta, [SortMsg])
+mkDeclMeta :: C.TranslationUnit Parse -> (DeclMeta, [Msg Sort])
 mkDeclMeta unit =
     let (declIndex, declIndexErrors) = DeclIndex.fromDecls unitDecls
         declUsage = UseDeclGraph.fromDecls unitIncludeGraph unitDecls
@@ -46,16 +44,3 @@ mkDeclMeta unit =
       , unitAnn = declNonSelected
       } = unit
 
-{-------------------------------------------------------------------------------
-  Errors
--------------------------------------------------------------------------------}
-
-data SortMsg =
-    SortErrorDeclIndex DeclIndexError
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace SortMsg where
-  prettyForTrace (SortErrorDeclIndex x) = prettyForTrace x
-
-instance HasDefaultLogLevel SortMsg where
-  getDefaultLogLevel (SortErrorDeclIndex x) = getDefaultLogLevel x
