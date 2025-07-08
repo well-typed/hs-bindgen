@@ -1,0 +1,80 @@
+-- addDependentFile examples/golden/fun_attributes.h
+-- #include "fun_attributes.h"
+-- void test_internal___f1 (void) { __f1(); }
+-- void test_internal_f1 (void) { f1(); }
+-- void *test_internal_my_memalign (size_t arg1, size_t arg2) { return my_memalign(arg1, arg2); }
+-- void *test_internal_my_calloc (size_t arg1, size_t arg2) { return my_calloc(arg1, arg2); }
+-- void *test_internal_my_realloc (void *arg1, size_t arg2) { return my_realloc(arg1, arg2); }
+-- void *test_internal_my_alloc1 (size_t arg1) { return my_alloc1(arg1); }
+-- void *test_internal_my_alloc2 (size_t arg1) { return my_alloc2(arg1); }
+-- signed int test_internal_square (signed int arg1) { return square(arg1); }
+-- signed int test_internal_old_fn (void) { return old_fn(); }
+-- char *test_internal_my_dgettext (char *arg1, char *arg2) { return my_dgettext(arg1, arg2); }
+-- FILE *test_internal_fdopen (signed int arg1, char *arg2) { return fdopen(arg1, arg2); }
+-- void test_internal_f2 (void) { f2(); }
+-- void *test_internal_my_memcpy (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
+-- void test_internal_fatal (void) { fatal(); }
+-- signed int test_internal_hash (char *arg1) { return hash(arg1); }
+-- void *test_internal_mymalloc (size_t arg1) { return mymalloc(arg1); }
+-- void test_internal_foobar (void) { foobar(); }
+-- signed int test_internal_core2_func (void) { return core2_func(); }
+-- signed int test_internal_sse3_func (void) { return sse3_func(); }
+-- void test_internal_f3 (void) { f3(); }
+-- signed int test_internal_fn (void) { return fn(); }
+-- signed int test_internal_y (void) { return y(); }
+-- signed int test_internal_x1 (void) { return x1(); }
+-- signed int test_internal_x2 (void) { return x2(); }
+data FILE = FILE {} deriving stock (Eq, Show)
+instance Storable FILE
+    where {sizeOf = \_ -> 0 :: Int;
+           alignment = \_ -> 1 :: Int;
+           peek = \ptr_0 -> pure FILE;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {FILE -> return ()}}
+newtype Size_t
+    = Size_t {un_Size_t :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+foreign import ccall safe "test_internal___f1" __f1 :: IO Unit
+foreign import ccall safe "test_internal_f1" f1 :: IO Unit
+foreign import ccall safe "test_internal_my_memalign" my_memalign :: Size_t ->
+                                                                     Size_t -> IO (Ptr Void)
+foreign import ccall safe "test_internal_my_calloc" my_calloc :: Size_t ->
+                                                                 Size_t -> IO (Ptr Void)
+foreign import ccall safe "test_internal_my_realloc" my_realloc :: Ptr Void ->
+                                                                   Size_t -> IO (Ptr Void)
+foreign import ccall safe "test_internal_my_alloc1" my_alloc1 :: Size_t ->
+                                                                 IO (Ptr Void)
+foreign import ccall safe "test_internal_my_alloc2" my_alloc2 :: Size_t ->
+                                                                 IO (Ptr Void)
+foreign import ccall safe "test_internal_square" square :: CInt ->
+                                                           IO CInt
+foreign import ccall safe "test_internal_old_fn" old_fn :: IO CInt
+foreign import ccall safe "test_internal_my_dgettext" my_dgettext :: Ptr CChar ->
+                                                                     Ptr CChar -> IO (Ptr CChar)
+foreign import ccall safe "test_internal_fdopen" fdopen :: CInt ->
+                                                           Ptr CChar -> IO (Ptr FILE)
+foreign import ccall safe "test_internal_f2" f2 :: IO Unit
+foreign import ccall safe "test_internal_my_memcpy" my_memcpy :: Ptr Void ->
+                                                                 Ptr Void -> Size_t -> IO (Ptr Void)
+foreign import ccall safe "test_internal_fatal" fatal :: IO Unit
+foreign import ccall safe "test_internal_hash" hash :: Ptr CChar ->
+                                                       IO CInt
+foreign import ccall safe "test_internal_mymalloc" mymalloc :: Size_t ->
+                                                               IO (Ptr Void)
+foreign import ccall safe "test_internal_foobar" foobar :: IO Unit
+foreign import ccall safe "test_internal_core2_func" core2_func :: IO CInt
+foreign import ccall safe "test_internal_sse3_func" sse3_func :: IO CInt
+foreign import ccall safe "test_internal_f3" f3 :: IO Unit
+foreign import ccall safe "test_internal_fn" fn :: IO CInt
+foreign import ccall safe "test_internal_y" y :: IO CInt
+foreign import ccall safe "test_internal_x1" x1 :: IO CInt
+foreign import ccall safe "test_internal_x2" x2 :: IO CInt

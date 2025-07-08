@@ -195,8 +195,20 @@ testCases = [
       --
 
       -- Tests for which rust-bindgen fails (but we don't)
-    , (defaultTest "macro_strings")   {testRustBindgenFails = True}
-    , (defaultTest "type_attributes") {testRustBindgenFails = True}
+    , (defaultTest "fun_attributes") {
+          testTracePredicate = customTracePredicate' ["my_printf"] $ \case
+             TraceFrontend (FrontendParse (UnsupportedType info UnsupportedVariadicFunction)) ->
+               Just $ Expected (C.declId info)
+             _otherwise ->
+               Nothing
+        , testRustBindgenFails = True
+        }
+    , (defaultTest "macro_strings") {
+          testRustBindgenFails = True
+        }
+    , (defaultTest "type_attributes") {
+          testRustBindgenFails = True
+        }
 
       -- We can only properly detect /all/ anonymous structs with clang 19
     , (defaultTest "named_vs_anon"){
