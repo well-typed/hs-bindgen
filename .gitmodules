@@ -13,3 +13,6 @@
 [submodule "examples/c-qrcode/QR-Code-generator"]
 	path = examples/c-qrcode/QR-Code-generator
 	url = https://github.com/nayuki/QR-Code-generator.git
+[submodule "examples/c-rogueutil/rogueutil"]
+	path = examples/c-rogueutil/rogueutil
+	url = https://github.com/sakhmatd/rogueutil.git

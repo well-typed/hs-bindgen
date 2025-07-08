@@ -1,0 +1,14 @@
+name: c-rogueutil Example
+description: Build and run the c-rogueutil example
+
+runs:
+  using: composite
+  steps:
+    - name: Initialize git submodules
+      shell: bash
+      run: git submodule update --init --recursive examples/c-rogueutil/rogueutil
+
+    - name: Run generation and build script
+      shell: bash
+      working-directory: ./examples/c-rogueutil
+      run: ./generate-and-run.sh
