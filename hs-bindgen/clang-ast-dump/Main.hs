@@ -91,7 +91,7 @@ clangAstDump opts@Options{..} = do
 
     tracerConf :: TracerConfig
     tracerConf = def {
-        tVerbosity = Verbosity Warning
+        tVerbosity = Verbosity Notice
       }
 
     cArgs :: ClangArgs
