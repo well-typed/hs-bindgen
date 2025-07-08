@@ -68,7 +68,11 @@ parseCliCmd = subparser $ mconcat [
           progDesc "Generate tests for generated Haskell code"
         ]
     , cmd' "literate" (CliCmdLiterate <$> parseLiterateOpts) $ mconcat [
-          progDesc "Generate Haskell module from C header, acting as literate Haskell preprocessor"
+          progDesc $ mconcat [
+              "Generate Haskell module from C header, acting as literate Haskell preprocessor; "
+            , "used to incorporate hs-bindgen into the cabal compilation pipeline; "
+            , "not meant to be used directly but is invoked by cabal-install"
+            ]
         ]
     , cmd "binding-spec" (CliCmdBindingSpec <$> parseBindingSpecCmd) $ mconcat [
           progDesc "Binding specification commands"
@@ -92,9 +96,9 @@ data PreprocessOpts = PreprocessOpts {
       preprocessTranslationOpts :: TranslationOpts
     , preprocessModuleOpts      :: HsModuleOpts
     , preprocessRenderOpts      :: HsRenderOpts
+    , preprocessInputs          :: [CHeaderIncludePath]
     , preprocessOutput          :: Maybe FilePath
     , preprocessGenBindingSpec  :: Maybe FilePath
-    , preprocessInputs          :: [CHeaderIncludePath]
     }
   deriving (Show)
 
@@ -104,9 +108,9 @@ parsePreprocessOpts =
       <$> parseTranslationOpts
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
+      <*> parseInputs
       <*> parseOutput
       <*> optional parseGenBindingSpec
-      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Test generation command
@@ -142,7 +146,14 @@ data LiterateOpts = LiterateOpts {
 
 parseLiterateOpts :: Parser LiterateOpts
 parseLiterateOpts = do
-    _ <- strOption @String $ mconcat [ short 'h', metavar "IGNORED" ]
+    -- When @cabal-install@ calls GHC and the preprocessor, it passes some
+    -- standard flags, which we do not (all) use. In particular, it passes
+    -- @-hide-all-packages@.
+    _ <- strOption @String $ mconcat [
+             short 'h'
+           , metavar "IGNORED"
+           , help "Ignore some preprocessor options provided by cabal-install"
+           ]
 
     input  <- strArgument $ mconcat [ metavar "IN" ]
     output <- strArgument $ mconcat [ metavar "OUT" ]
