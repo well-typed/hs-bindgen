@@ -120,6 +120,8 @@ data DeclKind p =
   | DeclEnumOpaque
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
+  | DeclExtern (Type p)
+  | DeclConst (Type p)
 
 declKindNameKind :: DeclKind p -> NameKind
 declKindNameKind = \case
@@ -127,11 +129,9 @@ declKindNameKind = \case
     DeclStructOpaque{} -> NameKindStruct
     DeclUnion{}        -> NameKindUnion
     DeclUnionOpaque{}  -> NameKindUnion
-    DeclTypedef{}      -> NameKindOrdinary
     DeclEnum{}         -> NameKindEnum
     DeclEnumOpaque{}   -> NameKindEnum
-    DeclMacro{}        -> NameKindOrdinary
-    DeclFunction{}     -> NameKindOrdinary
+    _otherwise         -> NameKindOrdinary
 
 declQualName :: Id p ~ CName => Decl p -> C.QualName
 declQualName Decl{declInfo = DeclInfo{declId}, declKind} =

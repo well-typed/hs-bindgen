@@ -15,10 +15,9 @@
           (HsIO (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "testmodule_fun_1",
-      foreignImportHeader =
-      "fixedarray_arg.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
@@ -111,10 +110,9 @@
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "testmodule_fun_2",
-      foreignImportHeader =
-      "fixedarray_arg.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypeTypedef

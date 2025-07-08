@@ -4,15 +4,17 @@
 module Test.HsBindgen.Golden.TestCase (
     -- * Definition
     TestCase(..)
+  , TestRustBindgen(..)
     -- * Construction
   , defaultTest
+  , defaultFailingTest
     -- ** Successful tests
   , testTrace
   , testTraceSimple
   , testTraceCustom
   , testDiagnostic
     -- ** Failing tests (that is, with hs-bindgen errors and no output)
-  , failingTest
+  , failingTestTrace
   , failingTestSimple
   , failingTestCustom
     -- * Execution
@@ -79,8 +81,18 @@ data TestCase = TestCase {
       -- This is true for all failing test cases, but it is also true for a
       -- handful of successful test cases which use features that aren't
       -- supported by rust-bindgen.
-    , testRustBindgenFails :: Bool
+    , testRustBindgen :: TestRustBindgen
     }
+
+data TestRustBindgen =
+    -- | Run @rust-bindgen@, and compare against golden test
+    RustBindgenRun
+
+    -- | Run @rust-bindgen@, and check that it fails
+  | RustBindgenFail
+
+    -- | Do not run @rust-bindgen@
+  | RustBindgenIgnore
 
 {-------------------------------------------------------------------------------
   Construction
@@ -98,7 +110,7 @@ defaultTest filename = TestCase{
     , testClangVersion     = Nothing
     , testOnConfig         = id
     , testOnExtSpec        = id
-    , testRustBindgenFails = False
+    , testRustBindgen      = RustBindgenRun
     }
 
 testTrace :: String -> TracePredicate TraceMsg -> TestCase
@@ -134,19 +146,22 @@ testDiagnostic filename p =
   Construction: failing tests (tests with no output)
 -------------------------------------------------------------------------------}
 
-failingTest :: String -> TracePredicate TraceMsg -> TestCase
-failingTest filename trace =
-    (testTrace filename trace){
-        testHasOutput = False
-      , testDir       = "examples/failing"
-      }
+defaultFailingTest :: String -> TestCase
+defaultFailingTest filename = (defaultTest filename){
+      testHasOutput = False
+    , testDir       = "examples/failing"
+    }
+
+failingTestTrace :: String -> TracePredicate TraceMsg -> TestCase
+failingTestTrace filename trace =
+    (defaultFailingTest filename){testTracePredicate = trace}
 
 failingTestSimple ::
      String
   -> (TraceMsg -> Maybe (TraceExpectation ()))
   -> TestCase
 failingTestSimple filename trace =
-    failingTest filename $ singleTracePredicate trace
+    failingTestTrace filename $ singleTracePredicate trace
 
 failingTestCustom ::
      (Ord a, WrongCountMsg a)
@@ -155,7 +170,7 @@ failingTestCustom ::
   -> (TraceMsg -> Maybe (TraceExpectation a))
   -> TestCase
 failingTestCustom filename expected trace =
-    failingTest filename $ customTracePredicate' expected trace
+    failingTestTrace filename $ customTracePredicate' expected trace
 
 {-------------------------------------------------------------------------------
   Execution

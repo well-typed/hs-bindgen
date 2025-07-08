@@ -60,6 +60,7 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST.SigmaType
 import HsBindgen.Hs.AST.Strategy
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.CallConv
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
@@ -108,11 +109,11 @@ data Newtype = Newtype {
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName       :: HsName NsVar
-    , foreignImportType       :: HsType
-    , foreignImportOrigName   :: Text
-    , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
-    , foreignImportDeclOrigin :: Origin.ForeignImport
+    { foreignImportName     :: HsName NsVar
+    , foreignImportType     :: HsType
+    , foreignImportOrigName :: Text
+    , foreignImportCallConv :: CallConv
+    , foreignImportOrigin   :: Origin.ForeignImport
     }
   deriving stock (Generic, Show)
 

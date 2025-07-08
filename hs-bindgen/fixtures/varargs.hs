@@ -11,10 +11,9 @@
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "testmodule_g",
-      foreignImportHeader =
-      "varargs.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [],
           functionRes = TypeVoid}}]

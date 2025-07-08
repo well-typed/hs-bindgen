@@ -8,6 +8,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , Msg(..)
   ) where
 
+import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -45,7 +46,13 @@ instance IsPass Parse where
   type MacroBody  Parse = UnparsedMacro
   type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix
-  data Msg        Parse =
+
+  -- | Parse messages
+  --
+  -- We distinguish between \"unsupported\", which refers to C features that
+  -- one could reasonably expect to be supported eventually, and \"unexpected\",
+  -- for strange C input.
+  data Msg Parse =
       -- | We skipped over a declaration
       Skipped Predicate.SkipReason
 
@@ -58,9 +65,9 @@ instance IsPass Parse where
       -- | Struct with implicit fields
     | UnsupportedImplicitFields (C.DeclInfo Parse)
 
-      -- | Function signature with nested declarations
+      -- | Unexpected anonymous declaration inside function signature
       --
-      -- Examples:
+      -- Consider:
       --
       -- > void f(struct named { int x; int y; } arg);
       -- > void g(struct { int x; int y; } arg);
@@ -87,6 +94,43 @@ instance IsPass Parse where
       -- that the anonymous version is anyway unusable (callers would have no way
       -- of constructing any values), we rule them out.
     | UnexpectedAnonInSignature (C.DeclInfo Parse)
+
+      -- | Unexpected anonymous declaration inside @extern@
+      --
+      -- Something like
+      --
+      -- > extern struct { .. } config;
+      --
+      -- does not make sense: this declares the existence of some externally
+      -- defined global variable, but it is impossible to actually define said
+      -- global variable; an attempt such as
+      --
+      -- > #include "config.h"
+      -- > struct { .. } config = ..
+      --
+      -- will result in an error: "conflicting types for 'config'".
+      --
+      -- The /header/ however by itself will not result in a @clang@ warning, so
+      -- we detect the siutation and warn the user in @hs-bindgen@.
+      --
+      -- (As of C23, the situation is different for /named/ structs: multiple
+      -- uses of a struct with the same name are considered compatible as of
+      -- WG14-N3037.)
+    | UnexpectedAnonInExtern (C.DeclInfo Parse)
+
+      -- | Thread local variables
+      --
+      -- <https://github.com/well-typed/hs-bindgen/issues/828>
+    | UnsupportedTLS (C.DeclInfo Parse)
+
+      -- | Variable declaration
+    | UnknownStorageClass (C.DeclInfo Parse) (SimpleEnum CX_StorageClass)
+
+      -- | Global variables without `extern` or `static`
+      --
+      -- Such definitions can lead to duplicate symbols (linker errors) if they
+      -- are included more than once (see manual section on globals for details).
+    | PotentialDuplicateGlobal (C.DeclInfo Parse)
     deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
@@ -142,6 +186,20 @@ instance PrettyForTrace (Msg Parse) where
           "unsupported implicit fields"
       UnexpectedAnonInSignature info -> noBindingsGenerated info $
           "unexpected anonymous declaration in function signature"
+      UnexpectedAnonInExtern info -> noBindingsGenerated info $
+          "unexpected anonymous declaration in global variable"
+      UnsupportedTLS info -> noBindingsGenerated info $
+          "unsupported thread-local variable"
+      UnknownStorageClass info storage -> noBindingsGenerated info $ hsep [
+          "unsupported storage class"
+        , showToCtxDoc storage
+        ]
+      PotentialDuplicateGlobal info -> hcat [
+          "Bindings generated for "
+        , prettyForTrace info
+        , " may result in duplicate symbols; "
+        , "consider using 'static' or 'extern'"
+        ]
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
       noBindingsGenerated info reason = hcat [
@@ -151,7 +209,6 @@ instance PrettyForTrace (Msg Parse) where
           , reason
           ]
 
-
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel (Msg Parse) where
   getDefaultLogLevel = \case
@@ -159,6 +216,10 @@ instance HasDefaultLogLevel (Msg Parse) where
       UnsupportedType _ctxt err   -> getDefaultLogLevel err
       UnsupportedImplicitFields{} -> Warning
       UnexpectedAnonInSignature{} -> Warning
+      UnexpectedAnonInExtern{}    -> Warning
+      UnsupportedTLS{}            -> Warning
+      UnknownStorageClass{}       -> Warning
+      PotentialDuplicateGlobal{}  -> Notice
 
 instance HasSource (Msg Parse) where
     getSource = const HsBindgen

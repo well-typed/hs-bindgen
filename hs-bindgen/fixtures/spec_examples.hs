@@ -2025,10 +2025,9 @@
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
       "testmodule_resample",
-      foreignImportHeader =
-      "spec_examples.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePointer

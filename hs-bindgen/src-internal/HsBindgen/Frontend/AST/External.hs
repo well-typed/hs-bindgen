@@ -111,6 +111,8 @@ data DeclKind =
   | DeclEnumOpaque
   | DeclMacro CheckedMacro
   | DeclFunction Function
+  | DeclExtern Type
+  | DeclConst Type
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

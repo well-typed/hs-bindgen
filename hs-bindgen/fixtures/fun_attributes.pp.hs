@@ -81,6 +81,8 @@ foreign import ccall safe "testmodule_sse3_func" sse3_func :: IO FC.CInt
 
 foreign import ccall safe "testmodule_f3" f3 :: IO ()
 
+foreign import capi safe "&i" i :: F.Ptr FC.CInt
+
 foreign import ccall safe "testmodule_fn" fn :: IO FC.CInt
 
 foreign import ccall safe "testmodule_y" y :: IO FC.CInt

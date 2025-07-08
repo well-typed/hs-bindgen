@@ -217,6 +217,8 @@ instance Resolve C.DeclKind where
       C.DeclEnumOpaque      -> return C.DeclEnumOpaque
       C.DeclMacro macro     -> C.DeclMacro <$> resolve macro
       C.DeclFunction fun    -> C.DeclFunction <$> resolve fun
+      C.DeclExtern ty       -> C.DeclExtern <$> resolve ty
+      C.DeclConst ty        -> C.DeclConst <$> resolve ty
 
 instance Resolve C.Struct where
   resolve C.Struct{..} =

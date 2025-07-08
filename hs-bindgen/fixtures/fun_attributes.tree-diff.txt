@@ -608,6 +608,26 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
+        "fun_attributes.h:128:5",
+        declId = NamePair {
+          nameC = CName "i",
+          nameHsIdent = HsIdentifier "i"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "fun_attributes.h"},
+      declKind = DeclExtern
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
         "fun_attributes.h:132:5",
         declId = NamePair {
           nameC = CName "fn",

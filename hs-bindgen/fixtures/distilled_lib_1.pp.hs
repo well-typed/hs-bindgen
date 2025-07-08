@@ -310,3 +310,5 @@ newtype Callback_t = Callback_t
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+foreign import capi safe "&v" v :: F.Ptr Var_t

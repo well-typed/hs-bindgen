@@ -1,0 +1,41 @@
+types:
+- headers: globals.h
+  cname: struct config
+  module: Example
+  identifier: Config
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: globals.h
+  cname: struct inline_struct
+  module: Example
+  identifier: Inline_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: globals.h
+  cname: struct1_t
+  module: Example
+  identifier: Struct1_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: globals.h
+  cname: struct2_t
+  module: Example
+  identifier: Struct2_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: globals.h
+  cname: version_t
+  module: Example
+  identifier: Version_t
+  instances:
+  - Eq
+  - Show
+  - Storable

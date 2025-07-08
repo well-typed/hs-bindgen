@@ -89,4 +89,3 @@ void print_occupation(int tag, occupation* o) {
 void import(void) {
     printf("C function 'import'\n");
 }
-

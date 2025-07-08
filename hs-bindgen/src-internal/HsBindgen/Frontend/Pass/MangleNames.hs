@@ -266,6 +266,10 @@ instance MangleDecl C.DeclKind where
       C.DeclFunction <$> mangleDecl info fun
   mangleDecl info (C.DeclMacro macro) =
       C.DeclMacro <$> mangleDecl info macro
+  mangleDecl _ (C.DeclExtern ty) =
+      C.DeclExtern <$> mangle ty
+  mangleDecl _ (C.DeclConst ty) =
+      C.DeclConst <$> mangle ty
 
 instance MangleDecl C.Struct where
   mangleDecl info C.Struct{..} = do
@@ -428,6 +432,8 @@ withDeclNamespace kind k =
       C.DeclEnum{}         -> k (Proxy @NsTypeConstr)
       C.DeclEnumOpaque{}   -> k (Proxy @NsTypeConstr)
       C.DeclFunction{}     -> k (Proxy @NsVar)
+      C.DeclExtern{}       -> k (Proxy @NsVar)
+      C.DeclConst{}        -> k (Proxy @NsVar)
 
       C.DeclMacro macro ->
         case macro of

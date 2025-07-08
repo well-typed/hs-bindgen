@@ -13,10 +13,9 @@
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_fun2",
-      foreignImportHeader =
-      "skip_over_long_double.h",
-      foreignImportDeclOrigin =
-      Function
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Function
         Function {
           functionArgs = [
             TypePrim
