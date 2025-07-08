@@ -116,7 +116,10 @@ runGoldenSteps GoldenSteps{..} progress opts = do
       Left (e :: SomeException) ->
         case fromException @AsyncException e of
           Just e' -> throwIO e'
-          Nothing -> return $ testFailed $ displayException e
+          Nothing -> return $ testFailed $ concat [
+              displayException e
+            , unlines msgs
+            ]
 
       Right (ActualSkipped reason) ->
         testPassedWith $ "skipped: " ++ reason
