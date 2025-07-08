@@ -1304,17 +1304,24 @@ addInertDict sol ( ( cls, args ), ctOrig ) inerts@( InertSet { inertDicts = dict
       doInsert = Just . insertTrie key ( ( ct, ctOrig ), sol ) . fromMaybe mempty
 
 addInertEq :: Solubility -> ( Type Ct, CtOrigin ) -> InertSet -> InertSet
-addInertEq sol eq inerts@( InertSet { inertEqs = eqs } ) =
-  inerts { inertEqs = eqs ++ [ ( eq, sol ) ] }
+addInertEq sol eq@( NomEqPred lhs rhs, _ ) inerts@( InertSet { inertEqs = eqs } )
+  | not $ any seen eqs
+  = inerts { inertEqs = eqs ++ [ ( eq, sol ) ] }
+  where
+    seen ( ( NomEqPred lhs' rhs', _ ), _ )
+      =  ( lhs `eqType` lhs' && rhs `eqType` rhs' )
+      || ( lhs `eqType` rhs' && rhs `eqType` lhs' )
+    seen _ = False
+addInertEq _ _ inerts = inerts
 
 nextWorkItem :: TcSolveM ( Maybe ( Type Ct, CtOrigin ) )
 nextWorkItem = do
-  st@( SolverState { solverWorkList = wl } ) <- State.get
+  st@( SolverState { solverSubst = subst, solverWorkList = wl } ) <- State.get
   case wl of
     [] -> return Nothing
-    ct : others -> do
+    ( ctPred, ctOrig ) : others -> do
       State.put $ st { solverWorkList = others }
-      return $ Just ct
+      return $ Just ( applySubst subst ctPred, ctOrig )
 
 solvingLoop :: ( ( Type Ct, CtOrigin ) -> TcSolveM () ) -> TcSolveM ()
 solvingLoop solveOne = loop 1
@@ -1532,33 +1539,41 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                   -- for quantification are involved.
                   -- (Alternatively we could choose to default only
                   -- a subset of the type variables, but we don't do so for now.)
-                case filter ( doesNotRefine qtvs matchSubst ) candSubsts of
-                  [] -> do
-                    debugTraceM $
-                      unlines
-                        [ "solveDictCt: matchOne SUCCESS (no defaulting)"
-                        , "qtvs: " ++ show qtvs
-                        , "ct: " ++ show ct
-                        , "subst: " ++ show matchSubst
-                        ]
-                    return $ Just matchSubst
-                  dfltSubst1 : _ -> do
-                    debugTraceM $
-                      unlines
-                        [ "solveDictCt: matchOne SUCCESS (defaulting)"
-                        , "qtvs: " ++ show qtvs
-                        , "ct: " ++ show ct
-                        , "matchSubst: " ++ show matchSubst
-                        , "dfltSubst: " ++ show dfltSubst1
-                        ]
-                    return $ Just dfltSubst1
+                Subst finalSubst <-
+                  case filter ( doesNotRefine qtvs matchSubst ) candSubsts of
+                    [] -> do
+                      debugTraceM $
+                        unlines
+                          [ "solveDictCt: matchOne SUCCESS (no defaulting)"
+                          , "qtvs: " ++ show qtvs
+                          , "ct: " ++ show ct
+                          , "subst: " ++ show matchSubst
+                          ]
+                      return matchSubst
+                    dfltSubst1 : _ -> do
+                      debugTraceM $
+                        unlines
+                          [ "solveDictCt: matchOne SUCCESS (defaulting)"
+                          , "qtvs: " ++ show qtvs
+                          , "ct: " ++ show ct
+                          , "matchSubst: " ++ show matchSubst
+                          , "dfltSubst: " ++ show dfltSubst1
+                          ]
+                      return dfltSubst1
+                return $ Just $ Subst $ IntMap.withoutKeys finalSubst qtvs
 
 doesNotRefine :: IntSet -> Subst tv -> Subst tv -> Bool
 doesNotRefine qtvs ( Subst matchSubst ) ( Subst dfltSubst ) =
-  and $
-    IntMap.intersectionWith ( \ ( _, ty1 ) ( _, ty2 ) -> ty1 `eqType` ty2 )
-      ( matchSubst `IntMap.restrictKeys` qtvs )
-      ( dfltSubst  `IntMap.restrictKeys` qtvs )
+  all noRefinement $ IntSet.toList qtvs
+    where
+      noRefinement tv =
+        case IntMap.lookup tv dfltSubst of
+          Nothing -> True
+          Just ( _, dfltTy ) ->
+            case IntMap.lookup tv matchSubst of
+              Nothing -> False
+              Just ( _, matchTy ) ->
+                matchTy `eqType` dfltTy
 
 {-
 -- | Combine two substitutions, if they are compatible.
@@ -1867,8 +1882,9 @@ tcMacro tyEnv macroNm args body =
 
     -- Step 4: generalise.
     let
-      qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars $
-                   freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys )
+      qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars do
+        freeTyVarsOfTypes $ fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys
+        freeTyVarsOfTypes $ fmap ( applySubstNormalise plat ctSubst ) $ map fst simpleCts
 
     debugTraceM $
       unlines

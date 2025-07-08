@@ -4,7 +4,7 @@
 
 module Example where
 
-import C.Expr.HostPlatform ((*), (+), (/), (<), (<<))
+import C.Expr.HostPlatform ((*), (+), (.&.), (.|.), (/), (<), (<<), (>>))
 import qualified C.Expr.HostPlatform as C
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.Syntax as HsBindgen
@@ -28,7 +28,7 @@ cMP = \x0 -> \y1 -> (<) x0 y1
 fUN1 :: forall a0 b1. (C.Add a0) ((C.MultRes FC.CULLong) b1) => (C.Mult FC.CULLong) b1 => a0 -> b1 -> (C.AddRes a0) ((C.MultRes FC.CULLong) b1)
 fUN1 = \x0 -> \y1 -> (+) x0 ((*) (12 :: FC.CULLong) y1)
 
-fUN2 :: forall a0 b1. (C.Mult FC.CULLong) b1 => ((~) (HsBindgen.IntLike b1)) ((C.MultRes FC.CULLong) b1) => (HsBindgen.IntLike a0) -> b1 -> C.ShiftRes (HsBindgen.IntLike a0)
+fUN2 :: forall a0 b1 c2. (C.Mult FC.CULLong) b1 => ((~) (HsBindgen.IntLike c2)) ((C.MultRes FC.CULLong) b1) => a0 -> b1 -> C.ShiftRes a0
 fUN2 = \x0 -> \y1 -> (<<) x0 ((*) (3 :: FC.CULLong) y1)
 
 g :: forall a0 b1. (C.Add a0) FC.CInt => b1 -> a0 -> (C.AddRes a0) FC.CInt
@@ -39,3 +39,14 @@ dIV1 = \x0 -> \y1 -> (/) x0 ((+) y1 (12 :: FC.CUInt))
 
 dIV2 :: forall a0 b1. (C.Mult FC.CFloat) a0 => (C.Div ((C.MultRes FC.CFloat) a0)) b1 => a0 -> b1 -> (C.DivRes ((C.MultRes FC.CFloat) a0)) b1
 dIV2 = \x0 -> \y1 -> (/) ((*) (10.0 :: FC.CFloat) x0) y1
+
+sWAP32 :: forall a0 b1. ((~) (HsBindgen.IntLike b1)) ((C.BitsRes (C.ShiftRes a0)) FC.CInt) => ((~) FC.CInt) (C.ShiftRes a0) => a0 -> (C.BitsRes ((C.BitsRes (C.ShiftRes a0)) FC.CInt)) ((C.BitsRes (C.ShiftRes a0)) FC.CInt)
+sWAP32 =
+  \w0 ->
+    (.|.) ((.&.) ((>>) w0 (24 :: FC.CInt)) (255 :: FC.CInt)) ((.&.) ((<<) w0 (8 :: FC.CInt)) (16711680 :: FC.CInt))
+
+aV_VERSION_INT :: forall a10 a21 a32 a43 a54. ((~) (HsBindgen.IntLike a43)) ((C.BitsRes (C.ShiftRes a10)) (C.ShiftRes a21)) => ((~) (HsBindgen.IntLike a54)) (C.ShiftRes a10) => ((~) (HsBindgen.IntLike a54)) (C.ShiftRes a21) => a10 -> a21 -> a32 -> (C.BitsRes ((C.BitsRes (C.ShiftRes a10)) (C.ShiftRes a21))) a32
+aV_VERSION_INT =
+  \a0 ->
+    \b1 ->
+      \c2 -> (.|.) ((.|.) ((<<) a0 (16 :: FC.CInt)) ((<<) b1 (8 :: FC.CInt))) c2
