@@ -74,7 +74,7 @@ parseVerbosity =
               , long "verbosity"
               , metavar "INT"
               , value 1
-              , help "Specify verbosity (0: error, 1: warning, 2: info, 3: debug);"
+              , help "Specify verbosity (0: error, 1: warning, 2: notice, 3: info, 4: debug);"
               , showDefault
               ])
 
@@ -83,9 +83,9 @@ parseVerbosity =
     nToVerbosity = Verbosity . \case
       n | n <= 0 -> Error
       1          -> Warning
-      2          -> Info
-      -- n | n >= 3 -- (But exhaustive checker complains).
-      _nGe3      -> Debug
+      2          -> Notice
+      3          -> Info
+      _otherwise -> Debug
 
 parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [

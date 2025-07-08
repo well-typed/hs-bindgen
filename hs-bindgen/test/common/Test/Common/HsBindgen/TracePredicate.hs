@@ -93,7 +93,9 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
     defaultTracePredicateSimple = \case
         Error        -> Unexpected
         Warning      -> Unexpected
-        _lowerLevels -> Tolerated
+        Notice       -> Unexpected
+        Info         -> Tolerated
+        Debug        -> Tolerated
         . getDefaultLogLevel
 
     predicate :: a -> TraceExpectation b

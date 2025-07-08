@@ -51,6 +51,10 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
         , testCase "ok-info" $
               withTracePredicate defaultTracePredicate $ \tracer ->
                 traceWith tracer info
+        , testCase "!ok-notice" $
+            assertException "Expected TraceExpectationException" proxy $
+              withTracePredicate defaultTracePredicate $ \tracer ->
+                traceWith tracer notice
         , testCase "!ok-warning" $
             assertException "Expected TraceExpectationException" proxy $
               withTracePredicate defaultTracePredicate $ \tracer ->
@@ -83,6 +87,7 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
   where
     db        = TestDebug   "Debug message."
     info      = TestInfo    "Info message."
+    notice    = TestNotice  "Notice message."
     wn        = TestWarning "Warning!"
     er        = TestError   "Error!"
     proxy     = Proxy :: Proxy (TraceExpectationException TestTrace)
@@ -100,20 +105,23 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
 data TestTrace =
     TestDebug String
   | TestInfo String
+  | TestNotice String
   | TestWarning String
   | TestError String
 
 instance PrettyForTrace TestTrace where
   prettyForTrace = \case
-    TestDebug x   -> string x
-    TestInfo  x   -> string x
+    TestDebug   x -> string x
+    TestInfo    x -> string x
+    TestNotice  x -> string x
     TestWarning x -> string x
-    TestError x   -> string x
+    TestError   x -> string x
 
 instance HasDefaultLogLevel TestTrace where
   getDefaultLogLevel = \case
     TestDebug   _ -> Debug
     TestInfo    _ -> Info
+    TestNotice  _ -> Notice
     TestWarning _ -> Warning
     TestError   _ -> Error
 
