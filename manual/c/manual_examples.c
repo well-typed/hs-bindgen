@@ -89,3 +89,15 @@ void print_occupation(int tag, occupation* o) {
 void import(void) {
     printf("C function 'import'\n");
 }
+
+/**
+ * Globals
+ */
+
+struct globalConfig globalConfig = {5, 8};
+
+void printGlobalConfig() {
+    printf("numThreads = %d, numWorkers = %d\n",
+      globalConfig.numThreads,
+      globalConfig.numWorkers);
+}
