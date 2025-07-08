@@ -1882,8 +1882,9 @@ tcMacro tyEnv macroNm args body =
 
     -- Step 4: generalise.
     let
-      qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars $
-                   freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys )
+      qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars do
+        freeTyVarsOfTypes $ fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys
+        freeTyVarsOfTypes $ fmap ( applySubstNormalise plat ctSubst ) $ map fst simpleCts
 
     debugTraceM $
       unlines
