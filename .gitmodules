@@ -4,3 +4,6 @@
 [submodule "alternatives/c2hs"]
 	path = alternatives/tools/c2hs
 	url = https://github.com/haskell/c2hs.git
+[submodule "examples/c-rogueutil/rogueutil"]
+	path = examples/c-rogueutil/rogueutil
+	url = https://github.com/sakhmatd/rogueutil.git
