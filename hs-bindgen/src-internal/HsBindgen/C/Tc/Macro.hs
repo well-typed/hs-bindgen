@@ -1304,8 +1304,15 @@ addInertDict sol ( ( cls, args ), ctOrig ) inerts@( InertSet { inertDicts = dict
       doInsert = Just . insertTrie key ( ( ct, ctOrig ), sol ) . fromMaybe mempty
 
 addInertEq :: Solubility -> ( Type Ct, CtOrigin ) -> InertSet -> InertSet
-addInertEq sol eq inerts@( InertSet { inertEqs = eqs } ) =
-  inerts { inertEqs = eqs ++ [ ( eq, sol ) ] }
+addInertEq sol eq@( NomEqPred lhs rhs, _ ) inerts@( InertSet { inertEqs = eqs } )
+  | not $ any seen eqs
+  = inerts { inertEqs = eqs ++ [ ( eq, sol ) ] }
+  where
+    seen ( ( NomEqPred lhs' rhs', _ ), _ )
+      =  ( lhs `eqType` lhs' && rhs `eqType` rhs' )
+      || ( lhs `eqType` rhs' && rhs `eqType` lhs' )
+    seen _ = False
+addInertEq _ _ inerts = inerts
 
 nextWorkItem :: TcSolveM ( Maybe ( Type Ct, CtOrigin ) )
 nextWorkItem = do
