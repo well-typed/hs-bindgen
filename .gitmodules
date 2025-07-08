@@ -7,3 +7,6 @@
 [submodule "c-rogueutil/rogueutil"]
 	path = c-rogueutil/rogueutil
 	url = git@github.com:sakhmatd/rogueutil.git
+[submodule "c-ffmpeg/FFmpeg"]
+	path = c-ffmpeg/FFmpeg
+	url = git@github.com:FFmpeg/FFmpeg.git

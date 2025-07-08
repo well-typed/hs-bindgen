@@ -1,0 +1,9 @@
+types:
+- headers: libavutil/rational.h
+  cname: struct AVRational
+  module: FFmpeg.LibAVUtil.Rational
+  identifier: AVRational
+  instances:
+  - Eq
+  - Show
+  - Storable

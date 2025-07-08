@@ -1,0 +1,13 @@
+types:
+- headers: libavutil/intfloat.h
+  cname: union av_intfloat32
+  module: FFmpeg.LibAVUtil.IntFloat
+  identifier: Av_intfloat32
+  instances:
+  - Storable
+- headers: libavutil/intfloat.h
+  cname: union av_intfloat64
+  module: FFmpeg.LibAVUtil.IntFloat
+  identifier: Av_intfloat64
+  instances:
+  - Storable
