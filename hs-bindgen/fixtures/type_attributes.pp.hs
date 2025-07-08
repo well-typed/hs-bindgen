@@ -133,16 +133,20 @@ newtype Wait_status_ptr_t = Wait_status_ptr_t
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Wait_status_ptr_t
 
 get_wait_status_ptr_t___ip :: Wait_status_ptr_t -> F.Ptr FC.CInt
-get_wait_status_ptr_t___ip = HsBindgen.Runtime.ByteArray.getUnionPayload
+get_wait_status_ptr_t___ip =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
 
 set_wait_status_ptr_t___ip :: (F.Ptr FC.CInt) -> Wait_status_ptr_t
-set_wait_status_ptr_t___ip = HsBindgen.Runtime.ByteArray.setUnionPayload
+set_wait_status_ptr_t___ip =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
 
 get_wait_status_ptr_t___up :: Wait_status_ptr_t -> F.Ptr Wait
-get_wait_status_ptr_t___up = HsBindgen.Runtime.ByteArray.getUnionPayload
+get_wait_status_ptr_t___up =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
 
 set_wait_status_ptr_t___up :: (F.Ptr Wait) -> Wait_status_ptr_t
-set_wait_status_ptr_t___up = HsBindgen.Runtime.ByteArray.setUnionPayload
+set_wait_status_ptr_t___up =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
 
 newtype T1 = T1
   { un_T1 :: FC.CInt

@@ -79,7 +79,8 @@ instance F.Storable S2_inner_deep where
     \ptr0 ->
       \s1 ->
         case s1 of
-          S2_inner_deep s2_inner_deep_b2 -> F.pokeByteOff ptr0 (0 :: Int) s2_inner_deep_b2
+          S2_inner_deep s2_inner_deep_b2 ->
+            F.pokeByteOff ptr0 (0 :: Int) s2_inner_deep_b2
 
 data S2_inner = S2_inner
   { s2_inner_a :: FC.CInt

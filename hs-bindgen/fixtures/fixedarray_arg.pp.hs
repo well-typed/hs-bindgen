@@ -21,7 +21,8 @@ fun_1 :: FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) 
 fun_1 =
   \x0 ->
     \x1 ->
-      HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr2 -> fun_1_wrapper x0 ptr2)
+      HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr2 ->
+                                                    fun_1_wrapper x0 ptr2)
 
 newtype Triple = Triple
   { un_Triple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
@@ -33,4 +34,6 @@ foreign import ccall safe "testmodule_fun_2" fun_2_wrapper :: (F.Ptr FC.CInt) ->
 
 fun_2 :: Triple -> IO FC.CInt
 fun_2 =
-  \x0 -> HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr1 -> fun_2_wrapper ptr1)
+  \x0 ->
+    HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr1 ->
+                                                  fun_2_wrapper ptr1)

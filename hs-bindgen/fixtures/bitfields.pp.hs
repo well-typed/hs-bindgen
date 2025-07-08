@@ -38,13 +38,19 @@ instance F.Storable Flags where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Flags flags_fieldX2 flags_flagA3 flags_flagB4 flags_flagC5 flags_fieldY6 flags_bits7 ->
-               F.pokeByteOff ptr0 (0 :: Int) flags_fieldX2
-            >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (8 :: Int) (1 :: Int) flags_flagA3
-            >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (9 :: Int) (1 :: Int) flags_flagB4
-            >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (10 :: Int) (1 :: Int) flags_flagC5
-            >> F.pokeByteOff ptr0 (2 :: Int) flags_fieldY6
-            >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (24 :: Int) (2 :: Int) flags_bits7
+          Flags
+            flags_fieldX2
+            flags_flagA3
+            flags_flagB4
+            flags_flagC5
+            flags_fieldY6
+            flags_bits7 ->
+                 F.pokeByteOff ptr0 (0 :: Int) flags_fieldX2
+              >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (8 :: Int) (1 :: Int) flags_flagA3
+              >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (9 :: Int) (1 :: Int) flags_flagB4
+              >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (10 :: Int) (1 :: Int) flags_flagC5
+              >> F.pokeByteOff ptr0 (2 :: Int) flags_fieldY6
+              >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (24 :: Int) (2 :: Int) flags_bits7
 
 data Overflow32 = Overflow32
   { overflow32_x :: FC.CInt

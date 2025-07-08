@@ -33,7 +33,8 @@ instance F.Storable First where
     \ptr0 ->
       \s1 ->
         case s1 of
-          First un_First2 -> F.pokeByteOff ptr0 (0 :: Int) un_First2
+          First un_First2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_First2
 
 instance HsBindgen.Runtime.CEnum.CEnum First where
 
@@ -45,11 +46,15 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "FIRST1"), (1, Data.List.NonEmpty.singleton "FIRST2")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "FIRST1")
+                                                     , (1, Data.List.NonEmpty.singleton "FIRST2")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "First"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "First"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "First"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "First"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -99,7 +104,8 @@ instance F.Storable Second where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Second un_Second2 -> F.pokeByteOff ptr0 (0 :: Int) un_Second2
+          Second un_Second2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_Second2
 
 instance HsBindgen.Runtime.CEnum.CEnum Second where
 
@@ -116,9 +122,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
                                                      , (1, Data.List.NonEmpty.singleton "SECOND_C")
                                                      ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Second"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Second"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Second"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Second"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -171,7 +179,8 @@ instance F.Storable Same where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Same un_Same2 -> F.pokeByteOff ptr0 (0 :: Int) un_Same2
+          Same un_Same2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_Same2
 
 instance HsBindgen.Runtime.CEnum.CEnum Same where
 
@@ -185,9 +194,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(1, ("SAME_A" Data.List.NonEmpty.:| ["SAME_B"]))]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Same"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Same"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Same"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Same"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -237,7 +248,8 @@ instance F.Storable Nonseq where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Nonseq un_Nonseq2 -> F.pokeByteOff ptr0 (0 :: Int) un_Nonseq2
+          Nonseq un_Nonseq2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_Nonseq2
 
 instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
@@ -254,9 +266,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
                                                      , (404, Data.List.NonEmpty.singleton "NONSEQ_C")
                                                      ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Nonseq"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Nonseq"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Nonseq"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Nonseq"
 
 instance Show Nonseq where
 
@@ -299,7 +313,8 @@ instance F.Storable Packed where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Packed un_Packed2 -> F.pokeByteOff ptr0 (0 :: Int) un_Packed2
+          Packed un_Packed2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_Packed2
 
 instance HsBindgen.Runtime.CEnum.CEnum Packed where
 
@@ -316,9 +331,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Packed where
                                                      , (2, Data.List.NonEmpty.singleton "PACKED_C")
                                                      ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Packed"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Packed"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Packed"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Packed"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -371,7 +388,8 @@ instance F.Storable EnumA where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumA un_EnumA2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
+          EnumA un_EnumA2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
@@ -383,11 +401,15 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "A_FOO"), (1, Data.List.NonEmpty.singleton "A_BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "A_FOO")
+                                                     , (1, Data.List.NonEmpty.singleton "A_BAR")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumA"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumA"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumA"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumA"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -437,7 +459,8 @@ instance F.Storable EnumB where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumB un_EnumB2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumB2
+          EnumB un_EnumB2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_EnumB2
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
@@ -449,11 +472,15 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "B_FOO"), (1, Data.List.NonEmpty.singleton "B_BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "B_FOO")
+                                                     , (1, Data.List.NonEmpty.singleton "B_BAR")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumB"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumB"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumB"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumB"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -503,7 +530,8 @@ instance F.Storable EnumC where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumC un_EnumC2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumC2
+          EnumC un_EnumC2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_EnumC2
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
@@ -515,11 +543,15 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "C_FOO"), (1, Data.List.NonEmpty.singleton "C_BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "C_FOO")
+                                                     , (1, Data.List.NonEmpty.singleton "C_BAR")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumC"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumC"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumC"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumC"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -569,7 +601,8 @@ instance F.Storable EnumD where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumD un_EnumD2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumD2
+          EnumD un_EnumD2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_EnumD2
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
@@ -581,11 +614,15 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "D_FOO"), (1, Data.List.NonEmpty.singleton "D_BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "D_FOO")
+                                                     , (1, Data.List.NonEmpty.singleton "D_BAR")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumD"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumD"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumD"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumD"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 

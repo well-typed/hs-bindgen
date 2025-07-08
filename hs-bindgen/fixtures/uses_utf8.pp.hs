@@ -32,7 +32,8 @@ instance F.Storable MyEnum where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MyEnum un_MyEnum2 -> F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
+          MyEnum un_MyEnum2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
 
 instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
@@ -44,11 +45,15 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "Say\20320\22909"), (1, Data.List.NonEmpty.singleton "Say\25308\25308")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "Say\20320\22909")
+                                                     , (1, Data.List.NonEmpty.singleton "Say\25308\25308")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "MyEnum"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "MyEnum"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "MyEnum"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "MyEnum"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 

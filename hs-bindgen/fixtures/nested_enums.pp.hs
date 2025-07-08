@@ -32,7 +32,8 @@ instance F.Storable EnumA where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumA un_EnumA2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
+          EnumA un_EnumA2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
@@ -44,11 +45,15 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "VALA_1"), (1, Data.List.NonEmpty.singleton "VALA_2")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "VALA_1")
+                                                     , (1, Data.List.NonEmpty.singleton "VALA_2")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumA"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumA"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumA"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumA"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -98,7 +103,8 @@ instance F.Storable ExA where
     \ptr0 ->
       \s1 ->
         case s1 of
-          ExA exA_fieldA12 -> F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
+          ExA exA_fieldA12 ->
+            F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
 
 newtype ExB_fieldB1 = ExB_fieldB1
   { un_ExB_fieldB1 :: FC.CUInt
@@ -120,7 +126,8 @@ instance F.Storable ExB_fieldB1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          ExB_fieldB1 un_ExB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) un_ExB_fieldB12
+          ExB_fieldB1 un_ExB_fieldB12 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_ExB_fieldB12
 
 instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 
@@ -132,9 +139,12 @@ instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "VALB_1"), (1, Data.List.NonEmpty.singleton "VALB_2")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "VALB_1")
+                                                     , (1, Data.List.NonEmpty.singleton "VALB_2")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "ExB_fieldB1"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "ExB_fieldB1"
 
   readPrecUndeclared =
     HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "ExB_fieldB1"
@@ -187,4 +197,5 @@ instance F.Storable ExB where
     \ptr0 ->
       \s1 ->
         case s1 of
-          ExB exB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) exB_fieldB12
+          ExB exB_fieldB12 ->
+            F.pokeByteOff ptr0 (0 :: Int) exB_fieldB12
