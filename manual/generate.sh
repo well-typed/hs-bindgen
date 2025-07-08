@@ -19,13 +19,6 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
-    -o hs/manual/generated/NonExternGlobal.hs \
-    --module NonExternGlobal \
-    nonExternGlobal.h
-
-cabal run hs-bindgen-cli -- \
-  preprocess \
-    -I c \
     -o hs/manual/generated/Structs.hs \
     --module Structs \
     structs.h

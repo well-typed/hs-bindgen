@@ -36,4 +36,3 @@ executable run-manual
   other-modules:
       Example
       Structs
-      NonExternGlobal
