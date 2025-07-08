@@ -1,0 +1,27 @@
+types:
+- headers: fun_attributes.h
+  cname: FILE
+  module: Example
+  identifier: FILE
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: fun_attributes.h
+  cname: size_t
+  module: Example
+  identifier: Size_t
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable

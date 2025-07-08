@@ -419,6 +419,18 @@ functionDecl info = simpleFold $ \curr -> do
           Right CXCursor_IntegerLiteral -> foldContinue
           Right CXCursor_UnexposedAttr  -> foldContinue
 
+          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/67>
+          -- We should take advantage of @const@ and @pure@ attributes.
+          Right CXCursor_ConstAttr -> foldContinue
+          Right CXCursor_PureAttr  -> foldContinue
+
+          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
+          -- Take visibility into account.
+          Right CXCursor_VisibilityAttr -> foldContinue
+
+          -- Attributes we (probably?) want to ignore
+          Right CXCursor_WarnUnusedResultAttr -> foldContinue
+
           -- Panic on anything we don't recognize
           -- We could instead use 'foldContinue' here, but this is safer.
           _otherwise -> do
