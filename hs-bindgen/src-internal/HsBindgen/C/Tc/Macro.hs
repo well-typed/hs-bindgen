@@ -1351,12 +1351,20 @@ runTcSolveM cts ( State.StateT f ) =
   Typechecking macros: constraint solving
 -------------------------------------------------------------------------------}
 
--- | Solve a constraint, either directly or by matching against
--- the provided instance environment.
+-- | Solve a constraint.
 solveCt :: HandleOverlap -> Defaulting -> InstEnv -> ( Type Ct, CtOrigin ) -> TcSolveM ()
 solveCt handleOverlap defaulting instEnv ( ct, ctOrig ) =
   case ct of
     NomEqPred a b ->
+      -- NB: we don't do any defaulting in equality constraints.
+      --
+      -- The reasoning is that, with the current type system, every equality
+      -- constraint arises from a class constraint, e.g. if we have
+      --   AddRes a b ~ c
+      -- we necessarily have an 'AddRes a b' class constraint as well.
+      --
+      -- Hence defaulting of equality constraints happens as a by-product of
+      -- defaulting of class constraints.
       solveEqCt ctOrig a b
     Class cls args ->
       solveDictCt handleOverlap defaulting ctOrig cls ( instEnv cls ) args
@@ -1893,8 +1901,14 @@ tcMacro tyEnv macroNm args body =
 
     -- Step 4: generalise.
     let
-      qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars $
-                   freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys )
+      qtvsFVs =
+        getFVs noBoundVars $
+          freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys )
+      qtvsList = reverse $ seenTvsRevList qtvsFVs
+      ctTvs =
+        seenTvs $ getFVs noBoundVars $
+          freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ map fst simpleCts )
+      ambigs = ctTvs IntSet.\\ seenTvs qtvsFVs
 
     debugTraceM $
       unlines
@@ -1905,7 +1919,23 @@ tcMacro tyEnv macroNm args body =
         , "ctSubst: " ++ show ctSubst
         , "simpleCts: " ++ show simpleCts
         , "qtvs: " ++ show qtvsList
+        , "ambigs: " ++ show ambigs
         ]
+
+    -- Panic if there are metavariables in the constraints that are not
+    -- in the argument/result type, i.e. ambiguous type variables.
+    -- These should have been defaulted away.
+    unless (IntSet.null ambigs) $
+      panicPure $
+        unlines
+          [ "tcMacro: ambiguous type variables"
+          , "ambigs: " ++ show ambigs
+          , "qtvs: " ++ show qtvsList
+          , "cts: " ++ show simpleCts
+          , "argTys: " ++ show argTys
+          , "bodyTy: " ++ show bodyTy
+          ]
+
     return $
       Vec.reifyList qtvsList \ qtvs ->
         Quant \ tys ->
