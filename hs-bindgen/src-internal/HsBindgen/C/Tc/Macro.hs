@@ -1316,12 +1316,12 @@ addInertEq _ _ inerts = inerts
 
 nextWorkItem :: TcSolveM ( Maybe ( Type Ct, CtOrigin ) )
 nextWorkItem = do
-  st@( SolverState { solverWorkList = wl } ) <- State.get
+  st@( SolverState { solverSubst = subst, solverWorkList = wl } ) <- State.get
   case wl of
     [] -> return Nothing
-    ct : others -> do
+    ( ctPred, ctOrig ) : others -> do
       State.put $ st { solverWorkList = others }
-      return $ Just ct
+      return $ Just ( applySubst subst ctPred, ctOrig )
 
 solvingLoop :: ( ( Type Ct, CtOrigin ) -> TcSolveM () ) -> TcSolveM ()
 solvingLoop solveOne = loop 1
