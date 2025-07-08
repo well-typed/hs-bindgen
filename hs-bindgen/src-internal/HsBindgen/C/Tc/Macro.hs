@@ -1560,12 +1560,31 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                         ]
                     return $ Just dfltSubst1
 
+-- | Check that the second substitution does not "further substitute" the
+-- given set of type variables.
+--
+-- Assumes that the second substitution refines the first one, i.e. that one
+-- can arrive at the second substitution by adding more substitutions to the
+-- first.
+--
+-- Example: @qtvs = {α}@, @subst1 = {α ↦ IntLike β}@.
+--
+--  1. @subst2 = {α ↦ IntLike β}@.
+--     OK: @α@ maps to the same thing in both substitutions.
+--  2. @subst2 = {α ↦ IntLike (Int Signed), β ↦ Int Signed }@
+--     Not OK: @α@ is further substituted.
 doesNotRefine :: IntSet -> Subst tv -> Subst tv -> Bool
 doesNotRefine qtvs ( Subst matchSubst ) ( Subst dfltSubst ) =
-  and $
-    IntMap.intersectionWith ( \ ( _, ty1 ) ( _, ty2 ) -> ty1 `eqType` ty2 )
-      ( matchSubst `IntMap.restrictKeys` qtvs )
-      ( dfltSubst  `IntMap.restrictKeys` qtvs )
+  all noRefinement $ IntSet.toList qtvs
+    where
+      noRefinement tv =
+        case IntMap.lookup tv dfltSubst of
+          Nothing -> True
+          Just ( _, dfltTy ) ->
+            case IntMap.lookup tv matchSubst of
+              Nothing -> False
+              Just ( _, matchTy ) ->
+                matchTy `eqType` dfltTy
 
 {-
 -- | Combine two substitutions, if they are compatible.
