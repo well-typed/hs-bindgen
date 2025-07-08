@@ -1539,33 +1539,41 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                   -- for quantification are involved.
                   -- (Alternatively we could choose to default only
                   -- a subset of the type variables, but we don't do so for now.)
-                case filter ( doesNotRefine qtvs matchSubst ) candSubsts of
-                  [] -> do
-                    debugTraceM $
-                      unlines
-                        [ "solveDictCt: matchOne SUCCESS (no defaulting)"
-                        , "qtvs: " ++ show qtvs
-                        , "ct: " ++ show ct
-                        , "subst: " ++ show matchSubst
-                        ]
-                    return $ Just matchSubst
-                  dfltSubst1 : _ -> do
-                    debugTraceM $
-                      unlines
-                        [ "solveDictCt: matchOne SUCCESS (defaulting)"
-                        , "qtvs: " ++ show qtvs
-                        , "ct: " ++ show ct
-                        , "matchSubst: " ++ show matchSubst
-                        , "dfltSubst: " ++ show dfltSubst1
-                        ]
-                    return $ Just dfltSubst1
+                Subst finalSubst <-
+                  case filter ( doesNotRefine qtvs matchSubst ) candSubsts of
+                    [] -> do
+                      debugTraceM $
+                        unlines
+                          [ "solveDictCt: matchOne SUCCESS (no defaulting)"
+                          , "qtvs: " ++ show qtvs
+                          , "ct: " ++ show ct
+                          , "subst: " ++ show matchSubst
+                          ]
+                      return matchSubst
+                    dfltSubst1 : _ -> do
+                      debugTraceM $
+                        unlines
+                          [ "solveDictCt: matchOne SUCCESS (defaulting)"
+                          , "qtvs: " ++ show qtvs
+                          , "ct: " ++ show ct
+                          , "matchSubst: " ++ show matchSubst
+                          , "dfltSubst: " ++ show dfltSubst1
+                          ]
+                      return dfltSubst1
+                return $ Just $ Subst $ IntMap.withoutKeys finalSubst qtvs
 
 doesNotRefine :: IntSet -> Subst tv -> Subst tv -> Bool
 doesNotRefine qtvs ( Subst matchSubst ) ( Subst dfltSubst ) =
-  and $
-    IntMap.intersectionWith ( \ ( _, ty1 ) ( _, ty2 ) -> ty1 `eqType` ty2 )
-      ( matchSubst `IntMap.restrictKeys` qtvs )
-      ( dfltSubst  `IntMap.restrictKeys` qtvs )
+  all noRefinement $ IntSet.toList qtvs
+    where
+      noRefinement tv =
+        case IntMap.lookup tv dfltSubst of
+          Nothing -> True
+          Just ( _, dfltTy ) ->
+            case IntMap.lookup tv matchSubst of
+              Nothing -> False
+              Just ( _, matchTy ) ->
+                matchTy `eqType` dfltTy
 
 {-
 -- | Combine two substitutions, if they are compatible.
