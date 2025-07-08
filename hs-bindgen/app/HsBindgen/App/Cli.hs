@@ -11,12 +11,13 @@ module HsBindgen.App.Cli (
   , pureParseCmdPreprocess
   ) where
 
-import Data.Default
+import GHC.Generics (Generic)
 import Options.Applicative
 
 import Clang.Paths
-import HsBindgen.App.Common
 import HsBindgen.Lib
+
+import HsBindgen.App.Common
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -93,23 +94,21 @@ pureParseCmdPreprocess =
 -------------------------------------------------------------------------------}
 
 data PreprocessOpts = PreprocessOpts {
-      preprocessTranslationOpts :: TranslationOpts
-    , preprocessModuleOpts      :: HsModuleOpts
-    , preprocessRenderOpts      :: HsRenderOpts
-    , preprocessInputs          :: [CHeaderIncludePath]
-    , preprocessOutput          :: Maybe FilePath
-    , preprocessGenBindingSpec  :: Maybe FilePath
+      config            :: Config
+    , inputs            :: [CHeaderIncludePath]
+    , output            :: Maybe FilePath
+    , bindingSpecConfig :: BindingSpecConfig
+    , genBindingSpec    :: Maybe FilePath
     }
-  deriving (Show)
+  deriving stock (Show, Generic)
 
 parsePreprocessOpts :: Parser PreprocessOpts
 parsePreprocessOpts =
     PreprocessOpts
-      <$> parseTranslationOpts
-      <*> parseHsModuleOpts
-      <*> parseHsRenderOpts
+      <$> parseConfig
       <*> parseInputs
       <*> parseOutput
+      <*> parseBindingSpecConfig
       <*> optional parseGenBindingSpec
 
 {-------------------------------------------------------------------------------
@@ -117,32 +116,30 @@ parsePreprocessOpts =
 -------------------------------------------------------------------------------}
 
 data GenTestsOpts = GenTestsOpts {
-      genTestsTranslationOpts :: TranslationOpts
-    , genTestsModuleOpts      :: HsModuleOpts
-    , genTestsRenderOpts      :: HsRenderOpts
-    , genTestsOutput          :: FilePath
-    , genTestsInputs          :: [CHeaderIncludePath]
+      config            :: Config
+    , output            :: FilePath
+    , inputs            :: [CHeaderIncludePath]
+    , bindingSpecConfig :: BindingSpecConfig
     }
-  deriving (Show)
+  deriving stock (Show, Generic)
 
 parseGenTestsOpts :: Parser GenTestsOpts
 parseGenTestsOpts =
     GenTestsOpts
-      <$> parseTranslationOpts
-      <*> parseHsModuleOpts
-      <*> parseHsRenderOpts
+      <$> parseConfig
       <*> parseGenTestsOutput
       <*> parseInputs
+      <*> parseBindingSpecConfig
 
 {-------------------------------------------------------------------------------
   Literate command
 -------------------------------------------------------------------------------}
 
 data LiterateOpts = LiterateOpts {
-      literateInput  :: FilePath
-    , literateOutput :: FilePath
+      input  :: FilePath
+    , output :: FilePath
     }
-  deriving (Show)
+  deriving stock (Show, Generic)
 
 parseLiterateOpts :: Parser LiterateOpts
 parseLiterateOpts = do
@@ -157,68 +154,47 @@ parseLiterateOpts = do
 
     input  <- strArgument $ mconcat [ metavar "IN" ]
     output <- strArgument $ mconcat [ metavar "OUT" ]
-    return (LiterateOpts input output)
+    return LiterateOpts {..}
 
 {-------------------------------------------------------------------------------
   Binding spec commands
 -------------------------------------------------------------------------------}
 
 data BindingSpecCmd =
-    BindingSpecCmdStdlib
-  deriving (Show)
+    BindingSpecCmdStdlib {
+      clangArgs :: ClangArgs
+    }
+  deriving stock (Show, Generic)
 
 parseBindingSpecCmd :: Parser BindingSpecCmd
 parseBindingSpecCmd = subparser $ mconcat [
-      cmd "stdlib" (pure BindingSpecCmdStdlib) $ mconcat [
+      cmd "stdlib" parseBindingSpecCmdStdlib $ mconcat [
           progDesc "Write stdlib external binding specification"
         ]
     ]
+
+parseBindingSpecCmdStdlib :: Parser BindingSpecCmd
+parseBindingSpecCmdStdlib = BindingSpecCmdStdlib <$> parseClangArgs
 
 {-------------------------------------------------------------------------------
   Resolve command
 -------------------------------------------------------------------------------}
 
 data ResolveOpts = ResolveOpts {
-      resolveInputs :: [CHeaderIncludePath]
+      inputs    :: [CHeaderIncludePath]
+    , clangArgs :: ClangArgs
     }
-  deriving (Show)
+  deriving stock (Show, Generic)
 
 parseResolveOpts :: Parser ResolveOpts
 parseResolveOpts =
     ResolveOpts
       <$> parseInputs
-
-{-------------------------------------------------------------------------------
-  Translation options
--------------------------------------------------------------------------------}
-
-parseTranslationOpts :: Parser TranslationOpts
-parseTranslationOpts = pure def
-
-parseHsModuleOpts :: Parser HsModuleOpts
-parseHsModuleOpts =
-    HsModuleOpts
-      <$> strOption (mconcat [
-              help "Name of the generated Haskell module"
-            , metavar "NAME"
-            , long "module"
-            , showDefault
-            , value "Generated"
-            ])
+      <*> parseClangArgs
 
 {-------------------------------------------------------------------------------
   Output options
 -------------------------------------------------------------------------------}
-
-parseHsRenderOpts :: Parser HsRenderOpts
-parseHsRenderOpts =
-    HsRenderOpts
-      <$> option auto (mconcat [
-              help "Maximum length line"
-            , long "render-line-length"
-            , showDefault
-            , value $ hsLineLength def
-            ])
 
 parseOutput :: Parser (Maybe FilePath)
 parseOutput =

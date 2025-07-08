@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedLabels #-}
+
 module Main (main) where
 
 import Control.Exception (Exception (..), SomeException (..), fromException,
@@ -5,13 +7,17 @@ import Control.Exception (Exception (..), SomeException (..), fromException,
 import Control.Monad (forM_, (<=<))
 import Data.ByteString qualified as BS
 import Data.Char (isLetter)
+import Optics
 import System.Exit (ExitCode, exitFailure)
 import Text.Read (readMaybe)
 
+import HsBindgen.Lib
+
+-- NOTE: HsBindgen is an internal library.
+import HsBindgen.Errors
+
 import HsBindgen.App.Cli
 import HsBindgen.App.Common
-import HsBindgen.Errors
-import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
   Main application
@@ -19,15 +25,6 @@ import HsBindgen.Lib
 
 main :: IO ()
 main = handle exceptionHandler $ execCli =<< getCli
-
-data LiterateFileException = LiterateFileException FilePath String
-  deriving Show
-
-instance Exception LiterateFileException where
-    toException = hsBindgenExceptionToException
-    fromException = hsBindgenExceptionFromException
-    displayException (LiterateFileException path err) =
-      "error loading " ++ path ++ ": " ++ err
 
 execCli :: Cli -> IO ()
 execCli Cli{..} = case cliCmd of
@@ -37,75 +34,78 @@ execCli Cli{..} = case cliCmd of
     CliCmdBindingSpec subCmd  -> execBindingSpec     cliGlobalOpts subCmd
     CliCmdResolve     cmdOpts -> execResolve         cliGlobalOpts cmdOpts
 
+{-------------------------------------------------------------------------------
+  Commands
+-------------------------------------------------------------------------------}
+
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
-execPreprocess globalOpts PreprocessOpts{..} = do
-    hsDecls <- fromMaybeWithFatalError <=< withTracer globalOpts $ \tracer -> do
-      extSpec <- loadExtBindingSpecs' tracer globalOpts
-      pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
-      translateCHeaders mu tracer config extSpec pSpec preprocessInputs
+execPreprocess GlobalOpts{..} opts = do
+    hsDecls <- fromMaybeWithFatalError <=<
+      withTracerStdOut tracerConfig $ \tracer -> do
+        (extSpec, pSpec) <- loadBindingSpecs
+                              tracer
+                              opts.config.configClangArgs
+                              opts.bindingSpecConfig
+        translateCHeaders mu tracer opts.config extSpec pSpec opts.inputs
 
-    preprocessIO config preprocessOutput hsDecls
+    preprocessIO opts.config opts.output hsDecls
 
-    case preprocessGenBindingSpec of
+    case opts.genBindingSpec of
       Nothing   -> return ()
-      Just path -> genBindingSpec config preprocessInputs path hsDecls
+      Just path -> genBindingSpec opts.config opts.inputs path hsDecls
   where
-    mu     = getModuleUnique preprocessModuleOpts
-    config = (getConfig globalOpts) {
-        configTranslation  = preprocessTranslationOpts
-      , configHsModuleOpts = preprocessModuleOpts
-      , configHsRenderOpts = preprocessRenderOpts
-      }
+    mu     = getModuleUnique opts.config.configHsModuleOpts
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
-execGenTests globalOpts GenTestsOpts{..} = do
+execGenTests GlobalOpts{..} opts = do
     hsDecls <-
-      fromMaybeWithFatalError <=< withTracer globalOpts $ \tracer -> do
-        extSpec <- loadExtBindingSpecs' tracer globalOpts
-        pSpec   <- loadPrescriptiveBindingSpec' tracer globalOpts
-        translateCHeaders mu tracer config extSpec pSpec genTestsInputs
+      fromMaybeWithFatalError <=< withTracerStdOut tracerConfig $ \tracer -> do
+        (extSpec, pSpec) <- loadBindingSpecs
+                              tracer
+                              opts.config.configClangArgs
+                              opts.bindingSpecConfig
+        translateCHeaders mu tracer opts.config extSpec pSpec opts.inputs
 
-    genTests config genTestsInputs genTestsOutput hsDecls
+    genTests opts.config opts.inputs opts.output hsDecls
   where
-    mu     = getModuleUnique genTestsModuleOpts
-    config = (getConfig globalOpts) {
-        configTranslation  = genTestsTranslationOpts
-      , configHsModuleOpts = genTestsModuleOpts
-      , configHsRenderOpts = genTestsRenderOpts
-      }
+    mu     = getModuleUnique opts.config.configHsModuleOpts
 
 execLiterate :: LiterateOpts -> IO ()
-execLiterate LiterateOpts{..} = do
+execLiterate opts = do
     args <- maybe (throw' "cannot parse literate file") return . readMaybe
-      =<< readFile literateInput
+      =<< readFile opts.input
     case pureParseCmdPreprocess args of
       Just cli -> execCli cli {
-          cliCmd = case cliCmd cli of
+          cliCmd = case cli.cliCmd of
             CliCmdPreprocess cmdOpts -> CliCmdPreprocess $
-              cmdOpts { preprocessOutput = Just literateOutput }
+              set #output (Just opts.output) cmdOpts
             cliCmd'                  -> cliCmd'
         }
       Nothing -> throw' "cannot parse arguments in literate file"
   where
     throw' :: String -> IO a
-    throw' = throwIO . LiterateFileException literateInput
+    throw' = throwIO . LiterateFileException opts.input
 
 execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
-execBindingSpec globalOpts@GlobalOpts{..} BindingSpecCmdStdlib = do
-    spec <- fromMaybeWithFatalError =<< withTracer globalOpts (\tracer ->
-      getStdlibBindingSpec tracer globalOptsClangArgs)
+execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
+    spec <- fromMaybeWithFatalError =<< withTracerStdOut tracerConfig
+      (\tracer -> getStdlibBindingSpec tracer clangArgs)
     BS.putStr $ encodeBindingSpecYaml spec
 
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
-execResolve globalOpts@GlobalOpts{..} ResolveOpts{..} = do
-    mErr <- withTracer globalOpts $ \tracer -> do
+execResolve GlobalOpts{..} opts = do
+    mErr <- withTracerStdOut tracerConfig $ \tracer -> do
       let tracerResolve = contramap TraceResolveHeader  tracer
-      forM_ resolveInputs $ \header -> do
-        mPath <- resolveHeader tracerResolve globalOptsClangArgs header
+      forM_ opts.inputs $ \header -> do
+        mPath <- resolveHeader tracerResolve opts.clangArgs header
         putStrLn . unwords $ case mPath of
           Just path -> [show header, "resolves to", show path]
           Nothing   -> [show header, "not found"]
     fromMaybeWithFatalError mErr
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}
 
 -- to avoid potential issues it would be great to include unitid in module
 -- unique but AFAIK there is no way to get one for preprocessor
@@ -116,6 +116,15 @@ getModuleUnique = ModuleUnique . filter isLetter . hsModuleOptsName
 {-------------------------------------------------------------------------------
   Exception handling
 -------------------------------------------------------------------------------}
+
+data LiterateFileException = LiterateFileException FilePath String
+  deriving Show
+
+instance Exception LiterateFileException where
+    toException = hsBindgenExceptionToException
+    fromException = hsBindgenExceptionFromException
+    displayException (LiterateFileException path err) =
+      "error loading " ++ path ++ ": " ++ err
 
 exceptionHandler :: SomeException -> IO ()
 exceptionHandler e@(SomeException e')

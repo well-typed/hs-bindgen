@@ -239,6 +239,10 @@ library
 
 executable hs-bindgen-cli
   import:         lang
+  default-extensions:
+      DuplicateRecordFields
+      NoFieldSelectors
+      OverloadedRecordDot
   main-is:        hs-bindgen-cli.hs
   hs-source-dirs: app
 
@@ -255,15 +259,19 @@ executable hs-bindgen-cli
   build-depends:
       -- Inherited dependencies
     , bytestring
-    , data-default
   build-depends:
       -- External dependencies
+    , optics               >= 0.4.2.1   && < 0.5
     , optparse-applicative >= 0.18      && < 0.19
     , prettyprinter        ^>=1.7.1
     , text                 >= 1.2       && < 2.2
 
 executable hs-bindgen-dev
   import:         lang
+  default-extensions:
+      DuplicateRecordFields
+      NoFieldSelectors
+      OverloadedRecordDot
   main-is:        hs-bindgen-dev.hs
   hs-source-dirs: app
   if flag(dev)

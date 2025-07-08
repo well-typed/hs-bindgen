@@ -5,6 +5,8 @@ module HsBindgen.Frontend.Pass.Slice.IsPass (
   , Msg (..)
   ) where
 
+import Data.Default (Default (def))
+
 import HsBindgen.C.Predicate
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.Pass
@@ -44,6 +46,10 @@ data ProgramSlicing =
   EnableProgramSlicing
   | DisableProgramSlicing
   deriving stock (Show, Eq)
+
+instance Default ProgramSlicing where
+  def :: ProgramSlicing
+  def = DisableProgramSlicing
 
 data SliceConfig = SliceConfig {
       sliceConfigProgramSlicing :: ProgramSlicing

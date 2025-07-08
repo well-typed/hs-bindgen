@@ -70,6 +70,10 @@ data Predicate =
   | SelectByElementName Regex
   deriving (Show, Eq)
 
+instance Default Predicate where
+  def :: Predicate
+  def = SelectFromMainFiles
+
 {-------------------------------------------------------------------------------
   Trace messages (during matching)
 -------------------------------------------------------------------------------}
