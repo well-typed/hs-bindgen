@@ -11,7 +11,10 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
   , fromUseDecl
     -- * Query
   , UseOfDecl(..)
+    -- ** Transitive usage
   , findNamedUseOf
+    -- ** Direct usage
+  , getUseSites
   , findAliasesOf
   ) where
 
@@ -98,12 +101,15 @@ findNamedUseOf declIndex (Wrap graph) =
         panicPure $ "Unexpected anonymous " ++ show d
 
 {-------------------------------------------------------------------------------
-  Query: aliases of declarations
+  Simple queries
 -------------------------------------------------------------------------------}
 
+getUseSites :: DeclUseGraph -> QualDeclId -> [(QualDeclId, Usage)]
+getUseSites (Wrap graph) = Set.toList . DynGraph.neighbors graph
+
 findAliasesOf :: DeclUseGraph -> QualDeclId -> [CName]
-findAliasesOf (Wrap graph) =
-    mapMaybe (uncurry aux) . Set.toList . DynGraph.neighbors graph
+findAliasesOf graph =
+    mapMaybe (uncurry aux) . getUseSites graph
   where
     aux :: QualDeclId -> Usage -> Maybe CName
     aux (QualDeclId (DeclNamed cname) _) (UsedInTypedef UseDeclGraph.ByValue) =

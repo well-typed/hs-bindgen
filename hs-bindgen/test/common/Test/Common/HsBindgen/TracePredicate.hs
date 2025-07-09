@@ -6,6 +6,7 @@ module Test.Common.HsBindgen.TracePredicate (
     TraceExpectation (..)
   , TracePredicate -- opaque
   , WrongCountMsg(..)
+  , Labelled(..)
   , defaultTracePredicate
   , singleTracePredicate
   , customTracePredicate
@@ -198,6 +199,20 @@ instance WrongCountMsg () where
     EQ -> panicPure "error: received correct count"
     GT -> "Expected a single trace but more traces were emitted"
   wrongCount _ i j = wrongCount ("AnonymousTracePredicate" :: String) i j
+
+-- | Distinguish cases based on test-specific label
+data Labelled a = Labelled String a
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace a => PrettyForTrace (Labelled a) where
+  prettyForTrace (Labelled label x) = PP.hcat [
+        PP.string label
+      , ": "
+      , prettyForTrace x
+      ]
+
+instance PrettyForTrace a => WrongCountMsg (Labelled a) where
+  wrongCount = wrongCount . prettyForTrace
 
 {-------------------------------------------------------------------------------
   Counter

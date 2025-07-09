@@ -43,7 +43,7 @@ nameAnon C.TranslationUnit{..} = (
     env :: RenameEnv
     env = RenameEnv{
           envDeclIndex = declIndex unitAnn
-        , envDeclUse   = DeclUseGraph.fromUseDecl (declUsage unitAnn)
+        , envDeclUse   = declDeclUse unitAnn
         }
 
 {-------------------------------------------------------------------------------

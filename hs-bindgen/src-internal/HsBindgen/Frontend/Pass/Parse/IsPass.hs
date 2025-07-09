@@ -164,18 +164,6 @@ getUnparsedMacro unit curr = do
   Trace messages
 -------------------------------------------------------------------------------}
 
-instance PrettyForTrace (C.DeclInfo Parse) where
-  prettyForTrace C.DeclInfo{declId, declLoc} =
-      case declId of
-        DeclNamed name -> hcat [
-            prettyForTrace name
-          , " at "
-          , showToCtxDoc declLoc
-          ]
-        DeclAnon anonId ->
-            -- No need to repeat the source location in this case
-            prettyForTrace anonId
-
 instance PrettyForTrace (Msg Parse) where
   prettyForTrace = \case
       Skipped reason ->

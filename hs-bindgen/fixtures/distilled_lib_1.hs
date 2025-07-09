@@ -1123,15 +1123,15 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "A_typedef_struct",
+        "A_typedef_struct_t",
       structConstr = HsName
         "@NsConstr"
-        "A_typedef_struct",
+        "A_typedef_struct_t",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_0",
+            "a_typedef_struct_t_field_0",
           fieldType = HsPrimType
             HsPrimCBool,
           fieldOrigin = StructField
@@ -1141,7 +1141,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_0",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_0"},
+                  "a_typedef_struct_t_field_0"},
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
@@ -1149,7 +1149,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_1",
+            "a_typedef_struct_t_field_1",
           fieldType = HsExtBinding
             ExtHsRef {
               extHsRefModule = HsModuleName
@@ -1268,7 +1268,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_1",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_1"},
+                  "a_typedef_struct_t_field_1"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1390,7 +1390,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_2",
+            "a_typedef_struct_t_field_2",
           fieldType = HsExtBinding
             ExtHsRef {
               extHsRefModule = HsModuleName
@@ -1509,7 +1509,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_2",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_2"},
+                  "a_typedef_struct_t_field_2"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1631,7 +1631,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_3",
+            "a_typedef_struct_t_field_3",
           fieldType = HsExtBinding
             ExtHsRef {
               extHsRefModule = HsModuleName
@@ -1750,7 +1750,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_3",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_3"},
+                  "a_typedef_struct_t_field_3"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1872,7 +1872,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_4",
+            "a_typedef_struct_t_field_4",
           fieldType = HsTypRef
             (HsName
               "@NsTypeConstr"
@@ -1884,7 +1884,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_4",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_4"},
+                  "a_typedef_struct_t_field_4"},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (CName
@@ -1903,7 +1903,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_5",
+            "a_typedef_struct_t_field_5",
           fieldType = HsPtr
             (HsTypRef
               (HsName
@@ -1916,7 +1916,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_5",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_5"},
+                  "a_typedef_struct_t_field_5"},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -1936,7 +1936,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_6",
+            "a_typedef_struct_t_field_6",
           fieldType = HsPtr
             (HsPrimType HsPrimVoid),
           fieldOrigin = StructField
@@ -1946,7 +1946,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_6",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_6"},
+                  "a_typedef_struct_t_field_6"},
               structFieldType = TypePointer
                 TypeVoid,
               structFieldOffset = 192,
@@ -1954,7 +1954,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_7",
+            "a_typedef_struct_t_field_7",
           fieldType = HsConstArray
             7
             (HsExtBinding
@@ -2075,7 +2075,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_7",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_7"},
+                  "a_typedef_struct_t_field_7"},
               structFieldType = TypeConstArray
                 7
                 (TypeExtBinding
@@ -2199,7 +2199,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_8",
+            "a_typedef_struct_t_field_8",
           fieldType = HsTypRef
             (HsName
               "@NsTypeConstr"
@@ -2211,7 +2211,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_8",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_8"},
+                  "a_typedef_struct_t_field_8"},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (CName "another_typedef_enum_e")
@@ -2229,7 +2229,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_9",
+            "a_typedef_struct_t_field_9",
           fieldType = HsConstArray
             4
             (HsTypRef
@@ -2243,7 +2243,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_9",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_9"},
+                  "a_typedef_struct_t_field_9"},
               structFieldType = TypeConstArray
                 4
                 (TypeTypedef
@@ -2263,7 +2263,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "a_typedef_struct_field_10",
+            "a_typedef_struct_t_field_10",
           fieldType = HsConstArray
             5
             (HsConstArray
@@ -2279,7 +2279,7 @@
               structFieldName = NamePair {
                 nameC = CName "field_10",
                 nameHsIdent = HsIdentifier
-                  "a_typedef_struct_field_10"},
+                  "a_typedef_struct_t_field_10"},
               structFieldType = TypeConstArray
                 5
                 (TypeConstArray
@@ -2305,10 +2305,12 @@
             "distilled_lib_1.h:35:16",
             declId = NamePair {
               nameC = CName
-                "a_typedef_struct",
+                "a_typedef_struct_t",
               nameHsIdent = HsIdentifier
-                "A_typedef_struct"},
-            declOrigin = NameOriginInSource,
+                "A_typedef_struct_t"},
+            declOrigin =
+            NameOriginRenamedFrom
+              (CName "a_typedef_struct"),
             declAliases = [
               CName "a_typedef_struct_t"],
             declHeader =
@@ -2318,7 +2320,7 @@
               structNames = RecordNames
                 (HsName
                   "@NsConstr"
-                  "A_typedef_struct"),
+                  "A_typedef_struct_t"),
               structSizeof = 140,
               structAlignment = 1,
               structFields = [
@@ -2328,7 +2330,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_0",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_0"},
+                      "a_typedef_struct_t_field_0"},
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 0,
@@ -2339,7 +2341,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_1",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_1"},
+                      "a_typedef_struct_t_field_1"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -2464,7 +2466,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_2",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_2"},
+                      "a_typedef_struct_t_field_2"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -2589,7 +2591,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_3",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_3"},
+                      "a_typedef_struct_t_field_3"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -2714,7 +2716,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_4",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_4"},
+                      "a_typedef_struct_t_field_4"},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (CName
@@ -2736,7 +2738,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_5",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_5"},
+                      "a_typedef_struct_t_field_5"},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -2759,7 +2761,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_6",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_6"},
+                      "a_typedef_struct_t_field_6"},
                   structFieldType = TypePointer
                     TypeVoid,
                   structFieldOffset = 192,
@@ -2770,7 +2772,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_7",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_7"},
+                      "a_typedef_struct_t_field_7"},
                   structFieldType = TypeConstArray
                     7
                     (TypeExtBinding
@@ -2897,7 +2899,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_8",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_8"},
+                      "a_typedef_struct_t_field_8"},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (CName "another_typedef_enum_e")
@@ -2918,7 +2920,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_9",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_9"},
+                      "a_typedef_struct_t_field_9"},
                   structFieldType = TypeConstArray
                     4
                     (TypeTypedef
@@ -2941,7 +2943,7 @@
                   structFieldName = NamePair {
                     nameC = CName "field_10",
                     nameHsIdent = HsIdentifier
-                      "a_typedef_struct_field_10"},
+                      "a_typedef_struct_t_field_10"},
                   structFieldType = TypeConstArray
                     5
                     (TypeConstArray
@@ -2974,15 +2976,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "A_typedef_struct",
+          "A_typedef_struct_t",
         structConstr = HsName
           "@NsConstr"
-          "A_typedef_struct",
+          "A_typedef_struct_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_0",
+              "a_typedef_struct_t_field_0",
             fieldType = HsPrimType
               HsPrimCBool,
             fieldOrigin = StructField
@@ -2992,7 +2994,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_0",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_0"},
+                    "a_typedef_struct_t_field_0"},
                 structFieldType = TypePrim
                   PrimBool,
                 structFieldOffset = 0,
@@ -3000,7 +3002,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_1",
+              "a_typedef_struct_t_field_1",
             fieldType = HsExtBinding
               ExtHsRef {
                 extHsRefModule = HsModuleName
@@ -3119,7 +3121,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_1",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_1"},
+                    "a_typedef_struct_t_field_1"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
@@ -3241,7 +3243,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_2",
+              "a_typedef_struct_t_field_2",
             fieldType = HsExtBinding
               ExtHsRef {
                 extHsRefModule = HsModuleName
@@ -3360,7 +3362,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_2",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_2"},
+                    "a_typedef_struct_t_field_2"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
@@ -3482,7 +3484,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_3",
+              "a_typedef_struct_t_field_3",
             fieldType = HsExtBinding
               ExtHsRef {
                 extHsRefModule = HsModuleName
@@ -3601,7 +3603,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_3",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_3"},
+                    "a_typedef_struct_t_field_3"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
@@ -3723,7 +3725,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_4",
+              "a_typedef_struct_t_field_4",
             fieldType = HsTypRef
               (HsName
                 "@NsTypeConstr"
@@ -3735,7 +3737,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_4",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_4"},
+                    "a_typedef_struct_t_field_4"},
                 structFieldType = TypeTypedef
                   (TypedefSquashed
                     (CName
@@ -3754,7 +3756,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_5",
+              "a_typedef_struct_t_field_5",
             fieldType = HsPtr
               (HsTypRef
                 (HsName
@@ -3767,7 +3769,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_5",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_5"},
+                    "a_typedef_struct_t_field_5"},
                 structFieldType = TypePointer
                   (TypeTypedef
                     (TypedefSquashed
@@ -3787,7 +3789,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_6",
+              "a_typedef_struct_t_field_6",
             fieldType = HsPtr
               (HsPrimType HsPrimVoid),
             fieldOrigin = StructField
@@ -3797,7 +3799,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_6",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_6"},
+                    "a_typedef_struct_t_field_6"},
                 structFieldType = TypePointer
                   TypeVoid,
                 structFieldOffset = 192,
@@ -3805,7 +3807,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_7",
+              "a_typedef_struct_t_field_7",
             fieldType = HsConstArray
               7
               (HsExtBinding
@@ -3926,7 +3928,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_7",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_7"},
+                    "a_typedef_struct_t_field_7"},
                 structFieldType = TypeConstArray
                   7
                   (TypeExtBinding
@@ -4050,7 +4052,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_8",
+              "a_typedef_struct_t_field_8",
             fieldType = HsTypRef
               (HsName
                 "@NsTypeConstr"
@@ -4062,7 +4064,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_8",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_8"},
+                    "a_typedef_struct_t_field_8"},
                 structFieldType = TypeTypedef
                   (TypedefSquashed
                     (CName "another_typedef_enum_e")
@@ -4080,7 +4082,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_9",
+              "a_typedef_struct_t_field_9",
             fieldType = HsConstArray
               4
               (HsTypRef
@@ -4094,7 +4096,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_9",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_9"},
+                    "a_typedef_struct_t_field_9"},
                 structFieldType = TypeConstArray
                   4
                   (TypeTypedef
@@ -4114,7 +4116,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "a_typedef_struct_field_10",
+              "a_typedef_struct_t_field_10",
             fieldType = HsConstArray
               5
               (HsConstArray
@@ -4130,7 +4132,7 @@
                 structFieldName = NamePair {
                   nameC = CName "field_10",
                   nameHsIdent = HsIdentifier
-                    "a_typedef_struct_field_10"},
+                    "a_typedef_struct_t_field_10"},
                 structFieldType = TypeConstArray
                   5
                   (TypeConstArray
@@ -4156,10 +4158,12 @@
               "distilled_lib_1.h:35:16",
               declId = NamePair {
                 nameC = CName
-                  "a_typedef_struct",
+                  "a_typedef_struct_t",
                 nameHsIdent = HsIdentifier
-                  "A_typedef_struct"},
-              declOrigin = NameOriginInSource,
+                  "A_typedef_struct_t"},
+              declOrigin =
+              NameOriginRenamedFrom
+                (CName "a_typedef_struct"),
               declAliases = [
                 CName "a_typedef_struct_t"],
               declHeader =
@@ -4169,7 +4173,7 @@
                 structNames = RecordNames
                   (HsName
                     "@NsConstr"
-                    "A_typedef_struct"),
+                    "A_typedef_struct_t"),
                 structSizeof = 140,
                 structAlignment = 1,
                 structFields = [
@@ -4179,7 +4183,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_0",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_0"},
+                        "a_typedef_struct_t_field_0"},
                     structFieldType = TypePrim
                       PrimBool,
                     structFieldOffset = 0,
@@ -4190,7 +4194,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_1",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_1"},
+                        "a_typedef_struct_t_field_1"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
@@ -4315,7 +4319,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_2",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_2"},
+                        "a_typedef_struct_t_field_2"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
@@ -4440,7 +4444,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_3",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_3"},
+                        "a_typedef_struct_t_field_3"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
@@ -4565,7 +4569,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_4",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_4"},
+                        "a_typedef_struct_t_field_4"},
                     structFieldType = TypeTypedef
                       (TypedefSquashed
                         (CName
@@ -4587,7 +4591,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_5",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_5"},
+                        "a_typedef_struct_t_field_5"},
                     structFieldType = TypePointer
                       (TypeTypedef
                         (TypedefSquashed
@@ -4610,7 +4614,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_6",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_6"},
+                        "a_typedef_struct_t_field_6"},
                     structFieldType = TypePointer
                       TypeVoid,
                     structFieldOffset = 192,
@@ -4621,7 +4625,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_7",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_7"},
+                        "a_typedef_struct_t_field_7"},
                     structFieldType = TypeConstArray
                       7
                       (TypeExtBinding
@@ -4748,7 +4752,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_8",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_8"},
+                        "a_typedef_struct_t_field_8"},
                     structFieldType = TypeTypedef
                       (TypedefSquashed
                         (CName "another_typedef_enum_e")
@@ -4769,7 +4773,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_9",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_9"},
+                        "a_typedef_struct_t_field_9"},
                     structFieldType = TypeConstArray
                       4
                       (TypeTypedef
@@ -4792,7 +4796,7 @@
                     structFieldName = NamePair {
                       nameC = CName "field_10",
                       nameHsIdent = HsIdentifier
-                        "a_typedef_struct_field_10"},
+                        "a_typedef_struct_t_field_10"},
                     structFieldType = TypeConstArray
                       5
                       (TypeConstArray
@@ -4830,15 +4834,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "A_typedef_struct",
+                  "A_typedef_struct_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "A_typedef_struct",
+                  "A_typedef_struct_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_0",
+                      "a_typedef_struct_t_field_0",
                     fieldType = HsPrimType
                       HsPrimCBool,
                     fieldOrigin = StructField
@@ -4848,7 +4852,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_0",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_0"},
+                            "a_typedef_struct_t_field_0"},
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 0,
@@ -4856,7 +4860,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_1",
+                      "a_typedef_struct_t_field_1",
                     fieldType = HsExtBinding
                       ExtHsRef {
                         extHsRefModule = HsModuleName
@@ -4975,7 +4979,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_1",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_1"},
+                            "a_typedef_struct_t_field_1"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
@@ -5097,7 +5101,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_2",
+                      "a_typedef_struct_t_field_2",
                     fieldType = HsExtBinding
                       ExtHsRef {
                         extHsRefModule = HsModuleName
@@ -5216,7 +5220,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_2",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_2"},
+                            "a_typedef_struct_t_field_2"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
@@ -5338,7 +5342,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_3",
+                      "a_typedef_struct_t_field_3",
                     fieldType = HsExtBinding
                       ExtHsRef {
                         extHsRefModule = HsModuleName
@@ -5457,7 +5461,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_3",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_3"},
+                            "a_typedef_struct_t_field_3"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
@@ -5579,7 +5583,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_4",
+                      "a_typedef_struct_t_field_4",
                     fieldType = HsTypRef
                       (HsName
                         "@NsTypeConstr"
@@ -5591,7 +5595,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_4",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_4"},
+                            "a_typedef_struct_t_field_4"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
                             (CName
@@ -5610,7 +5614,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_5",
+                      "a_typedef_struct_t_field_5",
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName
@@ -5623,7 +5627,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_5",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_5"},
+                            "a_typedef_struct_t_field_5"},
                         structFieldType = TypePointer
                           (TypeTypedef
                             (TypedefSquashed
@@ -5643,7 +5647,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_6",
+                      "a_typedef_struct_t_field_6",
                     fieldType = HsPtr
                       (HsPrimType HsPrimVoid),
                     fieldOrigin = StructField
@@ -5653,7 +5657,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_6",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_6"},
+                            "a_typedef_struct_t_field_6"},
                         structFieldType = TypePointer
                           TypeVoid,
                         structFieldOffset = 192,
@@ -5661,7 +5665,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_7",
+                      "a_typedef_struct_t_field_7",
                     fieldType = HsConstArray
                       7
                       (HsExtBinding
@@ -5782,7 +5786,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_7",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_7"},
+                            "a_typedef_struct_t_field_7"},
                         structFieldType = TypeConstArray
                           7
                           (TypeExtBinding
@@ -5906,7 +5910,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_8",
+                      "a_typedef_struct_t_field_8",
                     fieldType = HsTypRef
                       (HsName
                         "@NsTypeConstr"
@@ -5918,7 +5922,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_8",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_8"},
+                            "a_typedef_struct_t_field_8"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
                             (CName "another_typedef_enum_e")
@@ -5936,7 +5940,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_9",
+                      "a_typedef_struct_t_field_9",
                     fieldType = HsConstArray
                       4
                       (HsTypRef
@@ -5950,7 +5954,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_9",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_9"},
+                            "a_typedef_struct_t_field_9"},
                         structFieldType = TypeConstArray
                           4
                           (TypeTypedef
@@ -5970,7 +5974,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_10",
+                      "a_typedef_struct_t_field_10",
                     fieldType = HsConstArray
                       5
                       (HsConstArray
@@ -5986,7 +5990,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_10",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_10"},
+                            "a_typedef_struct_t_field_10"},
                         structFieldType = TypeConstArray
                           5
                           (TypeConstArray
@@ -6012,10 +6016,12 @@
                       "distilled_lib_1.h:35:16",
                       declId = NamePair {
                         nameC = CName
-                          "a_typedef_struct",
+                          "a_typedef_struct_t",
                         nameHsIdent = HsIdentifier
-                          "A_typedef_struct"},
-                      declOrigin = NameOriginInSource,
+                          "A_typedef_struct_t"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "a_typedef_struct"),
                       declAliases = [
                         CName "a_typedef_struct_t"],
                       declHeader =
@@ -6025,7 +6031,7 @@
                         structNames = RecordNames
                           (HsName
                             "@NsConstr"
-                            "A_typedef_struct"),
+                            "A_typedef_struct_t"),
                         structSizeof = 140,
                         structAlignment = 1,
                         structFields = [
@@ -6035,7 +6041,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_0",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_0"},
+                                "a_typedef_struct_t_field_0"},
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 0,
@@ -6046,7 +6052,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_1",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_1"},
+                                "a_typedef_struct_t_field_1"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
@@ -6171,7 +6177,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_2",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_2"},
+                                "a_typedef_struct_t_field_2"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
@@ -6296,7 +6302,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_3",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_3"},
+                                "a_typedef_struct_t_field_3"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
@@ -6421,7 +6427,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_4",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_4"},
+                                "a_typedef_struct_t_field_4"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
                                 (CName
@@ -6443,7 +6449,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_5",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_5"},
+                                "a_typedef_struct_t_field_5"},
                             structFieldType = TypePointer
                               (TypeTypedef
                                 (TypedefSquashed
@@ -6466,7 +6472,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_6",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_6"},
+                                "a_typedef_struct_t_field_6"},
                             structFieldType = TypePointer
                               TypeVoid,
                             structFieldOffset = 192,
@@ -6477,7 +6483,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_7",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_7"},
+                                "a_typedef_struct_t_field_7"},
                             structFieldType = TypeConstArray
                               7
                               (TypeExtBinding
@@ -6604,7 +6610,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_8",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_8"},
+                                "a_typedef_struct_t_field_8"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
                                 (CName "another_typedef_enum_e")
@@ -6625,7 +6631,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_9",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_9"},
+                                "a_typedef_struct_t_field_9"},
                             structFieldType = TypeConstArray
                               4
                               (TypeTypedef
@@ -6648,7 +6654,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_10",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_10"},
+                                "a_typedef_struct_t_field_10"},
                             structFieldType = TypeConstArray
                               5
                               (TypeConstArray
@@ -6697,15 +6703,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "A_typedef_struct",
+                  "A_typedef_struct_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "A_typedef_struct",
+                  "A_typedef_struct_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_0",
+                      "a_typedef_struct_t_field_0",
                     fieldType = HsPrimType
                       HsPrimCBool,
                     fieldOrigin = StructField
@@ -6715,7 +6721,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_0",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_0"},
+                            "a_typedef_struct_t_field_0"},
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 0,
@@ -6723,7 +6729,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_1",
+                      "a_typedef_struct_t_field_1",
                     fieldType = HsExtBinding
                       ExtHsRef {
                         extHsRefModule = HsModuleName
@@ -6842,7 +6848,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_1",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_1"},
+                            "a_typedef_struct_t_field_1"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
@@ -6964,7 +6970,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_2",
+                      "a_typedef_struct_t_field_2",
                     fieldType = HsExtBinding
                       ExtHsRef {
                         extHsRefModule = HsModuleName
@@ -7083,7 +7089,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_2",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_2"},
+                            "a_typedef_struct_t_field_2"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
@@ -7205,7 +7211,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_3",
+                      "a_typedef_struct_t_field_3",
                     fieldType = HsExtBinding
                       ExtHsRef {
                         extHsRefModule = HsModuleName
@@ -7324,7 +7330,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_3",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_3"},
+                            "a_typedef_struct_t_field_3"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
@@ -7446,7 +7452,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_4",
+                      "a_typedef_struct_t_field_4",
                     fieldType = HsTypRef
                       (HsName
                         "@NsTypeConstr"
@@ -7458,7 +7464,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_4",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_4"},
+                            "a_typedef_struct_t_field_4"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
                             (CName
@@ -7477,7 +7483,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_5",
+                      "a_typedef_struct_t_field_5",
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName
@@ -7490,7 +7496,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_5",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_5"},
+                            "a_typedef_struct_t_field_5"},
                         structFieldType = TypePointer
                           (TypeTypedef
                             (TypedefSquashed
@@ -7510,7 +7516,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_6",
+                      "a_typedef_struct_t_field_6",
                     fieldType = HsPtr
                       (HsPrimType HsPrimVoid),
                     fieldOrigin = StructField
@@ -7520,7 +7526,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_6",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_6"},
+                            "a_typedef_struct_t_field_6"},
                         structFieldType = TypePointer
                           TypeVoid,
                         structFieldOffset = 192,
@@ -7528,7 +7534,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_7",
+                      "a_typedef_struct_t_field_7",
                     fieldType = HsConstArray
                       7
                       (HsExtBinding
@@ -7649,7 +7655,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_7",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_7"},
+                            "a_typedef_struct_t_field_7"},
                         structFieldType = TypeConstArray
                           7
                           (TypeExtBinding
@@ -7773,7 +7779,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_8",
+                      "a_typedef_struct_t_field_8",
                     fieldType = HsTypRef
                       (HsName
                         "@NsTypeConstr"
@@ -7785,7 +7791,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_8",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_8"},
+                            "a_typedef_struct_t_field_8"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
                             (CName "another_typedef_enum_e")
@@ -7803,7 +7809,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_9",
+                      "a_typedef_struct_t_field_9",
                     fieldType = HsConstArray
                       4
                       (HsTypRef
@@ -7817,7 +7823,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_9",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_9"},
+                            "a_typedef_struct_t_field_9"},
                         structFieldType = TypeConstArray
                           4
                           (TypeTypedef
@@ -7837,7 +7843,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "a_typedef_struct_field_10",
+                      "a_typedef_struct_t_field_10",
                     fieldType = HsConstArray
                       5
                       (HsConstArray
@@ -7853,7 +7859,7 @@
                         structFieldName = NamePair {
                           nameC = CName "field_10",
                           nameHsIdent = HsIdentifier
-                            "a_typedef_struct_field_10"},
+                            "a_typedef_struct_t_field_10"},
                         structFieldType = TypeConstArray
                           5
                           (TypeConstArray
@@ -7879,10 +7885,12 @@
                       "distilled_lib_1.h:35:16",
                       declId = NamePair {
                         nameC = CName
-                          "a_typedef_struct",
+                          "a_typedef_struct_t",
                         nameHsIdent = HsIdentifier
-                          "A_typedef_struct"},
-                      declOrigin = NameOriginInSource,
+                          "A_typedef_struct_t"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "a_typedef_struct"),
                       declAliases = [
                         CName "a_typedef_struct_t"],
                       declHeader =
@@ -7892,7 +7900,7 @@
                         structNames = RecordNames
                           (HsName
                             "@NsConstr"
-                            "A_typedef_struct"),
+                            "A_typedef_struct_t"),
                         structSizeof = 140,
                         structAlignment = 1,
                         structFields = [
@@ -7902,7 +7910,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_0",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_0"},
+                                "a_typedef_struct_t_field_0"},
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 0,
@@ -7913,7 +7921,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_1",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_1"},
+                                "a_typedef_struct_t_field_1"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
@@ -8038,7 +8046,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_2",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_2"},
+                                "a_typedef_struct_t_field_2"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
@@ -8163,7 +8171,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_3",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_3"},
+                                "a_typedef_struct_t_field_3"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
@@ -8288,7 +8296,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_4",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_4"},
+                                "a_typedef_struct_t_field_4"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
                                 (CName
@@ -8310,7 +8318,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_5",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_5"},
+                                "a_typedef_struct_t_field_5"},
                             structFieldType = TypePointer
                               (TypeTypedef
                                 (TypedefSquashed
@@ -8333,7 +8341,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_6",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_6"},
+                                "a_typedef_struct_t_field_6"},
                             structFieldType = TypePointer
                               TypeVoid,
                             structFieldOffset = 192,
@@ -8344,7 +8352,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_7",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_7"},
+                                "a_typedef_struct_t_field_7"},
                             structFieldType = TypeConstArray
                               7
                               (TypeExtBinding
@@ -8471,7 +8479,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_8",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_8"},
+                                "a_typedef_struct_t_field_8"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
                                 (CName "another_typedef_enum_e")
@@ -8492,7 +8500,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_9",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_9"},
+                                "a_typedef_struct_t_field_9"},
                             structFieldType = TypeConstArray
                               4
                               (TypeTypedef
@@ -8515,7 +8523,7 @@
                             structFieldName = NamePair {
                               nameC = CName "field_10",
                               nameHsIdent = HsIdentifier
-                                "a_typedef_struct_field_10"},
+                                "a_typedef_struct_t_field_10"},
                             structFieldType = TypeConstArray
                               5
                               (TypeConstArray
@@ -8565,82 +8573,10 @@
     Show
     (HsName
       "@NsTypeConstr"
-      "A_typedef_struct"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "A_typedef_struct"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "A_typedef_struct_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "A_typedef_struct_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_A_typedef_struct_t",
-        fieldType = HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "A_typedef_struct"),
-        fieldOrigin = GeneratedField},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "distilled_lib_1.h:48:3",
-          declId = NamePair {
-            nameC = CName
-              "a_typedef_struct_t",
-            nameHsIdent = HsIdentifier
-              "A_typedef_struct_t"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader =
-          "distilled_lib_1.h"},
-        declKind = Typedef
-          Typedef {
-            typedefNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "A_typedef_struct_t",
-              newtypeField = HsName
-                "@NsVar"
-                "un_A_typedef_struct_t"},
-            typedefType = TypeStruct
-              NamePair {
-                nameC = CName
-                  "a_typedef_struct",
-                nameHsIdent = HsIdentifier
-                  "A_typedef_struct"}
-              NameOriginInSource},
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
       "A_typedef_struct_t"),
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName
-      "@NsTypeConstr"
-      "A_typedef_struct_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
     (HsName
       "@NsTypeConstr"
       "A_typedef_struct_t"),

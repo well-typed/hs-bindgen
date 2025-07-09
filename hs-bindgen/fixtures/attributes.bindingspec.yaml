@@ -1,16 +1,8 @@
 types:
 - headers: attributes.h
-  cname: FILE
-  module: Example
-  identifier: FILE
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: attributes.h
   cname: struct __sFILE
   module: Example
-  identifier: C__SFILE
+  identifier: FILE
   instances:
   - Eq
   - Show

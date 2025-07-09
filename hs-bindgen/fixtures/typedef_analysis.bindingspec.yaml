@@ -1,0 +1,155 @@
+types:
+- headers: typedef_analysis.h
+  cname: struct struct1
+  module: Example
+  identifier: Struct1_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct10
+  module: Example
+  identifier: Struct10_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct10_t_t
+  module: Example
+  identifier: Struct10_t_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct11
+  module: Example
+  identifier: Struct11_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct12
+  module: Example
+  identifier: Struct12_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct2
+  module: Example
+  identifier: Struct2_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct3
+  module: Example
+  identifier: Struct3_t
+- headers: typedef_analysis.h
+  cname: struct struct4
+  module: Example
+  identifier: Struct4_t
+- headers: typedef_analysis.h
+  cname: struct struct5
+  module: Example
+  identifier: Struct5
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct5_t
+  module: Example
+  identifier: Struct5_t
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct6
+  module: Example
+  identifier: Struct6
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct6
+  module: Example
+  identifier: Struct6_Deref
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct7
+  module: Example
+  identifier: Struct7
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct7a
+  module: Example
+  identifier: Struct7a
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct7b
+  module: Example
+  identifier: Struct7b
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct8
+  module: Example
+  identifier: Struct8
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct8b
+  module: Example
+  identifier: Struct8b
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct struct9
+  module: Example
+  identifier: Struct9
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct9_t
+  module: Example
+  identifier: Struct9_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_analysis.h
+  cname: struct use_sites
+  module: Example
+  identifier: Use_sites
+  instances:
+  - Eq
+  - Show
+  - Storable

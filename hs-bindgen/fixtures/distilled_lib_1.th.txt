@@ -78,43 +78,39 @@ newtype Var_t
                       Ix,
                       Num,
                       Real)
-data A_typedef_struct
-    = A_typedef_struct {a_typedef_struct_field_0 :: CBool,
-                        a_typedef_struct_field_1 :: HsBindgen.Runtime.Prelude.Word8,
-                        a_typedef_struct_field_2 :: HsBindgen.Runtime.Prelude.Word16,
-                        a_typedef_struct_field_3 :: HsBindgen.Runtime.Prelude.Word32,
-                        a_typedef_struct_field_4 :: Another_typedef_struct_t,
-                        a_typedef_struct_field_5 :: (Ptr Another_typedef_struct_t),
-                        a_typedef_struct_field_6 :: (Ptr Void),
-                        a_typedef_struct_field_7 :: (ConstantArray 7
-                                                                   HsBindgen.Runtime.Prelude.Word32),
-                        a_typedef_struct_field_8 :: Another_typedef_enum_e,
-                        a_typedef_struct_field_9 :: (ConstantArray 4
-                                                                   Another_typedef_enum_e),
-                        a_typedef_struct_field_10 :: (ConstantArray 5
-                                                                    (ConstantArray 3
-                                                                                   Another_typedef_enum_e))}
+data A_typedef_struct_t
+    = A_typedef_struct_t {a_typedef_struct_t_field_0 :: CBool,
+                          a_typedef_struct_t_field_1 :: HsBindgen.Runtime.Prelude.Word8,
+                          a_typedef_struct_t_field_2 :: HsBindgen.Runtime.Prelude.Word16,
+                          a_typedef_struct_t_field_3 :: HsBindgen.Runtime.Prelude.Word32,
+                          a_typedef_struct_t_field_4 :: Another_typedef_struct_t,
+                          a_typedef_struct_t_field_5 :: (Ptr Another_typedef_struct_t),
+                          a_typedef_struct_t_field_6 :: (Ptr Void),
+                          a_typedef_struct_t_field_7 :: (ConstantArray 7
+                                                                       HsBindgen.Runtime.Prelude.Word32),
+                          a_typedef_struct_t_field_8 :: Another_typedef_enum_e,
+                          a_typedef_struct_t_field_9 :: (ConstantArray 4
+                                                                       Another_typedef_enum_e),
+                          a_typedef_struct_t_field_10 :: (ConstantArray 5
+                                                                        (ConstantArray 3
+                                                                                       Another_typedef_enum_e))}
     deriving stock (Eq, Show)
-instance Storable A_typedef_struct
+instance Storable A_typedef_struct_t
     where {sizeOf = \_ -> 140 :: Int;
            alignment = \_ -> 1 :: Int;
-           peek = \ptr_0 -> ((((((((((pure A_typedef_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int)) <*> peekByteOff ptr_0 (2 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)) <*> peekByteOff ptr_0 (24 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (60 :: Int)) <*> peekByteOff ptr_0 (64 :: Int)) <*> peekByteOff ptr_0 (80 :: Int);
+           peek = \ptr_0 -> ((((((((((pure A_typedef_struct_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int)) <*> peekByteOff ptr_0 (2 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)) <*> peekByteOff ptr_0 (24 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (60 :: Int)) <*> peekByteOff ptr_0 (64 :: Int)) <*> peekByteOff ptr_0 (80 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {A_typedef_struct a_typedef_struct_field_0_3
-                                                      a_typedef_struct_field_1_4
-                                                      a_typedef_struct_field_2_5
-                                                      a_typedef_struct_field_3_6
-                                                      a_typedef_struct_field_4_7
-                                                      a_typedef_struct_field_5_8
-                                                      a_typedef_struct_field_6_9
-                                                      a_typedef_struct_field_7_10
-                                                      a_typedef_struct_field_8_11
-                                                      a_typedef_struct_field_9_12
-                                                      a_typedef_struct_field_10_13 -> pokeByteOff ptr_1 (0 :: Int) a_typedef_struct_field_0_3 >> (pokeByteOff ptr_1 (1 :: Int) a_typedef_struct_field_1_4 >> (pokeByteOff ptr_1 (2 :: Int) a_typedef_struct_field_2_5 >> (pokeByteOff ptr_1 (4 :: Int) a_typedef_struct_field_3_6 >> (pokeByteOff ptr_1 (8 :: Int) a_typedef_struct_field_4_7 >> (pokeByteOff ptr_1 (16 :: Int) a_typedef_struct_field_5_8 >> (pokeByteOff ptr_1 (24 :: Int) a_typedef_struct_field_6_9 >> (pokeByteOff ptr_1 (32 :: Int) a_typedef_struct_field_7_10 >> (pokeByteOff ptr_1 (60 :: Int) a_typedef_struct_field_8_11 >> (pokeByteOff ptr_1 (64 :: Int) a_typedef_struct_field_9_12 >> pokeByteOff ptr_1 (80 :: Int) a_typedef_struct_field_10_13)))))))))}}
-newtype A_typedef_struct_t
-    = A_typedef_struct_t {un_A_typedef_struct_t :: A_typedef_struct}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
+                                    {A_typedef_struct_t a_typedef_struct_t_field_0_3
+                                                        a_typedef_struct_t_field_1_4
+                                                        a_typedef_struct_t_field_2_5
+                                                        a_typedef_struct_t_field_3_6
+                                                        a_typedef_struct_t_field_4_7
+                                                        a_typedef_struct_t_field_5_8
+                                                        a_typedef_struct_t_field_6_9
+                                                        a_typedef_struct_t_field_7_10
+                                                        a_typedef_struct_t_field_8_11
+                                                        a_typedef_struct_t_field_9_12
+                                                        a_typedef_struct_t_field_10_13 -> pokeByteOff ptr_1 (0 :: Int) a_typedef_struct_t_field_0_3 >> (pokeByteOff ptr_1 (1 :: Int) a_typedef_struct_t_field_1_4 >> (pokeByteOff ptr_1 (2 :: Int) a_typedef_struct_t_field_2_5 >> (pokeByteOff ptr_1 (4 :: Int) a_typedef_struct_t_field_3_6 >> (pokeByteOff ptr_1 (8 :: Int) a_typedef_struct_t_field_4_7 >> (pokeByteOff ptr_1 (16 :: Int) a_typedef_struct_t_field_5_8 >> (pokeByteOff ptr_1 (24 :: Int) a_typedef_struct_t_field_6_9 >> (pokeByteOff ptr_1 (32 :: Int) a_typedef_struct_t_field_7_10 >> (pokeByteOff ptr_1 (60 :: Int) a_typedef_struct_t_field_8_11 >> (pokeByteOff ptr_1 (64 :: Int) a_typedef_struct_t_field_9_12 >> pokeByteOff ptr_1 (80 :: Int) a_typedef_struct_t_field_10_13)))))))))}}
 a_DEFINE_0 :: CInt
 a_DEFINE_0 = 0 :: CInt
 a_DEFINE_1 :: CUInt

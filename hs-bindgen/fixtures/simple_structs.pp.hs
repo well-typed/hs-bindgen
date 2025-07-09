@@ -34,14 +34,14 @@ instance F.Storable S1 where
                F.pokeByteOff ptr0 (0 :: Int) s1_a2
             >> F.pokeByteOff ptr0 (4 :: Int) s1_b3
 
-data S2 = S2
-  { s2_a :: FC.CChar
-  , s2_b :: FC.CInt
-  , s2_c :: FC.CFloat
+data S2_t = S2_t
+  { s2_t_a :: FC.CChar
+  , s2_t_b :: FC.CInt
+  , s2_t_c :: FC.CFloat
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S2 where
+instance F.Storable S2_t where
 
   sizeOf = \_ -> (12 :: Int)
 
@@ -49,7 +49,7 @@ instance F.Storable S2 where
 
   peek =
     \ptr0 ->
-          pure S2
+          pure S2_t
       <*> F.peekByteOff ptr0 (0 :: Int)
       <*> F.peekByteOff ptr0 (4 :: Int)
       <*> F.peekByteOff ptr0 (8 :: Int)
@@ -58,16 +58,10 @@ instance F.Storable S2 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          S2 s2_a2 s2_b3 s2_c4 ->
-               F.pokeByteOff ptr0 (0 :: Int) s2_a2
-            >> F.pokeByteOff ptr0 (4 :: Int) s2_b3
-            >> F.pokeByteOff ptr0 (8 :: Int) s2_c4
-
-newtype S2_t = S2_t
-  { un_S2_t :: S2
-  }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+          S2_t s2_t_a2 s2_t_b3 s2_t_c4 ->
+               F.pokeByteOff ptr0 (0 :: Int) s2_t_a2
+            >> F.pokeByteOff ptr0 (4 :: Int) s2_t_b3
+            >> F.pokeByteOff ptr0 (8 :: Int) s2_t_c4
 
 data S3_t = S3_t
   { s3_t_a :: FC.CChar

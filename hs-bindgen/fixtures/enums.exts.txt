@@ -1,4 +1,3 @@
 TypeFamilies
 DerivingStrategies
-GeneralizedNewtypeDeriving
 PatternSynonyms

@@ -9,21 +9,17 @@ instance Storable S1
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S1 s1_a_3
                                         s1_b_4 -> pokeByteOff ptr_1 (0 :: Int) s1_a_3 >> pokeByteOff ptr_1 (4 :: Int) s1_b_4}}
-data S2
-    = S2 {s2_a :: CChar, s2_b :: CInt, s2_c :: CFloat}
+data S2_t
+    = S2_t {s2_t_a :: CChar, s2_t_b :: CInt, s2_t_c :: CFloat}
     deriving stock (Eq, Show)
-instance Storable S2
+instance Storable S2_t
     where {sizeOf = \_ -> 12 :: Int;
            alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> ((pure S2 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           peek = \ptr_0 -> ((pure S2_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {S2 s2_a_3
-                                        s2_b_4
-                                        s2_c_5 -> pokeByteOff ptr_1 (0 :: Int) s2_a_3 >> (pokeByteOff ptr_1 (4 :: Int) s2_b_4 >> pokeByteOff ptr_1 (8 :: Int) s2_c_5)}}
-newtype S2_t
-    = S2_t {un_S2_t :: S2}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
+                                    {S2_t s2_t_a_3
+                                          s2_t_b_4
+                                          s2_t_c_5 -> pokeByteOff ptr_1 (0 :: Int) s2_t_a_3 >> (pokeByteOff ptr_1 (4 :: Int) s2_t_b_4 >> pokeByteOff ptr_1 (8 :: Int) s2_t_c_5)}}
 data S3_t = S3_t {s3_t_a :: CChar} deriving stock (Eq, Show)
 instance Storable S3_t
     where {sizeOf = \_ -> 1 :: Int;

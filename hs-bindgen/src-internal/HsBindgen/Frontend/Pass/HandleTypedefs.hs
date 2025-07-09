@@ -2,12 +2,15 @@ module HsBindgen.Frontend.Pass.HandleTypedefs (handleTypedefs) where
 
 import Data.Map.Strict qualified as Map
 
+import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
+import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 
@@ -18,77 +21,79 @@ import HsBindgen.Language.C
 handleTypedefs ::
      C.TranslationUnit ResolveBindingSpec
   -> (C.TranslationUnit HandleTypedefs, [Msg HandleTypedefs])
-handleTypedefs C.TranslationUnit{..} = (unit, [])
+handleTypedefs C.TranslationUnit{..} = (
+      C.TranslationUnit{
+          unitDecls = catMaybes decls'
+        , ..
+        }
+    , catMaybes msgs
+    )
   where
-    td :: Typedefs
-    td = analyseTypedefs unitDecls
+    td :: TypedefAnalysis
+    td = TypedefAnalysis.fromDecls (declDeclUse unitAnn) unitDecls
 
-    unit :: C.TranslationUnit HandleTypedefs
-    unit = C.TranslationUnit{
-      unitDecls = mapMaybe (handleDecl td) unitDecls
-    , ..
-    }
-
-{-------------------------------------------------------------------------------
-  Analysis
-
-  TODO: This is not quite right (#589)
--------------------------------------------------------------------------------}
-
--- Which typedefs should be squashed?
-type Typedefs = Map CName (Type HandleTypedefs)
-
-analyseTypedefs :: [Decl ResolveBindingSpec] -> Typedefs
-analyseTypedefs = Map.fromList . mapMaybe squash
-
--- | Should we squash this declaration?
-squash :: C.Decl ResolveBindingSpec -> Maybe (CName, Type HandleTypedefs)
-squash C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
-    case declKind of
-      C.DeclTypedef typedef ->
-        (declId,) <$> squashTypedef declId typedef
-      _otherwise ->
-        Nothing
-
--- | Should this /declaration/ of a typedef be squashed?
---
--- If so, we return its underlying type.
-squashTypedef ::
-     CName
-  -> Typedef ResolveBindingSpec
-  -> Maybe (C.Type HandleTypedefs)
-squashTypedef typedefName C.Typedef{typedefType = typ} =
-    case typ of
-      C.TypeStruct n o -> guard (n == typedefName) >> return (C.TypeStruct n o)
-      C.TypeUnion  n o -> guard (n == typedefName) >> return (C.TypeUnion  n o)
-      C.TypeEnum   n o -> guard (n == typedefName) >> return (C.TypeEnum   n o)
-      _otherwise     -> Nothing
+    msgs   :: [Maybe (Msg HandleTypedefs)]
+    decls' :: [Maybe (Decl HandleTypedefs)]
+    (msgs, decls') = unzip $ map (handleDecl td) unitDecls
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
-handleDecl :: Typedefs -> Decl ResolveBindingSpec -> Maybe (Decl HandleTypedefs)
-handleDecl td decl = do
+handleDecl ::
+     TypedefAnalysis
+  -> Decl ResolveBindingSpec
+  -> (Maybe (Msg HandleTypedefs), Maybe (Decl HandleTypedefs))
+handleDecl td decl =
     case declKind of
       C.DeclTypedef{} ->
-        guard $ isNothing (Map.lookup (declId declInfo) td)
+        case Map.lookup curName (TypedefAnalysis.squash td) of
+          Just _ty -> (
+              Just $ SquashedTypedef declInfo'
+            , Nothing
+            )
+          Nothing -> (
+              Nothing
+            , Just Decl{
+                  declInfo = declInfo'
+                , declKind = handleUseSites td declKind
+                , declAnn
+                }
+            )
       _otherwise ->
-        return ()
-    return Decl{
-        declInfo = coercePass declInfo
-      , declKind = handleUseSites td declKind
-      , declAnn
-      }
+        let (mMsg, updatedInfo) =
+               case Map.lookup curName (TypedefAnalysis.rename td) of
+                 Nothing -> (Nothing, declInfo')
+                 Just (newName, newOrigin) -> (
+                     Just $ RenamedTagged declInfo' newName
+                   , declInfo {
+                       declId     = newName
+                     , declOrigin = newOrigin
+                     }
+                   )
+        in ( mMsg
+           , Just Decl{
+                  declInfo = updatedInfo
+                , declKind = handleUseSites td declKind
+                , declAnn
+               }
+           )
   where
-    Decl{declInfo, declKind, declAnn} = decl
+    Decl{
+        declInfo = declInfo@DeclInfo{declId = curName}
+      , declKind
+      , declAnn
+      } = decl
+
+    declInfo' :: DeclInfo HandleTypedefs
+    declInfo' = coercePass declInfo
 
 {-------------------------------------------------------------------------------
   Use sites
 -------------------------------------------------------------------------------}
 
 class HandleUseSites a where
-  handleUseSites :: Typedefs -> a ResolveBindingSpec -> a HandleTypedefs
+  handleUseSites :: TypedefAnalysis -> a ResolveBindingSpec -> a HandleTypedefs
 
 instance HandleUseSites DeclKind where
   handleUseSites td = \case
@@ -166,9 +171,6 @@ instance HandleUseSites C.Type where
       -- Simple cases
 
       go (C.TypePrim prim)                = C.TypePrim prim
-      go (C.TypeStruct name origin)       = C.TypeStruct name origin
-      go (C.TypeUnion name origin)        = C.TypeUnion name origin
-      go (C.TypeEnum name origin)         = C.TypeEnum name origin
       go (C.TypeMacroTypedef name origin) = C.TypeMacroTypedef name origin
       go (C.TypeVoid)                     = C.TypeVoid
       go (C.TypeExtBinding ext)           = C.TypeExtBinding ext
@@ -180,9 +182,24 @@ instance HandleUseSites C.Type where
       go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)
 
-      -- The actual typedef case
+      -- Interesting cases: tagged types may be renamed, typedefs may be squashed
 
-      go (C.TypeTypedef name) = C.TypeTypedef $
-          case Map.lookup name td of
+      go (C.TypeStruct name origin) = rename C.TypeStruct name origin
+      go (C.TypeUnion  name origin) = rename C.TypeUnion  name origin
+      go (C.TypeEnum   name origin) = rename C.TypeEnum   name origin
+
+      go (C.TypeTypedef name) = squash name
+
+      rename ::
+           (CName -> NameOrigin -> Type HandleTypedefs)
+        -> (CName -> NameOrigin -> Type HandleTypedefs)
+      rename mkType curName curOrigin =
+          case Map.lookup curName (TypedefAnalysis.rename td) of
+            Just (newName, newOrigin) -> mkType newName newOrigin
+            Nothing                   -> mkType curName curOrigin
+
+      squash :: CName -> Type HandleTypedefs
+      squash name = C.TypeTypedef $
+          case Map.lookup name (TypedefAnalysis.squash td) of
             Nothing -> TypedefRegular  name
             Just ty -> TypedefSquashed name ty

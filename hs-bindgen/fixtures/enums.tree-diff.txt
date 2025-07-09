@@ -396,10 +396,12 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "enums.h:37:6",
         declId = NamePair {
-          nameC = CName "enumD",
+          nameC = CName "enumD_t",
           nameHsIdent = HsIdentifier
-            "EnumD"},
-        declOrigin = NameOriginInSource,
+            "EnumD_t"},
+        declOrigin =
+        NameOriginRenamedFrom
+          (CName "enumD"),
         declAliases = [CName "enumD_t"],
         declHeader = "enums.h"},
       declKind = DeclEnum
@@ -407,10 +409,10 @@ TranslationUnit {
           enumNames = NewtypeNames {
             newtypeConstr = HsName
               "@NsConstr"
-              "EnumD",
+              "EnumD_t",
             newtypeField = HsName
               "@NsVar"
-              "un_EnumD"},
+              "un_EnumD_t"},
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
@@ -432,37 +434,6 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "D_BAR"},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "enums.h:38:20",
-        declId = NamePair {
-          nameC = CName "enumD_t",
-          nameHsIdent = HsIdentifier
-            "EnumD_t"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "enums.h"},
-      declKind = DeclTypedef
-        Typedef {
-          typedefNames = NewtypeNames {
-            newtypeConstr = HsName
-              "@NsConstr"
-              "EnumD_t",
-            newtypeField = HsName
-              "@NsVar"
-              "un_EnumD_t"},
-          typedefType = TypeEnum
-            NamePair {
-              nameC = CName "enumD",
-              nameHsIdent = HsIdentifier
-                "EnumD"}
-            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

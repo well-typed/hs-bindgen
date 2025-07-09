@@ -1,5 +1,4 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -581,12 +580,12 @@ pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
 
-newtype EnumD = EnumD
-  { un_EnumD :: FC.CUInt
+newtype EnumD_t = EnumD_t
+  { un_EnumD_t :: FC.CUInt
   }
   deriving stock (Eq, Ord)
 
-instance F.Storable EnumD where
+instance F.Storable EnumD_t where
 
   sizeOf = \_ -> (4 :: Int)
 
@@ -594,23 +593,23 @@ instance F.Storable EnumD where
 
   peek =
     \ptr0 ->
-          pure EnumD
+          pure EnumD_t
       <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumD un_EnumD2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_EnumD2
+          EnumD_t un_EnumD_t2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_EnumD_t2
 
-instance HsBindgen.Runtime.CEnum.CEnum EnumD where
+instance HsBindgen.Runtime.CEnum.CEnum EnumD_t where
 
-  type CEnumZ EnumD = FC.CUInt
+  type CEnumZ EnumD_t = FC.CUInt
 
-  toCEnum = EnumD
+  toCEnum = EnumD_t
 
-  fromCEnum = un_EnumD
+  fromCEnum = un_EnumD_t
 
   declaredValues =
     \_ ->
@@ -619,26 +618,26 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
                                                      ]
 
   showsUndeclared =
-    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumD"
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumD_t"
 
   readPrecUndeclared =
-    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumD"
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumD_t"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
 
-instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD_t where
 
   minDeclaredValue = D_FOO
 
   maxDeclaredValue = D_BAR
 
-instance Show EnumD where
+instance Show EnumD_t where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
-instance Read EnumD where
+instance Read EnumD_t where
 
   readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
 
@@ -646,14 +645,8 @@ instance Read EnumD where
 
   readListPrec = Text.Read.readListPrecDefault
 
-pattern D_FOO :: EnumD
-pattern D_FOO = EnumD 0
+pattern D_FOO :: EnumD_t
+pattern D_FOO = EnumD_t 0
 
-pattern D_BAR :: EnumD
-pattern D_BAR = EnumD 1
-
-newtype EnumD_t = EnumD_t
-  { un_EnumD_t :: EnumD
-  }
-  deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable)
+pattern D_BAR :: EnumD_t
+pattern D_BAR = EnumD_t 1

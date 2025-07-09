@@ -3,15 +3,15 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "Linked_list_A_s",
+        "Linked_list_A_t",
       structConstr = HsName
         "@NsConstr"
-        "Linked_list_A_s",
+        "Linked_list_A_t",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "linked_list_A_s_x",
+            "linked_list_A_t_x",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
@@ -21,7 +21,7 @@
               structFieldName = NamePair {
                 nameC = CName "x",
                 nameHsIdent = HsIdentifier
-                  "linked_list_A_s_x"},
+                  "linked_list_A_t_x"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
@@ -29,12 +29,12 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "linked_list_A_s_next",
+            "linked_list_A_t_next",
           fieldType = HsPtr
             (HsTypRef
               (HsName
                 "@NsTypeConstr"
-                "Linked_list_A_s")),
+                "Linked_list_A_t")),
           fieldOrigin = StructField
             StructField {
               structFieldLoc =
@@ -42,14 +42,15 @@
               structFieldName = NamePair {
                 nameC = CName "next",
                 nameHsIdent = HsIdentifier
-                  "linked_list_A_s_next"},
+                  "linked_list_A_t_next"},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
-                    nameC = CName "linked_list_A_s",
+                    nameC = CName "linked_list_A_t",
                     nameHsIdent = HsIdentifier
-                      "Linked_list_A_s"}
-                  NameOriginInSource),
+                      "Linked_list_A_t"}
+                  (NameOriginRenamedFrom
+                    (CName "linked_list_A_s"))),
               structFieldOffset = 64,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -58,10 +59,12 @@
             declLoc =
             "recursive_struct.h:1:16",
             declId = NamePair {
-              nameC = CName "linked_list_A_s",
+              nameC = CName "linked_list_A_t",
               nameHsIdent = HsIdentifier
-                "Linked_list_A_s"},
-            declOrigin = NameOriginInSource,
+                "Linked_list_A_t"},
+            declOrigin =
+            NameOriginRenamedFrom
+              (CName "linked_list_A_s"),
             declAliases = [
               CName "linked_list_A_t"],
             declHeader =
@@ -71,7 +74,7 @@
               structNames = RecordNames
                 (HsName
                   "@NsConstr"
-                  "Linked_list_A_s"),
+                  "Linked_list_A_t"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -81,7 +84,7 @@
                   structFieldName = NamePair {
                     nameC = CName "x",
                     nameHsIdent = HsIdentifier
-                      "linked_list_A_s_x"},
+                      "linked_list_A_t_x"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
@@ -92,14 +95,15 @@
                   structFieldName = NamePair {
                     nameC = CName "next",
                     nameHsIdent = HsIdentifier
-                      "linked_list_A_s_next"},
+                      "linked_list_A_t_next"},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
-                        nameC = CName "linked_list_A_s",
+                        nameC = CName "linked_list_A_t",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_A_s"}
-                      NameOriginInSource),
+                          "Linked_list_A_t"}
+                      (NameOriginRenamedFrom
+                        (CName "linked_list_A_s"))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -116,15 +120,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Linked_list_A_s",
+          "Linked_list_A_t",
         structConstr = HsName
           "@NsConstr"
-          "Linked_list_A_s",
+          "Linked_list_A_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "linked_list_A_s_x",
+              "linked_list_A_t_x",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
@@ -134,7 +138,7 @@
                 structFieldName = NamePair {
                   nameC = CName "x",
                   nameHsIdent = HsIdentifier
-                    "linked_list_A_s_x"},
+                    "linked_list_A_t_x"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
@@ -142,12 +146,12 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "linked_list_A_s_next",
+              "linked_list_A_t_next",
             fieldType = HsPtr
               (HsTypRef
                 (HsName
                   "@NsTypeConstr"
-                  "Linked_list_A_s")),
+                  "Linked_list_A_t")),
             fieldOrigin = StructField
               StructField {
                 structFieldLoc =
@@ -155,14 +159,15 @@
                 structFieldName = NamePair {
                   nameC = CName "next",
                   nameHsIdent = HsIdentifier
-                    "linked_list_A_s_next"},
+                    "linked_list_A_t_next"},
                 structFieldType = TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "linked_list_A_s",
+                      nameC = CName "linked_list_A_t",
                       nameHsIdent = HsIdentifier
-                        "Linked_list_A_s"}
-                    NameOriginInSource),
+                        "Linked_list_A_t"}
+                    (NameOriginRenamedFrom
+                      (CName "linked_list_A_s"))),
                 structFieldOffset = 64,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -171,10 +176,12 @@
               declLoc =
               "recursive_struct.h:1:16",
               declId = NamePair {
-                nameC = CName "linked_list_A_s",
+                nameC = CName "linked_list_A_t",
                 nameHsIdent = HsIdentifier
-                  "Linked_list_A_s"},
-              declOrigin = NameOriginInSource,
+                  "Linked_list_A_t"},
+              declOrigin =
+              NameOriginRenamedFrom
+                (CName "linked_list_A_s"),
               declAliases = [
                 CName "linked_list_A_t"],
               declHeader =
@@ -184,7 +191,7 @@
                 structNames = RecordNames
                   (HsName
                     "@NsConstr"
-                    "Linked_list_A_s"),
+                    "Linked_list_A_t"),
                 structSizeof = 16,
                 structAlignment = 8,
                 structFields = [
@@ -194,7 +201,7 @@
                     structFieldName = NamePair {
                       nameC = CName "x",
                       nameHsIdent = HsIdentifier
-                        "linked_list_A_s_x"},
+                        "linked_list_A_t_x"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
@@ -205,14 +212,15 @@
                     structFieldName = NamePair {
                       nameC = CName "next",
                       nameHsIdent = HsIdentifier
-                        "linked_list_A_s_next"},
+                        "linked_list_A_t_next"},
                     structFieldType = TypePointer
                       (TypeStruct
                         NamePair {
-                          nameC = CName "linked_list_A_s",
+                          nameC = CName "linked_list_A_t",
                           nameHsIdent = HsIdentifier
-                            "Linked_list_A_s"}
-                        NameOriginInSource),
+                            "Linked_list_A_t"}
+                        (NameOriginRenamedFrom
+                          (CName "linked_list_A_s"))),
                     structFieldOffset = 64,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -234,15 +242,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Linked_list_A_s",
+                  "Linked_list_A_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "Linked_list_A_s",
+                  "Linked_list_A_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "linked_list_A_s_x",
+                      "linked_list_A_t_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -252,7 +260,7 @@
                         structFieldName = NamePair {
                           nameC = CName "x",
                           nameHsIdent = HsIdentifier
-                            "linked_list_A_s_x"},
+                            "linked_list_A_t_x"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -260,12 +268,12 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "linked_list_A_s_next",
+                      "linked_list_A_t_next",
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName
                           "@NsTypeConstr"
-                          "Linked_list_A_s")),
+                          "Linked_list_A_t")),
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
@@ -273,14 +281,15 @@
                         structFieldName = NamePair {
                           nameC = CName "next",
                           nameHsIdent = HsIdentifier
-                            "linked_list_A_s_next"},
+                            "linked_list_A_t_next"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "linked_list_A_s",
+                              nameC = CName "linked_list_A_t",
                               nameHsIdent = HsIdentifier
-                                "Linked_list_A_s"}
-                            NameOriginInSource),
+                                "Linked_list_A_t"}
+                            (NameOriginRenamedFrom
+                              (CName "linked_list_A_s"))),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -289,10 +298,12 @@
                       declLoc =
                       "recursive_struct.h:1:16",
                       declId = NamePair {
-                        nameC = CName "linked_list_A_s",
+                        nameC = CName "linked_list_A_t",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_A_s"},
-                      declOrigin = NameOriginInSource,
+                          "Linked_list_A_t"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "linked_list_A_s"),
                       declAliases = [
                         CName "linked_list_A_t"],
                       declHeader =
@@ -302,7 +313,7 @@
                         structNames = RecordNames
                           (HsName
                             "@NsConstr"
-                            "Linked_list_A_s"),
+                            "Linked_list_A_t"),
                         structSizeof = 16,
                         structAlignment = 8,
                         structFields = [
@@ -312,7 +323,7 @@
                             structFieldName = NamePair {
                               nameC = CName "x",
                               nameHsIdent = HsIdentifier
-                                "linked_list_A_s_x"},
+                                "linked_list_A_t_x"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
@@ -323,14 +334,15 @@
                             structFieldName = NamePair {
                               nameC = CName "next",
                               nameHsIdent = HsIdentifier
-                                "linked_list_A_s_next"},
+                                "linked_list_A_t_next"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "linked_list_A_s",
+                                  nameC = CName "linked_list_A_t",
                                   nameHsIdent = HsIdentifier
-                                    "Linked_list_A_s"}
-                                NameOriginInSource),
+                                    "Linked_list_A_t"}
+                                (NameOriginRenamedFrom
+                                  (CName "linked_list_A_s"))),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -354,15 +366,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Linked_list_A_s",
+                  "Linked_list_A_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "Linked_list_A_s",
+                  "Linked_list_A_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "linked_list_A_s_x",
+                      "linked_list_A_t_x",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -372,7 +384,7 @@
                         structFieldName = NamePair {
                           nameC = CName "x",
                           nameHsIdent = HsIdentifier
-                            "linked_list_A_s_x"},
+                            "linked_list_A_t_x"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -380,12 +392,12 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "linked_list_A_s_next",
+                      "linked_list_A_t_next",
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName
                           "@NsTypeConstr"
-                          "Linked_list_A_s")),
+                          "Linked_list_A_t")),
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
@@ -393,14 +405,15 @@
                         structFieldName = NamePair {
                           nameC = CName "next",
                           nameHsIdent = HsIdentifier
-                            "linked_list_A_s_next"},
+                            "linked_list_A_t_next"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "linked_list_A_s",
+                              nameC = CName "linked_list_A_t",
                               nameHsIdent = HsIdentifier
-                                "Linked_list_A_s"}
-                            NameOriginInSource),
+                                "Linked_list_A_t"}
+                            (NameOriginRenamedFrom
+                              (CName "linked_list_A_s"))),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -409,10 +422,12 @@
                       declLoc =
                       "recursive_struct.h:1:16",
                       declId = NamePair {
-                        nameC = CName "linked_list_A_s",
+                        nameC = CName "linked_list_A_t",
                         nameHsIdent = HsIdentifier
-                          "Linked_list_A_s"},
-                      declOrigin = NameOriginInSource,
+                          "Linked_list_A_t"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "linked_list_A_s"),
                       declAliases = [
                         CName "linked_list_A_t"],
                       declHeader =
@@ -422,7 +437,7 @@
                         structNames = RecordNames
                           (HsName
                             "@NsConstr"
-                            "Linked_list_A_s"),
+                            "Linked_list_A_t"),
                         structSizeof = 16,
                         structAlignment = 8,
                         structFields = [
@@ -432,7 +447,7 @@
                             structFieldName = NamePair {
                               nameC = CName "x",
                               nameHsIdent = HsIdentifier
-                                "linked_list_A_s_x"},
+                                "linked_list_A_t_x"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
@@ -443,14 +458,15 @@
                             structFieldName = NamePair {
                               nameC = CName "next",
                               nameHsIdent = HsIdentifier
-                                "linked_list_A_s_next"},
+                                "linked_list_A_t_next"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "linked_list_A_s",
+                                  nameC = CName "linked_list_A_t",
                                   nameHsIdent = HsIdentifier
-                                    "Linked_list_A_s"}
-                                NameOriginInSource),
+                                    "Linked_list_A_t"}
+                                (NameOriginRenamedFrom
+                                  (CName "linked_list_A_s"))),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -475,80 +491,10 @@
     Show
     (HsName
       "@NsTypeConstr"
-      "Linked_list_A_s"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Linked_list_A_s"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Linked_list_A_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Linked_list_A_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Linked_list_A_t",
-        fieldType = HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Linked_list_A_s"),
-        fieldOrigin = GeneratedField},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "recursive_struct.h:4:3",
-          declId = NamePair {
-            nameC = CName "linked_list_A_t",
-            nameHsIdent = HsIdentifier
-              "Linked_list_A_t"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader =
-          "recursive_struct.h"},
-        declKind = Typedef
-          Typedef {
-            typedefNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Linked_list_A_t",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Linked_list_A_t"},
-            typedefType = TypeStruct
-              NamePair {
-                nameC = CName "linked_list_A_s",
-                nameHsIdent = HsIdentifier
-                  "Linked_list_A_s"}
-              NameOriginInSource},
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
       "Linked_list_A_t"),
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName
-      "@NsTypeConstr"
-      "Linked_list_A_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
     (HsName
       "@NsTypeConstr"
       "Linked_list_A_t"),

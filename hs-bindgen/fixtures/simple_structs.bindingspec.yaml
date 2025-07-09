@@ -10,14 +10,6 @@ types:
 - headers: simple_structs.h
   cname: struct S2
   module: Example
-  identifier: S2
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: simple_structs.h
-  cname: S2_t
-  module: Example
   identifier: S2_t
   instances:
   - Eq

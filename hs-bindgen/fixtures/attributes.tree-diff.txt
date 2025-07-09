@@ -198,16 +198,18 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "attributes.h:34:16",
         declId = NamePair {
-          nameC = CName "__sFILE",
+          nameC = CName "FILE",
           nameHsIdent = HsIdentifier
-            "C__SFILE"},
-        declOrigin = NameOriginInSource,
+            "FILE"},
+        declOrigin =
+        NameOriginRenamedFrom
+          (CName "__sFILE"),
         declAliases = [CName "FILE"],
         declHeader = "attributes.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "C__SFILE"),
+            (HsName "@NsConstr" "FILE"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -217,7 +219,7 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "_r",
                 nameHsIdent = HsIdentifier
-                  "__sFILE__r"},
+                  "fILE__r"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
@@ -228,7 +230,7 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "_w",
                 nameHsIdent = HsIdentifier
-                  "__sFILE__w"},
+                  "fILE__w"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
@@ -239,7 +241,7 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "_close",
                 nameHsIdent = HsIdentifier
-                  "__sFILE__close"},
+                  "fILE__close"},
               structFieldType = TypePointer
                 (TypeFun
                   [TypePointer TypeVoid]
@@ -248,37 +250,6 @@ TranslationUnit {
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "attributes.h:38:3",
-        declId = NamePair {
-          nameC = CName "FILE",
-          nameHsIdent = HsIdentifier
-            "FILE"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "attributes.h"},
-      declKind = DeclTypedef
-        Typedef {
-          typedefNames = NewtypeNames {
-            newtypeConstr = HsName
-              "@NsConstr"
-              "FILE",
-            newtypeField = HsName
-              "@NsVar"
-              "un_FILE"},
-          typedefType = TypeStruct
-            NamePair {
-              nameC = CName "__sFILE",
-              nameHsIdent = HsIdentifier
-                "C__SFILE"}
-            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

@@ -3,15 +3,15 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "S1",
+        "S1_t",
       structConstr = HsName
         "@NsConstr"
-        "S1",
+        "S1_t",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "s1_a",
+            "s1_t_a",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
@@ -21,7 +21,7 @@
               structFieldName = NamePair {
                 nameC = CName "a",
                 nameHsIdent = HsIdentifier
-                  "s1_a"},
+                  "s1_t_a"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
@@ -32,17 +32,19 @@
             declLoc =
             "forward_declaration.h:3:8",
             declId = NamePair {
-              nameC = CName "S1",
+              nameC = CName "S1_t",
               nameHsIdent = HsIdentifier
-                "S1"},
-            declOrigin = NameOriginInSource,
+                "S1_t"},
+            declOrigin =
+            NameOriginRenamedFrom
+              (CName "S1"),
             declAliases = [CName "S1_t"],
             declHeader =
             "forward_declaration.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "S1"),
+                (HsName "@NsConstr" "S1_t"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -52,7 +54,7 @@
                   structFieldName = NamePair {
                     nameC = CName "a",
                     nameHsIdent = HsIdentifier
-                      "s1_a"},
+                      "s1_t_a"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
@@ -71,15 +73,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "S1",
+          "S1_t",
         structConstr = HsName
           "@NsConstr"
-          "S1",
+          "S1_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "s1_a",
+              "s1_t_a",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
@@ -89,7 +91,7 @@
                 structFieldName = NamePair {
                   nameC = CName "a",
                   nameHsIdent = HsIdentifier
-                    "s1_a"},
+                    "s1_t_a"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
@@ -100,17 +102,19 @@
               declLoc =
               "forward_declaration.h:3:8",
               declId = NamePair {
-                nameC = CName "S1",
+                nameC = CName "S1_t",
                 nameHsIdent = HsIdentifier
-                  "S1"},
-              declOrigin = NameOriginInSource,
+                  "S1_t"},
+              declOrigin =
+              NameOriginRenamedFrom
+                (CName "S1"),
               declAliases = [CName "S1_t"],
               declHeader =
               "forward_declaration.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
-                  (HsName "@NsConstr" "S1"),
+                  (HsName "@NsConstr" "S1_t"),
                 structSizeof = 4,
                 structAlignment = 4,
                 structFields = [
@@ -120,7 +124,7 @@
                     structFieldName = NamePair {
                       nameC = CName "a",
                       nameHsIdent = HsIdentifier
-                        "s1_a"},
+                        "s1_t_a"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
@@ -144,15 +148,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "S1",
+                  "S1_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "S1",
+                  "S1_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s1_a",
+                      "s1_t_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -162,7 +166,7 @@
                         structFieldName = NamePair {
                           nameC = CName "a",
                           nameHsIdent = HsIdentifier
-                            "s1_a"},
+                            "s1_t_a"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -173,17 +177,19 @@
                       declLoc =
                       "forward_declaration.h:3:8",
                       declId = NamePair {
-                        nameC = CName "S1",
+                        nameC = CName "S1_t",
                         nameHsIdent = HsIdentifier
-                          "S1"},
-                      declOrigin = NameOriginInSource,
+                          "S1_t"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "S1"),
                       declAliases = [CName "S1_t"],
                       declHeader =
                       "forward_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
-                          (HsName "@NsConstr" "S1"),
+                          (HsName "@NsConstr" "S1_t"),
                         structSizeof = 4,
                         structAlignment = 4,
                         structFields = [
@@ -193,7 +199,7 @@
                             structFieldName = NamePair {
                               nameC = CName "a",
                               nameHsIdent = HsIdentifier
-                                "s1_a"},
+                                "s1_t_a"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
@@ -217,15 +223,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "S1",
+                  "S1_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "S1",
+                  "S1_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s1_a",
+                      "s1_t_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -235,7 +241,7 @@
                         structFieldName = NamePair {
                           nameC = CName "a",
                           nameHsIdent = HsIdentifier
-                            "s1_a"},
+                            "s1_t_a"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -246,17 +252,19 @@
                       declLoc =
                       "forward_declaration.h:3:8",
                       declId = NamePair {
-                        nameC = CName "S1",
+                        nameC = CName "S1_t",
                         nameHsIdent = HsIdentifier
-                          "S1"},
-                      declOrigin = NameOriginInSource,
+                          "S1_t"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "S1"),
                       declAliases = [CName "S1_t"],
                       declHeader =
                       "forward_declaration.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
-                          (HsName "@NsConstr" "S1"),
+                          (HsName "@NsConstr" "S1_t"),
                         structSizeof = 4,
                         structAlignment = 4,
                         structFields = [
@@ -266,7 +274,7 @@
                             structFieldName = NamePair {
                               nameC = CName "a",
                               nameHsIdent = HsIdentifier
-                                "s1_a"},
+                                "s1_t_a"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
@@ -290,71 +298,10 @@
   DeclNewtypeInstance
     DeriveStock
     Show
-    (HsName "@NsTypeConstr" "S1"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "S1"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "S1_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "S1_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_S1_t",
-        fieldType = HsTypRef
-          (HsName "@NsTypeConstr" "S1"),
-        fieldOrigin = GeneratedField},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "forward_declaration.h:1:19",
-          declId = NamePair {
-            nameC = CName "S1_t",
-            nameHsIdent = HsIdentifier
-              "S1_t"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader =
-          "forward_declaration.h"},
-        declKind = Typedef
-          Typedef {
-            typedefNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "S1_t",
-              newtypeField = HsName
-                "@NsVar"
-                "un_S1_t"},
-            typedefType = TypeStruct
-              NamePair {
-                nameC = CName "S1",
-                nameHsIdent = HsIdentifier "S1"}
-              NameOriginInSource},
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
     (HsName "@NsTypeConstr" "S1_t"),
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName "@NsTypeConstr" "S1_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
     (HsName "@NsTypeConstr" "S1_t"),
   DeclData
     Struct {
