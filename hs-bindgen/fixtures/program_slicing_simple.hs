@@ -27,7 +27,7 @@
             CName "uint_fast32_t",
             CName "uint_least32_t"],
           declHeader =
-          "program_slicing.h"},
+          "program_slicing_simple.h"},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -267,7 +267,7 @@
           fieldOrigin = StructField
             StructField {
               structFieldLoc =
-              "program_slicing.h:4:12",
+              "program_slicing_simple.h:4:12",
               structFieldName = NamePair {
                 nameC = CName "sixty_four",
                 nameHsIdent = HsIdentifier
@@ -401,7 +401,7 @@
           fieldOrigin = StructField
             StructField {
               structFieldLoc =
-              "program_slicing.h:5:12",
+              "program_slicing_simple.h:5:12",
               structFieldName = NamePair {
                 nameC = CName "thirty_two",
                 nameHsIdent = HsIdentifier
@@ -418,7 +418,7 @@
         Decl {
           declInfo = DeclInfo {
             declLoc =
-            "program_slicing.h:3:8",
+            "program_slicing_simple.h:3:8",
             declId = NamePair {
               nameC = CName "foo",
               nameHsIdent = HsIdentifier
@@ -426,7 +426,7 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "program_slicing.h"},
+            "program_slicing_simple.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -436,7 +436,7 @@
               structFields = [
                 StructField {
                   structFieldLoc =
-                  "program_slicing.h:4:12",
+                  "program_slicing_simple.h:4:12",
                   structFieldName = NamePair {
                     nameC = CName "sixty_four",
                     nameHsIdent = HsIdentifier
@@ -561,7 +561,7 @@
                   structFieldWidth = Nothing},
                 StructField {
                   structFieldLoc =
-                  "program_slicing.h:5:12",
+                  "program_slicing_simple.h:5:12",
                   structFieldName = NamePair {
                     nameC = CName "thirty_two",
                     nameHsIdent = HsIdentifier
@@ -711,7 +711,7 @@
             fieldOrigin = StructField
               StructField {
                 structFieldLoc =
-                "program_slicing.h:4:12",
+                "program_slicing_simple.h:4:12",
                 structFieldName = NamePair {
                   nameC = CName "sixty_four",
                   nameHsIdent = HsIdentifier
@@ -845,7 +845,7 @@
             fieldOrigin = StructField
               StructField {
                 structFieldLoc =
-                "program_slicing.h:5:12",
+                "program_slicing_simple.h:5:12",
                 structFieldName = NamePair {
                   nameC = CName "thirty_two",
                   nameHsIdent = HsIdentifier
@@ -862,7 +862,7 @@
           Decl {
             declInfo = DeclInfo {
               declLoc =
-              "program_slicing.h:3:8",
+              "program_slicing_simple.h:3:8",
               declId = NamePair {
                 nameC = CName "foo",
                 nameHsIdent = HsIdentifier
@@ -870,7 +870,7 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "program_slicing.h"},
+              "program_slicing_simple.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -880,7 +880,7 @@
                 structFields = [
                   StructField {
                     structFieldLoc =
-                    "program_slicing.h:4:12",
+                    "program_slicing_simple.h:4:12",
                     structFieldName = NamePair {
                       nameC = CName "sixty_four",
                       nameHsIdent = HsIdentifier
@@ -1005,7 +1005,7 @@
                     structFieldWidth = Nothing},
                   StructField {
                     structFieldLoc =
-                    "program_slicing.h:5:12",
+                    "program_slicing_simple.h:5:12",
                     structFieldName = NamePair {
                       nameC = CName "thirty_two",
                       nameHsIdent = HsIdentifier
@@ -1160,7 +1160,7 @@
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "program_slicing.h:4:12",
+                        "program_slicing_simple.h:4:12",
                         structFieldName = NamePair {
                           nameC = CName "sixty_four",
                           nameHsIdent = HsIdentifier
@@ -1294,7 +1294,7 @@
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "program_slicing.h:5:12",
+                        "program_slicing_simple.h:5:12",
                         structFieldName = NamePair {
                           nameC = CName "thirty_two",
                           nameHsIdent = HsIdentifier
@@ -1311,7 +1311,7 @@
                   Decl {
                     declInfo = DeclInfo {
                       declLoc =
-                      "program_slicing.h:3:8",
+                      "program_slicing_simple.h:3:8",
                       declId = NamePair {
                         nameC = CName "foo",
                         nameHsIdent = HsIdentifier
@@ -1319,7 +1319,7 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "program_slicing.h"},
+                      "program_slicing_simple.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1329,7 +1329,7 @@
                         structFields = [
                           StructField {
                             structFieldLoc =
-                            "program_slicing.h:4:12",
+                            "program_slicing_simple.h:4:12",
                             structFieldName = NamePair {
                               nameC = CName "sixty_four",
                               nameHsIdent = HsIdentifier
@@ -1454,7 +1454,7 @@
                             structFieldWidth = Nothing},
                           StructField {
                             structFieldLoc =
-                            "program_slicing.h:5:12",
+                            "program_slicing_simple.h:5:12",
                             structFieldName = NamePair {
                               nameC = CName "thirty_two",
                               nameHsIdent = HsIdentifier
@@ -1611,7 +1611,7 @@
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "program_slicing.h:4:12",
+                        "program_slicing_simple.h:4:12",
                         structFieldName = NamePair {
                           nameC = CName "sixty_four",
                           nameHsIdent = HsIdentifier
@@ -1745,7 +1745,7 @@
                     fieldOrigin = StructField
                       StructField {
                         structFieldLoc =
-                        "program_slicing.h:5:12",
+                        "program_slicing_simple.h:5:12",
                         structFieldName = NamePair {
                           nameC = CName "thirty_two",
                           nameHsIdent = HsIdentifier
@@ -1762,7 +1762,7 @@
                   Decl {
                     declInfo = DeclInfo {
                       declLoc =
-                      "program_slicing.h:3:8",
+                      "program_slicing_simple.h:3:8",
                       declId = NamePair {
                         nameC = CName "foo",
                         nameHsIdent = HsIdentifier
@@ -1770,7 +1770,7 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "program_slicing.h"},
+                      "program_slicing_simple.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1780,7 +1780,7 @@
                         structFields = [
                           StructField {
                             structFieldLoc =
-                            "program_slicing.h:4:12",
+                            "program_slicing_simple.h:4:12",
                             structFieldName = NamePair {
                               nameC = CName "sixty_four",
                               nameHsIdent = HsIdentifier
@@ -1905,7 +1905,7 @@
                             structFieldWidth = Nothing},
                           StructField {
                             structFieldLoc =
-                            "program_slicing.h:5:12",
+                            "program_slicing_simple.h:5:12",
                             structFieldName = NamePair {
                               nameC = CName "thirty_two",
                               nameHsIdent = HsIdentifier

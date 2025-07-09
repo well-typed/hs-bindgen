@@ -1,0 +1,6 @@
+CApiFFI
+TemplateHaskell
+TypeFamilies
+DerivingStrategies
+EmptyDataDecls
+PatternSynonyms

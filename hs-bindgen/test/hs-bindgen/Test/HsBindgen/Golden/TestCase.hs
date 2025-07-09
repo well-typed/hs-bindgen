@@ -34,11 +34,11 @@ import Test.Tasty (TestName)
 import Clang.HighLevel.Types qualified as Clang
 import Clang.Paths
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
-import HsBindgen.Clang (ClangMsg(..))
-import HsBindgen.Config (Config(..))
+import HsBindgen.Clang (ClangMsg (..))
+import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Lib (TraceMsg(..))
+import HsBindgen.Lib (TraceMsg (..))
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Util.Tracer
 
@@ -136,10 +136,10 @@ testTraceSimple filename trace =
     testTrace filename $ singleTracePredicate trace
 
 testTraceCustom ::
-     (Ord a, WrongCountMsg a)
+     (Ord b, WrongCountMsg TraceMsg b)
   => String
-  -> [a]
-  -> (TraceMsg -> Maybe (TraceExpectation a))
+  -> [b]
+  -> (TraceMsg -> Maybe (TraceExpectation b))
   -> TestCase
 testTraceCustom filename expected trace =
     testTrace filename $ customTracePredicate' expected trace
@@ -175,7 +175,7 @@ failingTestSimple filename trace =
     failingTestTrace filename $ singleTracePredicate trace
 
 failingTestCustom ::
-     (Ord a, WrongCountMsg a)
+     (Ord a, WrongCountMsg TraceMsg a)
   => String
   -> [a]
   -> (TraceMsg -> Maybe (TraceExpectation a))
