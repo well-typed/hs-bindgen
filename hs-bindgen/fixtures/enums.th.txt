@@ -249,37 +249,35 @@ pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
-newtype EnumD = EnumD {un_EnumD :: CUInt} deriving stock (Eq, Ord)
-instance Storable EnumD
+newtype EnumD_t
+    = EnumD_t {un_EnumD_t :: CUInt}
+    deriving stock (Eq, Ord)
+instance Storable EnumD_t
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure EnumD <*> peekByteOff ptr_0 (0 :: Int);
+           peek = \ptr_0 -> pure EnumD_t <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {EnumD un_EnumD_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumD_3}}
-instance CEnum EnumD
-    where {type CEnumZ EnumD = CUInt;
-           toCEnum = EnumD;
-           fromCEnum = un_EnumD;
+                                    {EnumD_t un_EnumD_t_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumD_t_3}}
+instance CEnum EnumD_t
+    where {type CEnumZ EnumD_t = CUInt;
+           toCEnum = EnumD_t;
+           fromCEnum = un_EnumD_t;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "D_FOO"),
                                                           (1, singleton "D_BAR")];
-           showsUndeclared = showsWrappedUndeclared "EnumD";
-           readPrecUndeclared = readPrecWrappedUndeclared "EnumD";
+           showsUndeclared = showsWrappedUndeclared "EnumD_t";
+           readPrecUndeclared = readPrecWrappedUndeclared "EnumD_t";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
-instance SequentialCEnum EnumD
+instance SequentialCEnum EnumD_t
     where {minDeclaredValue = D_FOO; maxDeclaredValue = D_BAR}
-instance Show EnumD
+instance Show EnumD_t
     where {showsPrec = showsCEnum}
-instance Read EnumD
+instance Read EnumD_t
     where {readPrec = readPrecCEnum;
            readList = readListDefault;
            readListPrec = readListPrecDefault}
-pattern D_FOO :: EnumD
-pattern D_FOO = EnumD 0
-pattern D_BAR :: EnumD
-pattern D_BAR = EnumD 1
-newtype EnumD_t
-    = EnumD_t {un_EnumD_t :: EnumD}
-    deriving stock (Eq, Ord, Read, Show)
-    deriving newtype Storable
+pattern D_FOO :: EnumD_t
+pattern D_FOO = EnumD_t 0
+pattern D_BAR :: EnumD_t
+pattern D_BAR = EnumD_t 1

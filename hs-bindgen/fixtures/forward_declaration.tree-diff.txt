@@ -5,17 +5,19 @@ TranslationUnit {
         declLoc =
         "forward_declaration.h:3:8",
         declId = NamePair {
-          nameC = CName "S1",
+          nameC = CName "S1_t",
           nameHsIdent = HsIdentifier
-            "S1"},
-        declOrigin = NameOriginInSource,
+            "S1_t"},
+        declOrigin =
+        NameOriginRenamedFrom
+          (CName "S1"),
         declAliases = [CName "S1_t"],
         declHeader =
         "forward_declaration.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "S1"),
+            (HsName "@NsConstr" "S1_t"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -25,44 +27,12 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "a",
                 nameHsIdent = HsIdentifier
-                  "s1_a"},
+                  "s1_t_a"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "forward_declaration.h:1:19",
-        declId = NamePair {
-          nameC = CName "S1_t",
-          nameHsIdent = HsIdentifier
-            "S1_t"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader =
-        "forward_declaration.h"},
-      declKind = DeclTypedef
-        Typedef {
-          typedefNames = NewtypeNames {
-            newtypeConstr = HsName
-              "@NsConstr"
-              "S1_t",
-            newtypeField = HsName
-              "@NsVar"
-              "un_S1_t"},
-          typedefType = TypeStruct
-            NamePair {
-              nameC = CName "S1",
-              nameHsIdent = HsIdentifier "S1"}
-            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

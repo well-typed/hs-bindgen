@@ -140,6 +140,33 @@ testCases = [
           Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
+    , let declsWithMsgs :: [Labelled CName]
+          declsWithMsgs = [
+                Labelled "Renamed"  "struct1"
+              , Labelled "Squashed" "struct1_t"
+              , Labelled "Renamed"  "struct2"
+              , Labelled "Squashed" "struct2_t"
+              , Labelled "Renamed"  "struct3"
+              , Labelled "Squashed" "struct3_t"
+              , Labelled "Renamed"  "struct4"
+              , Labelled "Squashed" "struct4_t"
+              , Labelled "Renamed"  "struct6"
+              , Labelled "Squashed" "struct8"
+              , Labelled "Squashed" "struct9"
+              , Labelled "Renamed"  "struct10"
+              , Labelled "Squashed" "struct10_t"
+              , Labelled "Renamed"  "struct11"
+              , Labelled "Squashed" "struct11_t"
+              , Labelled "Renamed"  "struct12"
+              , Labelled "Squashed" "struct12_t"
+              ]
+      in testTraceCustom "typedef_analysis" declsWithMsgs $ \case
+        TraceFrontend (FrontendHandleTypedefs (SquashedTypedef info)) ->
+          Just $ Expected $ Labelled "Squashed" $ C.declId info
+        TraceFrontend (FrontendHandleTypedefs (RenamedTagged info _to)) ->
+          Just $ Expected $ Labelled "Renamed" $ C.declId info
+        _otherwise ->
+          Nothing
     , testTraceSimple "varargs" $ \case
         TraceFrontend (FrontendParse (UnsupportedType _ UnsupportedVariadicFunction)) ->
           Just $ Expected ()

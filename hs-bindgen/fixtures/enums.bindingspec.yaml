@@ -32,16 +32,6 @@ types:
 - headers: enums.h
   cname: enum enumD
   module: Example
-  identifier: EnumD
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: enums.h
-  cname: enumD_t
-  module: Example
   identifier: EnumD_t
   instances:
   - Eq

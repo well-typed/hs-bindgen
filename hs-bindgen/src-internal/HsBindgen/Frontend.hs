@@ -17,6 +17,7 @@ import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs
+import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.NameAnon
@@ -124,7 +125,7 @@ processTranslationUnit
           nameAnon afterHandleMacros
         (afterResolveBindingSpec, msgsResolveBindingSpecs) =
           resolveBindingSpec extSpec pSpec afterNameAnon
-        (afterHandleTypedefs, _msgsHandleTypedefs) =
+        (afterHandleTypedefs, msgsHandleTypedefs) =
           handleTypedefs afterResolveBindingSpec
         (afterMangleNames, msgsMangleNames) =
           mangleNames afterHandleTypedefs
@@ -137,7 +138,7 @@ processTranslationUnit
     forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
     forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
     forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-    -- No traces for 'HandleTypedefs'.
+    forM_ msgsHandleTypedefs      $ traceWith tracer . FrontendHandleTypedefs
     forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
 
     return $ finalize afterMangleNames
@@ -159,6 +160,7 @@ data FrontendMsg =
   | FrontendHandleMacros (Msg HandleMacros)
   | FrontendNameAnon (Msg NameAnon)
   | FrontendResolveBindingSpecs (Msg ResolveBindingSpec)
+  | FrontendHandleTypedefs (Msg HandleTypedefs)
   | FrontendMangleNames (Msg MangleNames)
   deriving stock (Show, Eq)
 
@@ -170,6 +172,7 @@ instance PrettyForTrace FrontendMsg where
     FrontendHandleMacros        x -> prettyForTrace x
     FrontendNameAnon            x -> prettyForTrace x
     FrontendResolveBindingSpecs x -> showToCtxDoc x -- TODO
+    FrontendHandleTypedefs      x -> prettyForTrace x
     FrontendMangleNames         x -> prettyForTrace x
 
 instance HasDefaultLogLevel FrontendMsg where
@@ -180,6 +183,7 @@ instance HasDefaultLogLevel FrontendMsg where
     FrontendHandleMacros        x -> getDefaultLogLevel x
     FrontendNameAnon            x -> getDefaultLogLevel x
     FrontendResolveBindingSpecs _ -> Error
+    FrontendHandleTypedefs      x -> getDefaultLogLevel x
     FrontendMangleNames         x -> getDefaultLogLevel x
 
 instance HasSource FrontendMsg where

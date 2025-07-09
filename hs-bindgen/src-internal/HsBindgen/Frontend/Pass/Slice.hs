@@ -9,16 +9,15 @@ import Data.Set qualified as Set
 
 import Clang.HighLevel.Types (SingleLoc (singleLocPath))
 import HsBindgen.C.Predicate (IsMainFile)
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph,
-                                                 getTransitiveDeps)
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
+import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls, insert)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta (declNonSelected, declUsage),
-                                            Sort)
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Language.C.Name qualified as C
 
 sliceDecls ::
@@ -37,7 +36,7 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
   -- transitive dependencies.
   EnableProgramSlicing ->
     let useDeclGraph :: UseDeclGraph
-        useDeclGraph = declUsage $ C.unitAnn $ unitSlice
+        useDeclGraph = declUseDecl $ C.unitAnn $ unitSlice
 
         decls :: [C.Decl Slice]
         decls = C.unitDecls unitSlice
@@ -46,7 +45,7 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
         mainDecls = filter (isMainFile . C.declLoc . C.declInfo) decls
 
         getTransitives :: C.Decl Slice -> Set QualDeclId
-        getTransitives = getTransitiveDeps useDeclGraph . declQualDeclId
+        getTransitives = UseDeclGraph.getTransitiveDeps useDeclGraph . declQualDeclId
 
         transitiveDeps :: Set QualDeclId
         transitiveDeps = Foldable.fold $ map getTransitives mainDecls

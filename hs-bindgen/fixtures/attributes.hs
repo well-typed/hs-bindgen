@@ -1703,15 +1703,15 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "C__SFILE",
+        "FILE",
       structConstr = HsName
         "@NsConstr"
-        "C__SFILE",
+        "FILE",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "__sFILE__r",
+            "fILE__r",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
@@ -1721,7 +1721,7 @@
               structFieldName = NamePair {
                 nameC = CName "_r",
                 nameHsIdent = HsIdentifier
-                  "__sFILE__r"},
+                  "fILE__r"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
@@ -1729,7 +1729,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "__sFILE__w",
+            "fILE__w",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
@@ -1739,7 +1739,7 @@
               structFieldName = NamePair {
                 nameC = CName "_w",
                 nameHsIdent = HsIdentifier
-                  "__sFILE__w"},
+                  "fILE__w"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
@@ -1747,7 +1747,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "__sFILE__close",
+            "fILE__close",
           fieldType = HsFunPtr
             (HsFun
               (HsPtr (HsPrimType HsPrimVoid))
@@ -1759,7 +1759,7 @@
               structFieldName = NamePair {
                 nameC = CName "_close",
                 nameHsIdent = HsIdentifier
-                  "__sFILE__close"},
+                  "fILE__close"},
               structFieldType = TypePointer
                 (TypeFun
                   [TypePointer TypeVoid]
@@ -1772,16 +1772,18 @@
           declInfo = DeclInfo {
             declLoc = "attributes.h:34:16",
             declId = NamePair {
-              nameC = CName "__sFILE",
+              nameC = CName "FILE",
               nameHsIdent = HsIdentifier
-                "C__SFILE"},
-            declOrigin = NameOriginInSource,
+                "FILE"},
+            declOrigin =
+            NameOriginRenamedFrom
+              (CName "__sFILE"),
             declAliases = [CName "FILE"],
             declHeader = "attributes.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "C__SFILE"),
+                (HsName "@NsConstr" "FILE"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -1791,7 +1793,7 @@
                   structFieldName = NamePair {
                     nameC = CName "_r",
                     nameHsIdent = HsIdentifier
-                      "__sFILE__r"},
+                      "fILE__r"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
@@ -1802,7 +1804,7 @@
                   structFieldName = NamePair {
                     nameC = CName "_w",
                     nameHsIdent = HsIdentifier
-                      "__sFILE__w"},
+                      "fILE__w"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
@@ -1813,7 +1815,7 @@
                   structFieldName = NamePair {
                     nameC = CName "_close",
                     nameHsIdent = HsIdentifier
-                      "__sFILE__close"},
+                      "fILE__close"},
                   structFieldType = TypePointer
                     (TypeFun
                       [TypePointer TypeVoid]
@@ -1835,15 +1837,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "C__SFILE",
+          "FILE",
         structConstr = HsName
           "@NsConstr"
-          "C__SFILE",
+          "FILE",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "__sFILE__r",
+              "fILE__r",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
@@ -1853,7 +1855,7 @@
                 structFieldName = NamePair {
                   nameC = CName "_r",
                   nameHsIdent = HsIdentifier
-                    "__sFILE__r"},
+                    "fILE__r"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
@@ -1861,7 +1863,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "__sFILE__w",
+              "fILE__w",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
@@ -1871,7 +1873,7 @@
                 structFieldName = NamePair {
                   nameC = CName "_w",
                   nameHsIdent = HsIdentifier
-                    "__sFILE__w"},
+                    "fILE__w"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
@@ -1879,7 +1881,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "__sFILE__close",
+              "fILE__close",
             fieldType = HsFunPtr
               (HsFun
                 (HsPtr (HsPrimType HsPrimVoid))
@@ -1891,7 +1893,7 @@
                 structFieldName = NamePair {
                   nameC = CName "_close",
                   nameHsIdent = HsIdentifier
-                    "__sFILE__close"},
+                    "fILE__close"},
                 structFieldType = TypePointer
                   (TypeFun
                     [TypePointer TypeVoid]
@@ -1904,16 +1906,18 @@
             declInfo = DeclInfo {
               declLoc = "attributes.h:34:16",
               declId = NamePair {
-                nameC = CName "__sFILE",
+                nameC = CName "FILE",
                 nameHsIdent = HsIdentifier
-                  "C__SFILE"},
-              declOrigin = NameOriginInSource,
+                  "FILE"},
+              declOrigin =
+              NameOriginRenamedFrom
+                (CName "__sFILE"),
               declAliases = [CName "FILE"],
               declHeader = "attributes.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
-                  (HsName "@NsConstr" "C__SFILE"),
+                  (HsName "@NsConstr" "FILE"),
                 structSizeof = 16,
                 structAlignment = 8,
                 structFields = [
@@ -1923,7 +1927,7 @@
                     structFieldName = NamePair {
                       nameC = CName "_r",
                       nameHsIdent = HsIdentifier
-                        "__sFILE__r"},
+                        "fILE__r"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
@@ -1934,7 +1938,7 @@
                     structFieldName = NamePair {
                       nameC = CName "_w",
                       nameHsIdent = HsIdentifier
-                        "__sFILE__w"},
+                        "fILE__w"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
@@ -1945,7 +1949,7 @@
                     structFieldName = NamePair {
                       nameC = CName "_close",
                       nameHsIdent = HsIdentifier
-                        "__sFILE__close"},
+                        "fILE__close"},
                     structFieldType = TypePointer
                       (TypeFun
                         [TypePointer TypeVoid]
@@ -1972,15 +1976,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "C__SFILE",
+                  "FILE",
                 structConstr = HsName
                   "@NsConstr"
-                  "C__SFILE",
+                  "FILE",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "__sFILE__r",
+                      "fILE__r",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -1990,7 +1994,7 @@
                         structFieldName = NamePair {
                           nameC = CName "_r",
                           nameHsIdent = HsIdentifier
-                            "__sFILE__r"},
+                            "fILE__r"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -1998,7 +2002,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "__sFILE__w",
+                      "fILE__w",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -2008,7 +2012,7 @@
                         structFieldName = NamePair {
                           nameC = CName "_w",
                           nameHsIdent = HsIdentifier
-                            "__sFILE__w"},
+                            "fILE__w"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
@@ -2016,7 +2020,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "__sFILE__close",
+                      "fILE__close",
                     fieldType = HsFunPtr
                       (HsFun
                         (HsPtr (HsPrimType HsPrimVoid))
@@ -2028,7 +2032,7 @@
                         structFieldName = NamePair {
                           nameC = CName "_close",
                           nameHsIdent = HsIdentifier
-                            "__sFILE__close"},
+                            "fILE__close"},
                         structFieldType = TypePointer
                           (TypeFun
                             [TypePointer TypeVoid]
@@ -2041,16 +2045,18 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:34:16",
                       declId = NamePair {
-                        nameC = CName "__sFILE",
+                        nameC = CName "FILE",
                         nameHsIdent = HsIdentifier
-                          "C__SFILE"},
-                      declOrigin = NameOriginInSource,
+                          "FILE"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "__sFILE"),
                       declAliases = [CName "FILE"],
                       declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
-                          (HsName "@NsConstr" "C__SFILE"),
+                          (HsName "@NsConstr" "FILE"),
                         structSizeof = 16,
                         structAlignment = 8,
                         structFields = [
@@ -2060,7 +2066,7 @@
                             structFieldName = NamePair {
                               nameC = CName "_r",
                               nameHsIdent = HsIdentifier
-                                "__sFILE__r"},
+                                "fILE__r"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
@@ -2071,7 +2077,7 @@
                             structFieldName = NamePair {
                               nameC = CName "_w",
                               nameHsIdent = HsIdentifier
-                                "__sFILE__w"},
+                                "fILE__w"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
@@ -2082,7 +2088,7 @@
                             structFieldName = NamePair {
                               nameC = CName "_close",
                               nameHsIdent = HsIdentifier
-                                "__sFILE__close"},
+                                "fILE__close"},
                             structFieldType = TypePointer
                               (TypeFun
                                 [TypePointer TypeVoid]
@@ -2112,15 +2118,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "C__SFILE",
+                  "FILE",
                 structConstr = HsName
                   "@NsConstr"
-                  "C__SFILE",
+                  "FILE",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "__sFILE__r",
+                      "fILE__r",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -2130,7 +2136,7 @@
                         structFieldName = NamePair {
                           nameC = CName "_r",
                           nameHsIdent = HsIdentifier
-                            "__sFILE__r"},
+                            "fILE__r"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
@@ -2138,7 +2144,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "__sFILE__w",
+                      "fILE__w",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -2148,7 +2154,7 @@
                         structFieldName = NamePair {
                           nameC = CName "_w",
                           nameHsIdent = HsIdentifier
-                            "__sFILE__w"},
+                            "fILE__w"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
@@ -2156,7 +2162,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "__sFILE__close",
+                      "fILE__close",
                     fieldType = HsFunPtr
                       (HsFun
                         (HsPtr (HsPrimType HsPrimVoid))
@@ -2168,7 +2174,7 @@
                         structFieldName = NamePair {
                           nameC = CName "_close",
                           nameHsIdent = HsIdentifier
-                            "__sFILE__close"},
+                            "fILE__close"},
                         structFieldType = TypePointer
                           (TypeFun
                             [TypePointer TypeVoid]
@@ -2181,16 +2187,18 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:34:16",
                       declId = NamePair {
-                        nameC = CName "__sFILE",
+                        nameC = CName "FILE",
                         nameHsIdent = HsIdentifier
-                          "C__SFILE"},
-                      declOrigin = NameOriginInSource,
+                          "FILE"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "__sFILE"),
                       declAliases = [CName "FILE"],
                       declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
-                          (HsName "@NsConstr" "C__SFILE"),
+                          (HsName "@NsConstr" "FILE"),
                         structSizeof = 16,
                         structAlignment = 8,
                         structFields = [
@@ -2200,7 +2208,7 @@
                             structFieldName = NamePair {
                               nameC = CName "_r",
                               nameHsIdent = HsIdentifier
-                                "__sFILE__r"},
+                                "fILE__r"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
@@ -2211,7 +2219,7 @@
                             structFieldName = NamePair {
                               nameC = CName "_w",
                               nameHsIdent = HsIdentifier
-                                "__sFILE__w"},
+                                "fILE__w"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
@@ -2222,7 +2230,7 @@
                             structFieldName = NamePair {
                               nameC = CName "_close",
                               nameHsIdent = HsIdentifier
-                                "__sFILE__close"},
+                                "fILE__close"},
                             structFieldType = TypePointer
                               (TypeFun
                                 [TypePointer TypeVoid]
@@ -2251,74 +2259,8 @@
   DeclNewtypeInstance
     DeriveStock
     Show
-    (HsName
-      "@NsTypeConstr"
-      "C__SFILE"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "C__SFILE"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "FILE",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "FILE",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_FILE",
-        fieldType = HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "C__SFILE"),
-        fieldOrigin = GeneratedField},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc = "attributes.h:38:3",
-          declId = NamePair {
-            nameC = CName "FILE",
-            nameHsIdent = HsIdentifier
-              "FILE"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader = "attributes.h"},
-        declKind = Typedef
-          Typedef {
-            typedefNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "FILE",
-              newtypeField = HsName
-                "@NsVar"
-                "un_FILE"},
-            typedefType = TypeStruct
-              NamePair {
-                nameC = CName "__sFILE",
-                nameHsIdent = HsIdentifier
-                  "C__SFILE"}
-              NameOriginInSource},
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
     (HsName "@NsTypeConstr" "FILE"),
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName "@NsTypeConstr" "FILE"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
     (HsName "@NsTypeConstr" "FILE")]

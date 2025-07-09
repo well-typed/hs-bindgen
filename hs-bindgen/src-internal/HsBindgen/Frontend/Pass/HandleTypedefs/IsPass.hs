@@ -12,6 +12,9 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.C
+import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint qualified as PP
+import HsBindgen.Frontend.Pass.Parse.IsPass
 
 {-------------------------------------------------------------------------------
   Pass definition
@@ -32,7 +35,11 @@ instance IsPass HandleTypedefs where
   type MacroBody  HandleTypedefs = C.CheckedMacro HandleTypedefs
   type ExtBinding HandleTypedefs = ResolvedExtBinding
   type Ann ix     HandleTypedefs = AnnHandleTypedefs ix
-  data Msg        HandleTypedefs = NoMsg
+
+  data Msg HandleTypedefs =
+      SquashedTypedef (C.DeclInfo HandleTypedefs)
+    | RenamedTagged (C.DeclInfo HandleTypedefs) CName
+    deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Annotations
@@ -68,3 +75,25 @@ data RenamedTypedefRef p =
     -- the reference with.
   | TypedefSquashed CName (C.Type p)
   deriving stock (Show, Eq, Generic)
+
+{-------------------------------------------------------------------------------
+  Trace messages
+-------------------------------------------------------------------------------}
+
+instance PrettyForTrace (Msg HandleTypedefs) where
+  prettyForTrace = \case
+      SquashedTypedef info -> PP.hsep [
+          "Squashed typedef"
+        , prettyForTrace info
+        ]
+      RenamedTagged info newName -> PP.hsep [
+          "Renamed"
+        , prettyForTrace info
+        , "to"
+        , prettyForTrace newName
+        ]
+
+instance HasDefaultLogLevel (Msg HandleTypedefs) where
+  getDefaultLogLevel = \case
+      SquashedTypedef{} -> Info
+      RenamedTagged{}   -> Info

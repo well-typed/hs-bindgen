@@ -5,10 +5,12 @@ TranslationUnit {
         declLoc =
         "recursive_struct.h:1:16",
         declId = NamePair {
-          nameC = CName "linked_list_A_s",
+          nameC = CName "linked_list_A_t",
           nameHsIdent = HsIdentifier
-            "Linked_list_A_s"},
-        declOrigin = NameOriginInSource,
+            "Linked_list_A_t"},
+        declOrigin =
+        NameOriginRenamedFrom
+          (CName "linked_list_A_s"),
         declAliases = [
           CName "linked_list_A_t"],
         declHeader =
@@ -18,7 +20,7 @@ TranslationUnit {
           structNames = RecordNames
             (HsName
               "@NsConstr"
-              "Linked_list_A_s"),
+              "Linked_list_A_t"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -28,7 +30,7 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "x",
                 nameHsIdent = HsIdentifier
-                  "linked_list_A_s_x"},
+                  "linked_list_A_t_x"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
@@ -39,50 +41,18 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "next",
                 nameHsIdent = HsIdentifier
-                  "linked_list_A_s_next"},
+                  "linked_list_A_t_next"},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
-                    nameC = CName "linked_list_A_s",
+                    nameC = CName "linked_list_A_t",
                     nameHsIdent = HsIdentifier
-                      "Linked_list_A_s"}
-                  NameOriginInSource),
+                      "Linked_list_A_t"}
+                  (NameOriginRenamedFrom
+                    (CName "linked_list_A_s"))),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "recursive_struct.h:4:3",
-        declId = NamePair {
-          nameC = CName "linked_list_A_t",
-          nameHsIdent = HsIdentifier
-            "Linked_list_A_t"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader =
-        "recursive_struct.h"},
-      declKind = DeclTypedef
-        Typedef {
-          typedefNames = NewtypeNames {
-            newtypeConstr = HsName
-              "@NsConstr"
-              "Linked_list_A_t",
-            newtypeField = HsName
-              "@NsVar"
-              "un_Linked_list_A_t"},
-          typedefType = TypeStruct
-            NamePair {
-              nameC = CName "linked_list_A_s",
-              nameHsIdent = HsIdentifier
-                "Linked_list_A_s"}
-            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

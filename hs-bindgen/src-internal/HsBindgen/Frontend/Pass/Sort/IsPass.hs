@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.Sort.IsPass (
   ) where
 
 import HsBindgen.Frontend.Analysis.DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
@@ -48,7 +49,8 @@ instance IsPass Sort where
 
 data DeclMeta = DeclMeta {
       declIndex       :: DeclIndex
-    , declUsage       :: UseDeclGraph
+    , declUseDecl     :: UseDeclGraph
+    , declDeclUse     :: DeclUseGraph
     , declNonSelected :: NonSelectedDecls
     }
   deriving stock (Show, Eq)

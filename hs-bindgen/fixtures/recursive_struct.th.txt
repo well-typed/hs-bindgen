@@ -1,19 +1,15 @@
 -- addDependentFile examples/golden/recursive_struct.h
-data Linked_list_A_s
-    = Linked_list_A_s {linked_list_A_s_x :: CInt,
-                       linked_list_A_s_next :: (Ptr Linked_list_A_s)}
+data Linked_list_A_t
+    = Linked_list_A_t {linked_list_A_t_x :: CInt,
+                       linked_list_A_t_next :: (Ptr Linked_list_A_t)}
     deriving stock (Eq, Show)
-instance Storable Linked_list_A_s
+instance Storable Linked_list_A_t
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure Linked_list_A_s <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           peek = \ptr_0 -> (pure Linked_list_A_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Linked_list_A_s linked_list_A_s_x_3
-                                                     linked_list_A_s_next_4 -> pokeByteOff ptr_1 (0 :: Int) linked_list_A_s_x_3 >> pokeByteOff ptr_1 (8 :: Int) linked_list_A_s_next_4}}
-newtype Linked_list_A_t
-    = Linked_list_A_t {un_Linked_list_A_t :: Linked_list_A_s}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
+                                    {Linked_list_A_t linked_list_A_t_x_3
+                                                     linked_list_A_t_next_4 -> pokeByteOff ptr_1 (0 :: Int) linked_list_A_t_x_3 >> pokeByteOff ptr_1 (8 :: Int) linked_list_A_t_next_4}}
 data Linked_list_B_t
     = Linked_list_B_t {linked_list_B_t_x :: CInt,
                        linked_list_B_t_next :: (Ptr Linked_list_B_t)}

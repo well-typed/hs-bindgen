@@ -55,17 +55,19 @@ TranslationUnit {
         declLoc =
         "simple_structs.h:8:16",
         declId = NamePair {
-          nameC = CName "S2",
+          nameC = CName "S2_t",
           nameHsIdent = HsIdentifier
-            "S2"},
-        declOrigin = NameOriginInSource,
+            "S2_t"},
+        declOrigin =
+        NameOriginRenamedFrom
+          (CName "S2"),
         declAliases = [CName "S2_t"],
         declHeader =
         "simple_structs.h"},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "S2"),
+            (HsName "@NsConstr" "S2_t"),
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -75,7 +77,7 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "a",
                 nameHsIdent = HsIdentifier
-                  "s2_a"},
+                  "s2_t_a"},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
@@ -88,7 +90,7 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "b",
                 nameHsIdent = HsIdentifier
-                  "s2_b"},
+                  "s2_t_b"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
@@ -99,44 +101,12 @@ TranslationUnit {
               structFieldName = NamePair {
                 nameC = CName "c",
                 nameHsIdent = HsIdentifier
-                  "s2_c"},
+                  "s2_t_c"},
               structFieldType = TypePrim
                 (PrimFloating PrimFloat),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "simple_structs.h:12:3",
-        declId = NamePair {
-          nameC = CName "S2_t",
-          nameHsIdent = HsIdentifier
-            "S2_t"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader =
-        "simple_structs.h"},
-      declKind = DeclTypedef
-        Typedef {
-          typedefNames = NewtypeNames {
-            newtypeConstr = HsName
-              "@NsConstr"
-              "S2_t",
-            newtypeField = HsName
-              "@NsVar"
-              "un_S2_t"},
-          typedefType = TypeStruct
-            NamePair {
-              nameC = CName "S2",
-              nameHsIdent = HsIdentifier "S2"}
-            NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

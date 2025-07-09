@@ -39,20 +39,16 @@ instance Storable Qux
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Qux qux_c_3
                                          qux_i_4 -> pokeByteOff ptr_1 (0 :: Int) qux_c_3 >> pokeByteOff ptr_1 (1 :: Int) qux_i_4}}
-data C__SFILE
-    = C__SFILE {__sFILE__r :: CInt,
-                __sFILE__w :: CInt,
-                __sFILE__close :: (FunPtr (Ptr Void -> IO CInt))}
+data FILE
+    = FILE {fILE__r :: CInt,
+            fILE__w :: CInt,
+            fILE__close :: (FunPtr (Ptr Void -> IO CInt))}
     deriving stock (Eq, Show)
-instance Storable C__SFILE
+instance Storable FILE
     where {sizeOf = \_ -> 16 :: Int;
            alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> ((pure C__SFILE <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           peek = \ptr_0 -> ((pure FILE <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {C__SFILE __sFILE__r_3
-                                              __sFILE__w_4
-                                              __sFILE__close_5 -> pokeByteOff ptr_1 (0 :: Int) __sFILE__r_3 >> (pokeByteOff ptr_1 (4 :: Int) __sFILE__w_4 >> pokeByteOff ptr_1 (8 :: Int) __sFILE__close_5)}}
-newtype FILE
-    = FILE {un_FILE :: C__SFILE}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
+                                    {FILE fILE__r_3
+                                          fILE__w_4
+                                          fILE__close_5 -> pokeByteOff ptr_1 (0 :: Int) fILE__r_3 >> (pokeByteOff ptr_1 (4 :: Int) fILE__w_4 >> pokeByteOff ptr_1 (8 :: Int) fILE__close_5)}}

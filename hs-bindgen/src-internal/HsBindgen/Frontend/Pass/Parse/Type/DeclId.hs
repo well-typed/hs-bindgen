@@ -17,6 +17,7 @@ import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Identity
@@ -67,6 +68,18 @@ getDeclId curr = do
 instance PrettyForTrace DeclId where
   prettyForTrace (DeclNamed name)   = prettyForTrace name
   prettyForTrace (DeclAnon  anonId) = prettyForTrace anonId
+
+instance PrettyForTrace (C.Located DeclId) where
+  prettyForTrace (C.Located loc declId) =
+      case declId of
+        DeclNamed name -> PP.hcat [
+            prettyForTrace name
+          , " at "
+          , PP.showToCtxDoc loc
+          ]
+        DeclAnon anonId ->
+          -- No need to repeat the source location in this case
+          prettyForTrace anonId
 
 -- | Qualified declaration identity
 data QualDeclId = QualDeclId DeclId C.NameKind

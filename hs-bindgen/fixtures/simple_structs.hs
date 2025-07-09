@@ -434,15 +434,15 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "S2",
+        "S2_t",
       structConstr = HsName
         "@NsConstr"
-        "S2",
+        "S2_t",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "s2_a",
+            "s2_t_a",
           fieldType = HsPrimType
             HsPrimCChar,
           fieldOrigin = StructField
@@ -452,7 +452,7 @@
               structFieldName = NamePair {
                 nameC = CName "a",
                 nameHsIdent = HsIdentifier
-                  "s2_a"},
+                  "s2_t_a"},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
@@ -462,7 +462,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "s2_b",
+            "s2_t_b",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
@@ -472,7 +472,7 @@
               structFieldName = NamePair {
                 nameC = CName "b",
                 nameHsIdent = HsIdentifier
-                  "s2_b"},
+                  "s2_t_b"},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
@@ -480,7 +480,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "s2_c",
+            "s2_t_c",
           fieldType = HsPrimType
             HsPrimCFloat,
           fieldOrigin = StructField
@@ -490,7 +490,7 @@
               structFieldName = NamePair {
                 nameC = CName "c",
                 nameHsIdent = HsIdentifier
-                  "s2_c"},
+                  "s2_t_c"},
               structFieldType = TypePrim
                 (PrimFloating PrimFloat),
               structFieldOffset = 64,
@@ -501,17 +501,19 @@
             declLoc =
             "simple_structs.h:8:16",
             declId = NamePair {
-              nameC = CName "S2",
+              nameC = CName "S2_t",
               nameHsIdent = HsIdentifier
-                "S2"},
-            declOrigin = NameOriginInSource,
+                "S2_t"},
+            declOrigin =
+            NameOriginRenamedFrom
+              (CName "S2"),
             declAliases = [CName "S2_t"],
             declHeader =
             "simple_structs.h"},
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "S2"),
+                (HsName "@NsConstr" "S2_t"),
               structSizeof = 12,
               structAlignment = 4,
               structFields = [
@@ -521,7 +523,7 @@
                   structFieldName = NamePair {
                     nameC = CName "a",
                     nameHsIdent = HsIdentifier
-                      "s2_a"},
+                      "s2_t_a"},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -534,7 +536,7 @@
                   structFieldName = NamePair {
                     nameC = CName "b",
                     nameHsIdent = HsIdentifier
-                      "s2_b"},
+                      "s2_t_b"},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
@@ -545,7 +547,7 @@
                   structFieldName = NamePair {
                     nameC = CName "c",
                     nameHsIdent = HsIdentifier
-                      "s2_c"},
+                      "s2_t_c"},
                   structFieldType = TypePrim
                     (PrimFloating PrimFloat),
                   structFieldOffset = 64,
@@ -564,15 +566,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "S2",
+          "S2_t",
         structConstr = HsName
           "@NsConstr"
-          "S2",
+          "S2_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "s2_a",
+              "s2_t_a",
             fieldType = HsPrimType
               HsPrimCChar,
             fieldOrigin = StructField
@@ -582,7 +584,7 @@
                 structFieldName = NamePair {
                   nameC = CName "a",
                   nameHsIdent = HsIdentifier
-                    "s2_a"},
+                    "s2_t_a"},
                 structFieldType = TypePrim
                   (PrimChar
                     (PrimSignImplicit
@@ -592,7 +594,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "s2_b",
+              "s2_t_b",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = StructField
@@ -602,7 +604,7 @@
                 structFieldName = NamePair {
                   nameC = CName "b",
                   nameHsIdent = HsIdentifier
-                    "s2_b"},
+                    "s2_t_b"},
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
@@ -610,7 +612,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "s2_c",
+              "s2_t_c",
             fieldType = HsPrimType
               HsPrimCFloat,
             fieldOrigin = StructField
@@ -620,7 +622,7 @@
                 structFieldName = NamePair {
                   nameC = CName "c",
                   nameHsIdent = HsIdentifier
-                    "s2_c"},
+                    "s2_t_c"},
                 structFieldType = TypePrim
                   (PrimFloating PrimFloat),
                 structFieldOffset = 64,
@@ -631,17 +633,19 @@
               declLoc =
               "simple_structs.h:8:16",
               declId = NamePair {
-                nameC = CName "S2",
+                nameC = CName "S2_t",
                 nameHsIdent = HsIdentifier
-                  "S2"},
-              declOrigin = NameOriginInSource,
+                  "S2_t"},
+              declOrigin =
+              NameOriginRenamedFrom
+                (CName "S2"),
               declAliases = [CName "S2_t"],
               declHeader =
               "simple_structs.h"},
             declKind = Struct
               Struct {
                 structNames = RecordNames
-                  (HsName "@NsConstr" "S2"),
+                  (HsName "@NsConstr" "S2_t"),
                 structSizeof = 12,
                 structAlignment = 4,
                 structFields = [
@@ -651,7 +655,7 @@
                     structFieldName = NamePair {
                       nameC = CName "a",
                       nameHsIdent = HsIdentifier
-                        "s2_a"},
+                        "s2_t_a"},
                     structFieldType = TypePrim
                       (PrimChar
                         (PrimSignImplicit
@@ -664,7 +668,7 @@
                     structFieldName = NamePair {
                       nameC = CName "b",
                       nameHsIdent = HsIdentifier
-                        "s2_b"},
+                        "s2_t_b"},
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
@@ -675,7 +679,7 @@
                     structFieldName = NamePair {
                       nameC = CName "c",
                       nameHsIdent = HsIdentifier
-                        "s2_c"},
+                        "s2_t_c"},
                     structFieldType = TypePrim
                       (PrimFloating PrimFloat),
                     structFieldOffset = 64,
@@ -699,15 +703,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "S2",
+                  "S2_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "S2",
+                  "S2_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s2_a",
+                      "s2_t_a",
                     fieldType = HsPrimType
                       HsPrimCChar,
                     fieldOrigin = StructField
@@ -717,7 +721,7 @@
                         structFieldName = NamePair {
                           nameC = CName "a",
                           nameHsIdent = HsIdentifier
-                            "s2_a"},
+                            "s2_t_a"},
                         structFieldType = TypePrim
                           (PrimChar
                             (PrimSignImplicit
@@ -727,7 +731,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s2_b",
+                      "s2_t_b",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -737,7 +741,7 @@
                         structFieldName = NamePair {
                           nameC = CName "b",
                           nameHsIdent = HsIdentifier
-                            "s2_b"},
+                            "s2_t_b"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
@@ -745,7 +749,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s2_c",
+                      "s2_t_c",
                     fieldType = HsPrimType
                       HsPrimCFloat,
                     fieldOrigin = StructField
@@ -755,7 +759,7 @@
                         structFieldName = NamePair {
                           nameC = CName "c",
                           nameHsIdent = HsIdentifier
-                            "s2_c"},
+                            "s2_t_c"},
                         structFieldType = TypePrim
                           (PrimFloating PrimFloat),
                         structFieldOffset = 64,
@@ -766,17 +770,19 @@
                       declLoc =
                       "simple_structs.h:8:16",
                       declId = NamePair {
-                        nameC = CName "S2",
+                        nameC = CName "S2_t",
                         nameHsIdent = HsIdentifier
-                          "S2"},
-                      declOrigin = NameOriginInSource,
+                          "S2_t"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "S2"),
                       declAliases = [CName "S2_t"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
-                          (HsName "@NsConstr" "S2"),
+                          (HsName "@NsConstr" "S2_t"),
                         structSizeof = 12,
                         structAlignment = 4,
                         structFields = [
@@ -786,7 +792,7 @@
                             structFieldName = NamePair {
                               nameC = CName "a",
                               nameHsIdent = HsIdentifier
-                                "s2_a"},
+                                "s2_t_a"},
                             structFieldType = TypePrim
                               (PrimChar
                                 (PrimSignImplicit
@@ -799,7 +805,7 @@
                             structFieldName = NamePair {
                               nameC = CName "b",
                               nameHsIdent = HsIdentifier
-                                "s2_b"},
+                                "s2_t_b"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
@@ -810,7 +816,7 @@
                             structFieldName = NamePair {
                               nameC = CName "c",
                               nameHsIdent = HsIdentifier
-                                "s2_c"},
+                                "s2_t_c"},
                             structFieldType = TypePrim
                               (PrimFloating PrimFloat),
                             structFieldOffset = 64,
@@ -837,15 +843,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "S2",
+                  "S2_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "S2",
+                  "S2_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s2_a",
+                      "s2_t_a",
                     fieldType = HsPrimType
                       HsPrimCChar,
                     fieldOrigin = StructField
@@ -855,7 +861,7 @@
                         structFieldName = NamePair {
                           nameC = CName "a",
                           nameHsIdent = HsIdentifier
-                            "s2_a"},
+                            "s2_t_a"},
                         structFieldType = TypePrim
                           (PrimChar
                             (PrimSignImplicit
@@ -865,7 +871,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s2_b",
+                      "s2_t_b",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = StructField
@@ -875,7 +881,7 @@
                         structFieldName = NamePair {
                           nameC = CName "b",
                           nameHsIdent = HsIdentifier
-                            "s2_b"},
+                            "s2_t_b"},
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
@@ -883,7 +889,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s2_c",
+                      "s2_t_c",
                     fieldType = HsPrimType
                       HsPrimCFloat,
                     fieldOrigin = StructField
@@ -893,7 +899,7 @@
                         structFieldName = NamePair {
                           nameC = CName "c",
                           nameHsIdent = HsIdentifier
-                            "s2_c"},
+                            "s2_t_c"},
                         structFieldType = TypePrim
                           (PrimFloating PrimFloat),
                         structFieldOffset = 64,
@@ -904,17 +910,19 @@
                       declLoc =
                       "simple_structs.h:8:16",
                       declId = NamePair {
-                        nameC = CName "S2",
+                        nameC = CName "S2_t",
                         nameHsIdent = HsIdentifier
-                          "S2"},
-                      declOrigin = NameOriginInSource,
+                          "S2_t"},
+                      declOrigin =
+                      NameOriginRenamedFrom
+                        (CName "S2"),
                       declAliases = [CName "S2_t"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
-                          (HsName "@NsConstr" "S2"),
+                          (HsName "@NsConstr" "S2_t"),
                         structSizeof = 12,
                         structAlignment = 4,
                         structFields = [
@@ -924,7 +932,7 @@
                             structFieldName = NamePair {
                               nameC = CName "a",
                               nameHsIdent = HsIdentifier
-                                "s2_a"},
+                                "s2_t_a"},
                             structFieldType = TypePrim
                               (PrimChar
                                 (PrimSignImplicit
@@ -937,7 +945,7 @@
                             structFieldName = NamePair {
                               nameC = CName "b",
                               nameHsIdent = HsIdentifier
-                                "s2_b"},
+                                "s2_t_b"},
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
@@ -948,7 +956,7 @@
                             structFieldName = NamePair {
                               nameC = CName "c",
                               nameHsIdent = HsIdentifier
-                                "s2_c"},
+                                "s2_t_c"},
                             structFieldType = TypePrim
                               (PrimFloating PrimFloat),
                             structFieldOffset = 64,
@@ -974,71 +982,10 @@
   DeclNewtypeInstance
     DeriveStock
     Show
-    (HsName "@NsTypeConstr" "S2"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "S2"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "S2_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "S2_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_S2_t",
-        fieldType = HsTypRef
-          (HsName "@NsTypeConstr" "S2"),
-        fieldOrigin = GeneratedField},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "simple_structs.h:12:3",
-          declId = NamePair {
-            nameC = CName "S2_t",
-            nameHsIdent = HsIdentifier
-              "S2_t"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader =
-          "simple_structs.h"},
-        declKind = Typedef
-          Typedef {
-            typedefNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "S2_t",
-              newtypeField = HsName
-                "@NsVar"
-                "un_S2_t"},
-            typedefType = TypeStruct
-              NamePair {
-                nameC = CName "S2",
-                nameHsIdent = HsIdentifier "S2"}
-              NameOriginInSource},
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
     (HsName "@NsTypeConstr" "S2_t"),
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName "@NsTypeConstr" "S2_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
     (HsName "@NsTypeConstr" "S2_t"),
   DeclData
     Struct {

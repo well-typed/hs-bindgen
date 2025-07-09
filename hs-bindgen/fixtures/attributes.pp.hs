@@ -1,5 +1,4 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
 module Example where
@@ -113,14 +112,14 @@ instance F.Storable Qux where
                F.pokeByteOff ptr0 (0 :: Int) qux_c2
             >> F.pokeByteOff ptr0 (1 :: Int) qux_i3
 
-data C__SFILE = C__SFILE
-  { __sFILE__r :: FC.CInt
-  , __sFILE__w :: FC.CInt
-  , __sFILE__close :: F.FunPtr ((F.Ptr Void) -> IO FC.CInt)
+data FILE = FILE
+  { fILE__r :: FC.CInt
+  , fILE__w :: FC.CInt
+  , fILE__close :: F.FunPtr ((F.Ptr Void) -> IO FC.CInt)
   }
   deriving stock (Eq, Show)
 
-instance F.Storable C__SFILE where
+instance F.Storable FILE where
 
   sizeOf = \_ -> (16 :: Int)
 
@@ -128,7 +127,7 @@ instance F.Storable C__SFILE where
 
   peek =
     \ptr0 ->
-          pure C__SFILE
+          pure FILE
       <*> F.peekByteOff ptr0 (0 :: Int)
       <*> F.peekByteOff ptr0 (4 :: Int)
       <*> F.peekByteOff ptr0 (8 :: Int)
@@ -137,13 +136,7 @@ instance F.Storable C__SFILE where
     \ptr0 ->
       \s1 ->
         case s1 of
-          C__SFILE __sFILE__r2 __sFILE__w3 __sFILE__close4 ->
-               F.pokeByteOff ptr0 (0 :: Int) __sFILE__r2
-            >> F.pokeByteOff ptr0 (4 :: Int) __sFILE__w3
-            >> F.pokeByteOff ptr0 (8 :: Int) __sFILE__close4
-
-newtype FILE = FILE
-  { un_FILE :: C__SFILE
-  }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+          FILE fILE__r2 fILE__w3 fILE__close4 ->
+               F.pokeByteOff ptr0 (0 :: Int) fILE__r2
+            >> F.pokeByteOff ptr0 (4 :: Int) fILE__w3
+            >> F.pokeByteOff ptr0 (8 :: Int) fILE__close4

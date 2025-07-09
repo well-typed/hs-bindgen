@@ -28,6 +28,7 @@ module HsBindgen.Frontend.AST.Internal (
   , Type(..)
     -- * Show
   , ValidPass
+  , Located(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -41,6 +42,8 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -339,3 +342,26 @@ deriving stock instance ValidPass p => Eq (Type             p)
 deriving stock instance ValidPass p => Eq (Typedef          p)
 deriving stock instance ValidPass p => Eq (Union            p)
 deriving stock instance ValidPass p => Eq (UnionField       p)
+
+{-------------------------------------------------------------------------------
+  Pretty-printing
+-------------------------------------------------------------------------------}
+
+-- | Indirection for 'PrettyForTrace' instance for 'DeclInfo'
+--
+-- By introducting this auxiliary type, used in the 'PrettyForTrace' instance
+-- for 'DeclInfo', we can define a single 'PrettyForTrace' instance for
+-- ('Located' 'C.Name'), which then applies to many passes, while at the time
+-- other instances for passes where 'Id' is /not/ 'CName' also remains possible.
+data Located a = Located SingleLoc a
+
+instance PrettyForTrace (Located (Id p)) => PrettyForTrace (DeclInfo p) where
+  prettyForTrace DeclInfo{declId, declLoc} =
+      prettyForTrace $ Located declLoc declId
+
+instance PrettyForTrace (Located C.CName) where
+  prettyForTrace (Located loc name) = PP.hsep [
+        prettyForTrace name
+      , "at"
+      , PP.showToCtxDoc loc
+      ]

@@ -2505,14 +2505,14 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
-        "EnumD",
+        "EnumD_t",
       newtypeConstr = HsName
         "@NsConstr"
-        "EnumD",
+        "EnumD_t",
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "un_EnumD",
+          "un_EnumD_t",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = GeneratedField},
@@ -2520,10 +2520,12 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:37:6",
           declId = NamePair {
-            nameC = CName "enumD",
+            nameC = CName "enumD_t",
             nameHsIdent = HsIdentifier
-              "EnumD"},
-          declOrigin = NameOriginInSource,
+              "EnumD_t"},
+          declOrigin =
+          NameOriginRenamedFrom
+            (CName "enumD"),
           declAliases = [CName "enumD_t"],
           declHeader = "enums.h"},
         declKind = Enum
@@ -2531,10 +2533,10 @@
             enumNames = NewtypeNames {
               newtypeConstr = HsName
                 "@NsConstr"
-                "EnumD",
+                "EnumD_t",
               newtypeField = HsName
                 "@NsVar"
-                "un_EnumD"},
+                "un_EnumD_t"},
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
@@ -2574,15 +2576,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "EnumD",
+          "EnumD_t",
         structConstr = HsName
           "@NsConstr"
-          "EnumD",
+          "EnumD_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_EnumD",
+              "un_EnumD_t",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = GeneratedField}],
@@ -2599,15 +2601,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "EnumD",
+                  "EnumD_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "EnumD",
+                  "EnumD_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "un_EnumD",
+                      "un_EnumD_t",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = GeneratedField}],
@@ -2629,15 +2631,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "EnumD",
+                  "EnumD_t",
                 structConstr = HsName
                   "@NsConstr"
-                  "EnumD",
+                  "EnumD_t",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "un_EnumD",
+                      "un_EnumD_t",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = GeneratedField}],
@@ -2656,27 +2658,27 @@
     Eq
     (HsName
       "@NsTypeConstr"
-      "EnumD"),
+      "EnumD_t"),
   DeclNewtypeInstance
     DeriveStock
     Ord
     (HsName
       "@NsTypeConstr"
-      "EnumD"),
+      "EnumD_t"),
   DeclInstance
     (InstanceCEnum
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "EnumD",
+          "EnumD_t",
         structConstr = HsName
           "@NsConstr"
-          "EnumD",
+          "EnumD_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_EnumD",
+              "un_EnumD_t",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = GeneratedField}],
@@ -2694,15 +2696,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "EnumD",
+          "EnumD_t",
         structConstr = HsName
           "@NsConstr"
-          "EnumD",
+          "EnumD_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_EnumD",
+              "un_EnumD_t",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = GeneratedField}],
@@ -2716,15 +2718,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "EnumD",
+          "EnumD_t",
         structConstr = HsName
           "@NsConstr"
-          "EnumD",
+          "EnumD_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_EnumD",
+              "un_EnumD_t",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = GeneratedField}],
@@ -2741,15 +2743,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "EnumD",
+          "EnumD_t",
         structConstr = HsName
           "@NsConstr"
-          "EnumD",
+          "EnumD_t",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "un_EnumD",
+              "un_EnumD_t",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = GeneratedField}],
@@ -2768,10 +2770,10 @@
         "D_FOO",
       patSynType = HsName
         "@NsTypeConstr"
-        "EnumD",
+        "EnumD_t",
       patSynConstr = HsName
         "@NsConstr"
-        "EnumD",
+        "EnumD_t",
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
@@ -2789,10 +2791,10 @@
         "D_BAR",
       patSynType = HsName
         "@NsTypeConstr"
-        "EnumD",
+        "EnumD_t",
       patSynConstr = HsName
         "@NsConstr"
-        "EnumD",
+        "EnumD_t",
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
@@ -2802,89 +2804,4 @@
             nameC = CName "D_BAR",
             nameHsIdent = HsIdentifier
               "D_BAR"},
-          enumConstantValue = 1}},
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "EnumD_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "EnumD_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_EnumD_t",
-        fieldType = HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "EnumD"),
-        fieldOrigin = GeneratedField},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc = "enums.h:38:20",
-          declId = NamePair {
-            nameC = CName "enumD_t",
-            nameHsIdent = HsIdentifier
-              "EnumD_t"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader = "enums.h"},
-        declKind = Typedef
-          Typedef {
-            typedefNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "EnumD_t",
-              newtypeField = HsName
-                "@NsVar"
-                "un_EnumD_t"},
-            typedefType = TypeEnum
-              NamePair {
-                nameC = CName "enumD",
-                nameHsIdent = HsIdentifier
-                  "EnumD"}
-              NameOriginInSource},
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      newtypeInstances = Set.fromList
-        [
-          Eq,
-          Ord,
-          Read,
-          Show,
-          Storable]},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "EnumD_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "EnumD_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "EnumD_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "EnumD_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "EnumD_t")]
+          enumConstantValue = 1}}]

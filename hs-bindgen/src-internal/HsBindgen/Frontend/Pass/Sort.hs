@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Pass.Sort (
   ) where
 
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -23,8 +24,8 @@ sortDecls unit@C.TranslationUnit{..} =
              unitAnn   = declMeta
            , unitDecls = map coercePass $
                            UseDeclGraph.toDecls
-                             (declIndex declMeta)
-                             (declUsage declMeta)
+                             (declIndex   declMeta)
+                             (declUseDecl declMeta)
            , ..
            }
        , declIndexErrors
@@ -33,7 +34,8 @@ sortDecls unit@C.TranslationUnit{..} =
 mkDeclMeta :: C.TranslationUnit Parse -> (DeclMeta, [Msg Sort])
 mkDeclMeta unit =
     let (declIndex, declIndexErrors) = DeclIndex.fromDecls unitDecls
-        declUsage = UseDeclGraph.fromDecls unitIncludeGraph unitDecls
+        declUseDecl = UseDeclGraph.fromDecls unitIncludeGraph unitDecls
+        declDeclUse = DeclUseGraph.fromUseDecl declUseDecl
     in ( DeclMeta{..}
        , map SortErrorDeclIndex declIndexErrors
        )
