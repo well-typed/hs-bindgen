@@ -3,14 +3,18 @@ module HsBindgen.App.Common (
     -- * Global options
     GlobalOpts(..)
   , parseGlobalOpts
+    -- * HsBindgen 'Config'
+  , parseConfig
+    -- * Clang-related options
+  , parseClangArgs
+    -- * Binding specifications
+  , BindingSpecConfig(..)
+  , parseBindingSpecConfig
     -- * Input option
   , parseInputs
     -- * Auxiliary hs-bindgen functions
-  , withTracer
   , fromMaybeWithFatalError
-  , loadExtBindingSpecs'
-  , loadPrescriptiveBindingSpec'
-  , getConfig
+  , loadBindingSpecs
   , footerWith
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -34,30 +38,20 @@ import Prettyprinter.Util (reflow)
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
-  Global options
+  Options and arguments
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      globalOptsTracerConfig            :: TracerConfig
-    , globalOptsPredicate               :: Predicate
-    , globalOptsProgramSlicing          :: ProgramSlicing
-    , globalOptsClangArgs               :: ClangArgs
-    , globalOptsStdlibSpecConf          :: StdlibBindingSpecConf
-    , globalOptsExtBindings             :: [FilePath]
-    , globalOptsPrescriptiveBindingSpec :: Maybe FilePath
+      tracerConfig :: TracerConfig
     }
   deriving stock (Show)
 
 parseGlobalOpts :: Parser GlobalOpts
-parseGlobalOpts =
-    GlobalOpts
-      <$> parseTracerConfig
-      <*> parsePredicate
-      <*> parseProgramSlicing
-      <*> parseClangArgs
-      <*> parseStdlibBindingSpecConf
-      <*> parseExtBindings
-      <*> optional parsePrescriptiveBindingSpec
+parseGlobalOpts = GlobalOpts <$> parseTracerConfig
+
+{-------------------------------------------------------------------------------
+  Tracer configuration
+-------------------------------------------------------------------------------}
 
 parseTracerConfig :: Parser TracerConfig
 parseTracerConfig =
@@ -101,53 +95,25 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
     , help "Show call stacks in traces"
     ]
 
-parsePredicate :: Parser Predicate
-parsePredicate = fmap aux . many . asum $ [
-      flag' (Right SelectAll) $ mconcat [
-          long "select-all"
-        , help "Process all elements"
-        ]
-    , fmap (Right . SelectByFileName) $ strOption $ mconcat [
-          long "select-by-filename"
-        , help "Select files with names that match PCRE"
-        , metavar "PCRE"
-        ]
-    , fmap (Left . SelectByFileName) $ strOption $ mconcat [
-          long "skip-by-filename"
-        , help "Skip files with names that match PCRE"
-        , metavar "PCRE"
-        ]
-    , fmap (Right . SelectByElementName) $ strOption $ mconcat [
-          long "select-by-element-name"
-        , help "Select elements with names that match PCRE"
-        , metavar "PCRE"
-        ]
-    , fmap (Left . SelectByElementName) $ strOption $ mconcat [
-          long "skip-by-element-name"
-        , help "Skip elements with names that match PCRE"
-        , metavar "PCRE"
-        ]
-    , flag' (Right SelectFromMainFiles) $ mconcat [
-          long "select-from-main-files"
-        , help "Only process elements from main files (default)"
-        ]
-    ]
-  where
-    defSelectFromMainFiles :: [Predicate] -> [Predicate]
-    defSelectFromMainFiles [] = [SelectFromMainFiles]
-    defSelectFromMainFiles ps = ps
-    aux :: [Either Predicate Predicate] -> Predicate
-    aux ps = uncurry mergePredicates $
-               second defSelectFromMainFiles $
-                 partitionEithers ps
+{-------------------------------------------------------------------------------
+  HsBindgen Config
+-------------------------------------------------------------------------------}
 
-parseProgramSlicing :: Parser ProgramSlicing
-parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat [
-      long "enable-program-slicing"
-    , help $ "Enable program slicing: "
-        <> "Select declarations using the selection predicate, "
-        <> "and also select their transitive dependencies"
-    ]
+parseConfig :: Parser Config
+parseConfig = Config
+    <$> parseClangArgs
+    <*> parseTranslationOpts
+    <*> parsePredicate
+    <*> parseProgramSlicing
+    <*> parseHsModuleOpts
+    <*> parseHsRenderOpts
+  where
+    parseTranslationOpts :: Parser TranslationOpts
+    parseTranslationOpts = pure def
+
+{-------------------------------------------------------------------------------
+  Clang arguments
+-------------------------------------------------------------------------------}
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs = do
@@ -271,25 +237,124 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
           Left "Target must be set using hs-bindgen --target option"
       | otherwise = Right s
 
-parseStdlibBindingSpecConf :: Parser StdlibBindingSpecConf
-parseStdlibBindingSpecConf = flag UseStdlibBindingSpec NoStdlibBindingSpec $
+{-------------------------------------------------------------------------------
+  Translation options
+-------------------------------------------------------------------------------}
+
+parseHsModuleOpts :: Parser HsModuleOpts
+parseHsModuleOpts =
+    HsModuleOpts
+      <$> strOption (mconcat [
+              help "Name of the generated Haskell module"
+            , metavar "NAME"
+            , long "module"
+            , showDefault
+            , value $ hsModuleOptsName def
+            ])
+
+{-------------------------------------------------------------------------------
+  Output options
+-------------------------------------------------------------------------------}
+
+parseHsRenderOpts :: Parser HsRenderOpts
+parseHsRenderOpts =
+    HsRenderOpts
+      <$> option auto (mconcat [
+              help "Maximum length line"
+            , long "render-line-length"
+            , showDefault
+            , value $ hsLineLength def
+            ])
+
+{-------------------------------------------------------------------------------
+  Binding specifications
+-------------------------------------------------------------------------------}
+
+data BindingSpecConfig = BindingSpecConfig {
+      stdlibSpec              :: EnableStdlibBindingSpec
+    , extBindingSpecs         :: [FilePath]
+    , prescriptiveBindingSpec :: Maybe FilePath
+    }
+  deriving stock (Show)
+
+parseBindingSpecConfig :: Parser BindingSpecConfig
+parseBindingSpecConfig =
+    BindingSpecConfig
+    <$> parseEnableStdlibBindingSpec
+    <*> parseExtBindingSpecs
+    <*> parsePrescriptiveBindingSpec
+
+parseEnableStdlibBindingSpec :: Parser EnableStdlibBindingSpec
+parseEnableStdlibBindingSpec = flag EnableStdlibBindingSpec DisableStdlibBindingSpec $
     mconcat [
         long "no-stdlib"
       , help "Do not automatically use stdlib external binding specification"
       ]
 
-parseExtBindings :: Parser [FilePath]
-parseExtBindings = many . strOption $ mconcat [
+parseExtBindingSpecs :: Parser [FilePath]
+parseExtBindingSpecs = many . strOption $ mconcat [
       long "external-binding-spec"
     , metavar "FILE"
     , help "External binding specification (YAML file)"
     ]
 
-parsePrescriptiveBindingSpec :: Parser FilePath
-parsePrescriptiveBindingSpec = strOption $ mconcat [
+parsePrescriptiveBindingSpec :: Parser (Maybe FilePath)
+parsePrescriptiveBindingSpec = optional $ strOption $ mconcat [
       long "prescriptive-binding-spec"
     , metavar "FILE"
     , help "Prescriptive binding specification (YAML file)"
+    ]
+
+{-------------------------------------------------------------------------------
+  Other options and command line arguments
+-------------------------------------------------------------------------------}
+
+parsePredicate :: Parser Predicate
+parsePredicate = fmap aux . many . asum $ [
+      flag' (Right SelectAll) $ mconcat [
+          long "select-all"
+        , help "Process all elements"
+        ]
+    , fmap (Right . SelectByFileName) $ strOption $ mconcat [
+          long "select-by-filename"
+        , help "Select files with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (Left . SelectByFileName) $ strOption $ mconcat [
+          long "skip-by-filename"
+        , help "Skip files with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (Right . SelectByElementName) $ strOption $ mconcat [
+          long "select-by-element-name"
+        , help "Select elements with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (Left . SelectByElementName) $ strOption $ mconcat [
+          long "skip-by-element-name"
+        , help "Skip elements with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , flag' (Right SelectFromMainFiles) $ mconcat [
+          long "select-from-main-files"
+        , help "Only process elements from main files (default)"
+        ]
+    ]
+  where
+    defSelectFromMainFiles :: [Predicate] -> [Predicate]
+    defSelectFromMainFiles [] = [SelectFromMainFiles]
+    defSelectFromMainFiles ps = ps
+    aux :: [Either Predicate Predicate] -> Predicate
+    aux ps = uncurry mergePredicates $
+               second defSelectFromMainFiles $
+                 partitionEithers ps
+
+parseProgramSlicing :: Parser ProgramSlicing
+parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat [
+      long "enable-program-slicing"
+    , help $ "Enable program slicing: "
+        <> "Select declarations using the selection predicate, "
+        <> "and also select their transitive dependencies"
     ]
 
 {-------------------------------------------------------------------------------
@@ -313,12 +378,6 @@ parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
 
--- | Run an action with a tracer.
---
--- Return 'Nothing' if errors happened.
-withTracer :: GlobalOpts -> (Tracer IO TraceMsg -> IO b) -> IO (Maybe b)
-withTracer GlobalOpts{..} = withTracerStdOut globalOptsTracerConfig
-
 -- | Extract the result or exit gracefully with an error message.
 --
 -- Helper function to be used in conjunction with 'withTracer'. We carefully
@@ -327,29 +386,24 @@ withTracer GlobalOpts{..} = withTracerStdOut globalOptsTracerConfig
 fromMaybeWithFatalError :: MonadIO m => Maybe b -> m b
 fromMaybeWithFatalError k = maybe fatalError pure k
 
-loadExtBindingSpecs' :: Tracer IO TraceMsg -> GlobalOpts -> IO BindingSpec
-loadExtBindingSpecs' tracer GlobalOpts{..} =
-    loadExtBindingSpecs
-      tracer
-      globalOptsClangArgs
-      globalOptsStdlibSpecConf
-      globalOptsExtBindings
-
-loadPrescriptiveBindingSpec' ::
+loadBindingSpecs ::
      Tracer IO TraceMsg
-  -> GlobalOpts
-  -> IO BindingSpec
-loadPrescriptiveBindingSpec' tracer GlobalOpts{..} =
-    case globalOptsPrescriptiveBindingSpec of
-      Just path -> loadPrescriptiveBindingSpec tracer globalOptsClangArgs path
-      Nothing   -> return emptyBindingSpec
-
-getConfig :: GlobalOpts -> Config
-getConfig GlobalOpts{..} = def {
-      configClangArgs      = globalOptsClangArgs
-    , configPredicate      = globalOptsPredicate
-    , configProgramSlicing = globalOptsProgramSlicing
-    }
+  -> ClangArgs
+  -> BindingSpecConfig
+  -> IO (BindingSpec, BindingSpec)
+loadBindingSpecs tracer clangArgs opts = do
+    extSpecs <- loadExtBindingSpecs
+                  tracer
+                  clangArgs
+                  opts.stdlibSpec
+                  opts.extBindingSpecs
+    pSpec <- case opts.prescriptiveBindingSpec of
+               Just path -> loadPrescriptiveBindingSpec
+                              tracer
+                              clangArgs
+                              path
+               Nothing   -> pure emptyBindingSpec
+    pure (extSpecs, pSpec)
 
 -- | Footer of command line help.
 footerWith :: ParserPrefs -> Doc

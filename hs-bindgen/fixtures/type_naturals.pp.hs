@@ -20,13 +20,21 @@ m :: FC.CInt
 m = (+) (1 :: FC.CInt) n
 
 f :: forall a0 b1. (C.Add a0) ((C.MultRes FC.CInt) b1) => (C.Sub ((C.AddRes a0) ((C.MultRes FC.CInt) b1))) FC.CInt => (C.Mult FC.CInt) b1 => a0 -> b1 -> (C.SubRes ((C.AddRes a0) ((C.MultRes FC.CInt) b1))) FC.CInt
-f = \a0 -> \b1 -> (-) ((+) a0 ((*) (2 :: FC.CInt) b1)) (1 :: FC.CInt)
+f =
+  \a0 ->
+    \b1 ->
+      (-) ((+) a0 ((*) (2 :: FC.CInt) b1)) (1 :: FC.CInt)
 
 g :: forall a0 b1 c2. (C.Add ((C.MultRes FC.CInt) a0)) ((C.MultRes FC.CInt) b1) => (C.Mult FC.CInt) b1 => (C.Mult FC.CInt) a0 => c2 -> a0 -> b1 -> (C.AddRes ((C.MultRes FC.CInt) a0)) ((C.MultRes FC.CInt) b1)
-g = \u0 -> \x1 -> \y2 -> (+) ((*) (10 :: FC.CInt) x1) ((*) (16 :: FC.CInt) y2)
+g =
+  \u0 ->
+    \x1 ->
+      \y2 ->
+        (+) ((*) (10 :: FC.CInt) x1) ((*) (16 :: FC.CInt) y2)
 
 k :: forall a0. (C.Add FC.CInt) ((C.MultRes FC.CInt) a0) => (C.Mult FC.CInt) a0 => a0 -> (C.AddRes FC.CInt) ((C.MultRes FC.CInt) a0)
-k = g (11.77 :: FC.CDouble) (f (f (2 :: FC.CInt) m) n)
+k =
+  g (11.77 :: FC.CDouble) (f (f (2 :: FC.CInt) m) n)
 
 newtype Arr1 = Arr1
   { un_Arr1 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt

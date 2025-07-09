@@ -37,13 +37,16 @@ d :: C.Char.CharValue
 d = C.Char.charValueFromAddr "\x1\xFF"# 2 Nothing
 
 j1 :: C.Char.CharValue
-j1 = C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Just '\12354')
+j1 =
+  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Just '\12354')
 
 j2 :: C.Char.CharValue
-j2 = C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Just '\12354')
+j2 =
+  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Just '\12354')
 
 j3 :: C.Char.CharValue
-j3 = C.Char.charValueFromAddr "\xE3\x81\x82"# 3 Nothing
+j3 =
+  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 Nothing
 
 s1 :: ((,) (F.Ptr FC.CChar)) Int
 s1 = ((F.Ptr "a"#, 1) :: FC.CStringLen)
@@ -79,10 +82,12 @@ t3 :: ((,) (F.Ptr FC.CChar)) Int
 t3 = ((F.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
 u :: ((,) (F.Ptr FC.CChar)) Int
-u = ((F.Ptr "\x1\xFF\x1\xFF\x1\xFF\x1\xFF"#, 8) :: FC.CStringLen)
+u =
+  ((F.Ptr "\x1\xFF\x1\xFF\x1\xFF\x1\xFF"#, 8) :: FC.CStringLen)
 
 v :: ((,) (F.Ptr FC.CChar)) Int
-v = ((F.Ptr "\x1\x2\x3\x4\x5\x6"#, 6) :: FC.CStringLen)
+v =
+  ((F.Ptr "\x1\x2\x3\x4\x5\x6"#, 6) :: FC.CStringLen)
 
 w1 :: ((,) (F.Ptr FC.CChar)) Int
 w1 = ((F.Ptr "hij\0"#, 4) :: FC.CStringLen)

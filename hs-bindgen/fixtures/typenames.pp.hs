@@ -46,11 +46,15 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "FOO1"), (1, Data.List.NonEmpty.singleton "FOO2")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "FOO1")
+                                                     , (1, Data.List.NonEmpty.singleton "FOO2")
+                                                     ]
 
-  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Foo"
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Foo"
 
-  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Foo"
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Foo"
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 

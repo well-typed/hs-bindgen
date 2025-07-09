@@ -5,7 +5,7 @@ module HsBindgen.Common (
 
     -- * Binding specifications
   , Pipeline.BindingSpec -- opaque
-  , Pipeline.StdlibBindingSpecConf(..)
+  , Pipeline.EnableStdlibBindingSpec(..)
   , Pipeline.emptyBindingSpec
 
     -- ** Clang arguments

@@ -48,9 +48,11 @@ instance F.Storable Another_typedef_struct_t where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Another_typedef_struct_t another_typedef_struct_t_foo2 another_typedef_struct_t_bar3 ->
-               F.pokeByteOff ptr0 (0 :: Int) another_typedef_struct_t_foo2
-            >> F.pokeByteOff ptr0 (4 :: Int) another_typedef_struct_t_bar3
+          Another_typedef_struct_t
+            another_typedef_struct_t_foo2
+            another_typedef_struct_t_bar3 ->
+                 F.pokeByteOff ptr0 (0 :: Int) another_typedef_struct_t_foo2
+              >> F.pokeByteOff ptr0 (4 :: Int) another_typedef_struct_t_bar3
 
 newtype Another_typedef_enum_e = Another_typedef_enum_e
   { un_Another_typedef_enum_e :: FC.CUInt
@@ -85,7 +87,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "FOO"), (1, Data.List.NonEmpty.singleton "BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "FOO")
+                                                     , (1, Data.List.NonEmpty.singleton "BAR")
+                                                     ]
 
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Another_typedef_enum_e"

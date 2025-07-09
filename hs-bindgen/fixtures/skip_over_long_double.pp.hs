@@ -34,4 +34,5 @@ instance F.Storable Struct2 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct2 struct2_x2 -> F.pokeByteOff ptr0 (0 :: Int) struct2_x2
+          Struct2 struct2_x2 ->
+            F.pokeByteOff ptr0 (0 :: Int) struct2_x2

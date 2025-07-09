@@ -27,7 +27,7 @@ module HsBindgen.Pipeline (
     -- * Binding specifications
   , BindingSpec (..)
   , emptyBindingSpec
-  , StdlibBindingSpecConf (..)
+  , EnableStdlibBindingSpec (..)
   , loadExtBindingSpecs
   , loadPrescriptiveBindingSpec
   , getStdlibBindingSpec
@@ -242,7 +242,7 @@ hashIncludeWith tracer config@Config{..} fps = do
     -- TODO #703: For now, we only load binding spec defaults. We should
     -- however, have configuration options.
     extBindingSpec <- liftIO $
-      loadExtBindingSpecs tracerIO configClangArgs UseStdlibBindingSpec []
+      loadExtBindingSpecs tracerIO configClangArgs EnableStdlibBindingSpec []
     unit <- TH.runIO $
       parseCHeaders
         tracerIO
@@ -284,10 +284,10 @@ genBindingsFromCHeader config unit = do
 -------------------------------------------------------------------------------}
 
 -- | Configure if the @stdlib@ binding specification should be used
-data StdlibBindingSpecConf =
+data EnableStdlibBindingSpec =
     -- | Automatically include @stdlib@
-    UseStdlibBindingSpec
-  | NoStdlibBindingSpec
+    EnableStdlibBindingSpec
+  | DisableStdlibBindingSpec
   deriving stock (Show, Eq)
 
 -- | Load external binding specifications
@@ -300,7 +300,7 @@ data StdlibBindingSpecConf =
 loadExtBindingSpecs ::
      Tracer IO TraceMsg
   -> ClangArgs
-  -> StdlibBindingSpecConf
+  -> EnableStdlibBindingSpec
   -> [FilePath]
   -> IO BindingSpec
 loadExtBindingSpecs tracer args stdlibSpec =
@@ -313,8 +313,8 @@ loadExtBindingSpecs tracer args stdlibSpec =
   where
     stdSpec :: BindingSpec.UnresolvedBindingSpec
     stdSpec = case stdlibSpec of
-      UseStdlibBindingSpec -> Stdlib.bindingSpec
-      NoStdlibBindingSpec  -> BindingSpec.empty
+      EnableStdlibBindingSpec  -> Stdlib.bindingSpec
+      DisableStdlibBindingSpec -> BindingSpec.empty
 
 -- | Load prescriptive binding specification
 --
@@ -341,7 +341,7 @@ getStdlibBindingSpec ::
   -> ClangArgs
   -> IO BindingSpec
 getStdlibBindingSpec tracer args =
-    loadExtBindingSpecs tracer args UseStdlibBindingSpec []
+    loadExtBindingSpecs tracer args EnableStdlibBindingSpec []
 
 encodeBindingSpecJson :: BindingSpec -> BSL.ByteString
 encodeBindingSpecJson = BindingSpec.encodeJson . bindingSpecUnresolved

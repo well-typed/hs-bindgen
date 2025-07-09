@@ -7,8 +7,9 @@ module HsBindgen.App.Dev (
 
 import Options.Applicative
 
-import HsBindgen.App.Common
 import HsBindgen.Lib
+
+import HsBindgen.App.Common
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -59,8 +60,10 @@ parseDevCmd = subparser $ mconcat [
   Parse command
 -------------------------------------------------------------------------------}
 
-newtype ParseOpts = ParseOpts {
-      parseInputPaths :: [CHeaderIncludePath]
+data ParseOpts = ParseOpts {
+      inputPaths        :: [CHeaderIncludePath]
+    , config            :: Config
+    , bindingSpecConfig :: BindingSpecConfig
     }
   deriving (Show)
 
@@ -68,3 +71,5 @@ parseParseOpts :: Parser ParseOpts
 parseParseOpts =
     ParseOpts
       <$> parseInputs
+      <*> parseConfig
+      <*> parseBindingSpecConfig

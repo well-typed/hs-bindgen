@@ -50,7 +50,10 @@ instance F.Storable Outside where
 foreign import ccall safe "testmodule_normal" normal_wrapper :: (F.Ptr Opaque) -> (F.Ptr Outside) -> (F.Ptr Outside) -> IO ()
 
 normal :: (F.Ptr Opaque) -> (F.Ptr Outside) -> Outside -> IO ()
-normal = \x0 -> \x1 -> \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
+normal =
+  \x0 ->
+    \x1 ->
+      \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
 
 data Named_struct = Named_struct
   { named_struct_x :: FC.CInt
@@ -90,16 +93,20 @@ newtype Named_union = Named_union
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Named_union
 
 get_named_union_x :: Named_union -> FC.CInt
-get_named_union_x = HsBindgen.Runtime.ByteArray.getUnionPayload
+get_named_union_x =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
 
 set_named_union_x :: FC.CInt -> Named_union
-set_named_union_x = HsBindgen.Runtime.ByteArray.setUnionPayload
+set_named_union_x =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
 
 get_named_union_y :: Named_union -> FC.CChar
-get_named_union_y = HsBindgen.Runtime.ByteArray.getUnionPayload
+get_named_union_y =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
 
 set_named_union_y :: FC.CChar -> Named_union
-set_named_union_y = HsBindgen.Runtime.ByteArray.setUnionPayload
+set_named_union_y =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
 
 foreign import ccall safe "testmodule_f2" f2_wrapper :: (F.Ptr Named_union) -> IO ()
 

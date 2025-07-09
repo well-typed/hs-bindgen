@@ -29,7 +29,8 @@ instance F.Storable Pascal where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Pascal pascal_len2 -> F.pokeByteOff ptr0 (0 :: Int) pascal_len2
+          Pascal pascal_len2 ->
+            F.pokeByteOff ptr0 (0 :: Int) pascal_len2
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Pascal where
 
@@ -81,7 +82,8 @@ instance F.Storable Foo where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Foo foo_len2 -> F.pokeByteOff ptr0 (0 :: Int) foo_len2
+          Foo foo_len2 ->
+            F.pokeByteOff ptr0 (0 :: Int) foo_len2
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo_bar Foo where
 

@@ -181,6 +181,7 @@ instance F.Storable Struct2_t where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct2_t struct2_t_field12 -> F.pokeByteOff ptr0 (0 :: Int) struct2_t_field12
+          Struct2_t struct2_t_field12 ->
+            F.pokeByteOff ptr0 (0 :: Int) struct2_t_field12
 
 foreign import capi safe "&some_global_struct" some_global_struct :: F.Ptr Struct2_t

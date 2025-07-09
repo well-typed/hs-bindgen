@@ -14,7 +14,7 @@ module Test.HsBindgen.Resources (
   , callRustBindgen
   ) where
 
-import System.Exit (ExitCode(..))
+import System.Exit (ExitCode (..))
 import Test.Tasty
 
 import Clang.Args
@@ -118,7 +118,7 @@ initExtBindingSpec clangArgs =
     -- This trace predicate is used only during resolution of the default
     -- binding specifications.
     withTracePredicate defaultTracePredicate $ \tracer ->
-      loadExtBindingSpecs tracer clangArgs UseStdlibBindingSpec []
+      loadExtBindingSpecs tracer clangArgs EnableStdlibBindingSpec []
 
 getTestDefaultExtSpec :: IO TestResources -> IO BindingSpec
 getTestDefaultExtSpec = fmap testExtSpec

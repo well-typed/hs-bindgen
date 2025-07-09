@@ -26,7 +26,7 @@ module HsBindgen.TH (
     -- ** Binding specifications
   , Common.BindingSpec -- opaque
   , Common.emptyBindingSpec
-  , Common.StdlibBindingSpecConf(..)
+  , Common.EnableStdlibBindingSpec(..)
   , loadExtBindingSpecs
 
     -- ** Translation options
@@ -107,7 +107,7 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 loadExtBindingSpecs ::
      Tracer TH.Q TraceMsg
   -> Args.ClangArgs
-  -> Pipeline.StdlibBindingSpecConf
+  -> Pipeline.EnableStdlibBindingSpec
   -> [FilePath]
   -> TH.Q Common.BindingSpec
 loadExtBindingSpecs tracer args stdlibConf =

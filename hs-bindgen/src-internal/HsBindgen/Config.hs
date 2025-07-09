@@ -2,7 +2,8 @@ module HsBindgen.Config
   ( Config (..)
   ) where
 
-import Data.Default (Default (def))
+import Data.Default (Default)
+import GHC.Generics (Generic)
 
 import Clang.Args
 import HsBindgen.Backend.PP.Render
@@ -27,17 +28,6 @@ data Config = Config {
     , configHsModuleOpts   :: HsModuleOpts
     , configHsRenderOpts   :: HsRenderOpts
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
-instance Default Config where
-  def :: Config
-  def = Config {
-      -- Translation
-      configClangArgs      = def
-    , configTranslation    = def
-    , configPredicate      = SelectFromMainFiles
-    , configProgramSlicing = DisableProgramSlicing
-      -- Pretty printing
-    , configHsModuleOpts   = HsModuleOpts { hsModuleOptsName = "Generated" }
-    , configHsRenderOpts   = HsRenderOpts { hsLineLength     = 120 }
-    }
+instance Default Config

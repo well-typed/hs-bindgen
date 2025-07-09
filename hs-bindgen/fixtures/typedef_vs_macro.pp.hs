@@ -74,11 +74,15 @@ instance F.Storable ExampleStruct where
     \ptr0 ->
       \s1 ->
         case s1 of
-          ExampleStruct exampleStruct_t12 exampleStruct_t23 exampleStruct_m14 exampleStruct_m25 ->
-               F.pokeByteOff ptr0 (0 :: Int) exampleStruct_t12
-            >> F.pokeByteOff ptr0 (4 :: Int) exampleStruct_t23
-            >> F.pokeByteOff ptr0 (8 :: Int) exampleStruct_m14
-            >> F.pokeByteOff ptr0 (12 :: Int) exampleStruct_m25
+          ExampleStruct
+            exampleStruct_t12
+            exampleStruct_t23
+            exampleStruct_m14
+            exampleStruct_m25 ->
+                 F.pokeByteOff ptr0 (0 :: Int) exampleStruct_t12
+              >> F.pokeByteOff ptr0 (4 :: Int) exampleStruct_t23
+              >> F.pokeByteOff ptr0 (8 :: Int) exampleStruct_m14
+              >> F.pokeByteOff ptr0 (12 :: Int) exampleStruct_m25
 
 newtype Uint64_t = Uint64_t
   { un_Uint64_t :: FC.CInt

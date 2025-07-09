@@ -11,12 +11,13 @@ module HsBindgen.App.Cli (
   , pureParseCmdPreprocess
   ) where
 
-import Data.Default
+import GHC.Generics (Generic)
 import Options.Applicative
 
 import Clang.Paths
-import HsBindgen.App.Common
 import HsBindgen.Lib
+
+import HsBindgen.App.Common
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -68,7 +69,11 @@ parseCliCmd = subparser $ mconcat [
           progDesc "Generate tests for generated Haskell code"
         ]
     , cmd' "literate" (CliCmdLiterate <$> parseLiterateOpts) $ mconcat [
-          progDesc "Generate Haskell module from C header, acting as literate Haskell preprocessor"
+          progDesc $ mconcat [
+              "Generate Haskell module from C header, acting as literate Haskell preprocessor; "
+            , "used to incorporate hs-bindgen into the cabal compilation pipeline; "
+            , "not meant to be used directly but is invoked by cabal-install"
+            ]
         ]
     , cmd "binding-spec" (CliCmdBindingSpec <$> parseBindingSpecCmd) $ mconcat [
           progDesc "Binding specification commands"
@@ -89,125 +94,107 @@ pureParseCmdPreprocess =
 -------------------------------------------------------------------------------}
 
 data PreprocessOpts = PreprocessOpts {
-      preprocessTranslationOpts :: TranslationOpts
-    , preprocessModuleOpts      :: HsModuleOpts
-    , preprocessRenderOpts      :: HsRenderOpts
-    , preprocessOutput          :: Maybe FilePath
-    , preprocessGenBindingSpec  :: Maybe FilePath
-    , preprocessInputs          :: [CHeaderIncludePath]
+      config            :: Config
+    , inputs            :: [CHeaderIncludePath]
+    , output            :: Maybe FilePath
+    , bindingSpecConfig :: BindingSpecConfig
+    , genBindingSpec    :: Maybe FilePath
     }
-  deriving (Show)
+  deriving stock (Show, Generic)
 
 parsePreprocessOpts :: Parser PreprocessOpts
 parsePreprocessOpts =
     PreprocessOpts
-      <$> parseTranslationOpts
-      <*> parseHsModuleOpts
-      <*> parseHsRenderOpts
-      <*> parseOutput
-      <*> optional parseGenBindingSpec
+      <$> parseConfig
       <*> parseInputs
+      <*> parseOutput
+      <*> parseBindingSpecConfig
+      <*> optional parseGenBindingSpec
 
 {-------------------------------------------------------------------------------
   Test generation command
 -------------------------------------------------------------------------------}
 
 data GenTestsOpts = GenTestsOpts {
-      genTestsTranslationOpts :: TranslationOpts
-    , genTestsModuleOpts      :: HsModuleOpts
-    , genTestsRenderOpts      :: HsRenderOpts
-    , genTestsOutput          :: FilePath
-    , genTestsInputs          :: [CHeaderIncludePath]
+      config            :: Config
+    , output            :: FilePath
+    , inputs            :: [CHeaderIncludePath]
+    , bindingSpecConfig :: BindingSpecConfig
     }
-  deriving (Show)
+  deriving stock (Show, Generic)
 
 parseGenTestsOpts :: Parser GenTestsOpts
 parseGenTestsOpts =
     GenTestsOpts
-      <$> parseTranslationOpts
-      <*> parseHsModuleOpts
-      <*> parseHsRenderOpts
+      <$> parseConfig
       <*> parseGenTestsOutput
       <*> parseInputs
+      <*> parseBindingSpecConfig
 
 {-------------------------------------------------------------------------------
   Literate command
 -------------------------------------------------------------------------------}
 
 data LiterateOpts = LiterateOpts {
-      literateInput  :: FilePath
-    , literateOutput :: FilePath
+      input  :: FilePath
+    , output :: FilePath
     }
-  deriving (Show)
+  deriving stock (Show, Generic)
 
 parseLiterateOpts :: Parser LiterateOpts
 parseLiterateOpts = do
-    _ <- strOption @String $ mconcat [ short 'h', metavar "IGNORED" ]
+    -- When @cabal-install@ calls GHC and the preprocessor, it passes some
+    -- standard flags, which we do not (all) use. In particular, it passes
+    -- @-hide-all-packages@.
+    _ <- strOption @String $ mconcat [
+             short 'h'
+           , metavar "IGNORED"
+           , help "Ignore some preprocessor options provided by cabal-install"
+           ]
 
     input  <- strArgument $ mconcat [ metavar "IN" ]
     output <- strArgument $ mconcat [ metavar "OUT" ]
-    return (LiterateOpts input output)
+    return LiterateOpts {..}
 
 {-------------------------------------------------------------------------------
   Binding spec commands
 -------------------------------------------------------------------------------}
 
 data BindingSpecCmd =
-    BindingSpecCmdStdlib
-  deriving (Show)
+    BindingSpecCmdStdlib {
+      clangArgs :: ClangArgs
+    }
+  deriving stock (Show, Generic)
 
 parseBindingSpecCmd :: Parser BindingSpecCmd
 parseBindingSpecCmd = subparser $ mconcat [
-      cmd "stdlib" (pure BindingSpecCmdStdlib) $ mconcat [
+      cmd "stdlib" parseBindingSpecCmdStdlib $ mconcat [
           progDesc "Write stdlib external binding specification"
         ]
     ]
+
+parseBindingSpecCmdStdlib :: Parser BindingSpecCmd
+parseBindingSpecCmdStdlib = BindingSpecCmdStdlib <$> parseClangArgs
 
 {-------------------------------------------------------------------------------
   Resolve command
 -------------------------------------------------------------------------------}
 
 data ResolveOpts = ResolveOpts {
-      resolveInputs :: [CHeaderIncludePath]
+      inputs    :: [CHeaderIncludePath]
+    , clangArgs :: ClangArgs
     }
-  deriving (Show)
+  deriving stock (Show, Generic)
 
 parseResolveOpts :: Parser ResolveOpts
 parseResolveOpts =
     ResolveOpts
       <$> parseInputs
-
-{-------------------------------------------------------------------------------
-  Translation options
--------------------------------------------------------------------------------}
-
-parseTranslationOpts :: Parser TranslationOpts
-parseTranslationOpts = pure def
-
-parseHsModuleOpts :: Parser HsModuleOpts
-parseHsModuleOpts =
-    HsModuleOpts
-      <$> strOption (mconcat [
-              help "Name of the generated Haskell module"
-            , metavar "NAME"
-            , long "module"
-            , showDefault
-            , value "Generated"
-            ])
+      <*> parseClangArgs
 
 {-------------------------------------------------------------------------------
   Output options
 -------------------------------------------------------------------------------}
-
-parseHsRenderOpts :: Parser HsRenderOpts
-parseHsRenderOpts =
-    HsRenderOpts
-      <$> option auto (mconcat [
-              help "Maximum length line"
-            , long "render-line-length"
-            , showDefault
-            , value $ hsLineLength def
-            ])
 
 parseOutput :: Parser (Maybe FilePath)
 parseOutput =

@@ -36,7 +36,7 @@ module HsBindgen.Lib (
     -- ** Binding specifications
   , Common.BindingSpec -- opaque
   , Common.emptyBindingSpec
-  , Common.StdlibBindingSpecConf(..)
+  , Common.EnableStdlibBindingSpec(..)
   , Pipeline.loadExtBindingSpecs
   , Pipeline.loadPrescriptiveBindingSpec
   , Pipeline.getStdlibBindingSpec

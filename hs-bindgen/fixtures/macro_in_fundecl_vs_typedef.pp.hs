@@ -56,7 +56,8 @@ instance F.Storable Struct1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct1 struct1_a2 -> F.pokeByteOff ptr0 (0 :: Int) struct1_a2
+          Struct1 struct1_a2 ->
+            F.pokeByteOff ptr0 (0 :: Int) struct1_a2
 
 data Struct2 = Struct2
   { struct2_a :: FC.CInt
@@ -78,7 +79,8 @@ instance F.Storable Struct2 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct2 struct2_a2 -> F.pokeByteOff ptr0 (0 :: Int) struct2_a2
+          Struct2 struct2_a2 ->
+            F.pokeByteOff ptr0 (0 :: Int) struct2_a2
 
 data Struct3 = Struct3
   { struct3_a :: FC.CInt
@@ -100,7 +102,8 @@ instance F.Storable Struct3 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct3 struct3_a2 -> F.pokeByteOff ptr0 (0 :: Int) struct3_a2
+          Struct3 struct3_a2 ->
+            F.pokeByteOff ptr0 (0 :: Int) struct3_a2
 
 newtype Struct3_t = Struct3_t
   { un_Struct3_t :: Struct3
@@ -128,7 +131,8 @@ instance F.Storable Struct4 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct4 struct4_a2 -> F.pokeByteOff ptr0 (0 :: Int) struct4_a2
+          Struct4 struct4_a2 ->
+            F.pokeByteOff ptr0 (0 :: Int) struct4_a2
 
 foreign import ccall safe "testmodule_struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
 

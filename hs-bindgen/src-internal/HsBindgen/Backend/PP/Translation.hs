@@ -81,6 +81,9 @@ newtype HsModuleOpts = HsModuleOpts {
     }
   deriving stock (Show)
 
+instance Default HsModuleOpts where
+  def = HsModuleOpts { hsModuleOptsName = "Generated" }
+
 translateModule :: HsModuleOpts -> [SDecl] -> HsModule
 translateModule HsModuleOpts{..} hsModuleDecls =
     let hsModulePragmas = resolvePragmas hsModuleDecls
