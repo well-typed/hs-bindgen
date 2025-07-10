@@ -10,3 +10,6 @@
 [submodule "c-ffmpeg/FFmpeg"]
 	path = c-ffmpeg/FFmpeg
 	url = git@github.com:FFmpeg/FFmpeg.git
+[submodule "c-minisat/minisat-c-bindings"]
+	path = c-minisat/minisat-c-bindings
+	url = git@github.com:niklasso/minisat-c-bindings.git
