@@ -1,7 +1,6 @@
 -- | Fold declarations
 module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 
-import Control.Exception (evaluate)
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 
@@ -10,7 +9,6 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
-import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -19,7 +17,6 @@ import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId qualified as C
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
 import HsBindgen.Language.C
@@ -29,43 +26,42 @@ import HsBindgen.Language.C qualified as C
   Top-level
 -------------------------------------------------------------------------------}
 
-foldDecl :: HasCallStack => Fold ParseDecl [C.Decl Parse]
+foldDecl :: Fold ParseDecl [C.Decl Parse]
 foldDecl = foldWithHandler handleTypeException $ \curr -> do
     info <- getDeclInfo curr
-    -- NOTE: Evaluate to WHNF to trigger potential panics.
-    mNameKind <- dispatch curr $ liftIO . evaluate . C.toNameKindFromCXCursorKind
-    let mQualName = QualName <$> (C.isNamedDecl $ C.declId info) <*> mNameKind
-    evalPredicate (C.declLoc info) mQualName >>= \case
-      Right () ->
-        -- NOTE Performance: 'dispatchFold' gets the 'CXCursorKind' again.
-        dispatchFold curr $ \case
-          -- Kinds that we parse.
-          CXCursor_EnumDecl           -> enumDecl info
-          CXCursor_FunctionDecl       -> functionDecl info
-          CXCursor_MacroDefinition    -> macroDefinition info
-          CXCursor_StructDecl         -> structDecl info
-          CXCursor_TypedefDecl        -> typedefDecl info
-          CXCursor_UnexposedDecl      -> unexposedDecl info
-          CXCursor_UnionDecl          -> unionDecl info
-          -- Kinds that we skip over.
-          CXCursor_AlignedAttr        -> attribute
-          CXCursor_InclusionDirective -> inclusionDirective
-          CXCursor_MacroExpansion     -> macroExpansion
-          CXCursor_PackedAttr         -> attribute
-          CXCursor_UnexposedAttr      -> attribute
-          CXCursor_VarDecl            -> varDecl
-          kind                        -> unknownCursorKind kind
-      Left skipReason ->
-        -- We need to keep track of skipped declarations so that they can be
-        -- given external bindings.
-        case skipReason of
-          Predicate.SkipPredicate{} -> do
-            recordNonSelectedDecl curr
-            foldContinue
-          Predicate.SkipBuiltin{} ->
-            foldContinue
-          Predicate.SkipUnexposed{} ->
-            foldContinue
+
+    let parseWith ::
+             (C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse])
+          -> NameKind
+          -> ParseDecl (Next ParseDecl [C.Decl Parse])
+        parseWith parser kind = do
+            selected <- evalPredicate info kind
+            if selected
+              then runFold (parser info) curr
+              else recordNonSelectedDecl info kind >> foldContinue
+
+    dispatch curr $ \case
+      -- Kinds that we parse
+      CXCursor_FunctionDecl       -> parseWith functionDecl    NameKindOrdinary
+      CXCursor_VarDecl            -> parseWith varDecl         NameKindOrdinary
+      CXCursor_TypedefDecl        -> parseWith typedefDecl     NameKindOrdinary
+      CXCursor_MacroDefinition    -> parseWith macroDefinition NameKindOrdinary
+      CXCursor_StructDecl         -> parseWith structDecl      NameKindStruct
+      CXCursor_UnionDecl          -> parseWith unionDecl       NameKindUnion
+      CXCursor_EnumDecl           -> parseWith enumDecl        NameKindEnum
+
+      -- Process macro expansions independent of any selection predicates
+      CXCursor_MacroExpansion -> runFold macroExpansion curr
+
+      -- Kinds that we skip over
+      CXCursor_AlignedAttr        -> foldContinue
+      CXCursor_InclusionDirective -> foldContinue
+      CXCursor_PackedAttr         -> foldContinue
+      CXCursor_UnexposedAttr      -> foldContinue
+      CXCursor_UnexposedDecl      -> foldContinue
+
+      -- Report error for declarations we don't recognize
+      kind -> unknownCursorKind curr kind
 
 handleTypeException ::
      CXCursor
@@ -109,13 +105,6 @@ getReparseInfo = \curr -> do
 {-------------------------------------------------------------------------------
   Functions for each kind of declaration
 -------------------------------------------------------------------------------}
-
--- | Inclusion directive
---
--- We have already processed these (see 'processIncludes'), so here we just
--- skip over them.
-inclusionDirective :: Fold ParseDecl [C.Decl Parse]
-inclusionDirective = simpleFold $ \_ -> foldContinue
 
 -- | Macros
 --
@@ -353,13 +342,13 @@ enumDecl info = simpleFold $ \curr -> do
   where
     parseConstant :: Fold ParseDecl (C.EnumConstant Parse)
     parseConstant = simpleFold $ \curr ->
-        dispatchFold curr $ \case
-          CXCursor_EnumConstantDecl -> enumConstantDecl
-          CXCursor_PackedAttr       -> attribute
-          kind                      -> unknownCursorKind kind
+        dispatch curr $ \case
+          CXCursor_EnumConstantDecl -> enumConstantDecl curr
+          CXCursor_PackedAttr       -> foldContinue
+          kind                      -> unknownCursorKind curr kind
 
-enumConstantDecl :: Fold ParseDecl (C.EnumConstant Parse)
-enumConstantDecl = simpleFold $ \curr -> do
+enumConstantDecl :: CXCursor -> ParseDecl (Next ParseDecl (C.EnumConstant Parse))
+enumConstantDecl curr = do
     enumConstantLoc   <- HighLevel.clang_getCursorLocation' curr
     enumConstantName  <- CName <$> clang_getCursorDisplayName curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
@@ -439,9 +428,8 @@ functionDecl info = simpleFold $ \curr -> do
             panicIO $ "Unexpected " ++ show kind ++ " at " ++ show loc
 
 -- | Global variable declaration
-varDecl :: Fold ParseDecl [C.Decl Parse]
-varDecl = simpleFold $ \curr -> do
-    info <- getDeclInfo curr
+varDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
+varDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
     cls  <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
@@ -534,22 +522,6 @@ varDecl = simpleFold $ \curr -> do
           _otherwise -> do
             loc <- HighLevel.clang_getCursorLocation' curr
             panicIO $ "Unexpected " ++ show kind ++ " at " ++ show loc
-
--- | Unexposed declarations
---
--- Since we not told what kind of declaration this is, we can't do much except
--- issue a warning.
-unexposedDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
-unexposedDecl info = simpleFold $ \_ -> do
-    recordTrace $ Skipped $ Predicate.SkipUnexposed{skippedLoc = C.declLoc info}
-    foldContinue
-
--- | Attributes (alignment, packed, ..)
---
--- These attributes are recorded as children of the record declaration, so we
--- can just skip over them.
-attribute :: Fold ParseDecl a
-attribute = simpleFold $ \_ -> foldContinue
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

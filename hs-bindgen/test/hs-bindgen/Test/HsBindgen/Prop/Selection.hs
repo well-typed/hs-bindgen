@@ -2,7 +2,6 @@
 
 module Test.HsBindgen.Prop.Selection (tests) where
 
-import Data.Either (isRight)
 import Data.String (IsString (fromString))
 import Data.Text qualified as Text
 import Test.Tasty (TestTree, testGroup)
@@ -17,6 +16,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Predicate
 import HsBindgen.Language.C
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Prop.Selection" [
@@ -47,68 +47,75 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
   Selection properties
 -------------------------------------------------------------------------------}
 
-prop_selectAll :: SingleLoc -> Maybe QualName -> Bool
-prop_selectAll loc name = select (const True) loc name SelectAll
+prop_selectAll :: SingleLoc -> QualDeclId -> Bool
+prop_selectAll loc name = matchPredicate (const True) loc name SelectAll
 
-prop_selectNone :: SingleLoc -> Maybe QualName -> Bool
-prop_selectNone loc name = not $ select (const True) loc name SelectNone
+prop_selectNone :: SingleLoc -> QualDeclId -> Bool
+prop_selectNone loc name = not $ matchPredicate (const True) loc name SelectNone
 
 prop_selectIfBoth
-  :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName
+  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId
   -> Predicate -> Predicate -> Bool
 prop_selectIfBoth (Fn isMainFile) loc name p1 p2 =
-  let p1Res = select isMainFile loc name p1
-      p2Res = select isMainFile loc name p2
-      p1AndP2Res = select isMainFile loc name (SelectIfBoth p1 p2)
+  let p1Res = matchPredicate isMainFile loc name p1
+      p2Res = matchPredicate isMainFile loc name p2
+      p1AndP2Res = matchPredicate isMainFile loc name (SelectIfBoth p1 p2)
    in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectIfEither
-  :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName
+  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId
   -> Predicate -> Predicate -> Bool
 prop_selectIfEither (Fn isMainFile) loc name p1 p2 =
-  let p1Res = select isMainFile loc name p1
-      p2Res = select isMainFile loc name p2
-      p1AndP2Res = select isMainFile loc name (SelectIfEither p1 p2)
+  let p1Res = matchPredicate isMainFile loc name p1
+      p2Res = matchPredicate isMainFile loc name p2
+      p1AndP2Res = matchPredicate isMainFile loc name (SelectIfEither p1 p2)
    in (p1Res || p2Res) == p1AndP2Res
 
 prop_selectNegate
-  :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName -> Predicate -> Property
+  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Predicate -> Property
 prop_selectNegate (Fn isMainFile) loc name predicate =
-  select isMainFile loc name predicate
-  =/= select isMainFile loc name (SelectNegate predicate)
+  matchPredicate isMainFile loc name predicate
+  =/= matchPredicate isMainFile loc name (SelectNegate predicate)
 
 prop_selectFromMainFiles
-  :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName -> Bool
+  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
 prop_selectFromMainFiles (Fn isMainFile) loc name =
-  select isMainFile loc name SelectFromMainFiles == isMainFile loc
+  matchPredicate isMainFile loc name SelectFromMainFiles == isMainFile loc
 
 prop_selectByFileNameAll
-  :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName -> Bool
+  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
 prop_selectByFileNameAll (Fn isMainFile) loc name =
-  select isMainFile loc name (SelectByFileName ".*")
+  matchPredicate isMainFile loc name (SelectByFileName ".*")
 
 prop_selectByFileNameNeedle
-  :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName -> Bool
+  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
 prop_selectByFileNameNeedle (Fn isMainFile) loc name =
   let (SourcePath sourcePath) = singleLocPath loc
       sourcePath' = sourcePath <> "NEEDLE" <> sourcePath
       loc' = loc { singleLocPath = SourcePath sourcePath'}
-   in select isMainFile loc' name (SelectByFileName "NEEDLE")
+   in matchPredicate isMainFile loc' name (SelectByFileName "NEEDLE")
 
 prop_selectByElementNameAll
-  :: Fun SingleLoc Bool -> SingleLoc -> Maybe QualName -> Bool
+  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
 prop_selectByElementNameAll (Fn isMainFile) loc name =
-    maybeNot $ select isMainFile loc name (SelectByElementName ".*")
+    maybeNot $ matchPredicate isMainFile loc name (SelectByElementName ".*")
   where
-    maybeNot = maybe not (const id) name
+    maybeNot :: (Bool -> Bool)
+    maybeNot =
+        case qualDeclId name of
+          DeclNamed _ -> id
+          DeclAnon  _ -> not
 
 prop_selectByElementNameNeedle
-  :: Fun SingleLoc Bool -> SingleLoc -> QualName -> Bool
-prop_selectByElementNameNeedle (Fn isMainFile) loc name =
-  let cname = getCName $ qualNameName name
-      cname' = cname <> "NEEDLE" <> cname
-      name' = name { qualNameName = CName cname'}
-   in select isMainFile loc (Just name') (SelectByElementName "NEEDLE")
+  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
+prop_selectByElementNameNeedle (Fn isMainFile) loc (QualDeclId declId kind) =
+    case declId of
+      DeclNamed name ->
+        let name' = name <> "NEEDLE" <> name
+            qid'  = QualDeclId (DeclNamed name') kind
+         in matchPredicate isMainFile loc qid' (SelectByElementName "NEEDLE")
+      DeclAnon _ ->
+        True -- skip
 
 {-------------------------------------------------------------------------------
   Match tests and properties
@@ -170,8 +177,11 @@ instance Arbitrary CName where
 instance Arbitrary NameKind where
   arbitrary = elements [minBound .. maxBound]
 
-instance Arbitrary QualName where
-  arbitrary = QualName <$> arbitrary <*> arbitrary
+instance Arbitrary QualDeclId where
+  arbitrary = makeQualDeclId <$> arbitrary <*> arbitrary
+    where
+      makeQualDeclId :: CName -> NameKind -> QualDeclId
+      makeQualDeclId name kind = QualDeclId (DeclNamed name) kind
 
 instance Arbitrary Predicate where
   arbitrary = oneof [
@@ -182,15 +192,6 @@ instance Arbitrary Predicate where
                 , SelectByFileName <$> elements regexPatterns
                 , SelectByElementName <$> elements regexPatterns
                 ]
-
-fmapCompose4
-  :: (r1 -> r2)
-  -> (a1 -> a2 -> a3 -> a4 -> r1)
-  -> a1 -> a2 -> a3 -> a4 -> r2
-fmapCompose4 f g x1 x2 x3 x4 = f (g x1 x2 x3 x4)
-
-select :: IsMainFile -> SingleLoc -> Maybe QualName -> Predicate -> Bool
-select = isRight `fmapCompose4` matchPredicate
 
 regexPatterns :: [Regex]
 regexPatterns = map fromString

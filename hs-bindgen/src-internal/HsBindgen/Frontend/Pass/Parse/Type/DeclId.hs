@@ -82,7 +82,10 @@ instance PrettyForTrace (C.Located DeclId) where
           prettyForTrace anonId
 
 -- | Qualified declaration identity
-data QualDeclId = QualDeclId DeclId C.NameKind
+data QualDeclId = QualDeclId {
+      qualDeclId   :: DeclId
+    , qualDeclKind :: C.NameKind
+    }
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace QualDeclId where
