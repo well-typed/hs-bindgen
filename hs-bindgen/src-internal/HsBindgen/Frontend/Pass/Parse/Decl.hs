@@ -465,10 +465,12 @@ varDecl = simpleFold $ \curr -> do
             unless isExtern $
               recordTrace $ PotentialDuplicateGlobal info
             return [mkDecl $ C.DeclExtern typ]
-          VarConst isExternOrStatic -> do
-            unless isExternOrStatic $
-              recordTrace $ PotentialDuplicateGlobal info
-            return [mkDecl $ C.DeclConst typ]
+          VarConst _isExternOrStatic -> do
+            recordTrace $ UnsupportedConst info
+            return []
+            --unless isExternOrStatic $
+            --  recordTrace $ PotentialDuplicateGlobal info
+            --return [mkDecl $ C.DeclConst typ]
           VarThreadLocal -> do
             recordTrace $ UnsupportedTLS info
             return []
