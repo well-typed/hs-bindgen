@@ -10,7 +10,6 @@ module HsBindgen.C.Predicate (
     -- * Execution (internal API)
   , IsMainFile
   , match
-  , matchPredicate
     -- * Merging
   , mergePredicates
   ) where
@@ -81,34 +80,19 @@ instance Default Predicate where
 -- this module. See "HsBindgen.Frontend.ProcessIncludes" for discussion.
 type IsMainFile = SingleLoc -> Bool
 
--- | Match predicate and skip built-ins
+-- | Match predicate
 match ::
      IsMainFile
   -> SingleLoc
   -> QualDeclId
   -> Predicate
   -> Bool
-match isMainFile loc qid predicate = and [
-      not isBuiltin
-    , matchPredicate isMainFile loc qid predicate
-    ]
-  where
-    isBuiltin :: Bool
-    isBuiltin = nullSourcePath $ singleLocPath loc
-
--- | Match predicate
-matchPredicate ::
-     IsMainFile
-  -> SingleLoc
-  -> QualDeclId
-  -> Predicate
-  -> Bool
-matchPredicate isMainFile loc qid = go
+match isMainFile loc qid = go
   where
     go :: Predicate -> Bool
     go p =
         case reduce p of
-          SelectAll              -> True
+          SelectAll              -> not (isBuiltin qid)
           SelectNone             -> False
           SelectIfBoth p1 p2     -> go p1 && go p2
           SelectIfEither p1 p2   -> go p1 || go p2
@@ -123,8 +107,15 @@ matchPredicate isMainFile loc qid = go
     matchElementName :: Regex -> QualDeclId -> Bool
     matchElementName re (QualDeclId declId kind) =
         case declId of
-          DeclNamed name -> matchTest re (qualNameText $ QualName name kind)
-          DeclAnon  _    -> False
+          DeclNamed   name -> matchTest re (qualNameText $ QualName name kind)
+          DeclAnon    _    -> False
+          DeclBuiltin _    -> False
+
+isBuiltin :: QualDeclId -> Bool
+isBuiltin (QualDeclId declId _kind) =
+    case declId of
+      DeclBuiltin _ -> True
+      _otherwise    -> False
 
 {-------------------------------------------------------------------------------
   Reduce and merge

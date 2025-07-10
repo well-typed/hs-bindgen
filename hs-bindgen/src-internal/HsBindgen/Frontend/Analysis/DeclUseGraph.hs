@@ -79,11 +79,16 @@ findNamedUseOf declIndex (Wrap graph) =
            (UseOfDecl -> UseOfDecl)
            (Either QualDeclId (Maybe UseOfDecl))
     aux [(d, u)] = do
-        case uid of
-          DeclNamed name -> do
+        let mName =
+              case uid of
+                DeclNamed   name -> Just name
+                DeclAnon    _    -> Nothing
+                DeclBuiltin name -> Just name
+        case mName of
+          Just name -> do
             f <- get
             return $ Right . Just $ f (UsedByNamed u (C.QualName name nk))
-          DeclAnon _anonId -> do
+          Nothing -> do
             modify (. usedByAnon d u)
             return $ Left qid
       where

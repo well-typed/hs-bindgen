@@ -1396,7 +1396,7 @@ clang_getEnumConstantDeclValue cursor = liftIO $ do
     -- > function.
     cursorKind <- clang_getCursorKind cursor
     unless (cursorKind == simpleEnum CXCursor_EnumConstantDecl) $
-      callFailed cursorKind
+      callFailedShow cursorKind
 
     onHaskellHeap cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'
@@ -1473,8 +1473,8 @@ clang_getUnqualifiedType typ = liftIO $ do
     requireClangVersion (16,0,0)
     -- clang_getUnqualifiedType segfaults when CT is invalid
     case fromSimpleEnum (cxtKind typ) of
-      e@Left{}                 -> callFailed e
-      e@(Right CXType_Invalid) -> callFailed e
+      e@Left{}                 -> callFailedShow e
+      e@(Right CXType_Invalid) -> callFailedShow e
       Right{}                  -> pure ()
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getUnqualifiedType typ'
@@ -2075,9 +2075,19 @@ clang_getRange begin end = liftIO $
 clang_getFile ::
      (MonadIO m, HasCallStack)
   => CXTranslationUnit -> Text -> m CXFile
-clang_getFile unit file = liftIO $ ensureNotNull $
+clang_getFile unit file = liftIO $ ensureNotNull' $
     withCString (Text.unpack file) $ \file' ->
       nowrapper_getFile unit file'
+  where
+    ensureNotNull' :: IO CXFile -> IO CXFile
+    ensureNotNull' call = do
+        x <- call
+        if not (isNullPtr x)
+          then return x
+          else callFailed $ concat [
+                   show file
+                 , " is not a part of this translation unit"
+                 ]
 
 -- | Check if the given source location is in the main file of the corresponding
 -- translation unit.

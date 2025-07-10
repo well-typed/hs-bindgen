@@ -22,9 +22,10 @@ import Foreign.C
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import HsBindgen.Errors
+import HsBindgen.Language.C (CName)
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (mkContext, renderCtxDoc, showToCtxDoc, string,
-                               vcat, (><))
+import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
@@ -88,28 +89,33 @@ data ParseTypeException =
 
     -- | We do not support @long double@
   | UnsupportedLongDouble
+
+    -- | Clang built-in declaration
+  | UnsupportedBuiltin CName
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseTypeException where
   prettyForTrace = \case
-    UnexpectedTypeKind (Right kind) -> vcat [
-        "Unexpected type kind " >< showToCtxDoc kind >< "."
-      , string pleaseReport
-      ]
-    UnexpectedTypeKind (Left i) -> vcat [
-        "Unknown type kind " >< showToCtxDoc i >< "."
-      , string pleaseReport
-      ]
-    UnexpectedTypeDecl (Right kind) -> vcat [
-        "Unexpected type declaration " >< showToCtxDoc kind >< "."
-      , string pleaseReport
-      ]
-    UnexpectedTypeDecl (Left i) -> vcat [
-        "Unknown type declaration " >< showToCtxDoc i ><  "."
-      , string pleaseReport
-      ]
-    UnsupportedVariadicFunction -> "Unsupported variadic (varargs) function."
-    UnsupportedLongDouble -> "Unsupported long double."
+      UnexpectedTypeKind (Right kind) ->
+          unexpected $ "type kind " >< PP.showToCtxDoc kind
+      UnexpectedTypeKind (Left i) ->
+          unexpected $ "type kind " >< PP.showToCtxDoc i
+      UnexpectedTypeDecl (Right kind) ->
+          unexpected $ "type declaration " >< PP.showToCtxDoc kind
+      UnexpectedTypeDecl (Left i) ->
+          unexpected $ "type declaration " >< PP.showToCtxDoc i
+      UnsupportedVariadicFunction ->
+          "Unsupported variadic (varargs) function."
+      UnsupportedLongDouble ->
+          "Unsupported long double."
+      UnsupportedBuiltin name ->
+          "Unsupported built-in " >< prettyForTrace name
+    where
+      unexpected :: PP.CtxDoc -> PP.CtxDoc
+      unexpected msg = PP.vcat [
+            "Unexpected " >< msg  >< "."
+          , PP.string pleaseReport
+          ]
 
 -- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
 --
@@ -121,9 +127,10 @@ instance HasDefaultLogLevel ParseTypeException where
     UnexpectedTypeDecl{}        -> Error
     UnsupportedVariadicFunction -> Warning
     UnsupportedLongDouble       -> Warning
+    UnsupportedBuiltin{}        -> Warning
 
 instance Exception ParseTypeException where
-  displayException = renderCtxDoc (mkContext 100) . prettyForTrace
+  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
 
 {-------------------------------------------------------------------------------
   Utility: dispatching based on the cursor kind

@@ -42,8 +42,7 @@ module Clang.HighLevel.Types (
   , foldRecursePure
   , foldRecursePureOpt
     -- * User-provided names
-  , UserProvided(..)
-  , ClangGenerated(..)
+  , CursorSpelling(..)
     -- * Declaration classification
   , Declaration(..)
   ) where

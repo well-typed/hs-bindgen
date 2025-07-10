@@ -102,6 +102,8 @@ nameDecl env decl = do
           DeclAnon anonId ->
             (, C.NameOriginGenerated anonId) . nameForAnon <$>
               findNamedUseOf env qid
+          DeclBuiltin name ->
+            Just (name, C.NameOriginInSource)
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -216,7 +218,8 @@ instance NameUseSites C.Type where
       nameUseSite :: QualDeclId -> (CName, C.NameOrigin)
       nameUseSite qid@(QualDeclId uid _nameKind) =
           case uid of
-            DeclNamed name   -> (name, C.NameOriginInSource)
+            DeclNamed   name -> (name, C.NameOriginInSource)
+            DeclBuiltin name -> (name, C.NameOriginInSource)
             DeclAnon  anonId ->
              case findNamedUseOf env qid of
                Just useOfAnon ->

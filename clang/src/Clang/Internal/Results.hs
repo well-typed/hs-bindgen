@@ -5,6 +5,7 @@ module Clang.Internal.Results (
     -- * Failed calls
     CallFailed(..)
   , callFailed
+  , callFailedShow
     -- * Specific conditions
   , cToBool
   , ensure
@@ -12,6 +13,8 @@ module Clang.Internal.Results (
   , ensureNotNull
   , checkNotNull
   , ensureNotInRange
+    -- * Auxiliary
+  , isNullPtr
   ) where
 
 import Control.Exception
@@ -37,10 +40,13 @@ data CallFailed = CallFailed String Backtrace
   deriving stock (Show)
   deriving Exception via CollectedBacktrace CallFailed
 
-callFailed :: (MonadIO m, Show hint, HasCallStack) => hint -> m a
+callFailed :: (MonadIO m, HasCallStack) => String -> m a
 callFailed hint = do
     stack <- collectBacktrace
-    liftIO $ throwIO $ CallFailed (show hint) stack
+    liftIO $ throwIO $ CallFailed hint stack
+
+callFailedShow :: (MonadIO m, Show hint, HasCallStack) => hint -> m a
+callFailedShow = callFailed . show
 
 {-------------------------------------------------------------------------------
   Specific conditions
@@ -66,7 +72,7 @@ ensureOn f p call = do
     x <- call
     if p (f x)
       then return x
-      else callFailed (f x)
+      else callFailedShow (f x)
 
 -- | Ensure that a function did not return 'nullPtr' (indicating error)
 ensureNotNull ::
@@ -101,7 +107,7 @@ ensureNotInRange = ensureOn conv (not . simpleEnumInRange)
     conv = coerceSimpleEnum . fromIntegral
 
 {-------------------------------------------------------------------------------
-  Internal auxiliary
+  Auxiliary
 -------------------------------------------------------------------------------}
 
 isNullPtr :: Coercible a (Ptr x) => a -> Bool

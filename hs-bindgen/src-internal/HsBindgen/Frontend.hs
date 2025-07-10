@@ -97,7 +97,6 @@ processTranslationUnit
   pSpec
   rootHeader
   unit = do
-
     (includeGraph, isMainFile, getMainHeader) <- processIncludes rootHeader unit
     let predicateParse = case configProgramSlicing of
           EnableProgramSlicing  -> SelectAll

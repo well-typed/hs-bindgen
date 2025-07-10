@@ -117,7 +117,7 @@ requireClangVersion v =
       ClangVersion version | version >= v ->
        return ()
       _otherwise ->
-        callFailed (Requires v)
+        callFailedShow (Requires v)
 
 {-------------------------------------------------------------------------------
   Low-level
