@@ -81,8 +81,10 @@ getDeclInfo = \curr -> do
     declId     <- getDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
+    -- TODO: We might want a NameOriginBuiltin
     let declOrigin = case declId of
           DeclNamed{}     -> C.NameOriginInSource
+          DeclBuiltin{}   -> C.NameOriginInSource
           DeclAnon anonId -> C.NameOriginGenerated anonId
     return C.DeclInfo{
         declId
@@ -108,11 +110,13 @@ getReparseInfo = \curr -> do
 
 -- | Macros
 --
--- In this phase, we return macro declaraitons simply as a list of tokens. We
+-- In this phase, we return macro declarations simply as a list of tokens. We
 -- will parse them later (after sorting all declarations in the file).
 --
 -- NOTE: We rely on selection to filter out clang internal macro declarations.
-macroDefinition :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
+macroDefinition ::
+     HasCallStack
+  => C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 macroDefinition info = simpleFold $ \curr -> do
     unit <- getTranslationUnit
     let mkDecl :: UnparsedMacro -> C.Decl Parse
@@ -535,8 +539,8 @@ partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
 partitionAnonDecls = List.partition (declIdIsAnon . C.declId . C.declInfo)
   where
     declIdIsAnon :: DeclId -> Bool
-    declIdIsAnon (DeclAnon _)  = True
-    declIdIsAnon (DeclNamed _) = False
+    declIdIsAnon (DeclAnon _) = True
+    declIdIsAnon _otherwise   = False
 
 -- | Detect implicit fields inside a struct
 --

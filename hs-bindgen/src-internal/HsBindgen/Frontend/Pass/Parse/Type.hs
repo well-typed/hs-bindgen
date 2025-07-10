@@ -84,12 +84,13 @@ fromDecl ty = do
       CXCursor_EnumDecl    -> return $ C.TypeEnum    declId C.NameOriginInSource
       CXCursor_StructDecl  -> return $ C.TypeStruct  declId C.NameOriginInSource
       CXCursor_UnionDecl   -> return $ C.TypeUnion   declId C.NameOriginInSource
-      CXCursor_TypedefDecl -> return $ C.TypeTypedef (typedefName declId)
+      CXCursor_TypedefDecl -> C.TypeTypedef <$> typedefName declId
       kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where
-    typedefName :: DeclId -> CName
-    typedefName (DeclNamed name) = name
-    typedefName (DeclAnon _)     = panicPure "Unexpected anonymous typedef"
+    typedefName :: DeclId -> ParseType CName
+    typedefName (DeclNamed name)   = return name
+    typedefName (DeclAnon _)       = panicPure "Unexpected anonymous typedef"
+    typedefName (DeclBuiltin name) = throwError $ UnsupportedBuiltin name
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto ty = do

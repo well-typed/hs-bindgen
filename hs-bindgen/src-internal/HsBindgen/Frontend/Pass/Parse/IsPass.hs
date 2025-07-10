@@ -157,7 +157,7 @@ data ReparseInfo =
   deriving stock (Show, Eq)
 
 getUnparsedMacro ::
-     MonadIO m
+     (MonadIO m, HasCallStack)
   => CXTranslationUnit -> CXCursor -> m UnparsedMacro
 getUnparsedMacro unit curr = do
     range  <- HighLevel.clang_getCursorExtent curr

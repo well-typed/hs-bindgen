@@ -77,8 +77,9 @@ pattern DeclId name <- (fromDeclId -> Just name)
     DeclId name = toDeclId name
 
 fromDeclId :: DeclId -> Maybe CName
-fromDeclId (DeclNamed name) = Just name
-fromDeclId (DeclAnon _)     = Nothing
+fromDeclId (DeclNamed   name) = Just name
+fromDeclId (DeclAnon    _   ) = Nothing
+fromDeclId (DeclBuiltin name) = Just name
 
 toDeclId :: CName -> DeclId
 toDeclId name = DeclNamed name

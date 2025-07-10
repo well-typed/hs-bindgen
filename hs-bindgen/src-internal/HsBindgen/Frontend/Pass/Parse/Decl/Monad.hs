@@ -182,8 +182,9 @@ recordNonSelectedDecl declInfo nameKind =
     declName :: Maybe C.CName
     declName =
         case C.declId declInfo of
-          DeclNamed cname -> Just cname
-          DeclAnon  _     -> Nothing
+          DeclNamed   cname   -> Just cname
+          DeclAnon    _       -> Nothing
+          DeclBuiltin builtin -> Just builtin
 
 {-------------------------------------------------------------------------------
   Logging

@@ -179,7 +179,7 @@ getExpansionTypeMapping clangArgs tys =
             -> do
               mbFunNm <- liftIO $ Clang.clang_getCursorSpelling cursor
               case mbFunNm of
-                Right (Clang.UserProvided funNm)
+                Clang.UserProvided funNm
                   | let ( nm, nb ) = Text.splitAt 6 funNm
                   , nm == "testFn"
                   , Just i <- readMaybe ( Text.unpack nb )
@@ -275,7 +275,7 @@ queryClangForResultType clangArgs tys op =
             | Clang.CXCursor_FunctionDecl <- kind
             -> do
               funNm <- Clang.clang_getCursorSpelling cursor
-              if funNm == Right (Clang.UserProvided "testFunction")
+              if funNm == Clang.UserProvided "testFunction"
               then
                 Clang.foldRecursePureOpt ( extractType ( True, False ) ) listToMaybe
               else

@@ -192,15 +192,6 @@ testCases = [
           Just $ Expected ()
         _otherwise ->
           Nothing
-    , failingTestSimple "redeclaration_different" $ \case
-        TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {}))) ->
-          Just (Expected ())
-        TraceClang (ClangDiagnostic x) ->
-          if "macro redefined" `Text.isInfixOf` diagnosticSpelling x
-            then Just Tolerated
-            else Nothing
-        _otherwise ->
-          Nothing
     , failingTestSimple "fixedarray_res_a" $ \case
          TraceClang (ClangDiagnostic x) ->
            if "brackets are not allowed here" `Text.isInfixOf` diagnosticSpelling x
@@ -215,6 +206,20 @@ testCases = [
             else Nothing
         TraceClang _ ->
           Just Tolerated
+        _otherwise ->
+          Nothing
+    , failingTestSimple "redeclaration_different" $ \case
+        TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {}))) ->
+          Just (Expected ())
+        TraceClang (ClangDiagnostic x) ->
+          if "macro redefined" `Text.isInfixOf` diagnosticSpelling x
+            then Just Tolerated
+            else Nothing
+        _otherwise ->
+          Nothing
+    , failingTestSimple "unsupported_builtin" $ \case
+        TraceFrontend (FrontendParse (UnsupportedType _info (UnsupportedBuiltin "__builtin_va_list"))) ->
+          Just $ Expected ()
         _otherwise ->
           Nothing
 

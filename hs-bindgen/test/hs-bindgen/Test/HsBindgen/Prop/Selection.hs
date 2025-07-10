@@ -48,44 +48,44 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
 -------------------------------------------------------------------------------}
 
 prop_selectAll :: SingleLoc -> QualDeclId -> Bool
-prop_selectAll loc name = matchPredicate (const True) loc name SelectAll
+prop_selectAll loc name = match (const True) loc name SelectAll
 
 prop_selectNone :: SingleLoc -> QualDeclId -> Bool
-prop_selectNone loc name = not $ matchPredicate (const True) loc name SelectNone
+prop_selectNone loc name = not $ match (const True) loc name SelectNone
 
 prop_selectIfBoth
   :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId
   -> Predicate -> Predicate -> Bool
 prop_selectIfBoth (Fn isMainFile) loc name p1 p2 =
-  let p1Res = matchPredicate isMainFile loc name p1
-      p2Res = matchPredicate isMainFile loc name p2
-      p1AndP2Res = matchPredicate isMainFile loc name (SelectIfBoth p1 p2)
+  let p1Res = match isMainFile loc name p1
+      p2Res = match isMainFile loc name p2
+      p1AndP2Res = match isMainFile loc name (SelectIfBoth p1 p2)
    in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectIfEither
   :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId
   -> Predicate -> Predicate -> Bool
 prop_selectIfEither (Fn isMainFile) loc name p1 p2 =
-  let p1Res = matchPredicate isMainFile loc name p1
-      p2Res = matchPredicate isMainFile loc name p2
-      p1AndP2Res = matchPredicate isMainFile loc name (SelectIfEither p1 p2)
+  let p1Res = match isMainFile loc name p1
+      p2Res = match isMainFile loc name p2
+      p1AndP2Res = match isMainFile loc name (SelectIfEither p1 p2)
    in (p1Res || p2Res) == p1AndP2Res
 
 prop_selectNegate
   :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Predicate -> Property
 prop_selectNegate (Fn isMainFile) loc name predicate =
-  matchPredicate isMainFile loc name predicate
-  =/= matchPredicate isMainFile loc name (SelectNegate predicate)
+  match isMainFile loc name predicate
+  =/= match isMainFile loc name (SelectNegate predicate)
 
 prop_selectFromMainFiles
   :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
 prop_selectFromMainFiles (Fn isMainFile) loc name =
-  matchPredicate isMainFile loc name SelectFromMainFiles == isMainFile loc
+  match isMainFile loc name SelectFromMainFiles == isMainFile loc
 
 prop_selectByFileNameAll
   :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
 prop_selectByFileNameAll (Fn isMainFile) loc name =
-  matchPredicate isMainFile loc name (SelectByFileName ".*")
+  match isMainFile loc name (SelectByFileName ".*")
 
 prop_selectByFileNameNeedle
   :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
@@ -93,18 +93,18 @@ prop_selectByFileNameNeedle (Fn isMainFile) loc name =
   let (SourcePath sourcePath) = singleLocPath loc
       sourcePath' = sourcePath <> "NEEDLE" <> sourcePath
       loc' = loc { singleLocPath = SourcePath sourcePath'}
-   in matchPredicate isMainFile loc' name (SelectByFileName "NEEDLE")
+   in match isMainFile loc' name (SelectByFileName "NEEDLE")
 
 prop_selectByElementNameAll
   :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
 prop_selectByElementNameAll (Fn isMainFile) loc name =
-    maybeNot $ matchPredicate isMainFile loc name (SelectByElementName ".*")
+    maybeNot $ match isMainFile loc name (SelectByElementName ".*")
   where
     maybeNot :: (Bool -> Bool)
     maybeNot =
         case qualDeclId name of
           DeclNamed _ -> id
-          DeclAnon  _ -> not
+          _otherwise  -> not
 
 prop_selectByElementNameNeedle
   :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
@@ -113,8 +113,8 @@ prop_selectByElementNameNeedle (Fn isMainFile) loc (QualDeclId declId kind) =
       DeclNamed name ->
         let name' = name <> "NEEDLE" <> name
             qid'  = QualDeclId (DeclNamed name') kind
-         in matchPredicate isMainFile loc qid' (SelectByElementName "NEEDLE")
-      DeclAnon _ ->
+         in match isMainFile loc qid' (SelectByElementName "NEEDLE")
+      _otherwise ->
         True -- skip
 
 {-------------------------------------------------------------------------------

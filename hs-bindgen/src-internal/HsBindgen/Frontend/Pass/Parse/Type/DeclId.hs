@@ -1,7 +1,5 @@
 module HsBindgen.Frontend.Pass.Parse.Type.DeclId (
     DeclId (..)
-  , isNamedDecl
-  , isAnonDecl
   , getDeclId
   , QualDeclId (..)
   , declQualDeclId
@@ -29,20 +27,25 @@ import Text.SimplePrettyPrint qualified as PP
 
 -- | Identity of a declaration
 data DeclId =
+    -- | Named declaration
     DeclNamed CName
+
+    -- | Anonymous declaration
+    --
+    -- This can only happen for tagged types: structs, unions and enums
   | DeclAnon AnonId
+
+    -- | Built-in declaration
+    --
+    -- Note: since built-in declarations don't have a definition, we cannot
+    -- in general generate bindings for them. If there are /specific/ built-in
+    -- declarations we should support, we need to special-case them.
+  | DeclBuiltin CName
+
   deriving stock (Show, Eq, Ord)
 
 instance IsString DeclId where
   fromString = DeclNamed . fromString
-
-isNamedDecl :: DeclId -> Maybe CName
-isNamedDecl (DeclNamed name) = Just name
-isNamedDecl (DeclAnon  _)    = Nothing
-
-isAnonDecl :: DeclId -> Maybe AnonId
-isAnonDecl (DeclNamed _)     = Nothing
-isAnonDecl (DeclAnon anonId) = Just anonId
 
 getDeclId :: MonadIO m => CXCursor -> m DeclId
 getDeclId curr = do
@@ -59,15 +62,18 @@ getDeclId curr = do
     -- See https://github.com/well-typed/hs-bindgen/issues/795
     spelling <- HighLevel.clang_getCursorSpelling curr
     case spelling of
-      Right (UserProvided name) ->
+      UserProvided name ->
         return $ DeclNamed (CName name)
-      Left (ClangGenerated _) ->
+      ClangGenerated _ ->
         DeclAnon . AnonId . multiLocExpansion
           <$> HighLevel.clang_getCursorLocation curr
+      ClangBuiltin name ->
+        return $ DeclBuiltin (CName name)
 
 instance PrettyForTrace DeclId where
-  prettyForTrace (DeclNamed name)   = prettyForTrace name
-  prettyForTrace (DeclAnon  anonId) = prettyForTrace anonId
+  prettyForTrace (DeclNamed   name)   = prettyForTrace name
+  prettyForTrace (DeclAnon    anonId) = prettyForTrace anonId
+  prettyForTrace (DeclBuiltin name)   = prettyForTrace name
 
 instance PrettyForTrace (C.Located DeclId) where
   prettyForTrace (C.Located loc declId) =
@@ -80,6 +86,9 @@ instance PrettyForTrace (C.Located DeclId) where
         DeclAnon anonId ->
           -- No need to repeat the source location in this case
           prettyForTrace anonId
+        DeclBuiltin builtin ->
+          -- Builtins don't /have/ a location
+          prettyForTrace builtin
 
 -- | Qualified declaration identity
 data QualDeclId = QualDeclId {

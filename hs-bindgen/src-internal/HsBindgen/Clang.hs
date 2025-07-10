@@ -13,7 +13,6 @@ module HsBindgen.Clang (
   , getExtraClangArgs
   ) where
 
-import Control.Monad
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import Data.Maybe (isJust)
 import Data.Text qualified as Text
@@ -25,10 +24,10 @@ import Clang.Args
 import Clang.Enum.Bitfield
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
+import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import Clang.HighLevel.Types
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (showToCtxDoc, string, textToCtxDoc, (><))
 
@@ -72,7 +71,12 @@ withClang tracer setup k =
                  unsaved
                  clangFlags
                  onErrorCode
-                 (\unit -> traceDiagnostics unit >> k unit)
+                 ( \unit -> do
+                      anyIsError <- traceDiagnostics unit
+                      if anyIsError
+                        then return Nothing
+                        else k unit
+                 )
       case clangInput of
         ClangInputFile path ->
           withUnit path []
@@ -92,10 +96,15 @@ withClang tracer setup k =
         traceWith tracer $ ClangErrorCode err
         return Nothing
 
-    traceDiagnostics :: CXTranslationUnit -> IO ()
+    traceDiagnostics :: CXTranslationUnit -> IO Bool
     traceDiagnostics unit = do
-        diagnostics <- HighLevel.clang_getDiagnostics unit Nothing
-        forM_ diagnostics $ traceWith (contramap ClangDiagnostic tracer)
+        go False =<< HighLevel.clang_getDiagnostics unit Nothing
+      where
+        go :: Bool -> [Diagnostic] -> IO Bool
+        go !anyIsError []     = return anyIsError
+        go !anyIsError (d:ds) = do
+            traceWith (contramap ClangDiagnostic tracer) d
+            go (anyIsError || diagnosticIsError d) ds
 
 {-------------------------------------------------------------------------------
   Log messages
