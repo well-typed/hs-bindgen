@@ -58,7 +58,7 @@ library
     import:           warnings
 
     -- Modules exported by the library.
-    exposed-modules:  Minisat/Generated.hs
+    exposed-modules:  Minisat.Generated
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -75,6 +75,8 @@ library
 
     -- Base language which the package is written in.
     default-language: Haskell2010
+
+    extra-libraries: minisat-c
 
 executable c-minisat
     -- Import common warning flags.
@@ -93,6 +95,8 @@ executable c-minisat
     build-depends:
         base ^>=4.19.2.0,
         c-minisat
+
+    -- extra-libraries: minisat-c
 
     -- Directories containing source files.
     hs-source-dirs:   app
