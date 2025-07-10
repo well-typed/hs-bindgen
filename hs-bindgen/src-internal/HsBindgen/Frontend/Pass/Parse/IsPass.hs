@@ -131,6 +131,11 @@ instance IsPass Parse where
       -- Such definitions can lead to duplicate symbols (linker errors) if they
       -- are included more than once (see manual section on globals for details).
     | PotentialDuplicateGlobal (C.DeclInfo Parse)
+
+      -- | Constants are not yet supported
+      --
+      -- <https://github.com/well-typed/hs-bindgen/issues/41>
+    | UnsupportedConst (C.DeclInfo Parse)
     deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
@@ -188,6 +193,8 @@ instance PrettyForTrace (Msg Parse) where
         , " may result in duplicate symbols; "
         , "consider using 'static' or 'extern'"
         ]
+      UnsupportedConst info -> noBindingsGenerated info $
+          "constants not yet supported (#41)"
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
       noBindingsGenerated info reason = hcat [
@@ -208,6 +215,7 @@ instance HasDefaultLogLevel (Msg Parse) where
       UnsupportedTLS{}            -> Warning
       UnknownStorageClass{}       -> Warning
       PotentialDuplicateGlobal{}  -> Notice
+      UnsupportedConst{}          -> Warning
 
 instance HasSource (Msg Parse) where
     getSource = const HsBindgen
