@@ -7,9 +7,6 @@
 module HsBindgen.C.Predicate (
     Predicate (..)
   , Regex -- opaque
-    -- * Trace messages
-  , SkipReason (..)
-  , Match (..)
     -- * Execution (internal API)
   , IsMainFile
   , match
@@ -18,16 +15,14 @@ module HsBindgen.C.Predicate (
   , mergePredicates
   ) where
 
-import Data.Text qualified as Text
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text ()
 
 import Clang.HighLevel.Types
 import Clang.Paths
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C
-import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (hcat, showToCtxDoc, textToCtxDoc)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -75,53 +70,6 @@ instance Default Predicate where
   def = SelectFromMainFiles
 
 {-------------------------------------------------------------------------------
-  Trace messages (during matching)
--------------------------------------------------------------------------------}
-
-data SkipReason =
-    SkipBuiltin {
-        skippedName :: Text
-      }
-  | SkipPredicate Match
-  | SkipUnexposed {
-        skippedLoc :: SingleLoc
-      }
-  deriving stock (Show, Eq)
-
-data Match = Match {
-          matchName   :: Text
-        , matchLoc    :: SingleLoc
-        , matchReason :: Text
-      }
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace SkipReason where
-  prettyForTrace = \case
-      SkipBuiltin{skippedName} -> hcat [
-          "Skipped built-in: '"
-        , textToCtxDoc skippedName
-        , "'"
-        ]
-      (SkipPredicate Match{..}) -> hcat [
-          "Skipped '"
-        , textToCtxDoc matchName
-        , "' at "
-        , showToCtxDoc matchLoc
-        , ": "
-        , textToCtxDoc matchReason
-        ]
-      SkipUnexposed{skippedLoc} -> hcat [
-          "Skipped unexposed declaration at "
-        , showToCtxDoc skippedLoc
-        ]
-
-instance HasDefaultLogLevel SkipReason where
-  getDefaultLogLevel = \case
-      SkipBuiltin{}   -> Debug
-      SkipPredicate{} -> Info
-      SkipUnexposed{} -> Warning
-
-{-------------------------------------------------------------------------------
   Match
 
   NOTE: This is internal API (users construct filters, but don't use them).
@@ -133,85 +81,50 @@ instance HasDefaultLogLevel SkipReason where
 -- this module. See "HsBindgen.Frontend.ProcessIncludes" for discussion.
 type IsMainFile = SingleLoc -> Bool
 
-
-type SkipMsg = Text
-
-type SelectMsg = Text
-
 -- | Match predicate and skip built-ins
---
--- If the predicate does not match, we report the reason why.
-match
-  :: IsMainFile -> SingleLoc -> Maybe QualName
-  -> Predicate -> Either SkipReason ()
-match isMainFile loc mQualName predicate = do
-    let skipBuiltIn :: Either SkipReason ()
-        skipBuiltIn =
-            when (nullSourcePath sourcePath) $
-              Left SkipBuiltin{skippedName = matchName}
-          where
-            sourcePath :: SourcePath
-            sourcePath = singleLocPath loc
-
-        getMatch :: Text -> Match
-        getMatch matchReason =
-            Match{
-                matchName
-              , matchLoc = loc
-              , matchReason
-              }
-
-        matchName :: Text
-        matchName = maybe "anonymous declaration" qualNameText mQualName
-
-    skipBuiltIn
-    bimap (SkipPredicate . getMatch) (const ()) $
-      matchPredicate isMainFile loc mQualName predicate
+match ::
+     IsMainFile
+  -> SingleLoc
+  -> QualDeclId
+  -> Predicate
+  -> Bool
+match isMainFile loc qid predicate = and [
+      not isBuiltin
+    , matchPredicate isMainFile loc qid predicate
+    ]
+  where
+    isBuiltin :: Bool
+    isBuiltin = nullSourcePath $ singleLocPath loc
 
 -- | Match predicate
-matchPredicate
-  :: IsMainFile -> SingleLoc -> Maybe QualName
-  -> Predicate -> Either SkipMsg SelectMsg
-matchPredicate isMainFile loc mQualName = go
-  where skip, select :: Text -> Either SkipMsg SelectMsg
-        skip = Left
-        select = Right
+matchPredicate ::
+     IsMainFile
+  -> SingleLoc
+  -> QualDeclId
+  -> Predicate
+  -> Bool
+matchPredicate isMainFile loc qid = go
+  where
+    go :: Predicate -> Bool
+    go p =
+        case reduce p of
+          SelectAll              -> True
+          SelectNone             -> False
+          SelectIfBoth p1 p2     -> go p1 && go p2
+          SelectIfEither p1 p2   -> go p1 || go p2
+          SelectNegate p1        -> not (go p1)
+          SelectFromMainFiles    -> isMainFile loc
+          SelectByFileName re    -> matchFilename    re $ singleLocPath loc
+          SelectByElementName re -> matchElementName re $ qid
 
-        matchName :: Text
-        matchName = maybe "anonymous declaration" qualNameText mQualName
+    matchFilename :: Regex -> SourcePath -> Bool
+    matchFilename re (SourcePath path) = matchTest re path
 
-        go :: Predicate -> Either SkipMsg SelectMsg
-        go p = case reduce p of
-            SelectAll -> select "Select all declarations"
-            SelectNone -> skip "Select no declaration"
-            (SelectIfBoth p1 p2) -> go p1 >> go p2
-            (SelectIfEither p1 p2) -> case go p1 of
-              Right sel1 -> select sel1
-              Left  skp1 -> case go p2 of
-                Right sel2 -> select sel2
-                Left _ -> skip skp1
-            (SelectNegate p1) -> case go p1 of
-              Left  skp -> select $ "Negation of: " <> skp
-              Right sel -> skip $ "Negation of: " <> sel
-            SelectFromMainFiles
-              | isMainFile loc -> select "From main files"
-              | otherwise      -> skip "Not from main files"
-            (SelectByFileName re)
-              | matchTest re filename -> select (msg "matches")
-              | otherwise             -> skip (msg "does not match")
-                where
-                  (SourcePath filename) = singleLocPath loc
-                  msg verb = mconcat [ "File name '" <> filename <> "' "
-                                     , verb <> " " <> Text.pack (show re)
-                                     ]
-            (SelectByElementName re) -> case qualNameText <$> mQualName of
-              Just qualElementName
-                | matchTest re qualElementName -> select (msg "matches")
-              _noMatchOrAnon -> skip (msg "does not match")
-              where
-                msg verb = mconcat [ "Element name '" <> matchName <> "' "
-                                   , verb <> " " <> Text.pack (show re)
-                                   ]
+    matchElementName :: Regex -> QualDeclId -> Bool
+    matchElementName re (QualDeclId declId kind) =
+        case declId of
+          DeclNamed name -> matchTest re (qualNameText $ QualName name kind)
+          DeclAnon  _    -> False
 
 {-------------------------------------------------------------------------------
   Reduce and merge

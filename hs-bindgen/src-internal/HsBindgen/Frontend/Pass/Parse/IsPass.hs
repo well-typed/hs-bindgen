@@ -12,7 +12,6 @@ import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
@@ -54,7 +53,7 @@ instance IsPass Parse where
   -- for strange C input.
   data Msg Parse =
       -- | We skipped over a declaration
-      Skipped Predicate.SkipReason
+      Skipped (C.DeclInfo Parse)
 
       -- | Unsupported type
       --
@@ -171,8 +170,8 @@ getUnparsedMacro unit curr = do
 
 instance PrettyForTrace (Msg Parse) where
   prettyForTrace = \case
-      Skipped reason ->
-          prettyForTrace reason
+      Skipped info ->
+          prettyForTrace info >< " not selected"
       UnsupportedType info err -> noBindingsGenerated info $
           prettyForTrace err
       UnsupportedImplicitFields info -> noBindingsGenerated info $
@@ -207,7 +206,7 @@ instance PrettyForTrace (Msg Parse) where
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel (Msg Parse) where
   getDefaultLogLevel = \case
-      Skipped reason              -> getDefaultLogLevel reason
+      Skipped{}                   -> Info
       UnsupportedType _ctxt err   -> getDefaultLogLevel err
       UnsupportedImplicitFields{} -> Warning
       UnexpectedAnonInSignature{} -> Warning

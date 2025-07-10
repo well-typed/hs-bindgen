@@ -138,8 +138,6 @@ dispatch curr k = do
       Right kind -> k kind
       Left  i    -> throwError $ UnexpectedTypeKind (Left i)
 
--- | This is similar to 'HsBindgen.Frontend.Pass.Parse.Decl.Monad.dispatchFold',
--- but we don't deal with folds when parsing types.
 dispatchWithArg ::
      MonadError ParseTypeException m
   => CXType

@@ -24,7 +24,6 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , unknownCursorKind
     -- * Utility: dispatching
   , dispatch
-  , dispatchFold
   ) where
 
 import Data.IORef
@@ -41,6 +40,7 @@ import HsBindgen.C.Predicate (IsMainFile, Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
 import HsBindgen.Errors
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -49,7 +49,6 @@ import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.C.Name (QualName)
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -100,15 +99,15 @@ evalGetMainHeader :: SourcePath -> ParseDecl CHeaderIncludePath
 evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
     return $ (envGetMainHeader parseEnv) path
 
-evalPredicate :: SingleLoc -> Maybe QualName
-  -> ParseDecl (Either Predicate.SkipReason ())
-evalPredicate loc mQualName = wrapEff $ \ParseSupport{parseEnv} -> do
-    let matchResult =
-          Predicate.match (envIsMainFile parseEnv) loc mQualName (envPredicate parseEnv)
-    case matchResult of
-      Right ()    -> return ()
-      Left reason -> traceWith (envTracer parseEnv) (Skipped reason)
-    return matchResult
+evalPredicate :: C.DeclInfo Parse -> C.NameKind -> ParseDecl Bool
+evalPredicate info kind = wrapEff $ \ParseSupport{parseEnv} -> do
+    let selected = Predicate.match
+                     (envIsMainFile parseEnv)
+                     (C.declLoc info)
+                     (QualDeclId (C.declId info) kind)
+                     (envPredicate parseEnv)
+    unless selected $ traceWith (envTracer parseEnv) (Skipped info)
+    return selected
 
 {-------------------------------------------------------------------------------
   "State"
@@ -162,32 +161,29 @@ checkHasMacroExpansion extent = do
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
 
-recordNonSelectedDecl :: CXCursor -> ParseDecl ()
-recordNonSelectedDecl curr = do
-    mNameKind <- dispatch curr $ return . C.toNameKindFromCXCursorKind
-    case mNameKind of
-      Just nameKind -> getDeclId curr >>= \case
-        DeclNamed cname -> do
-          let cQualName = C.QualName cname nameKind
-          sourcePath <-
-            singleLocPath <$> HighLevel.clang_getCursorLocation' curr
-          wrapEff $ \ParseSupport{parseState} ->
-            modifyIORef parseState $ \st -> st{
-                stateNonSelectedDecls =
-                  NonSelectedDecls.insert cQualName sourcePath $
-                    stateNonSelectedDecls st
-              }
+recordNonSelectedDecl :: C.DeclInfo Parse -> C.NameKind -> ParseDecl ()
+recordNonSelectedDecl declInfo nameKind =
+    case declName of
+      Just cname -> do
+        let cQualName  = C.QualName cname nameKind
+            sourcePath = singleLocPath (C.declLoc declInfo)
+        wrapEff $ \ParseSupport{parseState} ->
+          modifyIORef parseState $ \st -> st{
+              stateNonSelectedDecls =
+                NonSelectedDecls.insert cQualName sourcePath $
+                  stateNonSelectedDecls st
+            }
+      Nothing ->
         -- We __do not track unselected anonymous declarations__. If we want to
         -- use descriptive binding specification with anonymous declarations, we
         -- __must__ select these declarations.
-        DeclAnon{} -> return ()
-      -- We intentionally do selection as part of parsing, rather than a
-      -- separate step: if the user does not select certain declarations
-      -- (perhaps because they live deep in the bowels of some system
-      -- libraries), we also do not need to parse them. Since 'recordSource' is
-      -- called on all declarations, selected or not, we must ensure that we
-      -- don't error out on such unsupported cases.
-      Nothing -> return ()
+        return ()
+  where
+    declName :: Maybe C.CName
+    declName =
+        case C.declId declInfo of
+          DeclNamed cname -> Just cname
+          DeclAnon  _     -> Nothing
 
 {-------------------------------------------------------------------------------
   Logging
@@ -201,8 +197,8 @@ recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
   Errors
 -------------------------------------------------------------------------------}
 
-unknownCursorKind :: (MonadIO m, HasCallStack) => CXCursorKind -> Fold m x
-unknownCursorKind kind = simpleFold $ \curr -> do
+unknownCursorKind :: MonadIO m => CXCursor -> CXCursorKind -> m x
+unknownCursorKind curr kind = do
     loc      <- HighLevel.clang_getCursorLocation' curr
     spelling <- clang_getCursorKindSpelling (simpleEnum kind)
     panicIO $ concat [
@@ -224,10 +220,3 @@ dispatch curr k = do
     case mKind of
       Right kind -> k kind
       Left  i    -> panicIO $ "Unrecognized CXCursorKind " ++ show i
-
-dispatchFold ::
-     MonadUnliftIO m
-  => CXCursor
-  -> (CXCursorKind -> Fold m a)
-  -> m (Next m a)
-dispatchFold x f = dispatch x $ \kind -> runFold (f kind) x
