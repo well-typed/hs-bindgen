@@ -3,6 +3,20 @@
 # Exit on first error
 set -e
 
+# There's a quirk with Apple and Windows assembler and LLVM IR that do not
+# accept Unicode characters. There's SUPPORTS_UNICODE flag that allows Unicode
+# characters and we only enable that for non-MacOS and non-LLVM backend
+# compilation
+#
+# Check inside manual_examples.{c,h} for where this macro flag is used.
+#
+if [[ "$(uname -s)" == "Linux" && "${LLVM_BACKEND}" != "1" ]]; then
+  echo "Setting SUPPORTS_UNICODE in BINDGEN_EXTRA_CLANG_ARGS"
+  export BINDGEN_EXTRA_CLANG_ARGS="-DSUPPORTS_UNICODE ${BINDGEN_EXTRA_CLANG_ARGS:-}"
+else
+  echo "Not setting SUPPORTS_UNICODE (not Linux or LLVM backend enabled)"
+fi
+
 echo "# "
 echo "# Basic examples"
 echo "# "
