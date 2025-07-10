@@ -77,6 +77,7 @@ testCases = [
     , defaultTest "bitfields"
     , defaultTest "bool"
     , defaultTest "enums"
+    , defaultTest "fixedarray_arg"
     , defaultTest "fixedarray"
     , defaultTest "fixedwidth"
     , defaultTest "flam"
@@ -101,14 +102,13 @@ testCases = [
     , defaultTest "simple_structs"
     , defaultTest "spec_examples"
     , defaultTest "struct_arg"
-    , defaultTest "fixedarray_arg"
     , defaultTest "type_naturals"
     , defaultTest "typedef_vs_macro"
     , defaultTest "typedefs"
     , defaultTest "typenames"
     , defaultTest "unions"
-    , defaultTest "vector"
     , defaultTest "uses_utf8"
+    , defaultTest "vector"
 
       --
       -- Clang diagnostics

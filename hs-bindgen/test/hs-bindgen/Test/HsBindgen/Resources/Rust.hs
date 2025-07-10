@@ -46,9 +46,7 @@ downloadRustBindgen = do
 
     callProcessCwd tmpDir' "curl"
         [ "-sLf", "-o", tmpDir' </> "bindgen.tar.xz"
-        , "https://github.com/rust-lang/rust-bindgen/releases/download/v"
-          <> rustBindgenVersion
-          <> "/bindgen-cli-x86_64-unknown-linux-gnu.tar.xz"
+        , rustBindgenSources
         ]
 
     callProcessCwd tmpDir' "tar"
@@ -117,12 +115,11 @@ callProcessCwd pwd cmd args = do
   Configuration
 -------------------------------------------------------------------------------}
 
--- | The golden tests are tied to a specific version of @rust-bindgen@.
+-- | Location of the rust-bindgen sources
 --
--- <https://github.com/rust-lang/rust-bindgen/releases/tag/v0.70.1>
--- <https://github.com/rust-lang/rustfmt/releases/tag/v1.6.0>
-rustBindgenVersion :: String
-rustBindgenVersion = "0.70.1"
+-- The golden tests are tied to a specific version of @rust-bindgen@.
+rustBindgenSources :: String
+rustBindgenSources = "https://github.com/rust-lang/rust-bindgen/releases/download/v0.71.1/bindgen-cli-x86_64-unknown-linux-gnu.tar.xz"
 
 -- | Are we on Linux?
 --
