@@ -140,6 +140,9 @@ jobs:
         run: |
           echo "PATH=${{ github.workspace }}\\manual\\c;$PATH" >> "$GITHUB_ENV"
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Run the manual executable
         working-directory: ./manual/hs
         shell: bash
