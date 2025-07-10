@@ -15,11 +15,11 @@ You'll need a cabal.project.local file with the following:
 ```
 package c-minisat
     extra-include-dirs:
-        /home/bolt/Desktop/Bolt/UMinho/Profissional/Well-Typed/Projects/hs-bindgen/c-minisat/minisat-c-bindings
-      , /home/bolt/Desktop/Bolt/UMinho/Profissional/Well-Typed/Projects/hs-bindgen/c-minisat/minisat-c-bindings/build/dynamic/lib
+        <path-hs-bindgen>/c-minisat/minisat-c-bindings
+      , <path-hs-bindgen>/c-minisat/minisat-c-bindings/build/dynamic/lib
     extra-lib-dirs:
-        /home/bolt/Desktop/Bolt/UMinho/Profissional/Well-Typed/Projects/hs-bindgen/c-minisat/minisat-c-bindings
-      , /home/bolt/Desktop/Bolt/UMinho/Profissional/Well-Typed/Projects/hs-bindgen/c-minisat/minisat-c-bindings/build/dynamic/lib/
+        <path-hs-bindgen>/c-minisat/minisat-c-bindings
+      , <path-hs-bindgen>/c-minisat/minisat-c-bindings/build/dynamic/lib
 ```
 
 You'll also need to set
