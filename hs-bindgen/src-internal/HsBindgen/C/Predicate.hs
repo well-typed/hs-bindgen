@@ -81,22 +81,47 @@ instance Default Predicate where
 type IsMainFile = SingleLoc -> Bool
 
 -- | Match predicate
+--
+-- NOTE: We never select builtins:
+--
+-- * Builtins don't have declarations, therefore "selecting" them makes no
+--   sense. We will never have to deal with builtins when processing def sites
+--   (`Parse.Decl`)
+-- * We /may/ have to deal with builtins at _use sites_ (`Parse.Type`), where
+--   we'd have to special case them and map them to types we define, or indeed
+--   deal with them in external bindings (they _do_ get added to
+--   `nonSelectedDecls`, for example).
 match ::
      IsMainFile
   -> SingleLoc
   -> QualDeclId
   -> Predicate
   -> Bool
-match isMainFile loc qid = go
+match isMainFile loc qid = \p ->
+       not (isBuiltin qid)
+    && go p
   where
     go :: Predicate -> Bool
     go p =
+        -- NOTE: The semantics we implement here /MUST/ line up with @reduce@.
+        --
+        -- As long the interpretation of
+        --
+        -- o 'SelectAll'
+        -- o 'SelectNone'
+        -- o 'SelectIfBoth'
+        -- o 'SelectIfEither'
+        -- o 'SelectNegate'
+        --
+        -- is just the "obvious" boolean interpretation, this will be ok.
         case reduce p of
-          SelectAll              -> not (isBuiltin qid)
-          SelectNone             -> False
-          SelectIfBoth p1 p2     -> go p1 && go p2
-          SelectIfEither p1 p2   -> go p1 || go p2
-          SelectNegate p1        -> not (go p1)
+          -- Boolean logic
+          SelectAll            -> True
+          SelectNone           -> False
+          SelectIfBoth   p1 p2 -> go p1 && go p2
+          SelectIfEither p1 p2 -> go p1 || go p2
+          SelectNegate   p1    -> not (go p1)
+          -- Special cases
           SelectFromMainFiles    -> isMainFile loc
           SelectByFileName re    -> matchFilename    re $ singleLocPath loc
           SelectByElementName re -> matchElementName re $ qid
@@ -107,9 +132,8 @@ match isMainFile loc qid = go
     matchElementName :: Regex -> QualDeclId -> Bool
     matchElementName re (QualDeclId declId kind) =
         case declId of
-          DeclNamed   name -> matchTest re (qualNameText $ QualName name kind)
-          DeclAnon    _    -> False
-          DeclBuiltin _    -> False
+          DeclNamed name -> matchTest re (qualNameText $ QualName name kind)
+          _otherwise     -> False
 
 isBuiltin :: QualDeclId -> Bool
 isBuiltin (QualDeclId declId _kind) =
@@ -133,7 +157,12 @@ mergePredicates negatives positives =
         pos = foldr mergePos SelectNone positives
      in reduce $ SelectIfBoth neg pos
 
--- Boolean logic reduction (internal API)
+-- | Boolean logic reduction (internal API)
+--
+-- NOTE:
+--
+-- * This is /not/ recursive: we call this at every step in 'match'
+-- * This needs to match the semantics of 'match' precisely.
 reduce :: Predicate -> Predicate
 reduce = \case
   (SelectNegate (SelectNegate p)) -> p

@@ -180,6 +180,9 @@ instance Arbitrary NameKind where
 instance Arbitrary QualDeclId where
   arbitrary = makeQualDeclId <$> arbitrary <*> arbitrary
     where
+      -- TODO: We currently never produce anonymous or builtin declarations.
+      -- In this module we check that selection predicates behave as boolean
+      -- functions; this is not true for builtins (which are /never/ selected).
       makeQualDeclId :: CName -> NameKind -> QualDeclId
       makeQualDeclId name kind = QualDeclId (DeclNamed name) kind
 
