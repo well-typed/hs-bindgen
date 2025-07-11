@@ -1,0 +1,20 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "bool_c23.h:3:13",
+        declId = NamePair {
+          nameC = CName "b",
+          nameHsIdent = HsIdentifier "b"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "bool_c23.h"},
+      declKind = DeclExtern
+        (TypePrim PrimBool),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["bool_c23"]}

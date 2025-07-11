@@ -132,14 +132,26 @@ data RustBindgenResult =
   | RustBindgenFailed ExitCode String  -- ^ stderr on failure
   | RustBindgenNotCalled
 
-callRustBindgen :: IO TestResources -> FilePath -> IO RustBindgenResult
-callRustBindgen testResources input = do
+callRustBindgen ::
+     IO TestResources
+  -> ClangArgs
+     -- ^ Clang arguments
+     --
+     -- We take this as an explicit argument rather than calling
+     -- 'getTestDefaultClangArgs' here, because individual tests may override
+     -- those default arguments.
+  -> FilePath
+  -> IO RustBindgenResult
+callRustBindgen testResources clangArgs input = do
     TestResources{..} <- testResources
     case testRustBindgen of
-      RustBindgenInPath     path -> aux <$> runRustBindgen path input
-      RustBindgenDownloaded path -> aux <$> runRustBindgen path input
+      RustBindgenInPath     path -> go path
+      RustBindgenDownloaded path -> go path
       RustBindgenUnavailable     -> return RustBindgenNotCalled
   where
-    aux :: (ExitCode, String, String) -> RustBindgenResult
-    aux (ExitSuccess ,  stdout , _stderr) = RustBindgenSuccess stdout
-    aux (exitCode    , _stdout ,  stderr) = RustBindgenFailed exitCode stderr
+    go :: FilePath -> IO RustBindgenResult
+    go path = do
+        (exitCode, stdout, stderr) <- runRustBindgen clangArgs path input
+        case exitCode of
+          ExitSuccess -> return $ RustBindgenSuccess stdout
+          _otherwise  -> return $ RustBindgenFailed exitCode stderr

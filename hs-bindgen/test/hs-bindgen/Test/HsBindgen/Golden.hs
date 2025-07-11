@@ -227,6 +227,9 @@ testCases = [
       -- Miscellaneous other tests that require special treatment
       --
 
+    , (defaultTest "bool_c23") {
+          testClangVersion = Just (>= (15, 0, 0))
+        }
     , (defaultTest "fun_attributes") {
           -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
           -- We are currently issueing a "non-extern non'static global" warning
@@ -279,7 +282,7 @@ testCases = [
           testRustBindgen = RustBindgenFail
         }
     , (defaultTest "named_vs_anon"){
-          testClangVersion   = Just $ (>= (19, 1, 0))
+          testClangVersion   = Just (>= (19, 1, 0))
         , testTracePredicate = customTracePredicate [] $ \case
             TraceFrontend (FrontendHandleMacros _) ->
               Just Tolerated
@@ -321,7 +324,7 @@ testCases = [
               Nothing
         }
     , (defaultFailingTest "thread_local"){
-          testClangVersion   = Just $ (>= (16, 0, 0))
+          testClangVersion   = Just (>= (16, 0, 0))
         , testTracePredicate = singleTracePredicate $ \case
             TraceFrontend (FrontendParse (UnsupportedTLS{})) ->
               Just $ Expected ()

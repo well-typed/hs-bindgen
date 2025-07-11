@@ -19,7 +19,7 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "pp" fixture $ \_report -> do
       config <- getTestConfig testResources test
-      decls  <- testTranslate testResources test
+      decls  <- runTestTranslate testResources test
 
       let output :: String
           output = Pipeline.preprocessPure config decls

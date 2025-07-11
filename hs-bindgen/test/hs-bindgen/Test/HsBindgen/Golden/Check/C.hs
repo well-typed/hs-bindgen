@@ -17,7 +17,7 @@ import Test.HsBindgen.Golden.TestCase
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenEDiff "treediff" fixture $ \_report -> do
-      ActualValue <$> testParse testResources test
+      ActualValue <$> runTestParse testResources test
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".tree-diff.txt")

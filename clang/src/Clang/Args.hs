@@ -1,5 +1,5 @@
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 module Clang.Args (
     ClangArgs(..)
@@ -11,8 +11,10 @@ module Clang.Args (
   , targetTriple
   ) where
 
+import Control.Exception (Exception)
 import Control.Monad.Except
 import Data.Default (Default (..))
+import Data.String (IsString)
 import Data.Text (Text)
 
 import Clang.Paths
@@ -92,7 +94,12 @@ data CStandard =
   Translation
 -------------------------------------------------------------------------------}
 
-fromClangArgs :: ClangArgs -> Either String [String]
+newtype InvalidClangArgs = InvalidClangArgs String
+  deriving stock (Show)
+  deriving newtype (IsString)
+  deriving anyclass (Exception)
+
+fromClangArgs :: ClangArgs -> Either InvalidClangArgs [String]
 fromClangArgs ClangArgs{..} = aux [
       ifGiven (uncurry targetTriple <$> clangTarget) $ \target ->
         return ["-target", target]
@@ -155,19 +162,20 @@ fromClangArgs ClangArgs{..} = aux [
     , return clangOtherArgs
     ]
   where
-    aux :: [Except String [String]] -> Either String [String]
+    aux :: [Except InvalidClangArgs [String]] -> Either InvalidClangArgs [String]
     aux = runExcept . fmap concat . sequence
 
     ifGiven ::
          Maybe a
-      -> (a -> Except String [String])
-      ->       Except String [String]
+      -> (a -> Except InvalidClangArgs [String])
+      ->       Except InvalidClangArgs [String]
     ifGiven Nothing  _ = return []
     ifGiven (Just a) f = f a
 
-    unknownClangVersion :: Text -> Except String [String]
+    unknownClangVersion :: Text -> Except InvalidClangArgs [String]
     unknownClangVersion version =
-        throwError $ "Unknown clang version: " ++ show version
+        throwError . InvalidClangArgs $
+          "Unknown clang version: " ++ show version
 
 {-------------------------------------------------------------------------------
   Cross-compilation

@@ -5,6 +5,7 @@ module Test.HsBindgen.Golden.TestCase (
     -- * Definition
     TestCase(..)
   , TestRustBindgen(..)
+  , testInputInclude
     -- * Construction
   , defaultTest
   , defaultFailingTest
@@ -18,14 +19,16 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestSimple
   , failingTestCustom
     -- * Execution
-  , testParse
-  , testTranslate
+  , runTestParse
+  , runTestTranslate
+  , runTestRustBindgen
     -- ** Low-level
   , getTestConfig
   , getTestExtSpec
   , withTestTracer
   ) where
 
+import System.FilePath ((</>))
 import Test.Tasty (TestName)
 
 import Clang.HighLevel.Types qualified as Clang
@@ -49,9 +52,6 @@ import Test.HsBindgen.Resources
 data TestCase = TestCase {
       -- | Name of the test (in the tasty test tree)
       testName :: TestName
-
-      -- | The input header
-    , testInput :: CHeaderIncludePath
 
       -- | Location of the input header, relative to the package root
     , testDir :: FilePath
@@ -95,6 +95,18 @@ data TestRustBindgen =
   | RustBindgenIgnore
 
 {-------------------------------------------------------------------------------
+  Derived
+-------------------------------------------------------------------------------}
+
+testInputInclude :: TestCase -> CHeaderIncludePath
+testInputInclude TestCase{testName} =
+    CHeaderQuoteIncludePath $ testName ++ ".h"
+
+testInputPath :: TestCase -> FilePath
+testInputPath TestCase{testDir, testName} =
+    testDir </> testName ++ ".h"
+
+{-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
@@ -103,7 +115,6 @@ defaultTest ::
   -> TestCase
 defaultTest filename = TestCase{
       testName             = filename
-    , testInput            = CHeaderQuoteIncludePath $ filename ++ ".h"
     , testDir              = "examples/golden"
     , testTracePredicate   = defaultTracePredicate
     , testHasOutput        = True
@@ -197,8 +208,8 @@ withTestTracer ::
 withTestTracer TestCase{testTracePredicate} =
     withTracePredicate testTracePredicate
 
-testParse :: IO TestResources -> TestCase -> IO C.TranslationUnit
-testParse testResources test@TestCase{..} = do
+runTestParse :: IO TestResources -> TestCase -> IO C.TranslationUnit
+runTestParse testResources test = do
     config  <- getTestConfig  testResources test
     extSpec <- getTestExtSpec testResources test
     pSpec   <- getTestPSpec   testResources test
@@ -209,10 +220,10 @@ testParse testResources test@TestCase{..} = do
         config
         extSpec
         pSpec
-        [testInput]
+        [testInputInclude test]
 
-testTranslate :: IO TestResources -> TestCase -> IO [Hs.Decl]
-testTranslate testResources test@TestCase{..} = do
+runTestTranslate :: IO TestResources -> TestCase -> IO [Hs.Decl]
+runTestTranslate testResources test = do
     config  <- getTestConfig  testResources test
     extSpec <- getTestExtSpec testResources test
     pSpec   <- getTestPSpec   testResources test
@@ -224,4 +235,13 @@ testTranslate testResources test@TestCase{..} = do
         config
         extSpec
         pSpec
-        [testInput]
+        [testInputInclude test]
+
+runTestRustBindgen :: IO TestResources -> TestCase -> IO RustBindgenResult
+runTestRustBindgen testResources test = do
+    config <- getTestConfig testResources test
+    callRustBindgen
+      testResources
+      (configClangArgs config)
+      (testInputPath test)
+

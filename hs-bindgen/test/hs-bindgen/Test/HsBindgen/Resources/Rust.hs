@@ -11,13 +11,15 @@ module Test.HsBindgen.Resources.Rust (
   , runRustBindgen
   ) where
 
-import Control.Exception (catch, IOException)
+import Control.Exception
 import System.Directory (findExecutable, removeDirectoryRecursive)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>), takeDirectory)
 import System.IO.Temp (getCanonicalTemporaryDirectory, createTempDirectory)
 import System.Process (readProcessWithExitCode)
 import System.Process qualified as P
+
+import Clang.Args
 
 {-------------------------------------------------------------------------------
   Get rust-bindgen
@@ -78,20 +80,24 @@ freeRustBindgen = \case
 --
 -- Returns the process' exit code, stdout and stderr.
 runRustBindgen ::
-     FilePath -- ^ Path to the @rust-bindgen@ executable
+     ClangArgs
+  -> FilePath -- ^ Path to the @rust-bindgen@ executable
   -> FilePath -- ^ Input header to run it on
   -> IO (ExitCode, String, String)
-runRustBindgen pathToExe input =
-    readProcessWithExitCode pathToExe args ""
-  where
+runRustBindgen clangArgs pathToExe input = do
+    clangArgs' <- either throwIO return $ fromClangArgs clangArgs
     -- We use `--formatter=prettyplease`, as we don't necessarily have the Rust
     -- toolchain installed.
-    args :: [String]
-    args = [
-          "--formatter=prettyplease"
-        , "--allowlist-file=" ++ input
-        , input
-        ]
+    let args :: [String]
+        args = concat [
+              [ "--formatter=prettyplease"
+              , "--allowlist-file=" ++ input
+              , input
+              , "--"
+              ]
+            , clangArgs'
+            ]
+    readProcessWithExitCode pathToExe args ""
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

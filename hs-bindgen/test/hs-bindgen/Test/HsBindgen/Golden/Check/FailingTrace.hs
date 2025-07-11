@@ -17,4 +17,4 @@ import Test.HsBindgen.Golden.TestCase
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test = testCase (testName test) $ do
     -- We ignore any declarations that might have been successful
-    void $ testTranslate testResources test
+    void $ runTestTranslate testResources test
