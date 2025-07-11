@@ -17,7 +17,7 @@ module Test.Common.HsBindgen.TracePredicate (
   ) where
 
 import Control.Exception
-import Control.Monad.Except (Except, throwError, runExcept)
+import Control.Monad.Except (Except, runExcept, throwError)
 import Control.Monad.IO.Class
 import Data.Foldable qualified as Foldable
 import Data.IORef
@@ -45,17 +45,19 @@ newtype TracePredicate a = TracePredicate {
 
 -- | By default, we do not expect any warnings, nor errors ('Unexpected'). Info
 -- and debug messages are 'Tolerate'd.
-defaultTracePredicate :: HasDefaultLogLevel a => TracePredicate a
+defaultTracePredicate
+  :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
+  => TracePredicate a
 defaultTracePredicate = customTracePredicate [] (const Nothing)
 
 -- | 'Expect' a trace with given name exactly one time.
-singleTracePredicate :: HasDefaultLogLevel a
+singleTracePredicate :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
   => (a -> Maybe (TraceExpectation ()))
   -> TracePredicate a
 singleTracePredicate predicate = customTracePredicate' [()] predicate
 
 customTracePredicate
-  :: HasDefaultLogLevel a
+  :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
   => [String]
   -- ^ Names/identifiers of expected traces. If a trace is expected N times, add
   -- the name/identifier N times to the list.
@@ -64,7 +66,8 @@ customTracePredicate
   -> TracePredicate a
 customTracePredicate = customTracePredicate'
 
-customTracePredicate' :: forall a b. (HasDefaultLogLevel a, Ord b, WrongCountMsg b)
+customTracePredicate'
+  :: forall a b. (HasDefaultLogLevel a, Ord b, WrongCountMsg a b)
   => [b]
   -> (a -> Maybe (TraceExpectation b))
   -> TracePredicate a
@@ -72,20 +75,20 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
   let (unexpectedTraces, actualCounts) =
         Foldable.foldl' checkTrace ([], Map.empty) traces
       checkTrace (ts, counts) trace = case predicate trace of
-        Expected name -> (ts        , addN 1 counts name)
+        Expected name -> (ts        , Map.insertWith (<>) name [trace] counts)
         Tolerated     -> (ts        , counts            )
         Unexpected    -> (trace : ts, counts            )
-  if null unexpectedTraces && expectedCounts == actualCounts
+  if null unexpectedTraces && expectedCounts == Map.map length actualCounts
     then pure ()
     else
       let additionalCounts = actualCounts `Map.difference` expectedCounts
-          additionalWrongCounts = [ wrongCount name 0 actual
+          additionalWrongCounts = [ wrongCount name 0 (length actual) actual
                                   | (name, actual) <- Map.toList additionalCounts
                                   ]
-          wrongCounts = [ wrongCount name expected actual
+          wrongCounts = [ wrongCount name expected (length actual) actual
                         | (name, expected) <- Map.toList expectedCounts
-                        , let actual = fromMaybe 0 (name `Map.lookup` actualCounts)
-                        , actual /= expected
+                        , let actual = fromMaybe [] (name `Map.lookup` actualCounts)
+                        , length actual /= expected
                         ]
           expectedTracesWithWrongCounts = wrongCounts ++ additionalWrongCounts
        in throwError $ TraceExpectationException {..}
@@ -122,7 +125,8 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
 -- > withWriterTracer :: (MonadWriter [a] m1, Monad m2) => (Tracer m1 a -> m2 b) -> m2 (b, [a])
 -- > withWriterTracer action = runWriterT (WriterT $ (, []) <$> (action mkWriterTracer))
 withTracePredicate
-  :: forall m a b. (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, Typeable a)
+  :: forall m a b.
+     (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, Typeable a, Show a)
   => TracePredicate a -> (Tracer m a -> m b) -> m b
 withTracePredicate (TracePredicate predicate) action = do
   tracesRef <- liftIO $ newIORef []
@@ -145,7 +149,7 @@ data TraceExpectationException a = TraceExpectationException {
     , expectedTracesWithWrongCounts :: [CtxDoc]
     }
 
-instance (PrettyForTrace a, HasDefaultLogLevel a)
+instance (PrettyForTrace a, HasDefaultLogLevel a, Show a)
       => Show (TraceExpectationException a) where
   show (TraceExpectationException {..}) = PP.renderCtxDoc PP.defaultContext $
       PP.vcat $
@@ -161,44 +165,53 @@ instance (PrettyForTrace a, HasDefaultLogLevel a)
            )
     where
       formatTrace trace =
-        PP.hang
+        PP.hangs'
           (PP.showToCtxDoc (getDefaultLogLevel trace) >< ":")
           2
-          (prettyForTrace trace)
+          (prettyAndShowTrace trace)
 
-instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a)
+
+instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a, Show a)
   => Exception (TraceExpectationException a)
 
 {-------------------------------------------------------------------------------
   Wrong counts
 -------------------------------------------------------------------------------}
 
-class WrongCountMsg b where
-  wrongCount :: b -> Int -> Int -> CtxDoc
+class WrongCountMsg a b where
+  wrongCount ::
+       b    -- ^ Name
+    -> Int  -- ^ Expected count
+    -> Int  -- ^ Actual count
+    -> [a]  -- ^ List of traces
+    -> CtxDoc
 
 -- | The general case, with user-defined labels as documents
-instance WrongCountMsg CtxDoc where
-  wrongCount name expectedCount actualCount = PP.cat
-    [ "Name: ",             name
-    , ", expected count: ", PP.showToCtxDoc expectedCount
-    , ", actual count: "  , PP.showToCtxDoc actualCount
-    ]
+instance (PrettyForTrace a, Show a) => WrongCountMsg a CtxDoc where
+  wrongCount name expectedCount actualCount traces =
+    PP.hangs' intro 2 $ concatMap prettyAndShowTrace traces
+    where
+      intro = PP.hcat
+        [ "Name: ",             name
+        , ", expected count: ", PP.showToCtxDoc expectedCount
+        , ", actual count: "  , PP.showToCtxDoc actualCount
+        ]
 
 -- | Traces with multiple outcome, with user-defined labels
-instance WrongCountMsg String where
+instance (PrettyForTrace a, Show a) => WrongCountMsg a String where
   wrongCount = wrongCount . PP.string
 
 -- | It is often useful to check for warnings/errors for specific declarations
-instance WrongCountMsg DeclId where
+instance (PrettyForTrace a, Show a) => WrongCountMsg a DeclId where
   wrongCount = wrongCount . prettyForTrace
 
 -- | The most common case: traces with just one outcome
-instance WrongCountMsg () where
-  wrongCount _ 1 n = case compare n 1 of
+instance (PrettyForTrace a, Show a) => WrongCountMsg a () where
+  wrongCount _ 1 n _      = case compare n 1 of
     LT -> "Expected a single trace but no trace was emitted"
     EQ -> panicPure "error: received correct count"
     GT -> "Expected a single trace but more traces were emitted"
-  wrongCount _ i j = wrongCount ("AnonymousTracePredicate" :: String) i j
+  wrongCount _ i j traces = wrongCount ("AnonymousTracePredicate" :: String) i j traces
 
 -- | Distinguish cases based on test-specific label
 data Labelled a = Labelled String a
@@ -211,7 +224,8 @@ instance PrettyForTrace a => PrettyForTrace (Labelled a) where
       , prettyForTrace x
       ]
 
-instance PrettyForTrace a => WrongCountMsg (Labelled a) where
+instance (PrettyForTrace a, PrettyForTrace b, Show a)
+  => WrongCountMsg a (Labelled b) where
   wrongCount = wrongCount . prettyForTrace
 
 {-------------------------------------------------------------------------------
@@ -225,3 +239,15 @@ addN n m k = Map.insertWith (const (+ n)) k n m
 
 count :: (Foldable f, Ord a) => f a -> Counter a
 count = Foldable.foldl' (addN 1) Map.empty
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}
+
+-- Seeing both, the pretty trace and the 'Show' instance greatly simplifies test
+-- design and debugging.
+prettyAndShowTrace :: (PrettyForTrace a, Show a) => a -> [CtxDoc]
+prettyAndShowTrace trace =
+          [ "prettyForTrace: " >< prettyForTrace trace
+          , "show:           " >< PP.showToCtxDoc trace
+          ]

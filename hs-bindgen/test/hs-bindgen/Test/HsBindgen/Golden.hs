@@ -12,24 +12,24 @@ import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId (DeclId)
-import HsBindgen.Frontend.Pass.Slice.IsPass (ProgramSlicing (..))
+import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Slice.IsPass as Slice
 import HsBindgen.Language.C.Name
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.TracePredicate
-import Test.HsBindgen.Resources
 import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
-import Test.HsBindgen.Golden.Check.BindingSpec  qualified as BindingSpec
-import Test.HsBindgen.Golden.Check.C            qualified as C
-import Test.HsBindgen.Golden.Check.Exts         qualified as Exts
+import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
+import Test.HsBindgen.Golden.Check.C qualified as C
+import Test.HsBindgen.Golden.Check.Exts qualified as Exts
 import Test.HsBindgen.Golden.Check.FailingTrace qualified as FailingTrace
-import Test.HsBindgen.Golden.Check.Hs           qualified as Hs
-import Test.HsBindgen.Golden.Check.PP           qualified as PP
-import Test.HsBindgen.Golden.Check.Rust         qualified as Rust
-import Test.HsBindgen.Golden.Check.TH           qualified as TH
+import Test.HsBindgen.Golden.Check.Hs qualified as Hs
+import Test.HsBindgen.Golden.Check.PP qualified as PP
+import Test.HsBindgen.Golden.Check.Rust qualified as Rust
+import Test.HsBindgen.Golden.Check.TH qualified as TH
 
 {-------------------------------------------------------------------------------
   Tests
@@ -289,11 +289,11 @@ testCases = [
             _otherwise ->
               Nothing
         }
-    , (defaultTest "program_slicing"){
+    , (defaultTest "program_slicing_simple"){
           -- Check that program slicing generates bindings for uint32_t if we
           -- remove it from the standard external binding specification
           testOnConfig = \cfg -> cfg{
-              configPredicate      = SelectAll
+              configPredicate      = SelectFromMainFiles
             , configProgramSlicing = EnableProgramSlicing
             }
         , testOnExtSpec = \extSpec ->
@@ -315,13 +315,68 @@ testCases = [
                   . Pipeline.bindingSpecResolved
                   $ extSpec
               }
-        , testTracePredicate = singleTracePredicate $ \case
+        , testTracePredicate = customTracePredicate [
+              "ReparseError"
+            , "SelectedUInt32"
+            , "SelectedUInt64"
+            ] $ \case
             TraceFrontend (FrontendHandleMacros (MacroErrorReparse err)) ->
               if "Unexpected primitive type" `List.isInfixOf` reparseError err
-                then Just $ Expected ()
+                then Just $ Expected "ReparseError"
                 else Nothing
+            TraceFrontend (FrontendSlice
+                           (Selected
+                            (TransitiveDependencyOf
+                             (QualDeclId (DeclNamed nm) _) _)))
+              | nm == "uint32_t" -> Just $ Expected "SelectedUInt32"
+              | nm == "uint64_t" -> Just $ Expected "SelectedUInt64"
+            TraceFrontend (FrontendSlice (Selected _)) -> Just Unexpected
+            TraceFrontend (FrontendSlice (Slice.Skipped _)) -> Just Tolerated
             _otherwise ->
               Nothing
+        }
+    , (defaultTest "program_slicing_selection"){
+          testOnConfig = \cfg -> cfg{
+              configPredicate      = SelectIfEither
+                (SelectByElementName "FileOperationRecord")
+                (SelectByElementName "read_file_chunk")
+            , configProgramSlicing = EnableProgramSlicing
+            }
+        , testTracePredicate = customTracePredicate [
+              "ReparseError"
+            , "SelectedFileOpterationStatus"
+            , "SelectedSizeT"
+            , "SelectedFile"
+            , "SelectedIoFile"
+            ] $ \case
+            TraceFrontend (FrontendParse msg) -> case msg of
+              -- TODO: Ideally, we do not see this warnings because they affect
+              -- skipped declarations. See
+              -- https://github.com/well-typed/hs-bindgen/issues/905.
+              UnsupportedType _ UnsupportedLongDouble       -> Just Tolerated
+              UnsupportedType _ UnsupportedVariadicFunction -> Just Tolerated
+              UnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
+              UnsupportedConst _                            -> Just Tolerated
+              _other                                        -> Nothing
+            TraceFrontend (FrontendHandleMacros (MacroErrorReparse err)) ->
+              if "Unexpected primitive type" `List.isInfixOf` reparseError err
+                then Just $ Expected "ReparseError"
+                else Nothing
+            TraceFrontend (FrontendSlice
+                           (Selected
+                            (TransitiveDependencyOf
+                             (QualDeclId (DeclNamed nm) _) _)))
+              | nm == "FileOperationStatus" -> Just $ Expected "SelectedFileOpterationStatus"
+              | nm == "size_t"              -> Just $ Expected "SelectedSizeT"
+              | nm == "FILE"                -> Just $ Expected "SelectedFile"
+              | nm == "_IO_FILE"            -> Just $ Expected "SelectedIoFile"
+            TraceFrontend (FrontendSlice (Selected _)) -> Just Unexpected
+            TraceFrontend (FrontendSlice (Slice.Skipped _)) -> Just Tolerated
+            _otherwise ->
+              Nothing
+          -- TODO: Also, we may want to specify an allow list; see
+          -- https://github.com/well-typed/hs-bindgen/issues/907.
+        , testRustBindgen = RustBindgenRun
         }
     , (defaultFailingTest "thread_local"){
           testClangVersion   = Just (>= (16, 0, 0))

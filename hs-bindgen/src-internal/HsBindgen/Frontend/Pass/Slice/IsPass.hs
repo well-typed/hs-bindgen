@@ -1,19 +1,26 @@
 module HsBindgen.Frontend.Pass.Slice.IsPass (
     Slice
+    -- * Configuration
   , ProgramSlicing (..)
   , SliceConfig (..)
+    -- * Trace messages
   , Msg (..)
+  , SelectReason (..)
   ) where
 
 import Data.Default (Default (def))
+import Data.Set (Set)
+import Data.Set qualified as Set
 
 import HsBindgen.C.Predicate
 import HsBindgen.Frontend.AST.Internal (ValidPass)
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass (Sort)
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint
+import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
@@ -33,7 +40,12 @@ instance IsPass Slice where
   type ExtBinding Slice = ExtBinding Sort
   type Ann ix     Slice = AnnSlice ix
   type Config     Slice = SliceConfig
-  data Msg        Slice = TransitiveDependencyUnavailable QualDeclId
+
+  -- | Slice trace messages
+  data Msg        Slice =
+      TransitiveDependencyUnavailable QualDeclId
+    | Skipped (C.DeclInfo Slice)
+    | Selected SelectReason
     deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
@@ -61,12 +73,38 @@ data SliceConfig = SliceConfig {
   Trace messages
 -------------------------------------------------------------------------------}
 
+data SelectReason =
+    TransitiveDependencyOf {
+      selectedDecl           :: QualDeclId
+      -- NOTE: The inverse dependencies form tree. For now, we just flatten the
+      -- tree to list all inverse dependencies.
+    , transitiveDependencyOf :: Set QualDeclId
+    }
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace SelectReason where
+  prettyForTrace (TransitiveDependencyOf sel deps) =
+    PP.hang
+      ("Selected " >< prettyForTrace sel)
+      2
+      (PP.hangs' "because it is a transitive dependency of" 2 $
+         map prettyForTrace $ Set.toList deps)
+
+instance HasDefaultLogLevel SelectReason where
+  getDefaultLogLevel _ = Info
+
 instance PrettyForTrace (Msg Slice) where
-  prettyForTrace (TransitiveDependencyUnavailable qualId) =
-    "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
+  prettyForTrace = \case
+    TransitiveDependencyUnavailable qualId ->
+      "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
+    Skipped  info -> prettyForTrace info >< " not selected"
+    Selected reason -> prettyForTrace reason
 
 instance HasDefaultLogLevel (Msg Slice) where
-  getDefaultLogLevel = const Error
+  getDefaultLogLevel = \case
+    TransitiveDependencyUnavailable _ -> Error
+    Skipped{}       -> Info
+    Selected reason -> getDefaultLogLevel reason
 
 instance HasSource (Msg Slice) where
   getSource = const HsBindgen

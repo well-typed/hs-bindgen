@@ -1,0 +1,23 @@
+types:
+- headers: program_slicing_selection.h
+  cname: struct FileOperationRecord
+  module: Example
+  identifier: FileOperationRecord
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: program_slicing_selection.h
+  cname: enum FileOperationStatus
+  module: Example
+  identifier: FileOperationStatus
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: program_slicing_selection.h
+  cname: struct _IO_FILE
+  module: Example
+  identifier: C_IO_FILE

@@ -108,6 +108,7 @@ data TestTrace =
   | TestNotice String
   | TestWarning String
   | TestError String
+  deriving stock (Show, Eq)
 
 instance PrettyForTrace TestTrace where
   prettyForTrace = \case

@@ -4,21 +4,30 @@ module HsBindgen.Frontend.Pass.Slice (
 
 import Data.Foldable qualified as Foldable
 import Data.List (partition)
+import Data.Map.Strict (Map)
+import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 
-import Clang.HighLevel.Types (SingleLoc (singleLocPath))
-import HsBindgen.C.Predicate (IsMainFile)
+import Clang.HighLevel.Types
+import HsBindgen.C.Predicate
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls, insert)
+import HsBindgen.Frontend.NonSelectedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Language.C.Name qualified as C
+
+-- | A declaration directly selected by the selection predicate.
+type Root = QualDeclId
+
+-- | A declaration indirectly selected because it is the transitive dependency
+-- of a 'Root'.
+type TransitiveDependency = QualDeclId
 
 sliceDecls ::
      IsMainFile
@@ -30,32 +39,55 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
   -- When program slicing is enabled, we select all declarations while parsing.
   -- Instead, we apply the selection predicate here, and also select all
   -- transitive dependencies.
-  --
-  -- TODO: https://github.com/well-typed/hs-bindgen/issues/784. However, at the
-  -- moment, we only pick all declarations in the main header files and their
-  -- transitive dependencies.
   EnableProgramSlicing ->
     let useDeclGraph :: UseDeclGraph
         useDeclGraph = declUseDecl $ C.unitAnn $ unitSlice
 
+        -- All parsed declarations.
         decls :: [C.Decl Slice]
         decls = C.unitDecls unitSlice
 
-        mainDecls :: [C.Decl Slice]
-        mainDecls = filter (isMainFile . C.declLoc . C.declInfo) decls
+        matchDecl :: C.Decl Slice -> Bool
+        matchDecl decl = match isMainFile loc qualDeclId sliceConfigPredicate
+          where
+            loc :: SingleLoc
+            loc = C.declLoc $ C.declInfo decl
 
-        getTransitives :: C.Decl Slice -> Set QualDeclId
-        getTransitives = UseDeclGraph.getTransitiveDeps useDeclGraph . declQualDeclId
+            qualDeclId :: QualDeclId
+            qualDeclId = declQualDeclId decl
 
-        transitiveDeps :: Set QualDeclId
-        transitiveDeps = Foldable.fold $ map getTransitives mainDecls
+        matchedDeclarations   :: [C.Decl Slice]
+        unmatchedDeclarations :: [C.Decl Slice]
+        (matchedDeclarations, unmatchedDeclarations) = partition matchDecl decls
 
-        slicedDecls, nonSelectedDecls :: [C.Decl Slice]
-        (slicedDecls, nonSelectedDecls) =
-          partition ((`Set.member` transitiveDeps) . declQualDeclId) decls
+        selectedRoots :: [Root]
+        selectedRoots = map declQualDeclId matchedDeclarations
 
-        unavailableTransitiveDeps :: Set QualDeclId
-        unavailableTransitiveDeps = transitiveDeps `Set.difference` (Set.fromList $ map declQualDeclId slicedDecls)
+        -- NOTE: We traverse the use-decl graph N times, where N is the number
+        -- of roots. We could track the transitives of multiple roots in a
+        -- single traversal.
+        --
+        -- See issue https://github.com/well-typed/hs-bindgen/issues/517.
+        getTransitives :: Root -> (Root, Set TransitiveDependency)
+        getTransitives root = (root, UseDeclGraph.getTransitiveDeps useDeclGraph root)
+
+        rootToTransitiveDependencies :: [(Root, Set TransitiveDependency)]
+        rootToTransitiveDependencies = map getTransitives selectedRoots
+
+        transitiveDependencies :: Set TransitiveDependency
+        transitiveDependencies = Foldable.foldl'
+          (<>) Set.empty (map snd rootToTransitiveDependencies)
+
+        selectedDeclarationIds :: Set QualDeclId
+        selectedDeclarationIds = Set.union
+                                 (Set.fromList selectedRoots)
+                                 transitiveDependencies
+
+        -- NOTE: Careful, we need to maintain the order of declarations so that
+        -- children come before parents. 'partition' does that for us.
+        selectedDeclarations, nonSelectedDecls :: [C.Decl Slice]
+        (selectedDeclarations, nonSelectedDecls) =
+          partition ((`Set.member` selectedDeclarationIds) . declQualDeclId) decls
 
         nonSelectedDecls' :: NonSelectedDecls
         nonSelectedDecls' = Foldable.foldl' insertNonSelected
@@ -64,10 +96,18 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
         declMeta' :: DeclMeta
         declMeta' = (C.unitAnn unitSlice) { declNonSelected = nonSelectedDecls'}
 
-        errors :: [Msg Slice]
-        errors = map TransitiveDependencyUnavailable $ Set.toList unavailableTransitiveDeps
+        sliceMsgs :: [Msg Slice]
+        sliceMsgs = getSliceMsgs
+                      transitiveDependencies
+                      selectedDeclarations
+                      unmatchedDeclarations
+                      rootToTransitiveDependencies
      in
-      (unitSlice { C.unitDecls = slicedDecls, C.unitAnn = declMeta' }, errors)
+      ( unitSlice {
+            C.unitDecls = selectedDeclarations
+          , C.unitAnn = declMeta'
+          }
+      , sliceMsgs )
   where
     unitSlice :: C.TranslationUnit Slice
     unitSlice = coercePass unitSort
@@ -82,3 +122,65 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
          -- Refer to 'recordNonSelectedDecl'.
          _anonymous      -> nonSelectedDecls
 
+{-------------------------------------------------------------------------------
+  Trace messages
+-------------------------------------------------------------------------------}
+
+type TransitiveDependencyToRoots = Map TransitiveDependency (Set Root)
+
+getSliceMsgs
+  :: Set QualDeclId
+  -> [C.Decl Slice]
+  -> [C.Decl Slice]
+  -> [(Root, Set TransitiveDependency)]
+  -> [Msg Slice]
+getSliceMsgs transitiveDependencies
+             selectedDeclarations
+             unmatchedDeclarations
+             rootToTransitiveDependencies
+  = errorMsgs ++ skipMsgs ++ selectMsgs
+  where
+    unavailableTransitiveDeps :: Set QualDeclId
+    unavailableTransitiveDeps =
+      transitiveDependencies `Set.difference`
+        (Set.fromList $ map declQualDeclId selectedDeclarations)
+
+    errorMsgs :: [Msg Slice]
+    errorMsgs = map TransitiveDependencyUnavailable $
+      Set.toList unavailableTransitiveDeps
+
+    skipMsgs :: [Msg Slice]
+    skipMsgs = map (Skipped . C.declInfo) unmatchedDeclarations
+
+    -- We have a map from root to transitive dependencies. However, to report why
+    -- something was selected, we need a map from each transitive dependency to its
+    -- roots.
+    transitiveDependencyToRoots :: TransitiveDependencyToRoots
+    transitiveDependencyToRoots = Foldable.foldl'
+      addRootWithTransitiveDependencies Map.empty rootToTransitiveDependencies
+
+    selectMsgs :: [Msg Slice]
+    selectMsgs = map (Selected . uncurry TransitiveDependencyOf) $
+     Map.toList transitiveDependencyToRoots
+
+addRootWithTransitiveDependencies ::
+     TransitiveDependencyToRoots
+  -> (Root, Set TransitiveDependency)
+  -> TransitiveDependencyToRoots
+addRootWithTransitiveDependencies mp (root, transitiveDeps) =
+  Foldable.foldl' addTransitiveDependency mp transitiveDeps
+  where addTransitiveDependency
+          :: TransitiveDependencyToRoots
+          -> TransitiveDependency
+          -> TransitiveDependencyToRoots
+        addTransitiveDependency m transitiveDep
+          -- Do not add the root itself as transitive dependency because it
+          -- leads to weird trace messages:
+          --
+          -- > Selected X because it is a transitive dependency of X.
+          | root == transitiveDep = m
+          | otherwise             = Map.alter addRoot transitiveDep m
+
+        addRoot :: Maybe (Set Root) -> Maybe (Set Root)
+        addRoot Nothing      = Just $ Set.singleton root
+        addRoot (Just roots) = Just $ Set.insert root roots

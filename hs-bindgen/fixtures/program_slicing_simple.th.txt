@@ -1,7 +1,7 @@
 -- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stdint.h
--- addDependentFile examples/golden/program_slicing.h
+-- addDependentFile examples/golden/program_slicing_simple.h
 newtype Uint32_t
     = Uint32_t {un_Uint32_t :: CUInt}
     deriving stock (Eq, Ord, Read, Show)

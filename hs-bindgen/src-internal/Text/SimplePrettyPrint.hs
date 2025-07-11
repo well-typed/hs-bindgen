@@ -271,6 +271,11 @@ hang dA n dB = dA $$ nest n dB
 hangs :: CtxDoc -> Int -> [CtxDoc] -> CtxDoc
 hangs dA n dBs = dA $$ vsep (nest n <$> dBs)
 
+-- | Hang multiple documents below another with the specified indentation,
+-- do __not__ seprate by blank lines
+hangs' :: CtxDoc -> Int -> [CtxDoc] -> CtxDoc
+hangs' dA n dBs = dA $$ vcat (nest n <$> dBs)
+
 -- | Select a 'CtxDoc' depending on if a rendered 'CtxDoc' fits within the
 -- maximum line length
 ifFits :: CtxDoc -> CtxDoc -> CtxDoc -> CtxDoc

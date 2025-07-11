@@ -1,5 +1,5 @@
 types:
-- headers: program_slicing.h
+- headers: program_slicing_simple.h
   cname: struct foo
   module: Example
   identifier: Foo
@@ -7,7 +7,7 @@ types:
   - Eq
   - Show
   - Storable
-- headers: program_slicing.h
+- headers: program_slicing_simple.h
   cname: uint32_t
   module: Example
   identifier: Uint32_t
