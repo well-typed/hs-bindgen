@@ -183,3 +183,4 @@ instance (
   coercePass (TypeConstArray n typ)         = TypeConstArray n (coercePass typ)
   coercePass (TypeIncompleteArray typ)      = TypeIncompleteArray (coercePass typ)
   coercePass (TypeExtBinding ext)           = TypeExtBinding ext
+  coercePass (TypeBlock typ)                = TypeBlock (coercePass typ)

@@ -181,6 +181,7 @@ instance HandleUseSites C.Type where
       go (C.TypeFun args res)       = C.TypeFun (map go args) (go res)
       go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)
+      go (C.TypeBlock ty)           = C.TypeBlock (go ty)
 
       -- Interesting cases: tagged types may be renamed, typedefs may be squashed
 

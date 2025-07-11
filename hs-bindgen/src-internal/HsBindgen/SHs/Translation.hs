@@ -180,16 +180,18 @@ translatePatSyn Hs.PatSyn {..} = DPatternSynonym PatternSynonym
 -------------------------------------------------------------------------------}
 
 translateType :: Hs.HsType -> ClosedType
-translateType (Hs.HsPrimType t)     = TGlobal (PrimType t)
-translateType (Hs.HsTypRef r)       = TCon r
-translateType (Hs.HsPtr t)          = TApp (TGlobal Foreign_Ptr) (translateType t)
-translateType (Hs.HsFunPtr t)       = TApp (TGlobal Foreign_FunPtr) (translateType t)
-translateType (Hs.HsConstArray n t) = TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
-translateType (Hs.HsIO t)           = TApp (TGlobal IO_type) (translateType t)
-translateType (Hs.HsFun a b)        = TFun (translateType a) (translateType b)
-translateType (Hs.HsExtBinding i t) = TExt i t
-translateType Hs.HsByteArray        = TGlobal ByteArray_type
-translateType (Hs.HsSizedByteArray n m) = TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+translateType = \case
+    Hs.HsPrimType t         -> TGlobal (PrimType t)
+    Hs.HsTypRef r           -> TCon r
+    Hs.HsPtr t              -> TApp (TGlobal Foreign_Ptr) (translateType t)
+    Hs.HsFunPtr t           -> TApp (TGlobal Foreign_FunPtr) (translateType t)
+    Hs.HsConstArray n t     -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
+    Hs.HsIO t               -> TApp (TGlobal IO_type) (translateType t)
+    Hs.HsFun a b            -> TFun (translateType a) (translateType b)
+    Hs.HsExtBinding i t     -> TExt i t
+    Hs.HsByteArray          -> TGlobal ByteArray_type
+    Hs.HsSizedByteArray n m -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+    Hs.HsBlock t            -> TGlobal Block_type `TApp` translateType t
 
 {-------------------------------------------------------------------------------
   Sigma/Phi/Tau types

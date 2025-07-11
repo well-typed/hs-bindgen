@@ -1,0 +1,342 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:3:16",
+        declId = NamePair {
+          nameC = CName "Toggle",
+          nameHsIdent = HsIdentifier
+            "Toggle"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Toggle",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Toggle"},
+          typedefType = TypeBlock
+            (TypeFun
+              []
+              (TypePrim PrimBool))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:4:8",
+        declId = NamePair {
+          nameC = CName "makeToggle",
+          nameHsIdent = HsIdentifier
+            "makeToggle"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim PrimBool],
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "Toggle",
+                nameHsIdent = HsIdentifier
+                  "Toggle"})},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:5:6",
+        declId = NamePair {
+          nameC = CName "toggleNext",
+          nameHsIdent = HsIdentifier
+            "toggleNext"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "Toggle",
+                  nameHsIdent = HsIdentifier
+                    "Toggle"})],
+          functionRes = TypePrim
+            PrimBool},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:6:6",
+        declId = NamePair {
+          nameC = CName "releaseToggle",
+          nameHsIdent = HsIdentifier
+            "releaseToggle"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "Toggle",
+                  nameHsIdent = HsIdentifier
+                    "Toggle"})],
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:10:14",
+        declId = NamePair {
+          nameC = CName "Counter",
+          nameHsIdent = HsIdentifier
+            "Counter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Counter",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Counter"},
+          typedefType = TypeBlock
+            (TypeFun
+              []
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:11:9",
+        declId = NamePair {
+          nameC = CName "makeCounter",
+          nameHsIdent = HsIdentifier
+            "makeCounter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "Counter",
+                nameHsIdent = HsIdentifier
+                  "Counter"})},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:12:5",
+        declId = NamePair {
+          nameC = CName "counterNext",
+          nameHsIdent = HsIdentifier
+            "counterNext"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "Counter",
+                  nameHsIdent = HsIdentifier
+                    "Counter"})],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:13:6",
+        declId = NamePair {
+          nameC = CName "releaseCounter",
+          nameHsIdent = HsIdentifier
+            "releaseCounter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "Counter",
+                  nameHsIdent = HsIdentifier
+                    "Counter"})],
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:17:14",
+        declId = NamePair {
+          nameC = CName "VarCounter",
+          nameHsIdent = HsIdentifier
+            "VarCounter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "VarCounter",
+            newtypeField = HsName
+              "@NsVar"
+              "un_VarCounter"},
+          typedefType = TypeBlock
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:18:12",
+        declId = NamePair {
+          nameC = CName "makeVarCounter",
+          nameHsIdent = HsIdentifier
+            "makeVarCounter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = CName "VarCounter",
+                nameHsIdent = HsIdentifier
+                  "VarCounter"})},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:19:5",
+        declId = NamePair {
+          nameC = CName "varCounterNext",
+          nameHsIdent = HsIdentifier
+            "varCounterNext"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "VarCounter",
+                  nameHsIdent = HsIdentifier
+                    "VarCounter"}),
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "iterator.h:20:6",
+        declId = NamePair {
+          nameC = CName
+            "releaseVarCounter",
+          nameHsIdent = HsIdentifier
+            "releaseVarCounter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "iterator.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = CName "VarCounter",
+                  nameHsIdent = HsIdentifier
+                    "VarCounter"})],
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["iterator"]}

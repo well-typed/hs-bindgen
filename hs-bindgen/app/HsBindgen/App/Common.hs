@@ -120,13 +120,14 @@ parseClangArgs = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
-    clangTarget <- optional parseTarget
-    clangCStandard <- fmap Just parseCStandard
-    clangStdInc <- fmap not parseNoStdInc
-    clangEnableGnu <-parseGnuOption
+    clangTarget                <- optional parseTarget
+    clangCStandard             <- Just <$> parseCStandard
+    clangStdInc                <- not <$> parseNoStdInc
+    clangEnableGnu             <- parseGnuOption
     clangSystemIncludePathDirs <- parseSystemIncludeDirOptions
-    clangQuoteIncludePathDirs <- parseQuoteIncludeDirOptions
-    clangOtherArgs <- parseOtherArgs
+    clangQuoteIncludePathDirs  <- parseQuoteIncludeDirOptions
+    clangEnableBlocks          <- parseEnableBlocks
+    clangOtherArgs             <- parseOtherArgs
     pure ClangArgs {..}
 
 parseTarget :: Parser (Target, TargetEnv)
@@ -214,6 +215,13 @@ parseQuoteIncludeDirOptions = many . strOption $ mconcat [
     , long "include-path"
     , metavar "DIR"
     , help "Quote include search path directory"
+    ]
+
+-- TODO: Perhaps we should mimick clang's @-f@ parameter?
+parseEnableBlocks :: Parser Bool
+parseEnableBlocks = switch $ mconcat [
+      long "enable-blocks"
+    , help "Enable the 'blocks' language feature"
     ]
 
 parseOtherArgs :: Parser [String]

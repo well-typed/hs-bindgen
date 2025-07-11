@@ -6,6 +6,7 @@ import Data.Map qualified as Map
 import Data.Text qualified as Text
 import Test.Tasty
 
+import Clang.Args
 import Clang.Version
 import HsBindgen.BindingSpec
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
@@ -277,6 +278,14 @@ testCases = [
               Just $ Expected (C.declId info)
             _otherwise ->
               Nothing
+        }
+    , (defaultTest "iterator") {
+          testClangVersion = Just (>= (15, 0, 0))
+        , testOnConfig     = \cfg -> cfg{
+              configClangArgs = (configClangArgs cfg) {
+                  clangEnableBlocks = True
+                }
+            }
         }
     , (defaultTest "macro_strings") {
           testRustBindgen = RustBindgenFail

@@ -173,6 +173,8 @@ getInstances instanceMap name = aux
           HsSizedByteArray{} ->
             let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Show]
             in  aux acc' hsTypes
+          HsBlock t ->
+            aux acc (t:hsTypes)
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection
@@ -848,6 +850,8 @@ typ' ctx = go ctx
         goArrayUnknownSize c ty
     go _ (C.TypeFun xs y) =
         foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
+    go _ (C.TypeBlock ty) =
+        HsBlock $ go CTop ty
     go _ (C.TypeExtBinding ext) =
         Hs.HsExtBinding (C.extHsRef ext) (C.extHsSpec ext)
 

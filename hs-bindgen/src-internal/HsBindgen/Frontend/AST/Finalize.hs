@@ -258,6 +258,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeConstArray n typ)         = Ext.TypeConstArray n (finalize typ)
   finalize (Int.TypeIncompleteArray typ)      = Ext.TypeIncompleteArray (finalize typ)
   finalize (Int.TypeExtBinding ext)           = Ext.TypeExtBinding ext
+  finalize (Int.TypeBlock typ)                = Ext.TypeBlock (finalize typ)
   finalize (Int.TypeMacroTypedef name origin) = Ext.TypeMacroTypedef name origin
 
 instance Finalize Int.RenamedTypedefRef where

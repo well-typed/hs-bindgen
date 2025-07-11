@@ -18,32 +18,35 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import Language.Haskell.TH.Syntax qualified as TH
+
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
 import HsBindgen.Hs.AST.Type
 
-import Language.Haskell.TH.Syntax qualified as TH
-
 import C.Char ( CharValue(..), charValueFromAddr )
+
 import C.Expr.HostPlatform qualified
-import Data.Bits qualified
-import Data.Ix qualified
-import Data.Void qualified
-import Foreign qualified
-import Foreign.C qualified
-import Foreign.C.String qualified
-import GHC.Float qualified
-import GHC.Ptr qualified
-import Text.Read qualified
-import HsBindgen.Runtime.Bitfield qualified
-import HsBindgen.Runtime.ByteArray qualified
-import HsBindgen.Runtime.ConstantArray qualified
-import HsBindgen.Runtime.CEnum qualified
+import Data.Bits           qualified
+import Data.Ix             qualified
+import Data.Void           qualified
+import Foreign             qualified
+import Foreign.C           qualified
+import Foreign.C.String    qualified
+import GHC.Float           qualified
+import GHC.Ptr             qualified
+import Text.Read           qualified
+
+import HsBindgen.Runtime.Bitfield            qualified
+import HsBindgen.Runtime.Block               qualified
+import HsBindgen.Runtime.ByteArray           qualified
+import HsBindgen.Runtime.CAPI                qualified
+import HsBindgen.Runtime.CEnum               qualified
+import HsBindgen.Runtime.ConstantArray       qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
-import HsBindgen.Runtime.Marshal qualified
-import HsBindgen.Runtime.Syntax qualified
-import HsBindgen.Runtime.SizedByteArray qualified
-import HsBindgen.Runtime.CAPI qualified
+import HsBindgen.Runtime.Marshal             qualified
+import HsBindgen.Runtime.SizedByteArray      qualified
+import HsBindgen.Runtime.Syntax              qualified
 
 {-------------------------------------------------------------------------------
   Imports
@@ -316,30 +319,31 @@ resolveGlobal = \case
     Read_readListDefault     -> importQ 'Text.Read.readListDefault
     Read_readListPrecDefault -> importQ 'Text.Read.readListPrecDefault
 
-    CEnum_class -> importQ ''HsBindgen.Runtime.CEnum.CEnum
-    CEnumZ_tycon -> importQ ''HsBindgen.Runtime.CEnum.CEnumZ
-    CEnum_toCEnum -> importQ 'HsBindgen.Runtime.CEnum.toCEnum
-    CEnum_fromCEnum -> importQ 'HsBindgen.Runtime.CEnum.fromCEnum
-    CEnum_declaredValues -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
-    CEnum_showsUndeclared ->  importQ 'HsBindgen.Runtime.CEnum.showsUndeclared
-    CEnum_readPrecUndeclared ->  importQ 'HsBindgen.Runtime.CEnum.readPrecUndeclared
-    CEnum_isDeclared -> importQ 'HsBindgen.Runtime.CEnum.isDeclared
-    CEnum_mkDeclared -> importQ 'HsBindgen.Runtime.CEnum.mkDeclared
-    SequentialCEnum_class -> importQ ''HsBindgen.Runtime.CEnum.SequentialCEnum
+    CEnum_class                      -> importQ ''HsBindgen.Runtime.CEnum.CEnum
+    CEnumZ_tycon                     -> importQ ''HsBindgen.Runtime.CEnum.CEnumZ
+    CEnum_toCEnum                    -> importQ 'HsBindgen.Runtime.CEnum.toCEnum
+    CEnum_fromCEnum                  -> importQ 'HsBindgen.Runtime.CEnum.fromCEnum
+    CEnum_declaredValues             -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
+    CEnum_showsUndeclared            -> importQ 'HsBindgen.Runtime.CEnum.showsUndeclared
+    CEnum_readPrecUndeclared         -> importQ 'HsBindgen.Runtime.CEnum.readPrecUndeclared
+    CEnum_isDeclared                 -> importQ 'HsBindgen.Runtime.CEnum.isDeclared
+    CEnum_mkDeclared                 -> importQ 'HsBindgen.Runtime.CEnum.mkDeclared
+    SequentialCEnum_class            -> importQ ''HsBindgen.Runtime.CEnum.SequentialCEnum
     SequentialCEnum_minDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.minDeclaredValue
     SequentialCEnum_maxDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.maxDeclaredValue
-    CEnum_declaredValuesFromList -> importQ 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-    CEnum_showsCEnum -> importQ 'HsBindgen.Runtime.CEnum.showsCEnum
-    CEnum_showsWrappedUndeclared -> importQ 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
-    CEnum_readPrecCEnum -> importQ 'HsBindgen.Runtime.CEnum.readPrecCEnum
-    CEnum_readPrecWrappedUndeclared -> importQ 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
-    CEnum_seqIsDeclared -> importQ 'HsBindgen.Runtime.CEnum.seqIsDeclared
-    CEnum_seqMkDeclared -> importQ 'HsBindgen.Runtime.CEnum.seqMkDeclared
-    AsCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsCEnum
-    AsSequentialCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
+    CEnum_declaredValuesFromList     -> importQ 'HsBindgen.Runtime.CEnum.declaredValuesFromList
+    CEnum_showsCEnum                 -> importQ 'HsBindgen.Runtime.CEnum.showsCEnum
+    CEnum_showsWrappedUndeclared     -> importQ 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
+    CEnum_readPrecCEnum              -> importQ 'HsBindgen.Runtime.CEnum.readPrecCEnum
+    CEnum_readPrecWrappedUndeclared  -> importQ 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
+    CEnum_seqIsDeclared              -> importQ 'HsBindgen.Runtime.CEnum.seqIsDeclared
+    CEnum_seqMkDeclared              -> importQ 'HsBindgen.Runtime.CEnum.seqMkDeclared
+    AsCEnum_type                     -> importQ ''HsBindgen.Runtime.CEnum.AsCEnum
+    AsSequentialCEnum_type           -> importQ ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
 
-    ByteArray_type -> importQ ''ByteArray
+    ByteArray_type      -> importQ ''ByteArray
     SizedByteArray_type -> importQ ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
+    Block_type          -> importQ ''HsBindgen.Runtime.Block.Block
 
     ByteArray_getUnionPayload -> importQ 'HsBindgen.Runtime.ByteArray.getUnionPayload
     ByteArray_setUnionPayload -> importQ 'HsBindgen.Runtime.ByteArray.setUnionPayload

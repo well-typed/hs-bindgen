@@ -257,6 +257,13 @@ data Type p =
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray (Type p)
 
+    -- | Block type
+    --
+    -- Blocks are a clang-specific C extension.
+    --
+    -- See <https://clang.llvm.org/docs/BlockLanguageSpec.html>
+  | TypeBlock (Type p)
+
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}

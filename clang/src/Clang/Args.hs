@@ -53,6 +53,14 @@ data ClangArgs = ClangArgs {
       -- | Directories in the non-system include search path
     , clangQuoteIncludePathDirs :: [CIncludePathDir]
 
+      -- | Enable block support
+      --
+      -- NOTE: Running code that uses blocks will need the blocks runtime. This
+      -- is not always installed with clang; for example, on Ubuntu this is a
+      -- separate package @libblocksruntime-dev@. This package also provides the
+      -- @Block.h@ header.
+    , clangEnableBlocks :: Bool
+
       -- | Other arguments
       --
       -- See https://clang.llvm.org/docs/ClangCommandLineReference.html
@@ -68,6 +76,7 @@ instance Default ClangArgs where
     , clangStdInc                = True
     , clangSystemIncludePathDirs = []
     , clangQuoteIncludePathDirs  = []
+    , clangEnableBlocks          = False
     , clangOtherArgs             = []
     }
 
@@ -148,16 +157,20 @@ fromClangArgs ClangArgs{..} = aux [
           -> if clangEnableGnu
                then return ["-std=gnu23"]
                else return ["-std=c23"]
-    , return $
-           [ "-nostdinc" | not clangStdInc ]
-        ++ concat [
-               ["-isystem", getCIncludePathDir path]
-             | path <- clangSystemIncludePathDirs
-             ]
-        ++ concat [
-               ["-I", getCIncludePathDir path]
-             | path <- clangQuoteIncludePathDirs
-             ]
+
+    , return $ concat $ [
+          [ "-nostdinc" | not clangStdInc   ]
+        , [ "-fblocks"  | clangEnableBlocks ]
+        ]
+
+    , return $ concat . map concat $ [
+          [ ["-isystem", getCIncludePathDir path]
+          | path <- clangSystemIncludePathDirs
+          ]
+        , [ ["-I", getCIncludePathDir path]
+          | path <- clangQuoteIncludePathDirs
+          ]
+        ]
 
     , return clangOtherArgs
     ]
