@@ -28,8 +28,8 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "th" fixture $ \_report ->
       if ghcAtLeast904 then do
-        config  <- getTestConfig testResources test
-        unit    <- testParse testResources test
+        config  <- getTestConfig      testResources test
+        unit    <- runTestParse       testResources test
         pkgroot <- getTestPackageRoot testResources
 
         let decls :: Qu [TH.Dec]

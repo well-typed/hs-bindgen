@@ -18,7 +18,7 @@ import Test.HsBindgen.Golden.TestCase
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenEDiff "hs" fixture $ \_report -> do
-      ActualValue <$>  testTranslate testResources test
+      ActualValue <$> runTestTranslate testResources test
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".hs")

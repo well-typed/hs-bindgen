@@ -21,11 +21,11 @@ import Test.HsBindgen.Golden.TestCase
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "bindingspec" fixture $ \_report -> do
-      decls <- testTranslate testResources test
+      decls <- runTestTranslate testResources test
 
       let output :: String
           output = UTF8.toString . BindingSpec.encodeYaml $
-              BindingSpec.genBindingSpec [testInput test]
+              BindingSpec.genBindingSpec [testInputInclude test]
                 (Hs.HsModuleName "Example")
                 decls
 

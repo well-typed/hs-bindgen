@@ -21,7 +21,7 @@ check testResources test =
       RustBindgenFail   -> checkPanic testResources test
       RustBindgenRun    ->
         goldenAnsiDiff "rust" fixture $ \report -> do
-          result <- callRustBindgen testResources input
+          result <- runTestRustBindgen testResources test
           case result of
             RustBindgenSuccess stdout ->
               return $ ActualValue stdout
@@ -32,18 +32,14 @@ check testResources test =
             RustBindgenNotCalled ->
               return $ ActualSkipped "rust-bindgen not available"
   where
-    input, fixture :: FilePath
-    input   = "examples" </> "golden" </> (testName test ++ ".h")
+    fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".rs")
 
 checkPanic :: IO TestResources -> TestCase -> TestTree
 checkPanic testResources test =
     testCase "rust-panic" $ do
-      result <- callRustBindgen testResources input
+      result <- runTestRustBindgen testResources test
       case result of
         RustBindgenSuccess{} -> assertFailure "expected rust-bindgen to fail"
         RustBindgenFailed{}  -> return ()
         RustBindgenNotCalled -> return ()
-  where
-    input :: FilePath
-    input = "examples" </> "golden" </> (testName test ++ ".h")

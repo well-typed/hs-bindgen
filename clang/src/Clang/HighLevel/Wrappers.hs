@@ -44,7 +44,7 @@ withTranslationUnit index src args unsavedFiles options =
 
 -- | Brackets 'clang_parseTranslationUnit2' with 'clang_disposeTranslationUnit'
 withTranslationUnit2 ::
-     (MonadIO m, MonadMask m, HasCallStack)
+     (MonadIO m, MonadMask m)
   => CXIndex
   -> Maybe SourcePath
   -> ClangArgs

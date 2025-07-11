@@ -20,7 +20,7 @@ import Test.HsBindgen.Golden.TestCase
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "exts" fixture $ \_report -> do
-      decls <- testTranslate testResources test
+      decls <- runTestTranslate testResources test
 
       let output :: String
           output = unlines $ map show $ List.sort $ toList $

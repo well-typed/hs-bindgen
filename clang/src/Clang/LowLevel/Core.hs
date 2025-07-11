@@ -649,7 +649,7 @@ clang_parseTranslationUnit ::
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> m CXTranslationUnit
 clang_parseTranslationUnit cIdx src args unsavedFiles options = liftIO $ do
-    args' <- either callFailed return $ fromClangArgs args
+    args' <- either throwIO return $ fromClangArgs args
     withOptCString (getSourcePath <$> src) $ \src' ->
       withCStrings args' $ \args'' numArgs ->
         withArrayOrNull unsavedFiles $ \unsavedFiles' numUnsavedFiles ->
@@ -674,7 +674,7 @@ clang_parseTranslationUnit cIdx src args unsavedFiles options = liftIO $ do
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga494de0e725c5ae40cbdea5fa6081027d>
 clang_parseTranslationUnit2 ::
-     (MonadIO m, HasCallStack)
+     MonadIO m
   => CXIndex
      -- ^ The index object with which the translation unit will be associated.
   -> Maybe SourcePath
@@ -700,7 +700,7 @@ clang_parseTranslationUnit2 ::
      -- compilation.
   -> m (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
 clang_parseTranslationUnit2 cIdx src args unsavedFiles options = liftIO $ do
-    args' <- either callFailed return $ fromClangArgs args
+    args' <- either throwIO return $ fromClangArgs args
     withOptCString (getSourcePath <$> src) $ \src' ->
       withCStrings args' $ \args'' numArgs ->
         withArrayOrNull unsavedFiles $ \unsavedFiles' numUnsavedFiles ->
