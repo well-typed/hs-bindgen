@@ -40,6 +40,8 @@ library
   import:
       lang
   exposed-modules:
+      HsBindgen.Runtime.Bitfield
+      HsBindgen.Runtime.Block
       HsBindgen.Runtime.ByteArray
       HsBindgen.Runtime.CAPI
       HsBindgen.Runtime.CEnum
@@ -48,9 +50,8 @@ library
       HsBindgen.Runtime.LibC
       HsBindgen.Runtime.Marshal
       HsBindgen.Runtime.Prelude
-      HsBindgen.Runtime.Syntax
       HsBindgen.Runtime.SizedByteArray
-      HsBindgen.Runtime.Bitfield
+      HsBindgen.Runtime.Syntax
   hs-source-dirs:
       src
   build-depends:

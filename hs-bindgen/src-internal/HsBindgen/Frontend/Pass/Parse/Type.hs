@@ -47,6 +47,7 @@ cxtype ty =
       CXType_Bool       -> prim $ PrimBool
 
       CXType_Attributed      -> attributed
+      CXType_BlockPointer    -> blockPointer
       CXType_ConstantArray   -> constantArray
       CXType_Elaborated      -> elaborated
       CXType_Enum            -> fromDecl
@@ -123,3 +124,9 @@ incompleteArray ty = do
 
 attributed :: CXType -> ParseType (C.Type Parse)
 attributed ty = cxtype =<< clang_Type_getModifiedType ty
+
+blockPointer :: CXType -> ParseType (C.Type Parse)
+blockPointer ty = do
+    fun <- function True =<< clang_getPointeeType ty
+    return (C.TypeBlock fun)
+

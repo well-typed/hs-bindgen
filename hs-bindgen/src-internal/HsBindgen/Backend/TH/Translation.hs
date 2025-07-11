@@ -39,16 +39,18 @@ import HsBindgen.Imports
 import HsBindgen.Language.C (canBeRepresentedAsRational)
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
-import HsBindgen.Runtime.Bitfield qualified
-import HsBindgen.Runtime.ByteArray qualified
-import HsBindgen.Runtime.CAPI qualified
-import HsBindgen.Runtime.CEnum qualified
-import HsBindgen.Runtime.ConstantArray qualified
-import HsBindgen.Runtime.FlexibleArrayMember qualified
-import HsBindgen.Runtime.Marshal qualified
-import HsBindgen.Runtime.SizedByteArray qualified
-import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.SHs.AST
+
+import HsBindgen.Runtime.Bitfield            qualified
+import HsBindgen.Runtime.Block               qualified
+import HsBindgen.Runtime.ByteArray           qualified
+import HsBindgen.Runtime.CAPI                qualified
+import HsBindgen.Runtime.CEnum               qualified
+import HsBindgen.Runtime.ConstantArray       qualified
+import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.Marshal             qualified
+import HsBindgen.Runtime.SizedByteArray      qualified
+import HsBindgen.Runtime.Syntax              qualified
 
 import DeBruijn (Env (..), lookupEnv, EmptyCtx, Add (..))
 import GHC.Exts (Int(..), sizeofByteArray#)
@@ -199,6 +201,7 @@ mkGlobal = \case
 
       ByteArray_type       -> ''ByteArray
       SizedByteArray_type  -> ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
+      Block_type           -> ''HsBindgen.Runtime.Block.Block
 
       ByteArray_getUnionPayload -> 'HsBindgen.Runtime.ByteArray.getUnionPayload
       ByteArray_setUnionPayload -> 'HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -388,6 +391,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
 
     ByteArray_type      -> panicPure "type in expression"
     SizedByteArray_type -> panicPure "type in expression"
+    Block_type          -> panicPure "type in expression"
     PrimType{}          -> panicPure "type in expression"
   where
     name :: TH.Name

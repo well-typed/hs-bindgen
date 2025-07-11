@@ -1,0 +1,33 @@
+-- addDependentFile examples/golden/iterator.h
+-- #include "iterator.h"
+-- Toggle test_internal_makeToggle (_Bool arg1) { return makeToggle(arg1); }
+-- _Bool test_internal_toggleNext (Toggle arg1) { return toggleNext(arg1); }
+-- void test_internal_releaseToggle (Toggle arg1) { releaseToggle(arg1); }
+-- Counter test_internal_makeCounter (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }
+-- signed int test_internal_counterNext (Counter arg1) { return counterNext(arg1); }
+-- void test_internal_releaseCounter (Counter arg1) { releaseCounter(arg1); }
+-- VarCounter test_internal_makeVarCounter (signed int arg1) { return makeVarCounter(arg1); }
+-- signed int test_internal_varCounterNext (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }
+-- void test_internal_releaseVarCounter (VarCounter arg1) { releaseVarCounter(arg1); }
+newtype Toggle = Toggle {un_Toggle :: (Block (IO CBool))}
+foreign import ccall safe "test_internal_makeToggle" makeToggle :: CBool ->
+                                                                   IO Toggle
+foreign import ccall safe "test_internal_toggleNext" toggleNext :: Toggle ->
+                                                                   IO CBool
+foreign import ccall safe "test_internal_releaseToggle" releaseToggle :: Toggle ->
+                                                                         IO Unit
+newtype Counter = Counter {un_Counter :: (Block (IO CInt))}
+foreign import ccall safe "test_internal_makeCounter" makeCounter :: CInt ->
+                                                                     CInt -> IO Counter
+foreign import ccall safe "test_internal_counterNext" counterNext :: Counter ->
+                                                                     IO CInt
+foreign import ccall safe "test_internal_releaseCounter" releaseCounter :: Counter ->
+                                                                           IO Unit
+newtype VarCounter
+    = VarCounter {un_VarCounter :: (Block (CInt -> IO CInt))}
+foreign import ccall safe "test_internal_makeVarCounter" makeVarCounter :: CInt ->
+                                                                           IO VarCounter
+foreign import ccall safe "test_internal_varCounterNext" varCounterNext :: VarCounter ->
+                                                                           CInt -> IO CInt
+foreign import ccall safe "test_internal_releaseVarCounter" releaseVarCounter :: VarCounter ->
+                                                                                 IO Unit

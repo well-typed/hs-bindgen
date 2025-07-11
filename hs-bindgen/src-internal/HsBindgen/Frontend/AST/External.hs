@@ -249,6 +249,7 @@ data Type =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray Type
+  | TypeBlock Type
   | TypeExtBinding ResolveBindingSpec.ResolvedExtBinding
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow Type

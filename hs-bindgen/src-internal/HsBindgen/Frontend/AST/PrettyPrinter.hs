@@ -64,6 +64,7 @@ showsType x (TypeFun args res)        = showsFunctionType (showParen True x) (zi
 showsType x TypeVoid                  = showString "void " . x
 showsType x (TypeIncompleteArray t)   = showsType (x . showString "[]") t
 showsType x (TypeExtBinding ext)      = showCQualName (extCName ext) . showChar ' ' . x
+showsType x (TypeBlock t)             = showsType (showString "^" . x) t
 
 showCQualName :: C.QualName -> ShowS
 showCQualName = showString . Text.unpack . C.qualNameText

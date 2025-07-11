@@ -63,6 +63,7 @@ data HsType =
   | HsExtBinding ExtHsRef BindingSpec.TypeSpec
   | HsByteArray
   | HsSizedByteArray Natural Natural
+  | HsBlock HsType
   deriving stock (Generic, Show)
 
 hsPrimIntTy :: C.Type.IntegralType -> HsPrimType

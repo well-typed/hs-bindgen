@@ -181,6 +181,7 @@ data Global =
 
   | ByteArray_type
   | SizedByteArray_type
+  | Block_type
   | PrimType HsPrimType
   deriving stock (Eq, Ord, Show)
 

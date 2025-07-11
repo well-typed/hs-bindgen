@@ -380,33 +380,24 @@ instance MangleDecl C.CheckedMacroType where
     mk <$> mangle macroType
 
 instance Mangle C.Type where
-  mangle (C.TypeStruct name origin) =
-      (`C.TypeStruct` origin)
-        <$> mangleQualName (C.QualName name C.NameKindStruct)
-  mangle (C.TypeUnion name origin) =
-      (`C.TypeUnion` origin)
-        <$> mangleQualName (C.QualName name C.NameKindUnion)
-  mangle (C.TypeEnum name origin) =
-      (`C.TypeEnum` origin)
-        <$> mangleQualName (C.QualName name C.NameKindEnum)
-  mangle (C.TypeTypedef ref) =
-      C.TypeTypedef <$> mangle ref
-  mangle (C.TypeMacroTypedef name origin) =
-      (`C.TypeMacroTypedef` origin)
-        <$> mangleQualName (C.QualName name C.NameKindOrdinary)
-  mangle (C.TypePointer typ) =
-      C.TypePointer <$> mangle typ
-  mangle (C.TypeFun args res) =
-      C.TypeFun <$> mapM mangle args <*> mangle res
-  mangle (C.TypeConstArray n typ) =
-      C.TypeConstArray n <$> mangle typ
-  mangle (C.TypeIncompleteArray typ) =
-      C.TypeIncompleteArray <$> mangle typ
+  mangle = \case
+      C.TypeStruct       name origin -> (`C.TypeStruct`       origin) <$> mangleQualName (C.QualName name C.NameKindStruct)
+      C.TypeUnion        name origin -> (`C.TypeUnion`        origin) <$> mangleQualName (C.QualName name C.NameKindUnion)
+      C.TypeEnum         name origin -> (`C.TypeEnum`         origin) <$> mangleQualName (C.QualName name C.NameKindEnum)
+      C.TypeMacroTypedef name origin -> (`C.TypeMacroTypedef` origin) <$> mangleQualName (C.QualName name C.NameKindOrdinary)
 
-  -- The other entries do not need any name mangling
-  mangle (C.TypePrim prim)      = return $ C.TypePrim prim
-  mangle  C.TypeVoid            = return $ C.TypeVoid
-  mangle (C.TypeExtBinding ext) = return $ C.TypeExtBinding ext
+      -- Recursive cases
+      C.TypeTypedef ref         -> C.TypeTypedef <$> mangle ref
+      C.TypePointer typ         -> C.TypePointer <$> mangle typ
+      C.TypeFun args res        -> C.TypeFun <$> mapM mangle args <*> mangle res
+      C.TypeConstArray n typ    -> C.TypeConstArray n <$> mangle typ
+      C.TypeIncompleteArray typ -> C.TypeIncompleteArray <$> mangle typ
+      C.TypeBlock typ           -> C.TypeBlock <$> mangle typ
+
+      -- The other entries do not need any name mangling
+      C.TypePrim prim      -> return $ C.TypePrim prim
+      C.TypeVoid           -> return $ C.TypeVoid
+      C.TypeExtBinding ext -> return $ C.TypeExtBinding ext
 
 instance Mangle RenamedTypedefRef where
   mangle (TypedefRegular name) =

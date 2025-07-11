@@ -1,0 +1,13 @@
+types:
+- headers: iterator.h
+  cname: Counter
+  module: Example
+  identifier: Counter
+- headers: iterator.h
+  cname: Toggle
+  module: Example
+  identifier: Toggle
+- headers: iterator.h
+  cname: VarCounter
+  module: Example
+  identifier: VarCounter
