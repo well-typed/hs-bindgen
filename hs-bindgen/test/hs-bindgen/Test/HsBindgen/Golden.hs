@@ -135,6 +135,37 @@ testCases = [
           Just $ Expected ()
         _otherwise ->
           Nothing
+    , let declsWithWarnings :: [DeclId]
+          declsWithWarnings = [
+                -- non-extern non-static globals
+                "nesInteger"
+              , "nesFloating"
+              , "nesString1"
+              , "nesString2"
+              , "nesCharacter"
+              , "nesParen"
+              , "nesUnary"
+              , "nesBinary"
+              , "nesConditional"
+              , "nesCast"
+              , "nesCompound"
+              , "nesInitList"
+              , "nesBool"
+              , "streamBinary"
+              , "streamBinary_len"
+              , "some_global_struct"
+                -- Other warnings
+              , "unusableAnon"
+              ]
+      in (defaultTest "globals") {
+          testTracePredicate = customTracePredicate' declsWithWarnings $ \case
+            TraceFrontend (FrontendParse (PotentialDuplicateGlobal info)) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (UnexpectedAnonInExtern info)) ->
+              Just $ Expected (C.declId info)
+            _otherwise ->
+              Nothing
+        }
     , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
         TraceFrontend (FrontendParse (UnsupportedType info UnsupportedLongDouble)) ->
           Just $ Expected $ C.declId info
@@ -242,41 +273,6 @@ testCases = [
              _otherwise ->
                Nothing
         , testRustBindgen = RustBindgenFail
-        }
-    , let declsWithWarnings :: [DeclId]
-          declsWithWarnings = [
-                -- non-extern non-static globals
-                "nesInteger"
-              , "nesFloating"
-              , "nesString1"
-              , "nesString2"
-              , "nesCharacter"
-              , "nesParen"
-              , "nesUnary"
-              , "nesBinary"
-              , "nesConditional"
-              , "nesCast"
-              , "nesCompound"
-              , "nesInitList"
-              , "nesBool"
-              , "streamBinary"
-              , "streamBinary_len"
-              , "some_global_struct"
-                -- Other warnings
-              , "unusableAnon"
-              ]
-      in (defaultTest "globals") {
-          -- Getting different output from (the same version of) rust-bindgen
-          -- for this test on CI than locally. Unsure why, compiled against
-          -- different llvm version? For now we just disable it.
-          testRustBindgen    = RustBindgenIgnore
-        , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
-            TraceFrontend (FrontendParse (PotentialDuplicateGlobal info)) ->
-              Just $ Expected (C.declId info)
-            TraceFrontend (FrontendParse (UnexpectedAnonInExtern info)) ->
-              Just $ Expected (C.declId info)
-            _otherwise ->
-              Nothing
         }
     , (defaultTest "macro_strings") {
           testRustBindgen = RustBindgenFail
