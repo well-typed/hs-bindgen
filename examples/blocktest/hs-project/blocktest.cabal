@@ -1,0 +1,30 @@
+cabal-version: 3.0
+name:          blocktest
+version:       0.1.0
+license:       BSD-3-Clause
+license-file:  LICENSE
+author:        Edsko de Vries
+maintainer:    edsko@well-typed.com
+build-type:    Simple
+
+common lang
+  build-depends:    base >=4.17 && <5
+  default-language: GHC2021
+  ghc-options:      -Wall
+
+executable blocktest
+  import:          lang
+  main-is:         Main.hs
+  hs-source-dirs:  app generated
+  extra-libraries: simple_iterators
+  build-depends:
+    , hs-bindgen-runtime
+    , tasty
+    , tasty-hunit
+
+  other-modules:
+    Iterator
+    Iterator.Safe
+
+  -- To use blocks we /must/ use clang as the C compiler and the assembler
+  ghc-options:     -pgmc clang -pgma clang -optc -std=c2x -optc -fblocks

@@ -1,0 +1,14 @@
+name: blocktest example
+description: Build and run the blocktest example
+
+runs:
+  using: composite
+  steps:
+    - name: Install blocks runtime
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y libblocksruntime-dev
+
+    - name: Generate and run example
+      shell: bash
+      working-directory: ./examples/blocktest
+      run: ./generate-and-run.sh
