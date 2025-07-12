@@ -78,6 +78,7 @@ testCases = [
     , defaultTest "bitfields"
     , defaultTest "bool"
     , defaultTest "enums"
+    , defaultTest "enum_cpp_syntax"
     , defaultTest "fixedarray_arg"
     , defaultTest "fixedarray"
     , defaultTest "fixedwidth"
