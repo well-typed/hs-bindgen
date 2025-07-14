@@ -26,6 +26,9 @@ module HsBindgen.Frontend.AST.Internal (
   , CheckedMacroExpr(..)
     -- * Types (at use sites)
   , Type(..)
+    -- * Naming
+  , AnonId(..)
+  , NameOrigin(..)
     -- * Show
   , ValidPass
   , Located(..)
@@ -38,6 +41,7 @@ import Clang.Paths
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -93,7 +97,7 @@ data Decl p = Decl {
 data DeclInfo p = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: Id p
-    , declOrigin  :: C.NameOrigin
+    , declOrigin  :: NameOrigin
     , declAliases :: [C.Name]
 
       -- | User-specified header that provides this declaration
@@ -224,15 +228,15 @@ data CheckedMacroExpr = CheckedMacroExpr{
 
 data Type p =
     TypePrim C.PrimType
-  | TypeStruct (Id p) C.NameOrigin
-  | TypeUnion (Id p) C.NameOrigin
-  | TypeEnum (Id p) C.NameOrigin
+  | TypeStruct (Id p) NameOrigin
+  | TypeUnion (Id p) NameOrigin
+  | TypeEnum (Id p) NameOrigin
   | TypeTypedef (TypedefRef p)
 
     -- | Macro-defined type
     --
     -- These behave very similar to 'TypeTypedef'.
-  | TypeMacroTypedef (Id p) C.NameOrigin
+  | TypeMacroTypedef (Id p) NameOrigin
 
   | TypePointer (Type p)
   | TypeFun [Type p] (Type p)

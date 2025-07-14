@@ -40,6 +40,8 @@ module HsBindgen.Frontend.AST.External (
   , ResolveBindingSpec.ResolvedExtBinding(..)
   , isVoid
     -- * Names
+  , AnonId(..)
+  , NameOrigin(..)
   , MangleNames.NamePair(..)
   , MangleNames.nameHs
   , MangleNames.RecordNames(..)
@@ -52,6 +54,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
 import HsBindgen.Imports
@@ -91,7 +94,7 @@ data Decl = Decl {
 data DeclInfo = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: MangleNames.NamePair
-    , declOrigin  :: C.NameOrigin
+    , declOrigin  :: NameOrigin
     , declAliases :: [C.Name]
     , declHeader  :: CHeaderIncludePath
     }
@@ -220,11 +223,11 @@ data CheckedMacroType = CheckedMacroType{
 -- For type /declarations/ see 'Decl'.
 data Type =
     TypePrim C.PrimType
-  | TypeStruct MangleNames.NamePair C.NameOrigin
-  | TypeUnion MangleNames.NamePair C.NameOrigin
-  | TypeEnum MangleNames.NamePair C.NameOrigin
+  | TypeStruct MangleNames.NamePair NameOrigin
+  | TypeUnion MangleNames.NamePair NameOrigin
+  | TypeEnum MangleNames.NamePair NameOrigin
   | TypeTypedef TypedefRef
-  | TypeMacroTypedef MangleNames.NamePair C.NameOrigin
+  | TypeMacroTypedef MangleNames.NamePair NameOrigin
   | TypePointer Type
   | TypeConstArray Natural Type
   | TypeFun [Type] Type

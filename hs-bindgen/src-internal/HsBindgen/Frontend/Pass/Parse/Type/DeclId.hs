@@ -9,6 +9,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -32,7 +33,7 @@ data DeclId =
     -- | Anonymous declaration
     --
     -- This can only happen for tagged types: structs, unions and enums
-  | DeclAnon C.AnonId
+  | DeclAnon AnonId
 
     -- | Built-in declaration
     --
@@ -64,7 +65,7 @@ getDeclId curr = do
       UserProvided name ->
         return $ DeclNamed (C.Name name)
       ClangGenerated _ ->
-        DeclAnon . C.AnonId . multiLocExpansion
+        DeclAnon . AnonId . multiLocExpansion
           <$> HighLevel.clang_getCursorLocation curr
       ClangBuiltin name ->
         return $ DeclBuiltin (C.Name name)
