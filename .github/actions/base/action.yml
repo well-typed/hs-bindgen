@@ -97,6 +97,10 @@ runs:
       if: runner.os == 'Windows'
       uses: ./.github/actions/build-manual-windows
 
+    - name: Build c-qrcode example (Ubuntu)
+      if: runner.os == 'Linux'
+      uses: ./.github/actions/examples/c-qrcode
+
     # Save the cache after building the project AND the manual.
     - name: Save cache
       uses: actions/cache/save@v4
