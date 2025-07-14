@@ -13,3 +13,6 @@
 [submodule "c-minisat/minisat-c-bindings"]
 	path = c-minisat/minisat-c-bindings
 	url = git@github.com:niklasso/minisat-c-bindings.git
+[submodule "c-qrcode/QR-Code-generator"]
+	path = c-qrcode/QR-Code-generator
+	url = git@github.com:nayuki/QR-Code-generator.git
