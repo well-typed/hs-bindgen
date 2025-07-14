@@ -1,0 +1,6 @@
+packages: .
+          ../ansi-diff
+          ../c-expr
+          ../clang
+          ../hs-bindgen-runtime
+          ../hs-bindgen
