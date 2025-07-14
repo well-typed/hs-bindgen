@@ -5,6 +5,9 @@ module HsBindgen.Language.C.Name (
     -- * Name
     Name(..)
 
+    -- * TypeNamespace
+  , TypeNamespace(..)
+
     -- * NameKind
   , NameKind(..)
 
@@ -25,10 +28,6 @@ import Text.SimplePrettyPrint (showToCtxDoc, textToCtxDoc, (><))
 -------------------------------------------------------------------------------}
 
 -- | C name
---
--- This type represents a C name, with no prefix.
---
--- Example: @foo@
 newtype Name = Name {
       getName :: Text
     }
@@ -37,6 +36,27 @@ newtype Name = Name {
 
 instance PrettyForTrace Name where
   prettyForTrace (Name name) = "'" >< textToCtxDoc name >< "'"
+
+{-------------------------------------------------------------------------------
+  TypeNamespace
+-------------------------------------------------------------------------------}
+
+-- | C type namespaces
+--
+-- C namespaces include:
+--
+-- * Ordinary namespace: a single namespace that includes @typedef@ names,
+--   variable names, function names, @enum@ constant names, etc.
+-- * Tag namespace: a single namespace that includes all @struct@, @union@, and
+--   @enum@ tags
+-- * Field namespaces: a separate namespace per @struct@/@union@ of field names
+-- * Label namespace: a single namespace of @goto@ labels
+--
+-- A type name is in the ordinary or tag namespace.
+data TypeNamespace =
+    TypeNamespaceOrdinary
+  | TypeNamespaceTag
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   NameKind
@@ -75,6 +95,9 @@ instance PrettyForTrace NameKind where
   QualName
 -------------------------------------------------------------------------------}
 
+-- | C qualified name
+--
+-- This is the parsed representation of a @libclang@ C spelling.
 data QualName = QualName {
       qualNameName :: Name
     , qualNameKind :: NameKind
