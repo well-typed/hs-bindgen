@@ -9,7 +9,7 @@
           declLoc =
           "opaque_declaration.h:1:8",
           declId = NamePair {
-            nameC = CName "foo",
+            nameC = Name "foo",
             nameHsIdent = HsIdentifier
               "Foo"},
           declOrigin = NameOriginInSource,
@@ -44,13 +44,13 @@
               structFieldLoc =
               "opaque_declaration.h:5:17",
               structFieldName = NamePair {
-                nameC = CName "ptrA",
+                nameC = Name "ptrA",
                 nameHsIdent = HsIdentifier
                   "bar_ptrA"},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
-                    nameC = CName "foo",
+                    nameC = Name "foo",
                     nameHsIdent = HsIdentifier
                       "Foo"}
                   NameOriginInSource),
@@ -68,13 +68,13 @@
               structFieldLoc =
               "opaque_declaration.h:6:17",
               structFieldName = NamePair {
-                nameC = CName "ptrB",
+                nameC = Name "ptrB",
                 nameHsIdent = HsIdentifier
                   "bar_ptrB"},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
-                    nameC = CName "bar",
+                    nameC = Name "bar",
                     nameHsIdent = HsIdentifier
                       "Bar"}
                   NameOriginInSource),
@@ -86,7 +86,7 @@
             declLoc =
             "opaque_declaration.h:4:8",
             declId = NamePair {
-              nameC = CName "bar",
+              nameC = Name "bar",
               nameHsIdent = HsIdentifier
                 "Bar"},
             declOrigin = NameOriginInSource,
@@ -104,13 +104,13 @@
                   structFieldLoc =
                   "opaque_declaration.h:5:17",
                   structFieldName = NamePair {
-                    nameC = CName "ptrA",
+                    nameC = Name "ptrA",
                     nameHsIdent = HsIdentifier
                       "bar_ptrA"},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"}
                       NameOriginInSource),
@@ -120,13 +120,13 @@
                   structFieldLoc =
                   "opaque_declaration.h:6:17",
                   structFieldName = NamePair {
-                    nameC = CName "ptrB",
+                    nameC = Name "ptrB",
                     nameHsIdent = HsIdentifier
                       "bar_ptrB"},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"}
                       NameOriginInSource),
@@ -163,13 +163,13 @@
                 structFieldLoc =
                 "opaque_declaration.h:5:17",
                 structFieldName = NamePair {
-                  nameC = CName "ptrA",
+                  nameC = Name "ptrA",
                   nameHsIdent = HsIdentifier
                     "bar_ptrA"},
                 structFieldType = TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "foo",
+                      nameC = Name "foo",
                       nameHsIdent = HsIdentifier
                         "Foo"}
                     NameOriginInSource),
@@ -187,13 +187,13 @@
                 structFieldLoc =
                 "opaque_declaration.h:6:17",
                 structFieldName = NamePair {
-                  nameC = CName "ptrB",
+                  nameC = Name "ptrB",
                   nameHsIdent = HsIdentifier
                     "bar_ptrB"},
                 structFieldType = TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "bar",
+                      nameC = Name "bar",
                       nameHsIdent = HsIdentifier
                         "Bar"}
                     NameOriginInSource),
@@ -205,7 +205,7 @@
               declLoc =
               "opaque_declaration.h:4:8",
               declId = NamePair {
-                nameC = CName "bar",
+                nameC = Name "bar",
                 nameHsIdent = HsIdentifier
                   "Bar"},
               declOrigin = NameOriginInSource,
@@ -223,13 +223,13 @@
                     structFieldLoc =
                     "opaque_declaration.h:5:17",
                     structFieldName = NamePair {
-                      nameC = CName "ptrA",
+                      nameC = Name "ptrA",
                       nameHsIdent = HsIdentifier
                         "bar_ptrA"},
                     structFieldType = TypePointer
                       (TypeStruct
                         NamePair {
-                          nameC = CName "foo",
+                          nameC = Name "foo",
                           nameHsIdent = HsIdentifier
                             "Foo"}
                         NameOriginInSource),
@@ -239,13 +239,13 @@
                     structFieldLoc =
                     "opaque_declaration.h:6:17",
                     structFieldName = NamePair {
-                      nameC = CName "ptrB",
+                      nameC = Name "ptrB",
                       nameHsIdent = HsIdentifier
                         "bar_ptrB"},
                     structFieldType = TypePointer
                       (TypeStruct
                         NamePair {
-                          nameC = CName "bar",
+                          nameC = Name "bar",
                           nameHsIdent = HsIdentifier
                             "Bar"}
                         NameOriginInSource),
@@ -287,13 +287,13 @@
                         structFieldLoc =
                         "opaque_declaration.h:5:17",
                         structFieldName = NamePair {
-                          nameC = CName "ptrA",
+                          nameC = Name "ptrA",
                           nameHsIdent = HsIdentifier
                             "bar_ptrA"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "foo",
+                              nameC = Name "foo",
                               nameHsIdent = HsIdentifier
                                 "Foo"}
                             NameOriginInSource),
@@ -311,13 +311,13 @@
                         structFieldLoc =
                         "opaque_declaration.h:6:17",
                         structFieldName = NamePair {
-                          nameC = CName "ptrB",
+                          nameC = Name "ptrB",
                           nameHsIdent = HsIdentifier
                             "bar_ptrB"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "bar",
+                              nameC = Name "bar",
                               nameHsIdent = HsIdentifier
                                 "Bar"}
                             NameOriginInSource),
@@ -329,7 +329,7 @@
                       declLoc =
                       "opaque_declaration.h:4:8",
                       declId = NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
@@ -347,13 +347,13 @@
                             structFieldLoc =
                             "opaque_declaration.h:5:17",
                             structFieldName = NamePair {
-                              nameC = CName "ptrA",
+                              nameC = Name "ptrA",
                               nameHsIdent = HsIdentifier
                                 "bar_ptrA"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "foo",
+                                  nameC = Name "foo",
                                   nameHsIdent = HsIdentifier
                                     "Foo"}
                                 NameOriginInSource),
@@ -363,13 +363,13 @@
                             structFieldLoc =
                             "opaque_declaration.h:6:17",
                             structFieldName = NamePair {
-                              nameC = CName "ptrB",
+                              nameC = Name "ptrB",
                               nameHsIdent = HsIdentifier
                                 "bar_ptrB"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "bar",
+                                  nameC = Name "bar",
                                   nameHsIdent = HsIdentifier
                                     "Bar"}
                                 NameOriginInSource),
@@ -413,13 +413,13 @@
                         structFieldLoc =
                         "opaque_declaration.h:5:17",
                         structFieldName = NamePair {
-                          nameC = CName "ptrA",
+                          nameC = Name "ptrA",
                           nameHsIdent = HsIdentifier
                             "bar_ptrA"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "foo",
+                              nameC = Name "foo",
                               nameHsIdent = HsIdentifier
                                 "Foo"}
                             NameOriginInSource),
@@ -437,13 +437,13 @@
                         structFieldLoc =
                         "opaque_declaration.h:6:17",
                         structFieldName = NamePair {
-                          nameC = CName "ptrB",
+                          nameC = Name "ptrB",
                           nameHsIdent = HsIdentifier
                             "bar_ptrB"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "bar",
+                              nameC = Name "bar",
                               nameHsIdent = HsIdentifier
                                 "Bar"}
                             NameOriginInSource),
@@ -455,7 +455,7 @@
                       declLoc =
                       "opaque_declaration.h:4:8",
                       declId = NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
@@ -473,13 +473,13 @@
                             structFieldLoc =
                             "opaque_declaration.h:5:17",
                             structFieldName = NamePair {
-                              nameC = CName "ptrA",
+                              nameC = Name "ptrA",
                               nameHsIdent = HsIdentifier
                                 "bar_ptrA"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "foo",
+                                  nameC = Name "foo",
                                   nameHsIdent = HsIdentifier
                                     "Foo"}
                                 NameOriginInSource),
@@ -489,13 +489,13 @@
                             structFieldLoc =
                             "opaque_declaration.h:6:17",
                             structFieldName = NamePair {
-                              nameC = CName "ptrB",
+                              nameC = Name "ptrB",
                               nameHsIdent = HsIdentifier
                                 "bar_ptrB"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "bar",
+                                  nameC = Name "bar",
                                   nameHsIdent = HsIdentifier
                                     "Bar"}
                                 NameOriginInSource),
@@ -541,7 +541,7 @@
             declLoc =
             "opaque_declaration.h:9:8",
             declId = NamePair {
-              nameC = CName "baz",
+              nameC = Name "baz",
               nameHsIdent = HsIdentifier
                 "Baz"},
             declOrigin = NameOriginInSource,
@@ -580,7 +580,7 @@
               declLoc =
               "opaque_declaration.h:9:8",
               declId = NamePair {
-                nameC = CName "baz",
+                nameC = Name "baz",
                 nameHsIdent = HsIdentifier
                   "Baz"},
               declOrigin = NameOriginInSource,
@@ -624,7 +624,7 @@
                       declLoc =
                       "opaque_declaration.h:9:8",
                       declId = NamePair {
-                        nameC = CName "baz",
+                        nameC = Name "baz",
                         nameHsIdent = HsIdentifier
                           "Baz"},
                       declOrigin = NameOriginInSource,
@@ -668,7 +668,7 @@
                       declLoc =
                       "opaque_declaration.h:9:8",
                       declId = NamePair {
-                        nameC = CName "baz",
+                        nameC = Name "baz",
                         nameHsIdent = HsIdentifier
                           "Baz"},
                       declOrigin = NameOriginInSource,
@@ -711,7 +711,7 @@
           declLoc =
           "opaque_declaration.h:11:6",
           declId = NamePair {
-            nameC = CName "quu",
+            nameC = Name "quu",
             nameHsIdent = HsIdentifier
               "Quu"},
           declOrigin = NameOriginInSource,
@@ -735,7 +735,7 @@
           declLoc =
           "opaque_declaration.h:13:7",
           declId = NamePair {
-            nameC = CName "opaque_union",
+            nameC = Name "opaque_union",
             nameHsIdent = HsIdentifier
               "Opaque_union"},
           declOrigin = NameOriginInSource,

@@ -18,7 +18,7 @@
             StructField {
               structFieldLoc = "unions.h:2:9",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "dim2_x"},
               structFieldType = TypePrim
@@ -35,7 +35,7 @@
             StructField {
               structFieldLoc = "unions.h:3:9",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "dim2_y"},
               structFieldType = TypePrim
@@ -47,7 +47,7 @@
           declInfo = DeclInfo {
             declLoc = "unions.h:1:8",
             declId = NamePair {
-              nameC = CName "Dim2",
+              nameC = Name "Dim2",
               nameHsIdent = HsIdentifier
                 "Dim2"},
             declOrigin = NameOriginInSource,
@@ -63,7 +63,7 @@
                 StructField {
                   structFieldLoc = "unions.h:2:9",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "dim2_x"},
                   structFieldType = TypePrim
@@ -73,7 +73,7 @@
                 StructField {
                   structFieldLoc = "unions.h:3:9",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "dim2_y"},
                   structFieldType = TypePrim
@@ -109,7 +109,7 @@
               StructField {
                 structFieldLoc = "unions.h:2:9",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "dim2_x"},
                 structFieldType = TypePrim
@@ -126,7 +126,7 @@
               StructField {
                 structFieldLoc = "unions.h:3:9",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "dim2_y"},
                 structFieldType = TypePrim
@@ -138,7 +138,7 @@
             declInfo = DeclInfo {
               declLoc = "unions.h:1:8",
               declId = NamePair {
-                nameC = CName "Dim2",
+                nameC = Name "Dim2",
                 nameHsIdent = HsIdentifier
                   "Dim2"},
               declOrigin = NameOriginInSource,
@@ -154,7 +154,7 @@
                   StructField {
                     structFieldLoc = "unions.h:2:9",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "dim2_x"},
                     structFieldType = TypePrim
@@ -164,7 +164,7 @@
                   StructField {
                     structFieldLoc = "unions.h:3:9",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "dim2_y"},
                     structFieldType = TypePrim
@@ -205,7 +205,7 @@
                       StructField {
                         structFieldLoc = "unions.h:2:9",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "dim2_x"},
                         structFieldType = TypePrim
@@ -222,7 +222,7 @@
                       StructField {
                         structFieldLoc = "unions.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "dim2_y"},
                         structFieldType = TypePrim
@@ -234,7 +234,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:1:8",
                       declId = NamePair {
-                        nameC = CName "Dim2",
+                        nameC = Name "Dim2",
                         nameHsIdent = HsIdentifier
                           "Dim2"},
                       declOrigin = NameOriginInSource,
@@ -250,7 +250,7 @@
                           StructField {
                             structFieldLoc = "unions.h:2:9",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "dim2_x"},
                             structFieldType = TypePrim
@@ -260,7 +260,7 @@
                           StructField {
                             structFieldLoc = "unions.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "dim2_y"},
                             structFieldType = TypePrim
@@ -303,7 +303,7 @@
                       StructField {
                         structFieldLoc = "unions.h:2:9",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "dim2_x"},
                         structFieldType = TypePrim
@@ -320,7 +320,7 @@
                       StructField {
                         structFieldLoc = "unions.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "dim2_y"},
                         structFieldType = TypePrim
@@ -332,7 +332,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:1:8",
                       declId = NamePair {
-                        nameC = CName "Dim2",
+                        nameC = Name "Dim2",
                         nameHsIdent = HsIdentifier
                           "Dim2"},
                       declOrigin = NameOriginInSource,
@@ -348,7 +348,7 @@
                           StructField {
                             structFieldLoc = "unions.h:2:9",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "dim2_x"},
                             structFieldType = TypePrim
@@ -358,7 +358,7 @@
                           StructField {
                             structFieldLoc = "unions.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "dim2_y"},
                             structFieldType = TypePrim
@@ -409,7 +409,7 @@
             StructField {
               structFieldLoc = "unions.h:7:9",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "dim3_x"},
               structFieldType = TypePrim
@@ -426,7 +426,7 @@
             StructField {
               structFieldLoc = "unions.h:8:9",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "dim3_y"},
               structFieldType = TypePrim
@@ -443,7 +443,7 @@
             StructField {
               structFieldLoc = "unions.h:9:9",
               structFieldName = NamePair {
-                nameC = CName "z",
+                nameC = Name "z",
                 nameHsIdent = HsIdentifier
                   "dim3_z"},
               structFieldType = TypePrim
@@ -455,7 +455,7 @@
           declInfo = DeclInfo {
             declLoc = "unions.h:6:8",
             declId = NamePair {
-              nameC = CName "Dim3",
+              nameC = Name "Dim3",
               nameHsIdent = HsIdentifier
                 "Dim3"},
             declOrigin = NameOriginInSource,
@@ -471,7 +471,7 @@
                 StructField {
                   structFieldLoc = "unions.h:7:9",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "dim3_x"},
                   structFieldType = TypePrim
@@ -481,7 +481,7 @@
                 StructField {
                   structFieldLoc = "unions.h:8:9",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "dim3_y"},
                   structFieldType = TypePrim
@@ -491,7 +491,7 @@
                 StructField {
                   structFieldLoc = "unions.h:9:9",
                   structFieldName = NamePair {
-                    nameC = CName "z",
+                    nameC = Name "z",
                     nameHsIdent = HsIdentifier
                       "dim3_z"},
                   structFieldType = TypePrim
@@ -527,7 +527,7 @@
               StructField {
                 structFieldLoc = "unions.h:7:9",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "dim3_x"},
                 structFieldType = TypePrim
@@ -544,7 +544,7 @@
               StructField {
                 structFieldLoc = "unions.h:8:9",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "dim3_y"},
                 structFieldType = TypePrim
@@ -561,7 +561,7 @@
               StructField {
                 structFieldLoc = "unions.h:9:9",
                 structFieldName = NamePair {
-                  nameC = CName "z",
+                  nameC = Name "z",
                   nameHsIdent = HsIdentifier
                     "dim3_z"},
                 structFieldType = TypePrim
@@ -573,7 +573,7 @@
             declInfo = DeclInfo {
               declLoc = "unions.h:6:8",
               declId = NamePair {
-                nameC = CName "Dim3",
+                nameC = Name "Dim3",
                 nameHsIdent = HsIdentifier
                   "Dim3"},
               declOrigin = NameOriginInSource,
@@ -589,7 +589,7 @@
                   StructField {
                     structFieldLoc = "unions.h:7:9",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "dim3_x"},
                     structFieldType = TypePrim
@@ -599,7 +599,7 @@
                   StructField {
                     structFieldLoc = "unions.h:8:9",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "dim3_y"},
                     structFieldType = TypePrim
@@ -609,7 +609,7 @@
                   StructField {
                     structFieldLoc = "unions.h:9:9",
                     structFieldName = NamePair {
-                      nameC = CName "z",
+                      nameC = Name "z",
                       nameHsIdent = HsIdentifier
                         "dim3_z"},
                     structFieldType = TypePrim
@@ -650,7 +650,7 @@
                       StructField {
                         structFieldLoc = "unions.h:7:9",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "dim3_x"},
                         structFieldType = TypePrim
@@ -667,7 +667,7 @@
                       StructField {
                         structFieldLoc = "unions.h:8:9",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "dim3_y"},
                         structFieldType = TypePrim
@@ -684,7 +684,7 @@
                       StructField {
                         structFieldLoc = "unions.h:9:9",
                         structFieldName = NamePair {
-                          nameC = CName "z",
+                          nameC = Name "z",
                           nameHsIdent = HsIdentifier
                             "dim3_z"},
                         structFieldType = TypePrim
@@ -696,7 +696,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:6:8",
                       declId = NamePair {
-                        nameC = CName "Dim3",
+                        nameC = Name "Dim3",
                         nameHsIdent = HsIdentifier
                           "Dim3"},
                       declOrigin = NameOriginInSource,
@@ -712,7 +712,7 @@
                           StructField {
                             structFieldLoc = "unions.h:7:9",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "dim3_x"},
                             structFieldType = TypePrim
@@ -722,7 +722,7 @@
                           StructField {
                             structFieldLoc = "unions.h:8:9",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "dim3_y"},
                             structFieldType = TypePrim
@@ -732,7 +732,7 @@
                           StructField {
                             structFieldLoc = "unions.h:9:9",
                             structFieldName = NamePair {
-                              nameC = CName "z",
+                              nameC = Name "z",
                               nameHsIdent = HsIdentifier
                                 "dim3_z"},
                             structFieldType = TypePrim
@@ -776,7 +776,7 @@
                       StructField {
                         structFieldLoc = "unions.h:7:9",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "dim3_x"},
                         structFieldType = TypePrim
@@ -793,7 +793,7 @@
                       StructField {
                         structFieldLoc = "unions.h:8:9",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "dim3_y"},
                         structFieldType = TypePrim
@@ -810,7 +810,7 @@
                       StructField {
                         structFieldLoc = "unions.h:9:9",
                         structFieldName = NamePair {
-                          nameC = CName "z",
+                          nameC = Name "z",
                           nameHsIdent = HsIdentifier
                             "dim3_z"},
                         structFieldType = TypePrim
@@ -822,7 +822,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:6:8",
                       declId = NamePair {
-                        nameC = CName "Dim3",
+                        nameC = Name "Dim3",
                         nameHsIdent = HsIdentifier
                           "Dim3"},
                       declOrigin = NameOriginInSource,
@@ -838,7 +838,7 @@
                           StructField {
                             structFieldLoc = "unions.h:7:9",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "dim3_x"},
                             structFieldType = TypePrim
@@ -848,7 +848,7 @@
                           StructField {
                             structFieldLoc = "unions.h:8:9",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "dim3_y"},
                             structFieldType = TypePrim
@@ -858,7 +858,7 @@
                           StructField {
                             structFieldLoc = "unions.h:9:9",
                             structFieldName = NamePair {
-                              nameC = CName "z",
+                              nameC = Name "z",
                               nameHsIdent = HsIdentifier
                                 "dim3_z"},
                             structFieldType = TypePrim
@@ -909,7 +909,7 @@
         declInfo = DeclInfo {
           declLoc = "unions.h:12:7",
           declId = NamePair {
-            nameC = CName "DimPayload",
+            nameC = Name "DimPayload",
             nameHsIdent = HsIdentifier
               "DimPayload"},
           declOrigin = NameOriginInSource,
@@ -931,12 +931,12 @@
                 unionFieldLoc =
                 "unions.h:13:17",
                 unionFieldName = NamePair {
-                  nameC = CName "dim2",
+                  nameC = Name "dim2",
                   nameHsIdent = HsIdentifier
                     "dimPayload_dim2"},
                 unionFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "Dim2",
+                    nameC = Name "Dim2",
                     nameHsIdent = HsIdentifier
                       "Dim2"}
                   NameOriginInSource},
@@ -944,12 +944,12 @@
                 unionFieldLoc =
                 "unions.h:14:17",
                 unionFieldName = NamePair {
-                  nameC = CName "dim3",
+                  nameC = Name "dim3",
                   nameHsIdent = HsIdentifier
                     "dimPayload_dim3"},
                 unionFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "Dim2",
+                    nameC = Name "Dim2",
                     nameHsIdent = HsIdentifier
                       "Dim2"}
                   NameOriginInSource}]},
@@ -1024,7 +1024,7 @@
               structFieldLoc =
               "unions.h:18:9",
               structFieldName = NamePair {
-                nameC = CName "tag",
+                nameC = Name "tag",
                 nameHsIdent = HsIdentifier
                   "dim_tag"},
               structFieldType = TypePrim
@@ -1044,12 +1044,12 @@
               structFieldLoc =
               "unions.h:19:22",
               structFieldName = NamePair {
-                nameC = CName "payload",
+                nameC = Name "payload",
                 nameHsIdent = HsIdentifier
                   "dim_payload"},
               structFieldType = TypeUnion
                 NamePair {
-                  nameC = CName "DimPayload",
+                  nameC = Name "DimPayload",
                   nameHsIdent = HsIdentifier
                     "DimPayload"}
                 NameOriginInSource,
@@ -1060,7 +1060,7 @@
           declInfo = DeclInfo {
             declLoc = "unions.h:17:8",
             declId = NamePair {
-              nameC = CName "Dim",
+              nameC = Name "Dim",
               nameHsIdent = HsIdentifier
                 "Dim"},
             declOrigin = NameOriginInSource,
@@ -1077,7 +1077,7 @@
                   structFieldLoc =
                   "unions.h:18:9",
                   structFieldName = NamePair {
-                    nameC = CName "tag",
+                    nameC = Name "tag",
                     nameHsIdent = HsIdentifier
                       "dim_tag"},
                   structFieldType = TypePrim
@@ -1088,12 +1088,12 @@
                   structFieldLoc =
                   "unions.h:19:22",
                   structFieldName = NamePair {
-                    nameC = CName "payload",
+                    nameC = Name "payload",
                     nameHsIdent = HsIdentifier
                       "dim_payload"},
                   structFieldType = TypeUnion
                     NamePair {
-                      nameC = CName "DimPayload",
+                      nameC = Name "DimPayload",
                       nameHsIdent = HsIdentifier
                         "DimPayload"}
                     NameOriginInSource,
@@ -1129,7 +1129,7 @@
                 structFieldLoc =
                 "unions.h:18:9",
                 structFieldName = NamePair {
-                  nameC = CName "tag",
+                  nameC = Name "tag",
                   nameHsIdent = HsIdentifier
                     "dim_tag"},
                 structFieldType = TypePrim
@@ -1149,12 +1149,12 @@
                 structFieldLoc =
                 "unions.h:19:22",
                 structFieldName = NamePair {
-                  nameC = CName "payload",
+                  nameC = Name "payload",
                   nameHsIdent = HsIdentifier
                     "dim_payload"},
                 structFieldType = TypeUnion
                   NamePair {
-                    nameC = CName "DimPayload",
+                    nameC = Name "DimPayload",
                     nameHsIdent = HsIdentifier
                       "DimPayload"}
                   NameOriginInSource,
@@ -1165,7 +1165,7 @@
             declInfo = DeclInfo {
               declLoc = "unions.h:17:8",
               declId = NamePair {
-                nameC = CName "Dim",
+                nameC = Name "Dim",
                 nameHsIdent = HsIdentifier
                   "Dim"},
               declOrigin = NameOriginInSource,
@@ -1182,7 +1182,7 @@
                     structFieldLoc =
                     "unions.h:18:9",
                     structFieldName = NamePair {
-                      nameC = CName "tag",
+                      nameC = Name "tag",
                       nameHsIdent = HsIdentifier
                         "dim_tag"},
                     structFieldType = TypePrim
@@ -1193,12 +1193,12 @@
                     structFieldLoc =
                     "unions.h:19:22",
                     structFieldName = NamePair {
-                      nameC = CName "payload",
+                      nameC = Name "payload",
                       nameHsIdent = HsIdentifier
                         "dim_payload"},
                     structFieldType = TypeUnion
                       NamePair {
-                        nameC = CName "DimPayload",
+                        nameC = Name "DimPayload",
                         nameHsIdent = HsIdentifier
                           "DimPayload"}
                       NameOriginInSource,
@@ -1239,7 +1239,7 @@
                         structFieldLoc =
                         "unions.h:18:9",
                         structFieldName = NamePair {
-                          nameC = CName "tag",
+                          nameC = Name "tag",
                           nameHsIdent = HsIdentifier
                             "dim_tag"},
                         structFieldType = TypePrim
@@ -1259,12 +1259,12 @@
                         structFieldLoc =
                         "unions.h:19:22",
                         structFieldName = NamePair {
-                          nameC = CName "payload",
+                          nameC = Name "payload",
                           nameHsIdent = HsIdentifier
                             "dim_payload"},
                         structFieldType = TypeUnion
                           NamePair {
-                            nameC = CName "DimPayload",
+                            nameC = Name "DimPayload",
                             nameHsIdent = HsIdentifier
                               "DimPayload"}
                           NameOriginInSource,
@@ -1275,7 +1275,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:17:8",
                       declId = NamePair {
-                        nameC = CName "Dim",
+                        nameC = Name "Dim",
                         nameHsIdent = HsIdentifier
                           "Dim"},
                       declOrigin = NameOriginInSource,
@@ -1292,7 +1292,7 @@
                             structFieldLoc =
                             "unions.h:18:9",
                             structFieldName = NamePair {
-                              nameC = CName "tag",
+                              nameC = Name "tag",
                               nameHsIdent = HsIdentifier
                                 "dim_tag"},
                             structFieldType = TypePrim
@@ -1303,12 +1303,12 @@
                             structFieldLoc =
                             "unions.h:19:22",
                             structFieldName = NamePair {
-                              nameC = CName "payload",
+                              nameC = Name "payload",
                               nameHsIdent = HsIdentifier
                                 "dim_payload"},
                             structFieldType = TypeUnion
                               NamePair {
-                                nameC = CName "DimPayload",
+                                nameC = Name "DimPayload",
                                 nameHsIdent = HsIdentifier
                                   "DimPayload"}
                               NameOriginInSource,
@@ -1351,7 +1351,7 @@
                         structFieldLoc =
                         "unions.h:18:9",
                         structFieldName = NamePair {
-                          nameC = CName "tag",
+                          nameC = Name "tag",
                           nameHsIdent = HsIdentifier
                             "dim_tag"},
                         structFieldType = TypePrim
@@ -1371,12 +1371,12 @@
                         structFieldLoc =
                         "unions.h:19:22",
                         structFieldName = NamePair {
-                          nameC = CName "payload",
+                          nameC = Name "payload",
                           nameHsIdent = HsIdentifier
                             "dim_payload"},
                         structFieldType = TypeUnion
                           NamePair {
-                            nameC = CName "DimPayload",
+                            nameC = Name "DimPayload",
                             nameHsIdent = HsIdentifier
                               "DimPayload"}
                           NameOriginInSource,
@@ -1387,7 +1387,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:17:8",
                       declId = NamePair {
-                        nameC = CName "Dim",
+                        nameC = Name "Dim",
                         nameHsIdent = HsIdentifier
                           "Dim"},
                       declOrigin = NameOriginInSource,
@@ -1404,7 +1404,7 @@
                             structFieldLoc =
                             "unions.h:18:9",
                             structFieldName = NamePair {
-                              nameC = CName "tag",
+                              nameC = Name "tag",
                               nameHsIdent = HsIdentifier
                                 "dim_tag"},
                             structFieldType = TypePrim
@@ -1415,12 +1415,12 @@
                             structFieldLoc =
                             "unions.h:19:22",
                             structFieldName = NamePair {
-                              nameC = CName "payload",
+                              nameC = Name "payload",
                               nameHsIdent = HsIdentifier
                                 "dim_payload"},
                             structFieldType = TypeUnion
                               NamePair {
-                                nameC = CName "DimPayload",
+                                nameC = Name "DimPayload",
                                 nameHsIdent = HsIdentifier
                                   "DimPayload"}
                               NameOriginInSource,
@@ -1461,12 +1461,12 @@
         declInfo = DeclInfo {
           declLoc = "unions.h:23:15",
           declId = NamePair {
-            nameC = CName "DimPayloadB",
+            nameC = Name "DimPayloadB",
             nameHsIdent = HsIdentifier
               "DimPayloadB"},
           declOrigin = NameOriginInSource,
           declAliases = [
-            CName "DimPayloadB"],
+            Name "DimPayloadB"],
           declHeader = "unions.h"},
         declKind = Union
           Union {
@@ -1484,12 +1484,12 @@
                 unionFieldLoc =
                 "unions.h:24:17",
                 unionFieldName = NamePair {
-                  nameC = CName "dim2",
+                  nameC = Name "dim2",
                   nameHsIdent = HsIdentifier
                     "dimPayloadB_dim2"},
                 unionFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "Dim2",
+                    nameC = Name "Dim2",
                     nameHsIdent = HsIdentifier
                       "Dim2"}
                   NameOriginInSource},
@@ -1497,12 +1497,12 @@
                 unionFieldLoc =
                 "unions.h:25:17",
                 unionFieldName = NamePair {
-                  nameC = CName "dim3",
+                  nameC = Name "dim3",
                   nameHsIdent = HsIdentifier
                     "dimPayloadB_dim3"},
                 unionFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "Dim2",
+                    nameC = Name "Dim2",
                     nameHsIdent = HsIdentifier
                       "Dim2"}
                   NameOriginInSource}]},
@@ -1577,7 +1577,7 @@
               structFieldLoc =
               "unions.h:29:9",
               structFieldName = NamePair {
-                nameC = CName "tag",
+                nameC = Name "tag",
                 nameHsIdent = HsIdentifier
                   "dimB_tag"},
               structFieldType = TypePrim
@@ -1597,15 +1597,15 @@
               structFieldLoc =
               "unions.h:30:17",
               structFieldName = NamePair {
-                nameC = CName "payload",
+                nameC = Name "payload",
                 nameHsIdent = HsIdentifier
                   "dimB_payload"},
               structFieldType = TypeTypedef
                 (TypedefSquashed
-                  (CName "DimPayloadB")
+                  (Name "DimPayloadB")
                   (TypeUnion
                     NamePair {
-                      nameC = CName "DimPayloadB",
+                      nameC = Name "DimPayloadB",
                       nameHsIdent = HsIdentifier
                         "DimPayloadB"}
                     NameOriginInSource)),
@@ -1616,7 +1616,7 @@
           declInfo = DeclInfo {
             declLoc = "unions.h:28:8",
             declId = NamePair {
-              nameC = CName "DimB",
+              nameC = Name "DimB",
               nameHsIdent = HsIdentifier
                 "DimB"},
             declOrigin = NameOriginInSource,
@@ -1633,7 +1633,7 @@
                   structFieldLoc =
                   "unions.h:29:9",
                   structFieldName = NamePair {
-                    nameC = CName "tag",
+                    nameC = Name "tag",
                     nameHsIdent = HsIdentifier
                       "dimB_tag"},
                   structFieldType = TypePrim
@@ -1644,15 +1644,15 @@
                   structFieldLoc =
                   "unions.h:30:17",
                   structFieldName = NamePair {
-                    nameC = CName "payload",
+                    nameC = Name "payload",
                     nameHsIdent = HsIdentifier
                       "dimB_payload"},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
-                      (CName "DimPayloadB")
+                      (Name "DimPayloadB")
                       (TypeUnion
                         NamePair {
-                          nameC = CName "DimPayloadB",
+                          nameC = Name "DimPayloadB",
                           nameHsIdent = HsIdentifier
                             "DimPayloadB"}
                         NameOriginInSource)),
@@ -1688,7 +1688,7 @@
                 structFieldLoc =
                 "unions.h:29:9",
                 structFieldName = NamePair {
-                  nameC = CName "tag",
+                  nameC = Name "tag",
                   nameHsIdent = HsIdentifier
                     "dimB_tag"},
                 structFieldType = TypePrim
@@ -1708,15 +1708,15 @@
                 structFieldLoc =
                 "unions.h:30:17",
                 structFieldName = NamePair {
-                  nameC = CName "payload",
+                  nameC = Name "payload",
                   nameHsIdent = HsIdentifier
                     "dimB_payload"},
                 structFieldType = TypeTypedef
                   (TypedefSquashed
-                    (CName "DimPayloadB")
+                    (Name "DimPayloadB")
                     (TypeUnion
                       NamePair {
-                        nameC = CName "DimPayloadB",
+                        nameC = Name "DimPayloadB",
                         nameHsIdent = HsIdentifier
                           "DimPayloadB"}
                       NameOriginInSource)),
@@ -1727,7 +1727,7 @@
             declInfo = DeclInfo {
               declLoc = "unions.h:28:8",
               declId = NamePair {
-                nameC = CName "DimB",
+                nameC = Name "DimB",
                 nameHsIdent = HsIdentifier
                   "DimB"},
               declOrigin = NameOriginInSource,
@@ -1744,7 +1744,7 @@
                     structFieldLoc =
                     "unions.h:29:9",
                     structFieldName = NamePair {
-                      nameC = CName "tag",
+                      nameC = Name "tag",
                       nameHsIdent = HsIdentifier
                         "dimB_tag"},
                     structFieldType = TypePrim
@@ -1755,15 +1755,15 @@
                     structFieldLoc =
                     "unions.h:30:17",
                     structFieldName = NamePair {
-                      nameC = CName "payload",
+                      nameC = Name "payload",
                       nameHsIdent = HsIdentifier
                         "dimB_payload"},
                     structFieldType = TypeTypedef
                       (TypedefSquashed
-                        (CName "DimPayloadB")
+                        (Name "DimPayloadB")
                         (TypeUnion
                           NamePair {
-                            nameC = CName "DimPayloadB",
+                            nameC = Name "DimPayloadB",
                             nameHsIdent = HsIdentifier
                               "DimPayloadB"}
                           NameOriginInSource)),
@@ -1804,7 +1804,7 @@
                         structFieldLoc =
                         "unions.h:29:9",
                         structFieldName = NamePair {
-                          nameC = CName "tag",
+                          nameC = Name "tag",
                           nameHsIdent = HsIdentifier
                             "dimB_tag"},
                         structFieldType = TypePrim
@@ -1824,15 +1824,15 @@
                         structFieldLoc =
                         "unions.h:30:17",
                         structFieldName = NamePair {
-                          nameC = CName "payload",
+                          nameC = Name "payload",
                           nameHsIdent = HsIdentifier
                             "dimB_payload"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName "DimPayloadB")
+                            (Name "DimPayloadB")
                             (TypeUnion
                               NamePair {
-                                nameC = CName "DimPayloadB",
+                                nameC = Name "DimPayloadB",
                                 nameHsIdent = HsIdentifier
                                   "DimPayloadB"}
                               NameOriginInSource)),
@@ -1843,7 +1843,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:28:8",
                       declId = NamePair {
-                        nameC = CName "DimB",
+                        nameC = Name "DimB",
                         nameHsIdent = HsIdentifier
                           "DimB"},
                       declOrigin = NameOriginInSource,
@@ -1860,7 +1860,7 @@
                             structFieldLoc =
                             "unions.h:29:9",
                             structFieldName = NamePair {
-                              nameC = CName "tag",
+                              nameC = Name "tag",
                               nameHsIdent = HsIdentifier
                                 "dimB_tag"},
                             structFieldType = TypePrim
@@ -1871,15 +1871,15 @@
                             structFieldLoc =
                             "unions.h:30:17",
                             structFieldName = NamePair {
-                              nameC = CName "payload",
+                              nameC = Name "payload",
                               nameHsIdent = HsIdentifier
                                 "dimB_payload"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName "DimPayloadB")
+                                (Name "DimPayloadB")
                                 (TypeUnion
                                   NamePair {
-                                    nameC = CName "DimPayloadB",
+                                    nameC = Name "DimPayloadB",
                                     nameHsIdent = HsIdentifier
                                       "DimPayloadB"}
                                   NameOriginInSource)),
@@ -1922,7 +1922,7 @@
                         structFieldLoc =
                         "unions.h:29:9",
                         structFieldName = NamePair {
-                          nameC = CName "tag",
+                          nameC = Name "tag",
                           nameHsIdent = HsIdentifier
                             "dimB_tag"},
                         structFieldType = TypePrim
@@ -1942,15 +1942,15 @@
                         structFieldLoc =
                         "unions.h:30:17",
                         structFieldName = NamePair {
-                          nameC = CName "payload",
+                          nameC = Name "payload",
                           nameHsIdent = HsIdentifier
                             "dimB_payload"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName "DimPayloadB")
+                            (Name "DimPayloadB")
                             (TypeUnion
                               NamePair {
-                                nameC = CName "DimPayloadB",
+                                nameC = Name "DimPayloadB",
                                 nameHsIdent = HsIdentifier
                                   "DimPayloadB"}
                               NameOriginInSource)),
@@ -1961,7 +1961,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:28:8",
                       declId = NamePair {
-                        nameC = CName "DimB",
+                        nameC = Name "DimB",
                         nameHsIdent = HsIdentifier
                           "DimB"},
                       declOrigin = NameOriginInSource,
@@ -1978,7 +1978,7 @@
                             structFieldLoc =
                             "unions.h:29:9",
                             structFieldName = NamePair {
-                              nameC = CName "tag",
+                              nameC = Name "tag",
                               nameHsIdent = HsIdentifier
                                 "dimB_tag"},
                             structFieldType = TypePrim
@@ -1989,15 +1989,15 @@
                             structFieldLoc =
                             "unions.h:30:17",
                             structFieldName = NamePair {
-                              nameC = CName "payload",
+                              nameC = Name "payload",
                               nameHsIdent = HsIdentifier
                                 "dimB_payload"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName "DimPayloadB")
+                                (Name "DimPayloadB")
                                 (TypeUnion
                                   NamePair {
-                                    nameC = CName "DimPayloadB",
+                                    nameC = Name "DimPayloadB",
                                     nameHsIdent = HsIdentifier
                                       "DimPayloadB"}
                                   NameOriginInSource)),
@@ -2040,7 +2040,7 @@
               structFieldLoc =
               "unions.h:35:21",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "anonA_xy_x"},
               structFieldType = TypePrim
@@ -2058,7 +2058,7 @@
               structFieldLoc =
               "unions.h:35:31",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "anonA_xy_y"},
               structFieldType = TypePrim
@@ -2070,7 +2070,7 @@
           declInfo = DeclInfo {
             declLoc = "unions.h:35:5",
             declId = NamePair {
-              nameC = CName "AnonA_xy",
+              nameC = Name "AnonA_xy",
               nameHsIdent = HsIdentifier
                 "AnonA_xy"},
             declOrigin = NameOriginGenerated
@@ -2088,7 +2088,7 @@
                   structFieldLoc =
                   "unions.h:35:21",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "anonA_xy_x"},
                   structFieldType = TypePrim
@@ -2099,7 +2099,7 @@
                   structFieldLoc =
                   "unions.h:35:31",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "anonA_xy_y"},
                   structFieldType = TypePrim
@@ -2136,7 +2136,7 @@
                 structFieldLoc =
                 "unions.h:35:21",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "anonA_xy_x"},
                 structFieldType = TypePrim
@@ -2154,7 +2154,7 @@
                 structFieldLoc =
                 "unions.h:35:31",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "anonA_xy_y"},
                 structFieldType = TypePrim
@@ -2166,7 +2166,7 @@
             declInfo = DeclInfo {
               declLoc = "unions.h:35:5",
               declId = NamePair {
-                nameC = CName "AnonA_xy",
+                nameC = Name "AnonA_xy",
                 nameHsIdent = HsIdentifier
                   "AnonA_xy"},
               declOrigin = NameOriginGenerated
@@ -2184,7 +2184,7 @@
                     structFieldLoc =
                     "unions.h:35:21",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "anonA_xy_x"},
                     structFieldType = TypePrim
@@ -2195,7 +2195,7 @@
                     structFieldLoc =
                     "unions.h:35:31",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "anonA_xy_y"},
                     structFieldType = TypePrim
@@ -2237,7 +2237,7 @@
                         structFieldLoc =
                         "unions.h:35:21",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "anonA_xy_x"},
                         structFieldType = TypePrim
@@ -2255,7 +2255,7 @@
                         structFieldLoc =
                         "unions.h:35:31",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "anonA_xy_y"},
                         structFieldType = TypePrim
@@ -2267,7 +2267,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:35:5",
                       declId = NamePair {
-                        nameC = CName "AnonA_xy",
+                        nameC = Name "AnonA_xy",
                         nameHsIdent = HsIdentifier
                           "AnonA_xy"},
                       declOrigin = NameOriginGenerated
@@ -2285,7 +2285,7 @@
                             structFieldLoc =
                             "unions.h:35:21",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "anonA_xy_x"},
                             structFieldType = TypePrim
@@ -2296,7 +2296,7 @@
                             structFieldLoc =
                             "unions.h:35:31",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "anonA_xy_y"},
                             structFieldType = TypePrim
@@ -2340,7 +2340,7 @@
                         structFieldLoc =
                         "unions.h:35:21",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "anonA_xy_x"},
                         structFieldType = TypePrim
@@ -2358,7 +2358,7 @@
                         structFieldLoc =
                         "unions.h:35:31",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "anonA_xy_y"},
                         structFieldType = TypePrim
@@ -2370,7 +2370,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:35:5",
                       declId = NamePair {
-                        nameC = CName "AnonA_xy",
+                        nameC = Name "AnonA_xy",
                         nameHsIdent = HsIdentifier
                           "AnonA_xy"},
                       declOrigin = NameOriginGenerated
@@ -2388,7 +2388,7 @@
                             structFieldLoc =
                             "unions.h:35:21",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "anonA_xy_x"},
                             structFieldType = TypePrim
@@ -2399,7 +2399,7 @@
                             structFieldLoc =
                             "unions.h:35:31",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "anonA_xy_y"},
                             structFieldType = TypePrim
@@ -2455,7 +2455,7 @@
               structFieldLoc =
               "unions.h:36:21",
               structFieldName = NamePair {
-                nameC = CName "r",
+                nameC = Name "r",
                 nameHsIdent = HsIdentifier
                   "anonA_polar_r"},
               structFieldType = TypePrim
@@ -2473,7 +2473,7 @@
               structFieldLoc =
               "unions.h:36:31",
               structFieldName = NamePair {
-                nameC = CName "p",
+                nameC = Name "p",
                 nameHsIdent = HsIdentifier
                   "anonA_polar_p"},
               structFieldType = TypePrim
@@ -2485,7 +2485,7 @@
           declInfo = DeclInfo {
             declLoc = "unions.h:36:5",
             declId = NamePair {
-              nameC = CName "AnonA_polar",
+              nameC = Name "AnonA_polar",
               nameHsIdent = HsIdentifier
                 "AnonA_polar"},
             declOrigin = NameOriginGenerated
@@ -2505,7 +2505,7 @@
                   structFieldLoc =
                   "unions.h:36:21",
                   structFieldName = NamePair {
-                    nameC = CName "r",
+                    nameC = Name "r",
                     nameHsIdent = HsIdentifier
                       "anonA_polar_r"},
                   structFieldType = TypePrim
@@ -2516,7 +2516,7 @@
                   structFieldLoc =
                   "unions.h:36:31",
                   structFieldName = NamePair {
-                    nameC = CName "p",
+                    nameC = Name "p",
                     nameHsIdent = HsIdentifier
                       "anonA_polar_p"},
                   structFieldType = TypePrim
@@ -2553,7 +2553,7 @@
                 structFieldLoc =
                 "unions.h:36:21",
                 structFieldName = NamePair {
-                  nameC = CName "r",
+                  nameC = Name "r",
                   nameHsIdent = HsIdentifier
                     "anonA_polar_r"},
                 structFieldType = TypePrim
@@ -2571,7 +2571,7 @@
                 structFieldLoc =
                 "unions.h:36:31",
                 structFieldName = NamePair {
-                  nameC = CName "p",
+                  nameC = Name "p",
                   nameHsIdent = HsIdentifier
                     "anonA_polar_p"},
                 structFieldType = TypePrim
@@ -2583,7 +2583,7 @@
             declInfo = DeclInfo {
               declLoc = "unions.h:36:5",
               declId = NamePair {
-                nameC = CName "AnonA_polar",
+                nameC = Name "AnonA_polar",
                 nameHsIdent = HsIdentifier
                   "AnonA_polar"},
               declOrigin = NameOriginGenerated
@@ -2603,7 +2603,7 @@
                     structFieldLoc =
                     "unions.h:36:21",
                     structFieldName = NamePair {
-                      nameC = CName "r",
+                      nameC = Name "r",
                       nameHsIdent = HsIdentifier
                         "anonA_polar_r"},
                     structFieldType = TypePrim
@@ -2614,7 +2614,7 @@
                     structFieldLoc =
                     "unions.h:36:31",
                     structFieldName = NamePair {
-                      nameC = CName "p",
+                      nameC = Name "p",
                       nameHsIdent = HsIdentifier
                         "anonA_polar_p"},
                     structFieldType = TypePrim
@@ -2656,7 +2656,7 @@
                         structFieldLoc =
                         "unions.h:36:21",
                         structFieldName = NamePair {
-                          nameC = CName "r",
+                          nameC = Name "r",
                           nameHsIdent = HsIdentifier
                             "anonA_polar_r"},
                         structFieldType = TypePrim
@@ -2674,7 +2674,7 @@
                         structFieldLoc =
                         "unions.h:36:31",
                         structFieldName = NamePair {
-                          nameC = CName "p",
+                          nameC = Name "p",
                           nameHsIdent = HsIdentifier
                             "anonA_polar_p"},
                         structFieldType = TypePrim
@@ -2686,7 +2686,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:36:5",
                       declId = NamePair {
-                        nameC = CName "AnonA_polar",
+                        nameC = Name "AnonA_polar",
                         nameHsIdent = HsIdentifier
                           "AnonA_polar"},
                       declOrigin = NameOriginGenerated
@@ -2706,7 +2706,7 @@
                             structFieldLoc =
                             "unions.h:36:21",
                             structFieldName = NamePair {
-                              nameC = CName "r",
+                              nameC = Name "r",
                               nameHsIdent = HsIdentifier
                                 "anonA_polar_r"},
                             structFieldType = TypePrim
@@ -2717,7 +2717,7 @@
                             structFieldLoc =
                             "unions.h:36:31",
                             structFieldName = NamePair {
-                              nameC = CName "p",
+                              nameC = Name "p",
                               nameHsIdent = HsIdentifier
                                 "anonA_polar_p"},
                             structFieldType = TypePrim
@@ -2761,7 +2761,7 @@
                         structFieldLoc =
                         "unions.h:36:21",
                         structFieldName = NamePair {
-                          nameC = CName "r",
+                          nameC = Name "r",
                           nameHsIdent = HsIdentifier
                             "anonA_polar_r"},
                         structFieldType = TypePrim
@@ -2779,7 +2779,7 @@
                         structFieldLoc =
                         "unions.h:36:31",
                         structFieldName = NamePair {
-                          nameC = CName "p",
+                          nameC = Name "p",
                           nameHsIdent = HsIdentifier
                             "anonA_polar_p"},
                         structFieldType = TypePrim
@@ -2791,7 +2791,7 @@
                     declInfo = DeclInfo {
                       declLoc = "unions.h:36:5",
                       declId = NamePair {
-                        nameC = CName "AnonA_polar",
+                        nameC = Name "AnonA_polar",
                         nameHsIdent = HsIdentifier
                           "AnonA_polar"},
                       declOrigin = NameOriginGenerated
@@ -2811,7 +2811,7 @@
                             structFieldLoc =
                             "unions.h:36:21",
                             structFieldName = NamePair {
-                              nameC = CName "r",
+                              nameC = Name "r",
                               nameHsIdent = HsIdentifier
                                 "anonA_polar_r"},
                             structFieldType = TypePrim
@@ -2822,7 +2822,7 @@
                             structFieldLoc =
                             "unions.h:36:31",
                             structFieldName = NamePair {
-                              nameC = CName "p",
+                              nameC = Name "p",
                               nameHsIdent = HsIdentifier
                                 "anonA_polar_p"},
                             structFieldType = TypePrim
@@ -2876,7 +2876,7 @@
         declInfo = DeclInfo {
           declLoc = "unions.h:34:7",
           declId = NamePair {
-            nameC = CName "AnonA",
+            nameC = Name "AnonA",
             nameHsIdent = HsIdentifier
               "AnonA"},
           declOrigin = NameOriginInSource,
@@ -2898,12 +2898,12 @@
                 unionFieldLoc =
                 "unions.h:35:36",
                 unionFieldName = NamePair {
-                  nameC = CName "xy",
+                  nameC = Name "xy",
                   nameHsIdent = HsIdentifier
                     "anonA_xy"},
                 unionFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "AnonA_xy",
+                    nameC = Name "AnonA_xy",
                     nameHsIdent = HsIdentifier
                       "AnonA_xy"}
                   (NameOriginGenerated
@@ -2912,12 +2912,12 @@
                 unionFieldLoc =
                 "unions.h:36:36",
                 unionFieldName = NamePair {
-                  nameC = CName "polar",
+                  nameC = Name "polar",
                   nameHsIdent = HsIdentifier
                     "anonA_polar"},
                 unionFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "AnonA_polar",
+                    nameC = Name "AnonA_polar",
                     nameHsIdent = HsIdentifier
                       "AnonA_polar"}
                   (NameOriginGenerated

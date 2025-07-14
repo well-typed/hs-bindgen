@@ -18,7 +18,7 @@
             StructField {
               structFieldLoc = "flam.h:3:9",
               structFieldName = NamePair {
-                nameC = CName "len",
+                nameC = Name "len",
                 nameHsIdent = HsIdentifier
                   "pascal_len"},
               structFieldType = TypePrim
@@ -30,7 +30,7 @@
           declInfo = DeclInfo {
             declLoc = "flam.h:2:8",
             declId = NamePair {
-              nameC = CName "pascal",
+              nameC = Name "pascal",
               nameHsIdent = HsIdentifier
                 "Pascal"},
             declOrigin = NameOriginInSource,
@@ -46,7 +46,7 @@
                 StructField {
                   structFieldLoc = "flam.h:3:9",
                   structFieldName = NamePair {
-                    nameC = CName "len",
+                    nameC = Name "len",
                     nameHsIdent = HsIdentifier
                       "pascal_len"},
                   structFieldType = TypePrim
@@ -57,7 +57,7 @@
                 StructField {
                   structFieldLoc = "flam.h:4:10",
                   structFieldName = NamePair {
-                    nameC = CName "data",
+                    nameC = Name "data",
                     nameHsIdent = HsIdentifier
                       "pascal_data"},
                   structFieldType = TypePrim
@@ -94,7 +94,7 @@
               StructField {
                 structFieldLoc = "flam.h:3:9",
                 structFieldName = NamePair {
-                  nameC = CName "len",
+                  nameC = Name "len",
                   nameHsIdent = HsIdentifier
                     "pascal_len"},
                 structFieldType = TypePrim
@@ -106,7 +106,7 @@
             declInfo = DeclInfo {
               declLoc = "flam.h:2:8",
               declId = NamePair {
-                nameC = CName "pascal",
+                nameC = Name "pascal",
                 nameHsIdent = HsIdentifier
                   "Pascal"},
               declOrigin = NameOriginInSource,
@@ -122,7 +122,7 @@
                   StructField {
                     structFieldLoc = "flam.h:3:9",
                     structFieldName = NamePair {
-                      nameC = CName "len",
+                      nameC = Name "len",
                       nameHsIdent = HsIdentifier
                         "pascal_len"},
                     structFieldType = TypePrim
@@ -133,7 +133,7 @@
                   StructField {
                     structFieldLoc = "flam.h:4:10",
                     structFieldName = NamePair {
-                      nameC = CName "data",
+                      nameC = Name "data",
                       nameHsIdent = HsIdentifier
                         "pascal_data"},
                     structFieldType = TypePrim
@@ -175,7 +175,7 @@
                       StructField {
                         structFieldLoc = "flam.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "len",
+                          nameC = Name "len",
                           nameHsIdent = HsIdentifier
                             "pascal_len"},
                         structFieldType = TypePrim
@@ -187,7 +187,7 @@
                     declInfo = DeclInfo {
                       declLoc = "flam.h:2:8",
                       declId = NamePair {
-                        nameC = CName "pascal",
+                        nameC = Name "pascal",
                         nameHsIdent = HsIdentifier
                           "Pascal"},
                       declOrigin = NameOriginInSource,
@@ -203,7 +203,7 @@
                           StructField {
                             structFieldLoc = "flam.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "len",
+                              nameC = Name "len",
                               nameHsIdent = HsIdentifier
                                 "pascal_len"},
                             structFieldType = TypePrim
@@ -214,7 +214,7 @@
                           StructField {
                             structFieldLoc = "flam.h:4:10",
                             structFieldName = NamePair {
-                              nameC = CName "data",
+                              nameC = Name "data",
                               nameHsIdent = HsIdentifier
                                 "pascal_data"},
                             structFieldType = TypePrim
@@ -256,7 +256,7 @@
                       StructField {
                         structFieldLoc = "flam.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "len",
+                          nameC = Name "len",
                           nameHsIdent = HsIdentifier
                             "pascal_len"},
                         structFieldType = TypePrim
@@ -268,7 +268,7 @@
                     declInfo = DeclInfo {
                       declLoc = "flam.h:2:8",
                       declId = NamePair {
-                        nameC = CName "pascal",
+                        nameC = Name "pascal",
                         nameHsIdent = HsIdentifier
                           "Pascal"},
                       declOrigin = NameOriginInSource,
@@ -284,7 +284,7 @@
                           StructField {
                             structFieldLoc = "flam.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "len",
+                              nameC = Name "len",
                               nameHsIdent = HsIdentifier
                                 "pascal_len"},
                             structFieldType = TypePrim
@@ -295,7 +295,7 @@
                           StructField {
                             structFieldLoc = "flam.h:4:10",
                             structFieldName = NamePair {
-                              nameC = CName "data",
+                              nameC = Name "data",
                               nameHsIdent = HsIdentifier
                                 "pascal_data"},
                             structFieldType = TypePrim
@@ -351,7 +351,7 @@
               StructField {
                 structFieldLoc = "flam.h:3:9",
                 structFieldName = NamePair {
-                  nameC = CName "len",
+                  nameC = Name "len",
                   nameHsIdent = HsIdentifier
                     "pascal_len"},
                 structFieldType = TypePrim
@@ -363,7 +363,7 @@
             declInfo = DeclInfo {
               declLoc = "flam.h:2:8",
               declId = NamePair {
-                nameC = CName "pascal",
+                nameC = Name "pascal",
                 nameHsIdent = HsIdentifier
                   "Pascal"},
               declOrigin = NameOriginInSource,
@@ -379,7 +379,7 @@
                   StructField {
                     structFieldLoc = "flam.h:3:9",
                     structFieldName = NamePair {
-                      nameC = CName "len",
+                      nameC = Name "len",
                       nameHsIdent = HsIdentifier
                         "pascal_len"},
                     structFieldType = TypePrim
@@ -390,7 +390,7 @@
                   StructField {
                     structFieldLoc = "flam.h:4:10",
                     structFieldName = NamePair {
-                      nameC = CName "data",
+                      nameC = Name "data",
                       nameHsIdent = HsIdentifier
                         "pascal_data"},
                     structFieldType = TypePrim
@@ -428,7 +428,7 @@
             StructField {
               structFieldLoc = "flam.h:11:7",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "foo_bar_x"},
               structFieldType = TypePrim
@@ -445,7 +445,7 @@
             StructField {
               structFieldLoc = "flam.h:12:7",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "foo_bar_y"},
               structFieldType = TypePrim
@@ -457,7 +457,7 @@
           declInfo = DeclInfo {
             declLoc = "flam.h:10:2",
             declId = NamePair {
-              nameC = CName "foo_bar",
+              nameC = Name "foo_bar",
               nameHsIdent = HsIdentifier
                 "Foo_bar"},
             declOrigin = NameOriginGenerated
@@ -474,7 +474,7 @@
                 StructField {
                   structFieldLoc = "flam.h:11:7",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "foo_bar_x"},
                   structFieldType = TypePrim
@@ -484,7 +484,7 @@
                 StructField {
                   structFieldLoc = "flam.h:12:7",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "foo_bar_y"},
                   structFieldType = TypePrim
@@ -520,7 +520,7 @@
               StructField {
                 structFieldLoc = "flam.h:11:7",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "foo_bar_x"},
                 structFieldType = TypePrim
@@ -537,7 +537,7 @@
               StructField {
                 structFieldLoc = "flam.h:12:7",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "foo_bar_y"},
                 structFieldType = TypePrim
@@ -549,7 +549,7 @@
             declInfo = DeclInfo {
               declLoc = "flam.h:10:2",
               declId = NamePair {
-                nameC = CName "foo_bar",
+                nameC = Name "foo_bar",
                 nameHsIdent = HsIdentifier
                   "Foo_bar"},
               declOrigin = NameOriginGenerated
@@ -566,7 +566,7 @@
                   StructField {
                     structFieldLoc = "flam.h:11:7",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "foo_bar_x"},
                     structFieldType = TypePrim
@@ -576,7 +576,7 @@
                   StructField {
                     structFieldLoc = "flam.h:12:7",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "foo_bar_y"},
                     structFieldType = TypePrim
@@ -617,7 +617,7 @@
                       StructField {
                         structFieldLoc = "flam.h:11:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "foo_bar_x"},
                         structFieldType = TypePrim
@@ -634,7 +634,7 @@
                       StructField {
                         structFieldLoc = "flam.h:12:7",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "foo_bar_y"},
                         structFieldType = TypePrim
@@ -646,7 +646,7 @@
                     declInfo = DeclInfo {
                       declLoc = "flam.h:10:2",
                       declId = NamePair {
-                        nameC = CName "foo_bar",
+                        nameC = Name "foo_bar",
                         nameHsIdent = HsIdentifier
                           "Foo_bar"},
                       declOrigin = NameOriginGenerated
@@ -663,7 +663,7 @@
                           StructField {
                             structFieldLoc = "flam.h:11:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "foo_bar_x"},
                             structFieldType = TypePrim
@@ -673,7 +673,7 @@
                           StructField {
                             structFieldLoc = "flam.h:12:7",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "foo_bar_y"},
                             structFieldType = TypePrim
@@ -716,7 +716,7 @@
                       StructField {
                         structFieldLoc = "flam.h:11:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "foo_bar_x"},
                         structFieldType = TypePrim
@@ -733,7 +733,7 @@
                       StructField {
                         structFieldLoc = "flam.h:12:7",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "foo_bar_y"},
                         structFieldType = TypePrim
@@ -745,7 +745,7 @@
                     declInfo = DeclInfo {
                       declLoc = "flam.h:10:2",
                       declId = NamePair {
-                        nameC = CName "foo_bar",
+                        nameC = Name "foo_bar",
                         nameHsIdent = HsIdentifier
                           "Foo_bar"},
                       declOrigin = NameOriginGenerated
@@ -762,7 +762,7 @@
                           StructField {
                             structFieldLoc = "flam.h:11:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "foo_bar_x"},
                             structFieldType = TypePrim
@@ -772,7 +772,7 @@
                           StructField {
                             structFieldLoc = "flam.h:12:7",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "foo_bar_y"},
                             structFieldType = TypePrim
@@ -827,7 +827,7 @@
             StructField {
               structFieldLoc = "flam.h:9:6",
               structFieldName = NamePair {
-                nameC = CName "len",
+                nameC = Name "len",
                 nameHsIdent = HsIdentifier
                   "foo_len"},
               structFieldType = TypePrim
@@ -839,7 +839,7 @@
           declInfo = DeclInfo {
             declLoc = "flam.h:8:8",
             declId = NamePair {
-              nameC = CName "foo",
+              nameC = Name "foo",
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
@@ -855,7 +855,7 @@
                 StructField {
                   structFieldLoc = "flam.h:9:6",
                   structFieldName = NamePair {
-                    nameC = CName "len",
+                    nameC = Name "len",
                     nameHsIdent = HsIdentifier
                       "foo_len"},
                   structFieldType = TypePrim
@@ -866,12 +866,12 @@
                 StructField {
                   structFieldLoc = "flam.h:13:4",
                   structFieldName = NamePair {
-                    nameC = CName "bar",
+                    nameC = Name "bar",
                     nameHsIdent = HsIdentifier
                       "foo_bar"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName "foo_bar",
+                      nameC = Name "foo_bar",
                       nameHsIdent = HsIdentifier
                         "Foo_bar"}
                     (NameOriginGenerated
@@ -906,7 +906,7 @@
               StructField {
                 structFieldLoc = "flam.h:9:6",
                 structFieldName = NamePair {
-                  nameC = CName "len",
+                  nameC = Name "len",
                   nameHsIdent = HsIdentifier
                     "foo_len"},
                 structFieldType = TypePrim
@@ -918,7 +918,7 @@
             declInfo = DeclInfo {
               declLoc = "flam.h:8:8",
               declId = NamePair {
-                nameC = CName "foo",
+                nameC = Name "foo",
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
@@ -934,7 +934,7 @@
                   StructField {
                     structFieldLoc = "flam.h:9:6",
                     structFieldName = NamePair {
-                      nameC = CName "len",
+                      nameC = Name "len",
                       nameHsIdent = HsIdentifier
                         "foo_len"},
                     structFieldType = TypePrim
@@ -945,12 +945,12 @@
                   StructField {
                     structFieldLoc = "flam.h:13:4",
                     structFieldName = NamePair {
-                      nameC = CName "bar",
+                      nameC = Name "bar",
                       nameHsIdent = HsIdentifier
                         "foo_bar"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "foo_bar",
+                        nameC = Name "foo_bar",
                         nameHsIdent = HsIdentifier
                           "Foo_bar"}
                       (NameOriginGenerated
@@ -990,7 +990,7 @@
                       StructField {
                         structFieldLoc = "flam.h:9:6",
                         structFieldName = NamePair {
-                          nameC = CName "len",
+                          nameC = Name "len",
                           nameHsIdent = HsIdentifier
                             "foo_len"},
                         structFieldType = TypePrim
@@ -1002,7 +1002,7 @@
                     declInfo = DeclInfo {
                       declLoc = "flam.h:8:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -1018,7 +1018,7 @@
                           StructField {
                             structFieldLoc = "flam.h:9:6",
                             structFieldName = NamePair {
-                              nameC = CName "len",
+                              nameC = Name "len",
                               nameHsIdent = HsIdentifier
                                 "foo_len"},
                             structFieldType = TypePrim
@@ -1029,12 +1029,12 @@
                           StructField {
                             structFieldLoc = "flam.h:13:4",
                             structFieldName = NamePair {
-                              nameC = CName "bar",
+                              nameC = Name "bar",
                               nameHsIdent = HsIdentifier
                                 "foo_bar"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "foo_bar",
+                                nameC = Name "foo_bar",
                                 nameHsIdent = HsIdentifier
                                   "Foo_bar"}
                               (NameOriginGenerated
@@ -1074,7 +1074,7 @@
                       StructField {
                         structFieldLoc = "flam.h:9:6",
                         structFieldName = NamePair {
-                          nameC = CName "len",
+                          nameC = Name "len",
                           nameHsIdent = HsIdentifier
                             "foo_len"},
                         structFieldType = TypePrim
@@ -1086,7 +1086,7 @@
                     declInfo = DeclInfo {
                       declLoc = "flam.h:8:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -1102,7 +1102,7 @@
                           StructField {
                             structFieldLoc = "flam.h:9:6",
                             structFieldName = NamePair {
-                              nameC = CName "len",
+                              nameC = Name "len",
                               nameHsIdent = HsIdentifier
                                 "foo_len"},
                             structFieldType = TypePrim
@@ -1113,12 +1113,12 @@
                           StructField {
                             structFieldLoc = "flam.h:13:4",
                             structFieldName = NamePair {
-                              nameC = CName "bar",
+                              nameC = Name "bar",
                               nameHsIdent = HsIdentifier
                                 "foo_bar"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "foo_bar",
+                                nameC = Name "foo_bar",
                                 nameHsIdent = HsIdentifier
                                   "Foo_bar"}
                               (NameOriginGenerated
@@ -1168,7 +1168,7 @@
               StructField {
                 structFieldLoc = "flam.h:9:6",
                 structFieldName = NamePair {
-                  nameC = CName "len",
+                  nameC = Name "len",
                   nameHsIdent = HsIdentifier
                     "foo_len"},
                 structFieldType = TypePrim
@@ -1180,7 +1180,7 @@
             declInfo = DeclInfo {
               declLoc = "flam.h:8:8",
               declId = NamePair {
-                nameC = CName "foo",
+                nameC = Name "foo",
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
@@ -1196,7 +1196,7 @@
                   StructField {
                     structFieldLoc = "flam.h:9:6",
                     structFieldName = NamePair {
-                      nameC = CName "len",
+                      nameC = Name "len",
                       nameHsIdent = HsIdentifier
                         "foo_len"},
                     structFieldType = TypePrim
@@ -1207,12 +1207,12 @@
                   StructField {
                     structFieldLoc = "flam.h:13:4",
                     structFieldName = NamePair {
-                      nameC = CName "bar",
+                      nameC = Name "bar",
                       nameHsIdent = HsIdentifier
                         "foo_bar"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "foo_bar",
+                        nameC = Name "foo_bar",
                         nameHsIdent = HsIdentifier
                           "Foo_bar"}
                       (NameOriginGenerated
@@ -1251,7 +1251,7 @@
             StructField {
               structFieldLoc = "flam.h:18:7",
               structFieldName = NamePair {
-                nameC = CName "first",
+                nameC = Name "first",
                 nameHsIdent = HsIdentifier
                   "diff_first"},
               structFieldType = TypePrim
@@ -1268,7 +1268,7 @@
             StructField {
               structFieldLoc = "flam.h:19:7",
               structFieldName = NamePair {
-                nameC = CName "second",
+                nameC = Name "second",
                 nameHsIdent = HsIdentifier
                   "diff_second"},
               structFieldType = TypePrim
@@ -1282,7 +1282,7 @@
           declInfo = DeclInfo {
             declLoc = "flam.h:17:8",
             declId = NamePair {
-              nameC = CName "diff",
+              nameC = Name "diff",
               nameHsIdent = HsIdentifier
                 "Diff"},
             declOrigin = NameOriginInSource,
@@ -1298,7 +1298,7 @@
                 StructField {
                   structFieldLoc = "flam.h:18:7",
                   structFieldName = NamePair {
-                    nameC = CName "first",
+                    nameC = Name "first",
                     nameHsIdent = HsIdentifier
                       "diff_first"},
                   structFieldType = TypePrim
@@ -1308,7 +1308,7 @@
                 StructField {
                   structFieldLoc = "flam.h:19:7",
                   structFieldName = NamePair {
-                    nameC = CName "second",
+                    nameC = Name "second",
                     nameHsIdent = HsIdentifier
                       "diff_second"},
                   structFieldType = TypePrim
@@ -1321,7 +1321,7 @@
                 StructField {
                   structFieldLoc = "flam.h:20:7",
                   structFieldName = NamePair {
-                    nameC = CName "flam",
+                    nameC = Name "flam",
                     nameHsIdent = HsIdentifier
                       "diff_flam"},
                   structFieldType = TypePrim
@@ -1358,7 +1358,7 @@
               StructField {
                 structFieldLoc = "flam.h:18:7",
                 structFieldName = NamePair {
-                  nameC = CName "first",
+                  nameC = Name "first",
                   nameHsIdent = HsIdentifier
                     "diff_first"},
                 structFieldType = TypePrim
@@ -1375,7 +1375,7 @@
               StructField {
                 structFieldLoc = "flam.h:19:7",
                 structFieldName = NamePair {
-                  nameC = CName "second",
+                  nameC = Name "second",
                   nameHsIdent = HsIdentifier
                     "diff_second"},
                 structFieldType = TypePrim
@@ -1389,7 +1389,7 @@
             declInfo = DeclInfo {
               declLoc = "flam.h:17:8",
               declId = NamePair {
-                nameC = CName "diff",
+                nameC = Name "diff",
                 nameHsIdent = HsIdentifier
                   "Diff"},
               declOrigin = NameOriginInSource,
@@ -1405,7 +1405,7 @@
                   StructField {
                     structFieldLoc = "flam.h:18:7",
                     structFieldName = NamePair {
-                      nameC = CName "first",
+                      nameC = Name "first",
                       nameHsIdent = HsIdentifier
                         "diff_first"},
                     structFieldType = TypePrim
@@ -1415,7 +1415,7 @@
                   StructField {
                     structFieldLoc = "flam.h:19:7",
                     structFieldName = NamePair {
-                      nameC = CName "second",
+                      nameC = Name "second",
                       nameHsIdent = HsIdentifier
                         "diff_second"},
                     structFieldType = TypePrim
@@ -1428,7 +1428,7 @@
                   StructField {
                     structFieldLoc = "flam.h:20:7",
                     structFieldName = NamePair {
-                      nameC = CName "flam",
+                      nameC = Name "flam",
                       nameHsIdent = HsIdentifier
                         "diff_flam"},
                     structFieldType = TypePrim
@@ -1470,7 +1470,7 @@
                       StructField {
                         structFieldLoc = "flam.h:18:7",
                         structFieldName = NamePair {
-                          nameC = CName "first",
+                          nameC = Name "first",
                           nameHsIdent = HsIdentifier
                             "diff_first"},
                         structFieldType = TypePrim
@@ -1487,7 +1487,7 @@
                       StructField {
                         structFieldLoc = "flam.h:19:7",
                         structFieldName = NamePair {
-                          nameC = CName "second",
+                          nameC = Name "second",
                           nameHsIdent = HsIdentifier
                             "diff_second"},
                         structFieldType = TypePrim
@@ -1501,7 +1501,7 @@
                     declInfo = DeclInfo {
                       declLoc = "flam.h:17:8",
                       declId = NamePair {
-                        nameC = CName "diff",
+                        nameC = Name "diff",
                         nameHsIdent = HsIdentifier
                           "Diff"},
                       declOrigin = NameOriginInSource,
@@ -1517,7 +1517,7 @@
                           StructField {
                             structFieldLoc = "flam.h:18:7",
                             structFieldName = NamePair {
-                              nameC = CName "first",
+                              nameC = Name "first",
                               nameHsIdent = HsIdentifier
                                 "diff_first"},
                             structFieldType = TypePrim
@@ -1527,7 +1527,7 @@
                           StructField {
                             structFieldLoc = "flam.h:19:7",
                             structFieldName = NamePair {
-                              nameC = CName "second",
+                              nameC = Name "second",
                               nameHsIdent = HsIdentifier
                                 "diff_second"},
                             structFieldType = TypePrim
@@ -1540,7 +1540,7 @@
                           StructField {
                             structFieldLoc = "flam.h:20:7",
                             structFieldName = NamePair {
-                              nameC = CName "flam",
+                              nameC = Name "flam",
                               nameHsIdent = HsIdentifier
                                 "diff_flam"},
                             structFieldType = TypePrim
@@ -1584,7 +1584,7 @@
                       StructField {
                         structFieldLoc = "flam.h:18:7",
                         structFieldName = NamePair {
-                          nameC = CName "first",
+                          nameC = Name "first",
                           nameHsIdent = HsIdentifier
                             "diff_first"},
                         structFieldType = TypePrim
@@ -1601,7 +1601,7 @@
                       StructField {
                         structFieldLoc = "flam.h:19:7",
                         structFieldName = NamePair {
-                          nameC = CName "second",
+                          nameC = Name "second",
                           nameHsIdent = HsIdentifier
                             "diff_second"},
                         structFieldType = TypePrim
@@ -1615,7 +1615,7 @@
                     declInfo = DeclInfo {
                       declLoc = "flam.h:17:8",
                       declId = NamePair {
-                        nameC = CName "diff",
+                        nameC = Name "diff",
                         nameHsIdent = HsIdentifier
                           "Diff"},
                       declOrigin = NameOriginInSource,
@@ -1631,7 +1631,7 @@
                           StructField {
                             structFieldLoc = "flam.h:18:7",
                             structFieldName = NamePair {
-                              nameC = CName "first",
+                              nameC = Name "first",
                               nameHsIdent = HsIdentifier
                                 "diff_first"},
                             structFieldType = TypePrim
@@ -1641,7 +1641,7 @@
                           StructField {
                             structFieldLoc = "flam.h:19:7",
                             structFieldName = NamePair {
-                              nameC = CName "second",
+                              nameC = Name "second",
                               nameHsIdent = HsIdentifier
                                 "diff_second"},
                             structFieldType = TypePrim
@@ -1654,7 +1654,7 @@
                           StructField {
                             structFieldLoc = "flam.h:20:7",
                             structFieldName = NamePair {
-                              nameC = CName "flam",
+                              nameC = Name "flam",
                               nameHsIdent = HsIdentifier
                                 "diff_flam"},
                             structFieldType = TypePrim
@@ -1707,7 +1707,7 @@
               StructField {
                 structFieldLoc = "flam.h:18:7",
                 structFieldName = NamePair {
-                  nameC = CName "first",
+                  nameC = Name "first",
                   nameHsIdent = HsIdentifier
                     "diff_first"},
                 structFieldType = TypePrim
@@ -1724,7 +1724,7 @@
               StructField {
                 structFieldLoc = "flam.h:19:7",
                 structFieldName = NamePair {
-                  nameC = CName "second",
+                  nameC = Name "second",
                   nameHsIdent = HsIdentifier
                     "diff_second"},
                 structFieldType = TypePrim
@@ -1738,7 +1738,7 @@
             declInfo = DeclInfo {
               declLoc = "flam.h:17:8",
               declId = NamePair {
-                nameC = CName "diff",
+                nameC = Name "diff",
                 nameHsIdent = HsIdentifier
                   "Diff"},
               declOrigin = NameOriginInSource,
@@ -1754,7 +1754,7 @@
                   StructField {
                     structFieldLoc = "flam.h:18:7",
                     structFieldName = NamePair {
-                      nameC = CName "first",
+                      nameC = Name "first",
                       nameHsIdent = HsIdentifier
                         "diff_first"},
                     structFieldType = TypePrim
@@ -1764,7 +1764,7 @@
                   StructField {
                     structFieldLoc = "flam.h:19:7",
                     structFieldName = NamePair {
-                      nameC = CName "second",
+                      nameC = Name "second",
                       nameHsIdent = HsIdentifier
                         "diff_second"},
                     structFieldType = TypePrim
@@ -1777,7 +1777,7 @@
                   StructField {
                     structFieldLoc = "flam.h:20:7",
                     structFieldName = NamePair {
-                      nameC = CName "flam",
+                      nameC = Name "flam",
                       nameHsIdent = HsIdentifier
                         "diff_flam"},
                     structFieldType = TypePrim

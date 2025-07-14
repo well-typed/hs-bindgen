@@ -17,8 +17,7 @@ import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C
-import HsBindgen.Language.C.Name qualified as C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint
@@ -62,7 +61,7 @@ instance IsPass MangleNames where
 -- Invariant: the 'HsIdentifier' must satisfy the rules for legal Haskell names,
 -- for its intended use (constructor, variable, ..).
 data NamePair = NamePair {
-      nameC       :: CName
+      nameC       :: C.Name
     , nameHsIdent :: HsIdentifier
     }
   deriving stock (Show, Eq, Ord, Generic)

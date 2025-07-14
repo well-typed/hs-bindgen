@@ -18,7 +18,7 @@
         declInfo = DeclInfo {
           declLoc = "iterator.h:3:16",
           declId = NamePair {
-            nameC = CName "Toggle",
+            nameC = Name "Toggle",
             nameHsIdent = HsIdentifier
               "Toggle"},
           declOrigin = NameOriginInSource,
@@ -71,7 +71,7 @@
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
-                nameC = CName "Toggle",
+                nameC = Name "Toggle",
                 nameHsIdent = HsIdentifier
                   "Toggle"})}},
   DeclInlineCInclude "iterator.h",
@@ -98,7 +98,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "Toggle",
+                  nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
           functionRes = TypePrim
@@ -127,7 +127,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "Toggle",
+                  nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
           functionRes = TypeVoid}},
@@ -150,7 +150,7 @@
         declInfo = DeclInfo {
           declLoc = "iterator.h:10:14",
           declId = NamePair {
-            nameC = CName "Counter",
+            nameC = Name "Counter",
             nameHsIdent = HsIdentifier
               "Counter"},
           declOrigin = NameOriginInSource,
@@ -211,7 +211,7 @@
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
-                nameC = CName "Counter",
+                nameC = Name "Counter",
                 nameHsIdent = HsIdentifier
                   "Counter"})}},
   DeclInlineCInclude "iterator.h",
@@ -238,7 +238,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "Counter",
+                  nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
           functionRes = TypePrim
@@ -267,7 +267,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "Counter",
+                  nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
           functionRes = TypeVoid}},
@@ -292,7 +292,7 @@
         declInfo = DeclInfo {
           declLoc = "iterator.h:17:14",
           declId = NamePair {
-            nameC = CName "VarCounter",
+            nameC = Name "VarCounter",
             nameHsIdent = HsIdentifier
               "VarCounter"},
           declOrigin = NameOriginInSource,
@@ -351,7 +351,7 @@
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
-                nameC = CName "VarCounter",
+                nameC = Name "VarCounter",
                 nameHsIdent = HsIdentifier
                   "VarCounter"})}},
   DeclInlineCInclude "iterator.h",
@@ -380,7 +380,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "VarCounter",
+                  nameC = Name "VarCounter",
                   nameHsIdent = HsIdentifier
                     "VarCounter"}),
             TypePrim
@@ -411,7 +411,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "VarCounter",
+                  nameC = Name "VarCounter",
                   nameHsIdent = HsIdentifier
                     "VarCounter"})],
           functionRes = TypeVoid}}]

@@ -14,7 +14,7 @@
             declLoc =
             "named_vs_anon.h:15:8",
             declId = NamePair {
-              nameC = CName "a",
+              nameC = Name "a",
               nameHsIdent = HsIdentifier "A"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -51,7 +51,7 @@
               declLoc =
               "named_vs_anon.h:15:8",
               declId = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier "A"},
               declOrigin = NameOriginInSource,
               declAliases = [],
@@ -93,7 +93,7 @@
                       declLoc =
                       "named_vs_anon.h:15:8",
                       declId = NamePair {
-                        nameC = CName "a",
+                        nameC = Name "a",
                         nameHsIdent = HsIdentifier "A"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -135,7 +135,7 @@
                       declLoc =
                       "named_vs_anon.h:15:8",
                       declId = NamePair {
-                        nameC = CName "a",
+                        nameC = Name "a",
                         nameHsIdent = HsIdentifier "A"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -181,7 +181,7 @@
             declLoc =
             "named_vs_anon.h:16:8",
             declId = NamePair {
-              nameC = CName "struct1",
+              nameC = Name "struct1",
               nameHsIdent = HsIdentifier
                 "Struct1"},
             declOrigin = NameOriginInSource,
@@ -219,7 +219,7 @@
               declLoc =
               "named_vs_anon.h:16:8",
               declId = NamePair {
-                nameC = CName "struct1",
+                nameC = Name "struct1",
                 nameHsIdent = HsIdentifier
                   "Struct1"},
               declOrigin = NameOriginInSource,
@@ -262,7 +262,7 @@
                       declLoc =
                       "named_vs_anon.h:16:8",
                       declId = NamePair {
-                        nameC = CName "struct1",
+                        nameC = Name "struct1",
                         nameHsIdent = HsIdentifier
                           "Struct1"},
                       declOrigin = NameOriginInSource,
@@ -305,7 +305,7 @@
                       declLoc =
                       "named_vs_anon.h:16:8",
                       declId = NamePair {
-                        nameC = CName "struct1",
+                        nameC = Name "struct1",
                         nameHsIdent = HsIdentifier
                           "Struct1"},
                       declOrigin = NameOriginInSource,
@@ -356,7 +356,7 @@
             declLoc =
             "named_vs_anon.h:19:8",
             declId = NamePair {
-              nameC = CName "b_s",
+              nameC = Name "b_s",
               nameHsIdent = HsIdentifier
                 "B_s"},
             declOrigin = NameOriginInSource,
@@ -394,7 +394,7 @@
               declLoc =
               "named_vs_anon.h:19:8",
               declId = NamePair {
-                nameC = CName "b_s",
+                nameC = Name "b_s",
                 nameHsIdent = HsIdentifier
                   "B_s"},
               declOrigin = NameOriginInSource,
@@ -437,7 +437,7 @@
                       declLoc =
                       "named_vs_anon.h:19:8",
                       declId = NamePair {
-                        nameC = CName "b_s",
+                        nameC = Name "b_s",
                         nameHsIdent = HsIdentifier
                           "B_s"},
                       declOrigin = NameOriginInSource,
@@ -480,7 +480,7 @@
                       declLoc =
                       "named_vs_anon.h:19:8",
                       declId = NamePair {
-                        nameC = CName "b_s",
+                        nameC = Name "b_s",
                         nameHsIdent = HsIdentifier
                           "B_s"},
                       declOrigin = NameOriginInSource,
@@ -527,7 +527,7 @@
             declLoc =
             "named_vs_anon.h:20:8",
             declId = NamePair {
-              nameC = CName "struct2_s",
+              nameC = Name "struct2_s",
               nameHsIdent = HsIdentifier
                 "Struct2_s"},
             declOrigin = NameOriginInSource,
@@ -567,7 +567,7 @@
               declLoc =
               "named_vs_anon.h:20:8",
               declId = NamePair {
-                nameC = CName "struct2_s",
+                nameC = Name "struct2_s",
                 nameHsIdent = HsIdentifier
                   "Struct2_s"},
               declOrigin = NameOriginInSource,
@@ -612,7 +612,7 @@
                       declLoc =
                       "named_vs_anon.h:20:8",
                       declId = NamePair {
-                        nameC = CName "struct2_s",
+                        nameC = Name "struct2_s",
                         nameHsIdent = HsIdentifier
                           "Struct2_s"},
                       declOrigin = NameOriginInSource,
@@ -657,7 +657,7 @@
                       declLoc =
                       "named_vs_anon.h:20:8",
                       declId = NamePair {
-                        nameC = CName "struct2_s",
+                        nameC = Name "struct2_s",
                         nameHsIdent = HsIdentifier
                           "Struct2_s"},
                       declOrigin = NameOriginInSource,
@@ -710,7 +710,7 @@
             declLoc =
             "named_vs_anon.h:23:36",
             declId = NamePair {
-              nameC = CName "c",
+              nameC = Name "c",
               nameHsIdent = HsIdentifier "C"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -747,7 +747,7 @@
               declLoc =
               "named_vs_anon.h:23:36",
               declId = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier "C"},
               declOrigin = NameOriginInSource,
               declAliases = [],
@@ -789,7 +789,7 @@
                       declLoc =
                       "named_vs_anon.h:23:36",
                       declId = NamePair {
-                        nameC = CName "c",
+                        nameC = Name "c",
                         nameHsIdent = HsIdentifier "C"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -831,7 +831,7 @@
                       declLoc =
                       "named_vs_anon.h:23:36",
                       declId = NamePair {
-                        nameC = CName "c",
+                        nameC = Name "c",
                         nameHsIdent = HsIdentifier "C"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -877,7 +877,7 @@
             declLoc =
             "named_vs_anon.h:24:36",
             declId = NamePair {
-              nameC = CName "struct3",
+              nameC = Name "struct3",
               nameHsIdent = HsIdentifier
                 "Struct3"},
             declOrigin = NameOriginInSource,
@@ -915,7 +915,7 @@
               declLoc =
               "named_vs_anon.h:24:36",
               declId = NamePair {
-                nameC = CName "struct3",
+                nameC = Name "struct3",
                 nameHsIdent = HsIdentifier
                   "Struct3"},
               declOrigin = NameOriginInSource,
@@ -958,7 +958,7 @@
                       declLoc =
                       "named_vs_anon.h:24:36",
                       declId = NamePair {
-                        nameC = CName "struct3",
+                        nameC = Name "struct3",
                         nameHsIdent = HsIdentifier
                           "Struct3"},
                       declOrigin = NameOriginInSource,
@@ -1001,7 +1001,7 @@
                       declLoc =
                       "named_vs_anon.h:24:36",
                       declId = NamePair {
-                        nameC = CName "struct3",
+                        nameC = Name "struct3",
                         nameHsIdent = HsIdentifier
                           "Struct3"},
                       declOrigin = NameOriginInSource,
@@ -1052,7 +1052,7 @@
             declLoc =
             "named_vs_anon.h:27:15",
             declId = NamePair {
-              nameC = CName "d",
+              nameC = Name "d",
               nameHsIdent = HsIdentifier "D"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -1089,7 +1089,7 @@
               declLoc =
               "named_vs_anon.h:27:15",
               declId = NamePair {
-                nameC = CName "d",
+                nameC = Name "d",
                 nameHsIdent = HsIdentifier "D"},
               declOrigin = NameOriginInSource,
               declAliases = [],
@@ -1131,7 +1131,7 @@
                       declLoc =
                       "named_vs_anon.h:27:15",
                       declId = NamePair {
-                        nameC = CName "d",
+                        nameC = Name "d",
                         nameHsIdent = HsIdentifier "D"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -1173,7 +1173,7 @@
                       declLoc =
                       "named_vs_anon.h:27:15",
                       declId = NamePair {
-                        nameC = CName "d",
+                        nameC = Name "d",
                         nameHsIdent = HsIdentifier "D"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -1219,7 +1219,7 @@
             declLoc =
             "named_vs_anon.h:28:15",
             declId = NamePair {
-              nameC = CName "struct4",
+              nameC = Name "struct4",
               nameHsIdent = HsIdentifier
                 "Struct4"},
             declOrigin = NameOriginInSource,
@@ -1257,7 +1257,7 @@
               declLoc =
               "named_vs_anon.h:28:15",
               declId = NamePair {
-                nameC = CName "struct4",
+                nameC = Name "struct4",
                 nameHsIdent = HsIdentifier
                   "Struct4"},
               declOrigin = NameOriginInSource,
@@ -1300,7 +1300,7 @@
                       declLoc =
                       "named_vs_anon.h:28:15",
                       declId = NamePair {
-                        nameC = CName "struct4",
+                        nameC = Name "struct4",
                         nameHsIdent = HsIdentifier
                           "Struct4"},
                       declOrigin = NameOriginInSource,
@@ -1343,7 +1343,7 @@
                       declLoc =
                       "named_vs_anon.h:28:15",
                       declId = NamePair {
-                        nameC = CName "struct4",
+                        nameC = Name "struct4",
                         nameHsIdent = HsIdentifier
                           "Struct4"},
                       declOrigin = NameOriginInSource,
@@ -1394,7 +1394,7 @@
             declLoc =
             "named_vs_anon.h:31:15",
             declId = NamePair {
-              nameC = CName "e_s",
+              nameC = Name "e_s",
               nameHsIdent = HsIdentifier
                 "E_s"},
             declOrigin = NameOriginInSource,
@@ -1432,7 +1432,7 @@
               declLoc =
               "named_vs_anon.h:31:15",
               declId = NamePair {
-                nameC = CName "e_s",
+                nameC = Name "e_s",
                 nameHsIdent = HsIdentifier
                   "E_s"},
               declOrigin = NameOriginInSource,
@@ -1475,7 +1475,7 @@
                       declLoc =
                       "named_vs_anon.h:31:15",
                       declId = NamePair {
-                        nameC = CName "e_s",
+                        nameC = Name "e_s",
                         nameHsIdent = HsIdentifier
                           "E_s"},
                       declOrigin = NameOriginInSource,
@@ -1518,7 +1518,7 @@
                       declLoc =
                       "named_vs_anon.h:31:15",
                       declId = NamePair {
-                        nameC = CName "e_s",
+                        nameC = Name "e_s",
                         nameHsIdent = HsIdentifier
                           "E_s"},
                       declOrigin = NameOriginInSource,
@@ -1565,7 +1565,7 @@
             declLoc =
             "named_vs_anon.h:32:15",
             declId = NamePair {
-              nameC = CName "struct5_s",
+              nameC = Name "struct5_s",
               nameHsIdent = HsIdentifier
                 "Struct5_s"},
             declOrigin = NameOriginInSource,
@@ -1605,7 +1605,7 @@
               declLoc =
               "named_vs_anon.h:32:15",
               declId = NamePair {
-                nameC = CName "struct5_s",
+                nameC = Name "struct5_s",
                 nameHsIdent = HsIdentifier
                   "Struct5_s"},
               declOrigin = NameOriginInSource,
@@ -1650,7 +1650,7 @@
                       declLoc =
                       "named_vs_anon.h:32:15",
                       declId = NamePair {
-                        nameC = CName "struct5_s",
+                        nameC = Name "struct5_s",
                         nameHsIdent = HsIdentifier
                           "Struct5_s"},
                       declOrigin = NameOriginInSource,
@@ -1695,7 +1695,7 @@
                       declLoc =
                       "named_vs_anon.h:32:15",
                       declId = NamePair {
-                        nameC = CName "struct5_s",
+                        nameC = Name "struct5_s",
                         nameHsIdent = HsIdentifier
                           "Struct5_s"},
                       declOrigin = NameOriginInSource,
@@ -1748,11 +1748,11 @@
             declLoc =
             "named_vs_anon.h:35:9",
             declId = NamePair {
-              nameC = CName "f",
+              nameC = Name "f",
               nameHsIdent = HsIdentifier "F"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:35:9"),
-            declAliases = [CName "f"],
+            declAliases = [Name "f"],
             declHeader = "named_vs_anon.h"},
           declKind = Struct
             Struct {
@@ -1786,11 +1786,11 @@
               declLoc =
               "named_vs_anon.h:35:9",
               declId = NamePair {
-                nameC = CName "f",
+                nameC = Name "f",
                 nameHsIdent = HsIdentifier "F"},
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:35:9"),
-              declAliases = [CName "f"],
+              declAliases = [Name "f"],
               declHeader = "named_vs_anon.h"},
             declKind = Struct
               Struct {
@@ -1829,11 +1829,11 @@
                       declLoc =
                       "named_vs_anon.h:35:9",
                       declId = NamePair {
-                        nameC = CName "f",
+                        nameC = Name "f",
                         nameHsIdent = HsIdentifier "F"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:35:9"),
-                      declAliases = [CName "f"],
+                      declAliases = [Name "f"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -1872,11 +1872,11 @@
                       declLoc =
                       "named_vs_anon.h:35:9",
                       declId = NamePair {
-                        nameC = CName "f",
+                        nameC = Name "f",
                         nameHsIdent = HsIdentifier "F"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:35:9"),
-                      declAliases = [CName "f"],
+                      declAliases = [Name "f"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -1919,13 +1919,12 @@
             declLoc =
             "named_vs_anon.h:36:9",
             declId = NamePair {
-              nameC = CName "typedef1",
+              nameC = Name "typedef1",
               nameHsIdent = HsIdentifier
                 "Typedef1"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:36:9"),
-            declAliases = [
-              CName "typedef1"],
+            declAliases = [Name "typedef1"],
             declHeader = "named_vs_anon.h"},
           declKind = Struct
             Struct {
@@ -1959,13 +1958,12 @@
               declLoc =
               "named_vs_anon.h:36:9",
               declId = NamePair {
-                nameC = CName "typedef1",
+                nameC = Name "typedef1",
                 nameHsIdent = HsIdentifier
                   "Typedef1"},
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:36:9"),
-              declAliases = [
-                CName "typedef1"],
+              declAliases = [Name "typedef1"],
               declHeader = "named_vs_anon.h"},
             declKind = Struct
               Struct {
@@ -2004,13 +2002,12 @@
                       declLoc =
                       "named_vs_anon.h:36:9",
                       declId = NamePair {
-                        nameC = CName "typedef1",
+                        nameC = Name "typedef1",
                         nameHsIdent = HsIdentifier
                           "Typedef1"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:36:9"),
-                      declAliases = [
-                        CName "typedef1"],
+                      declAliases = [Name "typedef1"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2049,13 +2046,12 @@
                       declLoc =
                       "named_vs_anon.h:36:9",
                       declId = NamePair {
-                        nameC = CName "typedef1",
+                        nameC = Name "typedef1",
                         nameHsIdent = HsIdentifier
                           "Typedef1"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:36:9"),
-                      declAliases = [
-                        CName "typedef1"],
+                      declAliases = [Name "typedef1"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2102,11 +2098,11 @@
             declLoc =
             "named_vs_anon.h:39:9",
             declId = NamePair {
-              nameC = CName "g",
+              nameC = Name "g",
               nameHsIdent = HsIdentifier "G"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:39:9"),
-            declAliases = [CName "g"],
+            declAliases = [Name "g"],
             declHeader = "named_vs_anon.h"},
           declKind = Struct
             Struct {
@@ -2140,11 +2136,11 @@
               declLoc =
               "named_vs_anon.h:39:9",
               declId = NamePair {
-                nameC = CName "g",
+                nameC = Name "g",
                 nameHsIdent = HsIdentifier "G"},
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:39:9"),
-              declAliases = [CName "g"],
+              declAliases = [Name "g"],
               declHeader = "named_vs_anon.h"},
             declKind = Struct
               Struct {
@@ -2183,11 +2179,11 @@
                       declLoc =
                       "named_vs_anon.h:39:9",
                       declId = NamePair {
-                        nameC = CName "g",
+                        nameC = Name "g",
                         nameHsIdent = HsIdentifier "G"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:39:9"),
-                      declAliases = [CName "g"],
+                      declAliases = [Name "g"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2226,11 +2222,11 @@
                       declLoc =
                       "named_vs_anon.h:39:9",
                       declId = NamePair {
-                        nameC = CName "g",
+                        nameC = Name "g",
                         nameHsIdent = HsIdentifier "G"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:39:9"),
-                      declAliases = [CName "g"],
+                      declAliases = [Name "g"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2273,13 +2269,12 @@
             declLoc =
             "named_vs_anon.h:40:9",
             declId = NamePair {
-              nameC = CName "typedef2",
+              nameC = Name "typedef2",
               nameHsIdent = HsIdentifier
                 "Typedef2"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:40:9"),
-            declAliases = [
-              CName "typedef2"],
+            declAliases = [Name "typedef2"],
             declHeader = "named_vs_anon.h"},
           declKind = Struct
             Struct {
@@ -2313,13 +2308,12 @@
               declLoc =
               "named_vs_anon.h:40:9",
               declId = NamePair {
-                nameC = CName "typedef2",
+                nameC = Name "typedef2",
                 nameHsIdent = HsIdentifier
                   "Typedef2"},
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:40:9"),
-              declAliases = [
-                CName "typedef2"],
+              declAliases = [Name "typedef2"],
               declHeader = "named_vs_anon.h"},
             declKind = Struct
               Struct {
@@ -2358,13 +2352,12 @@
                       declLoc =
                       "named_vs_anon.h:40:9",
                       declId = NamePair {
-                        nameC = CName "typedef2",
+                        nameC = Name "typedef2",
                         nameHsIdent = HsIdentifier
                           "Typedef2"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:40:9"),
-                      declAliases = [
-                        CName "typedef2"],
+                      declAliases = [Name "typedef2"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2403,13 +2396,12 @@
                       declLoc =
                       "named_vs_anon.h:40:9",
                       declId = NamePair {
-                        nameC = CName "typedef2",
+                        nameC = Name "typedef2",
                         nameHsIdent = HsIdentifier
                           "Typedef2"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:40:9"),
-                      declAliases = [
-                        CName "typedef2"],
+                      declAliases = [Name "typedef2"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2456,11 +2448,11 @@
             declLoc =
             "named_vs_anon.h:43:9",
             declId = NamePair {
-              nameC = CName "h",
+              nameC = Name "h",
               nameHsIdent = HsIdentifier "H"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:43:9"),
-            declAliases = [CName "h"],
+            declAliases = [Name "h"],
             declHeader = "named_vs_anon.h"},
           declKind = Struct
             Struct {
@@ -2494,11 +2486,11 @@
               declLoc =
               "named_vs_anon.h:43:9",
               declId = NamePair {
-                nameC = CName "h",
+                nameC = Name "h",
                 nameHsIdent = HsIdentifier "H"},
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:43:9"),
-              declAliases = [CName "h"],
+              declAliases = [Name "h"],
               declHeader = "named_vs_anon.h"},
             declKind = Struct
               Struct {
@@ -2537,11 +2529,11 @@
                       declLoc =
                       "named_vs_anon.h:43:9",
                       declId = NamePair {
-                        nameC = CName "h",
+                        nameC = Name "h",
                         nameHsIdent = HsIdentifier "H"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:43:9"),
-                      declAliases = [CName "h"],
+                      declAliases = [Name "h"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2580,11 +2572,11 @@
                       declLoc =
                       "named_vs_anon.h:43:9",
                       declId = NamePair {
-                        nameC = CName "h",
+                        nameC = Name "h",
                         nameHsIdent = HsIdentifier "H"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:43:9"),
-                      declAliases = [CName "h"],
+                      declAliases = [Name "h"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2627,13 +2619,12 @@
             declLoc =
             "named_vs_anon.h:44:9",
             declId = NamePair {
-              nameC = CName "typedef3",
+              nameC = Name "typedef3",
               nameHsIdent = HsIdentifier
                 "Typedef3"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:44:9"),
-            declAliases = [
-              CName "typedef3"],
+            declAliases = [Name "typedef3"],
             declHeader = "named_vs_anon.h"},
           declKind = Struct
             Struct {
@@ -2667,13 +2658,12 @@
               declLoc =
               "named_vs_anon.h:44:9",
               declId = NamePair {
-                nameC = CName "typedef3",
+                nameC = Name "typedef3",
                 nameHsIdent = HsIdentifier
                   "Typedef3"},
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:44:9"),
-              declAliases = [
-                CName "typedef3"],
+              declAliases = [Name "typedef3"],
               declHeader = "named_vs_anon.h"},
             declKind = Struct
               Struct {
@@ -2712,13 +2702,12 @@
                       declLoc =
                       "named_vs_anon.h:44:9",
                       declId = NamePair {
-                        nameC = CName "typedef3",
+                        nameC = Name "typedef3",
                         nameHsIdent = HsIdentifier
                           "Typedef3"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:44:9"),
-                      declAliases = [
-                        CName "typedef3"],
+                      declAliases = [Name "typedef3"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {
@@ -2757,13 +2746,12 @@
                       declLoc =
                       "named_vs_anon.h:44:9",
                       declId = NamePair {
-                        nameC = CName "typedef3",
+                        nameC = Name "typedef3",
                         nameHsIdent = HsIdentifier
                           "Typedef3"},
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:44:9"),
-                      declAliases = [
-                        CName "typedef3"],
+                      declAliases = [Name "typedef3"],
                       declHeader = "named_vs_anon.h"},
                     declKind = Struct
                       Struct {

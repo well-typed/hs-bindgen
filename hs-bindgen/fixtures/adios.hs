@@ -18,7 +18,7 @@
         declInfo = DeclInfo {
           declLoc = "adios.h:7:13",
           declId = NamePair {
-            nameC = CName "adio\769s",
+            nameC = Name "adio\769s",
             nameHsIdent = HsIdentifier
               "Adio'0301s"},
           declOrigin = NameOriginInSource,
@@ -153,7 +153,7 @@
         declInfo = DeclInfo {
           declLoc = "adios.h:12:13",
           declId = NamePair {
-            nameC = CName "\25968\23383",
+            nameC = Name "\25968\23383",
             nameHsIdent = HsIdentifier
               "C\25968\23383"},
           declOrigin = NameOriginInSource,

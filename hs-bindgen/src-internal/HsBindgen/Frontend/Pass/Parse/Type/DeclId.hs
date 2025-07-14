@@ -11,7 +11,6 @@ import Clang.LowLevel.Core
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))
@@ -28,19 +27,19 @@ import Text.SimplePrettyPrint qualified as PP
 -- | Identity of a declaration
 data DeclId =
     -- | Named declaration
-    DeclNamed CName
+    DeclNamed C.Name
 
     -- | Anonymous declaration
     --
     -- This can only happen for tagged types: structs, unions and enums
-  | DeclAnon AnonId
+  | DeclAnon C.AnonId
 
     -- | Built-in declaration
     --
     -- Note: since built-in declarations don't have a definition, we cannot
     -- in general generate bindings for them. If there are /specific/ built-in
     -- declarations we should support, we need to special-case them.
-  | DeclBuiltin CName
+  | DeclBuiltin C.Name
 
   deriving stock (Show, Eq, Ord)
 
@@ -63,12 +62,12 @@ getDeclId curr = do
     spelling <- HighLevel.clang_getCursorSpelling curr
     case spelling of
       UserProvided name ->
-        return $ DeclNamed (CName name)
+        return $ DeclNamed (C.Name name)
       ClangGenerated _ ->
-        DeclAnon . AnonId . multiLocExpansion
+        DeclAnon . C.AnonId . multiLocExpansion
           <$> HighLevel.clang_getCursorLocation curr
       ClangBuiltin name ->
-        return $ DeclBuiltin (CName name)
+        return $ DeclBuiltin (C.Name name)
 
 instance PrettyForTrace DeclId where
   prettyForTrace (DeclNamed   name)   = prettyForTrace name

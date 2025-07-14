@@ -15,16 +15,16 @@ import Clang.HighLevel.Types
 
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Identifiers
 -------------------------------------------------------------------------------}
 
-reparseName :: Reparse CName
+reparseName :: Reparse C.Name
 reparseName = snd <$> reparseLocName
 
-reparseLocName :: Reparse (MultiLoc, CName)
+reparseLocName :: Reparse (MultiLoc, C.Name)
 reparseLocName = token $ \t -> do
     let spelling = getTokenSpelling (tokenSpelling t)
     let ki = fromSimpleEnum (tokenKind t)
@@ -32,7 +32,7 @@ reparseLocName = token $ \t -> do
     guard $ ki == Right CXToken_Identifier
     return (
         rangeStart $ tokenExtent t
-      , CName spelling
+      , C.Name spelling
       )
 
 {-------------------------------------------------------------------------------

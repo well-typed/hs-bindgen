@@ -1,7 +1,10 @@
+-- | C name types
+--
+-- Not intended for direct import; import via @HsBindgen.Language.C@.
 module HsBindgen.Language.C.Name (
     -- * Types
     AnonId(..)
-  , CName(..)
+  , Name(..)
   , NameKind(..)
   , QualName(..)
   , qualNameText
@@ -35,24 +38,22 @@ instance PrettyForTrace AnonId where
       ]
 
 {-------------------------------------------------------------------------------
-  CName
+  Name
 -------------------------------------------------------------------------------}
-
--- TODO Rename CName to Name, for qualified import
 
 -- | C name
 --
 -- This type represents a C name, with no prefix.
 --
 -- Example: @foo@
-newtype CName = CName {
-      getCName :: Text
+newtype Name = Name {
+      getName :: Text
     }
   deriving newtype (Show, Eq, Ord, IsString, Semigroup)
   deriving stock (Generic)
 
-instance PrettyForTrace CName where
-  prettyForTrace (CName name) = "'" >< textToCtxDoc name >< "'"
+instance PrettyForTrace Name where
+  prettyForTrace (Name name) = "'" >< textToCtxDoc name >< "'"
 
 {-------------------------------------------------------------------------------
   NameKind
@@ -92,7 +93,7 @@ instance PrettyForTrace NameKind where
 -------------------------------------------------------------------------------}
 
 data QualName = QualName {
-      qualNameName :: CName
+      qualNameName :: Name
     , qualNameKind :: NameKind
     }
   deriving stock (Eq, Generic, Ord, Show)
@@ -107,14 +108,14 @@ qualNameText QualName{..} =
           NameKindStruct   -> "struct "
           NameKindUnion    -> "union "
           NameKindEnum     -> "enum "
-    in  prefix <> getCName qualNameName
+    in  prefix <> getName qualNameName
 
 parseQualName :: Text -> Maybe QualName
 parseQualName t = case Text.words t of
-    [n]           -> Just $ QualName (CName n) NameKindOrdinary
-    ["struct", n] -> Just $ QualName (CName n) NameKindStruct
-    ["union",  n] -> Just $ QualName (CName n) NameKindUnion
-    ["enum",   n] -> Just $ QualName (CName n) NameKindEnum
+    [n]           -> Just $ QualName (Name n) NameKindOrdinary
+    ["struct", n] -> Just $ QualName (Name n) NameKindStruct
+    ["union",  n] -> Just $ QualName (Name n) NameKindUnion
+    ["enum",   n] -> Just $ QualName (Name n) NameKindEnum
     _otherwise    -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -139,7 +140,7 @@ data NameOrigin =
     --
     -- The name may not be used to construct a valid C type, but this original
     -- name may be used to construct a valid C type.
-  | NameOriginRenamedFrom CName
+  | NameOriginRenamedFrom Name
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyForTrace NameOrigin where

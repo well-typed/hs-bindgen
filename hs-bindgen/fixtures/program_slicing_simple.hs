@@ -18,14 +18,14 @@
         declInfo = DeclInfo {
           declLoc = "alltypes.h:131:25",
           declId = NamePair {
-            nameC = CName "uint32_t",
+            nameC = Name "uint32_t",
             nameHsIdent = HsIdentifier
               "Uint32_t"},
           declOrigin = NameOriginInSource,
           declAliases = [
-            CName "uint_fast16_t",
-            CName "uint_fast32_t",
-            CName "uint_least32_t"],
+            Name "uint_fast16_t",
+            Name "uint_fast32_t",
+            Name "uint_least32_t"],
           declHeader =
           "program_slicing_simple.h"},
         declKind = Typedef
@@ -269,13 +269,13 @@
               structFieldLoc =
               "program_slicing_simple.h:4:12",
               structFieldName = NamePair {
-                nameC = CName "sixty_four",
+                nameC = Name "sixty_four",
                 nameHsIdent = HsIdentifier
                   "foo_sixty_four"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint64_t",
+                    qualNameName = Name "uint64_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -403,13 +403,13 @@
               structFieldLoc =
               "program_slicing_simple.h:5:12",
               structFieldName = NamePair {
-                nameC = CName "thirty_two",
+                nameC = Name "thirty_two",
                 nameHsIdent = HsIdentifier
                   "foo_thirty_two"},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "uint32_t",
+                    nameC = Name "uint32_t",
                     nameHsIdent = HsIdentifier
                       "Uint32_t"}),
               structFieldOffset = 64,
@@ -420,7 +420,7 @@
             declLoc =
             "program_slicing_simple.h:3:8",
             declId = NamePair {
-              nameC = CName "foo",
+              nameC = Name "foo",
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
@@ -438,13 +438,13 @@
                   structFieldLoc =
                   "program_slicing_simple.h:4:12",
                   structFieldName = NamePair {
-                    nameC = CName "sixty_four",
+                    nameC = Name "sixty_four",
                     nameHsIdent = HsIdentifier
                       "foo_sixty_four"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint64_t",
+                        qualNameName = Name "uint64_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -563,13 +563,13 @@
                   structFieldLoc =
                   "program_slicing_simple.h:5:12",
                   structFieldName = NamePair {
-                    nameC = CName "thirty_two",
+                    nameC = Name "thirty_two",
                     nameHsIdent = HsIdentifier
                       "foo_thirty_two"},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
-                        nameC = CName "uint32_t",
+                        nameC = Name "uint32_t",
                         nameHsIdent = HsIdentifier
                           "Uint32_t"}),
                   structFieldOffset = 64,
@@ -713,13 +713,13 @@
                 structFieldLoc =
                 "program_slicing_simple.h:4:12",
                 structFieldName = NamePair {
-                  nameC = CName "sixty_four",
+                  nameC = Name "sixty_four",
                   nameHsIdent = HsIdentifier
                     "foo_sixty_four"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint64_t",
+                      qualNameName = Name "uint64_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -847,13 +847,13 @@
                 structFieldLoc =
                 "program_slicing_simple.h:5:12",
                 structFieldName = NamePair {
-                  nameC = CName "thirty_two",
+                  nameC = Name "thirty_two",
                   nameHsIdent = HsIdentifier
                     "foo_thirty_two"},
                 structFieldType = TypeTypedef
                   (TypedefRegular
                     NamePair {
-                      nameC = CName "uint32_t",
+                      nameC = Name "uint32_t",
                       nameHsIdent = HsIdentifier
                         "Uint32_t"}),
                 structFieldOffset = 64,
@@ -864,7 +864,7 @@
               declLoc =
               "program_slicing_simple.h:3:8",
               declId = NamePair {
-                nameC = CName "foo",
+                nameC = Name "foo",
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
@@ -882,13 +882,13 @@
                     structFieldLoc =
                     "program_slicing_simple.h:4:12",
                     structFieldName = NamePair {
-                      nameC = CName "sixty_four",
+                      nameC = Name "sixty_four",
                       nameHsIdent = HsIdentifier
                         "foo_sixty_four"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint64_t",
+                          qualNameName = Name "uint64_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -1007,13 +1007,13 @@
                     structFieldLoc =
                     "program_slicing_simple.h:5:12",
                     structFieldName = NamePair {
-                      nameC = CName "thirty_two",
+                      nameC = Name "thirty_two",
                       nameHsIdent = HsIdentifier
                         "foo_thirty_two"},
                     structFieldType = TypeTypedef
                       (TypedefRegular
                         NamePair {
-                          nameC = CName "uint32_t",
+                          nameC = Name "uint32_t",
                           nameHsIdent = HsIdentifier
                             "Uint32_t"}),
                     structFieldOffset = 64,
@@ -1162,13 +1162,13 @@
                         structFieldLoc =
                         "program_slicing_simple.h:4:12",
                         structFieldName = NamePair {
-                          nameC = CName "sixty_four",
+                          nameC = Name "sixty_four",
                           nameHsIdent = HsIdentifier
                             "foo_sixty_four"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint64_t",
+                              qualNameName = Name "uint64_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -1296,13 +1296,13 @@
                         structFieldLoc =
                         "program_slicing_simple.h:5:12",
                         structFieldName = NamePair {
-                          nameC = CName "thirty_two",
+                          nameC = Name "thirty_two",
                           nameHsIdent = HsIdentifier
                             "foo_thirty_two"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "uint32_t",
+                              nameC = Name "uint32_t",
                               nameHsIdent = HsIdentifier
                                 "Uint32_t"}),
                         structFieldOffset = 64,
@@ -1313,7 +1313,7 @@
                       declLoc =
                       "program_slicing_simple.h:3:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -1331,13 +1331,13 @@
                             structFieldLoc =
                             "program_slicing_simple.h:4:12",
                             structFieldName = NamePair {
-                              nameC = CName "sixty_four",
+                              nameC = Name "sixty_four",
                               nameHsIdent = HsIdentifier
                                 "foo_sixty_four"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint64_t",
+                                  qualNameName = Name "uint64_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -1456,13 +1456,13 @@
                             structFieldLoc =
                             "program_slicing_simple.h:5:12",
                             structFieldName = NamePair {
-                              nameC = CName "thirty_two",
+                              nameC = Name "thirty_two",
                               nameHsIdent = HsIdentifier
                                 "foo_thirty_two"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "uint32_t",
+                                  nameC = Name "uint32_t",
                                   nameHsIdent = HsIdentifier
                                     "Uint32_t"}),
                             structFieldOffset = 64,
@@ -1613,13 +1613,13 @@
                         structFieldLoc =
                         "program_slicing_simple.h:4:12",
                         structFieldName = NamePair {
-                          nameC = CName "sixty_four",
+                          nameC = Name "sixty_four",
                           nameHsIdent = HsIdentifier
                             "foo_sixty_four"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint64_t",
+                              qualNameName = Name "uint64_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -1747,13 +1747,13 @@
                         structFieldLoc =
                         "program_slicing_simple.h:5:12",
                         structFieldName = NamePair {
-                          nameC = CName "thirty_two",
+                          nameC = Name "thirty_two",
                           nameHsIdent = HsIdentifier
                             "foo_thirty_two"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "uint32_t",
+                              nameC = Name "uint32_t",
                               nameHsIdent = HsIdentifier
                                 "Uint32_t"}),
                         structFieldOffset = 64,
@@ -1764,7 +1764,7 @@
                       declLoc =
                       "program_slicing_simple.h:3:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -1782,13 +1782,13 @@
                             structFieldLoc =
                             "program_slicing_simple.h:4:12",
                             structFieldName = NamePair {
-                              nameC = CName "sixty_four",
+                              nameC = Name "sixty_four",
                               nameHsIdent = HsIdentifier
                                 "foo_sixty_four"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint64_t",
+                                  qualNameName = Name "uint64_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -1907,13 +1907,13 @@
                             structFieldLoc =
                             "program_slicing_simple.h:5:12",
                             structFieldName = NamePair {
-                              nameC = CName "thirty_two",
+                              nameC = Name "thirty_two",
                               nameHsIdent = HsIdentifier
                                 "foo_thirty_two"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "uint32_t",
+                                  nameC = Name "uint32_t",
                                   nameHsIdent = HsIdentifier
                                     "Uint32_t"}),
                             structFieldOffset = 64,

@@ -55,7 +55,6 @@ instance ToExpr C.AnonId
 instance ToExpr C.CheckedMacro
 instance ToExpr C.CheckedMacroExpr
 instance ToExpr C.CheckedMacroType
-instance ToExpr C.CName
 instance ToExpr C.Decl
 instance ToExpr C.DeclInfo
 instance ToExpr C.DeclKind
@@ -63,6 +62,7 @@ instance ToExpr C.DeclSpec
 instance ToExpr C.Enum
 instance ToExpr C.EnumConstant
 instance ToExpr C.Function
+instance ToExpr C.Name
 instance ToExpr C.NameKind
 instance ToExpr C.NameOrigin
 instance ToExpr C.NamePair

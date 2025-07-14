@@ -21,7 +21,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -132,7 +132,7 @@ match isMainFile loc qid = \p ->
     matchElementName :: Regex -> QualDeclId -> Bool
     matchElementName re (QualDeclId declId kind) =
         case declId of
-          DeclNamed name -> matchTest re (qualNameText $ QualName name kind)
+          DeclNamed name -> matchTest re (C.qualNameText $ C.QualName name kind)
           _otherwise     -> False
 
 isBuiltin :: QualDeclId -> Bool

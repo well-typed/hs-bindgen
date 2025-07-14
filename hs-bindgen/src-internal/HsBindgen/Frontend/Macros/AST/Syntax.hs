@@ -33,7 +33,7 @@ import System.FilePath (takeBaseName)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Tc.Macro.Type
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality ( equals1 )
 
 import {-# SOURCE #-} HsBindgen.C.Reparse.Decl
@@ -45,8 +45,8 @@ import {-# SOURCE #-} HsBindgen.C.Reparse.Decl
 type Macro :: Pass -> Hs.Type
 data Macro p = Macro {
       macroLoc  :: MultiLoc
-    , macroName :: CName
-    , macroArgs :: [CName]
+    , macroName :: C.Name
+    , macroArgs :: [C.Name]
     , macroBody :: MacroBody p
     }
   deriving stock Generic
@@ -232,21 +232,21 @@ type MTerm :: Pass -> Hs.Type
 data MTerm p =
 
     -- | Integer literal
-    MInt IntegerLiteral
+    MInt C.IntegerLiteral
 
     -- | Floating-point literal
-  | MFloat FloatingLiteral
+  | MFloat C.FloatingLiteral
 
     -- | Character literal
-  | MChar CharLiteral
+  | MChar C.CharLiteral
 
     -- | String literal
-  | MString StringLiteral
+  | MString C.StringLiteral
 
     -- | Variable or function/macro call
     --
     -- This might be a macro argument, or another macro.
-  | MVar ( XVar p ) CName [MExpr p]
+  | MVar ( XVar p ) C.Name [MExpr p]
 
     -- | Stringizing
     --
@@ -254,7 +254,7 @@ data MTerm p =
     --
     -- * Section 6.10.3.2, "The # operator" of the spec
     -- * <https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html>
-  | MStringize CName
+  | MStringize C.Name
 
     -- | Concatenation
     --
@@ -281,7 +281,7 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
           EmptyMacro
             -> True
           ExpressionMacro
-            (MTerm (MInt IntegerLiteral { integerLiteralValue = 1 }))
+            (MTerm (MInt C.IntegerLiteral { integerLiteralValue = 1 }))
             -> True
           _otherwise
             -> False
@@ -290,11 +290,11 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
     sourcePath :: FilePath
     sourcePath = getSourcePath . singleLocPath $ multiLocExpansion macroLoc
 
-    includeGuards :: [CName]
+    includeGuards :: [C.Name]
     includeGuards = possibleIncludeGuards (takeBaseName sourcePath)
 
     -- | Possible names for include guards, given the file (base) name
-    possibleIncludeGuards :: String -> [CName]
+    possibleIncludeGuards :: String -> [C.Name]
     possibleIncludeGuards baseName = map fromString $ [
                  map toUpper baseName ++ "_H"
         , "_" ++ map toUpper baseName ++ "_H" -- this would be a reserved name

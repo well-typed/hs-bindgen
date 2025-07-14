@@ -34,7 +34,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -112,11 +111,11 @@ findNamedUseOf declIndex (Wrap graph) =
 getUseSites :: DeclUseGraph -> QualDeclId -> [(QualDeclId, Usage)]
 getUseSites (Wrap graph) = Set.toList . DynGraph.neighbors graph
 
-findAliasesOf :: DeclUseGraph -> QualDeclId -> [CName]
+findAliasesOf :: DeclUseGraph -> QualDeclId -> [C.Name]
 findAliasesOf graph =
     mapMaybe (uncurry aux) . getUseSites graph
   where
-    aux :: QualDeclId -> Usage -> Maybe CName
+    aux :: QualDeclId -> Usage -> Maybe C.Name
     aux (QualDeclId (DeclNamed cname) _) (UsedInTypedef UseDeclGraph.ByValue) =
       Just cname
     aux _ _ = Nothing

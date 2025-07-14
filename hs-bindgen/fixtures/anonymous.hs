@@ -19,7 +19,7 @@
               structFieldLoc =
               "anonymous.h:4:9",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s1_c_a"},
               structFieldType = TypePrim
@@ -37,7 +37,7 @@
               structFieldLoc =
               "anonymous.h:5:9",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s1_c_b"},
               structFieldType = TypePrim
@@ -49,7 +49,7 @@
           declInfo = DeclInfo {
             declLoc = "anonymous.h:3:3",
             declId = NamePair {
-              nameC = CName "S1_c",
+              nameC = Name "S1_c",
               nameHsIdent = HsIdentifier
                 "S1_c"},
             declOrigin = NameOriginGenerated
@@ -67,7 +67,7 @@
                   structFieldLoc =
                   "anonymous.h:4:9",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s1_c_a"},
                   structFieldType = TypePrim
@@ -78,7 +78,7 @@
                   structFieldLoc =
                   "anonymous.h:5:9",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s1_c_b"},
                   structFieldType = TypePrim
@@ -115,7 +115,7 @@
                 structFieldLoc =
                 "anonymous.h:4:9",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s1_c_a"},
                 structFieldType = TypePrim
@@ -133,7 +133,7 @@
                 structFieldLoc =
                 "anonymous.h:5:9",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s1_c_b"},
                 structFieldType = TypePrim
@@ -145,7 +145,7 @@
             declInfo = DeclInfo {
               declLoc = "anonymous.h:3:3",
               declId = NamePair {
-                nameC = CName "S1_c",
+                nameC = Name "S1_c",
                 nameHsIdent = HsIdentifier
                   "S1_c"},
               declOrigin = NameOriginGenerated
@@ -163,7 +163,7 @@
                     structFieldLoc =
                     "anonymous.h:4:9",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s1_c_a"},
                     structFieldType = TypePrim
@@ -174,7 +174,7 @@
                     structFieldLoc =
                     "anonymous.h:5:9",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s1_c_b"},
                     structFieldType = TypePrim
@@ -216,7 +216,7 @@
                         structFieldLoc =
                         "anonymous.h:4:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s1_c_a"},
                         structFieldType = TypePrim
@@ -234,7 +234,7 @@
                         structFieldLoc =
                         "anonymous.h:5:9",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s1_c_b"},
                         structFieldType = TypePrim
@@ -246,7 +246,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:3:3",
                       declId = NamePair {
-                        nameC = CName "S1_c",
+                        nameC = Name "S1_c",
                         nameHsIdent = HsIdentifier
                           "S1_c"},
                       declOrigin = NameOriginGenerated
@@ -264,7 +264,7 @@
                             structFieldLoc =
                             "anonymous.h:4:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s1_c_a"},
                             structFieldType = TypePrim
@@ -275,7 +275,7 @@
                             structFieldLoc =
                             "anonymous.h:5:9",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s1_c_b"},
                             structFieldType = TypePrim
@@ -319,7 +319,7 @@
                         structFieldLoc =
                         "anonymous.h:4:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s1_c_a"},
                         structFieldType = TypePrim
@@ -337,7 +337,7 @@
                         structFieldLoc =
                         "anonymous.h:5:9",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s1_c_b"},
                         structFieldType = TypePrim
@@ -349,7 +349,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:3:3",
                       declId = NamePair {
-                        nameC = CName "S1_c",
+                        nameC = Name "S1_c",
                         nameHsIdent = HsIdentifier
                           "S1_c"},
                       declOrigin = NameOriginGenerated
@@ -367,7 +367,7 @@
                             structFieldLoc =
                             "anonymous.h:4:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s1_c_a"},
                             structFieldType = TypePrim
@@ -378,7 +378,7 @@
                             structFieldLoc =
                             "anonymous.h:5:9",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s1_c_b"},
                             structFieldType = TypePrim
@@ -430,12 +430,12 @@
               structFieldLoc =
               "anonymous.h:6:5",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "s1_c"},
               structFieldType = TypeStruct
                 NamePair {
-                  nameC = CName "S1_c",
+                  nameC = Name "S1_c",
                   nameHsIdent = HsIdentifier
                     "S1_c"}
                 (NameOriginGenerated
@@ -453,7 +453,7 @@
               structFieldLoc =
               "anonymous.h:8:7",
               structFieldName = NamePair {
-                nameC = CName "d",
+                nameC = Name "d",
                 nameHsIdent = HsIdentifier
                   "s1_d"},
               structFieldType = TypePrim
@@ -465,7 +465,7 @@
           declInfo = DeclInfo {
             declLoc = "anonymous.h:2:8",
             declId = NamePair {
-              nameC = CName "S1",
+              nameC = Name "S1",
               nameHsIdent = HsIdentifier
                 "S1"},
             declOrigin = NameOriginInSource,
@@ -482,12 +482,12 @@
                   structFieldLoc =
                   "anonymous.h:6:5",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "s1_c"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName "S1_c",
+                      nameC = Name "S1_c",
                       nameHsIdent = HsIdentifier
                         "S1_c"}
                     (NameOriginGenerated
@@ -498,7 +498,7 @@
                   structFieldLoc =
                   "anonymous.h:8:7",
                   structFieldName = NamePair {
-                    nameC = CName "d",
+                    nameC = Name "d",
                     nameHsIdent = HsIdentifier
                       "s1_d"},
                   structFieldType = TypePrim
@@ -535,12 +535,12 @@
                 structFieldLoc =
                 "anonymous.h:6:5",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "s1_c"},
                 structFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "S1_c",
+                    nameC = Name "S1_c",
                     nameHsIdent = HsIdentifier
                       "S1_c"}
                   (NameOriginGenerated
@@ -558,7 +558,7 @@
                 structFieldLoc =
                 "anonymous.h:8:7",
                 structFieldName = NamePair {
-                  nameC = CName "d",
+                  nameC = Name "d",
                   nameHsIdent = HsIdentifier
                     "s1_d"},
                 structFieldType = TypePrim
@@ -570,7 +570,7 @@
             declInfo = DeclInfo {
               declLoc = "anonymous.h:2:8",
               declId = NamePair {
-                nameC = CName "S1",
+                nameC = Name "S1",
                 nameHsIdent = HsIdentifier
                   "S1"},
               declOrigin = NameOriginInSource,
@@ -587,12 +587,12 @@
                     structFieldLoc =
                     "anonymous.h:6:5",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "s1_c"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "S1_c",
+                        nameC = Name "S1_c",
                         nameHsIdent = HsIdentifier
                           "S1_c"}
                       (NameOriginGenerated
@@ -603,7 +603,7 @@
                     structFieldLoc =
                     "anonymous.h:8:7",
                     structFieldName = NamePair {
-                      nameC = CName "d",
+                      nameC = Name "d",
                       nameHsIdent = HsIdentifier
                         "s1_d"},
                     structFieldType = TypePrim
@@ -645,12 +645,12 @@
                         structFieldLoc =
                         "anonymous.h:6:5",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "s1_c"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "S1_c",
+                            nameC = Name "S1_c",
                             nameHsIdent = HsIdentifier
                               "S1_c"}
                           (NameOriginGenerated
@@ -668,7 +668,7 @@
                         structFieldLoc =
                         "anonymous.h:8:7",
                         structFieldName = NamePair {
-                          nameC = CName "d",
+                          nameC = Name "d",
                           nameHsIdent = HsIdentifier
                             "s1_d"},
                         structFieldType = TypePrim
@@ -680,7 +680,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:2:8",
                       declId = NamePair {
-                        nameC = CName "S1",
+                        nameC = Name "S1",
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
@@ -697,12 +697,12 @@
                             structFieldLoc =
                             "anonymous.h:6:5",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "s1_c"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "S1_c",
+                                nameC = Name "S1_c",
                                 nameHsIdent = HsIdentifier
                                   "S1_c"}
                               (NameOriginGenerated
@@ -713,7 +713,7 @@
                             structFieldLoc =
                             "anonymous.h:8:7",
                             structFieldName = NamePair {
-                              nameC = CName "d",
+                              nameC = Name "d",
                               nameHsIdent = HsIdentifier
                                 "s1_d"},
                             structFieldType = TypePrim
@@ -757,12 +757,12 @@
                         structFieldLoc =
                         "anonymous.h:6:5",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "s1_c"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "S1_c",
+                            nameC = Name "S1_c",
                             nameHsIdent = HsIdentifier
                               "S1_c"}
                           (NameOriginGenerated
@@ -780,7 +780,7 @@
                         structFieldLoc =
                         "anonymous.h:8:7",
                         structFieldName = NamePair {
-                          nameC = CName "d",
+                          nameC = Name "d",
                           nameHsIdent = HsIdentifier
                             "s1_d"},
                         structFieldType = TypePrim
@@ -792,7 +792,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:2:8",
                       declId = NamePair {
-                        nameC = CName "S1",
+                        nameC = Name "S1",
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
@@ -809,12 +809,12 @@
                             structFieldLoc =
                             "anonymous.h:6:5",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "s1_c"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "S1_c",
+                                nameC = Name "S1_c",
                                 nameHsIdent = HsIdentifier
                                   "S1_c"}
                               (NameOriginGenerated
@@ -825,7 +825,7 @@
                             structFieldLoc =
                             "anonymous.h:8:7",
                             structFieldName = NamePair {
-                              nameC = CName "d",
+                              nameC = Name "d",
                               nameHsIdent = HsIdentifier
                                 "s1_d"},
                             structFieldType = TypePrim
@@ -877,7 +877,7 @@
               structFieldLoc =
               "anonymous.h:16:11",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s2_inner_deep_b"},
               structFieldType = TypePrim
@@ -889,7 +889,7 @@
           declInfo = DeclInfo {
             declLoc = "anonymous.h:15:5",
             declId = NamePair {
-              nameC = CName "S2_inner_deep",
+              nameC = Name "S2_inner_deep",
               nameHsIdent = HsIdentifier
                 "S2_inner_deep"},
             declOrigin = NameOriginGenerated
@@ -909,7 +909,7 @@
                   structFieldLoc =
                   "anonymous.h:16:11",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s2_inner_deep_b"},
                   structFieldType = TypePrim
@@ -946,7 +946,7 @@
                 structFieldLoc =
                 "anonymous.h:16:11",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s2_inner_deep_b"},
                 structFieldType = TypePrim
@@ -958,7 +958,7 @@
             declInfo = DeclInfo {
               declLoc = "anonymous.h:15:5",
               declId = NamePair {
-                nameC = CName "S2_inner_deep",
+                nameC = Name "S2_inner_deep",
                 nameHsIdent = HsIdentifier
                   "S2_inner_deep"},
               declOrigin = NameOriginGenerated
@@ -978,7 +978,7 @@
                     structFieldLoc =
                     "anonymous.h:16:11",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s2_inner_deep_b"},
                     structFieldType = TypePrim
@@ -1020,7 +1020,7 @@
                         structFieldLoc =
                         "anonymous.h:16:11",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s2_inner_deep_b"},
                         structFieldType = TypePrim
@@ -1032,7 +1032,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:15:5",
                       declId = NamePair {
-                        nameC = CName "S2_inner_deep",
+                        nameC = Name "S2_inner_deep",
                         nameHsIdent = HsIdentifier
                           "S2_inner_deep"},
                       declOrigin = NameOriginGenerated
@@ -1052,7 +1052,7 @@
                             structFieldLoc =
                             "anonymous.h:16:11",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s2_inner_deep_b"},
                             structFieldType = TypePrim
@@ -1094,7 +1094,7 @@
                         structFieldLoc =
                         "anonymous.h:16:11",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s2_inner_deep_b"},
                         structFieldType = TypePrim
@@ -1106,7 +1106,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:15:5",
                       declId = NamePair {
-                        nameC = CName "S2_inner_deep",
+                        nameC = Name "S2_inner_deep",
                         nameHsIdent = HsIdentifier
                           "S2_inner_deep"},
                       declOrigin = NameOriginGenerated
@@ -1126,7 +1126,7 @@
                             structFieldLoc =
                             "anonymous.h:16:11",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s2_inner_deep_b"},
                             structFieldType = TypePrim
@@ -1181,7 +1181,7 @@
               structFieldLoc =
               "anonymous.h:14:9",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s2_inner_a"},
               structFieldType = TypePrim
@@ -1201,12 +1201,12 @@
               structFieldLoc =
               "anonymous.h:17:7",
               structFieldName = NamePair {
-                nameC = CName "deep",
+                nameC = Name "deep",
                 nameHsIdent = HsIdentifier
                   "s2_inner_deep"},
               structFieldType = TypeStruct
                 NamePair {
-                  nameC = CName "S2_inner_deep",
+                  nameC = Name "S2_inner_deep",
                   nameHsIdent = HsIdentifier
                     "S2_inner_deep"}
                 (NameOriginGenerated
@@ -1218,7 +1218,7 @@
           declInfo = DeclInfo {
             declLoc = "anonymous.h:13:3",
             declId = NamePair {
-              nameC = CName "S2_inner",
+              nameC = Name "S2_inner",
               nameHsIdent = HsIdentifier
                 "S2_inner"},
             declOrigin = NameOriginGenerated
@@ -1236,7 +1236,7 @@
                   structFieldLoc =
                   "anonymous.h:14:9",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s2_inner_a"},
                   structFieldType = TypePrim
@@ -1247,12 +1247,12 @@
                   structFieldLoc =
                   "anonymous.h:17:7",
                   structFieldName = NamePair {
-                    nameC = CName "deep",
+                    nameC = Name "deep",
                     nameHsIdent = HsIdentifier
                       "s2_inner_deep"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName "S2_inner_deep",
+                      nameC = Name "S2_inner_deep",
                       nameHsIdent = HsIdentifier
                         "S2_inner_deep"}
                     (NameOriginGenerated
@@ -1289,7 +1289,7 @@
                 structFieldLoc =
                 "anonymous.h:14:9",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s2_inner_a"},
                 structFieldType = TypePrim
@@ -1309,12 +1309,12 @@
                 structFieldLoc =
                 "anonymous.h:17:7",
                 structFieldName = NamePair {
-                  nameC = CName "deep",
+                  nameC = Name "deep",
                   nameHsIdent = HsIdentifier
                     "s2_inner_deep"},
                 structFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "S2_inner_deep",
+                    nameC = Name "S2_inner_deep",
                     nameHsIdent = HsIdentifier
                       "S2_inner_deep"}
                   (NameOriginGenerated
@@ -1326,7 +1326,7 @@
             declInfo = DeclInfo {
               declLoc = "anonymous.h:13:3",
               declId = NamePair {
-                nameC = CName "S2_inner",
+                nameC = Name "S2_inner",
                 nameHsIdent = HsIdentifier
                   "S2_inner"},
               declOrigin = NameOriginGenerated
@@ -1344,7 +1344,7 @@
                     structFieldLoc =
                     "anonymous.h:14:9",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s2_inner_a"},
                     structFieldType = TypePrim
@@ -1355,12 +1355,12 @@
                     structFieldLoc =
                     "anonymous.h:17:7",
                     structFieldName = NamePair {
-                      nameC = CName "deep",
+                      nameC = Name "deep",
                       nameHsIdent = HsIdentifier
                         "s2_inner_deep"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "S2_inner_deep",
+                        nameC = Name "S2_inner_deep",
                         nameHsIdent = HsIdentifier
                           "S2_inner_deep"}
                       (NameOriginGenerated
@@ -1402,7 +1402,7 @@
                         structFieldLoc =
                         "anonymous.h:14:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s2_inner_a"},
                         structFieldType = TypePrim
@@ -1422,12 +1422,12 @@
                         structFieldLoc =
                         "anonymous.h:17:7",
                         structFieldName = NamePair {
-                          nameC = CName "deep",
+                          nameC = Name "deep",
                           nameHsIdent = HsIdentifier
                             "s2_inner_deep"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "S2_inner_deep",
+                            nameC = Name "S2_inner_deep",
                             nameHsIdent = HsIdentifier
                               "S2_inner_deep"}
                           (NameOriginGenerated
@@ -1439,7 +1439,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:13:3",
                       declId = NamePair {
-                        nameC = CName "S2_inner",
+                        nameC = Name "S2_inner",
                         nameHsIdent = HsIdentifier
                           "S2_inner"},
                       declOrigin = NameOriginGenerated
@@ -1457,7 +1457,7 @@
                             structFieldLoc =
                             "anonymous.h:14:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s2_inner_a"},
                             structFieldType = TypePrim
@@ -1468,12 +1468,12 @@
                             structFieldLoc =
                             "anonymous.h:17:7",
                             structFieldName = NamePair {
-                              nameC = CName "deep",
+                              nameC = Name "deep",
                               nameHsIdent = HsIdentifier
                                 "s2_inner_deep"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "S2_inner_deep",
+                                nameC = Name "S2_inner_deep",
                                 nameHsIdent = HsIdentifier
                                   "S2_inner_deep"}
                               (NameOriginGenerated
@@ -1517,7 +1517,7 @@
                         structFieldLoc =
                         "anonymous.h:14:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s2_inner_a"},
                         structFieldType = TypePrim
@@ -1537,12 +1537,12 @@
                         structFieldLoc =
                         "anonymous.h:17:7",
                         structFieldName = NamePair {
-                          nameC = CName "deep",
+                          nameC = Name "deep",
                           nameHsIdent = HsIdentifier
                             "s2_inner_deep"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "S2_inner_deep",
+                            nameC = Name "S2_inner_deep",
                             nameHsIdent = HsIdentifier
                               "S2_inner_deep"}
                           (NameOriginGenerated
@@ -1554,7 +1554,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:13:3",
                       declId = NamePair {
-                        nameC = CName "S2_inner",
+                        nameC = Name "S2_inner",
                         nameHsIdent = HsIdentifier
                           "S2_inner"},
                       declOrigin = NameOriginGenerated
@@ -1572,7 +1572,7 @@
                             structFieldLoc =
                             "anonymous.h:14:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s2_inner_a"},
                             structFieldType = TypePrim
@@ -1583,12 +1583,12 @@
                             structFieldLoc =
                             "anonymous.h:17:7",
                             structFieldName = NamePair {
-                              nameC = CName "deep",
+                              nameC = Name "deep",
                               nameHsIdent = HsIdentifier
                                 "s2_inner_deep"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "S2_inner_deep",
+                                nameC = Name "S2_inner_deep",
                                 nameHsIdent = HsIdentifier
                                   "S2_inner_deep"}
                               (NameOriginGenerated
@@ -1646,12 +1646,12 @@
               structFieldLoc =
               "anonymous.h:18:5",
               structFieldName = NamePair {
-                nameC = CName "inner",
+                nameC = Name "inner",
                 nameHsIdent = HsIdentifier
                   "s2_inner"},
               structFieldType = TypeStruct
                 NamePair {
-                  nameC = CName "S2_inner",
+                  nameC = Name "S2_inner",
                   nameHsIdent = HsIdentifier
                     "S2_inner"}
                 (NameOriginGenerated
@@ -1669,7 +1669,7 @@
               structFieldLoc =
               "anonymous.h:20:7",
               structFieldName = NamePair {
-                nameC = CName "d",
+                nameC = Name "d",
                 nameHsIdent = HsIdentifier
                   "s2_d"},
               structFieldType = TypePrim
@@ -1681,7 +1681,7 @@
           declInfo = DeclInfo {
             declLoc = "anonymous.h:12:8",
             declId = NamePair {
-              nameC = CName "S2",
+              nameC = Name "S2",
               nameHsIdent = HsIdentifier
                 "S2"},
             declOrigin = NameOriginInSource,
@@ -1698,12 +1698,12 @@
                   structFieldLoc =
                   "anonymous.h:18:5",
                   structFieldName = NamePair {
-                    nameC = CName "inner",
+                    nameC = Name "inner",
                     nameHsIdent = HsIdentifier
                       "s2_inner"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName "S2_inner",
+                      nameC = Name "S2_inner",
                       nameHsIdent = HsIdentifier
                         "S2_inner"}
                     (NameOriginGenerated
@@ -1714,7 +1714,7 @@
                   structFieldLoc =
                   "anonymous.h:20:7",
                   structFieldName = NamePair {
-                    nameC = CName "d",
+                    nameC = Name "d",
                     nameHsIdent = HsIdentifier
                       "s2_d"},
                   structFieldType = TypePrim
@@ -1753,12 +1753,12 @@
                 structFieldLoc =
                 "anonymous.h:18:5",
                 structFieldName = NamePair {
-                  nameC = CName "inner",
+                  nameC = Name "inner",
                   nameHsIdent = HsIdentifier
                     "s2_inner"},
                 structFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "S2_inner",
+                    nameC = Name "S2_inner",
                     nameHsIdent = HsIdentifier
                       "S2_inner"}
                   (NameOriginGenerated
@@ -1776,7 +1776,7 @@
                 structFieldLoc =
                 "anonymous.h:20:7",
                 structFieldName = NamePair {
-                  nameC = CName "d",
+                  nameC = Name "d",
                   nameHsIdent = HsIdentifier
                     "s2_d"},
                 structFieldType = TypePrim
@@ -1788,7 +1788,7 @@
             declInfo = DeclInfo {
               declLoc = "anonymous.h:12:8",
               declId = NamePair {
-                nameC = CName "S2",
+                nameC = Name "S2",
                 nameHsIdent = HsIdentifier
                   "S2"},
               declOrigin = NameOriginInSource,
@@ -1805,12 +1805,12 @@
                     structFieldLoc =
                     "anonymous.h:18:5",
                     structFieldName = NamePair {
-                      nameC = CName "inner",
+                      nameC = Name "inner",
                       nameHsIdent = HsIdentifier
                         "s2_inner"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "S2_inner",
+                        nameC = Name "S2_inner",
                         nameHsIdent = HsIdentifier
                           "S2_inner"}
                       (NameOriginGenerated
@@ -1821,7 +1821,7 @@
                     structFieldLoc =
                     "anonymous.h:20:7",
                     structFieldName = NamePair {
-                      nameC = CName "d",
+                      nameC = Name "d",
                       nameHsIdent = HsIdentifier
                         "s2_d"},
                     structFieldType = TypePrim
@@ -1865,12 +1865,12 @@
                         structFieldLoc =
                         "anonymous.h:18:5",
                         structFieldName = NamePair {
-                          nameC = CName "inner",
+                          nameC = Name "inner",
                           nameHsIdent = HsIdentifier
                             "s2_inner"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "S2_inner",
+                            nameC = Name "S2_inner",
                             nameHsIdent = HsIdentifier
                               "S2_inner"}
                           (NameOriginGenerated
@@ -1888,7 +1888,7 @@
                         structFieldLoc =
                         "anonymous.h:20:7",
                         structFieldName = NamePair {
-                          nameC = CName "d",
+                          nameC = Name "d",
                           nameHsIdent = HsIdentifier
                             "s2_d"},
                         structFieldType = TypePrim
@@ -1900,7 +1900,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:12:8",
                       declId = NamePair {
-                        nameC = CName "S2",
+                        nameC = Name "S2",
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
@@ -1917,12 +1917,12 @@
                             structFieldLoc =
                             "anonymous.h:18:5",
                             structFieldName = NamePair {
-                              nameC = CName "inner",
+                              nameC = Name "inner",
                               nameHsIdent = HsIdentifier
                                 "s2_inner"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "S2_inner",
+                                nameC = Name "S2_inner",
                                 nameHsIdent = HsIdentifier
                                   "S2_inner"}
                               (NameOriginGenerated
@@ -1933,7 +1933,7 @@
                             structFieldLoc =
                             "anonymous.h:20:7",
                             structFieldName = NamePair {
-                              nameC = CName "d",
+                              nameC = Name "d",
                               nameHsIdent = HsIdentifier
                                 "s2_d"},
                             structFieldType = TypePrim
@@ -1979,12 +1979,12 @@
                         structFieldLoc =
                         "anonymous.h:18:5",
                         structFieldName = NamePair {
-                          nameC = CName "inner",
+                          nameC = Name "inner",
                           nameHsIdent = HsIdentifier
                             "s2_inner"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "S2_inner",
+                            nameC = Name "S2_inner",
                             nameHsIdent = HsIdentifier
                               "S2_inner"}
                           (NameOriginGenerated
@@ -2002,7 +2002,7 @@
                         structFieldLoc =
                         "anonymous.h:20:7",
                         structFieldName = NamePair {
-                          nameC = CName "d",
+                          nameC = Name "d",
                           nameHsIdent = HsIdentifier
                             "s2_d"},
                         structFieldType = TypePrim
@@ -2014,7 +2014,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:12:8",
                       declId = NamePair {
-                        nameC = CName "S2",
+                        nameC = Name "S2",
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
@@ -2031,12 +2031,12 @@
                             structFieldLoc =
                             "anonymous.h:18:5",
                             structFieldName = NamePair {
-                              nameC = CName "inner",
+                              nameC = Name "inner",
                               nameHsIdent = HsIdentifier
                                 "s2_inner"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "S2_inner",
+                                nameC = Name "S2_inner",
                                 nameHsIdent = HsIdentifier
                                   "S2_inner"}
                               (NameOriginGenerated
@@ -2047,7 +2047,7 @@
                             structFieldLoc =
                             "anonymous.h:20:7",
                             structFieldName = NamePair {
-                              nameC = CName "d",
+                              nameC = Name "d",
                               nameHsIdent = HsIdentifier
                                 "s2_d"},
                             structFieldType = TypePrim
@@ -2099,7 +2099,7 @@
               structFieldLoc =
               "anonymous.h:26:9",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s3_c_a"},
               structFieldType = TypePrim
@@ -2117,7 +2117,7 @@
               structFieldLoc =
               "anonymous.h:27:9",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s3_c_b"},
               structFieldType = TypePrim
@@ -2129,7 +2129,7 @@
           declInfo = DeclInfo {
             declLoc = "anonymous.h:25:3",
             declId = NamePair {
-              nameC = CName "S3_c",
+              nameC = Name "S3_c",
               nameHsIdent = HsIdentifier
                 "S3_c"},
             declOrigin = NameOriginGenerated
@@ -2147,7 +2147,7 @@
                   structFieldLoc =
                   "anonymous.h:26:9",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s3_c_a"},
                   structFieldType = TypePrim
@@ -2158,7 +2158,7 @@
                   structFieldLoc =
                   "anonymous.h:27:9",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s3_c_b"},
                   structFieldType = TypePrim
@@ -2195,7 +2195,7 @@
                 structFieldLoc =
                 "anonymous.h:26:9",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s3_c_a"},
                 structFieldType = TypePrim
@@ -2213,7 +2213,7 @@
                 structFieldLoc =
                 "anonymous.h:27:9",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s3_c_b"},
                 structFieldType = TypePrim
@@ -2225,7 +2225,7 @@
             declInfo = DeclInfo {
               declLoc = "anonymous.h:25:3",
               declId = NamePair {
-                nameC = CName "S3_c",
+                nameC = Name "S3_c",
                 nameHsIdent = HsIdentifier
                   "S3_c"},
               declOrigin = NameOriginGenerated
@@ -2243,7 +2243,7 @@
                     structFieldLoc =
                     "anonymous.h:26:9",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s3_c_a"},
                     structFieldType = TypePrim
@@ -2254,7 +2254,7 @@
                     structFieldLoc =
                     "anonymous.h:27:9",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s3_c_b"},
                     structFieldType = TypePrim
@@ -2296,7 +2296,7 @@
                         structFieldLoc =
                         "anonymous.h:26:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s3_c_a"},
                         structFieldType = TypePrim
@@ -2314,7 +2314,7 @@
                         structFieldLoc =
                         "anonymous.h:27:9",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s3_c_b"},
                         structFieldType = TypePrim
@@ -2326,7 +2326,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:25:3",
                       declId = NamePair {
-                        nameC = CName "S3_c",
+                        nameC = Name "S3_c",
                         nameHsIdent = HsIdentifier
                           "S3_c"},
                       declOrigin = NameOriginGenerated
@@ -2344,7 +2344,7 @@
                             structFieldLoc =
                             "anonymous.h:26:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s3_c_a"},
                             structFieldType = TypePrim
@@ -2355,7 +2355,7 @@
                             structFieldLoc =
                             "anonymous.h:27:9",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s3_c_b"},
                             structFieldType = TypePrim
@@ -2399,7 +2399,7 @@
                         structFieldLoc =
                         "anonymous.h:26:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s3_c_a"},
                         structFieldType = TypePrim
@@ -2417,7 +2417,7 @@
                         structFieldLoc =
                         "anonymous.h:27:9",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s3_c_b"},
                         structFieldType = TypePrim
@@ -2429,7 +2429,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:25:3",
                       declId = NamePair {
-                        nameC = CName "S3_c",
+                        nameC = Name "S3_c",
                         nameHsIdent = HsIdentifier
                           "S3_c"},
                       declOrigin = NameOriginGenerated
@@ -2447,7 +2447,7 @@
                             structFieldLoc =
                             "anonymous.h:26:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s3_c_a"},
                             structFieldType = TypePrim
@@ -2458,7 +2458,7 @@
                             structFieldLoc =
                             "anonymous.h:27:9",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s3_c_b"},
                             structFieldType = TypePrim
@@ -2514,14 +2514,14 @@
               structFieldLoc =
               "anonymous.h:28:7",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "s3_c"},
               structFieldType = TypePointer
                 (TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "S3_c",
+                      nameC = Name "S3_c",
                       nameHsIdent = HsIdentifier
                         "S3_c"}
                     (NameOriginGenerated
@@ -2539,7 +2539,7 @@
               structFieldLoc =
               "anonymous.h:30:7",
               structFieldName = NamePair {
-                nameC = CName "d",
+                nameC = Name "d",
                 nameHsIdent = HsIdentifier
                   "s3_d"},
               structFieldType = TypePrim
@@ -2551,7 +2551,7 @@
           declInfo = DeclInfo {
             declLoc = "anonymous.h:24:8",
             declId = NamePair {
-              nameC = CName "S3",
+              nameC = Name "S3",
               nameHsIdent = HsIdentifier
                 "S3"},
             declOrigin = NameOriginInSource,
@@ -2568,14 +2568,14 @@
                   structFieldLoc =
                   "anonymous.h:28:7",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "s3_c"},
                   structFieldType = TypePointer
                     (TypePointer
                       (TypeStruct
                         NamePair {
-                          nameC = CName "S3_c",
+                          nameC = Name "S3_c",
                           nameHsIdent = HsIdentifier
                             "S3_c"}
                         (NameOriginGenerated
@@ -2586,7 +2586,7 @@
                   structFieldLoc =
                   "anonymous.h:30:7",
                   structFieldName = NamePair {
-                    nameC = CName "d",
+                    nameC = Name "d",
                     nameHsIdent = HsIdentifier
                       "s3_d"},
                   structFieldType = TypePrim
@@ -2627,14 +2627,14 @@
                 structFieldLoc =
                 "anonymous.h:28:7",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "s3_c"},
                 structFieldType = TypePointer
                   (TypePointer
                     (TypeStruct
                       NamePair {
-                        nameC = CName "S3_c",
+                        nameC = Name "S3_c",
                         nameHsIdent = HsIdentifier
                           "S3_c"}
                       (NameOriginGenerated
@@ -2652,7 +2652,7 @@
                 structFieldLoc =
                 "anonymous.h:30:7",
                 structFieldName = NamePair {
-                  nameC = CName "d",
+                  nameC = Name "d",
                   nameHsIdent = HsIdentifier
                     "s3_d"},
                 structFieldType = TypePrim
@@ -2664,7 +2664,7 @@
             declInfo = DeclInfo {
               declLoc = "anonymous.h:24:8",
               declId = NamePair {
-                nameC = CName "S3",
+                nameC = Name "S3",
                 nameHsIdent = HsIdentifier
                   "S3"},
               declOrigin = NameOriginInSource,
@@ -2681,14 +2681,14 @@
                     structFieldLoc =
                     "anonymous.h:28:7",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "s3_c"},
                     structFieldType = TypePointer
                       (TypePointer
                         (TypeStruct
                           NamePair {
-                            nameC = CName "S3_c",
+                            nameC = Name "S3_c",
                             nameHsIdent = HsIdentifier
                               "S3_c"}
                           (NameOriginGenerated
@@ -2699,7 +2699,7 @@
                     structFieldLoc =
                     "anonymous.h:30:7",
                     structFieldName = NamePair {
-                      nameC = CName "d",
+                      nameC = Name "d",
                       nameHsIdent = HsIdentifier
                         "s3_d"},
                     structFieldType = TypePrim
@@ -2745,14 +2745,14 @@
                         structFieldLoc =
                         "anonymous.h:28:7",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "s3_c"},
                         structFieldType = TypePointer
                           (TypePointer
                             (TypeStruct
                               NamePair {
-                                nameC = CName "S3_c",
+                                nameC = Name "S3_c",
                                 nameHsIdent = HsIdentifier
                                   "S3_c"}
                               (NameOriginGenerated
@@ -2770,7 +2770,7 @@
                         structFieldLoc =
                         "anonymous.h:30:7",
                         structFieldName = NamePair {
-                          nameC = CName "d",
+                          nameC = Name "d",
                           nameHsIdent = HsIdentifier
                             "s3_d"},
                         structFieldType = TypePrim
@@ -2782,7 +2782,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:24:8",
                       declId = NamePair {
-                        nameC = CName "S3",
+                        nameC = Name "S3",
                         nameHsIdent = HsIdentifier
                           "S3"},
                       declOrigin = NameOriginInSource,
@@ -2799,14 +2799,14 @@
                             structFieldLoc =
                             "anonymous.h:28:7",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "s3_c"},
                             structFieldType = TypePointer
                               (TypePointer
                                 (TypeStruct
                                   NamePair {
-                                    nameC = CName "S3_c",
+                                    nameC = Name "S3_c",
                                     nameHsIdent = HsIdentifier
                                       "S3_c"}
                                   (NameOriginGenerated
@@ -2817,7 +2817,7 @@
                             structFieldLoc =
                             "anonymous.h:30:7",
                             structFieldName = NamePair {
-                              nameC = CName "d",
+                              nameC = Name "d",
                               nameHsIdent = HsIdentifier
                                 "s3_d"},
                             structFieldType = TypePrim
@@ -2865,14 +2865,14 @@
                         structFieldLoc =
                         "anonymous.h:28:7",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "s3_c"},
                         structFieldType = TypePointer
                           (TypePointer
                             (TypeStruct
                               NamePair {
-                                nameC = CName "S3_c",
+                                nameC = Name "S3_c",
                                 nameHsIdent = HsIdentifier
                                   "S3_c"}
                               (NameOriginGenerated
@@ -2890,7 +2890,7 @@
                         structFieldLoc =
                         "anonymous.h:30:7",
                         structFieldName = NamePair {
-                          nameC = CName "d",
+                          nameC = Name "d",
                           nameHsIdent = HsIdentifier
                             "s3_d"},
                         structFieldType = TypePrim
@@ -2902,7 +2902,7 @@
                     declInfo = DeclInfo {
                       declLoc = "anonymous.h:24:8",
                       declId = NamePair {
-                        nameC = CName "S3",
+                        nameC = Name "S3",
                         nameHsIdent = HsIdentifier
                           "S3"},
                       declOrigin = NameOriginInSource,
@@ -2919,14 +2919,14 @@
                             structFieldLoc =
                             "anonymous.h:28:7",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "s3_c"},
                             structFieldType = TypePointer
                               (TypePointer
                                 (TypeStruct
                                   NamePair {
-                                    nameC = CName "S3_c",
+                                    nameC = Name "S3_c",
                                     nameHsIdent = HsIdentifier
                                       "S3_c"}
                                   (NameOriginGenerated
@@ -2937,7 +2937,7 @@
                             structFieldLoc =
                             "anonymous.h:30:7",
                             structFieldName = NamePair {
-                              nameC = CName "d",
+                              nameC = Name "d",
                               nameHsIdent = HsIdentifier
                                 "s3_d"},
                             structFieldType = TypePrim

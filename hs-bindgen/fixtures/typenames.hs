@@ -18,7 +18,7 @@
         declInfo = DeclInfo {
           declLoc = "typenames.h:14:6",
           declId = NamePair {
-            nameC = CName "foo",
+            nameC = Name "foo",
             nameHsIdent = HsIdentifier
               "Foo"},
           declOrigin = NameOriginInSource,
@@ -42,7 +42,7 @@
                 enumConstantLoc =
                 "typenames.h:15:2",
                 enumConstantName = NamePair {
-                  nameC = CName "FOO1",
+                  nameC = Name "FOO1",
                   nameHsIdent = HsIdentifier
                     "FOO1"},
                 enumConstantValue = 0},
@@ -50,7 +50,7 @@
                 enumConstantLoc =
                 "typenames.h:16:2",
                 enumConstantName = NamePair {
-                  nameC = CName "FOO2",
+                  nameC = Name "FOO2",
                   nameHsIdent = HsIdentifier
                     "FOO2"},
                 enumConstantValue = 1}]},
@@ -272,7 +272,7 @@
           enumConstantLoc =
           "typenames.h:15:2",
           enumConstantName = NamePair {
-            nameC = CName "FOO1",
+            nameC = Name "FOO1",
             nameHsIdent = HsIdentifier
               "FOO1"},
           enumConstantValue = 0}},
@@ -293,7 +293,7 @@
           enumConstantLoc =
           "typenames.h:16:2",
           enumConstantName = NamePair {
-            nameC = CName "FOO2",
+            nameC = Name "FOO2",
             nameHsIdent = HsIdentifier
               "FOO2"},
           enumConstantValue = 1}},
@@ -316,7 +316,7 @@
         declInfo = DeclInfo {
           declLoc = "typenames.h:19:16",
           declId = NamePair {
-            nameC = CName "foo",
+            nameC = Name "foo",
             nameHsIdent = HsIdentifier
               "Foo"},
           declOrigin = NameOriginInSource,

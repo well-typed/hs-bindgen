@@ -19,7 +19,7 @@
               structFieldLoc =
               "simple_structs.h:3:9",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s1_a"},
               structFieldType = TypePrim
@@ -37,7 +37,7 @@
               structFieldLoc =
               "simple_structs.h:4:10",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s1_b"},
               structFieldType = TypePrim
@@ -52,7 +52,7 @@
             declLoc =
             "simple_structs.h:2:8",
             declId = NamePair {
-              nameC = CName "S1",
+              nameC = Name "S1",
               nameHsIdent = HsIdentifier
                 "S1"},
             declOrigin = NameOriginInSource,
@@ -70,7 +70,7 @@
                   structFieldLoc =
                   "simple_structs.h:3:9",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s1_a"},
                   structFieldType = TypePrim
@@ -81,7 +81,7 @@
                   structFieldLoc =
                   "simple_structs.h:4:10",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s1_b"},
                   structFieldType = TypePrim
@@ -120,7 +120,7 @@
                 structFieldLoc =
                 "simple_structs.h:3:9",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s1_a"},
                 structFieldType = TypePrim
@@ -138,7 +138,7 @@
                 structFieldLoc =
                 "simple_structs.h:4:10",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s1_b"},
                 structFieldType = TypePrim
@@ -153,7 +153,7 @@
               declLoc =
               "simple_structs.h:2:8",
               declId = NamePair {
-                nameC = CName "S1",
+                nameC = Name "S1",
                 nameHsIdent = HsIdentifier
                   "S1"},
               declOrigin = NameOriginInSource,
@@ -171,7 +171,7 @@
                     structFieldLoc =
                     "simple_structs.h:3:9",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s1_a"},
                     structFieldType = TypePrim
@@ -182,7 +182,7 @@
                     structFieldLoc =
                     "simple_structs.h:4:10",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s1_b"},
                     structFieldType = TypePrim
@@ -226,7 +226,7 @@
                         structFieldLoc =
                         "simple_structs.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s1_a"},
                         structFieldType = TypePrim
@@ -244,7 +244,7 @@
                         structFieldLoc =
                         "simple_structs.h:4:10",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s1_b"},
                         structFieldType = TypePrim
@@ -259,7 +259,7 @@
                       declLoc =
                       "simple_structs.h:2:8",
                       declId = NamePair {
-                        nameC = CName "S1",
+                        nameC = Name "S1",
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
@@ -277,7 +277,7 @@
                             structFieldLoc =
                             "simple_structs.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s1_a"},
                             structFieldType = TypePrim
@@ -288,7 +288,7 @@
                             structFieldLoc =
                             "simple_structs.h:4:10",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s1_b"},
                             structFieldType = TypePrim
@@ -334,7 +334,7 @@
                         structFieldLoc =
                         "simple_structs.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s1_a"},
                         structFieldType = TypePrim
@@ -352,7 +352,7 @@
                         structFieldLoc =
                         "simple_structs.h:4:10",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s1_b"},
                         structFieldType = TypePrim
@@ -367,7 +367,7 @@
                       declLoc =
                       "simple_structs.h:2:8",
                       declId = NamePair {
-                        nameC = CName "S1",
+                        nameC = Name "S1",
                         nameHsIdent = HsIdentifier
                           "S1"},
                       declOrigin = NameOriginInSource,
@@ -385,7 +385,7 @@
                             structFieldLoc =
                             "simple_structs.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s1_a"},
                             structFieldType = TypePrim
@@ -396,7 +396,7 @@
                             structFieldLoc =
                             "simple_structs.h:4:10",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s1_b"},
                             structFieldType = TypePrim
@@ -450,7 +450,7 @@
               structFieldLoc =
               "simple_structs.h:9:10",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s2_t_a"},
               structFieldType = TypePrim
@@ -470,7 +470,7 @@
               structFieldLoc =
               "simple_structs.h:10:9",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s2_t_b"},
               structFieldType = TypePrim
@@ -488,7 +488,7 @@
               structFieldLoc =
               "simple_structs.h:11:11",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "s2_t_c"},
               structFieldType = TypePrim
@@ -501,13 +501,13 @@
             declLoc =
             "simple_structs.h:8:16",
             declId = NamePair {
-              nameC = CName "S2_t",
+              nameC = Name "S2_t",
               nameHsIdent = HsIdentifier
                 "S2_t"},
             declOrigin =
             NameOriginRenamedFrom
-              (CName "S2"),
-            declAliases = [CName "S2_t"],
+              (Name "S2"),
+            declAliases = [Name "S2_t"],
             declHeader =
             "simple_structs.h"},
           declKind = Struct
@@ -521,7 +521,7 @@
                   structFieldLoc =
                   "simple_structs.h:9:10",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s2_t_a"},
                   structFieldType = TypePrim
@@ -534,7 +534,7 @@
                   structFieldLoc =
                   "simple_structs.h:10:9",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s2_t_b"},
                   structFieldType = TypePrim
@@ -545,7 +545,7 @@
                   structFieldLoc =
                   "simple_structs.h:11:11",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "s2_t_c"},
                   structFieldType = TypePrim
@@ -582,7 +582,7 @@
                 structFieldLoc =
                 "simple_structs.h:9:10",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s2_t_a"},
                 structFieldType = TypePrim
@@ -602,7 +602,7 @@
                 structFieldLoc =
                 "simple_structs.h:10:9",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s2_t_b"},
                 structFieldType = TypePrim
@@ -620,7 +620,7 @@
                 structFieldLoc =
                 "simple_structs.h:11:11",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "s2_t_c"},
                 structFieldType = TypePrim
@@ -633,13 +633,13 @@
               declLoc =
               "simple_structs.h:8:16",
               declId = NamePair {
-                nameC = CName "S2_t",
+                nameC = Name "S2_t",
                 nameHsIdent = HsIdentifier
                   "S2_t"},
               declOrigin =
               NameOriginRenamedFrom
-                (CName "S2"),
-              declAliases = [CName "S2_t"],
+                (Name "S2"),
+              declAliases = [Name "S2_t"],
               declHeader =
               "simple_structs.h"},
             declKind = Struct
@@ -653,7 +653,7 @@
                     structFieldLoc =
                     "simple_structs.h:9:10",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s2_t_a"},
                     structFieldType = TypePrim
@@ -666,7 +666,7 @@
                     structFieldLoc =
                     "simple_structs.h:10:9",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s2_t_b"},
                     structFieldType = TypePrim
@@ -677,7 +677,7 @@
                     structFieldLoc =
                     "simple_structs.h:11:11",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "s2_t_c"},
                     structFieldType = TypePrim
@@ -719,7 +719,7 @@
                         structFieldLoc =
                         "simple_structs.h:9:10",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s2_t_a"},
                         structFieldType = TypePrim
@@ -739,7 +739,7 @@
                         structFieldLoc =
                         "simple_structs.h:10:9",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s2_t_b"},
                         structFieldType = TypePrim
@@ -757,7 +757,7 @@
                         structFieldLoc =
                         "simple_structs.h:11:11",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "s2_t_c"},
                         structFieldType = TypePrim
@@ -770,13 +770,13 @@
                       declLoc =
                       "simple_structs.h:8:16",
                       declId = NamePair {
-                        nameC = CName "S2_t",
+                        nameC = Name "S2_t",
                         nameHsIdent = HsIdentifier
                           "S2_t"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "S2"),
-                      declAliases = [CName "S2_t"],
+                        (Name "S2"),
+                      declAliases = [Name "S2_t"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
@@ -790,7 +790,7 @@
                             structFieldLoc =
                             "simple_structs.h:9:10",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s2_t_a"},
                             structFieldType = TypePrim
@@ -803,7 +803,7 @@
                             structFieldLoc =
                             "simple_structs.h:10:9",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s2_t_b"},
                             structFieldType = TypePrim
@@ -814,7 +814,7 @@
                             structFieldLoc =
                             "simple_structs.h:11:11",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "s2_t_c"},
                             structFieldType = TypePrim
@@ -859,7 +859,7 @@
                         structFieldLoc =
                         "simple_structs.h:9:10",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s2_t_a"},
                         structFieldType = TypePrim
@@ -879,7 +879,7 @@
                         structFieldLoc =
                         "simple_structs.h:10:9",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s2_t_b"},
                         structFieldType = TypePrim
@@ -897,7 +897,7 @@
                         structFieldLoc =
                         "simple_structs.h:11:11",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "s2_t_c"},
                         structFieldType = TypePrim
@@ -910,13 +910,13 @@
                       declLoc =
                       "simple_structs.h:8:16",
                       declId = NamePair {
-                        nameC = CName "S2_t",
+                        nameC = Name "S2_t",
                         nameHsIdent = HsIdentifier
                           "S2_t"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "S2"),
-                      declAliases = [CName "S2_t"],
+                        (Name "S2"),
+                      declAliases = [Name "S2_t"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
@@ -930,7 +930,7 @@
                             structFieldLoc =
                             "simple_structs.h:9:10",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s2_t_a"},
                             structFieldType = TypePrim
@@ -943,7 +943,7 @@
                             structFieldLoc =
                             "simple_structs.h:10:9",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s2_t_b"},
                             structFieldType = TypePrim
@@ -954,7 +954,7 @@
                             structFieldLoc =
                             "simple_structs.h:11:11",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "s2_t_c"},
                             structFieldType = TypePrim
@@ -1007,7 +1007,7 @@
               structFieldLoc =
               "simple_structs.h:16:10",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s3_t_a"},
               structFieldType = TypePrim
@@ -1022,13 +1022,13 @@
             declLoc =
             "simple_structs.h:15:9",
             declId = NamePair {
-              nameC = CName "S3_t",
+              nameC = Name "S3_t",
               nameHsIdent = HsIdentifier
                 "S3_t"},
             declOrigin = NameOriginGenerated
               (AnonId
                 "simple_structs.h:15:9"),
-            declAliases = [CName "S3_t"],
+            declAliases = [Name "S3_t"],
             declHeader =
             "simple_structs.h"},
           declKind = Struct
@@ -1042,7 +1042,7 @@
                   structFieldLoc =
                   "simple_structs.h:16:10",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s3_t_a"},
                   structFieldType = TypePrim
@@ -1081,7 +1081,7 @@
                 structFieldLoc =
                 "simple_structs.h:16:10",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s3_t_a"},
                 structFieldType = TypePrim
@@ -1096,13 +1096,13 @@
               declLoc =
               "simple_structs.h:15:9",
               declId = NamePair {
-                nameC = CName "S3_t",
+                nameC = Name "S3_t",
                 nameHsIdent = HsIdentifier
                   "S3_t"},
               declOrigin = NameOriginGenerated
                 (AnonId
                   "simple_structs.h:15:9"),
-              declAliases = [CName "S3_t"],
+              declAliases = [Name "S3_t"],
               declHeader =
               "simple_structs.h"},
             declKind = Struct
@@ -1116,7 +1116,7 @@
                     structFieldLoc =
                     "simple_structs.h:16:10",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s3_t_a"},
                     structFieldType = TypePrim
@@ -1160,7 +1160,7 @@
                         structFieldLoc =
                         "simple_structs.h:16:10",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s3_t_a"},
                         structFieldType = TypePrim
@@ -1175,13 +1175,13 @@
                       declLoc =
                       "simple_structs.h:15:9",
                       declId = NamePair {
-                        nameC = CName "S3_t",
+                        nameC = Name "S3_t",
                         nameHsIdent = HsIdentifier
                           "S3_t"},
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "simple_structs.h:15:9"),
-                      declAliases = [CName "S3_t"],
+                      declAliases = [Name "S3_t"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
@@ -1195,7 +1195,7 @@
                             structFieldLoc =
                             "simple_structs.h:16:10",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s3_t_a"},
                             structFieldType = TypePrim
@@ -1239,7 +1239,7 @@
                         structFieldLoc =
                         "simple_structs.h:16:10",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s3_t_a"},
                         structFieldType = TypePrim
@@ -1254,13 +1254,13 @@
                       declLoc =
                       "simple_structs.h:15:9",
                       declId = NamePair {
-                        nameC = CName "S3_t",
+                        nameC = Name "S3_t",
                         nameHsIdent = HsIdentifier
                           "S3_t"},
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "simple_structs.h:15:9"),
-                      declAliases = [CName "S3_t"],
+                      declAliases = [Name "S3_t"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
@@ -1274,7 +1274,7 @@
                             structFieldLoc =
                             "simple_structs.h:16:10",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s3_t_a"},
                             structFieldType = TypePrim
@@ -1327,7 +1327,7 @@
               structFieldLoc =
               "simple_structs.h:20:10",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s4_b"},
               structFieldType = TypePrim
@@ -1347,7 +1347,7 @@
               structFieldLoc =
               "simple_structs.h:21:9",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s4_a"},
               structFieldType = TypePrim
@@ -1365,7 +1365,7 @@
               structFieldLoc =
               "simple_structs.h:22:10",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "s4_c"},
               structFieldType = TypePointer
@@ -1379,7 +1379,7 @@
             declLoc =
             "simple_structs.h:19:8",
             declId = NamePair {
-              nameC = CName "S4",
+              nameC = Name "S4",
               nameHsIdent = HsIdentifier
                 "S4"},
             declOrigin = NameOriginInSource,
@@ -1397,7 +1397,7 @@
                   structFieldLoc =
                   "simple_structs.h:20:10",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s4_b"},
                   structFieldType = TypePrim
@@ -1410,7 +1410,7 @@
                   structFieldLoc =
                   "simple_structs.h:21:9",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s4_a"},
                   structFieldType = TypePrim
@@ -1421,7 +1421,7 @@
                   structFieldLoc =
                   "simple_structs.h:22:10",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "s4_c"},
                   structFieldType = TypePointer
@@ -1459,7 +1459,7 @@
                 structFieldLoc =
                 "simple_structs.h:20:10",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s4_b"},
                 structFieldType = TypePrim
@@ -1479,7 +1479,7 @@
                 structFieldLoc =
                 "simple_structs.h:21:9",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s4_a"},
                 structFieldType = TypePrim
@@ -1497,7 +1497,7 @@
                 structFieldLoc =
                 "simple_structs.h:22:10",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "s4_c"},
                 structFieldType = TypePointer
@@ -1511,7 +1511,7 @@
               declLoc =
               "simple_structs.h:19:8",
               declId = NamePair {
-                nameC = CName "S4",
+                nameC = Name "S4",
                 nameHsIdent = HsIdentifier
                   "S4"},
               declOrigin = NameOriginInSource,
@@ -1529,7 +1529,7 @@
                     structFieldLoc =
                     "simple_structs.h:20:10",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s4_b"},
                     structFieldType = TypePrim
@@ -1542,7 +1542,7 @@
                     structFieldLoc =
                     "simple_structs.h:21:9",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s4_a"},
                     structFieldType = TypePrim
@@ -1553,7 +1553,7 @@
                     structFieldLoc =
                     "simple_structs.h:22:10",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "s4_c"},
                     structFieldType = TypePointer
@@ -1596,7 +1596,7 @@
                         structFieldLoc =
                         "simple_structs.h:20:10",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s4_b"},
                         structFieldType = TypePrim
@@ -1616,7 +1616,7 @@
                         structFieldLoc =
                         "simple_structs.h:21:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s4_a"},
                         structFieldType = TypePrim
@@ -1634,7 +1634,7 @@
                         structFieldLoc =
                         "simple_structs.h:22:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "s4_c"},
                         structFieldType = TypePointer
@@ -1648,7 +1648,7 @@
                       declLoc =
                       "simple_structs.h:19:8",
                       declId = NamePair {
-                        nameC = CName "S4",
+                        nameC = Name "S4",
                         nameHsIdent = HsIdentifier
                           "S4"},
                       declOrigin = NameOriginInSource,
@@ -1666,7 +1666,7 @@
                             structFieldLoc =
                             "simple_structs.h:20:10",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s4_b"},
                             structFieldType = TypePrim
@@ -1679,7 +1679,7 @@
                             structFieldLoc =
                             "simple_structs.h:21:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s4_a"},
                             structFieldType = TypePrim
@@ -1690,7 +1690,7 @@
                             structFieldLoc =
                             "simple_structs.h:22:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "s4_c"},
                             structFieldType = TypePointer
@@ -1736,7 +1736,7 @@
                         structFieldLoc =
                         "simple_structs.h:20:10",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s4_b"},
                         structFieldType = TypePrim
@@ -1756,7 +1756,7 @@
                         structFieldLoc =
                         "simple_structs.h:21:9",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s4_a"},
                         structFieldType = TypePrim
@@ -1774,7 +1774,7 @@
                         structFieldLoc =
                         "simple_structs.h:22:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "s4_c"},
                         structFieldType = TypePointer
@@ -1788,7 +1788,7 @@
                       declLoc =
                       "simple_structs.h:19:8",
                       declId = NamePair {
-                        nameC = CName "S4",
+                        nameC = Name "S4",
                         nameHsIdent = HsIdentifier
                           "S4"},
                       declOrigin = NameOriginInSource,
@@ -1806,7 +1806,7 @@
                             structFieldLoc =
                             "simple_structs.h:20:10",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s4_b"},
                             structFieldType = TypePrim
@@ -1819,7 +1819,7 @@
                             structFieldLoc =
                             "simple_structs.h:21:9",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s4_a"},
                             structFieldType = TypePrim
@@ -1830,7 +1830,7 @@
                             structFieldLoc =
                             "simple_structs.h:22:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "s4_c"},
                             structFieldType = TypePointer
@@ -1884,7 +1884,7 @@
               structFieldLoc =
               "simple_structs.h:27:10",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s5_a"},
               structFieldType = TypePrim
@@ -1904,7 +1904,7 @@
               structFieldLoc =
               "simple_structs.h:28:9",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s5_b"},
               structFieldType = TypePrim
@@ -1917,11 +1917,11 @@
             declLoc =
             "simple_structs.h:26:16",
             declId = NamePair {
-              nameC = CName "S5",
+              nameC = Name "S5",
               nameHsIdent = HsIdentifier
                 "S5"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "S5"],
+            declAliases = [Name "S5"],
             declHeader =
             "simple_structs.h"},
           declKind = Struct
@@ -1935,7 +1935,7 @@
                   structFieldLoc =
                   "simple_structs.h:27:10",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s5_a"},
                   structFieldType = TypePrim
@@ -1948,7 +1948,7 @@
                   structFieldLoc =
                   "simple_structs.h:28:9",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s5_b"},
                   structFieldType = TypePrim
@@ -1985,7 +1985,7 @@
                 structFieldLoc =
                 "simple_structs.h:27:10",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s5_a"},
                 structFieldType = TypePrim
@@ -2005,7 +2005,7 @@
                 structFieldLoc =
                 "simple_structs.h:28:9",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s5_b"},
                 structFieldType = TypePrim
@@ -2018,11 +2018,11 @@
               declLoc =
               "simple_structs.h:26:16",
               declId = NamePair {
-                nameC = CName "S5",
+                nameC = Name "S5",
                 nameHsIdent = HsIdentifier
                   "S5"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "S5"],
+              declAliases = [Name "S5"],
               declHeader =
               "simple_structs.h"},
             declKind = Struct
@@ -2036,7 +2036,7 @@
                     structFieldLoc =
                     "simple_structs.h:27:10",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s5_a"},
                     structFieldType = TypePrim
@@ -2049,7 +2049,7 @@
                     structFieldLoc =
                     "simple_structs.h:28:9",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s5_b"},
                     structFieldType = TypePrim
@@ -2091,7 +2091,7 @@
                         structFieldLoc =
                         "simple_structs.h:27:10",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s5_a"},
                         structFieldType = TypePrim
@@ -2111,7 +2111,7 @@
                         structFieldLoc =
                         "simple_structs.h:28:9",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s5_b"},
                         structFieldType = TypePrim
@@ -2124,11 +2124,11 @@
                       declLoc =
                       "simple_structs.h:26:16",
                       declId = NamePair {
-                        nameC = CName "S5",
+                        nameC = Name "S5",
                         nameHsIdent = HsIdentifier
                           "S5"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S5"],
+                      declAliases = [Name "S5"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
@@ -2142,7 +2142,7 @@
                             structFieldLoc =
                             "simple_structs.h:27:10",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s5_a"},
                             structFieldType = TypePrim
@@ -2155,7 +2155,7 @@
                             structFieldLoc =
                             "simple_structs.h:28:9",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s5_b"},
                             structFieldType = TypePrim
@@ -2199,7 +2199,7 @@
                         structFieldLoc =
                         "simple_structs.h:27:10",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s5_a"},
                         structFieldType = TypePrim
@@ -2219,7 +2219,7 @@
                         structFieldLoc =
                         "simple_structs.h:28:9",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s5_b"},
                         structFieldType = TypePrim
@@ -2232,11 +2232,11 @@
                       declLoc =
                       "simple_structs.h:26:16",
                       declId = NamePair {
-                        nameC = CName "S5",
+                        nameC = Name "S5",
                         nameHsIdent = HsIdentifier
                           "S5"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S5"],
+                      declAliases = [Name "S5"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
@@ -2250,7 +2250,7 @@
                             structFieldLoc =
                             "simple_structs.h:27:10",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s5_a"},
                             structFieldType = TypePrim
@@ -2263,7 +2263,7 @@
                             structFieldLoc =
                             "simple_structs.h:28:9",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s5_b"},
                             structFieldType = TypePrim
@@ -2315,7 +2315,7 @@
               structFieldLoc =
               "simple_structs.h:31:18",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s6_a"},
               structFieldType = TypePrim
@@ -2335,7 +2335,7 @@
               structFieldLoc =
               "simple_structs.h:31:25",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s6_b"},
               structFieldType = TypePrim
@@ -2348,11 +2348,11 @@
             declLoc =
             "simple_structs.h:31:8",
             declId = NamePair {
-              nameC = CName "S6",
+              nameC = Name "S6",
               nameHsIdent = HsIdentifier
                 "S6"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "S6"],
+            declAliases = [Name "S6"],
             declHeader =
             "simple_structs.h"},
           declKind = Struct
@@ -2366,7 +2366,7 @@
                   structFieldLoc =
                   "simple_structs.h:31:18",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s6_a"},
                   structFieldType = TypePrim
@@ -2379,7 +2379,7 @@
                   structFieldLoc =
                   "simple_structs.h:31:25",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s6_b"},
                   structFieldType = TypePrim
@@ -2416,7 +2416,7 @@
                 structFieldLoc =
                 "simple_structs.h:31:18",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s6_a"},
                 structFieldType = TypePrim
@@ -2436,7 +2436,7 @@
                 structFieldLoc =
                 "simple_structs.h:31:25",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s6_b"},
                 structFieldType = TypePrim
@@ -2449,11 +2449,11 @@
               declLoc =
               "simple_structs.h:31:8",
               declId = NamePair {
-                nameC = CName "S6",
+                nameC = Name "S6",
                 nameHsIdent = HsIdentifier
                   "S6"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "S6"],
+              declAliases = [Name "S6"],
               declHeader =
               "simple_structs.h"},
             declKind = Struct
@@ -2467,7 +2467,7 @@
                     structFieldLoc =
                     "simple_structs.h:31:18",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s6_a"},
                     structFieldType = TypePrim
@@ -2480,7 +2480,7 @@
                     structFieldLoc =
                     "simple_structs.h:31:25",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s6_b"},
                     structFieldType = TypePrim
@@ -2522,7 +2522,7 @@
                         structFieldLoc =
                         "simple_structs.h:31:18",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s6_a"},
                         structFieldType = TypePrim
@@ -2542,7 +2542,7 @@
                         structFieldLoc =
                         "simple_structs.h:31:25",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s6_b"},
                         structFieldType = TypePrim
@@ -2555,11 +2555,11 @@
                       declLoc =
                       "simple_structs.h:31:8",
                       declId = NamePair {
-                        nameC = CName "S6",
+                        nameC = Name "S6",
                         nameHsIdent = HsIdentifier
                           "S6"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S6"],
+                      declAliases = [Name "S6"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
@@ -2573,7 +2573,7 @@
                             structFieldLoc =
                             "simple_structs.h:31:18",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s6_a"},
                             structFieldType = TypePrim
@@ -2586,7 +2586,7 @@
                             structFieldLoc =
                             "simple_structs.h:31:25",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s6_b"},
                             structFieldType = TypePrim
@@ -2630,7 +2630,7 @@
                         structFieldLoc =
                         "simple_structs.h:31:18",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s6_a"},
                         structFieldType = TypePrim
@@ -2650,7 +2650,7 @@
                         structFieldLoc =
                         "simple_structs.h:31:25",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s6_b"},
                         structFieldType = TypePrim
@@ -2663,11 +2663,11 @@
                       declLoc =
                       "simple_structs.h:31:8",
                       declId = NamePair {
-                        nameC = CName "S6",
+                        nameC = Name "S6",
                         nameHsIdent = HsIdentifier
                           "S6"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "S6"],
+                      declAliases = [Name "S6"],
                       declHeader =
                       "simple_structs.h"},
                     declKind = Struct
@@ -2681,7 +2681,7 @@
                             structFieldLoc =
                             "simple_structs.h:31:18",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s6_a"},
                             structFieldType = TypePrim
@@ -2694,7 +2694,7 @@
                             structFieldLoc =
                             "simple_structs.h:31:25",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s6_b"},
                             structFieldType = TypePrim
@@ -2746,7 +2746,7 @@
               structFieldLoc =
               "simple_structs.h:34:23",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s7a_Deref_a"},
               structFieldType = TypePrim
@@ -2766,7 +2766,7 @@
               structFieldLoc =
               "simple_structs.h:34:30",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s7a_Deref_b"},
               structFieldType = TypePrim
@@ -2779,7 +2779,7 @@
             declLoc =
             "simple_structs.h:34:9",
             declId = NamePair {
-              nameC = CName "S7a_Deref",
+              nameC = Name "S7a_Deref",
               nameHsIdent = HsIdentifier
                 "S7a_Deref"},
             declOrigin = NameOriginGenerated
@@ -2801,7 +2801,7 @@
                   structFieldLoc =
                   "simple_structs.h:34:23",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s7a_Deref_a"},
                   structFieldType = TypePrim
@@ -2814,7 +2814,7 @@
                   structFieldLoc =
                   "simple_structs.h:34:30",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s7a_Deref_b"},
                   structFieldType = TypePrim
@@ -2851,7 +2851,7 @@
                 structFieldLoc =
                 "simple_structs.h:34:23",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s7a_Deref_a"},
                 structFieldType = TypePrim
@@ -2871,7 +2871,7 @@
                 structFieldLoc =
                 "simple_structs.h:34:30",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s7a_Deref_b"},
                 structFieldType = TypePrim
@@ -2884,7 +2884,7 @@
               declLoc =
               "simple_structs.h:34:9",
               declId = NamePair {
-                nameC = CName "S7a_Deref",
+                nameC = Name "S7a_Deref",
                 nameHsIdent = HsIdentifier
                   "S7a_Deref"},
               declOrigin = NameOriginGenerated
@@ -2906,7 +2906,7 @@
                     structFieldLoc =
                     "simple_structs.h:34:23",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s7a_Deref_a"},
                     structFieldType = TypePrim
@@ -2919,7 +2919,7 @@
                     structFieldLoc =
                     "simple_structs.h:34:30",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s7a_Deref_b"},
                     structFieldType = TypePrim
@@ -2961,7 +2961,7 @@
                         structFieldLoc =
                         "simple_structs.h:34:23",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s7a_Deref_a"},
                         structFieldType = TypePrim
@@ -2981,7 +2981,7 @@
                         structFieldLoc =
                         "simple_structs.h:34:30",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s7a_Deref_b"},
                         structFieldType = TypePrim
@@ -2994,7 +2994,7 @@
                       declLoc =
                       "simple_structs.h:34:9",
                       declId = NamePair {
-                        nameC = CName "S7a_Deref",
+                        nameC = Name "S7a_Deref",
                         nameHsIdent = HsIdentifier
                           "S7a_Deref"},
                       declOrigin = NameOriginGenerated
@@ -3016,7 +3016,7 @@
                             structFieldLoc =
                             "simple_structs.h:34:23",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s7a_Deref_a"},
                             structFieldType = TypePrim
@@ -3029,7 +3029,7 @@
                             structFieldLoc =
                             "simple_structs.h:34:30",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s7a_Deref_b"},
                             structFieldType = TypePrim
@@ -3073,7 +3073,7 @@
                         structFieldLoc =
                         "simple_structs.h:34:23",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s7a_Deref_a"},
                         structFieldType = TypePrim
@@ -3093,7 +3093,7 @@
                         structFieldLoc =
                         "simple_structs.h:34:30",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s7a_Deref_b"},
                         structFieldType = TypePrim
@@ -3106,7 +3106,7 @@
                       declLoc =
                       "simple_structs.h:34:9",
                       declId = NamePair {
-                        nameC = CName "S7a_Deref",
+                        nameC = Name "S7a_Deref",
                         nameHsIdent = HsIdentifier
                           "S7a_Deref"},
                       declOrigin = NameOriginGenerated
@@ -3128,7 +3128,7 @@
                             structFieldLoc =
                             "simple_structs.h:34:23",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s7a_Deref_a"},
                             structFieldType = TypePrim
@@ -3141,7 +3141,7 @@
                             structFieldLoc =
                             "simple_structs.h:34:30",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s7a_Deref_b"},
                             structFieldType = TypePrim
@@ -3200,7 +3200,7 @@
           declLoc =
           "simple_structs.h:34:36",
           declId = NamePair {
-            nameC = CName "S7a",
+            nameC = Name "S7a",
             nameHsIdent = HsIdentifier
               "S7a"},
           declOrigin = NameOriginInSource,
@@ -3219,7 +3219,7 @@
             typedefType = TypePointer
               (TypeStruct
                 NamePair {
-                  nameC = CName "S7a_Deref",
+                  nameC = Name "S7a_Deref",
                   nameHsIdent = HsIdentifier
                     "S7a_Deref"}
                 (NameOriginGenerated
@@ -3269,7 +3269,7 @@
               structFieldLoc =
               "simple_structs.h:35:23",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s7b_Deref_a"},
               structFieldType = TypePrim
@@ -3289,7 +3289,7 @@
               structFieldLoc =
               "simple_structs.h:35:30",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "s7b_Deref_b"},
               structFieldType = TypePrim
@@ -3302,7 +3302,7 @@
             declLoc =
             "simple_structs.h:35:9",
             declId = NamePair {
-              nameC = CName "S7b_Deref",
+              nameC = Name "S7b_Deref",
               nameHsIdent = HsIdentifier
                 "S7b_Deref"},
             declOrigin = NameOriginGenerated
@@ -3324,7 +3324,7 @@
                   structFieldLoc =
                   "simple_structs.h:35:23",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s7b_Deref_a"},
                   structFieldType = TypePrim
@@ -3337,7 +3337,7 @@
                   structFieldLoc =
                   "simple_structs.h:35:30",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "s7b_Deref_b"},
                   structFieldType = TypePrim
@@ -3374,7 +3374,7 @@
                 structFieldLoc =
                 "simple_structs.h:35:23",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s7b_Deref_a"},
                 structFieldType = TypePrim
@@ -3394,7 +3394,7 @@
                 structFieldLoc =
                 "simple_structs.h:35:30",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "s7b_Deref_b"},
                 structFieldType = TypePrim
@@ -3407,7 +3407,7 @@
               declLoc =
               "simple_structs.h:35:9",
               declId = NamePair {
-                nameC = CName "S7b_Deref",
+                nameC = Name "S7b_Deref",
                 nameHsIdent = HsIdentifier
                   "S7b_Deref"},
               declOrigin = NameOriginGenerated
@@ -3429,7 +3429,7 @@
                     structFieldLoc =
                     "simple_structs.h:35:23",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s7b_Deref_a"},
                     structFieldType = TypePrim
@@ -3442,7 +3442,7 @@
                     structFieldLoc =
                     "simple_structs.h:35:30",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "s7b_Deref_b"},
                     structFieldType = TypePrim
@@ -3484,7 +3484,7 @@
                         structFieldLoc =
                         "simple_structs.h:35:23",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s7b_Deref_a"},
                         structFieldType = TypePrim
@@ -3504,7 +3504,7 @@
                         structFieldLoc =
                         "simple_structs.h:35:30",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s7b_Deref_b"},
                         structFieldType = TypePrim
@@ -3517,7 +3517,7 @@
                       declLoc =
                       "simple_structs.h:35:9",
                       declId = NamePair {
-                        nameC = CName "S7b_Deref",
+                        nameC = Name "S7b_Deref",
                         nameHsIdent = HsIdentifier
                           "S7b_Deref"},
                       declOrigin = NameOriginGenerated
@@ -3539,7 +3539,7 @@
                             structFieldLoc =
                             "simple_structs.h:35:23",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s7b_Deref_a"},
                             structFieldType = TypePrim
@@ -3552,7 +3552,7 @@
                             structFieldLoc =
                             "simple_structs.h:35:30",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s7b_Deref_b"},
                             structFieldType = TypePrim
@@ -3596,7 +3596,7 @@
                         structFieldLoc =
                         "simple_structs.h:35:23",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s7b_Deref_a"},
                         structFieldType = TypePrim
@@ -3616,7 +3616,7 @@
                         structFieldLoc =
                         "simple_structs.h:35:30",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "s7b_Deref_b"},
                         structFieldType = TypePrim
@@ -3629,7 +3629,7 @@
                       declLoc =
                       "simple_structs.h:35:9",
                       declId = NamePair {
-                        nameC = CName "S7b_Deref",
+                        nameC = Name "S7b_Deref",
                         nameHsIdent = HsIdentifier
                           "S7b_Deref"},
                       declOrigin = NameOriginGenerated
@@ -3651,7 +3651,7 @@
                             structFieldLoc =
                             "simple_structs.h:35:23",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s7b_Deref_a"},
                             structFieldType = TypePrim
@@ -3664,7 +3664,7 @@
                             structFieldLoc =
                             "simple_structs.h:35:30",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "s7b_Deref_b"},
                             structFieldType = TypePrim
@@ -3725,7 +3725,7 @@
           declLoc =
           "simple_structs.h:35:38",
           declId = NamePair {
-            nameC = CName "S7b",
+            nameC = Name "S7b",
             nameHsIdent = HsIdentifier
               "S7b"},
           declOrigin = NameOriginInSource,
@@ -3746,7 +3746,7 @@
                 (TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "S7b_Deref",
+                      nameC = Name "S7b_Deref",
                       nameHsIdent = HsIdentifier
                         "S7b_Deref"}
                     (NameOriginGenerated

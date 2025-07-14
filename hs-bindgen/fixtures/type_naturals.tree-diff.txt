@@ -5,7 +5,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "type_naturals.h:4:9",
         declId = NamePair {
-          nameC = CName "N",
+          nameC = Name "N",
           nameHsIdent = HsIdentifier "n"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -32,7 +32,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "type_naturals.h:5:9",
         declId = NamePair {
-          nameC = CName "M",
+          nameC = Name "M",
           nameHsIdent = HsIdentifier "m"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -51,7 +51,7 @@ TranslationUnit {
                       integerLiteralType = Int Signed,
                       integerLiteralValue = 1}),
                 MTerm
-                  (MVar NoXVar (CName "N") [])],
+                  (MVar NoXVar (Name "N") [])],
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
@@ -64,7 +64,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "type_naturals.h:6:9",
         declId = NamePair {
-          nameC = CName "F",
+          nameC = Name "F",
           nameHsIdent = HsIdentifier "f"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -74,8 +74,8 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "A",
-              CName "B"],
+              Name "A",
+              Name "B"],
             macroExprBody = MApp
               MSub
               [
@@ -83,7 +83,7 @@ TranslationUnit {
                   MAdd
                   [
                     MTerm
-                      (MVar NoXVar (CName "A") []),
+                      (MVar NoXVar (Name "A") []),
                     MApp
                       MMult
                       [
@@ -94,7 +94,7 @@ TranslationUnit {
                               integerLiteralType = Int Signed,
                               integerLiteralValue = 2}),
                         MTerm
-                          (MVar NoXVar (CName "B") [])]],
+                          (MVar NoXVar (Name "B") [])]],
                 MTerm
                   (MInt
                     IntegerLiteral {
@@ -113,7 +113,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "type_naturals.h:7:9",
         declId = NamePair {
-          nameC = CName "G",
+          nameC = Name "G",
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -123,9 +123,9 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "U",
-              CName "X",
-              CName "Y"],
+              Name "U",
+              Name "X",
+              Name "Y"],
             macroExprBody = MApp
               MAdd
               [
@@ -139,7 +139,7 @@ TranslationUnit {
                           integerLiteralType = Int Signed,
                           integerLiteralValue = 10}),
                     MTerm
-                      (MVar NoXVar (CName "X") [])],
+                      (MVar NoXVar (Name "X") [])],
                 MApp
                   MMult
                   [
@@ -150,7 +150,7 @@ TranslationUnit {
                           integerLiteralType = Int Signed,
                           integerLiteralValue = 16}),
                     MTerm
-                      (MVar NoXVar (CName "Y") [])]],
+                      (MVar NoXVar (Name "Y") [])]],
             macroExprType =
             "(forall a b c. Add (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b) => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) b => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) a => (c -> a -> b -> AddRes (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) b)))"}),
       declSpec = DeclSpec
@@ -163,7 +163,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "type_naturals.h:8:9",
         declId = NamePair {
-          nameC = CName "K",
+          nameC = Name "K",
           nameHsIdent = HsIdentifier "k"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -176,7 +176,7 @@ TranslationUnit {
             macroExprBody = MTerm
               (MVar
                 NoXVar
-                (CName "G")
+                (Name "G")
                 [
                   MTerm
                     (MFloat
@@ -191,12 +191,12 @@ TranslationUnit {
                   MTerm
                     (MVar
                       NoXVar
-                      (CName "F")
+                      (Name "F")
                       [
                         MTerm
                           (MVar
                             NoXVar
-                            (CName "F")
+                            (Name "F")
                             [
                               MTerm
                                 (MInt
@@ -205,12 +205,9 @@ TranslationUnit {
                                     integerLiteralType = Int Signed,
                                     integerLiteralValue = 2}),
                               MTerm
-                                (MVar NoXVar (CName "M") [])]),
+                                (MVar NoXVar (Name "M") [])]),
                         MTerm
-                          (MVar
-                            NoXVar
-                            (CName "N")
-                            [])])]),
+                          (MVar NoXVar (Name "N") [])])]),
             macroExprType =
             "(forall a. Add (IntLike (CIntegralType (IntLike (Int Signed)))) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a) => Mult (IntLike (CIntegralType (IntLike (Int Signed)))) a => (a -> AddRes (IntLike (CIntegralType (IntLike (Int Signed)))) (MultRes (IntLike (CIntegralType (IntLike (Int Signed)))) a)))"}),
       declSpec = DeclSpec
@@ -224,7 +221,7 @@ TranslationUnit {
         declLoc =
         "type_naturals.h:10:9",
         declId = NamePair {
-          nameC = CName "Arr1",
+          nameC = Name "Arr1",
           nameHsIdent = HsIdentifier
             "Arr1"},
         declOrigin = NameOriginInSource,
@@ -257,7 +254,7 @@ TranslationUnit {
         declLoc =
         "type_naturals.h:11:9",
         declId = NamePair {
-          nameC = CName "Arr2",
+          nameC = Name "Arr2",
           nameHsIdent = HsIdentifier
             "Arr2"},
         declOrigin = NameOriginInSource,
@@ -290,7 +287,7 @@ TranslationUnit {
         declLoc =
         "type_naturals.h:12:9",
         declId = NamePair {
-          nameC = CName "Arr3",
+          nameC = Name "Arr3",
           nameHsIdent = HsIdentifier
             "Arr3"},
         declOrigin = NameOriginInSource,
@@ -323,7 +320,7 @@ TranslationUnit {
         declLoc =
         "type_naturals.h:13:9",
         declId = NamePair {
-          nameC = CName "Arr4",
+          nameC = Name "Arr4",
           nameHsIdent = HsIdentifier
             "Arr4"},
         declOrigin = NameOriginInSource,

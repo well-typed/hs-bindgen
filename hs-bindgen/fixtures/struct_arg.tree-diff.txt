@@ -4,7 +4,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "struct_arg.h:2:8",
         declId = NamePair {
-          nameC = CName "thing",
+          nameC = Name "thing",
           nameHsIdent = HsIdentifier
             "Thing"},
         declOrigin = NameOriginInSource,
@@ -21,7 +21,7 @@ TranslationUnit {
               structFieldLoc =
               "struct_arg.h:3:9",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "thing_x"},
               structFieldType = TypePrim
@@ -39,7 +39,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "struct_arg.h:6:5",
         declId = NamePair {
-          nameC = CName "thing_fun_1",
+          nameC = Name "thing_fun_1",
           nameHsIdent = HsIdentifier
             "thing_fun_1"},
         declOrigin = NameOriginInSource,
@@ -50,7 +50,7 @@ TranslationUnit {
           functionArgs = [
             TypeStruct
               NamePair {
-                nameC = CName "thing",
+                nameC = Name "thing",
                 nameHsIdent = HsIdentifier
                   "Thing"}
               NameOriginInSource],
@@ -66,7 +66,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "struct_arg.h:7:14",
         declId = NamePair {
-          nameC = CName "thing_fun_2",
+          nameC = Name "thing_fun_2",
           nameHsIdent = HsIdentifier
             "thing_fun_2"},
         declOrigin = NameOriginInSource,
@@ -79,7 +79,7 @@ TranslationUnit {
               (PrimIntegral PrimInt Signed)],
           functionRes = TypeStruct
             NamePair {
-              nameC = CName "thing",
+              nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
             NameOriginInSource},
@@ -93,7 +93,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "struct_arg.h:9:14",
         declId = NamePair {
-          nameC = CName "thing_fun_3a",
+          nameC = Name "thing_fun_3a",
           nameHsIdent = HsIdentifier
             "thing_fun_3a"},
         declOrigin = NameOriginInSource,
@@ -106,7 +106,7 @@ TranslationUnit {
               (PrimIntegral PrimInt Signed),
             TypeStruct
               NamePair {
-                nameC = CName "thing",
+                nameC = Name "thing",
                 nameHsIdent = HsIdentifier
                   "Thing"}
               NameOriginInSource,
@@ -114,7 +114,7 @@ TranslationUnit {
               (PrimFloating PrimDouble)],
           functionRes = TypeStruct
             NamePair {
-              nameC = CName "thing",
+              nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
             NameOriginInSource},
@@ -128,7 +128,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "struct_arg.h:10:6",
         declId = NamePair {
-          nameC = CName "thing_fun_3b",
+          nameC = Name "thing_fun_3b",
           nameHsIdent = HsIdentifier
             "thing_fun_3b"},
         declOrigin = NameOriginInSource,
@@ -141,7 +141,7 @@ TranslationUnit {
               (PrimIntegral PrimInt Signed),
             TypeStruct
               NamePair {
-                nameC = CName "thing",
+                nameC = Name "thing",
                 nameHsIdent = HsIdentifier
                   "Thing"}
               NameOriginInSource,

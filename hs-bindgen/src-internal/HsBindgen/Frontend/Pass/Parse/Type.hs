@@ -12,7 +12,6 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -29,22 +28,22 @@ fromCXType = run . cxtype
 cxtype :: HasCallStack => CXType -> ParseType (C.Type Parse)
 cxtype ty =
     dispatchWithArg ty $ \case
-      CXType_Char_S     -> prim $ PrimChar (PrimSignImplicit $ Just Signed)
-      CXType_Char_U     -> prim $ PrimChar (PrimSignImplicit $ Just Unsigned)
-      CXType_SChar      -> prim $ PrimChar (PrimSignExplicit Signed)
-      CXType_UChar      -> prim $ PrimChar (PrimSignExplicit Unsigned)
-      CXType_Short      -> prim $ PrimIntegral PrimShort    Signed
-      CXType_UShort     -> prim $ PrimIntegral PrimShort    Unsigned
-      CXType_Int        -> prim $ PrimIntegral PrimInt      Signed
-      CXType_UInt       -> prim $ PrimIntegral PrimInt      Unsigned
-      CXType_Long       -> prim $ PrimIntegral PrimLong     Signed
-      CXType_ULong      -> prim $ PrimIntegral PrimLong     Unsigned
-      CXType_LongLong   -> prim $ PrimIntegral PrimLongLong Signed
-      CXType_ULongLong  -> prim $ PrimIntegral PrimLongLong Unsigned
-      CXType_Float      -> prim $ PrimFloating PrimFloat
-      CXType_Double     -> prim $ PrimFloating PrimDouble
+      CXType_Char_S     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Signed)
+      CXType_Char_U     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Unsigned)
+      CXType_SChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Signed)
+      CXType_UChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Unsigned)
+      CXType_Short      -> prim $ C.PrimIntegral C.PrimShort    C.Signed
+      CXType_UShort     -> prim $ C.PrimIntegral C.PrimShort    C.Unsigned
+      CXType_Int        -> prim $ C.PrimIntegral C.PrimInt      C.Signed
+      CXType_UInt       -> prim $ C.PrimIntegral C.PrimInt      C.Unsigned
+      CXType_Long       -> prim $ C.PrimIntegral C.PrimLong     C.Signed
+      CXType_ULong      -> prim $ C.PrimIntegral C.PrimLong     C.Unsigned
+      CXType_LongLong   -> prim $ C.PrimIntegral C.PrimLongLong C.Signed
+      CXType_ULongLong  -> prim $ C.PrimIntegral C.PrimLongLong C.Unsigned
+      CXType_Float      -> prim $ C.PrimFloating C.PrimFloat
+      CXType_Double     -> prim $ C.PrimFloating C.PrimDouble
       CXType_LongDouble -> failure UnsupportedLongDouble
-      CXType_Bool       -> prim $ PrimBool
+      CXType_Bool       -> prim $ C.PrimBool
 
       CXType_Attributed      -> attributed
       CXType_BlockPointer    -> blockPointer
@@ -68,7 +67,7 @@ cxtype ty =
   Functions for each kind of type
 -------------------------------------------------------------------------------}
 
-prim :: PrimType -> CXType -> ParseType (C.Type Parse)
+prim :: C.PrimType -> CXType -> ParseType (C.Type Parse)
 prim ty _ = return $ C.TypePrim ty
 
 elaborated :: CXType -> ParseType (C.Type Parse)
@@ -88,7 +87,7 @@ fromDecl ty = do
       CXCursor_TypedefDecl -> C.TypeTypedef <$> typedefName declId
       kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where
-    typedefName :: DeclId -> ParseType CName
+    typedefName :: DeclId -> ParseType C.Name
     typedefName (DeclNamed name)   = return name
     typedefName (DeclAnon _)       = panicPure "Unexpected anonymous typedef"
     typedefName (DeclBuiltin name) = throwError $ UnsupportedBuiltin name

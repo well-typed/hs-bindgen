@@ -18,7 +18,7 @@
         declInfo = DeclInfo {
           declLoc = "uses_utf8.h:4:6",
           declId = NamePair {
-            nameC = CName "MyEnum",
+            nameC = Name "MyEnum",
             nameHsIdent = HsIdentifier
               "MyEnum"},
           declOrigin = NameOriginInSource,
@@ -42,7 +42,7 @@
                 enumConstantLoc =
                 "uses_utf8.h:5:9",
                 enumConstantName = NamePair {
-                  nameC = CName "Say\20320\22909",
+                  nameC = Name "Say\20320\22909",
                   nameHsIdent = HsIdentifier
                     "Say\20320\22909"},
                 enumConstantValue = 0},
@@ -50,7 +50,7 @@
                 enumConstantLoc =
                 "uses_utf8.h:6:9",
                 enumConstantName = NamePair {
-                  nameC = CName "Say\25308\25308",
+                  nameC = Name "Say\25308\25308",
                   nameHsIdent = HsIdentifier
                     "Say\25308\25308"},
                 enumConstantValue = 1}]},
@@ -286,7 +286,7 @@
           enumConstantLoc =
           "uses_utf8.h:5:9",
           enumConstantName = NamePair {
-            nameC = CName "Say\20320\22909",
+            nameC = Name "Say\20320\22909",
             nameHsIdent = HsIdentifier
               "Say\20320\22909"},
           enumConstantValue = 0}},
@@ -307,7 +307,7 @@
           enumConstantLoc =
           "uses_utf8.h:6:9",
           enumConstantName = NamePair {
-            nameC = CName "Say\25308\25308",
+            nameC = Name "Say\25308\25308",
             nameHsIdent = HsIdentifier
               "Say\25308\25308"},
           enumConstantValue = 1}}]

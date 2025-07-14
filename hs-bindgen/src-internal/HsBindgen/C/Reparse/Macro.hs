@@ -14,7 +14,7 @@ import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Frontend.Macros.AST.Syntax
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 import {-# SOURCE #-} HsBindgen.C.Reparse.Decl ( reparseTypeName, reparseAttributeSpecifier )
 
@@ -51,14 +51,14 @@ reparseMacro macroTys = do
              , AttributeMacro <$> many1 reparseAttributeSpecifier
              , return EmptyMacro
              ]
-    functionLike, objectLike :: Reparse ([CName], MacroBody Ps)
+    functionLike, objectLike :: Reparse ([C.Name], MacroBody Ps)
     functionLike = (,) <$> formalArgs <*> body
     objectLike   = ([], ) <$> body
 
-formalArgs :: Reparse [CName]
+formalArgs :: Reparse [C.Name]
 formalArgs = parens $ formalArg `sepBy` comma
 
-formalArg :: Reparse CName
+formalArg :: Reparse C.Name
 formalArg = reparseName
 
 {-------------------------------------------------------------------------------
@@ -81,50 +81,52 @@ mTerm macroTys =
 
     ops = [[Infix (MConcat <$ punctuation "##") AssocLeft]]
 
-var :: Reparse CName
+var :: Reparse C.Name
 var = reparseName
 
 -- | Parse integer literal
-literalInteger :: Reparse IntegerLiteral
+literalInteger :: Reparse C.IntegerLiteral
 literalInteger = do
   (txt, (val, ty)) <-
     parseTokenOfKind CXToken_Literal reparseLiteralInteger
   return $
-    IntegerLiteral
+    C.IntegerLiteral
       { integerLiteralText  = txt
       , integerLiteralType  = ty
-      , integerLiteralValue = val }
+      , integerLiteralValue = val
+      }
 
 -- | Parse floating point literal
-literalFloat :: Reparse FloatingLiteral
+literalFloat :: Reparse C.FloatingLiteral
 literalFloat = do
   (txt, (fltVal, dblVal, ty)) <-
     parseTokenOfKind CXToken_Literal reparseLiteralFloating
   return $
-    FloatingLiteral
+    C.FloatingLiteral
       { floatingLiteralText = txt
       , floatingLiteralType = ty
       , floatingLiteralFloatValue = fltVal
-      , floatingLiteralDoubleValue = dblVal }
+      , floatingLiteralDoubleValue = dblVal
+      }
 
 -- | Parse character literal
-literalChar :: Reparse CharLiteral
+literalChar :: Reparse C.CharLiteral
 literalChar = do
   (txt, val) <-
     parseTokenOfKind CXToken_Literal reparseLiteralChar
   return $
-    CharLiteral
+    C.CharLiteral
       { charLiteralText  = txt
       , charLiteralValue = val
       }
 
 -- | Parse string literal
-literalString :: Reparse StringLiteral
+literalString :: Reparse C.StringLiteral
 literalString = do
   (txt, val) <-
     parseTokenOfKind CXToken_Literal reparseLiteralString
   return $
-    StringLiteral
+    C.StringLiteral
       { stringLiteralText  = txt
       , stringLiteralValue = val
       }

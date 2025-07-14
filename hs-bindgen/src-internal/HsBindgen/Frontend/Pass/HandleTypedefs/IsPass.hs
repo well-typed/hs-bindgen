@@ -11,7 +11,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint qualified as PP
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -29,8 +29,8 @@ type family AnnHandleTypedefs ix where
   AnnHandleTypedefs _                 = NoAnn
 
 instance IsPass HandleTypedefs where
-  type Id         HandleTypedefs = CName
-  type FieldName  HandleTypedefs = CName
+  type Id         HandleTypedefs = C.Name
+  type FieldName  HandleTypedefs = C.Name
   type TypedefRef HandleTypedefs = RenamedTypedefRef HandleTypedefs
   type MacroBody  HandleTypedefs = C.CheckedMacro HandleTypedefs
   type ExtBinding HandleTypedefs = ResolvedExtBinding
@@ -38,7 +38,7 @@ instance IsPass HandleTypedefs where
 
   data Msg HandleTypedefs =
       SquashedTypedef (C.DeclInfo HandleTypedefs)
-    | RenamedTagged (C.DeclInfo HandleTypedefs) CName
+    | RenamedTagged (C.DeclInfo HandleTypedefs) C.Name
     deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ data RenamedTypedefRef p =
     -- not need to generate code for them). We record the original C name
     -- (without a corresponding Haskell name) as well as the type that replaced
     -- the reference with.
-  | TypedefSquashed CName (C.Type p)
+  | TypedefSquashed C.Name (C.Type p)
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

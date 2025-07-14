@@ -179,7 +179,7 @@ recordNonSelectedDecl declInfo nameKind =
         -- __must__ select these declarations.
         return ()
   where
-    declName :: Maybe C.CName
+    declName :: Maybe C.Name
     declName =
         case C.declId declInfo of
           DeclNamed   cname   -> Just cname

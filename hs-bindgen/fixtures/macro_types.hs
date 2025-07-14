@@ -18,7 +18,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:2:9",
           declId = NamePair {
-            nameC = CName "PtrInt",
+            nameC = Name "PtrInt",
             nameHsIdent = HsIdentifier
               "PtrInt"},
           declOrigin = NameOriginInSource,
@@ -88,7 +88,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:5:9",
           declId = NamePair {
-            nameC = CName "PtrPtrChar",
+            nameC = Name "PtrPtrChar",
             nameHsIdent = HsIdentifier
               "PtrPtrChar"},
           declOrigin = NameOriginInSource,
@@ -160,7 +160,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:8:9",
           declId = NamePair {
-            nameC = CName "Arr1",
+            nameC = Name "Arr1",
             nameHsIdent = HsIdentifier
               "Arr1"},
           declOrigin = NameOriginInSource,
@@ -220,7 +220,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:11:9",
           declId = NamePair {
-            nameC = CName "Arr2",
+            nameC = Name "Arr2",
             nameHsIdent = HsIdentifier
               "Arr2"},
           declOrigin = NameOriginInSource,
@@ -284,7 +284,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:14:9",
           declId = NamePair {
-            nameC = CName "Arr3",
+            nameC = Name "Arr3",
             nameHsIdent = HsIdentifier
               "Arr3"},
           declOrigin = NameOriginInSource,
@@ -350,7 +350,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:17:9",
           declId = NamePair {
-            nameC = CName "Fun1",
+            nameC = Name "Fun1",
             nameHsIdent = HsIdentifier
               "Fun1"},
           declOrigin = NameOriginInSource,
@@ -405,7 +405,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:20:9",
           declId = NamePair {
-            nameC = CName "Fun2",
+            nameC = Name "Fun2",
             nameHsIdent = HsIdentifier
               "Fun2"},
           declOrigin = NameOriginInSource,
@@ -480,7 +480,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:23:9",
           declId = NamePair {
-            nameC = CName "Fun3",
+            nameC = Name "Fun3",
             nameHsIdent = HsIdentifier
               "Fun3"},
           declOrigin = NameOriginInSource,
@@ -561,7 +561,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:26:9",
           declId = NamePair {
-            nameC = CName "Fun4",
+            nameC = Name "Fun4",
             nameHsIdent = HsIdentifier
               "Fun4"},
           declOrigin = NameOriginInSource,
@@ -631,7 +631,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:29:9",
           declId = NamePair {
-            nameC = CName "Fun5",
+            nameC = Name "Fun5",
             nameHsIdent = HsIdentifier
               "Fun5"},
           declOrigin = NameOriginInSource,
@@ -688,7 +688,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:33:9",
           declId = NamePair {
-            nameC = CName "MTy",
+            nameC = Name "MTy",
             nameHsIdent = HsIdentifier
               "MTy"},
           declOrigin = NameOriginInSource,
@@ -792,7 +792,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:34:13",
           declId = NamePair {
-            nameC = CName "tty",
+            nameC = Name "tty",
             nameHsIdent = HsIdentifier
               "Tty"},
           declOrigin = NameOriginInSource,
@@ -809,7 +809,7 @@
                 "un_Tty"},
             typedefType = TypeMacroTypedef
               NamePair {
-                nameC = CName "MTy",
+                nameC = Name "MTy",
                 nameHsIdent = HsIdentifier
                   "MTy"}
               NameOriginInSource},
@@ -900,7 +900,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:36:9",
           declId = NamePair {
-            nameC = CName "UINT8_T",
+            nameC = Name "UINT8_T",
             nameHsIdent = HsIdentifier
               "UINT8_T"},
           declOrigin = NameOriginInSource,
@@ -1038,7 +1038,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:37:9",
           declId = NamePair {
-            nameC = CName "BOOLEAN_T",
+            nameC = Name "BOOLEAN_T",
             nameHsIdent = HsIdentifier
               "BOOLEAN_T"},
           declOrigin = NameOriginInSource,
@@ -1055,7 +1055,7 @@
                 "un_BOOLEAN_T"},
             macroType = TypeMacroTypedef
               NamePair {
-                nameC = CName "UINT8_T",
+                nameC = Name "UINT8_T",
                 nameHsIdent = HsIdentifier
                   "UINT8_T"}
               NameOriginInSource},
@@ -1179,7 +1179,7 @@
         declInfo = DeclInfo {
           declLoc = "macro_types.h:38:19",
           declId = NamePair {
-            nameC = CName "boolean_T",
+            nameC = Name "boolean_T",
             nameHsIdent = HsIdentifier
               "Boolean_T"},
           declOrigin = NameOriginInSource,
@@ -1196,7 +1196,7 @@
                 "un_Boolean_T"},
             typedefType = TypeMacroTypedef
               NamePair {
-                nameC = CName "BOOLEAN_T",
+                nameC = Name "BOOLEAN_T",
                 nameHsIdent = HsIdentifier
                   "BOOLEAN_T"}
               NameOriginInSource},

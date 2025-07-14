@@ -19,7 +19,7 @@
               structFieldLoc =
               "attributes.h:11:10",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "foo_c"},
               structFieldType = TypePrim
@@ -39,7 +39,7 @@
               structFieldLoc =
               "attributes.h:12:10",
               structFieldName = NamePair {
-                nameC = CName "i",
+                nameC = Name "i",
                 nameHsIdent = HsIdentifier
                   "foo_i"},
               structFieldType = TypePrim
@@ -51,7 +51,7 @@
           declInfo = DeclInfo {
             declLoc = "attributes.h:10:36",
             declId = NamePair {
-              nameC = CName "foo",
+              nameC = Name "foo",
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
@@ -68,7 +68,7 @@
                   structFieldLoc =
                   "attributes.h:11:10",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "foo_c"},
                   structFieldType = TypePrim
@@ -81,7 +81,7 @@
                   structFieldLoc =
                   "attributes.h:12:10",
                   structFieldName = NamePair {
-                    nameC = CName "i",
+                    nameC = Name "i",
                     nameHsIdent = HsIdentifier
                       "foo_i"},
                   structFieldType = TypePrim
@@ -118,7 +118,7 @@
                 structFieldLoc =
                 "attributes.h:11:10",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "foo_c"},
                 structFieldType = TypePrim
@@ -138,7 +138,7 @@
                 structFieldLoc =
                 "attributes.h:12:10",
                 structFieldName = NamePair {
-                  nameC = CName "i",
+                  nameC = Name "i",
                   nameHsIdent = HsIdentifier
                     "foo_i"},
                 structFieldType = TypePrim
@@ -150,7 +150,7 @@
             declInfo = DeclInfo {
               declLoc = "attributes.h:10:36",
               declId = NamePair {
-                nameC = CName "foo",
+                nameC = Name "foo",
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
@@ -167,7 +167,7 @@
                     structFieldLoc =
                     "attributes.h:11:10",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "foo_c"},
                     structFieldType = TypePrim
@@ -180,7 +180,7 @@
                     structFieldLoc =
                     "attributes.h:12:10",
                     structFieldName = NamePair {
-                      nameC = CName "i",
+                      nameC = Name "i",
                       nameHsIdent = HsIdentifier
                         "foo_i"},
                     structFieldType = TypePrim
@@ -222,7 +222,7 @@
                         structFieldLoc =
                         "attributes.h:11:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "foo_c"},
                         structFieldType = TypePrim
@@ -242,7 +242,7 @@
                         structFieldLoc =
                         "attributes.h:12:10",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "foo_i"},
                         structFieldType = TypePrim
@@ -254,7 +254,7 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:10:36",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -271,7 +271,7 @@
                             structFieldLoc =
                             "attributes.h:11:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "foo_c"},
                             structFieldType = TypePrim
@@ -284,7 +284,7 @@
                             structFieldLoc =
                             "attributes.h:12:10",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "foo_i"},
                             structFieldType = TypePrim
@@ -328,7 +328,7 @@
                         structFieldLoc =
                         "attributes.h:11:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "foo_c"},
                         structFieldType = TypePrim
@@ -348,7 +348,7 @@
                         structFieldLoc =
                         "attributes.h:12:10",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "foo_i"},
                         structFieldType = TypePrim
@@ -360,7 +360,7 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:10:36",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -377,7 +377,7 @@
                             structFieldLoc =
                             "attributes.h:11:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "foo_c"},
                             structFieldType = TypePrim
@@ -390,7 +390,7 @@
                             structFieldLoc =
                             "attributes.h:12:10",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "foo_i"},
                             structFieldType = TypePrim
@@ -442,7 +442,7 @@
               structFieldLoc =
               "attributes.h:17:10",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "bar_c"},
               structFieldType = TypePrim
@@ -462,7 +462,7 @@
               structFieldLoc =
               "attributes.h:18:10",
               structFieldName = NamePair {
-                nameC = CName "i",
+                nameC = Name "i",
                 nameHsIdent = HsIdentifier
                   "bar_i"},
               structFieldType = TypePrim
@@ -474,7 +474,7 @@
           declInfo = DeclInfo {
             declLoc = "attributes.h:16:15",
             declId = NamePair {
-              nameC = CName "bar",
+              nameC = Name "bar",
               nameHsIdent = HsIdentifier
                 "Bar"},
             declOrigin = NameOriginInSource,
@@ -491,7 +491,7 @@
                   structFieldLoc =
                   "attributes.h:17:10",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "bar_c"},
                   structFieldType = TypePrim
@@ -504,7 +504,7 @@
                   structFieldLoc =
                   "attributes.h:18:10",
                   structFieldName = NamePair {
-                    nameC = CName "i",
+                    nameC = Name "i",
                     nameHsIdent = HsIdentifier
                       "bar_i"},
                   structFieldType = TypePrim
@@ -541,7 +541,7 @@
                 structFieldLoc =
                 "attributes.h:17:10",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "bar_c"},
                 structFieldType = TypePrim
@@ -561,7 +561,7 @@
                 structFieldLoc =
                 "attributes.h:18:10",
                 structFieldName = NamePair {
-                  nameC = CName "i",
+                  nameC = Name "i",
                   nameHsIdent = HsIdentifier
                     "bar_i"},
                 structFieldType = TypePrim
@@ -573,7 +573,7 @@
             declInfo = DeclInfo {
               declLoc = "attributes.h:16:15",
               declId = NamePair {
-                nameC = CName "bar",
+                nameC = Name "bar",
                 nameHsIdent = HsIdentifier
                   "Bar"},
               declOrigin = NameOriginInSource,
@@ -590,7 +590,7 @@
                     structFieldLoc =
                     "attributes.h:17:10",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "bar_c"},
                     structFieldType = TypePrim
@@ -603,7 +603,7 @@
                     structFieldLoc =
                     "attributes.h:18:10",
                     structFieldName = NamePair {
-                      nameC = CName "i",
+                      nameC = Name "i",
                       nameHsIdent = HsIdentifier
                         "bar_i"},
                     structFieldType = TypePrim
@@ -645,7 +645,7 @@
                         structFieldLoc =
                         "attributes.h:17:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "bar_c"},
                         structFieldType = TypePrim
@@ -665,7 +665,7 @@
                         structFieldLoc =
                         "attributes.h:18:10",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "bar_i"},
                         structFieldType = TypePrim
@@ -677,7 +677,7 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:16:15",
                       declId = NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
@@ -694,7 +694,7 @@
                             structFieldLoc =
                             "attributes.h:17:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "bar_c"},
                             structFieldType = TypePrim
@@ -707,7 +707,7 @@
                             structFieldLoc =
                             "attributes.h:18:10",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "bar_i"},
                             structFieldType = TypePrim
@@ -751,7 +751,7 @@
                         structFieldLoc =
                         "attributes.h:17:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "bar_c"},
                         structFieldType = TypePrim
@@ -771,7 +771,7 @@
                         structFieldLoc =
                         "attributes.h:18:10",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "bar_i"},
                         structFieldType = TypePrim
@@ -783,7 +783,7 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:16:15",
                       declId = NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
@@ -800,7 +800,7 @@
                             structFieldLoc =
                             "attributes.h:17:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "bar_c"},
                             structFieldType = TypePrim
@@ -813,7 +813,7 @@
                             structFieldLoc =
                             "attributes.h:18:10",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "bar_i"},
                             structFieldType = TypePrim
@@ -865,7 +865,7 @@
               structFieldLoc =
               "attributes.h:23:10",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "baz_c"},
               structFieldType = TypePrim
@@ -885,7 +885,7 @@
               structFieldLoc =
               "attributes.h:24:10",
               structFieldName = NamePair {
-                nameC = CName "i",
+                nameC = Name "i",
                 nameHsIdent = HsIdentifier
                   "baz_i"},
               structFieldType = TypePrim
@@ -897,12 +897,12 @@
           declInfo = DeclInfo {
             declLoc = "attributes.h:22:9",
             declId = NamePair {
-              nameC = CName "baz",
+              nameC = Name "baz",
               nameHsIdent = HsIdentifier
                 "Baz"},
             declOrigin = NameOriginGenerated
               (AnonId "attributes.h:22:9"),
-            declAliases = [CName "baz"],
+            declAliases = [Name "baz"],
             declHeader = "attributes.h"},
           declKind = Struct
             Struct {
@@ -915,7 +915,7 @@
                   structFieldLoc =
                   "attributes.h:23:10",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "baz_c"},
                   structFieldType = TypePrim
@@ -928,7 +928,7 @@
                   structFieldLoc =
                   "attributes.h:24:10",
                   structFieldName = NamePair {
-                    nameC = CName "i",
+                    nameC = Name "i",
                     nameHsIdent = HsIdentifier
                       "baz_i"},
                   structFieldType = TypePrim
@@ -965,7 +965,7 @@
                 structFieldLoc =
                 "attributes.h:23:10",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "baz_c"},
                 structFieldType = TypePrim
@@ -985,7 +985,7 @@
                 structFieldLoc =
                 "attributes.h:24:10",
                 structFieldName = NamePair {
-                  nameC = CName "i",
+                  nameC = Name "i",
                   nameHsIdent = HsIdentifier
                     "baz_i"},
                 structFieldType = TypePrim
@@ -997,12 +997,12 @@
             declInfo = DeclInfo {
               declLoc = "attributes.h:22:9",
               declId = NamePair {
-                nameC = CName "baz",
+                nameC = Name "baz",
                 nameHsIdent = HsIdentifier
                   "Baz"},
               declOrigin = NameOriginGenerated
                 (AnonId "attributes.h:22:9"),
-              declAliases = [CName "baz"],
+              declAliases = [Name "baz"],
               declHeader = "attributes.h"},
             declKind = Struct
               Struct {
@@ -1015,7 +1015,7 @@
                     structFieldLoc =
                     "attributes.h:23:10",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "baz_c"},
                     structFieldType = TypePrim
@@ -1028,7 +1028,7 @@
                     structFieldLoc =
                     "attributes.h:24:10",
                     structFieldName = NamePair {
-                      nameC = CName "i",
+                      nameC = Name "i",
                       nameHsIdent = HsIdentifier
                         "baz_i"},
                     structFieldType = TypePrim
@@ -1070,7 +1070,7 @@
                         structFieldLoc =
                         "attributes.h:23:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "baz_c"},
                         structFieldType = TypePrim
@@ -1090,7 +1090,7 @@
                         structFieldLoc =
                         "attributes.h:24:10",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "baz_i"},
                         structFieldType = TypePrim
@@ -1102,12 +1102,12 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:22:9",
                       declId = NamePair {
-                        nameC = CName "baz",
+                        nameC = Name "baz",
                         nameHsIdent = HsIdentifier
                           "Baz"},
                       declOrigin = NameOriginGenerated
                         (AnonId "attributes.h:22:9"),
-                      declAliases = [CName "baz"],
+                      declAliases = [Name "baz"],
                       declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
@@ -1120,7 +1120,7 @@
                             structFieldLoc =
                             "attributes.h:23:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "baz_c"},
                             structFieldType = TypePrim
@@ -1133,7 +1133,7 @@
                             structFieldLoc =
                             "attributes.h:24:10",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "baz_i"},
                             structFieldType = TypePrim
@@ -1177,7 +1177,7 @@
                         structFieldLoc =
                         "attributes.h:23:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "baz_c"},
                         structFieldType = TypePrim
@@ -1197,7 +1197,7 @@
                         structFieldLoc =
                         "attributes.h:24:10",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "baz_i"},
                         structFieldType = TypePrim
@@ -1209,12 +1209,12 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:22:9",
                       declId = NamePair {
-                        nameC = CName "baz",
+                        nameC = Name "baz",
                         nameHsIdent = HsIdentifier
                           "Baz"},
                       declOrigin = NameOriginGenerated
                         (AnonId "attributes.h:22:9"),
-                      declAliases = [CName "baz"],
+                      declAliases = [Name "baz"],
                       declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
@@ -1227,7 +1227,7 @@
                             structFieldLoc =
                             "attributes.h:23:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "baz_c"},
                             structFieldType = TypePrim
@@ -1240,7 +1240,7 @@
                             structFieldLoc =
                             "attributes.h:24:10",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "baz_i"},
                             structFieldType = TypePrim
@@ -1292,7 +1292,7 @@
               structFieldLoc =
               "attributes.h:29:10",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "qux_c"},
               structFieldType = TypePrim
@@ -1312,7 +1312,7 @@
               structFieldLoc =
               "attributes.h:30:10",
               structFieldName = NamePair {
-                nameC = CName "i",
+                nameC = Name "i",
                 nameHsIdent = HsIdentifier
                   "qux_i"},
               structFieldType = TypePrim
@@ -1324,12 +1324,12 @@
           declInfo = DeclInfo {
             declLoc = "attributes.h:28:9",
             declId = NamePair {
-              nameC = CName "qux",
+              nameC = Name "qux",
               nameHsIdent = HsIdentifier
                 "Qux"},
             declOrigin = NameOriginGenerated
               (AnonId "attributes.h:28:9"),
-            declAliases = [CName "qux"],
+            declAliases = [Name "qux"],
             declHeader = "attributes.h"},
           declKind = Struct
             Struct {
@@ -1342,7 +1342,7 @@
                   structFieldLoc =
                   "attributes.h:29:10",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "qux_c"},
                   structFieldType = TypePrim
@@ -1355,7 +1355,7 @@
                   structFieldLoc =
                   "attributes.h:30:10",
                   structFieldName = NamePair {
-                    nameC = CName "i",
+                    nameC = Name "i",
                     nameHsIdent = HsIdentifier
                       "qux_i"},
                   structFieldType = TypePrim
@@ -1392,7 +1392,7 @@
                 structFieldLoc =
                 "attributes.h:29:10",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "qux_c"},
                 structFieldType = TypePrim
@@ -1412,7 +1412,7 @@
                 structFieldLoc =
                 "attributes.h:30:10",
                 structFieldName = NamePair {
-                  nameC = CName "i",
+                  nameC = Name "i",
                   nameHsIdent = HsIdentifier
                     "qux_i"},
                 structFieldType = TypePrim
@@ -1424,12 +1424,12 @@
             declInfo = DeclInfo {
               declLoc = "attributes.h:28:9",
               declId = NamePair {
-                nameC = CName "qux",
+                nameC = Name "qux",
                 nameHsIdent = HsIdentifier
                   "Qux"},
               declOrigin = NameOriginGenerated
                 (AnonId "attributes.h:28:9"),
-              declAliases = [CName "qux"],
+              declAliases = [Name "qux"],
               declHeader = "attributes.h"},
             declKind = Struct
               Struct {
@@ -1442,7 +1442,7 @@
                     structFieldLoc =
                     "attributes.h:29:10",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "qux_c"},
                     structFieldType = TypePrim
@@ -1455,7 +1455,7 @@
                     structFieldLoc =
                     "attributes.h:30:10",
                     structFieldName = NamePair {
-                      nameC = CName "i",
+                      nameC = Name "i",
                       nameHsIdent = HsIdentifier
                         "qux_i"},
                     structFieldType = TypePrim
@@ -1497,7 +1497,7 @@
                         structFieldLoc =
                         "attributes.h:29:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "qux_c"},
                         structFieldType = TypePrim
@@ -1517,7 +1517,7 @@
                         structFieldLoc =
                         "attributes.h:30:10",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "qux_i"},
                         structFieldType = TypePrim
@@ -1529,12 +1529,12 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:28:9",
                       declId = NamePair {
-                        nameC = CName "qux",
+                        nameC = Name "qux",
                         nameHsIdent = HsIdentifier
                           "Qux"},
                       declOrigin = NameOriginGenerated
                         (AnonId "attributes.h:28:9"),
-                      declAliases = [CName "qux"],
+                      declAliases = [Name "qux"],
                       declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
@@ -1547,7 +1547,7 @@
                             structFieldLoc =
                             "attributes.h:29:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "qux_c"},
                             structFieldType = TypePrim
@@ -1560,7 +1560,7 @@
                             structFieldLoc =
                             "attributes.h:30:10",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "qux_i"},
                             structFieldType = TypePrim
@@ -1604,7 +1604,7 @@
                         structFieldLoc =
                         "attributes.h:29:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "qux_c"},
                         structFieldType = TypePrim
@@ -1624,7 +1624,7 @@
                         structFieldLoc =
                         "attributes.h:30:10",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "qux_i"},
                         structFieldType = TypePrim
@@ -1636,12 +1636,12 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:28:9",
                       declId = NamePair {
-                        nameC = CName "qux",
+                        nameC = Name "qux",
                         nameHsIdent = HsIdentifier
                           "Qux"},
                       declOrigin = NameOriginGenerated
                         (AnonId "attributes.h:28:9"),
-                      declAliases = [CName "qux"],
+                      declAliases = [Name "qux"],
                       declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
@@ -1654,7 +1654,7 @@
                             structFieldLoc =
                             "attributes.h:29:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "qux_c"},
                             structFieldType = TypePrim
@@ -1667,7 +1667,7 @@
                             structFieldLoc =
                             "attributes.h:30:10",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "qux_i"},
                             structFieldType = TypePrim
@@ -1719,7 +1719,7 @@
               structFieldLoc =
               "attributes.h:35:9",
               structFieldName = NamePair {
-                nameC = CName "_r",
+                nameC = Name "_r",
                 nameHsIdent = HsIdentifier
                   "fILE__r"},
               structFieldType = TypePrim
@@ -1737,7 +1737,7 @@
               structFieldLoc =
               "attributes.h:36:9",
               structFieldName = NamePair {
-                nameC = CName "_w",
+                nameC = Name "_w",
                 nameHsIdent = HsIdentifier
                   "fILE__w"},
               structFieldType = TypePrim
@@ -1757,7 +1757,7 @@
               structFieldLoc =
               "attributes.h:37:22",
               structFieldName = NamePair {
-                nameC = CName "_close",
+                nameC = Name "_close",
                 nameHsIdent = HsIdentifier
                   "fILE__close"},
               structFieldType = TypePointer
@@ -1772,13 +1772,13 @@
           declInfo = DeclInfo {
             declLoc = "attributes.h:34:16",
             declId = NamePair {
-              nameC = CName "FILE",
+              nameC = Name "FILE",
               nameHsIdent = HsIdentifier
                 "FILE"},
             declOrigin =
             NameOriginRenamedFrom
-              (CName "__sFILE"),
-            declAliases = [CName "FILE"],
+              (Name "__sFILE"),
+            declAliases = [Name "FILE"],
             declHeader = "attributes.h"},
           declKind = Struct
             Struct {
@@ -1791,7 +1791,7 @@
                   structFieldLoc =
                   "attributes.h:35:9",
                   structFieldName = NamePair {
-                    nameC = CName "_r",
+                    nameC = Name "_r",
                     nameHsIdent = HsIdentifier
                       "fILE__r"},
                   structFieldType = TypePrim
@@ -1802,7 +1802,7 @@
                   structFieldLoc =
                   "attributes.h:36:9",
                   structFieldName = NamePair {
-                    nameC = CName "_w",
+                    nameC = Name "_w",
                     nameHsIdent = HsIdentifier
                       "fILE__w"},
                   structFieldType = TypePrim
@@ -1813,7 +1813,7 @@
                   structFieldLoc =
                   "attributes.h:37:22",
                   structFieldName = NamePair {
-                    nameC = CName "_close",
+                    nameC = Name "_close",
                     nameHsIdent = HsIdentifier
                       "fILE__close"},
                   structFieldType = TypePointer
@@ -1853,7 +1853,7 @@
                 structFieldLoc =
                 "attributes.h:35:9",
                 structFieldName = NamePair {
-                  nameC = CName "_r",
+                  nameC = Name "_r",
                   nameHsIdent = HsIdentifier
                     "fILE__r"},
                 structFieldType = TypePrim
@@ -1871,7 +1871,7 @@
                 structFieldLoc =
                 "attributes.h:36:9",
                 structFieldName = NamePair {
-                  nameC = CName "_w",
+                  nameC = Name "_w",
                   nameHsIdent = HsIdentifier
                     "fILE__w"},
                 structFieldType = TypePrim
@@ -1891,7 +1891,7 @@
                 structFieldLoc =
                 "attributes.h:37:22",
                 structFieldName = NamePair {
-                  nameC = CName "_close",
+                  nameC = Name "_close",
                   nameHsIdent = HsIdentifier
                     "fILE__close"},
                 structFieldType = TypePointer
@@ -1906,13 +1906,13 @@
             declInfo = DeclInfo {
               declLoc = "attributes.h:34:16",
               declId = NamePair {
-                nameC = CName "FILE",
+                nameC = Name "FILE",
                 nameHsIdent = HsIdentifier
                   "FILE"},
               declOrigin =
               NameOriginRenamedFrom
-                (CName "__sFILE"),
-              declAliases = [CName "FILE"],
+                (Name "__sFILE"),
+              declAliases = [Name "FILE"],
               declHeader = "attributes.h"},
             declKind = Struct
               Struct {
@@ -1925,7 +1925,7 @@
                     structFieldLoc =
                     "attributes.h:35:9",
                     structFieldName = NamePair {
-                      nameC = CName "_r",
+                      nameC = Name "_r",
                       nameHsIdent = HsIdentifier
                         "fILE__r"},
                     structFieldType = TypePrim
@@ -1936,7 +1936,7 @@
                     structFieldLoc =
                     "attributes.h:36:9",
                     structFieldName = NamePair {
-                      nameC = CName "_w",
+                      nameC = Name "_w",
                       nameHsIdent = HsIdentifier
                         "fILE__w"},
                     structFieldType = TypePrim
@@ -1947,7 +1947,7 @@
                     structFieldLoc =
                     "attributes.h:37:22",
                     structFieldName = NamePair {
-                      nameC = CName "_close",
+                      nameC = Name "_close",
                       nameHsIdent = HsIdentifier
                         "fILE__close"},
                     structFieldType = TypePointer
@@ -1992,7 +1992,7 @@
                         structFieldLoc =
                         "attributes.h:35:9",
                         structFieldName = NamePair {
-                          nameC = CName "_r",
+                          nameC = Name "_r",
                           nameHsIdent = HsIdentifier
                             "fILE__r"},
                         structFieldType = TypePrim
@@ -2010,7 +2010,7 @@
                         structFieldLoc =
                         "attributes.h:36:9",
                         structFieldName = NamePair {
-                          nameC = CName "_w",
+                          nameC = Name "_w",
                           nameHsIdent = HsIdentifier
                             "fILE__w"},
                         structFieldType = TypePrim
@@ -2030,7 +2030,7 @@
                         structFieldLoc =
                         "attributes.h:37:22",
                         structFieldName = NamePair {
-                          nameC = CName "_close",
+                          nameC = Name "_close",
                           nameHsIdent = HsIdentifier
                             "fILE__close"},
                         structFieldType = TypePointer
@@ -2045,13 +2045,13 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:34:16",
                       declId = NamePair {
-                        nameC = CName "FILE",
+                        nameC = Name "FILE",
                         nameHsIdent = HsIdentifier
                           "FILE"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "__sFILE"),
-                      declAliases = [CName "FILE"],
+                        (Name "__sFILE"),
+                      declAliases = [Name "FILE"],
                       declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
@@ -2064,7 +2064,7 @@
                             structFieldLoc =
                             "attributes.h:35:9",
                             structFieldName = NamePair {
-                              nameC = CName "_r",
+                              nameC = Name "_r",
                               nameHsIdent = HsIdentifier
                                 "fILE__r"},
                             structFieldType = TypePrim
@@ -2075,7 +2075,7 @@
                             structFieldLoc =
                             "attributes.h:36:9",
                             structFieldName = NamePair {
-                              nameC = CName "_w",
+                              nameC = Name "_w",
                               nameHsIdent = HsIdentifier
                                 "fILE__w"},
                             structFieldType = TypePrim
@@ -2086,7 +2086,7 @@
                             structFieldLoc =
                             "attributes.h:37:22",
                             structFieldName = NamePair {
-                              nameC = CName "_close",
+                              nameC = Name "_close",
                               nameHsIdent = HsIdentifier
                                 "fILE__close"},
                             structFieldType = TypePointer
@@ -2134,7 +2134,7 @@
                         structFieldLoc =
                         "attributes.h:35:9",
                         structFieldName = NamePair {
-                          nameC = CName "_r",
+                          nameC = Name "_r",
                           nameHsIdent = HsIdentifier
                             "fILE__r"},
                         structFieldType = TypePrim
@@ -2152,7 +2152,7 @@
                         structFieldLoc =
                         "attributes.h:36:9",
                         structFieldName = NamePair {
-                          nameC = CName "_w",
+                          nameC = Name "_w",
                           nameHsIdent = HsIdentifier
                             "fILE__w"},
                         structFieldType = TypePrim
@@ -2172,7 +2172,7 @@
                         structFieldLoc =
                         "attributes.h:37:22",
                         structFieldName = NamePair {
-                          nameC = CName "_close",
+                          nameC = Name "_close",
                           nameHsIdent = HsIdentifier
                             "fILE__close"},
                         structFieldType = TypePointer
@@ -2187,13 +2187,13 @@
                     declInfo = DeclInfo {
                       declLoc = "attributes.h:34:16",
                       declId = NamePair {
-                        nameC = CName "FILE",
+                        nameC = Name "FILE",
                         nameHsIdent = HsIdentifier
                           "FILE"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "__sFILE"),
-                      declAliases = [CName "FILE"],
+                        (Name "__sFILE"),
+                      declAliases = [Name "FILE"],
                       declHeader = "attributes.h"},
                     declKind = Struct
                       Struct {
@@ -2206,7 +2206,7 @@
                             structFieldLoc =
                             "attributes.h:35:9",
                             structFieldName = NamePair {
-                              nameC = CName "_r",
+                              nameC = Name "_r",
                               nameHsIdent = HsIdentifier
                                 "fILE__r"},
                             structFieldType = TypePrim
@@ -2217,7 +2217,7 @@
                             structFieldLoc =
                             "attributes.h:36:9",
                             structFieldName = NamePair {
-                              nameC = CName "_w",
+                              nameC = Name "_w",
                               nameHsIdent = HsIdentifier
                                 "fILE__w"},
                             structFieldType = TypePrim
@@ -2228,7 +2228,7 @@
                             structFieldLoc =
                             "attributes.h:37:22",
                             structFieldName = NamePair {
-                              nameC = CName "_close",
+                              nameC = Name "_close",
                               nameHsIdent = HsIdentifier
                                 "fILE__close"},
                             structFieldType = TypePointer

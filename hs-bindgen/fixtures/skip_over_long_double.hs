@@ -41,7 +41,7 @@
               structFieldLoc =
               "skip_over_long_double.h:14:7",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "struct2_x"},
               structFieldType = TypePrim
@@ -54,7 +54,7 @@
             declLoc =
             "skip_over_long_double.h:13:8",
             declId = NamePair {
-              nameC = CName "struct2",
+              nameC = Name "struct2",
               nameHsIdent = HsIdentifier
                 "Struct2"},
             declOrigin = NameOriginInSource,
@@ -72,7 +72,7 @@
                   structFieldLoc =
                   "skip_over_long_double.h:14:7",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "struct2_x"},
                   structFieldType = TypePrim
@@ -109,7 +109,7 @@
                 structFieldLoc =
                 "skip_over_long_double.h:14:7",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "struct2_x"},
                 structFieldType = TypePrim
@@ -122,7 +122,7 @@
               declLoc =
               "skip_over_long_double.h:13:8",
               declId = NamePair {
-                nameC = CName "struct2",
+                nameC = Name "struct2",
                 nameHsIdent = HsIdentifier
                   "Struct2"},
               declOrigin = NameOriginInSource,
@@ -140,7 +140,7 @@
                     structFieldLoc =
                     "skip_over_long_double.h:14:7",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "struct2_x"},
                     structFieldType = TypePrim
@@ -182,7 +182,7 @@
                         structFieldLoc =
                         "skip_over_long_double.h:14:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "struct2_x"},
                         structFieldType = TypePrim
@@ -195,7 +195,7 @@
                       declLoc =
                       "skip_over_long_double.h:13:8",
                       declId = NamePair {
-                        nameC = CName "struct2",
+                        nameC = Name "struct2",
                         nameHsIdent = HsIdentifier
                           "Struct2"},
                       declOrigin = NameOriginInSource,
@@ -213,7 +213,7 @@
                             structFieldLoc =
                             "skip_over_long_double.h:14:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "struct2_x"},
                             structFieldType = TypePrim
@@ -255,7 +255,7 @@
                         structFieldLoc =
                         "skip_over_long_double.h:14:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "struct2_x"},
                         structFieldType = TypePrim
@@ -268,7 +268,7 @@
                       declLoc =
                       "skip_over_long_double.h:13:8",
                       declId = NamePair {
-                        nameC = CName "struct2",
+                        nameC = Name "struct2",
                         nameHsIdent = HsIdentifier
                           "Struct2"},
                       declOrigin = NameOriginInSource,
@@ -286,7 +286,7 @@
                             structFieldLoc =
                             "skip_over_long_double.h:14:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "struct2_x"},
                             structFieldType = TypePrim

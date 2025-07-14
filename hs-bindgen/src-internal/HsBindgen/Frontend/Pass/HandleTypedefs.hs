@@ -12,7 +12,7 @@ import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -192,14 +192,14 @@ instance HandleUseSites C.Type where
       go (C.TypeTypedef name) = squash name
 
       rename ::
-           (CName -> NameOrigin -> Type HandleTypedefs)
-        -> (CName -> NameOrigin -> Type HandleTypedefs)
+           (C.Name -> C.NameOrigin -> Type HandleTypedefs)
+        -> (C.Name -> C.NameOrigin -> Type HandleTypedefs)
       rename mkType curName curOrigin =
           case Map.lookup curName (TypedefAnalysis.rename td) of
             Just (newName, newOrigin) -> mkType newName newOrigin
             Nothing                   -> mkType curName curOrigin
 
-      squash :: CName -> Type HandleTypedefs
+      squash :: C.Name -> Type HandleTypedefs
       squash name = C.TypeTypedef $
           case Map.lookup name (TypedefAnalysis.squash td) of
             Nothing -> TypedefRegular  name

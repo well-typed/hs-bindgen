@@ -34,7 +34,7 @@
               structFieldLoc =
               "globals.h:13:7",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "config_x"},
               structFieldType = TypePrim
@@ -52,7 +52,7 @@
               structFieldLoc =
               "globals.h:14:7",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "config_y"},
               structFieldType = TypePrim
@@ -64,7 +64,7 @@
           declInfo = DeclInfo {
             declLoc = "globals.h:12:8",
             declId = NamePair {
-              nameC = CName "config",
+              nameC = Name "config",
               nameHsIdent = HsIdentifier
                 "Config"},
             declOrigin = NameOriginInSource,
@@ -81,7 +81,7 @@
                   structFieldLoc =
                   "globals.h:13:7",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "config_x"},
                   structFieldType = TypePrim
@@ -92,7 +92,7 @@
                   structFieldLoc =
                   "globals.h:14:7",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "config_y"},
                   structFieldType = TypePrim
@@ -129,7 +129,7 @@
                 structFieldLoc =
                 "globals.h:13:7",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "config_x"},
                 structFieldType = TypePrim
@@ -147,7 +147,7 @@
                 structFieldLoc =
                 "globals.h:14:7",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "config_y"},
                 structFieldType = TypePrim
@@ -159,7 +159,7 @@
             declInfo = DeclInfo {
               declLoc = "globals.h:12:8",
               declId = NamePair {
-                nameC = CName "config",
+                nameC = Name "config",
                 nameHsIdent = HsIdentifier
                   "Config"},
               declOrigin = NameOriginInSource,
@@ -176,7 +176,7 @@
                     structFieldLoc =
                     "globals.h:13:7",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "config_x"},
                     structFieldType = TypePrim
@@ -187,7 +187,7 @@
                     structFieldLoc =
                     "globals.h:14:7",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "config_y"},
                     structFieldType = TypePrim
@@ -229,7 +229,7 @@
                         structFieldLoc =
                         "globals.h:13:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "config_x"},
                         structFieldType = TypePrim
@@ -247,7 +247,7 @@
                         structFieldLoc =
                         "globals.h:14:7",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "config_y"},
                         structFieldType = TypePrim
@@ -259,7 +259,7 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:12:8",
                       declId = NamePair {
-                        nameC = CName "config",
+                        nameC = Name "config",
                         nameHsIdent = HsIdentifier
                           "Config"},
                       declOrigin = NameOriginInSource,
@@ -276,7 +276,7 @@
                             structFieldLoc =
                             "globals.h:13:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "config_x"},
                             structFieldType = TypePrim
@@ -287,7 +287,7 @@
                             structFieldLoc =
                             "globals.h:14:7",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "config_y"},
                             structFieldType = TypePrim
@@ -331,7 +331,7 @@
                         structFieldLoc =
                         "globals.h:13:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "config_x"},
                         structFieldType = TypePrim
@@ -349,7 +349,7 @@
                         structFieldLoc =
                         "globals.h:14:7",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "config_y"},
                         structFieldType = TypePrim
@@ -361,7 +361,7 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:12:8",
                       declId = NamePair {
-                        nameC = CName "config",
+                        nameC = Name "config",
                         nameHsIdent = HsIdentifier
                           "Config"},
                       declOrigin = NameOriginInSource,
@@ -378,7 +378,7 @@
                             structFieldLoc =
                             "globals.h:13:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "config_x"},
                             structFieldType = TypePrim
@@ -389,7 +389,7 @@
                             structFieldLoc =
                             "globals.h:14:7",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "config_y"},
                             structFieldType = TypePrim
@@ -443,7 +443,7 @@
       foreignImportOrigin = Global
         (TypeStruct
           NamePair {
-            nameC = CName "config",
+            nameC = Name "config",
             nameHsIdent = HsIdentifier
               "Config"}
           NameOriginInSource)},
@@ -467,7 +467,7 @@
               structFieldLoc =
               "globals.h:19:35",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "inline_struct_x"},
               structFieldType = TypePrim
@@ -485,7 +485,7 @@
               structFieldLoc =
               "globals.h:19:42",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "inline_struct_y"},
               structFieldType = TypePrim
@@ -497,7 +497,7 @@
           declInfo = DeclInfo {
             declLoc = "globals.h:19:15",
             declId = NamePair {
-              nameC = CName "inline_struct",
+              nameC = Name "inline_struct",
               nameHsIdent = HsIdentifier
                 "Inline_struct"},
             declOrigin = NameOriginInSource,
@@ -516,7 +516,7 @@
                   structFieldLoc =
                   "globals.h:19:35",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "inline_struct_x"},
                   structFieldType = TypePrim
@@ -527,7 +527,7 @@
                   structFieldLoc =
                   "globals.h:19:42",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "inline_struct_y"},
                   structFieldType = TypePrim
@@ -564,7 +564,7 @@
                 structFieldLoc =
                 "globals.h:19:35",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "inline_struct_x"},
                 structFieldType = TypePrim
@@ -582,7 +582,7 @@
                 structFieldLoc =
                 "globals.h:19:42",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "inline_struct_y"},
                 structFieldType = TypePrim
@@ -594,7 +594,7 @@
             declInfo = DeclInfo {
               declLoc = "globals.h:19:15",
               declId = NamePair {
-                nameC = CName "inline_struct",
+                nameC = Name "inline_struct",
                 nameHsIdent = HsIdentifier
                   "Inline_struct"},
               declOrigin = NameOriginInSource,
@@ -613,7 +613,7 @@
                     structFieldLoc =
                     "globals.h:19:35",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "inline_struct_x"},
                     structFieldType = TypePrim
@@ -624,7 +624,7 @@
                     structFieldLoc =
                     "globals.h:19:42",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "inline_struct_y"},
                     structFieldType = TypePrim
@@ -666,7 +666,7 @@
                         structFieldLoc =
                         "globals.h:19:35",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "inline_struct_x"},
                         structFieldType = TypePrim
@@ -684,7 +684,7 @@
                         structFieldLoc =
                         "globals.h:19:42",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "inline_struct_y"},
                         structFieldType = TypePrim
@@ -696,7 +696,7 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:19:15",
                       declId = NamePair {
-                        nameC = CName "inline_struct",
+                        nameC = Name "inline_struct",
                         nameHsIdent = HsIdentifier
                           "Inline_struct"},
                       declOrigin = NameOriginInSource,
@@ -715,7 +715,7 @@
                             structFieldLoc =
                             "globals.h:19:35",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "inline_struct_x"},
                             structFieldType = TypePrim
@@ -726,7 +726,7 @@
                             structFieldLoc =
                             "globals.h:19:42",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "inline_struct_y"},
                             structFieldType = TypePrim
@@ -770,7 +770,7 @@
                         structFieldLoc =
                         "globals.h:19:35",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "inline_struct_x"},
                         structFieldType = TypePrim
@@ -788,7 +788,7 @@
                         structFieldLoc =
                         "globals.h:19:42",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "inline_struct_y"},
                         structFieldType = TypePrim
@@ -800,7 +800,7 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:19:15",
                       declId = NamePair {
-                        nameC = CName "inline_struct",
+                        nameC = Name "inline_struct",
                         nameHsIdent = HsIdentifier
                           "Inline_struct"},
                       declOrigin = NameOriginInSource,
@@ -819,7 +819,7 @@
                             structFieldLoc =
                             "globals.h:19:35",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "inline_struct_x"},
                             structFieldType = TypePrim
@@ -830,7 +830,7 @@
                             structFieldLoc =
                             "globals.h:19:42",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "inline_struct_y"},
                             structFieldType = TypePrim
@@ -884,7 +884,7 @@
       foreignImportOrigin = Global
         (TypeStruct
           NamePair {
-            nameC = CName "inline_struct",
+            nameC = Name "inline_struct",
             nameHsIdent = HsIdentifier
               "Inline_struct"}
           NameOriginInSource)},
@@ -1198,7 +1198,7 @@
           (TypeExtBinding
             ResolvedExtBinding {
               extCName = QualName {
-                qualNameName = CName "uint8_t",
+                qualNameName = Name "uint8_t",
                 qualNameKind =
                 NameKindOrdinary},
               extHsRef = ExtHsRef {
@@ -1455,7 +1455,7 @@
           (TypeExtBinding
             ResolvedExtBinding {
               extCName = QualName {
-                qualNameName = CName "uint8_t",
+                qualNameName = Name "uint8_t",
                 qualNameKind =
                 NameKindOrdinary},
               extHsRef = ExtHsRef {
@@ -1694,7 +1694,7 @@
         (TypeExtBinding
           ResolvedExtBinding {
             extCName = QualName {
-              qualNameName = CName "uint32_t",
+              qualNameName = Name "uint32_t",
               qualNameKind =
               NameKindOrdinary},
             extHsRef = ExtHsRef {
@@ -1936,13 +1936,13 @@
               structFieldLoc =
               "globals.h:408:12",
               structFieldName = NamePair {
-                nameC = CName "major",
+                nameC = Name "major",
                 nameHsIdent = HsIdentifier
                   "version_t_major"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint8_t",
+                    qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -2177,13 +2177,13 @@
               structFieldLoc =
               "globals.h:409:12",
               structFieldName = NamePair {
-                nameC = CName "minor",
+                nameC = Name "minor",
                 nameHsIdent = HsIdentifier
                   "version_t_minor"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint16_t",
+                    qualNameName = Name "uint16_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -2418,13 +2418,13 @@
               structFieldLoc =
               "globals.h:410:12",
               structFieldName = NamePair {
-                nameC = CName "patch",
+                nameC = Name "patch",
                 nameHsIdent = HsIdentifier
                   "version_t_patch"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint8_t",
+                    qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -2544,13 +2544,13 @@
           declInfo = DeclInfo {
             declLoc = "globals.h:406:9",
             declId = NamePair {
-              nameC = CName "version_t",
+              nameC = Name "version_t",
               nameHsIdent = HsIdentifier
                 "Version_t"},
             declOrigin = NameOriginGenerated
               (AnonId "globals.h:406:9"),
             declAliases = [
-              CName "version_t"],
+              Name "version_t"],
             declHeader = "globals.h"},
           declKind = Struct
             Struct {
@@ -2565,13 +2565,13 @@
                   structFieldLoc =
                   "globals.h:408:12",
                   structFieldName = NamePair {
-                    nameC = CName "major",
+                    nameC = Name "major",
                     nameHsIdent = HsIdentifier
                       "version_t_major"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint8_t",
+                        qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -2690,13 +2690,13 @@
                   structFieldLoc =
                   "globals.h:409:12",
                   structFieldName = NamePair {
-                    nameC = CName "minor",
+                    nameC = Name "minor",
                     nameHsIdent = HsIdentifier
                       "version_t_minor"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint16_t",
+                        qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -2815,13 +2815,13 @@
                   structFieldLoc =
                   "globals.h:410:12",
                   structFieldName = NamePair {
-                    nameC = CName "patch",
+                    nameC = Name "patch",
                     nameHsIdent = HsIdentifier
                       "version_t_patch"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint8_t",
+                        qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -3075,13 +3075,13 @@
                 structFieldLoc =
                 "globals.h:408:12",
                 structFieldName = NamePair {
-                  nameC = CName "major",
+                  nameC = Name "major",
                   nameHsIdent = HsIdentifier
                     "version_t_major"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint8_t",
+                      qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -3316,13 +3316,13 @@
                 structFieldLoc =
                 "globals.h:409:12",
                 structFieldName = NamePair {
-                  nameC = CName "minor",
+                  nameC = Name "minor",
                   nameHsIdent = HsIdentifier
                     "version_t_minor"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint16_t",
+                      qualNameName = Name "uint16_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -3557,13 +3557,13 @@
                 structFieldLoc =
                 "globals.h:410:12",
                 structFieldName = NamePair {
-                  nameC = CName "patch",
+                  nameC = Name "patch",
                   nameHsIdent = HsIdentifier
                     "version_t_patch"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint8_t",
+                      qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -3683,13 +3683,13 @@
             declInfo = DeclInfo {
               declLoc = "globals.h:406:9",
               declId = NamePair {
-                nameC = CName "version_t",
+                nameC = Name "version_t",
                 nameHsIdent = HsIdentifier
                   "Version_t"},
               declOrigin = NameOriginGenerated
                 (AnonId "globals.h:406:9"),
               declAliases = [
-                CName "version_t"],
+                Name "version_t"],
               declHeader = "globals.h"},
             declKind = Struct
               Struct {
@@ -3704,13 +3704,13 @@
                     structFieldLoc =
                     "globals.h:408:12",
                     structFieldName = NamePair {
-                      nameC = CName "major",
+                      nameC = Name "major",
                       nameHsIdent = HsIdentifier
                         "version_t_major"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint8_t",
+                          qualNameName = Name "uint8_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -3829,13 +3829,13 @@
                     structFieldLoc =
                     "globals.h:409:12",
                     structFieldName = NamePair {
-                      nameC = CName "minor",
+                      nameC = Name "minor",
                       nameHsIdent = HsIdentifier
                         "version_t_minor"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint16_t",
+                          qualNameName = Name "uint16_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -3954,13 +3954,13 @@
                     structFieldLoc =
                     "globals.h:410:12",
                     structFieldName = NamePair {
-                      nameC = CName "patch",
+                      nameC = Name "patch",
                       nameHsIdent = HsIdentifier
                         "version_t_patch"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint8_t",
+                          qualNameName = Name "uint8_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -4219,13 +4219,13 @@
                         structFieldLoc =
                         "globals.h:408:12",
                         structFieldName = NamePair {
-                          nameC = CName "major",
+                          nameC = Name "major",
                           nameHsIdent = HsIdentifier
                             "version_t_major"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint8_t",
+                              qualNameName = Name "uint8_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -4460,13 +4460,13 @@
                         structFieldLoc =
                         "globals.h:409:12",
                         structFieldName = NamePair {
-                          nameC = CName "minor",
+                          nameC = Name "minor",
                           nameHsIdent = HsIdentifier
                             "version_t_minor"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint16_t",
+                              qualNameName = Name "uint16_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -4701,13 +4701,13 @@
                         structFieldLoc =
                         "globals.h:410:12",
                         structFieldName = NamePair {
-                          nameC = CName "patch",
+                          nameC = Name "patch",
                           nameHsIdent = HsIdentifier
                             "version_t_patch"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint8_t",
+                              qualNameName = Name "uint8_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -4827,13 +4827,13 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:406:9",
                       declId = NamePair {
-                        nameC = CName "version_t",
+                        nameC = Name "version_t",
                         nameHsIdent = HsIdentifier
                           "Version_t"},
                       declOrigin = NameOriginGenerated
                         (AnonId "globals.h:406:9"),
                       declAliases = [
-                        CName "version_t"],
+                        Name "version_t"],
                       declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
@@ -4848,13 +4848,13 @@
                             structFieldLoc =
                             "globals.h:408:12",
                             structFieldName = NamePair {
-                              nameC = CName "major",
+                              nameC = Name "major",
                               nameHsIdent = HsIdentifier
                                 "version_t_major"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint8_t",
+                                  qualNameName = Name "uint8_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -4973,13 +4973,13 @@
                             structFieldLoc =
                             "globals.h:409:12",
                             structFieldName = NamePair {
-                              nameC = CName "minor",
+                              nameC = Name "minor",
                               nameHsIdent = HsIdentifier
                                 "version_t_minor"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint16_t",
+                                  qualNameName = Name "uint16_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -5098,13 +5098,13 @@
                             structFieldLoc =
                             "globals.h:410:12",
                             structFieldName = NamePair {
-                              nameC = CName "patch",
+                              nameC = Name "patch",
                               nameHsIdent = HsIdentifier
                                 "version_t_patch"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint8_t",
+                                  qualNameName = Name "uint8_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -5366,13 +5366,13 @@
                         structFieldLoc =
                         "globals.h:408:12",
                         structFieldName = NamePair {
-                          nameC = CName "major",
+                          nameC = Name "major",
                           nameHsIdent = HsIdentifier
                             "version_t_major"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint8_t",
+                              qualNameName = Name "uint8_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -5607,13 +5607,13 @@
                         structFieldLoc =
                         "globals.h:409:12",
                         structFieldName = NamePair {
-                          nameC = CName "minor",
+                          nameC = Name "minor",
                           nameHsIdent = HsIdentifier
                             "version_t_minor"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint16_t",
+                              qualNameName = Name "uint16_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -5848,13 +5848,13 @@
                         structFieldLoc =
                         "globals.h:410:12",
                         structFieldName = NamePair {
-                          nameC = CName "patch",
+                          nameC = Name "patch",
                           nameHsIdent = HsIdentifier
                             "version_t_patch"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint8_t",
+                              qualNameName = Name "uint8_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -5974,13 +5974,13 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:406:9",
                       declId = NamePair {
-                        nameC = CName "version_t",
+                        nameC = Name "version_t",
                         nameHsIdent = HsIdentifier
                           "Version_t"},
                       declOrigin = NameOriginGenerated
                         (AnonId "globals.h:406:9"),
                       declAliases = [
-                        CName "version_t"],
+                        Name "version_t"],
                       declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
@@ -5995,13 +5995,13 @@
                             structFieldLoc =
                             "globals.h:408:12",
                             structFieldName = NamePair {
-                              nameC = CName "major",
+                              nameC = Name "major",
                               nameHsIdent = HsIdentifier
                                 "version_t_major"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint8_t",
+                                  qualNameName = Name "uint8_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -6120,13 +6120,13 @@
                             structFieldLoc =
                             "globals.h:409:12",
                             structFieldName = NamePair {
-                              nameC = CName "minor",
+                              nameC = Name "minor",
                               nameHsIdent = HsIdentifier
                                 "version_t_minor"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint16_t",
+                                  qualNameName = Name "uint16_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -6245,13 +6245,13 @@
                             structFieldLoc =
                             "globals.h:410:12",
                             structFieldName = NamePair {
-                              nameC = CName "patch",
+                              nameC = Name "patch",
                               nameHsIdent = HsIdentifier
                                 "version_t_patch"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint8_t",
+                                  qualNameName = Name "uint8_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -6525,13 +6525,13 @@
               structFieldLoc =
               "globals.h:415:13",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "struct1_t_x"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint16_t",
+                    qualNameName = Name "uint16_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -6657,7 +6657,7 @@
               structFieldLoc =
               "globals.h:416:13",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "struct1_t_y"},
               structFieldType = TypePrim
@@ -6677,15 +6677,15 @@
               structFieldLoc =
               "globals.h:417:13",
               structFieldName = NamePair {
-                nameC = CName "version",
+                nameC = Name "version",
                 nameHsIdent = HsIdentifier
                   "struct1_t_version"},
               structFieldType = TypeTypedef
                 (TypedefSquashed
-                  (CName "version_t")
+                  (Name "version_t")
                   (TypeStruct
                     NamePair {
-                      nameC = CName "version_t",
+                      nameC = Name "version_t",
                       nameHsIdent = HsIdentifier
                         "Version_t"}
                     (NameOriginGenerated
@@ -6697,13 +6697,13 @@
           declInfo = DeclInfo {
             declLoc = "globals.h:413:9",
             declId = NamePair {
-              nameC = CName "struct1_t",
+              nameC = Name "struct1_t",
               nameHsIdent = HsIdentifier
                 "Struct1_t"},
             declOrigin = NameOriginGenerated
               (AnonId "globals.h:413:9"),
             declAliases = [
-              CName "struct1_t"],
+              Name "struct1_t"],
             declHeader = "globals.h"},
           declKind = Struct
             Struct {
@@ -6718,13 +6718,13 @@
                   structFieldLoc =
                   "globals.h:415:13",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "struct1_t_x"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint16_t",
+                        qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -6843,7 +6843,7 @@
                   structFieldLoc =
                   "globals.h:416:13",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "struct1_t_y"},
                   structFieldType = TypePrim
@@ -6854,15 +6854,15 @@
                   structFieldLoc =
                   "globals.h:417:13",
                   structFieldName = NamePair {
-                    nameC = CName "version",
+                    nameC = Name "version",
                     nameHsIdent = HsIdentifier
                       "struct1_t_version"},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
-                      (CName "version_t")
+                      (Name "version_t")
                       (TypeStruct
                         NamePair {
-                          nameC = CName "version_t",
+                          nameC = Name "version_t",
                           nameHsIdent = HsIdentifier
                             "Version_t"}
                         (NameOriginGenerated
@@ -7008,13 +7008,13 @@
                 structFieldLoc =
                 "globals.h:415:13",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "struct1_t_x"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint16_t",
+                      qualNameName = Name "uint16_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -7140,7 +7140,7 @@
                 structFieldLoc =
                 "globals.h:416:13",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "struct1_t_y"},
                 structFieldType = TypePrim
@@ -7160,15 +7160,15 @@
                 structFieldLoc =
                 "globals.h:417:13",
                 structFieldName = NamePair {
-                  nameC = CName "version",
+                  nameC = Name "version",
                   nameHsIdent = HsIdentifier
                     "struct1_t_version"},
                 structFieldType = TypeTypedef
                   (TypedefSquashed
-                    (CName "version_t")
+                    (Name "version_t")
                     (TypeStruct
                       NamePair {
-                        nameC = CName "version_t",
+                        nameC = Name "version_t",
                         nameHsIdent = HsIdentifier
                           "Version_t"}
                       (NameOriginGenerated
@@ -7180,13 +7180,13 @@
             declInfo = DeclInfo {
               declLoc = "globals.h:413:9",
               declId = NamePair {
-                nameC = CName "struct1_t",
+                nameC = Name "struct1_t",
                 nameHsIdent = HsIdentifier
                   "Struct1_t"},
               declOrigin = NameOriginGenerated
                 (AnonId "globals.h:413:9"),
               declAliases = [
-                CName "struct1_t"],
+                Name "struct1_t"],
               declHeader = "globals.h"},
             declKind = Struct
               Struct {
@@ -7201,13 +7201,13 @@
                     structFieldLoc =
                     "globals.h:415:13",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "struct1_t_x"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint16_t",
+                          qualNameName = Name "uint16_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -7326,7 +7326,7 @@
                     structFieldLoc =
                     "globals.h:416:13",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "struct1_t_y"},
                     structFieldType = TypePrim
@@ -7337,15 +7337,15 @@
                     structFieldLoc =
                     "globals.h:417:13",
                     structFieldName = NamePair {
-                      nameC = CName "version",
+                      nameC = Name "version",
                       nameHsIdent = HsIdentifier
                         "struct1_t_version"},
                     structFieldType = TypeTypedef
                       (TypedefSquashed
-                        (CName "version_t")
+                        (Name "version_t")
                         (TypeStruct
                           NamePair {
-                            nameC = CName "version_t",
+                            nameC = Name "version_t",
                             nameHsIdent = HsIdentifier
                               "Version_t"}
                           (NameOriginGenerated
@@ -7496,13 +7496,13 @@
                         structFieldLoc =
                         "globals.h:415:13",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "struct1_t_x"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint16_t",
+                              qualNameName = Name "uint16_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -7628,7 +7628,7 @@
                         structFieldLoc =
                         "globals.h:416:13",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "struct1_t_y"},
                         structFieldType = TypePrim
@@ -7648,15 +7648,15 @@
                         structFieldLoc =
                         "globals.h:417:13",
                         structFieldName = NamePair {
-                          nameC = CName "version",
+                          nameC = Name "version",
                           nameHsIdent = HsIdentifier
                             "struct1_t_version"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName "version_t")
+                            (Name "version_t")
                             (TypeStruct
                               NamePair {
-                                nameC = CName "version_t",
+                                nameC = Name "version_t",
                                 nameHsIdent = HsIdentifier
                                   "Version_t"}
                               (NameOriginGenerated
@@ -7668,13 +7668,13 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:413:9",
                       declId = NamePair {
-                        nameC = CName "struct1_t",
+                        nameC = Name "struct1_t",
                         nameHsIdent = HsIdentifier
                           "Struct1_t"},
                       declOrigin = NameOriginGenerated
                         (AnonId "globals.h:413:9"),
                       declAliases = [
-                        CName "struct1_t"],
+                        Name "struct1_t"],
                       declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
@@ -7689,13 +7689,13 @@
                             structFieldLoc =
                             "globals.h:415:13",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "struct1_t_x"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint16_t",
+                                  qualNameName = Name "uint16_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -7814,7 +7814,7 @@
                             structFieldLoc =
                             "globals.h:416:13",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "struct1_t_y"},
                             structFieldType = TypePrim
@@ -7825,15 +7825,15 @@
                             structFieldLoc =
                             "globals.h:417:13",
                             structFieldName = NamePair {
-                              nameC = CName "version",
+                              nameC = Name "version",
                               nameHsIdent = HsIdentifier
                                 "struct1_t_version"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName "version_t")
+                                (Name "version_t")
                                 (TypeStruct
                                   NamePair {
-                                    nameC = CName "version_t",
+                                    nameC = Name "version_t",
                                     nameHsIdent = HsIdentifier
                                       "Version_t"}
                                   (NameOriginGenerated
@@ -7987,13 +7987,13 @@
                         structFieldLoc =
                         "globals.h:415:13",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "struct1_t_x"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint16_t",
+                              qualNameName = Name "uint16_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -8119,7 +8119,7 @@
                         structFieldLoc =
                         "globals.h:416:13",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "struct1_t_y"},
                         structFieldType = TypePrim
@@ -8139,15 +8139,15 @@
                         structFieldLoc =
                         "globals.h:417:13",
                         structFieldName = NamePair {
-                          nameC = CName "version",
+                          nameC = Name "version",
                           nameHsIdent = HsIdentifier
                             "struct1_t_version"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName "version_t")
+                            (Name "version_t")
                             (TypeStruct
                               NamePair {
-                                nameC = CName "version_t",
+                                nameC = Name "version_t",
                                 nameHsIdent = HsIdentifier
                                   "Version_t"}
                               (NameOriginGenerated
@@ -8159,13 +8159,13 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:413:9",
                       declId = NamePair {
-                        nameC = CName "struct1_t",
+                        nameC = Name "struct1_t",
                         nameHsIdent = HsIdentifier
                           "Struct1_t"},
                       declOrigin = NameOriginGenerated
                         (AnonId "globals.h:413:9"),
                       declAliases = [
-                        CName "struct1_t"],
+                        Name "struct1_t"],
                       declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
@@ -8180,13 +8180,13 @@
                             structFieldLoc =
                             "globals.h:415:13",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "struct1_t_x"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint16_t",
+                                  qualNameName = Name "uint16_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -8305,7 +8305,7 @@
                             structFieldLoc =
                             "globals.h:416:13",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "struct1_t_y"},
                             structFieldType = TypePrim
@@ -8316,15 +8316,15 @@
                             structFieldLoc =
                             "globals.h:417:13",
                             structFieldName = NamePair {
-                              nameC = CName "version",
+                              nameC = Name "version",
                               nameHsIdent = HsIdentifier
                                 "struct1_t_version"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName "version_t")
+                                (Name "version_t")
                                 (TypeStruct
                                   NamePair {
-                                    nameC = CName "version_t",
+                                    nameC = Name "version_t",
                                     nameHsIdent = HsIdentifier
                                       "Version_t"}
                                   (NameOriginGenerated
@@ -8383,15 +8383,15 @@
               structFieldLoc =
               "globals.h:422:13",
               structFieldName = NamePair {
-                nameC = CName "field1",
+                nameC = Name "field1",
                 nameHsIdent = HsIdentifier
                   "struct2_t_field1"},
               structFieldType = TypeTypedef
                 (TypedefSquashed
-                  (CName "struct1_t")
+                  (Name "struct1_t")
                   (TypeStruct
                     NamePair {
-                      nameC = CName "struct1_t",
+                      nameC = Name "struct1_t",
                       nameHsIdent = HsIdentifier
                         "Struct1_t"}
                     (NameOriginGenerated
@@ -8403,13 +8403,13 @@
           declInfo = DeclInfo {
             declLoc = "globals.h:420:9",
             declId = NamePair {
-              nameC = CName "struct2_t",
+              nameC = Name "struct2_t",
               nameHsIdent = HsIdentifier
                 "Struct2_t"},
             declOrigin = NameOriginGenerated
               (AnonId "globals.h:420:9"),
             declAliases = [
-              CName "struct2_t"],
+              Name "struct2_t"],
             declHeader = "globals.h"},
           declKind = Struct
             Struct {
@@ -8424,15 +8424,15 @@
                   structFieldLoc =
                   "globals.h:422:13",
                   structFieldName = NamePair {
-                    nameC = CName "field1",
+                    nameC = Name "field1",
                     nameHsIdent = HsIdentifier
                       "struct2_t_field1"},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
-                      (CName "struct1_t")
+                      (Name "struct1_t")
                       (TypeStruct
                         NamePair {
-                          nameC = CName "struct1_t",
+                          nameC = Name "struct1_t",
                           nameHsIdent = HsIdentifier
                             "Struct1_t"}
                         (NameOriginGenerated
@@ -8471,15 +8471,15 @@
                 structFieldLoc =
                 "globals.h:422:13",
                 structFieldName = NamePair {
-                  nameC = CName "field1",
+                  nameC = Name "field1",
                   nameHsIdent = HsIdentifier
                     "struct2_t_field1"},
                 structFieldType = TypeTypedef
                   (TypedefSquashed
-                    (CName "struct1_t")
+                    (Name "struct1_t")
                     (TypeStruct
                       NamePair {
-                        nameC = CName "struct1_t",
+                        nameC = Name "struct1_t",
                         nameHsIdent = HsIdentifier
                           "Struct1_t"}
                       (NameOriginGenerated
@@ -8491,13 +8491,13 @@
             declInfo = DeclInfo {
               declLoc = "globals.h:420:9",
               declId = NamePair {
-                nameC = CName "struct2_t",
+                nameC = Name "struct2_t",
                 nameHsIdent = HsIdentifier
                   "Struct2_t"},
               declOrigin = NameOriginGenerated
                 (AnonId "globals.h:420:9"),
               declAliases = [
-                CName "struct2_t"],
+                Name "struct2_t"],
               declHeader = "globals.h"},
             declKind = Struct
               Struct {
@@ -8512,15 +8512,15 @@
                     structFieldLoc =
                     "globals.h:422:13",
                     structFieldName = NamePair {
-                      nameC = CName "field1",
+                      nameC = Name "field1",
                       nameHsIdent = HsIdentifier
                         "struct2_t_field1"},
                     structFieldType = TypeTypedef
                       (TypedefSquashed
-                        (CName "struct1_t")
+                        (Name "struct1_t")
                         (TypeStruct
                           NamePair {
-                            nameC = CName "struct1_t",
+                            nameC = Name "struct1_t",
                             nameHsIdent = HsIdentifier
                               "Struct1_t"}
                           (NameOriginGenerated
@@ -8564,15 +8564,15 @@
                         structFieldLoc =
                         "globals.h:422:13",
                         structFieldName = NamePair {
-                          nameC = CName "field1",
+                          nameC = Name "field1",
                           nameHsIdent = HsIdentifier
                             "struct2_t_field1"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName "struct1_t")
+                            (Name "struct1_t")
                             (TypeStruct
                               NamePair {
-                                nameC = CName "struct1_t",
+                                nameC = Name "struct1_t",
                                 nameHsIdent = HsIdentifier
                                   "Struct1_t"}
                               (NameOriginGenerated
@@ -8584,13 +8584,13 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:420:9",
                       declId = NamePair {
-                        nameC = CName "struct2_t",
+                        nameC = Name "struct2_t",
                         nameHsIdent = HsIdentifier
                           "Struct2_t"},
                       declOrigin = NameOriginGenerated
                         (AnonId "globals.h:420:9"),
                       declAliases = [
-                        CName "struct2_t"],
+                        Name "struct2_t"],
                       declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
@@ -8605,15 +8605,15 @@
                             structFieldLoc =
                             "globals.h:422:13",
                             structFieldName = NamePair {
-                              nameC = CName "field1",
+                              nameC = Name "field1",
                               nameHsIdent = HsIdentifier
                                 "struct2_t_field1"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName "struct1_t")
+                                (Name "struct1_t")
                                 (TypeStruct
                                   NamePair {
-                                    nameC = CName "struct1_t",
+                                    nameC = Name "struct1_t",
                                     nameHsIdent = HsIdentifier
                                       "Struct1_t"}
                                   (NameOriginGenerated
@@ -8657,15 +8657,15 @@
                         structFieldLoc =
                         "globals.h:422:13",
                         structFieldName = NamePair {
-                          nameC = CName "field1",
+                          nameC = Name "field1",
                           nameHsIdent = HsIdentifier
                             "struct2_t_field1"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName "struct1_t")
+                            (Name "struct1_t")
                             (TypeStruct
                               NamePair {
-                                nameC = CName "struct1_t",
+                                nameC = Name "struct1_t",
                                 nameHsIdent = HsIdentifier
                                   "Struct1_t"}
                               (NameOriginGenerated
@@ -8677,13 +8677,13 @@
                     declInfo = DeclInfo {
                       declLoc = "globals.h:420:9",
                       declId = NamePair {
-                        nameC = CName "struct2_t",
+                        nameC = Name "struct2_t",
                         nameHsIdent = HsIdentifier
                           "Struct2_t"},
                       declOrigin = NameOriginGenerated
                         (AnonId "globals.h:420:9"),
                       declAliases = [
-                        CName "struct2_t"],
+                        Name "struct2_t"],
                       declHeader = "globals.h"},
                     declKind = Struct
                       Struct {
@@ -8698,15 +8698,15 @@
                             structFieldLoc =
                             "globals.h:422:13",
                             structFieldName = NamePair {
-                              nameC = CName "field1",
+                              nameC = Name "field1",
                               nameHsIdent = HsIdentifier
                                 "struct2_t_field1"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName "struct1_t")
+                                (Name "struct1_t")
                                 (TypeStruct
                                   NamePair {
-                                    nameC = CName "struct1_t",
+                                    nameC = Name "struct1_t",
                                     nameHsIdent = HsIdentifier
                                       "Struct1_t"}
                                   (NameOriginGenerated
@@ -8759,10 +8759,10 @@
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefSquashed
-            (CName "struct2_t")
+            (Name "struct2_t")
             (TypeStruct
               NamePair {
-                nameC = CName "struct2_t",
+                nameC = Name "struct2_t",
                 nameHsIdent = HsIdentifier
                   "Struct2_t"}
               (NameOriginGenerated

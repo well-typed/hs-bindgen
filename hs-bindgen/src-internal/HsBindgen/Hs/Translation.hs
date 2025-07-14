@@ -31,7 +31,6 @@ import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.CallConv
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
@@ -110,12 +109,12 @@ generateDeclarations opts mu decs =
     flip State.evalState Map.empty $
       concat <$> mapM (generateDecs opts mu typedefs) decs
   where
-    typedefs :: Map CName C.Type
+    typedefs :: Map C.Name C.Type
     typedefs = Map.union actualTypedefs pseudoTypedefs
 
     -- typedef lookup table
     -- shallow: only one layer of typedefs is stripped.
-    actualTypedefs :: Map CName C.Type
+    actualTypedefs :: Map C.Name C.Type
     actualTypedefs = Map.fromList
         [ (C.nameC (C.declId declInfo), typedefType)
         | C.Decl{declInfo, declKind} <- decs
@@ -124,7 +123,7 @@ generateDeclarations opts mu decs =
         ]
 
     -- macros also act as "typedef"s
-    pseudoTypedefs :: Map CName C.Type
+    pseudoTypedefs :: Map C.Name C.Type
     pseudoTypedefs = Map.fromList
         [ (C.nameC (C.declId declInfo), macroType)
         | C.Decl{declInfo, declKind} <- decs
@@ -290,7 +289,7 @@ generateDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
   -> ModuleUnique
-  -> Map CName C.Type
+  -> Map C.Name C.Type
   -> C.Decl
   -> m [Hs.Decl]
 generateDecs opts mu typedefs (C.Decl info kind spec) =
@@ -1035,7 +1034,7 @@ shsApps = foldl' SHs.EApp
 
 functionDecs ::
      ModuleUnique
-  -> Map CName C.Type -- ^ typedefs
+  -> Map C.Name C.Type -- ^ typedefs
   -> C.DeclInfo
   -> C.Function
   -> C.DeclSpec
@@ -1098,7 +1097,7 @@ functionDecs mu typedefs info f _spec =
 
     -- below is generation of C wrapper for userland-capi.
     innerName :: String
-    innerName = T.unpack (C.getCName . C.nameC . C.declId $ info)
+    innerName = T.unpack (C.getName . C.nameC . C.declId $ info)
 
     wrapperName :: String
     wrapperName = unModuleUnique mu ++ "_" ++ innerName
@@ -1121,7 +1120,7 @@ globalExtern info ty _spec = [
     , Hs.DeclForeignImport Hs.ForeignImportDecl{
           foreignImportName     = C.nameHs (C.declId info)
         , foreignImportType     = HsPtr $ typ ty
-        , foreignImportOrigName = getCName $ C.nameC (C.declId info)
+        , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
         , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
         , foreignImportOrigin   = Origin.Global ty
         }
@@ -1151,7 +1150,7 @@ macroVarDecs info macroExpr = [
     | hsBody <- toList $ macroLamHsExpr macroExprArgs macroExprBody
     ]
   where
-    macroExprArgs :: [CName]
+    macroExprArgs :: [C.Name]
     macroExprBody :: C.MExpr C.Ps
     macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
     C.CheckedMacroExpr{macroExprArgs, macroExprBody, macroExprType} = macroExpr
@@ -1201,31 +1200,31 @@ quantTyHsTy qty@(Macro.Quant @kis _) =
 newtype U n = U { unU :: Vec n (Idx n) }
 
 macroLamHsExpr ::
-     [CName]
+     [C.Name]
   -> C.MExpr p
   -> Maybe (Hs.VarDeclRHS EmptyCtx)
 macroLamHsExpr macroArgs expr =
     makeNames macroArgs Map.empty
   where
-    makeNames :: [CName] -> Map CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
+    makeNames :: [C.Name] -> Map C.Name (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
     makeNames []     env = macroExprHsExpr env expr
     makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
 
-cnameToHint :: CName -> NameHint
-cnameToHint (CName t) = fromString (T.unpack t)
+cnameToHint :: C.Name -> NameHint
+cnameToHint (C.Name t) = fromString (T.unpack t)
 
 macroExprHsExpr ::
-     Map CName (Idx ctx)
+     Map C.Name (Idx ctx)
   -> C.MExpr p
   -> Maybe (Hs.VarDeclRHS ctx)
 macroExprHsExpr = goExpr where
-    goExpr :: Map CName (Idx ctx) -> C.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
+    goExpr :: Map C.Name (Idx ctx) -> C.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
       C.MTerm tm -> goTerm env tm
       C.MApp _xapp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
-    goTerm :: Map CName (Idx ctx) -> C.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
+    goTerm :: Map C.Name (Idx ctx) -> C.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
     goTerm env = \case
       C.MInt i -> goInt i
       C.MFloat f -> goFloat f
@@ -1241,7 +1240,7 @@ macroExprHsExpr = goExpr where
       C.MStringize {} -> Nothing
       C.MConcat {} -> Nothing
 
-    goApp :: Map CName (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
+    goApp :: Map C.Name (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
     goApp env appHead args = do
       args' <- traverse (goExpr env) args
       return $ Hs.VarDeclApp appHead args'
@@ -1270,8 +1269,8 @@ macroExprHsExpr = goExpr where
 -- | Construct Haskell name for macro
 --
 -- TODO: This should be done as part of the NameMangler frontend pass.
-macroName :: CName -> HsName NsVar
-macroName (CName cName) =
+macroName :: C.Name -> HsName NsVar
+macroName (C.Name cName) =
     case FixCandidate.fixCandidate fix cName of
       Just hsName -> hsName
       Nothing     ->

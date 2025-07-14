@@ -19,7 +19,7 @@
               structFieldLoc =
               "nested_types.h:2:9",
               structFieldName = NamePair {
-                nameC = CName "i",
+                nameC = Name "i",
                 nameHsIdent = HsIdentifier
                   "foo_i"},
               structFieldType = TypePrim
@@ -37,7 +37,7 @@
               structFieldLoc =
               "nested_types.h:3:10",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "foo_c"},
               structFieldType = TypePrim
@@ -51,7 +51,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_types.h:1:8",
             declId = NamePair {
-              nameC = CName "foo",
+              nameC = Name "foo",
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
@@ -68,7 +68,7 @@
                   structFieldLoc =
                   "nested_types.h:2:9",
                   structFieldName = NamePair {
-                    nameC = CName "i",
+                    nameC = Name "i",
                     nameHsIdent = HsIdentifier
                       "foo_i"},
                   structFieldType = TypePrim
@@ -79,7 +79,7 @@
                   structFieldLoc =
                   "nested_types.h:3:10",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "foo_c"},
                   structFieldType = TypePrim
@@ -118,7 +118,7 @@
                 structFieldLoc =
                 "nested_types.h:2:9",
                 structFieldName = NamePair {
-                  nameC = CName "i",
+                  nameC = Name "i",
                   nameHsIdent = HsIdentifier
                     "foo_i"},
                 structFieldType = TypePrim
@@ -136,7 +136,7 @@
                 structFieldLoc =
                 "nested_types.h:3:10",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "foo_c"},
                 structFieldType = TypePrim
@@ -150,7 +150,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_types.h:1:8",
               declId = NamePair {
-                nameC = CName "foo",
+                nameC = Name "foo",
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
@@ -167,7 +167,7 @@
                     structFieldLoc =
                     "nested_types.h:2:9",
                     structFieldName = NamePair {
-                      nameC = CName "i",
+                      nameC = Name "i",
                       nameHsIdent = HsIdentifier
                         "foo_i"},
                     structFieldType = TypePrim
@@ -178,7 +178,7 @@
                     structFieldLoc =
                     "nested_types.h:3:10",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "foo_c"},
                     structFieldType = TypePrim
@@ -222,7 +222,7 @@
                         structFieldLoc =
                         "nested_types.h:2:9",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "foo_i"},
                         structFieldType = TypePrim
@@ -240,7 +240,7 @@
                         structFieldLoc =
                         "nested_types.h:3:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "foo_c"},
                         structFieldType = TypePrim
@@ -254,7 +254,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:1:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -271,7 +271,7 @@
                             structFieldLoc =
                             "nested_types.h:2:9",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "foo_i"},
                             structFieldType = TypePrim
@@ -282,7 +282,7 @@
                             structFieldLoc =
                             "nested_types.h:3:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "foo_c"},
                             structFieldType = TypePrim
@@ -328,7 +328,7 @@
                         structFieldLoc =
                         "nested_types.h:2:9",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "foo_i"},
                         structFieldType = TypePrim
@@ -346,7 +346,7 @@
                         structFieldLoc =
                         "nested_types.h:3:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "foo_c"},
                         structFieldType = TypePrim
@@ -360,7 +360,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:1:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -377,7 +377,7 @@
                             structFieldLoc =
                             "nested_types.h:2:9",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "foo_i"},
                             structFieldType = TypePrim
@@ -388,7 +388,7 @@
                             structFieldLoc =
                             "nested_types.h:3:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "foo_c"},
                             structFieldType = TypePrim
@@ -442,12 +442,12 @@
               structFieldLoc =
               "nested_types.h:7:16",
               structFieldName = NamePair {
-                nameC = CName "foo1",
+                nameC = Name "foo1",
                 nameHsIdent = HsIdentifier
                   "bar_foo1"},
               structFieldType = TypeStruct
                 NamePair {
-                  nameC = CName "foo",
+                  nameC = Name "foo",
                   nameHsIdent = HsIdentifier
                     "Foo"}
                 NameOriginInSource,
@@ -464,12 +464,12 @@
               structFieldLoc =
               "nested_types.h:8:16",
               structFieldName = NamePair {
-                nameC = CName "foo2",
+                nameC = Name "foo2",
                 nameHsIdent = HsIdentifier
                   "bar_foo2"},
               structFieldType = TypeStruct
                 NamePair {
-                  nameC = CName "foo",
+                  nameC = Name "foo",
                   nameHsIdent = HsIdentifier
                     "Foo"}
                 NameOriginInSource,
@@ -480,7 +480,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_types.h:6:8",
             declId = NamePair {
-              nameC = CName "bar",
+              nameC = Name "bar",
               nameHsIdent = HsIdentifier
                 "Bar"},
             declOrigin = NameOriginInSource,
@@ -497,12 +497,12 @@
                   structFieldLoc =
                   "nested_types.h:7:16",
                   structFieldName = NamePair {
-                    nameC = CName "foo1",
+                    nameC = Name "foo1",
                     nameHsIdent = HsIdentifier
                       "bar_foo1"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName "foo",
+                      nameC = Name "foo",
                       nameHsIdent = HsIdentifier
                         "Foo"}
                     NameOriginInSource,
@@ -512,12 +512,12 @@
                   structFieldLoc =
                   "nested_types.h:8:16",
                   structFieldName = NamePair {
-                    nameC = CName "foo2",
+                    nameC = Name "foo2",
                     nameHsIdent = HsIdentifier
                       "bar_foo2"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName "foo",
+                      nameC = Name "foo",
                       nameHsIdent = HsIdentifier
                         "Foo"}
                     NameOriginInSource,
@@ -553,12 +553,12 @@
                 structFieldLoc =
                 "nested_types.h:7:16",
                 structFieldName = NamePair {
-                  nameC = CName "foo1",
+                  nameC = Name "foo1",
                   nameHsIdent = HsIdentifier
                     "bar_foo1"},
                 structFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "foo",
+                    nameC = Name "foo",
                     nameHsIdent = HsIdentifier
                       "Foo"}
                   NameOriginInSource,
@@ -575,12 +575,12 @@
                 structFieldLoc =
                 "nested_types.h:8:16",
                 structFieldName = NamePair {
-                  nameC = CName "foo2",
+                  nameC = Name "foo2",
                   nameHsIdent = HsIdentifier
                     "bar_foo2"},
                 structFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "foo",
+                    nameC = Name "foo",
                     nameHsIdent = HsIdentifier
                       "Foo"}
                   NameOriginInSource,
@@ -591,7 +591,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_types.h:6:8",
               declId = NamePair {
-                nameC = CName "bar",
+                nameC = Name "bar",
                 nameHsIdent = HsIdentifier
                   "Bar"},
               declOrigin = NameOriginInSource,
@@ -608,12 +608,12 @@
                     structFieldLoc =
                     "nested_types.h:7:16",
                     structFieldName = NamePair {
-                      nameC = CName "foo1",
+                      nameC = Name "foo1",
                       nameHsIdent = HsIdentifier
                         "bar_foo1"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"}
                       NameOriginInSource,
@@ -623,12 +623,12 @@
                     structFieldLoc =
                     "nested_types.h:8:16",
                     structFieldName = NamePair {
-                      nameC = CName "foo2",
+                      nameC = Name "foo2",
                       nameHsIdent = HsIdentifier
                         "bar_foo2"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"}
                       NameOriginInSource,
@@ -669,12 +669,12 @@
                         structFieldLoc =
                         "nested_types.h:7:16",
                         structFieldName = NamePair {
-                          nameC = CName "foo1",
+                          nameC = Name "foo1",
                           nameHsIdent = HsIdentifier
                             "bar_foo1"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "foo",
+                            nameC = Name "foo",
                             nameHsIdent = HsIdentifier
                               "Foo"}
                           NameOriginInSource,
@@ -691,12 +691,12 @@
                         structFieldLoc =
                         "nested_types.h:8:16",
                         structFieldName = NamePair {
-                          nameC = CName "foo2",
+                          nameC = Name "foo2",
                           nameHsIdent = HsIdentifier
                             "bar_foo2"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "foo",
+                            nameC = Name "foo",
                             nameHsIdent = HsIdentifier
                               "Foo"}
                           NameOriginInSource,
@@ -707,7 +707,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:6:8",
                       declId = NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
@@ -724,12 +724,12 @@
                             structFieldLoc =
                             "nested_types.h:7:16",
                             structFieldName = NamePair {
-                              nameC = CName "foo1",
+                              nameC = Name "foo1",
                               nameHsIdent = HsIdentifier
                                 "bar_foo1"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "foo",
+                                nameC = Name "foo",
                                 nameHsIdent = HsIdentifier
                                   "Foo"}
                               NameOriginInSource,
@@ -739,12 +739,12 @@
                             structFieldLoc =
                             "nested_types.h:8:16",
                             structFieldName = NamePair {
-                              nameC = CName "foo2",
+                              nameC = Name "foo2",
                               nameHsIdent = HsIdentifier
                                 "bar_foo2"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "foo",
+                                nameC = Name "foo",
                                 nameHsIdent = HsIdentifier
                                   "Foo"}
                               NameOriginInSource,
@@ -787,12 +787,12 @@
                         structFieldLoc =
                         "nested_types.h:7:16",
                         structFieldName = NamePair {
-                          nameC = CName "foo1",
+                          nameC = Name "foo1",
                           nameHsIdent = HsIdentifier
                             "bar_foo1"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "foo",
+                            nameC = Name "foo",
                             nameHsIdent = HsIdentifier
                               "Foo"}
                           NameOriginInSource,
@@ -809,12 +809,12 @@
                         structFieldLoc =
                         "nested_types.h:8:16",
                         structFieldName = NamePair {
-                          nameC = CName "foo2",
+                          nameC = Name "foo2",
                           nameHsIdent = HsIdentifier
                             "bar_foo2"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "foo",
+                            nameC = Name "foo",
                             nameHsIdent = HsIdentifier
                               "Foo"}
                           NameOriginInSource,
@@ -825,7 +825,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:6:8",
                       declId = NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginInSource,
@@ -842,12 +842,12 @@
                             structFieldLoc =
                             "nested_types.h:7:16",
                             structFieldName = NamePair {
-                              nameC = CName "foo1",
+                              nameC = Name "foo1",
                               nameHsIdent = HsIdentifier
                                 "bar_foo1"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "foo",
+                                nameC = Name "foo",
                                 nameHsIdent = HsIdentifier
                                   "Foo"}
                               NameOriginInSource,
@@ -857,12 +857,12 @@
                             structFieldLoc =
                             "nested_types.h:8:16",
                             structFieldName = NamePair {
-                              nameC = CName "foo2",
+                              nameC = Name "foo2",
                               nameHsIdent = HsIdentifier
                                 "bar_foo2"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "foo",
+                                nameC = Name "foo",
                                 nameHsIdent = HsIdentifier
                                   "Foo"}
                               NameOriginInSource,
@@ -913,7 +913,7 @@
               structFieldLoc =
               "nested_types.h:13:13",
               structFieldName = NamePair {
-                nameC = CName "ex3_a",
+                nameC = Name "ex3_a",
                 nameHsIdent = HsIdentifier
                   "ex3_ex3_struct_ex3_a"},
               structFieldType = TypePrim
@@ -931,7 +931,7 @@
               structFieldLoc =
               "nested_types.h:14:14",
               structFieldName = NamePair {
-                nameC = CName "ex3_b",
+                nameC = Name "ex3_b",
                 nameHsIdent = HsIdentifier
                   "ex3_ex3_struct_ex3_b"},
               structFieldType = TypePrim
@@ -945,7 +945,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_types.h:12:5",
             declId = NamePair {
-              nameC = CName "ex3_ex3_struct",
+              nameC = Name "ex3_ex3_struct",
               nameHsIdent = HsIdentifier
                 "Ex3_ex3_struct"},
             declOrigin = NameOriginGenerated
@@ -965,7 +965,7 @@
                   structFieldLoc =
                   "nested_types.h:13:13",
                   structFieldName = NamePair {
-                    nameC = CName "ex3_a",
+                    nameC = Name "ex3_a",
                     nameHsIdent = HsIdentifier
                       "ex3_ex3_struct_ex3_a"},
                   structFieldType = TypePrim
@@ -976,7 +976,7 @@
                   structFieldLoc =
                   "nested_types.h:14:14",
                   structFieldName = NamePair {
-                    nameC = CName "ex3_b",
+                    nameC = Name "ex3_b",
                     nameHsIdent = HsIdentifier
                       "ex3_ex3_struct_ex3_b"},
                   structFieldType = TypePrim
@@ -1015,7 +1015,7 @@
                 structFieldLoc =
                 "nested_types.h:13:13",
                 structFieldName = NamePair {
-                  nameC = CName "ex3_a",
+                  nameC = Name "ex3_a",
                   nameHsIdent = HsIdentifier
                     "ex3_ex3_struct_ex3_a"},
                 structFieldType = TypePrim
@@ -1033,7 +1033,7 @@
                 structFieldLoc =
                 "nested_types.h:14:14",
                 structFieldName = NamePair {
-                  nameC = CName "ex3_b",
+                  nameC = Name "ex3_b",
                   nameHsIdent = HsIdentifier
                     "ex3_ex3_struct_ex3_b"},
                 structFieldType = TypePrim
@@ -1047,7 +1047,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_types.h:12:5",
               declId = NamePair {
-                nameC = CName "ex3_ex3_struct",
+                nameC = Name "ex3_ex3_struct",
                 nameHsIdent = HsIdentifier
                   "Ex3_ex3_struct"},
               declOrigin = NameOriginGenerated
@@ -1067,7 +1067,7 @@
                     structFieldLoc =
                     "nested_types.h:13:13",
                     structFieldName = NamePair {
-                      nameC = CName "ex3_a",
+                      nameC = Name "ex3_a",
                       nameHsIdent = HsIdentifier
                         "ex3_ex3_struct_ex3_a"},
                     structFieldType = TypePrim
@@ -1078,7 +1078,7 @@
                     structFieldLoc =
                     "nested_types.h:14:14",
                     structFieldName = NamePair {
-                      nameC = CName "ex3_b",
+                      nameC = Name "ex3_b",
                       nameHsIdent = HsIdentifier
                         "ex3_ex3_struct_ex3_b"},
                     structFieldType = TypePrim
@@ -1122,7 +1122,7 @@
                         structFieldLoc =
                         "nested_types.h:13:13",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_a",
+                          nameC = Name "ex3_a",
                           nameHsIdent = HsIdentifier
                             "ex3_ex3_struct_ex3_a"},
                         structFieldType = TypePrim
@@ -1140,7 +1140,7 @@
                         structFieldLoc =
                         "nested_types.h:14:14",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_b",
+                          nameC = Name "ex3_b",
                           nameHsIdent = HsIdentifier
                             "ex3_ex3_struct_ex3_b"},
                         structFieldType = TypePrim
@@ -1154,7 +1154,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:12:5",
                       declId = NamePair {
-                        nameC = CName "ex3_ex3_struct",
+                        nameC = Name "ex3_ex3_struct",
                         nameHsIdent = HsIdentifier
                           "Ex3_ex3_struct"},
                       declOrigin = NameOriginGenerated
@@ -1174,7 +1174,7 @@
                             structFieldLoc =
                             "nested_types.h:13:13",
                             structFieldName = NamePair {
-                              nameC = CName "ex3_a",
+                              nameC = Name "ex3_a",
                               nameHsIdent = HsIdentifier
                                 "ex3_ex3_struct_ex3_a"},
                             structFieldType = TypePrim
@@ -1185,7 +1185,7 @@
                             structFieldLoc =
                             "nested_types.h:14:14",
                             structFieldName = NamePair {
-                              nameC = CName "ex3_b",
+                              nameC = Name "ex3_b",
                               nameHsIdent = HsIdentifier
                                 "ex3_ex3_struct_ex3_b"},
                             structFieldType = TypePrim
@@ -1231,7 +1231,7 @@
                         structFieldLoc =
                         "nested_types.h:13:13",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_a",
+                          nameC = Name "ex3_a",
                           nameHsIdent = HsIdentifier
                             "ex3_ex3_struct_ex3_a"},
                         structFieldType = TypePrim
@@ -1249,7 +1249,7 @@
                         structFieldLoc =
                         "nested_types.h:14:14",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_b",
+                          nameC = Name "ex3_b",
                           nameHsIdent = HsIdentifier
                             "ex3_ex3_struct_ex3_b"},
                         structFieldType = TypePrim
@@ -1263,7 +1263,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:12:5",
                       declId = NamePair {
-                        nameC = CName "ex3_ex3_struct",
+                        nameC = Name "ex3_ex3_struct",
                         nameHsIdent = HsIdentifier
                           "Ex3_ex3_struct"},
                       declOrigin = NameOriginGenerated
@@ -1283,7 +1283,7 @@
                             structFieldLoc =
                             "nested_types.h:13:13",
                             structFieldName = NamePair {
-                              nameC = CName "ex3_a",
+                              nameC = Name "ex3_a",
                               nameHsIdent = HsIdentifier
                                 "ex3_ex3_struct_ex3_a"},
                             structFieldType = TypePrim
@@ -1294,7 +1294,7 @@
                             structFieldLoc =
                             "nested_types.h:14:14",
                             structFieldName = NamePair {
-                              nameC = CName "ex3_b",
+                              nameC = Name "ex3_b",
                               nameHsIdent = HsIdentifier
                                 "ex3_ex3_struct_ex3_b"},
                             structFieldType = TypePrim
@@ -1354,12 +1354,12 @@
               structFieldLoc =
               "nested_types.h:15:7",
               structFieldName = NamePair {
-                nameC = CName "ex3_struct",
+                nameC = Name "ex3_struct",
                 nameHsIdent = HsIdentifier
                   "ex3_ex3_struct"},
               structFieldType = TypeStruct
                 NamePair {
-                  nameC = CName "ex3_ex3_struct",
+                  nameC = Name "ex3_ex3_struct",
                   nameHsIdent = HsIdentifier
                     "Ex3_ex3_struct"}
                 (NameOriginGenerated
@@ -1377,7 +1377,7 @@
               structFieldLoc =
               "nested_types.h:16:11",
               structFieldName = NamePair {
-                nameC = CName "ex3_c",
+                nameC = Name "ex3_c",
                 nameHsIdent = HsIdentifier
                   "ex3_ex3_c"},
               structFieldType = TypePrim
@@ -1389,7 +1389,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_types.h:11:8",
             declId = NamePair {
-              nameC = CName "ex3",
+              nameC = Name "ex3",
               nameHsIdent = HsIdentifier
                 "Ex3"},
             declOrigin = NameOriginInSource,
@@ -1406,12 +1406,12 @@
                   structFieldLoc =
                   "nested_types.h:15:7",
                   structFieldName = NamePair {
-                    nameC = CName "ex3_struct",
+                    nameC = Name "ex3_struct",
                     nameHsIdent = HsIdentifier
                       "ex3_ex3_struct"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName "ex3_ex3_struct",
+                      nameC = Name "ex3_ex3_struct",
                       nameHsIdent = HsIdentifier
                         "Ex3_ex3_struct"}
                     (NameOriginGenerated
@@ -1422,7 +1422,7 @@
                   structFieldLoc =
                   "nested_types.h:16:11",
                   structFieldName = NamePair {
-                    nameC = CName "ex3_c",
+                    nameC = Name "ex3_c",
                     nameHsIdent = HsIdentifier
                       "ex3_ex3_c"},
                   structFieldType = TypePrim
@@ -1461,12 +1461,12 @@
                 structFieldLoc =
                 "nested_types.h:15:7",
                 structFieldName = NamePair {
-                  nameC = CName "ex3_struct",
+                  nameC = Name "ex3_struct",
                   nameHsIdent = HsIdentifier
                     "ex3_ex3_struct"},
                 structFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "ex3_ex3_struct",
+                    nameC = Name "ex3_ex3_struct",
                     nameHsIdent = HsIdentifier
                       "Ex3_ex3_struct"}
                   (NameOriginGenerated
@@ -1484,7 +1484,7 @@
                 structFieldLoc =
                 "nested_types.h:16:11",
                 structFieldName = NamePair {
-                  nameC = CName "ex3_c",
+                  nameC = Name "ex3_c",
                   nameHsIdent = HsIdentifier
                     "ex3_ex3_c"},
                 structFieldType = TypePrim
@@ -1496,7 +1496,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_types.h:11:8",
               declId = NamePair {
-                nameC = CName "ex3",
+                nameC = Name "ex3",
                 nameHsIdent = HsIdentifier
                   "Ex3"},
               declOrigin = NameOriginInSource,
@@ -1513,12 +1513,12 @@
                     structFieldLoc =
                     "nested_types.h:15:7",
                     structFieldName = NamePair {
-                      nameC = CName "ex3_struct",
+                      nameC = Name "ex3_struct",
                       nameHsIdent = HsIdentifier
                         "ex3_ex3_struct"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "ex3_ex3_struct",
+                        nameC = Name "ex3_ex3_struct",
                         nameHsIdent = HsIdentifier
                           "Ex3_ex3_struct"}
                       (NameOriginGenerated
@@ -1529,7 +1529,7 @@
                     structFieldLoc =
                     "nested_types.h:16:11",
                     structFieldName = NamePair {
-                      nameC = CName "ex3_c",
+                      nameC = Name "ex3_c",
                       nameHsIdent = HsIdentifier
                         "ex3_ex3_c"},
                     structFieldType = TypePrim
@@ -1573,12 +1573,12 @@
                         structFieldLoc =
                         "nested_types.h:15:7",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_struct",
+                          nameC = Name "ex3_struct",
                           nameHsIdent = HsIdentifier
                             "ex3_ex3_struct"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "ex3_ex3_struct",
+                            nameC = Name "ex3_ex3_struct",
                             nameHsIdent = HsIdentifier
                               "Ex3_ex3_struct"}
                           (NameOriginGenerated
@@ -1596,7 +1596,7 @@
                         structFieldLoc =
                         "nested_types.h:16:11",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_c",
+                          nameC = Name "ex3_c",
                           nameHsIdent = HsIdentifier
                             "ex3_ex3_c"},
                         structFieldType = TypePrim
@@ -1608,7 +1608,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:11:8",
                       declId = NamePair {
-                        nameC = CName "ex3",
+                        nameC = Name "ex3",
                         nameHsIdent = HsIdentifier
                           "Ex3"},
                       declOrigin = NameOriginInSource,
@@ -1625,12 +1625,12 @@
                             structFieldLoc =
                             "nested_types.h:15:7",
                             structFieldName = NamePair {
-                              nameC = CName "ex3_struct",
+                              nameC = Name "ex3_struct",
                               nameHsIdent = HsIdentifier
                                 "ex3_ex3_struct"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "ex3_ex3_struct",
+                                nameC = Name "ex3_ex3_struct",
                                 nameHsIdent = HsIdentifier
                                   "Ex3_ex3_struct"}
                               (NameOriginGenerated
@@ -1641,7 +1641,7 @@
                             structFieldLoc =
                             "nested_types.h:16:11",
                             structFieldName = NamePair {
-                              nameC = CName "ex3_c",
+                              nameC = Name "ex3_c",
                               nameHsIdent = HsIdentifier
                                 "ex3_ex3_c"},
                             structFieldType = TypePrim
@@ -1687,12 +1687,12 @@
                         structFieldLoc =
                         "nested_types.h:15:7",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_struct",
+                          nameC = Name "ex3_struct",
                           nameHsIdent = HsIdentifier
                             "ex3_ex3_struct"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "ex3_ex3_struct",
+                            nameC = Name "ex3_ex3_struct",
                             nameHsIdent = HsIdentifier
                               "Ex3_ex3_struct"}
                           (NameOriginGenerated
@@ -1710,7 +1710,7 @@
                         structFieldLoc =
                         "nested_types.h:16:11",
                         structFieldName = NamePair {
-                          nameC = CName "ex3_c",
+                          nameC = Name "ex3_c",
                           nameHsIdent = HsIdentifier
                             "ex3_ex3_c"},
                         structFieldType = TypePrim
@@ -1722,7 +1722,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:11:8",
                       declId = NamePair {
-                        nameC = CName "ex3",
+                        nameC = Name "ex3",
                         nameHsIdent = HsIdentifier
                           "Ex3"},
                       declOrigin = NameOriginInSource,
@@ -1739,12 +1739,12 @@
                             structFieldLoc =
                             "nested_types.h:15:7",
                             structFieldName = NamePair {
-                              nameC = CName "ex3_struct",
+                              nameC = Name "ex3_struct",
                               nameHsIdent = HsIdentifier
                                 "ex3_ex3_struct"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "ex3_ex3_struct",
+                                nameC = Name "ex3_ex3_struct",
                                 nameHsIdent = HsIdentifier
                                   "Ex3_ex3_struct"}
                               (NameOriginGenerated
@@ -1755,7 +1755,7 @@
                             structFieldLoc =
                             "nested_types.h:16:11",
                             structFieldName = NamePair {
-                              nameC = CName "ex3_c",
+                              nameC = Name "ex3_c",
                               nameHsIdent = HsIdentifier
                                 "ex3_ex3_c"},
                             structFieldType = TypePrim
@@ -1807,7 +1807,7 @@
               structFieldLoc =
               "nested_types.h:25:16",
               structFieldName = NamePair {
-                nameC = CName "value",
+                nameC = Name "value",
                 nameHsIdent = HsIdentifier
                   "ex4_even_value"},
               structFieldType = TypePrim
@@ -1828,13 +1828,13 @@
               structFieldLoc =
               "nested_types.h:26:25",
               structFieldName = NamePair {
-                nameC = CName "next",
+                nameC = Name "next",
                 nameHsIdent = HsIdentifier
                   "ex4_even_next"},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
-                    nameC = CName "ex4_odd",
+                    nameC = Name "ex4_odd",
                     nameHsIdent = HsIdentifier
                       "Ex4_odd"}
                   NameOriginInSource),
@@ -1846,7 +1846,7 @@
             declLoc =
             "nested_types.h:24:12",
             declId = NamePair {
-              nameC = CName "ex4_even",
+              nameC = Name "ex4_even",
               nameHsIdent = HsIdentifier
                 "Ex4_even"},
             declOrigin = NameOriginInSource,
@@ -1863,7 +1863,7 @@
                   structFieldLoc =
                   "nested_types.h:25:16",
                   structFieldName = NamePair {
-                    nameC = CName "value",
+                    nameC = Name "value",
                     nameHsIdent = HsIdentifier
                       "ex4_even_value"},
                   structFieldType = TypePrim
@@ -1874,13 +1874,13 @@
                   structFieldLoc =
                   "nested_types.h:26:25",
                   structFieldName = NamePair {
-                    nameC = CName "next",
+                    nameC = Name "next",
                     nameHsIdent = HsIdentifier
                       "ex4_even_next"},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
-                        nameC = CName "ex4_odd",
+                        nameC = Name "ex4_odd",
                         nameHsIdent = HsIdentifier
                           "Ex4_odd"}
                       NameOriginInSource),
@@ -1916,7 +1916,7 @@
                 structFieldLoc =
                 "nested_types.h:25:16",
                 structFieldName = NamePair {
-                  nameC = CName "value",
+                  nameC = Name "value",
                   nameHsIdent = HsIdentifier
                     "ex4_even_value"},
                 structFieldType = TypePrim
@@ -1937,13 +1937,13 @@
                 structFieldLoc =
                 "nested_types.h:26:25",
                 structFieldName = NamePair {
-                  nameC = CName "next",
+                  nameC = Name "next",
                   nameHsIdent = HsIdentifier
                     "ex4_even_next"},
                 structFieldType = TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "ex4_odd",
+                      nameC = Name "ex4_odd",
                       nameHsIdent = HsIdentifier
                         "Ex4_odd"}
                     NameOriginInSource),
@@ -1955,7 +1955,7 @@
               declLoc =
               "nested_types.h:24:12",
               declId = NamePair {
-                nameC = CName "ex4_even",
+                nameC = Name "ex4_even",
                 nameHsIdent = HsIdentifier
                   "Ex4_even"},
               declOrigin = NameOriginInSource,
@@ -1972,7 +1972,7 @@
                     structFieldLoc =
                     "nested_types.h:25:16",
                     structFieldName = NamePair {
-                      nameC = CName "value",
+                      nameC = Name "value",
                       nameHsIdent = HsIdentifier
                         "ex4_even_value"},
                     structFieldType = TypePrim
@@ -1983,13 +1983,13 @@
                     structFieldLoc =
                     "nested_types.h:26:25",
                     structFieldName = NamePair {
-                      nameC = CName "next",
+                      nameC = Name "next",
                       nameHsIdent = HsIdentifier
                         "ex4_even_next"},
                     structFieldType = TypePointer
                       (TypeStruct
                         NamePair {
-                          nameC = CName "ex4_odd",
+                          nameC = Name "ex4_odd",
                           nameHsIdent = HsIdentifier
                             "Ex4_odd"}
                         NameOriginInSource),
@@ -2030,7 +2030,7 @@
                         structFieldLoc =
                         "nested_types.h:25:16",
                         structFieldName = NamePair {
-                          nameC = CName "value",
+                          nameC = Name "value",
                           nameHsIdent = HsIdentifier
                             "ex4_even_value"},
                         structFieldType = TypePrim
@@ -2051,13 +2051,13 @@
                         structFieldLoc =
                         "nested_types.h:26:25",
                         structFieldName = NamePair {
-                          nameC = CName "next",
+                          nameC = Name "next",
                           nameHsIdent = HsIdentifier
                             "ex4_even_next"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "ex4_odd",
+                              nameC = Name "ex4_odd",
                               nameHsIdent = HsIdentifier
                                 "Ex4_odd"}
                             NameOriginInSource),
@@ -2069,7 +2069,7 @@
                       declLoc =
                       "nested_types.h:24:12",
                       declId = NamePair {
-                        nameC = CName "ex4_even",
+                        nameC = Name "ex4_even",
                         nameHsIdent = HsIdentifier
                           "Ex4_even"},
                       declOrigin = NameOriginInSource,
@@ -2086,7 +2086,7 @@
                             structFieldLoc =
                             "nested_types.h:25:16",
                             structFieldName = NamePair {
-                              nameC = CName "value",
+                              nameC = Name "value",
                               nameHsIdent = HsIdentifier
                                 "ex4_even_value"},
                             structFieldType = TypePrim
@@ -2097,13 +2097,13 @@
                             structFieldLoc =
                             "nested_types.h:26:25",
                             structFieldName = NamePair {
-                              nameC = CName "next",
+                              nameC = Name "next",
                               nameHsIdent = HsIdentifier
                                 "ex4_even_next"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "ex4_odd",
+                                  nameC = Name "ex4_odd",
                                   nameHsIdent = HsIdentifier
                                     "Ex4_odd"}
                                 NameOriginInSource),
@@ -2146,7 +2146,7 @@
                         structFieldLoc =
                         "nested_types.h:25:16",
                         structFieldName = NamePair {
-                          nameC = CName "value",
+                          nameC = Name "value",
                           nameHsIdent = HsIdentifier
                             "ex4_even_value"},
                         structFieldType = TypePrim
@@ -2167,13 +2167,13 @@
                         structFieldLoc =
                         "nested_types.h:26:25",
                         structFieldName = NamePair {
-                          nameC = CName "next",
+                          nameC = Name "next",
                           nameHsIdent = HsIdentifier
                             "ex4_even_next"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "ex4_odd",
+                              nameC = Name "ex4_odd",
                               nameHsIdent = HsIdentifier
                                 "Ex4_odd"}
                             NameOriginInSource),
@@ -2185,7 +2185,7 @@
                       declLoc =
                       "nested_types.h:24:12",
                       declId = NamePair {
-                        nameC = CName "ex4_even",
+                        nameC = Name "ex4_even",
                         nameHsIdent = HsIdentifier
                           "Ex4_even"},
                       declOrigin = NameOriginInSource,
@@ -2202,7 +2202,7 @@
                             structFieldLoc =
                             "nested_types.h:25:16",
                             structFieldName = NamePair {
-                              nameC = CName "value",
+                              nameC = Name "value",
                               nameHsIdent = HsIdentifier
                                 "ex4_even_value"},
                             structFieldType = TypePrim
@@ -2213,13 +2213,13 @@
                             structFieldLoc =
                             "nested_types.h:26:25",
                             structFieldName = NamePair {
-                              nameC = CName "next",
+                              nameC = Name "next",
                               nameHsIdent = HsIdentifier
                                 "ex4_even_next"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "ex4_odd",
+                                  nameC = Name "ex4_odd",
                                   nameHsIdent = HsIdentifier
                                     "Ex4_odd"}
                                 NameOriginInSource),
@@ -2274,7 +2274,7 @@
               structFieldLoc =
               "nested_types.h:23:9",
               structFieldName = NamePair {
-                nameC = CName "value",
+                nameC = Name "value",
                 nameHsIdent = HsIdentifier
                   "ex4_odd_value"},
               structFieldType = TypePrim
@@ -2295,13 +2295,13 @@
               structFieldLoc =
               "nested_types.h:27:8",
               structFieldName = NamePair {
-                nameC = CName "next",
+                nameC = Name "next",
                 nameHsIdent = HsIdentifier
                   "ex4_odd_next"},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
-                    nameC = CName "ex4_even",
+                    nameC = Name "ex4_even",
                     nameHsIdent = HsIdentifier
                       "Ex4_even"}
                   NameOriginInSource),
@@ -2312,7 +2312,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_types.h:22:8",
             declId = NamePair {
-              nameC = CName "ex4_odd",
+              nameC = Name "ex4_odd",
               nameHsIdent = HsIdentifier
                 "Ex4_odd"},
             declOrigin = NameOriginInSource,
@@ -2329,7 +2329,7 @@
                   structFieldLoc =
                   "nested_types.h:23:9",
                   structFieldName = NamePair {
-                    nameC = CName "value",
+                    nameC = Name "value",
                     nameHsIdent = HsIdentifier
                       "ex4_odd_value"},
                   structFieldType = TypePrim
@@ -2340,13 +2340,13 @@
                   structFieldLoc =
                   "nested_types.h:27:8",
                   structFieldName = NamePair {
-                    nameC = CName "next",
+                    nameC = Name "next",
                     nameHsIdent = HsIdentifier
                       "ex4_odd_next"},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
-                        nameC = CName "ex4_even",
+                        nameC = Name "ex4_even",
                         nameHsIdent = HsIdentifier
                           "Ex4_even"}
                       NameOriginInSource),
@@ -2382,7 +2382,7 @@
                 structFieldLoc =
                 "nested_types.h:23:9",
                 structFieldName = NamePair {
-                  nameC = CName "value",
+                  nameC = Name "value",
                   nameHsIdent = HsIdentifier
                     "ex4_odd_value"},
                 structFieldType = TypePrim
@@ -2403,13 +2403,13 @@
                 structFieldLoc =
                 "nested_types.h:27:8",
                 structFieldName = NamePair {
-                  nameC = CName "next",
+                  nameC = Name "next",
                   nameHsIdent = HsIdentifier
                     "ex4_odd_next"},
                 structFieldType = TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "ex4_even",
+                      nameC = Name "ex4_even",
                       nameHsIdent = HsIdentifier
                         "Ex4_even"}
                     NameOriginInSource),
@@ -2420,7 +2420,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_types.h:22:8",
               declId = NamePair {
-                nameC = CName "ex4_odd",
+                nameC = Name "ex4_odd",
                 nameHsIdent = HsIdentifier
                   "Ex4_odd"},
               declOrigin = NameOriginInSource,
@@ -2437,7 +2437,7 @@
                     structFieldLoc =
                     "nested_types.h:23:9",
                     structFieldName = NamePair {
-                      nameC = CName "value",
+                      nameC = Name "value",
                       nameHsIdent = HsIdentifier
                         "ex4_odd_value"},
                     structFieldType = TypePrim
@@ -2448,13 +2448,13 @@
                     structFieldLoc =
                     "nested_types.h:27:8",
                     structFieldName = NamePair {
-                      nameC = CName "next",
+                      nameC = Name "next",
                       nameHsIdent = HsIdentifier
                         "ex4_odd_next"},
                     structFieldType = TypePointer
                       (TypeStruct
                         NamePair {
-                          nameC = CName "ex4_even",
+                          nameC = Name "ex4_even",
                           nameHsIdent = HsIdentifier
                             "Ex4_even"}
                         NameOriginInSource),
@@ -2495,7 +2495,7 @@
                         structFieldLoc =
                         "nested_types.h:23:9",
                         structFieldName = NamePair {
-                          nameC = CName "value",
+                          nameC = Name "value",
                           nameHsIdent = HsIdentifier
                             "ex4_odd_value"},
                         structFieldType = TypePrim
@@ -2516,13 +2516,13 @@
                         structFieldLoc =
                         "nested_types.h:27:8",
                         structFieldName = NamePair {
-                          nameC = CName "next",
+                          nameC = Name "next",
                           nameHsIdent = HsIdentifier
                             "ex4_odd_next"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "ex4_even",
+                              nameC = Name "ex4_even",
                               nameHsIdent = HsIdentifier
                                 "Ex4_even"}
                             NameOriginInSource),
@@ -2533,7 +2533,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:22:8",
                       declId = NamePair {
-                        nameC = CName "ex4_odd",
+                        nameC = Name "ex4_odd",
                         nameHsIdent = HsIdentifier
                           "Ex4_odd"},
                       declOrigin = NameOriginInSource,
@@ -2550,7 +2550,7 @@
                             structFieldLoc =
                             "nested_types.h:23:9",
                             structFieldName = NamePair {
-                              nameC = CName "value",
+                              nameC = Name "value",
                               nameHsIdent = HsIdentifier
                                 "ex4_odd_value"},
                             structFieldType = TypePrim
@@ -2561,13 +2561,13 @@
                             structFieldLoc =
                             "nested_types.h:27:8",
                             structFieldName = NamePair {
-                              nameC = CName "next",
+                              nameC = Name "next",
                               nameHsIdent = HsIdentifier
                                 "ex4_odd_next"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "ex4_even",
+                                  nameC = Name "ex4_even",
                                   nameHsIdent = HsIdentifier
                                     "Ex4_even"}
                                 NameOriginInSource),
@@ -2610,7 +2610,7 @@
                         structFieldLoc =
                         "nested_types.h:23:9",
                         structFieldName = NamePair {
-                          nameC = CName "value",
+                          nameC = Name "value",
                           nameHsIdent = HsIdentifier
                             "ex4_odd_value"},
                         structFieldType = TypePrim
@@ -2631,13 +2631,13 @@
                         structFieldLoc =
                         "nested_types.h:27:8",
                         structFieldName = NamePair {
-                          nameC = CName "next",
+                          nameC = Name "next",
                           nameHsIdent = HsIdentifier
                             "ex4_odd_next"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "ex4_even",
+                              nameC = Name "ex4_even",
                               nameHsIdent = HsIdentifier
                                 "Ex4_even"}
                             NameOriginInSource),
@@ -2648,7 +2648,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_types.h:22:8",
                       declId = NamePair {
-                        nameC = CName "ex4_odd",
+                        nameC = Name "ex4_odd",
                         nameHsIdent = HsIdentifier
                           "Ex4_odd"},
                       declOrigin = NameOriginInSource,
@@ -2665,7 +2665,7 @@
                             structFieldLoc =
                             "nested_types.h:23:9",
                             structFieldName = NamePair {
-                              nameC = CName "value",
+                              nameC = Name "value",
                               nameHsIdent = HsIdentifier
                                 "ex4_odd_value"},
                             structFieldType = TypePrim
@@ -2676,13 +2676,13 @@
                             structFieldLoc =
                             "nested_types.h:27:8",
                             structFieldName = NamePair {
-                              nameC = CName "next",
+                              nameC = Name "next",
                               nameHsIdent = HsIdentifier
                                 "ex4_odd_next"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "ex4_even",
+                                  nameC = Name "ex4_even",
                                   nameHsIdent = HsIdentifier
                                     "Ex4_even"}
                                 NameOriginInSource),

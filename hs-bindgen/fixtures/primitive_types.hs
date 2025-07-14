@@ -19,7 +19,7 @@
               structFieldLoc =
               "primitive_types.h:2:10",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "primitive_c"},
               structFieldType = TypePrim
@@ -39,7 +39,7 @@
               structFieldLoc =
               "primitive_types.h:3:17",
               structFieldName = NamePair {
-                nameC = CName "sc",
+                nameC = Name "sc",
                 nameHsIdent = HsIdentifier
                   "primitive_sc"},
               structFieldType = TypePrim
@@ -58,7 +58,7 @@
               structFieldLoc =
               "primitive_types.h:4:19",
               structFieldName = NamePair {
-                nameC = CName "uc",
+                nameC = Name "uc",
                 nameHsIdent = HsIdentifier
                   "primitive_uc"},
               structFieldType = TypePrim
@@ -77,7 +77,7 @@
               structFieldLoc =
               "primitive_types.h:6:11",
               structFieldName = NamePair {
-                nameC = CName "s",
+                nameC = Name "s",
                 nameHsIdent = HsIdentifier
                   "primitive_s"},
               structFieldType = TypePrim
@@ -95,7 +95,7 @@
               structFieldLoc =
               "primitive_types.h:7:15",
               structFieldName = NamePair {
-                nameC = CName "si",
+                nameC = Name "si",
                 nameHsIdent = HsIdentifier
                   "primitive_si"},
               structFieldType = TypePrim
@@ -113,7 +113,7 @@
               structFieldLoc =
               "primitive_types.h:8:18",
               structFieldName = NamePair {
-                nameC = CName "ss",
+                nameC = Name "ss",
                 nameHsIdent = HsIdentifier
                   "primitive_ss"},
               structFieldType = TypePrim
@@ -131,7 +131,7 @@
               structFieldLoc =
               "primitive_types.h:9:22",
               structFieldName = NamePair {
-                nameC = CName "ssi",
+                nameC = Name "ssi",
                 nameHsIdent = HsIdentifier
                   "primitive_ssi"},
               structFieldType = TypePrim
@@ -149,7 +149,7 @@
               structFieldLoc =
               "primitive_types.h:11:20",
               structFieldName = NamePair {
-                nameC = CName "us",
+                nameC = Name "us",
                 nameHsIdent = HsIdentifier
                   "primitive_us"},
               structFieldType = TypePrim
@@ -169,7 +169,7 @@
               structFieldLoc =
               "primitive_types.h:12:24",
               structFieldName = NamePair {
-                nameC = CName "usi",
+                nameC = Name "usi",
                 nameHsIdent = HsIdentifier
                   "primitive_usi"},
               structFieldType = TypePrim
@@ -189,7 +189,7 @@
               structFieldLoc =
               "primitive_types.h:14:9",
               structFieldName = NamePair {
-                nameC = CName "i",
+                nameC = Name "i",
                 nameHsIdent = HsIdentifier
                   "primitive_i"},
               structFieldType = TypePrim
@@ -207,7 +207,7 @@
               structFieldLoc =
               "primitive_types.h:15:12",
               structFieldName = NamePair {
-                nameC = CName "s2",
+                nameC = Name "s2",
                 nameHsIdent = HsIdentifier
                   "primitive_s2"},
               structFieldType = TypePrim
@@ -225,7 +225,7 @@
               structFieldLoc =
               "primitive_types.h:16:16",
               structFieldName = NamePair {
-                nameC = CName "si2",
+                nameC = Name "si2",
                 nameHsIdent = HsIdentifier
                   "primitive_si2"},
               structFieldType = TypePrim
@@ -243,7 +243,7 @@
               structFieldLoc =
               "primitive_types.h:18:14",
               structFieldName = NamePair {
-                nameC = CName "u",
+                nameC = Name "u",
                 nameHsIdent = HsIdentifier
                   "primitive_u"},
               structFieldType = TypePrim
@@ -261,7 +261,7 @@
               structFieldLoc =
               "primitive_types.h:19:18",
               structFieldName = NamePair {
-                nameC = CName "ui",
+                nameC = Name "ui",
                 nameHsIdent = HsIdentifier
                   "primitive_ui"},
               structFieldType = TypePrim
@@ -279,7 +279,7 @@
               structFieldLoc =
               "primitive_types.h:21:10",
               structFieldName = NamePair {
-                nameC = CName "l",
+                nameC = Name "l",
                 nameHsIdent = HsIdentifier
                   "primitive_l"},
               structFieldType = TypePrim
@@ -297,7 +297,7 @@
               structFieldLoc =
               "primitive_types.h:22:14",
               structFieldName = NamePair {
-                nameC = CName "li",
+                nameC = Name "li",
                 nameHsIdent = HsIdentifier
                   "primitive_li"},
               structFieldType = TypePrim
@@ -315,7 +315,7 @@
               structFieldLoc =
               "primitive_types.h:23:17",
               structFieldName = NamePair {
-                nameC = CName "sl",
+                nameC = Name "sl",
                 nameHsIdent = HsIdentifier
                   "primitive_sl"},
               structFieldType = TypePrim
@@ -333,7 +333,7 @@
               structFieldLoc =
               "primitive_types.h:24:21",
               structFieldName = NamePair {
-                nameC = CName "sli",
+                nameC = Name "sli",
                 nameHsIdent = HsIdentifier
                   "primitive_sli"},
               structFieldType = TypePrim
@@ -351,7 +351,7 @@
               structFieldLoc =
               "primitive_types.h:26:19",
               structFieldName = NamePair {
-                nameC = CName "ul",
+                nameC = Name "ul",
                 nameHsIdent = HsIdentifier
                   "primitive_ul"},
               structFieldType = TypePrim
@@ -371,7 +371,7 @@
               structFieldLoc =
               "primitive_types.h:27:23",
               structFieldName = NamePair {
-                nameC = CName "uli",
+                nameC = Name "uli",
                 nameHsIdent = HsIdentifier
                   "primitive_uli"},
               structFieldType = TypePrim
@@ -391,7 +391,7 @@
               structFieldLoc =
               "primitive_types.h:29:15",
               structFieldName = NamePair {
-                nameC = CName "ll",
+                nameC = Name "ll",
                 nameHsIdent = HsIdentifier
                   "primitive_ll"},
               structFieldType = TypePrim
@@ -411,7 +411,7 @@
               structFieldLoc =
               "primitive_types.h:30:19",
               structFieldName = NamePair {
-                nameC = CName "lli",
+                nameC = Name "lli",
                 nameHsIdent = HsIdentifier
                   "primitive_lli"},
               structFieldType = TypePrim
@@ -431,7 +431,7 @@
               structFieldLoc =
               "primitive_types.h:31:22",
               structFieldName = NamePair {
-                nameC = CName "sll",
+                nameC = Name "sll",
                 nameHsIdent = HsIdentifier
                   "primitive_sll"},
               structFieldType = TypePrim
@@ -451,7 +451,7 @@
               structFieldLoc =
               "primitive_types.h:32:26",
               structFieldName = NamePair {
-                nameC = CName "slli",
+                nameC = Name "slli",
                 nameHsIdent = HsIdentifier
                   "primitive_slli"},
               structFieldType = TypePrim
@@ -471,7 +471,7 @@
               structFieldLoc =
               "primitive_types.h:34:24",
               structFieldName = NamePair {
-                nameC = CName "ull",
+                nameC = Name "ull",
                 nameHsIdent = HsIdentifier
                   "primitive_ull"},
               structFieldType = TypePrim
@@ -491,7 +491,7 @@
               structFieldLoc =
               "primitive_types.h:35:28",
               structFieldName = NamePair {
-                nameC = CName "ulli",
+                nameC = Name "ulli",
                 nameHsIdent = HsIdentifier
                   "primitive_ulli"},
               structFieldType = TypePrim
@@ -511,7 +511,7 @@
               structFieldLoc =
               "primitive_types.h:37:11",
               structFieldName = NamePair {
-                nameC = CName "f",
+                nameC = Name "f",
                 nameHsIdent = HsIdentifier
                   "primitive_f"},
               structFieldType = TypePrim
@@ -529,7 +529,7 @@
               structFieldLoc =
               "primitive_types.h:38:12",
               structFieldName = NamePair {
-                nameC = CName "d",
+                nameC = Name "d",
                 nameHsIdent = HsIdentifier
                   "primitive_d"},
               structFieldType = TypePrim
@@ -542,7 +542,7 @@
             declLoc =
             "primitive_types.h:1:8",
             declId = NamePair {
-              nameC = CName "primitive",
+              nameC = Name "primitive",
               nameHsIdent = HsIdentifier
                 "Primitive"},
             declOrigin = NameOriginInSource,
@@ -562,7 +562,7 @@
                   structFieldLoc =
                   "primitive_types.h:2:10",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "primitive_c"},
                   structFieldType = TypePrim
@@ -575,7 +575,7 @@
                   structFieldLoc =
                   "primitive_types.h:3:17",
                   structFieldName = NamePair {
-                    nameC = CName "sc",
+                    nameC = Name "sc",
                     nameHsIdent = HsIdentifier
                       "primitive_sc"},
                   structFieldType = TypePrim
@@ -587,7 +587,7 @@
                   structFieldLoc =
                   "primitive_types.h:4:19",
                   structFieldName = NamePair {
-                    nameC = CName "uc",
+                    nameC = Name "uc",
                     nameHsIdent = HsIdentifier
                       "primitive_uc"},
                   structFieldType = TypePrim
@@ -599,7 +599,7 @@
                   structFieldLoc =
                   "primitive_types.h:6:11",
                   structFieldName = NamePair {
-                    nameC = CName "s",
+                    nameC = Name "s",
                     nameHsIdent = HsIdentifier
                       "primitive_s"},
                   structFieldType = TypePrim
@@ -610,7 +610,7 @@
                   structFieldLoc =
                   "primitive_types.h:7:15",
                   structFieldName = NamePair {
-                    nameC = CName "si",
+                    nameC = Name "si",
                     nameHsIdent = HsIdentifier
                       "primitive_si"},
                   structFieldType = TypePrim
@@ -621,7 +621,7 @@
                   structFieldLoc =
                   "primitive_types.h:8:18",
                   structFieldName = NamePair {
-                    nameC = CName "ss",
+                    nameC = Name "ss",
                     nameHsIdent = HsIdentifier
                       "primitive_ss"},
                   structFieldType = TypePrim
@@ -632,7 +632,7 @@
                   structFieldLoc =
                   "primitive_types.h:9:22",
                   structFieldName = NamePair {
-                    nameC = CName "ssi",
+                    nameC = Name "ssi",
                     nameHsIdent = HsIdentifier
                       "primitive_ssi"},
                   structFieldType = TypePrim
@@ -643,7 +643,7 @@
                   structFieldLoc =
                   "primitive_types.h:11:20",
                   structFieldName = NamePair {
-                    nameC = CName "us",
+                    nameC = Name "us",
                     nameHsIdent = HsIdentifier
                       "primitive_us"},
                   structFieldType = TypePrim
@@ -656,7 +656,7 @@
                   structFieldLoc =
                   "primitive_types.h:12:24",
                   structFieldName = NamePair {
-                    nameC = CName "usi",
+                    nameC = Name "usi",
                     nameHsIdent = HsIdentifier
                       "primitive_usi"},
                   structFieldType = TypePrim
@@ -669,7 +669,7 @@
                   structFieldLoc =
                   "primitive_types.h:14:9",
                   structFieldName = NamePair {
-                    nameC = CName "i",
+                    nameC = Name "i",
                     nameHsIdent = HsIdentifier
                       "primitive_i"},
                   structFieldType = TypePrim
@@ -680,7 +680,7 @@
                   structFieldLoc =
                   "primitive_types.h:15:12",
                   structFieldName = NamePair {
-                    nameC = CName "s2",
+                    nameC = Name "s2",
                     nameHsIdent = HsIdentifier
                       "primitive_s2"},
                   structFieldType = TypePrim
@@ -691,7 +691,7 @@
                   structFieldLoc =
                   "primitive_types.h:16:16",
                   structFieldName = NamePair {
-                    nameC = CName "si2",
+                    nameC = Name "si2",
                     nameHsIdent = HsIdentifier
                       "primitive_si2"},
                   structFieldType = TypePrim
@@ -702,7 +702,7 @@
                   structFieldLoc =
                   "primitive_types.h:18:14",
                   structFieldName = NamePair {
-                    nameC = CName "u",
+                    nameC = Name "u",
                     nameHsIdent = HsIdentifier
                       "primitive_u"},
                   structFieldType = TypePrim
@@ -713,7 +713,7 @@
                   structFieldLoc =
                   "primitive_types.h:19:18",
                   structFieldName = NamePair {
-                    nameC = CName "ui",
+                    nameC = Name "ui",
                     nameHsIdent = HsIdentifier
                       "primitive_ui"},
                   structFieldType = TypePrim
@@ -724,7 +724,7 @@
                   structFieldLoc =
                   "primitive_types.h:21:10",
                   structFieldName = NamePair {
-                    nameC = CName "l",
+                    nameC = Name "l",
                     nameHsIdent = HsIdentifier
                       "primitive_l"},
                   structFieldType = TypePrim
@@ -735,7 +735,7 @@
                   structFieldLoc =
                   "primitive_types.h:22:14",
                   structFieldName = NamePair {
-                    nameC = CName "li",
+                    nameC = Name "li",
                     nameHsIdent = HsIdentifier
                       "primitive_li"},
                   structFieldType = TypePrim
@@ -746,7 +746,7 @@
                   structFieldLoc =
                   "primitive_types.h:23:17",
                   structFieldName = NamePair {
-                    nameC = CName "sl",
+                    nameC = Name "sl",
                     nameHsIdent = HsIdentifier
                       "primitive_sl"},
                   structFieldType = TypePrim
@@ -757,7 +757,7 @@
                   structFieldLoc =
                   "primitive_types.h:24:21",
                   structFieldName = NamePair {
-                    nameC = CName "sli",
+                    nameC = Name "sli",
                     nameHsIdent = HsIdentifier
                       "primitive_sli"},
                   structFieldType = TypePrim
@@ -768,7 +768,7 @@
                   structFieldLoc =
                   "primitive_types.h:26:19",
                   structFieldName = NamePair {
-                    nameC = CName "ul",
+                    nameC = Name "ul",
                     nameHsIdent = HsIdentifier
                       "primitive_ul"},
                   structFieldType = TypePrim
@@ -781,7 +781,7 @@
                   structFieldLoc =
                   "primitive_types.h:27:23",
                   structFieldName = NamePair {
-                    nameC = CName "uli",
+                    nameC = Name "uli",
                     nameHsIdent = HsIdentifier
                       "primitive_uli"},
                   structFieldType = TypePrim
@@ -794,7 +794,7 @@
                   structFieldLoc =
                   "primitive_types.h:29:15",
                   structFieldName = NamePair {
-                    nameC = CName "ll",
+                    nameC = Name "ll",
                     nameHsIdent = HsIdentifier
                       "primitive_ll"},
                   structFieldType = TypePrim
@@ -807,7 +807,7 @@
                   structFieldLoc =
                   "primitive_types.h:30:19",
                   structFieldName = NamePair {
-                    nameC = CName "lli",
+                    nameC = Name "lli",
                     nameHsIdent = HsIdentifier
                       "primitive_lli"},
                   structFieldType = TypePrim
@@ -820,7 +820,7 @@
                   structFieldLoc =
                   "primitive_types.h:31:22",
                   structFieldName = NamePair {
-                    nameC = CName "sll",
+                    nameC = Name "sll",
                     nameHsIdent = HsIdentifier
                       "primitive_sll"},
                   structFieldType = TypePrim
@@ -833,7 +833,7 @@
                   structFieldLoc =
                   "primitive_types.h:32:26",
                   structFieldName = NamePair {
-                    nameC = CName "slli",
+                    nameC = Name "slli",
                     nameHsIdent = HsIdentifier
                       "primitive_slli"},
                   structFieldType = TypePrim
@@ -846,7 +846,7 @@
                   structFieldLoc =
                   "primitive_types.h:34:24",
                   structFieldName = NamePair {
-                    nameC = CName "ull",
+                    nameC = Name "ull",
                     nameHsIdent = HsIdentifier
                       "primitive_ull"},
                   structFieldType = TypePrim
@@ -859,7 +859,7 @@
                   structFieldLoc =
                   "primitive_types.h:35:28",
                   structFieldName = NamePair {
-                    nameC = CName "ulli",
+                    nameC = Name "ulli",
                     nameHsIdent = HsIdentifier
                       "primitive_ulli"},
                   structFieldType = TypePrim
@@ -872,7 +872,7 @@
                   structFieldLoc =
                   "primitive_types.h:37:11",
                   structFieldName = NamePair {
-                    nameC = CName "f",
+                    nameC = Name "f",
                     nameHsIdent = HsIdentifier
                       "primitive_f"},
                   structFieldType = TypePrim
@@ -883,7 +883,7 @@
                   structFieldLoc =
                   "primitive_types.h:38:12",
                   structFieldName = NamePair {
-                    nameC = CName "d",
+                    nameC = Name "d",
                     nameHsIdent = HsIdentifier
                       "primitive_d"},
                   structFieldType = TypePrim
@@ -920,7 +920,7 @@
                 structFieldLoc =
                 "primitive_types.h:2:10",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "primitive_c"},
                 structFieldType = TypePrim
@@ -940,7 +940,7 @@
                 structFieldLoc =
                 "primitive_types.h:3:17",
                 structFieldName = NamePair {
-                  nameC = CName "sc",
+                  nameC = Name "sc",
                   nameHsIdent = HsIdentifier
                     "primitive_sc"},
                 structFieldType = TypePrim
@@ -959,7 +959,7 @@
                 structFieldLoc =
                 "primitive_types.h:4:19",
                 structFieldName = NamePair {
-                  nameC = CName "uc",
+                  nameC = Name "uc",
                   nameHsIdent = HsIdentifier
                     "primitive_uc"},
                 structFieldType = TypePrim
@@ -978,7 +978,7 @@
                 structFieldLoc =
                 "primitive_types.h:6:11",
                 structFieldName = NamePair {
-                  nameC = CName "s",
+                  nameC = Name "s",
                   nameHsIdent = HsIdentifier
                     "primitive_s"},
                 structFieldType = TypePrim
@@ -996,7 +996,7 @@
                 structFieldLoc =
                 "primitive_types.h:7:15",
                 structFieldName = NamePair {
-                  nameC = CName "si",
+                  nameC = Name "si",
                   nameHsIdent = HsIdentifier
                     "primitive_si"},
                 structFieldType = TypePrim
@@ -1014,7 +1014,7 @@
                 structFieldLoc =
                 "primitive_types.h:8:18",
                 structFieldName = NamePair {
-                  nameC = CName "ss",
+                  nameC = Name "ss",
                   nameHsIdent = HsIdentifier
                     "primitive_ss"},
                 structFieldType = TypePrim
@@ -1032,7 +1032,7 @@
                 structFieldLoc =
                 "primitive_types.h:9:22",
                 structFieldName = NamePair {
-                  nameC = CName "ssi",
+                  nameC = Name "ssi",
                   nameHsIdent = HsIdentifier
                     "primitive_ssi"},
                 structFieldType = TypePrim
@@ -1050,7 +1050,7 @@
                 structFieldLoc =
                 "primitive_types.h:11:20",
                 structFieldName = NamePair {
-                  nameC = CName "us",
+                  nameC = Name "us",
                   nameHsIdent = HsIdentifier
                     "primitive_us"},
                 structFieldType = TypePrim
@@ -1070,7 +1070,7 @@
                 structFieldLoc =
                 "primitive_types.h:12:24",
                 structFieldName = NamePair {
-                  nameC = CName "usi",
+                  nameC = Name "usi",
                   nameHsIdent = HsIdentifier
                     "primitive_usi"},
                 structFieldType = TypePrim
@@ -1090,7 +1090,7 @@
                 structFieldLoc =
                 "primitive_types.h:14:9",
                 structFieldName = NamePair {
-                  nameC = CName "i",
+                  nameC = Name "i",
                   nameHsIdent = HsIdentifier
                     "primitive_i"},
                 structFieldType = TypePrim
@@ -1108,7 +1108,7 @@
                 structFieldLoc =
                 "primitive_types.h:15:12",
                 structFieldName = NamePair {
-                  nameC = CName "s2",
+                  nameC = Name "s2",
                   nameHsIdent = HsIdentifier
                     "primitive_s2"},
                 structFieldType = TypePrim
@@ -1126,7 +1126,7 @@
                 structFieldLoc =
                 "primitive_types.h:16:16",
                 structFieldName = NamePair {
-                  nameC = CName "si2",
+                  nameC = Name "si2",
                   nameHsIdent = HsIdentifier
                     "primitive_si2"},
                 structFieldType = TypePrim
@@ -1144,7 +1144,7 @@
                 structFieldLoc =
                 "primitive_types.h:18:14",
                 structFieldName = NamePair {
-                  nameC = CName "u",
+                  nameC = Name "u",
                   nameHsIdent = HsIdentifier
                     "primitive_u"},
                 structFieldType = TypePrim
@@ -1162,7 +1162,7 @@
                 structFieldLoc =
                 "primitive_types.h:19:18",
                 structFieldName = NamePair {
-                  nameC = CName "ui",
+                  nameC = Name "ui",
                   nameHsIdent = HsIdentifier
                     "primitive_ui"},
                 structFieldType = TypePrim
@@ -1180,7 +1180,7 @@
                 structFieldLoc =
                 "primitive_types.h:21:10",
                 structFieldName = NamePair {
-                  nameC = CName "l",
+                  nameC = Name "l",
                   nameHsIdent = HsIdentifier
                     "primitive_l"},
                 structFieldType = TypePrim
@@ -1198,7 +1198,7 @@
                 structFieldLoc =
                 "primitive_types.h:22:14",
                 structFieldName = NamePair {
-                  nameC = CName "li",
+                  nameC = Name "li",
                   nameHsIdent = HsIdentifier
                     "primitive_li"},
                 structFieldType = TypePrim
@@ -1216,7 +1216,7 @@
                 structFieldLoc =
                 "primitive_types.h:23:17",
                 structFieldName = NamePair {
-                  nameC = CName "sl",
+                  nameC = Name "sl",
                   nameHsIdent = HsIdentifier
                     "primitive_sl"},
                 structFieldType = TypePrim
@@ -1234,7 +1234,7 @@
                 structFieldLoc =
                 "primitive_types.h:24:21",
                 structFieldName = NamePair {
-                  nameC = CName "sli",
+                  nameC = Name "sli",
                   nameHsIdent = HsIdentifier
                     "primitive_sli"},
                 structFieldType = TypePrim
@@ -1252,7 +1252,7 @@
                 structFieldLoc =
                 "primitive_types.h:26:19",
                 structFieldName = NamePair {
-                  nameC = CName "ul",
+                  nameC = Name "ul",
                   nameHsIdent = HsIdentifier
                     "primitive_ul"},
                 structFieldType = TypePrim
@@ -1272,7 +1272,7 @@
                 structFieldLoc =
                 "primitive_types.h:27:23",
                 structFieldName = NamePair {
-                  nameC = CName "uli",
+                  nameC = Name "uli",
                   nameHsIdent = HsIdentifier
                     "primitive_uli"},
                 structFieldType = TypePrim
@@ -1292,7 +1292,7 @@
                 structFieldLoc =
                 "primitive_types.h:29:15",
                 structFieldName = NamePair {
-                  nameC = CName "ll",
+                  nameC = Name "ll",
                   nameHsIdent = HsIdentifier
                     "primitive_ll"},
                 structFieldType = TypePrim
@@ -1312,7 +1312,7 @@
                 structFieldLoc =
                 "primitive_types.h:30:19",
                 structFieldName = NamePair {
-                  nameC = CName "lli",
+                  nameC = Name "lli",
                   nameHsIdent = HsIdentifier
                     "primitive_lli"},
                 structFieldType = TypePrim
@@ -1332,7 +1332,7 @@
                 structFieldLoc =
                 "primitive_types.h:31:22",
                 structFieldName = NamePair {
-                  nameC = CName "sll",
+                  nameC = Name "sll",
                   nameHsIdent = HsIdentifier
                     "primitive_sll"},
                 structFieldType = TypePrim
@@ -1352,7 +1352,7 @@
                 structFieldLoc =
                 "primitive_types.h:32:26",
                 structFieldName = NamePair {
-                  nameC = CName "slli",
+                  nameC = Name "slli",
                   nameHsIdent = HsIdentifier
                     "primitive_slli"},
                 structFieldType = TypePrim
@@ -1372,7 +1372,7 @@
                 structFieldLoc =
                 "primitive_types.h:34:24",
                 structFieldName = NamePair {
-                  nameC = CName "ull",
+                  nameC = Name "ull",
                   nameHsIdent = HsIdentifier
                     "primitive_ull"},
                 structFieldType = TypePrim
@@ -1392,7 +1392,7 @@
                 structFieldLoc =
                 "primitive_types.h:35:28",
                 structFieldName = NamePair {
-                  nameC = CName "ulli",
+                  nameC = Name "ulli",
                   nameHsIdent = HsIdentifier
                     "primitive_ulli"},
                 structFieldType = TypePrim
@@ -1412,7 +1412,7 @@
                 structFieldLoc =
                 "primitive_types.h:37:11",
                 structFieldName = NamePair {
-                  nameC = CName "f",
+                  nameC = Name "f",
                   nameHsIdent = HsIdentifier
                     "primitive_f"},
                 structFieldType = TypePrim
@@ -1430,7 +1430,7 @@
                 structFieldLoc =
                 "primitive_types.h:38:12",
                 structFieldName = NamePair {
-                  nameC = CName "d",
+                  nameC = Name "d",
                   nameHsIdent = HsIdentifier
                     "primitive_d"},
                 structFieldType = TypePrim
@@ -1443,7 +1443,7 @@
               declLoc =
               "primitive_types.h:1:8",
               declId = NamePair {
-                nameC = CName "primitive",
+                nameC = Name "primitive",
                 nameHsIdent = HsIdentifier
                   "Primitive"},
               declOrigin = NameOriginInSource,
@@ -1463,7 +1463,7 @@
                     structFieldLoc =
                     "primitive_types.h:2:10",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "primitive_c"},
                     structFieldType = TypePrim
@@ -1476,7 +1476,7 @@
                     structFieldLoc =
                     "primitive_types.h:3:17",
                     structFieldName = NamePair {
-                      nameC = CName "sc",
+                      nameC = Name "sc",
                       nameHsIdent = HsIdentifier
                         "primitive_sc"},
                     structFieldType = TypePrim
@@ -1488,7 +1488,7 @@
                     structFieldLoc =
                     "primitive_types.h:4:19",
                     structFieldName = NamePair {
-                      nameC = CName "uc",
+                      nameC = Name "uc",
                       nameHsIdent = HsIdentifier
                         "primitive_uc"},
                     structFieldType = TypePrim
@@ -1500,7 +1500,7 @@
                     structFieldLoc =
                     "primitive_types.h:6:11",
                     structFieldName = NamePair {
-                      nameC = CName "s",
+                      nameC = Name "s",
                       nameHsIdent = HsIdentifier
                         "primitive_s"},
                     structFieldType = TypePrim
@@ -1511,7 +1511,7 @@
                     structFieldLoc =
                     "primitive_types.h:7:15",
                     structFieldName = NamePair {
-                      nameC = CName "si",
+                      nameC = Name "si",
                       nameHsIdent = HsIdentifier
                         "primitive_si"},
                     structFieldType = TypePrim
@@ -1522,7 +1522,7 @@
                     structFieldLoc =
                     "primitive_types.h:8:18",
                     structFieldName = NamePair {
-                      nameC = CName "ss",
+                      nameC = Name "ss",
                       nameHsIdent = HsIdentifier
                         "primitive_ss"},
                     structFieldType = TypePrim
@@ -1533,7 +1533,7 @@
                     structFieldLoc =
                     "primitive_types.h:9:22",
                     structFieldName = NamePair {
-                      nameC = CName "ssi",
+                      nameC = Name "ssi",
                       nameHsIdent = HsIdentifier
                         "primitive_ssi"},
                     structFieldType = TypePrim
@@ -1544,7 +1544,7 @@
                     structFieldLoc =
                     "primitive_types.h:11:20",
                     structFieldName = NamePair {
-                      nameC = CName "us",
+                      nameC = Name "us",
                       nameHsIdent = HsIdentifier
                         "primitive_us"},
                     structFieldType = TypePrim
@@ -1557,7 +1557,7 @@
                     structFieldLoc =
                     "primitive_types.h:12:24",
                     structFieldName = NamePair {
-                      nameC = CName "usi",
+                      nameC = Name "usi",
                       nameHsIdent = HsIdentifier
                         "primitive_usi"},
                     structFieldType = TypePrim
@@ -1570,7 +1570,7 @@
                     structFieldLoc =
                     "primitive_types.h:14:9",
                     structFieldName = NamePair {
-                      nameC = CName "i",
+                      nameC = Name "i",
                       nameHsIdent = HsIdentifier
                         "primitive_i"},
                     structFieldType = TypePrim
@@ -1581,7 +1581,7 @@
                     structFieldLoc =
                     "primitive_types.h:15:12",
                     structFieldName = NamePair {
-                      nameC = CName "s2",
+                      nameC = Name "s2",
                       nameHsIdent = HsIdentifier
                         "primitive_s2"},
                     structFieldType = TypePrim
@@ -1592,7 +1592,7 @@
                     structFieldLoc =
                     "primitive_types.h:16:16",
                     structFieldName = NamePair {
-                      nameC = CName "si2",
+                      nameC = Name "si2",
                       nameHsIdent = HsIdentifier
                         "primitive_si2"},
                     structFieldType = TypePrim
@@ -1603,7 +1603,7 @@
                     structFieldLoc =
                     "primitive_types.h:18:14",
                     structFieldName = NamePair {
-                      nameC = CName "u",
+                      nameC = Name "u",
                       nameHsIdent = HsIdentifier
                         "primitive_u"},
                     structFieldType = TypePrim
@@ -1614,7 +1614,7 @@
                     structFieldLoc =
                     "primitive_types.h:19:18",
                     structFieldName = NamePair {
-                      nameC = CName "ui",
+                      nameC = Name "ui",
                       nameHsIdent = HsIdentifier
                         "primitive_ui"},
                     structFieldType = TypePrim
@@ -1625,7 +1625,7 @@
                     structFieldLoc =
                     "primitive_types.h:21:10",
                     structFieldName = NamePair {
-                      nameC = CName "l",
+                      nameC = Name "l",
                       nameHsIdent = HsIdentifier
                         "primitive_l"},
                     structFieldType = TypePrim
@@ -1636,7 +1636,7 @@
                     structFieldLoc =
                     "primitive_types.h:22:14",
                     structFieldName = NamePair {
-                      nameC = CName "li",
+                      nameC = Name "li",
                       nameHsIdent = HsIdentifier
                         "primitive_li"},
                     structFieldType = TypePrim
@@ -1647,7 +1647,7 @@
                     structFieldLoc =
                     "primitive_types.h:23:17",
                     structFieldName = NamePair {
-                      nameC = CName "sl",
+                      nameC = Name "sl",
                       nameHsIdent = HsIdentifier
                         "primitive_sl"},
                     structFieldType = TypePrim
@@ -1658,7 +1658,7 @@
                     structFieldLoc =
                     "primitive_types.h:24:21",
                     structFieldName = NamePair {
-                      nameC = CName "sli",
+                      nameC = Name "sli",
                       nameHsIdent = HsIdentifier
                         "primitive_sli"},
                     structFieldType = TypePrim
@@ -1669,7 +1669,7 @@
                     structFieldLoc =
                     "primitive_types.h:26:19",
                     structFieldName = NamePair {
-                      nameC = CName "ul",
+                      nameC = Name "ul",
                       nameHsIdent = HsIdentifier
                         "primitive_ul"},
                     structFieldType = TypePrim
@@ -1682,7 +1682,7 @@
                     structFieldLoc =
                     "primitive_types.h:27:23",
                     structFieldName = NamePair {
-                      nameC = CName "uli",
+                      nameC = Name "uli",
                       nameHsIdent = HsIdentifier
                         "primitive_uli"},
                     structFieldType = TypePrim
@@ -1695,7 +1695,7 @@
                     structFieldLoc =
                     "primitive_types.h:29:15",
                     structFieldName = NamePair {
-                      nameC = CName "ll",
+                      nameC = Name "ll",
                       nameHsIdent = HsIdentifier
                         "primitive_ll"},
                     structFieldType = TypePrim
@@ -1708,7 +1708,7 @@
                     structFieldLoc =
                     "primitive_types.h:30:19",
                     structFieldName = NamePair {
-                      nameC = CName "lli",
+                      nameC = Name "lli",
                       nameHsIdent = HsIdentifier
                         "primitive_lli"},
                     structFieldType = TypePrim
@@ -1721,7 +1721,7 @@
                     structFieldLoc =
                     "primitive_types.h:31:22",
                     structFieldName = NamePair {
-                      nameC = CName "sll",
+                      nameC = Name "sll",
                       nameHsIdent = HsIdentifier
                         "primitive_sll"},
                     structFieldType = TypePrim
@@ -1734,7 +1734,7 @@
                     structFieldLoc =
                     "primitive_types.h:32:26",
                     structFieldName = NamePair {
-                      nameC = CName "slli",
+                      nameC = Name "slli",
                       nameHsIdent = HsIdentifier
                         "primitive_slli"},
                     structFieldType = TypePrim
@@ -1747,7 +1747,7 @@
                     structFieldLoc =
                     "primitive_types.h:34:24",
                     structFieldName = NamePair {
-                      nameC = CName "ull",
+                      nameC = Name "ull",
                       nameHsIdent = HsIdentifier
                         "primitive_ull"},
                     structFieldType = TypePrim
@@ -1760,7 +1760,7 @@
                     structFieldLoc =
                     "primitive_types.h:35:28",
                     structFieldName = NamePair {
-                      nameC = CName "ulli",
+                      nameC = Name "ulli",
                       nameHsIdent = HsIdentifier
                         "primitive_ulli"},
                     structFieldType = TypePrim
@@ -1773,7 +1773,7 @@
                     structFieldLoc =
                     "primitive_types.h:37:11",
                     structFieldName = NamePair {
-                      nameC = CName "f",
+                      nameC = Name "f",
                       nameHsIdent = HsIdentifier
                         "primitive_f"},
                     structFieldType = TypePrim
@@ -1784,7 +1784,7 @@
                     structFieldLoc =
                     "primitive_types.h:38:12",
                     structFieldName = NamePair {
-                      nameC = CName "d",
+                      nameC = Name "d",
                       nameHsIdent = HsIdentifier
                         "primitive_d"},
                     structFieldType = TypePrim
@@ -1826,7 +1826,7 @@
                         structFieldLoc =
                         "primitive_types.h:2:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "primitive_c"},
                         structFieldType = TypePrim
@@ -1846,7 +1846,7 @@
                         structFieldLoc =
                         "primitive_types.h:3:17",
                         structFieldName = NamePair {
-                          nameC = CName "sc",
+                          nameC = Name "sc",
                           nameHsIdent = HsIdentifier
                             "primitive_sc"},
                         structFieldType = TypePrim
@@ -1865,7 +1865,7 @@
                         structFieldLoc =
                         "primitive_types.h:4:19",
                         structFieldName = NamePair {
-                          nameC = CName "uc",
+                          nameC = Name "uc",
                           nameHsIdent = HsIdentifier
                             "primitive_uc"},
                         structFieldType = TypePrim
@@ -1884,7 +1884,7 @@
                         structFieldLoc =
                         "primitive_types.h:6:11",
                         structFieldName = NamePair {
-                          nameC = CName "s",
+                          nameC = Name "s",
                           nameHsIdent = HsIdentifier
                             "primitive_s"},
                         structFieldType = TypePrim
@@ -1902,7 +1902,7 @@
                         structFieldLoc =
                         "primitive_types.h:7:15",
                         structFieldName = NamePair {
-                          nameC = CName "si",
+                          nameC = Name "si",
                           nameHsIdent = HsIdentifier
                             "primitive_si"},
                         structFieldType = TypePrim
@@ -1920,7 +1920,7 @@
                         structFieldLoc =
                         "primitive_types.h:8:18",
                         structFieldName = NamePair {
-                          nameC = CName "ss",
+                          nameC = Name "ss",
                           nameHsIdent = HsIdentifier
                             "primitive_ss"},
                         structFieldType = TypePrim
@@ -1938,7 +1938,7 @@
                         structFieldLoc =
                         "primitive_types.h:9:22",
                         structFieldName = NamePair {
-                          nameC = CName "ssi",
+                          nameC = Name "ssi",
                           nameHsIdent = HsIdentifier
                             "primitive_ssi"},
                         structFieldType = TypePrim
@@ -1956,7 +1956,7 @@
                         structFieldLoc =
                         "primitive_types.h:11:20",
                         structFieldName = NamePair {
-                          nameC = CName "us",
+                          nameC = Name "us",
                           nameHsIdent = HsIdentifier
                             "primitive_us"},
                         structFieldType = TypePrim
@@ -1976,7 +1976,7 @@
                         structFieldLoc =
                         "primitive_types.h:12:24",
                         structFieldName = NamePair {
-                          nameC = CName "usi",
+                          nameC = Name "usi",
                           nameHsIdent = HsIdentifier
                             "primitive_usi"},
                         structFieldType = TypePrim
@@ -1996,7 +1996,7 @@
                         structFieldLoc =
                         "primitive_types.h:14:9",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "primitive_i"},
                         structFieldType = TypePrim
@@ -2014,7 +2014,7 @@
                         structFieldLoc =
                         "primitive_types.h:15:12",
                         structFieldName = NamePair {
-                          nameC = CName "s2",
+                          nameC = Name "s2",
                           nameHsIdent = HsIdentifier
                             "primitive_s2"},
                         structFieldType = TypePrim
@@ -2032,7 +2032,7 @@
                         structFieldLoc =
                         "primitive_types.h:16:16",
                         structFieldName = NamePair {
-                          nameC = CName "si2",
+                          nameC = Name "si2",
                           nameHsIdent = HsIdentifier
                             "primitive_si2"},
                         structFieldType = TypePrim
@@ -2050,7 +2050,7 @@
                         structFieldLoc =
                         "primitive_types.h:18:14",
                         structFieldName = NamePair {
-                          nameC = CName "u",
+                          nameC = Name "u",
                           nameHsIdent = HsIdentifier
                             "primitive_u"},
                         structFieldType = TypePrim
@@ -2068,7 +2068,7 @@
                         structFieldLoc =
                         "primitive_types.h:19:18",
                         structFieldName = NamePair {
-                          nameC = CName "ui",
+                          nameC = Name "ui",
                           nameHsIdent = HsIdentifier
                             "primitive_ui"},
                         structFieldType = TypePrim
@@ -2086,7 +2086,7 @@
                         structFieldLoc =
                         "primitive_types.h:21:10",
                         structFieldName = NamePair {
-                          nameC = CName "l",
+                          nameC = Name "l",
                           nameHsIdent = HsIdentifier
                             "primitive_l"},
                         structFieldType = TypePrim
@@ -2104,7 +2104,7 @@
                         structFieldLoc =
                         "primitive_types.h:22:14",
                         structFieldName = NamePair {
-                          nameC = CName "li",
+                          nameC = Name "li",
                           nameHsIdent = HsIdentifier
                             "primitive_li"},
                         structFieldType = TypePrim
@@ -2122,7 +2122,7 @@
                         structFieldLoc =
                         "primitive_types.h:23:17",
                         structFieldName = NamePair {
-                          nameC = CName "sl",
+                          nameC = Name "sl",
                           nameHsIdent = HsIdentifier
                             "primitive_sl"},
                         structFieldType = TypePrim
@@ -2140,7 +2140,7 @@
                         structFieldLoc =
                         "primitive_types.h:24:21",
                         structFieldName = NamePair {
-                          nameC = CName "sli",
+                          nameC = Name "sli",
                           nameHsIdent = HsIdentifier
                             "primitive_sli"},
                         structFieldType = TypePrim
@@ -2158,7 +2158,7 @@
                         structFieldLoc =
                         "primitive_types.h:26:19",
                         structFieldName = NamePair {
-                          nameC = CName "ul",
+                          nameC = Name "ul",
                           nameHsIdent = HsIdentifier
                             "primitive_ul"},
                         structFieldType = TypePrim
@@ -2178,7 +2178,7 @@
                         structFieldLoc =
                         "primitive_types.h:27:23",
                         structFieldName = NamePair {
-                          nameC = CName "uli",
+                          nameC = Name "uli",
                           nameHsIdent = HsIdentifier
                             "primitive_uli"},
                         structFieldType = TypePrim
@@ -2198,7 +2198,7 @@
                         structFieldLoc =
                         "primitive_types.h:29:15",
                         structFieldName = NamePair {
-                          nameC = CName "ll",
+                          nameC = Name "ll",
                           nameHsIdent = HsIdentifier
                             "primitive_ll"},
                         structFieldType = TypePrim
@@ -2218,7 +2218,7 @@
                         structFieldLoc =
                         "primitive_types.h:30:19",
                         structFieldName = NamePair {
-                          nameC = CName "lli",
+                          nameC = Name "lli",
                           nameHsIdent = HsIdentifier
                             "primitive_lli"},
                         structFieldType = TypePrim
@@ -2238,7 +2238,7 @@
                         structFieldLoc =
                         "primitive_types.h:31:22",
                         structFieldName = NamePair {
-                          nameC = CName "sll",
+                          nameC = Name "sll",
                           nameHsIdent = HsIdentifier
                             "primitive_sll"},
                         structFieldType = TypePrim
@@ -2258,7 +2258,7 @@
                         structFieldLoc =
                         "primitive_types.h:32:26",
                         structFieldName = NamePair {
-                          nameC = CName "slli",
+                          nameC = Name "slli",
                           nameHsIdent = HsIdentifier
                             "primitive_slli"},
                         structFieldType = TypePrim
@@ -2278,7 +2278,7 @@
                         structFieldLoc =
                         "primitive_types.h:34:24",
                         structFieldName = NamePair {
-                          nameC = CName "ull",
+                          nameC = Name "ull",
                           nameHsIdent = HsIdentifier
                             "primitive_ull"},
                         structFieldType = TypePrim
@@ -2298,7 +2298,7 @@
                         structFieldLoc =
                         "primitive_types.h:35:28",
                         structFieldName = NamePair {
-                          nameC = CName "ulli",
+                          nameC = Name "ulli",
                           nameHsIdent = HsIdentifier
                             "primitive_ulli"},
                         structFieldType = TypePrim
@@ -2318,7 +2318,7 @@
                         structFieldLoc =
                         "primitive_types.h:37:11",
                         structFieldName = NamePair {
-                          nameC = CName "f",
+                          nameC = Name "f",
                           nameHsIdent = HsIdentifier
                             "primitive_f"},
                         structFieldType = TypePrim
@@ -2336,7 +2336,7 @@
                         structFieldLoc =
                         "primitive_types.h:38:12",
                         structFieldName = NamePair {
-                          nameC = CName "d",
+                          nameC = Name "d",
                           nameHsIdent = HsIdentifier
                             "primitive_d"},
                         structFieldType = TypePrim
@@ -2349,7 +2349,7 @@
                       declLoc =
                       "primitive_types.h:1:8",
                       declId = NamePair {
-                        nameC = CName "primitive",
+                        nameC = Name "primitive",
                         nameHsIdent = HsIdentifier
                           "Primitive"},
                       declOrigin = NameOriginInSource,
@@ -2369,7 +2369,7 @@
                             structFieldLoc =
                             "primitive_types.h:2:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "primitive_c"},
                             structFieldType = TypePrim
@@ -2382,7 +2382,7 @@
                             structFieldLoc =
                             "primitive_types.h:3:17",
                             structFieldName = NamePair {
-                              nameC = CName "sc",
+                              nameC = Name "sc",
                               nameHsIdent = HsIdentifier
                                 "primitive_sc"},
                             structFieldType = TypePrim
@@ -2394,7 +2394,7 @@
                             structFieldLoc =
                             "primitive_types.h:4:19",
                             structFieldName = NamePair {
-                              nameC = CName "uc",
+                              nameC = Name "uc",
                               nameHsIdent = HsIdentifier
                                 "primitive_uc"},
                             structFieldType = TypePrim
@@ -2406,7 +2406,7 @@
                             structFieldLoc =
                             "primitive_types.h:6:11",
                             structFieldName = NamePair {
-                              nameC = CName "s",
+                              nameC = Name "s",
                               nameHsIdent = HsIdentifier
                                 "primitive_s"},
                             structFieldType = TypePrim
@@ -2417,7 +2417,7 @@
                             structFieldLoc =
                             "primitive_types.h:7:15",
                             structFieldName = NamePair {
-                              nameC = CName "si",
+                              nameC = Name "si",
                               nameHsIdent = HsIdentifier
                                 "primitive_si"},
                             structFieldType = TypePrim
@@ -2428,7 +2428,7 @@
                             structFieldLoc =
                             "primitive_types.h:8:18",
                             structFieldName = NamePair {
-                              nameC = CName "ss",
+                              nameC = Name "ss",
                               nameHsIdent = HsIdentifier
                                 "primitive_ss"},
                             structFieldType = TypePrim
@@ -2439,7 +2439,7 @@
                             structFieldLoc =
                             "primitive_types.h:9:22",
                             structFieldName = NamePair {
-                              nameC = CName "ssi",
+                              nameC = Name "ssi",
                               nameHsIdent = HsIdentifier
                                 "primitive_ssi"},
                             structFieldType = TypePrim
@@ -2450,7 +2450,7 @@
                             structFieldLoc =
                             "primitive_types.h:11:20",
                             structFieldName = NamePair {
-                              nameC = CName "us",
+                              nameC = Name "us",
                               nameHsIdent = HsIdentifier
                                 "primitive_us"},
                             structFieldType = TypePrim
@@ -2463,7 +2463,7 @@
                             structFieldLoc =
                             "primitive_types.h:12:24",
                             structFieldName = NamePair {
-                              nameC = CName "usi",
+                              nameC = Name "usi",
                               nameHsIdent = HsIdentifier
                                 "primitive_usi"},
                             structFieldType = TypePrim
@@ -2476,7 +2476,7 @@
                             structFieldLoc =
                             "primitive_types.h:14:9",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "primitive_i"},
                             structFieldType = TypePrim
@@ -2487,7 +2487,7 @@
                             structFieldLoc =
                             "primitive_types.h:15:12",
                             structFieldName = NamePair {
-                              nameC = CName "s2",
+                              nameC = Name "s2",
                               nameHsIdent = HsIdentifier
                                 "primitive_s2"},
                             structFieldType = TypePrim
@@ -2498,7 +2498,7 @@
                             structFieldLoc =
                             "primitive_types.h:16:16",
                             structFieldName = NamePair {
-                              nameC = CName "si2",
+                              nameC = Name "si2",
                               nameHsIdent = HsIdentifier
                                 "primitive_si2"},
                             structFieldType = TypePrim
@@ -2509,7 +2509,7 @@
                             structFieldLoc =
                             "primitive_types.h:18:14",
                             structFieldName = NamePair {
-                              nameC = CName "u",
+                              nameC = Name "u",
                               nameHsIdent = HsIdentifier
                                 "primitive_u"},
                             structFieldType = TypePrim
@@ -2520,7 +2520,7 @@
                             structFieldLoc =
                             "primitive_types.h:19:18",
                             structFieldName = NamePair {
-                              nameC = CName "ui",
+                              nameC = Name "ui",
                               nameHsIdent = HsIdentifier
                                 "primitive_ui"},
                             structFieldType = TypePrim
@@ -2531,7 +2531,7 @@
                             structFieldLoc =
                             "primitive_types.h:21:10",
                             structFieldName = NamePair {
-                              nameC = CName "l",
+                              nameC = Name "l",
                               nameHsIdent = HsIdentifier
                                 "primitive_l"},
                             structFieldType = TypePrim
@@ -2542,7 +2542,7 @@
                             structFieldLoc =
                             "primitive_types.h:22:14",
                             structFieldName = NamePair {
-                              nameC = CName "li",
+                              nameC = Name "li",
                               nameHsIdent = HsIdentifier
                                 "primitive_li"},
                             structFieldType = TypePrim
@@ -2553,7 +2553,7 @@
                             structFieldLoc =
                             "primitive_types.h:23:17",
                             structFieldName = NamePair {
-                              nameC = CName "sl",
+                              nameC = Name "sl",
                               nameHsIdent = HsIdentifier
                                 "primitive_sl"},
                             structFieldType = TypePrim
@@ -2564,7 +2564,7 @@
                             structFieldLoc =
                             "primitive_types.h:24:21",
                             structFieldName = NamePair {
-                              nameC = CName "sli",
+                              nameC = Name "sli",
                               nameHsIdent = HsIdentifier
                                 "primitive_sli"},
                             structFieldType = TypePrim
@@ -2575,7 +2575,7 @@
                             structFieldLoc =
                             "primitive_types.h:26:19",
                             structFieldName = NamePair {
-                              nameC = CName "ul",
+                              nameC = Name "ul",
                               nameHsIdent = HsIdentifier
                                 "primitive_ul"},
                             structFieldType = TypePrim
@@ -2588,7 +2588,7 @@
                             structFieldLoc =
                             "primitive_types.h:27:23",
                             structFieldName = NamePair {
-                              nameC = CName "uli",
+                              nameC = Name "uli",
                               nameHsIdent = HsIdentifier
                                 "primitive_uli"},
                             structFieldType = TypePrim
@@ -2601,7 +2601,7 @@
                             structFieldLoc =
                             "primitive_types.h:29:15",
                             structFieldName = NamePair {
-                              nameC = CName "ll",
+                              nameC = Name "ll",
                               nameHsIdent = HsIdentifier
                                 "primitive_ll"},
                             structFieldType = TypePrim
@@ -2614,7 +2614,7 @@
                             structFieldLoc =
                             "primitive_types.h:30:19",
                             structFieldName = NamePair {
-                              nameC = CName "lli",
+                              nameC = Name "lli",
                               nameHsIdent = HsIdentifier
                                 "primitive_lli"},
                             structFieldType = TypePrim
@@ -2627,7 +2627,7 @@
                             structFieldLoc =
                             "primitive_types.h:31:22",
                             structFieldName = NamePair {
-                              nameC = CName "sll",
+                              nameC = Name "sll",
                               nameHsIdent = HsIdentifier
                                 "primitive_sll"},
                             structFieldType = TypePrim
@@ -2640,7 +2640,7 @@
                             structFieldLoc =
                             "primitive_types.h:32:26",
                             structFieldName = NamePair {
-                              nameC = CName "slli",
+                              nameC = Name "slli",
                               nameHsIdent = HsIdentifier
                                 "primitive_slli"},
                             structFieldType = TypePrim
@@ -2653,7 +2653,7 @@
                             structFieldLoc =
                             "primitive_types.h:34:24",
                             structFieldName = NamePair {
-                              nameC = CName "ull",
+                              nameC = Name "ull",
                               nameHsIdent = HsIdentifier
                                 "primitive_ull"},
                             structFieldType = TypePrim
@@ -2666,7 +2666,7 @@
                             structFieldLoc =
                             "primitive_types.h:35:28",
                             structFieldName = NamePair {
-                              nameC = CName "ulli",
+                              nameC = Name "ulli",
                               nameHsIdent = HsIdentifier
                                 "primitive_ulli"},
                             structFieldType = TypePrim
@@ -2679,7 +2679,7 @@
                             structFieldLoc =
                             "primitive_types.h:37:11",
                             structFieldName = NamePair {
-                              nameC = CName "f",
+                              nameC = Name "f",
                               nameHsIdent = HsIdentifier
                                 "primitive_f"},
                             structFieldType = TypePrim
@@ -2690,7 +2690,7 @@
                             structFieldLoc =
                             "primitive_types.h:38:12",
                             structFieldName = NamePair {
-                              nameC = CName "d",
+                              nameC = Name "d",
                               nameHsIdent = HsIdentifier
                                 "primitive_d"},
                             structFieldType = TypePrim
@@ -2760,7 +2760,7 @@
                         structFieldLoc =
                         "primitive_types.h:2:10",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "primitive_c"},
                         structFieldType = TypePrim
@@ -2780,7 +2780,7 @@
                         structFieldLoc =
                         "primitive_types.h:3:17",
                         structFieldName = NamePair {
-                          nameC = CName "sc",
+                          nameC = Name "sc",
                           nameHsIdent = HsIdentifier
                             "primitive_sc"},
                         structFieldType = TypePrim
@@ -2799,7 +2799,7 @@
                         structFieldLoc =
                         "primitive_types.h:4:19",
                         structFieldName = NamePair {
-                          nameC = CName "uc",
+                          nameC = Name "uc",
                           nameHsIdent = HsIdentifier
                             "primitive_uc"},
                         structFieldType = TypePrim
@@ -2818,7 +2818,7 @@
                         structFieldLoc =
                         "primitive_types.h:6:11",
                         structFieldName = NamePair {
-                          nameC = CName "s",
+                          nameC = Name "s",
                           nameHsIdent = HsIdentifier
                             "primitive_s"},
                         structFieldType = TypePrim
@@ -2836,7 +2836,7 @@
                         structFieldLoc =
                         "primitive_types.h:7:15",
                         structFieldName = NamePair {
-                          nameC = CName "si",
+                          nameC = Name "si",
                           nameHsIdent = HsIdentifier
                             "primitive_si"},
                         structFieldType = TypePrim
@@ -2854,7 +2854,7 @@
                         structFieldLoc =
                         "primitive_types.h:8:18",
                         structFieldName = NamePair {
-                          nameC = CName "ss",
+                          nameC = Name "ss",
                           nameHsIdent = HsIdentifier
                             "primitive_ss"},
                         structFieldType = TypePrim
@@ -2872,7 +2872,7 @@
                         structFieldLoc =
                         "primitive_types.h:9:22",
                         structFieldName = NamePair {
-                          nameC = CName "ssi",
+                          nameC = Name "ssi",
                           nameHsIdent = HsIdentifier
                             "primitive_ssi"},
                         structFieldType = TypePrim
@@ -2890,7 +2890,7 @@
                         structFieldLoc =
                         "primitive_types.h:11:20",
                         structFieldName = NamePair {
-                          nameC = CName "us",
+                          nameC = Name "us",
                           nameHsIdent = HsIdentifier
                             "primitive_us"},
                         structFieldType = TypePrim
@@ -2910,7 +2910,7 @@
                         structFieldLoc =
                         "primitive_types.h:12:24",
                         structFieldName = NamePair {
-                          nameC = CName "usi",
+                          nameC = Name "usi",
                           nameHsIdent = HsIdentifier
                             "primitive_usi"},
                         structFieldType = TypePrim
@@ -2930,7 +2930,7 @@
                         structFieldLoc =
                         "primitive_types.h:14:9",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "primitive_i"},
                         structFieldType = TypePrim
@@ -2948,7 +2948,7 @@
                         structFieldLoc =
                         "primitive_types.h:15:12",
                         structFieldName = NamePair {
-                          nameC = CName "s2",
+                          nameC = Name "s2",
                           nameHsIdent = HsIdentifier
                             "primitive_s2"},
                         structFieldType = TypePrim
@@ -2966,7 +2966,7 @@
                         structFieldLoc =
                         "primitive_types.h:16:16",
                         structFieldName = NamePair {
-                          nameC = CName "si2",
+                          nameC = Name "si2",
                           nameHsIdent = HsIdentifier
                             "primitive_si2"},
                         structFieldType = TypePrim
@@ -2984,7 +2984,7 @@
                         structFieldLoc =
                         "primitive_types.h:18:14",
                         structFieldName = NamePair {
-                          nameC = CName "u",
+                          nameC = Name "u",
                           nameHsIdent = HsIdentifier
                             "primitive_u"},
                         structFieldType = TypePrim
@@ -3002,7 +3002,7 @@
                         structFieldLoc =
                         "primitive_types.h:19:18",
                         structFieldName = NamePair {
-                          nameC = CName "ui",
+                          nameC = Name "ui",
                           nameHsIdent = HsIdentifier
                             "primitive_ui"},
                         structFieldType = TypePrim
@@ -3020,7 +3020,7 @@
                         structFieldLoc =
                         "primitive_types.h:21:10",
                         structFieldName = NamePair {
-                          nameC = CName "l",
+                          nameC = Name "l",
                           nameHsIdent = HsIdentifier
                             "primitive_l"},
                         structFieldType = TypePrim
@@ -3038,7 +3038,7 @@
                         structFieldLoc =
                         "primitive_types.h:22:14",
                         structFieldName = NamePair {
-                          nameC = CName "li",
+                          nameC = Name "li",
                           nameHsIdent = HsIdentifier
                             "primitive_li"},
                         structFieldType = TypePrim
@@ -3056,7 +3056,7 @@
                         structFieldLoc =
                         "primitive_types.h:23:17",
                         structFieldName = NamePair {
-                          nameC = CName "sl",
+                          nameC = Name "sl",
                           nameHsIdent = HsIdentifier
                             "primitive_sl"},
                         structFieldType = TypePrim
@@ -3074,7 +3074,7 @@
                         structFieldLoc =
                         "primitive_types.h:24:21",
                         structFieldName = NamePair {
-                          nameC = CName "sli",
+                          nameC = Name "sli",
                           nameHsIdent = HsIdentifier
                             "primitive_sli"},
                         structFieldType = TypePrim
@@ -3092,7 +3092,7 @@
                         structFieldLoc =
                         "primitive_types.h:26:19",
                         structFieldName = NamePair {
-                          nameC = CName "ul",
+                          nameC = Name "ul",
                           nameHsIdent = HsIdentifier
                             "primitive_ul"},
                         structFieldType = TypePrim
@@ -3112,7 +3112,7 @@
                         structFieldLoc =
                         "primitive_types.h:27:23",
                         structFieldName = NamePair {
-                          nameC = CName "uli",
+                          nameC = Name "uli",
                           nameHsIdent = HsIdentifier
                             "primitive_uli"},
                         structFieldType = TypePrim
@@ -3132,7 +3132,7 @@
                         structFieldLoc =
                         "primitive_types.h:29:15",
                         structFieldName = NamePair {
-                          nameC = CName "ll",
+                          nameC = Name "ll",
                           nameHsIdent = HsIdentifier
                             "primitive_ll"},
                         structFieldType = TypePrim
@@ -3152,7 +3152,7 @@
                         structFieldLoc =
                         "primitive_types.h:30:19",
                         structFieldName = NamePair {
-                          nameC = CName "lli",
+                          nameC = Name "lli",
                           nameHsIdent = HsIdentifier
                             "primitive_lli"},
                         structFieldType = TypePrim
@@ -3172,7 +3172,7 @@
                         structFieldLoc =
                         "primitive_types.h:31:22",
                         structFieldName = NamePair {
-                          nameC = CName "sll",
+                          nameC = Name "sll",
                           nameHsIdent = HsIdentifier
                             "primitive_sll"},
                         structFieldType = TypePrim
@@ -3192,7 +3192,7 @@
                         structFieldLoc =
                         "primitive_types.h:32:26",
                         structFieldName = NamePair {
-                          nameC = CName "slli",
+                          nameC = Name "slli",
                           nameHsIdent = HsIdentifier
                             "primitive_slli"},
                         structFieldType = TypePrim
@@ -3212,7 +3212,7 @@
                         structFieldLoc =
                         "primitive_types.h:34:24",
                         structFieldName = NamePair {
-                          nameC = CName "ull",
+                          nameC = Name "ull",
                           nameHsIdent = HsIdentifier
                             "primitive_ull"},
                         structFieldType = TypePrim
@@ -3232,7 +3232,7 @@
                         structFieldLoc =
                         "primitive_types.h:35:28",
                         structFieldName = NamePair {
-                          nameC = CName "ulli",
+                          nameC = Name "ulli",
                           nameHsIdent = HsIdentifier
                             "primitive_ulli"},
                         structFieldType = TypePrim
@@ -3252,7 +3252,7 @@
                         structFieldLoc =
                         "primitive_types.h:37:11",
                         structFieldName = NamePair {
-                          nameC = CName "f",
+                          nameC = Name "f",
                           nameHsIdent = HsIdentifier
                             "primitive_f"},
                         structFieldType = TypePrim
@@ -3270,7 +3270,7 @@
                         structFieldLoc =
                         "primitive_types.h:38:12",
                         structFieldName = NamePair {
-                          nameC = CName "d",
+                          nameC = Name "d",
                           nameHsIdent = HsIdentifier
                             "primitive_d"},
                         structFieldType = TypePrim
@@ -3283,7 +3283,7 @@
                       declLoc =
                       "primitive_types.h:1:8",
                       declId = NamePair {
-                        nameC = CName "primitive",
+                        nameC = Name "primitive",
                         nameHsIdent = HsIdentifier
                           "Primitive"},
                       declOrigin = NameOriginInSource,
@@ -3303,7 +3303,7 @@
                             structFieldLoc =
                             "primitive_types.h:2:10",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "primitive_c"},
                             structFieldType = TypePrim
@@ -3316,7 +3316,7 @@
                             structFieldLoc =
                             "primitive_types.h:3:17",
                             structFieldName = NamePair {
-                              nameC = CName "sc",
+                              nameC = Name "sc",
                               nameHsIdent = HsIdentifier
                                 "primitive_sc"},
                             structFieldType = TypePrim
@@ -3328,7 +3328,7 @@
                             structFieldLoc =
                             "primitive_types.h:4:19",
                             structFieldName = NamePair {
-                              nameC = CName "uc",
+                              nameC = Name "uc",
                               nameHsIdent = HsIdentifier
                                 "primitive_uc"},
                             structFieldType = TypePrim
@@ -3340,7 +3340,7 @@
                             structFieldLoc =
                             "primitive_types.h:6:11",
                             structFieldName = NamePair {
-                              nameC = CName "s",
+                              nameC = Name "s",
                               nameHsIdent = HsIdentifier
                                 "primitive_s"},
                             structFieldType = TypePrim
@@ -3351,7 +3351,7 @@
                             structFieldLoc =
                             "primitive_types.h:7:15",
                             structFieldName = NamePair {
-                              nameC = CName "si",
+                              nameC = Name "si",
                               nameHsIdent = HsIdentifier
                                 "primitive_si"},
                             structFieldType = TypePrim
@@ -3362,7 +3362,7 @@
                             structFieldLoc =
                             "primitive_types.h:8:18",
                             structFieldName = NamePair {
-                              nameC = CName "ss",
+                              nameC = Name "ss",
                               nameHsIdent = HsIdentifier
                                 "primitive_ss"},
                             structFieldType = TypePrim
@@ -3373,7 +3373,7 @@
                             structFieldLoc =
                             "primitive_types.h:9:22",
                             structFieldName = NamePair {
-                              nameC = CName "ssi",
+                              nameC = Name "ssi",
                               nameHsIdent = HsIdentifier
                                 "primitive_ssi"},
                             structFieldType = TypePrim
@@ -3384,7 +3384,7 @@
                             structFieldLoc =
                             "primitive_types.h:11:20",
                             structFieldName = NamePair {
-                              nameC = CName "us",
+                              nameC = Name "us",
                               nameHsIdent = HsIdentifier
                                 "primitive_us"},
                             structFieldType = TypePrim
@@ -3397,7 +3397,7 @@
                             structFieldLoc =
                             "primitive_types.h:12:24",
                             structFieldName = NamePair {
-                              nameC = CName "usi",
+                              nameC = Name "usi",
                               nameHsIdent = HsIdentifier
                                 "primitive_usi"},
                             structFieldType = TypePrim
@@ -3410,7 +3410,7 @@
                             structFieldLoc =
                             "primitive_types.h:14:9",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "primitive_i"},
                             structFieldType = TypePrim
@@ -3421,7 +3421,7 @@
                             structFieldLoc =
                             "primitive_types.h:15:12",
                             structFieldName = NamePair {
-                              nameC = CName "s2",
+                              nameC = Name "s2",
                               nameHsIdent = HsIdentifier
                                 "primitive_s2"},
                             structFieldType = TypePrim
@@ -3432,7 +3432,7 @@
                             structFieldLoc =
                             "primitive_types.h:16:16",
                             structFieldName = NamePair {
-                              nameC = CName "si2",
+                              nameC = Name "si2",
                               nameHsIdent = HsIdentifier
                                 "primitive_si2"},
                             structFieldType = TypePrim
@@ -3443,7 +3443,7 @@
                             structFieldLoc =
                             "primitive_types.h:18:14",
                             structFieldName = NamePair {
-                              nameC = CName "u",
+                              nameC = Name "u",
                               nameHsIdent = HsIdentifier
                                 "primitive_u"},
                             structFieldType = TypePrim
@@ -3454,7 +3454,7 @@
                             structFieldLoc =
                             "primitive_types.h:19:18",
                             structFieldName = NamePair {
-                              nameC = CName "ui",
+                              nameC = Name "ui",
                               nameHsIdent = HsIdentifier
                                 "primitive_ui"},
                             structFieldType = TypePrim
@@ -3465,7 +3465,7 @@
                             structFieldLoc =
                             "primitive_types.h:21:10",
                             structFieldName = NamePair {
-                              nameC = CName "l",
+                              nameC = Name "l",
                               nameHsIdent = HsIdentifier
                                 "primitive_l"},
                             structFieldType = TypePrim
@@ -3476,7 +3476,7 @@
                             structFieldLoc =
                             "primitive_types.h:22:14",
                             structFieldName = NamePair {
-                              nameC = CName "li",
+                              nameC = Name "li",
                               nameHsIdent = HsIdentifier
                                 "primitive_li"},
                             structFieldType = TypePrim
@@ -3487,7 +3487,7 @@
                             structFieldLoc =
                             "primitive_types.h:23:17",
                             structFieldName = NamePair {
-                              nameC = CName "sl",
+                              nameC = Name "sl",
                               nameHsIdent = HsIdentifier
                                 "primitive_sl"},
                             structFieldType = TypePrim
@@ -3498,7 +3498,7 @@
                             structFieldLoc =
                             "primitive_types.h:24:21",
                             structFieldName = NamePair {
-                              nameC = CName "sli",
+                              nameC = Name "sli",
                               nameHsIdent = HsIdentifier
                                 "primitive_sli"},
                             structFieldType = TypePrim
@@ -3509,7 +3509,7 @@
                             structFieldLoc =
                             "primitive_types.h:26:19",
                             structFieldName = NamePair {
-                              nameC = CName "ul",
+                              nameC = Name "ul",
                               nameHsIdent = HsIdentifier
                                 "primitive_ul"},
                             structFieldType = TypePrim
@@ -3522,7 +3522,7 @@
                             structFieldLoc =
                             "primitive_types.h:27:23",
                             structFieldName = NamePair {
-                              nameC = CName "uli",
+                              nameC = Name "uli",
                               nameHsIdent = HsIdentifier
                                 "primitive_uli"},
                             structFieldType = TypePrim
@@ -3535,7 +3535,7 @@
                             structFieldLoc =
                             "primitive_types.h:29:15",
                             structFieldName = NamePair {
-                              nameC = CName "ll",
+                              nameC = Name "ll",
                               nameHsIdent = HsIdentifier
                                 "primitive_ll"},
                             structFieldType = TypePrim
@@ -3548,7 +3548,7 @@
                             structFieldLoc =
                             "primitive_types.h:30:19",
                             structFieldName = NamePair {
-                              nameC = CName "lli",
+                              nameC = Name "lli",
                               nameHsIdent = HsIdentifier
                                 "primitive_lli"},
                             structFieldType = TypePrim
@@ -3561,7 +3561,7 @@
                             structFieldLoc =
                             "primitive_types.h:31:22",
                             structFieldName = NamePair {
-                              nameC = CName "sll",
+                              nameC = Name "sll",
                               nameHsIdent = HsIdentifier
                                 "primitive_sll"},
                             structFieldType = TypePrim
@@ -3574,7 +3574,7 @@
                             structFieldLoc =
                             "primitive_types.h:32:26",
                             structFieldName = NamePair {
-                              nameC = CName "slli",
+                              nameC = Name "slli",
                               nameHsIdent = HsIdentifier
                                 "primitive_slli"},
                             structFieldType = TypePrim
@@ -3587,7 +3587,7 @@
                             structFieldLoc =
                             "primitive_types.h:34:24",
                             structFieldName = NamePair {
-                              nameC = CName "ull",
+                              nameC = Name "ull",
                               nameHsIdent = HsIdentifier
                                 "primitive_ull"},
                             structFieldType = TypePrim
@@ -3600,7 +3600,7 @@
                             structFieldLoc =
                             "primitive_types.h:35:28",
                             structFieldName = NamePair {
-                              nameC = CName "ulli",
+                              nameC = Name "ulli",
                               nameHsIdent = HsIdentifier
                                 "primitive_ulli"},
                             structFieldType = TypePrim
@@ -3613,7 +3613,7 @@
                             structFieldLoc =
                             "primitive_types.h:37:11",
                             structFieldName = NamePair {
-                              nameC = CName "f",
+                              nameC = Name "f",
                               nameHsIdent = HsIdentifier
                                 "primitive_f"},
                             structFieldType = TypePrim
@@ -3624,7 +3624,7 @@
                             structFieldLoc =
                             "primitive_types.h:38:12",
                             structFieldName = NamePair {
-                              nameC = CName "d",
+                              nameC = Name "d",
                               nameHsIdent = HsIdentifier
                                 "primitive_d"},
                             structFieldType = TypePrim

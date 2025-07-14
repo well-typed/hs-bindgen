@@ -19,7 +19,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint
 
@@ -40,8 +40,8 @@ type family AnnParse (ix :: Symbol) :: Star where
 
 instance IsPass Parse where
   type Id         Parse = DeclId
-  type FieldName  Parse = CName
-  type TypedefRef Parse = CName
+  type FieldName  Parse = C.Name
+  type TypedefRef Parse = C.Name
   type MacroBody  Parse = UnparsedMacro
   type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix

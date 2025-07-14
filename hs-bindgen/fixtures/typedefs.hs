@@ -18,7 +18,7 @@
         declInfo = DeclInfo {
           declLoc = "typedefs.h:1:13",
           declId = NamePair {
-            nameC = CName "myint",
+            nameC = Name "myint",
             nameHsIdent = HsIdentifier
               "Myint"},
           declOrigin = NameOriginInSource,
@@ -153,7 +153,7 @@
         declInfo = DeclInfo {
           declLoc = "typedefs.h:2:15",
           declId = NamePair {
-            nameC = CName "intptr",
+            nameC = Name "intptr",
             nameHsIdent = HsIdentifier
               "Intptr"},
           declOrigin = NameOriginInSource,

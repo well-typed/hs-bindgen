@@ -19,7 +19,7 @@
               structFieldLoc =
               "forward_declaration.h:4:7",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s1_t_a"},
               structFieldType = TypePrim
@@ -32,13 +32,13 @@
             declLoc =
             "forward_declaration.h:3:8",
             declId = NamePair {
-              nameC = CName "S1_t",
+              nameC = Name "S1_t",
               nameHsIdent = HsIdentifier
                 "S1_t"},
             declOrigin =
             NameOriginRenamedFrom
-              (CName "S1"),
-            declAliases = [CName "S1_t"],
+              (Name "S1"),
+            declAliases = [Name "S1_t"],
             declHeader =
             "forward_declaration.h"},
           declKind = Struct
@@ -52,7 +52,7 @@
                   structFieldLoc =
                   "forward_declaration.h:4:7",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s1_t_a"},
                   structFieldType = TypePrim
@@ -89,7 +89,7 @@
                 structFieldLoc =
                 "forward_declaration.h:4:7",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s1_t_a"},
                 structFieldType = TypePrim
@@ -102,13 +102,13 @@
               declLoc =
               "forward_declaration.h:3:8",
               declId = NamePair {
-                nameC = CName "S1_t",
+                nameC = Name "S1_t",
                 nameHsIdent = HsIdentifier
                   "S1_t"},
               declOrigin =
               NameOriginRenamedFrom
-                (CName "S1"),
-              declAliases = [CName "S1_t"],
+                (Name "S1"),
+              declAliases = [Name "S1_t"],
               declHeader =
               "forward_declaration.h"},
             declKind = Struct
@@ -122,7 +122,7 @@
                     structFieldLoc =
                     "forward_declaration.h:4:7",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s1_t_a"},
                     structFieldType = TypePrim
@@ -164,7 +164,7 @@
                         structFieldLoc =
                         "forward_declaration.h:4:7",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s1_t_a"},
                         structFieldType = TypePrim
@@ -177,13 +177,13 @@
                       declLoc =
                       "forward_declaration.h:3:8",
                       declId = NamePair {
-                        nameC = CName "S1_t",
+                        nameC = Name "S1_t",
                         nameHsIdent = HsIdentifier
                           "S1_t"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "S1"),
-                      declAliases = [CName "S1_t"],
+                        (Name "S1"),
+                      declAliases = [Name "S1_t"],
                       declHeader =
                       "forward_declaration.h"},
                     declKind = Struct
@@ -197,7 +197,7 @@
                             structFieldLoc =
                             "forward_declaration.h:4:7",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s1_t_a"},
                             structFieldType = TypePrim
@@ -239,7 +239,7 @@
                         structFieldLoc =
                         "forward_declaration.h:4:7",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s1_t_a"},
                         structFieldType = TypePrim
@@ -252,13 +252,13 @@
                       declLoc =
                       "forward_declaration.h:3:8",
                       declId = NamePair {
-                        nameC = CName "S1_t",
+                        nameC = Name "S1_t",
                         nameHsIdent = HsIdentifier
                           "S1_t"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "S1"),
-                      declAliases = [CName "S1_t"],
+                        (Name "S1"),
+                      declAliases = [Name "S1_t"],
                       declHeader =
                       "forward_declaration.h"},
                     declKind = Struct
@@ -272,7 +272,7 @@
                             structFieldLoc =
                             "forward_declaration.h:4:7",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s1_t_a"},
                             structFieldType = TypePrim
@@ -323,7 +323,7 @@
               structFieldLoc =
               "forward_declaration.h:10:7",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "s2_a"},
               structFieldType = TypePrim
@@ -336,7 +336,7 @@
             declLoc =
             "forward_declaration.h:9:8",
             declId = NamePair {
-              nameC = CName "S2",
+              nameC = Name "S2",
               nameHsIdent = HsIdentifier
                 "S2"},
             declOrigin = NameOriginInSource,
@@ -354,7 +354,7 @@
                   structFieldLoc =
                   "forward_declaration.h:10:7",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "s2_a"},
                   structFieldType = TypePrim
@@ -391,7 +391,7 @@
                 structFieldLoc =
                 "forward_declaration.h:10:7",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "s2_a"},
                 structFieldType = TypePrim
@@ -404,7 +404,7 @@
               declLoc =
               "forward_declaration.h:9:8",
               declId = NamePair {
-                nameC = CName "S2",
+                nameC = Name "S2",
                 nameHsIdent = HsIdentifier
                   "S2"},
               declOrigin = NameOriginInSource,
@@ -422,7 +422,7 @@
                     structFieldLoc =
                     "forward_declaration.h:10:7",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "s2_a"},
                     structFieldType = TypePrim
@@ -464,7 +464,7 @@
                         structFieldLoc =
                         "forward_declaration.h:10:7",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s2_a"},
                         structFieldType = TypePrim
@@ -477,7 +477,7 @@
                       declLoc =
                       "forward_declaration.h:9:8",
                       declId = NamePair {
-                        nameC = CName "S2",
+                        nameC = Name "S2",
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
@@ -495,7 +495,7 @@
                             structFieldLoc =
                             "forward_declaration.h:10:7",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s2_a"},
                             structFieldType = TypePrim
@@ -537,7 +537,7 @@
                         structFieldLoc =
                         "forward_declaration.h:10:7",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "s2_a"},
                         structFieldType = TypePrim
@@ -550,7 +550,7 @@
                       declLoc =
                       "forward_declaration.h:9:8",
                       declId = NamePair {
-                        nameC = CName "S2",
+                        nameC = Name "S2",
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
@@ -568,7 +568,7 @@
                             structFieldLoc =
                             "forward_declaration.h:10:7",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "s2_a"},
                             structFieldType = TypePrim

@@ -15,7 +15,7 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Predicate
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 
 tests :: TestTree
@@ -171,10 +171,10 @@ instance Function SingleLoc
 
 instance CoArbitrary SingleLoc
 
-instance Arbitrary CName where
-  arbitrary = CName . Text.pack <$> arbitrary
+instance Arbitrary C.Name where
+  arbitrary = C.Name . Text.pack <$> arbitrary
 
-instance Arbitrary NameKind where
+instance Arbitrary C.NameKind where
   arbitrary = elements [minBound .. maxBound]
 
 instance Arbitrary QualDeclId where
@@ -183,7 +183,7 @@ instance Arbitrary QualDeclId where
       -- TODO: We currently never produce anonymous or builtin declarations.
       -- In this module we check that selection predicates behave as boolean
       -- functions; this is not true for builtins (which are /never/ selected).
-      makeQualDeclId :: CName -> NameKind -> QualDeclId
+      makeQualDeclId :: C.Name -> C.NameKind -> QualDeclId
       makeQualDeclId name kind = QualDeclId (DeclNamed name) kind
 
 instance Arbitrary Predicate where

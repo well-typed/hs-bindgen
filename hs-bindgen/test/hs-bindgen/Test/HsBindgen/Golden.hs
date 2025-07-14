@@ -15,7 +15,7 @@ import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass as Slice
-import HsBindgen.Language.C.Name
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.TraceMsg
 
@@ -142,7 +142,7 @@ testCases = [
           Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
-    , let declsWithMsgs :: [Labelled CName]
+    , let declsWithMsgs :: [Labelled C.Name]
           declsWithMsgs = [
                 Labelled "Renamed"  "struct1"
               , Labelled "Squashed" "struct1_t"
@@ -307,9 +307,9 @@ testCases = [
             , configProgramSlicing = EnableProgramSlicing
             }
         , testOnExtSpec = \extSpec ->
-            let uInt32T = QualName {
+            let uInt32T = C.QualName {
                     qualNameName = "uint32_t"
-                  , qualNameKind = NameKindOrdinary
+                  , qualNameKind = C.NameKindOrdinary
                   }
             in Pipeline.BindingSpec {
                 bindingSpecUnresolved =

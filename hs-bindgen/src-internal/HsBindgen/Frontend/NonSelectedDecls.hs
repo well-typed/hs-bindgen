@@ -12,7 +12,7 @@ import Prelude hiding (lookup)
 
 import Clang.Paths (SourcePath)
 import HsBindgen.Imports
-import HsBindgen.Language.C.Name qualified as C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Type

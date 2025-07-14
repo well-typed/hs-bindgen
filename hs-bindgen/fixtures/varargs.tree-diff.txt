@@ -4,7 +4,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "varargs.h:5:6",
         declId = NamePair {
-          nameC = CName "g",
+          nameC = Name "g",
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
         declAliases = [],

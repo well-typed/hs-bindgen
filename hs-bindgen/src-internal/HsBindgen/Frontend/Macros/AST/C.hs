@@ -24,7 +24,6 @@ import GHC.Natural (Natural)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -33,7 +32,7 @@ import HsBindgen.Language.C qualified as C
 
 type Type = C.Type HandleMacros
 
-pattern TypePrim :: PrimType -> Type
+pattern TypePrim :: C.PrimType -> Type
 pattern TypePrim prim = C.TypePrim prim
 
 pattern TypeVoid :: Type
@@ -45,20 +44,20 @@ pattern TypeFun args res = C.TypeFun args res
 pattern TypePointer :: Type -> Type
 pattern TypePointer ty = C.TypePointer ty
 
-pattern TypeTypedef :: CName -> Type
+pattern TypeTypedef :: C.Name -> Type
 pattern TypeTypedef name = C.TypeTypedef name
 
-pattern TypeMacroTypedef :: CName -> Type
+pattern TypeMacroTypedef :: C.Name -> Type
 pattern TypeMacroTypedef name =
     C.TypeMacroTypedef (DeclId name) C.NameOriginInSource
 
-pattern TypeStruct :: CName -> Type
+pattern TypeStruct :: C.Name -> Type
 pattern TypeStruct name = C.TypeStruct (DeclId name) C.NameOriginInSource
 
-pattern TypeUnion :: CName -> Type
+pattern TypeUnion :: C.Name -> Type
 pattern TypeUnion name = C.TypeUnion (DeclId name) C.NameOriginInSource
 
-pattern TypeEnum :: CName -> Type
+pattern TypeEnum :: C.Name -> Type
 pattern TypeEnum name = C.TypeEnum (DeclId name) C.NameOriginInSource
 
 pattern TypeIncompleteArray :: Type -> Type
@@ -71,15 +70,15 @@ pattern TypeConstArray sz ty = C.TypeConstArray sz ty
   Internal auxiliary: dealing with names
 -------------------------------------------------------------------------------}
 
-pattern DeclId :: CName -> DeclId
+pattern DeclId :: C.Name -> DeclId
 pattern DeclId name <- (fromDeclId -> Just name)
   where
     DeclId name = toDeclId name
 
-fromDeclId :: DeclId -> Maybe CName
+fromDeclId :: DeclId -> Maybe C.Name
 fromDeclId (DeclNamed   name) = Just name
 fromDeclId (DeclAnon    _   ) = Nothing
 fromDeclId (DeclBuiltin name) = Just name
 
-toDeclId :: CName -> DeclId
+toDeclId :: C.Name -> DeclId
 toDeclId name = DeclNamed name

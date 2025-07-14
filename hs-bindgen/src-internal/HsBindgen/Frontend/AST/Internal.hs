@@ -40,7 +40,6 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint qualified as PP
@@ -95,7 +94,7 @@ data DeclInfo p = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: Id p
     , declOrigin  :: C.NameOrigin
-    , declAliases :: [CName]
+    , declAliases :: [C.Name]
 
       -- | User-specified header that provides this declaration
       --
@@ -126,17 +125,17 @@ data DeclKind p =
   | DeclExtern (Type p)
   | DeclConst (Type p)
 
-declKindNameKind :: DeclKind p -> NameKind
+declKindNameKind :: DeclKind p -> C.NameKind
 declKindNameKind = \case
-    DeclStruct{}       -> NameKindStruct
-    DeclStructOpaque{} -> NameKindStruct
-    DeclUnion{}        -> NameKindUnion
-    DeclUnionOpaque{}  -> NameKindUnion
-    DeclEnum{}         -> NameKindEnum
-    DeclEnumOpaque{}   -> NameKindEnum
-    _otherwise         -> NameKindOrdinary
+    DeclStruct{}       -> C.NameKindStruct
+    DeclStructOpaque{} -> C.NameKindStruct
+    DeclUnion{}        -> C.NameKindUnion
+    DeclUnionOpaque{}  -> C.NameKindUnion
+    DeclEnum{}         -> C.NameKindEnum
+    DeclEnumOpaque{}   -> C.NameKindEnum
+    _otherwise         -> C.NameKindOrdinary
 
-declQualName :: Id p ~ CName => Decl p -> C.QualName
+declQualName :: Id p ~ C.Name => Decl p -> C.QualName
 declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
     C.QualName declId (declKindNameKind declKind)
 
@@ -213,7 +212,7 @@ data CheckedMacroType p = CheckedMacroType{
 -- TODO: This is wrong, it does not allow name mangling to do its job. To fix
 -- that we'd have to change 'Macro.MExpr'.
 data CheckedMacroExpr = CheckedMacroExpr{
-      macroExprArgs :: [CName]
+      macroExprArgs :: [C.Name]
     , macroExprBody :: Macro.MExpr Macro.Ps
     , macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
     }
@@ -224,7 +223,7 @@ data CheckedMacroExpr = CheckedMacroExpr{
 -------------------------------------------------------------------------------}
 
 data Type p =
-    TypePrim PrimType
+    TypePrim C.PrimType
   | TypeStruct (Id p) C.NameOrigin
   | TypeUnion (Id p) C.NameOrigin
   | TypeEnum (Id p) C.NameOrigin
@@ -359,14 +358,15 @@ deriving stock instance ValidPass p => Eq (UnionField       p)
 -- By introducting this auxiliary type, used in the 'PrettyForTrace' instance
 -- for 'DeclInfo', we can define a single 'PrettyForTrace' instance for
 -- ('Located' 'C.Name'), which then applies to many passes, while at the time
--- other instances for passes where 'Id' is /not/ 'CName' also remains possible.
+-- other instances for passes where 'Id' is /not/ 'C.Name' also remains
+-- possible.
 data Located a = Located SingleLoc a
 
 instance PrettyForTrace (Located (Id p)) => PrettyForTrace (DeclInfo p) where
   prettyForTrace DeclInfo{declId, declLoc} =
       prettyForTrace $ Located declLoc declId
 
-instance PrettyForTrace (Located C.CName) where
+instance PrettyForTrace (Located C.Name) where
   prettyForTrace (Located loc name) = PP.hsep [
         prettyForTrace name
       , "at"

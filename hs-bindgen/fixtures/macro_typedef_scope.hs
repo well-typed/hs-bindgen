@@ -19,7 +19,7 @@
           declLoc =
           "macro_typedef_scope.h:4:9",
           declId = NamePair {
-            nameC = CName "T1",
+            nameC = Name "T1",
             nameHsIdent = HsIdentifier
               "T1"},
           declOrigin = NameOriginInSource,
@@ -130,11 +130,11 @@
           declLoc =
           "macro_typedef_scope.h:5:12",
           declId = NamePair {
-            nameC = CName "T2",
+            nameC = Name "T2",
             nameHsIdent = HsIdentifier
               "T2"},
           declOrigin = NameOriginInSource,
-          declAliases = [CName "T4"],
+          declAliases = [Name "T4"],
           declHeader =
           "macro_typedef_scope.h"},
         declKind = Typedef
@@ -148,7 +148,7 @@
                 "un_T2"},
             typedefType = TypeMacroTypedef
               NamePair {
-                nameC = CName "T1",
+                nameC = Name "T1",
                 nameHsIdent = HsIdentifier "T1"}
               NameOriginInSource},
         declSpec = DeclSpec
@@ -244,7 +244,7 @@
           declLoc =
           "macro_typedef_scope.h:6:9",
           declId = NamePair {
-            nameC = CName "T3",
+            nameC = Name "T3",
             nameHsIdent = HsIdentifier
               "T3"},
           declOrigin = NameOriginInSource,
@@ -263,7 +263,7 @@
             macroType = TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "T2",
+                  nameC = Name "T2",
                   nameHsIdent = HsIdentifier
                     "T2"})},
         declSpec = DeclSpec
@@ -359,7 +359,7 @@
           declLoc =
           "macro_typedef_scope.h:7:12",
           declId = NamePair {
-            nameC = CName "T4",
+            nameC = Name "T4",
             nameHsIdent = HsIdentifier
               "T4"},
           declOrigin = NameOriginInSource,
@@ -377,7 +377,7 @@
                 "un_T4"},
             typedefType = TypeMacroTypedef
               NamePair {
-                nameC = CName "T3",
+                nameC = Name "T3",
                 nameHsIdent = HsIdentifier "T3"}
               NameOriginInSource},
         declSpec = DeclSpec

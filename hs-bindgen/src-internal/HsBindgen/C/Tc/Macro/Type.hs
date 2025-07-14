@@ -126,7 +126,7 @@ import C.Type qualified
 
 -- hs-bindgen
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality
   ( equals2 )
 
@@ -476,12 +476,12 @@ isPrimTy' _                       = False
 data TypeEnv =
    TypeEnv
      { typeEnvMacros   :: MacroTypes
-     , typeEnvTypedefs :: Set CName
+     , typeEnvTypedefs :: Set C.Name
      }
   deriving stock Show
 
-type MacroTypes = Map CName ( Quant ( FunValue, Type Ty ) )
-type VarEnv     = Map CName ( Type Ty )
+type MacroTypes = Map C.Name ( Quant ( FunValue, Type Ty ) )
+type VarEnv     = Map C.Name ( Type Ty )
 
 data Pass = Ps | Tc
 
@@ -577,11 +577,11 @@ pprCtOrigin = \case
 -- | Why did we create a new metavariable?
 data MetaOrigin
   = ExpectedFunTyResTy !FunName
-  | ExpectedVarTy !CName
+  | ExpectedVarTy !C.Name
   | Inst { instOrigin :: !InstOrigin, instPos :: !Int }
-  | FunArg !CName !( CName, Int )
-  | IntLitMeta !IntegerLiteral
-  | FloatLitMeta !FloatingLiteral
+  | FunArg !C.Name !( C.Name, Int )
+  | IntLitMeta !C.IntegerLiteral
+  | FloatLitMeta !C.FloatingLiteral
   deriving stock ( Generic, Show )
 
 data InstOrigin
@@ -593,11 +593,11 @@ pprMetaOrigin :: MetaOrigin -> Text
 pprMetaOrigin = \case
   ExpectedFunTyResTy funNm ->
     "the result type of '" <> Text.pack ( show funNm ) <> "'"
-  ExpectedVarTy ( CName varNm ) ->
+  ExpectedVarTy ( C.Name varNm ) ->
     "the type of the identifier '" <> varNm <> "'"
   Inst funNm i ->
     "the " <> speakNth i <> " type argument in the instantiation of '" <> Text.pack ( show funNm ) <> "'"
-  FunArg ( CName funNm ) ( _argNm, i ) ->
+  FunArg ( C.Name funNm ) ( _argNm, i ) ->
     "the type of the " <> speakNth i <> " argument of '" <> funNm <> "'"
   IntLitMeta i ->
     "the type of the integer literal '" <> Text.pack ( show i ) <> "'"

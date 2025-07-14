@@ -19,8 +19,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName)
-import HsBindgen.Language.C.Name qualified as C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefs)
 
 {-------------------------------------------------------------------------------
@@ -109,12 +108,12 @@ import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefs)
 -- thing also in the case of this name clash.
 data TypedefAnalysis = TypedefAnalysis {
       -- | Declarations (structs, unions, or enums) that need to be renamed
-      rename :: Map CName (CName, C.NameOrigin)
+      rename :: Map C.Name (C.Name, C.NameOrigin)
 
       -- | Typedefs that need to be squashed
       --
       -- We record what use sites of the typedef should be replaced with.
-    , squash :: Map CName (C.Type HandleTypedefs)
+    , squash :: Map C.Name (C.Type HandleTypedefs)
     }
   deriving stock (Show, Eq)
 
@@ -124,7 +123,7 @@ instance Semigroup TypedefAnalysis where
       , squash = combine squash
       }
     where
-      combine :: (TypedefAnalysis -> Map CName a) -> Map CName a
+      combine :: (TypedefAnalysis -> Map C.Name a) -> Map C.Name a
       combine f =
           Map.unionWith
             (panicPure "TypedefAnalysis: unexpected overlap")
@@ -154,7 +153,7 @@ fromDecls declUseGraph = mconcat . map aux
 
 analyseTypedef ::
      DeclUseGraph
-  -> CName
+  -> C.Name
   -> C.Typedef ResolveBindingSpec
   -> TypedefAnalysis
 analyseTypedef declUseGraph typedefName typedef =
@@ -180,7 +179,7 @@ analyseTypedef declUseGraph typedefName typedef =
 
 -- | Typedef of some tagged datatype
 typedefOfTagged ::
-     CName                  -- ^ Name of the typedef
+     C.Name                 -- ^ Name of the typedef
   -> ValOrRef               -- ^ Does the typedef wrap the datatype directly?
   -> TaggedType             -- ^ Tagged datatype
   -> [(QualDeclId, Usage)]  -- ^ All use sites of the struct
@@ -227,7 +226,7 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedType{..} useSites
 --
 -- If we rename a datatype with a name which was /already/ not original, we
 -- leave the origin information unchanged.
-updateOrigin :: CName -> C.NameOrigin -> C.NameOrigin
+updateOrigin :: C.Name -> C.NameOrigin -> C.NameOrigin
 updateOrigin oldName = \case
     C.NameOriginInSource           -> C.NameOriginRenamedFrom oldName
     C.NameOriginGenerated   anonId -> C.NameOriginGenerated   anonId
@@ -241,7 +240,7 @@ updateOrigin oldName = \case
 
 data TaggedType = TaggedType {
       taggedKind   :: TaggedKind
-    , taggedName   :: CName
+    , taggedName   :: C.Name
     , taggedOrigin :: C.NameOrigin
     }
 
@@ -280,7 +279,7 @@ origQualId TaggedType{..} =
   TODO: Maybe this should live somewhere more general?
 -------------------------------------------------------------------------------}
 
-origDeclId :: CName -> C.NameOrigin -> DeclId
+origDeclId :: C.Name -> C.NameOrigin -> DeclId
 origDeclId name = \case
     C.NameOriginInSource           -> DeclNamed name
     C.NameOriginRenamedFrom orig   -> DeclNamed orig

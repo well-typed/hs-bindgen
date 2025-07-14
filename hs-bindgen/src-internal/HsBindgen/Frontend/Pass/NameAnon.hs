@@ -17,7 +17,6 @@ import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName)
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -59,7 +58,7 @@ findNamedUseOf :: RenameEnv -> QualDeclId -> Maybe UseOfDecl
 findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qid =
     DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse qid
 
-findAliasesOf :: RenameEnv -> QualDeclId -> [CName]
+findAliasesOf :: RenameEnv -> QualDeclId -> [C.Name]
 findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
 
 {-------------------------------------------------------------------------------
@@ -94,7 +93,7 @@ nameDecl env decl = do
     qid :: QualDeclId
     qid = declQualDeclId decl
 
-    mName :: Maybe (CName, C.NameOrigin)
+    mName :: Maybe (C.Name, C.NameOrigin)
     mName =
         case declId of
           DeclNamed n ->
@@ -216,7 +215,7 @@ instance NameUseSites C.Type where
       -- Rename specific use site
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: QualDeclId -> (CName, C.NameOrigin)
+      nameUseSite :: QualDeclId -> (C.Name, C.NameOrigin)
       nameUseSite qid@(QualDeclId uid _nameKind) =
           case uid of
             DeclNamed   name -> (name, C.NameOriginInSource)
@@ -236,7 +235,7 @@ instance NameUseSites C.Type where
 -------------------------------------------------------------------------------}
 
 -- | Construct name for anonymous declaration
-nameForAnon :: UseOfDecl -> CName
+nameForAnon :: UseOfDecl -> C.Name
 nameForAnon = \case
       UsedByNamed (UsedInTypedef ByValue) typedefName ->
         C.qualNameName typedefName

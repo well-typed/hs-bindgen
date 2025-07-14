@@ -518,7 +518,7 @@
           declLoc =
           "type_naturals.h:10:9",
           declId = NamePair {
-            nameC = CName "Arr1",
+            nameC = Name "Arr1",
             nameHsIdent = HsIdentifier
               "Arr1"},
           declOrigin = NameOriginInSource,
@@ -578,7 +578,7 @@
           declLoc =
           "type_naturals.h:11:9",
           declId = NamePair {
-            nameC = CName "Arr2",
+            nameC = Name "Arr2",
             nameHsIdent = HsIdentifier
               "Arr2"},
           declOrigin = NameOriginInSource,
@@ -638,7 +638,7 @@
           declLoc =
           "type_naturals.h:12:9",
           declId = NamePair {
-            nameC = CName "Arr3",
+            nameC = Name "Arr3",
             nameHsIdent = HsIdentifier
               "Arr3"},
           declOrigin = NameOriginInSource,
@@ -698,7 +698,7 @@
           declLoc =
           "type_naturals.h:13:9",
           declId = NamePair {
-            nameC = CName "Arr4",
+            nameC = Name "Arr4",
             nameHsIdent = HsIdentifier
               "Arr4"},
           declOrigin = NameOriginInSource,

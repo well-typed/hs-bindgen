@@ -9,7 +9,7 @@
           declLoc =
           "decls_in_signature.h:2:8",
           declId = NamePair {
-            nameC = CName "opaque",
+            nameC = Name "opaque",
             nameHsIdent = HsIdentifier
               "Opaque"},
           declOrigin = NameOriginInSource,
@@ -43,7 +43,7 @@
               structFieldLoc =
               "decls_in_signature.h:4:7",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "outside_x"},
               structFieldType = TypePrim
@@ -61,7 +61,7 @@
               structFieldLoc =
               "decls_in_signature.h:5:7",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "outside_y"},
               structFieldType = TypePrim
@@ -74,7 +74,7 @@
             declLoc =
             "decls_in_signature.h:3:8",
             declId = NamePair {
-              nameC = CName "outside",
+              nameC = Name "outside",
               nameHsIdent = HsIdentifier
                 "Outside"},
             declOrigin = NameOriginInSource,
@@ -92,7 +92,7 @@
                   structFieldLoc =
                   "decls_in_signature.h:4:7",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "outside_x"},
                   structFieldType = TypePrim
@@ -103,7 +103,7 @@
                   structFieldLoc =
                   "decls_in_signature.h:5:7",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "outside_y"},
                   structFieldType = TypePrim
@@ -140,7 +140,7 @@
                 structFieldLoc =
                 "decls_in_signature.h:4:7",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "outside_x"},
                 structFieldType = TypePrim
@@ -158,7 +158,7 @@
                 structFieldLoc =
                 "decls_in_signature.h:5:7",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "outside_y"},
                 structFieldType = TypePrim
@@ -171,7 +171,7 @@
               declLoc =
               "decls_in_signature.h:3:8",
               declId = NamePair {
-                nameC = CName "outside",
+                nameC = Name "outside",
                 nameHsIdent = HsIdentifier
                   "Outside"},
               declOrigin = NameOriginInSource,
@@ -189,7 +189,7 @@
                     structFieldLoc =
                     "decls_in_signature.h:4:7",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "outside_x"},
                     structFieldType = TypePrim
@@ -200,7 +200,7 @@
                     structFieldLoc =
                     "decls_in_signature.h:5:7",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "outside_y"},
                     structFieldType = TypePrim
@@ -242,7 +242,7 @@
                         structFieldLoc =
                         "decls_in_signature.h:4:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "outside_x"},
                         structFieldType = TypePrim
@@ -260,7 +260,7 @@
                         structFieldLoc =
                         "decls_in_signature.h:5:7",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "outside_y"},
                         structFieldType = TypePrim
@@ -273,7 +273,7 @@
                       declLoc =
                       "decls_in_signature.h:3:8",
                       declId = NamePair {
-                        nameC = CName "outside",
+                        nameC = Name "outside",
                         nameHsIdent = HsIdentifier
                           "Outside"},
                       declOrigin = NameOriginInSource,
@@ -291,7 +291,7 @@
                             structFieldLoc =
                             "decls_in_signature.h:4:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "outside_x"},
                             structFieldType = TypePrim
@@ -302,7 +302,7 @@
                             structFieldLoc =
                             "decls_in_signature.h:5:7",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "outside_y"},
                             structFieldType = TypePrim
@@ -346,7 +346,7 @@
                         structFieldLoc =
                         "decls_in_signature.h:4:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "outside_x"},
                         structFieldType = TypePrim
@@ -364,7 +364,7 @@
                         structFieldLoc =
                         "decls_in_signature.h:5:7",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "outside_y"},
                         structFieldType = TypePrim
@@ -377,7 +377,7 @@
                       declLoc =
                       "decls_in_signature.h:3:8",
                       declId = NamePair {
-                        nameC = CName "outside",
+                        nameC = Name "outside",
                         nameHsIdent = HsIdentifier
                           "Outside"},
                       declOrigin = NameOriginInSource,
@@ -395,7 +395,7 @@
                             structFieldLoc =
                             "decls_in_signature.h:4:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "outside_x"},
                             structFieldType = TypePrim
@@ -406,7 +406,7 @@
                             structFieldLoc =
                             "decls_in_signature.h:5:7",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "outside_y"},
                             structFieldType = TypePrim
@@ -481,20 +481,20 @@
             TypePointer
               (TypeStruct
                 NamePair {
-                  nameC = CName "opaque",
+                  nameC = Name "opaque",
                   nameHsIdent = HsIdentifier
                     "Opaque"}
                 NameOriginInSource),
             TypePointer
               (TypeStruct
                 NamePair {
-                  nameC = CName "outside",
+                  nameC = Name "outside",
                   nameHsIdent = HsIdentifier
                     "Outside"}
                 NameOriginInSource),
             TypeStruct
               NamePair {
-                nameC = CName "outside",
+                nameC = Name "outside",
                 nameHsIdent = HsIdentifier
                   "Outside"}
               NameOriginInSource],
@@ -520,7 +520,7 @@
               structFieldLoc =
               "decls_in_signature.h:17:35",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "named_struct_x"},
               structFieldType = TypePrim
@@ -538,7 +538,7 @@
               structFieldLoc =
               "decls_in_signature.h:17:42",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "named_struct_y"},
               structFieldType = TypePrim
@@ -551,7 +551,7 @@
             declLoc =
             "decls_in_signature.h:17:16",
             declId = NamePair {
-              nameC = CName "named_struct",
+              nameC = Name "named_struct",
               nameHsIdent = HsIdentifier
                 "Named_struct"},
             declOrigin = NameOriginInSource,
@@ -571,7 +571,7 @@
                   structFieldLoc =
                   "decls_in_signature.h:17:35",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "named_struct_x"},
                   structFieldType = TypePrim
@@ -582,7 +582,7 @@
                   structFieldLoc =
                   "decls_in_signature.h:17:42",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "named_struct_y"},
                   structFieldType = TypePrim
@@ -619,7 +619,7 @@
                 structFieldLoc =
                 "decls_in_signature.h:17:35",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "named_struct_x"},
                 structFieldType = TypePrim
@@ -637,7 +637,7 @@
                 structFieldLoc =
                 "decls_in_signature.h:17:42",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "named_struct_y"},
                 structFieldType = TypePrim
@@ -650,7 +650,7 @@
               declLoc =
               "decls_in_signature.h:17:16",
               declId = NamePair {
-                nameC = CName "named_struct",
+                nameC = Name "named_struct",
                 nameHsIdent = HsIdentifier
                   "Named_struct"},
               declOrigin = NameOriginInSource,
@@ -670,7 +670,7 @@
                     structFieldLoc =
                     "decls_in_signature.h:17:35",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "named_struct_x"},
                     structFieldType = TypePrim
@@ -681,7 +681,7 @@
                     structFieldLoc =
                     "decls_in_signature.h:17:42",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "named_struct_y"},
                     structFieldType = TypePrim
@@ -723,7 +723,7 @@
                         structFieldLoc =
                         "decls_in_signature.h:17:35",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "named_struct_x"},
                         structFieldType = TypePrim
@@ -741,7 +741,7 @@
                         structFieldLoc =
                         "decls_in_signature.h:17:42",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "named_struct_y"},
                         structFieldType = TypePrim
@@ -754,7 +754,7 @@
                       declLoc =
                       "decls_in_signature.h:17:16",
                       declId = NamePair {
-                        nameC = CName "named_struct",
+                        nameC = Name "named_struct",
                         nameHsIdent = HsIdentifier
                           "Named_struct"},
                       declOrigin = NameOriginInSource,
@@ -774,7 +774,7 @@
                             structFieldLoc =
                             "decls_in_signature.h:17:35",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "named_struct_x"},
                             structFieldType = TypePrim
@@ -785,7 +785,7 @@
                             structFieldLoc =
                             "decls_in_signature.h:17:42",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "named_struct_y"},
                             structFieldType = TypePrim
@@ -829,7 +829,7 @@
                         structFieldLoc =
                         "decls_in_signature.h:17:35",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "named_struct_x"},
                         structFieldType = TypePrim
@@ -847,7 +847,7 @@
                         structFieldLoc =
                         "decls_in_signature.h:17:42",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "named_struct_y"},
                         structFieldType = TypePrim
@@ -860,7 +860,7 @@
                       declLoc =
                       "decls_in_signature.h:17:16",
                       declId = NamePair {
-                        nameC = CName "named_struct",
+                        nameC = Name "named_struct",
                         nameHsIdent = HsIdentifier
                           "Named_struct"},
                       declOrigin = NameOriginInSource,
@@ -880,7 +880,7 @@
                             structFieldLoc =
                             "decls_in_signature.h:17:35",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "named_struct_x"},
                             structFieldType = TypePrim
@@ -891,7 +891,7 @@
                             structFieldLoc =
                             "decls_in_signature.h:17:42",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "named_struct_y"},
                             structFieldType = TypePrim
@@ -952,7 +952,7 @@
           functionArgs = [
             TypeStruct
               NamePair {
-                nameC = CName "named_struct",
+                nameC = Name "named_struct",
                 nameHsIdent = HsIdentifier
                   "Named_struct"}
               NameOriginInSource],
@@ -977,7 +977,7 @@
           declLoc =
           "decls_in_signature.h:20:15",
           declId = NamePair {
-            nameC = CName "named_union",
+            nameC = Name "named_union",
             nameHsIdent = HsIdentifier
               "Named_union"},
           declOrigin = NameOriginInSource,
@@ -1000,7 +1000,7 @@
                 unionFieldLoc =
                 "decls_in_signature.h:20:33",
                 unionFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "named_union_x"},
                 unionFieldType = TypePrim
@@ -1009,7 +1009,7 @@
                 unionFieldLoc =
                 "decls_in_signature.h:20:41",
                 unionFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "named_union_y"},
                 unionFieldType = TypePrim
@@ -1088,7 +1088,7 @@
           functionArgs = [
             TypeUnion
               NamePair {
-                nameC = CName "named_union",
+                nameC = Name "named_union",
                 nameHsIdent = HsIdentifier
                   "Named_union"}
               NameOriginInSource],

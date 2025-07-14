@@ -40,8 +40,6 @@ module HsBindgen.Frontend.AST.External (
   , ResolveBindingSpec.ResolvedExtBinding(..)
   , isVoid
     -- * Names
-  , CName(..)
-  , HsIdentifier(..)
   , MangleNames.NamePair(..)
   , MangleNames.nameHs
   , MangleNames.RecordNames(..)
@@ -57,9 +55,7 @@ import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -96,7 +92,7 @@ data DeclInfo = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: MangleNames.NamePair
     , declOrigin  :: C.NameOrigin
-    , declAliases :: [CName]
+    , declAliases :: [C.Name]
     , declHeader  :: CHeaderIncludePath
     }
   deriving stock (Show, Eq, Generic)
@@ -223,7 +219,7 @@ data CheckedMacroType = CheckedMacroType{
 --
 -- For type /declarations/ see 'Decl'.
 data Type =
-    TypePrim PrimType
+    TypePrim C.PrimType
   | TypeStruct MangleNames.NamePair C.NameOrigin
   | TypeUnion MangleNames.NamePair C.NameOrigin
   | TypeEnum MangleNames.NamePair C.NameOrigin
@@ -256,7 +252,7 @@ data Type =
 
 data TypedefRef =
     TypedefRegular MangleNames.NamePair
-  | TypedefSquashed CName Type
+  | TypedefSquashed C.Name Type
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow TypedefRef
 

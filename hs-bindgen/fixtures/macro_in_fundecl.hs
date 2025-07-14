@@ -19,7 +19,7 @@
           declLoc =
           "macro_in_fundecl.h:5:9",
           declId = NamePair {
-            nameC = CName "I",
+            nameC = Name "I",
             nameHsIdent = HsIdentifier "I"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -129,7 +129,7 @@
           declLoc =
           "macro_in_fundecl.h:6:9",
           declId = NamePair {
-            nameC = CName "C",
+            nameC = Name "C",
             nameHsIdent = HsIdentifier "C"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -240,7 +240,7 @@
           declLoc =
           "macro_in_fundecl.h:7:9",
           declId = NamePair {
-            nameC = CName "F",
+            nameC = Name "F",
             nameHsIdent = HsIdentifier "F"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -345,7 +345,7 @@
           declLoc =
           "macro_in_fundecl.h:8:9",
           declId = NamePair {
-            nameC = CName "L",
+            nameC = Name "L",
             nameHsIdent = HsIdentifier "L"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -455,7 +455,7 @@
           declLoc =
           "macro_in_fundecl.h:9:9",
           declId = NamePair {
-            nameC = CName "S",
+            nameC = Name "S",
             nameHsIdent = HsIdentifier "S"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -572,7 +572,7 @@
           functionArgs = [
             TypeMacroTypedef
               NamePair {
-                nameC = CName "F",
+                nameC = Name "F",
                 nameHsIdent = HsIdentifier "F"}
               NameOriginInSource,
             TypePrim
@@ -614,13 +614,13 @@
             TypePointer
               (TypeMacroTypedef
                 NamePair {
-                  nameC = CName "C",
+                  nameC = Name "C",
                   nameHsIdent = HsIdentifier "C"}
                 NameOriginInSource)],
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
-                nameC = CName "C",
+                nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
               NameOriginInSource)}},
   DeclInlineCInclude
@@ -694,7 +694,7 @@
           functionArgs = [
             TypeMacroTypedef
               NamePair {
-                nameC = CName "F",
+                nameC = Name "F",
                 nameHsIdent = HsIdentifier "F"}
               NameOriginInSource,
             TypePointer
@@ -753,7 +753,7 @@
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
-                nameC = CName "C",
+                nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
               NameOriginInSource)}},
   DeclInlineCInclude
@@ -818,7 +818,7 @@
           functionArgs = [
             TypeMacroTypedef
               NamePair {
-                nameC = CName "L",
+                nameC = Name "L",
                 nameHsIdent = HsIdentifier "L"}
               NameOriginInSource],
           functionRes = TypePointer
@@ -862,7 +862,7 @@
               [
                 TypeMacroTypedef
                   NamePair {
-                    nameC = CName "S",
+                    nameC = Name "S",
                     nameHsIdent = HsIdentifier "S"}
                   NameOriginInSource]
               (TypePrim
@@ -905,7 +905,7 @@
                   (PrimIntegral PrimShort Signed)]
               (TypeMacroTypedef
                 NamePair {
-                  nameC = CName "I",
+                  nameC = Name "I",
                   nameHsIdent = HsIdentifier "I"}
                 NameOriginInSource))}},
   DeclInlineCInclude
@@ -972,7 +972,7 @@
           functionArgs = [
             TypeMacroTypedef
               NamePair {
-                nameC = CName "I",
+                nameC = Name "I",
                 nameHsIdent = HsIdentifier "I"}
               NameOriginInSource],
           functionRes = TypePointer
@@ -1021,7 +1021,7 @@
                 3
                 (TypeMacroTypedef
                   NamePair {
-                    nameC = CName "I",
+                    nameC = Name "I",
                     nameHsIdent = HsIdentifier "I"}
                   NameOriginInSource)))}},
   DeclInlineCInclude
@@ -1045,6 +1045,6 @@
           functionArgs = [],
           functionRes = TypeMacroTypedef
             NamePair {
-              nameC = CName "I",
+              nameC = Name "I",
               nameHsIdent = HsIdentifier "I"}
             NameOriginInSource}}]

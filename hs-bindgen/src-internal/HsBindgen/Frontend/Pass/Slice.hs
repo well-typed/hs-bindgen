@@ -20,7 +20,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
-import HsBindgen.Language.C.Name qualified as C
+import HsBindgen.Language.C qualified as C
 
 -- | A declaration directly selected by the selection predicate.
 type Root = QualDeclId

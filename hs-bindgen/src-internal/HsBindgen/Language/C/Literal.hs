@@ -1,3 +1,6 @@
+-- | C literal types
+--
+-- Not intended for direct import; import via @HsBindgen.Language.C@.
 module HsBindgen.Language.C.Literal (
   -- * Integer literals
     IntegerLiteral(..)

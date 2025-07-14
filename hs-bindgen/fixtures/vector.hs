@@ -19,7 +19,7 @@
               structFieldLoc =
               "vector.h:2:12",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "vector_x"},
               structFieldType = TypePrim
@@ -37,7 +37,7 @@
               structFieldLoc =
               "vector.h:3:12",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "vector_y"},
               structFieldType = TypePrim
@@ -49,12 +49,12 @@
           declInfo = DeclInfo {
             declLoc = "vector.h:1:9",
             declId = NamePair {
-              nameC = CName "vector",
+              nameC = Name "vector",
               nameHsIdent = HsIdentifier
                 "Vector"},
             declOrigin = NameOriginGenerated
               (AnonId "vector.h:1:9"),
-            declAliases = [CName "vector"],
+            declAliases = [Name "vector"],
             declHeader = "vector.h"},
           declKind = Struct
             Struct {
@@ -67,7 +67,7 @@
                   structFieldLoc =
                   "vector.h:2:12",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "vector_x"},
                   structFieldType = TypePrim
@@ -78,7 +78,7 @@
                   structFieldLoc =
                   "vector.h:3:12",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "vector_y"},
                   structFieldType = TypePrim
@@ -115,7 +115,7 @@
                 structFieldLoc =
                 "vector.h:2:12",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "vector_x"},
                 structFieldType = TypePrim
@@ -133,7 +133,7 @@
                 structFieldLoc =
                 "vector.h:3:12",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "vector_y"},
                 structFieldType = TypePrim
@@ -145,12 +145,12 @@
             declInfo = DeclInfo {
               declLoc = "vector.h:1:9",
               declId = NamePair {
-                nameC = CName "vector",
+                nameC = Name "vector",
                 nameHsIdent = HsIdentifier
                   "Vector"},
               declOrigin = NameOriginGenerated
                 (AnonId "vector.h:1:9"),
-              declAliases = [CName "vector"],
+              declAliases = [Name "vector"],
               declHeader = "vector.h"},
             declKind = Struct
               Struct {
@@ -163,7 +163,7 @@
                     structFieldLoc =
                     "vector.h:2:12",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "vector_x"},
                     structFieldType = TypePrim
@@ -174,7 +174,7 @@
                     structFieldLoc =
                     "vector.h:3:12",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "vector_y"},
                     structFieldType = TypePrim
@@ -216,7 +216,7 @@
                         structFieldLoc =
                         "vector.h:2:12",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "vector_x"},
                         structFieldType = TypePrim
@@ -234,7 +234,7 @@
                         structFieldLoc =
                         "vector.h:3:12",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "vector_y"},
                         structFieldType = TypePrim
@@ -246,12 +246,12 @@
                     declInfo = DeclInfo {
                       declLoc = "vector.h:1:9",
                       declId = NamePair {
-                        nameC = CName "vector",
+                        nameC = Name "vector",
                         nameHsIdent = HsIdentifier
                           "Vector"},
                       declOrigin = NameOriginGenerated
                         (AnonId "vector.h:1:9"),
-                      declAliases = [CName "vector"],
+                      declAliases = [Name "vector"],
                       declHeader = "vector.h"},
                     declKind = Struct
                       Struct {
@@ -264,7 +264,7 @@
                             structFieldLoc =
                             "vector.h:2:12",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "vector_x"},
                             structFieldType = TypePrim
@@ -275,7 +275,7 @@
                             structFieldLoc =
                             "vector.h:3:12",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "vector_y"},
                             structFieldType = TypePrim
@@ -319,7 +319,7 @@
                         structFieldLoc =
                         "vector.h:2:12",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "vector_x"},
                         structFieldType = TypePrim
@@ -337,7 +337,7 @@
                         structFieldLoc =
                         "vector.h:3:12",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "vector_y"},
                         structFieldType = TypePrim
@@ -349,12 +349,12 @@
                     declInfo = DeclInfo {
                       declLoc = "vector.h:1:9",
                       declId = NamePair {
-                        nameC = CName "vector",
+                        nameC = Name "vector",
                         nameHsIdent = HsIdentifier
                           "Vector"},
                       declOrigin = NameOriginGenerated
                         (AnonId "vector.h:1:9"),
-                      declAliases = [CName "vector"],
+                      declAliases = [Name "vector"],
                       declHeader = "vector.h"},
                     declKind = Struct
                       Struct {
@@ -367,7 +367,7 @@
                             structFieldLoc =
                             "vector.h:2:12",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "vector_x"},
                             structFieldType = TypePrim
@@ -378,7 +378,7 @@
                             structFieldLoc =
                             "vector.h:3:12",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "vector_y"},
                             structFieldType = TypePrim
@@ -446,10 +446,10 @@
           functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed
-                (CName "vector")
+                (Name "vector")
                 (TypeStruct
                   NamePair {
-                    nameC = CName "vector",
+                    nameC = Name "vector",
                     nameHsIdent = HsIdentifier
                       "Vector"}
                   (NameOriginGenerated

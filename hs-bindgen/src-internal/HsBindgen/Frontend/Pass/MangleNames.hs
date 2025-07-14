@@ -15,7 +15,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
@@ -83,9 +82,9 @@ fromCName :: forall ns.
      SingNamespace ns
   => FixCandidate Maybe
   -> Proxy ns
-  -> CName
+  -> C.Name
   -> (HsIdentifier, Maybe (Msg MangleNames))
-fromCName fc _ (CName cName) =
+fromCName fc _ (C.Name cName) =
     case mFixed of
       Just (HsName hsName) -> (HsIdentifier hsName, Nothing)
       Nothing              -> (HsIdentifier "", Just $ CouldNotMangle cName)
@@ -155,7 +154,7 @@ mangleQualName cQualName@(C.QualName cName _namespace) = do
   TODO: Perhaps some (or all) of this should be configurable.
 -------------------------------------------------------------------------------}
 
-mangleFieldName :: C.DeclInfo MangleNames -> CName -> M NamePair
+mangleFieldName :: C.DeclInfo MangleNames -> C.Name -> M NamePair
 mangleFieldName info fieldCName = do
     fc <- asks envFixCandidate
     let candidate = declCName <> "_" <> fieldCName
@@ -169,7 +168,7 @@ mangleFieldName info fieldCName = do
 --
 -- Since these live in the global namespace, we do not prepend the name of
 -- the enclosing enum.
-mangleEnumConstant :: C.DeclInfo MangleNames -> CName -> M NamePair
+mangleEnumConstant :: C.DeclInfo MangleNames -> C.Name -> M NamePair
 mangleEnumConstant _info cName = do
     fc <- asks envFixCandidate
     let (hsName, mError) = fromCName fc (Proxy @NsConstr) cName

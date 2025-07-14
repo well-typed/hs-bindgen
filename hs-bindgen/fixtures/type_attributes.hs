@@ -20,7 +20,7 @@
               structFieldLoc =
               "type_attributes.h:8:18",
               structFieldName = NamePair {
-                nameC = CName "f",
+                nameC = Name "f",
                 nameHsIdent = HsIdentifier
                   "s_f"},
               structFieldType = TypeConstArray
@@ -37,7 +37,7 @@
             declLoc =
             "type_attributes.h:8:8",
             declId = NamePair {
-              nameC = CName "S",
+              nameC = Name "S",
               nameHsIdent = HsIdentifier "S"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -54,7 +54,7 @@
                   structFieldLoc =
                   "type_attributes.h:8:18",
                   structFieldName = NamePair {
-                    nameC = CName "f",
+                    nameC = Name "f",
                     nameHsIdent = HsIdentifier
                       "s_f"},
                   structFieldType = TypeConstArray
@@ -96,7 +96,7 @@
                 structFieldLoc =
                 "type_attributes.h:8:18",
                 structFieldName = NamePair {
-                  nameC = CName "f",
+                  nameC = Name "f",
                   nameHsIdent = HsIdentifier
                     "s_f"},
                 structFieldType = TypeConstArray
@@ -113,7 +113,7 @@
               declLoc =
               "type_attributes.h:8:8",
               declId = NamePair {
-                nameC = CName "S",
+                nameC = Name "S",
                 nameHsIdent = HsIdentifier "S"},
               declOrigin = NameOriginInSource,
               declAliases = [],
@@ -130,7 +130,7 @@
                     structFieldLoc =
                     "type_attributes.h:8:18",
                     structFieldName = NamePair {
-                      nameC = CName "f",
+                      nameC = Name "f",
                       nameHsIdent = HsIdentifier
                         "s_f"},
                     structFieldType = TypeConstArray
@@ -177,7 +177,7 @@
                         structFieldLoc =
                         "type_attributes.h:8:18",
                         structFieldName = NamePair {
-                          nameC = CName "f",
+                          nameC = Name "f",
                           nameHsIdent = HsIdentifier
                             "s_f"},
                         structFieldType = TypeConstArray
@@ -194,7 +194,7 @@
                       declLoc =
                       "type_attributes.h:8:8",
                       declId = NamePair {
-                        nameC = CName "S",
+                        nameC = Name "S",
                         nameHsIdent = HsIdentifier "S"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -211,7 +211,7 @@
                             structFieldLoc =
                             "type_attributes.h:8:18",
                             structFieldName = NamePair {
-                              nameC = CName "f",
+                              nameC = Name "f",
                               nameHsIdent = HsIdentifier
                                 "s_f"},
                             structFieldType = TypeConstArray
@@ -258,7 +258,7 @@
                         structFieldLoc =
                         "type_attributes.h:8:18",
                         structFieldName = NamePair {
-                          nameC = CName "f",
+                          nameC = Name "f",
                           nameHsIdent = HsIdentifier
                             "s_f"},
                         structFieldType = TypeConstArray
@@ -275,7 +275,7 @@
                       declLoc =
                       "type_attributes.h:8:8",
                       declId = NamePair {
-                        nameC = CName "S",
+                        nameC = Name "S",
                         nameHsIdent = HsIdentifier "S"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -292,7 +292,7 @@
                             structFieldLoc =
                             "type_attributes.h:8:18",
                             structFieldName = NamePair {
-                              nameC = CName "f",
+                              nameC = Name "f",
                               nameHsIdent = HsIdentifier
                                 "s_f"},
                             structFieldType = TypeConstArray
@@ -347,8 +347,7 @@
           declLoc =
           "type_attributes.h:9:13",
           declId = NamePair {
-            nameC = CName
-              "more_aligned_int",
+            nameC = Name "more_aligned_int",
             nameHsIdent = HsIdentifier
               "More_aligned_int"},
           declOrigin = NameOriginInSource,
@@ -486,7 +485,7 @@
               structFieldLoc =
               "type_attributes.h:11:19",
               structFieldName = NamePair {
-                nameC = CName "f",
+                nameC = Name "f",
                 nameHsIdent = HsIdentifier
                   "s2_f"},
               structFieldType = TypeConstArray
@@ -503,7 +502,7 @@
             declLoc =
             "type_attributes.h:11:8",
             declId = NamePair {
-              nameC = CName "S2",
+              nameC = Name "S2",
               nameHsIdent = HsIdentifier
                 "S2"},
             declOrigin = NameOriginInSource,
@@ -521,7 +520,7 @@
                   structFieldLoc =
                   "type_attributes.h:11:19",
                   structFieldName = NamePair {
-                    nameC = CName "f",
+                    nameC = Name "f",
                     nameHsIdent = HsIdentifier
                       "s2_f"},
                   structFieldType = TypeConstArray
@@ -563,7 +562,7 @@
                 structFieldLoc =
                 "type_attributes.h:11:19",
                 structFieldName = NamePair {
-                  nameC = CName "f",
+                  nameC = Name "f",
                   nameHsIdent = HsIdentifier
                     "s2_f"},
                 structFieldType = TypeConstArray
@@ -580,7 +579,7 @@
               declLoc =
               "type_attributes.h:11:8",
               declId = NamePair {
-                nameC = CName "S2",
+                nameC = Name "S2",
                 nameHsIdent = HsIdentifier
                   "S2"},
               declOrigin = NameOriginInSource,
@@ -598,7 +597,7 @@
                     structFieldLoc =
                     "type_attributes.h:11:19",
                     structFieldName = NamePair {
-                      nameC = CName "f",
+                      nameC = Name "f",
                       nameHsIdent = HsIdentifier
                         "s2_f"},
                     structFieldType = TypeConstArray
@@ -645,7 +644,7 @@
                         structFieldLoc =
                         "type_attributes.h:11:19",
                         structFieldName = NamePair {
-                          nameC = CName "f",
+                          nameC = Name "f",
                           nameHsIdent = HsIdentifier
                             "s2_f"},
                         structFieldType = TypeConstArray
@@ -662,7 +661,7 @@
                       declLoc =
                       "type_attributes.h:11:8",
                       declId = NamePair {
-                        nameC = CName "S2",
+                        nameC = Name "S2",
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
@@ -680,7 +679,7 @@
                             structFieldLoc =
                             "type_attributes.h:11:19",
                             structFieldName = NamePair {
-                              nameC = CName "f",
+                              nameC = Name "f",
                               nameHsIdent = HsIdentifier
                                 "s2_f"},
                             structFieldType = TypeConstArray
@@ -727,7 +726,7 @@
                         structFieldLoc =
                         "type_attributes.h:11:19",
                         structFieldName = NamePair {
-                          nameC = CName "f",
+                          nameC = Name "f",
                           nameHsIdent = HsIdentifier
                             "s2_f"},
                         structFieldType = TypeConstArray
@@ -744,7 +743,7 @@
                       declLoc =
                       "type_attributes.h:11:8",
                       declId = NamePair {
-                        nameC = CName "S2",
+                        nameC = Name "S2",
                         nameHsIdent = HsIdentifier
                           "S2"},
                       declOrigin = NameOriginInSource,
@@ -762,7 +761,7 @@
                             structFieldLoc =
                             "type_attributes.h:11:19",
                             structFieldName = NamePair {
-                              nameC = CName "f",
+                              nameC = Name "f",
                               nameHsIdent = HsIdentifier
                                 "s2_f"},
                             structFieldType = TypeConstArray
@@ -817,7 +816,7 @@
               structFieldLoc =
               "type_attributes.h:15:8",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "my_unpacked_struct_c"},
               structFieldType = TypePrim
@@ -837,7 +836,7 @@
               structFieldLoc =
               "type_attributes.h:16:7",
               structFieldName = NamePair {
-                nameC = CName "i",
+                nameC = Name "i",
                 nameHsIdent = HsIdentifier
                   "my_unpacked_struct_i"},
               structFieldType = TypePrim
@@ -850,7 +849,7 @@
             declLoc =
             "type_attributes.h:13:8",
             declId = NamePair {
-              nameC = CName
+              nameC = Name
                 "my_unpacked_struct",
               nameHsIdent = HsIdentifier
                 "My_unpacked_struct"},
@@ -871,7 +870,7 @@
                   structFieldLoc =
                   "type_attributes.h:15:8",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "my_unpacked_struct_c"},
                   structFieldType = TypePrim
@@ -884,7 +883,7 @@
                   structFieldLoc =
                   "type_attributes.h:16:7",
                   structFieldName = NamePair {
-                    nameC = CName "i",
+                    nameC = Name "i",
                     nameHsIdent = HsIdentifier
                       "my_unpacked_struct_i"},
                   structFieldType = TypePrim
@@ -921,7 +920,7 @@
                 structFieldLoc =
                 "type_attributes.h:15:8",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "my_unpacked_struct_c"},
                 structFieldType = TypePrim
@@ -941,7 +940,7 @@
                 structFieldLoc =
                 "type_attributes.h:16:7",
                 structFieldName = NamePair {
-                  nameC = CName "i",
+                  nameC = Name "i",
                   nameHsIdent = HsIdentifier
                     "my_unpacked_struct_i"},
                 structFieldType = TypePrim
@@ -954,7 +953,7 @@
               declLoc =
               "type_attributes.h:13:8",
               declId = NamePair {
-                nameC = CName
+                nameC = Name
                   "my_unpacked_struct",
                 nameHsIdent = HsIdentifier
                   "My_unpacked_struct"},
@@ -975,7 +974,7 @@
                     structFieldLoc =
                     "type_attributes.h:15:8",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "my_unpacked_struct_c"},
                     structFieldType = TypePrim
@@ -988,7 +987,7 @@
                     structFieldLoc =
                     "type_attributes.h:16:7",
                     structFieldName = NamePair {
-                      nameC = CName "i",
+                      nameC = Name "i",
                       nameHsIdent = HsIdentifier
                         "my_unpacked_struct_i"},
                     structFieldType = TypePrim
@@ -1030,7 +1029,7 @@
                         structFieldLoc =
                         "type_attributes.h:15:8",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "my_unpacked_struct_c"},
                         structFieldType = TypePrim
@@ -1050,7 +1049,7 @@
                         structFieldLoc =
                         "type_attributes.h:16:7",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "my_unpacked_struct_i"},
                         structFieldType = TypePrim
@@ -1063,7 +1062,7 @@
                       declLoc =
                       "type_attributes.h:13:8",
                       declId = NamePair {
-                        nameC = CName
+                        nameC = Name
                           "my_unpacked_struct",
                         nameHsIdent = HsIdentifier
                           "My_unpacked_struct"},
@@ -1084,7 +1083,7 @@
                             structFieldLoc =
                             "type_attributes.h:15:8",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "my_unpacked_struct_c"},
                             structFieldType = TypePrim
@@ -1097,7 +1096,7 @@
                             structFieldLoc =
                             "type_attributes.h:16:7",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "my_unpacked_struct_i"},
                             structFieldType = TypePrim
@@ -1141,7 +1140,7 @@
                         structFieldLoc =
                         "type_attributes.h:15:8",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "my_unpacked_struct_c"},
                         structFieldType = TypePrim
@@ -1161,7 +1160,7 @@
                         structFieldLoc =
                         "type_attributes.h:16:7",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "my_unpacked_struct_i"},
                         structFieldType = TypePrim
@@ -1174,7 +1173,7 @@
                       declLoc =
                       "type_attributes.h:13:8",
                       declId = NamePair {
-                        nameC = CName
+                        nameC = Name
                           "my_unpacked_struct",
                         nameHsIdent = HsIdentifier
                           "My_unpacked_struct"},
@@ -1195,7 +1194,7 @@
                             structFieldLoc =
                             "type_attributes.h:15:8",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "my_unpacked_struct_c"},
                             structFieldType = TypePrim
@@ -1208,7 +1207,7 @@
                             structFieldLoc =
                             "type_attributes.h:16:7",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "my_unpacked_struct_i"},
                             structFieldType = TypePrim
@@ -1264,7 +1263,7 @@
               structFieldLoc =
               "type_attributes.h:21:9",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "my_packed_struct_c"},
               structFieldType = TypePrim
@@ -1284,7 +1283,7 @@
               structFieldLoc =
               "type_attributes.h:22:9",
               structFieldName = NamePair {
-                nameC = CName "i",
+                nameC = Name "i",
                 nameHsIdent = HsIdentifier
                   "my_packed_struct_i"},
               structFieldType = TypePrim
@@ -1304,12 +1303,12 @@
               structFieldLoc =
               "type_attributes.h:23:30",
               structFieldName = NamePair {
-                nameC = CName "s",
+                nameC = Name "s",
                 nameHsIdent = HsIdentifier
                   "my_packed_struct_s"},
               structFieldType = TypeStruct
                 NamePair {
-                  nameC = CName
+                  nameC = Name
                     "my_unpacked_struct",
                   nameHsIdent = HsIdentifier
                     "My_unpacked_struct"}
@@ -1322,8 +1321,7 @@
             declLoc =
             "type_attributes.h:19:37",
             declId = NamePair {
-              nameC = CName
-                "my_packed_struct",
+              nameC = Name "my_packed_struct",
               nameHsIdent = HsIdentifier
                 "My_packed_struct"},
             declOrigin = NameOriginInSource,
@@ -1343,7 +1341,7 @@
                   structFieldLoc =
                   "type_attributes.h:21:9",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "my_packed_struct_c"},
                   structFieldType = TypePrim
@@ -1356,7 +1354,7 @@
                   structFieldLoc =
                   "type_attributes.h:22:9",
                   structFieldName = NamePair {
-                    nameC = CName "i",
+                    nameC = Name "i",
                     nameHsIdent = HsIdentifier
                       "my_packed_struct_i"},
                   structFieldType = TypePrim
@@ -1367,12 +1365,12 @@
                   structFieldLoc =
                   "type_attributes.h:23:30",
                   structFieldName = NamePair {
-                    nameC = CName "s",
+                    nameC = Name "s",
                     nameHsIdent = HsIdentifier
                       "my_packed_struct_s"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName
+                      nameC = Name
                         "my_unpacked_struct",
                       nameHsIdent = HsIdentifier
                         "My_unpacked_struct"}
@@ -1409,7 +1407,7 @@
                 structFieldLoc =
                 "type_attributes.h:21:9",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "my_packed_struct_c"},
                 structFieldType = TypePrim
@@ -1429,7 +1427,7 @@
                 structFieldLoc =
                 "type_attributes.h:22:9",
                 structFieldName = NamePair {
-                  nameC = CName "i",
+                  nameC = Name "i",
                   nameHsIdent = HsIdentifier
                     "my_packed_struct_i"},
                 structFieldType = TypePrim
@@ -1449,12 +1447,12 @@
                 structFieldLoc =
                 "type_attributes.h:23:30",
                 structFieldName = NamePair {
-                  nameC = CName "s",
+                  nameC = Name "s",
                   nameHsIdent = HsIdentifier
                     "my_packed_struct_s"},
                 structFieldType = TypeStruct
                   NamePair {
-                    nameC = CName
+                    nameC = Name
                       "my_unpacked_struct",
                     nameHsIdent = HsIdentifier
                       "My_unpacked_struct"}
@@ -1467,8 +1465,7 @@
               declLoc =
               "type_attributes.h:19:37",
               declId = NamePair {
-                nameC = CName
-                  "my_packed_struct",
+                nameC = Name "my_packed_struct",
                 nameHsIdent = HsIdentifier
                   "My_packed_struct"},
               declOrigin = NameOriginInSource,
@@ -1488,7 +1485,7 @@
                     structFieldLoc =
                     "type_attributes.h:21:9",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "my_packed_struct_c"},
                     structFieldType = TypePrim
@@ -1501,7 +1498,7 @@
                     structFieldLoc =
                     "type_attributes.h:22:9",
                     structFieldName = NamePair {
-                      nameC = CName "i",
+                      nameC = Name "i",
                       nameHsIdent = HsIdentifier
                         "my_packed_struct_i"},
                     structFieldType = TypePrim
@@ -1512,12 +1509,12 @@
                     structFieldLoc =
                     "type_attributes.h:23:30",
                     structFieldName = NamePair {
-                      nameC = CName "s",
+                      nameC = Name "s",
                       nameHsIdent = HsIdentifier
                         "my_packed_struct_s"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName
+                        nameC = Name
                           "my_unpacked_struct",
                         nameHsIdent = HsIdentifier
                           "My_unpacked_struct"}
@@ -1559,7 +1556,7 @@
                         structFieldLoc =
                         "type_attributes.h:21:9",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "my_packed_struct_c"},
                         structFieldType = TypePrim
@@ -1579,7 +1576,7 @@
                         structFieldLoc =
                         "type_attributes.h:22:9",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "my_packed_struct_i"},
                         structFieldType = TypePrim
@@ -1599,12 +1596,12 @@
                         structFieldLoc =
                         "type_attributes.h:23:30",
                         structFieldName = NamePair {
-                          nameC = CName "s",
+                          nameC = Name "s",
                           nameHsIdent = HsIdentifier
                             "my_packed_struct_s"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "my_unpacked_struct",
                             nameHsIdent = HsIdentifier
                               "My_unpacked_struct"}
@@ -1617,8 +1614,7 @@
                       declLoc =
                       "type_attributes.h:19:37",
                       declId = NamePair {
-                        nameC = CName
-                          "my_packed_struct",
+                        nameC = Name "my_packed_struct",
                         nameHsIdent = HsIdentifier
                           "My_packed_struct"},
                       declOrigin = NameOriginInSource,
@@ -1638,7 +1634,7 @@
                             structFieldLoc =
                             "type_attributes.h:21:9",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "my_packed_struct_c"},
                             structFieldType = TypePrim
@@ -1651,7 +1647,7 @@
                             structFieldLoc =
                             "type_attributes.h:22:9",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "my_packed_struct_i"},
                             structFieldType = TypePrim
@@ -1662,12 +1658,12 @@
                             structFieldLoc =
                             "type_attributes.h:23:30",
                             structFieldName = NamePair {
-                              nameC = CName "s",
+                              nameC = Name "s",
                               nameHsIdent = HsIdentifier
                                 "my_packed_struct_s"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "my_unpacked_struct",
                                 nameHsIdent = HsIdentifier
                                   "My_unpacked_struct"}
@@ -1712,7 +1708,7 @@
                         structFieldLoc =
                         "type_attributes.h:21:9",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "my_packed_struct_c"},
                         structFieldType = TypePrim
@@ -1732,7 +1728,7 @@
                         structFieldLoc =
                         "type_attributes.h:22:9",
                         structFieldName = NamePair {
-                          nameC = CName "i",
+                          nameC = Name "i",
                           nameHsIdent = HsIdentifier
                             "my_packed_struct_i"},
                         structFieldType = TypePrim
@@ -1752,12 +1748,12 @@
                         structFieldLoc =
                         "type_attributes.h:23:30",
                         structFieldName = NamePair {
-                          nameC = CName "s",
+                          nameC = Name "s",
                           nameHsIdent = HsIdentifier
                             "my_packed_struct_s"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "my_unpacked_struct",
                             nameHsIdent = HsIdentifier
                               "My_unpacked_struct"}
@@ -1770,8 +1766,7 @@
                       declLoc =
                       "type_attributes.h:19:37",
                       declId = NamePair {
-                        nameC = CName
-                          "my_packed_struct",
+                        nameC = Name "my_packed_struct",
                         nameHsIdent = HsIdentifier
                           "My_packed_struct"},
                       declOrigin = NameOriginInSource,
@@ -1791,7 +1786,7 @@
                             structFieldLoc =
                             "type_attributes.h:21:9",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "my_packed_struct_c"},
                             structFieldType = TypePrim
@@ -1804,7 +1799,7 @@
                             structFieldLoc =
                             "type_attributes.h:22:9",
                             structFieldName = NamePair {
-                              nameC = CName "i",
+                              nameC = Name "i",
                               nameHsIdent = HsIdentifier
                                 "my_packed_struct_i"},
                             structFieldType = TypePrim
@@ -1815,12 +1810,12 @@
                             structFieldLoc =
                             "type_attributes.h:23:30",
                             structFieldName = NamePair {
-                              nameC = CName "s",
+                              nameC = Name "s",
                               nameHsIdent = HsIdentifier
                                 "my_packed_struct_s"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "my_unpacked_struct",
                                 nameHsIdent = HsIdentifier
                                   "My_unpacked_struct"}
@@ -1867,7 +1862,7 @@
           declLoc =
           "type_attributes.h:29:9",
           declId = NamePair {
-            nameC = CName "wait",
+            nameC = Name "wait",
             nameHsIdent = HsIdentifier
               "Wait"},
           declOrigin = NameOriginInSource,
@@ -1900,7 +1895,7 @@
           declLoc =
           "type_attributes.h:26:9",
           declId = NamePair {
-            nameC = CName
+            nameC = Name
               "wait_status_ptr_t",
             nameHsIdent = HsIdentifier
               "Wait_status_ptr_t"},
@@ -1908,7 +1903,7 @@
             (AnonId
               "type_attributes.h:26:9"),
           declAliases = [
-            CName "wait_status_ptr_t"],
+            Name "wait_status_ptr_t"],
           declHeader =
           "type_attributes.h"},
         declKind = Union
@@ -1927,7 +1922,7 @@
                 unionFieldLoc =
                 "type_attributes.h:28:8",
                 unionFieldName = NamePair {
-                  nameC = CName "__ip",
+                  nameC = Name "__ip",
                   nameHsIdent = HsIdentifier
                     "wait_status_ptr_t___ip"},
                 unionFieldType = TypePointer
@@ -1937,13 +1932,13 @@
                 unionFieldLoc =
                 "type_attributes.h:29:15",
                 unionFieldName = NamePair {
-                  nameC = CName "__up",
+                  nameC = Name "__up",
                   nameHsIdent = HsIdentifier
                     "wait_status_ptr_t___up"},
                 unionFieldType = TypePointer
                   (TypeUnion
                     NamePair {
-                      nameC = CName "wait",
+                      nameC = Name "wait",
                       nameHsIdent = HsIdentifier
                         "Wait"}
                     NameOriginInSource)}]},
@@ -2022,7 +2017,7 @@
           declLoc =
           "type_attributes.h:32:13",
           declId = NamePair {
-            nameC = CName "T1",
+            nameC = Name "T1",
             nameHsIdent = HsIdentifier
               "T1"},
           declOrigin = NameOriginInSource,
@@ -2133,7 +2128,7 @@
           declLoc =
           "type_attributes.h:34:46",
           declId = NamePair {
-            nameC = CName "short_a",
+            nameC = Name "short_a",
             nameHsIdent = HsIdentifier
               "Short_a"},
           declOrigin = NameOriginInSource,

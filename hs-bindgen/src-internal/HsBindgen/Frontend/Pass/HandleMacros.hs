@@ -23,7 +23,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -203,7 +203,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
         C.TypeStruct _ _ -> withoutReparse
         _otherwise       -> reparseWith reparseTypedef tokens withoutReparse withReparse
   where
-    name :: CName
+    name :: C.Name
     name = case C.declId info of
              DeclNamed n -> n
              _otherwise  -> panicPure "unexpected anonymous typedef"
@@ -235,7 +235,7 @@ processMacro info (UnparsedMacro tokens) =
     -- Simply omit macros from the AST that we cannot parse
     reparseWith reparseMacro tokens (return Nothing) (fmap Just . withReparse)
   where
-    name :: CName
+    name :: C.Name
     name = case C.declId info of
              DeclNamed n -> n
              _otherwise  -> panicPure "unexpected anonymous macro"
@@ -279,7 +279,7 @@ processFunction info C.Function {..} =
         }
 
     withReparse ::
-         (([C.Type HandleMacros], C.Type HandleMacros), CName)
+         (([C.Type HandleMacros], C.Type HandleMacros), C.Name)
       -> M (C.Decl HandleMacros)
     withReparse ((tys, ty), _name) = do
        -- TODO: We should assert that the name is the name we were expecting
@@ -327,7 +327,7 @@ newtype M a = WrapM {
 data MacroState = MacroState {
       stateErrors     :: [Msg HandleMacros]  -- ^ Stored in reverse order
     , stateMacroTypes :: MacroTypes
-    , stateTypedefs   :: Set CName
+    , stateTypedefs   :: Set C.Name
     }
 
 initMacroState :: MacroState
@@ -417,14 +417,14 @@ reparseTypedef typeEnv tokens =
     first MacroErrorReparse $
       Reparse.reparseWith (Reparse.reparseTypedef typeEnv) tokens
 
-reparseField :: Reparse (C.Type HandleMacros, CName)
+reparseField :: Reparse (C.Type HandleMacros, C.Name)
 reparseField typeEnv tokens =
     first MacroErrorReparse $
       Reparse.reparseWith (Reparse.reparseFieldDecl typeEnv) tokens
 
 reparseFunctionDecl :: Reparse (
     ([C.Type HandleMacros], C.Type HandleMacros)
-  , CName
+  , C.Name
   )
 reparseFunctionDecl typeEnv tokens =
     first MacroErrorReparse $

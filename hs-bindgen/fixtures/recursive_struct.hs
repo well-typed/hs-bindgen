@@ -19,7 +19,7 @@
               structFieldLoc =
               "recursive_struct.h:2:7",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "linked_list_A_t_x"},
               structFieldType = TypePrim
@@ -40,17 +40,17 @@
               structFieldLoc =
               "recursive_struct.h:3:27",
               structFieldName = NamePair {
-                nameC = CName "next",
+                nameC = Name "next",
                 nameHsIdent = HsIdentifier
                   "linked_list_A_t_next"},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
-                    nameC = CName "linked_list_A_t",
+                    nameC = Name "linked_list_A_t",
                     nameHsIdent = HsIdentifier
                       "Linked_list_A_t"}
                   (NameOriginRenamedFrom
-                    (CName "linked_list_A_s"))),
+                    (Name "linked_list_A_s"))),
               structFieldOffset = 64,
               structFieldWidth = Nothing}}],
       structOrigin = Just
@@ -59,14 +59,14 @@
             declLoc =
             "recursive_struct.h:1:16",
             declId = NamePair {
-              nameC = CName "linked_list_A_t",
+              nameC = Name "linked_list_A_t",
               nameHsIdent = HsIdentifier
                 "Linked_list_A_t"},
             declOrigin =
             NameOriginRenamedFrom
-              (CName "linked_list_A_s"),
+              (Name "linked_list_A_s"),
             declAliases = [
-              CName "linked_list_A_t"],
+              Name "linked_list_A_t"],
             declHeader =
             "recursive_struct.h"},
           declKind = Struct
@@ -82,7 +82,7 @@
                   structFieldLoc =
                   "recursive_struct.h:2:7",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "linked_list_A_t_x"},
                   structFieldType = TypePrim
@@ -93,17 +93,17 @@
                   structFieldLoc =
                   "recursive_struct.h:3:27",
                   structFieldName = NamePair {
-                    nameC = CName "next",
+                    nameC = Name "next",
                     nameHsIdent = HsIdentifier
                       "linked_list_A_t_next"},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
-                        nameC = CName "linked_list_A_t",
+                        nameC = Name "linked_list_A_t",
                         nameHsIdent = HsIdentifier
                           "Linked_list_A_t"}
                       (NameOriginRenamedFrom
-                        (CName "linked_list_A_s"))),
+                        (Name "linked_list_A_s"))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -136,7 +136,7 @@
                 structFieldLoc =
                 "recursive_struct.h:2:7",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "linked_list_A_t_x"},
                 structFieldType = TypePrim
@@ -157,17 +157,17 @@
                 structFieldLoc =
                 "recursive_struct.h:3:27",
                 structFieldName = NamePair {
-                  nameC = CName "next",
+                  nameC = Name "next",
                   nameHsIdent = HsIdentifier
                     "linked_list_A_t_next"},
                 structFieldType = TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "linked_list_A_t",
+                      nameC = Name "linked_list_A_t",
                       nameHsIdent = HsIdentifier
                         "Linked_list_A_t"}
                     (NameOriginRenamedFrom
-                      (CName "linked_list_A_s"))),
+                      (Name "linked_list_A_s"))),
                 structFieldOffset = 64,
                 structFieldWidth = Nothing}}],
         structOrigin = Just
@@ -176,14 +176,14 @@
               declLoc =
               "recursive_struct.h:1:16",
               declId = NamePair {
-                nameC = CName "linked_list_A_t",
+                nameC = Name "linked_list_A_t",
                 nameHsIdent = HsIdentifier
                   "Linked_list_A_t"},
               declOrigin =
               NameOriginRenamedFrom
-                (CName "linked_list_A_s"),
+                (Name "linked_list_A_s"),
               declAliases = [
-                CName "linked_list_A_t"],
+                Name "linked_list_A_t"],
               declHeader =
               "recursive_struct.h"},
             declKind = Struct
@@ -199,7 +199,7 @@
                     structFieldLoc =
                     "recursive_struct.h:2:7",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "linked_list_A_t_x"},
                     structFieldType = TypePrim
@@ -210,17 +210,17 @@
                     structFieldLoc =
                     "recursive_struct.h:3:27",
                     structFieldName = NamePair {
-                      nameC = CName "next",
+                      nameC = Name "next",
                       nameHsIdent = HsIdentifier
                         "linked_list_A_t_next"},
                     structFieldType = TypePointer
                       (TypeStruct
                         NamePair {
-                          nameC = CName "linked_list_A_t",
+                          nameC = Name "linked_list_A_t",
                           nameHsIdent = HsIdentifier
                             "Linked_list_A_t"}
                         (NameOriginRenamedFrom
-                          (CName "linked_list_A_s"))),
+                          (Name "linked_list_A_s"))),
                     structFieldOffset = 64,
                     structFieldWidth = Nothing}],
                 structFlam = Nothing},
@@ -258,7 +258,7 @@
                         structFieldLoc =
                         "recursive_struct.h:2:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "linked_list_A_t_x"},
                         structFieldType = TypePrim
@@ -279,17 +279,17 @@
                         structFieldLoc =
                         "recursive_struct.h:3:27",
                         structFieldName = NamePair {
-                          nameC = CName "next",
+                          nameC = Name "next",
                           nameHsIdent = HsIdentifier
                             "linked_list_A_t_next"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "linked_list_A_t",
+                              nameC = Name "linked_list_A_t",
                               nameHsIdent = HsIdentifier
                                 "Linked_list_A_t"}
                             (NameOriginRenamedFrom
-                              (CName "linked_list_A_s"))),
+                              (Name "linked_list_A_s"))),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -298,14 +298,14 @@
                       declLoc =
                       "recursive_struct.h:1:16",
                       declId = NamePair {
-                        nameC = CName "linked_list_A_t",
+                        nameC = Name "linked_list_A_t",
                         nameHsIdent = HsIdentifier
                           "Linked_list_A_t"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "linked_list_A_s"),
+                        (Name "linked_list_A_s"),
                       declAliases = [
-                        CName "linked_list_A_t"],
+                        Name "linked_list_A_t"],
                       declHeader =
                       "recursive_struct.h"},
                     declKind = Struct
@@ -321,7 +321,7 @@
                             structFieldLoc =
                             "recursive_struct.h:2:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "linked_list_A_t_x"},
                             structFieldType = TypePrim
@@ -332,17 +332,17 @@
                             structFieldLoc =
                             "recursive_struct.h:3:27",
                             structFieldName = NamePair {
-                              nameC = CName "next",
+                              nameC = Name "next",
                               nameHsIdent = HsIdentifier
                                 "linked_list_A_t_next"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "linked_list_A_t",
+                                  nameC = Name "linked_list_A_t",
                                   nameHsIdent = HsIdentifier
                                     "Linked_list_A_t"}
                                 (NameOriginRenamedFrom
-                                  (CName "linked_list_A_s"))),
+                                  (Name "linked_list_A_s"))),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -382,7 +382,7 @@
                         structFieldLoc =
                         "recursive_struct.h:2:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "linked_list_A_t_x"},
                         structFieldType = TypePrim
@@ -403,17 +403,17 @@
                         structFieldLoc =
                         "recursive_struct.h:3:27",
                         structFieldName = NamePair {
-                          nameC = CName "next",
+                          nameC = Name "next",
                           nameHsIdent = HsIdentifier
                             "linked_list_A_t_next"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "linked_list_A_t",
+                              nameC = Name "linked_list_A_t",
                               nameHsIdent = HsIdentifier
                                 "Linked_list_A_t"}
                             (NameOriginRenamedFrom
-                              (CName "linked_list_A_s"))),
+                              (Name "linked_list_A_s"))),
                         structFieldOffset = 64,
                         structFieldWidth = Nothing}}],
                 structOrigin = Just
@@ -422,14 +422,14 @@
                       declLoc =
                       "recursive_struct.h:1:16",
                       declId = NamePair {
-                        nameC = CName "linked_list_A_t",
+                        nameC = Name "linked_list_A_t",
                         nameHsIdent = HsIdentifier
                           "Linked_list_A_t"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "linked_list_A_s"),
+                        (Name "linked_list_A_s"),
                       declAliases = [
-                        CName "linked_list_A_t"],
+                        Name "linked_list_A_t"],
                       declHeader =
                       "recursive_struct.h"},
                     declKind = Struct
@@ -445,7 +445,7 @@
                             structFieldLoc =
                             "recursive_struct.h:2:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "linked_list_A_t_x"},
                             structFieldType = TypePrim
@@ -456,17 +456,17 @@
                             structFieldLoc =
                             "recursive_struct.h:3:27",
                             structFieldName = NamePair {
-                              nameC = CName "next",
+                              nameC = Name "next",
                               nameHsIdent = HsIdentifier
                                 "linked_list_A_t_next"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "linked_list_A_t",
+                                  nameC = Name "linked_list_A_t",
                                   nameHsIdent = HsIdentifier
                                     "Linked_list_A_t"}
                                 (NameOriginRenamedFrom
-                                  (CName "linked_list_A_s"))),
+                                  (Name "linked_list_A_s"))),
                             structFieldOffset = 64,
                             structFieldWidth = Nothing}],
                         structFlam = Nothing},
@@ -518,7 +518,7 @@
               structFieldLoc =
               "recursive_struct.h:10:7",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "linked_list_B_t_x"},
               structFieldType = TypePrim
@@ -539,16 +539,16 @@
               structFieldLoc =
               "recursive_struct.h:11:20",
               structFieldName = NamePair {
-                nameC = CName "next",
+                nameC = Name "next",
                 nameHsIdent = HsIdentifier
                   "linked_list_B_t_next"},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
-                    (CName "linked_list_B_t")
+                    (Name "linked_list_B_t")
                     (TypeStruct
                       NamePair {
-                        nameC = CName "linked_list_B_t",
+                        nameC = Name "linked_list_B_t",
                         nameHsIdent = HsIdentifier
                           "Linked_list_B_t"}
                       NameOriginInSource))),
@@ -560,12 +560,12 @@
             declLoc =
             "recursive_struct.h:9:8",
             declId = NamePair {
-              nameC = CName "linked_list_B_t",
+              nameC = Name "linked_list_B_t",
               nameHsIdent = HsIdentifier
                 "Linked_list_B_t"},
             declOrigin = NameOriginInSource,
             declAliases = [
-              CName "linked_list_B_t"],
+              Name "linked_list_B_t"],
             declHeader =
             "recursive_struct.h"},
           declKind = Struct
@@ -581,7 +581,7 @@
                   structFieldLoc =
                   "recursive_struct.h:10:7",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "linked_list_B_t_x"},
                   structFieldType = TypePrim
@@ -592,16 +592,16 @@
                   structFieldLoc =
                   "recursive_struct.h:11:20",
                   structFieldName = NamePair {
-                    nameC = CName "next",
+                    nameC = Name "next",
                     nameHsIdent = HsIdentifier
                       "linked_list_B_t_next"},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
-                        (CName "linked_list_B_t")
+                        (Name "linked_list_B_t")
                         (TypeStruct
                           NamePair {
-                            nameC = CName "linked_list_B_t",
+                            nameC = Name "linked_list_B_t",
                             nameHsIdent = HsIdentifier
                               "Linked_list_B_t"}
                           NameOriginInSource))),
@@ -637,7 +637,7 @@
                 structFieldLoc =
                 "recursive_struct.h:10:7",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "linked_list_B_t_x"},
                 structFieldType = TypePrim
@@ -658,16 +658,16 @@
                 structFieldLoc =
                 "recursive_struct.h:11:20",
                 structFieldName = NamePair {
-                  nameC = CName "next",
+                  nameC = Name "next",
                   nameHsIdent = HsIdentifier
                     "linked_list_B_t_next"},
                 structFieldType = TypePointer
                   (TypeTypedef
                     (TypedefSquashed
-                      (CName "linked_list_B_t")
+                      (Name "linked_list_B_t")
                       (TypeStruct
                         NamePair {
-                          nameC = CName "linked_list_B_t",
+                          nameC = Name "linked_list_B_t",
                           nameHsIdent = HsIdentifier
                             "Linked_list_B_t"}
                         NameOriginInSource))),
@@ -679,12 +679,12 @@
               declLoc =
               "recursive_struct.h:9:8",
               declId = NamePair {
-                nameC = CName "linked_list_B_t",
+                nameC = Name "linked_list_B_t",
                 nameHsIdent = HsIdentifier
                   "Linked_list_B_t"},
               declOrigin = NameOriginInSource,
               declAliases = [
-                CName "linked_list_B_t"],
+                Name "linked_list_B_t"],
               declHeader =
               "recursive_struct.h"},
             declKind = Struct
@@ -700,7 +700,7 @@
                     structFieldLoc =
                     "recursive_struct.h:10:7",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "linked_list_B_t_x"},
                     structFieldType = TypePrim
@@ -711,16 +711,16 @@
                     structFieldLoc =
                     "recursive_struct.h:11:20",
                     structFieldName = NamePair {
-                      nameC = CName "next",
+                      nameC = Name "next",
                       nameHsIdent = HsIdentifier
                         "linked_list_B_t_next"},
                     structFieldType = TypePointer
                       (TypeTypedef
                         (TypedefSquashed
-                          (CName "linked_list_B_t")
+                          (Name "linked_list_B_t")
                           (TypeStruct
                             NamePair {
-                              nameC = CName "linked_list_B_t",
+                              nameC = Name "linked_list_B_t",
                               nameHsIdent = HsIdentifier
                                 "Linked_list_B_t"}
                             NameOriginInSource))),
@@ -761,7 +761,7 @@
                         structFieldLoc =
                         "recursive_struct.h:10:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "linked_list_B_t_x"},
                         structFieldType = TypePrim
@@ -782,16 +782,16 @@
                         structFieldLoc =
                         "recursive_struct.h:11:20",
                         structFieldName = NamePair {
-                          nameC = CName "next",
+                          nameC = Name "next",
                           nameHsIdent = HsIdentifier
                             "linked_list_B_t_next"},
                         structFieldType = TypePointer
                           (TypeTypedef
                             (TypedefSquashed
-                              (CName "linked_list_B_t")
+                              (Name "linked_list_B_t")
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "linked_list_B_t",
+                                  nameC = Name "linked_list_B_t",
                                   nameHsIdent = HsIdentifier
                                     "Linked_list_B_t"}
                                 NameOriginInSource))),
@@ -803,12 +803,12 @@
                       declLoc =
                       "recursive_struct.h:9:8",
                       declId = NamePair {
-                        nameC = CName "linked_list_B_t",
+                        nameC = Name "linked_list_B_t",
                         nameHsIdent = HsIdentifier
                           "Linked_list_B_t"},
                       declOrigin = NameOriginInSource,
                       declAliases = [
-                        CName "linked_list_B_t"],
+                        Name "linked_list_B_t"],
                       declHeader =
                       "recursive_struct.h"},
                     declKind = Struct
@@ -824,7 +824,7 @@
                             structFieldLoc =
                             "recursive_struct.h:10:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "linked_list_B_t_x"},
                             structFieldType = TypePrim
@@ -835,16 +835,16 @@
                             structFieldLoc =
                             "recursive_struct.h:11:20",
                             structFieldName = NamePair {
-                              nameC = CName "next",
+                              nameC = Name "next",
                               nameHsIdent = HsIdentifier
                                 "linked_list_B_t_next"},
                             structFieldType = TypePointer
                               (TypeTypedef
                                 (TypedefSquashed
-                                  (CName "linked_list_B_t")
+                                  (Name "linked_list_B_t")
                                   (TypeStruct
                                     NamePair {
-                                      nameC = CName "linked_list_B_t",
+                                      nameC = Name "linked_list_B_t",
                                       nameHsIdent = HsIdentifier
                                         "Linked_list_B_t"}
                                     NameOriginInSource))),
@@ -887,7 +887,7 @@
                         structFieldLoc =
                         "recursive_struct.h:10:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "linked_list_B_t_x"},
                         structFieldType = TypePrim
@@ -908,16 +908,16 @@
                         structFieldLoc =
                         "recursive_struct.h:11:20",
                         structFieldName = NamePair {
-                          nameC = CName "next",
+                          nameC = Name "next",
                           nameHsIdent = HsIdentifier
                             "linked_list_B_t_next"},
                         structFieldType = TypePointer
                           (TypeTypedef
                             (TypedefSquashed
-                              (CName "linked_list_B_t")
+                              (Name "linked_list_B_t")
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "linked_list_B_t",
+                                  nameC = Name "linked_list_B_t",
                                   nameHsIdent = HsIdentifier
                                     "Linked_list_B_t"}
                                 NameOriginInSource))),
@@ -929,12 +929,12 @@
                       declLoc =
                       "recursive_struct.h:9:8",
                       declId = NamePair {
-                        nameC = CName "linked_list_B_t",
+                        nameC = Name "linked_list_B_t",
                         nameHsIdent = HsIdentifier
                           "Linked_list_B_t"},
                       declOrigin = NameOriginInSource,
                       declAliases = [
-                        CName "linked_list_B_t"],
+                        Name "linked_list_B_t"],
                       declHeader =
                       "recursive_struct.h"},
                     declKind = Struct
@@ -950,7 +950,7 @@
                             structFieldLoc =
                             "recursive_struct.h:10:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "linked_list_B_t_x"},
                             structFieldType = TypePrim
@@ -961,16 +961,16 @@
                             structFieldLoc =
                             "recursive_struct.h:11:20",
                             structFieldName = NamePair {
-                              nameC = CName "next",
+                              nameC = Name "next",
                               nameHsIdent = HsIdentifier
                                 "linked_list_B_t_next"},
                             structFieldType = TypePointer
                               (TypeTypedef
                                 (TypedefSquashed
-                                  (CName "linked_list_B_t")
+                                  (Name "linked_list_B_t")
                                   (TypeStruct
                                     NamePair {
-                                      nameC = CName "linked_list_B_t",
+                                      nameC = Name "linked_list_B_t",
                                       nameHsIdent = HsIdentifier
                                         "Linked_list_B_t"}
                                     NameOriginInSource))),

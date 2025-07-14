@@ -18,7 +18,7 @@
             StructField {
               structFieldLoc = "bool.h:2:11",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "bools1_x"},
               structFieldType = TypePrim
@@ -35,7 +35,7 @@
             StructField {
               structFieldLoc = "bool.h:3:11",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "bools1_y"},
               structFieldType = TypePrim
@@ -47,7 +47,7 @@
           declInfo = DeclInfo {
             declLoc = "bool.h:1:8",
             declId = NamePair {
-              nameC = CName "bools1",
+              nameC = Name "bools1",
               nameHsIdent = HsIdentifier
                 "Bools1"},
             declOrigin = NameOriginInSource,
@@ -63,7 +63,7 @@
                 StructField {
                   structFieldLoc = "bool.h:2:11",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "bools1_x"},
                   structFieldType = TypePrim
@@ -73,7 +73,7 @@
                 StructField {
                   structFieldLoc = "bool.h:3:11",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "bools1_y"},
                   structFieldType = TypePrim
@@ -109,7 +109,7 @@
               StructField {
                 structFieldLoc = "bool.h:2:11",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "bools1_x"},
                 structFieldType = TypePrim
@@ -126,7 +126,7 @@
               StructField {
                 structFieldLoc = "bool.h:3:11",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "bools1_y"},
                 structFieldType = TypePrim
@@ -138,7 +138,7 @@
             declInfo = DeclInfo {
               declLoc = "bool.h:1:8",
               declId = NamePair {
-                nameC = CName "bools1",
+                nameC = Name "bools1",
                 nameHsIdent = HsIdentifier
                   "Bools1"},
               declOrigin = NameOriginInSource,
@@ -154,7 +154,7 @@
                   StructField {
                     structFieldLoc = "bool.h:2:11",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "bools1_x"},
                     structFieldType = TypePrim
@@ -164,7 +164,7 @@
                   StructField {
                     structFieldLoc = "bool.h:3:11",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "bools1_y"},
                     structFieldType = TypePrim
@@ -205,7 +205,7 @@
                       StructField {
                         structFieldLoc = "bool.h:2:11",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "bools1_x"},
                         structFieldType = TypePrim
@@ -222,7 +222,7 @@
                       StructField {
                         structFieldLoc = "bool.h:3:11",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "bools1_y"},
                         structFieldType = TypePrim
@@ -234,7 +234,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bool.h:1:8",
                       declId = NamePair {
-                        nameC = CName "bools1",
+                        nameC = Name "bools1",
                         nameHsIdent = HsIdentifier
                           "Bools1"},
                       declOrigin = NameOriginInSource,
@@ -250,7 +250,7 @@
                           StructField {
                             structFieldLoc = "bool.h:2:11",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "bools1_x"},
                             structFieldType = TypePrim
@@ -260,7 +260,7 @@
                           StructField {
                             structFieldLoc = "bool.h:3:11",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "bools1_y"},
                             structFieldType = TypePrim
@@ -303,7 +303,7 @@
                       StructField {
                         structFieldLoc = "bool.h:2:11",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "bools1_x"},
                         structFieldType = TypePrim
@@ -320,7 +320,7 @@
                       StructField {
                         structFieldLoc = "bool.h:3:11",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "bools1_y"},
                         structFieldType = TypePrim
@@ -332,7 +332,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bool.h:1:8",
                       declId = NamePair {
-                        nameC = CName "bools1",
+                        nameC = Name "bools1",
                         nameHsIdent = HsIdentifier
                           "Bools1"},
                       declOrigin = NameOriginInSource,
@@ -348,7 +348,7 @@
                           StructField {
                             structFieldLoc = "bool.h:2:11",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "bools1_x"},
                             structFieldType = TypePrim
@@ -358,7 +358,7 @@
                           StructField {
                             structFieldLoc = "bool.h:3:11",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "bools1_y"},
                             structFieldType = TypePrim
@@ -413,7 +413,7 @@
             StructField {
               structFieldLoc = "bool.h:9:10",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "bools2_x"},
               structFieldType = TypePrim
@@ -430,7 +430,7 @@
             StructField {
               structFieldLoc = "bool.h:10:10",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "bools2_y"},
               structFieldType = TypePrim
@@ -442,7 +442,7 @@
           declInfo = DeclInfo {
             declLoc = "bool.h:8:8",
             declId = NamePair {
-              nameC = CName "bools2",
+              nameC = Name "bools2",
               nameHsIdent = HsIdentifier
                 "Bools2"},
             declOrigin = NameOriginInSource,
@@ -458,7 +458,7 @@
                 StructField {
                   structFieldLoc = "bool.h:9:10",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "bools2_x"},
                   structFieldType = TypePrim
@@ -468,7 +468,7 @@
                 StructField {
                   structFieldLoc = "bool.h:10:10",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "bools2_y"},
                   structFieldType = TypePrim
@@ -504,7 +504,7 @@
               StructField {
                 structFieldLoc = "bool.h:9:10",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "bools2_x"},
                 structFieldType = TypePrim
@@ -521,7 +521,7 @@
               StructField {
                 structFieldLoc = "bool.h:10:10",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "bools2_y"},
                 structFieldType = TypePrim
@@ -533,7 +533,7 @@
             declInfo = DeclInfo {
               declLoc = "bool.h:8:8",
               declId = NamePair {
-                nameC = CName "bools2",
+                nameC = Name "bools2",
                 nameHsIdent = HsIdentifier
                   "Bools2"},
               declOrigin = NameOriginInSource,
@@ -549,7 +549,7 @@
                   StructField {
                     structFieldLoc = "bool.h:9:10",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "bools2_x"},
                     structFieldType = TypePrim
@@ -559,7 +559,7 @@
                   StructField {
                     structFieldLoc = "bool.h:10:10",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "bools2_y"},
                     structFieldType = TypePrim
@@ -600,7 +600,7 @@
                       StructField {
                         structFieldLoc = "bool.h:9:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "bools2_x"},
                         structFieldType = TypePrim
@@ -617,7 +617,7 @@
                       StructField {
                         structFieldLoc = "bool.h:10:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "bools2_y"},
                         structFieldType = TypePrim
@@ -629,7 +629,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bool.h:8:8",
                       declId = NamePair {
-                        nameC = CName "bools2",
+                        nameC = Name "bools2",
                         nameHsIdent = HsIdentifier
                           "Bools2"},
                       declOrigin = NameOriginInSource,
@@ -645,7 +645,7 @@
                           StructField {
                             structFieldLoc = "bool.h:9:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "bools2_x"},
                             structFieldType = TypePrim
@@ -655,7 +655,7 @@
                           StructField {
                             structFieldLoc = "bool.h:10:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "bools2_y"},
                             structFieldType = TypePrim
@@ -698,7 +698,7 @@
                       StructField {
                         structFieldLoc = "bool.h:9:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "bools2_x"},
                         structFieldType = TypePrim
@@ -715,7 +715,7 @@
                       StructField {
                         structFieldLoc = "bool.h:10:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "bools2_y"},
                         structFieldType = TypePrim
@@ -727,7 +727,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bool.h:8:8",
                       declId = NamePair {
-                        nameC = CName "bools2",
+                        nameC = Name "bools2",
                         nameHsIdent = HsIdentifier
                           "Bools2"},
                       declOrigin = NameOriginInSource,
@@ -743,7 +743,7 @@
                           StructField {
                             structFieldLoc = "bool.h:9:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "bools2_x"},
                             structFieldType = TypePrim
@@ -753,7 +753,7 @@
                           StructField {
                             structFieldLoc = "bool.h:10:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "bools2_y"},
                             structFieldType = TypePrim
@@ -808,7 +808,7 @@
         declInfo = DeclInfo {
           declLoc = "bool.h:13:9",
           declId = NamePair {
-            nameC = CName "BOOL",
+            nameC = Name "BOOL",
             nameHsIdent = HsIdentifier
               "BOOL"},
           declOrigin = NameOriginInSource,
@@ -916,13 +916,13 @@
             StructField {
               structFieldLoc = "bool.h:16:10",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "bools3_x"},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
-                  nameC = CName "BOOL",
+                  nameC = Name "BOOL",
                   nameHsIdent = HsIdentifier
                     "BOOL"}
                 NameOriginInSource,
@@ -938,13 +938,13 @@
             StructField {
               structFieldLoc = "bool.h:17:10",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "bools3_y"},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
-                  nameC = CName "BOOL",
+                  nameC = Name "BOOL",
                   nameHsIdent = HsIdentifier
                     "BOOL"}
                 NameOriginInSource,
@@ -955,7 +955,7 @@
           declInfo = DeclInfo {
             declLoc = "bool.h:15:8",
             declId = NamePair {
-              nameC = CName "bools3",
+              nameC = Name "bools3",
               nameHsIdent = HsIdentifier
                 "Bools3"},
             declOrigin = NameOriginInSource,
@@ -971,13 +971,13 @@
                 StructField {
                   structFieldLoc = "bool.h:16:10",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "bools3_x"},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
-                      nameC = CName "BOOL",
+                      nameC = Name "BOOL",
                       nameHsIdent = HsIdentifier
                         "BOOL"}
                     NameOriginInSource,
@@ -986,13 +986,13 @@
                 StructField {
                   structFieldLoc = "bool.h:17:10",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "bools3_y"},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
-                      nameC = CName "BOOL",
+                      nameC = Name "BOOL",
                       nameHsIdent = HsIdentifier
                         "BOOL"}
                     NameOriginInSource,
@@ -1027,13 +1027,13 @@
               StructField {
                 structFieldLoc = "bool.h:16:10",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "bools3_x"},
                 structFieldType =
                 TypeMacroTypedef
                   NamePair {
-                    nameC = CName "BOOL",
+                    nameC = Name "BOOL",
                     nameHsIdent = HsIdentifier
                       "BOOL"}
                   NameOriginInSource,
@@ -1049,13 +1049,13 @@
               StructField {
                 structFieldLoc = "bool.h:17:10",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "bools3_y"},
                 structFieldType =
                 TypeMacroTypedef
                   NamePair {
-                    nameC = CName "BOOL",
+                    nameC = Name "BOOL",
                     nameHsIdent = HsIdentifier
                       "BOOL"}
                   NameOriginInSource,
@@ -1066,7 +1066,7 @@
             declInfo = DeclInfo {
               declLoc = "bool.h:15:8",
               declId = NamePair {
-                nameC = CName "bools3",
+                nameC = Name "bools3",
                 nameHsIdent = HsIdentifier
                   "Bools3"},
               declOrigin = NameOriginInSource,
@@ -1082,13 +1082,13 @@
                   StructField {
                     structFieldLoc = "bool.h:16:10",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "bools3_x"},
                     structFieldType =
                     TypeMacroTypedef
                       NamePair {
-                        nameC = CName "BOOL",
+                        nameC = Name "BOOL",
                         nameHsIdent = HsIdentifier
                           "BOOL"}
                       NameOriginInSource,
@@ -1097,13 +1097,13 @@
                   StructField {
                     structFieldLoc = "bool.h:17:10",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "bools3_y"},
                     structFieldType =
                     TypeMacroTypedef
                       NamePair {
-                        nameC = CName "BOOL",
+                        nameC = Name "BOOL",
                         nameHsIdent = HsIdentifier
                           "BOOL"}
                       NameOriginInSource,
@@ -1143,13 +1143,13 @@
                       StructField {
                         structFieldLoc = "bool.h:16:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "bools3_x"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "BOOL",
+                            nameC = Name "BOOL",
                             nameHsIdent = HsIdentifier
                               "BOOL"}
                           NameOriginInSource,
@@ -1165,13 +1165,13 @@
                       StructField {
                         structFieldLoc = "bool.h:17:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "bools3_y"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "BOOL",
+                            nameC = Name "BOOL",
                             nameHsIdent = HsIdentifier
                               "BOOL"}
                           NameOriginInSource,
@@ -1182,7 +1182,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bool.h:15:8",
                       declId = NamePair {
-                        nameC = CName "bools3",
+                        nameC = Name "bools3",
                         nameHsIdent = HsIdentifier
                           "Bools3"},
                       declOrigin = NameOriginInSource,
@@ -1198,13 +1198,13 @@
                           StructField {
                             structFieldLoc = "bool.h:16:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "bools3_x"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "BOOL",
+                                nameC = Name "BOOL",
                                 nameHsIdent = HsIdentifier
                                   "BOOL"}
                               NameOriginInSource,
@@ -1213,13 +1213,13 @@
                           StructField {
                             structFieldLoc = "bool.h:17:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "bools3_y"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "BOOL",
+                                nameC = Name "BOOL",
                                 nameHsIdent = HsIdentifier
                                   "BOOL"}
                               NameOriginInSource,
@@ -1261,13 +1261,13 @@
                       StructField {
                         structFieldLoc = "bool.h:16:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "bools3_x"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "BOOL",
+                            nameC = Name "BOOL",
                             nameHsIdent = HsIdentifier
                               "BOOL"}
                           NameOriginInSource,
@@ -1283,13 +1283,13 @@
                       StructField {
                         structFieldLoc = "bool.h:17:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "bools3_y"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "BOOL",
+                            nameC = Name "BOOL",
                             nameHsIdent = HsIdentifier
                               "BOOL"}
                           NameOriginInSource,
@@ -1300,7 +1300,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bool.h:15:8",
                       declId = NamePair {
-                        nameC = CName "bools3",
+                        nameC = Name "bools3",
                         nameHsIdent = HsIdentifier
                           "Bools3"},
                       declOrigin = NameOriginInSource,
@@ -1316,13 +1316,13 @@
                           StructField {
                             structFieldLoc = "bool.h:16:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "bools3_x"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "BOOL",
+                                nameC = Name "BOOL",
                                 nameHsIdent = HsIdentifier
                                   "BOOL"}
                               NameOriginInSource,
@@ -1331,13 +1331,13 @@
                           StructField {
                             structFieldLoc = "bool.h:17:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "bools3_y"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "BOOL",
+                                nameC = Name "BOOL",
                                 nameHsIdent = HsIdentifier
                                   "BOOL"}
                               NameOriginInSource,
