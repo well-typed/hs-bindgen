@@ -14,7 +14,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -54,11 +54,11 @@ data RenameEnv = RenameEnv {
     , envDeclUse   :: DeclUseGraph
     }
 
-findNamedUseOf :: RenameEnv -> QualDeclId -> Maybe UseOfDecl
+findNamedUseOf :: RenameEnv -> QualPrelimDeclId -> Maybe UseOfDecl
 findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qid =
     DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse qid
 
-findAliasesOf :: RenameEnv -> QualDeclId -> [C.Name]
+findAliasesOf :: RenameEnv -> QualPrelimDeclId -> [C.Name]
 findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
 
 {-------------------------------------------------------------------------------
@@ -90,18 +90,18 @@ nameDecl env decl = do
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{declId, declLoc, declHeader} = declInfo
 
-    qid :: QualDeclId
-    qid = declQualDeclId decl
+    qid :: QualPrelimDeclId
+    qid = declQualPrelimDeclId decl
 
     mName :: Maybe (C.Name, C.NameOrigin)
     mName =
         case declId of
-          DeclNamed n ->
+          PrelimDeclIdNamed n ->
             Just (n, C.NameOriginInSource)
-          DeclAnon anonId ->
+          PrelimDeclIdAnon anonId ->
             (, C.NameOriginGenerated anonId) . nameForAnon <$>
               findNamedUseOf env qid
-          DeclBuiltin name ->
+          PrelimDeclIdBuiltin name ->
             Just (name, C.NameOriginInSource)
 
 {-------------------------------------------------------------------------------
@@ -186,16 +186,16 @@ instance NameUseSites C.Type where
 
       -- Cases where we actually need to do work
       go (C.TypeStruct uid _) =
-          let qid = QualDeclId uid C.NameKindStruct
+          let qid = QualPrelimDeclId uid C.NameKindStruct
           in uncurry C.TypeStruct (nameUseSite qid)
       go (C.TypeUnion uid _) =
-          let qid = QualDeclId uid C.NameKindUnion
+          let qid = QualPrelimDeclId uid C.NameKindUnion
           in uncurry C.TypeUnion (nameUseSite qid)
       go (C.TypeEnum uid _) =
-          let qid = QualDeclId uid C.NameKindEnum
+          let qid = QualPrelimDeclId uid C.NameKindEnum
           in uncurry C.TypeEnum (nameUseSite qid)
       go (C.TypeMacroTypedef uid _) =
-          let qid = QualDeclId uid C.NameKindOrdinary
+          let qid = QualPrelimDeclId uid C.NameKindOrdinary
           in uncurry C.TypeMacroTypedef (nameUseSite qid)
 
       -- Recursive cases
@@ -215,12 +215,12 @@ instance NameUseSites C.Type where
       -- Rename specific use site
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: QualDeclId -> (C.Name, C.NameOrigin)
-      nameUseSite qid@(QualDeclId uid _nameKind) =
+      nameUseSite :: QualPrelimDeclId -> (C.Name, C.NameOrigin)
+      nameUseSite qid@(QualPrelimDeclId uid _nameKind) =
           case uid of
-            DeclNamed   name -> (name, C.NameOriginInSource)
-            DeclBuiltin name -> (name, C.NameOriginInSource)
-            DeclAnon  anonId ->
+            PrelimDeclIdNamed   name -> (name, C.NameOriginInSource)
+            PrelimDeclIdBuiltin name -> (name, C.NameOriginInSource)
+            PrelimDeclIdAnon  anonId ->
              case findNamedUseOf env qid of
                Just useOfAnon ->
                  (nameForAnon useOfAnon, C.NameOriginGenerated anonId)

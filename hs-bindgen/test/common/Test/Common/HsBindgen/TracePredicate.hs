@@ -27,7 +27,7 @@ import Data.Maybe (fromMaybe)
 import Data.Typeable (Typeable)
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Lib
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
@@ -202,7 +202,7 @@ instance (PrettyForTrace a, Show a) => WrongCountMsg a String where
   wrongCount = wrongCount . PP.string
 
 -- | It is often useful to check for warnings/errors for specific declarations
-instance (PrettyForTrace a, Show a) => WrongCountMsg a DeclId where
+instance (PrettyForTrace a, Show a) => WrongCountMsg a PrelimDeclId where
   wrongCount = wrongCount . prettyForTrace
 
 -- | The most common case: traces with just one outcome

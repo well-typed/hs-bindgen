@@ -35,7 +35,7 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -47,11 +47,11 @@ import HsBindgen.Imports
 -- Whenever declaration A uses (depends on) declaration B, there will be
 -- an edge from A to B in this graph.
 newtype UseDeclGraph = Wrap {
-      unwrap :: DynGraph Usage QualDeclId
+      unwrap :: DynGraph Usage QualPrelimDeclId
     }
   deriving stock (Show, Eq)
 
-toDynGraph :: UseDeclGraph -> DynGraph Usage QualDeclId
+toDynGraph :: UseDeclGraph -> DynGraph Usage QualPrelimDeclId
 toDynGraph = unwrap
 
 {-------------------------------------------------------------------------------
@@ -73,21 +73,21 @@ fromSortedDecls decls = Wrap $
     -- We first insert all declarations, so that they are assigned vertices.
     -- Since we do this in source order, this ensures that we preserve source
     -- order as much as possible in 'toDecls' (modulo dependencies).
-    let vertices :: DynGraph Usage QualDeclId
+    let vertices :: DynGraph Usage QualPrelimDeclId
         vertices = foldl' (flip addVertex) DynGraph.empty decls
     in foldl' (flip addEdges) vertices decls
   where
     addVertex, addEdges ::
          C.Decl Parse
-      -> DynGraph Usage QualDeclId -> DynGraph Usage QualDeclId
-    addVertex d g = DynGraph.insertVertex (declQualDeclId d) g
+      -> DynGraph Usage QualPrelimDeclId -> DynGraph Usage QualPrelimDeclId
+    addVertex d g = DynGraph.insertVertex (declQualPrelimDeclId d) g
     addEdges  d g = foldl' (flip (addEdge d)) g (depsOfDecl $ C.declKind d)
 
     addEdge ::
          C.Decl Parse
-      -> (Usage, QualDeclId)
-      -> DynGraph Usage QualDeclId -> DynGraph Usage QualDeclId
-    addEdge d (l, d') = DynGraph.insertEdge (declQualDeclId d) l d'
+      -> (Usage, QualPrelimDeclId)
+      -> DynGraph Usage QualPrelimDeclId -> DynGraph Usage QualPrelimDeclId
+    addEdge d (l, d') = DynGraph.insertEdge (declQualPrelimDeclId d) l d'
 
 {-------------------------------------------------------------------------------
   Query
@@ -110,7 +110,7 @@ toDecls index (Wrap graph) =
     mapMaybe (`DeclIndex.lookup` index) . DynGraph.postorderForest $
       DynGraph.dff graph
 
-getTransitiveDeps :: UseDeclGraph -> QualDeclId -> Set QualDeclId
+getTransitiveDeps :: UseDeclGraph -> QualPrelimDeclId -> Set QualPrelimDeclId
 getTransitiveDeps = DynGraph.reaches . unwrap
 
 {-------------------------------------------------------------------------------

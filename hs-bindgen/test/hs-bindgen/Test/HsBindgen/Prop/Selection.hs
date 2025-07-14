@@ -16,7 +16,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Predicate
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Prop.Selection" [
@@ -47,14 +47,14 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
   Selection properties
 -------------------------------------------------------------------------------}
 
-prop_selectAll :: SingleLoc -> QualDeclId -> Bool
+prop_selectAll :: SingleLoc -> QualPrelimDeclId -> Bool
 prop_selectAll loc name = match (const True) loc name SelectAll
 
-prop_selectNone :: SingleLoc -> QualDeclId -> Bool
+prop_selectNone :: SingleLoc -> QualPrelimDeclId -> Bool
 prop_selectNone loc name = not $ match (const True) loc name SelectNone
 
 prop_selectIfBoth
-  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId
   -> Predicate -> Predicate -> Bool
 prop_selectIfBoth (Fn isMainFile) loc name p1 p2 =
   let p1Res = match isMainFile loc name p1
@@ -63,7 +63,7 @@ prop_selectIfBoth (Fn isMainFile) loc name p1 p2 =
    in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectIfEither
-  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId
   -> Predicate -> Predicate -> Bool
 prop_selectIfEither (Fn isMainFile) loc name p1 p2 =
   let p1Res = match isMainFile loc name p1
@@ -72,23 +72,23 @@ prop_selectIfEither (Fn isMainFile) loc name p1 p2 =
    in (p1Res || p2Res) == p1AndP2Res
 
 prop_selectNegate
-  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Predicate -> Property
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Predicate -> Property
 prop_selectNegate (Fn isMainFile) loc name predicate =
   match isMainFile loc name predicate
   =/= match isMainFile loc name (SelectNegate predicate)
 
 prop_selectFromMainFiles
-  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
 prop_selectFromMainFiles (Fn isMainFile) loc name =
   match isMainFile loc name SelectFromMainFiles == isMainFile loc
 
 prop_selectByFileNameAll
-  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
 prop_selectByFileNameAll (Fn isMainFile) loc name =
   match isMainFile loc name (SelectByFileName ".*")
 
 prop_selectByFileNameNeedle
-  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
 prop_selectByFileNameNeedle (Fn isMainFile) loc name =
   let (SourcePath sourcePath) = singleLocPath loc
       sourcePath' = sourcePath <> "NEEDLE" <> sourcePath
@@ -96,23 +96,23 @@ prop_selectByFileNameNeedle (Fn isMainFile) loc name =
    in match isMainFile loc' name (SelectByFileName "NEEDLE")
 
 prop_selectByElementNameAll
-  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
 prop_selectByElementNameAll (Fn isMainFile) loc name =
     maybeNot $ match isMainFile loc name (SelectByElementName ".*")
   where
     maybeNot :: (Bool -> Bool)
     maybeNot =
-        case qualDeclId name of
-          DeclNamed _ -> id
-          _otherwise  -> not
+        case qualPrelimDeclId name of
+          PrelimDeclIdNamed _ -> id
+          _otherwise          -> not
 
 prop_selectByElementNameNeedle
-  :: Fun SingleLoc Bool -> SingleLoc -> QualDeclId -> Bool
-prop_selectByElementNameNeedle (Fn isMainFile) loc (QualDeclId declId kind) =
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
+prop_selectByElementNameNeedle (Fn isMainFile) loc (QualPrelimDeclId declId kind) =
     case declId of
-      DeclNamed name ->
+      PrelimDeclIdNamed name ->
         let name' = name <> "NEEDLE" <> name
-            qid'  = QualDeclId (DeclNamed name') kind
+            qid'  = QualPrelimDeclId (PrelimDeclIdNamed name') kind
          in match isMainFile loc qid' (SelectByElementName "NEEDLE")
       _otherwise ->
         True -- skip
@@ -177,14 +177,14 @@ instance Arbitrary C.Name where
 instance Arbitrary C.NameKind where
   arbitrary = elements [minBound .. maxBound]
 
-instance Arbitrary QualDeclId where
+instance Arbitrary QualPrelimDeclId where
   arbitrary = makeQualDeclId <$> arbitrary <*> arbitrary
     where
       -- TODO: We currently never produce anonymous or builtin declarations.
       -- In this module we check that selection predicates behave as boolean
       -- functions; this is not true for builtins (which are /never/ selected).
-      makeQualDeclId :: C.Name -> C.NameKind -> QualDeclId
-      makeQualDeclId name kind = QualDeclId (DeclNamed name) kind
+      makeQualDeclId :: C.Name -> C.NameKind -> QualPrelimDeclId
+      makeQualDeclId name kind = QualPrelimDeclId (PrelimDeclIdNamed name) kind
 
 instance Arbitrary Predicate where
   arbitrary = oneof [

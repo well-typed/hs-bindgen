@@ -24,7 +24,7 @@ import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (hcat, showToCtxDoc)
@@ -37,7 +37,7 @@ import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 --
 -- This excludes declarations that were not excluded by the selection predicate.
 newtype DeclIndex = Wrap {
-      unwrap :: Map QualDeclId (C.Decl Parse)
+      unwrap :: Map QualPrelimDeclId (C.Decl Parse)
     }
   deriving stock (Show, Eq)
 
@@ -47,8 +47,8 @@ newtype DeclIndex = Wrap {
 
 -- | Construction state (internal type)
 data PartialIndex = PartialIndex{
-      index  :: !(Map QualDeclId (C.Decl Parse))
-    , errors :: !(Map QualDeclId DeclIndexError)
+      index  :: !(Map QualPrelimDeclId (C.Decl Parse))
+    , errors :: !(Map QualPrelimDeclId DeclIndexError)
     }
 
 fromDecls :: [C.Decl Parse] -> (DeclIndex, [DeclIndexError])
@@ -78,8 +78,8 @@ fromDecls decls =
                          Just e  -> Map.insert qid e errors
             }
      where
-       qid :: QualDeclId
-       qid = declQualDeclId decl
+       qid :: QualPrelimDeclId
+       qid = declQualPrelimDeclId decl
 
     insert ::
          C.Decl Parse
@@ -102,7 +102,7 @@ fromDecls decls =
                 -- for macros; for other kinds of declarations, clang will have
                 -- reported an error already.
                 failure $ Redeclaration{
-                    redeclarationId  = declQualDeclId new
+                    redeclarationId  = declQualPrelimDeclId new
                   , redeclarationOld = C.declLoc $ C.declInfo old
                   , redeclarationNew = C.declLoc $ C.declInfo new
                   }
@@ -133,7 +133,7 @@ sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
 
 data DeclIndexError =
     Redeclaration {
-        redeclarationId  :: QualDeclId
+        redeclarationId  :: QualPrelimDeclId
       , redeclarationOld :: SingleLoc
       , redeclarationNew :: SingleLoc
       }
@@ -159,10 +159,10 @@ instance HasDefaultLogLevel DeclIndexError where
   Query
 -------------------------------------------------------------------------------}
 
-lookup :: QualDeclId -> DeclIndex -> Maybe (C.Decl Parse)
+lookup :: QualPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
 lookup qid = Map.lookup qid . unwrap
 
-(!) :: HasCallStack => DeclIndex -> QualDeclId -> C.Decl Parse
+(!) :: HasCallStack => DeclIndex -> QualPrelimDeclId -> C.Decl Parse
 (!) declIndex qid =
     fromMaybe (panicPure $ "Unknown key: " ++ show qid) $
        lookup qid declIndex

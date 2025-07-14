@@ -8,7 +8,7 @@ import HsBindgen.C.Tc.Macro
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -28,7 +28,7 @@ type family AnnHandleMacros (ix :: Symbol) :: Star where
   AnnHandleMacros _                 = NoAnn
 
 instance IsPass HandleMacros where
-  type Id         HandleMacros = DeclId
+  type Id         HandleMacros = PrelimDeclId
   type FieldName  HandleMacros = C.Name
   type TypedefRef HandleMacros = C.Name
   type MacroBody  HandleMacros = CheckedMacro HandleMacros

@@ -19,7 +19,7 @@ import Text.Regex.PCRE.Text ()
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -94,7 +94,7 @@ type IsMainFile = SingleLoc -> Bool
 match ::
      IsMainFile
   -> SingleLoc
-  -> QualDeclId
+  -> QualPrelimDeclId
   -> Predicate
   -> Bool
 match isMainFile loc qid = \p ->
@@ -129,17 +129,18 @@ match isMainFile loc qid = \p ->
     matchFilename :: Regex -> SourcePath -> Bool
     matchFilename re (SourcePath path) = matchTest re path
 
-    matchElementName :: Regex -> QualDeclId -> Bool
-    matchElementName re (QualDeclId declId kind) =
-        case declId of
-          DeclNamed name -> matchTest re (C.qualNameText $ C.QualName name kind)
-          _otherwise     -> False
+    matchElementName :: Regex -> QualPrelimDeclId -> Bool
+    matchElementName re (QualPrelimDeclId prelimDeclId kind) =
+      case prelimDeclId of
+        PrelimDeclIdNamed name ->
+          matchTest re (C.qualNameText $ C.QualName name kind)
+        _otherwise -> False
 
-isBuiltin :: QualDeclId -> Bool
-isBuiltin (QualDeclId declId _kind) =
-    case declId of
-      DeclBuiltin _ -> True
-      _otherwise    -> False
+isBuiltin :: QualPrelimDeclId -> Bool
+isBuiltin (QualPrelimDeclId prelimDeclId _kind) =
+    case prelimDeclId of
+      PrelimDeclIdBuiltin{} -> True
+      _otherwise            -> False
 
 {-------------------------------------------------------------------------------
   Reduce and merge

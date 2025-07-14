@@ -16,7 +16,7 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage(..), ValOrRef(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -169,20 +169,20 @@ analyseTypedef declUseGraph typedefName typedef =
         mempty
 
     -- Get use sites, except any self-references
-    getUseSites :: QualDeclId -> [(QualDeclId, Usage)]
+    getUseSites :: QualPrelimDeclId -> [(QualPrelimDeclId, Usage)]
     getUseSites qid =
         let allUseSites = DeclUseGraph.getUseSites declUseGraph qid
         in filter (not . isSelfReference) allUseSites
       where
-        isSelfReference :: (QualDeclId, Usage) -> Bool
+        isSelfReference :: (QualPrelimDeclId, Usage) -> Bool
         isSelfReference (qid', _usage) = qid == qid'
 
 -- | Typedef of some tagged datatype
 typedefOfTagged ::
-     C.Name                 -- ^ Name of the typedef
-  -> ValOrRef               -- ^ Does the typedef wrap the datatype directly?
-  -> TaggedType             -- ^ Tagged datatype
-  -> [(QualDeclId, Usage)]  -- ^ All use sites of the struct
+     C.Name                      -- ^ Name of the typedef
+  -> ValOrRef                    -- ^ Does the typedef wrap the datatype directly?
+  -> TaggedType                  -- ^ Tagged datatype
+  -> [(QualPrelimDeclId, Usage)] -- ^ All use sites of the struct
   -> TypedefAnalysis
 typedefOfTagged typedefName valOrRef taggedType@TaggedType{..} useSites
     -- Struct and typedef same name, no intervening pointers
@@ -266,10 +266,10 @@ taggedNameKind = \case
     Union  -> C.NameKindUnion
     Enum   -> C.NameKindEnum
 
-origQualId :: TaggedType -> QualDeclId
+origQualId :: TaggedType -> QualPrelimDeclId
 origQualId TaggedType{..} =
-    QualDeclId
-      (origDeclId taggedName taggedOrigin)
+    QualPrelimDeclId
+      (origPrelimDeclId taggedName taggedOrigin)
       (taggedNameKind taggedKind)
 
 {-------------------------------------------------------------------------------
@@ -279,8 +279,8 @@ origQualId TaggedType{..} =
   TODO: Maybe this should live somewhere more general?
 -------------------------------------------------------------------------------}
 
-origDeclId :: C.Name -> C.NameOrigin -> DeclId
-origDeclId name = \case
-    C.NameOriginInSource           -> DeclNamed name
-    C.NameOriginRenamedFrom orig   -> DeclNamed orig
-    C.NameOriginGenerated   anonId -> DeclAnon anonId
+origPrelimDeclId :: C.Name -> C.NameOrigin -> PrelimDeclId
+origPrelimDeclId name = \case
+    C.NameOriginInSource           -> PrelimDeclIdNamed name
+    C.NameOriginRenamedFrom orig   -> PrelimDeclIdNamed orig
+    C.NameOriginGenerated   anonId -> PrelimDeclIdAnon  anonId

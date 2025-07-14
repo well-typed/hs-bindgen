@@ -16,8 +16,8 @@ import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -39,7 +39,7 @@ type family AnnParse (ix :: Symbol) :: Star where
   AnnParse _                 = NoAnn
 
 instance IsPass Parse where
-  type Id         Parse = DeclId
+  type Id         Parse = PrelimDeclId
   type FieldName  Parse = C.Name
   type TypedefRef Parse = C.Name
   type MacroBody  Parse = UnparsedMacro

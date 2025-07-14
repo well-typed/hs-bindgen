@@ -20,7 +20,7 @@ import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -205,8 +205,8 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
   where
     name :: C.Name
     name = case C.declId info of
-             DeclNamed n -> n
-             _otherwise  -> panicPure "unexpected anonymous typedef"
+      PrelimDeclIdNamed n -> n
+      _otherwise          -> panicPure "unexpected anonymous typedef"
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
@@ -237,8 +237,8 @@ processMacro info (UnparsedMacro tokens) =
   where
     name :: C.Name
     name = case C.declId info of
-             DeclNamed n -> n
-             _otherwise  -> panicPure "unexpected anonymous macro"
+      PrelimDeclIdNamed n -> n
+      _otherwise          -> panicPure "unexpected anonymous macro"
 
     withReparse ::
          ( Macro.Quant (FunValue, Macro.Type Macro.Ty)

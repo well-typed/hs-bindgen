@@ -13,7 +13,7 @@ import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass as Slice
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Pipeline qualified as Pipeline
@@ -245,7 +245,7 @@ testCases = [
                Nothing
         , testRustBindgen = RustBindgenFail
         }
-    , let declsWithWarnings :: [DeclId]
+    , let declsWithWarnings :: [PrelimDeclId]
           declsWithWarnings = [
                 -- non-extern non-static globals
                 "nesInteger"
@@ -337,7 +337,7 @@ testCases = [
             TraceFrontend (FrontendSlice
                            (Selected
                             (TransitiveDependencyOf
-                             (QualDeclId (DeclNamed nm) _) _)))
+                             (QualPrelimDeclId (PrelimDeclIdNamed nm) _) _)))
               | nm == "uint32_t" -> Just $ Expected "SelectedUInt32"
               | nm == "uint64_t" -> Just $ Expected "SelectedUInt64"
             TraceFrontend (FrontendSlice (Selected _)) -> Just Unexpected
@@ -375,7 +375,7 @@ testCases = [
             TraceFrontend (FrontendSlice
                            (Selected
                             (TransitiveDependencyOf
-                             (QualDeclId (DeclNamed nm) _) _)))
+                             (QualPrelimDeclId (PrelimDeclIdNamed nm) _) _)))
               | nm == "FileOperationStatus" -> Just $ Expected "SelectedFileOpterationStatus"
               | nm == "size_t"              -> Just $ Expected "SelectedSizeT"
               | nm == "FILE"                -> Just $ Expected "SelectedFile"

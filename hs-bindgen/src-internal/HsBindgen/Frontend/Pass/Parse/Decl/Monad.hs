@@ -44,7 +44,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Imports
@@ -104,7 +104,7 @@ evalPredicate info kind = wrapEff $ \ParseSupport{parseEnv} -> do
     let selected = Predicate.match
                      (envIsMainFile parseEnv)
                      (C.declLoc info)
-                     (QualDeclId (C.declId info) kind)
+                     (QualPrelimDeclId (C.declId info) kind)
                      (envPredicate parseEnv)
     unless selected $ traceWith (envTracer parseEnv) (Skipped info)
     return selected
@@ -180,11 +180,10 @@ recordNonSelectedDecl declInfo nameKind =
         return ()
   where
     declName :: Maybe C.Name
-    declName =
-        case C.declId declInfo of
-          DeclNamed   cname   -> Just cname
-          DeclAnon    _       -> Nothing
-          DeclBuiltin builtin -> Just builtin
+    declName = case C.declId declInfo of
+      PrelimDeclIdNamed   cname   -> Just cname
+      PrelimDeclIdAnon{}          -> Nothing
+      PrelimDeclIdBuiltin builtin -> Just builtin
 
 {-------------------------------------------------------------------------------
   Logging

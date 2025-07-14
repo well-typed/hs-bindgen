@@ -16,7 +16,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -77,14 +77,14 @@ handleTypeException curr err = do
 
 getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr -> do
-    declId     <- getDeclId curr
+    declId     <- getPrelimDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
     -- TODO: We might want a NameOriginBuiltin
     let declOrigin = case declId of
-          DeclNamed{}     -> C.NameOriginInSource
-          DeclBuiltin{}   -> C.NameOriginInSource
-          DeclAnon anonId -> C.NameOriginGenerated anonId
+          PrelimDeclIdNamed{}     -> C.NameOriginInSource
+          PrelimDeclIdBuiltin{}   -> C.NameOriginInSource
+          PrelimDeclIdAnon anonId -> C.NameOriginGenerated anonId
     return C.DeclInfo{
         declId
       , declLoc
@@ -537,9 +537,9 @@ varDecl info = simpleFold $ \curr -> do
 partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
 partitionAnonDecls = List.partition (declIdIsAnon . C.declId . C.declInfo)
   where
-    declIdIsAnon :: DeclId -> Bool
-    declIdIsAnon (DeclAnon _) = True
-    declIdIsAnon _otherwise   = False
+    declIdIsAnon :: PrelimDeclId -> Bool
+    declIdIsAnon PrelimDeclIdAnon{} = True
+    declIdIsAnon _otherwise         = False
 
 -- | Detect implicit fields inside a struct
 --
@@ -596,11 +596,11 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclStruct struct -> C.structFields struct
           _otherwise          -> []
 
-    fieldDeps :: [QualDeclId]
+    fieldDeps :: [QualPrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = declQualDeclId decl `elem` fieldDeps
+    declIsUsed decl = declQualPrelimDeclId decl `elem` fieldDeps
 
 data VarClassification =
     -- | The simplest case: a simple global variable

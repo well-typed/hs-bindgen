@@ -32,7 +32,7 @@ import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -44,7 +44,7 @@ import HsBindgen.Language.C qualified as C
 --
 -- This graph has edges from def sites to use sites.
 newtype DeclUseGraph = Wrap {
-      unwrap :: DynGraph Usage QualDeclId
+      unwrap :: DynGraph Usage QualPrelimDeclId
     }
   deriving stock (Show, Eq)
 
@@ -65,7 +65,11 @@ data UseOfDecl =
   deriving stock (Show)
 
 -- | Find direct or indirect use by a named declaration, if it exists
-findNamedUseOf :: DeclIndex -> DeclUseGraph -> QualDeclId -> Maybe UseOfDecl
+findNamedUseOf ::
+     DeclIndex
+  -> DeclUseGraph
+  -> QualPrelimDeclId
+  -> Maybe UseOfDecl
 findNamedUseOf declIndex (Wrap graph) =
       flip evalState id
     . DynGraph.findTrailFrom
@@ -76,13 +80,13 @@ findNamedUseOf declIndex (Wrap graph) =
          [(C.Decl Parse, Usage)] -- ^ Direct use sites
       -> State
            (UseOfDecl -> UseOfDecl)
-           (Either QualDeclId (Maybe UseOfDecl))
+           (Either QualPrelimDeclId (Maybe UseOfDecl))
     aux [(d, u)] = do
         let mName =
               case uid of
-                DeclNamed   name -> Just name
-                DeclAnon    _    -> Nothing
-                DeclBuiltin name -> Just name
+                PrelimDeclIdNamed   name -> Just name
+                PrelimDeclIdAnon    _    -> Nothing
+                PrelimDeclIdBuiltin name -> Just name
         case mName of
           Just name -> do
             f <- get
@@ -91,7 +95,7 @@ findNamedUseOf declIndex (Wrap graph) =
             modify (. usedByAnon d u)
             return $ Left qid
       where
-        qid@(QualDeclId uid nk) = declQualDeclId d
+        qid@(QualPrelimDeclId uid nk) = declQualPrelimDeclId d
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =
@@ -108,14 +112,16 @@ findNamedUseOf declIndex (Wrap graph) =
   Simple queries
 -------------------------------------------------------------------------------}
 
-getUseSites :: DeclUseGraph -> QualDeclId -> [(QualDeclId, Usage)]
+getUseSites :: DeclUseGraph -> QualPrelimDeclId -> [(QualPrelimDeclId, Usage)]
 getUseSites (Wrap graph) = Set.toList . DynGraph.neighbors graph
 
-findAliasesOf :: DeclUseGraph -> QualDeclId -> [C.Name]
+findAliasesOf :: DeclUseGraph -> QualPrelimDeclId -> [C.Name]
 findAliasesOf graph =
     mapMaybe (uncurry aux) . getUseSites graph
   where
-    aux :: QualDeclId -> Usage -> Maybe C.Name
-    aux (QualDeclId (DeclNamed cname) _) (UsedInTypedef UseDeclGraph.ByValue) =
-      Just cname
+    aux :: QualPrelimDeclId -> Usage -> Maybe C.Name
+    aux
+      (QualPrelimDeclId (PrelimDeclIdNamed cname) _)
+      (UsedInTypedef UseDeclGraph.ByValue) =
+        Just cname
     aux _ _ = Nothing

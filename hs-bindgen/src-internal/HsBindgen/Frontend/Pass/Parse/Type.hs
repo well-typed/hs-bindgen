@@ -9,8 +9,8 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
+import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -79,7 +79,7 @@ pointer = clang_getPointeeType >=> fmap C.TypePointer . cxtype
 fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
     decl   <- clang_getTypeDeclaration ty
-    declId <- getDeclId decl
+    declId <- getPrelimDeclId decl
     dispatchDecl decl $ \case
       CXCursor_EnumDecl    -> return $ C.TypeEnum    declId C.NameOriginInSource
       CXCursor_StructDecl  -> return $ C.TypeStruct  declId C.NameOriginInSource
@@ -87,10 +87,11 @@ fromDecl ty = do
       CXCursor_TypedefDecl -> C.TypeTypedef <$> typedefName declId
       kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where
-    typedefName :: DeclId -> ParseType C.Name
-    typedefName (DeclNamed name)   = return name
-    typedefName (DeclAnon _)       = panicPure "Unexpected anonymous typedef"
-    typedefName (DeclBuiltin name) = throwError $ UnsupportedBuiltin name
+    typedefName :: PrelimDeclId -> ParseType C.Name
+    typedefName = \case
+      PrelimDeclIdNamed name   -> return name
+      PrelimDeclIdAnon{}       -> panicPure "Unexpected anonymous typedef"
+      PrelimDeclIdBuiltin name ->  throwError $ UnsupportedBuiltin name
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto ty = do
