@@ -79,12 +79,11 @@ getPrelimDeclId curr = do
     -- a @struct@, @union@, or @enum@ declaration /anonymous/ if there is no
     -- tag, even if there is a @typedef@ for the type.
     --
-    -- @clang_Cursor_isAnonymous@ does not do what we need.  It returns 'False'
-    -- for an anonymous declaration if there is a @typedef@ for the type.  In
-    -- older versions of LLVM, one could check @clang_getCursorSpelling@ for an
-    -- empty result, but this has changed in later versions of LLVM.
+    -- See 'HighLevel.clang_getCursorLocation' for details.
     --
-    -- See https://github.com/well-typed/hs-bindgen/issues/795
+    -- Note that detection of user-provided names that are constructed via
+    -- macros only works with @clang >= 19.1.0@ due to a bug in earlier
+    -- versions.
     spelling <- HighLevel.clang_getCursorSpelling curr
     case spelling of
       UserProvided name ->
