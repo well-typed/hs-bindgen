@@ -48,74 +48,73 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
 -------------------------------------------------------------------------------}
 
 prop_selectAll :: SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectAll loc name = match (const True) loc name SelectAll
+prop_selectAll loc qid = match (const True) loc qid SelectAll
 
 prop_selectNone :: SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectNone loc name = not $ match (const True) loc name SelectNone
+prop_selectNone loc qid = not $ match (const True) loc qid SelectNone
 
 prop_selectIfBoth
   :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId
   -> Predicate -> Predicate -> Bool
-prop_selectIfBoth (Fn isMainFile) loc name p1 p2 =
-  let p1Res = match isMainFile loc name p1
-      p2Res = match isMainFile loc name p2
-      p1AndP2Res = match isMainFile loc name (SelectIfBoth p1 p2)
+prop_selectIfBoth (Fn isMainFile) loc qid p1 p2 =
+  let p1Res = match isMainFile loc qid p1
+      p2Res = match isMainFile loc qid p2
+      p1AndP2Res = match isMainFile loc qid (SelectIfBoth p1 p2)
    in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectIfEither
   :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId
   -> Predicate -> Predicate -> Bool
-prop_selectIfEither (Fn isMainFile) loc name p1 p2 =
-  let p1Res = match isMainFile loc name p1
-      p2Res = match isMainFile loc name p2
-      p1AndP2Res = match isMainFile loc name (SelectIfEither p1 p2)
+prop_selectIfEither (Fn isMainFile) loc qid p1 p2 =
+  let p1Res = match isMainFile loc qid p1
+      p2Res = match isMainFile loc qid p2
+      p1AndP2Res = match isMainFile loc qid (SelectIfEither p1 p2)
    in (p1Res || p2Res) == p1AndP2Res
 
 prop_selectNegate
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Predicate -> Property
-prop_selectNegate (Fn isMainFile) loc name predicate =
-  match isMainFile loc name predicate
-  =/= match isMainFile loc name (SelectNegate predicate)
+  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Predicate
+  -> Property
+prop_selectNegate (Fn isMainFile) loc qid predicate =
+      match isMainFile loc qid predicate
+  =/= match isMainFile loc qid (SelectNegate predicate)
 
 prop_selectFromMainFiles
   :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectFromMainFiles (Fn isMainFile) loc name =
-  match isMainFile loc name SelectFromMainFiles == isMainFile loc
+prop_selectFromMainFiles (Fn isMainFile) loc qid =
+  match isMainFile loc qid SelectFromMainFiles == isMainFile loc
 
 prop_selectByFileNameAll
   :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectByFileNameAll (Fn isMainFile) loc name =
-  match isMainFile loc name (SelectByFileName ".*")
+prop_selectByFileNameAll (Fn isMainFile) loc qid =
+  match isMainFile loc qid (SelectByFileName ".*")
 
 prop_selectByFileNameNeedle
   :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectByFileNameNeedle (Fn isMainFile) loc name =
+prop_selectByFileNameNeedle (Fn isMainFile) loc qid =
   let (SourcePath sourcePath) = singleLocPath loc
       sourcePath' = sourcePath <> "NEEDLE" <> sourcePath
       loc' = loc { singleLocPath = SourcePath sourcePath'}
-   in match isMainFile loc' name (SelectByFileName "NEEDLE")
+   in match isMainFile loc' qid (SelectByFileName "NEEDLE")
 
 prop_selectByElementNameAll
   :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectByElementNameAll (Fn isMainFile) loc name =
-    maybeNot $ match isMainFile loc name (SelectByElementName ".*")
+prop_selectByElementNameAll (Fn isMainFile) loc qid =
+    maybeNot $ match isMainFile loc qid (SelectByElementName ".*")
   where
     maybeNot :: (Bool -> Bool)
-    maybeNot =
-        case qualPrelimDeclId name of
-          PrelimDeclIdNamed _ -> id
-          _otherwise          -> not
+    maybeNot = case qid of
+      QualPrelimDeclIdNamed{} -> id
+      _othewise               -> not
 
 prop_selectByElementNameNeedle
   :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectByElementNameNeedle (Fn isMainFile) loc (QualPrelimDeclId declId kind) =
-    case declId of
-      PrelimDeclIdNamed name ->
-        let name' = name <> "NEEDLE" <> name
-            qid'  = QualPrelimDeclId (PrelimDeclIdNamed name') kind
-         in match isMainFile loc qid' (SelectByElementName "NEEDLE")
-      _otherwise ->
-        True -- skip
+prop_selectByElementNameNeedle (Fn isMainFile) loc = \case
+    QualPrelimDeclIdNamed name kind ->
+      let name' = name <> "NEEDLE" <> name
+          qid'  = QualPrelimDeclIdNamed name' kind
+       in match isMainFile loc qid' (SelectByElementName "NEEDLE")
+    _otherwise ->
+      True -- skip
 
 {-------------------------------------------------------------------------------
   Match tests and properties
@@ -178,13 +177,10 @@ instance Arbitrary C.NameKind where
   arbitrary = elements [minBound .. maxBound]
 
 instance Arbitrary QualPrelimDeclId where
-  arbitrary = makeQualDeclId <$> arbitrary <*> arbitrary
-    where
-      -- TODO: We currently never produce anonymous or builtin declarations.
-      -- In this module we check that selection predicates behave as boolean
-      -- functions; this is not true for builtins (which are /never/ selected).
-      makeQualDeclId :: C.Name -> C.NameKind -> QualPrelimDeclId
-      makeQualDeclId name kind = QualPrelimDeclId (PrelimDeclIdNamed name) kind
+  -- TODO: We currently never produce anonymous or builtin declarations.
+  -- In this module we check that selection predicates behave as boolean
+  -- functions; this is not true for builtins (which are /never/ selected).
+  arbitrary = QualPrelimDeclIdNamed <$> arbitrary <*> arbitrary
 
 instance Arbitrary Predicate where
   arbitrary = oneof [

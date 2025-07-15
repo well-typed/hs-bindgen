@@ -162,27 +162,27 @@ analyseTypedef declUseGraph typedefName typedef =
     go :: ValOrRef -> C.Type ResolveBindingSpec -> TypedefAnalysis
     go valOrRef ty | Just taggedType <- toTaggedType ty =
         typedefOfTagged typedefName valOrRef taggedType $
-          getUseSites (origQualId taggedType)
+          getUseSites (origNsId taggedType)
     go _ (C.TypePointer ty) =
         go ByRef ty
     go _ _otherType =
         mempty
 
     -- Get use sites, except any self-references
-    getUseSites :: QualPrelimDeclId -> [(QualPrelimDeclId, Usage)]
-    getUseSites qid =
-        let allUseSites = DeclUseGraph.getUseSites declUseGraph qid
+    getUseSites :: NsPrelimDeclId -> [(NsPrelimDeclId, Usage)]
+    getUseSites nsid =
+        let allUseSites = DeclUseGraph.getUseSites declUseGraph nsid
         in filter (not . isSelfReference) allUseSites
       where
-        isSelfReference :: (QualPrelimDeclId, Usage) -> Bool
-        isSelfReference (qid', _usage) = qid == qid'
+        isSelfReference :: (NsPrelimDeclId, Usage) -> Bool
+        isSelfReference (nsid', _usage) = nsid == nsid'
 
 -- | Typedef of some tagged datatype
 typedefOfTagged ::
-     C.Name                      -- ^ Name of the typedef
-  -> ValOrRef                    -- ^ Does the typedef wrap the datatype directly?
-  -> TaggedType                  -- ^ Tagged datatype
-  -> [(QualPrelimDeclId, Usage)] -- ^ All use sites of the struct
+     C.Name                    -- ^ Name of the typedef
+  -> ValOrRef                  -- ^ Does the typedef wrap the datatype directly?
+  -> TaggedType                -- ^ Tagged datatype
+  -> [(NsPrelimDeclId, Usage)] -- ^ All use sites of the struct
   -> TypedefAnalysis
 typedefOfTagged typedefName valOrRef taggedType@TaggedType{..} useSites
     -- Struct and typedef same name, no intervening pointers
@@ -260,17 +260,9 @@ fromTaggedType TaggedType{..} =
       Union  -> C.TypeUnion  taggedName taggedOrigin
       Enum   -> C.TypeEnum   taggedName taggedOrigin
 
-taggedNameKind :: TaggedKind -> C.NameKind
-taggedNameKind = \case
-    Struct -> C.NameKindStruct
-    Union  -> C.NameKindUnion
-    Enum   -> C.NameKindEnum
-
-origQualId :: TaggedType -> QualPrelimDeclId
-origQualId TaggedType{..} =
-    QualPrelimDeclId
-      (origPrelimDeclId taggedName taggedOrigin)
-      (taggedNameKind taggedKind)
+origNsId :: TaggedType -> NsPrelimDeclId
+origNsId TaggedType{..} =
+    nsPrelimDeclId (origPrelimDeclId taggedName taggedOrigin) C.TypeNamespaceTag
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: restore original names

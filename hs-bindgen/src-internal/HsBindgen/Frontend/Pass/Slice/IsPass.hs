@@ -43,7 +43,7 @@ instance IsPass Slice where
 
   -- | Slice trace messages
   data Msg        Slice =
-      TransitiveDependencyUnavailable QualPrelimDeclId
+      TransitiveDependencyUnavailable NsPrelimDeclId
     | Skipped (C.DeclInfo Slice)
     | Selected SelectReason
     deriving stock (Show, Eq)
@@ -75,10 +75,10 @@ data SliceConfig = SliceConfig {
 
 data SelectReason =
     TransitiveDependencyOf {
-      selectedDecl           :: QualPrelimDeclId
+      selectedDecl           :: NsPrelimDeclId
       -- NOTE: The inverse dependencies form tree. For now, we just flatten the
       -- tree to list all inverse dependencies.
-    , transitiveDependencyOf :: Set QualPrelimDeclId
+    , transitiveDependencyOf :: Set NsPrelimDeclId
     }
   deriving stock (Show, Eq)
 

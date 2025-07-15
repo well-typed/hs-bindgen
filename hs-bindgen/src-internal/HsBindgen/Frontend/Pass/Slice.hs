@@ -23,11 +23,11 @@ import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Language.C qualified as C
 
 -- | A declaration directly selected by the selection predicate.
-type Root = QualPrelimDeclId
+type Root = NsPrelimDeclId
 
 -- | A declaration indirectly selected because it is the transitive dependency
 -- of a 'Root'.
-type TransitiveDependency = QualPrelimDeclId
+type TransitiveDependency = NsPrelimDeclId
 
 sliceDecls ::
      IsMainFile
@@ -61,7 +61,7 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
         (matchedDeclarations, unmatchedDeclarations) = partition matchDecl decls
 
         selectedRoots :: [Root]
-        selectedRoots = map declQualPrelimDeclId matchedDeclarations
+        selectedRoots = map declNsPrelimDeclId matchedDeclarations
 
         -- NOTE: We traverse the use-decl graph N times, where N is the number
         -- of roots. We could track the transitives of multiple roots in a
@@ -78,7 +78,7 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
         transitiveDependencies = Foldable.foldl'
           (<>) Set.empty (map snd rootToTransitiveDependencies)
 
-        selectedDeclarationIds :: Set QualPrelimDeclId
+        selectedDeclarationIds :: Set NsPrelimDeclId
         selectedDeclarationIds = Set.union
                                  (Set.fromList selectedRoots)
                                  transitiveDependencies
@@ -87,8 +87,9 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
         -- children come before parents. 'partition' does that for us.
         selectedDeclarations, nonSelectedDecls :: [C.Decl Slice]
         (selectedDeclarations, nonSelectedDecls) =
-            partition ((`Set.member` selectedDeclarationIds)
-          . declQualPrelimDeclId) decls
+            partition
+              ((`Set.member` selectedDeclarationIds) . declNsPrelimDeclId)
+              decls
 
         nonSelectedDecls' :: NonSelectedDecls
         nonSelectedDecls' = Foldable.foldl' insertNonSelected
@@ -114,14 +115,15 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
     unitSlice = coercePass unitSort
 
     insertNonSelected :: NonSelectedDecls -> C.Decl Slice -> NonSelectedDecls
-    insertNonSelected nonSelectedDecls decl =
-      let (QualPrelimDeclId declId nameKind) = declQualPrelimDeclId decl
-          sourcePath = singleLocPath (C.declLoc $ C.declInfo decl)
-       in case declId of
-         PrelimDeclIdNamed cName ->
-           insert (C.QualName cName nameKind) sourcePath nonSelectedDecls
-         -- Refer to 'recordNonSelectedDecl'.
-         _anonymous      -> nonSelectedDecls
+    insertNonSelected nonSelectedDecls decl = case declQualPrelimDeclId decl of
+      QualPrelimDeclIdNamed name kind ->
+        insert
+          (C.QualName name kind)
+          (singleLocPath (C.declLoc (C.declInfo decl)))
+          nonSelectedDecls
+      -- Refer to 'recordNonSelectedDecl'.
+      QualPrelimDeclIdAnon{}    -> nonSelectedDecls
+      QualPrelimDeclIdBuiltin{} -> nonSelectedDecls
 
 {-------------------------------------------------------------------------------
   Trace messages
@@ -130,7 +132,7 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
 type TransitiveDependencyToRoots = Map TransitiveDependency (Set Root)
 
 getSliceMsgs
-  :: Set QualPrelimDeclId
+  :: Set NsPrelimDeclId
   -> [C.Decl Slice]
   -> [C.Decl Slice]
   -> [(Root, Set TransitiveDependency)]
@@ -141,10 +143,10 @@ getSliceMsgs transitiveDependencies
              rootToTransitiveDependencies
   = errorMsgs ++ skipMsgs ++ selectMsgs
   where
-    unavailableTransitiveDeps :: Set QualPrelimDeclId
+    unavailableTransitiveDeps :: Set NsPrelimDeclId
     unavailableTransitiveDeps =
       transitiveDependencies `Set.difference`
-        (Set.fromList $ map declQualPrelimDeclId selectedDeclarations)
+        (Set.fromList $ map declNsPrelimDeclId selectedDeclarations)
 
     errorMsgs :: [Msg Slice]
     errorMsgs = map TransitiveDependencyUnavailable $

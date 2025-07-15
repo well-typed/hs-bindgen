@@ -596,11 +596,11 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclStruct struct -> C.structFields struct
           _otherwise          -> []
 
-    fieldDeps :: [QualPrelimDeclId]
+    fieldDeps :: [NsPrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = declQualPrelimDeclId decl `elem` fieldDeps
+    declIsUsed decl = declNsPrelimDeclId decl `elem` fieldDeps
 
 data VarClassification =
     -- | The simplest case: a simple global variable

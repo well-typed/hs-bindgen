@@ -130,17 +130,15 @@ match isMainFile loc qid = \p ->
     matchFilename re (SourcePath path) = matchTest re path
 
     matchElementName :: Regex -> QualPrelimDeclId -> Bool
-    matchElementName re (QualPrelimDeclId prelimDeclId kind) =
-      case prelimDeclId of
-        PrelimDeclIdNamed name ->
-          matchTest re (C.qualNameText $ C.QualName name kind)
-        _otherwise -> False
+    matchElementName re = \case
+      QualPrelimDeclIdNamed name kind ->
+        matchTest re (C.qualNameText $ C.QualName name kind)
+      _otherwise -> False
 
 isBuiltin :: QualPrelimDeclId -> Bool
-isBuiltin (QualPrelimDeclId prelimDeclId _kind) =
-    case prelimDeclId of
-      PrelimDeclIdBuiltin{} -> True
-      _otherwise            -> False
+isBuiltin = \case
+    QualPrelimDeclIdBuiltin{} -> True
+    _otherwise                -> False
 
 {-------------------------------------------------------------------------------
   Reduce and merge

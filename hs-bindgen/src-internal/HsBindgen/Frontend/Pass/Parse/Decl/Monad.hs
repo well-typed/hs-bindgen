@@ -104,7 +104,7 @@ evalPredicate info kind = wrapEff $ \ParseSupport{parseEnv} -> do
     let selected = Predicate.match
                      (envIsMainFile parseEnv)
                      (C.declLoc info)
-                     (QualPrelimDeclId (C.declId info) kind)
+                     (qualPrelimDeclId (C.declId info) kind)
                      (envPredicate parseEnv)
     unless selected $ traceWith (envTracer parseEnv) (Skipped info)
     return selected

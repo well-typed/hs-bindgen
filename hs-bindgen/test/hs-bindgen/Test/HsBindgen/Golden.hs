@@ -337,7 +337,7 @@ testCases = [
             TraceFrontend (FrontendSlice
                            (Selected
                             (TransitiveDependencyOf
-                             (QualPrelimDeclId (PrelimDeclIdNamed nm) _) _)))
+                             (NsPrelimDeclIdNamed nm _) _)))
               | nm == "uint32_t" -> Just $ Expected "SelectedUInt32"
               | nm == "uint64_t" -> Just $ Expected "SelectedUInt64"
             TraceFrontend (FrontendSlice (Selected _)) -> Just Unexpected
@@ -375,7 +375,7 @@ testCases = [
             TraceFrontend (FrontendSlice
                            (Selected
                             (TransitiveDependencyOf
-                             (QualPrelimDeclId (PrelimDeclIdNamed nm) _) _)))
+                             (NsPrelimDeclIdNamed nm _) _)))
               | nm == "FileOperationStatus" -> Just $ Expected "SelectedFileOpterationStatus"
               | nm == "size_t"              -> Just $ Expected "SelectedSizeT"
               | nm == "FILE"                -> Just $ Expected "SelectedFile"

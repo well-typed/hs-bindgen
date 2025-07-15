@@ -10,6 +10,7 @@ module HsBindgen.Language.C.Name (
 
     -- * NameKind
   , NameKind(..)
+  , nameKindTypeNamespace
 
     -- * QualName
   , QualName(..)
@@ -91,11 +92,19 @@ data NameKind =
 instance PrettyForTrace NameKind where
   prettyForTrace = showToCtxDoc
 
+-- | Get the 'TypeNamespace' for a 'NameKind'
+nameKindTypeNamespace :: NameKind -> TypeNamespace
+nameKindTypeNamespace = \case
+    NameKindOrdinary -> TypeNamespaceOrdinary
+    NameKindStruct   -> TypeNamespaceTag
+    NameKindUnion    -> TypeNamespaceTag
+    NameKindEnum     -> TypeNamespaceTag
+
 {-------------------------------------------------------------------------------
   QualName
 -------------------------------------------------------------------------------}
 
--- | C qualified name
+-- | C name, qualified by the 'NameKind'
 --
 -- This is the parsed representation of a @libclang@ C spelling.
 data QualName = QualName {

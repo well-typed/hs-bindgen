@@ -3,8 +3,14 @@ module HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId (
     PrelimDeclId(..)
   , getPrelimDeclId
 
+    -- * NsPrelimDeclId
+  , NsPrelimDeclId(..)
+  , nsPrelimDeclId
+  , declNsPrelimDeclId
+
     -- * QualPrelimDeclId
   , QualPrelimDeclId(..)
+  , qualPrelimDeclId
   , declQualPrelimDeclId
   ) where
 
@@ -90,24 +96,71 @@ getPrelimDeclId curr = do
         return $ PrelimDeclIdBuiltin (C.Name name)
 
 {-------------------------------------------------------------------------------
+  NsPrelimDeclId
+-------------------------------------------------------------------------------}
+
+-- | Preliminary declaration identity, with named identities qualified by
+-- 'C.TypeNamespace'
+--
+-- This type is used when names in different namespaces must be distinguished
+-- but we do not want to distinguish different tag kinds.
+data NsPrelimDeclId =
+    NsPrelimDeclIdNamed C.Name C.TypeNamespace
+  | NsPrelimDeclIdAnon AnonId
+  | NsPrelimDeclIdBuiltin C.Name
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace NsPrelimDeclId where
+  prettyForTrace = \case
+    NsPrelimDeclIdNamed name ns -> prettyForTrace name >< case ns of
+      C.TypeNamespaceOrdinary -> " (ordinary)"
+      C.TypeNamespaceTag      -> " (tag)"
+    NsPrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
+    NsPrelimDeclIdBuiltin name   -> prettyForTrace name
+
+nsPrelimDeclId :: PrelimDeclId -> C.TypeNamespace -> NsPrelimDeclId
+nsPrelimDeclId prelimDeclId ns = case prelimDeclId of
+    PrelimDeclIdNamed   name   -> NsPrelimDeclIdNamed name ns
+    PrelimDeclIdAnon    anonId -> NsPrelimDeclIdAnon anonId
+    PrelimDeclIdBuiltin name   -> NsPrelimDeclIdBuiltin name
+
+declNsPrelimDeclId :: Id p ~ PrelimDeclId => C.Decl p -> NsPrelimDeclId
+declNsPrelimDeclId C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
+    nsPrelimDeclId declId $
+      C.nameKindTypeNamespace (C.declKindNameKind declKind)
+
+{-------------------------------------------------------------------------------
   QualPrelimDeclId
 -------------------------------------------------------------------------------}
 
-data QualPrelimDeclId = QualPrelimDeclId {
-      qualPrelimDeclId   :: PrelimDeclId
-    , qualPrelimDeclKind :: C.NameKind
-    }
+-- | Preliminary declaration identity, with named identities qualified by
+-- 'C.NameKind'
+--
+-- This type is used when names with different tag kinds must be distinguished.
+data QualPrelimDeclId =
+    QualPrelimDeclIdNamed C.Name C.NameKind
+  | QualPrelimDeclIdAnon AnonId
+  | QualPrelimDeclIdBuiltin C.Name
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace QualPrelimDeclId where
-  prettyForTrace (QualPrelimDeclId prelimDeclId cNameKind) =
-    let prefix = case cNameKind of
-          C.NameKindOrdinary -> ""
-          C.NameKindStruct   -> "struct "
-          C.NameKindUnion    -> "union "
-          C.NameKindEnum     -> "enum "
-    in  prefix >< prettyForTrace prelimDeclId
+  prettyForTrace = \case
+    QualPrelimDeclIdNamed name kind ->
+      let prefix = case kind of
+            C.NameKindOrdinary -> ""
+            C.NameKindStruct   -> "struct "
+            C.NameKindUnion    -> "union "
+            C.NameKindEnum     -> "enum "
+      in  prefix >< prettyForTrace name
+    QualPrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
+    QualPrelimDeclIdBuiltin name   -> prettyForTrace name
+
+qualPrelimDeclId :: PrelimDeclId -> C.NameKind -> QualPrelimDeclId
+qualPrelimDeclId prelimDeclId kind = case prelimDeclId of
+    PrelimDeclIdNamed   name   -> QualPrelimDeclIdNamed name kind
+    PrelimDeclIdAnon    anonId -> QualPrelimDeclIdAnon anonId
+    PrelimDeclIdBuiltin name   -> QualPrelimDeclIdBuiltin name
 
 declQualPrelimDeclId :: Id p ~ PrelimDeclId => C.Decl p -> QualPrelimDeclId
 declQualPrelimDeclId C.Decl{declInfo = C.DeclInfo{declId}, declKind} =
-    QualPrelimDeclId declId (C.declKindNameKind declKind)
+    qualPrelimDeclId declId (C.declKindNameKind declKind)
