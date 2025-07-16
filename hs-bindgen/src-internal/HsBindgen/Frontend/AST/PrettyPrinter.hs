@@ -70,8 +70,9 @@ showCQualName = showString . Text.unpack . C.qualNameText
 
 showsName :: NamePair -> NameOrigin -> String -> String
 showsName namePair = \case
-    NameOriginGenerated{}   -> showString "<anon>"
-    _otherwise              -> showsCName (nameC namePair)
+    NameOriginGenerated{}    -> showString "<anon>"
+    NameOriginRenamedFrom nm -> showsCName nm
+    _otherwise               -> showsCName (nameC namePair)
 
 showsCName :: C.Name -> String -> String
 showsCName = showString . Text.unpack . C.getName
