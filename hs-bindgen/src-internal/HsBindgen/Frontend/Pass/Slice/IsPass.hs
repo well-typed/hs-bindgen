@@ -15,8 +15,8 @@ import Data.Set qualified as Set
 import HsBindgen.C.Predicate
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass (Sort)
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))

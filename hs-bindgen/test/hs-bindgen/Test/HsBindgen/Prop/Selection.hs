@@ -16,7 +16,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Predicate
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
+import HsBindgen.Frontend.Naming
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Prop.Selection" [

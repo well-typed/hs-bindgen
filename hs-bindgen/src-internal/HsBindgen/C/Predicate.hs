@@ -19,7 +19,7 @@ import Text.Regex.PCRE.Text ()
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
+import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 

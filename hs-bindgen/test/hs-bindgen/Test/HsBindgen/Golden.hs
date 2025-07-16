@@ -14,7 +14,6 @@ import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass as Slice
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Pipeline qualified as Pipeline

@@ -23,8 +23,8 @@ import Data.Map.Strict qualified as Map
 import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (hcat, showToCtxDoc)
@@ -79,7 +79,7 @@ fromDecls decls =
             }
      where
        nsid :: NsPrelimDeclId
-       nsid = declNsPrelimDeclId decl
+       nsid = C.declNsPrelimDeclId decl
 
     insert ::
          C.Decl Parse
@@ -102,7 +102,7 @@ fromDecls decls =
                 -- for macros; for other kinds of declarations, clang will have
                 -- reported an error already.
                 failure $ Redeclaration{
-                    redeclarationId  = declNsPrelimDeclId new
+                    redeclarationId  = C.declNsPrelimDeclId new
                   , redeclarationOld = C.declLoc $ C.declInfo old
                   , redeclarationNew = C.declLoc $ C.declInfo new
                   }

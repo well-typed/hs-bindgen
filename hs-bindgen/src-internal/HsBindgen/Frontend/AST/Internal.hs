@@ -10,8 +10,6 @@ module HsBindgen.Frontend.AST.Internal (
   , Decl(..)
   , DeclInfo(..)
   , DeclKind(..)
-  , declKindNameKind
-  , declQualName
   , Struct(..)
   , StructField(..)
   , Union(..)
@@ -31,6 +29,11 @@ module HsBindgen.Frontend.AST.Internal (
   , NameOrigin(..)
     -- * Show
   , ValidPass
+    -- * Helper functions
+  , declNsPrelimDeclId
+  , declQualPrelimDeclId
+  , declQualName
+  , declKindNameKind
   ) where
 
 import Prelude hiding (Enum)
@@ -125,20 +128,6 @@ data DeclKind p =
   | DeclFunction (Function p)
   | DeclExtern (Type p)
   | DeclConst (Type p)
-
-declKindNameKind :: DeclKind p -> C.NameKind
-declKindNameKind = \case
-    DeclStruct{}       -> C.NameKindStruct
-    DeclStructOpaque{} -> C.NameKindStruct
-    DeclUnion{}        -> C.NameKindUnion
-    DeclUnionOpaque{}  -> C.NameKindUnion
-    DeclEnum{}         -> C.NameKindEnum
-    DeclEnumOpaque{}   -> C.NameKindEnum
-    _otherwise         -> C.NameKindOrdinary
-
-declQualName :: Id p ~ DeclId => Decl p -> C.QualName
-declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.QualName (declIdName declId) (declKindNameKind declKind)
 
 data Struct p = Struct {
       structSizeof    :: Int
@@ -357,3 +346,29 @@ deriving stock instance ValidPass p => Eq (UnionField       p)
 instance PrettyForTrace (Located (Id p)) => PrettyForTrace (DeclInfo p) where
   prettyForTrace DeclInfo{declId, declLoc} =
     prettyForTrace $ Located declLoc declId
+
+{-------------------------------------------------------------------------------
+  Helper functions
+-------------------------------------------------------------------------------}
+
+declNsPrelimDeclId :: Id p ~ PrelimDeclId => Decl p -> NsPrelimDeclId
+declNsPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+    nsPrelimDeclId declId $ C.nameKindTypeNamespace (declKindNameKind declKind)
+
+declQualPrelimDeclId :: Id p ~ PrelimDeclId => Decl p -> QualPrelimDeclId
+declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+    qualPrelimDeclId declId (declKindNameKind declKind)
+
+declQualName :: Id p ~ DeclId => Decl p -> C.QualName
+declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
+    C.QualName (declIdName declId) (declKindNameKind declKind)
+
+declKindNameKind :: DeclKind p -> C.NameKind
+declKindNameKind = \case
+    DeclStruct{}       -> C.NameKindStruct
+    DeclStructOpaque{} -> C.NameKindStruct
+    DeclUnion{}        -> C.NameKindUnion
+    DeclUnionOpaque{}  -> C.NameKindUnion
+    DeclEnum{}         -> C.NameKindEnum
+    DeclEnumOpaque{}   -> C.NameKindEnum
+    _otherwise         -> C.NameKindOrdinary

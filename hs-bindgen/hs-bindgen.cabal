@@ -127,7 +127,6 @@ library internal
       HsBindgen.Frontend.Pass.Parse.IsPass
       HsBindgen.Frontend.Pass.Parse.Type
       HsBindgen.Frontend.Pass.Parse.Type.Monad
-      HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
       HsBindgen.Frontend.Pass.ResolveBindingSpec
       HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
       HsBindgen.Frontend.Pass.Slice

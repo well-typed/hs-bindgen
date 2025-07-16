@@ -15,7 +15,6 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -91,7 +90,7 @@ nameDecl env decl = do
     C.DeclInfo{declId, declLoc, declHeader} = declInfo
 
     nsid :: NsPrelimDeclId
-    nsid = declNsPrelimDeclId decl
+    nsid = C.declNsPrelimDeclId decl
 
     mName :: Maybe (C.Name, C.NameOrigin)
     mName =

@@ -15,9 +15,9 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.NonSelectedDecls
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Slice.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Language.C qualified as C
@@ -54,14 +54,14 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
             loc = C.declLoc $ C.declInfo decl
 
             qid :: QualPrelimDeclId
-            qid = declQualPrelimDeclId decl
+            qid = C.declQualPrelimDeclId decl
 
         matchedDeclarations   :: [C.Decl Slice]
         unmatchedDeclarations :: [C.Decl Slice]
         (matchedDeclarations, unmatchedDeclarations) = partition matchDecl decls
 
         selectedRoots :: [Root]
-        selectedRoots = map declNsPrelimDeclId matchedDeclarations
+        selectedRoots = map C.declNsPrelimDeclId matchedDeclarations
 
         -- NOTE: We traverse the use-decl graph N times, where N is the number
         -- of roots. We could track the transitives of multiple roots in a
@@ -88,7 +88,7 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
         selectedDeclarations, nonSelectedDecls :: [C.Decl Slice]
         (selectedDeclarations, nonSelectedDecls) =
             partition
-              ((`Set.member` selectedDeclarationIds) . declNsPrelimDeclId)
+              ((`Set.member` selectedDeclarationIds) . C.declNsPrelimDeclId)
               decls
 
         nonSelectedDecls' :: NonSelectedDecls
@@ -115,15 +115,16 @@ sliceDecls isMainFile SliceConfig{..} unitSort = case sliceConfigProgramSlicing 
     unitSlice = coercePass unitSort
 
     insertNonSelected :: NonSelectedDecls -> C.Decl Slice -> NonSelectedDecls
-    insertNonSelected nonSelectedDecls decl = case declQualPrelimDeclId decl of
-      QualPrelimDeclIdNamed name kind ->
-        insert
-          (C.QualName name kind)
-          (singleLocPath (C.declLoc (C.declInfo decl)))
-          nonSelectedDecls
-      -- Refer to 'recordNonSelectedDecl'.
-      QualPrelimDeclIdAnon{}    -> nonSelectedDecls
-      QualPrelimDeclIdBuiltin{} -> nonSelectedDecls
+    insertNonSelected nonSelectedDecls decl =
+      case C.declQualPrelimDeclId decl of
+        QualPrelimDeclIdNamed name kind ->
+          insert
+            (C.QualName name kind)
+            (singleLocPath (C.declLoc (C.declInfo decl)))
+            nonSelectedDecls
+        -- Refer to 'recordNonSelectedDecl'.
+        QualPrelimDeclIdAnon{}    -> nonSelectedDecls
+        QualPrelimDeclIdBuiltin{} -> nonSelectedDecls
 
 {-------------------------------------------------------------------------------
   Trace messages
@@ -146,7 +147,7 @@ getSliceMsgs transitiveDependencies
     unavailableTransitiveDeps :: Set NsPrelimDeclId
     unavailableTransitiveDeps =
       transitiveDependencies `Set.difference`
-        (Set.fromList $ map declNsPrelimDeclId selectedDeclarations)
+        (Set.fromList $ map C.declNsPrelimDeclId selectedDeclarations)
 
     errorMsgs :: [Msg Slice]
     errorMsgs = map TransitiveDependencyUnavailable $

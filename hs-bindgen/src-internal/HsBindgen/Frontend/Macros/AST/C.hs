@@ -22,8 +22,8 @@ module HsBindgen.Frontend.Macros.AST.C (
 import GHC.Natural (Natural)
 
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming (PrelimDeclId(..))
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------

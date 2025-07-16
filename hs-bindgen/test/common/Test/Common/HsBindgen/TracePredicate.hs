@@ -27,7 +27,7 @@ import Data.Maybe (fromMaybe)
 import Data.Typeable (Typeable)
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
+import HsBindgen.Frontend.Naming
 import HsBindgen.Lib
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP

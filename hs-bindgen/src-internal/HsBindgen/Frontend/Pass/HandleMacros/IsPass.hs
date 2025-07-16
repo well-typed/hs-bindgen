@@ -7,8 +7,8 @@ import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Tc.Macro
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C

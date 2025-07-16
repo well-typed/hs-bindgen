@@ -34,8 +34,8 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ fromSortedDecls decls = Wrap $
          C.Decl Parse
       -> DynGraph Usage NsPrelimDeclId
       -> DynGraph Usage NsPrelimDeclId
-    addVertex d g = DynGraph.insertVertex (declNsPrelimDeclId d) g
+    addVertex d g = DynGraph.insertVertex (C.declNsPrelimDeclId d) g
     addEdges  d g = foldl' (flip (addEdge d)) g (depsOfDecl $ C.declKind d)
 
     addEdge ::
@@ -89,7 +89,7 @@ fromSortedDecls decls = Wrap $
       -> (Usage, NsPrelimDeclId)
       -> DynGraph Usage NsPrelimDeclId
       -> DynGraph Usage NsPrelimDeclId
-    addEdge d (l, d') = DynGraph.insertEdge (declNsPrelimDeclId d) l d'
+    addEdge d (l, d') = DynGraph.insertEdge (C.declNsPrelimDeclId d) l d'
 
 {-------------------------------------------------------------------------------
   Query

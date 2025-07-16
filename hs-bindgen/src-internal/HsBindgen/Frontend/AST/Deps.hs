@@ -6,9 +6,9 @@ module HsBindgen.Frontend.AST.Deps (
   ) where
 
 import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
