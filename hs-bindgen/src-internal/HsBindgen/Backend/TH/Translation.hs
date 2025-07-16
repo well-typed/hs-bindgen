@@ -36,7 +36,7 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.CallConv
 import HsBindgen.Imports
-import HsBindgen.Language.C (canBeRepresentedAsRational)
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
@@ -412,14 +412,14 @@ mkExpr env = \case
       -- Word32/Word64 and then cast back.
       EFloat f t ->
         TH.sigE
-          ( if canBeRepresentedAsRational f
+          ( if C.canBeRepresentedAsRational f
               then [| f |]
               else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
           )
           (mkPrimType t)
       EDouble d t ->
         TH.sigE
-          ( if canBeRepresentedAsRational d
+          ( if C.canBeRepresentedAsRational d
               then [| d |]
               else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
           )

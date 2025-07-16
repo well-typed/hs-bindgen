@@ -19,7 +19,7 @@
           declLoc =
           "spec_examples.h:10:15",
           declId = NamePair {
-            nameC = CName "int16_T",
+            nameC = Name "int16_T",
             nameHsIdent = HsIdentifier
               "Int16_T"},
           declOrigin = NameOriginInSource,
@@ -157,7 +157,7 @@
           declLoc =
           "spec_examples.h:11:13",
           declId = NamePair {
-            nameC = CName "int32_T",
+            nameC = Name "int32_T",
             nameHsIdent = HsIdentifier
               "Int32_T"},
           declOrigin = NameOriginInSource,
@@ -293,7 +293,7 @@
           declLoc =
           "spec_examples.h:12:19",
           declId = NamePair {
-            nameC = CName "int64_T",
+            nameC = Name "int64_T",
             nameHsIdent = HsIdentifier
               "Int64_T"},
           declOrigin = NameOriginInSource,
@@ -433,13 +433,13 @@
               structFieldLoc =
               "spec_examples.h:15:11",
               structFieldName = NamePair {
-                nameC = CName "re",
+                nameC = Name "re",
                 nameHsIdent = HsIdentifier
                   "cint16_T_re"},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "int16_T",
+                    nameC = Name "int16_T",
                     nameHsIdent = HsIdentifier
                       "Int16_T"}),
               structFieldOffset = 0,
@@ -457,13 +457,13 @@
               structFieldLoc =
               "spec_examples.h:16:11",
               structFieldName = NamePair {
-                nameC = CName "im",
+                nameC = Name "im",
                 nameHsIdent = HsIdentifier
                   "cint16_T_im"},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "int16_T",
+                    nameC = Name "int16_T",
                     nameHsIdent = HsIdentifier
                       "Int16_T"}),
               structFieldOffset = 16,
@@ -474,13 +474,12 @@
             declLoc =
             "spec_examples.h:14:9",
             declId = NamePair {
-              nameC = CName "cint16_T",
+              nameC = Name "cint16_T",
               nameHsIdent = HsIdentifier
                 "Cint16_T"},
             declOrigin = NameOriginGenerated
               (AnonId "spec_examples.h:14:9"),
-            declAliases = [
-              CName "cint16_T"],
+            declAliases = [Name "cint16_T"],
             declHeader = "spec_examples.h"},
           declKind = Struct
             Struct {
@@ -493,13 +492,13 @@
                   structFieldLoc =
                   "spec_examples.h:15:11",
                   structFieldName = NamePair {
-                    nameC = CName "re",
+                    nameC = Name "re",
                     nameHsIdent = HsIdentifier
                       "cint16_T_re"},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
-                        nameC = CName "int16_T",
+                        nameC = Name "int16_T",
                         nameHsIdent = HsIdentifier
                           "Int16_T"}),
                   structFieldOffset = 0,
@@ -508,13 +507,13 @@
                   structFieldLoc =
                   "spec_examples.h:16:11",
                   structFieldName = NamePair {
-                    nameC = CName "im",
+                    nameC = Name "im",
                     nameHsIdent = HsIdentifier
                       "cint16_T_im"},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
-                        nameC = CName "int16_T",
+                        nameC = Name "int16_T",
                         nameHsIdent = HsIdentifier
                           "Int16_T"}),
                   structFieldOffset = 16,
@@ -551,13 +550,13 @@
                 structFieldLoc =
                 "spec_examples.h:15:11",
                 structFieldName = NamePair {
-                  nameC = CName "re",
+                  nameC = Name "re",
                   nameHsIdent = HsIdentifier
                     "cint16_T_re"},
                 structFieldType = TypeTypedef
                   (TypedefRegular
                     NamePair {
-                      nameC = CName "int16_T",
+                      nameC = Name "int16_T",
                       nameHsIdent = HsIdentifier
                         "Int16_T"}),
                 structFieldOffset = 0,
@@ -575,13 +574,13 @@
                 structFieldLoc =
                 "spec_examples.h:16:11",
                 structFieldName = NamePair {
-                  nameC = CName "im",
+                  nameC = Name "im",
                   nameHsIdent = HsIdentifier
                     "cint16_T_im"},
                 structFieldType = TypeTypedef
                   (TypedefRegular
                     NamePair {
-                      nameC = CName "int16_T",
+                      nameC = Name "int16_T",
                       nameHsIdent = HsIdentifier
                         "Int16_T"}),
                 structFieldOffset = 16,
@@ -592,13 +591,12 @@
               declLoc =
               "spec_examples.h:14:9",
               declId = NamePair {
-                nameC = CName "cint16_T",
+                nameC = Name "cint16_T",
                 nameHsIdent = HsIdentifier
                   "Cint16_T"},
               declOrigin = NameOriginGenerated
                 (AnonId "spec_examples.h:14:9"),
-              declAliases = [
-                CName "cint16_T"],
+              declAliases = [Name "cint16_T"],
               declHeader = "spec_examples.h"},
             declKind = Struct
               Struct {
@@ -611,13 +609,13 @@
                     structFieldLoc =
                     "spec_examples.h:15:11",
                     structFieldName = NamePair {
-                      nameC = CName "re",
+                      nameC = Name "re",
                       nameHsIdent = HsIdentifier
                         "cint16_T_re"},
                     structFieldType = TypeTypedef
                       (TypedefRegular
                         NamePair {
-                          nameC = CName "int16_T",
+                          nameC = Name "int16_T",
                           nameHsIdent = HsIdentifier
                             "Int16_T"}),
                     structFieldOffset = 0,
@@ -626,13 +624,13 @@
                     structFieldLoc =
                     "spec_examples.h:16:11",
                     structFieldName = NamePair {
-                      nameC = CName "im",
+                      nameC = Name "im",
                       nameHsIdent = HsIdentifier
                         "cint16_T_im"},
                     structFieldType = TypeTypedef
                       (TypedefRegular
                         NamePair {
-                          nameC = CName "int16_T",
+                          nameC = Name "int16_T",
                           nameHsIdent = HsIdentifier
                             "Int16_T"}),
                     structFieldOffset = 16,
@@ -674,13 +672,13 @@
                         structFieldLoc =
                         "spec_examples.h:15:11",
                         structFieldName = NamePair {
-                          nameC = CName "re",
+                          nameC = Name "re",
                           nameHsIdent = HsIdentifier
                             "cint16_T_re"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "int16_T",
+                              nameC = Name "int16_T",
                               nameHsIdent = HsIdentifier
                                 "Int16_T"}),
                         structFieldOffset = 0,
@@ -698,13 +696,13 @@
                         structFieldLoc =
                         "spec_examples.h:16:11",
                         structFieldName = NamePair {
-                          nameC = CName "im",
+                          nameC = Name "im",
                           nameHsIdent = HsIdentifier
                             "cint16_T_im"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "int16_T",
+                              nameC = Name "int16_T",
                               nameHsIdent = HsIdentifier
                                 "Int16_T"}),
                         structFieldOffset = 16,
@@ -715,13 +713,12 @@
                       declLoc =
                       "spec_examples.h:14:9",
                       declId = NamePair {
-                        nameC = CName "cint16_T",
+                        nameC = Name "cint16_T",
                         nameHsIdent = HsIdentifier
                           "Cint16_T"},
                       declOrigin = NameOriginGenerated
                         (AnonId "spec_examples.h:14:9"),
-                      declAliases = [
-                        CName "cint16_T"],
+                      declAliases = [Name "cint16_T"],
                       declHeader = "spec_examples.h"},
                     declKind = Struct
                       Struct {
@@ -734,13 +731,13 @@
                             structFieldLoc =
                             "spec_examples.h:15:11",
                             structFieldName = NamePair {
-                              nameC = CName "re",
+                              nameC = Name "re",
                               nameHsIdent = HsIdentifier
                                 "cint16_T_re"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "int16_T",
+                                  nameC = Name "int16_T",
                                   nameHsIdent = HsIdentifier
                                     "Int16_T"}),
                             structFieldOffset = 0,
@@ -749,13 +746,13 @@
                             structFieldLoc =
                             "spec_examples.h:16:11",
                             structFieldName = NamePair {
-                              nameC = CName "im",
+                              nameC = Name "im",
                               nameHsIdent = HsIdentifier
                                 "cint16_T_im"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "int16_T",
+                                  nameC = Name "int16_T",
                                   nameHsIdent = HsIdentifier
                                     "Int16_T"}),
                             structFieldOffset = 16,
@@ -799,13 +796,13 @@
                         structFieldLoc =
                         "spec_examples.h:15:11",
                         structFieldName = NamePair {
-                          nameC = CName "re",
+                          nameC = Name "re",
                           nameHsIdent = HsIdentifier
                             "cint16_T_re"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "int16_T",
+                              nameC = Name "int16_T",
                               nameHsIdent = HsIdentifier
                                 "Int16_T"}),
                         structFieldOffset = 0,
@@ -823,13 +820,13 @@
                         structFieldLoc =
                         "spec_examples.h:16:11",
                         structFieldName = NamePair {
-                          nameC = CName "im",
+                          nameC = Name "im",
                           nameHsIdent = HsIdentifier
                             "cint16_T_im"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "int16_T",
+                              nameC = Name "int16_T",
                               nameHsIdent = HsIdentifier
                                 "Int16_T"}),
                         structFieldOffset = 16,
@@ -840,13 +837,12 @@
                       declLoc =
                       "spec_examples.h:14:9",
                       declId = NamePair {
-                        nameC = CName "cint16_T",
+                        nameC = Name "cint16_T",
                         nameHsIdent = HsIdentifier
                           "Cint16_T"},
                       declOrigin = NameOriginGenerated
                         (AnonId "spec_examples.h:14:9"),
-                      declAliases = [
-                        CName "cint16_T"],
+                      declAliases = [Name "cint16_T"],
                       declHeader = "spec_examples.h"},
                     declKind = Struct
                       Struct {
@@ -859,13 +855,13 @@
                             structFieldLoc =
                             "spec_examples.h:15:11",
                             structFieldName = NamePair {
-                              nameC = CName "re",
+                              nameC = Name "re",
                               nameHsIdent = HsIdentifier
                                 "cint16_T_re"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "int16_T",
+                                  nameC = Name "int16_T",
                                   nameHsIdent = HsIdentifier
                                     "Int16_T"}),
                             structFieldOffset = 0,
@@ -874,13 +870,13 @@
                             structFieldLoc =
                             "spec_examples.h:16:11",
                             structFieldName = NamePair {
-                              nameC = CName "im",
+                              nameC = Name "im",
                               nameHsIdent = HsIdentifier
                                 "cint16_T_im"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "int16_T",
+                                  nameC = Name "int16_T",
                                   nameHsIdent = HsIdentifier
                                     "Int16_T"}),
                             structFieldOffset = 16,
@@ -929,7 +925,7 @@
             declLoc =
             "spec_examples.h:19:8",
             declId = NamePair {
-              nameC = CName "B",
+              nameC = Name "B",
               nameHsIdent = HsIdentifier "B"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -966,7 +962,7 @@
               declLoc =
               "spec_examples.h:19:8",
               declId = NamePair {
-                nameC = CName "B",
+                nameC = Name "B",
                 nameHsIdent = HsIdentifier "B"},
               declOrigin = NameOriginInSource,
               declAliases = [],
@@ -1008,7 +1004,7 @@
                       declLoc =
                       "spec_examples.h:19:8",
                       declId = NamePair {
-                        nameC = CName "B",
+                        nameC = Name "B",
                         nameHsIdent = HsIdentifier "B"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -1050,7 +1046,7 @@
                       declLoc =
                       "spec_examples.h:19:8",
                       declId = NamePair {
-                        nameC = CName "B",
+                        nameC = Name "B",
                         nameHsIdent = HsIdentifier "B"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -1091,7 +1087,7 @@
           declLoc =
           "spec_examples.h:28:10",
           declId = NamePair {
-            nameC = CName "C",
+            nameC = Name "C",
             nameHsIdent = HsIdentifier "C"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -1123,7 +1119,7 @@
               structFieldLoc =
               "spec_examples.h:24:10",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "a_x"},
               structFieldType = TypePrim
@@ -1141,7 +1137,7 @@
               structFieldLoc =
               "spec_examples.h:25:9",
               structFieldName = NamePair {
-                nameC = CName "label",
+                nameC = Name "label",
                 nameHsIdent = HsIdentifier
                   "a_label"},
               structFieldType = TypePointer
@@ -1163,7 +1159,7 @@
               structFieldLoc =
               "spec_examples.h:26:8",
               structFieldName = NamePair {
-                nameC = CName "samples",
+                nameC = Name "samples",
                 nameHsIdent = HsIdentifier
                   "a_samples"},
               structFieldType = TypeConstArray
@@ -1185,12 +1181,12 @@
               structFieldLoc =
               "spec_examples.h:27:12",
               structFieldName = NamePair {
-                nameC = CName "b",
+                nameC = Name "b",
                 nameHsIdent = HsIdentifier
                   "a_b"},
               structFieldType = TypeStruct
                 NamePair {
-                  nameC = CName "B",
+                  nameC = Name "B",
                   nameHsIdent = HsIdentifier "B"}
                 NameOriginInSource,
               structFieldOffset = 1152,
@@ -1207,13 +1203,13 @@
               structFieldLoc =
               "spec_examples.h:28:13",
               structFieldName = NamePair {
-                nameC = CName "c",
+                nameC = Name "c",
                 nameHsIdent = HsIdentifier
                   "a_c"},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
-                    nameC = CName "C",
+                    nameC = Name "C",
                     nameHsIdent = HsIdentifier "C"}
                   NameOriginInSource),
               structFieldOffset = 1152,
@@ -1224,7 +1220,7 @@
             declLoc =
             "spec_examples.h:23:8",
             declId = NamePair {
-              nameC = CName "A",
+              nameC = Name "A",
               nameHsIdent = HsIdentifier "A"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -1240,7 +1236,7 @@
                   structFieldLoc =
                   "spec_examples.h:24:10",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "a_x"},
                   structFieldType = TypePrim
@@ -1251,7 +1247,7 @@
                   structFieldLoc =
                   "spec_examples.h:25:9",
                   structFieldName = NamePair {
-                    nameC = CName "label",
+                    nameC = Name "label",
                     nameHsIdent = HsIdentifier
                       "a_label"},
                   structFieldType = TypePointer
@@ -1265,7 +1261,7 @@
                   structFieldLoc =
                   "spec_examples.h:26:8",
                   structFieldName = NamePair {
-                    nameC = CName "samples",
+                    nameC = Name "samples",
                     nameHsIdent = HsIdentifier
                       "a_samples"},
                   structFieldType = TypeConstArray
@@ -1280,12 +1276,12 @@
                   structFieldLoc =
                   "spec_examples.h:27:12",
                   structFieldName = NamePair {
-                    nameC = CName "b",
+                    nameC = Name "b",
                     nameHsIdent = HsIdentifier
                       "a_b"},
                   structFieldType = TypeStruct
                     NamePair {
-                      nameC = CName "B",
+                      nameC = Name "B",
                       nameHsIdent = HsIdentifier "B"}
                     NameOriginInSource,
                   structFieldOffset = 1152,
@@ -1294,13 +1290,13 @@
                   structFieldLoc =
                   "spec_examples.h:28:13",
                   structFieldName = NamePair {
-                    nameC = CName "c",
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
                       "a_c"},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
-                        nameC = CName "C",
+                        nameC = Name "C",
                         nameHsIdent = HsIdentifier "C"}
                       NameOriginInSource),
                   structFieldOffset = 1152,
@@ -1335,7 +1331,7 @@
                 structFieldLoc =
                 "spec_examples.h:24:10",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "a_x"},
                 structFieldType = TypePrim
@@ -1353,7 +1349,7 @@
                 structFieldLoc =
                 "spec_examples.h:25:9",
                 structFieldName = NamePair {
-                  nameC = CName "label",
+                  nameC = Name "label",
                   nameHsIdent = HsIdentifier
                     "a_label"},
                 structFieldType = TypePointer
@@ -1375,7 +1371,7 @@
                 structFieldLoc =
                 "spec_examples.h:26:8",
                 structFieldName = NamePair {
-                  nameC = CName "samples",
+                  nameC = Name "samples",
                   nameHsIdent = HsIdentifier
                     "a_samples"},
                 structFieldType = TypeConstArray
@@ -1397,12 +1393,12 @@
                 structFieldLoc =
                 "spec_examples.h:27:12",
                 structFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "a_b"},
                 structFieldType = TypeStruct
                   NamePair {
-                    nameC = CName "B",
+                    nameC = Name "B",
                     nameHsIdent = HsIdentifier "B"}
                   NameOriginInSource,
                 structFieldOffset = 1152,
@@ -1419,13 +1415,13 @@
                 structFieldLoc =
                 "spec_examples.h:28:13",
                 structFieldName = NamePair {
-                  nameC = CName "c",
+                  nameC = Name "c",
                   nameHsIdent = HsIdentifier
                     "a_c"},
                 structFieldType = TypePointer
                   (TypeStruct
                     NamePair {
-                      nameC = CName "C",
+                      nameC = Name "C",
                       nameHsIdent = HsIdentifier "C"}
                     NameOriginInSource),
                 structFieldOffset = 1152,
@@ -1436,7 +1432,7 @@
               declLoc =
               "spec_examples.h:23:8",
               declId = NamePair {
-                nameC = CName "A",
+                nameC = Name "A",
                 nameHsIdent = HsIdentifier "A"},
               declOrigin = NameOriginInSource,
               declAliases = [],
@@ -1452,7 +1448,7 @@
                     structFieldLoc =
                     "spec_examples.h:24:10",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "a_x"},
                     structFieldType = TypePrim
@@ -1463,7 +1459,7 @@
                     structFieldLoc =
                     "spec_examples.h:25:9",
                     structFieldName = NamePair {
-                      nameC = CName "label",
+                      nameC = Name "label",
                       nameHsIdent = HsIdentifier
                         "a_label"},
                     structFieldType = TypePointer
@@ -1477,7 +1473,7 @@
                     structFieldLoc =
                     "spec_examples.h:26:8",
                     structFieldName = NamePair {
-                      nameC = CName "samples",
+                      nameC = Name "samples",
                       nameHsIdent = HsIdentifier
                         "a_samples"},
                     structFieldType = TypeConstArray
@@ -1492,12 +1488,12 @@
                     structFieldLoc =
                     "spec_examples.h:27:12",
                     structFieldName = NamePair {
-                      nameC = CName "b",
+                      nameC = Name "b",
                       nameHsIdent = HsIdentifier
                         "a_b"},
                     structFieldType = TypeStruct
                       NamePair {
-                        nameC = CName "B",
+                        nameC = Name "B",
                         nameHsIdent = HsIdentifier "B"}
                       NameOriginInSource,
                     structFieldOffset = 1152,
@@ -1506,13 +1502,13 @@
                     structFieldLoc =
                     "spec_examples.h:28:13",
                     structFieldName = NamePair {
-                      nameC = CName "c",
+                      nameC = Name "c",
                       nameHsIdent = HsIdentifier
                         "a_c"},
                     structFieldType = TypePointer
                       (TypeStruct
                         NamePair {
-                          nameC = CName "C",
+                          nameC = Name "C",
                           nameHsIdent = HsIdentifier "C"}
                         NameOriginInSource),
                     structFieldOffset = 1152,
@@ -1552,7 +1548,7 @@
                         structFieldLoc =
                         "spec_examples.h:24:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "a_x"},
                         structFieldType = TypePrim
@@ -1570,7 +1566,7 @@
                         structFieldLoc =
                         "spec_examples.h:25:9",
                         structFieldName = NamePair {
-                          nameC = CName "label",
+                          nameC = Name "label",
                           nameHsIdent = HsIdentifier
                             "a_label"},
                         structFieldType = TypePointer
@@ -1592,7 +1588,7 @@
                         structFieldLoc =
                         "spec_examples.h:26:8",
                         structFieldName = NamePair {
-                          nameC = CName "samples",
+                          nameC = Name "samples",
                           nameHsIdent = HsIdentifier
                             "a_samples"},
                         structFieldType = TypeConstArray
@@ -1614,12 +1610,12 @@
                         structFieldLoc =
                         "spec_examples.h:27:12",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "a_b"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "B",
+                            nameC = Name "B",
                             nameHsIdent = HsIdentifier "B"}
                           NameOriginInSource,
                         structFieldOffset = 1152,
@@ -1636,13 +1632,13 @@
                         structFieldLoc =
                         "spec_examples.h:28:13",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "a_c"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "C",
+                              nameC = Name "C",
                               nameHsIdent = HsIdentifier "C"}
                             NameOriginInSource),
                         structFieldOffset = 1152,
@@ -1653,7 +1649,7 @@
                       declLoc =
                       "spec_examples.h:23:8",
                       declId = NamePair {
-                        nameC = CName "A",
+                        nameC = Name "A",
                         nameHsIdent = HsIdentifier "A"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -1669,7 +1665,7 @@
                             structFieldLoc =
                             "spec_examples.h:24:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "a_x"},
                             structFieldType = TypePrim
@@ -1680,7 +1676,7 @@
                             structFieldLoc =
                             "spec_examples.h:25:9",
                             structFieldName = NamePair {
-                              nameC = CName "label",
+                              nameC = Name "label",
                               nameHsIdent = HsIdentifier
                                 "a_label"},
                             structFieldType = TypePointer
@@ -1694,7 +1690,7 @@
                             structFieldLoc =
                             "spec_examples.h:26:8",
                             structFieldName = NamePair {
-                              nameC = CName "samples",
+                              nameC = Name "samples",
                               nameHsIdent = HsIdentifier
                                 "a_samples"},
                             structFieldType = TypeConstArray
@@ -1709,12 +1705,12 @@
                             structFieldLoc =
                             "spec_examples.h:27:12",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "a_b"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "B",
+                                nameC = Name "B",
                                 nameHsIdent = HsIdentifier "B"}
                               NameOriginInSource,
                             structFieldOffset = 1152,
@@ -1723,13 +1719,13 @@
                             structFieldLoc =
                             "spec_examples.h:28:13",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "a_c"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "C",
+                                  nameC = Name "C",
                                   nameHsIdent = HsIdentifier "C"}
                                 NameOriginInSource),
                             structFieldOffset = 1152,
@@ -1774,7 +1770,7 @@
                         structFieldLoc =
                         "spec_examples.h:24:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "a_x"},
                         structFieldType = TypePrim
@@ -1792,7 +1788,7 @@
                         structFieldLoc =
                         "spec_examples.h:25:9",
                         structFieldName = NamePair {
-                          nameC = CName "label",
+                          nameC = Name "label",
                           nameHsIdent = HsIdentifier
                             "a_label"},
                         structFieldType = TypePointer
@@ -1814,7 +1810,7 @@
                         structFieldLoc =
                         "spec_examples.h:26:8",
                         structFieldName = NamePair {
-                          nameC = CName "samples",
+                          nameC = Name "samples",
                           nameHsIdent = HsIdentifier
                             "a_samples"},
                         structFieldType = TypeConstArray
@@ -1836,12 +1832,12 @@
                         structFieldLoc =
                         "spec_examples.h:27:12",
                         structFieldName = NamePair {
-                          nameC = CName "b",
+                          nameC = Name "b",
                           nameHsIdent = HsIdentifier
                             "a_b"},
                         structFieldType = TypeStruct
                           NamePair {
-                            nameC = CName "B",
+                            nameC = Name "B",
                             nameHsIdent = HsIdentifier "B"}
                           NameOriginInSource,
                         structFieldOffset = 1152,
@@ -1858,13 +1854,13 @@
                         structFieldLoc =
                         "spec_examples.h:28:13",
                         structFieldName = NamePair {
-                          nameC = CName "c",
+                          nameC = Name "c",
                           nameHsIdent = HsIdentifier
                             "a_c"},
                         structFieldType = TypePointer
                           (TypeStruct
                             NamePair {
-                              nameC = CName "C",
+                              nameC = Name "C",
                               nameHsIdent = HsIdentifier "C"}
                             NameOriginInSource),
                         structFieldOffset = 1152,
@@ -1875,7 +1871,7 @@
                       declLoc =
                       "spec_examples.h:23:8",
                       declId = NamePair {
-                        nameC = CName "A",
+                        nameC = Name "A",
                         nameHsIdent = HsIdentifier "A"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
@@ -1891,7 +1887,7 @@
                             structFieldLoc =
                             "spec_examples.h:24:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "a_x"},
                             structFieldType = TypePrim
@@ -1902,7 +1898,7 @@
                             structFieldLoc =
                             "spec_examples.h:25:9",
                             structFieldName = NamePair {
-                              nameC = CName "label",
+                              nameC = Name "label",
                               nameHsIdent = HsIdentifier
                                 "a_label"},
                             structFieldType = TypePointer
@@ -1916,7 +1912,7 @@
                             structFieldLoc =
                             "spec_examples.h:26:8",
                             structFieldName = NamePair {
-                              nameC = CName "samples",
+                              nameC = Name "samples",
                               nameHsIdent = HsIdentifier
                                 "a_samples"},
                             structFieldType = TypeConstArray
@@ -1931,12 +1927,12 @@
                             structFieldLoc =
                             "spec_examples.h:27:12",
                             structFieldName = NamePair {
-                              nameC = CName "b",
+                              nameC = Name "b",
                               nameHsIdent = HsIdentifier
                                 "a_b"},
                             structFieldType = TypeStruct
                               NamePair {
-                                nameC = CName "B",
+                                nameC = Name "B",
                                 nameHsIdent = HsIdentifier "B"}
                               NameOriginInSource,
                             structFieldOffset = 1152,
@@ -1945,13 +1941,13 @@
                             structFieldLoc =
                             "spec_examples.h:28:13",
                             structFieldName = NamePair {
-                              nameC = CName "c",
+                              nameC = Name "c",
                               nameHsIdent = HsIdentifier
                                 "a_c"},
                             structFieldType = TypePointer
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName "C",
+                                  nameC = Name "C",
                                   nameHsIdent = HsIdentifier "C"}
                                 NameOriginInSource),
                             structFieldOffset = 1152,
@@ -2034,17 +2030,17 @@
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "int32_T",
+                    nameC = Name "int32_T",
                     nameHsIdent = HsIdentifier
                       "Int32_T"})),
             TypeConstArray
               30720000
               (TypeTypedef
                 (TypedefSquashed
-                  (CName "cint16_T")
+                  (Name "cint16_T")
                   (TypeStruct
                     NamePair {
-                      nameC = CName "cint16_T",
+                      nameC = Name "cint16_T",
                       nameHsIdent = HsIdentifier
                         "Cint16_T"}
                     (NameOriginGenerated
@@ -2053,23 +2049,23 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "int64_T",
+                  nameC = Name "int64_T",
                   nameHsIdent = HsIdentifier
                     "Int64_T"}),
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "int64_T",
+                  nameC = Name "int64_T",
                   nameHsIdent = HsIdentifier
                     "Int64_T"}),
             TypeConstArray
               30720000
               (TypeTypedef
                 (TypedefSquashed
-                  (CName "cint16_T")
+                  (Name "cint16_T")
                   (TypeStruct
                     NamePair {
-                      nameC = CName "cint16_T",
+                      nameC = Name "cint16_T",
                       nameHsIdent = HsIdentifier
                         "Cint16_T"}
                     (NameOriginGenerated

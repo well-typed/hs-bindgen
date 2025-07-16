@@ -22,7 +22,7 @@ import Foreign.C
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import HsBindgen.Errors
-import HsBindgen.Language.C (CName)
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
@@ -91,7 +91,7 @@ data ParseTypeException =
   | UnsupportedLongDouble
 
     -- | Clang built-in declaration
-  | UnsupportedBuiltin CName
+  | UnsupportedBuiltin C.Name
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseTypeException where

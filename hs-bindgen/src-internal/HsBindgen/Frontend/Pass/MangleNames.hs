@@ -11,11 +11,11 @@ import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName (..))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
@@ -73,7 +73,11 @@ nameForDecl fc decl =
       Nothing     -> withDeclNamespace declKind $ \ns ->
                        first choose $ fromCName fc ns cName
   where
-    C.Decl{declInfo = C.DeclInfo{declId = cName}, declKind, declAnn} = decl
+    C.Decl{
+        declInfo = C.DeclInfo{declId = DeclId{declIdName = cName}}
+      , declKind
+      , declAnn
+      } = decl
     BindingSpec.TypeSpec{typeSpecIdentifier} = declAnn
 
     choose :: HsIdentifier -> (C.QualName, HsIdentifier)
@@ -83,9 +87,9 @@ fromCName :: forall ns.
      SingNamespace ns
   => FixCandidate Maybe
   -> Proxy ns
-  -> CName
+  -> C.Name
   -> (HsIdentifier, Maybe (Msg MangleNames))
-fromCName fc _ (CName cName) =
+fromCName fc _ (C.Name cName) =
     case mFixed of
       Just (HsName hsName) -> (HsIdentifier hsName, Nothing)
       Nothing              -> (HsIdentifier "", Just $ CouldNotMangle cName)
@@ -134,11 +138,11 @@ class MangleDecl a where
        C.DeclInfo MangleNames
     -> a HandleTypedefs -> M (a MangleNames)
 
-mangleQualName :: C.QualName -> M NamePair
-mangleQualName cQualName@(C.QualName cName _namespace) = do
+mangleQualName :: C.QualName -> NameOrigin -> M (NamePair, NameOrigin)
+mangleQualName cQualName@(C.QualName cName _namespace) nameOrigin = do
     nm <- asks envNameMap
     case Map.lookup cQualName nm of
-      Just hsName -> pure $ NamePair cName hsName
+      Just hsName -> return (NamePair cName hsName, nameOrigin)
       Nothing     -> do
         -- NB: We did not register any declaration with the given ID. This is
         -- most likely because the user did not select the declaration. If the
@@ -146,8 +150,7 @@ mangleQualName cQualName@(C.QualName cName _namespace) = do
         -- already.
         modify (MissingDeclaration cQualName :)
         -- Use a fake Haskell ID.
-        pure $ NamePair cName (HsIdentifier "MissingDeclaration")
-
+        return (NamePair cName (HsIdentifier "MissingDeclaration"), nameOrigin)
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
@@ -155,7 +158,7 @@ mangleQualName cQualName@(C.QualName cName _namespace) = do
   TODO: Perhaps some (or all) of this should be configurable.
 -------------------------------------------------------------------------------}
 
-mangleFieldName :: C.DeclInfo MangleNames -> CName -> M NamePair
+mangleFieldName :: C.DeclInfo MangleNames -> C.Name -> M NamePair
 mangleFieldName info fieldCName = do
     fc <- asks envFixCandidate
     let candidate = declCName <> "_" <> fieldCName
@@ -163,13 +166,13 @@ mangleFieldName info fieldCName = do
     forM_ mError $ modify . (:)
     return $ NamePair fieldCName fieldHsName
   where
-    C.DeclInfo{declId = NamePair declCName _declHsName} = info
+    C.DeclInfo{declId = (NamePair declCName _declHsName, _origin)} = info
 
 -- | Mangle enum constant name
 --
 -- Since these live in the global namespace, we do not prepend the name of
 -- the enclosing enum.
-mangleEnumConstant :: C.DeclInfo MangleNames -> CName -> M NamePair
+mangleEnumConstant :: C.DeclInfo MangleNames -> C.Name -> M NamePair
 mangleEnumConstant _info cName = do
     fc <- asks envFixCandidate
     let (hsName, mError) = fromCName fc (Proxy @NsConstr) cName
@@ -181,19 +184,19 @@ mangleEnumConstant _info cName = do
 -- Right now we reuse the name of the type also for the constructor.
 mkStructNames :: C.DeclInfo MangleNames -> RecordNames
 mkStructNames info = RecordNames{
-      recordConstr = nameHs declId
+      recordConstr = nameHs namePair
     }
   where
-    C.DeclInfo{declId} = info
+    C.DeclInfo{declId = (namePair, _origin)} = info
 
 -- | Generic construction of newtype names, given only the type name
 mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkNewtypeNames info = NewtypeNames{
-      newtypeConstr = nameHs declId
-    , newtypeField  = "un_" <> nameHs declId
+      newtypeConstr = nameHs namePair
+    , newtypeField  = "un_" <> nameHs namePair
     }
   where
-    C.DeclInfo{declId} = info
+    C.DeclInfo{declId = (namePair, _origin)} = info
 
 -- | Union names
 --
@@ -231,7 +234,7 @@ instance Mangle C.TranslationUnit where
 
 instance Mangle C.Decl where
   mangle decl = do
-      declId' <- mangleQualName (C.declQualName decl)
+      declId' <- mangleQualName (C.declQualName decl) (declIdOrigin declId)
 
       let info :: C.DeclInfo MangleNames
           info = C.DeclInfo{declId = declId', ..}
@@ -381,10 +384,14 @@ instance MangleDecl C.CheckedMacroType where
 
 instance Mangle C.Type where
   mangle = \case
-      C.TypeStruct       name origin -> (`C.TypeStruct`       origin) <$> mangleQualName (C.QualName name C.NameKindStruct)
-      C.TypeUnion        name origin -> (`C.TypeUnion`        origin) <$> mangleQualName (C.QualName name C.NameKindUnion)
-      C.TypeEnum         name origin -> (`C.TypeEnum`         origin) <$> mangleQualName (C.QualName name C.NameKindEnum)
-      C.TypeMacroTypedef name origin -> (`C.TypeMacroTypedef` origin) <$> mangleQualName (C.QualName name C.NameKindOrdinary)
+      C.TypeStruct       DeclId{..} -> C.TypeStruct <$>
+        mangleQualName (C.QualName declIdName C.NameKindStruct) declIdOrigin
+      C.TypeUnion        DeclId{..} -> C.TypeUnion <$>
+        mangleQualName (C.QualName declIdName C.NameKindUnion) declIdOrigin
+      C.TypeEnum         DeclId{..} -> C.TypeEnum <$>
+        mangleQualName (C.QualName declIdName C.NameKindEnum) declIdOrigin
+      C.TypeMacroTypedef DeclId{..} -> C.TypeMacroTypedef <$>
+        mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
 
       -- Recursive cases
       C.TypeTypedef ref         -> C.TypeTypedef <$> mangle ref
@@ -400,10 +407,10 @@ instance Mangle C.Type where
       C.TypeExtBinding ext -> return $ C.TypeExtBinding ext
 
 instance Mangle RenamedTypedefRef where
-  mangle (TypedefRegular name) =
-      TypedefRegular <$> mangleQualName (C.QualName name C.NameKindOrdinary)
+  mangle (TypedefRegular DeclId{..}) = TypedefRegular <$>
+    mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
   mangle (TypedefSquashed cName ty) =
-      TypedefSquashed cName <$> mangle ty
+    TypedefSquashed cName <$> mangle ty
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

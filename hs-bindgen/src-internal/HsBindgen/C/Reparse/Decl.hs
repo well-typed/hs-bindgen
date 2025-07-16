@@ -81,7 +81,6 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Macros.AST.C qualified as C
 import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Imports (fromMaybe)
-import HsBindgen.Language.C (CName(..))
 import HsBindgen.Language.C qualified as C
 
 -- TODO: re-using the macro expression parser for simplicity
@@ -90,7 +89,7 @@ import HsBindgen.Language.C qualified as C
 --------------------------------------------------------------------------------
 
 -- | Reparse a C field declaration (in a struct)
-reparseFieldDecl :: Macro.TypeEnv -> Reparse (C.Type, CName)
+reparseFieldDecl :: Macro.TypeEnv -> Reparse (C.Type, C.Name)
 reparseFieldDecl tyEnv = do
   ( specs, decl ) <- reparseDeclaration @Concrete tyEnv
   _mbBitSize <- optionMaybe $
@@ -102,7 +101,7 @@ reparseFieldDecl tyEnv = do
     Right ( ty, DeclName nm ) -> return ( ty, nm )
 
 -- | Reparse a C function declaration.
-reparseFunDecl :: Macro.TypeEnv -> Reparse (([C.Type],C.Type), CName)
+reparseFunDecl :: Macro.TypeEnv -> Reparse (([C.Type],C.Type), C.Name)
 reparseFunDecl tyEnv = do
   ( specs, decl ) <- reparseDeclaration @Concrete tyEnv
   eof
@@ -144,7 +143,7 @@ type DeclName :: DeclaratorType -> Hs.Type
 data family DeclName abs
 data    instance DeclName Abstract = AbstractName
   deriving stock ( Eq, Show, Generic )
-newtype instance DeclName Concrete = DeclName CName
+newtype instance DeclName Concrete = DeclName C.Name
   deriving newtype ( Eq, Show, Generic )
 
 -- | Singleton instances for 'DeclaratorType'.
@@ -254,8 +253,8 @@ data Attribute
   }
   deriving stock ( Eq, Show, Generic )
 data AttributeToken
-  = StandardAttribute CName
-  | AttributePrefixedToken CName CName
+  = StandardAttribute C.Name
+  | AttributePrefixedToken C.Name C.Name
   deriving stock ( Eq, Show, Generic )
 data BalancedToken
   = BalancedTokenNormal Text
@@ -290,9 +289,9 @@ data TypeSpecifier
   = TypeSpecifier C.PrimType
   | TypeVoid
     -- | An \"original\" typedef (one that appears in the C source)
-  | TypeDefTypeSpecifier CName
+  | TypeDefTypeSpecifier C.Name
     -- | A macro-defined type (semi-typedef)
-  | MacroTypeDefTypeSpecifier CName
+  | MacroTypeDefTypeSpecifier C.Name
   | StructOrUnionTypeSpecifier StructOrUnionSpecifier
   | EnumTypeSpecifier EnumSpecifier
   deriving stock ( Eq, Show, Generic )
@@ -300,7 +299,7 @@ data StructOrUnionSpecifier
   = StructOrUnionSpecifier
     { structOrUnion :: StructOrUnion
     , structOrUnionAttributeSpecifiers :: [AttributeSpecifier]
-    , structOrUnionIdentifier :: CName
+    , structOrUnionIdentifier :: C.Name
     }
   deriving stock ( Eq, Show, Generic )
 data StructOrUnion
@@ -308,7 +307,7 @@ data StructOrUnion
   deriving stock ( Eq, Show, Generic )
 data EnumSpecifier
   = EnumSpecifier
-    { enumSpecifierIdentifier :: CName
+    { enumSpecifierIdentifier :: C.Name
     , enumAttributeSpecifiers :: [AttributeSpecifier]
     , enumSpecifierQualifiers :: [(TypeSpecifierQualifier, [AttributeSpecifier])]
     }
@@ -562,9 +561,9 @@ withArrayOrFunctionSuffixes macroTys decl =
     , return decl
     ]
 
-reparseIdentifier :: Reparse CName
+reparseIdentifier :: Reparse C.Name
 reparseIdentifier =
-  tokenOfKind CXToken_Identifier (Just . CName)
+  tokenOfKind CXToken_Identifier (Just . C.Name)
     <?> "identifier"
 
 reparseArrayDeclarator

@@ -110,6 +110,7 @@ library internal
       HsBindgen.Frontend.AST.PrettyPrinter
       HsBindgen.Frontend.Macros.AST.C
       HsBindgen.Frontend.Macros.AST.Syntax
+      HsBindgen.Frontend.Naming
       HsBindgen.Frontend.NonSelectedDecls
       HsBindgen.Frontend.Pass
       HsBindgen.Frontend.Pass.HandleMacros
@@ -125,7 +126,6 @@ library internal
       HsBindgen.Frontend.Pass.Parse.Decl.Monad
       HsBindgen.Frontend.Pass.Parse.IsPass
       HsBindgen.Frontend.Pass.Parse.Type
-      HsBindgen.Frontend.Pass.Parse.Type.DeclId
       HsBindgen.Frontend.Pass.Parse.Type.Monad
       HsBindgen.Frontend.Pass.ResolveBindingSpec
       HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass

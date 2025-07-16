@@ -11,13 +11,12 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName)
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -55,11 +54,11 @@ data RenameEnv = RenameEnv {
     , envDeclUse   :: DeclUseGraph
     }
 
-findNamedUseOf :: RenameEnv -> QualDeclId -> Maybe UseOfDecl
-findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qid =
-    DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse qid
+findNamedUseOf :: RenameEnv -> NsPrelimDeclId -> Maybe UseOfDecl
+findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} nsid =
+    DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse nsid
 
-findAliasesOf :: RenameEnv -> QualDeclId -> [CName]
+findAliasesOf :: RenameEnv -> NsPrelimDeclId -> [C.Name]
 findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
 
 {-------------------------------------------------------------------------------
@@ -78,9 +77,8 @@ nameDecl env decl = do
       Nothing             -> Left  $ NameAnonSkipped (coercePass declInfo)
       Just (name, origin) -> Right $ C.Decl{
         declInfo = C.DeclInfo{
-            declId      = name
-          , declOrigin  = origin
-          , declAliases = findAliasesOf env qid
+            declId      = DeclId name origin
+          , declAliases = findAliasesOf env nsid
           , declLoc
           , declHeader
           }
@@ -91,18 +89,18 @@ nameDecl env decl = do
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{declId, declLoc, declHeader} = declInfo
 
-    qid :: QualDeclId
-    qid = declQualDeclId decl
+    nsid :: NsPrelimDeclId
+    nsid = C.declNsPrelimDeclId decl
 
-    mName :: Maybe (CName, C.NameOrigin)
+    mName :: Maybe (C.Name, C.NameOrigin)
     mName =
         case declId of
-          DeclNamed n ->
+          PrelimDeclIdNamed n ->
             Just (n, C.NameOriginInSource)
-          DeclAnon anonId ->
+          PrelimDeclIdAnon anonId ->
             (, C.NameOriginGenerated anonId) . nameForAnon <$>
-              findNamedUseOf env qid
-          DeclBuiltin name ->
+              findNamedUseOf env nsid
+          PrelimDeclIdBuiltin name ->
             Just (name, C.NameOriginInSource)
 
 {-------------------------------------------------------------------------------
@@ -186,18 +184,14 @@ instance NameUseSites C.Type where
       go :: C.Type HandleMacros -> C.Type NameAnon
 
       -- Cases where we actually need to do work
-      go (C.TypeStruct uid _) =
-          let qid = QualDeclId uid C.NameKindStruct
-          in uncurry C.TypeStruct (nameUseSite qid)
-      go (C.TypeUnion uid _) =
-          let qid = QualDeclId uid C.NameKindUnion
-          in uncurry C.TypeUnion (nameUseSite qid)
-      go (C.TypeEnum uid _) =
-          let qid = QualDeclId uid C.NameKindEnum
-          in uncurry C.TypeEnum (nameUseSite qid)
-      go (C.TypeMacroTypedef uid _) =
-          let qid = QualDeclId uid C.NameKindOrdinary
-          in uncurry C.TypeMacroTypedef (nameUseSite qid)
+      go (C.TypeStruct uid) = C.TypeStruct . nameUseSite $
+        nsPrelimDeclId uid C.TypeNamespaceTag
+      go (C.TypeUnion uid) = C.TypeUnion . nameUseSite $
+        nsPrelimDeclId uid C.TypeNamespaceTag
+      go (C.TypeEnum uid) = C.TypeEnum . nameUseSite $
+        nsPrelimDeclId uid C.TypeNamespaceTag
+      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef . nameUseSite $
+        nsPrelimDeclId uid C.TypeNamespaceOrdinary
 
       -- Recursive cases
       go (C.TypePointer ty)         = C.TypePointer (go ty)
@@ -216,16 +210,14 @@ instance NameUseSites C.Type where
       -- Rename specific use site
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: QualDeclId -> (CName, C.NameOrigin)
-      nameUseSite qid@(QualDeclId uid _nameKind) =
-          case uid of
-            DeclNamed   name -> (name, C.NameOriginInSource)
-            DeclBuiltin name -> (name, C.NameOriginInSource)
-            DeclAnon  anonId ->
-             case findNamedUseOf env qid of
-               Just useOfAnon ->
-                 (nameForAnon useOfAnon, C.NameOriginGenerated anonId)
-               Nothing -> panicPure "impossible"
+      nameUseSite :: NsPrelimDeclId -> DeclId
+      nameUseSite nsid = case nsid of
+        NsPrelimDeclIdNamed name _ns -> DeclId name C.NameOriginInSource
+        NsPrelimDeclIdBuiltin name   -> DeclId name C.NameOriginBuiltin
+        NsPrelimDeclIdAnon anonId    -> case findNamedUseOf env nsid of
+          Just useOfAnon ->
+            DeclId (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
+          Nothing -> panicPure "impossible"
 
 {-------------------------------------------------------------------------------
   Name generation
@@ -236,14 +228,14 @@ instance NameUseSites C.Type where
 -------------------------------------------------------------------------------}
 
 -- | Construct name for anonymous declaration
-nameForAnon :: UseOfDecl -> CName
+nameForAnon :: UseOfDecl -> C.Name
 nameForAnon = \case
       UsedByNamed (UsedInTypedef ByValue) typedefName ->
-        C.qualNameName typedefName
+        typedefName
       UsedByNamed (UsedInTypedef ByRef) typedefName ->
-        C.qualNameName typedefName <> "_Deref"
+        typedefName <> "_Deref"
       UsedByNamed (UsedInField _valOrRef fieldName) typeName ->
-        C.qualNameName typeName <> "_" <> fieldName
+        typeName <> "_" <> fieldName
       UsedByFieldOfAnon _valOrRef fieldName useOfAnon ->
         nameForAnon useOfAnon <> "_" <> fieldName
 

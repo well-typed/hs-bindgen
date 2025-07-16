@@ -10,11 +10,11 @@ import Data.Text qualified as Text
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
-import HsBindgen.Language.C
-import HsBindgen.Language.C.Name qualified as C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell (ExtHsRef)
 
 {-------------------------------------------------------------------------------
@@ -40,9 +40,9 @@ type family AnnResolveBindingSpec ix where
   AnnResolveBindingSpec _                 = NoAnn
 
 instance IsPass ResolveBindingSpec where
-  type Id         ResolveBindingSpec = CName
-  type FieldName  ResolveBindingSpec = CName
-  type TypedefRef ResolveBindingSpec = CName
+  type Id         ResolveBindingSpec = DeclId
+  type FieldName  ResolveBindingSpec = C.Name
+  type TypedefRef ResolveBindingSpec = C.Name
   type MacroBody  ResolveBindingSpec = CheckedMacro ResolveBindingSpec
   type ExtBinding ResolveBindingSpec = ResolvedExtBinding
   type Ann ix     ResolveBindingSpec = AnnResolveBindingSpec ix
@@ -55,7 +55,7 @@ instance IsPass ResolveBindingSpec where
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | Name of the C declaration for which we are using this binding
-      extCName :: QualName
+      extCName :: C.QualName
 
       -- | The Haskell type which will be used
     , extHsRef :: ExtHsRef

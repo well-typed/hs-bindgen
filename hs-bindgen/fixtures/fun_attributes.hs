@@ -14,13 +14,13 @@
             declLoc =
             "fun_attributes.h:10:9",
             declId = NamePair {
-              nameC = CName "FILE",
+              nameC = Name "FILE",
               nameHsIdent = HsIdentifier
                 "FILE"},
             declOrigin = NameOriginGenerated
               (AnonId
                 "fun_attributes.h:10:9"),
-            declAliases = [CName "FILE"],
+            declAliases = [Name "FILE"],
             declHeader =
             "fun_attributes.h"},
           declKind = Struct
@@ -55,13 +55,13 @@
               declLoc =
               "fun_attributes.h:10:9",
               declId = NamePair {
-                nameC = CName "FILE",
+                nameC = Name "FILE",
                 nameHsIdent = HsIdentifier
                   "FILE"},
               declOrigin = NameOriginGenerated
                 (AnonId
                   "fun_attributes.h:10:9"),
-              declAliases = [CName "FILE"],
+              declAliases = [Name "FILE"],
               declHeader =
               "fun_attributes.h"},
             declKind = Struct
@@ -101,13 +101,13 @@
                       declLoc =
                       "fun_attributes.h:10:9",
                       declId = NamePair {
-                        nameC = CName "FILE",
+                        nameC = Name "FILE",
                         nameHsIdent = HsIdentifier
                           "FILE"},
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "fun_attributes.h:10:9"),
-                      declAliases = [CName "FILE"],
+                      declAliases = [Name "FILE"],
                       declHeader =
                       "fun_attributes.h"},
                     declKind = Struct
@@ -147,13 +147,13 @@
                       declLoc =
                       "fun_attributes.h:10:9",
                       declId = NamePair {
-                        nameC = CName "FILE",
+                        nameC = Name "FILE",
                         nameHsIdent = HsIdentifier
                           "FILE"},
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "fun_attributes.h:10:9"),
-                      declAliases = [CName "FILE"],
+                      declAliases = [Name "FILE"],
                       declHeader =
                       "fun_attributes.h"},
                     declKind = Struct
@@ -202,7 +202,7 @@
           declLoc =
           "fun_attributes.h:11:13",
           declId = NamePair {
-            nameC = CName "size_t",
+            nameC = Name "size_t",
             nameHsIdent = HsIdentifier
               "Size_t"},
           declOrigin = NameOriginInSource,
@@ -389,13 +389,13 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"}),
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -432,13 +432,13 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"}),
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -473,7 +473,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -505,7 +505,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -537,7 +537,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -659,10 +659,10 @@
           functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed
-                (CName "FILE")
+                (Name "FILE")
                 (TypeStruct
                   NamePair {
-                    nameC = CName "FILE",
+                    nameC = Name "FILE",
                     nameHsIdent = HsIdentifier
                       "FILE"}
                   (NameOriginGenerated
@@ -720,7 +720,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -797,7 +797,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer

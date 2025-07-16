@@ -19,7 +19,7 @@
           declLoc =
           "typedef_vs_macro.h:1:13",
           declId = NamePair {
-            nameC = CName "T1",
+            nameC = Name "T1",
             nameHsIdent = HsIdentifier
               "T1"},
           declOrigin = NameOriginInSource,
@@ -130,7 +130,7 @@
           declLoc =
           "typedef_vs_macro.h:2:14",
           declId = NamePair {
-            nameC = CName "T2",
+            nameC = Name "T2",
             nameHsIdent = HsIdentifier
               "T2"},
           declOrigin = NameOriginInSource,
@@ -243,7 +243,7 @@
           declLoc =
           "typedef_vs_macro.h:4:9",
           declId = NamePair {
-            nameC = CName "M1",
+            nameC = Name "M1",
             nameHsIdent = HsIdentifier
               "M1"},
           declOrigin = NameOriginInSource,
@@ -354,7 +354,7 @@
           declLoc =
           "typedef_vs_macro.h:5:9",
           declId = NamePair {
-            nameC = CName "M2",
+            nameC = Name "M2",
             nameHsIdent = HsIdentifier
               "M2"},
           declOrigin = NameOriginInSource,
@@ -467,7 +467,7 @@
           declLoc =
           "typedef_vs_macro.h:6:9",
           declId = NamePair {
-            nameC = CName "M3",
+            nameC = Name "M3",
             nameHsIdent = HsIdentifier
               "M3"},
           declOrigin = NameOriginInSource,
@@ -527,7 +527,7 @@
           declLoc =
           "typedef_vs_macro.h:7:9",
           declId = NamePair {
-            nameC = CName "M4",
+            nameC = Name "M4",
             nameHsIdent = HsIdentifier
               "M4"},
           declOrigin = NameOriginInSource,
@@ -590,13 +590,13 @@
               structFieldLoc =
               "typedef_vs_macro.h:10:6",
               structFieldName = NamePair {
-                nameC = CName "t1",
+                nameC = Name "t1",
                 nameHsIdent = HsIdentifier
                   "exampleStruct_t1"},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "T1",
+                    nameC = Name "T1",
                     nameHsIdent = HsIdentifier
                       "T1"}),
               structFieldOffset = 0,
@@ -612,13 +612,13 @@
               structFieldLoc =
               "typedef_vs_macro.h:11:6",
               structFieldName = NamePair {
-                nameC = CName "t2",
+                nameC = Name "t2",
                 nameHsIdent = HsIdentifier
                   "exampleStruct_t2"},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "T2",
+                    nameC = Name "T2",
                     nameHsIdent = HsIdentifier
                       "T2"}),
               structFieldOffset = 32,
@@ -634,13 +634,13 @@
               structFieldLoc =
               "typedef_vs_macro.h:12:6",
               structFieldName = NamePair {
-                nameC = CName "m1",
+                nameC = Name "m1",
                 nameHsIdent = HsIdentifier
                   "exampleStruct_m1"},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
-                  nameC = CName "M1",
+                  nameC = Name "M1",
                   nameHsIdent = HsIdentifier "M1"}
                 NameOriginInSource,
               structFieldOffset = 64,
@@ -656,13 +656,13 @@
               structFieldLoc =
               "typedef_vs_macro.h:13:6",
               structFieldName = NamePair {
-                nameC = CName "m2",
+                nameC = Name "m2",
                 nameHsIdent = HsIdentifier
                   "exampleStruct_m2"},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
-                  nameC = CName "M2",
+                  nameC = Name "M2",
                   nameHsIdent = HsIdentifier "M2"}
                 NameOriginInSource,
               structFieldOffset = 96,
@@ -673,7 +673,7 @@
             declLoc =
             "typedef_vs_macro.h:9:8",
             declId = NamePair {
-              nameC = CName "ExampleStruct",
+              nameC = Name "ExampleStruct",
               nameHsIdent = HsIdentifier
                 "ExampleStruct"},
             declOrigin = NameOriginInSource,
@@ -693,13 +693,13 @@
                   structFieldLoc =
                   "typedef_vs_macro.h:10:6",
                   structFieldName = NamePair {
-                    nameC = CName "t1",
+                    nameC = Name "t1",
                     nameHsIdent = HsIdentifier
                       "exampleStruct_t1"},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
-                        nameC = CName "T1",
+                        nameC = Name "T1",
                         nameHsIdent = HsIdentifier
                           "T1"}),
                   structFieldOffset = 0,
@@ -708,13 +708,13 @@
                   structFieldLoc =
                   "typedef_vs_macro.h:11:6",
                   structFieldName = NamePair {
-                    nameC = CName "t2",
+                    nameC = Name "t2",
                     nameHsIdent = HsIdentifier
                       "exampleStruct_t2"},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
-                        nameC = CName "T2",
+                        nameC = Name "T2",
                         nameHsIdent = HsIdentifier
                           "T2"}),
                   structFieldOffset = 32,
@@ -723,13 +723,13 @@
                   structFieldLoc =
                   "typedef_vs_macro.h:12:6",
                   structFieldName = NamePair {
-                    nameC = CName "m1",
+                    nameC = Name "m1",
                     nameHsIdent = HsIdentifier
                       "exampleStruct_m1"},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
-                      nameC = CName "M1",
+                      nameC = Name "M1",
                       nameHsIdent = HsIdentifier "M1"}
                     NameOriginInSource,
                   structFieldOffset = 64,
@@ -738,13 +738,13 @@
                   structFieldLoc =
                   "typedef_vs_macro.h:13:6",
                   structFieldName = NamePair {
-                    nameC = CName "m2",
+                    nameC = Name "m2",
                     nameHsIdent = HsIdentifier
                       "exampleStruct_m2"},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
-                      nameC = CName "M2",
+                      nameC = Name "M2",
                       nameHsIdent = HsIdentifier "M2"}
                     NameOriginInSource,
                   structFieldOffset = 96,
@@ -779,13 +779,13 @@
                 structFieldLoc =
                 "typedef_vs_macro.h:10:6",
                 structFieldName = NamePair {
-                  nameC = CName "t1",
+                  nameC = Name "t1",
                   nameHsIdent = HsIdentifier
                     "exampleStruct_t1"},
                 structFieldType = TypeTypedef
                   (TypedefRegular
                     NamePair {
-                      nameC = CName "T1",
+                      nameC = Name "T1",
                       nameHsIdent = HsIdentifier
                         "T1"}),
                 structFieldOffset = 0,
@@ -801,13 +801,13 @@
                 structFieldLoc =
                 "typedef_vs_macro.h:11:6",
                 structFieldName = NamePair {
-                  nameC = CName "t2",
+                  nameC = Name "t2",
                   nameHsIdent = HsIdentifier
                     "exampleStruct_t2"},
                 structFieldType = TypeTypedef
                   (TypedefRegular
                     NamePair {
-                      nameC = CName "T2",
+                      nameC = Name "T2",
                       nameHsIdent = HsIdentifier
                         "T2"}),
                 structFieldOffset = 32,
@@ -823,13 +823,13 @@
                 structFieldLoc =
                 "typedef_vs_macro.h:12:6",
                 structFieldName = NamePair {
-                  nameC = CName "m1",
+                  nameC = Name "m1",
                   nameHsIdent = HsIdentifier
                     "exampleStruct_m1"},
                 structFieldType =
                 TypeMacroTypedef
                   NamePair {
-                    nameC = CName "M1",
+                    nameC = Name "M1",
                     nameHsIdent = HsIdentifier "M1"}
                   NameOriginInSource,
                 structFieldOffset = 64,
@@ -845,13 +845,13 @@
                 structFieldLoc =
                 "typedef_vs_macro.h:13:6",
                 structFieldName = NamePair {
-                  nameC = CName "m2",
+                  nameC = Name "m2",
                   nameHsIdent = HsIdentifier
                     "exampleStruct_m2"},
                 structFieldType =
                 TypeMacroTypedef
                   NamePair {
-                    nameC = CName "M2",
+                    nameC = Name "M2",
                     nameHsIdent = HsIdentifier "M2"}
                   NameOriginInSource,
                 structFieldOffset = 96,
@@ -862,7 +862,7 @@
               declLoc =
               "typedef_vs_macro.h:9:8",
               declId = NamePair {
-                nameC = CName "ExampleStruct",
+                nameC = Name "ExampleStruct",
                 nameHsIdent = HsIdentifier
                   "ExampleStruct"},
               declOrigin = NameOriginInSource,
@@ -882,13 +882,13 @@
                     structFieldLoc =
                     "typedef_vs_macro.h:10:6",
                     structFieldName = NamePair {
-                      nameC = CName "t1",
+                      nameC = Name "t1",
                       nameHsIdent = HsIdentifier
                         "exampleStruct_t1"},
                     structFieldType = TypeTypedef
                       (TypedefRegular
                         NamePair {
-                          nameC = CName "T1",
+                          nameC = Name "T1",
                           nameHsIdent = HsIdentifier
                             "T1"}),
                     structFieldOffset = 0,
@@ -897,13 +897,13 @@
                     structFieldLoc =
                     "typedef_vs_macro.h:11:6",
                     structFieldName = NamePair {
-                      nameC = CName "t2",
+                      nameC = Name "t2",
                       nameHsIdent = HsIdentifier
                         "exampleStruct_t2"},
                     structFieldType = TypeTypedef
                       (TypedefRegular
                         NamePair {
-                          nameC = CName "T2",
+                          nameC = Name "T2",
                           nameHsIdent = HsIdentifier
                             "T2"}),
                     structFieldOffset = 32,
@@ -912,13 +912,13 @@
                     structFieldLoc =
                     "typedef_vs_macro.h:12:6",
                     structFieldName = NamePair {
-                      nameC = CName "m1",
+                      nameC = Name "m1",
                       nameHsIdent = HsIdentifier
                         "exampleStruct_m1"},
                     structFieldType =
                     TypeMacroTypedef
                       NamePair {
-                        nameC = CName "M1",
+                        nameC = Name "M1",
                         nameHsIdent = HsIdentifier "M1"}
                       NameOriginInSource,
                     structFieldOffset = 64,
@@ -927,13 +927,13 @@
                     structFieldLoc =
                     "typedef_vs_macro.h:13:6",
                     structFieldName = NamePair {
-                      nameC = CName "m2",
+                      nameC = Name "m2",
                       nameHsIdent = HsIdentifier
                         "exampleStruct_m2"},
                     structFieldType =
                     TypeMacroTypedef
                       NamePair {
-                        nameC = CName "M2",
+                        nameC = Name "M2",
                         nameHsIdent = HsIdentifier "M2"}
                       NameOriginInSource,
                     structFieldOffset = 96,
@@ -973,13 +973,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:10:6",
                         structFieldName = NamePair {
-                          nameC = CName "t1",
+                          nameC = Name "t1",
                           nameHsIdent = HsIdentifier
                             "exampleStruct_t1"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "T1",
+                              nameC = Name "T1",
                               nameHsIdent = HsIdentifier
                                 "T1"}),
                         structFieldOffset = 0,
@@ -995,13 +995,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:11:6",
                         structFieldName = NamePair {
-                          nameC = CName "t2",
+                          nameC = Name "t2",
                           nameHsIdent = HsIdentifier
                             "exampleStruct_t2"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "T2",
+                              nameC = Name "T2",
                               nameHsIdent = HsIdentifier
                                 "T2"}),
                         structFieldOffset = 32,
@@ -1017,13 +1017,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:12:6",
                         structFieldName = NamePair {
-                          nameC = CName "m1",
+                          nameC = Name "m1",
                           nameHsIdent = HsIdentifier
                             "exampleStruct_m1"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "M1",
+                            nameC = Name "M1",
                             nameHsIdent = HsIdentifier "M1"}
                           NameOriginInSource,
                         structFieldOffset = 64,
@@ -1039,13 +1039,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:13:6",
                         structFieldName = NamePair {
-                          nameC = CName "m2",
+                          nameC = Name "m2",
                           nameHsIdent = HsIdentifier
                             "exampleStruct_m2"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "M2",
+                            nameC = Name "M2",
                             nameHsIdent = HsIdentifier "M2"}
                           NameOriginInSource,
                         structFieldOffset = 96,
@@ -1056,7 +1056,7 @@
                       declLoc =
                       "typedef_vs_macro.h:9:8",
                       declId = NamePair {
-                        nameC = CName "ExampleStruct",
+                        nameC = Name "ExampleStruct",
                         nameHsIdent = HsIdentifier
                           "ExampleStruct"},
                       declOrigin = NameOriginInSource,
@@ -1076,13 +1076,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:10:6",
                             structFieldName = NamePair {
-                              nameC = CName "t1",
+                              nameC = Name "t1",
                               nameHsIdent = HsIdentifier
                                 "exampleStruct_t1"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "T1",
+                                  nameC = Name "T1",
                                   nameHsIdent = HsIdentifier
                                     "T1"}),
                             structFieldOffset = 0,
@@ -1091,13 +1091,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:11:6",
                             structFieldName = NamePair {
-                              nameC = CName "t2",
+                              nameC = Name "t2",
                               nameHsIdent = HsIdentifier
                                 "exampleStruct_t2"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "T2",
+                                  nameC = Name "T2",
                                   nameHsIdent = HsIdentifier
                                     "T2"}),
                             structFieldOffset = 32,
@@ -1106,13 +1106,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:12:6",
                             structFieldName = NamePair {
-                              nameC = CName "m1",
+                              nameC = Name "m1",
                               nameHsIdent = HsIdentifier
                                 "exampleStruct_m1"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "M1",
+                                nameC = Name "M1",
                                 nameHsIdent = HsIdentifier "M1"}
                               NameOriginInSource,
                             structFieldOffset = 64,
@@ -1121,13 +1121,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:13:6",
                             structFieldName = NamePair {
-                              nameC = CName "m2",
+                              nameC = Name "m2",
                               nameHsIdent = HsIdentifier
                                 "exampleStruct_m2"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "M2",
+                                nameC = Name "M2",
                                 nameHsIdent = HsIdentifier "M2"}
                               NameOriginInSource,
                             structFieldOffset = 96,
@@ -1171,13 +1171,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:10:6",
                         structFieldName = NamePair {
-                          nameC = CName "t1",
+                          nameC = Name "t1",
                           nameHsIdent = HsIdentifier
                             "exampleStruct_t1"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "T1",
+                              nameC = Name "T1",
                               nameHsIdent = HsIdentifier
                                 "T1"}),
                         structFieldOffset = 0,
@@ -1193,13 +1193,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:11:6",
                         structFieldName = NamePair {
-                          nameC = CName "t2",
+                          nameC = Name "t2",
                           nameHsIdent = HsIdentifier
                             "exampleStruct_t2"},
                         structFieldType = TypeTypedef
                           (TypedefRegular
                             NamePair {
-                              nameC = CName "T2",
+                              nameC = Name "T2",
                               nameHsIdent = HsIdentifier
                                 "T2"}),
                         structFieldOffset = 32,
@@ -1215,13 +1215,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:12:6",
                         structFieldName = NamePair {
-                          nameC = CName "m1",
+                          nameC = Name "m1",
                           nameHsIdent = HsIdentifier
                             "exampleStruct_m1"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "M1",
+                            nameC = Name "M1",
                             nameHsIdent = HsIdentifier "M1"}
                           NameOriginInSource,
                         structFieldOffset = 64,
@@ -1237,13 +1237,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:13:6",
                         structFieldName = NamePair {
-                          nameC = CName "m2",
+                          nameC = Name "m2",
                           nameHsIdent = HsIdentifier
                             "exampleStruct_m2"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "M2",
+                            nameC = Name "M2",
                             nameHsIdent = HsIdentifier "M2"}
                           NameOriginInSource,
                         structFieldOffset = 96,
@@ -1254,7 +1254,7 @@
                       declLoc =
                       "typedef_vs_macro.h:9:8",
                       declId = NamePair {
-                        nameC = CName "ExampleStruct",
+                        nameC = Name "ExampleStruct",
                         nameHsIdent = HsIdentifier
                           "ExampleStruct"},
                       declOrigin = NameOriginInSource,
@@ -1274,13 +1274,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:10:6",
                             structFieldName = NamePair {
-                              nameC = CName "t1",
+                              nameC = Name "t1",
                               nameHsIdent = HsIdentifier
                                 "exampleStruct_t1"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "T1",
+                                  nameC = Name "T1",
                                   nameHsIdent = HsIdentifier
                                     "T1"}),
                             structFieldOffset = 0,
@@ -1289,13 +1289,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:11:6",
                             structFieldName = NamePair {
-                              nameC = CName "t2",
+                              nameC = Name "t2",
                               nameHsIdent = HsIdentifier
                                 "exampleStruct_t2"},
                             structFieldType = TypeTypedef
                               (TypedefRegular
                                 NamePair {
-                                  nameC = CName "T2",
+                                  nameC = Name "T2",
                                   nameHsIdent = HsIdentifier
                                     "T2"}),
                             structFieldOffset = 32,
@@ -1304,13 +1304,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:12:6",
                             structFieldName = NamePair {
-                              nameC = CName "m1",
+                              nameC = Name "m1",
                               nameHsIdent = HsIdentifier
                                 "exampleStruct_m1"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "M1",
+                                nameC = Name "M1",
                                 nameHsIdent = HsIdentifier "M1"}
                               NameOriginInSource,
                             structFieldOffset = 64,
@@ -1319,13 +1319,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:13:6",
                             structFieldName = NamePair {
-                              nameC = CName "m2",
+                              nameC = Name "m2",
                               nameHsIdent = HsIdentifier
                                 "exampleStruct_m2"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "M2",
+                                nameC = Name "M2",
                                 nameHsIdent = HsIdentifier "M2"}
                               NameOriginInSource,
                             structFieldOffset = 96,
@@ -1381,7 +1381,7 @@
           declLoc =
           "typedef_vs_macro.h:16:9",
           declId = NamePair {
-            nameC = CName "uint64_t",
+            nameC = Name "uint64_t",
             nameHsIdent = HsIdentifier
               "Uint64_t"},
           declOrigin = NameOriginInSource,
@@ -1521,13 +1521,13 @@
               structFieldLoc =
               "typedef_vs_macro.h:19:13",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "foo_a"},
               structFieldType = TypePointer
                 (TypeMacroTypedef
                   NamePair {
-                    nameC = CName "uint64_t",
+                    nameC = Name "uint64_t",
                     nameHsIdent = HsIdentifier
                       "Uint64_t"}
                   NameOriginInSource),
@@ -1539,7 +1539,7 @@
             declLoc =
             "typedef_vs_macro.h:18:8",
             declId = NamePair {
-              nameC = CName "foo",
+              nameC = Name "foo",
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
@@ -1557,13 +1557,13 @@
                   structFieldLoc =
                   "typedef_vs_macro.h:19:13",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "foo_a"},
                   structFieldType = TypePointer
                     (TypeMacroTypedef
                       NamePair {
-                        nameC = CName "uint64_t",
+                        nameC = Name "uint64_t",
                         nameHsIdent = HsIdentifier
                           "Uint64_t"}
                       NameOriginInSource),
@@ -1602,13 +1602,13 @@
                 structFieldLoc =
                 "typedef_vs_macro.h:19:13",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "foo_a"},
                 structFieldType = TypePointer
                   (TypeMacroTypedef
                     NamePair {
-                      nameC = CName "uint64_t",
+                      nameC = Name "uint64_t",
                       nameHsIdent = HsIdentifier
                         "Uint64_t"}
                     NameOriginInSource),
@@ -1620,7 +1620,7 @@
               declLoc =
               "typedef_vs_macro.h:18:8",
               declId = NamePair {
-                nameC = CName "foo",
+                nameC = Name "foo",
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
@@ -1638,13 +1638,13 @@
                     structFieldLoc =
                     "typedef_vs_macro.h:19:13",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "foo_a"},
                     structFieldType = TypePointer
                       (TypeMacroTypedef
                         NamePair {
-                          nameC = CName "uint64_t",
+                          nameC = Name "uint64_t",
                           nameHsIdent = HsIdentifier
                             "Uint64_t"}
                         NameOriginInSource),
@@ -1688,13 +1688,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:19:13",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "foo_a"},
                         structFieldType = TypePointer
                           (TypeMacroTypedef
                             NamePair {
-                              nameC = CName "uint64_t",
+                              nameC = Name "uint64_t",
                               nameHsIdent = HsIdentifier
                                 "Uint64_t"}
                             NameOriginInSource),
@@ -1706,7 +1706,7 @@
                       declLoc =
                       "typedef_vs_macro.h:18:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -1724,13 +1724,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:19:13",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "foo_a"},
                             structFieldType = TypePointer
                               (TypeMacroTypedef
                                 NamePair {
-                                  nameC = CName "uint64_t",
+                                  nameC = Name "uint64_t",
                                   nameHsIdent = HsIdentifier
                                     "Uint64_t"}
                                 NameOriginInSource),
@@ -1774,13 +1774,13 @@
                         structFieldLoc =
                         "typedef_vs_macro.h:19:13",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "foo_a"},
                         structFieldType = TypePointer
                           (TypeMacroTypedef
                             NamePair {
-                              nameC = CName "uint64_t",
+                              nameC = Name "uint64_t",
                               nameHsIdent = HsIdentifier
                                 "Uint64_t"}
                             NameOriginInSource),
@@ -1792,7 +1792,7 @@
                       declLoc =
                       "typedef_vs_macro.h:18:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -1810,13 +1810,13 @@
                             structFieldLoc =
                             "typedef_vs_macro.h:19:13",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "foo_a"},
                             structFieldType = TypePointer
                               (TypeMacroTypedef
                                 NamePair {
-                                  nameC = CName "uint64_t",
+                                  nameC = Name "uint64_t",
                                   nameHsIdent = HsIdentifier
                                     "Uint64_t"}
                                 NameOriginInSource),

@@ -19,7 +19,7 @@
           declLoc =
           "macro_in_fundecl_vs_typedef.h:4:9",
           declId = NamePair {
-            nameC = CName "MC",
+            nameC = Name "MC",
             nameHsIdent = HsIdentifier
               "MC"},
           declOrigin = NameOriginInSource,
@@ -131,7 +131,7 @@
           declLoc =
           "macro_in_fundecl_vs_typedef.h:5:14",
           declId = NamePair {
-            nameC = CName "TC",
+            nameC = Name "TC",
             nameHsIdent = HsIdentifier
               "TC"},
           declOrigin = NameOriginInSource,
@@ -250,13 +250,13 @@
           functionArgs = [
             TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource,
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "TC",
+                  nameC = Name "TC",
                   nameHsIdent = HsIdentifier
                     "TC"})],
           functionRes = TypePrim
@@ -290,7 +290,7 @@
           functionArgs = [
             TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource,
             TypePrim
@@ -299,7 +299,7 @@
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
-                nameC = CName "TC",
+                nameC = Name "TC",
                 nameHsIdent = HsIdentifier
                   "TC"})}},
   DeclInlineCInclude
@@ -336,13 +336,13 @@
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "TC",
+                    nameC = Name "TC",
                     nameHsIdent = HsIdentifier
                       "TC"}))],
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource)}},
   DeclInlineCInclude
@@ -378,14 +378,14 @@
             TypePointer
               (TypeMacroTypedef
                 NamePair {
-                  nameC = CName "MC",
+                  nameC = Name "MC",
                   nameHsIdent = HsIdentifier "MC"}
                 NameOriginInSource)],
           functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "TC",
+                  nameC = Name "TC",
                   nameHsIdent = HsIdentifier
                     "TC"}))}},
   DeclData
@@ -408,7 +408,7 @@
               structFieldLoc =
               "macro_in_fundecl_vs_typedef.h:18:30",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "struct1_a"},
               structFieldType = TypePrim
@@ -421,7 +421,7 @@
             declLoc =
             "macro_in_fundecl_vs_typedef.h:18:16",
             declId = NamePair {
-              nameC = CName "struct1",
+              nameC = Name "struct1",
               nameHsIdent = HsIdentifier
                 "Struct1"},
             declOrigin = NameOriginInSource,
@@ -439,7 +439,7 @@
                   structFieldLoc =
                   "macro_in_fundecl_vs_typedef.h:18:30",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "struct1_a"},
                   structFieldType = TypePrim
@@ -476,7 +476,7 @@
                 structFieldLoc =
                 "macro_in_fundecl_vs_typedef.h:18:30",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "struct1_a"},
                 structFieldType = TypePrim
@@ -489,7 +489,7 @@
               declLoc =
               "macro_in_fundecl_vs_typedef.h:18:16",
               declId = NamePair {
-                nameC = CName "struct1",
+                nameC = Name "struct1",
                 nameHsIdent = HsIdentifier
                   "Struct1"},
               declOrigin = NameOriginInSource,
@@ -507,7 +507,7 @@
                     structFieldLoc =
                     "macro_in_fundecl_vs_typedef.h:18:30",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "struct1_a"},
                     structFieldType = TypePrim
@@ -549,7 +549,7 @@
                         structFieldLoc =
                         "macro_in_fundecl_vs_typedef.h:18:30",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "struct1_a"},
                         structFieldType = TypePrim
@@ -562,7 +562,7 @@
                       declLoc =
                       "macro_in_fundecl_vs_typedef.h:18:16",
                       declId = NamePair {
-                        nameC = CName "struct1",
+                        nameC = Name "struct1",
                         nameHsIdent = HsIdentifier
                           "Struct1"},
                       declOrigin = NameOriginInSource,
@@ -580,7 +580,7 @@
                             structFieldLoc =
                             "macro_in_fundecl_vs_typedef.h:18:30",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "struct1_a"},
                             structFieldType = TypePrim
@@ -622,7 +622,7 @@
                         structFieldLoc =
                         "macro_in_fundecl_vs_typedef.h:18:30",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "struct1_a"},
                         structFieldType = TypePrim
@@ -635,7 +635,7 @@
                       declLoc =
                       "macro_in_fundecl_vs_typedef.h:18:16",
                       declId = NamePair {
-                        nameC = CName "struct1",
+                        nameC = Name "struct1",
                         nameHsIdent = HsIdentifier
                           "Struct1"},
                       declOrigin = NameOriginInSource,
@@ -653,7 +653,7 @@
                             structFieldLoc =
                             "macro_in_fundecl_vs_typedef.h:18:30",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "struct1_a"},
                             structFieldType = TypePrim
@@ -708,7 +708,7 @@
               structFieldLoc =
               "macro_in_fundecl_vs_typedef.h:19:30",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "struct2_a"},
               structFieldType = TypePrim
@@ -721,13 +721,13 @@
             declLoc =
             "macro_in_fundecl_vs_typedef.h:19:9",
             declId = NamePair {
-              nameC = CName "struct2",
+              nameC = Name "struct2",
               nameHsIdent = HsIdentifier
                 "Struct2"},
             declOrigin = NameOriginGenerated
               (AnonId
                 "macro_in_fundecl_vs_typedef.h:19:9"),
-            declAliases = [CName "struct2"],
+            declAliases = [Name "struct2"],
             declHeader =
             "macro_in_fundecl_vs_typedef.h"},
           declKind = Struct
@@ -741,7 +741,7 @@
                   structFieldLoc =
                   "macro_in_fundecl_vs_typedef.h:19:30",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "struct2_a"},
                   structFieldType = TypePrim
@@ -778,7 +778,7 @@
                 structFieldLoc =
                 "macro_in_fundecl_vs_typedef.h:19:30",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "struct2_a"},
                 structFieldType = TypePrim
@@ -791,13 +791,13 @@
               declLoc =
               "macro_in_fundecl_vs_typedef.h:19:9",
               declId = NamePair {
-                nameC = CName "struct2",
+                nameC = Name "struct2",
                 nameHsIdent = HsIdentifier
                   "Struct2"},
               declOrigin = NameOriginGenerated
                 (AnonId
                   "macro_in_fundecl_vs_typedef.h:19:9"),
-              declAliases = [CName "struct2"],
+              declAliases = [Name "struct2"],
               declHeader =
               "macro_in_fundecl_vs_typedef.h"},
             declKind = Struct
@@ -811,7 +811,7 @@
                     structFieldLoc =
                     "macro_in_fundecl_vs_typedef.h:19:30",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "struct2_a"},
                     structFieldType = TypePrim
@@ -853,7 +853,7 @@
                         structFieldLoc =
                         "macro_in_fundecl_vs_typedef.h:19:30",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "struct2_a"},
                         structFieldType = TypePrim
@@ -866,13 +866,13 @@
                       declLoc =
                       "macro_in_fundecl_vs_typedef.h:19:9",
                       declId = NamePair {
-                        nameC = CName "struct2",
+                        nameC = Name "struct2",
                         nameHsIdent = HsIdentifier
                           "Struct2"},
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "macro_in_fundecl_vs_typedef.h:19:9"),
-                      declAliases = [CName "struct2"],
+                      declAliases = [Name "struct2"],
                       declHeader =
                       "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
@@ -886,7 +886,7 @@
                             structFieldLoc =
                             "macro_in_fundecl_vs_typedef.h:19:30",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "struct2_a"},
                             structFieldType = TypePrim
@@ -928,7 +928,7 @@
                         structFieldLoc =
                         "macro_in_fundecl_vs_typedef.h:19:30",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "struct2_a"},
                         structFieldType = TypePrim
@@ -941,13 +941,13 @@
                       declLoc =
                       "macro_in_fundecl_vs_typedef.h:19:9",
                       declId = NamePair {
-                        nameC = CName "struct2",
+                        nameC = Name "struct2",
                         nameHsIdent = HsIdentifier
                           "Struct2"},
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "macro_in_fundecl_vs_typedef.h:19:9"),
-                      declAliases = [CName "struct2"],
+                      declAliases = [Name "struct2"],
                       declHeader =
                       "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
@@ -961,7 +961,7 @@
                             structFieldLoc =
                             "macro_in_fundecl_vs_typedef.h:19:30",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "struct2_a"},
                             structFieldType = TypePrim
@@ -1016,7 +1016,7 @@
               structFieldLoc =
               "macro_in_fundecl_vs_typedef.h:20:30",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "struct3_a"},
               structFieldType = TypePrim
@@ -1029,12 +1029,12 @@
             declLoc =
             "macro_in_fundecl_vs_typedef.h:20:16",
             declId = NamePair {
-              nameC = CName "struct3",
+              nameC = Name "struct3",
               nameHsIdent = HsIdentifier
                 "Struct3"},
             declOrigin = NameOriginInSource,
             declAliases = [
-              CName "struct3_t"],
+              Name "struct3_t"],
             declHeader =
             "macro_in_fundecl_vs_typedef.h"},
           declKind = Struct
@@ -1048,7 +1048,7 @@
                   structFieldLoc =
                   "macro_in_fundecl_vs_typedef.h:20:30",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "struct3_a"},
                   structFieldType = TypePrim
@@ -1085,7 +1085,7 @@
                 structFieldLoc =
                 "macro_in_fundecl_vs_typedef.h:20:30",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "struct3_a"},
                 structFieldType = TypePrim
@@ -1098,12 +1098,12 @@
               declLoc =
               "macro_in_fundecl_vs_typedef.h:20:16",
               declId = NamePair {
-                nameC = CName "struct3",
+                nameC = Name "struct3",
                 nameHsIdent = HsIdentifier
                   "Struct3"},
               declOrigin = NameOriginInSource,
               declAliases = [
-                CName "struct3_t"],
+                Name "struct3_t"],
               declHeader =
               "macro_in_fundecl_vs_typedef.h"},
             declKind = Struct
@@ -1117,7 +1117,7 @@
                     structFieldLoc =
                     "macro_in_fundecl_vs_typedef.h:20:30",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "struct3_a"},
                     structFieldType = TypePrim
@@ -1159,7 +1159,7 @@
                         structFieldLoc =
                         "macro_in_fundecl_vs_typedef.h:20:30",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "struct3_a"},
                         structFieldType = TypePrim
@@ -1172,12 +1172,12 @@
                       declLoc =
                       "macro_in_fundecl_vs_typedef.h:20:16",
                       declId = NamePair {
-                        nameC = CName "struct3",
+                        nameC = Name "struct3",
                         nameHsIdent = HsIdentifier
                           "Struct3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [
-                        CName "struct3_t"],
+                        Name "struct3_t"],
                       declHeader =
                       "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
@@ -1191,7 +1191,7 @@
                             structFieldLoc =
                             "macro_in_fundecl_vs_typedef.h:20:30",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "struct3_a"},
                             structFieldType = TypePrim
@@ -1233,7 +1233,7 @@
                         structFieldLoc =
                         "macro_in_fundecl_vs_typedef.h:20:30",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "struct3_a"},
                         structFieldType = TypePrim
@@ -1246,12 +1246,12 @@
                       declLoc =
                       "macro_in_fundecl_vs_typedef.h:20:16",
                       declId = NamePair {
-                        nameC = CName "struct3",
+                        nameC = Name "struct3",
                         nameHsIdent = HsIdentifier
                           "Struct3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [
-                        CName "struct3_t"],
+                        Name "struct3_t"],
                       declHeader =
                       "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
@@ -1265,7 +1265,7 @@
                             structFieldLoc =
                             "macro_in_fundecl_vs_typedef.h:20:30",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "struct3_a"},
                             structFieldType = TypePrim
@@ -1322,7 +1322,7 @@
           declLoc =
           "macro_in_fundecl_vs_typedef.h:20:35",
           declId = NamePair {
-            nameC = CName "struct3_t",
+            nameC = Name "struct3_t",
             nameHsIdent = HsIdentifier
               "Struct3_t"},
           declOrigin = NameOriginInSource,
@@ -1340,7 +1340,7 @@
                 "un_Struct3_t"},
             typedefType = TypeStruct
               NamePair {
-                nameC = CName "struct3",
+                nameC = Name "struct3",
                 nameHsIdent = HsIdentifier
                   "Struct3"}
               NameOriginInSource},
@@ -1390,7 +1390,7 @@
               structFieldLoc =
               "macro_in_fundecl_vs_typedef.h:21:30",
               structFieldName = NamePair {
-                nameC = CName "a",
+                nameC = Name "a",
                 nameHsIdent = HsIdentifier
                   "struct4_a"},
               structFieldType = TypePrim
@@ -1403,11 +1403,11 @@
             declLoc =
             "macro_in_fundecl_vs_typedef.h:21:16",
             declId = NamePair {
-              nameC = CName "struct4",
+              nameC = Name "struct4",
               nameHsIdent = HsIdentifier
                 "Struct4"},
             declOrigin = NameOriginInSource,
-            declAliases = [CName "struct4"],
+            declAliases = [Name "struct4"],
             declHeader =
             "macro_in_fundecl_vs_typedef.h"},
           declKind = Struct
@@ -1421,7 +1421,7 @@
                   structFieldLoc =
                   "macro_in_fundecl_vs_typedef.h:21:30",
                   structFieldName = NamePair {
-                    nameC = CName "a",
+                    nameC = Name "a",
                     nameHsIdent = HsIdentifier
                       "struct4_a"},
                   structFieldType = TypePrim
@@ -1458,7 +1458,7 @@
                 structFieldLoc =
                 "macro_in_fundecl_vs_typedef.h:21:30",
                 structFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "struct4_a"},
                 structFieldType = TypePrim
@@ -1471,11 +1471,11 @@
               declLoc =
               "macro_in_fundecl_vs_typedef.h:21:16",
               declId = NamePair {
-                nameC = CName "struct4",
+                nameC = Name "struct4",
                 nameHsIdent = HsIdentifier
                   "Struct4"},
               declOrigin = NameOriginInSource,
-              declAliases = [CName "struct4"],
+              declAliases = [Name "struct4"],
               declHeader =
               "macro_in_fundecl_vs_typedef.h"},
             declKind = Struct
@@ -1489,7 +1489,7 @@
                     structFieldLoc =
                     "macro_in_fundecl_vs_typedef.h:21:30",
                     structFieldName = NamePair {
-                      nameC = CName "a",
+                      nameC = Name "a",
                       nameHsIdent = HsIdentifier
                         "struct4_a"},
                     structFieldType = TypePrim
@@ -1531,7 +1531,7 @@
                         structFieldLoc =
                         "macro_in_fundecl_vs_typedef.h:21:30",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "struct4_a"},
                         structFieldType = TypePrim
@@ -1544,11 +1544,11 @@
                       declLoc =
                       "macro_in_fundecl_vs_typedef.h:21:16",
                       declId = NamePair {
-                        nameC = CName "struct4",
+                        nameC = Name "struct4",
                         nameHsIdent = HsIdentifier
                           "Struct4"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "struct4"],
+                      declAliases = [Name "struct4"],
                       declHeader =
                       "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
@@ -1562,7 +1562,7 @@
                             structFieldLoc =
                             "macro_in_fundecl_vs_typedef.h:21:30",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "struct4_a"},
                             structFieldType = TypePrim
@@ -1604,7 +1604,7 @@
                         structFieldLoc =
                         "macro_in_fundecl_vs_typedef.h:21:30",
                         structFieldName = NamePair {
-                          nameC = CName "a",
+                          nameC = Name "a",
                           nameHsIdent = HsIdentifier
                             "struct4_a"},
                         structFieldType = TypePrim
@@ -1617,11 +1617,11 @@
                       declLoc =
                       "macro_in_fundecl_vs_typedef.h:21:16",
                       declId = NamePair {
-                        nameC = CName "struct4",
+                        nameC = Name "struct4",
                         nameHsIdent = HsIdentifier
                           "Struct4"},
                       declOrigin = NameOriginInSource,
-                      declAliases = [CName "struct4"],
+                      declAliases = [Name "struct4"],
                       declHeader =
                       "macro_in_fundecl_vs_typedef.h"},
                     declKind = Struct
@@ -1635,7 +1635,7 @@
                             structFieldLoc =
                             "macro_in_fundecl_vs_typedef.h:21:30",
                             structFieldName = NamePair {
-                              nameC = CName "a",
+                              nameC = Name "a",
                               nameHsIdent = HsIdentifier
                                 "struct4_a"},
                             structFieldType = TypePrim
@@ -1699,10 +1699,10 @@
             TypePointer
               (TypeTypedef
                 (TypedefSquashed
-                  (CName "struct2")
+                  (Name "struct2")
                   (TypeStruct
                     NamePair {
-                      nameC = CName "struct2",
+                      nameC = Name "struct2",
                       nameHsIdent = HsIdentifier
                         "Struct2"}
                     (NameOriginGenerated
@@ -1710,7 +1710,7 @@
                         "macro_in_fundecl_vs_typedef.h:19:9"))))),
             TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
           functionRes = TypeVoid}},
@@ -1744,12 +1744,12 @@
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "struct3_t",
+                    nameC = Name "struct3_t",
                     nameHsIdent = HsIdentifier
                       "Struct3_t"})),
             TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
           functionRes = TypeVoid}},
@@ -1782,16 +1782,16 @@
             TypePointer
               (TypeTypedef
                 (TypedefSquashed
-                  (CName "struct4")
+                  (Name "struct4")
                   (TypeStruct
                     NamePair {
-                      nameC = CName "struct4",
+                      nameC = Name "struct4",
                       nameHsIdent = HsIdentifier
                         "Struct4"}
                     NameOriginInSource))),
             TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
           functionRes = TypeVoid}},
@@ -1824,13 +1824,13 @@
             TypePointer
               (TypeStruct
                 NamePair {
-                  nameC = CName "struct1",
+                  nameC = Name "struct1",
                   nameHsIdent = HsIdentifier
                     "Struct1"}
                 NameOriginInSource),
             TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
           functionRes = TypeVoid}},
@@ -1863,13 +1863,13 @@
             TypePointer
               (TypeStruct
                 NamePair {
-                  nameC = CName "struct3",
+                  nameC = Name "struct3",
                   nameHsIdent = HsIdentifier
                     "Struct3"}
                 NameOriginInSource),
             TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
           functionRes = TypeVoid}},
@@ -1902,13 +1902,13 @@
             TypePointer
               (TypeStruct
                 NamePair {
-                  nameC = CName "struct4",
+                  nameC = Name "struct4",
                   nameHsIdent = HsIdentifier
                     "Struct4"}
                 NameOriginInSource),
             TypeMacroTypedef
               NamePair {
-                nameC = CName "MC",
+                nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
           functionRes = TypeVoid}}]

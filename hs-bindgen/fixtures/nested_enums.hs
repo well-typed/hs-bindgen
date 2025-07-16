@@ -18,7 +18,7 @@
         declInfo = DeclInfo {
           declLoc = "nested_enums.h:2:14",
           declId = NamePair {
-            nameC = CName "enumA",
+            nameC = Name "enumA",
             nameHsIdent = HsIdentifier
               "EnumA"},
           declOrigin = NameOriginInSource,
@@ -42,7 +42,7 @@
                 enumConstantLoc =
                 "nested_enums.h:3:17",
                 enumConstantName = NamePair {
-                  nameC = CName "VALA_1",
+                  nameC = Name "VALA_1",
                   nameHsIdent = HsIdentifier
                     "VALA_1"},
                 enumConstantValue = 0},
@@ -50,7 +50,7 @@
                 enumConstantLoc =
                 "nested_enums.h:4:17",
                 enumConstantName = NamePair {
-                  nameC = CName "VALA_2",
+                  nameC = Name "VALA_2",
                   nameHsIdent = HsIdentifier
                     "VALA_2"},
                 enumConstantValue = 1}]},
@@ -276,7 +276,7 @@
           enumConstantLoc =
           "nested_enums.h:3:17",
           enumConstantName = NamePair {
-            nameC = CName "VALA_1",
+            nameC = Name "VALA_1",
             nameHsIdent = HsIdentifier
               "VALA_1"},
           enumConstantValue = 0}},
@@ -297,7 +297,7 @@
           enumConstantLoc =
           "nested_enums.h:4:17",
           enumConstantName = NamePair {
-            nameC = CName "VALA_2",
+            nameC = Name "VALA_2",
             nameHsIdent = HsIdentifier
               "VALA_2"},
           enumConstantValue = 1}},
@@ -323,12 +323,12 @@
               structFieldLoc =
               "nested_enums.h:5:11",
               structFieldName = NamePair {
-                nameC = CName "fieldA1",
+                nameC = Name "fieldA1",
                 nameHsIdent = HsIdentifier
                   "exA_fieldA1"},
               structFieldType = TypeEnum
                 NamePair {
-                  nameC = CName "enumA",
+                  nameC = Name "enumA",
                   nameHsIdent = HsIdentifier
                     "EnumA"}
                 NameOriginInSource,
@@ -339,7 +339,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_enums.h:1:8",
             declId = NamePair {
-              nameC = CName "exA",
+              nameC = Name "exA",
               nameHsIdent = HsIdentifier
                 "ExA"},
             declOrigin = NameOriginInSource,
@@ -356,12 +356,12 @@
                   structFieldLoc =
                   "nested_enums.h:5:11",
                   structFieldName = NamePair {
-                    nameC = CName "fieldA1",
+                    nameC = Name "fieldA1",
                     nameHsIdent = HsIdentifier
                       "exA_fieldA1"},
                   structFieldType = TypeEnum
                     NamePair {
-                      nameC = CName "enumA",
+                      nameC = Name "enumA",
                       nameHsIdent = HsIdentifier
                         "EnumA"}
                     NameOriginInSource,
@@ -399,12 +399,12 @@
                 structFieldLoc =
                 "nested_enums.h:5:11",
                 structFieldName = NamePair {
-                  nameC = CName "fieldA1",
+                  nameC = Name "fieldA1",
                   nameHsIdent = HsIdentifier
                     "exA_fieldA1"},
                 structFieldType = TypeEnum
                   NamePair {
-                    nameC = CName "enumA",
+                    nameC = Name "enumA",
                     nameHsIdent = HsIdentifier
                       "EnumA"}
                   NameOriginInSource,
@@ -415,7 +415,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_enums.h:1:8",
               declId = NamePair {
-                nameC = CName "exA",
+                nameC = Name "exA",
                 nameHsIdent = HsIdentifier
                   "ExA"},
               declOrigin = NameOriginInSource,
@@ -432,12 +432,12 @@
                     structFieldLoc =
                     "nested_enums.h:5:11",
                     structFieldName = NamePair {
-                      nameC = CName "fieldA1",
+                      nameC = Name "fieldA1",
                       nameHsIdent = HsIdentifier
                         "exA_fieldA1"},
                     structFieldType = TypeEnum
                       NamePair {
-                        nameC = CName "enumA",
+                        nameC = Name "enumA",
                         nameHsIdent = HsIdentifier
                           "EnumA"}
                       NameOriginInSource,
@@ -480,12 +480,12 @@
                         structFieldLoc =
                         "nested_enums.h:5:11",
                         structFieldName = NamePair {
-                          nameC = CName "fieldA1",
+                          nameC = Name "fieldA1",
                           nameHsIdent = HsIdentifier
                             "exA_fieldA1"},
                         structFieldType = TypeEnum
                           NamePair {
-                            nameC = CName "enumA",
+                            nameC = Name "enumA",
                             nameHsIdent = HsIdentifier
                               "EnumA"}
                           NameOriginInSource,
@@ -496,7 +496,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_enums.h:1:8",
                       declId = NamePair {
-                        nameC = CName "exA",
+                        nameC = Name "exA",
                         nameHsIdent = HsIdentifier
                           "ExA"},
                       declOrigin = NameOriginInSource,
@@ -513,12 +513,12 @@
                             structFieldLoc =
                             "nested_enums.h:5:11",
                             structFieldName = NamePair {
-                              nameC = CName "fieldA1",
+                              nameC = Name "fieldA1",
                               nameHsIdent = HsIdentifier
                                 "exA_fieldA1"},
                             structFieldType = TypeEnum
                               NamePair {
-                                nameC = CName "enumA",
+                                nameC = Name "enumA",
                                 nameHsIdent = HsIdentifier
                                   "EnumA"}
                               NameOriginInSource,
@@ -561,12 +561,12 @@
                         structFieldLoc =
                         "nested_enums.h:5:11",
                         structFieldName = NamePair {
-                          nameC = CName "fieldA1",
+                          nameC = Name "fieldA1",
                           nameHsIdent = HsIdentifier
                             "exA_fieldA1"},
                         structFieldType = TypeEnum
                           NamePair {
-                            nameC = CName "enumA",
+                            nameC = Name "enumA",
                             nameHsIdent = HsIdentifier
                               "EnumA"}
                           NameOriginInSource,
@@ -577,7 +577,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_enums.h:1:8",
                       declId = NamePair {
-                        nameC = CName "exA",
+                        nameC = Name "exA",
                         nameHsIdent = HsIdentifier
                           "ExA"},
                       declOrigin = NameOriginInSource,
@@ -594,12 +594,12 @@
                             structFieldLoc =
                             "nested_enums.h:5:11",
                             structFieldName = NamePair {
-                              nameC = CName "fieldA1",
+                              nameC = Name "fieldA1",
                               nameHsIdent = HsIdentifier
                                 "exA_fieldA1"},
                             structFieldType = TypeEnum
                               NamePair {
-                                nameC = CName "enumA",
+                                nameC = Name "enumA",
                                 nameHsIdent = HsIdentifier
                                   "EnumA"}
                               NameOriginInSource,
@@ -648,7 +648,7 @@
         declInfo = DeclInfo {
           declLoc = "nested_enums.h:9:9",
           declId = NamePair {
-            nameC = CName "exB_fieldB1",
+            nameC = Name "exB_fieldB1",
             nameHsIdent = HsIdentifier
               "ExB_fieldB1"},
           declOrigin = NameOriginGenerated
@@ -673,7 +673,7 @@
                 enumConstantLoc =
                 "nested_enums.h:10:17",
                 enumConstantName = NamePair {
-                  nameC = CName "VALB_1",
+                  nameC = Name "VALB_1",
                   nameHsIdent = HsIdentifier
                     "VALB_1"},
                 enumConstantValue = 0},
@@ -681,7 +681,7 @@
                 enumConstantLoc =
                 "nested_enums.h:11:17",
                 enumConstantName = NamePair {
-                  nameC = CName "VALB_2",
+                  nameC = Name "VALB_2",
                   nameHsIdent = HsIdentifier
                     "VALB_2"},
                 enumConstantValue = 1}]},
@@ -907,7 +907,7 @@
           enumConstantLoc =
           "nested_enums.h:10:17",
           enumConstantName = NamePair {
-            nameC = CName "VALB_1",
+            nameC = Name "VALB_1",
             nameHsIdent = HsIdentifier
               "VALB_1"},
           enumConstantValue = 0}},
@@ -928,7 +928,7 @@
           enumConstantLoc =
           "nested_enums.h:11:17",
           enumConstantName = NamePair {
-            nameC = CName "VALB_2",
+            nameC = Name "VALB_2",
             nameHsIdent = HsIdentifier
               "VALB_2"},
           enumConstantValue = 1}},
@@ -954,12 +954,12 @@
               structFieldLoc =
               "nested_enums.h:12:11",
               structFieldName = NamePair {
-                nameC = CName "fieldB1",
+                nameC = Name "fieldB1",
                 nameHsIdent = HsIdentifier
                   "exB_fieldB1"},
               structFieldType = TypeEnum
                 NamePair {
-                  nameC = CName "exB_fieldB1",
+                  nameC = Name "exB_fieldB1",
                   nameHsIdent = HsIdentifier
                     "ExB_fieldB1"}
                 (NameOriginGenerated
@@ -971,7 +971,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_enums.h:8:8",
             declId = NamePair {
-              nameC = CName "exB",
+              nameC = Name "exB",
               nameHsIdent = HsIdentifier
                 "ExB"},
             declOrigin = NameOriginInSource,
@@ -988,12 +988,12 @@
                   structFieldLoc =
                   "nested_enums.h:12:11",
                   structFieldName = NamePair {
-                    nameC = CName "fieldB1",
+                    nameC = Name "fieldB1",
                     nameHsIdent = HsIdentifier
                       "exB_fieldB1"},
                   structFieldType = TypeEnum
                     NamePair {
-                      nameC = CName "exB_fieldB1",
+                      nameC = Name "exB_fieldB1",
                       nameHsIdent = HsIdentifier
                         "ExB_fieldB1"}
                     (NameOriginGenerated
@@ -1032,12 +1032,12 @@
                 structFieldLoc =
                 "nested_enums.h:12:11",
                 structFieldName = NamePair {
-                  nameC = CName "fieldB1",
+                  nameC = Name "fieldB1",
                   nameHsIdent = HsIdentifier
                     "exB_fieldB1"},
                 structFieldType = TypeEnum
                   NamePair {
-                    nameC = CName "exB_fieldB1",
+                    nameC = Name "exB_fieldB1",
                     nameHsIdent = HsIdentifier
                       "ExB_fieldB1"}
                   (NameOriginGenerated
@@ -1049,7 +1049,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_enums.h:8:8",
               declId = NamePair {
-                nameC = CName "exB",
+                nameC = Name "exB",
                 nameHsIdent = HsIdentifier
                   "ExB"},
               declOrigin = NameOriginInSource,
@@ -1066,12 +1066,12 @@
                     structFieldLoc =
                     "nested_enums.h:12:11",
                     structFieldName = NamePair {
-                      nameC = CName "fieldB1",
+                      nameC = Name "fieldB1",
                       nameHsIdent = HsIdentifier
                         "exB_fieldB1"},
                     structFieldType = TypeEnum
                       NamePair {
-                        nameC = CName "exB_fieldB1",
+                        nameC = Name "exB_fieldB1",
                         nameHsIdent = HsIdentifier
                           "ExB_fieldB1"}
                       (NameOriginGenerated
@@ -1115,12 +1115,12 @@
                         structFieldLoc =
                         "nested_enums.h:12:11",
                         structFieldName = NamePair {
-                          nameC = CName "fieldB1",
+                          nameC = Name "fieldB1",
                           nameHsIdent = HsIdentifier
                             "exB_fieldB1"},
                         structFieldType = TypeEnum
                           NamePair {
-                            nameC = CName "exB_fieldB1",
+                            nameC = Name "exB_fieldB1",
                             nameHsIdent = HsIdentifier
                               "ExB_fieldB1"}
                           (NameOriginGenerated
@@ -1132,7 +1132,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_enums.h:8:8",
                       declId = NamePair {
-                        nameC = CName "exB",
+                        nameC = Name "exB",
                         nameHsIdent = HsIdentifier
                           "ExB"},
                       declOrigin = NameOriginInSource,
@@ -1149,12 +1149,12 @@
                             structFieldLoc =
                             "nested_enums.h:12:11",
                             structFieldName = NamePair {
-                              nameC = CName "fieldB1",
+                              nameC = Name "fieldB1",
                               nameHsIdent = HsIdentifier
                                 "exB_fieldB1"},
                             structFieldType = TypeEnum
                               NamePair {
-                                nameC = CName "exB_fieldB1",
+                                nameC = Name "exB_fieldB1",
                                 nameHsIdent = HsIdentifier
                                   "ExB_fieldB1"}
                               (NameOriginGenerated
@@ -1198,12 +1198,12 @@
                         structFieldLoc =
                         "nested_enums.h:12:11",
                         structFieldName = NamePair {
-                          nameC = CName "fieldB1",
+                          nameC = Name "fieldB1",
                           nameHsIdent = HsIdentifier
                             "exB_fieldB1"},
                         structFieldType = TypeEnum
                           NamePair {
-                            nameC = CName "exB_fieldB1",
+                            nameC = Name "exB_fieldB1",
                             nameHsIdent = HsIdentifier
                               "ExB_fieldB1"}
                           (NameOriginGenerated
@@ -1215,7 +1215,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_enums.h:8:8",
                       declId = NamePair {
-                        nameC = CName "exB",
+                        nameC = Name "exB",
                         nameHsIdent = HsIdentifier
                           "ExB"},
                       declOrigin = NameOriginInSource,
@@ -1232,12 +1232,12 @@
                             structFieldLoc =
                             "nested_enums.h:12:11",
                             structFieldName = NamePair {
-                              nameC = CName "fieldB1",
+                              nameC = Name "fieldB1",
                               nameHsIdent = HsIdentifier
                                 "exB_fieldB1"},
                             structFieldType = TypeEnum
                               NamePair {
-                                nameC = CName "exB_fieldB1",
+                                nameC = Name "exB_fieldB1",
                                 nameHsIdent = HsIdentifier
                                   "ExB_fieldB1"}
                               (NameOriginGenerated

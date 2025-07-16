@@ -128,13 +128,13 @@
               structFieldLoc =
               "fixedwidth.h:4:11",
               structFieldName = NamePair {
-                nameC = CName "sixty_four",
+                nameC = Name "sixty_four",
                 nameHsIdent = HsIdentifier
                   "foo_sixty_four"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint64_t",
+                    qualNameName = Name "uint64_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -369,13 +369,13 @@
               structFieldLoc =
               "fixedwidth.h:5:11",
               structFieldName = NamePair {
-                nameC = CName "thirty_two",
+                nameC = Name "thirty_two",
                 nameHsIdent = HsIdentifier
                   "foo_thirty_two"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint32_t",
+                    qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -495,7 +495,7 @@
           declInfo = DeclInfo {
             declLoc = "fixedwidth.h:3:8",
             declId = NamePair {
-              nameC = CName "foo",
+              nameC = Name "foo",
               nameHsIdent = HsIdentifier
                 "Foo"},
             declOrigin = NameOriginInSource,
@@ -512,13 +512,13 @@
                   structFieldLoc =
                   "fixedwidth.h:4:11",
                   structFieldName = NamePair {
-                    nameC = CName "sixty_four",
+                    nameC = Name "sixty_four",
                     nameHsIdent = HsIdentifier
                       "foo_sixty_four"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint64_t",
+                        qualNameName = Name "uint64_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -637,13 +637,13 @@
                   structFieldLoc =
                   "fixedwidth.h:5:11",
                   structFieldName = NamePair {
-                    nameC = CName "thirty_two",
+                    nameC = Name "thirty_two",
                     nameHsIdent = HsIdentifier
                       "foo_thirty_two"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint32_t",
+                        qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -897,13 +897,13 @@
                 structFieldLoc =
                 "fixedwidth.h:4:11",
                 structFieldName = NamePair {
-                  nameC = CName "sixty_four",
+                  nameC = Name "sixty_four",
                   nameHsIdent = HsIdentifier
                     "foo_sixty_four"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint64_t",
+                      qualNameName = Name "uint64_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -1138,13 +1138,13 @@
                 structFieldLoc =
                 "fixedwidth.h:5:11",
                 structFieldName = NamePair {
-                  nameC = CName "thirty_two",
+                  nameC = Name "thirty_two",
                   nameHsIdent = HsIdentifier
                     "foo_thirty_two"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint32_t",
+                      qualNameName = Name "uint32_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -1264,7 +1264,7 @@
             declInfo = DeclInfo {
               declLoc = "fixedwidth.h:3:8",
               declId = NamePair {
-                nameC = CName "foo",
+                nameC = Name "foo",
                 nameHsIdent = HsIdentifier
                   "Foo"},
               declOrigin = NameOriginInSource,
@@ -1281,13 +1281,13 @@
                     structFieldLoc =
                     "fixedwidth.h:4:11",
                     structFieldName = NamePair {
-                      nameC = CName "sixty_four",
+                      nameC = Name "sixty_four",
                       nameHsIdent = HsIdentifier
                         "foo_sixty_four"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint64_t",
+                          qualNameName = Name "uint64_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -1406,13 +1406,13 @@
                     structFieldLoc =
                     "fixedwidth.h:5:11",
                     structFieldName = NamePair {
-                      nameC = CName "thirty_two",
+                      nameC = Name "thirty_two",
                       nameHsIdent = HsIdentifier
                         "foo_thirty_two"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint32_t",
+                          qualNameName = Name "uint32_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -1671,13 +1671,13 @@
                         structFieldLoc =
                         "fixedwidth.h:4:11",
                         structFieldName = NamePair {
-                          nameC = CName "sixty_four",
+                          nameC = Name "sixty_four",
                           nameHsIdent = HsIdentifier
                             "foo_sixty_four"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint64_t",
+                              qualNameName = Name "uint64_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -1912,13 +1912,13 @@
                         structFieldLoc =
                         "fixedwidth.h:5:11",
                         structFieldName = NamePair {
-                          nameC = CName "thirty_two",
+                          nameC = Name "thirty_two",
                           nameHsIdent = HsIdentifier
                             "foo_thirty_two"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint32_t",
+                              qualNameName = Name "uint32_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -2038,7 +2038,7 @@
                     declInfo = DeclInfo {
                       declLoc = "fixedwidth.h:3:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -2055,13 +2055,13 @@
                             structFieldLoc =
                             "fixedwidth.h:4:11",
                             structFieldName = NamePair {
-                              nameC = CName "sixty_four",
+                              nameC = Name "sixty_four",
                               nameHsIdent = HsIdentifier
                                 "foo_sixty_four"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint64_t",
+                                  qualNameName = Name "uint64_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -2180,13 +2180,13 @@
                             structFieldLoc =
                             "fixedwidth.h:5:11",
                             structFieldName = NamePair {
-                              nameC = CName "thirty_two",
+                              nameC = Name "thirty_two",
                               nameHsIdent = HsIdentifier
                                 "foo_thirty_two"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint32_t",
+                                  qualNameName = Name "uint32_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -2447,13 +2447,13 @@
                         structFieldLoc =
                         "fixedwidth.h:4:11",
                         structFieldName = NamePair {
-                          nameC = CName "sixty_four",
+                          nameC = Name "sixty_four",
                           nameHsIdent = HsIdentifier
                             "foo_sixty_four"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint64_t",
+                              qualNameName = Name "uint64_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -2688,13 +2688,13 @@
                         structFieldLoc =
                         "fixedwidth.h:5:11",
                         structFieldName = NamePair {
-                          nameC = CName "thirty_two",
+                          nameC = Name "thirty_two",
                           nameHsIdent = HsIdentifier
                             "foo_thirty_two"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint32_t",
+                              qualNameName = Name "uint32_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -2814,7 +2814,7 @@
                     declInfo = DeclInfo {
                       declLoc = "fixedwidth.h:3:8",
                       declId = NamePair {
-                        nameC = CName "foo",
+                        nameC = Name "foo",
                         nameHsIdent = HsIdentifier
                           "Foo"},
                       declOrigin = NameOriginInSource,
@@ -2831,13 +2831,13 @@
                             structFieldLoc =
                             "fixedwidth.h:4:11",
                             structFieldName = NamePair {
-                              nameC = CName "sixty_four",
+                              nameC = Name "sixty_four",
                               nameHsIdent = HsIdentifier
                                 "foo_sixty_four"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint64_t",
+                                  qualNameName = Name "uint64_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -2956,13 +2956,13 @@
                             structFieldLoc =
                             "fixedwidth.h:5:11",
                             structFieldName = NamePair {
-                              nameC = CName "thirty_two",
+                              nameC = Name "thirty_two",
                               nameHsIdent = HsIdentifier
                                 "foo_thirty_two"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint32_t",
+                                  qualNameName = Name "uint32_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {

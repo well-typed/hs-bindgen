@@ -19,7 +19,7 @@
               structFieldLoc =
               "bitfields.h:2:10",
               structFieldName = NamePair {
-                nameC = CName "fieldX",
+                nameC = Name "fieldX",
                 nameHsIdent = HsIdentifier
                   "flags_fieldX"},
               structFieldType = TypePrim
@@ -39,7 +39,7 @@
               structFieldLoc =
               "bitfields.h:3:9",
               structFieldName = NamePair {
-                nameC = CName "flagA",
+                nameC = Name "flagA",
                 nameHsIdent = HsIdentifier
                   "flags_flagA"},
               structFieldType = TypePrim
@@ -57,7 +57,7 @@
               structFieldLoc =
               "bitfields.h:4:9",
               structFieldName = NamePair {
-                nameC = CName "flagB",
+                nameC = Name "flagB",
                 nameHsIdent = HsIdentifier
                   "flags_flagB"},
               structFieldType = TypePrim
@@ -75,7 +75,7 @@
               structFieldLoc =
               "bitfields.h:5:9",
               structFieldName = NamePair {
-                nameC = CName "flagC",
+                nameC = Name "flagC",
                 nameHsIdent = HsIdentifier
                   "flags_flagC"},
               structFieldType = TypePrim
@@ -93,7 +93,7 @@
               structFieldLoc =
               "bitfields.h:6:10",
               structFieldName = NamePair {
-                nameC = CName "fieldY",
+                nameC = Name "fieldY",
                 nameHsIdent = HsIdentifier
                   "flags_fieldY"},
               structFieldType = TypePrim
@@ -113,7 +113,7 @@
               structFieldLoc =
               "bitfields.h:7:9",
               structFieldName = NamePair {
-                nameC = CName "bits",
+                nameC = Name "bits",
                 nameHsIdent = HsIdentifier
                   "flags_bits"},
               structFieldType = TypePrim
@@ -125,7 +125,7 @@
           declInfo = DeclInfo {
             declLoc = "bitfields.h:1:8",
             declId = NamePair {
-              nameC = CName "flags",
+              nameC = Name "flags",
               nameHsIdent = HsIdentifier
                 "Flags"},
             declOrigin = NameOriginInSource,
@@ -142,7 +142,7 @@
                   structFieldLoc =
                   "bitfields.h:2:10",
                   structFieldName = NamePair {
-                    nameC = CName "fieldX",
+                    nameC = Name "fieldX",
                     nameHsIdent = HsIdentifier
                       "flags_fieldX"},
                   structFieldType = TypePrim
@@ -155,7 +155,7 @@
                   structFieldLoc =
                   "bitfields.h:3:9",
                   structFieldName = NamePair {
-                    nameC = CName "flagA",
+                    nameC = Name "flagA",
                     nameHsIdent = HsIdentifier
                       "flags_flagA"},
                   structFieldType = TypePrim
@@ -166,7 +166,7 @@
                   structFieldLoc =
                   "bitfields.h:4:9",
                   structFieldName = NamePair {
-                    nameC = CName "flagB",
+                    nameC = Name "flagB",
                     nameHsIdent = HsIdentifier
                       "flags_flagB"},
                   structFieldType = TypePrim
@@ -177,7 +177,7 @@
                   structFieldLoc =
                   "bitfields.h:5:9",
                   structFieldName = NamePair {
-                    nameC = CName "flagC",
+                    nameC = Name "flagC",
                     nameHsIdent = HsIdentifier
                       "flags_flagC"},
                   structFieldType = TypePrim
@@ -188,7 +188,7 @@
                   structFieldLoc =
                   "bitfields.h:6:10",
                   structFieldName = NamePair {
-                    nameC = CName "fieldY",
+                    nameC = Name "fieldY",
                     nameHsIdent = HsIdentifier
                       "flags_fieldY"},
                   structFieldType = TypePrim
@@ -201,7 +201,7 @@
                   structFieldLoc =
                   "bitfields.h:7:9",
                   structFieldName = NamePair {
-                    nameC = CName "bits",
+                    nameC = Name "bits",
                     nameHsIdent = HsIdentifier
                       "flags_bits"},
                   structFieldType = TypePrim
@@ -238,7 +238,7 @@
                 structFieldLoc =
                 "bitfields.h:2:10",
                 structFieldName = NamePair {
-                  nameC = CName "fieldX",
+                  nameC = Name "fieldX",
                   nameHsIdent = HsIdentifier
                     "flags_fieldX"},
                 structFieldType = TypePrim
@@ -258,7 +258,7 @@
                 structFieldLoc =
                 "bitfields.h:3:9",
                 structFieldName = NamePair {
-                  nameC = CName "flagA",
+                  nameC = Name "flagA",
                   nameHsIdent = HsIdentifier
                     "flags_flagA"},
                 structFieldType = TypePrim
@@ -276,7 +276,7 @@
                 structFieldLoc =
                 "bitfields.h:4:9",
                 structFieldName = NamePair {
-                  nameC = CName "flagB",
+                  nameC = Name "flagB",
                   nameHsIdent = HsIdentifier
                     "flags_flagB"},
                 structFieldType = TypePrim
@@ -294,7 +294,7 @@
                 structFieldLoc =
                 "bitfields.h:5:9",
                 structFieldName = NamePair {
-                  nameC = CName "flagC",
+                  nameC = Name "flagC",
                   nameHsIdent = HsIdentifier
                     "flags_flagC"},
                 structFieldType = TypePrim
@@ -312,7 +312,7 @@
                 structFieldLoc =
                 "bitfields.h:6:10",
                 structFieldName = NamePair {
-                  nameC = CName "fieldY",
+                  nameC = Name "fieldY",
                   nameHsIdent = HsIdentifier
                     "flags_fieldY"},
                 structFieldType = TypePrim
@@ -332,7 +332,7 @@
                 structFieldLoc =
                 "bitfields.h:7:9",
                 structFieldName = NamePair {
-                  nameC = CName "bits",
+                  nameC = Name "bits",
                   nameHsIdent = HsIdentifier
                     "flags_bits"},
                 structFieldType = TypePrim
@@ -344,7 +344,7 @@
             declInfo = DeclInfo {
               declLoc = "bitfields.h:1:8",
               declId = NamePair {
-                nameC = CName "flags",
+                nameC = Name "flags",
                 nameHsIdent = HsIdentifier
                   "Flags"},
               declOrigin = NameOriginInSource,
@@ -361,7 +361,7 @@
                     structFieldLoc =
                     "bitfields.h:2:10",
                     structFieldName = NamePair {
-                      nameC = CName "fieldX",
+                      nameC = Name "fieldX",
                       nameHsIdent = HsIdentifier
                         "flags_fieldX"},
                     structFieldType = TypePrim
@@ -374,7 +374,7 @@
                     structFieldLoc =
                     "bitfields.h:3:9",
                     structFieldName = NamePair {
-                      nameC = CName "flagA",
+                      nameC = Name "flagA",
                       nameHsIdent = HsIdentifier
                         "flags_flagA"},
                     structFieldType = TypePrim
@@ -385,7 +385,7 @@
                     structFieldLoc =
                     "bitfields.h:4:9",
                     structFieldName = NamePair {
-                      nameC = CName "flagB",
+                      nameC = Name "flagB",
                       nameHsIdent = HsIdentifier
                         "flags_flagB"},
                     structFieldType = TypePrim
@@ -396,7 +396,7 @@
                     structFieldLoc =
                     "bitfields.h:5:9",
                     structFieldName = NamePair {
-                      nameC = CName "flagC",
+                      nameC = Name "flagC",
                       nameHsIdent = HsIdentifier
                         "flags_flagC"},
                     structFieldType = TypePrim
@@ -407,7 +407,7 @@
                     structFieldLoc =
                     "bitfields.h:6:10",
                     structFieldName = NamePair {
-                      nameC = CName "fieldY",
+                      nameC = Name "fieldY",
                       nameHsIdent = HsIdentifier
                         "flags_fieldY"},
                     structFieldType = TypePrim
@@ -420,7 +420,7 @@
                     structFieldLoc =
                     "bitfields.h:7:9",
                     structFieldName = NamePair {
-                      nameC = CName "bits",
+                      nameC = Name "bits",
                       nameHsIdent = HsIdentifier
                         "flags_bits"},
                     structFieldType = TypePrim
@@ -462,7 +462,7 @@
                         structFieldLoc =
                         "bitfields.h:2:10",
                         structFieldName = NamePair {
-                          nameC = CName "fieldX",
+                          nameC = Name "fieldX",
                           nameHsIdent = HsIdentifier
                             "flags_fieldX"},
                         structFieldType = TypePrim
@@ -482,7 +482,7 @@
                         structFieldLoc =
                         "bitfields.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "flagA",
+                          nameC = Name "flagA",
                           nameHsIdent = HsIdentifier
                             "flags_flagA"},
                         structFieldType = TypePrim
@@ -500,7 +500,7 @@
                         structFieldLoc =
                         "bitfields.h:4:9",
                         structFieldName = NamePair {
-                          nameC = CName "flagB",
+                          nameC = Name "flagB",
                           nameHsIdent = HsIdentifier
                             "flags_flagB"},
                         structFieldType = TypePrim
@@ -518,7 +518,7 @@
                         structFieldLoc =
                         "bitfields.h:5:9",
                         structFieldName = NamePair {
-                          nameC = CName "flagC",
+                          nameC = Name "flagC",
                           nameHsIdent = HsIdentifier
                             "flags_flagC"},
                         structFieldType = TypePrim
@@ -536,7 +536,7 @@
                         structFieldLoc =
                         "bitfields.h:6:10",
                         structFieldName = NamePair {
-                          nameC = CName "fieldY",
+                          nameC = Name "fieldY",
                           nameHsIdent = HsIdentifier
                             "flags_fieldY"},
                         structFieldType = TypePrim
@@ -556,7 +556,7 @@
                         structFieldLoc =
                         "bitfields.h:7:9",
                         structFieldName = NamePair {
-                          nameC = CName "bits",
+                          nameC = Name "bits",
                           nameHsIdent = HsIdentifier
                             "flags_bits"},
                         structFieldType = TypePrim
@@ -568,7 +568,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:1:8",
                       declId = NamePair {
-                        nameC = CName "flags",
+                        nameC = Name "flags",
                         nameHsIdent = HsIdentifier
                           "Flags"},
                       declOrigin = NameOriginInSource,
@@ -585,7 +585,7 @@
                             structFieldLoc =
                             "bitfields.h:2:10",
                             structFieldName = NamePair {
-                              nameC = CName "fieldX",
+                              nameC = Name "fieldX",
                               nameHsIdent = HsIdentifier
                                 "flags_fieldX"},
                             structFieldType = TypePrim
@@ -598,7 +598,7 @@
                             structFieldLoc =
                             "bitfields.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "flagA",
+                              nameC = Name "flagA",
                               nameHsIdent = HsIdentifier
                                 "flags_flagA"},
                             structFieldType = TypePrim
@@ -609,7 +609,7 @@
                             structFieldLoc =
                             "bitfields.h:4:9",
                             structFieldName = NamePair {
-                              nameC = CName "flagB",
+                              nameC = Name "flagB",
                               nameHsIdent = HsIdentifier
                                 "flags_flagB"},
                             structFieldType = TypePrim
@@ -620,7 +620,7 @@
                             structFieldLoc =
                             "bitfields.h:5:9",
                             structFieldName = NamePair {
-                              nameC = CName "flagC",
+                              nameC = Name "flagC",
                               nameHsIdent = HsIdentifier
                                 "flags_flagC"},
                             structFieldType = TypePrim
@@ -631,7 +631,7 @@
                             structFieldLoc =
                             "bitfields.h:6:10",
                             structFieldName = NamePair {
-                              nameC = CName "fieldY",
+                              nameC = Name "fieldY",
                               nameHsIdent = HsIdentifier
                                 "flags_fieldY"},
                             structFieldType = TypePrim
@@ -644,7 +644,7 @@
                             structFieldLoc =
                             "bitfields.h:7:9",
                             structFieldName = NamePair {
-                              nameC = CName "bits",
+                              nameC = Name "bits",
                               nameHsIdent = HsIdentifier
                                 "flags_bits"},
                             structFieldType = TypePrim
@@ -692,7 +692,7 @@
                         structFieldLoc =
                         "bitfields.h:2:10",
                         structFieldName = NamePair {
-                          nameC = CName "fieldX",
+                          nameC = Name "fieldX",
                           nameHsIdent = HsIdentifier
                             "flags_fieldX"},
                         structFieldType = TypePrim
@@ -712,7 +712,7 @@
                         structFieldLoc =
                         "bitfields.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "flagA",
+                          nameC = Name "flagA",
                           nameHsIdent = HsIdentifier
                             "flags_flagA"},
                         structFieldType = TypePrim
@@ -730,7 +730,7 @@
                         structFieldLoc =
                         "bitfields.h:4:9",
                         structFieldName = NamePair {
-                          nameC = CName "flagB",
+                          nameC = Name "flagB",
                           nameHsIdent = HsIdentifier
                             "flags_flagB"},
                         structFieldType = TypePrim
@@ -748,7 +748,7 @@
                         structFieldLoc =
                         "bitfields.h:5:9",
                         structFieldName = NamePair {
-                          nameC = CName "flagC",
+                          nameC = Name "flagC",
                           nameHsIdent = HsIdentifier
                             "flags_flagC"},
                         structFieldType = TypePrim
@@ -766,7 +766,7 @@
                         structFieldLoc =
                         "bitfields.h:6:10",
                         structFieldName = NamePair {
-                          nameC = CName "fieldY",
+                          nameC = Name "fieldY",
                           nameHsIdent = HsIdentifier
                             "flags_fieldY"},
                         structFieldType = TypePrim
@@ -786,7 +786,7 @@
                         structFieldLoc =
                         "bitfields.h:7:9",
                         structFieldName = NamePair {
-                          nameC = CName "bits",
+                          nameC = Name "bits",
                           nameHsIdent = HsIdentifier
                             "flags_bits"},
                         structFieldType = TypePrim
@@ -798,7 +798,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:1:8",
                       declId = NamePair {
-                        nameC = CName "flags",
+                        nameC = Name "flags",
                         nameHsIdent = HsIdentifier
                           "Flags"},
                       declOrigin = NameOriginInSource,
@@ -815,7 +815,7 @@
                             structFieldLoc =
                             "bitfields.h:2:10",
                             structFieldName = NamePair {
-                              nameC = CName "fieldX",
+                              nameC = Name "fieldX",
                               nameHsIdent = HsIdentifier
                                 "flags_fieldX"},
                             structFieldType = TypePrim
@@ -828,7 +828,7 @@
                             structFieldLoc =
                             "bitfields.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "flagA",
+                              nameC = Name "flagA",
                               nameHsIdent = HsIdentifier
                                 "flags_flagA"},
                             structFieldType = TypePrim
@@ -839,7 +839,7 @@
                             structFieldLoc =
                             "bitfields.h:4:9",
                             structFieldName = NamePair {
-                              nameC = CName "flagB",
+                              nameC = Name "flagB",
                               nameHsIdent = HsIdentifier
                                 "flags_flagB"},
                             structFieldType = TypePrim
@@ -850,7 +850,7 @@
                             structFieldLoc =
                             "bitfields.h:5:9",
                             structFieldName = NamePair {
-                              nameC = CName "flagC",
+                              nameC = Name "flagC",
                               nameHsIdent = HsIdentifier
                                 "flags_flagC"},
                             structFieldType = TypePrim
@@ -861,7 +861,7 @@
                             structFieldLoc =
                             "bitfields.h:6:10",
                             structFieldName = NamePair {
-                              nameC = CName "fieldY",
+                              nameC = Name "fieldY",
                               nameHsIdent = HsIdentifier
                                 "flags_fieldY"},
                             structFieldType = TypePrim
@@ -874,7 +874,7 @@
                             structFieldLoc =
                             "bitfields.h:7:9",
                             structFieldName = NamePair {
-                              nameC = CName "bits",
+                              nameC = Name "bits",
                               nameHsIdent = HsIdentifier
                                 "flags_bits"},
                             structFieldType = TypePrim
@@ -947,7 +947,7 @@
               structFieldLoc =
               "bitfields.h:13:9",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "overflow32_x"},
               structFieldType = TypePrim
@@ -965,7 +965,7 @@
               structFieldLoc =
               "bitfields.h:14:9",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "overflow32_y"},
               structFieldType = TypePrim
@@ -983,7 +983,7 @@
               structFieldLoc =
               "bitfields.h:15:9",
               structFieldName = NamePair {
-                nameC = CName "z",
+                nameC = Name "z",
                 nameHsIdent = HsIdentifier
                   "overflow32_z"},
               structFieldType = TypePrim
@@ -995,7 +995,7 @@
           declInfo = DeclInfo {
             declLoc = "bitfields.h:12:8",
             declId = NamePair {
-              nameC = CName "overflow32",
+              nameC = Name "overflow32",
               nameHsIdent = HsIdentifier
                 "Overflow32"},
             declOrigin = NameOriginInSource,
@@ -1014,7 +1014,7 @@
                   structFieldLoc =
                   "bitfields.h:13:9",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "overflow32_x"},
                   structFieldType = TypePrim
@@ -1025,7 +1025,7 @@
                   structFieldLoc =
                   "bitfields.h:14:9",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "overflow32_y"},
                   structFieldType = TypePrim
@@ -1036,7 +1036,7 @@
                   structFieldLoc =
                   "bitfields.h:15:9",
                   structFieldName = NamePair {
-                    nameC = CName "z",
+                    nameC = Name "z",
                     nameHsIdent = HsIdentifier
                       "overflow32_z"},
                   structFieldType = TypePrim
@@ -1073,7 +1073,7 @@
                 structFieldLoc =
                 "bitfields.h:13:9",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "overflow32_x"},
                 structFieldType = TypePrim
@@ -1091,7 +1091,7 @@
                 structFieldLoc =
                 "bitfields.h:14:9",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "overflow32_y"},
                 structFieldType = TypePrim
@@ -1109,7 +1109,7 @@
                 structFieldLoc =
                 "bitfields.h:15:9",
                 structFieldName = NamePair {
-                  nameC = CName "z",
+                  nameC = Name "z",
                   nameHsIdent = HsIdentifier
                     "overflow32_z"},
                 structFieldType = TypePrim
@@ -1121,7 +1121,7 @@
             declInfo = DeclInfo {
               declLoc = "bitfields.h:12:8",
               declId = NamePair {
-                nameC = CName "overflow32",
+                nameC = Name "overflow32",
                 nameHsIdent = HsIdentifier
                   "Overflow32"},
               declOrigin = NameOriginInSource,
@@ -1140,7 +1140,7 @@
                     structFieldLoc =
                     "bitfields.h:13:9",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "overflow32_x"},
                     structFieldType = TypePrim
@@ -1151,7 +1151,7 @@
                     structFieldLoc =
                     "bitfields.h:14:9",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "overflow32_y"},
                     structFieldType = TypePrim
@@ -1162,7 +1162,7 @@
                     structFieldLoc =
                     "bitfields.h:15:9",
                     structFieldName = NamePair {
-                      nameC = CName "z",
+                      nameC = Name "z",
                       nameHsIdent = HsIdentifier
                         "overflow32_z"},
                     structFieldType = TypePrim
@@ -1204,7 +1204,7 @@
                         structFieldLoc =
                         "bitfields.h:13:9",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "overflow32_x"},
                         structFieldType = TypePrim
@@ -1222,7 +1222,7 @@
                         structFieldLoc =
                         "bitfields.h:14:9",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "overflow32_y"},
                         structFieldType = TypePrim
@@ -1240,7 +1240,7 @@
                         structFieldLoc =
                         "bitfields.h:15:9",
                         structFieldName = NamePair {
-                          nameC = CName "z",
+                          nameC = Name "z",
                           nameHsIdent = HsIdentifier
                             "overflow32_z"},
                         structFieldType = TypePrim
@@ -1252,7 +1252,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:12:8",
                       declId = NamePair {
-                        nameC = CName "overflow32",
+                        nameC = Name "overflow32",
                         nameHsIdent = HsIdentifier
                           "Overflow32"},
                       declOrigin = NameOriginInSource,
@@ -1271,7 +1271,7 @@
                             structFieldLoc =
                             "bitfields.h:13:9",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "overflow32_x"},
                             structFieldType = TypePrim
@@ -1282,7 +1282,7 @@
                             structFieldLoc =
                             "bitfields.h:14:9",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "overflow32_y"},
                             structFieldType = TypePrim
@@ -1293,7 +1293,7 @@
                             structFieldLoc =
                             "bitfields.h:15:9",
                             structFieldName = NamePair {
-                              nameC = CName "z",
+                              nameC = Name "z",
                               nameHsIdent = HsIdentifier
                                 "overflow32_z"},
                             structFieldType = TypePrim
@@ -1338,7 +1338,7 @@
                         structFieldLoc =
                         "bitfields.h:13:9",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "overflow32_x"},
                         structFieldType = TypePrim
@@ -1356,7 +1356,7 @@
                         structFieldLoc =
                         "bitfields.h:14:9",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "overflow32_y"},
                         structFieldType = TypePrim
@@ -1374,7 +1374,7 @@
                         structFieldLoc =
                         "bitfields.h:15:9",
                         structFieldName = NamePair {
-                          nameC = CName "z",
+                          nameC = Name "z",
                           nameHsIdent = HsIdentifier
                             "overflow32_z"},
                         structFieldType = TypePrim
@@ -1386,7 +1386,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:12:8",
                       declId = NamePair {
-                        nameC = CName "overflow32",
+                        nameC = Name "overflow32",
                         nameHsIdent = HsIdentifier
                           "Overflow32"},
                       declOrigin = NameOriginInSource,
@@ -1405,7 +1405,7 @@
                             structFieldLoc =
                             "bitfields.h:13:9",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "overflow32_x"},
                             structFieldType = TypePrim
@@ -1416,7 +1416,7 @@
                             structFieldLoc =
                             "bitfields.h:14:9",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "overflow32_y"},
                             structFieldType = TypePrim
@@ -1427,7 +1427,7 @@
                             structFieldLoc =
                             "bitfields.h:15:9",
                             structFieldName = NamePair {
-                              nameC = CName "z",
+                              nameC = Name "z",
                               nameHsIdent = HsIdentifier
                                 "overflow32_z"},
                             structFieldType = TypePrim
@@ -1493,7 +1493,7 @@
               structFieldLoc =
               "bitfields.h:19:10",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "overflow32b_x"},
               structFieldType = TypePrim
@@ -1511,7 +1511,7 @@
               structFieldLoc =
               "bitfields.h:20:10",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "overflow32b_y"},
               structFieldType = TypePrim
@@ -1529,7 +1529,7 @@
               structFieldLoc =
               "bitfields.h:21:10",
               structFieldName = NamePair {
-                nameC = CName "z",
+                nameC = Name "z",
                 nameHsIdent = HsIdentifier
                   "overflow32b_z"},
               structFieldType = TypePrim
@@ -1541,7 +1541,7 @@
           declInfo = DeclInfo {
             declLoc = "bitfields.h:18:8",
             declId = NamePair {
-              nameC = CName "overflow32b",
+              nameC = Name "overflow32b",
               nameHsIdent = HsIdentifier
                 "Overflow32b"},
             declOrigin = NameOriginInSource,
@@ -1560,7 +1560,7 @@
                   structFieldLoc =
                   "bitfields.h:19:10",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "overflow32b_x"},
                   structFieldType = TypePrim
@@ -1571,7 +1571,7 @@
                   structFieldLoc =
                   "bitfields.h:20:10",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "overflow32b_y"},
                   structFieldType = TypePrim
@@ -1582,7 +1582,7 @@
                   structFieldLoc =
                   "bitfields.h:21:10",
                   structFieldName = NamePair {
-                    nameC = CName "z",
+                    nameC = Name "z",
                     nameHsIdent = HsIdentifier
                       "overflow32b_z"},
                   structFieldType = TypePrim
@@ -1619,7 +1619,7 @@
                 structFieldLoc =
                 "bitfields.h:19:10",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "overflow32b_x"},
                 structFieldType = TypePrim
@@ -1637,7 +1637,7 @@
                 structFieldLoc =
                 "bitfields.h:20:10",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "overflow32b_y"},
                 structFieldType = TypePrim
@@ -1655,7 +1655,7 @@
                 structFieldLoc =
                 "bitfields.h:21:10",
                 structFieldName = NamePair {
-                  nameC = CName "z",
+                  nameC = Name "z",
                   nameHsIdent = HsIdentifier
                     "overflow32b_z"},
                 structFieldType = TypePrim
@@ -1667,7 +1667,7 @@
             declInfo = DeclInfo {
               declLoc = "bitfields.h:18:8",
               declId = NamePair {
-                nameC = CName "overflow32b",
+                nameC = Name "overflow32b",
                 nameHsIdent = HsIdentifier
                   "Overflow32b"},
               declOrigin = NameOriginInSource,
@@ -1686,7 +1686,7 @@
                     structFieldLoc =
                     "bitfields.h:19:10",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "overflow32b_x"},
                     structFieldType = TypePrim
@@ -1697,7 +1697,7 @@
                     structFieldLoc =
                     "bitfields.h:20:10",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "overflow32b_y"},
                     structFieldType = TypePrim
@@ -1708,7 +1708,7 @@
                     structFieldLoc =
                     "bitfields.h:21:10",
                     structFieldName = NamePair {
-                      nameC = CName "z",
+                      nameC = Name "z",
                       nameHsIdent = HsIdentifier
                         "overflow32b_z"},
                     structFieldType = TypePrim
@@ -1750,7 +1750,7 @@
                         structFieldLoc =
                         "bitfields.h:19:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "overflow32b_x"},
                         structFieldType = TypePrim
@@ -1768,7 +1768,7 @@
                         structFieldLoc =
                         "bitfields.h:20:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "overflow32b_y"},
                         structFieldType = TypePrim
@@ -1786,7 +1786,7 @@
                         structFieldLoc =
                         "bitfields.h:21:10",
                         structFieldName = NamePair {
-                          nameC = CName "z",
+                          nameC = Name "z",
                           nameHsIdent = HsIdentifier
                             "overflow32b_z"},
                         structFieldType = TypePrim
@@ -1798,7 +1798,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:18:8",
                       declId = NamePair {
-                        nameC = CName "overflow32b",
+                        nameC = Name "overflow32b",
                         nameHsIdent = HsIdentifier
                           "Overflow32b"},
                       declOrigin = NameOriginInSource,
@@ -1817,7 +1817,7 @@
                             structFieldLoc =
                             "bitfields.h:19:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "overflow32b_x"},
                             structFieldType = TypePrim
@@ -1828,7 +1828,7 @@
                             structFieldLoc =
                             "bitfields.h:20:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "overflow32b_y"},
                             structFieldType = TypePrim
@@ -1839,7 +1839,7 @@
                             structFieldLoc =
                             "bitfields.h:21:10",
                             structFieldName = NamePair {
-                              nameC = CName "z",
+                              nameC = Name "z",
                               nameHsIdent = HsIdentifier
                                 "overflow32b_z"},
                             structFieldType = TypePrim
@@ -1884,7 +1884,7 @@
                         structFieldLoc =
                         "bitfields.h:19:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "overflow32b_x"},
                         structFieldType = TypePrim
@@ -1902,7 +1902,7 @@
                         structFieldLoc =
                         "bitfields.h:20:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "overflow32b_y"},
                         structFieldType = TypePrim
@@ -1920,7 +1920,7 @@
                         structFieldLoc =
                         "bitfields.h:21:10",
                         structFieldName = NamePair {
-                          nameC = CName "z",
+                          nameC = Name "z",
                           nameHsIdent = HsIdentifier
                             "overflow32b_z"},
                         structFieldType = TypePrim
@@ -1932,7 +1932,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:18:8",
                       declId = NamePair {
-                        nameC = CName "overflow32b",
+                        nameC = Name "overflow32b",
                         nameHsIdent = HsIdentifier
                           "Overflow32b"},
                       declOrigin = NameOriginInSource,
@@ -1951,7 +1951,7 @@
                             structFieldLoc =
                             "bitfields.h:19:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "overflow32b_x"},
                             structFieldType = TypePrim
@@ -1962,7 +1962,7 @@
                             structFieldLoc =
                             "bitfields.h:20:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "overflow32b_y"},
                             structFieldType = TypePrim
@@ -1973,7 +1973,7 @@
                             structFieldLoc =
                             "bitfields.h:21:10",
                             structFieldName = NamePair {
-                              nameC = CName "z",
+                              nameC = Name "z",
                               nameHsIdent = HsIdentifier
                                 "overflow32b_z"},
                             structFieldType = TypePrim
@@ -2039,7 +2039,7 @@
               structFieldLoc =
               "bitfields.h:25:10",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "overflow32c_x"},
               structFieldType = TypePrim
@@ -2057,7 +2057,7 @@
               structFieldLoc =
               "bitfields.h:26:10",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "overflow32c_y"},
               structFieldType = TypePrim
@@ -2075,7 +2075,7 @@
               structFieldLoc =
               "bitfields.h:27:10",
               structFieldName = NamePair {
-                nameC = CName "z",
+                nameC = Name "z",
                 nameHsIdent = HsIdentifier
                   "overflow32c_z"},
               structFieldType = TypePrim
@@ -2087,7 +2087,7 @@
           declInfo = DeclInfo {
             declLoc = "bitfields.h:24:8",
             declId = NamePair {
-              nameC = CName "overflow32c",
+              nameC = Name "overflow32c",
               nameHsIdent = HsIdentifier
                 "Overflow32c"},
             declOrigin = NameOriginInSource,
@@ -2106,7 +2106,7 @@
                   structFieldLoc =
                   "bitfields.h:25:10",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "overflow32c_x"},
                   structFieldType = TypePrim
@@ -2117,7 +2117,7 @@
                   structFieldLoc =
                   "bitfields.h:26:10",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "overflow32c_y"},
                   structFieldType = TypePrim
@@ -2128,7 +2128,7 @@
                   structFieldLoc =
                   "bitfields.h:27:10",
                   structFieldName = NamePair {
-                    nameC = CName "z",
+                    nameC = Name "z",
                     nameHsIdent = HsIdentifier
                       "overflow32c_z"},
                   structFieldType = TypePrim
@@ -2165,7 +2165,7 @@
                 structFieldLoc =
                 "bitfields.h:25:10",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "overflow32c_x"},
                 structFieldType = TypePrim
@@ -2183,7 +2183,7 @@
                 structFieldLoc =
                 "bitfields.h:26:10",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "overflow32c_y"},
                 structFieldType = TypePrim
@@ -2201,7 +2201,7 @@
                 structFieldLoc =
                 "bitfields.h:27:10",
                 structFieldName = NamePair {
-                  nameC = CName "z",
+                  nameC = Name "z",
                   nameHsIdent = HsIdentifier
                     "overflow32c_z"},
                 structFieldType = TypePrim
@@ -2213,7 +2213,7 @@
             declInfo = DeclInfo {
               declLoc = "bitfields.h:24:8",
               declId = NamePair {
-                nameC = CName "overflow32c",
+                nameC = Name "overflow32c",
                 nameHsIdent = HsIdentifier
                   "Overflow32c"},
               declOrigin = NameOriginInSource,
@@ -2232,7 +2232,7 @@
                     structFieldLoc =
                     "bitfields.h:25:10",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "overflow32c_x"},
                     structFieldType = TypePrim
@@ -2243,7 +2243,7 @@
                     structFieldLoc =
                     "bitfields.h:26:10",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "overflow32c_y"},
                     structFieldType = TypePrim
@@ -2254,7 +2254,7 @@
                     structFieldLoc =
                     "bitfields.h:27:10",
                     structFieldName = NamePair {
-                      nameC = CName "z",
+                      nameC = Name "z",
                       nameHsIdent = HsIdentifier
                         "overflow32c_z"},
                     structFieldType = TypePrim
@@ -2296,7 +2296,7 @@
                         structFieldLoc =
                         "bitfields.h:25:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "overflow32c_x"},
                         structFieldType = TypePrim
@@ -2314,7 +2314,7 @@
                         structFieldLoc =
                         "bitfields.h:26:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "overflow32c_y"},
                         structFieldType = TypePrim
@@ -2332,7 +2332,7 @@
                         structFieldLoc =
                         "bitfields.h:27:10",
                         structFieldName = NamePair {
-                          nameC = CName "z",
+                          nameC = Name "z",
                           nameHsIdent = HsIdentifier
                             "overflow32c_z"},
                         structFieldType = TypePrim
@@ -2344,7 +2344,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:24:8",
                       declId = NamePair {
-                        nameC = CName "overflow32c",
+                        nameC = Name "overflow32c",
                         nameHsIdent = HsIdentifier
                           "Overflow32c"},
                       declOrigin = NameOriginInSource,
@@ -2363,7 +2363,7 @@
                             structFieldLoc =
                             "bitfields.h:25:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "overflow32c_x"},
                             structFieldType = TypePrim
@@ -2374,7 +2374,7 @@
                             structFieldLoc =
                             "bitfields.h:26:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "overflow32c_y"},
                             structFieldType = TypePrim
@@ -2385,7 +2385,7 @@
                             structFieldLoc =
                             "bitfields.h:27:10",
                             structFieldName = NamePair {
-                              nameC = CName "z",
+                              nameC = Name "z",
                               nameHsIdent = HsIdentifier
                                 "overflow32c_z"},
                             structFieldType = TypePrim
@@ -2430,7 +2430,7 @@
                         structFieldLoc =
                         "bitfields.h:25:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "overflow32c_x"},
                         structFieldType = TypePrim
@@ -2448,7 +2448,7 @@
                         structFieldLoc =
                         "bitfields.h:26:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "overflow32c_y"},
                         structFieldType = TypePrim
@@ -2466,7 +2466,7 @@
                         structFieldLoc =
                         "bitfields.h:27:10",
                         structFieldName = NamePair {
-                          nameC = CName "z",
+                          nameC = Name "z",
                           nameHsIdent = HsIdentifier
                             "overflow32c_z"},
                         structFieldType = TypePrim
@@ -2478,7 +2478,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:24:8",
                       declId = NamePair {
-                        nameC = CName "overflow32c",
+                        nameC = Name "overflow32c",
                         nameHsIdent = HsIdentifier
                           "Overflow32c"},
                       declOrigin = NameOriginInSource,
@@ -2497,7 +2497,7 @@
                             structFieldLoc =
                             "bitfields.h:25:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "overflow32c_x"},
                             structFieldType = TypePrim
@@ -2508,7 +2508,7 @@
                             structFieldLoc =
                             "bitfields.h:26:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "overflow32c_y"},
                             structFieldType = TypePrim
@@ -2519,7 +2519,7 @@
                             structFieldLoc =
                             "bitfields.h:27:10",
                             structFieldName = NamePair {
-                              nameC = CName "z",
+                              nameC = Name "z",
                               nameHsIdent = HsIdentifier
                                 "overflow32c_z"},
                             structFieldType = TypePrim
@@ -2585,7 +2585,7 @@
               structFieldLoc =
               "bitfields.h:31:10",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "overflow64_x"},
               structFieldType = TypePrim
@@ -2603,7 +2603,7 @@
               structFieldLoc =
               "bitfields.h:32:10",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "overflow64_y"},
               structFieldType = TypePrim
@@ -2615,7 +2615,7 @@
           declInfo = DeclInfo {
             declLoc = "bitfields.h:30:8",
             declId = NamePair {
-              nameC = CName "overflow64",
+              nameC = Name "overflow64",
               nameHsIdent = HsIdentifier
                 "Overflow64"},
             declOrigin = NameOriginInSource,
@@ -2634,7 +2634,7 @@
                   structFieldLoc =
                   "bitfields.h:31:10",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "overflow64_x"},
                   structFieldType = TypePrim
@@ -2645,7 +2645,7 @@
                   structFieldLoc =
                   "bitfields.h:32:10",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "overflow64_y"},
                   structFieldType = TypePrim
@@ -2682,7 +2682,7 @@
                 structFieldLoc =
                 "bitfields.h:31:10",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "overflow64_x"},
                 structFieldType = TypePrim
@@ -2700,7 +2700,7 @@
                 structFieldLoc =
                 "bitfields.h:32:10",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "overflow64_y"},
                 structFieldType = TypePrim
@@ -2712,7 +2712,7 @@
             declInfo = DeclInfo {
               declLoc = "bitfields.h:30:8",
               declId = NamePair {
-                nameC = CName "overflow64",
+                nameC = Name "overflow64",
                 nameHsIdent = HsIdentifier
                   "Overflow64"},
               declOrigin = NameOriginInSource,
@@ -2731,7 +2731,7 @@
                     structFieldLoc =
                     "bitfields.h:31:10",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "overflow64_x"},
                     structFieldType = TypePrim
@@ -2742,7 +2742,7 @@
                     structFieldLoc =
                     "bitfields.h:32:10",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "overflow64_y"},
                     structFieldType = TypePrim
@@ -2784,7 +2784,7 @@
                         structFieldLoc =
                         "bitfields.h:31:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "overflow64_x"},
                         structFieldType = TypePrim
@@ -2802,7 +2802,7 @@
                         structFieldLoc =
                         "bitfields.h:32:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "overflow64_y"},
                         structFieldType = TypePrim
@@ -2814,7 +2814,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:30:8",
                       declId = NamePair {
-                        nameC = CName "overflow64",
+                        nameC = Name "overflow64",
                         nameHsIdent = HsIdentifier
                           "Overflow64"},
                       declOrigin = NameOriginInSource,
@@ -2833,7 +2833,7 @@
                             structFieldLoc =
                             "bitfields.h:31:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "overflow64_x"},
                             structFieldType = TypePrim
@@ -2844,7 +2844,7 @@
                             structFieldLoc =
                             "bitfields.h:32:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "overflow64_y"},
                             structFieldType = TypePrim
@@ -2888,7 +2888,7 @@
                         structFieldLoc =
                         "bitfields.h:31:10",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "overflow64_x"},
                         structFieldType = TypePrim
@@ -2906,7 +2906,7 @@
                         structFieldLoc =
                         "bitfields.h:32:10",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "overflow64_y"},
                         structFieldType = TypePrim
@@ -2918,7 +2918,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:30:8",
                       declId = NamePair {
-                        nameC = CName "overflow64",
+                        nameC = Name "overflow64",
                         nameHsIdent = HsIdentifier
                           "Overflow64"},
                       declOrigin = NameOriginInSource,
@@ -2937,7 +2937,7 @@
                             structFieldLoc =
                             "bitfields.h:31:10",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "overflow64_x"},
                             structFieldType = TypePrim
@@ -2948,7 +2948,7 @@
                             structFieldLoc =
                             "bitfields.h:32:10",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "overflow64_y"},
                             structFieldType = TypePrim
@@ -3009,7 +3009,7 @@
               structFieldLoc =
               "bitfields.h:37:16",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "alignA_x"},
               structFieldType = TypePrim
@@ -3028,7 +3028,7 @@
               structFieldLoc =
               "bitfields.h:38:6",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "alignA_y"},
               structFieldType = TypePrim
@@ -3040,7 +3040,7 @@
           declInfo = DeclInfo {
             declLoc = "bitfields.h:36:8",
             declId = NamePair {
-              nameC = CName "alignA",
+              nameC = Name "alignA",
               nameHsIdent = HsIdentifier
                 "AlignA"},
             declOrigin = NameOriginInSource,
@@ -3057,7 +3057,7 @@
                   structFieldLoc =
                   "bitfields.h:37:16",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "alignA_x"},
                   structFieldType = TypePrim
@@ -3069,7 +3069,7 @@
                   structFieldLoc =
                   "bitfields.h:38:6",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "alignA_y"},
                   structFieldType = TypePrim
@@ -3106,7 +3106,7 @@
                 structFieldLoc =
                 "bitfields.h:37:16",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "alignA_x"},
                 structFieldType = TypePrim
@@ -3125,7 +3125,7 @@
                 structFieldLoc =
                 "bitfields.h:38:6",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "alignA_y"},
                 structFieldType = TypePrim
@@ -3137,7 +3137,7 @@
             declInfo = DeclInfo {
               declLoc = "bitfields.h:36:8",
               declId = NamePair {
-                nameC = CName "alignA",
+                nameC = Name "alignA",
                 nameHsIdent = HsIdentifier
                   "AlignA"},
               declOrigin = NameOriginInSource,
@@ -3154,7 +3154,7 @@
                     structFieldLoc =
                     "bitfields.h:37:16",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "alignA_x"},
                     structFieldType = TypePrim
@@ -3166,7 +3166,7 @@
                     structFieldLoc =
                     "bitfields.h:38:6",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "alignA_y"},
                     structFieldType = TypePrim
@@ -3208,7 +3208,7 @@
                         structFieldLoc =
                         "bitfields.h:37:16",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "alignA_x"},
                         structFieldType = TypePrim
@@ -3227,7 +3227,7 @@
                         structFieldLoc =
                         "bitfields.h:38:6",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "alignA_y"},
                         structFieldType = TypePrim
@@ -3239,7 +3239,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:36:8",
                       declId = NamePair {
-                        nameC = CName "alignA",
+                        nameC = Name "alignA",
                         nameHsIdent = HsIdentifier
                           "AlignA"},
                       declOrigin = NameOriginInSource,
@@ -3256,7 +3256,7 @@
                             structFieldLoc =
                             "bitfields.h:37:16",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "alignA_x"},
                             structFieldType = TypePrim
@@ -3268,7 +3268,7 @@
                             structFieldLoc =
                             "bitfields.h:38:6",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "alignA_y"},
                             structFieldType = TypePrim
@@ -3312,7 +3312,7 @@
                         structFieldLoc =
                         "bitfields.h:37:16",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "alignA_x"},
                         structFieldType = TypePrim
@@ -3331,7 +3331,7 @@
                         structFieldLoc =
                         "bitfields.h:38:6",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "alignA_y"},
                         structFieldType = TypePrim
@@ -3343,7 +3343,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:36:8",
                       declId = NamePair {
-                        nameC = CName "alignA",
+                        nameC = Name "alignA",
                         nameHsIdent = HsIdentifier
                           "AlignA"},
                       declOrigin = NameOriginInSource,
@@ -3360,7 +3360,7 @@
                             structFieldLoc =
                             "bitfields.h:37:16",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "alignA_x"},
                             structFieldType = TypePrim
@@ -3372,7 +3372,7 @@
                             structFieldLoc =
                             "bitfields.h:38:6",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "alignA_y"},
                             structFieldType = TypePrim
@@ -3433,7 +3433,7 @@
               structFieldLoc =
               "bitfields.h:42:16",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "alignB_x"},
               structFieldType = TypePrim
@@ -3452,7 +3452,7 @@
               structFieldLoc =
               "bitfields.h:43:6",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "alignB_y"},
               structFieldType = TypePrim
@@ -3464,7 +3464,7 @@
           declInfo = DeclInfo {
             declLoc = "bitfields.h:41:8",
             declId = NamePair {
-              nameC = CName "alignB",
+              nameC = Name "alignB",
               nameHsIdent = HsIdentifier
                 "AlignB"},
             declOrigin = NameOriginInSource,
@@ -3481,7 +3481,7 @@
                   structFieldLoc =
                   "bitfields.h:42:16",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "alignB_x"},
                   structFieldType = TypePrim
@@ -3493,7 +3493,7 @@
                   structFieldLoc =
                   "bitfields.h:43:6",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "alignB_y"},
                   structFieldType = TypePrim
@@ -3530,7 +3530,7 @@
                 structFieldLoc =
                 "bitfields.h:42:16",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "alignB_x"},
                 structFieldType = TypePrim
@@ -3549,7 +3549,7 @@
                 structFieldLoc =
                 "bitfields.h:43:6",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "alignB_y"},
                 structFieldType = TypePrim
@@ -3561,7 +3561,7 @@
             declInfo = DeclInfo {
               declLoc = "bitfields.h:41:8",
               declId = NamePair {
-                nameC = CName "alignB",
+                nameC = Name "alignB",
                 nameHsIdent = HsIdentifier
                   "AlignB"},
               declOrigin = NameOriginInSource,
@@ -3578,7 +3578,7 @@
                     structFieldLoc =
                     "bitfields.h:42:16",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "alignB_x"},
                     structFieldType = TypePrim
@@ -3590,7 +3590,7 @@
                     structFieldLoc =
                     "bitfields.h:43:6",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "alignB_y"},
                     structFieldType = TypePrim
@@ -3632,7 +3632,7 @@
                         structFieldLoc =
                         "bitfields.h:42:16",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "alignB_x"},
                         structFieldType = TypePrim
@@ -3651,7 +3651,7 @@
                         structFieldLoc =
                         "bitfields.h:43:6",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "alignB_y"},
                         structFieldType = TypePrim
@@ -3663,7 +3663,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:41:8",
                       declId = NamePair {
-                        nameC = CName "alignB",
+                        nameC = Name "alignB",
                         nameHsIdent = HsIdentifier
                           "AlignB"},
                       declOrigin = NameOriginInSource,
@@ -3680,7 +3680,7 @@
                             structFieldLoc =
                             "bitfields.h:42:16",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "alignB_x"},
                             structFieldType = TypePrim
@@ -3692,7 +3692,7 @@
                             structFieldLoc =
                             "bitfields.h:43:6",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "alignB_y"},
                             structFieldType = TypePrim
@@ -3736,7 +3736,7 @@
                         structFieldLoc =
                         "bitfields.h:42:16",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "alignB_x"},
                         structFieldType = TypePrim
@@ -3755,7 +3755,7 @@
                         structFieldLoc =
                         "bitfields.h:43:6",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "alignB_y"},
                         structFieldType = TypePrim
@@ -3767,7 +3767,7 @@
                     declInfo = DeclInfo {
                       declLoc = "bitfields.h:41:8",
                       declId = NamePair {
-                        nameC = CName "alignB",
+                        nameC = Name "alignB",
                         nameHsIdent = HsIdentifier
                           "AlignB"},
                       declOrigin = NameOriginInSource,
@@ -3784,7 +3784,7 @@
                             structFieldLoc =
                             "bitfields.h:42:16",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "alignB_x"},
                             structFieldType = TypePrim
@@ -3796,7 +3796,7 @@
                             structFieldLoc =
                             "bitfields.h:43:6",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "alignB_y"},
                             structFieldType = TypePrim

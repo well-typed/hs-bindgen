@@ -10,8 +10,6 @@ module HsBindgen.Frontend.AST.Internal (
   , Decl(..)
   , DeclInfo(..)
   , DeclKind(..)
-  , declKindNameKind
-  , declQualName
   , Struct(..)
   , StructField(..)
   , Union(..)
@@ -26,9 +24,16 @@ module HsBindgen.Frontend.AST.Internal (
   , CheckedMacroExpr(..)
     -- * Types (at use sites)
   , Type(..)
+    -- * Naming
+  , AnonId(..)
+  , NameOrigin(..)
     -- * Show
   , ValidPass
-  , Located(..)
+    -- * Helper functions
+  , declNsPrelimDeclId
+  , declQualPrelimDeclId
+  , declQualName
+  , declKindNameKind
   ) where
 
 import Prelude hiding (Enum)
@@ -38,12 +43,11 @@ import Clang.Paths
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -94,8 +98,7 @@ data Decl p = Decl {
 data DeclInfo p = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: Id p
-    , declOrigin  :: C.NameOrigin
-    , declAliases :: [CName]
+    , declAliases :: [C.Name]
 
       -- | User-specified header that provides this declaration
       --
@@ -125,20 +128,6 @@ data DeclKind p =
   | DeclFunction (Function p)
   | DeclExtern (Type p)
   | DeclConst (Type p)
-
-declKindNameKind :: DeclKind p -> NameKind
-declKindNameKind = \case
-    DeclStruct{}       -> NameKindStruct
-    DeclStructOpaque{} -> NameKindStruct
-    DeclUnion{}        -> NameKindUnion
-    DeclUnionOpaque{}  -> NameKindUnion
-    DeclEnum{}         -> NameKindEnum
-    DeclEnumOpaque{}   -> NameKindEnum
-    _otherwise         -> NameKindOrdinary
-
-declQualName :: Id p ~ CName => Decl p -> C.QualName
-declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.QualName declId (declKindNameKind declKind)
 
 data Struct p = Struct {
       structSizeof    :: Int
@@ -213,7 +202,7 @@ data CheckedMacroType p = CheckedMacroType{
 -- TODO: This is wrong, it does not allow name mangling to do its job. To fix
 -- that we'd have to change 'Macro.MExpr'.
 data CheckedMacroExpr = CheckedMacroExpr{
-      macroExprArgs :: [CName]
+      macroExprArgs :: [C.Name]
     , macroExprBody :: Macro.MExpr Macro.Ps
     , macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
     }
@@ -224,16 +213,16 @@ data CheckedMacroExpr = CheckedMacroExpr{
 -------------------------------------------------------------------------------}
 
 data Type p =
-    TypePrim PrimType
-  | TypeStruct (Id p) C.NameOrigin
-  | TypeUnion (Id p) C.NameOrigin
-  | TypeEnum (Id p) C.NameOrigin
+    TypePrim C.PrimType
+  | TypeStruct (Id p)
+  | TypeUnion (Id p)
+  | TypeEnum (Id p)
   | TypeTypedef (TypedefRef p)
 
     -- | Macro-defined type
     --
     -- These behave very similar to 'TypeTypedef'.
-  | TypeMacroTypedef (Id p) C.NameOrigin
+  | TypeMacroTypedef (Id p)
 
   | TypePointer (Type p)
   | TypeFun [Type p] (Type p)
@@ -354,21 +343,32 @@ deriving stock instance ValidPass p => Eq (UnionField       p)
   Pretty-printing
 -------------------------------------------------------------------------------}
 
--- | Indirection for 'PrettyForTrace' instance for 'DeclInfo'
---
--- By introducting this auxiliary type, used in the 'PrettyForTrace' instance
--- for 'DeclInfo', we can define a single 'PrettyForTrace' instance for
--- ('Located' 'C.Name'), which then applies to many passes, while at the time
--- other instances for passes where 'Id' is /not/ 'CName' also remains possible.
-data Located a = Located SingleLoc a
-
 instance PrettyForTrace (Located (Id p)) => PrettyForTrace (DeclInfo p) where
   prettyForTrace DeclInfo{declId, declLoc} =
-      prettyForTrace $ Located declLoc declId
+    prettyForTrace $ Located declLoc declId
 
-instance PrettyForTrace (Located C.CName) where
-  prettyForTrace (Located loc name) = PP.hsep [
-        prettyForTrace name
-      , "at"
-      , PP.showToCtxDoc loc
-      ]
+{-------------------------------------------------------------------------------
+  Helper functions
+-------------------------------------------------------------------------------}
+
+declNsPrelimDeclId :: Id p ~ PrelimDeclId => Decl p -> NsPrelimDeclId
+declNsPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+    nsPrelimDeclId declId $ C.nameKindTypeNamespace (declKindNameKind declKind)
+
+declQualPrelimDeclId :: Id p ~ PrelimDeclId => Decl p -> QualPrelimDeclId
+declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+    qualPrelimDeclId declId (declKindNameKind declKind)
+
+declQualName :: Id p ~ DeclId => Decl p -> C.QualName
+declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
+    C.QualName (declIdName declId) (declKindNameKind declKind)
+
+declKindNameKind :: DeclKind p -> C.NameKind
+declKindNameKind = \case
+    DeclStruct{}       -> C.NameKindStruct
+    DeclStructOpaque{} -> C.NameKindStruct
+    DeclUnion{}        -> C.NameKindUnion
+    DeclUnionOpaque{}  -> C.NameKindUnion
+    DeclEnum{}         -> C.NameKindEnum
+    DeclEnumOpaque{}   -> C.NameKindEnum
+    _otherwise         -> C.NameKindOrdinary

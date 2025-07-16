@@ -13,9 +13,9 @@ import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Slice.IsPass as Slice
-import HsBindgen.Language.C.Name
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.TraceMsg
 
@@ -142,7 +142,7 @@ testCases = [
           Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
-    , let declsWithMsgs :: [Labelled CName]
+    , let declsWithMsgs :: [Labelled C.Name]
           declsWithMsgs = [
                 Labelled "Renamed"  "struct1"
               , Labelled "Squashed" "struct1_t"
@@ -164,9 +164,9 @@ testCases = [
               ]
       in testTraceCustom "typedef_analysis" declsWithMsgs $ \case
         TraceFrontend (FrontendHandleTypedefs (SquashedTypedef info)) ->
-          Just $ Expected $ Labelled "Squashed" $ C.declId info
+          Just $ Expected $ Labelled "Squashed" $ declIdName (C.declId info)
         TraceFrontend (FrontendHandleTypedefs (RenamedTagged info _to)) ->
-          Just $ Expected $ Labelled "Renamed" $ C.declId info
+          Just $ Expected $ Labelled "Renamed"  $ declIdName (C.declId info)
         _otherwise ->
           Nothing
     , testTraceSimple "varargs" $ \case
@@ -245,7 +245,7 @@ testCases = [
                Nothing
         , testRustBindgen = RustBindgenFail
         }
-    , let declsWithWarnings :: [DeclId]
+    , let declsWithWarnings :: [PrelimDeclId]
           declsWithWarnings = [
                 -- non-extern non-static globals
                 "nesInteger"
@@ -307,9 +307,9 @@ testCases = [
             , configProgramSlicing = EnableProgramSlicing
             }
         , testOnExtSpec = \extSpec ->
-            let uInt32T = QualName {
+            let uInt32T = C.QualName {
                     qualNameName = "uint32_t"
-                  , qualNameKind = NameKindOrdinary
+                  , qualNameKind = C.NameKindOrdinary
                   }
             in Pipeline.BindingSpec {
                 bindingSpecUnresolved =
@@ -337,7 +337,7 @@ testCases = [
             TraceFrontend (FrontendSlice
                            (Selected
                             (TransitiveDependencyOf
-                             (QualDeclId (DeclNamed nm) _) _)))
+                             (NsPrelimDeclIdNamed nm _) _)))
               | nm == "uint32_t" -> Just $ Expected "SelectedUInt32"
               | nm == "uint64_t" -> Just $ Expected "SelectedUInt64"
             TraceFrontend (FrontendSlice (Selected _)) -> Just Unexpected
@@ -375,7 +375,7 @@ testCases = [
             TraceFrontend (FrontendSlice
                            (Selected
                             (TransitiveDependencyOf
-                             (QualDeclId (DeclNamed nm) _) _)))
+                             (NsPrelimDeclIdNamed nm _) _)))
               | nm == "FileOperationStatus" -> Just $ Expected "SelectedFileOpterationStatus"
               | nm == "size_t"              -> Just $ Expected "SelectedSizeT"
               | nm == "FILE"                -> Just $ Expected "SelectedFile"

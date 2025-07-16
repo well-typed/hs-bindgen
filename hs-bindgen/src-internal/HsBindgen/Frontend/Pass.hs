@@ -35,8 +35,8 @@ class IsPass (p :: Pass) where
   --
   -- 1. After parsing, this is 'DeclId': anonymous structures are assigned an ID
   --    based on their source location, for everything else we use the C name.
-  -- 2. After 'RenameAnon', /everything/ has a C name: we have assigned names
-  --    to anonymous structures.
+  -- 2. After 'NameAnon', /everything/ has a C name: we have assigned names to
+  --    anonymous structures.
   -- 3. After 'NameMangling', this becomes a pair of the C name and the
   --    corresponding Haskell name.
   type Id p :: Star
@@ -46,9 +46,9 @@ class IsPass (p :: Pass) where
 
   -- | Reference to a typedef
   --
-  -- Initially this is just the name of the typedef, but after 'RenameAnon' we
-  -- distinguish between regular typedefs and squashed typedefs (in which case
-  -- it's the type that it got replaced with).
+  -- Initially this is just the name of the typedef, but after 'HandleTypedefs'
+  -- we distinguish between regular typedefs and squashed typedefs (in which
+  -- case it's the type that it got replaced with).
   type TypedefRef p :: Star
 
   -- | Macro body

@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc =
         "fixedarray_arg.h:1:5",
         declId = NamePair {
-          nameC = CName "fun_1",
+          nameC = Name "fun_1",
           nameHsIdent = HsIdentifier
             "fun_1"},
         declOrigin = NameOriginInSource,
@@ -34,7 +34,7 @@ TranslationUnit {
         declLoc =
         "fixedarray_arg.h:3:13",
         declId = NamePair {
-          nameC = CName "triple",
+          nameC = Name "triple",
           nameHsIdent = HsIdentifier
             "Triple"},
         declOrigin = NameOriginInSource,
@@ -65,7 +65,7 @@ TranslationUnit {
         declLoc =
         "fixedarray_arg.h:4:5",
         declId = NamePair {
-          nameC = CName "fun_2",
+          nameC = Name "fun_2",
           nameHsIdent = HsIdentifier
             "fun_2"},
         declOrigin = NameOriginInSource,
@@ -78,7 +78,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "triple",
+                  nameC = Name "triple",
                   nameHsIdent = HsIdentifier
                     "Triple"})],
           functionRes = TypePrim

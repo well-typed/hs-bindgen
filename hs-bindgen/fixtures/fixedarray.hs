@@ -19,7 +19,7 @@
         declInfo = DeclInfo {
           declLoc = "fixedarray.h:1:13",
           declId = NamePair {
-            nameC = CName "triple",
+            nameC = Name "triple",
             nameHsIdent = HsIdentifier
               "Triple"},
           declOrigin = NameOriginInSource,
@@ -85,7 +85,7 @@
               structFieldLoc =
               "fixedarray.h:4:9",
               structFieldName = NamePair {
-                nameC = CName "triple",
+                nameC = Name "triple",
                 nameHsIdent = HsIdentifier
                   "example_triple"},
               structFieldType = TypeConstArray
@@ -108,7 +108,7 @@
               structFieldLoc =
               "fixedarray.h:5:9",
               structFieldName = NamePair {
-                nameC = CName "sudoku",
+                nameC = Name "sudoku",
                 nameHsIdent = HsIdentifier
                   "example_sudoku"},
               structFieldType = TypeConstArray
@@ -124,7 +124,7 @@
           declInfo = DeclInfo {
             declLoc = "fixedarray.h:3:8",
             declId = NamePair {
-              nameC = CName "Example",
+              nameC = Name "Example",
               nameHsIdent = HsIdentifier
                 "Example"},
             declOrigin = NameOriginInSource,
@@ -141,7 +141,7 @@
                   structFieldLoc =
                   "fixedarray.h:4:9",
                   structFieldName = NamePair {
-                    nameC = CName "triple",
+                    nameC = Name "triple",
                     nameHsIdent = HsIdentifier
                       "example_triple"},
                   structFieldType = TypeConstArray
@@ -154,7 +154,7 @@
                   structFieldLoc =
                   "fixedarray.h:5:9",
                   structFieldName = NamePair {
-                    nameC = CName "sudoku",
+                    nameC = Name "sudoku",
                     nameHsIdent = HsIdentifier
                       "example_sudoku"},
                   structFieldType = TypeConstArray
@@ -196,7 +196,7 @@
                 structFieldLoc =
                 "fixedarray.h:4:9",
                 structFieldName = NamePair {
-                  nameC = CName "triple",
+                  nameC = Name "triple",
                   nameHsIdent = HsIdentifier
                     "example_triple"},
                 structFieldType = TypeConstArray
@@ -219,7 +219,7 @@
                 structFieldLoc =
                 "fixedarray.h:5:9",
                 structFieldName = NamePair {
-                  nameC = CName "sudoku",
+                  nameC = Name "sudoku",
                   nameHsIdent = HsIdentifier
                     "example_sudoku"},
                 structFieldType = TypeConstArray
@@ -235,7 +235,7 @@
             declInfo = DeclInfo {
               declLoc = "fixedarray.h:3:8",
               declId = NamePair {
-                nameC = CName "Example",
+                nameC = Name "Example",
                 nameHsIdent = HsIdentifier
                   "Example"},
               declOrigin = NameOriginInSource,
@@ -252,7 +252,7 @@
                     structFieldLoc =
                     "fixedarray.h:4:9",
                     structFieldName = NamePair {
-                      nameC = CName "triple",
+                      nameC = Name "triple",
                       nameHsIdent = HsIdentifier
                         "example_triple"},
                     structFieldType = TypeConstArray
@@ -265,7 +265,7 @@
                     structFieldLoc =
                     "fixedarray.h:5:9",
                     structFieldName = NamePair {
-                      nameC = CName "sudoku",
+                      nameC = Name "sudoku",
                       nameHsIdent = HsIdentifier
                         "example_sudoku"},
                     structFieldType = TypeConstArray
@@ -312,7 +312,7 @@
                         structFieldLoc =
                         "fixedarray.h:4:9",
                         structFieldName = NamePair {
-                          nameC = CName "triple",
+                          nameC = Name "triple",
                           nameHsIdent = HsIdentifier
                             "example_triple"},
                         structFieldType = TypeConstArray
@@ -335,7 +335,7 @@
                         structFieldLoc =
                         "fixedarray.h:5:9",
                         structFieldName = NamePair {
-                          nameC = CName "sudoku",
+                          nameC = Name "sudoku",
                           nameHsIdent = HsIdentifier
                             "example_sudoku"},
                         structFieldType = TypeConstArray
@@ -351,7 +351,7 @@
                     declInfo = DeclInfo {
                       declLoc = "fixedarray.h:3:8",
                       declId = NamePair {
-                        nameC = CName "Example",
+                        nameC = Name "Example",
                         nameHsIdent = HsIdentifier
                           "Example"},
                       declOrigin = NameOriginInSource,
@@ -368,7 +368,7 @@
                             structFieldLoc =
                             "fixedarray.h:4:9",
                             structFieldName = NamePair {
-                              nameC = CName "triple",
+                              nameC = Name "triple",
                               nameHsIdent = HsIdentifier
                                 "example_triple"},
                             structFieldType = TypeConstArray
@@ -381,7 +381,7 @@
                             structFieldLoc =
                             "fixedarray.h:5:9",
                             structFieldName = NamePair {
-                              nameC = CName "sudoku",
+                              nameC = Name "sudoku",
                               nameHsIdent = HsIdentifier
                                 "example_sudoku"},
                             structFieldType = TypeConstArray
@@ -430,7 +430,7 @@
                         structFieldLoc =
                         "fixedarray.h:4:9",
                         structFieldName = NamePair {
-                          nameC = CName "triple",
+                          nameC = Name "triple",
                           nameHsIdent = HsIdentifier
                             "example_triple"},
                         structFieldType = TypeConstArray
@@ -453,7 +453,7 @@
                         structFieldLoc =
                         "fixedarray.h:5:9",
                         structFieldName = NamePair {
-                          nameC = CName "sudoku",
+                          nameC = Name "sudoku",
                           nameHsIdent = HsIdentifier
                             "example_sudoku"},
                         structFieldType = TypeConstArray
@@ -469,7 +469,7 @@
                     declInfo = DeclInfo {
                       declLoc = "fixedarray.h:3:8",
                       declId = NamePair {
-                        nameC = CName "Example",
+                        nameC = Name "Example",
                         nameHsIdent = HsIdentifier
                           "Example"},
                       declOrigin = NameOriginInSource,
@@ -486,7 +486,7 @@
                             structFieldLoc =
                             "fixedarray.h:4:9",
                             structFieldName = NamePair {
-                              nameC = CName "triple",
+                              nameC = Name "triple",
                               nameHsIdent = HsIdentifier
                                 "example_triple"},
                             structFieldType = TypeConstArray
@@ -499,7 +499,7 @@
                             structFieldLoc =
                             "fixedarray.h:5:9",
                             structFieldName = NamePair {
-                              nameC = CName "sudoku",
+                              nameC = Name "sudoku",
                               nameHsIdent = HsIdentifier
                                 "example_sudoku"},
                             structFieldType = TypeConstArray

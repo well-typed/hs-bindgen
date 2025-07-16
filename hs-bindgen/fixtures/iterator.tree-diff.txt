@@ -4,7 +4,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:3:16",
         declId = NamePair {
-          nameC = CName "Toggle",
+          nameC = Name "Toggle",
           nameHsIdent = HsIdentifier
             "Toggle"},
         declOrigin = NameOriginInSource,
@@ -33,7 +33,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:4:8",
         declId = NamePair {
-          nameC = CName "makeToggle",
+          nameC = Name "makeToggle",
           nameHsIdent = HsIdentifier
             "makeToggle"},
         declOrigin = NameOriginInSource,
@@ -46,7 +46,7 @@ TranslationUnit {
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
-                nameC = CName "Toggle",
+                nameC = Name "Toggle",
                 nameHsIdent = HsIdentifier
                   "Toggle"})},
       declSpec = DeclSpec
@@ -59,7 +59,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:5:6",
         declId = NamePair {
-          nameC = CName "toggleNext",
+          nameC = Name "toggleNext",
           nameHsIdent = HsIdentifier
             "toggleNext"},
         declOrigin = NameOriginInSource,
@@ -71,7 +71,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "Toggle",
+                  nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
           functionRes = TypePrim
@@ -86,7 +86,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:6:6",
         declId = NamePair {
-          nameC = CName "releaseToggle",
+          nameC = Name "releaseToggle",
           nameHsIdent = HsIdentifier
             "releaseToggle"},
         declOrigin = NameOriginInSource,
@@ -98,7 +98,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "Toggle",
+                  nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
           functionRes = TypeVoid},
@@ -112,7 +112,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:10:14",
         declId = NamePair {
-          nameC = CName "Counter",
+          nameC = Name "Counter",
           nameHsIdent = HsIdentifier
             "Counter"},
         declOrigin = NameOriginInSource,
@@ -144,7 +144,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:11:9",
         declId = NamePair {
-          nameC = CName "makeCounter",
+          nameC = Name "makeCounter",
           nameHsIdent = HsIdentifier
             "makeCounter"},
         declOrigin = NameOriginInSource,
@@ -160,7 +160,7 @@ TranslationUnit {
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
-                nameC = CName "Counter",
+                nameC = Name "Counter",
                 nameHsIdent = HsIdentifier
                   "Counter"})},
       declSpec = DeclSpec
@@ -173,7 +173,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:12:5",
         declId = NamePair {
-          nameC = CName "counterNext",
+          nameC = Name "counterNext",
           nameHsIdent = HsIdentifier
             "counterNext"},
         declOrigin = NameOriginInSource,
@@ -185,7 +185,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "Counter",
+                  nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
           functionRes = TypePrim
@@ -200,7 +200,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:13:6",
         declId = NamePair {
-          nameC = CName "releaseCounter",
+          nameC = Name "releaseCounter",
           nameHsIdent = HsIdentifier
             "releaseCounter"},
         declOrigin = NameOriginInSource,
@@ -212,7 +212,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "Counter",
+                  nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
           functionRes = TypeVoid},
@@ -226,7 +226,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:17:14",
         declId = NamePair {
-          nameC = CName "VarCounter",
+          nameC = Name "VarCounter",
           nameHsIdent = HsIdentifier
             "VarCounter"},
         declOrigin = NameOriginInSource,
@@ -260,7 +260,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:18:12",
         declId = NamePair {
-          nameC = CName "makeVarCounter",
+          nameC = Name "makeVarCounter",
           nameHsIdent = HsIdentifier
             "makeVarCounter"},
         declOrigin = NameOriginInSource,
@@ -274,7 +274,7 @@ TranslationUnit {
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
-                nameC = CName "VarCounter",
+                nameC = Name "VarCounter",
                 nameHsIdent = HsIdentifier
                   "VarCounter"})},
       declSpec = DeclSpec
@@ -287,7 +287,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:19:5",
         declId = NamePair {
-          nameC = CName "varCounterNext",
+          nameC = Name "varCounterNext",
           nameHsIdent = HsIdentifier
             "varCounterNext"},
         declOrigin = NameOriginInSource,
@@ -299,7 +299,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "VarCounter",
+                  nameC = Name "VarCounter",
                   nameHsIdent = HsIdentifier
                     "VarCounter"}),
             TypePrim
@@ -316,7 +316,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "iterator.h:20:6",
         declId = NamePair {
-          nameC = CName
+          nameC = Name
             "releaseVarCounter",
           nameHsIdent = HsIdentifier
             "releaseVarCounter"},
@@ -329,7 +329,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "VarCounter",
+                  nameC = Name "VarCounter",
                   nameHsIdent = HsIdentifier
                     "VarCounter"})],
           functionRes = TypeVoid},

@@ -62,16 +62,15 @@ instance Finalize Int.DeclInfo where
 
   finalize info = Ext.DeclInfo{
         declLoc
-      , declId
-      , declOrigin
+      , declId = namePair
+      , declOrigin = nameOrigin
       , declAliases
       , declHeader
       }
     where
       Int.DeclInfo{
           declLoc
-        , declId
-        , declOrigin
+        , declId = (namePair, nameOrigin)
         , declAliases
         , declHeader
         } = info
@@ -247,24 +246,24 @@ instance Finalize Int.CheckedMacroType where
 instance Finalize Int.Type where
   type Finalized Int.Type = Ext.Type
 
-  finalize (Int.TypePrim prim)                = Ext.TypePrim prim
-  finalize (Int.TypeStruct name origin)       = Ext.TypeStruct name origin
-  finalize (Int.TypeUnion name origin)        = Ext.TypeUnion name origin
-  finalize (Int.TypeEnum name origin)         = Ext.TypeEnum name origin
-  finalize (Int.TypeTypedef ref)              = Ext.TypeTypedef (finalize ref)
-  finalize (Int.TypePointer typ)              = Ext.TypePointer (finalize typ)
-  finalize (Int.TypeFun args res)             = Ext.TypeFun (map finalize args) (finalize res)
-  finalize (Int.TypeVoid)                     = Ext.TypeVoid
-  finalize (Int.TypeConstArray n typ)         = Ext.TypeConstArray n (finalize typ)
-  finalize (Int.TypeIncompleteArray typ)      = Ext.TypeIncompleteArray (finalize typ)
-  finalize (Int.TypeExtBinding ext)           = Ext.TypeExtBinding ext
-  finalize (Int.TypeBlock typ)                = Ext.TypeBlock (finalize typ)
-  finalize (Int.TypeMacroTypedef name origin) = Ext.TypeMacroTypedef name origin
+  finalize (Int.TypePrim prim)                 = Ext.TypePrim prim
+  finalize (Int.TypeStruct (np, origin))       = Ext.TypeStruct np origin
+  finalize (Int.TypeUnion (np, origin))        = Ext.TypeUnion np origin
+  finalize (Int.TypeEnum (np, origin))         = Ext.TypeEnum np origin
+  finalize (Int.TypeTypedef ref)               = Ext.TypeTypedef (finalize ref)
+  finalize (Int.TypePointer typ)               = Ext.TypePointer (finalize typ)
+  finalize (Int.TypeFun args res)              = Ext.TypeFun (map finalize args) (finalize res)
+  finalize (Int.TypeVoid)                      = Ext.TypeVoid
+  finalize (Int.TypeConstArray n typ)          = Ext.TypeConstArray n (finalize typ)
+  finalize (Int.TypeIncompleteArray typ)       = Ext.TypeIncompleteArray (finalize typ)
+  finalize (Int.TypeExtBinding ext)            = Ext.TypeExtBinding ext
+  finalize (Int.TypeBlock typ)                 = Ext.TypeBlock (finalize typ)
+  finalize (Int.TypeMacroTypedef (np, origin)) = Ext.TypeMacroTypedef np origin
 
 instance Finalize Int.RenamedTypedefRef where
   type Finalized Int.RenamedTypedefRef = Ext.TypedefRef
 
-  finalize (Int.TypedefRegular  nm   ) = Ext.TypedefRegular  nm
+  finalize (Int.TypedefRegular (np, _origin)) = Ext.TypedefRegular np
   finalize (Int.TypedefSquashed nm ty) = Ext.TypedefSquashed nm (finalize ty)
 
 {-------------------------------------------------------------------------------

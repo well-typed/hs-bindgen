@@ -19,7 +19,7 @@
           declLoc =
           "macro_typedef_struct.h:1:9",
           declId = NamePair {
-            nameC = CName "MY_TYPE",
+            nameC = Name "MY_TYPE",
             nameHsIdent = HsIdentifier
               "MY_TYPE"},
           declOrigin = NameOriginInSource,
@@ -156,7 +156,7 @@
               structFieldLoc =
               "macro_typedef_struct.h:4:7",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "bar_x"},
               structFieldType = TypePrim
@@ -176,13 +176,13 @@
               structFieldLoc =
               "macro_typedef_struct.h:5:11",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "bar_y"},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
-                  nameC = CName "MY_TYPE",
+                  nameC = Name "MY_TYPE",
                   nameHsIdent = HsIdentifier
                     "MY_TYPE"}
                 NameOriginInSource,
@@ -194,13 +194,13 @@
             declLoc =
             "macro_typedef_struct.h:3:9",
             declId = NamePair {
-              nameC = CName "bar",
+              nameC = Name "bar",
               nameHsIdent = HsIdentifier
                 "Bar"},
             declOrigin = NameOriginGenerated
               (AnonId
                 "macro_typedef_struct.h:3:9"),
-            declAliases = [CName "bar"],
+            declAliases = [Name "bar"],
             declHeader =
             "macro_typedef_struct.h"},
           declKind = Struct
@@ -214,7 +214,7 @@
                   structFieldLoc =
                   "macro_typedef_struct.h:4:7",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "bar_x"},
                   structFieldType = TypePrim
@@ -225,13 +225,13 @@
                   structFieldLoc =
                   "macro_typedef_struct.h:5:11",
                   structFieldName = NamePair {
-                    nameC = CName "y",
+                    nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "bar_y"},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
-                      nameC = CName "MY_TYPE",
+                      nameC = Name "MY_TYPE",
                       nameHsIdent = HsIdentifier
                         "MY_TYPE"}
                     NameOriginInSource,
@@ -267,7 +267,7 @@
                 structFieldLoc =
                 "macro_typedef_struct.h:4:7",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "bar_x"},
                 structFieldType = TypePrim
@@ -287,13 +287,13 @@
                 structFieldLoc =
                 "macro_typedef_struct.h:5:11",
                 structFieldName = NamePair {
-                  nameC = CName "y",
+                  nameC = Name "y",
                   nameHsIdent = HsIdentifier
                     "bar_y"},
                 structFieldType =
                 TypeMacroTypedef
                   NamePair {
-                    nameC = CName "MY_TYPE",
+                    nameC = Name "MY_TYPE",
                     nameHsIdent = HsIdentifier
                       "MY_TYPE"}
                   NameOriginInSource,
@@ -305,13 +305,13 @@
               declLoc =
               "macro_typedef_struct.h:3:9",
               declId = NamePair {
-                nameC = CName "bar",
+                nameC = Name "bar",
                 nameHsIdent = HsIdentifier
                   "Bar"},
               declOrigin = NameOriginGenerated
                 (AnonId
                   "macro_typedef_struct.h:3:9"),
-              declAliases = [CName "bar"],
+              declAliases = [Name "bar"],
               declHeader =
               "macro_typedef_struct.h"},
             declKind = Struct
@@ -325,7 +325,7 @@
                     structFieldLoc =
                     "macro_typedef_struct.h:4:7",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "bar_x"},
                     structFieldType = TypePrim
@@ -336,13 +336,13 @@
                     structFieldLoc =
                     "macro_typedef_struct.h:5:11",
                     structFieldName = NamePair {
-                      nameC = CName "y",
+                      nameC = Name "y",
                       nameHsIdent = HsIdentifier
                         "bar_y"},
                     structFieldType =
                     TypeMacroTypedef
                       NamePair {
-                        nameC = CName "MY_TYPE",
+                        nameC = Name "MY_TYPE",
                         nameHsIdent = HsIdentifier
                           "MY_TYPE"}
                       NameOriginInSource,
@@ -383,7 +383,7 @@
                         structFieldLoc =
                         "macro_typedef_struct.h:4:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "bar_x"},
                         structFieldType = TypePrim
@@ -403,13 +403,13 @@
                         structFieldLoc =
                         "macro_typedef_struct.h:5:11",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "bar_y"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "MY_TYPE",
+                            nameC = Name "MY_TYPE",
                             nameHsIdent = HsIdentifier
                               "MY_TYPE"}
                           NameOriginInSource,
@@ -421,13 +421,13 @@
                       declLoc =
                       "macro_typedef_struct.h:3:9",
                       declId = NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "macro_typedef_struct.h:3:9"),
-                      declAliases = [CName "bar"],
+                      declAliases = [Name "bar"],
                       declHeader =
                       "macro_typedef_struct.h"},
                     declKind = Struct
@@ -441,7 +441,7 @@
                             structFieldLoc =
                             "macro_typedef_struct.h:4:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "bar_x"},
                             structFieldType = TypePrim
@@ -452,13 +452,13 @@
                             structFieldLoc =
                             "macro_typedef_struct.h:5:11",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "bar_y"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "MY_TYPE",
+                                nameC = Name "MY_TYPE",
                                 nameHsIdent = HsIdentifier
                                   "MY_TYPE"}
                               NameOriginInSource,
@@ -501,7 +501,7 @@
                         structFieldLoc =
                         "macro_typedef_struct.h:4:7",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "bar_x"},
                         structFieldType = TypePrim
@@ -521,13 +521,13 @@
                         structFieldLoc =
                         "macro_typedef_struct.h:5:11",
                         structFieldName = NamePair {
-                          nameC = CName "y",
+                          nameC = Name "y",
                           nameHsIdent = HsIdentifier
                             "bar_y"},
                         structFieldType =
                         TypeMacroTypedef
                           NamePair {
-                            nameC = CName "MY_TYPE",
+                            nameC = Name "MY_TYPE",
                             nameHsIdent = HsIdentifier
                               "MY_TYPE"}
                           NameOriginInSource,
@@ -539,13 +539,13 @@
                       declLoc =
                       "macro_typedef_struct.h:3:9",
                       declId = NamePair {
-                        nameC = CName "bar",
+                        nameC = Name "bar",
                         nameHsIdent = HsIdentifier
                           "Bar"},
                       declOrigin = NameOriginGenerated
                         (AnonId
                           "macro_typedef_struct.h:3:9"),
-                      declAliases = [CName "bar"],
+                      declAliases = [Name "bar"],
                       declHeader =
                       "macro_typedef_struct.h"},
                     declKind = Struct
@@ -559,7 +559,7 @@
                             structFieldLoc =
                             "macro_typedef_struct.h:4:7",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "bar_x"},
                             structFieldType = TypePrim
@@ -570,13 +570,13 @@
                             structFieldLoc =
                             "macro_typedef_struct.h:5:11",
                             structFieldName = NamePair {
-                              nameC = CName "y",
+                              nameC = Name "y",
                               nameHsIdent = HsIdentifier
                                 "bar_y"},
                             structFieldType =
                             TypeMacroTypedef
                               NamePair {
-                                nameC = CName "MY_TYPE",
+                                nameC = Name "MY_TYPE",
                                 nameHsIdent = HsIdentifier
                                   "MY_TYPE"}
                               NameOriginInSource,

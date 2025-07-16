@@ -25,7 +25,7 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Hs.CallConv
 import HsBindgen.Imports
-import HsBindgen.Language.C (canBeRepresentedAsRational)
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
@@ -298,7 +298,7 @@ prettyExpr env prec = \case
         ]
 
     EFloat f t -> parens $ hcat [
-        if canBeRepresentedAsRational f then
+        if C.canBeRepresentedAsRational f then
           showToCtxDoc f
         else
           prettyExpr env prec $
@@ -309,7 +309,7 @@ prettyExpr env prec = \case
       , prettyPrimType t
       ]
     EDouble f t -> parens $ hcat [
-        if canBeRepresentedAsRational f then
+        if C.canBeRepresentedAsRational f then
           showToCtxDoc f
         else
           prettyExpr env  prec $

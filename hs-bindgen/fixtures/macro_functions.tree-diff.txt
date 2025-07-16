@@ -6,7 +6,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:1:9",
         declId = NamePair {
-          nameC = CName "INCR",
+          nameC = Name "INCR",
           nameHsIdent = HsIdentifier
             "iNCR"},
         declOrigin = NameOriginInSource,
@@ -17,12 +17,12 @@ TranslationUnit {
       DeclMacro
         (MacroExpr
           CheckedMacroExpr {
-            macroExprArgs = [CName "x"],
+            macroExprArgs = [Name "x"],
             macroExprBody = MApp
               MAdd
               [
                 MTerm
-                  (MVar NoXVar (CName "x") []),
+                  (MVar NoXVar (Name "x") []),
                 MTerm
                   (MInt
                     IntegerLiteral {
@@ -42,7 +42,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:2:9",
         declId = NamePair {
-          nameC = CName "ADD",
+          nameC = Name "ADD",
           nameHsIdent = HsIdentifier
             "aDD"},
         declOrigin = NameOriginInSource,
@@ -53,15 +53,15 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "x",
-              CName "y"],
+              Name "x",
+              Name "y"],
             macroExprBody = MApp
               MAdd
               [
                 MTerm
-                  (MVar NoXVar (CName "x") []),
+                  (MVar NoXVar (Name "x") []),
                 MTerm
-                  (MVar NoXVar (CName "y") [])],
+                  (MVar NoXVar (Name "y") [])],
             macroExprType =
             "(forall a b. Add a b => (a -> b -> AddRes a b))"}),
       declSpec = DeclSpec
@@ -75,7 +75,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:4:9",
         declId = NamePair {
-          nameC = CName "ID",
+          nameC = Name "ID",
           nameHsIdent = HsIdentifier
             "iD"},
         declOrigin = NameOriginInSource,
@@ -85,9 +85,9 @@ TranslationUnit {
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
-            macroExprArgs = [CName "X"],
+            macroExprArgs = [Name "X"],
             macroExprBody = MTerm
-              (MVar NoXVar (CName "X") []),
+              (MVar NoXVar (Name "X") []),
             macroExprType =
             "(forall a. (a -> a))"}),
       declSpec = DeclSpec
@@ -101,7 +101,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:5:9",
         declId = NamePair {
-          nameC = CName "CONST",
+          nameC = Name "CONST",
           nameHsIdent = HsIdentifier
             "cONST"},
         declOrigin = NameOriginInSource,
@@ -112,10 +112,10 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "X",
-              CName "Y"],
+              Name "X",
+              Name "Y"],
             macroExprBody = MTerm
-              (MVar NoXVar (CName "X") []),
+              (MVar NoXVar (Name "X") []),
             macroExprType =
             "(forall a b. (a -> b -> a))"}),
       declSpec = DeclSpec
@@ -129,7 +129,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:7:9",
         declId = NamePair {
-          nameC = CName "CMP",
+          nameC = Name "CMP",
           nameHsIdent = HsIdentifier
             "cMP"},
         declOrigin = NameOriginInSource,
@@ -141,15 +141,15 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "X",
-              CName "Y"],
+              Name "X",
+              Name "Y"],
             macroExprBody = MApp
               MRelLT
               [
                 MTerm
-                  (MVar NoXVar (CName "X") []),
+                  (MVar NoXVar (Name "X") []),
                 MTerm
-                  (MVar NoXVar (CName "Y") [])],
+                  (MVar NoXVar (Name "Y") [])],
             macroExprType =
             "(forall a b. RelOrd a b => (a -> b -> IntLike (CIntegralType (IntLike (Int Signed)))))"}),
       declSpec = DeclSpec
@@ -163,7 +163,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:8:9",
         declId = NamePair {
-          nameC = CName "FUN1",
+          nameC = Name "FUN1",
           nameHsIdent = HsIdentifier
             "fUN1"},
         declOrigin = NameOriginInSource,
@@ -175,13 +175,13 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "X",
-              CName "Y"],
+              Name "X",
+              Name "Y"],
             macroExprBody = MApp
               MAdd
               [
                 MTerm
-                  (MVar NoXVar (CName "X") []),
+                  (MVar NoXVar (Name "X") []),
                 MApp
                   MMult
                   [
@@ -193,7 +193,7 @@ TranslationUnit {
                             Unsigned,
                           integerLiteralValue = 12}),
                     MTerm
-                      (MVar NoXVar (CName "Y") [])]],
+                      (MVar NoXVar (Name "Y") [])]],
             macroExprType =
             "(forall a b. Add a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b) => Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (a -> b -> AddRes a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b)))"}),
       declSpec = DeclSpec
@@ -207,7 +207,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:9:9",
         declId = NamePair {
-          nameC = CName "FUN2",
+          nameC = Name "FUN2",
           nameHsIdent = HsIdentifier
             "fUN2"},
         declOrigin = NameOriginInSource,
@@ -219,13 +219,13 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "X",
-              CName "Y"],
+              Name "X",
+              Name "Y"],
             macroExprBody = MApp
               MShiftLeft
               [
                 MTerm
-                  (MVar NoXVar (CName "X") []),
+                  (MVar NoXVar (Name "X") []),
                 MApp
                   MMult
                   [
@@ -237,7 +237,7 @@ TranslationUnit {
                             Unsigned,
                           integerLiteralValue = 3}),
                     MTerm
-                      (MVar NoXVar (CName "Y") [])]],
+                      (MVar NoXVar (Name "Y") [])]],
             macroExprType =
             "(forall a b. Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => IntLike b_10[tau] ~ MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (IntLike a -> b -> ShiftRes (IntLike a)))"}),
       declSpec = DeclSpec
@@ -251,7 +251,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:11:9",
         declId = NamePair {
-          nameC = CName "G",
+          nameC = Name "G",
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -262,30 +262,27 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "X",
-              CName "Y"],
+              Name "X",
+              Name "Y"],
             macroExprBody = MTerm
               (MVar
                 NoXVar
-                (CName "CONST")
+                (Name "CONST")
                 [
                   MTerm
                     (MVar
                       NoXVar
-                      (CName "INCR")
+                      (Name "INCR")
                       [
                         MTerm
-                          (MVar NoXVar (CName "Y") [])]),
+                          (MVar NoXVar (Name "Y") [])]),
                   MTerm
                     (MVar
                       NoXVar
-                      (CName "ID")
+                      (Name "ID")
                       [
                         MTerm
-                          (MVar
-                            NoXVar
-                            (CName "X")
-                            [])])]),
+                          (MVar NoXVar (Name "X") [])])]),
             macroExprType =
             "(forall a b. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (b -> a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))"}),
       declSpec = DeclSpec
@@ -299,7 +296,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:13:9",
         declId = NamePair {
-          nameC = CName "DIV1",
+          nameC = Name "DIV1",
           nameHsIdent = HsIdentifier
             "dIV1"},
         declOrigin = NameOriginInSource,
@@ -311,18 +308,18 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "X",
-              CName "Y"],
+              Name "X",
+              Name "Y"],
             macroExprBody = MApp
               MDiv
               [
                 MTerm
-                  (MVar NoXVar (CName "X") []),
+                  (MVar NoXVar (Name "X") []),
                 MApp
                   MAdd
                   [
                     MTerm
-                      (MVar NoXVar (CName "Y") []),
+                      (MVar NoXVar (Name "Y") []),
                     MTerm
                       (MInt
                         IntegerLiteral {
@@ -343,7 +340,7 @@ TranslationUnit {
         declLoc =
         "macro_functions.h:14:9",
         declId = NamePair {
-          nameC = CName "DIV2",
+          nameC = Name "DIV2",
           nameHsIdent = HsIdentifier
             "dIV2"},
         declOrigin = NameOriginInSource,
@@ -355,8 +352,8 @@ TranslationUnit {
         (MacroExpr
           CheckedMacroExpr {
             macroExprArgs = [
-              CName "X",
-              CName "Y"],
+              Name "X",
+              Name "Y"],
             macroExprBody = MApp
               MDiv
               [
@@ -373,9 +370,9 @@ TranslationUnit {
                           floatingLiteralDoubleValue =
                           10.0}),
                     MTerm
-                      (MVar NoXVar (CName "X") [])],
+                      (MVar NoXVar (Name "X") [])],
                 MTerm
-                  (MVar NoXVar (CName "Y") [])],
+                  (MVar NoXVar (Name "Y") [])],
             macroExprType =
             "(forall a b. Mult (FloatLike FloatType) a => Div (MultRes (FloatLike FloatType) a) b => (a -> b -> DivRes (MultRes (FloatLike FloatType) a) b))"}),
       declSpec = DeclSpec

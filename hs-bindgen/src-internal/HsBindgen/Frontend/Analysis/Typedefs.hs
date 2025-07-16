@@ -16,11 +16,10 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage(..), ValOrRef(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C (CName)
-import HsBindgen.Language.C.Name qualified as C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefs)
 
 {-------------------------------------------------------------------------------
@@ -109,12 +108,12 @@ import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefs)
 -- thing also in the case of this name clash.
 data TypedefAnalysis = TypedefAnalysis {
       -- | Declarations (structs, unions, or enums) that need to be renamed
-      rename :: Map CName (CName, C.NameOrigin)
+      rename :: Map C.Name (C.Name, C.NameOrigin)
 
       -- | Typedefs that need to be squashed
       --
       -- We record what use sites of the typedef should be replaced with.
-    , squash :: Map CName (C.Type HandleTypedefs)
+    , squash :: Map C.Name (C.Type HandleTypedefs)
     }
   deriving stock (Show, Eq)
 
@@ -124,7 +123,7 @@ instance Semigroup TypedefAnalysis where
       , squash = combine squash
       }
     where
-      combine :: (TypedefAnalysis -> Map CName a) -> Map CName a
+      combine :: (TypedefAnalysis -> Map C.Name a) -> Map C.Name a
       combine f =
           Map.unionWith
             (panicPure "TypedefAnalysis: unexpected overlap")
@@ -154,36 +153,36 @@ fromDecls declUseGraph = mconcat . map aux
 
 analyseTypedef ::
      DeclUseGraph
-  -> CName
+  -> DeclId
   -> C.Typedef ResolveBindingSpec
   -> TypedefAnalysis
-analyseTypedef declUseGraph typedefName typedef =
+analyseTypedef declUseGraph uid typedef =
     go ByValue $ C.typedefType typedef
   where
     go :: ValOrRef -> C.Type ResolveBindingSpec -> TypedefAnalysis
     go valOrRef ty | Just taggedType <- toTaggedType ty =
-        typedefOfTagged typedefName valOrRef taggedType $
-          getUseSites (origQualId taggedType)
+        typedefOfTagged (declIdName uid) valOrRef taggedType $
+          getUseSites (origNsId taggedType)
     go _ (C.TypePointer ty) =
         go ByRef ty
     go _ _otherType =
         mempty
 
     -- Get use sites, except any self-references
-    getUseSites :: QualDeclId -> [(QualDeclId, Usage)]
-    getUseSites qid =
-        let allUseSites = DeclUseGraph.getUseSites declUseGraph qid
+    getUseSites :: NsPrelimDeclId -> [(NsPrelimDeclId, Usage)]
+    getUseSites nsid =
+        let allUseSites = DeclUseGraph.getUseSites declUseGraph nsid
         in filter (not . isSelfReference) allUseSites
       where
-        isSelfReference :: (QualDeclId, Usage) -> Bool
-        isSelfReference (qid', _usage) = qid == qid'
+        isSelfReference :: (NsPrelimDeclId, Usage) -> Bool
+        isSelfReference (nsid', _usage) = nsid == nsid'
 
 -- | Typedef of some tagged datatype
 typedefOfTagged ::
-     CName                  -- ^ Name of the typedef
-  -> ValOrRef               -- ^ Does the typedef wrap the datatype directly?
-  -> TaggedType             -- ^ Tagged datatype
-  -> [(QualDeclId, Usage)]  -- ^ All use sites of the struct
+     C.Name                    -- ^ Name of the typedef
+  -> ValOrRef                  -- ^ Does the typedef wrap the datatype directly?
+  -> TaggedType                -- ^ Tagged datatype
+  -> [(NsPrelimDeclId, Usage)] -- ^ All use sites of the struct
   -> TypedefAnalysis
 typedefOfTagged typedefName valOrRef taggedType@TaggedType{..} useSites
     -- Struct and typedef same name, no intervening pointers
@@ -227,11 +226,12 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedType{..} useSites
 --
 -- If we rename a datatype with a name which was /already/ not original, we
 -- leave the origin information unchanged.
-updateOrigin :: CName -> C.NameOrigin -> C.NameOrigin
+updateOrigin :: C.Name -> C.NameOrigin -> C.NameOrigin
 updateOrigin oldName = \case
     C.NameOriginInSource           -> C.NameOriginRenamedFrom oldName
     C.NameOriginGenerated   anonId -> C.NameOriginGenerated   anonId
     C.NameOriginRenamedFrom orig   -> C.NameOriginRenamedFrom orig
+    C.NameOriginBuiltin            -> C.NameOriginBuiltin
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: tagged types
@@ -241,7 +241,7 @@ updateOrigin oldName = \case
 
 data TaggedType = TaggedType {
       taggedKind   :: TaggedKind
-    , taggedName   :: CName
+    , taggedName   :: C.Name
     , taggedOrigin :: C.NameOrigin
     }
 
@@ -249,29 +249,21 @@ data TaggedKind = Struct | Union | Enum
 
 toTaggedType :: C.Type ResolveBindingSpec -> Maybe TaggedType
 toTaggedType = \case
-    C.TypeStruct name origin -> Just $ TaggedType Struct name origin
-    C.TypeUnion  name origin -> Just $ TaggedType Union  name origin
-    C.TypeEnum   name origin -> Just $ TaggedType Enum   name origin
-    _otherwise               -> Nothing
+    C.TypeStruct DeclId{..} -> Just $ TaggedType Struct declIdName declIdOrigin
+    C.TypeUnion  DeclId{..} -> Just $ TaggedType Union  declIdName declIdOrigin
+    C.TypeEnum   DeclId{..} -> Just $ TaggedType Enum   declIdName declIdOrigin
+    _otherwise              -> Nothing
 
 fromTaggedType :: TaggedType -> C.Type HandleTypedefs
 fromTaggedType TaggedType{..} =
     case taggedKind of
-      Struct -> C.TypeStruct taggedName taggedOrigin
-      Union  -> C.TypeUnion  taggedName taggedOrigin
-      Enum   -> C.TypeEnum   taggedName taggedOrigin
+      Struct -> C.TypeStruct $ DeclId taggedName taggedOrigin
+      Union  -> C.TypeUnion  $ DeclId taggedName taggedOrigin
+      Enum   -> C.TypeEnum   $ DeclId taggedName taggedOrigin
 
-taggedNameKind :: TaggedKind -> C.NameKind
-taggedNameKind = \case
-    Struct -> C.NameKindStruct
-    Union  -> C.NameKindUnion
-    Enum   -> C.NameKindEnum
-
-origQualId :: TaggedType -> QualDeclId
-origQualId TaggedType{..} =
-    QualDeclId
-      (origDeclId taggedName taggedOrigin)
-      (taggedNameKind taggedKind)
+origNsId :: TaggedType -> NsPrelimDeclId
+origNsId TaggedType{..} =
+    nsPrelimDeclId (origPrelimDeclId taggedName taggedOrigin) C.TypeNamespaceTag
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: restore original names
@@ -280,8 +272,9 @@ origQualId TaggedType{..} =
   TODO: Maybe this should live somewhere more general?
 -------------------------------------------------------------------------------}
 
-origDeclId :: CName -> C.NameOrigin -> DeclId
-origDeclId name = \case
-    C.NameOriginInSource           -> DeclNamed name
-    C.NameOriginRenamedFrom orig   -> DeclNamed orig
-    C.NameOriginGenerated   anonId -> DeclAnon anonId
+origPrelimDeclId :: C.Name -> C.NameOrigin -> PrelimDeclId
+origPrelimDeclId name = \case
+    C.NameOriginInSource           -> PrelimDeclIdNamed   name
+    C.NameOriginRenamedFrom orig   -> PrelimDeclIdNamed   orig
+    C.NameOriginGenerated   anonId -> PrelimDeclIdAnon    anonId
+    C.NameOriginBuiltin            -> PrelimDeclIdBuiltin name

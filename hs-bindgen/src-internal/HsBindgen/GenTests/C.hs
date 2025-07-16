@@ -108,17 +108,17 @@ getStructCTypeSpelling = \case
       C.DeclPathAnon ctxt ->
         case ctxt of
           C.DeclPathCtxtTypedef typedefName ->
-            Just $ T.unpack (C.getCName typedefName)
+            Just $ T.unpack (C.getName typedefName)
           _otherwise ->
             Nothing
       C.DeclPathName cName ->
-          Just $ "struct " ++ T.unpack (C.getCName cName)
+          Just $ "struct " ++ T.unpack (C.getName cName)
     Hs.StructOriginEnum{} -> Nothing
 
 getFieldP :: Hs.Field -> FieldP
 getFieldP Hs.Field{..} = (cName, hsTypeName)
   where
-    cName :: CName
+    cName :: C.Name
     cName = case fieldOrigin of
       Hs.FieldOriginNone -> panicPure "unexpected FieldOriginNone in struct"
       Hs.FieldOriginStructField cStructField -> C.fieldName cStructField
@@ -150,7 +150,7 @@ getFieldP Hs.Field{..} = (cName, hsTypeName)
 -------------------------------------------------------------------------------}
 
 type CTypeSpelling = String
-type FieldP        = (CName, HsTypeName)
+type FieldP        = (C.Name, HsTypeName)
 type HsTypeName    = String
 type IncludeFile   = String
 type IncludeGuard  = String
@@ -328,8 +328,8 @@ getIncludeGuard = List.map aux
       | Char.isAlphaNum c = Char.toUpper c
       | otherwise         = '_'
 
-prettyCName :: CName -> CtxDoc
-prettyCName = string . T.unpack . getCName
+prettyCName :: C.Name -> CtxDoc
+prettyCName = string . T.unpack . C.getName
 
 prettyFun ::
      CtxDoc    -- ^ Part before opening paren

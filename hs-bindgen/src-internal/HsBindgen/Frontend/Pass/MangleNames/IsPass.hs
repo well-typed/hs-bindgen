@@ -12,13 +12,13 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C
-import HsBindgen.Language.C.Name qualified as C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint
@@ -42,7 +42,7 @@ type family AnnMangleNames ix where
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id         MangleNames = NamePair
+  type Id         MangleNames = (NamePair, NameOrigin)
   type FieldName  MangleNames = NamePair
   type TypedefRef MangleNames = RenamedTypedefRef MangleNames
   type MacroBody  MangleNames = CheckedMacro MangleNames
@@ -62,7 +62,7 @@ instance IsPass MangleNames where
 -- Invariant: the 'HsIdentifier' must satisfy the rules for legal Haskell names,
 -- for its intended use (constructor, variable, ..).
 data NamePair = NamePair {
-      nameC       :: CName
+      nameC       :: C.Name
     , nameHsIdent :: HsIdentifier
     }
   deriving stock (Show, Eq, Ord, Generic)

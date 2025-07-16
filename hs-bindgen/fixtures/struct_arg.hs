@@ -19,7 +19,7 @@
               structFieldLoc =
               "struct_arg.h:3:9",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "thing_x"},
               structFieldType = TypePrim
@@ -31,7 +31,7 @@
           declInfo = DeclInfo {
             declLoc = "struct_arg.h:2:8",
             declId = NamePair {
-              nameC = CName "thing",
+              nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"},
             declOrigin = NameOriginInSource,
@@ -48,7 +48,7 @@
                   structFieldLoc =
                   "struct_arg.h:3:9",
                   structFieldName = NamePair {
-                    nameC = CName "x",
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
                       "thing_x"},
                   structFieldType = TypePrim
@@ -85,7 +85,7 @@
                 structFieldLoc =
                 "struct_arg.h:3:9",
                 structFieldName = NamePair {
-                  nameC = CName "x",
+                  nameC = Name "x",
                   nameHsIdent = HsIdentifier
                     "thing_x"},
                 structFieldType = TypePrim
@@ -97,7 +97,7 @@
             declInfo = DeclInfo {
               declLoc = "struct_arg.h:2:8",
               declId = NamePair {
-                nameC = CName "thing",
+                nameC = Name "thing",
                 nameHsIdent = HsIdentifier
                   "Thing"},
               declOrigin = NameOriginInSource,
@@ -114,7 +114,7 @@
                     structFieldLoc =
                     "struct_arg.h:3:9",
                     structFieldName = NamePair {
-                      nameC = CName "x",
+                      nameC = Name "x",
                       nameHsIdent = HsIdentifier
                         "thing_x"},
                     structFieldType = TypePrim
@@ -156,7 +156,7 @@
                         structFieldLoc =
                         "struct_arg.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "thing_x"},
                         structFieldType = TypePrim
@@ -168,7 +168,7 @@
                     declInfo = DeclInfo {
                       declLoc = "struct_arg.h:2:8",
                       declId = NamePair {
-                        nameC = CName "thing",
+                        nameC = Name "thing",
                         nameHsIdent = HsIdentifier
                           "Thing"},
                       declOrigin = NameOriginInSource,
@@ -185,7 +185,7 @@
                             structFieldLoc =
                             "struct_arg.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "thing_x"},
                             structFieldType = TypePrim
@@ -227,7 +227,7 @@
                         structFieldLoc =
                         "struct_arg.h:3:9",
                         structFieldName = NamePair {
-                          nameC = CName "x",
+                          nameC = Name "x",
                           nameHsIdent = HsIdentifier
                             "thing_x"},
                         structFieldType = TypePrim
@@ -239,7 +239,7 @@
                     declInfo = DeclInfo {
                       declLoc = "struct_arg.h:2:8",
                       declId = NamePair {
-                        nameC = CName "thing",
+                        nameC = Name "thing",
                         nameHsIdent = HsIdentifier
                           "Thing"},
                       declOrigin = NameOriginInSource,
@@ -256,7 +256,7 @@
                             structFieldLoc =
                             "struct_arg.h:3:9",
                             structFieldName = NamePair {
-                              nameC = CName "x",
+                              nameC = Name "x",
                               nameHsIdent = HsIdentifier
                                 "thing_x"},
                             structFieldType = TypePrim
@@ -316,7 +316,7 @@
           functionArgs = [
             TypeStruct
               NamePair {
-                nameC = CName "thing",
+                nameC = Name "thing",
                 nameHsIdent = HsIdentifier
                   "Thing"}
               NameOriginInSource],
@@ -352,7 +352,7 @@
               (PrimIntegral PrimInt Signed)],
           functionRes = TypeStruct
             NamePair {
-              nameC = CName "thing",
+              nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
             NameOriginInSource}},
@@ -395,7 +395,7 @@
               (PrimIntegral PrimInt Signed),
             TypeStruct
               NamePair {
-                nameC = CName "thing",
+                nameC = Name "thing",
                 nameHsIdent = HsIdentifier
                   "Thing"}
               NameOriginInSource,
@@ -403,7 +403,7 @@
               (PrimFloating PrimDouble)],
           functionRes = TypeStruct
             NamePair {
-              nameC = CName "thing",
+              nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
             NameOriginInSource}},
@@ -440,7 +440,7 @@
               (PrimIntegral PrimInt Signed),
             TypeStruct
               NamePair {
-                nameC = CName "thing",
+                nameC = Name "thing",
                 nameHsIdent = HsIdentifier
                   "Thing"}
               NameOriginInSource,

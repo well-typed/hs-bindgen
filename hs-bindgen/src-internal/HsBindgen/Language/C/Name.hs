@@ -1,58 +1,63 @@
+-- | C name types
+--
+-- Not intended for direct import; import via @HsBindgen.Language.C@.
 module HsBindgen.Language.C.Name (
-    -- * Types
-    AnonId(..)
-  , CName(..)
+    -- * Name
+    Name(..)
+
+    -- * TypeNamespace
+  , TypeNamespace(..)
+
+    -- * NameKind
   , NameKind(..)
+  , nameKindTypeNamespace
+
+    -- * QualName
   , QualName(..)
   , qualNameText
   , parseQualName
-  , NameOrigin(..)
   ) where
 
 import Data.Text qualified as Text
 
-import Clang.HighLevel (ShowFile (..))
-import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 import Text.SimplePrettyPrint (showToCtxDoc, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
-  AnonId
+  Name
 -------------------------------------------------------------------------------}
-
--- | Identity of an anonymous declaration
-newtype AnonId = AnonId SingleLoc
-  deriving stock (Show, Eq, Ord, Generic)
-
--- | We mimick the syntax used by clang itself for anonymous declarations
-instance PrettyForTrace AnonId where
-  prettyForTrace (AnonId loc) = fromString $ concat [
-        "(unnamed at "
-      , HighLevel.prettySingleLoc ShowFile loc
-      , ")"
-      ]
-
-{-------------------------------------------------------------------------------
-  CName
--------------------------------------------------------------------------------}
-
--- TODO Rename CName to Name, for qualified import
 
 -- | C name
---
--- This type represents a C name, with no prefix.
---
--- Example: @foo@
-newtype CName = CName {
-      getCName :: Text
+newtype Name = Name {
+      getName :: Text
     }
   deriving newtype (Show, Eq, Ord, IsString, Semigroup)
   deriving stock (Generic)
 
-instance PrettyForTrace CName where
-  prettyForTrace (CName name) = "'" >< textToCtxDoc name >< "'"
+instance PrettyForTrace Name where
+  prettyForTrace (Name name) = "'" >< textToCtxDoc name >< "'"
+
+{-------------------------------------------------------------------------------
+  TypeNamespace
+-------------------------------------------------------------------------------}
+
+-- | C type namespaces
+--
+-- C namespaces include:
+--
+-- * Ordinary namespace: a single namespace that includes @typedef@ names,
+--   variable names, function names, @enum@ constant names, etc.
+-- * Tag namespace: a single namespace that includes all @struct@, @union@, and
+--   @enum@ tags
+-- * Field namespaces: a separate namespace per @struct@/@union@ of field names
+-- * Label namespace: a single namespace of @goto@ labels
+--
+-- A type name is in the ordinary or tag namespace.
+data TypeNamespace =
+    TypeNamespaceOrdinary
+  | TypeNamespaceTag
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   NameKind
@@ -87,12 +92,23 @@ data NameKind =
 instance PrettyForTrace NameKind where
   prettyForTrace = showToCtxDoc
 
+-- | Get the 'TypeNamespace' for a 'NameKind'
+nameKindTypeNamespace :: NameKind -> TypeNamespace
+nameKindTypeNamespace = \case
+    NameKindOrdinary -> TypeNamespaceOrdinary
+    NameKindStruct   -> TypeNamespaceTag
+    NameKindUnion    -> TypeNamespaceTag
+    NameKindEnum     -> TypeNamespaceTag
+
 {-------------------------------------------------------------------------------
   QualName
 -------------------------------------------------------------------------------}
 
+-- | C name, qualified by the 'NameKind'
+--
+-- This is the parsed representation of a @libclang@ C spelling.
 data QualName = QualName {
-      qualNameName :: CName
+      qualNameName :: Name
     , qualNameKind :: NameKind
     }
   deriving stock (Eq, Generic, Ord, Show)
@@ -107,40 +123,12 @@ qualNameText QualName{..} =
           NameKindStruct   -> "struct "
           NameKindUnion    -> "union "
           NameKindEnum     -> "enum "
-    in  prefix <> getCName qualNameName
+    in  prefix <> getName qualNameName
 
 parseQualName :: Text -> Maybe QualName
 parseQualName t = case Text.words t of
-    [n]           -> Just $ QualName (CName n) NameKindOrdinary
-    ["struct", n] -> Just $ QualName (CName n) NameKindStruct
-    ["union",  n] -> Just $ QualName (CName n) NameKindUnion
-    ["enum",   n] -> Just $ QualName (CName n) NameKindEnum
+    [n]           -> Just $ QualName (Name n) NameKindOrdinary
+    ["struct", n] -> Just $ QualName (Name n) NameKindStruct
+    ["union",  n] -> Just $ QualName (Name n) NameKindUnion
+    ["enum",   n] -> Just $ QualName (Name n) NameKindEnum
     _otherwise    -> Nothing
-
-{-------------------------------------------------------------------------------
-  NameOrigin
--------------------------------------------------------------------------------}
-
--- | C name origin
---
--- This type describes the origin of a C name.
-data NameOrigin =
-    -- | Name in source
-    --
-    -- The name may be used to construct a valid C type.
-    NameOriginInSource
-
-    -- | Name is generated
-    --
-    -- The name may not be used to construct a valid C type.
-  | NameOriginGenerated AnonId
-
-    -- | Name is renamed
-    --
-    -- The name may not be used to construct a valid C type, but this original
-    -- name may be used to construct a valid C type.
-  | NameOriginRenamedFrom CName
-  deriving stock (Show, Eq, Ord, Generic)
-
-instance PrettyForTrace NameOrigin where
-  prettyForTrace = showToCtxDoc

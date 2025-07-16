@@ -40,8 +40,8 @@ module HsBindgen.Frontend.AST.External (
   , ResolveBindingSpec.ResolvedExtBinding(..)
   , isVoid
     -- * Names
-  , CName(..)
-  , HsIdentifier(..)
+  , AnonId(..)
+  , NameOrigin(..)
   , MangleNames.NamePair(..)
   , MangleNames.nameHs
   , MangleNames.RecordNames(..)
@@ -54,12 +54,11 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -95,8 +94,8 @@ data Decl = Decl {
 data DeclInfo = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: MangleNames.NamePair
-    , declOrigin  :: C.NameOrigin
-    , declAliases :: [CName]
+    , declOrigin  :: NameOrigin
+    , declAliases :: [C.Name]
     , declHeader  :: CHeaderIncludePath
     }
   deriving stock (Show, Eq, Generic)
@@ -223,12 +222,12 @@ data CheckedMacroType = CheckedMacroType{
 --
 -- For type /declarations/ see 'Decl'.
 data Type =
-    TypePrim PrimType
-  | TypeStruct MangleNames.NamePair C.NameOrigin
-  | TypeUnion MangleNames.NamePair C.NameOrigin
-  | TypeEnum MangleNames.NamePair C.NameOrigin
+    TypePrim C.PrimType
+  | TypeStruct MangleNames.NamePair NameOrigin
+  | TypeUnion MangleNames.NamePair NameOrigin
+  | TypeEnum MangleNames.NamePair NameOrigin
   | TypeTypedef TypedefRef
-  | TypeMacroTypedef MangleNames.NamePair C.NameOrigin
+  | TypeMacroTypedef MangleNames.NamePair NameOrigin
   | TypePointer Type
   | TypeConstArray Natural Type
   | TypeFun [Type] Type
@@ -256,7 +255,7 @@ data Type =
 
 data TypedefRef =
     TypedefRegular MangleNames.NamePair
-  | TypedefSquashed CName Type
+  | TypedefSquashed C.Name Type
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow TypedefRef
 

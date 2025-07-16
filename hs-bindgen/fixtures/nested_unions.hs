@@ -18,7 +18,7 @@
           declLoc =
           "nested_unions.h:2:15",
           declId = NamePair {
-            nameC = CName "unionA",
+            nameC = Name "unionA",
             nameHsIdent = HsIdentifier
               "UnionA"},
           declOrigin = NameOriginInSource,
@@ -40,7 +40,7 @@
                 unionFieldLoc =
                 "nested_unions.h:3:21",
                 unionFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "unionA_a"},
                 unionFieldType = TypePrim
@@ -49,7 +49,7 @@
                 unionFieldLoc =
                 "nested_unions.h:4:22",
                 unionFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "unionA_b"},
                 unionFieldType = TypePrim
@@ -125,12 +125,12 @@
               structFieldLoc =
               "nested_unions.h:5:11",
               structFieldName = NamePair {
-                nameC = CName "fieldA1",
+                nameC = Name "fieldA1",
                 nameHsIdent = HsIdentifier
                   "exA_fieldA1"},
               structFieldType = TypeUnion
                 NamePair {
-                  nameC = CName "unionA",
+                  nameC = Name "unionA",
                   nameHsIdent = HsIdentifier
                     "UnionA"}
                 NameOriginInSource,
@@ -141,7 +141,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_unions.h:1:8",
             declId = NamePair {
-              nameC = CName "exA",
+              nameC = Name "exA",
               nameHsIdent = HsIdentifier
                 "ExA"},
             declOrigin = NameOriginInSource,
@@ -158,12 +158,12 @@
                   structFieldLoc =
                   "nested_unions.h:5:11",
                   structFieldName = NamePair {
-                    nameC = CName "fieldA1",
+                    nameC = Name "fieldA1",
                     nameHsIdent = HsIdentifier
                       "exA_fieldA1"},
                   structFieldType = TypeUnion
                     NamePair {
-                      nameC = CName "unionA",
+                      nameC = Name "unionA",
                       nameHsIdent = HsIdentifier
                         "UnionA"}
                     NameOriginInSource,
@@ -201,12 +201,12 @@
                 structFieldLoc =
                 "nested_unions.h:5:11",
                 structFieldName = NamePair {
-                  nameC = CName "fieldA1",
+                  nameC = Name "fieldA1",
                   nameHsIdent = HsIdentifier
                     "exA_fieldA1"},
                 structFieldType = TypeUnion
                   NamePair {
-                    nameC = CName "unionA",
+                    nameC = Name "unionA",
                     nameHsIdent = HsIdentifier
                       "UnionA"}
                   NameOriginInSource,
@@ -217,7 +217,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_unions.h:1:8",
               declId = NamePair {
-                nameC = CName "exA",
+                nameC = Name "exA",
                 nameHsIdent = HsIdentifier
                   "ExA"},
               declOrigin = NameOriginInSource,
@@ -234,12 +234,12 @@
                     structFieldLoc =
                     "nested_unions.h:5:11",
                     structFieldName = NamePair {
-                      nameC = CName "fieldA1",
+                      nameC = Name "fieldA1",
                       nameHsIdent = HsIdentifier
                         "exA_fieldA1"},
                     structFieldType = TypeUnion
                       NamePair {
-                        nameC = CName "unionA",
+                        nameC = Name "unionA",
                         nameHsIdent = HsIdentifier
                           "UnionA"}
                       NameOriginInSource,
@@ -282,12 +282,12 @@
                         structFieldLoc =
                         "nested_unions.h:5:11",
                         structFieldName = NamePair {
-                          nameC = CName "fieldA1",
+                          nameC = Name "fieldA1",
                           nameHsIdent = HsIdentifier
                             "exA_fieldA1"},
                         structFieldType = TypeUnion
                           NamePair {
-                            nameC = CName "unionA",
+                            nameC = Name "unionA",
                             nameHsIdent = HsIdentifier
                               "UnionA"}
                           NameOriginInSource,
@@ -298,7 +298,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_unions.h:1:8",
                       declId = NamePair {
-                        nameC = CName "exA",
+                        nameC = Name "exA",
                         nameHsIdent = HsIdentifier
                           "ExA"},
                       declOrigin = NameOriginInSource,
@@ -315,12 +315,12 @@
                             structFieldLoc =
                             "nested_unions.h:5:11",
                             structFieldName = NamePair {
-                              nameC = CName "fieldA1",
+                              nameC = Name "fieldA1",
                               nameHsIdent = HsIdentifier
                                 "exA_fieldA1"},
                             structFieldType = TypeUnion
                               NamePair {
-                                nameC = CName "unionA",
+                                nameC = Name "unionA",
                                 nameHsIdent = HsIdentifier
                                   "UnionA"}
                               NameOriginInSource,
@@ -363,12 +363,12 @@
                         structFieldLoc =
                         "nested_unions.h:5:11",
                         structFieldName = NamePair {
-                          nameC = CName "fieldA1",
+                          nameC = Name "fieldA1",
                           nameHsIdent = HsIdentifier
                             "exA_fieldA1"},
                         structFieldType = TypeUnion
                           NamePair {
-                            nameC = CName "unionA",
+                            nameC = Name "unionA",
                             nameHsIdent = HsIdentifier
                               "UnionA"}
                           NameOriginInSource,
@@ -379,7 +379,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_unions.h:1:8",
                       declId = NamePair {
-                        nameC = CName "exA",
+                        nameC = Name "exA",
                         nameHsIdent = HsIdentifier
                           "ExA"},
                       declOrigin = NameOriginInSource,
@@ -396,12 +396,12 @@
                             structFieldLoc =
                             "nested_unions.h:5:11",
                             structFieldName = NamePair {
-                              nameC = CName "fieldA1",
+                              nameC = Name "fieldA1",
                               nameHsIdent = HsIdentifier
                                 "exA_fieldA1"},
                             structFieldType = TypeUnion
                               NamePair {
-                                nameC = CName "unionA",
+                                nameC = Name "unionA",
                                 nameHsIdent = HsIdentifier
                                   "UnionA"}
                               NameOriginInSource,
@@ -441,7 +441,7 @@
         declInfo = DeclInfo {
           declLoc = "nested_unions.h:9:9",
           declId = NamePair {
-            nameC = CName "exB_fieldB1",
+            nameC = Name "exB_fieldB1",
             nameHsIdent = HsIdentifier
               "ExB_fieldB1"},
           declOrigin = NameOriginGenerated
@@ -464,7 +464,7 @@
                 unionFieldLoc =
                 "nested_unions.h:10:21",
                 unionFieldName = NamePair {
-                  nameC = CName "a",
+                  nameC = Name "a",
                   nameHsIdent = HsIdentifier
                     "exB_fieldB1_a"},
                 unionFieldType = TypePrim
@@ -473,7 +473,7 @@
                 unionFieldLoc =
                 "nested_unions.h:11:22",
                 unionFieldName = NamePair {
-                  nameC = CName "b",
+                  nameC = Name "b",
                   nameHsIdent = HsIdentifier
                     "exB_fieldB1_b"},
                 unionFieldType = TypePrim
@@ -549,12 +549,12 @@
               structFieldLoc =
               "nested_unions.h:12:11",
               structFieldName = NamePair {
-                nameC = CName "fieldB1",
+                nameC = Name "fieldB1",
                 nameHsIdent = HsIdentifier
                   "exB_fieldB1"},
               structFieldType = TypeUnion
                 NamePair {
-                  nameC = CName "exB_fieldB1",
+                  nameC = Name "exB_fieldB1",
                   nameHsIdent = HsIdentifier
                     "ExB_fieldB1"}
                 (NameOriginGenerated
@@ -566,7 +566,7 @@
           declInfo = DeclInfo {
             declLoc = "nested_unions.h:8:8",
             declId = NamePair {
-              nameC = CName "exB",
+              nameC = Name "exB",
               nameHsIdent = HsIdentifier
                 "ExB"},
             declOrigin = NameOriginInSource,
@@ -583,12 +583,12 @@
                   structFieldLoc =
                   "nested_unions.h:12:11",
                   structFieldName = NamePair {
-                    nameC = CName "fieldB1",
+                    nameC = Name "fieldB1",
                     nameHsIdent = HsIdentifier
                       "exB_fieldB1"},
                   structFieldType = TypeUnion
                     NamePair {
-                      nameC = CName "exB_fieldB1",
+                      nameC = Name "exB_fieldB1",
                       nameHsIdent = HsIdentifier
                         "ExB_fieldB1"}
                     (NameOriginGenerated
@@ -627,12 +627,12 @@
                 structFieldLoc =
                 "nested_unions.h:12:11",
                 structFieldName = NamePair {
-                  nameC = CName "fieldB1",
+                  nameC = Name "fieldB1",
                   nameHsIdent = HsIdentifier
                     "exB_fieldB1"},
                 structFieldType = TypeUnion
                   NamePair {
-                    nameC = CName "exB_fieldB1",
+                    nameC = Name "exB_fieldB1",
                     nameHsIdent = HsIdentifier
                       "ExB_fieldB1"}
                   (NameOriginGenerated
@@ -644,7 +644,7 @@
             declInfo = DeclInfo {
               declLoc = "nested_unions.h:8:8",
               declId = NamePair {
-                nameC = CName "exB",
+                nameC = Name "exB",
                 nameHsIdent = HsIdentifier
                   "ExB"},
               declOrigin = NameOriginInSource,
@@ -661,12 +661,12 @@
                     structFieldLoc =
                     "nested_unions.h:12:11",
                     structFieldName = NamePair {
-                      nameC = CName "fieldB1",
+                      nameC = Name "fieldB1",
                       nameHsIdent = HsIdentifier
                         "exB_fieldB1"},
                     structFieldType = TypeUnion
                       NamePair {
-                        nameC = CName "exB_fieldB1",
+                        nameC = Name "exB_fieldB1",
                         nameHsIdent = HsIdentifier
                           "ExB_fieldB1"}
                       (NameOriginGenerated
@@ -710,12 +710,12 @@
                         structFieldLoc =
                         "nested_unions.h:12:11",
                         structFieldName = NamePair {
-                          nameC = CName "fieldB1",
+                          nameC = Name "fieldB1",
                           nameHsIdent = HsIdentifier
                             "exB_fieldB1"},
                         structFieldType = TypeUnion
                           NamePair {
-                            nameC = CName "exB_fieldB1",
+                            nameC = Name "exB_fieldB1",
                             nameHsIdent = HsIdentifier
                               "ExB_fieldB1"}
                           (NameOriginGenerated
@@ -727,7 +727,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_unions.h:8:8",
                       declId = NamePair {
-                        nameC = CName "exB",
+                        nameC = Name "exB",
                         nameHsIdent = HsIdentifier
                           "ExB"},
                       declOrigin = NameOriginInSource,
@@ -744,12 +744,12 @@
                             structFieldLoc =
                             "nested_unions.h:12:11",
                             structFieldName = NamePair {
-                              nameC = CName "fieldB1",
+                              nameC = Name "fieldB1",
                               nameHsIdent = HsIdentifier
                                 "exB_fieldB1"},
                             structFieldType = TypeUnion
                               NamePair {
-                                nameC = CName "exB_fieldB1",
+                                nameC = Name "exB_fieldB1",
                                 nameHsIdent = HsIdentifier
                                   "ExB_fieldB1"}
                               (NameOriginGenerated
@@ -793,12 +793,12 @@
                         structFieldLoc =
                         "nested_unions.h:12:11",
                         structFieldName = NamePair {
-                          nameC = CName "fieldB1",
+                          nameC = Name "fieldB1",
                           nameHsIdent = HsIdentifier
                             "exB_fieldB1"},
                         structFieldType = TypeUnion
                           NamePair {
-                            nameC = CName "exB_fieldB1",
+                            nameC = Name "exB_fieldB1",
                             nameHsIdent = HsIdentifier
                               "ExB_fieldB1"}
                           (NameOriginGenerated
@@ -810,7 +810,7 @@
                     declInfo = DeclInfo {
                       declLoc = "nested_unions.h:8:8",
                       declId = NamePair {
-                        nameC = CName "exB",
+                        nameC = Name "exB",
                         nameHsIdent = HsIdentifier
                           "ExB"},
                       declOrigin = NameOriginInSource,
@@ -827,12 +827,12 @@
                             structFieldLoc =
                             "nested_unions.h:12:11",
                             structFieldName = NamePair {
-                              nameC = CName "fieldB1",
+                              nameC = Name "fieldB1",
                               nameHsIdent = HsIdentifier
                                 "exB_fieldB1"},
                             structFieldType = TypeUnion
                               NamePair {
-                                nameC = CName "exB_fieldB1",
+                                nameC = Name "exB_fieldB1",
                                 nameHsIdent = HsIdentifier
                                   "ExB_fieldB1"}
                               (NameOriginGenerated

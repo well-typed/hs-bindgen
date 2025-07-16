@@ -8,11 +8,11 @@
         declInfo = DeclInfo {
           declLoc = "alltypes.h:320:16",
           declId = NamePair {
-            nameC = CName "_IO_FILE",
+            nameC = Name "_IO_FILE",
             nameHsIdent = HsIdentifier
               "C_IO_FILE"},
           declOrigin = NameOriginInSource,
-          declAliases = [CName "FILE"],
+          declAliases = [Name "FILE"],
           declHeader =
           "program_slicing_selection.h"},
         declKind = OpaqueStruct,
@@ -42,7 +42,7 @@
           declLoc =
           "program_slicing_selection.h:7:6",
           declId = NamePair {
-            nameC = CName
+            nameC = Name
               "FileOperationStatus",
             nameHsIdent = HsIdentifier
               "FileOperationStatus"},
@@ -68,7 +68,7 @@
                 enumConstantLoc =
                 "program_slicing_selection.h:8:3",
                 enumConstantName = NamePair {
-                  nameC = CName "SUCCESS",
+                  nameC = Name "SUCCESS",
                   nameHsIdent = HsIdentifier
                     "SUCCESS"},
                 enumConstantValue = 0},
@@ -76,7 +76,7 @@
                 enumConstantLoc =
                 "program_slicing_selection.h:9:3",
                 enumConstantName = NamePair {
-                  nameC = CName "NOT_FOUND",
+                  nameC = Name "NOT_FOUND",
                   nameHsIdent = HsIdentifier
                     "NOT_FOUND"},
                 enumConstantValue = 2},
@@ -84,7 +84,7 @@
                 enumConstantLoc =
                 "program_slicing_selection.h:10:3",
                 enumConstantName = NamePair {
-                  nameC = CName
+                  nameC = Name
                     "PERMISSION_DENIED",
                   nameHsIdent = HsIdentifier
                     "PERMISSION_DENIED"},
@@ -93,8 +93,7 @@
                 enumConstantLoc =
                 "program_slicing_selection.h:11:3",
                 enumConstantName = NamePair {
-                  nameC = CName
-                    "INVALID_ARGUMENT",
+                  nameC = Name "INVALID_ARGUMENT",
                   nameHsIdent = HsIdentifier
                     "INVALID_ARGUMENT"},
                 enumConstantValue = 22},
@@ -102,7 +101,7 @@
                 enumConstantLoc =
                 "program_slicing_selection.h:12:3",
                 enumConstantName = NamePair {
-                  nameC = CName "OUT_OF_MEMORY",
+                  nameC = Name "OUT_OF_MEMORY",
                   nameHsIdent = HsIdentifier
                     "OUT_OF_MEMORY"},
                 enumConstantValue = 12},
@@ -110,7 +109,7 @@
                 enumConstantLoc =
                 "program_slicing_selection.h:13:3",
                 enumConstantName = NamePair {
-                  nameC = CName
+                  nameC = Name
                     "CUSTOM_ERROR_OTHER",
                   nameHsIdent = HsIdentifier
                     "CUSTOM_ERROR_OTHER"},
@@ -332,7 +331,7 @@
           enumConstantLoc =
           "program_slicing_selection.h:8:3",
           enumConstantName = NamePair {
-            nameC = CName "SUCCESS",
+            nameC = Name "SUCCESS",
             nameHsIdent = HsIdentifier
               "SUCCESS"},
           enumConstantValue = 0}},
@@ -353,7 +352,7 @@
           enumConstantLoc =
           "program_slicing_selection.h:9:3",
           enumConstantName = NamePair {
-            nameC = CName "NOT_FOUND",
+            nameC = Name "NOT_FOUND",
             nameHsIdent = HsIdentifier
               "NOT_FOUND"},
           enumConstantValue = 2}},
@@ -374,7 +373,7 @@
           enumConstantLoc =
           "program_slicing_selection.h:10:3",
           enumConstantName = NamePair {
-            nameC = CName
+            nameC = Name
               "PERMISSION_DENIED",
             nameHsIdent = HsIdentifier
               "PERMISSION_DENIED"},
@@ -396,8 +395,7 @@
           enumConstantLoc =
           "program_slicing_selection.h:11:3",
           enumConstantName = NamePair {
-            nameC = CName
-              "INVALID_ARGUMENT",
+            nameC = Name "INVALID_ARGUMENT",
             nameHsIdent = HsIdentifier
               "INVALID_ARGUMENT"},
           enumConstantValue = 22}},
@@ -418,7 +416,7 @@
           enumConstantLoc =
           "program_slicing_selection.h:12:3",
           enumConstantName = NamePair {
-            nameC = CName "OUT_OF_MEMORY",
+            nameC = Name "OUT_OF_MEMORY",
             nameHsIdent = HsIdentifier
               "OUT_OF_MEMORY"},
           enumConstantValue = 12}},
@@ -439,7 +437,7 @@
           enumConstantLoc =
           "program_slicing_selection.h:13:3",
           enumConstantName = NamePair {
-            nameC = CName
+            nameC = Name
               "CUSTOM_ERROR_OTHER",
             nameHsIdent = HsIdentifier
               "CUSTOM_ERROR_OTHER"},
@@ -466,12 +464,12 @@
               structFieldLoc =
               "program_slicing_selection.h:17:28",
               structFieldName = NamePair {
-                nameC = CName "status",
+                nameC = Name "status",
                 nameHsIdent = HsIdentifier
                   "fileOperationRecord_status"},
               structFieldType = TypeEnum
                 NamePair {
-                  nameC = CName
+                  nameC = Name
                     "FileOperationStatus",
                   nameHsIdent = HsIdentifier
                     "FileOperationStatus"}
@@ -598,13 +596,13 @@
               structFieldLoc =
               "program_slicing_selection.h:18:10",
               structFieldName = NamePair {
-                nameC = CName "bytes_processed",
+                nameC = Name "bytes_processed",
                 nameHsIdent = HsIdentifier
                   "fileOperationRecord_bytes_processed"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "size_t",
+                    qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -725,7 +723,7 @@
             declLoc =
             "program_slicing_selection.h:16:8",
             declId = NamePair {
-              nameC = CName
+              nameC = Name
                 "FileOperationRecord",
               nameHsIdent = HsIdentifier
                 "FileOperationRecord"},
@@ -746,12 +744,12 @@
                   structFieldLoc =
                   "program_slicing_selection.h:17:28",
                   structFieldName = NamePair {
-                    nameC = CName "status",
+                    nameC = Name "status",
                     nameHsIdent = HsIdentifier
                       "fileOperationRecord_status"},
                   structFieldType = TypeEnum
                     NamePair {
-                      nameC = CName
+                      nameC = Name
                         "FileOperationStatus",
                       nameHsIdent = HsIdentifier
                         "FileOperationStatus"}
@@ -762,13 +760,13 @@
                   structFieldLoc =
                   "program_slicing_selection.h:18:10",
                   structFieldName = NamePair {
-                    nameC = CName "bytes_processed",
+                    nameC = Name "bytes_processed",
                     nameHsIdent = HsIdentifier
                       "fileOperationRecord_bytes_processed"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "size_t",
+                        qualNameName = Name "size_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -915,12 +913,12 @@
                 structFieldLoc =
                 "program_slicing_selection.h:17:28",
                 structFieldName = NamePair {
-                  nameC = CName "status",
+                  nameC = Name "status",
                   nameHsIdent = HsIdentifier
                     "fileOperationRecord_status"},
                 structFieldType = TypeEnum
                   NamePair {
-                    nameC = CName
+                    nameC = Name
                       "FileOperationStatus",
                     nameHsIdent = HsIdentifier
                       "FileOperationStatus"}
@@ -1047,13 +1045,13 @@
                 structFieldLoc =
                 "program_slicing_selection.h:18:10",
                 structFieldName = NamePair {
-                  nameC = CName "bytes_processed",
+                  nameC = Name "bytes_processed",
                   nameHsIdent = HsIdentifier
                     "fileOperationRecord_bytes_processed"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "size_t",
+                      qualNameName = Name "size_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -1174,7 +1172,7 @@
               declLoc =
               "program_slicing_selection.h:16:8",
               declId = NamePair {
-                nameC = CName
+                nameC = Name
                   "FileOperationRecord",
                 nameHsIdent = HsIdentifier
                   "FileOperationRecord"},
@@ -1195,12 +1193,12 @@
                     structFieldLoc =
                     "program_slicing_selection.h:17:28",
                     structFieldName = NamePair {
-                      nameC = CName "status",
+                      nameC = Name "status",
                       nameHsIdent = HsIdentifier
                         "fileOperationRecord_status"},
                     structFieldType = TypeEnum
                       NamePair {
-                        nameC = CName
+                        nameC = Name
                           "FileOperationStatus",
                         nameHsIdent = HsIdentifier
                           "FileOperationStatus"}
@@ -1211,13 +1209,13 @@
                     structFieldLoc =
                     "program_slicing_selection.h:18:10",
                     structFieldName = NamePair {
-                      nameC = CName "bytes_processed",
+                      nameC = Name "bytes_processed",
                       nameHsIdent = HsIdentifier
                         "fileOperationRecord_bytes_processed"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "size_t",
+                          qualNameName = Name "size_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -1369,12 +1367,12 @@
                         structFieldLoc =
                         "program_slicing_selection.h:17:28",
                         structFieldName = NamePair {
-                          nameC = CName "status",
+                          nameC = Name "status",
                           nameHsIdent = HsIdentifier
                             "fileOperationRecord_status"},
                         structFieldType = TypeEnum
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "FileOperationStatus",
                             nameHsIdent = HsIdentifier
                               "FileOperationStatus"}
@@ -1501,13 +1499,13 @@
                         structFieldLoc =
                         "program_slicing_selection.h:18:10",
                         structFieldName = NamePair {
-                          nameC = CName "bytes_processed",
+                          nameC = Name "bytes_processed",
                           nameHsIdent = HsIdentifier
                             "fileOperationRecord_bytes_processed"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "size_t",
+                              qualNameName = Name "size_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -1628,7 +1626,7 @@
                       declLoc =
                       "program_slicing_selection.h:16:8",
                       declId = NamePair {
-                        nameC = CName
+                        nameC = Name
                           "FileOperationRecord",
                         nameHsIdent = HsIdentifier
                           "FileOperationRecord"},
@@ -1649,12 +1647,12 @@
                             structFieldLoc =
                             "program_slicing_selection.h:17:28",
                             structFieldName = NamePair {
-                              nameC = CName "status",
+                              nameC = Name "status",
                               nameHsIdent = HsIdentifier
                                 "fileOperationRecord_status"},
                             structFieldType = TypeEnum
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "FileOperationStatus",
                                 nameHsIdent = HsIdentifier
                                   "FileOperationStatus"}
@@ -1665,13 +1663,13 @@
                             structFieldLoc =
                             "program_slicing_selection.h:18:10",
                             structFieldName = NamePair {
-                              nameC = CName "bytes_processed",
+                              nameC = Name "bytes_processed",
                               nameHsIdent = HsIdentifier
                                 "fileOperationRecord_bytes_processed"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "size_t",
+                                  qualNameName = Name "size_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -1825,12 +1823,12 @@
                         structFieldLoc =
                         "program_slicing_selection.h:17:28",
                         structFieldName = NamePair {
-                          nameC = CName "status",
+                          nameC = Name "status",
                           nameHsIdent = HsIdentifier
                             "fileOperationRecord_status"},
                         structFieldType = TypeEnum
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "FileOperationStatus",
                             nameHsIdent = HsIdentifier
                               "FileOperationStatus"}
@@ -1957,13 +1955,13 @@
                         structFieldLoc =
                         "program_slicing_selection.h:18:10",
                         structFieldName = NamePair {
-                          nameC = CName "bytes_processed",
+                          nameC = Name "bytes_processed",
                           nameHsIdent = HsIdentifier
                             "fileOperationRecord_bytes_processed"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "size_t",
+                              qualNameName = Name "size_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -2084,7 +2082,7 @@
                       declLoc =
                       "program_slicing_selection.h:16:8",
                       declId = NamePair {
-                        nameC = CName
+                        nameC = Name
                           "FileOperationRecord",
                         nameHsIdent = HsIdentifier
                           "FileOperationRecord"},
@@ -2105,12 +2103,12 @@
                             structFieldLoc =
                             "program_slicing_selection.h:17:28",
                             structFieldName = NamePair {
-                              nameC = CName "status",
+                              nameC = Name "status",
                               nameHsIdent = HsIdentifier
                                 "fileOperationRecord_status"},
                             structFieldType = TypeEnum
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "FileOperationStatus",
                                 nameHsIdent = HsIdentifier
                                   "FileOperationStatus"}
@@ -2121,13 +2119,13 @@
                             structFieldLoc =
                             "program_slicing_selection.h:18:10",
                             structFieldName = NamePair {
-                              nameC = CName "bytes_processed",
+                              nameC = Name "bytes_processed",
                               nameHsIdent = HsIdentifier
                                 "fileOperationRecord_bytes_processed"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "size_t",
+                                  qualNameName = Name "size_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -2426,7 +2424,7 @@
               (TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "FILE",
+                    qualNameName = Name "FILE",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -2446,7 +2444,7 @@
             TypeExtBinding
               ResolvedExtBinding {
                 extCName = QualName {
-                  qualNameName = CName "size_t",
+                  qualNameName = Name "size_t",
                   qualNameKind =
                   NameKindOrdinary},
                 extHsRef = ExtHsRef {
@@ -2561,7 +2559,7 @@
                               ]})]}}],
           functionRes = TypeEnum
             NamePair {
-              nameC = CName
+              nameC = Name
                 "FileOperationStatus",
               nameHsIdent = HsIdentifier
                 "FileOperationStatus"}

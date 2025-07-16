@@ -4,12 +4,12 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "vector.h:1:9",
         declId = NamePair {
-          nameC = CName "vector",
+          nameC = Name "vector",
           nameHsIdent = HsIdentifier
             "Vector"},
         declOrigin = NameOriginGenerated
           (AnonId "vector.h:1:9"),
-        declAliases = [CName "vector"],
+        declAliases = [Name "vector"],
         declHeader = "vector.h"},
       declKind = DeclStruct
         Struct {
@@ -22,7 +22,7 @@ TranslationUnit {
               structFieldLoc =
               "vector.h:2:12",
               structFieldName = NamePair {
-                nameC = CName "x",
+                nameC = Name "x",
                 nameHsIdent = HsIdentifier
                   "vector_x"},
               structFieldType = TypePrim
@@ -33,7 +33,7 @@ TranslationUnit {
               structFieldLoc =
               "vector.h:3:12",
               structFieldName = NamePair {
-                nameC = CName "y",
+                nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "vector_y"},
               structFieldType = TypePrim
@@ -51,7 +51,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "vector.h:6:9",
         declId = NamePair {
-          nameC = CName "new_vector",
+          nameC = Name "new_vector",
           nameHsIdent = HsIdentifier
             "new_vector"},
         declOrigin = NameOriginInSource,
@@ -67,10 +67,10 @@ TranslationUnit {
           functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed
-                (CName "vector")
+                (Name "vector")
                 (TypeStruct
                   NamePair {
-                    nameC = CName "vector",
+                    nameC = Name "vector",
                     nameHsIdent = HsIdentifier
                       "Vector"}
                   (NameOriginGenerated

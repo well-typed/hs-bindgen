@@ -5,13 +5,13 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:10:9",
         declId = NamePair {
-          nameC = CName "FILE",
+          nameC = Name "FILE",
           nameHsIdent = HsIdentifier
             "FILE"},
         declOrigin = NameOriginGenerated
           (AnonId
             "fun_attributes.h:10:9"),
-        declAliases = [CName "FILE"],
+        declAliases = [Name "FILE"],
         declHeader =
         "fun_attributes.h"},
       declKind = DeclStruct
@@ -33,7 +33,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:11:13",
         declId = NamePair {
-          nameC = CName "size_t",
+          nameC = Name "size_t",
           nameHsIdent = HsIdentifier
             "Size_t"},
         declOrigin = NameOriginInSource,
@@ -62,7 +62,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:19:6",
         declId = NamePair {
-          nameC = CName "__f1",
+          nameC = Name "__f1",
           nameHsIdent = HsIdentifier
             "__f1"},
         declOrigin = NameOriginInSource,
@@ -84,7 +84,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:20:6",
         declId = NamePair {
-          nameC = CName "f1",
+          nameC = Name "f1",
           nameHsIdent = HsIdentifier
             "f1"},
         declOrigin = NameOriginInSource,
@@ -106,7 +106,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:24:7",
         declId = NamePair {
-          nameC = CName "my_memalign",
+          nameC = Name "my_memalign",
           nameHsIdent = HsIdentifier
             "my_memalign"},
         declOrigin = NameOriginInSource,
@@ -119,13 +119,13 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"}),
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -141,7 +141,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:29:7",
         declId = NamePair {
-          nameC = CName "my_calloc",
+          nameC = Name "my_calloc",
           nameHsIdent = HsIdentifier
             "my_calloc"},
         declOrigin = NameOriginInSource,
@@ -154,13 +154,13 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"}),
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -176,7 +176,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:30:7",
         declId = NamePair {
-          nameC = CName "my_realloc",
+          nameC = Name "my_realloc",
           nameHsIdent = HsIdentifier
             "my_realloc"},
         declOrigin = NameOriginInSource,
@@ -190,7 +190,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -206,7 +206,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:35:7",
         declId = NamePair {
-          nameC = CName "my_alloc1",
+          nameC = Name "my_alloc1",
           nameHsIdent = HsIdentifier
             "my_alloc1"},
         declOrigin = NameOriginInSource,
@@ -219,7 +219,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -235,7 +235,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:36:7",
         declId = NamePair {
-          nameC = CName "my_alloc2",
+          nameC = Name "my_alloc2",
           nameHsIdent = HsIdentifier
             "my_alloc2"},
         declOrigin = NameOriginInSource,
@@ -248,7 +248,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -264,7 +264,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:40:5",
         declId = NamePair {
-          nameC = CName "square",
+          nameC = Name "square",
           nameHsIdent = HsIdentifier
             "square"},
         declOrigin = NameOriginInSource,
@@ -289,7 +289,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:49:5",
         declId = NamePair {
-          nameC = CName "old_fn",
+          nameC = Name "old_fn",
           nameHsIdent = HsIdentifier
             "old_fn"},
         declOrigin = NameOriginInSource,
@@ -312,7 +312,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:60:1",
         declId = NamePair {
-          nameC = CName "my_dgettext",
+          nameC = Name "my_dgettext",
           nameHsIdent = HsIdentifier
             "my_dgettext"},
         declOrigin = NameOriginInSource,
@@ -348,7 +348,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:71:9",
         declId = NamePair {
-          nameC = CName "fdopen",
+          nameC = Name "fdopen",
           nameHsIdent = HsIdentifier
             "fdopen"},
         declOrigin = NameOriginInSource,
@@ -368,10 +368,10 @@ TranslationUnit {
           functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed
-                (CName "FILE")
+                (Name "FILE")
                 (TypeStruct
                   NamePair {
-                    nameC = CName "FILE",
+                    nameC = Name "FILE",
                     nameHsIdent = HsIdentifier
                       "FILE"}
                   (NameOriginGenerated
@@ -388,7 +388,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:75:65",
         declId = NamePair {
-          nameC = CName "f2",
+          nameC = Name "f2",
           nameHsIdent = HsIdentifier
             "f2"},
         declOrigin = NameOriginInSource,
@@ -410,7 +410,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:81:1",
         declId = NamePair {
-          nameC = CName "my_memcpy",
+          nameC = Name "my_memcpy",
           nameHsIdent = HsIdentifier
             "my_memcpy"},
         declOrigin = NameOriginInSource,
@@ -425,7 +425,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -441,7 +441,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:98:6",
         declId = NamePair {
-          nameC = CName "fatal",
+          nameC = Name "fatal",
           nameHsIdent = HsIdentifier
             "fatal"},
         declOrigin = NameOriginInSource,
@@ -463,7 +463,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:106:5",
         declId = NamePair {
-          nameC = CName "hash",
+          nameC = Name "hash",
           nameHsIdent = HsIdentifier
             "hash"},
         declOrigin = NameOriginInSource,
@@ -491,7 +491,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:111:1",
         declId = NamePair {
-          nameC = CName "mymalloc",
+          nameC = Name "mymalloc",
           nameHsIdent = HsIdentifier
             "mymalloc"},
         declOrigin = NameOriginInSource,
@@ -504,7 +504,7 @@ TranslationUnit {
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "size_t",
+                  nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
@@ -520,7 +520,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:115:13",
         declId = NamePair {
-          nameC = CName "foobar",
+          nameC = Name "foobar",
           nameHsIdent = HsIdentifier
             "foobar"},
         declOrigin = NameOriginInSource,
@@ -542,7 +542,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:122:5",
         declId = NamePair {
-          nameC = CName "core2_func",
+          nameC = Name "core2_func",
           nameHsIdent = HsIdentifier
             "core2_func"},
         declOrigin = NameOriginInSource,
@@ -565,7 +565,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:123:5",
         declId = NamePair {
-          nameC = CName "sse3_func",
+          nameC = Name "sse3_func",
           nameHsIdent = HsIdentifier
             "sse3_func"},
         declOrigin = NameOriginInSource,
@@ -588,7 +588,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:127:49",
         declId = NamePair {
-          nameC = CName "f3",
+          nameC = Name "f3",
           nameHsIdent = HsIdentifier
             "f3"},
         declOrigin = NameOriginInSource,
@@ -610,7 +610,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:128:5",
         declId = NamePair {
-          nameC = CName "i",
+          nameC = Name "i",
           nameHsIdent = HsIdentifier "i"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -630,7 +630,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:132:5",
         declId = NamePair {
-          nameC = CName "fn",
+          nameC = Name "fn",
           nameHsIdent = HsIdentifier
             "fn"},
         declOrigin = NameOriginInSource,
@@ -653,7 +653,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:138:12",
         declId = NamePair {
-          nameC = CName "y",
+          nameC = Name "y",
           nameHsIdent = HsIdentifier "y"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -675,7 +675,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:141:12",
         declId = NamePair {
-          nameC = CName "x1",
+          nameC = Name "x1",
           nameHsIdent = HsIdentifier
             "x1"},
         declOrigin = NameOriginInSource,
@@ -698,7 +698,7 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:144:12",
         declId = NamePair {
-          nameC = CName "x2",
+          nameC = Name "x2",
           nameHsIdent = HsIdentifier
             "x2"},
         declOrigin = NameOriginInSource,

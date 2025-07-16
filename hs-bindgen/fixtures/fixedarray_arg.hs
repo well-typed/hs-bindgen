@@ -50,7 +50,7 @@
           declLoc =
           "fixedarray_arg.h:3:13",
           declId = NamePair {
-            nameC = CName "triple",
+            nameC = Name "triple",
             nameHsIdent = HsIdentifier
               "Triple"},
           declOrigin = NameOriginInSource,
@@ -118,7 +118,7 @@
             TypeTypedef
               (TypedefRegular
                 NamePair {
-                  nameC = CName "triple",
+                  nameC = Name "triple",
                   nameHsIdent = HsIdentifier
                     "Triple"})],
           functionRes = TypePrim

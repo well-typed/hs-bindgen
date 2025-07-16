@@ -12,7 +12,7 @@ import Prelude hiding (lookup)
 
 import Clang.Paths (SourcePath)
 import HsBindgen.Imports
-import HsBindgen.Language.C.Name qualified as C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Type
@@ -31,7 +31,7 @@ import HsBindgen.Language.C.Name qualified as C
 -- > };
 --
 -- then you need to make sure that you /traverse/ @rect@, so that the
--- @RenameAnon@ pass can do its work.
+-- @NameAnon@ pass can do its work.
 newtype NonSelectedDecls = NonSelectedDecls {
       unNonSelectedDecls :: Map C.QualName SourcePath
     }

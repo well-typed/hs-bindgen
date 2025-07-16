@@ -19,7 +19,7 @@
               structFieldLoc =
               "distilled_lib_1.h:9:22",
               structFieldName = NamePair {
-                nameC = CName "foo",
+                nameC = Name "foo",
                 nameHsIdent = HsIdentifier
                   "another_typedef_struct_t_foo"},
               structFieldType = TypePrim
@@ -37,7 +37,7 @@
               structFieldLoc =
               "distilled_lib_1.h:9:32",
               structFieldName = NamePair {
-                nameC = CName "bar",
+                nameC = Name "bar",
                 nameHsIdent = HsIdentifier
                   "another_typedef_struct_t_bar"},
               structFieldType = TypePrim
@@ -52,7 +52,7 @@
             declLoc =
             "distilled_lib_1.h:9:9",
             declId = NamePair {
-              nameC = CName
+              nameC = Name
                 "another_typedef_struct_t",
               nameHsIdent = HsIdentifier
                 "Another_typedef_struct_t"},
@@ -60,7 +60,7 @@
               (AnonId
                 "distilled_lib_1.h:9:9"),
             declAliases = [
-              CName
+              Name
                 "another_typedef_struct_t"],
             declHeader =
             "distilled_lib_1.h"},
@@ -77,7 +77,7 @@
                   structFieldLoc =
                   "distilled_lib_1.h:9:22",
                   structFieldName = NamePair {
-                    nameC = CName "foo",
+                    nameC = Name "foo",
                     nameHsIdent = HsIdentifier
                       "another_typedef_struct_t_foo"},
                   structFieldType = TypePrim
@@ -88,7 +88,7 @@
                   structFieldLoc =
                   "distilled_lib_1.h:9:32",
                   structFieldName = NamePair {
-                    nameC = CName "bar",
+                    nameC = Name "bar",
                     nameHsIdent = HsIdentifier
                       "another_typedef_struct_t_bar"},
                   structFieldType = TypePrim
@@ -127,7 +127,7 @@
                 structFieldLoc =
                 "distilled_lib_1.h:9:22",
                 structFieldName = NamePair {
-                  nameC = CName "foo",
+                  nameC = Name "foo",
                   nameHsIdent = HsIdentifier
                     "another_typedef_struct_t_foo"},
                 structFieldType = TypePrim
@@ -145,7 +145,7 @@
                 structFieldLoc =
                 "distilled_lib_1.h:9:32",
                 structFieldName = NamePair {
-                  nameC = CName "bar",
+                  nameC = Name "bar",
                   nameHsIdent = HsIdentifier
                     "another_typedef_struct_t_bar"},
                 structFieldType = TypePrim
@@ -160,7 +160,7 @@
               declLoc =
               "distilled_lib_1.h:9:9",
               declId = NamePair {
-                nameC = CName
+                nameC = Name
                   "another_typedef_struct_t",
                 nameHsIdent = HsIdentifier
                   "Another_typedef_struct_t"},
@@ -168,7 +168,7 @@
                 (AnonId
                   "distilled_lib_1.h:9:9"),
               declAliases = [
-                CName
+                Name
                   "another_typedef_struct_t"],
               declHeader =
               "distilled_lib_1.h"},
@@ -185,7 +185,7 @@
                     structFieldLoc =
                     "distilled_lib_1.h:9:22",
                     structFieldName = NamePair {
-                      nameC = CName "foo",
+                      nameC = Name "foo",
                       nameHsIdent = HsIdentifier
                         "another_typedef_struct_t_foo"},
                     structFieldType = TypePrim
@@ -196,7 +196,7 @@
                     structFieldLoc =
                     "distilled_lib_1.h:9:32",
                     structFieldName = NamePair {
-                      nameC = CName "bar",
+                      nameC = Name "bar",
                       nameHsIdent = HsIdentifier
                         "another_typedef_struct_t_bar"},
                     structFieldType = TypePrim
@@ -240,7 +240,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:9:22",
                         structFieldName = NamePair {
-                          nameC = CName "foo",
+                          nameC = Name "foo",
                           nameHsIdent = HsIdentifier
                             "another_typedef_struct_t_foo"},
                         structFieldType = TypePrim
@@ -258,7 +258,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:9:32",
                         structFieldName = NamePair {
-                          nameC = CName "bar",
+                          nameC = Name "bar",
                           nameHsIdent = HsIdentifier
                             "another_typedef_struct_t_bar"},
                         structFieldType = TypePrim
@@ -273,7 +273,7 @@
                       declLoc =
                       "distilled_lib_1.h:9:9",
                       declId = NamePair {
-                        nameC = CName
+                        nameC = Name
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_struct_t"},
@@ -281,7 +281,7 @@
                         (AnonId
                           "distilled_lib_1.h:9:9"),
                       declAliases = [
-                        CName
+                        Name
                           "another_typedef_struct_t"],
                       declHeader =
                       "distilled_lib_1.h"},
@@ -298,7 +298,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:9:22",
                             structFieldName = NamePair {
-                              nameC = CName "foo",
+                              nameC = Name "foo",
                               nameHsIdent = HsIdentifier
                                 "another_typedef_struct_t_foo"},
                             structFieldType = TypePrim
@@ -309,7 +309,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:9:32",
                             structFieldName = NamePair {
-                              nameC = CName "bar",
+                              nameC = Name "bar",
                               nameHsIdent = HsIdentifier
                                 "another_typedef_struct_t_bar"},
                             structFieldType = TypePrim
@@ -355,7 +355,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:9:22",
                         structFieldName = NamePair {
-                          nameC = CName "foo",
+                          nameC = Name "foo",
                           nameHsIdent = HsIdentifier
                             "another_typedef_struct_t_foo"},
                         structFieldType = TypePrim
@@ -373,7 +373,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:9:32",
                         structFieldName = NamePair {
-                          nameC = CName "bar",
+                          nameC = Name "bar",
                           nameHsIdent = HsIdentifier
                             "another_typedef_struct_t_bar"},
                         structFieldType = TypePrim
@@ -388,7 +388,7 @@
                       declLoc =
                       "distilled_lib_1.h:9:9",
                       declId = NamePair {
-                        nameC = CName
+                        nameC = Name
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_struct_t"},
@@ -396,7 +396,7 @@
                         (AnonId
                           "distilled_lib_1.h:9:9"),
                       declAliases = [
-                        CName
+                        Name
                           "another_typedef_struct_t"],
                       declHeader =
                       "distilled_lib_1.h"},
@@ -413,7 +413,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:9:22",
                             structFieldName = NamePair {
-                              nameC = CName "foo",
+                              nameC = Name "foo",
                               nameHsIdent = HsIdentifier
                                 "another_typedef_struct_t_foo"},
                             structFieldType = TypePrim
@@ -424,7 +424,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:9:32",
                             structFieldName = NamePair {
-                              nameC = CName "bar",
+                              nameC = Name "bar",
                               nameHsIdent = HsIdentifier
                                 "another_typedef_struct_t_bar"},
                             structFieldType = TypePrim
@@ -482,7 +482,7 @@
           declLoc =
           "distilled_lib_1.h:10:9",
           declId = NamePair {
-            nameC = CName
+            nameC = Name
               "another_typedef_enum_e",
             nameHsIdent = HsIdentifier
               "Another_typedef_enum_e"},
@@ -490,7 +490,7 @@
             (AnonId
               "distilled_lib_1.h:10:9"),
           declAliases = [
-            CName "another_typedef_enum_e"],
+            Name "another_typedef_enum_e"],
           declHeader =
           "distilled_lib_1.h"},
         declKind = Enum
@@ -511,7 +511,7 @@
                 enumConstantLoc =
                 "distilled_lib_1.h:10:16",
                 enumConstantName = NamePair {
-                  nameC = CName "FOO",
+                  nameC = Name "FOO",
                   nameHsIdent = HsIdentifier
                     "FOO"},
                 enumConstantValue = 0},
@@ -519,7 +519,7 @@
                 enumConstantLoc =
                 "distilled_lib_1.h:10:21",
                 enumConstantName = NamePair {
-                  nameC = CName "BAR",
+                  nameC = Name "BAR",
                   nameHsIdent = HsIdentifier
                     "BAR"},
                 enumConstantValue = 1}]},
@@ -745,7 +745,7 @@
           enumConstantLoc =
           "distilled_lib_1.h:10:16",
           enumConstantName = NamePair {
-            nameC = CName "FOO",
+            nameC = Name "FOO",
             nameHsIdent = HsIdentifier
               "FOO"},
           enumConstantValue = 0}},
@@ -766,7 +766,7 @@
           enumConstantLoc =
           "distilled_lib_1.h:10:21",
           enumConstantName = NamePair {
-            nameC = CName "BAR",
+            nameC = Name "BAR",
             nameHsIdent = HsIdentifier
               "BAR"},
           enumConstantValue = 1}},
@@ -865,7 +865,7 @@
           declLoc =
           "distilled_lib_1.h:14:13",
           declId = NamePair {
-            nameC = CName "a_type_t",
+            nameC = Name "a_type_t",
             nameHsIdent = HsIdentifier
               "A_type_t"},
           declOrigin = NameOriginInSource,
@@ -1002,7 +1002,7 @@
           declLoc =
           "distilled_lib_1.h:15:13",
           declId = NamePair {
-            nameC = CName "var_t",
+            nameC = Name "var_t",
             nameHsIdent = HsIdentifier
               "Var_t"},
           declOrigin = NameOriginInSource,
@@ -1139,7 +1139,7 @@
               structFieldLoc =
               "distilled_lib_1.h:37:31",
               structFieldName = NamePair {
-                nameC = CName "field_0",
+                nameC = Name "field_0",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_0"},
               structFieldType = TypePrim
@@ -1266,13 +1266,13 @@
               structFieldLoc =
               "distilled_lib_1.h:38:31",
               structFieldName = NamePair {
-                nameC = CName "field_1",
+                nameC = Name "field_1",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_1"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint8_t",
+                    qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -1507,13 +1507,13 @@
               structFieldLoc =
               "distilled_lib_1.h:39:31",
               structFieldName = NamePair {
-                nameC = CName "field_2",
+                nameC = Name "field_2",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_2"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint16_t",
+                    qualNameName = Name "uint16_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -1748,13 +1748,13 @@
               structFieldLoc =
               "distilled_lib_1.h:40:31",
               structFieldName = NamePair {
-                nameC = CName "field_3",
+                nameC = Name "field_3",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_3"},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint32_t",
+                    qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -1882,16 +1882,16 @@
               structFieldLoc =
               "distilled_lib_1.h:41:31",
               structFieldName = NamePair {
-                nameC = CName "field_4",
+                nameC = Name "field_4",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_4"},
               structFieldType = TypeTypedef
                 (TypedefSquashed
-                  (CName
+                  (Name
                     "another_typedef_struct_t")
                   (TypeStruct
                     NamePair {
-                      nameC = CName
+                      nameC = Name
                         "another_typedef_struct_t",
                       nameHsIdent = HsIdentifier
                         "Another_typedef_struct_t"}
@@ -1914,17 +1914,17 @@
               structFieldLoc =
               "distilled_lib_1.h:42:31",
               structFieldName = NamePair {
-                nameC = CName "field_5",
+                nameC = Name "field_5",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_5"},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
-                    (CName
+                    (Name
                       "another_typedef_struct_t")
                     (TypeStruct
                       NamePair {
-                        nameC = CName
+                        nameC = Name
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_struct_t"}
@@ -1944,7 +1944,7 @@
               structFieldLoc =
               "distilled_lib_1.h:43:31",
               structFieldName = NamePair {
-                nameC = CName "field_6",
+                nameC = Name "field_6",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_6"},
               structFieldType = TypePointer
@@ -2073,7 +2073,7 @@
               structFieldLoc =
               "distilled_lib_1.h:44:31",
               structFieldName = NamePair {
-                nameC = CName "field_7",
+                nameC = Name "field_7",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_7"},
               structFieldType = TypeConstArray
@@ -2081,7 +2081,7 @@
                 (TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint32_t",
+                      qualNameName = Name "uint32_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -2209,15 +2209,15 @@
               structFieldLoc =
               "distilled_lib_1.h:45:31",
               structFieldName = NamePair {
-                nameC = CName "field_8",
+                nameC = Name "field_8",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_8"},
               structFieldType = TypeTypedef
                 (TypedefSquashed
-                  (CName "another_typedef_enum_e")
+                  (Name "another_typedef_enum_e")
                   (TypeEnum
                     NamePair {
-                      nameC = CName
+                      nameC = Name
                         "another_typedef_enum_e",
                       nameHsIdent = HsIdentifier
                         "Another_typedef_enum_e"}
@@ -2241,17 +2241,17 @@
               structFieldLoc =
               "distilled_lib_1.h:46:31",
               structFieldName = NamePair {
-                nameC = CName "field_9",
+                nameC = Name "field_9",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_9"},
               structFieldType = TypeConstArray
                 4
                 (TypeTypedef
                   (TypedefSquashed
-                    (CName "another_typedef_enum_e")
+                    (Name "another_typedef_enum_e")
                     (TypeEnum
                       NamePair {
-                        nameC = CName
+                        nameC = Name
                           "another_typedef_enum_e",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_enum_e"}
@@ -2277,7 +2277,7 @@
               structFieldLoc =
               "distilled_lib_1.h:47:31",
               structFieldName = NamePair {
-                nameC = CName "field_10",
+                nameC = Name "field_10",
                 nameHsIdent = HsIdentifier
                   "a_typedef_struct_t_field_10"},
               structFieldType = TypeConstArray
@@ -2286,10 +2286,10 @@
                   3
                   (TypeTypedef
                     (TypedefSquashed
-                      (CName "another_typedef_enum_e")
+                      (Name "another_typedef_enum_e")
                       (TypeEnum
                         NamePair {
-                          nameC = CName
+                          nameC = Name
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_enum_e"}
@@ -2304,15 +2304,15 @@
             declLoc =
             "distilled_lib_1.h:35:16",
             declId = NamePair {
-              nameC = CName
+              nameC = Name
                 "a_typedef_struct_t",
               nameHsIdent = HsIdentifier
                 "A_typedef_struct_t"},
             declOrigin =
             NameOriginRenamedFrom
-              (CName "a_typedef_struct"),
+              (Name "a_typedef_struct"),
             declAliases = [
-              CName "a_typedef_struct_t"],
+              Name "a_typedef_struct_t"],
             declHeader =
             "distilled_lib_1.h"},
           declKind = Struct
@@ -2328,7 +2328,7 @@
                   structFieldLoc =
                   "distilled_lib_1.h:37:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_0",
+                    nameC = Name "field_0",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_0"},
                   structFieldType = TypePrim
@@ -2339,13 +2339,13 @@
                   structFieldLoc =
                   "distilled_lib_1.h:38:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_1",
+                    nameC = Name "field_1",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_1"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint8_t",
+                        qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -2464,13 +2464,13 @@
                   structFieldLoc =
                   "distilled_lib_1.h:39:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_2",
+                    nameC = Name "field_2",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_2"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint16_t",
+                        qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -2589,13 +2589,13 @@
                   structFieldLoc =
                   "distilled_lib_1.h:40:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_3",
+                    nameC = Name "field_3",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_3"},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint32_t",
+                        qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -2714,16 +2714,16 @@
                   structFieldLoc =
                   "distilled_lib_1.h:41:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_4",
+                    nameC = Name "field_4",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_4"},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
-                      (CName
+                      (Name
                         "another_typedef_struct_t")
                       (TypeStruct
                         NamePair {
-                          nameC = CName
+                          nameC = Name
                             "another_typedef_struct_t",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_struct_t"}
@@ -2736,17 +2736,17 @@
                   structFieldLoc =
                   "distilled_lib_1.h:42:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_5",
+                    nameC = Name "field_5",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_5"},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
-                        (CName
+                        (Name
                           "another_typedef_struct_t")
                         (TypeStruct
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "another_typedef_struct_t",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_struct_t"}
@@ -2759,7 +2759,7 @@
                   structFieldLoc =
                   "distilled_lib_1.h:43:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_6",
+                    nameC = Name "field_6",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_6"},
                   structFieldType = TypePointer
@@ -2770,7 +2770,7 @@
                   structFieldLoc =
                   "distilled_lib_1.h:44:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_7",
+                    nameC = Name "field_7",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_7"},
                   structFieldType = TypeConstArray
@@ -2778,7 +2778,7 @@
                     (TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint32_t",
+                          qualNameName = Name "uint32_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -2897,15 +2897,15 @@
                   structFieldLoc =
                   "distilled_lib_1.h:45:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_8",
+                    nameC = Name "field_8",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_8"},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
-                      (CName "another_typedef_enum_e")
+                      (Name "another_typedef_enum_e")
                       (TypeEnum
                         NamePair {
-                          nameC = CName
+                          nameC = Name
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_enum_e"}
@@ -2918,17 +2918,17 @@
                   structFieldLoc =
                   "distilled_lib_1.h:46:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_9",
+                    nameC = Name "field_9",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_9"},
                   structFieldType = TypeConstArray
                     4
                     (TypeTypedef
                       (TypedefSquashed
-                        (CName "another_typedef_enum_e")
+                        (Name "another_typedef_enum_e")
                         (TypeEnum
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_enum_e"}
@@ -2941,7 +2941,7 @@
                   structFieldLoc =
                   "distilled_lib_1.h:47:31",
                   structFieldName = NamePair {
-                    nameC = CName "field_10",
+                    nameC = Name "field_10",
                     nameHsIdent = HsIdentifier
                       "a_typedef_struct_t_field_10"},
                   structFieldType = TypeConstArray
@@ -2950,10 +2950,10 @@
                       3
                       (TypeTypedef
                         (TypedefSquashed
-                          (CName "another_typedef_enum_e")
+                          (Name "another_typedef_enum_e")
                           (TypeEnum
                             NamePair {
-                              nameC = CName
+                              nameC = Name
                                 "another_typedef_enum_e",
                               nameHsIdent = HsIdentifier
                                 "Another_typedef_enum_e"}
@@ -2992,7 +2992,7 @@
                 structFieldLoc =
                 "distilled_lib_1.h:37:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_0",
+                  nameC = Name "field_0",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_0"},
                 structFieldType = TypePrim
@@ -3119,13 +3119,13 @@
                 structFieldLoc =
                 "distilled_lib_1.h:38:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_1",
+                  nameC = Name "field_1",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_1"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint8_t",
+                      qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -3360,13 +3360,13 @@
                 structFieldLoc =
                 "distilled_lib_1.h:39:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_2",
+                  nameC = Name "field_2",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_2"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint16_t",
+                      qualNameName = Name "uint16_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -3601,13 +3601,13 @@
                 structFieldLoc =
                 "distilled_lib_1.h:40:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_3",
+                  nameC = Name "field_3",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_3"},
                 structFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint32_t",
+                      qualNameName = Name "uint32_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -3735,16 +3735,16 @@
                 structFieldLoc =
                 "distilled_lib_1.h:41:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_4",
+                  nameC = Name "field_4",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_4"},
                 structFieldType = TypeTypedef
                   (TypedefSquashed
-                    (CName
+                    (Name
                       "another_typedef_struct_t")
                     (TypeStruct
                       NamePair {
-                        nameC = CName
+                        nameC = Name
                           "another_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_struct_t"}
@@ -3767,17 +3767,17 @@
                 structFieldLoc =
                 "distilled_lib_1.h:42:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_5",
+                  nameC = Name "field_5",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_5"},
                 structFieldType = TypePointer
                   (TypeTypedef
                     (TypedefSquashed
-                      (CName
+                      (Name
                         "another_typedef_struct_t")
                       (TypeStruct
                         NamePair {
-                          nameC = CName
+                          nameC = Name
                             "another_typedef_struct_t",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_struct_t"}
@@ -3797,7 +3797,7 @@
                 structFieldLoc =
                 "distilled_lib_1.h:43:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_6",
+                  nameC = Name "field_6",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_6"},
                 structFieldType = TypePointer
@@ -3926,7 +3926,7 @@
                 structFieldLoc =
                 "distilled_lib_1.h:44:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_7",
+                  nameC = Name "field_7",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_7"},
                 structFieldType = TypeConstArray
@@ -3934,7 +3934,7 @@
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint32_t",
+                        qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -4062,15 +4062,15 @@
                 structFieldLoc =
                 "distilled_lib_1.h:45:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_8",
+                  nameC = Name "field_8",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_8"},
                 structFieldType = TypeTypedef
                   (TypedefSquashed
-                    (CName "another_typedef_enum_e")
+                    (Name "another_typedef_enum_e")
                     (TypeEnum
                       NamePair {
-                        nameC = CName
+                        nameC = Name
                           "another_typedef_enum_e",
                         nameHsIdent = HsIdentifier
                           "Another_typedef_enum_e"}
@@ -4094,17 +4094,17 @@
                 structFieldLoc =
                 "distilled_lib_1.h:46:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_9",
+                  nameC = Name "field_9",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_9"},
                 structFieldType = TypeConstArray
                   4
                   (TypeTypedef
                     (TypedefSquashed
-                      (CName "another_typedef_enum_e")
+                      (Name "another_typedef_enum_e")
                       (TypeEnum
                         NamePair {
-                          nameC = CName
+                          nameC = Name
                             "another_typedef_enum_e",
                           nameHsIdent = HsIdentifier
                             "Another_typedef_enum_e"}
@@ -4130,7 +4130,7 @@
                 structFieldLoc =
                 "distilled_lib_1.h:47:31",
                 structFieldName = NamePair {
-                  nameC = CName "field_10",
+                  nameC = Name "field_10",
                   nameHsIdent = HsIdentifier
                     "a_typedef_struct_t_field_10"},
                 structFieldType = TypeConstArray
@@ -4139,10 +4139,10 @@
                     3
                     (TypeTypedef
                       (TypedefSquashed
-                        (CName "another_typedef_enum_e")
+                        (Name "another_typedef_enum_e")
                         (TypeEnum
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_enum_e"}
@@ -4157,15 +4157,15 @@
               declLoc =
               "distilled_lib_1.h:35:16",
               declId = NamePair {
-                nameC = CName
+                nameC = Name
                   "a_typedef_struct_t",
                 nameHsIdent = HsIdentifier
                   "A_typedef_struct_t"},
               declOrigin =
               NameOriginRenamedFrom
-                (CName "a_typedef_struct"),
+                (Name "a_typedef_struct"),
               declAliases = [
-                CName "a_typedef_struct_t"],
+                Name "a_typedef_struct_t"],
               declHeader =
               "distilled_lib_1.h"},
             declKind = Struct
@@ -4181,7 +4181,7 @@
                     structFieldLoc =
                     "distilled_lib_1.h:37:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_0",
+                      nameC = Name "field_0",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_0"},
                     structFieldType = TypePrim
@@ -4192,13 +4192,13 @@
                     structFieldLoc =
                     "distilled_lib_1.h:38:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_1",
+                      nameC = Name "field_1",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_1"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint8_t",
+                          qualNameName = Name "uint8_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -4317,13 +4317,13 @@
                     structFieldLoc =
                     "distilled_lib_1.h:39:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_2",
+                      nameC = Name "field_2",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_2"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint16_t",
+                          qualNameName = Name "uint16_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -4442,13 +4442,13 @@
                     structFieldLoc =
                     "distilled_lib_1.h:40:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_3",
+                      nameC = Name "field_3",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_3"},
                     structFieldType = TypeExtBinding
                       ResolvedExtBinding {
                         extCName = QualName {
-                          qualNameName = CName "uint32_t",
+                          qualNameName = Name "uint32_t",
                           qualNameKind =
                           NameKindOrdinary},
                         extHsRef = ExtHsRef {
@@ -4567,16 +4567,16 @@
                     structFieldLoc =
                     "distilled_lib_1.h:41:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_4",
+                      nameC = Name "field_4",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_4"},
                     structFieldType = TypeTypedef
                       (TypedefSquashed
-                        (CName
+                        (Name
                           "another_typedef_struct_t")
                         (TypeStruct
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "another_typedef_struct_t",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_struct_t"}
@@ -4589,17 +4589,17 @@
                     structFieldLoc =
                     "distilled_lib_1.h:42:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_5",
+                      nameC = Name "field_5",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_5"},
                     structFieldType = TypePointer
                       (TypeTypedef
                         (TypedefSquashed
-                          (CName
+                          (Name
                             "another_typedef_struct_t")
                           (TypeStruct
                             NamePair {
-                              nameC = CName
+                              nameC = Name
                                 "another_typedef_struct_t",
                               nameHsIdent = HsIdentifier
                                 "Another_typedef_struct_t"}
@@ -4612,7 +4612,7 @@
                     structFieldLoc =
                     "distilled_lib_1.h:43:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_6",
+                      nameC = Name "field_6",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_6"},
                     structFieldType = TypePointer
@@ -4623,7 +4623,7 @@
                     structFieldLoc =
                     "distilled_lib_1.h:44:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_7",
+                      nameC = Name "field_7",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_7"},
                     structFieldType = TypeConstArray
@@ -4631,7 +4631,7 @@
                       (TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
-                            qualNameName = CName "uint32_t",
+                            qualNameName = Name "uint32_t",
                             qualNameKind =
                             NameKindOrdinary},
                           extHsRef = ExtHsRef {
@@ -4750,15 +4750,15 @@
                     structFieldLoc =
                     "distilled_lib_1.h:45:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_8",
+                      nameC = Name "field_8",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_8"},
                     structFieldType = TypeTypedef
                       (TypedefSquashed
-                        (CName "another_typedef_enum_e")
+                        (Name "another_typedef_enum_e")
                         (TypeEnum
                           NamePair {
-                            nameC = CName
+                            nameC = Name
                               "another_typedef_enum_e",
                             nameHsIdent = HsIdentifier
                               "Another_typedef_enum_e"}
@@ -4771,17 +4771,17 @@
                     structFieldLoc =
                     "distilled_lib_1.h:46:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_9",
+                      nameC = Name "field_9",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_9"},
                     structFieldType = TypeConstArray
                       4
                       (TypeTypedef
                         (TypedefSquashed
-                          (CName "another_typedef_enum_e")
+                          (Name "another_typedef_enum_e")
                           (TypeEnum
                             NamePair {
-                              nameC = CName
+                              nameC = Name
                                 "another_typedef_enum_e",
                               nameHsIdent = HsIdentifier
                                 "Another_typedef_enum_e"}
@@ -4794,7 +4794,7 @@
                     structFieldLoc =
                     "distilled_lib_1.h:47:31",
                     structFieldName = NamePair {
-                      nameC = CName "field_10",
+                      nameC = Name "field_10",
                       nameHsIdent = HsIdentifier
                         "a_typedef_struct_t_field_10"},
                     structFieldType = TypeConstArray
@@ -4803,10 +4803,10 @@
                         3
                         (TypeTypedef
                           (TypedefSquashed
-                            (CName "another_typedef_enum_e")
+                            (Name "another_typedef_enum_e")
                             (TypeEnum
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_enum_e"}
@@ -4850,7 +4850,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:37:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_0",
+                          nameC = Name "field_0",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_0"},
                         structFieldType = TypePrim
@@ -4977,13 +4977,13 @@
                         structFieldLoc =
                         "distilled_lib_1.h:38:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_1",
+                          nameC = Name "field_1",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_1"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint8_t",
+                              qualNameName = Name "uint8_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -5218,13 +5218,13 @@
                         structFieldLoc =
                         "distilled_lib_1.h:39:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_2",
+                          nameC = Name "field_2",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_2"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint16_t",
+                              qualNameName = Name "uint16_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -5459,13 +5459,13 @@
                         structFieldLoc =
                         "distilled_lib_1.h:40:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_3",
+                          nameC = Name "field_3",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_3"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint32_t",
+                              qualNameName = Name "uint32_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -5593,16 +5593,16 @@
                         structFieldLoc =
                         "distilled_lib_1.h:41:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_4",
+                          nameC = Name "field_4",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_4"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName
+                            (Name
                               "another_typedef_struct_t")
                             (TypeStruct
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "another_typedef_struct_t",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_struct_t"}
@@ -5625,17 +5625,17 @@
                         structFieldLoc =
                         "distilled_lib_1.h:42:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_5",
+                          nameC = Name "field_5",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_5"},
                         structFieldType = TypePointer
                           (TypeTypedef
                             (TypedefSquashed
-                              (CName
+                              (Name
                                 "another_typedef_struct_t")
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName
+                                  nameC = Name
                                     "another_typedef_struct_t",
                                   nameHsIdent = HsIdentifier
                                     "Another_typedef_struct_t"}
@@ -5655,7 +5655,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:43:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_6",
+                          nameC = Name "field_6",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_6"},
                         structFieldType = TypePointer
@@ -5784,7 +5784,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:44:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_7",
+                          nameC = Name "field_7",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_7"},
                         structFieldType = TypeConstArray
@@ -5792,7 +5792,7 @@
                           (TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
-                                qualNameName = CName "uint32_t",
+                                qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
                               extHsRef = ExtHsRef {
@@ -5920,15 +5920,15 @@
                         structFieldLoc =
                         "distilled_lib_1.h:45:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_8",
+                          nameC = Name "field_8",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_8"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName "another_typedef_enum_e")
+                            (Name "another_typedef_enum_e")
                             (TypeEnum
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_enum_e"}
@@ -5952,17 +5952,17 @@
                         structFieldLoc =
                         "distilled_lib_1.h:46:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_9",
+                          nameC = Name "field_9",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_9"},
                         structFieldType = TypeConstArray
                           4
                           (TypeTypedef
                             (TypedefSquashed
-                              (CName "another_typedef_enum_e")
+                              (Name "another_typedef_enum_e")
                               (TypeEnum
                                 NamePair {
-                                  nameC = CName
+                                  nameC = Name
                                     "another_typedef_enum_e",
                                   nameHsIdent = HsIdentifier
                                     "Another_typedef_enum_e"}
@@ -5988,7 +5988,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:47:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_10",
+                          nameC = Name "field_10",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_10"},
                         structFieldType = TypeConstArray
@@ -5997,10 +5997,10 @@
                             3
                             (TypeTypedef
                               (TypedefSquashed
-                                (CName "another_typedef_enum_e")
+                                (Name "another_typedef_enum_e")
                                 (TypeEnum
                                   NamePair {
-                                    nameC = CName
+                                    nameC = Name
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_enum_e"}
@@ -6015,15 +6015,15 @@
                       declLoc =
                       "distilled_lib_1.h:35:16",
                       declId = NamePair {
-                        nameC = CName
+                        nameC = Name
                           "a_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "A_typedef_struct_t"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "a_typedef_struct"),
+                        (Name "a_typedef_struct"),
                       declAliases = [
-                        CName "a_typedef_struct_t"],
+                        Name "a_typedef_struct_t"],
                       declHeader =
                       "distilled_lib_1.h"},
                     declKind = Struct
@@ -6039,7 +6039,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:37:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_0",
+                              nameC = Name "field_0",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_0"},
                             structFieldType = TypePrim
@@ -6050,13 +6050,13 @@
                             structFieldLoc =
                             "distilled_lib_1.h:38:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_1",
+                              nameC = Name "field_1",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_1"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint8_t",
+                                  qualNameName = Name "uint8_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -6175,13 +6175,13 @@
                             structFieldLoc =
                             "distilled_lib_1.h:39:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_2",
+                              nameC = Name "field_2",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_2"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint16_t",
+                                  qualNameName = Name "uint16_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -6300,13 +6300,13 @@
                             structFieldLoc =
                             "distilled_lib_1.h:40:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_3",
+                              nameC = Name "field_3",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_3"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint32_t",
+                                  qualNameName = Name "uint32_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -6425,16 +6425,16 @@
                             structFieldLoc =
                             "distilled_lib_1.h:41:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_4",
+                              nameC = Name "field_4",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_4"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName
+                                (Name
                                   "another_typedef_struct_t")
                                 (TypeStruct
                                   NamePair {
-                                    nameC = CName
+                                    nameC = Name
                                       "another_typedef_struct_t",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_struct_t"}
@@ -6447,17 +6447,17 @@
                             structFieldLoc =
                             "distilled_lib_1.h:42:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_5",
+                              nameC = Name "field_5",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_5"},
                             structFieldType = TypePointer
                               (TypeTypedef
                                 (TypedefSquashed
-                                  (CName
+                                  (Name
                                     "another_typedef_struct_t")
                                   (TypeStruct
                                     NamePair {
-                                      nameC = CName
+                                      nameC = Name
                                         "another_typedef_struct_t",
                                       nameHsIdent = HsIdentifier
                                         "Another_typedef_struct_t"}
@@ -6470,7 +6470,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:43:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_6",
+                              nameC = Name "field_6",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_6"},
                             structFieldType = TypePointer
@@ -6481,7 +6481,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:44:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_7",
+                              nameC = Name "field_7",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_7"},
                             structFieldType = TypeConstArray
@@ -6489,7 +6489,7 @@
                               (TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
-                                    qualNameName = CName "uint32_t",
+                                    qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
                                   extHsRef = ExtHsRef {
@@ -6608,15 +6608,15 @@
                             structFieldLoc =
                             "distilled_lib_1.h:45:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_8",
+                              nameC = Name "field_8",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_8"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName "another_typedef_enum_e")
+                                (Name "another_typedef_enum_e")
                                 (TypeEnum
                                   NamePair {
-                                    nameC = CName
+                                    nameC = Name
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_enum_e"}
@@ -6629,17 +6629,17 @@
                             structFieldLoc =
                             "distilled_lib_1.h:46:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_9",
+                              nameC = Name "field_9",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_9"},
                             structFieldType = TypeConstArray
                               4
                               (TypeTypedef
                                 (TypedefSquashed
-                                  (CName "another_typedef_enum_e")
+                                  (Name "another_typedef_enum_e")
                                   (TypeEnum
                                     NamePair {
-                                      nameC = CName
+                                      nameC = Name
                                         "another_typedef_enum_e",
                                       nameHsIdent = HsIdentifier
                                         "Another_typedef_enum_e"}
@@ -6652,7 +6652,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:47:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_10",
+                              nameC = Name "field_10",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_10"},
                             structFieldType = TypeConstArray
@@ -6661,10 +6661,10 @@
                                 3
                                 (TypeTypedef
                                   (TypedefSquashed
-                                    (CName "another_typedef_enum_e")
+                                    (Name "another_typedef_enum_e")
                                     (TypeEnum
                                       NamePair {
-                                        nameC = CName
+                                        nameC = Name
                                           "another_typedef_enum_e",
                                         nameHsIdent = HsIdentifier
                                           "Another_typedef_enum_e"}
@@ -6719,7 +6719,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:37:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_0",
+                          nameC = Name "field_0",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_0"},
                         structFieldType = TypePrim
@@ -6846,13 +6846,13 @@
                         structFieldLoc =
                         "distilled_lib_1.h:38:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_1",
+                          nameC = Name "field_1",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_1"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint8_t",
+                              qualNameName = Name "uint8_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -7087,13 +7087,13 @@
                         structFieldLoc =
                         "distilled_lib_1.h:39:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_2",
+                          nameC = Name "field_2",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_2"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint16_t",
+                              qualNameName = Name "uint16_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -7328,13 +7328,13 @@
                         structFieldLoc =
                         "distilled_lib_1.h:40:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_3",
+                          nameC = Name "field_3",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_3"},
                         structFieldType = TypeExtBinding
                           ResolvedExtBinding {
                             extCName = QualName {
-                              qualNameName = CName "uint32_t",
+                              qualNameName = Name "uint32_t",
                               qualNameKind =
                               NameKindOrdinary},
                             extHsRef = ExtHsRef {
@@ -7462,16 +7462,16 @@
                         structFieldLoc =
                         "distilled_lib_1.h:41:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_4",
+                          nameC = Name "field_4",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_4"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName
+                            (Name
                               "another_typedef_struct_t")
                             (TypeStruct
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "another_typedef_struct_t",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_struct_t"}
@@ -7494,17 +7494,17 @@
                         structFieldLoc =
                         "distilled_lib_1.h:42:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_5",
+                          nameC = Name "field_5",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_5"},
                         structFieldType = TypePointer
                           (TypeTypedef
                             (TypedefSquashed
-                              (CName
+                              (Name
                                 "another_typedef_struct_t")
                               (TypeStruct
                                 NamePair {
-                                  nameC = CName
+                                  nameC = Name
                                     "another_typedef_struct_t",
                                   nameHsIdent = HsIdentifier
                                     "Another_typedef_struct_t"}
@@ -7524,7 +7524,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:43:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_6",
+                          nameC = Name "field_6",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_6"},
                         structFieldType = TypePointer
@@ -7653,7 +7653,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:44:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_7",
+                          nameC = Name "field_7",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_7"},
                         structFieldType = TypeConstArray
@@ -7661,7 +7661,7 @@
                           (TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
-                                qualNameName = CName "uint32_t",
+                                qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
                               extHsRef = ExtHsRef {
@@ -7789,15 +7789,15 @@
                         structFieldLoc =
                         "distilled_lib_1.h:45:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_8",
+                          nameC = Name "field_8",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_8"},
                         structFieldType = TypeTypedef
                           (TypedefSquashed
-                            (CName "another_typedef_enum_e")
+                            (Name "another_typedef_enum_e")
                             (TypeEnum
                               NamePair {
-                                nameC = CName
+                                nameC = Name
                                   "another_typedef_enum_e",
                                 nameHsIdent = HsIdentifier
                                   "Another_typedef_enum_e"}
@@ -7821,17 +7821,17 @@
                         structFieldLoc =
                         "distilled_lib_1.h:46:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_9",
+                          nameC = Name "field_9",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_9"},
                         structFieldType = TypeConstArray
                           4
                           (TypeTypedef
                             (TypedefSquashed
-                              (CName "another_typedef_enum_e")
+                              (Name "another_typedef_enum_e")
                               (TypeEnum
                                 NamePair {
-                                  nameC = CName
+                                  nameC = Name
                                     "another_typedef_enum_e",
                                   nameHsIdent = HsIdentifier
                                     "Another_typedef_enum_e"}
@@ -7857,7 +7857,7 @@
                         structFieldLoc =
                         "distilled_lib_1.h:47:31",
                         structFieldName = NamePair {
-                          nameC = CName "field_10",
+                          nameC = Name "field_10",
                           nameHsIdent = HsIdentifier
                             "a_typedef_struct_t_field_10"},
                         structFieldType = TypeConstArray
@@ -7866,10 +7866,10 @@
                             3
                             (TypeTypedef
                               (TypedefSquashed
-                                (CName "another_typedef_enum_e")
+                                (Name "another_typedef_enum_e")
                                 (TypeEnum
                                   NamePair {
-                                    nameC = CName
+                                    nameC = Name
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_enum_e"}
@@ -7884,15 +7884,15 @@
                       declLoc =
                       "distilled_lib_1.h:35:16",
                       declId = NamePair {
-                        nameC = CName
+                        nameC = Name
                           "a_typedef_struct_t",
                         nameHsIdent = HsIdentifier
                           "A_typedef_struct_t"},
                       declOrigin =
                       NameOriginRenamedFrom
-                        (CName "a_typedef_struct"),
+                        (Name "a_typedef_struct"),
                       declAliases = [
-                        CName "a_typedef_struct_t"],
+                        Name "a_typedef_struct_t"],
                       declHeader =
                       "distilled_lib_1.h"},
                     declKind = Struct
@@ -7908,7 +7908,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:37:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_0",
+                              nameC = Name "field_0",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_0"},
                             structFieldType = TypePrim
@@ -7919,13 +7919,13 @@
                             structFieldLoc =
                             "distilled_lib_1.h:38:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_1",
+                              nameC = Name "field_1",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_1"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint8_t",
+                                  qualNameName = Name "uint8_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -8044,13 +8044,13 @@
                             structFieldLoc =
                             "distilled_lib_1.h:39:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_2",
+                              nameC = Name "field_2",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_2"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint16_t",
+                                  qualNameName = Name "uint16_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -8169,13 +8169,13 @@
                             structFieldLoc =
                             "distilled_lib_1.h:40:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_3",
+                              nameC = Name "field_3",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_3"},
                             structFieldType = TypeExtBinding
                               ResolvedExtBinding {
                                 extCName = QualName {
-                                  qualNameName = CName "uint32_t",
+                                  qualNameName = Name "uint32_t",
                                   qualNameKind =
                                   NameKindOrdinary},
                                 extHsRef = ExtHsRef {
@@ -8294,16 +8294,16 @@
                             structFieldLoc =
                             "distilled_lib_1.h:41:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_4",
+                              nameC = Name "field_4",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_4"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName
+                                (Name
                                   "another_typedef_struct_t")
                                 (TypeStruct
                                   NamePair {
-                                    nameC = CName
+                                    nameC = Name
                                       "another_typedef_struct_t",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_struct_t"}
@@ -8316,17 +8316,17 @@
                             structFieldLoc =
                             "distilled_lib_1.h:42:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_5",
+                              nameC = Name "field_5",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_5"},
                             structFieldType = TypePointer
                               (TypeTypedef
                                 (TypedefSquashed
-                                  (CName
+                                  (Name
                                     "another_typedef_struct_t")
                                   (TypeStruct
                                     NamePair {
-                                      nameC = CName
+                                      nameC = Name
                                         "another_typedef_struct_t",
                                       nameHsIdent = HsIdentifier
                                         "Another_typedef_struct_t"}
@@ -8339,7 +8339,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:43:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_6",
+                              nameC = Name "field_6",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_6"},
                             structFieldType = TypePointer
@@ -8350,7 +8350,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:44:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_7",
+                              nameC = Name "field_7",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_7"},
                             structFieldType = TypeConstArray
@@ -8358,7 +8358,7 @@
                               (TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
-                                    qualNameName = CName "uint32_t",
+                                    qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
                                   extHsRef = ExtHsRef {
@@ -8477,15 +8477,15 @@
                             structFieldLoc =
                             "distilled_lib_1.h:45:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_8",
+                              nameC = Name "field_8",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_8"},
                             structFieldType = TypeTypedef
                               (TypedefSquashed
-                                (CName "another_typedef_enum_e")
+                                (Name "another_typedef_enum_e")
                                 (TypeEnum
                                   NamePair {
-                                    nameC = CName
+                                    nameC = Name
                                       "another_typedef_enum_e",
                                     nameHsIdent = HsIdentifier
                                       "Another_typedef_enum_e"}
@@ -8498,17 +8498,17 @@
                             structFieldLoc =
                             "distilled_lib_1.h:46:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_9",
+                              nameC = Name "field_9",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_9"},
                             structFieldType = TypeConstArray
                               4
                               (TypeTypedef
                                 (TypedefSquashed
-                                  (CName "another_typedef_enum_e")
+                                  (Name "another_typedef_enum_e")
                                   (TypeEnum
                                     NamePair {
-                                      nameC = CName
+                                      nameC = Name
                                         "another_typedef_enum_e",
                                       nameHsIdent = HsIdentifier
                                         "Another_typedef_enum_e"}
@@ -8521,7 +8521,7 @@
                             structFieldLoc =
                             "distilled_lib_1.h:47:31",
                             structFieldName = NamePair {
-                              nameC = CName "field_10",
+                              nameC = Name "field_10",
                               nameHsIdent = HsIdentifier
                                 "a_typedef_struct_t_field_10"},
                             structFieldType = TypeConstArray
@@ -8530,10 +8530,10 @@
                                 3
                                 (TypeTypedef
                                   (TypedefSquashed
-                                    (CName "another_typedef_enum_e")
+                                    (Name "another_typedef_enum_e")
                                     (TypeEnum
                                       NamePair {
-                                        nameC = CName
+                                        nameC = Name
                                           "another_typedef_enum_e",
                                         nameHsIdent = HsIdentifier
                                           "Another_typedef_enum_e"}
@@ -8724,15 +8724,14 @@
           declLoc =
           "distilled_lib_1.h:61:9",
           declId = NamePair {
-            nameC = CName
-              "a_typedef_enum_e",
+            nameC = Name "a_typedef_enum_e",
             nameHsIdent = HsIdentifier
               "A_typedef_enum_e"},
           declOrigin = NameOriginGenerated
             (AnonId
               "distilled_lib_1.h:61:9"),
           declAliases = [
-            CName "a_typedef_enum_e"],
+            Name "a_typedef_enum_e"],
           declHeader =
           "distilled_lib_1.h"},
         declKind = Enum
@@ -8754,7 +8753,7 @@
                 enumConstantLoc =
                 "distilled_lib_1.h:63:3",
                 enumConstantName = NamePair {
-                  nameC = CName "ENUM_CASE_0",
+                  nameC = Name "ENUM_CASE_0",
                   nameHsIdent = HsIdentifier
                     "ENUM_CASE_0"},
                 enumConstantValue = 0},
@@ -8762,7 +8761,7 @@
                 enumConstantLoc =
                 "distilled_lib_1.h:64:3",
                 enumConstantName = NamePair {
-                  nameC = CName "ENUM_CASE_1",
+                  nameC = Name "ENUM_CASE_1",
                   nameHsIdent = HsIdentifier
                     "ENUM_CASE_1"},
                 enumConstantValue = 1},
@@ -8770,7 +8769,7 @@
                 enumConstantLoc =
                 "distilled_lib_1.h:65:3",
                 enumConstantName = NamePair {
-                  nameC = CName "ENUM_CASE_2",
+                  nameC = Name "ENUM_CASE_2",
                   nameHsIdent = HsIdentifier
                     "ENUM_CASE_2"},
                 enumConstantValue = 2},
@@ -8778,7 +8777,7 @@
                 enumConstantLoc =
                 "distilled_lib_1.h:66:3",
                 enumConstantName = NamePair {
-                  nameC = CName "ENUM_CASE_3",
+                  nameC = Name "ENUM_CASE_3",
                   nameHsIdent = HsIdentifier
                     "ENUM_CASE_3"},
                 enumConstantValue = 3}]},
@@ -9018,7 +9017,7 @@
           enumConstantLoc =
           "distilled_lib_1.h:63:3",
           enumConstantName = NamePair {
-            nameC = CName "ENUM_CASE_0",
+            nameC = Name "ENUM_CASE_0",
             nameHsIdent = HsIdentifier
               "ENUM_CASE_0"},
           enumConstantValue = 0}},
@@ -9039,7 +9038,7 @@
           enumConstantLoc =
           "distilled_lib_1.h:64:3",
           enumConstantName = NamePair {
-            nameC = CName "ENUM_CASE_1",
+            nameC = Name "ENUM_CASE_1",
             nameHsIdent = HsIdentifier
               "ENUM_CASE_1"},
           enumConstantValue = 1}},
@@ -9060,7 +9059,7 @@
           enumConstantLoc =
           "distilled_lib_1.h:65:3",
           enumConstantName = NamePair {
-            nameC = CName "ENUM_CASE_2",
+            nameC = Name "ENUM_CASE_2",
             nameHsIdent = HsIdentifier
               "ENUM_CASE_2"},
           enumConstantValue = 2}},
@@ -9081,7 +9080,7 @@
           enumConstantLoc =
           "distilled_lib_1.h:66:3",
           enumConstantName = NamePair {
-            nameC = CName "ENUM_CASE_3",
+            nameC = Name "ENUM_CASE_3",
             nameHsIdent = HsIdentifier
               "ENUM_CASE_3"},
           enumConstantValue = 3}},
@@ -9448,13 +9447,13 @@
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = CName "a_type_t",
+                    nameC = Name "a_type_t",
                     nameHsIdent = HsIdentifier
                       "A_type_t"})),
             TypeExtBinding
               ResolvedExtBinding {
                 extCName = QualName {
-                  qualNameName = CName "uint32_t",
+                  qualNameName = Name "uint32_t",
                   qualNameKind =
                   NameKindOrdinary},
                 extHsRef = ExtHsRef {
@@ -9571,7 +9570,7 @@
               (TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = CName "uint8_t",
+                    qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
@@ -9687,7 +9686,7 @@
           functionRes = TypeExtBinding
             ResolvedExtBinding {
               extCName = QualName {
-                qualNameName = CName "int32_t",
+                qualNameName = Name "int32_t",
                 qualNameKind =
                 NameKindOrdinary},
               extHsRef = ExtHsRef {
@@ -10045,7 +10044,7 @@
           declLoc =
           "distilled_lib_1.h:77:19",
           declId = NamePair {
-            nameC = CName "callback_t",
+            nameC = Name "callback_t",
             nameHsIdent = HsIdentifier
               "Callback_t"},
           declOrigin = NameOriginInSource,
@@ -10068,7 +10067,7 @@
                   TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
-                        qualNameName = CName "uint32_t",
+                        qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
@@ -10184,7 +10183,7 @@
                 (TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
-                      qualNameName = CName "uint32_t",
+                      qualNameName = Name "uint32_t",
                       qualNameKind =
                       NameKindOrdinary},
                     extHsRef = ExtHsRef {
@@ -10348,6 +10347,6 @@
         (TypeTypedef
           (TypedefRegular
             NamePair {
-              nameC = CName "var_t",
+              nameC = Name "var_t",
               nameHsIdent = HsIdentifier
                 "Var_t"}))}]

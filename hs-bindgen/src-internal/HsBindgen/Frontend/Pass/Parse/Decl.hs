@@ -12,14 +12,13 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -32,7 +31,7 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
 
     let parseWith ::
              (C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse])
-          -> NameKind
+          -> C.NameKind
           -> ParseDecl (Next ParseDecl [C.Decl Parse])
         parseWith parser kind = do
             selected <- evalPredicate info kind
@@ -42,13 +41,13 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
 
     dispatch curr $ \case
       -- Kinds that we parse
-      CXCursor_FunctionDecl       -> parseWith functionDecl    NameKindOrdinary
-      CXCursor_VarDecl            -> parseWith varDecl         NameKindOrdinary
-      CXCursor_TypedefDecl        -> parseWith typedefDecl     NameKindOrdinary
-      CXCursor_MacroDefinition    -> parseWith macroDefinition NameKindOrdinary
-      CXCursor_StructDecl         -> parseWith structDecl      NameKindStruct
-      CXCursor_UnionDecl          -> parseWith unionDecl       NameKindUnion
-      CXCursor_EnumDecl           -> parseWith enumDecl        NameKindEnum
+      CXCursor_FunctionDecl    -> parseWith functionDecl    C.NameKindOrdinary
+      CXCursor_VarDecl         -> parseWith varDecl         C.NameKindOrdinary
+      CXCursor_TypedefDecl     -> parseWith typedefDecl     C.NameKindOrdinary
+      CXCursor_MacroDefinition -> parseWith macroDefinition C.NameKindOrdinary
+      CXCursor_StructDecl      -> parseWith structDecl      C.NameKindStruct
+      CXCursor_UnionDecl       -> parseWith unionDecl       C.NameKindUnion
+      CXCursor_EnumDecl        -> parseWith enumDecl        C.NameKindEnum
 
       -- Process macro expansions independent of any selection predicates
       CXCursor_MacroExpansion -> runFold macroExpansion curr
@@ -78,18 +77,12 @@ handleTypeException curr err = do
 
 getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr -> do
-    declId     <- getDeclId curr
+    declId     <- getPrelimDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
-    -- TODO: We might want a NameOriginBuiltin
-    let declOrigin = case declId of
-          DeclNamed{}     -> C.NameOriginInSource
-          DeclBuiltin{}   -> C.NameOriginInSource
-          DeclAnon anonId -> C.NameOriginGenerated anonId
     return C.DeclInfo{
         declId
       , declLoc
-      , declOrigin
       , declAliases = []
       , declHeader
       }
@@ -254,7 +247,7 @@ declOrFieldDecl fieldDecl = simpleFold $ \curr -> do
 structFieldDecl :: CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl = \curr -> do
     structFieldLoc    <- HighLevel.clang_getCursorLocation' curr
-    structFieldName   <- CName <$> clang_getCursorDisplayName curr
+    structFieldName   <- C.Name <$> clang_getCursorDisplayName curr
     structFieldType   <- fromCXType =<< clang_getCursorType curr
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
@@ -278,7 +271,7 @@ structWidth = \curr -> do
 unionFieldDecl :: CXCursor -> ParseDecl (C.UnionField Parse)
 unionFieldDecl = \curr -> do
     unionFieldLoc  <- HighLevel.clang_getCursorLocation' curr
-    unionFieldName <- CName <$> clang_getCursorDisplayName curr
+    unionFieldName <- C.Name <$> clang_getCursorDisplayName curr
     unionFieldType <- fromCXType =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
     pure C.UnionField{
@@ -354,7 +347,7 @@ enumDecl info = simpleFold $ \curr -> do
 enumConstantDecl :: CXCursor -> ParseDecl (Next ParseDecl (C.EnumConstant Parse))
 enumConstantDecl curr = do
     enumConstantLoc   <- HighLevel.clang_getCursorLocation' curr
-    enumConstantName  <- CName <$> clang_getCursorDisplayName curr
+    enumConstantName  <- C.Name <$> clang_getCursorDisplayName curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
     foldContinueWith C.EnumConstant {
         enumConstantLoc
@@ -538,9 +531,9 @@ varDecl info = simpleFold $ \curr -> do
 partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
 partitionAnonDecls = List.partition (declIdIsAnon . C.declId . C.declInfo)
   where
-    declIdIsAnon :: DeclId -> Bool
-    declIdIsAnon (DeclAnon _) = True
-    declIdIsAnon _otherwise   = False
+    declIdIsAnon :: PrelimDeclId -> Bool
+    declIdIsAnon PrelimDeclIdAnon{} = True
+    declIdIsAnon _otherwise         = False
 
 -- | Detect implicit fields inside a struct
 --
@@ -597,11 +590,11 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclStruct struct -> C.structFields struct
           _otherwise          -> []
 
-    fieldDeps :: [QualDeclId]
+    fieldDeps :: [NsPrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = declQualDeclId decl `elem` fieldDeps
+    declIsUsed decl = C.declNsPrelimDeclId decl `elem` fieldDeps
 
 data VarClassification =
     -- | The simplest case: a simple global variable

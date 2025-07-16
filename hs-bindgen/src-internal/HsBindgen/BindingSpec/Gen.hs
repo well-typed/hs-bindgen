@@ -16,7 +16,6 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Origin qualified as HsOrigin
 import HsBindgen.Imports
-import HsBindgen.Language.C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
@@ -129,13 +128,14 @@ getNewtypeSpec hsModuleName hsNewtype =
 
 getCQualName :: C.DeclInfo -> C.NameKind -> C.QualName
 getCQualName declInfo cNameKind = case C.declOrigin declInfo of
-    C.NameOriginInSource    -> C.QualName cName cNameKind
+    C.NameOriginInSource -> C.QualName cName cNameKind
     C.NameOriginGenerated{} ->
       let cName' = fromMaybe cName (listToMaybe (C.declAliases declInfo))
       in  C.QualName cName' C.NameKindOrdinary
     C.NameOriginRenamedFrom fromCName -> C.QualName fromCName cNameKind
+    C.NameOriginBuiltin -> C.QualName cName C.NameKindOrdinary
   where
-    cName :: CName
+    cName :: C.Name
     cName = MangleNames.nameC (C.declId declInfo)
 
 mkInstSpecs ::

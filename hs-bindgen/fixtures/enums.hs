@@ -18,7 +18,7 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:4:6",
           declId = NamePair {
-            nameC = CName "first",
+            nameC = Name "first",
             nameHsIdent = HsIdentifier
               "First"},
           declOrigin = NameOriginInSource,
@@ -41,14 +41,14 @@
               EnumConstant {
                 enumConstantLoc = "enums.h:5:5",
                 enumConstantName = NamePair {
-                  nameC = CName "FIRST1",
+                  nameC = Name "FIRST1",
                   nameHsIdent = HsIdentifier
                     "FIRST1"},
                 enumConstantValue = 0},
               EnumConstant {
                 enumConstantLoc = "enums.h:6:5",
                 enumConstantName = NamePair {
-                  nameC = CName "FIRST2",
+                  nameC = Name "FIRST2",
                   nameHsIdent = HsIdentifier
                     "FIRST2"},
                 enumConstantValue = 1}]},
@@ -273,7 +273,7 @@
         EnumConstant {
           enumConstantLoc = "enums.h:5:5",
           enumConstantName = NamePair {
-            nameC = CName "FIRST1",
+            nameC = Name "FIRST1",
             nameHsIdent = HsIdentifier
               "FIRST1"},
           enumConstantValue = 0}},
@@ -293,7 +293,7 @@
         EnumConstant {
           enumConstantLoc = "enums.h:6:5",
           enumConstantName = NamePair {
-            nameC = CName "FIRST2",
+            nameC = Name "FIRST2",
             nameHsIdent = HsIdentifier
               "FIRST2"},
           enumConstantValue = 1}},
@@ -316,7 +316,7 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:9:6",
           declId = NamePair {
-            nameC = CName "second",
+            nameC = Name "second",
             nameHsIdent = HsIdentifier
               "Second"},
           declOrigin = NameOriginInSource,
@@ -340,7 +340,7 @@
                 enumConstantLoc =
                 "enums.h:10:5",
                 enumConstantName = NamePair {
-                  nameC = CName "SECOND_A",
+                  nameC = Name "SECOND_A",
                   nameHsIdent = HsIdentifier
                     "SECOND_A"},
                 enumConstantValue = `-1`},
@@ -348,7 +348,7 @@
                 enumConstantLoc =
                 "enums.h:11:5",
                 enumConstantName = NamePair {
-                  nameC = CName "SECOND_B",
+                  nameC = Name "SECOND_B",
                   nameHsIdent = HsIdentifier
                     "SECOND_B"},
                 enumConstantValue = 0},
@@ -356,7 +356,7 @@
                 enumConstantLoc =
                 "enums.h:12:5",
                 enumConstantName = NamePair {
-                  nameC = CName "SECOND_C",
+                  nameC = Name "SECOND_C",
                   nameHsIdent = HsIdentifier
                     "SECOND_C"},
                 enumConstantValue = 1}]},
@@ -591,7 +591,7 @@
           enumConstantLoc =
           "enums.h:10:5",
           enumConstantName = NamePair {
-            nameC = CName "SECOND_A",
+            nameC = Name "SECOND_A",
             nameHsIdent = HsIdentifier
               "SECOND_A"},
           enumConstantValue = `-1`}},
@@ -612,7 +612,7 @@
           enumConstantLoc =
           "enums.h:11:5",
           enumConstantName = NamePair {
-            nameC = CName "SECOND_B",
+            nameC = Name "SECOND_B",
             nameHsIdent = HsIdentifier
               "SECOND_B"},
           enumConstantValue = 0}},
@@ -633,7 +633,7 @@
           enumConstantLoc =
           "enums.h:12:5",
           enumConstantName = NamePair {
-            nameC = CName "SECOND_C",
+            nameC = Name "SECOND_C",
             nameHsIdent = HsIdentifier
               "SECOND_C"},
           enumConstantValue = 1}},
@@ -656,7 +656,7 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:15:6",
           declId = NamePair {
-            nameC = CName "same",
+            nameC = Name "same",
             nameHsIdent = HsIdentifier
               "Same"},
           declOrigin = NameOriginInSource,
@@ -680,7 +680,7 @@
                 enumConstantLoc =
                 "enums.h:16:5",
                 enumConstantName = NamePair {
-                  nameC = CName "SAME_A",
+                  nameC = Name "SAME_A",
                   nameHsIdent = HsIdentifier
                     "SAME_A"},
                 enumConstantValue = 1},
@@ -688,7 +688,7 @@
                 enumConstantLoc =
                 "enums.h:17:5",
                 enumConstantName = NamePair {
-                  nameC = CName "SAME_B",
+                  nameC = Name "SAME_B",
                   nameHsIdent = HsIdentifier
                     "SAME_B"},
                 enumConstantValue = 1}]},
@@ -912,7 +912,7 @@
           enumConstantLoc =
           "enums.h:16:5",
           enumConstantName = NamePair {
-            nameC = CName "SAME_A",
+            nameC = Name "SAME_A",
             nameHsIdent = HsIdentifier
               "SAME_A"},
           enumConstantValue = 1}},
@@ -933,7 +933,7 @@
           enumConstantLoc =
           "enums.h:17:5",
           enumConstantName = NamePair {
-            nameC = CName "SAME_B",
+            nameC = Name "SAME_B",
             nameHsIdent = HsIdentifier
               "SAME_B"},
           enumConstantValue = 1}},
@@ -956,7 +956,7 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:20:6",
           declId = NamePair {
-            nameC = CName "nonseq",
+            nameC = Name "nonseq",
             nameHsIdent = HsIdentifier
               "Nonseq"},
           declOrigin = NameOriginInSource,
@@ -980,7 +980,7 @@
                 enumConstantLoc =
                 "enums.h:21:5",
                 enumConstantName = NamePair {
-                  nameC = CName "NONSEQ_A",
+                  nameC = Name "NONSEQ_A",
                   nameHsIdent = HsIdentifier
                     "NONSEQ_A"},
                 enumConstantValue = 200},
@@ -988,7 +988,7 @@
                 enumConstantLoc =
                 "enums.h:22:5",
                 enumConstantName = NamePair {
-                  nameC = CName "NONSEQ_B",
+                  nameC = Name "NONSEQ_B",
                   nameHsIdent = HsIdentifier
                     "NONSEQ_B"},
                 enumConstantValue = 301},
@@ -996,7 +996,7 @@
                 enumConstantLoc =
                 "enums.h:23:5",
                 enumConstantName = NamePair {
-                  nameC = CName "NONSEQ_C",
+                  nameC = Name "NONSEQ_C",
                   nameHsIdent = HsIdentifier
                     "NONSEQ_C"},
                 enumConstantValue = 404}]},
@@ -1207,7 +1207,7 @@
           enumConstantLoc =
           "enums.h:21:5",
           enumConstantName = NamePair {
-            nameC = CName "NONSEQ_A",
+            nameC = Name "NONSEQ_A",
             nameHsIdent = HsIdentifier
               "NONSEQ_A"},
           enumConstantValue = 200}},
@@ -1228,7 +1228,7 @@
           enumConstantLoc =
           "enums.h:22:5",
           enumConstantName = NamePair {
-            nameC = CName "NONSEQ_B",
+            nameC = Name "NONSEQ_B",
             nameHsIdent = HsIdentifier
               "NONSEQ_B"},
           enumConstantValue = 301}},
@@ -1249,7 +1249,7 @@
           enumConstantLoc =
           "enums.h:23:5",
           enumConstantName = NamePair {
-            nameC = CName "NONSEQ_C",
+            nameC = Name "NONSEQ_C",
             nameHsIdent = HsIdentifier
               "NONSEQ_C"},
           enumConstantValue = 404}},
@@ -1272,7 +1272,7 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:26:6",
           declId = NamePair {
-            nameC = CName "packed",
+            nameC = Name "packed",
             nameHsIdent = HsIdentifier
               "Packed"},
           declOrigin = NameOriginInSource,
@@ -1297,7 +1297,7 @@
                 enumConstantLoc =
                 "enums.h:27:5",
                 enumConstantName = NamePair {
-                  nameC = CName "PACKED_A",
+                  nameC = Name "PACKED_A",
                   nameHsIdent = HsIdentifier
                     "PACKED_A"},
                 enumConstantValue = 0},
@@ -1305,7 +1305,7 @@
                 enumConstantLoc =
                 "enums.h:27:15",
                 enumConstantName = NamePair {
-                  nameC = CName "PACKED_B",
+                  nameC = Name "PACKED_B",
                   nameHsIdent = HsIdentifier
                     "PACKED_B"},
                 enumConstantValue = 1},
@@ -1313,7 +1313,7 @@
                 enumConstantLoc =
                 "enums.h:27:25",
                 enumConstantName = NamePair {
-                  nameC = CName "PACKED_C",
+                  nameC = Name "PACKED_C",
                   nameHsIdent = HsIdentifier
                     "PACKED_C"},
                 enumConstantValue = 2}]},
@@ -1548,7 +1548,7 @@
           enumConstantLoc =
           "enums.h:27:5",
           enumConstantName = NamePair {
-            nameC = CName "PACKED_A",
+            nameC = Name "PACKED_A",
             nameHsIdent = HsIdentifier
               "PACKED_A"},
           enumConstantValue = 0}},
@@ -1569,7 +1569,7 @@
           enumConstantLoc =
           "enums.h:27:15",
           enumConstantName = NamePair {
-            nameC = CName "PACKED_B",
+            nameC = Name "PACKED_B",
             nameHsIdent = HsIdentifier
               "PACKED_B"},
           enumConstantValue = 1}},
@@ -1590,7 +1590,7 @@
           enumConstantLoc =
           "enums.h:27:25",
           enumConstantName = NamePair {
-            nameC = CName "PACKED_C",
+            nameC = Name "PACKED_C",
             nameHsIdent = HsIdentifier
               "PACKED_C"},
           enumConstantValue = 2}},
@@ -1613,12 +1613,12 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:30:9",
           declId = NamePair {
-            nameC = CName "enumA",
+            nameC = Name "enumA",
             nameHsIdent = HsIdentifier
               "EnumA"},
           declOrigin = NameOriginGenerated
             (AnonId "enums.h:30:9"),
-          declAliases = [CName "enumA"],
+          declAliases = [Name "enumA"],
           declHeader = "enums.h"},
         declKind = Enum
           Enum {
@@ -1638,7 +1638,7 @@
                 enumConstantLoc =
                 "enums.h:30:16",
                 enumConstantName = NamePair {
-                  nameC = CName "A_FOO",
+                  nameC = Name "A_FOO",
                   nameHsIdent = HsIdentifier
                     "A_FOO"},
                 enumConstantValue = 0},
@@ -1646,7 +1646,7 @@
                 enumConstantLoc =
                 "enums.h:30:23",
                 enumConstantName = NamePair {
-                  nameC = CName "A_BAR",
+                  nameC = Name "A_BAR",
                   nameHsIdent = HsIdentifier
                     "A_BAR"},
                 enumConstantValue = 1}]},
@@ -1872,7 +1872,7 @@
           enumConstantLoc =
           "enums.h:30:16",
           enumConstantName = NamePair {
-            nameC = CName "A_FOO",
+            nameC = Name "A_FOO",
             nameHsIdent = HsIdentifier
               "A_FOO"},
           enumConstantValue = 0}},
@@ -1893,7 +1893,7 @@
           enumConstantLoc =
           "enums.h:30:23",
           enumConstantName = NamePair {
-            nameC = CName "A_BAR",
+            nameC = Name "A_BAR",
             nameHsIdent = HsIdentifier
               "A_BAR"},
           enumConstantValue = 1}},
@@ -1916,11 +1916,11 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:32:14",
           declId = NamePair {
-            nameC = CName "enumB",
+            nameC = Name "enumB",
             nameHsIdent = HsIdentifier
               "EnumB"},
           declOrigin = NameOriginInSource,
-          declAliases = [CName "enumB"],
+          declAliases = [Name "enumB"],
           declHeader = "enums.h"},
         declKind = Enum
           Enum {
@@ -1940,7 +1940,7 @@
                 enumConstantLoc =
                 "enums.h:32:22",
                 enumConstantName = NamePair {
-                  nameC = CName "B_FOO",
+                  nameC = Name "B_FOO",
                   nameHsIdent = HsIdentifier
                     "B_FOO"},
                 enumConstantValue = 0},
@@ -1948,7 +1948,7 @@
                 enumConstantLoc =
                 "enums.h:32:29",
                 enumConstantName = NamePair {
-                  nameC = CName "B_BAR",
+                  nameC = Name "B_BAR",
                   nameHsIdent = HsIdentifier
                     "B_BAR"},
                 enumConstantValue = 1}]},
@@ -2174,7 +2174,7 @@
           enumConstantLoc =
           "enums.h:32:22",
           enumConstantName = NamePair {
-            nameC = CName "B_FOO",
+            nameC = Name "B_FOO",
             nameHsIdent = HsIdentifier
               "B_FOO"},
           enumConstantValue = 0}},
@@ -2195,7 +2195,7 @@
           enumConstantLoc =
           "enums.h:32:29",
           enumConstantName = NamePair {
-            nameC = CName "B_BAR",
+            nameC = Name "B_BAR",
             nameHsIdent = HsIdentifier
               "B_BAR"},
           enumConstantValue = 1}},
@@ -2218,11 +2218,11 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:34:6",
           declId = NamePair {
-            nameC = CName "enumC",
+            nameC = Name "enumC",
             nameHsIdent = HsIdentifier
               "EnumC"},
           declOrigin = NameOriginInSource,
-          declAliases = [CName "enumC"],
+          declAliases = [Name "enumC"],
           declHeader = "enums.h"},
         declKind = Enum
           Enum {
@@ -2242,7 +2242,7 @@
                 enumConstantLoc =
                 "enums.h:34:14",
                 enumConstantName = NamePair {
-                  nameC = CName "C_FOO",
+                  nameC = Name "C_FOO",
                   nameHsIdent = HsIdentifier
                     "C_FOO"},
                 enumConstantValue = 0},
@@ -2250,7 +2250,7 @@
                 enumConstantLoc =
                 "enums.h:34:21",
                 enumConstantName = NamePair {
-                  nameC = CName "C_BAR",
+                  nameC = Name "C_BAR",
                   nameHsIdent = HsIdentifier
                     "C_BAR"},
                 enumConstantValue = 1}]},
@@ -2476,7 +2476,7 @@
           enumConstantLoc =
           "enums.h:34:14",
           enumConstantName = NamePair {
-            nameC = CName "C_FOO",
+            nameC = Name "C_FOO",
             nameHsIdent = HsIdentifier
               "C_FOO"},
           enumConstantValue = 0}},
@@ -2497,7 +2497,7 @@
           enumConstantLoc =
           "enums.h:34:21",
           enumConstantName = NamePair {
-            nameC = CName "C_BAR",
+            nameC = Name "C_BAR",
             nameHsIdent = HsIdentifier
               "C_BAR"},
           enumConstantValue = 1}},
@@ -2520,13 +2520,13 @@
         declInfo = DeclInfo {
           declLoc = "enums.h:37:6",
           declId = NamePair {
-            nameC = CName "enumD_t",
+            nameC = Name "enumD_t",
             nameHsIdent = HsIdentifier
               "EnumD_t"},
           declOrigin =
           NameOriginRenamedFrom
-            (CName "enumD"),
-          declAliases = [CName "enumD_t"],
+            (Name "enumD"),
+          declAliases = [Name "enumD_t"],
           declHeader = "enums.h"},
         declKind = Enum
           Enum {
@@ -2546,7 +2546,7 @@
                 enumConstantLoc =
                 "enums.h:37:14",
                 enumConstantName = NamePair {
-                  nameC = CName "D_FOO",
+                  nameC = Name "D_FOO",
                   nameHsIdent = HsIdentifier
                     "D_FOO"},
                 enumConstantValue = 0},
@@ -2554,7 +2554,7 @@
                 enumConstantLoc =
                 "enums.h:37:21",
                 enumConstantName = NamePair {
-                  nameC = CName "D_BAR",
+                  nameC = Name "D_BAR",
                   nameHsIdent = HsIdentifier
                     "D_BAR"},
                 enumConstantValue = 1}]},
@@ -2780,7 +2780,7 @@
           enumConstantLoc =
           "enums.h:37:14",
           enumConstantName = NamePair {
-            nameC = CName "D_FOO",
+            nameC = Name "D_FOO",
             nameHsIdent = HsIdentifier
               "D_FOO"},
           enumConstantValue = 0}},
@@ -2801,7 +2801,7 @@
           enumConstantLoc =
           "enums.h:37:21",
           enumConstantName = NamePair {
-            nameC = CName "D_BAR",
+            nameC = Name "D_BAR",
             nameHsIdent = HsIdentifier
               "D_BAR"},
           enumConstantValue = 1}}]

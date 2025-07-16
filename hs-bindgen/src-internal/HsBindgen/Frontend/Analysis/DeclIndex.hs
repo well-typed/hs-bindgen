@@ -23,8 +23,8 @@ import Data.Map.Strict qualified as Map
 import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.DeclId
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (hcat, showToCtxDoc)
@@ -37,7 +37,7 @@ import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 --
 -- This excludes declarations that were not excluded by the selection predicate.
 newtype DeclIndex = Wrap {
-      unwrap :: Map QualDeclId (C.Decl Parse)
+      unwrap :: Map NsPrelimDeclId (C.Decl Parse)
     }
   deriving stock (Show, Eq)
 
@@ -47,8 +47,8 @@ newtype DeclIndex = Wrap {
 
 -- | Construction state (internal type)
 data PartialIndex = PartialIndex{
-      index  :: !(Map QualDeclId (C.Decl Parse))
-    , errors :: !(Map QualDeclId DeclIndexError)
+      index  :: !(Map NsPrelimDeclId (C.Decl Parse))
+    , errors :: !(Map NsPrelimDeclId DeclIndexError)
     }
 
 fromDecls :: [C.Decl Parse] -> (DeclIndex, [DeclIndexError])
@@ -65,21 +65,21 @@ fromDecls decls =
 
     aux :: C.Decl Parse -> State PartialIndex ()
     aux decl = modify' $ \oldState@PartialIndex{index, errors} ->
-        if Map.member qid errors then
+        if Map.member nsid errors then
           -- Ignore further definitions of the same ID after an error
           oldState
         else
           let (index', mErr) = flip runState Nothing $
-                 Map.alterF (insert decl) qid index
+                 Map.alterF (insert decl) nsid index
           in PartialIndex{
               index  = index'
             , errors = case mErr of
                          Nothing -> errors
-                         Just e  -> Map.insert qid e errors
+                         Just e  -> Map.insert nsid e errors
             }
      where
-       qid :: QualDeclId
-       qid = declQualDeclId decl
+       nsid :: NsPrelimDeclId
+       nsid = C.declNsPrelimDeclId decl
 
     insert ::
          C.Decl Parse
@@ -102,7 +102,7 @@ fromDecls decls =
                 -- for macros; for other kinds of declarations, clang will have
                 -- reported an error already.
                 failure $ Redeclaration{
-                    redeclarationId  = declQualDeclId new
+                    redeclarationId  = C.declNsPrelimDeclId new
                   , redeclarationOld = C.declLoc $ C.declInfo old
                   , redeclarationNew = C.declLoc $ C.declInfo new
                   }
@@ -133,7 +133,7 @@ sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
 
 data DeclIndexError =
     Redeclaration {
-        redeclarationId  :: QualDeclId
+        redeclarationId  :: NsPrelimDeclId
       , redeclarationOld :: SingleLoc
       , redeclarationNew :: SingleLoc
       }
@@ -159,10 +159,10 @@ instance HasDefaultLogLevel DeclIndexError where
   Query
 -------------------------------------------------------------------------------}
 
-lookup :: QualDeclId -> DeclIndex -> Maybe (C.Decl Parse)
-lookup qid = Map.lookup qid . unwrap
+lookup :: NsPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
+lookup nsid = Map.lookup nsid . unwrap
 
-(!) :: HasCallStack => DeclIndex -> QualDeclId -> C.Decl Parse
-(!) declIndex qid =
-    fromMaybe (panicPure $ "Unknown key: " ++ show qid) $
-       lookup qid declIndex
+(!) :: HasCallStack => DeclIndex -> NsPrelimDeclId -> C.Decl Parse
+(!) declIndex nsid =
+    fromMaybe (panicPure $ "Unknown key: " ++ show nsid) $
+       lookup nsid declIndex

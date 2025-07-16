@@ -4,7 +4,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:3:6",
         declId = NamePair {
-          nameC = CName "by",
+          nameC = Name "by",
           nameHsIdent = HsIdentifier
             "by'"},
         declOrigin = NameOriginInSource,
@@ -24,7 +24,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:4:6",
         declId = NamePair {
-          nameC = CName "forall",
+          nameC = Name "forall",
           nameHsIdent = HsIdentifier
             "forall'"},
         declOrigin = NameOriginInSource,
@@ -44,7 +44,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:5:6",
         declId = NamePair {
-          nameC = CName "mdo",
+          nameC = Name "mdo",
           nameHsIdent = HsIdentifier
             "mdo'"},
         declOrigin = NameOriginInSource,
@@ -64,7 +64,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:6:6",
         declId = NamePair {
-          nameC = CName "pattern",
+          nameC = Name "pattern",
           nameHsIdent = HsIdentifier
             "pattern'"},
         declOrigin = NameOriginInSource,
@@ -84,7 +84,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:7:6",
         declId = NamePair {
-          nameC = CName "proc",
+          nameC = Name "proc",
           nameHsIdent = HsIdentifier
             "proc'"},
         declOrigin = NameOriginInSource,
@@ -104,7 +104,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:8:6",
         declId = NamePair {
-          nameC = CName "rec",
+          nameC = Name "rec",
           nameHsIdent = HsIdentifier
             "rec'"},
         declOrigin = NameOriginInSource,
@@ -124,7 +124,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:9:6",
         declId = NamePair {
-          nameC = CName "using",
+          nameC = Name "using",
           nameHsIdent = HsIdentifier
             "using'"},
         declOrigin = NameOriginInSource,
@@ -144,7 +144,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:12:6",
         declId = NamePair {
-          nameC = CName "anyclass",
+          nameC = Name "anyclass",
           nameHsIdent = HsIdentifier
             "anyclass"},
         declOrigin = NameOriginInSource,
@@ -164,7 +164,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:13:6",
         declId = NamePair {
-          nameC = CName "capi",
+          nameC = Name "capi",
           nameHsIdent = HsIdentifier
             "capi"},
         declOrigin = NameOriginInSource,
@@ -184,7 +184,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:14:6",
         declId = NamePair {
-          nameC = CName "cases",
+          nameC = Name "cases",
           nameHsIdent = HsIdentifier
             "cases"},
         declOrigin = NameOriginInSource,
@@ -204,7 +204,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:15:6",
         declId = NamePair {
-          nameC = CName "ccall",
+          nameC = Name "ccall",
           nameHsIdent = HsIdentifier
             "ccall"},
         declOrigin = NameOriginInSource,
@@ -224,7 +224,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:16:6",
         declId = NamePair {
-          nameC = CName "dynamic",
+          nameC = Name "dynamic",
           nameHsIdent = HsIdentifier
             "dynamic"},
         declOrigin = NameOriginInSource,
@@ -244,7 +244,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:17:6",
         declId = NamePair {
-          nameC = CName "export",
+          nameC = Name "export",
           nameHsIdent = HsIdentifier
             "export"},
         declOrigin = NameOriginInSource,
@@ -264,7 +264,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:18:6",
         declId = NamePair {
-          nameC = CName "family",
+          nameC = Name "family",
           nameHsIdent = HsIdentifier
             "family"},
         declOrigin = NameOriginInSource,
@@ -284,7 +284,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:19:6",
         declId = NamePair {
-          nameC = CName "group",
+          nameC = Name "group",
           nameHsIdent = HsIdentifier
             "group"},
         declOrigin = NameOriginInSource,
@@ -304,7 +304,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:20:6",
         declId = NamePair {
-          nameC = CName "interruptible",
+          nameC = Name "interruptible",
           nameHsIdent = HsIdentifier
             "interruptible"},
         declOrigin = NameOriginInSource,
@@ -324,7 +324,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:21:6",
         declId = NamePair {
-          nameC = CName "javascript",
+          nameC = Name "javascript",
           nameHsIdent = HsIdentifier
             "javascript"},
         declOrigin = NameOriginInSource,
@@ -344,7 +344,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:22:6",
         declId = NamePair {
-          nameC = CName "label",
+          nameC = Name "label",
           nameHsIdent = HsIdentifier
             "label"},
         declOrigin = NameOriginInSource,
@@ -364,7 +364,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:23:6",
         declId = NamePair {
-          nameC = CName "prim",
+          nameC = Name "prim",
           nameHsIdent = HsIdentifier
             "prim"},
         declOrigin = NameOriginInSource,
@@ -384,7 +384,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:24:6",
         declId = NamePair {
-          nameC = CName "role",
+          nameC = Name "role",
           nameHsIdent = HsIdentifier
             "role"},
         declOrigin = NameOriginInSource,
@@ -404,7 +404,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:25:6",
         declId = NamePair {
-          nameC = CName "safe",
+          nameC = Name "safe",
           nameHsIdent = HsIdentifier
             "safe"},
         declOrigin = NameOriginInSource,
@@ -424,7 +424,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:26:6",
         declId = NamePair {
-          nameC = CName "stdcall",
+          nameC = Name "stdcall",
           nameHsIdent = HsIdentifier
             "stdcall"},
         declOrigin = NameOriginInSource,
@@ -444,7 +444,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:27:6",
         declId = NamePair {
-          nameC = CName "stock",
+          nameC = Name "stock",
           nameHsIdent = HsIdentifier
             "stock"},
         declOrigin = NameOriginInSource,
@@ -464,7 +464,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:28:6",
         declId = NamePair {
-          nameC = CName "unsafe",
+          nameC = Name "unsafe",
           nameHsIdent = HsIdentifier
             "unsafe"},
         declOrigin = NameOriginInSource,
@@ -484,7 +484,7 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "names.h:29:6",
         declId = NamePair {
-          nameC = CName "via",
+          nameC = Name "via",
           nameHsIdent = HsIdentifier
             "via"},
         declOrigin = NameOriginInSource,

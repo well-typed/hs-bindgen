@@ -128,14 +128,13 @@
           declLoc =
           "enum_cpp_syntax.h:4:9",
           declId = NamePair {
-            nameC = CName "foo_enum",
+            nameC = Name "foo_enum",
             nameHsIdent = HsIdentifier
               "Foo_enum"},
           declOrigin = NameOriginGenerated
             (AnonId
               "enum_cpp_syntax.h:4:9"),
-          declAliases = [
-            CName "foo_enum"],
+          declAliases = [Name "foo_enum"],
           declHeader =
           "enum_cpp_syntax.h"},
         declKind = Enum
@@ -150,7 +149,7 @@
             enumType = TypeExtBinding
               ResolvedExtBinding {
                 extCName = QualName {
-                  qualNameName = CName "uint32_t",
+                  qualNameName = Name "uint32_t",
                   qualNameKind =
                   NameKindOrdinary},
                 extHsRef = ExtHsRef {
@@ -270,21 +269,21 @@
                 enumConstantLoc =
                 "enum_cpp_syntax.h:4:27",
                 enumConstantName = NamePair {
-                  nameC = CName "A",
+                  nameC = Name "A",
                   nameHsIdent = HsIdentifier "A"},
                 enumConstantValue = 0},
               EnumConstant {
                 enumConstantLoc =
                 "enum_cpp_syntax.h:4:30",
                 enumConstantName = NamePair {
-                  nameC = CName "B",
+                  nameC = Name "B",
                   nameHsIdent = HsIdentifier "B"},
                 enumConstantValue = 1},
               EnumConstant {
                 enumConstantLoc =
                 "enum_cpp_syntax.h:4:33",
                 enumConstantName = NamePair {
-                  nameC = CName "C",
+                  nameC = Name "C",
                   nameHsIdent = HsIdentifier "C"},
                 enumConstantValue = 2}]},
         declSpec = DeclSpec
@@ -1383,7 +1382,7 @@
           enumConstantLoc =
           "enum_cpp_syntax.h:4:27",
           enumConstantName = NamePair {
-            nameC = CName "A",
+            nameC = Name "A",
             nameHsIdent = HsIdentifier "A"},
           enumConstantValue = 0}},
   DeclPatSyn
@@ -1403,7 +1402,7 @@
           enumConstantLoc =
           "enum_cpp_syntax.h:4:30",
           enumConstantName = NamePair {
-            nameC = CName "B",
+            nameC = Name "B",
             nameHsIdent = HsIdentifier "B"},
           enumConstantValue = 1}},
   DeclPatSyn
@@ -1423,6 +1422,6 @@
           enumConstantLoc =
           "enum_cpp_syntax.h:4:33",
           enumConstantName = NamePair {
-            nameC = CName "C",
+            nameC = Name "C",
             nameHsIdent = HsIdentifier "C"},
           enumConstantValue = 2}}]
