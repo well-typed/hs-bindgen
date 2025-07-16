@@ -94,7 +94,7 @@ toList (CA v) = VS.toList v
 -- Coercible abstraction to look through the `newtype`s wrappers of typedefs.
 withPtr ::
      (Coercible b (ConstantArray n a), Storable a)
-  => b -> (Ptr a -> IO a) -> IO a
+  => b -> (Ptr a -> IO r) -> IO r
 withPtr (coerce -> CA v) k = do
     -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
     VS.MVector _ fptr <- VS.thaw v
