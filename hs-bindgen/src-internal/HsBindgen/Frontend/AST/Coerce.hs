@@ -38,7 +38,7 @@ instance (
     ) => CoercePass DeclInfo p p' where
   coercePass info = DeclInfo{..}
     where
-      DeclInfo{declLoc, declId, declOrigin, declAliases, declHeader} = info
+      DeclInfo{declLoc, declId, declAliases, declHeader} = info
 
 instance (
       CoercePass Struct   p p'
@@ -171,16 +171,16 @@ instance (
     , TypedefRef p ~ TypedefRef p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass Type p p' where
-  coercePass (TypePrim prim)                = TypePrim prim
-  coercePass (TypeStruct name origin)       = TypeStruct name origin
-  coercePass (TypeUnion name origin)        = TypeUnion name origin
-  coercePass (TypeEnum name origin)         = TypeEnum name origin
-  coercePass (TypeTypedef typedef)          = TypeTypedef typedef
-  coercePass (TypeMacroTypedef name origin) = TypeMacroTypedef name origin
-  coercePass (TypePointer typ)              = TypePointer (coercePass typ)
-  coercePass (TypeFun args res)             = TypeFun (map coercePass args) (coercePass res)
-  coercePass  TypeVoid                      = TypeVoid
-  coercePass (TypeConstArray n typ)         = TypeConstArray n (coercePass typ)
-  coercePass (TypeIncompleteArray typ)      = TypeIncompleteArray (coercePass typ)
-  coercePass (TypeExtBinding ext)           = TypeExtBinding ext
-  coercePass (TypeBlock typ)                = TypeBlock (coercePass typ)
+  coercePass (TypePrim prim)           = TypePrim prim
+  coercePass (TypeStruct uid)          = TypeStruct uid
+  coercePass (TypeUnion uid)           = TypeUnion uid
+  coercePass (TypeEnum uid)            = TypeEnum uid
+  coercePass (TypeTypedef typedef)     = TypeTypedef typedef
+  coercePass (TypeMacroTypedef uid)    = TypeMacroTypedef uid
+  coercePass (TypePointer typ)         = TypePointer (coercePass typ)
+  coercePass (TypeFun args res)        = TypeFun (map coercePass args) (coercePass res)
+  coercePass  TypeVoid                 = TypeVoid
+  coercePass (TypeConstArray n typ)    = TypeConstArray n (coercePass typ)
+  coercePass (TypeIncompleteArray typ) = TypeIncompleteArray (coercePass typ)
+  coercePass (TypeExtBinding ext)      = TypeExtBinding ext
+  coercePass (TypeBlock typ)           = TypeBlock (coercePass typ)

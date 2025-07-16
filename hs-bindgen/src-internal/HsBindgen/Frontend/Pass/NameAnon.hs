@@ -11,6 +11,7 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
@@ -77,8 +78,7 @@ nameDecl env decl = do
       Nothing             -> Left  $ NameAnonSkipped (coercePass declInfo)
       Just (name, origin) -> Right $ C.Decl{
         declInfo = C.DeclInfo{
-            declId      = name
-          , declOrigin  = origin
+            declId      = DeclId name origin
           , declAliases = findAliasesOf env nsid
           , declLoc
           , declHeader
@@ -185,13 +185,13 @@ instance NameUseSites C.Type where
       go :: C.Type HandleMacros -> C.Type NameAnon
 
       -- Cases where we actually need to do work
-      go (C.TypeStruct uid _) = uncurry C.TypeStruct . nameUseSite $
+      go (C.TypeStruct uid) = C.TypeStruct . nameUseSite $
         nsPrelimDeclId uid C.TypeNamespaceTag
-      go (C.TypeUnion uid _) = uncurry C.TypeUnion . nameUseSite $
+      go (C.TypeUnion uid) = C.TypeUnion . nameUseSite $
         nsPrelimDeclId uid C.TypeNamespaceTag
-      go (C.TypeEnum uid _) = uncurry C.TypeEnum . nameUseSite $
+      go (C.TypeEnum uid) = C.TypeEnum . nameUseSite $
         nsPrelimDeclId uid C.TypeNamespaceTag
-      go (C.TypeMacroTypedef uid _) = uncurry C.TypeMacroTypedef . nameUseSite $
+      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef . nameUseSite $
         nsPrelimDeclId uid C.TypeNamespaceOrdinary
 
       -- Recursive cases
@@ -211,13 +211,13 @@ instance NameUseSites C.Type where
       -- Rename specific use site
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: NsPrelimDeclId -> (C.Name, C.NameOrigin)
+      nameUseSite :: NsPrelimDeclId -> DeclId
       nameUseSite nsid = case nsid of
-        NsPrelimDeclIdNamed name _ns -> (name, C.NameOriginInSource)
-        NsPrelimDeclIdBuiltin name   -> (name, C.NameOriginInSource)
+        NsPrelimDeclIdNamed name _ns -> DeclId name C.NameOriginInSource
+        NsPrelimDeclIdBuiltin name   -> DeclId name C.NameOriginBuiltin
         NsPrelimDeclIdAnon anonId    -> case findNamedUseOf env nsid of
           Just useOfAnon ->
-            (nameForAnon useOfAnon, C.NameOriginGenerated anonId)
+            DeclId (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
           Nothing -> panicPure "impossible"
 
 {-------------------------------------------------------------------------------

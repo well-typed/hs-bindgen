@@ -199,9 +199,9 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
       --
       -- See https://github.com/well-typed/hs-bindgen/issues/707.
       ReparseNeeded tokens -> case typedefType of
-        C.TypeEnum _ _   -> withoutReparse
-        C.TypeStruct _ _ -> withoutReparse
-        _otherwise       -> reparseWith reparseTypedef tokens withoutReparse withReparse
+        C.TypeEnum _   -> withoutReparse
+        C.TypeStruct _ -> withoutReparse
+        _otherwise     -> reparseWith reparseTypedef tokens withoutReparse withReparse
   where
     name :: C.Name
     name = case C.declId info of

@@ -7,6 +7,7 @@ import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
@@ -67,8 +68,7 @@ handleDecl td decl =
                  Just (newName, newOrigin) -> (
                      Just $ RenamedTagged declInfo' newName
                    , declInfo {
-                       declId     = newName
-                     , declOrigin = newOrigin
+                       declId = DeclId newName newOrigin
                      }
                    )
         in ( mMsg
@@ -80,7 +80,7 @@ handleDecl td decl =
            )
   where
     Decl{
-        declInfo = declInfo@DeclInfo{declId = curName}
+        declInfo = declInfo@DeclInfo{declId = DeclId{declIdName = curName}}
       , declKind
       , declAnn
       } = decl
@@ -170,10 +170,10 @@ instance HandleUseSites C.Type where
 
       -- Simple cases
 
-      go (C.TypePrim prim)                = C.TypePrim prim
-      go (C.TypeMacroTypedef name origin) = C.TypeMacroTypedef name origin
-      go (C.TypeVoid)                     = C.TypeVoid
-      go (C.TypeExtBinding ext)           = C.TypeExtBinding ext
+      go (C.TypePrim prim)        = C.TypePrim prim
+      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef uid
+      go (C.TypeVoid)             = C.TypeVoid
+      go (C.TypeExtBinding ext)   = C.TypeExtBinding ext
 
       -- Recursive cases
 
@@ -185,22 +185,22 @@ instance HandleUseSites C.Type where
 
       -- Interesting cases: tagged types may be renamed, typedefs may be squashed
 
-      go (C.TypeStruct name origin) = rename C.TypeStruct name origin
-      go (C.TypeUnion  name origin) = rename C.TypeUnion  name origin
-      go (C.TypeEnum   name origin) = rename C.TypeEnum   name origin
+      go (C.TypeStruct uid) = rename C.TypeStruct uid
+      go (C.TypeUnion  uid) = rename C.TypeUnion  uid
+      go (C.TypeEnum   uid) = rename C.TypeEnum   uid
 
       go (C.TypeTypedef name) = squash name
 
       rename ::
-           (C.Name -> C.NameOrigin -> Type HandleTypedefs)
-        -> (C.Name -> C.NameOrigin -> Type HandleTypedefs)
-      rename mkType curName curOrigin =
-          case Map.lookup curName (TypedefAnalysis.rename td) of
-            Just (newName, newOrigin) -> mkType newName newOrigin
-            Nothing                   -> mkType curName curOrigin
+           (DeclId -> Type HandleTypedefs)
+        -> (DeclId -> Type HandleTypedefs)
+      rename mkType uid@DeclId{..} =
+        case Map.lookup declIdName (TypedefAnalysis.rename td) of
+          Just (newName, newOrigin) -> mkType $ DeclId newName newOrigin
+          Nothing                   -> mkType uid
 
       squash :: C.Name -> Type HandleTypedefs
       squash name = C.TypeTypedef $
           case Map.lookup name (TypedefAnalysis.squash td) of
-            Nothing -> TypedefRegular  name
+            Nothing -> TypedefRegular $ DeclId name NameOriginInSource
             Just ty -> TypedefSquashed name ty

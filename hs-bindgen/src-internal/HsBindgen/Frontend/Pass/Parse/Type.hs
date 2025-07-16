@@ -81,9 +81,9 @@ fromDecl ty = do
     decl   <- clang_getTypeDeclaration ty
     declId <- getPrelimDeclId decl
     dispatchDecl decl $ \case
-      CXCursor_EnumDecl    -> return $ C.TypeEnum    declId C.NameOriginInSource
-      CXCursor_StructDecl  -> return $ C.TypeStruct  declId C.NameOriginInSource
-      CXCursor_UnionDecl   -> return $ C.TypeUnion   declId C.NameOriginInSource
+      CXCursor_EnumDecl    -> return $ C.TypeEnum   declId
+      CXCursor_StructDecl  -> return $ C.TypeStruct declId
+      CXCursor_UnionDecl   -> return $ C.TypeUnion  declId
       CXCursor_TypedefDecl -> C.TypeTypedef <$> typedefName declId
       kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where

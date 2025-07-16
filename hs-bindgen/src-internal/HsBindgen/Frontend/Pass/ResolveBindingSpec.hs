@@ -15,6 +15,7 @@ import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass
@@ -319,11 +320,11 @@ instance Resolve C.CheckedMacroType where
 
 instance Resolve C.Type where
   resolve = \case
-      C.TypeStruct       uid origin -> aux (`C.TypeStruct`       origin) uid C.NameKindStruct
-      C.TypeUnion        uid origin -> aux (`C.TypeUnion`        origin) uid C.NameKindUnion
-      C.TypeEnum         uid origin -> aux (`C.TypeEnum`         origin) uid C.NameKindEnum
-      C.TypeMacroTypedef uid origin -> aux (`C.TypeMacroTypedef` origin) uid C.NameKindOrdinary
-      C.TypeTypedef uid             -> aux C.TypeTypedef                 uid C.NameKindOrdinary
+      C.TypeStruct       uid -> auxU C.TypeStruct       uid C.NameKindStruct
+      C.TypeUnion        uid -> auxU C.TypeUnion        uid C.NameKindUnion
+      C.TypeEnum         uid -> auxU C.TypeEnum         uid C.NameKindEnum
+      C.TypeMacroTypedef uid -> auxU C.TypeMacroTypedef uid C.NameKindOrdinary
+      C.TypeTypedef      nm  -> auxN C.TypeTypedef      nm  C.NameKindOrdinary
 
       -- Recursive cases
       C.TypePointer t         -> C.TypePointer <$> resolve t
@@ -337,14 +338,14 @@ instance Resolve C.Type where
       C.TypeVoid           -> return C.TypeVoid
       C.TypeExtBinding ext -> absurd ext
     where
-      aux ::
-           (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)
-        -> Id NameAnon
+      auxN ::
+           (C.Name -> C.Type ResolveBindingSpec)
+        -> C.Name
         -> C.NameKind
         -> M (C.Type ResolveBindingSpec)
-      aux mk uid nameKind =
+      auxN mk cName nameKind =
         RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
-          let cQualName = C.QualName uid nameKind
+          let cQualName = C.QualName cName nameKind
           -- check for type omitted by binding specification
           when (Set.member cQualName stateOmitTypes) $
             RWS.modify' $ insertError (BindingSpecOmittedTypeUse cQualName)
@@ -354,12 +355,19 @@ instance Resolve C.Type where
             Nothing -> do
               -- check for external binding of non-selected type
               case NonSelectedDecls.lookup cQualName envNonSelectedDecls of
-                Nothing -> return (mk uid)
+                Nothing -> return (mk cName)
                 Just sourcePath -> do
                   let declPaths =
                         IncludeGraph.reaches envIncludeGraph sourcePath
-                  maybe (mk uid) C.TypeExtBinding <$>
+                  maybe (mk cName) C.TypeExtBinding <$>
                     resolveExtBinding cQualName declPaths
+
+      auxU ::
+           (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)
+        -> Id NameAnon
+        -> C.NameKind
+        -> M (C.Type ResolveBindingSpec)
+      auxU mk uid = auxN (const (mk uid)) (declIdName uid)
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions

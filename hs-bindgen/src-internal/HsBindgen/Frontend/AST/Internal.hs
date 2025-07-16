@@ -31,7 +31,6 @@ module HsBindgen.Frontend.AST.Internal (
   , NameOrigin(..)
     -- * Show
   , ValidPass
-  , Located(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -46,7 +45,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -97,7 +95,6 @@ data Decl p = Decl {
 data DeclInfo p = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: Id p
-    , declOrigin  :: NameOrigin
     , declAliases :: [C.Name]
 
       -- | User-specified header that provides this declaration
@@ -139,9 +136,9 @@ declKindNameKind = \case
     DeclEnumOpaque{}   -> C.NameKindEnum
     _otherwise         -> C.NameKindOrdinary
 
-declQualName :: Id p ~ C.Name => Decl p -> C.QualName
+declQualName :: Id p ~ DeclId => Decl p -> C.QualName
 declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.QualName declId (declKindNameKind declKind)
+    C.QualName (declIdName declId) (declKindNameKind declKind)
 
 data Struct p = Struct {
       structSizeof    :: Int
@@ -228,15 +225,15 @@ data CheckedMacroExpr = CheckedMacroExpr{
 
 data Type p =
     TypePrim C.PrimType
-  | TypeStruct (Id p) NameOrigin
-  | TypeUnion (Id p) NameOrigin
-  | TypeEnum (Id p) NameOrigin
+  | TypeStruct (Id p)
+  | TypeUnion (Id p)
+  | TypeEnum (Id p)
   | TypeTypedef (TypedefRef p)
 
     -- | Macro-defined type
     --
     -- These behave very similar to 'TypeTypedef'.
-  | TypeMacroTypedef (Id p) NameOrigin
+  | TypeMacroTypedef (Id p)
 
   | TypePointer (Type p)
   | TypeFun [Type p] (Type p)
@@ -357,22 +354,6 @@ deriving stock instance ValidPass p => Eq (UnionField       p)
   Pretty-printing
 -------------------------------------------------------------------------------}
 
--- | Indirection for 'PrettyForTrace' instance for 'DeclInfo'
---
--- By introducting this auxiliary type, used in the 'PrettyForTrace' instance
--- for 'DeclInfo', we can define a single 'PrettyForTrace' instance for
--- ('Located' 'C.Name'), which then applies to many passes, while at the time
--- other instances for passes where 'Id' is /not/ 'C.Name' also remains
--- possible.
-data Located a = Located SingleLoc a
-
 instance PrettyForTrace (Located (Id p)) => PrettyForTrace (DeclInfo p) where
   prettyForTrace DeclInfo{declId, declLoc} =
-      prettyForTrace $ Located declLoc declId
-
-instance PrettyForTrace (Located C.Name) where
-  prettyForTrace (Located loc name) = PP.hsep [
-        prettyForTrace name
-      , "at"
-      , PP.showToCtxDoc loc
-      ]
+    prettyForTrace $ Located declLoc declId

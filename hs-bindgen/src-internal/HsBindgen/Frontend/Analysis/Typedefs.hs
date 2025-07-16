@@ -16,6 +16,7 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage(..), ValOrRef(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.Type.PrelimDeclId
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Imports
@@ -153,15 +154,15 @@ fromDecls declUseGraph = mconcat . map aux
 
 analyseTypedef ::
      DeclUseGraph
-  -> C.Name
+  -> DeclId
   -> C.Typedef ResolveBindingSpec
   -> TypedefAnalysis
-analyseTypedef declUseGraph typedefName typedef =
+analyseTypedef declUseGraph uid typedef =
     go ByValue $ C.typedefType typedef
   where
     go :: ValOrRef -> C.Type ResolveBindingSpec -> TypedefAnalysis
     go valOrRef ty | Just taggedType <- toTaggedType ty =
-        typedefOfTagged typedefName valOrRef taggedType $
+        typedefOfTagged (declIdName uid) valOrRef taggedType $
           getUseSites (origNsId taggedType)
     go _ (C.TypePointer ty) =
         go ByRef ty
@@ -231,6 +232,7 @@ updateOrigin oldName = \case
     C.NameOriginInSource           -> C.NameOriginRenamedFrom oldName
     C.NameOriginGenerated   anonId -> C.NameOriginGenerated   anonId
     C.NameOriginRenamedFrom orig   -> C.NameOriginRenamedFrom orig
+    C.NameOriginBuiltin            -> C.NameOriginBuiltin
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: tagged types
@@ -248,17 +250,17 @@ data TaggedKind = Struct | Union | Enum
 
 toTaggedType :: C.Type ResolveBindingSpec -> Maybe TaggedType
 toTaggedType = \case
-    C.TypeStruct name origin -> Just $ TaggedType Struct name origin
-    C.TypeUnion  name origin -> Just $ TaggedType Union  name origin
-    C.TypeEnum   name origin -> Just $ TaggedType Enum   name origin
-    _otherwise               -> Nothing
+    C.TypeStruct DeclId{..} -> Just $ TaggedType Struct declIdName declIdOrigin
+    C.TypeUnion  DeclId{..} -> Just $ TaggedType Union  declIdName declIdOrigin
+    C.TypeEnum   DeclId{..} -> Just $ TaggedType Enum   declIdName declIdOrigin
+    _otherwise              -> Nothing
 
 fromTaggedType :: TaggedType -> C.Type HandleTypedefs
 fromTaggedType TaggedType{..} =
     case taggedKind of
-      Struct -> C.TypeStruct taggedName taggedOrigin
-      Union  -> C.TypeUnion  taggedName taggedOrigin
-      Enum   -> C.TypeEnum   taggedName taggedOrigin
+      Struct -> C.TypeStruct $ DeclId taggedName taggedOrigin
+      Union  -> C.TypeUnion  $ DeclId taggedName taggedOrigin
+      Enum   -> C.TypeEnum   $ DeclId taggedName taggedOrigin
 
 origNsId :: TaggedType -> NsPrelimDeclId
 origNsId TaggedType{..} =
@@ -273,6 +275,7 @@ origNsId TaggedType{..} =
 
 origPrelimDeclId :: C.Name -> C.NameOrigin -> PrelimDeclId
 origPrelimDeclId name = \case
-    C.NameOriginInSource           -> PrelimDeclIdNamed name
-    C.NameOriginRenamedFrom orig   -> PrelimDeclIdNamed orig
-    C.NameOriginGenerated   anonId -> PrelimDeclIdAnon  anonId
+    C.NameOriginInSource           -> PrelimDeclIdNamed   name
+    C.NameOriginRenamedFrom orig   -> PrelimDeclIdNamed   orig
+    C.NameOriginGenerated   anonId -> PrelimDeclIdAnon    anonId
+    C.NameOriginBuiltin            -> PrelimDeclIdBuiltin name

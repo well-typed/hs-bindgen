@@ -10,6 +10,7 @@ import Data.Text qualified as Text
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
@@ -39,7 +40,7 @@ type family AnnResolveBindingSpec ix where
   AnnResolveBindingSpec _                 = NoAnn
 
 instance IsPass ResolveBindingSpec where
-  type Id         ResolveBindingSpec = C.Name
+  type Id         ResolveBindingSpec = DeclId
   type FieldName  ResolveBindingSpec = C.Name
   type TypedefRef ResolveBindingSpec = C.Name
   type MacroBody  ResolveBindingSpec = CheckedMacro ResolveBindingSpec

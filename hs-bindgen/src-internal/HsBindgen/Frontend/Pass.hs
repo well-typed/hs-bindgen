@@ -46,9 +46,9 @@ class IsPass (p :: Pass) where
 
   -- | Reference to a typedef
   --
-  -- Initially this is just the name of the typedef, but after 'RenameAnon' we
-  -- distinguish between regular typedefs and squashed typedefs (in which case
-  -- it's the type that it got replaced with).
+  -- Initially this is just the name of the typedef, but after 'HandleTypedefs'
+  -- we distinguish between regular typedefs and squashed typedefs (in which
+  -- case it's the type that it got replaced with).
   type TypedefRef p :: Star
 
   -- | Macro body

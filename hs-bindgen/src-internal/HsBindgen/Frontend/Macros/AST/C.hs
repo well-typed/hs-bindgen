@@ -48,17 +48,16 @@ pattern TypeTypedef :: C.Name -> Type
 pattern TypeTypedef name = C.TypeTypedef name
 
 pattern TypeMacroTypedef :: C.Name -> Type
-pattern TypeMacroTypedef name =
-    C.TypeMacroTypedef (DeclId name) C.NameOriginInSource
+pattern TypeMacroTypedef name = C.TypeMacroTypedef (DeclId name)
 
 pattern TypeStruct :: C.Name -> Type
-pattern TypeStruct name = C.TypeStruct (DeclId name) C.NameOriginInSource
+pattern TypeStruct name = C.TypeStruct (DeclId name)
 
 pattern TypeUnion :: C.Name -> Type
-pattern TypeUnion name = C.TypeUnion (DeclId name) C.NameOriginInSource
+pattern TypeUnion name = C.TypeUnion (DeclId name)
 
 pattern TypeEnum :: C.Name -> Type
-pattern TypeEnum name = C.TypeEnum (DeclId name) C.NameOriginInSource
+pattern TypeEnum name = C.TypeEnum (DeclId name)
 
 pattern TypeIncompleteArray :: Type -> Type
 pattern TypeIncompleteArray ty = C.TypeIncompleteArray ty

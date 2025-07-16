@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.NameAnon.IsPass (
 
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
@@ -25,7 +26,7 @@ type family AnnNameAnon ix where
   AnnNameAnon _                 = NoAnn
 
 instance IsPass NameAnon where
-  type Id         NameAnon = C.Name
+  type Id         NameAnon = DeclId
   type FieldName  NameAnon = C.Name
   type TypedefRef NameAnon = C.Name
   type MacroBody  NameAnon = C.CheckedMacro NameAnon

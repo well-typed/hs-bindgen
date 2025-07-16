@@ -1,9 +1,15 @@
 module HsBindgen.Frontend.Naming (
+    -- * Located
+    Located(..)
+
     -- * AnonId
-    AnonId(..)
+  , AnonId(..)
 
     -- * NameOrigin
   , NameOrigin(..)
+
+    -- * DeclId
+  , DeclId(..)
   ) where
 
 import Clang.HighLevel (ShowFile(..))
@@ -14,6 +20,16 @@ import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
+
+{-------------------------------------------------------------------------------
+  Located
+-------------------------------------------------------------------------------}
+
+-- | Indirection for 'PrettyForTrace' instance for @DeclInfo@
+--
+-- By introducting this auxiliary type, used in the 'PrettyForTrace' instance
+-- for @DeclInfo@, we delegate to @Id p@ instances.
+data Located a = Located SingleLoc a
 
 {-------------------------------------------------------------------------------
   AnonId
@@ -51,6 +67,9 @@ data NameOrigin =
     -- The name may not be used to construct a valid C type, but this original
     -- name may be used to construct a valid C type.
   | NameOriginRenamedFrom C.Name
+
+    -- | Name is a Clang built-in
+  | NameOriginBuiltin
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyForTrace NameOrigin where
@@ -61,3 +80,33 @@ instance PrettyForTrace NameOrigin where
       PP.string "generated for" <+> prettyForTrace anonId
     NameOriginRenamedFrom name ->
       PP.string "renamed from" <+> prettyForTrace name
+    NameOriginBuiltin ->
+      PP.string "built-in"
+
+{-------------------------------------------------------------------------------
+  DeclId
+-------------------------------------------------------------------------------}
+
+-- | Declaration identity
+--
+-- All declarations have names after renaming in the @RenameAnon@ pass.
+data DeclId = DeclId {
+      declIdName   :: C.Name
+    , declIdOrigin :: NameOrigin
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+instance PrettyForTrace DeclId where
+  prettyForTrace DeclId{..} =
+    prettyForTrace declIdName <+> PP.parens (prettyForTrace declIdOrigin)
+
+instance PrettyForTrace (Located DeclId) where
+  prettyForTrace (Located loc DeclId{..}) =
+    let details = case declIdOrigin of
+          NameOriginBuiltin -> prettyForTrace declIdOrigin
+          _otherwise -> PP.hsep [
+              prettyForTrace declIdOrigin
+            , "at"
+            , PP.showToCtxDoc loc
+            ]
+    in  prettyForTrace declIdName <+> PP.parens details

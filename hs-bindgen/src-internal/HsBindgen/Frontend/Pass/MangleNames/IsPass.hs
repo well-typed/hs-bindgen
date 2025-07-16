@@ -12,6 +12,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 
 import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
@@ -41,7 +42,7 @@ type family AnnMangleNames ix where
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id         MangleNames = NamePair
+  type Id         MangleNames = (NamePair, NameOrigin)
   type FieldName  MangleNames = NamePair
   type TypedefRef MangleNames = RenamedTypedefRef MangleNames
   type MacroBody  MangleNames = CheckedMacro MangleNames

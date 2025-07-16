@@ -61,8 +61,8 @@ instance PrettyForTrace PrelimDeclId where
     PrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
     PrelimDeclIdBuiltin name   -> prettyForTrace name
 
-instance PrettyForTrace (C.Located PrelimDeclId) where
-  prettyForTrace (C.Located loc prelimDeclId) = case prelimDeclId of
+instance PrettyForTrace (Located PrelimDeclId) where
+  prettyForTrace (Located loc prelimDeclId) = case prelimDeclId of
     PrelimDeclIdNamed{} ->
       PP.hsep [prettyForTrace prelimDeclId, "at", PP.showToCtxDoc loc]
     PrelimDeclIdAnon{} ->

@@ -80,15 +80,9 @@ getDeclInfo = \curr -> do
     declId     <- getPrelimDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
-    -- TODO: We might want a NameOriginBuiltin
-    let declOrigin = case declId of
-          PrelimDeclIdNamed{}     -> C.NameOriginInSource
-          PrelimDeclIdBuiltin{}   -> C.NameOriginInSource
-          PrelimDeclIdAnon anonId -> C.NameOriginGenerated anonId
     return C.DeclInfo{
         declId
       , declLoc
-      , declOrigin
       , declAliases = []
       , declHeader
       }

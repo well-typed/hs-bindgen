@@ -128,11 +128,12 @@ getNewtypeSpec hsModuleName hsNewtype =
 
 getCQualName :: C.DeclInfo -> C.NameKind -> C.QualName
 getCQualName declInfo cNameKind = case C.declOrigin declInfo of
-    C.NameOriginInSource    -> C.QualName cName cNameKind
+    C.NameOriginInSource -> C.QualName cName cNameKind
     C.NameOriginGenerated{} ->
       let cName' = fromMaybe cName (listToMaybe (C.declAliases declInfo))
       in  C.QualName cName' C.NameKindOrdinary
     C.NameOriginRenamedFrom fromCName -> C.QualName fromCName cNameKind
+    C.NameOriginBuiltin -> C.QualName cName C.NameKindOrdinary
   where
     cName :: C.Name
     cName = MangleNames.nameC (C.declId declInfo)
