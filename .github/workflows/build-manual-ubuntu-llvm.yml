@@ -3,13 +3,17 @@
 # This CI job specifically checks that the 'manual' can be generated,
 # built, and run from a clean state on Ubuntu using LLVM.
 #
-name: Build and run the Manual (Ubuntu)
+name: Build and run the Manual (Ubuntu / LLVM)
 
 on:
   push:
     branches:
       - main
   pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 # Since we want to compile with LLVM backend and LLVM IR does not allow
 # Unicode characters we enable this flag which is going to replace all Unicode

@@ -11,6 +11,10 @@ on:
       - main
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 # If needed, this action allows one to SSH into the CI Job machine and
 # figure out what's going on.
 # - name: Setup tmate session
