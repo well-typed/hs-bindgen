@@ -143,9 +143,14 @@ jobs:
         working-directory: ./manual/c
         run: make
 
+      - name: Generate Cabal plan
+        run: |
+          cabal build all --dry-run
+
       - name: Cache Cabal dependencies
         uses: actions/cache@v4
         with:
+          # setup-haskell is a step that does not exist, so the cabal-store folder is never cached
           path: |
             ${{ steps.setup-haskell.outputs.cabal-store }}
             dist-newstyle

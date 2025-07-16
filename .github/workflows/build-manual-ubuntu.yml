@@ -117,6 +117,10 @@ jobs:
                 ${{ github.workspace }}/manual/c
           EOF
 
+      - name: Generate Cabal plan
+        run: |
+          cabal build all --dry-run
+
       - name: Cache Cabal dependencies
         uses: actions/cache@v4
         with:
