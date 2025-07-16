@@ -89,7 +89,8 @@ instance PrettyForTrace NameOrigin where
 
 -- | Declaration identity
 --
--- All declarations have names after renaming in the @RenameAnon@ pass.
+-- All declarations have names after renaming in the @NameAnon@ pass.  This type
+-- is used until the @MangleNames@ pass.
 data DeclId = DeclId {
       declIdName   :: C.Name
     , declIdOrigin :: NameOrigin
