@@ -65,7 +65,7 @@ jobs:
       # output.
       # Note that we set -nostdinc because we want to override the default
       # paths that clang uses, this is to make sure it finds them correctly.
-      - name: Set Set BINDGEN_EXTRA_CLANG_ARGS using Clang
+      - name: Set BINDGEN_EXTRA_CLANG_ARGS using Clang
         run: |
           CLANG_ARGS=$(clang -v -E -xc /dev/null 2>&1 | awk '/#include <...> search starts here/{f=1;next}/End of search list./{f=0}f{sub(/^[ \t]*/,"",$0);s=s " -I"$0}END{print substr(s,2)}')
           echo "BINDGEN_EXTRA_CLANG_ARGS=-nostdinc $CLANG_ARGS" >> "$GITHUB_ENV"
