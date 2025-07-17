@@ -13,6 +13,7 @@ import HsBindgen.C.Reparse.Common ( reparseName, reparseLocName )
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Macros.AST.Syntax
 import HsBindgen.Language.C qualified as C
 

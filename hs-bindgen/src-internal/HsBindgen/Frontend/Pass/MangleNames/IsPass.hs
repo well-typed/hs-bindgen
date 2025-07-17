@@ -12,13 +12,12 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint
@@ -42,7 +41,7 @@ type family AnnMangleNames ix where
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id         MangleNames = (NamePair, NameOrigin)
+  type Id         MangleNames = (NamePair, C.NameOrigin)
   type FieldName  MangleNames = NamePair
   type TypedefRef MangleNames = RenamedTypedefRef MangleNames
   type MacroBody  MangleNames = CheckedMacro MangleNames

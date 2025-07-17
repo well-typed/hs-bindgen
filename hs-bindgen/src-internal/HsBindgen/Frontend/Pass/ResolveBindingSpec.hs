@@ -15,7 +15,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
 import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
 import HsBindgen.Frontend.Pass
@@ -23,7 +23,6 @@ import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Util.Monad (mapMaybeM)
 
@@ -364,7 +363,7 @@ instance Resolve C.Type where
         -> Id NameAnon
         -> C.NameKind
         -> M (C.Type ResolveBindingSpec)
-      auxU mk uid = auxN (const (mk uid)) (declIdName uid)
+      auxU mk uid = auxN (const (mk uid)) (C.declIdName uid)
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions

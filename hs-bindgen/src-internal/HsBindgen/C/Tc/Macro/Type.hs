@@ -126,6 +126,7 @@ import C.Type qualified
 
 -- hs-bindgen
 import HsBindgen.Imports
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality
   ( equals2 )

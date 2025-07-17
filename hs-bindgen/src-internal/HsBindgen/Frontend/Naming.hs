@@ -1,6 +1,29 @@
+-- | C naming and declaration identities
+--
+-- Intended for qualified import within frontend.
+--
+-- > import HsBindgen.Frontend.Naming qualified as C
+--
+-- Use outside of the frontend should be done via
+-- "HsBindgen.Frontend.AST.External".
 module HsBindgen.Frontend.Naming (
+    -- * Name
+    Name(..)
+
+    -- * TypeNamespace
+  , TypeNamespace(..)
+
+    -- * NameKind
+  , NameKind(..)
+  , nameKindTypeNamespace
+
+    -- * QualName
+  , QualName(..)
+  , qualNameText
+  , parseQualName
+
     -- * AnonId
-    AnonId(..)
+  , AnonId(..)
 
     -- * PrelimDeclId
   , PrelimDeclId(..)
@@ -24,15 +47,131 @@ module HsBindgen.Frontend.Naming (
   , Located(..)
   ) where
 
+import Data.Text qualified as Text
+
 import Clang.HighLevel (ShowFile(..))
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 import Text.SimplePrettyPrint ((<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
+
+{-------------------------------------------------------------------------------
+  Name
+-------------------------------------------------------------------------------}
+
+-- | C name
+--
+-- This type represents C names, including type names, filed names, variable
+-- names, function names, and macro names.
+--
+-- In type @struct foo@, the name is just @foo@.  The tag kind prefix is /not/
+-- part of the name.
+newtype Name = Name {
+      getName :: Text
+    }
+  deriving newtype (Show, Eq, Ord, IsString, Semigroup)
+  deriving stock (Generic)
+
+instance PrettyForTrace Name where
+  prettyForTrace (Name name) = "'" >< PP.textToCtxDoc name >< "'"
+
+{-------------------------------------------------------------------------------
+  TypeNamespace
+-------------------------------------------------------------------------------}
+
+-- | C type namespaces
+--
+-- C namespaces include:
+--
+-- * Ordinary namespace: a single namespace that includes @typedef@ names,
+--   variable names, function names, @enum@ constant names, etc.
+-- * Tag namespace: a single namespace that includes all @struct@, @union@, and
+--   @enum@ tags
+-- * Field namespaces: a separate namespace per @struct@/@union@ of field names
+-- * Label namespace: a single namespace of @goto@ labels
+--
+-- A type name is in the ordinary or tag namespace.
+data TypeNamespace =
+    TypeNamespaceOrdinary
+  | TypeNamespaceTag
+  deriving stock (Show, Eq, Ord, Generic)
+
+{-------------------------------------------------------------------------------
+  NameKind
+-------------------------------------------------------------------------------}
+
+-- | C name kind
+--
+-- This type distinguishes ordinary names and tagged names.  It is needed when
+-- the kind is not determined by a context.
+data NameKind =
+    -- | Ordinary kind
+    --
+    -- An ordinary name is written without a prefix.
+    NameKindOrdinary
+
+    -- | Struct kind
+    --
+    -- A struct name is written with a @struct@ prefix.
+  | NameKindStruct
+
+    -- | Union kind
+    --
+    -- A union name is written with a @union@ prefix.
+  | NameKindUnion
+
+    -- | Enum kind
+    --
+    -- An enum name is written with an @enum@ prefix.
+  | NameKindEnum
+  deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
+
+instance PrettyForTrace NameKind where
+  prettyForTrace = PP.showToCtxDoc
+
+-- | Get the 'TypeNamespace' for a 'NameKind'
+nameKindTypeNamespace :: NameKind -> TypeNamespace
+nameKindTypeNamespace = \case
+    NameKindOrdinary -> TypeNamespaceOrdinary
+    NameKindStruct   -> TypeNamespaceTag
+    NameKindUnion    -> TypeNamespaceTag
+    NameKindEnum     -> TypeNamespaceTag
+
+{-------------------------------------------------------------------------------
+  QualName
+-------------------------------------------------------------------------------}
+
+-- | C name, qualified by the 'NameKind'
+--
+-- This is the parsed representation of a @libclang@ C spelling.
+data QualName = QualName {
+      qualNameName :: Name
+    , qualNameKind :: NameKind
+    }
+  deriving stock (Eq, Generic, Ord, Show)
+
+instance PrettyForTrace QualName where
+  prettyForTrace = PP.textToCtxDoc . qualNameText
+
+qualNameText :: QualName -> Text
+qualNameText QualName{..} =
+    let prefix = case qualNameKind of
+          NameKindOrdinary -> ""
+          NameKindStruct   -> "struct "
+          NameKindUnion    -> "union "
+          NameKindEnum     -> "enum "
+    in  prefix <> getName qualNameName
+
+parseQualName :: Text -> Maybe QualName
+parseQualName t = case Text.words t of
+    [n]           -> Just $ QualName (Name n) NameKindOrdinary
+    ["struct", n] -> Just $ QualName (Name n) NameKindStruct
+    ["union",  n] -> Just $ QualName (Name n) NameKindUnion
+    ["enum",   n] -> Just $ QualName (Name n) NameKindEnum
+    _otherwise    -> Nothing
 
 {-------------------------------------------------------------------------------
   AnonId
@@ -58,7 +197,7 @@ instance PrettyForTrace AnonId where
 -- proper names in the 'NameAnon' pass.
 data PrelimDeclId =
     -- | Named declaration
-    PrelimDeclIdNamed C.Name
+    PrelimDeclIdNamed Name
 
     -- | Anonymous declaration
     --
@@ -70,7 +209,7 @@ data PrelimDeclId =
     -- Note: since built-in declarations don't have a definition, we cannot
     -- in general generate bindings for them. If there are /specific/ built-in
     -- declarations we should support, we need to special-case them.
-  | PrelimDeclIdBuiltin C.Name
+  | PrelimDeclIdBuiltin Name
   deriving stock (Show, Eq, Ord)
 
 instance IsString PrelimDeclId where
@@ -108,37 +247,37 @@ getPrelimDeclId curr = do
     spelling <- HighLevel.clang_getCursorSpelling curr
     case spelling of
       UserProvided name ->
-        return $ PrelimDeclIdNamed (C.Name name)
+        return $ PrelimDeclIdNamed (Name name)
       ClangGenerated _ ->
         PrelimDeclIdAnon . AnonId . multiLocExpansion
           <$> HighLevel.clang_getCursorLocation curr
       ClangBuiltin name ->
-        return $ PrelimDeclIdBuiltin (C.Name name)
+        return $ PrelimDeclIdBuiltin (Name name)
 
 {-------------------------------------------------------------------------------
   NsPrelimDeclId
 -------------------------------------------------------------------------------}
 
 -- | Preliminary declaration identity, with named identities qualified by
--- 'C.TypeNamespace'
+-- 'TypeNamespace'
 --
 -- This type is used when names in different namespaces must be distinguished
 -- but we do not want to distinguish different tag kinds.
 data NsPrelimDeclId =
-    NsPrelimDeclIdNamed C.Name C.TypeNamespace
+    NsPrelimDeclIdNamed Name TypeNamespace
   | NsPrelimDeclIdAnon AnonId
-  | NsPrelimDeclIdBuiltin C.Name
+  | NsPrelimDeclIdBuiltin Name
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace NsPrelimDeclId where
   prettyForTrace = \case
     NsPrelimDeclIdNamed name ns -> prettyForTrace name >< case ns of
-      C.TypeNamespaceOrdinary -> " (ordinary)"
-      C.TypeNamespaceTag      -> " (tag)"
+      TypeNamespaceOrdinary -> " (ordinary)"
+      TypeNamespaceTag      -> " (tag)"
     NsPrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
     NsPrelimDeclIdBuiltin name   -> prettyForTrace name
 
-nsPrelimDeclId :: PrelimDeclId -> C.TypeNamespace -> NsPrelimDeclId
+nsPrelimDeclId :: PrelimDeclId -> TypeNamespace -> NsPrelimDeclId
 nsPrelimDeclId prelimDeclId ns = case prelimDeclId of
     PrelimDeclIdNamed   name   -> NsPrelimDeclIdNamed name ns
     PrelimDeclIdAnon    anonId -> NsPrelimDeclIdAnon anonId
@@ -149,28 +288,28 @@ nsPrelimDeclId prelimDeclId ns = case prelimDeclId of
 -------------------------------------------------------------------------------}
 
 -- | Preliminary declaration identity, with named identities qualified by
--- 'C.NameKind'
+-- 'NameKind'
 --
 -- This type is used when names with different tag kinds must be distinguished.
 data QualPrelimDeclId =
-    QualPrelimDeclIdNamed C.Name C.NameKind
+    QualPrelimDeclIdNamed Name NameKind
   | QualPrelimDeclIdAnon AnonId
-  | QualPrelimDeclIdBuiltin C.Name
+  | QualPrelimDeclIdBuiltin Name
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace QualPrelimDeclId where
   prettyForTrace = \case
     QualPrelimDeclIdNamed name kind ->
       let prefix = case kind of
-            C.NameKindOrdinary -> ""
-            C.NameKindStruct   -> "struct "
-            C.NameKindUnion    -> "union "
-            C.NameKindEnum     -> "enum "
+            NameKindOrdinary -> ""
+            NameKindStruct   -> "struct "
+            NameKindUnion    -> "union "
+            NameKindEnum     -> "enum "
       in  prefix >< prettyForTrace name
     QualPrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
     QualPrelimDeclIdBuiltin name   -> prettyForTrace name
 
-qualPrelimDeclId :: PrelimDeclId -> C.NameKind -> QualPrelimDeclId
+qualPrelimDeclId :: PrelimDeclId -> NameKind -> QualPrelimDeclId
 qualPrelimDeclId prelimDeclId kind = case prelimDeclId of
     PrelimDeclIdNamed   name   -> QualPrelimDeclIdNamed name kind
     PrelimDeclIdAnon    anonId -> QualPrelimDeclIdAnon anonId
@@ -198,7 +337,7 @@ data NameOrigin =
     --
     -- The name may not be used to construct a valid C type, but this original
     -- name may be used to construct a valid C type.
-  | NameOriginRenamedFrom C.Name
+  | NameOriginRenamedFrom Name
 
     -- | Name is a Clang built-in
   | NameOriginBuiltin
@@ -224,7 +363,7 @@ instance PrettyForTrace NameOrigin where
 -- All declarations have names after renaming in the @NameAnon@ pass.  This type
 -- is used until the @MangleNames@ pass.
 data DeclId = DeclId {
-      declIdName   :: C.Name
+      declIdName   :: Name
     , declIdOrigin :: NameOrigin
     }
   deriving stock (Show, Eq, Ord, Generic)

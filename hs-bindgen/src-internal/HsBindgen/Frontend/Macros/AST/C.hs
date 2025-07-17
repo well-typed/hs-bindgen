@@ -22,7 +22,7 @@ module HsBindgen.Frontend.Macros.AST.C (
 import GHC.Natural (Natural)
 
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming (PrelimDeclId(..))
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
 import HsBindgen.Language.C qualified as C
 
@@ -69,15 +69,15 @@ pattern TypeConstArray sz ty = C.TypeConstArray sz ty
   Internal auxiliary: dealing with names
 -------------------------------------------------------------------------------}
 
-pattern DeclId :: C.Name -> PrelimDeclId
+pattern DeclId :: C.Name -> C.PrelimDeclId
 pattern DeclId name <- (fromPrelimDeclId -> Just name)
   where
     DeclId name = toPrelimDeclId name
 
-fromPrelimDeclId :: PrelimDeclId -> Maybe C.Name
-fromPrelimDeclId (PrelimDeclIdNamed   name) = Just name
-fromPrelimDeclId (PrelimDeclIdAnon    _   ) = Nothing
-fromPrelimDeclId (PrelimDeclIdBuiltin name) = Just name
+fromPrelimDeclId :: C.PrelimDeclId -> Maybe C.Name
+fromPrelimDeclId (C.PrelimDeclIdNamed   name) = Just name
+fromPrelimDeclId (C.PrelimDeclIdAnon    _   ) = Nothing
+fromPrelimDeclId (C.PrelimDeclIdBuiltin name) = Just name
 
-toPrelimDeclId :: C.Name -> PrelimDeclId
-toPrelimDeclId name = PrelimDeclIdNamed name
+toPrelimDeclId :: C.Name -> C.PrelimDeclId
+toPrelimDeclId name = C.PrelimDeclIdNamed name

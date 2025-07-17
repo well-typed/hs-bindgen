@@ -28,7 +28,6 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Origin qualified as HsOrigin
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------

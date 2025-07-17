@@ -16,10 +16,9 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage(..), ValOrRef(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefs)
 
 {-------------------------------------------------------------------------------
@@ -153,7 +152,7 @@ fromDecls declUseGraph = mconcat . map aux
 
 analyseTypedef ::
      DeclUseGraph
-  -> DeclId
+  -> C.DeclId
   -> C.Typedef ResolveBindingSpec
   -> TypedefAnalysis
 analyseTypedef declUseGraph uid typedef =
@@ -161,7 +160,7 @@ analyseTypedef declUseGraph uid typedef =
   where
     go :: ValOrRef -> C.Type ResolveBindingSpec -> TypedefAnalysis
     go valOrRef ty | Just taggedType <- toTaggedType ty =
-        typedefOfTagged (declIdName uid) valOrRef taggedType $
+        typedefOfTagged (C.declIdName uid) valOrRef taggedType $
           getUseSites (origNsId taggedType)
     go _ (C.TypePointer ty) =
         go ByRef ty
@@ -169,20 +168,20 @@ analyseTypedef declUseGraph uid typedef =
         mempty
 
     -- Get use sites, except any self-references
-    getUseSites :: NsPrelimDeclId -> [(NsPrelimDeclId, Usage)]
+    getUseSites :: C.NsPrelimDeclId -> [(C.NsPrelimDeclId, Usage)]
     getUseSites nsid =
         let allUseSites = DeclUseGraph.getUseSites declUseGraph nsid
         in filter (not . isSelfReference) allUseSites
       where
-        isSelfReference :: (NsPrelimDeclId, Usage) -> Bool
+        isSelfReference :: (C.NsPrelimDeclId, Usage) -> Bool
         isSelfReference (nsid', _usage) = nsid == nsid'
 
 -- | Typedef of some tagged datatype
 typedefOfTagged ::
-     C.Name                    -- ^ Name of the typedef
-  -> ValOrRef                  -- ^ Does the typedef wrap the datatype directly?
-  -> TaggedType                -- ^ Tagged datatype
-  -> [(NsPrelimDeclId, Usage)] -- ^ All use sites of the struct
+     C.Name                      -- ^ Name of the typedef
+  -> ValOrRef                    -- ^ Does the typedef wrap the datatype directly?
+  -> TaggedType                  -- ^ Tagged datatype
+  -> [(C.NsPrelimDeclId, Usage)] -- ^ All use sites of the struct
   -> TypedefAnalysis
 typedefOfTagged typedefName valOrRef taggedType@TaggedType{..} useSites
     -- Struct and typedef same name, no intervening pointers
@@ -249,21 +248,23 @@ data TaggedKind = Struct | Union | Enum
 
 toTaggedType :: C.Type ResolveBindingSpec -> Maybe TaggedType
 toTaggedType = \case
-    C.TypeStruct DeclId{..} -> Just $ TaggedType Struct declIdName declIdOrigin
-    C.TypeUnion  DeclId{..} -> Just $ TaggedType Union  declIdName declIdOrigin
-    C.TypeEnum   DeclId{..} -> Just $ TaggedType Enum   declIdName declIdOrigin
-    _otherwise              -> Nothing
+    C.TypeStruct C.DeclId{..} -> Just $ TaggedType Struct declIdName declIdOrigin
+    C.TypeUnion  C.DeclId{..} -> Just $ TaggedType Union  declIdName declIdOrigin
+    C.TypeEnum   C.DeclId{..} -> Just $ TaggedType Enum   declIdName declIdOrigin
+    _otherwise                -> Nothing
 
 fromTaggedType :: TaggedType -> C.Type HandleTypedefs
 fromTaggedType TaggedType{..} =
     case taggedKind of
-      Struct -> C.TypeStruct $ DeclId taggedName taggedOrigin
-      Union  -> C.TypeUnion  $ DeclId taggedName taggedOrigin
-      Enum   -> C.TypeEnum   $ DeclId taggedName taggedOrigin
+      Struct -> C.TypeStruct $ C.DeclId taggedName taggedOrigin
+      Union  -> C.TypeUnion  $ C.DeclId taggedName taggedOrigin
+      Enum   -> C.TypeEnum   $ C.DeclId taggedName taggedOrigin
 
-origNsId :: TaggedType -> NsPrelimDeclId
+origNsId :: TaggedType -> C.NsPrelimDeclId
 origNsId TaggedType{..} =
-    nsPrelimDeclId (origPrelimDeclId taggedName taggedOrigin) C.TypeNamespaceTag
+    C.nsPrelimDeclId
+      (origPrelimDeclId taggedName taggedOrigin)
+      C.TypeNamespaceTag
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: restore original names
@@ -272,9 +273,9 @@ origNsId TaggedType{..} =
   TODO: Maybe this should live somewhere more general?
 -------------------------------------------------------------------------------}
 
-origPrelimDeclId :: C.Name -> C.NameOrigin -> PrelimDeclId
+origPrelimDeclId :: C.Name -> C.NameOrigin -> C.PrelimDeclId
 origPrelimDeclId name = \case
-    C.NameOriginInSource           -> PrelimDeclIdNamed   name
-    C.NameOriginRenamedFrom orig   -> PrelimDeclIdNamed   orig
-    C.NameOriginGenerated   anonId -> PrelimDeclIdAnon    anonId
-    C.NameOriginBuiltin            -> PrelimDeclIdBuiltin name
+    C.NameOriginInSource           -> C.PrelimDeclIdNamed   name
+    C.NameOriginRenamedFrom orig   -> C.PrelimDeclIdNamed   orig
+    C.NameOriginGenerated   anonId -> C.PrelimDeclIdAnon    anonId
+    C.NameOriginBuiltin            -> C.PrelimDeclIdBuiltin name
