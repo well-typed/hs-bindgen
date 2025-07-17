@@ -13,6 +13,9 @@ module HsBindgen.Frontend.Naming (
     -- * TypeNamespace
   , TypeNamespace(..)
 
+    -- * TagKind
+  , TagKind(..)
+
     -- * NameKind
   , NameKind(..)
   , nameKindTypeNamespace
@@ -98,6 +101,24 @@ data TypeNamespace =
     TypeNamespaceOrdinary
   | TypeNamespaceTag
   deriving stock (Show, Eq, Ord, Generic)
+
+{-------------------------------------------------------------------------------
+  TagKind
+-------------------------------------------------------------------------------}
+
+-- | C tag kind
+--
+-- This type distinguishes the kinds of C tags.
+data TagKind =
+    -- | @struct@ tag kind
+    TagKindStruct
+
+    -- | @union@ tag kind
+  | TagKindUnion
+
+    -- | @enum@ tag kind
+  | TagKindEnum
+  deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
 
 {-------------------------------------------------------------------------------
   NameKind

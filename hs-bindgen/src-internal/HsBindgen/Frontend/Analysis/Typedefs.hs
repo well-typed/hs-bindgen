@@ -239,26 +239,24 @@ updateOrigin oldName = \case
 -------------------------------------------------------------------------------}
 
 data TaggedType = TaggedType {
-      taggedKind   :: TaggedKind
+      taggedKind   :: C.TagKind
     , taggedName   :: C.Name
     , taggedOrigin :: C.NameOrigin
     }
 
-data TaggedKind = Struct | Union | Enum
-
 toTaggedType :: C.Type ResolveBindingSpec -> Maybe TaggedType
 toTaggedType = \case
-    C.TypeStruct C.DeclId{..} -> Just $ TaggedType Struct declIdName declIdOrigin
-    C.TypeUnion  C.DeclId{..} -> Just $ TaggedType Union  declIdName declIdOrigin
-    C.TypeEnum   C.DeclId{..} -> Just $ TaggedType Enum   declIdName declIdOrigin
+    C.TypeStruct C.DeclId{..} -> Just $ TaggedType C.TagKindStruct declIdName declIdOrigin
+    C.TypeUnion  C.DeclId{..} -> Just $ TaggedType C.TagKindUnion  declIdName declIdOrigin
+    C.TypeEnum   C.DeclId{..} -> Just $ TaggedType C.TagKindEnum   declIdName declIdOrigin
     _otherwise                -> Nothing
 
 fromTaggedType :: TaggedType -> C.Type HandleTypedefs
 fromTaggedType TaggedType{..} =
     case taggedKind of
-      Struct -> C.TypeStruct $ C.DeclId taggedName taggedOrigin
-      Union  -> C.TypeUnion  $ C.DeclId taggedName taggedOrigin
-      Enum   -> C.TypeEnum   $ C.DeclId taggedName taggedOrigin
+      C.TagKindStruct -> C.TypeStruct $ C.DeclId taggedName taggedOrigin
+      C.TagKindUnion  -> C.TypeUnion  $ C.DeclId taggedName taggedOrigin
+      C.TagKindEnum   -> C.TypeEnum   $ C.DeclId taggedName taggedOrigin
 
 origNsId :: TaggedType -> C.NsPrelimDeclId
 origNsId TaggedType{..} =
