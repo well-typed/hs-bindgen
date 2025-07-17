@@ -46,6 +46,9 @@ module HsBindgen.Frontend.Naming (
     -- * DeclId
   , DeclId(..)
 
+    -- * TaggedTypeId
+  , TaggedTypeId(..)
+
     -- * Located
   , Located(..)
   ) where
@@ -416,6 +419,18 @@ instance PrettyForTrace (Located DeclId) where
             , PP.showToCtxDoc loc
             ]
     in  prettyForTrace declIdName <+> PP.parens details
+
+{-------------------------------------------------------------------------------
+  TaggedTypeId
+-------------------------------------------------------------------------------}
+
+-- | C tagged type name, tag kind, and origin
+data TaggedTypeId = TaggedTypeId {
+      taggedTypeIdName   :: Name
+    , taggedTypeIdKind   :: TagKind
+    , taggedTypeIdOrigin :: NameOrigin
+    }
+  deriving stock (Eq, Generic, Ord, Show)
 
 {-------------------------------------------------------------------------------
   Located
