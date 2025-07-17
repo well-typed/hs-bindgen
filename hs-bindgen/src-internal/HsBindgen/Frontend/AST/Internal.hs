@@ -18,6 +18,9 @@ module HsBindgen.Frontend.AST.Internal (
   , Enum(..)
   , EnumConstant(..)
   , Function(..)
+  , FunctionAttributes(..)
+  , FunctionPurity(..)
+  , decideFunctionPurity
     -- ** Macros
   , CheckedMacro(..)
   , CheckedMacroType(..)
@@ -181,8 +184,104 @@ data EnumConstant p = EnumConstant {
 data Function p = Function {
       functionArgs :: [Type p]
     , functionRes  :: Type p
+    , functionAttrs :: FunctionAttributes
     , functionAnn  :: Ann "Function" p
     }
+
+-- | Function attributes specify properties for C functions.
+--
+-- Function attributes may help the C compiler. In addition, @hs-bindgen@ can in
+-- some cases modify the bindings it generates based on these function
+-- attributes.
+--
+-- This type is an interpretation of the syntactic function attributes that are
+-- put on C functions. For example, a C function can have multiple @pure@
+-- and\/or @const@ attributes, but we interpret these attributes together as a
+-- 'FunctionPurity', see 'decideFunctionPurity'.
+data FunctionAttributes = FunctionAttributes {
+      functionPurity :: FunctionPurity
+    }
+  deriving stock (Show, Eq, Generic)
+
+-- | The diagnosed purity of a C function determines whether to include 'IO' in
+-- its foreign import.
+data FunctionPurity =
+    -- | C functions that are impure in the Haskell sense of the word.
+    --
+    -- C functions without a @const@ or @pure@ function attribute are
+    -- Haskell-impure. They do not guarantee to return the same output for the
+    -- same inputs. Foreign imports of such Haskell-impure functions can /not/
+    -- omit the 'IO' in their return type.
+    ImpureFunction
+    -- | C functions that are pure in the Haskell sense of the word.
+    --
+    -- C functions with a @const@ function attribute are Haskell-pure. They
+    -- always return the same output for the same inputs. Foreign imports of
+    -- such Haskell-pure C functions can omit the 'IO' in their return type.
+    --
+    -- > int square (int) __attribute__ ((const));
+    --
+    -- As far as the @hs-bindgen@ authors are aware, @clang@\/@gcc@ do /not
+    -- always/ diagnose whether C functions with a @const@ attribute satisfy all
+    -- the requirements imposed by the attribute. If a C function has a @const@
+    -- attribute when it should not, then it is arguably a bug in the C library
+    -- and not in @hs-bindgen@.
+    --
+    -- If C functions have both @const@ and @pure@ attributes, then we always
+    -- pick @const@ over @pure@, because @const@ is the stronger attribute of
+    -- the two.
+    --
+    -- <https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-const-function-attribute>
+  | HaskellPureFunction
+    -- | C functions that are pure in the C sense of the word.
+    --
+    -- C functions with a @pure@ function attribute are C-pure. C-pure is
+    -- different from Haskell-pure, in that C-pure functions only return the
+    -- same output for the same input as long as the /the state of the program
+    -- observable by the C function did not change/. In the @hash@ example
+    -- below, the observable state includes the contents of the input array
+    -- itself. Such C-pure functions may read from pointers, and since the
+    -- contents of pointers can change between invocations of the function,
+    -- foreign imports of such C-pure C functions can /not/ omit the 'IO' in
+    -- their return type.
+    --
+    -- > int hash (char *) __attribute__ ((pure));
+    --
+    -- Note that uses of a C-pure function can sometimes be safely encapsulated
+    -- with @unsafePerformIO@ to obtain a Haskell-pure function. For example:
+    --
+    -- > unsafePerformIO $ withCString "abc" hash
+    --
+    -- As far as the @hs-bindgen@ authors are aware, @clang@\/@gcc@ do /not
+    -- always/ diagnose whether C functions with a @pure@ attribute satisfy all
+    -- the requirements imposed by the attribute. If a C function has a @pure@
+    -- attribute when it should not, then it is arguably a bug in the C library
+    -- and not in @hs-bindgen@.
+    --
+    -- If C functions have both @const@ and @pure@ attributes, then we always
+    -- pick @const@ over @pure@, because @const@ is the stronger attribute of
+    -- the two.
+    --
+    -- <https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-pure-function-attribute>
+  | CPureFunction
+  deriving stock (Show, Eq, Generic)
+
+decideFunctionPurity :: [FunctionPurity] -> FunctionPurity
+decideFunctionPurity = foldr prefer ImpureFunction
+  where
+    prefer HaskellPureFunction _                   = HaskellPureFunction
+    prefer _                   HaskellPureFunction = HaskellPureFunction
+    prefer CPureFunction       _                   = CPureFunction
+    prefer _                   CPureFunction       = CPureFunction
+    prefer _                   _                   = ImpureFunction
+
+    -- In case we add new constructors, this case expression throsw a compiler
+    -- error, which should hopefully indicate to the reader that
+    -- 'decideFunctionPurity' has to be updated.
+    _coveredAllCases' = \case
+      ImpureFunction -> ()
+      HaskellPureFunction -> ()
+      CPureFunction -> ()
 
 {-------------------------------------------------------------------------------
   Macros

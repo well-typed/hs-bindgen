@@ -245,6 +245,13 @@ testCases = [
                Nothing
         , testRustBindgen = RustBindgenFail
         }
+    , (defaultTest "fun_attributes_conflict") {
+          testTracePredicate = customTracePredicate [] $ \case
+             TraceClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-ignored-attributes"}) ->
+               Just Tolerated
+             _otherwise ->
+               Nothing
+        }
     , let declsWithWarnings :: [PrelimDeclId]
           declsWithWarnings = [
                 -- non-extern non-static globals

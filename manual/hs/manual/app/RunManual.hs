@@ -91,6 +91,13 @@ readEitherIndexWith upperBound x = case readEither x of
   other                            -> other
 
 {-------------------------------------------------------------------------------
+  Function attributes
+-------------------------------------------------------------------------------}
+
+hashSafe :: String -> Int
+hashSafe s = fromIntegral $ unsafePerformIO $ withCString s hash
+
+{-------------------------------------------------------------------------------
   Main
 -------------------------------------------------------------------------------}
 
@@ -233,6 +240,15 @@ main = do
 
     -- Static inline function
     print =<< mod_10 123
+
+    --
+    -- Function attributes
+    section "Function attributes"
+    --
+
+    withCString "\DC1" $ \ptr -> print =<< hash ptr
+    print (hashSafe "abc")
+    print (square 2)
 
 {-------------------------------------------------------------------------------
   Aux
