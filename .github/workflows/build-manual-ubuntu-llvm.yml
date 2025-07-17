@@ -1,15 +1,19 @@
 # .github/workflows/build-manual-ubuntu.yml
 #
 # This CI job specifically checks that the 'manual' can be generated,
-# built, and run from a clean state on Ubuntu.
+# built, and run from a clean state on Ubuntu using LLVM.
 #
-name: Build and run the Manual (Ubuntu)
+name: Build and run the Manual (Ubuntu / LLVM)
 
 on:
   push:
     branches:
       - main
   pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 # Since we want to compile with LLVM backend and LLVM IR does not allow
 # Unicode characters we enable this flag which is going to replace all Unicode
@@ -84,7 +88,7 @@ jobs:
       #
       # [^1]: It would work in all OSs except Windows.
       #
-      - name: Set Set BINDGEN_EXTRA_CLANG_ARGS using Clang
+      - name: Set BINDGEN_EXTRA_CLANG_ARGS using Clang
         shell: bash
         run: |
           CLANG_ARGS=$(clang -v -E -xc /dev/null 2>&1 | awk '/#include <...> search starts here/{f=1;next}/End of search list./{f=0}f{sub(/^[ \t]*/,"",$0);s=s " -I"$0}END{print substr(s,2)}')
@@ -98,13 +102,12 @@ jobs:
           echo "LLC=$LLVM_PATH/bin/llc" >> "${GITHUB_ENV}"
           echo "LLVMAS=$LLVM_PATH/bin/clang" >> "${GITHUB_ENV}"
 
-      - uses: haskell/ghcup-setup@v1.2.2
-      - name: Install GHC and cabal-install
-        shell: bash
-        run: |
-          ghcup install ghc ${{ matrix.ghc }} --set --force
-          ghcup install cabal latest --set
-          cabal update
+      - name: Set up Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: 'latest'
 
       # This file only the first part of this file is needed to build the
       # whole project, the others are needed to build the manual as they
@@ -143,15 +146,21 @@ jobs:
         working-directory: ./manual/c
         run: make
 
+      - name: Generate Cabal plan
+        run: |
+          cabal build all --dry-run
+
       - name: Cache Cabal dependencies
         uses: actions/cache@v4
+        env:
+          key: build-manual-llvm-${{ runner.os }}-${{ matrix.ghc }}
         with:
           path: |
             ${{ steps.setup-haskell.outputs.cabal-store }}
             dist-newstyle
-          key: ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+          key: ${{ env.key }}-${{ hashFiles('dist-newstyle/cache/plan.json') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.ghc }}-
+            ${{ env.key }}-
 
       # We avoid running a `cabal build all` intermediate step because it
       # fails on windows when compiling with -fllvm flag
