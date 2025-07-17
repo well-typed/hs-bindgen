@@ -56,6 +56,7 @@ import Clang.HighLevel (ShowFile(..))
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 import Text.SimplePrettyPrint ((<+>), (><))
@@ -118,7 +119,16 @@ data TagKind =
 
     -- | @enum@ tag kind
   | TagKindEnum
-  deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
+
+instance PrettyForTrace TagKind where
+  prettyForTrace = PP.showToCtxDoc
+
+tagKindPrefix :: TagKind -> Text
+tagKindPrefix = \case
+    TagKindStruct -> "struct"
+    TagKindUnion  -> "union"
+    TagKindEnum   -> "enum"
 
 {-------------------------------------------------------------------------------
   NameKind
@@ -134,21 +144,29 @@ data NameKind =
     -- An ordinary name is written without a prefix.
     NameKindOrdinary
 
-    -- | Struct kind
+    -- | Tagged kind
     --
-    -- A struct name is written with a @struct@ prefix.
-  | NameKindStruct
+    -- A tagged name is written with a prefix that specifies the tag kind.
+  | NameKindTagged TagKind
+  deriving stock (Show, Eq, Ord, Generic)
 
-    -- | Union kind
-    --
-    -- A union name is written with a @union@ prefix.
-  | NameKindUnion
+instance Bounded NameKind where
+  minBound = NameKindOrdinary
+  maxBound = NameKindTagged TagKindEnum
 
-    -- | Enum kind
-    --
-    -- An enum name is written with an @enum@ prefix.
-  | NameKindEnum
-  deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
+instance Enum NameKind where
+  toEnum = \case
+    0 -> NameKindOrdinary
+    1 -> NameKindTagged TagKindStruct
+    2 -> NameKindTagged TagKindUnion
+    3 -> NameKindTagged TagKindEnum
+    _ -> panicPure "invalid NameKind toEnum"
+
+  fromEnum = \case
+    NameKindOrdinary             -> 0
+    NameKindTagged TagKindStruct -> 1
+    NameKindTagged TagKindUnion  -> 2
+    NameKindTagged TagKindEnum   -> 3
 
 instance PrettyForTrace NameKind where
   prettyForTrace = PP.showToCtxDoc
@@ -157,9 +175,12 @@ instance PrettyForTrace NameKind where
 nameKindTypeNamespace :: NameKind -> TypeNamespace
 nameKindTypeNamespace = \case
     NameKindOrdinary -> TypeNamespaceOrdinary
-    NameKindStruct   -> TypeNamespaceTag
-    NameKindUnion    -> TypeNamespaceTag
-    NameKindEnum     -> TypeNamespaceTag
+    NameKindTagged{} -> TypeNamespaceTag
+
+nameKindPrefix :: NameKind -> Maybe Text
+nameKindPrefix = \case
+    NameKindOrdinary       -> Nothing
+    NameKindTagged tagKind -> Just (tagKindPrefix tagKind)
 
 {-------------------------------------------------------------------------------
   QualName
@@ -178,20 +199,16 @@ instance PrettyForTrace QualName where
   prettyForTrace = PP.textToCtxDoc . qualNameText
 
 qualNameText :: QualName -> Text
-qualNameText QualName{..} =
-    let prefix = case qualNameKind of
-          NameKindOrdinary -> ""
-          NameKindStruct   -> "struct "
-          NameKindUnion    -> "union "
-          NameKindEnum     -> "enum "
-    in  prefix <> getName qualNameName
+qualNameText QualName{..} = case nameKindPrefix qualNameKind of
+    Nothing     -> getName qualNameName
+    Just prefix -> prefix <> " " <> getName qualNameName
 
 parseQualName :: Text -> Maybe QualName
 parseQualName t = case Text.words t of
     [n]           -> Just $ QualName (Name n) NameKindOrdinary
-    ["struct", n] -> Just $ QualName (Name n) NameKindStruct
-    ["union",  n] -> Just $ QualName (Name n) NameKindUnion
-    ["enum",   n] -> Just $ QualName (Name n) NameKindEnum
+    ["struct", n] -> Just $ QualName (Name n) (NameKindTagged TagKindStruct)
+    ["union",  n] -> Just $ QualName (Name n) (NameKindTagged TagKindUnion)
+    ["enum",   n] -> Just $ QualName (Name n) (NameKindTagged TagKindEnum)
     _otherwise    -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -320,13 +337,9 @@ data QualPrelimDeclId =
 
 instance PrettyForTrace QualPrelimDeclId where
   prettyForTrace = \case
-    QualPrelimDeclIdNamed name kind ->
-      let prefix = case kind of
-            NameKindOrdinary -> ""
-            NameKindStruct   -> "struct "
-            NameKindUnion    -> "union "
-            NameKindEnum     -> "enum "
-      in  prefix >< prettyForTrace name
+    QualPrelimDeclIdNamed name kind -> case nameKindPrefix kind of
+      Nothing     -> prettyForTrace name
+      Just prefix -> PP.textToCtxDoc prefix <+> prettyForTrace name
     QualPrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
     QualPrelimDeclIdBuiltin name   -> prettyForTrace name
 
