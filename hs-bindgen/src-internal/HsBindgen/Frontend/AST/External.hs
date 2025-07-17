@@ -35,6 +35,7 @@ module HsBindgen.Frontend.AST.External (
   , Macro.XVar(..)
     -- ** Functions
   , Function(..)
+  , FunctionAttr (..)
     -- * Types
   , Type(..)
   , ResolveBindingSpec.ResolvedExtBinding(..)
@@ -195,8 +196,18 @@ data Typedef = Typedef {
 
 data Function = Function {
       functionArgs :: [Type]
+    , functionAttrs :: [FunctionAttr]
     , functionRes  :: Type
     }
+  deriving stock (Show, Eq, Generic)
+
+-- | Function attributes specify function properties that may help the C
+-- compiler.
+data FunctionAttr =
+    -- | @const@ function attribute
+    ConstAttr
+    -- | @pure@ function attribute
+  | PureAttr
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

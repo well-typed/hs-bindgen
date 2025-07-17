@@ -18,6 +18,7 @@ module HsBindgen.Frontend.AST.Internal (
   , Enum(..)
   , EnumConstant(..)
   , Function(..)
+  , FunctionAttr (..)
     -- ** Macros
   , CheckedMacro(..)
   , CheckedMacroType(..)
@@ -181,8 +182,20 @@ data EnumConstant p = EnumConstant {
 data Function p = Function {
       functionArgs :: [Type p]
     , functionRes  :: Type p
+    , functionAttrs :: [FunctionAttr]
     , functionAnn  :: Ann "Function" p
     }
+
+-- | Function attributes specify function properties that may help the C
+-- compiler.
+--
+-- TODO: should this have a @p@ type argument as well?
+data FunctionAttr =
+    -- | @const@ function attribute
+    ConstAttr
+    -- | @pure@ function attribute
+  | PureAttr
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Macros

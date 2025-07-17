@@ -26,6 +26,7 @@
               3
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclSimple,
@@ -121,6 +122,7 @@
                   nameC = Name "triple",
                   nameHsIdent = HsIdentifier
                     "Triple"})],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclSimple]

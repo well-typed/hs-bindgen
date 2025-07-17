@@ -443,6 +443,7 @@
               (PrimFloating PrimDouble),
             TypePrim
               (PrimFloating PrimDouble)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed

@@ -55,7 +55,7 @@ foreign import ccall safe "testmodule_my_alloc1" my_alloc1 :: Size_t -> IO (F.Pt
 
 foreign import ccall safe "testmodule_my_alloc2" my_alloc2 :: Size_t -> IO (F.Ptr Void)
 
-foreign import ccall safe "testmodule_square" square :: FC.CInt -> IO FC.CInt
+foreign import ccall safe "testmodule_square" square :: FC.CInt -> FC.CInt
 
 foreign import ccall safe "testmodule_old_fn" old_fn :: IO FC.CInt
 
@@ -68,6 +68,8 @@ foreign import ccall safe "testmodule_f2" f2 :: IO ()
 foreign import ccall safe "testmodule_my_memcpy" my_memcpy :: (F.Ptr Void) -> (F.Ptr Void) -> Size_t -> IO (F.Ptr Void)
 
 foreign import ccall safe "testmodule_fatal" fatal :: IO ()
+
+-- C functions that have the @pure@ attribute may read from pointers, and since the contents of pointers can change, these functions are "impure" in the Haskell sense of the word, so we have to return the result in 'IO'. Note however that uses of a C-pure function can sometimes be safely encapsulated with @unsafePerformIO@ to obtain a Haskell-pure function.
 
 foreign import ccall safe "testmodule_hash" hash :: (F.Ptr FC.CChar) -> IO FC.CInt
 

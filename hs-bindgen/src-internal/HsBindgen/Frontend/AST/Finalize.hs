@@ -215,14 +215,23 @@ instance Finalize Int.Function where
 
   finalize function = Ext.Function{
         functionArgs = map finalize functionArgs
+      , functionAttrs = map finalizeFunctionAttr functionAttrs
       , functionRes  = finalize functionRes
       }
     where
       Int.Function {
           functionArgs
         , functionRes
+        , functionAttrs
         , functionAnn = NoAnn
         } = function
+
+      -- TODO: for now, @Int.FunctionAttr@ and @Ext.FunctionAttr@ are the exact
+      -- same types, but defined twice. Maybe that will change, see the TODO on
+      -- @Int.FunctionAttr@. If it does not change, maybe we should define a
+      -- common @FunctionAttr@ type in a shared module?
+      finalizeFunctionAttr Int.ConstAttr = Ext.ConstAttr
+      finalizeFunctionAttr Int.PureAttr = Ext.PureAttr
 
 instance Finalize Int.CheckedMacro where
   type Finalized Int.CheckedMacro = Ext.CheckedMacro

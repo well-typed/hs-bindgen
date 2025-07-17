@@ -12,14 +12,13 @@
         Decl {
           declInfo = DeclInfo {
             declLoc =
-            "fun_attributes.h:10:9",
+            "fun_attributes.h:7:9",
             declId = NamePair {
               nameC = Name "FILE",
               nameHsIdent = HsIdentifier
                 "FILE"},
             declOrigin = NameOriginGenerated
-              (AnonId
-                "fun_attributes.h:10:9"),
+              (AnonId "fun_attributes.h:7:9"),
             declAliases = [Name "FILE"],
             declHeader =
             "fun_attributes.h"},
@@ -53,14 +52,13 @@
           Decl {
             declInfo = DeclInfo {
               declLoc =
-              "fun_attributes.h:10:9",
+              "fun_attributes.h:7:9",
               declId = NamePair {
                 nameC = Name "FILE",
                 nameHsIdent = HsIdentifier
                   "FILE"},
               declOrigin = NameOriginGenerated
-                (AnonId
-                  "fun_attributes.h:10:9"),
+                (AnonId "fun_attributes.h:7:9"),
               declAliases = [Name "FILE"],
               declHeader =
               "fun_attributes.h"},
@@ -99,14 +97,13 @@
                   Decl {
                     declInfo = DeclInfo {
                       declLoc =
-                      "fun_attributes.h:10:9",
+                      "fun_attributes.h:7:9",
                       declId = NamePair {
                         nameC = Name "FILE",
                         nameHsIdent = HsIdentifier
                           "FILE"},
                       declOrigin = NameOriginGenerated
-                        (AnonId
-                          "fun_attributes.h:10:9"),
+                        (AnonId "fun_attributes.h:7:9"),
                       declAliases = [Name "FILE"],
                       declHeader =
                       "fun_attributes.h"},
@@ -145,14 +142,13 @@
                   Decl {
                     declInfo = DeclInfo {
                       declLoc =
-                      "fun_attributes.h:10:9",
+                      "fun_attributes.h:7:9",
                       declId = NamePair {
                         nameC = Name "FILE",
                         nameHsIdent = HsIdentifier
                           "FILE"},
                       declOrigin = NameOriginGenerated
-                        (AnonId
-                          "fun_attributes.h:10:9"),
+                        (AnonId "fun_attributes.h:7:9"),
                       declAliases = [Name "FILE"],
                       declHeader =
                       "fun_attributes.h"},
@@ -200,7 +196,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "fun_attributes.h:11:13",
+          "fun_attributes.h:8:13",
           declId = NamePair {
             nameC = Name "size_t",
             nameHsIdent = HsIdentifier
@@ -337,6 +333,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -356,6 +353,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -398,6 +396,7 @@
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs = [],
           functionRes = TypePointer
             TypeVoid}},
   DeclInlineCInclude
@@ -441,6 +440,7 @@
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs = [],
           functionRes = TypePointer
             TypeVoid}},
   DeclInlineCInclude
@@ -476,6 +476,7 @@
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs = [],
           functionRes = TypePointer
             TypeVoid}},
   DeclInlineCInclude
@@ -508,6 +509,7 @@
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs = [],
           functionRes = TypePointer
             TypeVoid}},
   DeclInlineCInclude
@@ -540,6 +542,7 @@
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs = [],
           functionRes = TypePointer
             TypeVoid}},
   DeclInlineCInclude
@@ -553,7 +556,7 @@
         "square",
       foreignImportType = HsFun
         (HsPrimType HsPrimCInt)
-        (HsIO (HsPrimType HsPrimCInt)),
+        (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_square",
       foreignImportCallConv =
@@ -563,6 +566,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [ConstAttr],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude
@@ -583,6 +587,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude
@@ -618,6 +623,7 @@
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))))],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypePrim
               (PrimChar
@@ -656,6 +662,7 @@
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))))],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed
@@ -667,7 +674,7 @@
                       "FILE"}
                   (NameOriginGenerated
                     (AnonId
-                      "fun_attributes.h:10:9")))))}},
+                      "fun_attributes.h:7:9")))))}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -686,6 +693,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -723,6 +731,7 @@
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs = [],
           functionRes = TypePointer
             TypeVoid}},
   DeclInlineCInclude
@@ -743,11 +752,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
     "signed int testmodule_hash (char *arg1) { return hash(arg1); }",
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -768,6 +779,7 @@
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))))],
+          functionAttrs = [PureAttr],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude
@@ -800,6 +812,7 @@
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs = [],
           functionRes = TypePointer
             TypeVoid}},
   DeclInlineCInclude
@@ -820,6 +833,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -839,6 +853,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude
@@ -859,6 +874,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude
@@ -879,6 +895,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -913,6 +930,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude
@@ -933,6 +951,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude
@@ -953,6 +972,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude
@@ -973,5 +993,6 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}}]

@@ -1,0 +1,14 @@
+-- addDependentFile examples/golden/fun_attributes_conflict.h
+-- #include "fun_attributes_conflict.h"
+-- signed int test_internal_square_cp (signed int arg1) { return square_cp(arg1); }
+-- signed int test_internal_square_pc (signed int arg1) { return square_pc(arg1); }
+-- signed int test_internal_square_cc (signed int arg1) { return square_cc(arg1); }
+-- signed int test_internal_square_pp (signed int arg1) { return square_pp(arg1); }
+foreign import ccall safe "test_internal_square_cp" square_cp :: CInt ->
+                                                                 CInt
+foreign import ccall safe "test_internal_square_pc" square_pc :: CInt ->
+                                                                 CInt
+foreign import ccall safe "test_internal_square_cc" square_cc :: CInt ->
+                                                                 CInt
+foreign import ccall safe "test_internal_square_pp" square_pp :: CInt ->
+                                                                 IO CInt

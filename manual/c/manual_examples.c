@@ -89,3 +89,12 @@ void print_occupation(int tag, occupation* o) {
 void import(void) {
     printf("C function 'import'\n");
 }
+
+// Obviously, this is not a very good hash
+__attribute__ ((pure)) int hash (char * s) {
+  return *s;
+}
+
+__attribute__ ((const)) int square (int x) {
+  return x * x;
+}

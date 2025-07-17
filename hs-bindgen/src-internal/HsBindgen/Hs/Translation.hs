@@ -1042,7 +1042,9 @@ functionDecs ::
 functionDecs mu typedefs info f _spec =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.declHeader info
     , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
-    , Hs.DeclForeignImport $ Hs.ForeignImportDecl
+    ] ++
+    toList (Hs.DeclSimple <$> ioComment) ++
+    [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = importName
         , foreignImportType     = importType
         , foreignImportOrigName = T.pack wrapperName
@@ -1068,6 +1070,7 @@ functionDecs mu typedefs info f _spec =
 
     res = wrapType $ C.functionRes f
     args = wrapType <$> C.functionArgs f
+    attrs = C.functionAttrs f
 
     -- types which we cannot pass directly using C FFI.
     wrapType :: C.Type -> WrappedType
@@ -1090,10 +1093,62 @@ functionDecs mu typedefs info f _spec =
             foldr HsFun (HsIO $ typ' CFunRes C.TypeVoid) (typ' CFunArg . unwrapType <$> (args ++ [res]))
 
         WrapType {} ->
-            foldr HsFun (HsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
+            foldr HsFun (hsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
 
         CAType {} ->
             panicPure "ConstantArray cannot occur as a result type"
+
+    -- | Decide based on the function attributes whether to include 'IO' in the
+    -- result type of the foreign import.
+    --
+    -- Only C functions with the @const@ attribute are truly "pure" in the
+    -- Haskell sense of the word, so we can return the result without 'IO'. C
+    -- functions that have the @pure@ attribute may read from pointers, and
+    -- since the contents of pointers can change, these functions are "impure"
+    -- in the Haskell sense of the word, so we have to return the result in
+    -- 'IO'. Note however that uses of a C-pure function can sometimes be safely
+    -- encapsulated with @unsafePerformIO@ to obtain a Haskell-pure function.
+    -- For example: @unsafePerformIO $ withCString "abc" strlen@.
+    --
+    -- The foreign import function returns @void@ when @res@ is a heap type, in
+    -- which case a @const@ or @pure@ attribute does not make much sense, and so
+    -- we just return the result in 'IO'.
+    --
+    -- If both @const@ and @pure@ attributes are given to a function, we have to
+    -- pick one of the two to apply to our bindings. @hs-bindgen@ always picks
+    -- @const@ over @pure@, because @const@ is the stronger attribute of the
+    -- two.
+    hsIO :: HsType -> HsType
+    ioComment :: Maybe SHs.SDecl
+    (hsIO, ioComment) = case preferred attrs of
+        Just C.ConstAttr -> (id  , Nothing)
+        Just C.PureAttr  -> (HsIO, Just (SHs.DComment pureComment))
+        Nothing          -> (HsIO, Nothing)
+      where
+        -- In case we try to handle new attributes in the future, this case
+        -- expression throws a compiler error, which should hopefully indicate
+        -- to the reader that 'hsIO' has to be updated.
+        _coveredAllCases = \case
+          C.ConstAttr -> ()
+          C.PureAttr  -> ()
+
+        preferred :: [C.FunctionAttr] -> Maybe C.FunctionAttr
+        preferred []     = Nothing
+        preferred (a:as) = Just $ foldr prefer a as
+          where
+            prefer C.ConstAttr _ = C.ConstAttr
+            prefer _ C.ConstAttr = C.ConstAttr
+            prefer _ _           = C.PureAttr
+
+    -- | A comment to put on bindings for C-pure functions
+    pureComment :: String
+    pureComment =
+        "C functions that have the @pure@ attribute may read from pointers, \
+        \and since the contents of pointers can change, these functions are \
+        \\"impure\" in the Haskell sense of the word, so we have to return \
+        \the result in 'IO'. Note however that uses of a C-pure function can \
+        \sometimes be safely encapsulated with @unsafePerformIO@ to obtain a \
+        \Haskell-pure function."
 
     -- below is generation of C wrapper for userland-capi.
     innerName :: String

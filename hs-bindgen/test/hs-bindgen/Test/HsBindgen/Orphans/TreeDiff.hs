@@ -62,6 +62,7 @@ instance ToExpr C.DeclSpec
 instance ToExpr C.Enum
 instance ToExpr C.EnumConstant
 instance ToExpr C.Function
+instance ToExpr C.FunctionAttr
 instance ToExpr C.Name
 instance ToExpr C.NameKind
 instance ToExpr C.NameOrigin
