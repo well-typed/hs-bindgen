@@ -159,9 +159,9 @@ analyseTypedef declUseGraph uid typedef =
     go ByValue $ C.typedefType typedef
   where
     go :: ValOrRef -> C.Type ResolveBindingSpec -> TypedefAnalysis
-    go valOrRef ty | Just taggedType <- toTaggedType ty =
-        typedefOfTagged (C.declIdName uid) valOrRef taggedType $
-          getUseSites (origNsId taggedType)
+    go valOrRef ty | Just taggedTypeId <- toTaggedTypeId ty =
+        typedefOfTagged (C.declIdName uid) valOrRef taggedTypeId $
+          getUseSites (origNsPrelimDeclId taggedTypeId)
     go _ (C.TypePointer ty) =
         go ByRef ty
     go _ _otherType =
@@ -180,22 +180,22 @@ analyseTypedef declUseGraph uid typedef =
 typedefOfTagged ::
      C.Name                      -- ^ Name of the typedef
   -> ValOrRef                    -- ^ Does the typedef wrap the datatype directly?
-  -> TaggedType                  -- ^ Tagged datatype
+  -> C.TaggedTypeId              -- ^ Tagged type information
   -> [(C.NsPrelimDeclId, Usage)] -- ^ All use sites of the struct
   -> TypedefAnalysis
-typedefOfTagged typedefName valOrRef taggedType@TaggedType{..} useSites
+typedefOfTagged typedefName valOrRef taggedType@C.TaggedTypeId{..} useSites
     -- Struct and typedef same name, no intervening pointers
-  | ByValue <- valOrRef, typedefName == taggedName
+  | ByValue <- valOrRef, typedefName == taggedTypeIdName
   = mempty{
-        squash = Map.singleton typedefName (fromTaggedType taggedType)
+        squash = Map.singleton typedefName (fromTaggedTypeId taggedType)
       }
 
     -- Struct and typedef same name, with intervening pointers
-  | ByRef <- valOrRef, typedefName == taggedName
+  | ByRef <- valOrRef, typedefName == taggedTypeIdName
   = let newName   = typedefName <> "_Deref"
-        newOrigin = updateOrigin taggedName taggedOrigin
+        newOrigin = updateOrigin taggedTypeIdName taggedTypeIdOrigin
     in mempty{
-           rename = Map.singleton taggedName (newName, newOrigin)
+           rename = Map.singleton taggedTypeIdName (newName, newOrigin)
          }
 
     -- Single use site of the struct
@@ -206,15 +206,15 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedType{..} useSites
     -- to be used throughout the code.
   | ByValue <- valOrRef, [_] <- useSites
   = let newName   = typedefName
-        newOrigin = updateOrigin taggedName taggedOrigin
-        newTagged = TaggedType{
-                        taggedName   = newName
-                      , taggedOrigin = newOrigin
-                      , taggedKind
+        newOrigin = updateOrigin taggedTypeIdName taggedTypeIdOrigin
+        newTagged = C.TaggedTypeId{
+                        taggedTypeIdName   = newName
+                      , taggedTypeIdKind
+                      , taggedTypeIdOrigin = newOrigin
                       }
     in mempty{
-           squash = Map.singleton typedefName (fromTaggedType newTagged)
-         , rename = Map.singleton taggedName (newName, newOrigin)
+           squash = Map.singleton typedefName (fromTaggedTypeId newTagged)
+         , rename = Map.singleton taggedTypeIdName (newName, newOrigin)
          }
 
     -- if there are multiple uses, and the names don't match, don't do anything
@@ -233,47 +233,35 @@ updateOrigin oldName = \case
     C.NameOriginBuiltin            -> C.NameOriginBuiltin
 
 {-------------------------------------------------------------------------------
-  Internal auxiliary: tagged types
-
-  TODO: Should we use this elsewhere also?
+  Auxiliary functions
 -------------------------------------------------------------------------------}
 
-data TaggedType = TaggedType {
-      taggedKind   :: C.TagKind
-    , taggedName   :: C.Name
-    , taggedOrigin :: C.NameOrigin
-    }
-
-toTaggedType :: C.Type ResolveBindingSpec -> Maybe TaggedType
-toTaggedType = \case
-    C.TypeStruct C.DeclId{..} -> Just $ TaggedType C.TagKindStruct declIdName declIdOrigin
-    C.TypeUnion  C.DeclId{..} -> Just $ TaggedType C.TagKindUnion  declIdName declIdOrigin
-    C.TypeEnum   C.DeclId{..} -> Just $ TaggedType C.TagKindEnum   declIdName declIdOrigin
+toTaggedTypeId :: C.Type ResolveBindingSpec -> Maybe C.TaggedTypeId
+toTaggedTypeId = \case
+    C.TypeStruct C.DeclId{..} -> Just $
+      C.TaggedTypeId declIdName C.TagKindStruct declIdOrigin
+    C.TypeUnion  C.DeclId{..} -> Just $
+      C.TaggedTypeId declIdName C.TagKindUnion  declIdOrigin
+    C.TypeEnum   C.DeclId{..} -> Just $
+      C.TaggedTypeId declIdName C.TagKindEnum   declIdOrigin
     _otherwise                -> Nothing
 
-fromTaggedType :: TaggedType -> C.Type HandleTypedefs
-fromTaggedType TaggedType{..} =
-    case taggedKind of
-      C.TagKindStruct -> C.TypeStruct $ C.DeclId taggedName taggedOrigin
-      C.TagKindUnion  -> C.TypeUnion  $ C.DeclId taggedName taggedOrigin
-      C.TagKindEnum   -> C.TypeEnum   $ C.DeclId taggedName taggedOrigin
+fromTaggedTypeId :: C.TaggedTypeId -> C.Type HandleTypedefs
+fromTaggedTypeId C.TaggedTypeId{..} = case taggedTypeIdKind of
+    C.TagKindStruct -> C.TypeStruct uid
+    C.TagKindUnion  -> C.TypeUnion  uid
+    C.TagKindEnum   -> C.TypeEnum   uid
+  where
+    uid :: C.DeclId
+    uid = C.DeclId taggedTypeIdName taggedTypeIdOrigin
 
-origNsId :: TaggedType -> C.NsPrelimDeclId
-origNsId TaggedType{..} =
-    C.nsPrelimDeclId
-      (origPrelimDeclId taggedName taggedOrigin)
-      C.TypeNamespaceTag
-
-{-------------------------------------------------------------------------------
-  Internal auxiliary: restore original names
-
-  This allows us to look up the type in the 'DeclUseGraph'.
-  TODO: Maybe this should live somewhere more general?
--------------------------------------------------------------------------------}
-
-origPrelimDeclId :: C.Name -> C.NameOrigin -> C.PrelimDeclId
-origPrelimDeclId name = \case
-    C.NameOriginInSource           -> C.PrelimDeclIdNamed   name
-    C.NameOriginRenamedFrom orig   -> C.PrelimDeclIdNamed   orig
-    C.NameOriginGenerated   anonId -> C.PrelimDeclIdAnon    anonId
-    C.NameOriginBuiltin            -> C.PrelimDeclIdBuiltin name
+origNsPrelimDeclId :: C.TaggedTypeId -> C.NsPrelimDeclId
+origNsPrelimDeclId C.TaggedTypeId{..} = case taggedTypeIdOrigin of
+    C.NameOriginInSource ->
+      C.NsPrelimDeclIdNamed taggedTypeIdName C.TypeNamespaceTag
+    C.NameOriginRenamedFrom orig ->
+      C.NsPrelimDeclIdNamed orig C.TypeNamespaceTag
+    C.NameOriginGenerated anonId ->
+      C.NsPrelimDeclIdAnon anonId
+    C.NameOriginBuiltin ->
+      C.NsPrelimDeclIdBuiltin taggedTypeIdName
