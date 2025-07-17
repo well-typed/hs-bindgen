@@ -54,6 +54,7 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "Thing"}
               NameOriginInSource],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -77,6 +78,7 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
@@ -112,6 +114,7 @@ TranslationUnit {
               NameOriginInSource,
             TypePrim
               (PrimFloating PrimDouble)],
+          functionAttrs = [],
           functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
@@ -147,6 +150,7 @@ TranslationUnit {
               NameOriginInSource,
             TypePrim
               (PrimFloating PrimDouble)],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit

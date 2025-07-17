@@ -67,6 +67,7 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -87,6 +88,7 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -107,6 +109,7 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {

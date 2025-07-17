@@ -16,6 +16,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -34,6 +35,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -52,6 +54,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -70,6 +73,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -88,6 +92,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -106,6 +111,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -124,6 +130,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -142,6 +149,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -160,6 +168,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -178,6 +187,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -196,6 +206,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -214,6 +225,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -232,6 +244,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -250,6 +263,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -268,6 +282,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -286,6 +301,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -304,6 +320,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -322,6 +339,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -340,6 +358,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -358,6 +377,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -376,6 +396,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -394,6 +415,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -412,6 +434,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -430,6 +453,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -448,4 +472,5 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeVoid}}]

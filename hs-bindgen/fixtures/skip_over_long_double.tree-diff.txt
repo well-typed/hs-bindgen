@@ -17,6 +17,7 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {

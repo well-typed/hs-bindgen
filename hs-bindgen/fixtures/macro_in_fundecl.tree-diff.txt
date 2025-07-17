@@ -173,6 +173,7 @@ TranslationUnit {
             TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit Nothing))},
@@ -205,6 +206,7 @@ TranslationUnit {
                   nameC = Name "C",
                   nameHsIdent = HsIdentifier "C"}
                 NameOriginInSource)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
@@ -243,6 +245,7 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed)))],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypePrim
               (PrimChar
@@ -283,6 +286,7 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed)))],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypePrim
               (PrimChar
@@ -319,6 +323,7 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed)))],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
@@ -348,6 +353,7 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeFun
               [
@@ -383,6 +389,7 @@ TranslationUnit {
                 nameC = Name "L",
                 nameHsIdent = HsIdentifier "L"}
               NameOriginInSource],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeFun
               [
@@ -415,6 +422,7 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeFun
               [
@@ -450,6 +458,7 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeFun
               [
@@ -483,6 +492,7 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeConstArray
               2
@@ -518,6 +528,7 @@ TranslationUnit {
                 nameC = Name "I",
                 nameHsIdent = HsIdentifier "I"}
               NameOriginInSource],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeConstArray
               2
@@ -550,6 +561,7 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeConstArray
               2
@@ -581,6 +593,7 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeMacroTypedef
             NamePair {
               nameC = Name "I",

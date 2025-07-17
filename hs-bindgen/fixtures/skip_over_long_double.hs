@@ -20,6 +20,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclData
     Struct {

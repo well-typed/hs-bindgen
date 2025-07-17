@@ -68,6 +68,7 @@
         Function {
           functionArgs = [
             TypePrim PrimBool],
+          functionAttrs = [],
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -101,6 +102,7 @@
                   nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
+          functionAttrs = [],
           functionRes = TypePrim
             PrimBool}},
   DeclInlineCInclude "iterator.h",
@@ -130,6 +132,7 @@
                   nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclNewtype
     Newtype {
@@ -208,6 +211,7 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -241,6 +245,7 @@
                   nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude "iterator.h",
@@ -270,6 +275,7 @@
                   nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
+          functionAttrs = [],
           functionRes = TypeVoid}},
   DeclNewtype
     Newtype {
@@ -348,6 +354,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -385,6 +392,7 @@
                     "VarCounter"}),
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclInlineCInclude "iterator.h",
@@ -414,4 +422,5 @@
                   nameC = Name "VarCounter",
                   nameHsIdent = HsIdentifier
                     "VarCounter"})],
+          functionAttrs = [],
           functionRes = TypeVoid}}]

@@ -2557,6 +2557,7 @@
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = [
                               ]})]}}],
+          functionAttrs = [],
           functionRes = TypeEnum
             NamePair {
               nameC = Name

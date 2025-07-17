@@ -578,6 +578,7 @@
             TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit Nothing))}},
@@ -617,6 +618,7 @@
                   nameC = Name "C",
                   nameHsIdent = HsIdentifier "C"}
                 NameOriginInSource)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
@@ -660,6 +662,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypePrim
               (PrimChar
@@ -706,6 +709,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypePrim
               (PrimChar
@@ -750,6 +754,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
@@ -782,6 +787,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeFun
               [
@@ -821,6 +827,7 @@
                 nameC = Name "L",
                 nameHsIdent = HsIdentifier "L"}
               NameOriginInSource],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeFun
               [
@@ -857,6 +864,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeFun
               [
@@ -898,6 +906,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimLong Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeFun
               [
@@ -935,6 +944,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeConstArray
               2
@@ -975,6 +985,7 @@
                 nameC = Name "I",
                 nameHsIdent = HsIdentifier "I"}
               NameOriginInSource],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeConstArray
               2
@@ -1014,6 +1025,7 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs = [],
           functionRes = TypePointer
             (TypeConstArray
               2
@@ -1043,6 +1055,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs = [],
           functionRes = TypeMacroTypedef
             NamePair {
               nameC = Name "I",

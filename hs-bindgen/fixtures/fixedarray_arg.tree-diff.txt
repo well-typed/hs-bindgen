@@ -21,6 +21,7 @@ TranslationUnit {
               3
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -81,6 +82,7 @@ TranslationUnit {
                   nameC = Name "triple",
                   nameHsIdent = HsIdentifier
                     "Triple"})],
+          functionAttrs = [],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
