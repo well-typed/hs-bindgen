@@ -360,23 +360,26 @@ functionDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn <- getReparseInfo curr
-    let decl :: C.Decl Parse
-        decl = C.Decl{
+    let mkDecl :: [C.FunctionAttr] -> C.Decl Parse
+        mkDecl functionAttrs = C.Decl{
             declInfo = info
           , declKind = C.DeclFunction C.Function{
                 functionArgs
               , functionRes
+              , functionAttrs
               , functionAnn
               }
           , declAnn  = NoAnn
           }
     foldRecurseWith nestedDecl $ \nestedDecls -> do
-      let (anonDecls, otherDecls) = partitionAnonDecls (concat nestedDecls)
+      let declsAndAttrs = concat nestedDecls
+          (decls, attrs) = partitionEithers declsAndAttrs
+          (anonDecls, otherDecls) = partitionAnonDecls decls
       if not (null anonDecls) then do
         recordTrace $ UnexpectedAnonInSignature info
         return []
       else do
-        return $ otherDecls ++ [decl]
+        return $ otherDecls ++ [mkDecl attrs]
   where
     guardTypeFunction ::
          C.Type Parse
@@ -388,8 +391,10 @@ functionDecl info = simpleFold $ \curr -> do
           otherType ->
             panicIO $ "Expected function type, but got " <> show otherType
 
-    -- Look for (unsupported) declarations inside function parameters
-    nestedDecl :: Fold ParseDecl [C.Decl Parse]
+    -- Look for (unsupported) declarations inside function parameters, and for
+    -- function attributes. Function attributes are returned separately, so that
+    -- we can pair them with the parent function.
+    nestedDecl :: Fold ParseDecl [Either (C.Decl Parse) C.FunctionAttr]
     nestedDecl = simpleFold $ \curr -> do
         kind <- fromSimpleEnum <$> clang_getCursorKind curr
         case kind of
@@ -398,18 +403,17 @@ functionDecl info = simpleFold $ \curr -> do
             foldRecurseWith nestedDecl (return . concat)
 
           -- Nested declarations
-          Right CXCursor_StructDecl -> runFold foldDecl curr
-          Right CXCursor_UnionDecl  -> runFold foldDecl curr
+          Right CXCursor_StructDecl -> fmap (fmap Left) <$> runFold foldDecl curr
+          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> runFold foldDecl curr
 
           -- Harmless
           Right CXCursor_TypeRef        -> foldContinue
           Right CXCursor_IntegerLiteral -> foldContinue
           Right CXCursor_UnexposedAttr  -> foldContinue
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/67>
-          -- We should take advantage of @const@ and @pure@ attributes.
-          Right CXCursor_ConstAttr -> foldContinue
-          Right CXCursor_PureAttr  -> foldContinue
+          -- @const@ and @pure@ function attributes.
+          Right CXCursor_ConstAttr -> foldContinueWith $ [Right C.ConstAttr]
+          Right CXCursor_PureAttr  -> foldContinueWith $ [Right C.PureAttr]
 
           -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
           -- Take visibility into account.
