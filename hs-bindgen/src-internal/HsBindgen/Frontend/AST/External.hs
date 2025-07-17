@@ -44,6 +44,8 @@ module HsBindgen.Frontend.AST.External (
   , isArray
     -- * Names
   , C.Name(..)
+  , C.TypeNamespace(..)
+  , C.TagKind(..)
   , C.NameKind(..)
   , C.nameKindTypeNamespace
   , C.QualName(..)
