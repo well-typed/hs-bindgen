@@ -11,12 +11,11 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
@@ -74,7 +73,7 @@ nameForDecl fc decl =
                        first choose $ fromCName fc ns cName
   where
     C.Decl{
-        declInfo = C.DeclInfo{declId = DeclId{declIdName = cName}}
+        declInfo = C.DeclInfo{declId = C.DeclId{declIdName = cName}}
       , declKind
       , declAnn
       } = decl
@@ -138,7 +137,7 @@ class MangleDecl a where
        C.DeclInfo MangleNames
     -> a HandleTypedefs -> M (a MangleNames)
 
-mangleQualName :: C.QualName -> NameOrigin -> M (NamePair, NameOrigin)
+mangleQualName :: C.QualName -> C.NameOrigin -> M (NamePair, C.NameOrigin)
 mangleQualName cQualName@(C.QualName cName _namespace) nameOrigin = do
     nm <- asks envNameMap
     case Map.lookup cQualName nm of
@@ -234,7 +233,7 @@ instance Mangle C.TranslationUnit where
 
 instance Mangle C.Decl where
   mangle decl = do
-      declId' <- mangleQualName (C.declQualName decl) (declIdOrigin declId)
+      declId' <- mangleQualName (C.declQualName decl) (C.declIdOrigin declId)
 
       let info :: C.DeclInfo MangleNames
           info = C.DeclInfo{declId = declId', ..}
@@ -386,13 +385,13 @@ instance MangleDecl C.CheckedMacroType where
 
 instance Mangle C.Type where
   mangle = \case
-      C.TypeStruct       DeclId{..} -> C.TypeStruct <$>
+      C.TypeStruct       C.DeclId{..} -> C.TypeStruct <$>
         mangleQualName (C.QualName declIdName C.NameKindStruct) declIdOrigin
-      C.TypeUnion        DeclId{..} -> C.TypeUnion <$>
+      C.TypeUnion        C.DeclId{..} -> C.TypeUnion <$>
         mangleQualName (C.QualName declIdName C.NameKindUnion) declIdOrigin
-      C.TypeEnum         DeclId{..} -> C.TypeEnum <$>
+      C.TypeEnum         C.DeclId{..} -> C.TypeEnum <$>
         mangleQualName (C.QualName declIdName C.NameKindEnum) declIdOrigin
-      C.TypeMacroTypedef DeclId{..} -> C.TypeMacroTypedef <$>
+      C.TypeMacroTypedef C.DeclId{..} -> C.TypeMacroTypedef <$>
         mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
 
       -- Recursive cases
@@ -409,7 +408,7 @@ instance Mangle C.Type where
       C.TypeExtBinding ext -> return $ C.TypeExtBinding ext
 
 instance Mangle RenamedTypedefRef where
-  mangle (TypedefRegular DeclId{..}) = TypedefRegular <$>
+  mangle (TypedefRegular C.DeclId{..}) = TypedefRegular <$>
     mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
   mangle (TypedefSquashed cName ty) =
     TypedefSquashed cName <$> mangle ty

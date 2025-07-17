@@ -10,9 +10,8 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Slice.IsPass as Slice
-import HsBindgen.Language.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.TracePredicate
@@ -156,9 +155,9 @@ testCases = [
               ]
       in testTraceCustom "typedef_analysis" declsWithMsgs $ \case
         TraceFrontend (FrontendHandleTypedefs (HandleTypedefsSquashed info)) ->
-          Just $ Expected $ Labelled "Squashed" $ declIdName (C.declId info)
+          Just $ Expected $ Labelled "Squashed" $ C.declIdName (C.declId info)
         TraceFrontend (FrontendHandleTypedefs (HandleTypedefsRenamedTagged info _to)) ->
-          Just $ Expected $ Labelled "Renamed"  $ declIdName (C.declId info)
+          Just $ Expected $ Labelled "Renamed"  $ C.declIdName (C.declId info)
         _otherwise ->
           Nothing
     , testTraceSimple "varargs" $ \case
@@ -245,7 +244,7 @@ testCases = [
              _otherwise ->
                Nothing
         }
-    , let declsWithWarnings :: [PrelimDeclId]
+    , let declsWithWarnings :: [C.PrelimDeclId]
           declsWithWarnings = [
                 -- non-extern non-static globals
                 "nesInteger"
@@ -312,7 +311,7 @@ testCases = [
             TraceFrontend (FrontendSlice
                            (SliceSelected
                             (TransitiveDependencyOf
-                             (NsPrelimDeclIdNamed nm _) _)))
+                             (C.NsPrelimDeclIdNamed nm _) _)))
               | nm == "uint32_t" -> Just $ Expected "SelectedUInt32"
               | nm == "uint64_t" -> Just $ Expected "SelectedUInt64"
             TraceFrontend (FrontendSlice (SliceSelected _)) -> Just Unexpected
@@ -345,7 +344,7 @@ testCases = [
             TraceFrontend (FrontendSlice
                            (SliceSelected
                             (TransitiveDependencyOf
-                             (NsPrelimDeclIdNamed nm _) _)))
+                             (C.NsPrelimDeclIdNamed nm _) _)))
               | nm == "FileOperationStatus" -> Just $ Expected "SelectedFileOpterationStatus"
               | nm == "size_t"              -> Just $ Expected "SelectedSizeT"
               | nm == "FILE"                -> Just $ Expected "SelectedFile"

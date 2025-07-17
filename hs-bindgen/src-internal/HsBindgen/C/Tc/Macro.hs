@@ -103,6 +103,7 @@ import C.Expr.HostPlatform qualified as C.Expr
 import HsBindgen.C.Tc.Macro.Type
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macros.AST.Syntax
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality ( equals2 )

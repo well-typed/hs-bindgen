@@ -11,8 +11,8 @@ import Data.Map.Strict qualified as Map
 import Prelude hiding (lookup)
 
 import Clang.Paths (SourcePath)
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Type

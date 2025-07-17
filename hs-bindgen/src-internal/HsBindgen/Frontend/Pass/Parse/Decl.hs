@@ -13,14 +13,13 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -78,7 +77,7 @@ handleTypeException curr err = do
 
 getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr -> do
-    declId     <- getPrelimDeclId curr
+    declId     <- C.getPrelimDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
     declComment <- clang_getComment curr
@@ -546,9 +545,9 @@ varDecl info = simpleFold $ \curr -> do
 partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
 partitionAnonDecls = List.partition (declIdIsAnon . C.declId . C.declInfo)
   where
-    declIdIsAnon :: PrelimDeclId -> Bool
-    declIdIsAnon PrelimDeclIdAnon{} = True
-    declIdIsAnon _otherwise         = False
+    declIdIsAnon :: C.PrelimDeclId -> Bool
+    declIdIsAnon C.PrelimDeclIdAnon{} = True
+    declIdIsAnon _otherwise           = False
 
 -- | Detect implicit fields inside a struct
 --
@@ -605,7 +604,7 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclStruct struct -> C.structFields struct
           _otherwise          -> []
 
-    fieldDeps :: [NsPrelimDeclId]
+    fieldDeps :: [C.NsPrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool

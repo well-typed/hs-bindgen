@@ -14,8 +14,8 @@ import Clang.LowLevel.Core
 import Clang.HighLevel.Types
 
 import HsBindgen.C.Reparse.Infra
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Identifiers

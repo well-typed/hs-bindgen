@@ -33,6 +33,7 @@ import System.FilePath (takeBaseName)
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Tc.Macro.Type
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality ( equals1 )
 

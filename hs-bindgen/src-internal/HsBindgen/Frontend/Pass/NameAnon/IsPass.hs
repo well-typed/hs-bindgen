@@ -5,12 +5,11 @@ module HsBindgen.Frontend.Pass.NameAnon.IsPass (
 
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint
 
@@ -26,7 +25,7 @@ type family AnnNameAnon ix where
   AnnNameAnon _                 = NoAnn
 
 instance IsPass NameAnon where
-  type Id         NameAnon = DeclId
+  type Id         NameAnon = C.DeclId
   type FieldName  NameAnon = C.Name
   type TypedefRef NameAnon = C.Name
   type MacroBody  NameAnon = C.CheckedMacro NameAnon

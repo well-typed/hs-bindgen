@@ -15,7 +15,7 @@ import Data.Set qualified as Set
 import HsBindgen.C.Predicate
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (Sort)
 import HsBindgen.Util.Tracer
@@ -69,17 +69,17 @@ data SliceConfig = SliceConfig {
 
 -- | Slice trace messages
 data SliceMsg =
-    SliceTransitiveDependencyUnavailable NsPrelimDeclId
+    SliceTransitiveDependencyUnavailable C.NsPrelimDeclId
   | SliceSkipped (C.DeclInfo Slice)
   | SliceSelected SelectReason
   deriving stock (Show, Eq)
 
 data SelectReason =
     TransitiveDependencyOf {
-      selectedDecl           :: NsPrelimDeclId
+      selectedDecl           :: C.NsPrelimDeclId
       -- NOTE: The inverse dependencies form tree. For now, we just flatten the
       -- tree to list all inverse dependencies.
-    , transitiveDependencyOf :: Set NsPrelimDeclId
+    , transitiveDependencyOf :: Set C.NsPrelimDeclId
     }
   deriving stock (Show, Eq)
 

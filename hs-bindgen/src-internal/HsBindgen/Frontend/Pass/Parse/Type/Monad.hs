@@ -22,7 +22,7 @@ import Foreign.C
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import HsBindgen.Errors
-import HsBindgen.Language.C qualified as C
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
