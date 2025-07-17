@@ -40,14 +40,19 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
               else recordNonSelectedDecl info kind >> foldContinue
 
     dispatch curr $ \case
-      -- Kinds that we parse
+      -- Ordinary kinds that we parse
       CXCursor_FunctionDecl    -> parseWith functionDecl    C.NameKindOrdinary
       CXCursor_VarDecl         -> parseWith varDecl         C.NameKindOrdinary
       CXCursor_TypedefDecl     -> parseWith typedefDecl     C.NameKindOrdinary
       CXCursor_MacroDefinition -> parseWith macroDefinition C.NameKindOrdinary
-      CXCursor_StructDecl      -> parseWith structDecl      C.NameKindStruct
-      CXCursor_UnionDecl       -> parseWith unionDecl       C.NameKindUnion
-      CXCursor_EnumDecl        -> parseWith enumDecl        C.NameKindEnum
+
+      -- Tagged kinds that we parse
+      CXCursor_StructDecl ->
+        parseWith structDecl (C.NameKindTagged C.TagKindStruct)
+      CXCursor_UnionDecl ->
+        parseWith unionDecl  (C.NameKindTagged C.TagKindUnion)
+      CXCursor_EnumDecl ->
+        parseWith enumDecl   (C.NameKindTagged C.TagKindEnum)
 
       -- Process macro expansions independent of any selection predicates
       CXCursor_MacroExpansion -> runFold macroExpansion curr

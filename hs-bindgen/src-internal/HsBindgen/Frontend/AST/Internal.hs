@@ -469,10 +469,10 @@ declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
 
 declKindNameKind :: DeclKind p -> C.NameKind
 declKindNameKind = \case
-    DeclStruct{}       -> C.NameKindStruct
-    DeclStructOpaque{} -> C.NameKindStruct
-    DeclUnion{}        -> C.NameKindUnion
-    DeclUnionOpaque{}  -> C.NameKindUnion
-    DeclEnum{}         -> C.NameKindEnum
-    DeclEnumOpaque{}   -> C.NameKindEnum
+    DeclStruct{}       -> C.NameKindTagged C.TagKindStruct
+    DeclStructOpaque{} -> C.NameKindTagged C.TagKindStruct
+    DeclUnion{}        -> C.NameKindTagged C.TagKindUnion
+    DeclUnionOpaque{}  -> C.NameKindTagged C.TagKindUnion
+    DeclEnum{}         -> C.NameKindTagged C.TagKindEnum
+    DeclEnumOpaque{}   -> C.NameKindTagged C.TagKindEnum
     _otherwise         -> C.NameKindOrdinary

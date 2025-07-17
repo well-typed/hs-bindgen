@@ -385,12 +385,18 @@ instance MangleDecl C.CheckedMacroType where
 
 instance Mangle C.Type where
   mangle = \case
-      C.TypeStruct       C.DeclId{..} -> C.TypeStruct <$>
-        mangleQualName (C.QualName declIdName C.NameKindStruct) declIdOrigin
-      C.TypeUnion        C.DeclId{..} -> C.TypeUnion <$>
-        mangleQualName (C.QualName declIdName C.NameKindUnion) declIdOrigin
-      C.TypeEnum         C.DeclId{..} -> C.TypeEnum <$>
-        mangleQualName (C.QualName declIdName C.NameKindEnum) declIdOrigin
+      C.TypeStruct C.DeclId{..} -> C.TypeStruct <$>
+        mangleQualName
+          (C.QualName declIdName (C.NameKindTagged C.TagKindStruct))
+          declIdOrigin
+      C.TypeUnion C.DeclId{..} -> C.TypeUnion <$>
+        mangleQualName
+          (C.QualName declIdName (C.NameKindTagged C.TagKindUnion))
+          declIdOrigin
+      C.TypeEnum C.DeclId{..} -> C.TypeEnum <$>
+        mangleQualName
+          (C.QualName declIdName (C.NameKindTagged C.TagKindEnum))
+          declIdOrigin
       C.TypeMacroTypedef C.DeclId{..} -> C.TypeMacroTypedef <$>
         mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
 

@@ -315,11 +315,16 @@ instance Resolve C.CheckedMacroType where
 
 instance Resolve C.Type where
   resolve = \case
-      C.TypeStruct       uid -> auxU C.TypeStruct       uid C.NameKindStruct
-      C.TypeUnion        uid -> auxU C.TypeUnion        uid C.NameKindUnion
-      C.TypeEnum         uid -> auxU C.TypeEnum         uid C.NameKindEnum
-      C.TypeMacroTypedef uid -> auxU C.TypeMacroTypedef uid C.NameKindOrdinary
-      C.TypeTypedef      nm  -> auxN C.TypeTypedef      nm  C.NameKindOrdinary
+      C.TypeStruct       uid ->
+        auxU C.TypeStruct       uid (C.NameKindTagged C.TagKindStruct)
+      C.TypeUnion        uid ->
+        auxU C.TypeUnion        uid (C.NameKindTagged C.TagKindUnion)
+      C.TypeEnum         uid ->
+        auxU C.TypeEnum         uid (C.NameKindTagged C.TagKindEnum)
+      C.TypeMacroTypedef uid ->
+        auxU C.TypeMacroTypedef uid C.NameKindOrdinary
+      C.TypeTypedef      nm  ->
+        auxN C.TypeTypedef      nm  C.NameKindOrdinary
 
       -- Recursive cases
       C.TypePointer t         -> C.TypePointer <$> resolve t
