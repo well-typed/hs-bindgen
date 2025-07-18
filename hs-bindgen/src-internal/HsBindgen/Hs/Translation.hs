@@ -536,6 +536,9 @@ unionDecs info union spec = do
           in  if Hs.Storable `Set.notMember` fInsts
                 then []
                 else
+                  [ Hs.DeclSimple (SHs.DComment comment)
+                  | Just comment <- [unionFieldComment]
+                  ] ++
                   [ Hs.DeclUnionGetter newtypeName hsType $
                       "get_" <> C.nameHs unionFieldName
                   , Hs.DeclUnionSetter newtypeName hsType $
@@ -741,7 +744,16 @@ macroDecs ::
 macroDecs opts info checkedMacro spec =
     case checkedMacro of
       C.MacroType ty   -> macroDecsTypedef opts info ty spec
-      C.MacroExpr expr -> return $ macroVarDecs info expr
+      -- C.MacroExpr will create a simple Var declaration that can not have
+      -- any comment so we generate the top level documentation declaration
+      -- here.
+      --
+      -- TODO: Maybe add comment information to Hs.VarDecl
+      C.MacroExpr expr -> return
+                       $ [ Hs.DeclSimple (SHs.DComment comment)
+                         | Just comment <- [C.declComment info]
+                         ]
+                      ++ macroVarDecs info expr
 
 macroDecsTypedef ::
      State.MonadState InstanceMap m
@@ -1202,6 +1214,9 @@ functionDecs mu typedefs info f _spec =
 globalExtern :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
 globalExtern info ty _spec =
     Hs.DeclInlineCInclude (getCHeaderIncludePath $ C.declHeader info) :
+    [ Hs.DeclSimple (SHs.DComment comment)
+    | Just comment <- [C.declComment info]
+    ] ++
     if not (C.isArray ty) then
       [ Hs.DeclInlineC prettyStub
       , Hs.DeclForeignImport $ Hs.ForeignImportDecl
