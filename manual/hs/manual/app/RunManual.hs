@@ -15,6 +15,7 @@ import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 
 import Example
+import NonExternGlobal
 import Structs
 
 import Game.Player
@@ -233,6 +234,14 @@ main = do
 
     -- Static inline function
     print =<< mod_10 123
+
+    -- Globals
+    config <- peek globalConfig
+    print config
+    poke globalConfig $ config{globalConfig_numThreads = 3}
+    printGlobalConfig
+    print =<< peek nonExternGlobalString
+    print =<< peek nonExternGlobalInt
 
 {-------------------------------------------------------------------------------
   Aux
