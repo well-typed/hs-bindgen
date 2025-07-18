@@ -352,6 +352,7 @@ instance MangleDecl C.Typedef where
           mk typedefType' = C.Typedef{
                 typedefType = typedefType'
               , typedefAnn  = mkTypedefNames info
+              , ..
               }
       mk <$> mangle typedefType
 
@@ -379,6 +380,7 @@ instance MangleDecl C.CheckedMacroType where
         mk macroType' = C.CheckedMacroType{
                macroType    = macroType'
              , macroTypeAnn = mkMacroTypeNames info
+             , ..
              }
     mk <$> mangle macroType
 

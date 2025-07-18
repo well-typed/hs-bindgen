@@ -20,6 +20,7 @@ import GHC.Exts qualified as IsList (IsList (..))
 import C.Char qualified
 import C.Type qualified (FloatingType (..), IntegralType (IntLike))
 import Clang.Paths
+import Clang.HighLevel.Documentation qualified as C
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Config.FixCandidate (FixCandidate)
@@ -1119,14 +1120,39 @@ functionDecs mu typedefs info f _spec =
         C.ImpureFunction      -> (HsIO, Nothing)
 
     -- | A comment to put on bindings for C-pure functions
-    pureComment :: String
-    pureComment =
-        "C functions that have the @pure@ attribute may read from pointers, \
-        \and since the contents of pointers can change, these functions are \
-        \\"impure\" in the Haskell sense of the word, so we have to return \
-        \the result in 'IO'. Note however that uses of a C-pure function can \
-        \sometimes be safely encapsulated with @unsafePerformIO@ to obtain a \
-        \Haskell-pure function."
+    pureComment :: C.Comment
+    pureComment = C.Comment
+      { commentCName = ""  -- No C name for this generated comment
+      , commentChildren =
+          [ C.Paragraph
+              { paragraphContent =
+                  [ C.TextContent "C functions that have the "
+                  , C.InlineCommand
+                      { inlineCommandName = "c"
+                      , inlineCommandRenderKind = C.CXCommentInlineCommandRenderKind_Monospaced
+                      , inlineCommandArgs = ["pure"]
+                      }
+                  , C.TextContent " attribute may read from pointers, \
+                                  \and since the contents of pointers can change, these functions are \
+                                  \\"impure\" in the Haskell sense of the word, so we have to return \
+                                  \the result in "
+                  , C.InlineCommand
+                      { inlineCommandName = "c"
+                      , inlineCommandRenderKind = C.CXCommentInlineCommandRenderKind_Monospaced
+                      , inlineCommandArgs = ["IO"]
+                      }
+                  , C.TextContent ". Note however that uses of a C-pure function can \
+                                  \sometimes be safely encapsulated with "
+                  , C.InlineCommand
+                      { inlineCommandName = "c"
+                      , inlineCommandRenderKind = C.CXCommentInlineCommandRenderKind_Monospaced
+                      , inlineCommandArgs = ["unsafePerformIO"]
+                      }
+                  , C.TextContent " to obtain a Haskell-pure function."
+                  ]
+              }
+          ]
+      }
 
     -- below is generation of C wrapper for userland-capi.
     innerName :: String

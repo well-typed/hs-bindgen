@@ -12,6 +12,7 @@ import Foreign.C
 import System.FilePath qualified as FilePath
 
 import Clang.Enum.Simple
+import Clang.HighLevel.Documentation qualified as C
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -55,6 +56,11 @@ instance ToExpr C.AnonId
 instance ToExpr C.CheckedMacro
 instance ToExpr C.CheckedMacroExpr
 instance ToExpr C.CheckedMacroType
+instance ToExpr C.CXCommentParamPassDirection
+instance ToExpr C.CommentInlineContent
+instance ToExpr C.CXCommentInlineCommandRenderKind
+instance ToExpr C.CommentBlockContent
+instance ToExpr C.Comment
 instance ToExpr C.Decl
 instance ToExpr C.DeclInfo
 instance ToExpr C.DeclKind

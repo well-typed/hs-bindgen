@@ -66,6 +66,7 @@ instance Finalize Int.DeclInfo where
       , declOrigin = nameOrigin
       , declAliases
       , declHeader
+      , declComment
       }
     where
       Int.DeclInfo{
@@ -73,6 +74,7 @@ instance Finalize Int.DeclInfo where
         , declId = (namePair, nameOrigin)
         , declAliases
         , declHeader
+        , declComment
         } = info
 
 instance Finalize Int.DeclKind where
@@ -99,6 +101,7 @@ instance Finalize Int.Struct where
       , structAlignment
       , structFields = map finalize regularFields
       , structFlam = finalize <$> mFlam
+      , structComment
       }
     where
       Int.Struct {
@@ -106,6 +109,7 @@ instance Finalize Int.Struct where
         , structAlignment
         , structFields = allFields
         , structAnn
+        , structComment
         } = struct
 
       (regularFields, mFlam) = partitionFields allFields
@@ -119,6 +123,7 @@ instance Finalize Int.StructField where
       , structFieldType = finalize structFieldType
       , structFieldOffset
       , structFieldWidth
+      , structFieldComment
       }
     where
       Int.StructField {
@@ -128,6 +133,7 @@ instance Finalize Int.StructField where
         , structFieldOffset
         , structFieldWidth
         , structFieldAnn = NoAnn
+        , structFieldComment
         } = field
 
 instance Finalize Int.Union where
@@ -138,6 +144,7 @@ instance Finalize Int.Union where
       , unionSizeof
       , unionAlignment
       , unionFields = map finalize unionFields
+      , unionComment
       }
     where
       Int.Union {
@@ -145,6 +152,7 @@ instance Finalize Int.Union where
         , unionAlignment
         , unionFields
         , unionAnn
+        , unionComment
         } = union
 
 instance Finalize Int.UnionField where
@@ -154,6 +162,7 @@ instance Finalize Int.UnionField where
         unionFieldLoc
       , unionFieldName
       , unionFieldType = finalize unionFieldType
+      , unionFieldComment
       }
     where
       Int.UnionField {
@@ -161,6 +170,7 @@ instance Finalize Int.UnionField where
         , unionFieldName
         , unionFieldType
         , unionFieldAnn = NoAnn
+        , unionFieldComment
         } = field
 
 instance Finalize Int.Enum where
@@ -172,6 +182,7 @@ instance Finalize Int.Enum where
       , enumSizeof
       , enumAlignment
       , enumConstants = map finalize enumConstants
+      , enumComment
       }
     where
       Int.Enum {
@@ -180,6 +191,7 @@ instance Finalize Int.Enum where
         , enumAlignment
         , enumConstants
         , enumAnn
+        , enumComment
         } = enum
 
 instance Finalize Int.EnumConstant where
@@ -189,12 +201,14 @@ instance Finalize Int.EnumConstant where
         enumConstantLoc
       , enumConstantName
       , enumConstantValue
+      , enumConstantComment
       }
     where
       Int.EnumConstant {
           enumConstantLoc
         , enumConstantName
         , enumConstantValue
+        , enumConstantComment
         } = constant
 
 instance Finalize Int.Typedef where
@@ -203,11 +217,13 @@ instance Finalize Int.Typedef where
   finalize typedef = Ext.Typedef{
         typedefNames = typedefAnn
       , typedefType  = finalize typedefType
+      , typedefComment
       }
     where
       Int.Typedef{
           typedefType
         , typedefAnn
+        , typedefComment
         } = typedef
 
 instance Finalize Int.Function where
@@ -217,6 +233,7 @@ instance Finalize Int.Function where
         functionArgs = map finalize functionArgs
       , functionAttrs
       , functionRes  = finalize functionRes
+      , functionComment
       }
     where
       Int.Function {
@@ -224,6 +241,7 @@ instance Finalize Int.Function where
         , functionRes
         , functionAttrs
         , functionAnn = NoAnn
+        , functionComment
         } = function
 
 instance Finalize Int.CheckedMacro where
@@ -238,11 +256,13 @@ instance Finalize Int.CheckedMacroType where
   finalize checkedMacroType = Ext.CheckedMacroType{
         macroTypeNames = macroTypeAnn
       , macroType      = finalize macroType
+      , macroTypeComment
       }
     where
       Int.CheckedMacroType{
           macroType
         , macroTypeAnn
+        , macroTypeComment
         } = checkedMacroType
 
 instance Finalize Int.Type where

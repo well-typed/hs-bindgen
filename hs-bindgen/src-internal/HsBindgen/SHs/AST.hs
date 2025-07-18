@@ -19,6 +19,8 @@ module HsBindgen.SHs.AST (
     PatternSynonym (..),
 ) where
 
+import Clang.HighLevel.Documentation qualified as C
+
 import DeBruijn (Ctx, EmptyCtx, Idx, Add)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -245,7 +247,7 @@ data SDecl =
   | DDerivingInstance (Hs.Strategy ClosedType) ClosedType
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
-  | DComment String
+  | DComment C.Comment
   | DCSource String
   deriving stock (Show)
 

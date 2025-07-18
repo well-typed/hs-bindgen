@@ -38,7 +38,7 @@ instance (
     ) => CoercePass DeclInfo p p' where
   coercePass info = DeclInfo{..}
     where
-      DeclInfo{declLoc, declId, declAliases, declHeader} = info
+      DeclInfo{declLoc, declId, declAliases, declHeader, declComment} = info
 
 instance (
       CoercePass Struct   p p'
@@ -66,11 +66,12 @@ instance (
       CoercePass StructField p p'
     , Ann "Struct" p ~ Ann "Struct" p'
     ) => CoercePass Struct p p' where
-  coercePass Struct{..} = Struct{
+  coercePass Struct{..} = Struct {
         structSizeof
       , structAlignment
       , structFields = map coercePass structFields
       , structAnn
+      , structComment
       }
 
 instance (
@@ -78,24 +79,26 @@ instance (
     , FieldName p ~ FieldName p'
     , Ann "StructField" p ~ Ann "StructField" p'
     ) => CoercePass StructField p p' where
-  coercePass StructField{..} = StructField{
+  coercePass StructField{..} = StructField {
         structFieldLoc
       , structFieldName
       , structFieldType = coercePass structFieldType
       , structFieldOffset
       , structFieldWidth
       , structFieldAnn
+      , structFieldComment
       }
 
 instance (
       CoercePass UnionField p p'
     , Ann "Union" p ~ Ann "Union" p'
     ) => CoercePass Union p p' where
-  coercePass Union{..} = Union{
+  coercePass Union{..} = Union {
         unionSizeof
       , unionAlignment
       , unionFields = map coercePass unionFields
       , unionAnn
+      , unionComment
       }
 
 instance (
@@ -103,20 +106,22 @@ instance (
     , FieldName p ~ FieldName p'
     , Ann "UnionField" p ~ Ann "UnionField" p'
     ) => CoercePass UnionField p p' where
-  coercePass UnionField{..} = UnionField{
+  coercePass UnionField{..} = UnionField {
         unionFieldLoc
       , unionFieldName
       , unionFieldType = coercePass unionFieldType
       , unionFieldAnn
+      , unionFieldComment
       }
 
 instance (
       CoercePass Type p p'
     , Ann "Typedef" p ~ Ann "Typedef" p'
     ) => CoercePass Typedef p p' where
-  coercePass Typedef{..} = Typedef{
+  coercePass Typedef{..} = Typedef {
         typedefType = coercePass typedefType
       , typedefAnn
+      , typedefComment
       }
 
 instance (
@@ -124,32 +129,35 @@ instance (
     , CoercePass EnumConstant p p'
     , Ann "Enum" p ~ Ann "Enum" p'
     ) => CoercePass Enum p p' where
-  coercePass Enum{..} = Enum{
+  coercePass Enum{..} = Enum {
         enumType = coercePass enumType
       , enumSizeof
       , enumAlignment
       , enumConstants = map coercePass enumConstants
       , enumAnn
+      , enumComment
       }
 
 instance (
       FieldName p ~ FieldName p'
     ) => CoercePass EnumConstant p p' where
-  coercePass EnumConstant{..} = EnumConstant{
+  coercePass EnumConstant{..} = EnumConstant {
         enumConstantLoc
       , enumConstantName
       , enumConstantValue
+      , enumConstantComment
       }
 
 instance (
       CoercePass Type p p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
-  coercePass Function{..} = Function{
+  coercePass Function{..} = Function {
         functionArgs = map coercePass functionArgs
       , functionRes  = coercePass functionRes
       , functionAttrs
       , functionAnn
+      , functionComment
       }
 
 instance (
@@ -162,9 +170,10 @@ instance (
       CoercePass Type p p'
     , Ann "CheckedMacroType" p ~ Ann "CheckedMacroType" p'
     ) => CoercePass CheckedMacroType p p' where
-  coercePass CheckedMacroType{..} = CheckedMacroType{
+  coercePass CheckedMacroType{..} = CheckedMacroType {
         macroType = coercePass macroType
       , macroTypeAnn
+      , macroTypeComment
       }
 
 instance (

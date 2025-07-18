@@ -41,6 +41,7 @@ module HsBindgen.Frontend.AST.Internal (
 
 import Prelude hiding (Enum)
 
+import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
@@ -117,6 +118,8 @@ data DeclInfo p = DeclInfo{
       --
       -- This means that there is always a /single/ header to choose here.
     , declHeader :: CHeaderIncludePath
+
+    , declComment :: Maybe Comment
     }
 
 data DeclKind p =
@@ -138,15 +141,17 @@ data Struct p = Struct {
     , structAlignment :: Int
     , structFields    :: [StructField p]
     , structAnn       :: Ann "Struct" p
+    , structComment   :: Maybe Comment
     }
 
 data StructField p = StructField {
-      structFieldLoc    :: SingleLoc
-    , structFieldName   :: FieldName p
-    , structFieldType   :: Type p
-    , structFieldOffset :: Int     -- ^ Offset in bits
-    , structFieldWidth  :: Maybe Int
-    , structFieldAnn    :: Ann "StructField" p
+      structFieldLoc     :: SingleLoc
+    , structFieldName    :: FieldName p
+    , structFieldType    :: Type p
+    , structFieldOffset  :: Int     -- ^ Offset in bits
+    , structFieldWidth   :: Maybe Int
+    , structFieldAnn     :: Ann "StructField" p
+    , structFieldComment :: Maybe Comment
     }
 
 data Union p = Union {
@@ -154,18 +159,21 @@ data Union p = Union {
     , unionAlignment :: Int
     , unionFields    :: [UnionField p]
     , unionAnn       :: Ann "Union" p
+    , unionComment   :: Maybe Comment
     }
 
 data UnionField p = UnionField {
-      unionFieldLoc   :: SingleLoc
-    , unionFieldName  :: FieldName p
-    , unionFieldType  :: Type p
-    , unionFieldAnn   :: Ann "UnionField" p
+      unionFieldLoc     :: SingleLoc
+    , unionFieldName    :: FieldName p
+    , unionFieldType    :: Type p
+    , unionFieldAnn     :: Ann "UnionField" p
+    , unionFieldComment :: Maybe Comment
     }
 
 data Typedef p = Typedef {
-      typedefType :: Type p
-    , typedefAnn  :: Ann "Typedef" p
+      typedefType    :: Type p
+    , typedefAnn     :: Ann "Typedef" p
+    , typedefComment :: Maybe Comment
     }
 
 data Enum p = Enum {
@@ -174,19 +182,22 @@ data Enum p = Enum {
     , enumAlignment :: Int
     , enumConstants :: [EnumConstant p]
     , enumAnn       :: Ann "Enum" p
+    , enumComment   :: Maybe Comment
     }
 
 data EnumConstant p = EnumConstant {
-      enumConstantLoc   :: SingleLoc
-    , enumConstantName  :: FieldName p
-    , enumConstantValue :: Integer
+      enumConstantLoc     :: SingleLoc
+    , enumConstantName    :: FieldName p
+    , enumConstantValue   :: Integer
+    , enumConstantComment :: Maybe Comment
     }
 
 data Function p = Function {
-      functionArgs :: [Type p]
-    , functionRes  :: Type p
-    , functionAttrs :: FunctionAttributes
-    , functionAnn  :: Ann "Function" p
+      functionArgs    :: [Type p]
+    , functionRes     :: Type p
+    , functionAttrs   :: FunctionAttributes
+    , functionAnn     :: Ann "Function" p
+    , functionComment :: Maybe Comment
     }
 
 -- | Function attributes specify properties for C functions.
@@ -293,8 +304,9 @@ data CheckedMacro p =
   | MacroExpr CheckedMacroExpr
 
 data CheckedMacroType p = CheckedMacroType{
-      macroType    :: Type p
-    , macroTypeAnn :: Ann "CheckedMacroType" p
+      macroType        :: Type p
+    , macroTypeAnn     :: Ann "CheckedMacroType" p
+    , macroTypeComment :: Maybe Comment
     }
 
 -- | Checked expression (function) macro

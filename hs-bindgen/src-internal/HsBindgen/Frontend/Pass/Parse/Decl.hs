@@ -7,6 +7,7 @@ import Data.List qualified as List
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
+import Clang.HighLevel.Documentation
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
@@ -80,11 +81,14 @@ getDeclInfo = \curr -> do
     declId     <- getPrelimDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
+    declComment <- clang_getComment curr
+    -- TODO: We might want a NameOriginBuiltin
     return C.DeclInfo{
         declId
       , declLoc
       , declAliases = []
       , declHeader
+      , declComment
       }
 
 getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
@@ -129,15 +133,17 @@ structDecl info = simpleFold $ \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
+        comment   <- clang_getComment curr
 
         let mkStruct :: [C.StructField Parse] -> C.Decl Parse
-            mkStruct fields = C.Decl{
+            mkStruct fields = C.Decl {
                 declInfo = info
               , declKind = C.DeclStruct C.Struct{
                     structSizeof    = fromIntegral sizeof
                   , structAlignment = fromIntegral alignment
                   , structFields    = fields
                   , structAnn       = NoAnn
+                  , structComment   = comment
                   }
               , declAnn  = NoAnn
               }
@@ -193,6 +199,7 @@ unionDecl info = simpleFold $ \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
+        comment   <- clang_getComment curr
 
         let mkUnion :: [C.UnionField Parse] -> C.Decl Parse
             mkUnion fields = C.Decl{
@@ -202,6 +209,7 @@ unionDecl info = simpleFold $ \curr -> do
                     , unionAlignment = fromIntegral alignment
                     , unionFields    = fields
                     , unionAnn       = NoAnn
+                    , unionComment   = comment
                     }
                 , declAnn  = NoAnn
                 }
@@ -252,6 +260,7 @@ structFieldDecl = \curr -> do
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
     structFieldWidth  <- structWidth curr
+    structFieldComment <- clang_getComment curr
     pure C.StructField{
         structFieldLoc
       , structFieldName
@@ -259,6 +268,7 @@ structFieldDecl = \curr -> do
       , structFieldOffset
       , structFieldWidth
       , structFieldAnn
+      , structFieldComment
       }
 
 structWidth :: CXCursor -> ParseDecl (Maybe Int)
@@ -274,23 +284,27 @@ unionFieldDecl = \curr -> do
     unionFieldName <- C.Name <$> clang_getCursorDisplayName curr
     unionFieldType <- fromCXType =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
+    unionFieldComment   <- clang_getComment curr
     pure C.UnionField{
         unionFieldLoc
       , unionFieldName
       , unionFieldType
       , unionFieldAnn
+      , unionFieldComment
       }
 
 typedefDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 typedefDecl info = simpleFold $ \curr -> do
     typedefType <- fromCXType =<< clang_getTypedefDeclUnderlyingType curr
     typedefAnn  <- getReparseInfo curr
+    typedefComment <- clang_getComment curr
     let decl :: C.Decl Parse
         decl = C.Decl{
             declInfo = info
           , declKind = C.DeclTypedef C.Typedef{
                 typedefType
               , typedefAnn
+              , typedefComment
               }
           , declAnn  = NoAnn
           }
@@ -311,6 +325,7 @@ enumDecl info = simpleFold $ \curr -> do
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
         ety       <- fromCXType =<< clang_getEnumDeclIntegerType curr
+        comment   <- clang_getComment curr
 
         let mkEnum :: [C.EnumConstant Parse] -> C.Decl Parse
             mkEnum constants = C.Decl{
@@ -321,6 +336,7 @@ enumDecl info = simpleFold $ \curr -> do
                   , enumAlignment = fromIntegral alignment
                   , enumConstants = constants
                   , enumAnn       = NoAnn
+                  , enumComment   = comment
                   }
               , declAnn  = NoAnn
               }
@@ -349,10 +365,12 @@ enumConstantDecl curr = do
     enumConstantLoc   <- HighLevel.clang_getCursorLocation' curr
     enumConstantName  <- C.Name <$> clang_getCursorDisplayName curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
+    enumConstantComment <- clang_getComment curr
     foldContinueWith C.EnumConstant {
         enumConstantLoc
       , enumConstantName
       , enumConstantValue
+      , enumConstantComment
       }
 
 functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
@@ -360,14 +378,16 @@ functionDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn <- getReparseInfo curr
+    functionComment <- clang_getComment curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
         mkDecl purity = C.Decl{
             declInfo = info
-          , declKind = C.DeclFunction C.Function{
+          , declKind = C.DeclFunction C.Function {
                 functionArgs
               , functionRes
               , functionAttrs = C.FunctionAttributes purity
               , functionAnn
+              , functionComment
               }
           , declAnn  = NoAnn
           }
