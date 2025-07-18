@@ -1,5 +1,6 @@
 TranslationUnit {
-  unitDecls = [
+  unitDecls =
+  [
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -11,7 +12,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "decls_in_signature.h"},
+        "decls_in_signature.h",
+        declComment = Nothing},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -30,7 +32,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "decls_in_signature.h"},
+        "decls_in_signature.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -48,7 +51,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "decls_in_signature.h:5:7",
@@ -59,8 +63,10 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -78,7 +84,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "decls_in_signature.h"},
+        "decls_in_signature.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -102,7 +109,8 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "Outside"}
               NameOriginInSource],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -110,7 +118,8 @@ TranslationUnit {
           typeSpecInstances = Map.fromList
             []}},
     Decl {
-      declInfo = DeclInfo {
+      declInfo =
+      DeclInfo {
         declLoc =
         "decls_in_signature.h:17:16",
         declId = NamePair {
@@ -120,8 +129,23 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "decls_in_signature.h"},
-      declKind = DeclStruct
+        "decls_in_signature.h",
+        declComment =
+        Just
+          Comment {
+            commentCName = "named_struct",
+            commentChildren =
+            [
+              Paragraph
+                [TextContent "Error cases"],
+              Paragraph
+                [
+                  TextContent
+                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                  TextContent
+                    "and the edge cases below)."]]}},
+      declKind =
+      DeclStruct
         Struct {
           structNames = RecordNames
             (HsName
@@ -140,7 +164,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "decls_in_signature.h:17:42",
@@ -151,8 +176,23 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment =
+          Just
+            Comment {
+              commentCName = "named_struct",
+              commentChildren =
+              [
+                Paragraph
+                  [TextContent "Error cases"],
+                Paragraph
+                  [
+                    TextContent
+                      "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                    TextContent
+                      "and the edge cases below)."]]}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -160,7 +200,8 @@ TranslationUnit {
           typeSpecInstances = Map.fromList
             []}},
     Decl {
-      declInfo = DeclInfo {
+      declInfo =
+      DeclInfo {
         declLoc =
         "decls_in_signature.h:17:6",
         declId = NamePair {
@@ -170,8 +211,24 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "decls_in_signature.h"},
-      declKind = DeclFunction
+        "decls_in_signature.h",
+        declComment =
+        Just
+          Comment {
+            commentCName =
+            "f1(struct named_struct)",
+            commentChildren =
+            [
+              Paragraph
+                [TextContent "Error cases"],
+              Paragraph
+                [
+                  TextContent
+                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                  TextContent
+                    "and the edge cases below)."]]}},
+      declKind =
+      DeclFunction
         Function {
           functionArgs = [
             TypeStruct
@@ -180,7 +237,22 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "Named_struct"}
               NameOriginInSource],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment =
+          Just
+            Comment {
+              commentCName =
+              "f1(struct named_struct)",
+              commentChildren =
+              [
+                Paragraph
+                  [TextContent "Error cases"],
+                Paragraph
+                  [
+                    TextContent
+                      "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                    TextContent
+                      "and the edge cases below)."]]}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -198,7 +270,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "decls_in_signature.h"},
+        "decls_in_signature.h",
+        declComment = Nothing},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -219,7 +292,8 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "named_union_x"},
               unionFieldType = TypePrim
-                (PrimIntegral PrimInt Signed)},
+                (PrimIntegral PrimInt Signed),
+              unionFieldComment = Nothing},
             UnionField {
               unionFieldLoc =
               "decls_in_signature.h:20:41",
@@ -230,7 +304,9 @@ TranslationUnit {
               unionFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
-                    (Just Signed)))}]},
+                    (Just Signed))),
+              unionFieldComment = Nothing}],
+          unionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -248,7 +324,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "decls_in_signature.h"},
+        "decls_in_signature.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -258,7 +335,8 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "Named_union"}
               NameOriginInSource],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

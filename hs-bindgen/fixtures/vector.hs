@@ -25,7 +25,8 @@
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -43,7 +44,8 @@
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -55,7 +57,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "vector.h:1:9"),
             declAliases = [Name "vector"],
-            declHeader = "vector.h"},
+            declHeader = "vector.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -73,7 +76,8 @@
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "vector.h:3:12",
@@ -84,8 +88,10 @@
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -121,7 +127,8 @@
                 structFieldType = TypePrim
                   (PrimFloating PrimDouble),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -139,7 +146,8 @@
                 structFieldType = TypePrim
                   (PrimFloating PrimDouble),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -151,7 +159,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "vector.h:1:9"),
               declAliases = [Name "vector"],
-              declHeader = "vector.h"},
+              declHeader = "vector.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -169,7 +178,8 @@
                     structFieldType = TypePrim
                       (PrimFloating PrimDouble),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "vector.h:3:12",
@@ -180,8 +190,10 @@
                     structFieldType = TypePrim
                       (PrimFloating PrimDouble),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -222,7 +234,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -240,7 +253,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -252,7 +266,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "vector.h:1:9"),
                       declAliases = [Name "vector"],
-                      declHeader = "vector.h"},
+                      declHeader = "vector.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -270,7 +285,8 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "vector.h:3:12",
@@ -281,8 +297,10 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -325,7 +343,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -343,7 +362,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -355,7 +375,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "vector.h:1:9"),
                       declAliases = [Name "vector"],
-                      declHeader = "vector.h"},
+                      declHeader = "vector.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -373,7 +394,8 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "vector.h:3:12",
@@ -384,8 +406,10 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -453,4 +477,5 @@
                     nameHsIdent = HsIdentifier
                       "Vector"}
                   (NameOriginGenerated
-                    (AnonId "vector.h:1:9")))))}}]
+                    (AnonId "vector.h:1:9"))))),
+          functionComment = Nothing}}]

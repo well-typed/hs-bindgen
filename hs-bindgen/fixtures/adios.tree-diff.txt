@@ -9,7 +9,8 @@ TranslationUnit {
             "Adio'0301s"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -20,7 +21,8 @@ TranslationUnit {
               "@NsVar"
               "un_Adio'0301s"},
           typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -36,7 +38,8 @@ TranslationUnit {
             "C\25968\23383"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -47,7 +50,8 @@ TranslationUnit {
               "@NsVar"
               "un_C\25968\23383"},
           typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -63,11 +67,13 @@ TranslationUnit {
             "c\978"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -83,11 +89,13 @@ TranslationUnit {
             "\25308\25308"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -103,11 +111,13 @@ TranslationUnit {
             "say\25308\25308"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

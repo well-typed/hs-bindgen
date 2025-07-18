@@ -16,7 +16,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_forall (void) { forall(); }",
@@ -34,7 +35,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_mdo (void) { mdo(); }",
@@ -52,7 +54,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_pattern (void) { pattern(); }",
@@ -70,7 +73,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_proc (void) { proc(); }",
@@ -88,7 +92,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_rec (void) { rec(); }",
@@ -106,7 +111,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_using (void) { using(); }",
@@ -124,7 +130,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_anyclass (void) { anyclass(); }",
@@ -142,7 +149,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_capi (void) { capi(); }",
@@ -160,7 +168,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_cases (void) { cases(); }",
@@ -178,7 +187,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_ccall (void) { ccall(); }",
@@ -196,7 +206,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_dynamic (void) { dynamic(); }",
@@ -214,7 +225,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_export (void) { export(); }",
@@ -232,7 +244,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_family (void) { family(); }",
@@ -250,7 +263,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_group (void) { group(); }",
@@ -268,7 +282,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_interruptible (void) { interruptible(); }",
@@ -286,7 +301,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_javascript (void) { javascript(); }",
@@ -304,7 +320,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_label (void) { label(); }",
@@ -322,7 +339,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_prim (void) { prim(); }",
@@ -340,7 +358,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_role (void) { role(); }",
@@ -358,7 +377,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_safe (void) { safe(); }",
@@ -376,7 +396,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_stdcall (void) { stdcall(); }",
@@ -394,7 +415,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_stock (void) { stock(); }",
@@ -412,7 +434,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_unsafe (void) { unsafe(); }",
@@ -430,7 +453,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_via (void) { via(); }",
@@ -448,4 +472,5 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid,
+          functionComment = Nothing}}]

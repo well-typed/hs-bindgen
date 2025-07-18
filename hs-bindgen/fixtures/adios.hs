@@ -23,7 +23,8 @@
               "Adio'0301s"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "adios.h"},
+          declHeader = "adios.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -34,7 +35,8 @@
                 "@NsVar"
                 "un_Adio'0301s"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -158,7 +160,8 @@
               "C\25968\23383"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "adios.h"},
+          declHeader = "adios.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -169,7 +172,8 @@
                 "@NsVar"
                 "un_C\25968\23383"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -286,7 +290,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "void testmodule_\25308\25308 (void) { \25308\25308(); }",
@@ -304,7 +309,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "void testmodule_Say\25308\25308 (void) { Say\25308\25308(); }",
@@ -322,4 +328,5 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid,
+          functionComment = Nothing}}]

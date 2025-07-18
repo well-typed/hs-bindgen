@@ -10,7 +10,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -32,8 +33,10 @@ TranslationUnit {
                     PrimShort
                     Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -51,7 +54,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -62,7 +66,8 @@ TranslationUnit {
               "@NsVar"
               "un_More_aligned_int"},
           typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -80,7 +85,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -102,8 +108,10 @@ TranslationUnit {
                     PrimShort
                     Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -122,7 +130,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -144,7 +153,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "type_attributes.h:16:7",
@@ -155,8 +165,10 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -174,7 +186,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -196,7 +209,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "type_attributes.h:22:9",
@@ -207,7 +221,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 8,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "type_attributes.h:23:30",
@@ -223,8 +238,10 @@ TranslationUnit {
                     "My_unpacked_struct"}
                 NameOriginInSource,
               structFieldOffset = 40,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -242,7 +259,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclUnionOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -265,7 +283,8 @@ TranslationUnit {
         declAliases = [
           Name "wait_status_ptr_t"],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -287,7 +306,8 @@ TranslationUnit {
                   "wait_status_ptr_t___ip"},
               unionFieldType = TypePointer
                 (TypePrim
-                  (PrimIntegral PrimInt Signed))},
+                  (PrimIntegral PrimInt Signed)),
+              unionFieldComment = Nothing},
             UnionField {
               unionFieldLoc =
               "type_attributes.h:29:15",
@@ -301,7 +321,9 @@ TranslationUnit {
                     nameC = Name "wait",
                     nameHsIdent = HsIdentifier
                       "Wait"}
-                  NameOriginInSource)}]},
+                  NameOriginInSource),
+              unionFieldComment = Nothing}],
+          unionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -319,7 +341,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -330,7 +353,8 @@ TranslationUnit {
               "@NsVar"
               "un_T1"},
           typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -348,7 +372,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "type_attributes.h"},
+        "type_attributes.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -359,9 +384,8 @@ TranslationUnit {
               "@NsVar"
               "un_Short_a"},
           typedefType = TypePrim
-            (PrimIntegral
-              PrimShort
-              Signed)},
+            (PrimIntegral PrimShort Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

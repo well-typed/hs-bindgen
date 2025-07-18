@@ -25,7 +25,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_typedef_scope.h"},
+          "macro_typedef_scope.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -36,7 +37,8 @@
                 "@NsVar"
                 "un_T1"},
             macroType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -136,7 +138,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [Name "T4"],
           declHeader =
-          "macro_typedef_scope.h"},
+          "macro_typedef_scope.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -150,7 +153,8 @@
               NamePair {
                 nameC = Name "T1",
                 nameHsIdent = HsIdentifier "T1"}
-              NameOriginInSource},
+              NameOriginInSource,
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -250,7 +254,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_typedef_scope.h"},
+          "macro_typedef_scope.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -265,7 +270,8 @@
                 NamePair {
                   nameC = Name "T2",
                   nameHsIdent = HsIdentifier
-                    "T2"})},
+                    "T2"}),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -365,7 +371,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_typedef_scope.h"},
+          "macro_typedef_scope.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -379,7 +386,8 @@
               NamePair {
                 nameC = Name "T3",
                 nameHsIdent = HsIdentifier "T3"}
-              NameOriginInSource},
+              NameOriginInSource,
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

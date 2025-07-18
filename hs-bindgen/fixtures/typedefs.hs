@@ -23,7 +23,8 @@
               "Myint"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typedefs.h"},
+          declHeader = "typedefs.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -34,7 +35,8 @@
                 "@NsVar"
                 "un_Myint"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -158,7 +160,8 @@
               "Intptr"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typedefs.h"},
+          declHeader = "typedefs.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -170,7 +173,8 @@
                 "un_Intptr"},
             typedefType = TypePointer
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

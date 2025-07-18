@@ -25,7 +25,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -36,7 +37,8 @@
                 "Thing"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "struct_arg.h"},
+            declHeader = "struct_arg.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -54,8 +56,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -91,7 +95,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -102,7 +107,8 @@
                   "Thing"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "struct_arg.h"},
+              declHeader = "struct_arg.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -120,8 +126,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -162,7 +170,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -173,7 +182,8 @@
                           "Thing"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "struct_arg.h"},
+                      declHeader = "struct_arg.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -191,8 +201,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -233,7 +245,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -244,7 +257,8 @@
                           "Thing"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "struct_arg.h"},
+                      declHeader = "struct_arg.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -262,8 +276,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -321,7 +337,8 @@
                   "Thing"}
               NameOriginInSource],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -355,7 +372,8 @@
               nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
-            NameOriginInSource}},
+            NameOriginInSource,
+          functionComment = Nothing}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -406,7 +424,8 @@
               nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
-            NameOriginInSource}},
+            NameOriginInSource,
+          functionComment = Nothing}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -449,5 +468,6 @@
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit
-                (Just Signed)))}},
+                (Just Signed))),
+          functionComment = Nothing}},
   DeclSimple]

@@ -14,7 +14,8 @@ TranslationUnit {
         declAliases = [
           Name "linked_list_A_t"],
         declHeader =
-        "recursive_struct.h"},
+        "recursive_struct.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -34,7 +35,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "recursive_struct.h:3:27",
@@ -51,8 +53,10 @@ TranslationUnit {
                   (NameOriginRenamedFrom
                     (Name "linked_list_A_s"))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -71,7 +75,8 @@ TranslationUnit {
         declAliases = [
           Name "linked_list_B_t"],
         declHeader =
-        "recursive_struct.h"},
+        "recursive_struct.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -91,7 +96,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "recursive_struct.h:11:20",
@@ -110,8 +116,10 @@ TranslationUnit {
                           "Linked_list_B_t"}
                       NameOriginInSource))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

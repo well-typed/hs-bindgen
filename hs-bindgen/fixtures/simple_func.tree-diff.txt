@@ -9,14 +9,16 @@ TranslationUnit {
             "erf"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimFloating PrimDouble)},
+            (PrimFloating PrimDouble),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -32,7 +34,8 @@ TranslationUnit {
             "bad_fma"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -43,7 +46,8 @@ TranslationUnit {
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimFloating PrimDouble)},
+            (PrimFloating PrimDouble),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -59,11 +63,13 @@ TranslationUnit {
             "no_args"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -79,11 +85,13 @@ TranslationUnit {
             "no_args_no_void"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -99,7 +107,8 @@ TranslationUnit {
             "fun"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -110,7 +119,8 @@ TranslationUnit {
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

@@ -24,7 +24,8 @@
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -41,7 +42,8 @@
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 8,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -52,7 +54,8 @@
                 "Bools1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bool.h"},
+            declHeader = "bool.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -69,7 +72,8 @@
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc = "bool.h:3:11",
                   structFieldName = NamePair {
@@ -79,8 +83,10 @@
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -115,7 +121,8 @@
                 structFieldType = TypePrim
                   PrimBool,
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -132,7 +139,8 @@
                 structFieldType = TypePrim
                   PrimBool,
                 structFieldOffset = 8,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -143,7 +151,8 @@
                   "Bools1"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "bool.h"},
+              declHeader = "bool.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -160,7 +169,8 @@
                     structFieldType = TypePrim
                       PrimBool,
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc = "bool.h:3:11",
                     structFieldName = NamePair {
@@ -170,8 +180,10 @@
                     structFieldType = TypePrim
                       PrimBool,
                     structFieldOffset = 8,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -211,7 +223,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -228,7 +241,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -239,7 +253,8 @@
                           "Bools1"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "bool.h"},
+                      declHeader = "bool.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -256,7 +271,8 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc = "bool.h:3:11",
                             structFieldName = NamePair {
@@ -266,8 +282,10 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -309,7 +327,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -326,7 +345,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -337,7 +357,8 @@
                           "Bools1"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "bool.h"},
+                      declHeader = "bool.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -354,7 +375,8 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc = "bool.h:3:11",
                             structFieldName = NamePair {
@@ -364,8 +386,10 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -419,7 +443,8 @@
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -436,7 +461,8 @@
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 8,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -447,7 +473,8 @@
                 "Bools2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bool.h"},
+            declHeader = "bool.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -464,7 +491,8 @@
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc = "bool.h:10:10",
                   structFieldName = NamePair {
@@ -474,8 +502,10 @@
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -510,7 +540,8 @@
                 structFieldType = TypePrim
                   PrimBool,
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -527,7 +558,8 @@
                 structFieldType = TypePrim
                   PrimBool,
                 structFieldOffset = 8,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -538,7 +570,8 @@
                   "Bools2"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "bool.h"},
+              declHeader = "bool.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -555,7 +588,8 @@
                     structFieldType = TypePrim
                       PrimBool,
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc = "bool.h:10:10",
                     structFieldName = NamePair {
@@ -565,8 +599,10 @@
                     structFieldType = TypePrim
                       PrimBool,
                     structFieldOffset = 8,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -606,7 +642,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -623,7 +660,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -634,7 +672,8 @@
                           "Bools2"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "bool.h"},
+                      declHeader = "bool.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -651,7 +690,8 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc = "bool.h:10:10",
                             structFieldName = NamePair {
@@ -661,8 +701,10 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -704,7 +746,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -721,7 +764,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -732,7 +776,8 @@
                           "Bools2"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "bool.h"},
+                      declHeader = "bool.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -749,7 +794,8 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc = "bool.h:10:10",
                             structFieldName = NamePair {
@@ -759,8 +805,10 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -813,7 +861,8 @@
               "BOOL"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "bool.h"},
+          declHeader = "bool.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -823,7 +872,8 @@
               newtypeField = HsName
                 "@NsVar"
                 "un_BOOL"},
-            macroType = TypePrim PrimBool},
+            macroType = TypePrim PrimBool,
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -927,7 +977,8 @@
                     "BOOL"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -949,7 +1000,8 @@
                     "BOOL"}
                 NameOriginInSource,
               structFieldOffset = 8,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -960,7 +1012,8 @@
                 "Bools3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bool.h"},
+            declHeader = "bool.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -982,7 +1035,8 @@
                         "BOOL"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc = "bool.h:17:10",
                   structFieldName = NamePair {
@@ -997,8 +1051,10 @@
                         "BOOL"}
                     NameOriginInSource,
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1038,7 +1094,8 @@
                       "BOOL"}
                   NameOriginInSource,
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1060,7 +1117,8 @@
                       "BOOL"}
                   NameOriginInSource,
                 structFieldOffset = 8,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1071,7 +1129,8 @@
                   "Bools3"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "bool.h"},
+              declHeader = "bool.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1093,7 +1152,8 @@
                           "BOOL"}
                       NameOriginInSource,
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc = "bool.h:17:10",
                     structFieldName = NamePair {
@@ -1108,8 +1168,10 @@
                           "BOOL"}
                       NameOriginInSource,
                     structFieldOffset = 8,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1154,7 +1216,8 @@
                               "BOOL"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1176,7 +1239,8 @@
                               "BOOL"}
                           NameOriginInSource,
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1187,7 +1251,8 @@
                           "Bools3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "bool.h"},
+                      declHeader = "bool.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1209,7 +1274,8 @@
                                   "BOOL"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc = "bool.h:17:10",
                             structFieldName = NamePair {
@@ -1224,8 +1290,10 @@
                                   "BOOL"}
                               NameOriginInSource,
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1272,7 +1340,8 @@
                               "BOOL"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1294,7 +1363,8 @@
                               "BOOL"}
                           NameOriginInSource,
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1305,7 +1375,8 @@
                           "Bools3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "bool.h"},
+                      declHeader = "bool.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1327,7 +1398,8 @@
                                   "BOOL"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc = "bool.h:17:10",
                             structFieldName = NamePair {
@@ -1342,8 +1414,10 @@
                                   "BOOL"}
                               NameOriginInSource,
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

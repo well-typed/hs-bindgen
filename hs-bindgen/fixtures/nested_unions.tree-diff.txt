@@ -10,7 +10,8 @@ TranslationUnit {
             "UnionA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_unions.h"},
+        declHeader = "nested_unions.h",
+        declComment = Nothing},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -31,7 +32,8 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "unionA_a"},
               unionFieldType = TypePrim
-                (PrimIntegral PrimInt Signed)},
+                (PrimIntegral PrimInt Signed),
+              unionFieldComment = Nothing},
             UnionField {
               unionFieldLoc =
               "nested_unions.h:4:22",
@@ -42,7 +44,9 @@ TranslationUnit {
               unionFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
-                    (Just Signed)))}]},
+                    (Just Signed))),
+              unionFieldComment = Nothing}],
+          unionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -58,7 +62,8 @@ TranslationUnit {
             "ExA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_unions.h"},
+        declHeader = "nested_unions.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -80,8 +85,10 @@ TranslationUnit {
                     "UnionA"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -98,7 +105,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "nested_unions.h:9:9"),
         declAliases = [],
-        declHeader = "nested_unions.h"},
+        declHeader = "nested_unions.h",
+        declComment = Nothing},
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
@@ -119,7 +127,8 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "exB_fieldB1_a"},
               unionFieldType = TypePrim
-                (PrimIntegral PrimInt Signed)},
+                (PrimIntegral PrimInt Signed),
+              unionFieldComment = Nothing},
             UnionField {
               unionFieldLoc =
               "nested_unions.h:11:22",
@@ -130,7 +139,9 @@ TranslationUnit {
               unionFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
-                    (Just Signed)))}]},
+                    (Just Signed))),
+              unionFieldComment = Nothing}],
+          unionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -146,7 +157,8 @@ TranslationUnit {
             "ExB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_unions.h"},
+        declHeader = "nested_unions.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -169,8 +181,10 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "nested_unions.h:9:9")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

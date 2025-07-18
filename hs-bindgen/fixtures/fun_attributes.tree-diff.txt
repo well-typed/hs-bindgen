@@ -1,7 +1,9 @@
 TranslationUnit {
-  unitDecls = [
+  unitDecls =
+  [
     Decl {
-      declInfo = DeclInfo {
+      declInfo =
+      DeclInfo {
         declLoc =
         "fun_attributes.h:10:9",
         declId = NamePair {
@@ -12,16 +14,56 @@ TranslationUnit {
           (AnonId
             "fun_attributes.h:10:9"),
         declAliases = [Name "FILE"],
-        declHeader =
-        "fun_attributes.h"},
-      declKind = DeclStruct
+        declHeader = "fun_attributes.h",
+        declComment =
+        Just
+          Comment {
+            commentCName = "FILE",
+            commentChildren =
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Attributes on functions"],
+              Paragraph
+                [
+                  TextContent
+                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+              Paragraph
+                [
+                  TextContent
+                    "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                  TextContent
+                    "We should take advantage of `pure` and `const attributes."]]}},
+      declKind =
+      DeclStruct
         Struct {
           structNames = RecordNames
             (HsName "@NsConstr" "FILE"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
-          structFlam = Nothing},
+          structFlam = Nothing,
+          structComment =
+          Just
+            Comment {
+              commentCName = "FILE",
+              commentChildren =
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "Attributes on functions"],
+                Paragraph
+                  [
+                    TextContent
+                      "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                Paragraph
+                  [
+                    TextContent
+                      "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                    TextContent
+                      "We should take advantage of `pure` and `const attributes."]]}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -38,8 +80,8 @@ TranslationUnit {
             "Size_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -50,7 +92,8 @@ TranslationUnit {
               "@NsVar"
               "un_Size_t"},
           typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -67,12 +110,13 @@ TranslationUnit {
             "__f1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -89,12 +133,13 @@ TranslationUnit {
             "f1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -111,8 +156,8 @@ TranslationUnit {
             "my_memalign"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -129,7 +174,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid},
+            TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -146,8 +192,8 @@ TranslationUnit {
             "my_calloc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -164,7 +210,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid},
+            TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -181,8 +228,8 @@ TranslationUnit {
             "my_realloc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -194,7 +241,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid},
+            TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -211,8 +259,8 @@ TranslationUnit {
             "my_alloc1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -223,7 +271,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid},
+            TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -240,8 +289,8 @@ TranslationUnit {
             "my_alloc2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -252,7 +301,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid},
+            TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -269,15 +319,16 @@ TranslationUnit {
             "square"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -294,13 +345,14 @@ TranslationUnit {
             "old_fn"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -317,8 +369,8 @@ TranslationUnit {
             "my_dgettext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -336,7 +388,8 @@ TranslationUnit {
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed))))},
+                  (Just Signed)))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -353,8 +406,8 @@ TranslationUnit {
             "fdopen"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -376,7 +429,8 @@ TranslationUnit {
                       "FILE"}
                   (NameOriginGenerated
                     (AnonId
-                      "fun_attributes.h:10:9")))))},
+                      "fun_attributes.h:10:9"))))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -393,12 +447,13 @@ TranslationUnit {
             "f2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -415,8 +470,8 @@ TranslationUnit {
             "my_memcpy"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -429,7 +484,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid},
+            TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -446,12 +502,13 @@ TranslationUnit {
             "fatal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -468,8 +525,8 @@ TranslationUnit {
             "hash"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -479,7 +536,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))))],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -496,8 +554,8 @@ TranslationUnit {
             "mymalloc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -508,7 +566,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid},
+            TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -525,12 +584,13 @@ TranslationUnit {
             "foobar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -547,13 +607,14 @@ TranslationUnit {
             "core2_func"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -570,13 +631,14 @@ TranslationUnit {
             "sse3_func"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -593,12 +655,13 @@ TranslationUnit {
             "f3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -614,8 +677,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "i"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclExtern
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -635,13 +698,14 @@ TranslationUnit {
             "fn"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -657,13 +721,14 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "y"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -680,13 +745,14 @@ TranslationUnit {
             "x1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -703,13 +769,14 @@ TranslationUnit {
             "x2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
+        declHeader = "fun_attributes.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

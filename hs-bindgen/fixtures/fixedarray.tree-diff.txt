@@ -9,7 +9,8 @@ TranslationUnit {
             "Triple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fixedarray.h"},
+        declHeader = "fixedarray.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -22,7 +23,8 @@ TranslationUnit {
           typedefType = TypeConstArray
             3
             (TypePrim
-              (PrimIntegral PrimInt Signed))},
+              (PrimIntegral PrimInt Signed)),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -38,7 +40,8 @@ TranslationUnit {
             "Example"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fixedarray.h"},
+        declHeader = "fixedarray.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -58,7 +61,8 @@ TranslationUnit {
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "fixedarray.h:5:9",
@@ -73,8 +77,10 @@ TranslationUnit {
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
               structFieldOffset = 96,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

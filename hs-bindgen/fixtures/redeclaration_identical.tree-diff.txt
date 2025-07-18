@@ -10,7 +10,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "redeclaration_identical.h"},
+        "redeclaration_identical.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {

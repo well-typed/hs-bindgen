@@ -24,7 +24,8 @@
               "Triple"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "fixedarray.h"},
+          declHeader = "fixedarray.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -37,7 +38,8 @@
             typedefType = TypeConstArray
               3
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -93,7 +95,8 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -118,7 +121,8 @@
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
               structFieldOffset = 96,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -129,7 +133,8 @@
                 "Example"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "fixedarray.h"},
+            declHeader = "fixedarray.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -149,7 +154,8 @@
                     (TypePrim
                       (PrimIntegral PrimInt Signed)),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "fixedarray.h:5:9",
@@ -164,8 +170,10 @@
                       (TypePrim
                         (PrimIntegral PrimInt Signed))),
                   structFieldOffset = 96,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -204,7 +212,8 @@
                   (TypePrim
                     (PrimIntegral PrimInt Signed)),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -229,7 +238,8 @@
                     (TypePrim
                       (PrimIntegral PrimInt Signed))),
                 structFieldOffset = 96,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -240,7 +250,8 @@
                   "Example"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "fixedarray.h"},
+              declHeader = "fixedarray.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -260,7 +271,8 @@
                       (TypePrim
                         (PrimIntegral PrimInt Signed)),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "fixedarray.h:5:9",
@@ -275,8 +287,10 @@
                         (TypePrim
                           (PrimIntegral PrimInt Signed))),
                     structFieldOffset = 96,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -320,7 +334,8 @@
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -345,7 +360,8 @@
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         structFieldOffset = 96,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -356,7 +372,8 @@
                           "Example"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "fixedarray.h"},
+                      declHeader = "fixedarray.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -376,7 +393,8 @@
                               (TypePrim
                                 (PrimIntegral PrimInt Signed)),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "fixedarray.h:5:9",
@@ -391,8 +409,10 @@
                                 (TypePrim
                                   (PrimIntegral PrimInt Signed))),
                             structFieldOffset = 96,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -438,7 +458,8 @@
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -463,7 +484,8 @@
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         structFieldOffset = 96,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -474,7 +496,8 @@
                           "Example"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "fixedarray.h"},
+                      declHeader = "fixedarray.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -494,7 +517,8 @@
                               (TypePrim
                                 (PrimIntegral PrimInt Signed)),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "fixedarray.h:5:9",
@@ -509,8 +533,10 @@
                                 (TypePrim
                                   (PrimIntegral PrimInt Signed))),
                             structFieldOffset = 96,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

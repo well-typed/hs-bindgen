@@ -9,6 +9,10 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, return)
 
+{-| Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`
+
+  __from C:__ @struct1@
+-}
 data Struct1_t = Struct1_t
   {}
   deriving stock (Eq, Show)

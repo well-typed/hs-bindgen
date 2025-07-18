@@ -17,7 +17,8 @@ TranslationUnit {
           Name
             "another_typedef_struct_t"],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -37,7 +38,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:9:32",
@@ -50,8 +52,10 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -73,7 +77,8 @@ TranslationUnit {
         declAliases = [
           Name "another_typedef_enum_e"],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -95,7 +100,8 @@ TranslationUnit {
                 nameC = Name "FOO",
                 nameHsIdent = HsIdentifier
                   "FOO"},
-              enumConstantValue = 0},
+              enumConstantValue = 0,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "distilled_lib_1.h:10:21",
@@ -103,7 +109,9 @@ TranslationUnit {
                 nameC = Name "BAR",
                 nameHsIdent = HsIdentifier
                   "BAR"},
-              enumConstantValue = 1}]},
+              enumConstantValue = 1,
+              enumConstantComment = Nothing}],
+          enumComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -120,7 +128,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -149,7 +158,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -180,7 +190,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -210,7 +221,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -221,7 +233,8 @@ TranslationUnit {
               "@NsVar"
               "un_A_type_t"},
           typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -239,7 +252,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -250,7 +264,8 @@ TranslationUnit {
               "@NsVar"
               "un_Var_t"},
           typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -272,7 +287,8 @@ TranslationUnit {
         declAliases = [
           Name "a_typedef_struct_t"],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -292,7 +308,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:38:31",
@@ -417,7 +434,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 8,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:39:31",
@@ -542,7 +560,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 16,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:40:31",
@@ -667,7 +686,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 32,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:41:31",
@@ -689,7 +709,8 @@ TranslationUnit {
                       (AnonId
                         "distilled_lib_1.h:9:9")))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:42:31",
@@ -712,7 +733,8 @@ TranslationUnit {
                         (AnonId
                           "distilled_lib_1.h:9:9"))))),
               structFieldOffset = 128,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:43:31",
@@ -723,7 +745,8 @@ TranslationUnit {
               structFieldType = TypePointer
                 TypeVoid,
               structFieldOffset = 192,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:44:31",
@@ -850,7 +873,8 @@ TranslationUnit {
                                 instanceSpecConstraints = [
                                   ]})]}}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:45:31",
@@ -871,7 +895,8 @@ TranslationUnit {
                       (AnonId
                         "distilled_lib_1.h:10:9")))),
               structFieldOffset = 480,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:46:31",
@@ -894,7 +919,8 @@ TranslationUnit {
                         (AnonId
                           "distilled_lib_1.h:10:9"))))),
               structFieldOffset = 512,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "distilled_lib_1.h:47:31",
@@ -919,8 +945,10 @@ TranslationUnit {
                           (AnonId
                             "distilled_lib_1.h:10:9")))))),
               structFieldOffset = 640,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -938,7 +966,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -968,7 +997,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -999,7 +1029,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -1029,7 +1060,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -1072,7 +1104,8 @@ TranslationUnit {
         declAliases = [
           Name "a_typedef_enum_e"],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -1095,7 +1128,8 @@ TranslationUnit {
                 nameC = Name "ENUM_CASE_0",
                 nameHsIdent = HsIdentifier
                   "ENUM_CASE_0"},
-              enumConstantValue = 0},
+              enumConstantValue = 0,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "distilled_lib_1.h:64:3",
@@ -1103,7 +1137,8 @@ TranslationUnit {
                 nameC = Name "ENUM_CASE_1",
                 nameHsIdent = HsIdentifier
                   "ENUM_CASE_1"},
-              enumConstantValue = 1},
+              enumConstantValue = 1,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "distilled_lib_1.h:65:3",
@@ -1111,7 +1146,8 @@ TranslationUnit {
                 nameC = Name "ENUM_CASE_2",
                 nameHsIdent = HsIdentifier
                   "ENUM_CASE_2"},
-              enumConstantValue = 2},
+              enumConstantValue = 2,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "distilled_lib_1.h:66:3",
@@ -1119,7 +1155,9 @@ TranslationUnit {
                 nameC = Name "ENUM_CASE_3",
                 nameHsIdent = HsIdentifier
                   "ENUM_CASE_3"},
-              enumConstantValue = 3}]},
+              enumConstantValue = 3,
+              enumConstantComment = Nothing}],
+          enumComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1137,7 +1175,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -1496,7 +1535,8 @@ TranslationUnit {
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
-                            ]})]}}},
+                            ]})]}},
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1514,7 +1554,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1759,7 +1800,8 @@ TranslationUnit {
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = [
-                                ]})]}}))},
+                                ]})]}})),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1776,7 +1818,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "distilled_lib_1.h"},
+        "distilled_lib_1.h",
+        declComment = Nothing},
       declKind = DeclExtern
         (TypeTypedef
           (TypedefRegular

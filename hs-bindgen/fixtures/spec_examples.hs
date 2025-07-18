@@ -24,7 +24,15 @@
               "Int16_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "spec_examples.h"},
+          declHeader = "spec_examples.h",
+          declComment = Just
+            Comment {
+              commentCName = "int16_T",
+              commentChildren = [
+                Paragraph
+                  [
+                    TextContent
+                      "Examples from the initial specification"]]}},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -35,9 +43,8 @@
                 "@NsVar"
                 "un_Int16_T"},
             typedefType = TypePrim
-              (PrimIntegral
-                PrimShort
-                Signed)},
+              (PrimIntegral PrimShort Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -162,7 +169,8 @@
               "Int32_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "spec_examples.h"},
+          declHeader = "spec_examples.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -173,7 +181,8 @@
                 "@NsVar"
                 "un_Int32_T"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -298,7 +307,8 @@
               "Int64_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "spec_examples.h"},
+          declHeader = "spec_examples.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -311,7 +321,8 @@
             typedefType = TypePrim
               (PrimIntegral
                 PrimLongLong
-                Signed)},
+                Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -443,7 +454,8 @@
                     nameHsIdent = HsIdentifier
                       "Int16_T"}),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -467,7 +479,8 @@
                     nameHsIdent = HsIdentifier
                       "Int16_T"}),
               structFieldOffset = 16,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -480,7 +493,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "spec_examples.h:14:9"),
             declAliases = [Name "cint16_T"],
-            declHeader = "spec_examples.h"},
+            declHeader = "spec_examples.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -502,7 +516,8 @@
                         nameHsIdent = HsIdentifier
                           "Int16_T"}),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "spec_examples.h:16:11",
@@ -517,8 +532,10 @@
                         nameHsIdent = HsIdentifier
                           "Int16_T"}),
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -560,7 +577,8 @@
                       nameHsIdent = HsIdentifier
                         "Int16_T"}),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -584,7 +602,8 @@
                       nameHsIdent = HsIdentifier
                         "Int16_T"}),
                 structFieldOffset = 16,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -597,7 +616,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "spec_examples.h:14:9"),
               declAliases = [Name "cint16_T"],
-              declHeader = "spec_examples.h"},
+              declHeader = "spec_examples.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -619,7 +639,8 @@
                           nameHsIdent = HsIdentifier
                             "Int16_T"}),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "spec_examples.h:16:11",
@@ -634,8 +655,10 @@
                           nameHsIdent = HsIdentifier
                             "Int16_T"}),
                     structFieldOffset = 16,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -682,7 +705,8 @@
                               nameHsIdent = HsIdentifier
                                 "Int16_T"}),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -706,7 +730,8 @@
                               nameHsIdent = HsIdentifier
                                 "Int16_T"}),
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -719,7 +744,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "spec_examples.h:14:9"),
                       declAliases = [Name "cint16_T"],
-                      declHeader = "spec_examples.h"},
+                      declHeader = "spec_examples.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -741,7 +767,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Int16_T"}),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:16:11",
@@ -756,8 +783,10 @@
                                   nameHsIdent = HsIdentifier
                                     "Int16_T"}),
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -806,7 +835,8 @@
                               nameHsIdent = HsIdentifier
                                 "Int16_T"}),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -830,7 +860,8 @@
                               nameHsIdent = HsIdentifier
                                 "Int16_T"}),
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -843,7 +874,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "spec_examples.h:14:9"),
                       declAliases = [Name "cint16_T"],
-                      declHeader = "spec_examples.h"},
+                      declHeader = "spec_examples.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -865,7 +897,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Int16_T"}),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:16:11",
@@ -880,8 +913,10 @@
                                   nameHsIdent = HsIdentifier
                                     "Int16_T"}),
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -929,7 +964,8 @@
               nameHsIdent = HsIdentifier "B"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "spec_examples.h"},
+            declHeader = "spec_examples.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -937,7 +973,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -966,7 +1003,8 @@
                 nameHsIdent = HsIdentifier "B"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "spec_examples.h"},
+              declHeader = "spec_examples.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -974,7 +1012,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1008,7 +1047,8 @@
                         nameHsIdent = HsIdentifier "B"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "spec_examples.h"},
+                      declHeader = "spec_examples.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1016,7 +1056,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1050,7 +1091,8 @@
                         nameHsIdent = HsIdentifier "B"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "spec_examples.h"},
+                      declHeader = "spec_examples.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1058,7 +1100,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1091,7 +1134,8 @@
             nameHsIdent = HsIdentifier "C"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "spec_examples.h"},
+          declHeader = "spec_examples.h",
+          declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -1125,7 +1169,8 @@
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1146,7 +1191,8 @@
                     (PrimSignImplicit
                       (Just Signed)))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1169,7 +1215,8 @@
                     (PrimSignImplicit
                       (Just Signed)))),
               structFieldOffset = 128,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1190,7 +1237,8 @@
                   nameHsIdent = HsIdentifier "B"}
                 NameOriginInSource,
               structFieldOffset = 1152,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1213,7 +1261,8 @@
                     nameHsIdent = HsIdentifier "C"}
                   NameOriginInSource),
               structFieldOffset = 1152,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1224,7 +1273,8 @@
               nameHsIdent = HsIdentifier "A"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "spec_examples.h"},
+            declHeader = "spec_examples.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1242,7 +1292,8 @@
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "spec_examples.h:25:9",
@@ -1256,7 +1307,8 @@
                         (PrimSignImplicit
                           (Just Signed)))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "spec_examples.h:26:8",
@@ -1271,7 +1323,8 @@
                         (PrimSignImplicit
                           (Just Signed)))),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "spec_examples.h:27:12",
@@ -1285,7 +1338,8 @@
                       nameHsIdent = HsIdentifier "B"}
                     NameOriginInSource,
                   structFieldOffset = 1152,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "spec_examples.h:28:13",
@@ -1300,8 +1354,10 @@
                         nameHsIdent = HsIdentifier "C"}
                       NameOriginInSource),
                   structFieldOffset = 1152,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1337,7 +1393,8 @@
                 structFieldType = TypePrim
                   (PrimFloating PrimDouble),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1358,7 +1415,8 @@
                       (PrimSignImplicit
                         (Just Signed)))),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1381,7 +1439,8 @@
                       (PrimSignImplicit
                         (Just Signed)))),
                 structFieldOffset = 128,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1402,7 +1461,8 @@
                     nameHsIdent = HsIdentifier "B"}
                   NameOriginInSource,
                 structFieldOffset = 1152,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1425,7 +1485,8 @@
                       nameHsIdent = HsIdentifier "C"}
                     NameOriginInSource),
                 structFieldOffset = 1152,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1436,7 +1497,8 @@
                 nameHsIdent = HsIdentifier "A"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "spec_examples.h"},
+              declHeader = "spec_examples.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1454,7 +1516,8 @@
                     structFieldType = TypePrim
                       (PrimFloating PrimDouble),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "spec_examples.h:25:9",
@@ -1468,7 +1531,8 @@
                           (PrimSignImplicit
                             (Just Signed)))),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "spec_examples.h:26:8",
@@ -1483,7 +1547,8 @@
                           (PrimSignImplicit
                             (Just Signed)))),
                     structFieldOffset = 128,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "spec_examples.h:27:12",
@@ -1497,7 +1562,8 @@
                         nameHsIdent = HsIdentifier "B"}
                       NameOriginInSource,
                     structFieldOffset = 1152,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "spec_examples.h:28:13",
@@ -1512,8 +1578,10 @@
                           nameHsIdent = HsIdentifier "C"}
                         NameOriginInSource),
                     structFieldOffset = 1152,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1554,7 +1622,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1575,7 +1644,8 @@
                               (PrimSignImplicit
                                 (Just Signed)))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1598,7 +1668,8 @@
                               (PrimSignImplicit
                                 (Just Signed)))),
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1619,7 +1690,8 @@
                             nameHsIdent = HsIdentifier "B"}
                           NameOriginInSource,
                         structFieldOffset = 1152,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1642,7 +1714,8 @@
                               nameHsIdent = HsIdentifier "C"}
                             NameOriginInSource),
                         structFieldOffset = 1152,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1653,7 +1726,8 @@
                         nameHsIdent = HsIdentifier "A"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "spec_examples.h"},
+                      declHeader = "spec_examples.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1671,7 +1745,8 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:25:9",
@@ -1685,7 +1760,8 @@
                                   (PrimSignImplicit
                                     (Just Signed)))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:26:8",
@@ -1700,7 +1776,8 @@
                                   (PrimSignImplicit
                                     (Just Signed)))),
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:27:12",
@@ -1714,7 +1791,8 @@
                                 nameHsIdent = HsIdentifier "B"}
                               NameOriginInSource,
                             structFieldOffset = 1152,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:28:13",
@@ -1729,8 +1807,10 @@
                                   nameHsIdent = HsIdentifier "C"}
                                 NameOriginInSource),
                             structFieldOffset = 1152,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1776,7 +1856,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1797,7 +1878,8 @@
                               (PrimSignImplicit
                                 (Just Signed)))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1820,7 +1902,8 @@
                               (PrimSignImplicit
                                 (Just Signed)))),
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1841,7 +1924,8 @@
                             nameHsIdent = HsIdentifier "B"}
                           NameOriginInSource,
                         structFieldOffset = 1152,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1864,7 +1948,8 @@
                               nameHsIdent = HsIdentifier "C"}
                             NameOriginInSource),
                         structFieldOffset = 1152,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1875,7 +1960,8 @@
                         nameHsIdent = HsIdentifier "A"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "spec_examples.h"},
+                      declHeader = "spec_examples.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1893,7 +1979,8 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:25:9",
@@ -1907,7 +1994,8 @@
                                   (PrimSignImplicit
                                     (Just Signed)))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:26:8",
@@ -1922,7 +2010,8 @@
                                   (PrimSignImplicit
                                     (Just Signed)))),
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:27:12",
@@ -1936,7 +2025,8 @@
                                 nameHsIdent = HsIdentifier "B"}
                               NameOriginInSource,
                             structFieldOffset = 1152,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "spec_examples.h:28:13",
@@ -1951,8 +2041,10 @@
                                   nameHsIdent = HsIdentifier "C"}
                                 NameOriginInSource),
                             structFieldOffset = 1152,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2071,5 +2163,6 @@
                     (NameOriginGenerated
                       (AnonId
                         "spec_examples.h:14:9")))))],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclSimple]

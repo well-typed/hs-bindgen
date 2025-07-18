@@ -15,7 +15,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "opaque_declaration.h"},
+          "opaque_declaration.h",
+          declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -55,7 +56,8 @@
                       "Foo"}
                   NameOriginInSource),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -79,7 +81,8 @@
                       "Bar"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -92,7 +95,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "opaque_declaration.h"},
+            "opaque_declaration.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -115,7 +119,8 @@
                           "Foo"}
                       NameOriginInSource),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "opaque_declaration.h:6:17",
@@ -131,8 +136,10 @@
                           "Bar"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -174,7 +181,8 @@
                         "Foo"}
                     NameOriginInSource),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -198,7 +206,8 @@
                         "Bar"}
                     NameOriginInSource),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -211,7 +220,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "opaque_declaration.h"},
+              "opaque_declaration.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -234,7 +244,8 @@
                             "Foo"}
                         NameOriginInSource),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "opaque_declaration.h:6:17",
@@ -250,8 +261,10 @@
                             "Bar"}
                         NameOriginInSource),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -298,7 +311,8 @@
                                 "Foo"}
                             NameOriginInSource),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -322,7 +336,8 @@
                                 "Bar"}
                             NameOriginInSource),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -335,7 +350,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "opaque_declaration.h"},
+                      "opaque_declaration.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -358,7 +374,8 @@
                                     "Foo"}
                                 NameOriginInSource),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "opaque_declaration.h:6:17",
@@ -374,8 +391,10 @@
                                     "Bar"}
                                 NameOriginInSource),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -424,7 +443,8 @@
                                 "Foo"}
                             NameOriginInSource),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -448,7 +468,8 @@
                                 "Bar"}
                             NameOriginInSource),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -461,7 +482,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "opaque_declaration.h"},
+                      "opaque_declaration.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -484,7 +506,8 @@
                                     "Foo"}
                                 NameOriginInSource),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "opaque_declaration.h:6:17",
@@ -500,8 +523,10 @@
                                     "Bar"}
                                 NameOriginInSource),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -547,7 +572,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "opaque_declaration.h"},
+            "opaque_declaration.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -555,7 +581,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -586,7 +613,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "opaque_declaration.h"},
+              "opaque_declaration.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -594,7 +622,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -630,7 +659,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "opaque_declaration.h"},
+                      "opaque_declaration.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -638,7 +668,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -674,7 +705,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "opaque_declaration.h"},
+                      "opaque_declaration.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -682,7 +714,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -717,7 +750,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "opaque_declaration.h"},
+          "opaque_declaration.h",
+          declComment = Nothing},
         declKind = OpaqueEnum,
         declSpec = DeclSpec
           TypeSpec {
@@ -741,7 +775,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "opaque_declaration.h"},
+          "opaque_declaration.h",
+          declComment = Nothing},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
           TypeSpec {

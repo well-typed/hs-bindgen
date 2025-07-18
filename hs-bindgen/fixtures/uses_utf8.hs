@@ -23,7 +23,8 @@
               "MyEnum"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "uses_utf8.h"},
+          declHeader = "uses_utf8.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -45,7 +46,8 @@
                   nameC = Name "Say\20320\22909",
                   nameHsIdent = HsIdentifier
                     "Say\20320\22909"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "uses_utf8.h:6:9",
@@ -53,7 +55,9 @@
                   nameC = Name "Say\25308\25308",
                   nameHsIdent = HsIdentifier
                     "Say\25308\25308"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -289,7 +293,8 @@
             nameC = Name "Say\20320\22909",
             nameHsIdent = HsIdentifier
               "Say\20320\22909"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -310,4 +315,5 @@
             nameC = Name "Say\25308\25308",
             nameHsIdent = HsIdentifier
               "Say\25308\25308"},
-          enumConstantValue = 1}}]
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}}]

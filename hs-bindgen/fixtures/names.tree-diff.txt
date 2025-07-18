@@ -9,11 +9,13 @@ TranslationUnit {
             "by'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -29,11 +31,13 @@ TranslationUnit {
             "forall'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -49,11 +53,13 @@ TranslationUnit {
             "mdo'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -69,11 +75,13 @@ TranslationUnit {
             "pattern'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -89,11 +97,13 @@ TranslationUnit {
             "proc'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -109,11 +119,13 @@ TranslationUnit {
             "rec'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -129,11 +141,13 @@ TranslationUnit {
             "using'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -149,11 +163,13 @@ TranslationUnit {
             "anyclass"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -169,11 +185,13 @@ TranslationUnit {
             "capi"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -189,11 +207,13 @@ TranslationUnit {
             "cases"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -209,11 +229,13 @@ TranslationUnit {
             "ccall"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -229,11 +251,13 @@ TranslationUnit {
             "dynamic"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -249,11 +273,13 @@ TranslationUnit {
             "export"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -269,11 +295,13 @@ TranslationUnit {
             "family"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -289,11 +317,13 @@ TranslationUnit {
             "group"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -309,11 +339,13 @@ TranslationUnit {
             "interruptible"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -329,11 +361,13 @@ TranslationUnit {
             "javascript"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -349,11 +383,13 @@ TranslationUnit {
             "label"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -369,11 +405,13 @@ TranslationUnit {
             "prim"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -389,11 +427,13 @@ TranslationUnit {
             "role"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -409,11 +449,13 @@ TranslationUnit {
             "safe"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -429,11 +471,13 @@ TranslationUnit {
             "stdcall"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -449,11 +493,13 @@ TranslationUnit {
             "stock"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -469,11 +515,13 @@ TranslationUnit {
             "unsafe"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -489,11 +537,13 @@ TranslationUnit {
             "via"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

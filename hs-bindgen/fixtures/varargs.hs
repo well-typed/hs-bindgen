@@ -16,4 +16,5 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid,
+          functionComment = Nothing}}]

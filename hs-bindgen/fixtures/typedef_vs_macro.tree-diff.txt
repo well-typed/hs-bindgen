@@ -11,7 +11,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -22,7 +23,8 @@ TranslationUnit {
               "@NsVar"
               "un_T1"},
           typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -40,7 +42,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -53,7 +56,8 @@ TranslationUnit {
           typedefType = TypePrim
             (PrimChar
               (PrimSignImplicit
-                (Just Signed)))},
+                (Just Signed))),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -71,7 +75,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -83,7 +88,8 @@ TranslationUnit {
                 "@NsVar"
                 "un_M1"},
             macroType = TypePrim
-              (PrimIntegral PrimInt Signed)}),
+              (PrimIntegral PrimInt Signed),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -101,7 +107,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -114,7 +121,8 @@ TranslationUnit {
                 "un_M2"},
             macroType = TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))}),
+                (PrimSignImplicit Nothing)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -132,7 +140,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -146,9 +155,8 @@ TranslationUnit {
             macroType = TypeConstArray
               3
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -166,7 +174,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -179,9 +188,8 @@ TranslationUnit {
                 "un_M4"},
             macroType = TypePointer
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -199,7 +207,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -223,7 +232,8 @@ TranslationUnit {
                     nameHsIdent = HsIdentifier
                       "T1"}),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "typedef_vs_macro.h:11:6",
@@ -238,7 +248,8 @@ TranslationUnit {
                     nameHsIdent = HsIdentifier
                       "T2"}),
               structFieldOffset = 32,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "typedef_vs_macro.h:12:6",
@@ -253,7 +264,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier "M1"}
                 NameOriginInSource,
               structFieldOffset = 64,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "typedef_vs_macro.h:13:6",
@@ -268,8 +280,10 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier "M2"}
                 NameOriginInSource,
               structFieldOffset = 96,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -287,7 +301,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -299,7 +314,8 @@ TranslationUnit {
                 "@NsVar"
                 "un_Uint64_t"},
             macroType = TypePrim
-              (PrimIntegral PrimInt Signed)}),
+              (PrimIntegral PrimInt Signed),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -317,7 +333,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "typedef_vs_macro.h"},
+        "typedef_vs_macro.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -340,8 +357,10 @@ TranslationUnit {
                       "Uint64_t"}
                   NameOriginInSource),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

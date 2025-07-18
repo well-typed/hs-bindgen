@@ -10,7 +10,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -22,7 +23,8 @@ TranslationUnit {
                 "@NsVar"
                 "un_I"},
             macroType = TypePrim
-              (PrimIntegral PrimInt Signed)}),
+              (PrimIntegral PrimInt Signed),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -39,7 +41,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -52,7 +55,8 @@ TranslationUnit {
                 "un_C"},
             macroType = TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))}),
+                (PrimSignImplicit Nothing)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -69,7 +73,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -81,7 +86,8 @@ TranslationUnit {
                 "@NsVar"
                 "un_F"},
             macroType = TypePrim
-              (PrimFloating PrimFloat)}),
+              (PrimFloating PrimFloat),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -98,7 +104,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -110,9 +117,8 @@ TranslationUnit {
                 "@NsVar"
                 "un_L"},
             macroType = TypePrim
-              (PrimIntegral
-                PrimLong
-                Signed)}),
+              (PrimIntegral PrimLong Signed),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -129,7 +135,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -141,9 +148,8 @@ TranslationUnit {
                 "@NsVar"
                 "un_S"},
             macroType = TypePrim
-              (PrimIntegral
-                PrimShort
-                Signed)}),
+              (PrimIntegral PrimShort Signed),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -161,7 +167,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -175,7 +182,8 @@ TranslationUnit {
                 (PrimSignImplicit Nothing))],
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing))},
+              (PrimSignImplicit Nothing)),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -193,7 +201,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -210,7 +219,8 @@ TranslationUnit {
               NamePair {
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource)},
+              NameOriginInSource),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -228,7 +238,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -247,7 +258,8 @@ TranslationUnit {
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed))))},
+                  (Just Signed)))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -265,7 +277,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -286,7 +299,8 @@ TranslationUnit {
           functionRes = TypePointer
             (TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing)))},
+                (PrimSignImplicit Nothing))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -304,7 +318,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -324,7 +339,8 @@ TranslationUnit {
               NamePair {
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource)},
+              NameOriginInSource),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -342,7 +358,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -354,9 +371,8 @@ TranslationUnit {
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+                (PrimIntegral PrimInt Signed))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -374,7 +390,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -389,9 +406,8 @@ TranslationUnit {
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+                (PrimIntegral PrimInt Signed))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -409,7 +425,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -424,9 +441,8 @@ TranslationUnit {
                     nameHsIdent = HsIdentifier "S"}
                   NameOriginInSource]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+                (PrimIntegral PrimInt Signed))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -444,7 +460,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -459,7 +476,8 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "I",
                   nameHsIdent = HsIdentifier "I"}
-                NameOriginInSource))},
+                NameOriginInSource)),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -477,7 +495,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -491,7 +510,8 @@ TranslationUnit {
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed))))},
+                    Signed)))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -509,7 +529,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -526,7 +547,8 @@ TranslationUnit {
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed))))},
+                    Signed)))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -544,7 +566,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -559,7 +582,8 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "I",
                     nameHsIdent = HsIdentifier "I"}
-                  NameOriginInSource)))},
+                  NameOriginInSource))),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -577,7 +601,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -585,7 +610,8 @@ TranslationUnit {
             NamePair {
               nameC = Name "I",
               nameHsIdent = HsIdentifier "I"}
-            NameOriginInSource},
+            NameOriginInSource,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

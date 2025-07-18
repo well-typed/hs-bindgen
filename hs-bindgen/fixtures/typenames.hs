@@ -23,7 +23,8 @@
               "Foo"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typenames.h"},
+          declHeader = "typenames.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -45,7 +46,8 @@
                   nameC = Name "FOO1",
                   nameHsIdent = HsIdentifier
                     "FOO1"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "typenames.h:16:2",
@@ -53,7 +55,9 @@
                   nameC = Name "FOO2",
                   nameHsIdent = HsIdentifier
                     "FOO2"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -275,7 +279,8 @@
             nameC = Name "FOO1",
             nameHsIdent = HsIdentifier
               "FOO1"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -296,7 +301,8 @@
             nameC = Name "FOO2",
             nameHsIdent = HsIdentifier
               "FOO2"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -321,7 +327,8 @@
               "Foo"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typenames.h"},
+          declHeader = "typenames.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -332,7 +339,8 @@
                 "@NsVar"
                 "un_Foo"},
             typedefType = TypePrim
-              (PrimFloating PrimDouble)},
+              (PrimFloating PrimDouble),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
