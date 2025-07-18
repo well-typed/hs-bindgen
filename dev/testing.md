@@ -13,7 +13,7 @@ This document covers tests and how to run them for the `hs-bindgen` project.
 When tests fail due to expected output changes, update them with:
 
 ```bash
-cabal run -- test-internal --accept
+cabal run -- test-hs-bindgen --accept
 ```
 
 ## Test Development
