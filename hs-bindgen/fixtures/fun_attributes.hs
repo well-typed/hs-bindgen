@@ -8,9 +8,11 @@
         "@NsConstr"
         "FILE",
       structFields = [],
-      structOrigin = Just
+      structOrigin =
+      Just
         Decl {
-          declInfo = DeclInfo {
+          declInfo =
+          DeclInfo {
             declLoc =
             "fun_attributes.h:10:9",
             declId = NamePair {
@@ -21,16 +23,56 @@
               (AnonId
                 "fun_attributes.h:10:9"),
             declAliases = [Name "FILE"],
-            declHeader =
-            "fun_attributes.h"},
-          declKind = Struct
+            declHeader = "fun_attributes.h",
+            declComment =
+            Just
+              Comment {
+                commentCName = "FILE",
+                commentChildren =
+                [
+                  Paragraph
+                    [
+                      TextContent
+                        "Attributes on functions"],
+                  Paragraph
+                    [
+                      TextContent
+                        "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                  Paragraph
+                    [
+                      TextContent
+                        "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                      TextContent
+                        "We should take advantage of `pure` and `const attributes."]]}},
+          declKind =
+          Struct
             Struct {
               structNames = RecordNames
                 (HsName "@NsConstr" "FILE"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment =
+              Just
+                Comment {
+                  commentCName = "FILE",
+                  commentChildren =
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "Attributes on functions"],
+                    Paragraph
+                      [
+                        TextContent
+                          "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                    Paragraph
+                      [
+                        TextContent
+                          "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                        TextContent
+                          "We should take advantage of `pure` and `const attributes."]]}},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -49,9 +91,11 @@
           "@NsConstr"
           "FILE",
         structFields = [],
-        structOrigin = Just
+        structOrigin =
+        Just
           Decl {
-            declInfo = DeclInfo {
+            declInfo =
+            DeclInfo {
               declLoc =
               "fun_attributes.h:10:9",
               declId = NamePair {
@@ -62,16 +106,56 @@
                 (AnonId
                   "fun_attributes.h:10:9"),
               declAliases = [Name "FILE"],
-              declHeader =
-              "fun_attributes.h"},
-            declKind = Struct
+              declHeader = "fun_attributes.h",
+              declComment =
+              Just
+                Comment {
+                  commentCName = "FILE",
+                  commentChildren =
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "Attributes on functions"],
+                    Paragraph
+                      [
+                        TextContent
+                          "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                    Paragraph
+                      [
+                        TextContent
+                          "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                        TextContent
+                          "We should take advantage of `pure` and `const attributes."]]}},
+            declKind =
+            Struct
               Struct {
                 structNames = RecordNames
                   (HsName "@NsConstr" "FILE"),
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment =
+                Just
+                  Comment {
+                    commentCName = "FILE",
+                    commentChildren =
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "Attributes on functions"],
+                      Paragraph
+                        [
+                          TextContent
+                            "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                      Paragraph
+                        [
+                          TextContent
+                            "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                          TextContent
+                            "We should take advantage of `pure` and `const attributes."]]}},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -83,7 +167,8 @@
       StorableInstance {
         storableSizeOf = 0,
         storableAlignment = 1,
-        storablePeek = Lambda
+        storablePeek =
+        Lambda
           (NameHint "ptr")
           (Ap
             (StructCon
@@ -95,9 +180,11 @@
                   "@NsConstr"
                   "FILE",
                 structFields = [],
-                structOrigin = Just
+                structOrigin =
+                Just
                   Decl {
-                    declInfo = DeclInfo {
+                    declInfo =
+                    DeclInfo {
                       declLoc =
                       "fun_attributes.h:10:9",
                       declId = NamePair {
@@ -108,16 +195,56 @@
                         (AnonId
                           "fun_attributes.h:10:9"),
                       declAliases = [Name "FILE"],
-                      declHeader =
-                      "fun_attributes.h"},
-                    declKind = Struct
+                      declHeader = "fun_attributes.h",
+                      declComment =
+                      Just
+                        Comment {
+                          commentCName = "FILE",
+                          commentChildren =
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "Attributes on functions"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                                TextContent
+                                  "We should take advantage of `pure` and `const attributes."]]}},
+                    declKind =
+                    Struct
                       Struct {
                         structNames = RecordNames
                           (HsName "@NsConstr" "FILE"),
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment =
+                        Just
+                          Comment {
+                            commentCName = "FILE",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Attributes on functions"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                                  TextContent
+                                    "We should take advantage of `pure` and `const attributes."]]}},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -127,7 +254,8 @@
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             []),
-        storablePoke = Lambda
+        storablePoke =
+        Lambda
           (NameHint "ptr")
           (Lambda
             (NameHint "s")
@@ -141,9 +269,11 @@
                   "@NsConstr"
                   "FILE",
                 structFields = [],
-                structOrigin = Just
+                structOrigin =
+                Just
                   Decl {
-                    declInfo = DeclInfo {
+                    declInfo =
+                    DeclInfo {
                       declLoc =
                       "fun_attributes.h:10:9",
                       declId = NamePair {
@@ -154,16 +284,56 @@
                         (AnonId
                           "fun_attributes.h:10:9"),
                       declAliases = [Name "FILE"],
-                      declHeader =
-                      "fun_attributes.h"},
-                    declKind = Struct
+                      declHeader = "fun_attributes.h",
+                      declComment =
+                      Just
+                        Comment {
+                          commentCName = "FILE",
+                          commentChildren =
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "Attributes on functions"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                                TextContent
+                                  "We should take advantage of `pure` and `const attributes."]]}},
+                    declKind =
+                    Struct
                       Struct {
                         structNames = RecordNames
                           (HsName "@NsConstr" "FILE"),
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment =
+                        Just
+                          Comment {
+                            commentCName = "FILE",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Attributes on functions"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "TODO: https://github.com/well-typed/hs-bindgen/issues/67",
+                                  TextContent
+                                    "We should take advantage of `pure` and `const attributes."]]}},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -207,8 +377,8 @@
               "Size_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "fun_attributes.h"},
+          declHeader = "fun_attributes.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -219,7 +389,8 @@
                 "@NsVar"
                 "un_Size_t"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -337,7 +508,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -356,7 +528,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -399,7 +572,8 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -442,7 +616,8 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -477,7 +652,8 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -509,7 +685,8 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -541,7 +718,8 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -564,7 +742,8 @@
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -584,7 +763,8 @@
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -622,7 +802,8 @@
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed))))}},
+                  (Just Signed)))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -667,7 +848,8 @@
                       "FILE"}
                   (NameOriginGenerated
                     (AnonId
-                      "fun_attributes.h:10:9")))))}},
+                      "fun_attributes.h:10:9"))))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -686,7 +868,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -724,7 +907,8 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -743,7 +927,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -769,7 +954,8 @@
                   (PrimSignImplicit
                     (Just Signed))))],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -801,7 +987,8 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -820,7 +1007,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -840,7 +1028,8 @@
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -860,7 +1049,8 @@
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -879,7 +1069,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclForeignImport
@@ -914,7 +1105,8 @@
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -934,7 +1126,8 @@
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -954,7 +1147,8 @@
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -974,4 +1168,5 @@
         Function {
           functionArgs = [],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}}]
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}}]

@@ -9,7 +9,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "n"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -36,7 +37,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "m"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -68,7 +70,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "f"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -117,7 +120,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -167,7 +171,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "k"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -226,7 +231,8 @@ TranslationUnit {
             "Arr1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -240,9 +246,8 @@ TranslationUnit {
             macroType = TypeConstArray
               3
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -259,7 +264,8 @@ TranslationUnit {
             "Arr2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -273,9 +279,8 @@ TranslationUnit {
             macroType = TypeConstArray
               8
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -292,7 +297,8 @@ TranslationUnit {
             "Arr3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -306,9 +312,8 @@ TranslationUnit {
             macroType = TypeConstArray
               18
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -325,7 +330,8 @@ TranslationUnit {
             "Arr4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "type_naturals.h"},
+        declHeader = "type_naturals.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -339,9 +345,8 @@ TranslationUnit {
             macroType = TypeConstArray
               252
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

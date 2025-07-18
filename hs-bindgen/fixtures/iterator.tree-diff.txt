@@ -9,7 +9,8 @@ TranslationUnit {
             "Toggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -22,7 +23,8 @@ TranslationUnit {
           typedefType = TypeBlock
             (TypeFun
               []
-              (TypePrim PrimBool))},
+              (TypePrim PrimBool)),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -38,7 +40,8 @@ TranslationUnit {
             "makeToggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -48,7 +51,8 @@ TranslationUnit {
               NamePair {
                 nameC = Name "Toggle",
                 nameHsIdent = HsIdentifier
-                  "Toggle"})},
+                  "Toggle"}),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -64,7 +68,8 @@ TranslationUnit {
             "toggleNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -74,8 +79,8 @@ TranslationUnit {
                   nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
-          functionRes = TypePrim
-            PrimBool},
+          functionRes = TypePrim PrimBool,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -91,7 +96,8 @@ TranslationUnit {
             "releaseToggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -101,7 +107,8 @@ TranslationUnit {
                   nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -117,7 +124,8 @@ TranslationUnit {
             "Counter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -131,9 +139,8 @@ TranslationUnit {
             (TypeFun
               []
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+                (PrimIntegral PrimInt Signed))),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -149,7 +156,8 @@ TranslationUnit {
             "makeCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -162,7 +170,8 @@ TranslationUnit {
               NamePair {
                 nameC = Name "Counter",
                 nameHsIdent = HsIdentifier
-                  "Counter"})},
+                  "Counter"}),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -178,7 +187,8 @@ TranslationUnit {
             "counterNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -189,7 +199,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Counter"})],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -205,7 +216,8 @@ TranslationUnit {
             "releaseCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -215,7 +227,8 @@ TranslationUnit {
                   nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -231,7 +244,8 @@ TranslationUnit {
             "VarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -247,9 +261,8 @@ TranslationUnit {
                 TypePrim
                   (PrimIntegral PrimInt Signed)]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+                (PrimIntegral PrimInt Signed))),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -265,7 +278,8 @@ TranslationUnit {
             "makeVarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -276,7 +290,8 @@ TranslationUnit {
               NamePair {
                 nameC = Name "VarCounter",
                 nameHsIdent = HsIdentifier
-                  "VarCounter"})},
+                  "VarCounter"}),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -292,7 +307,8 @@ TranslationUnit {
             "varCounterNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -305,7 +321,8 @@ TranslationUnit {
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -322,7 +339,8 @@ TranslationUnit {
             "releaseVarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -332,7 +350,8 @@ TranslationUnit {
                   nameC = Name "VarCounter",
                   nameHsIdent = HsIdentifier
                     "VarCounter"})],
-          functionRes = TypeVoid},
+          functionRes = TypeVoid,
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

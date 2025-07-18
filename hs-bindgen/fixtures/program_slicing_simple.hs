@@ -27,7 +27,8 @@
             Name "uint_fast32_t",
             Name "uint_least32_t"],
           declHeader =
-          "program_slicing_simple.h"},
+          "program_slicing_simple.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -38,9 +39,8 @@
                 "@NsVar"
                 "un_Uint32_t"},
             typedefType = TypePrim
-              (PrimIntegral
-                PrimInt
-                Unsigned)},
+              (PrimIntegral PrimInt Unsigned),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -389,7 +389,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -413,7 +414,8 @@
                     nameHsIdent = HsIdentifier
                       "Uint32_t"}),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -426,7 +428,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "program_slicing_simple.h"},
+            "program_slicing_simple.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -558,7 +561,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "program_slicing_simple.h:5:12",
@@ -573,8 +577,10 @@
                         nameHsIdent = HsIdentifier
                           "Uint32_t"}),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -833,7 +839,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -857,7 +864,8 @@
                       nameHsIdent = HsIdentifier
                         "Uint32_t"}),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -870,7 +878,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "program_slicing_simple.h"},
+              "program_slicing_simple.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1002,7 +1011,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "program_slicing_simple.h:5:12",
@@ -1017,8 +1027,10 @@
                           nameHsIdent = HsIdentifier
                             "Uint32_t"}),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1282,7 +1294,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1306,7 +1319,8 @@
                               nameHsIdent = HsIdentifier
                                 "Uint32_t"}),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1319,7 +1333,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "program_slicing_simple.h"},
+                      "program_slicing_simple.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1451,7 +1466,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "program_slicing_simple.h:5:12",
@@ -1466,8 +1482,10 @@
                                   nameHsIdent = HsIdentifier
                                     "Uint32_t"}),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1733,7 +1751,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1757,7 +1776,8 @@
                               nameHsIdent = HsIdentifier
                                 "Uint32_t"}),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1770,7 +1790,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "program_slicing_simple.h"},
+                      "program_slicing_simple.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1902,7 +1923,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "program_slicing_simple.h:5:12",
@@ -1917,8 +1939,10 @@
                                   nameHsIdent = HsIdentifier
                                     "Uint32_t"}),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

@@ -136,7 +136,8 @@
               "enum_cpp_syntax.h:4:9"),
           declAliases = [Name "foo_enum"],
           declHeader =
-          "enum_cpp_syntax.h"},
+          "enum_cpp_syntax.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -271,21 +272,25 @@
                 enumConstantName = NamePair {
                   nameC = Name "A",
                   nameHsIdent = HsIdentifier "A"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enum_cpp_syntax.h:4:30",
                 enumConstantName = NamePair {
                   nameC = Name "B",
                   nameHsIdent = HsIdentifier "B"},
-                enumConstantValue = 1},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enum_cpp_syntax.h:4:33",
                 enumConstantName = NamePair {
                   nameC = Name "C",
                   nameHsIdent = HsIdentifier "C"},
-                enumConstantValue = 2}]},
+                enumConstantValue = 2,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1384,7 +1389,8 @@
           enumConstantName = NamePair {
             nameC = Name "A",
             nameHsIdent = HsIdentifier "A"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1404,7 +1410,8 @@
           enumConstantName = NamePair {
             nameC = Name "B",
             nameHsIdent = HsIdentifier "B"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1424,4 +1431,5 @@
           enumConstantName = NamePair {
             nameC = Name "C",
             nameHsIdent = HsIdentifier "C"},
-          enumConstantValue = 2}}]
+          enumConstantValue = 2,
+          enumConstantComment = Nothing}}]

@@ -50,6 +50,7 @@ module HsBindgen.Frontend.AST.External (
 
 import Prelude hiding (Enum)
 
+import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Frontend.AST.Internal qualified as Int
@@ -97,6 +98,7 @@ data DeclInfo = DeclInfo{
     , declOrigin  :: NameOrigin
     , declAliases :: [C.Name]
     , declHeader  :: CHeaderIncludePath
+    , declComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -127,15 +129,18 @@ data Struct = Struct {
 
       -- | Type of the elements of the FLAM, if any
     , structFlam :: Maybe StructField
+
+    , structComment :: Maybe Comment
   }
   deriving stock (Show, Eq, Generic)
 
 data StructField = StructField {
-      structFieldLoc    :: SingleLoc
-    , structFieldName   :: MangleNames.NamePair
-    , structFieldType   :: Type
-    , structFieldOffset :: Int -- ^ Offset in bits
-    , structFieldWidth  :: Maybe Int
+      structFieldLoc     :: SingleLoc
+    , structFieldName    :: MangleNames.NamePair
+    , structFieldType    :: Type
+    , structFieldOffset  :: Int -- ^ Offset in bits
+    , structFieldWidth   :: Maybe Int
+    , structFieldComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -149,13 +154,15 @@ data Union = Union {
     , unionSizeof    :: Int
     , unionAlignment :: Int
     , unionFields    :: [UnionField]
+    , unionComment   :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
 data UnionField = UnionField {
-      unionFieldLoc  :: SingleLoc
-    , unionFieldName :: MangleNames.NamePair
-    , unionFieldType :: Type
+      unionFieldLoc     :: SingleLoc
+    , unionFieldName    :: MangleNames.NamePair
+    , unionFieldType    :: Type
+    , unionFieldComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -169,13 +176,15 @@ data Enum = Enum {
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumConstants :: [EnumConstant]
+    , enumComment   :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
 data EnumConstant = EnumConstant {
-      enumConstantLoc   :: SingleLoc
-    , enumConstantName  :: MangleNames.NamePair
-    , enumConstantValue :: Integer
+      enumConstantLoc     :: SingleLoc
+    , enumConstantName    :: MangleNames.NamePair
+    , enumConstantValue   :: Integer
+    , enumConstantComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -184,8 +193,9 @@ data EnumConstant = EnumConstant {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefNames :: MangleNames.NewtypeNames
-    , typedefType  :: Type
+      typedefNames   :: MangleNames.NewtypeNames
+    , typedefType    :: Type
+    , typedefComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -194,8 +204,9 @@ data Typedef = Typedef {
 -------------------------------------------------------------------------------}
 
 data Function = Function {
-      functionArgs :: [Type]
-    , functionRes  :: Type
+      functionArgs    :: [Type]
+    , functionRes     :: Type
+    , functionComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -208,9 +219,10 @@ data CheckedMacro =
   | MacroExpr Int.CheckedMacroExpr
   deriving stock (Show, Eq, Generic)
 
-data CheckedMacroType = CheckedMacroType{
-      macroTypeNames :: MangleNames.NewtypeNames
-    , macroType      :: Type
+data CheckedMacroType = CheckedMacroType {
+      macroTypeNames   :: MangleNames.NewtypeNames
+    , macroType        :: Type
+    , macroTypeComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 

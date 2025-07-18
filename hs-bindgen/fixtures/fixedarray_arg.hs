@@ -27,7 +27,8 @@
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclSimple,
   DeclNewtype
     Newtype {
@@ -55,8 +56,8 @@
               "Triple"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "fixedarray_arg.h"},
+          declHeader = "fixedarray_arg.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -69,7 +70,8 @@
             typedefType = TypeConstArray
               3
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -122,5 +124,6 @@
                   nameHsIdent = HsIdentifier
                     "Triple"})],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclSimple]

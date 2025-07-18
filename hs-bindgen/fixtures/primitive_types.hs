@@ -27,7 +27,8 @@
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -46,7 +47,8 @@
                 (PrimChar
                   (PrimSignExplicit Signed)),
               structFieldOffset = 8,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -65,7 +67,8 @@
                 (PrimChar
                   (PrimSignExplicit Unsigned)),
               structFieldOffset = 16,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -83,7 +86,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -101,7 +105,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               structFieldOffset = 48,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -119,7 +124,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -137,7 +143,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               structFieldOffset = 80,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -157,7 +164,8 @@
                   PrimShort
                   Unsigned),
               structFieldOffset = 96,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -177,7 +185,8 @@
                   PrimShort
                   Unsigned),
               structFieldOffset = 112,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -195,7 +204,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 128,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -213,7 +223,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 160,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -231,7 +242,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 192,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -249,7 +261,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 224,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -267,7 +280,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -285,7 +299,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 320,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -303,7 +318,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 384,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -321,7 +337,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 448,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -339,7 +356,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 512,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -359,7 +377,8 @@
                   PrimLong
                   Unsigned),
               structFieldOffset = 576,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -379,7 +398,8 @@
                   PrimLong
                   Unsigned),
               structFieldOffset = 640,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -399,7 +419,8 @@
                   PrimLongLong
                   Signed),
               structFieldOffset = 704,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -419,7 +440,8 @@
                   PrimLongLong
                   Signed),
               structFieldOffset = 768,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -439,7 +461,8 @@
                   PrimLongLong
                   Signed),
               structFieldOffset = 832,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -459,7 +482,8 @@
                   PrimLongLong
                   Signed),
               structFieldOffset = 896,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -479,7 +503,8 @@
                   PrimLongLong
                   Unsigned),
               structFieldOffset = 960,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -499,7 +524,8 @@
                   PrimLongLong
                   Unsigned),
               structFieldOffset = 1024,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -517,7 +543,8 @@
               structFieldType = TypePrim
                 (PrimFloating PrimFloat),
               structFieldOffset = 1088,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -535,7 +562,8 @@
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 1152,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -548,7 +576,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "primitive_types.h"},
+            "primitive_types.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -570,7 +599,8 @@
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:3:17",
@@ -582,7 +612,8 @@
                     (PrimChar
                       (PrimSignExplicit Signed)),
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:4:19",
@@ -594,7 +625,8 @@
                     (PrimChar
                       (PrimSignExplicit Unsigned)),
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:6:11",
@@ -605,7 +637,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:7:15",
@@ -616,7 +649,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 48,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:8:18",
@@ -627,7 +661,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:9:22",
@@ -638,7 +673,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 80,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:11:20",
@@ -651,7 +687,8 @@
                       PrimShort
                       Unsigned),
                   structFieldOffset = 96,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:12:24",
@@ -664,7 +701,8 @@
                       PrimShort
                       Unsigned),
                   structFieldOffset = 112,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:14:9",
@@ -675,7 +713,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:15:12",
@@ -686,7 +725,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 160,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:16:16",
@@ -697,7 +737,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:18:14",
@@ -708,7 +749,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 224,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:19:18",
@@ -719,7 +761,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:21:10",
@@ -730,7 +773,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 320,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:22:14",
@@ -741,7 +785,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 384,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:23:17",
@@ -752,7 +797,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 448,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:24:21",
@@ -763,7 +809,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 512,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:26:19",
@@ -776,7 +823,8 @@
                       PrimLong
                       Unsigned),
                   structFieldOffset = 576,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:27:23",
@@ -789,7 +837,8 @@
                       PrimLong
                       Unsigned),
                   structFieldOffset = 640,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:29:15",
@@ -802,7 +851,8 @@
                       PrimLongLong
                       Signed),
                   structFieldOffset = 704,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:30:19",
@@ -815,7 +865,8 @@
                       PrimLongLong
                       Signed),
                   structFieldOffset = 768,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:31:22",
@@ -828,7 +879,8 @@
                       PrimLongLong
                       Signed),
                   structFieldOffset = 832,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:32:26",
@@ -841,7 +893,8 @@
                       PrimLongLong
                       Signed),
                   structFieldOffset = 896,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:34:24",
@@ -854,7 +907,8 @@
                       PrimLongLong
                       Unsigned),
                   structFieldOffset = 960,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:35:28",
@@ -867,7 +921,8 @@
                       PrimLongLong
                       Unsigned),
                   structFieldOffset = 1024,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:37:11",
@@ -878,7 +933,8 @@
                   structFieldType = TypePrim
                     (PrimFloating PrimFloat),
                   structFieldOffset = 1088,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "primitive_types.h:38:12",
@@ -889,8 +945,10 @@
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 1152,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -928,7 +986,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -947,7 +1006,8 @@
                   (PrimChar
                     (PrimSignExplicit Signed)),
                 structFieldOffset = 8,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -966,7 +1026,8 @@
                   (PrimChar
                     (PrimSignExplicit Unsigned)),
                 structFieldOffset = 16,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -984,7 +1045,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1002,7 +1064,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 structFieldOffset = 48,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1020,7 +1083,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1038,7 +1102,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 structFieldOffset = 80,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1058,7 +1123,8 @@
                     PrimShort
                     Unsigned),
                 structFieldOffset = 96,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1078,7 +1144,8 @@
                     PrimShort
                     Unsigned),
                 structFieldOffset = 112,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1096,7 +1163,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 128,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1114,7 +1182,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 160,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1132,7 +1201,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 192,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1150,7 +1220,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Unsigned),
                 structFieldOffset = 224,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1168,7 +1239,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Unsigned),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1186,7 +1258,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 structFieldOffset = 320,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1204,7 +1277,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 structFieldOffset = 384,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1222,7 +1296,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 structFieldOffset = 448,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1240,7 +1315,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 structFieldOffset = 512,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1260,7 +1336,8 @@
                     PrimLong
                     Unsigned),
                 structFieldOffset = 576,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1280,7 +1357,8 @@
                     PrimLong
                     Unsigned),
                 structFieldOffset = 640,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1300,7 +1378,8 @@
                     PrimLongLong
                     Signed),
                 structFieldOffset = 704,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1320,7 +1399,8 @@
                     PrimLongLong
                     Signed),
                 structFieldOffset = 768,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1340,7 +1420,8 @@
                     PrimLongLong
                     Signed),
                 structFieldOffset = 832,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1360,7 +1441,8 @@
                     PrimLongLong
                     Signed),
                 structFieldOffset = 896,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1380,7 +1462,8 @@
                     PrimLongLong
                     Unsigned),
                 structFieldOffset = 960,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1400,7 +1483,8 @@
                     PrimLongLong
                     Unsigned),
                 structFieldOffset = 1024,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1418,7 +1502,8 @@
                 structFieldType = TypePrim
                   (PrimFloating PrimFloat),
                 structFieldOffset = 1088,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1436,7 +1521,8 @@
                 structFieldType = TypePrim
                   (PrimFloating PrimDouble),
                 structFieldOffset = 1152,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1449,7 +1535,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "primitive_types.h"},
+              "primitive_types.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1471,7 +1558,8 @@
                         (PrimSignImplicit
                           (Just Signed))),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:3:17",
@@ -1483,7 +1571,8 @@
                       (PrimChar
                         (PrimSignExplicit Signed)),
                     structFieldOffset = 8,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:4:19",
@@ -1495,7 +1584,8 @@
                       (PrimChar
                         (PrimSignExplicit Unsigned)),
                     structFieldOffset = 16,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:6:11",
@@ -1506,7 +1596,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimShort Signed),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:7:15",
@@ -1517,7 +1608,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimShort Signed),
                     structFieldOffset = 48,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:8:18",
@@ -1528,7 +1620,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimShort Signed),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:9:22",
@@ -1539,7 +1632,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimShort Signed),
                     structFieldOffset = 80,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:11:20",
@@ -1552,7 +1646,8 @@
                         PrimShort
                         Unsigned),
                     structFieldOffset = 96,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:12:24",
@@ -1565,7 +1660,8 @@
                         PrimShort
                         Unsigned),
                     structFieldOffset = 112,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:14:9",
@@ -1576,7 +1672,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 128,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:15:12",
@@ -1587,7 +1684,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 160,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:16:16",
@@ -1598,7 +1696,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 192,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:18:14",
@@ -1609,7 +1708,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     structFieldOffset = 224,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:19:18",
@@ -1620,7 +1720,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:21:10",
@@ -1631,7 +1732,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimLong Signed),
                     structFieldOffset = 320,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:22:14",
@@ -1642,7 +1744,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimLong Signed),
                     structFieldOffset = 384,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:23:17",
@@ -1653,7 +1756,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimLong Signed),
                     structFieldOffset = 448,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:24:21",
@@ -1664,7 +1768,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimLong Signed),
                     structFieldOffset = 512,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:26:19",
@@ -1677,7 +1782,8 @@
                         PrimLong
                         Unsigned),
                     structFieldOffset = 576,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:27:23",
@@ -1690,7 +1796,8 @@
                         PrimLong
                         Unsigned),
                     structFieldOffset = 640,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:29:15",
@@ -1703,7 +1810,8 @@
                         PrimLongLong
                         Signed),
                     structFieldOffset = 704,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:30:19",
@@ -1716,7 +1824,8 @@
                         PrimLongLong
                         Signed),
                     structFieldOffset = 768,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:31:22",
@@ -1729,7 +1838,8 @@
                         PrimLongLong
                         Signed),
                     structFieldOffset = 832,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:32:26",
@@ -1742,7 +1852,8 @@
                         PrimLongLong
                         Signed),
                     structFieldOffset = 896,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:34:24",
@@ -1755,7 +1866,8 @@
                         PrimLongLong
                         Unsigned),
                     structFieldOffset = 960,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:35:28",
@@ -1768,7 +1880,8 @@
                         PrimLongLong
                         Unsigned),
                     structFieldOffset = 1024,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:37:11",
@@ -1779,7 +1892,8 @@
                     structFieldType = TypePrim
                       (PrimFloating PrimFloat),
                     structFieldOffset = 1088,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "primitive_types.h:38:12",
@@ -1790,8 +1904,10 @@
                     structFieldType = TypePrim
                       (PrimFloating PrimDouble),
                     structFieldOffset = 1152,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1834,7 +1950,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1853,7 +1970,8 @@
                           (PrimChar
                             (PrimSignExplicit Signed)),
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1872,7 +1990,8 @@
                           (PrimChar
                             (PrimSignExplicit Unsigned)),
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1890,7 +2009,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1908,7 +2028,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         structFieldOffset = 48,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1926,7 +2047,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1944,7 +2066,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         structFieldOffset = 80,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1964,7 +2087,8 @@
                             PrimShort
                             Unsigned),
                         structFieldOffset = 96,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1984,7 +2108,8 @@
                             PrimShort
                             Unsigned),
                         structFieldOffset = 112,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2002,7 +2127,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2020,7 +2146,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 160,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2038,7 +2165,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 192,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2056,7 +2184,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         structFieldOffset = 224,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2074,7 +2203,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2092,7 +2222,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         structFieldOffset = 320,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2110,7 +2241,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         structFieldOffset = 384,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2128,7 +2260,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         structFieldOffset = 448,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2146,7 +2279,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         structFieldOffset = 512,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2166,7 +2300,8 @@
                             PrimLong
                             Unsigned),
                         structFieldOffset = 576,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2186,7 +2321,8 @@
                             PrimLong
                             Unsigned),
                         structFieldOffset = 640,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2206,7 +2342,8 @@
                             PrimLongLong
                             Signed),
                         structFieldOffset = 704,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2226,7 +2363,8 @@
                             PrimLongLong
                             Signed),
                         structFieldOffset = 768,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2246,7 +2384,8 @@
                             PrimLongLong
                             Signed),
                         structFieldOffset = 832,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2266,7 +2405,8 @@
                             PrimLongLong
                             Signed),
                         structFieldOffset = 896,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2286,7 +2426,8 @@
                             PrimLongLong
                             Unsigned),
                         structFieldOffset = 960,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2306,7 +2447,8 @@
                             PrimLongLong
                             Unsigned),
                         structFieldOffset = 1024,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2324,7 +2466,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimFloat),
                         structFieldOffset = 1088,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2342,7 +2485,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 1152,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2355,7 +2499,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "primitive_types.h"},
+                      "primitive_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2377,7 +2522,8 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:3:17",
@@ -2389,7 +2535,8 @@
                               (PrimChar
                                 (PrimSignExplicit Signed)),
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:4:19",
@@ -2401,7 +2548,8 @@
                               (PrimChar
                                 (PrimSignExplicit Unsigned)),
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:6:11",
@@ -2412,7 +2560,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimShort Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:7:15",
@@ -2423,7 +2572,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimShort Signed),
                             structFieldOffset = 48,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:8:18",
@@ -2434,7 +2584,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimShort Signed),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:9:22",
@@ -2445,7 +2596,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimShort Signed),
                             structFieldOffset = 80,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:11:20",
@@ -2458,7 +2610,8 @@
                                 PrimShort
                                 Unsigned),
                             structFieldOffset = 96,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:12:24",
@@ -2471,7 +2624,8 @@
                                 PrimShort
                                 Unsigned),
                             structFieldOffset = 112,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:14:9",
@@ -2482,7 +2636,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:15:12",
@@ -2493,7 +2648,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 160,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:16:16",
@@ -2504,7 +2660,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 192,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:18:14",
@@ -2515,7 +2672,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Unsigned),
                             structFieldOffset = 224,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:19:18",
@@ -2526,7 +2684,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Unsigned),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:21:10",
@@ -2537,7 +2696,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimLong Signed),
                             structFieldOffset = 320,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:22:14",
@@ -2548,7 +2708,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimLong Signed),
                             structFieldOffset = 384,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:23:17",
@@ -2559,7 +2720,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimLong Signed),
                             structFieldOffset = 448,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:24:21",
@@ -2570,7 +2732,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimLong Signed),
                             structFieldOffset = 512,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:26:19",
@@ -2583,7 +2746,8 @@
                                 PrimLong
                                 Unsigned),
                             structFieldOffset = 576,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:27:23",
@@ -2596,7 +2760,8 @@
                                 PrimLong
                                 Unsigned),
                             structFieldOffset = 640,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:29:15",
@@ -2609,7 +2774,8 @@
                                 PrimLongLong
                                 Signed),
                             structFieldOffset = 704,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:30:19",
@@ -2622,7 +2788,8 @@
                                 PrimLongLong
                                 Signed),
                             structFieldOffset = 768,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:31:22",
@@ -2635,7 +2802,8 @@
                                 PrimLongLong
                                 Signed),
                             structFieldOffset = 832,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:32:26",
@@ -2648,7 +2816,8 @@
                                 PrimLongLong
                                 Signed),
                             structFieldOffset = 896,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:34:24",
@@ -2661,7 +2830,8 @@
                                 PrimLongLong
                                 Unsigned),
                             structFieldOffset = 960,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:35:28",
@@ -2674,7 +2844,8 @@
                                 PrimLongLong
                                 Unsigned),
                             structFieldOffset = 1024,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:37:11",
@@ -2685,7 +2856,8 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimFloat),
                             structFieldOffset = 1088,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:38:12",
@@ -2696,8 +2868,10 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 1152,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2768,7 +2942,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2787,7 +2962,8 @@
                           (PrimChar
                             (PrimSignExplicit Signed)),
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2806,7 +2982,8 @@
                           (PrimChar
                             (PrimSignExplicit Unsigned)),
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2824,7 +3001,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2842,7 +3020,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         structFieldOffset = 48,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2860,7 +3039,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2878,7 +3058,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         structFieldOffset = 80,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2898,7 +3079,8 @@
                             PrimShort
                             Unsigned),
                         structFieldOffset = 96,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2918,7 +3100,8 @@
                             PrimShort
                             Unsigned),
                         structFieldOffset = 112,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2936,7 +3119,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2954,7 +3138,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 160,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2972,7 +3157,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 192,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2990,7 +3176,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         structFieldOffset = 224,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3008,7 +3195,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3026,7 +3214,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         structFieldOffset = 320,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3044,7 +3233,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         structFieldOffset = 384,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3062,7 +3252,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         structFieldOffset = 448,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3080,7 +3271,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         structFieldOffset = 512,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3100,7 +3292,8 @@
                             PrimLong
                             Unsigned),
                         structFieldOffset = 576,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3120,7 +3313,8 @@
                             PrimLong
                             Unsigned),
                         structFieldOffset = 640,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3140,7 +3334,8 @@
                             PrimLongLong
                             Signed),
                         structFieldOffset = 704,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3160,7 +3355,8 @@
                             PrimLongLong
                             Signed),
                         structFieldOffset = 768,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3180,7 +3376,8 @@
                             PrimLongLong
                             Signed),
                         structFieldOffset = 832,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3200,7 +3397,8 @@
                             PrimLongLong
                             Signed),
                         structFieldOffset = 896,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3220,7 +3418,8 @@
                             PrimLongLong
                             Unsigned),
                         structFieldOffset = 960,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3240,7 +3439,8 @@
                             PrimLongLong
                             Unsigned),
                         structFieldOffset = 1024,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3258,7 +3458,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimFloat),
                         structFieldOffset = 1088,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3276,7 +3477,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 1152,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -3289,7 +3491,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "primitive_types.h"},
+                      "primitive_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3311,7 +3514,8 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:3:17",
@@ -3323,7 +3527,8 @@
                               (PrimChar
                                 (PrimSignExplicit Signed)),
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:4:19",
@@ -3335,7 +3540,8 @@
                               (PrimChar
                                 (PrimSignExplicit Unsigned)),
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:6:11",
@@ -3346,7 +3552,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimShort Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:7:15",
@@ -3357,7 +3564,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimShort Signed),
                             structFieldOffset = 48,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:8:18",
@@ -3368,7 +3576,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimShort Signed),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:9:22",
@@ -3379,7 +3588,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimShort Signed),
                             structFieldOffset = 80,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:11:20",
@@ -3392,7 +3602,8 @@
                                 PrimShort
                                 Unsigned),
                             structFieldOffset = 96,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:12:24",
@@ -3405,7 +3616,8 @@
                                 PrimShort
                                 Unsigned),
                             structFieldOffset = 112,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:14:9",
@@ -3416,7 +3628,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:15:12",
@@ -3427,7 +3640,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 160,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:16:16",
@@ -3438,7 +3652,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 192,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:18:14",
@@ -3449,7 +3664,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Unsigned),
                             structFieldOffset = 224,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:19:18",
@@ -3460,7 +3676,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Unsigned),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:21:10",
@@ -3471,7 +3688,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimLong Signed),
                             structFieldOffset = 320,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:22:14",
@@ -3482,7 +3700,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimLong Signed),
                             structFieldOffset = 384,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:23:17",
@@ -3493,7 +3712,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimLong Signed),
                             structFieldOffset = 448,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:24:21",
@@ -3504,7 +3724,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimLong Signed),
                             structFieldOffset = 512,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:26:19",
@@ -3517,7 +3738,8 @@
                                 PrimLong
                                 Unsigned),
                             structFieldOffset = 576,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:27:23",
@@ -3530,7 +3752,8 @@
                                 PrimLong
                                 Unsigned),
                             structFieldOffset = 640,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:29:15",
@@ -3543,7 +3766,8 @@
                                 PrimLongLong
                                 Signed),
                             structFieldOffset = 704,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:30:19",
@@ -3556,7 +3780,8 @@
                                 PrimLongLong
                                 Signed),
                             structFieldOffset = 768,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:31:22",
@@ -3569,7 +3794,8 @@
                                 PrimLongLong
                                 Signed),
                             structFieldOffset = 832,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:32:26",
@@ -3582,7 +3808,8 @@
                                 PrimLongLong
                                 Signed),
                             structFieldOffset = 896,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:34:24",
@@ -3595,7 +3822,8 @@
                                 PrimLongLong
                                 Unsigned),
                             structFieldOffset = 960,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:35:28",
@@ -3608,7 +3836,8 @@
                                 PrimLongLong
                                 Unsigned),
                             structFieldOffset = 1024,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:37:11",
@@ -3619,7 +3848,8 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimFloat),
                             structFieldOffset = 1088,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "primitive_types.h:38:12",
@@ -3630,8 +3860,10 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 1152,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

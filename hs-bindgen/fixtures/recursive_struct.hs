@@ -25,7 +25,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -52,7 +53,8 @@
                   (NameOriginRenamedFrom
                     (Name "linked_list_A_s"))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -68,7 +70,8 @@
             declAliases = [
               Name "linked_list_A_t"],
             declHeader =
-            "recursive_struct.h"},
+            "recursive_struct.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -88,7 +91,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "recursive_struct.h:3:27",
@@ -105,8 +109,10 @@
                       (NameOriginRenamedFrom
                         (Name "linked_list_A_s"))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -142,7 +148,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -169,7 +176,8 @@
                     (NameOriginRenamedFrom
                       (Name "linked_list_A_s"))),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -185,7 +193,8 @@
               declAliases = [
                 Name "linked_list_A_t"],
               declHeader =
-              "recursive_struct.h"},
+              "recursive_struct.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -205,7 +214,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "recursive_struct.h:3:27",
@@ -222,8 +232,10 @@
                         (NameOriginRenamedFrom
                           (Name "linked_list_A_s"))),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -264,7 +276,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -291,7 +304,8 @@
                             (NameOriginRenamedFrom
                               (Name "linked_list_A_s"))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -307,7 +321,8 @@
                       declAliases = [
                         Name "linked_list_A_t"],
                       declHeader =
-                      "recursive_struct.h"},
+                      "recursive_struct.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -327,7 +342,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "recursive_struct.h:3:27",
@@ -344,8 +360,10 @@
                                 (NameOriginRenamedFrom
                                   (Name "linked_list_A_s"))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -388,7 +406,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -415,7 +434,8 @@
                             (NameOriginRenamedFrom
                               (Name "linked_list_A_s"))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -431,7 +451,8 @@
                       declAliases = [
                         Name "linked_list_A_t"],
                       declHeader =
-                      "recursive_struct.h"},
+                      "recursive_struct.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -451,7 +472,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "recursive_struct.h:3:27",
@@ -468,8 +490,10 @@
                                 (NameOriginRenamedFrom
                                   (Name "linked_list_A_s"))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -524,7 +548,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -553,7 +578,8 @@
                           "Linked_list_B_t"}
                       NameOriginInSource))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -567,7 +593,8 @@
             declAliases = [
               Name "linked_list_B_t"],
             declHeader =
-            "recursive_struct.h"},
+            "recursive_struct.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -587,7 +614,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "recursive_struct.h:11:20",
@@ -606,8 +634,10 @@
                               "Linked_list_B_t"}
                           NameOriginInSource))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -643,7 +673,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -672,7 +703,8 @@
                             "Linked_list_B_t"}
                         NameOriginInSource))),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -686,7 +718,8 @@
               declAliases = [
                 Name "linked_list_B_t"],
               declHeader =
-              "recursive_struct.h"},
+              "recursive_struct.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -706,7 +739,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "recursive_struct.h:11:20",
@@ -725,8 +759,10 @@
                                 "Linked_list_B_t"}
                             NameOriginInSource))),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -767,7 +803,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -796,7 +833,8 @@
                                     "Linked_list_B_t"}
                                 NameOriginInSource))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -810,7 +848,8 @@
                       declAliases = [
                         Name "linked_list_B_t"],
                       declHeader =
-                      "recursive_struct.h"},
+                      "recursive_struct.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -830,7 +869,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "recursive_struct.h:11:20",
@@ -849,8 +889,10 @@
                                         "Linked_list_B_t"}
                                     NameOriginInSource))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -893,7 +935,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -922,7 +965,8 @@
                                     "Linked_list_B_t"}
                                 NameOriginInSource))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -936,7 +980,8 @@
                       declAliases = [
                         Name "linked_list_B_t"],
                       declHeader =
-                      "recursive_struct.h"},
+                      "recursive_struct.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -956,7 +1001,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "recursive_struct.h:11:20",
@@ -975,8 +1021,10 @@
                                         "Linked_list_B_t"}
                                     NameOriginInSource))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

@@ -23,7 +23,8 @@
               "UnionA"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "nested_unions.h"},
+          declHeader = "nested_unions.h",
+          declComment = Nothing},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -44,7 +45,8 @@
                   nameHsIdent = HsIdentifier
                     "unionA_a"},
                 unionFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed)},
+                  (PrimIntegral PrimInt Signed),
+                unionFieldComment = Nothing},
               UnionField {
                 unionFieldLoc =
                 "nested_unions.h:4:22",
@@ -55,7 +57,9 @@
                 unionFieldType = TypePrim
                   (PrimChar
                     (PrimSignImplicit
-                      (Just Signed)))}]},
+                      (Just Signed))),
+                unionFieldComment = Nothing}],
+            unionComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -135,7 +139,8 @@
                     "UnionA"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -146,7 +151,8 @@
                 "ExA"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_unions.h"},
+            declHeader = "nested_unions.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -168,8 +174,10 @@
                         "UnionA"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -211,7 +219,8 @@
                       "UnionA"}
                   NameOriginInSource,
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -222,7 +231,8 @@
                   "ExA"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_unions.h"},
+              declHeader = "nested_unions.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -244,8 +254,10 @@
                           "UnionA"}
                       NameOriginInSource,
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -292,7 +304,8 @@
                               "UnionA"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -303,7 +316,8 @@
                           "ExA"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_unions.h"},
+                      declHeader = "nested_unions.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -325,8 +339,10 @@
                                   "UnionA"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -373,7 +389,8 @@
                               "UnionA"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -384,7 +401,8 @@
                           "ExA"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_unions.h"},
+                      declHeader = "nested_unions.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -406,8 +424,10 @@
                                   "UnionA"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -447,7 +467,8 @@
           declOrigin = NameOriginGenerated
             (AnonId "nested_unions.h:9:9"),
           declAliases = [],
-          declHeader = "nested_unions.h"},
+          declHeader = "nested_unions.h",
+          declComment = Nothing},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -468,7 +489,8 @@
                   nameHsIdent = HsIdentifier
                     "exB_fieldB1_a"},
                 unionFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed)},
+                  (PrimIntegral PrimInt Signed),
+                unionFieldComment = Nothing},
               UnionField {
                 unionFieldLoc =
                 "nested_unions.h:11:22",
@@ -479,7 +501,9 @@
                 unionFieldType = TypePrim
                   (PrimChar
                     (PrimSignImplicit
-                      (Just Signed)))}]},
+                      (Just Signed))),
+                unionFieldComment = Nothing}],
+            unionComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -560,7 +584,8 @@
                 (NameOriginGenerated
                   (AnonId "nested_unions.h:9:9")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -571,7 +596,8 @@
                 "ExB"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_unions.h"},
+            declHeader = "nested_unions.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -594,8 +620,10 @@
                     (NameOriginGenerated
                       (AnonId "nested_unions.h:9:9")),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -638,7 +666,8 @@
                   (NameOriginGenerated
                     (AnonId "nested_unions.h:9:9")),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -649,7 +678,8 @@
                   "ExB"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_unions.h"},
+              declHeader = "nested_unions.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -672,8 +702,10 @@
                       (NameOriginGenerated
                         (AnonId "nested_unions.h:9:9")),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -721,7 +753,8 @@
                           (NameOriginGenerated
                             (AnonId "nested_unions.h:9:9")),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -732,7 +765,8 @@
                           "ExB"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_unions.h"},
+                      declHeader = "nested_unions.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -755,8 +789,10 @@
                               (NameOriginGenerated
                                 (AnonId "nested_unions.h:9:9")),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -804,7 +840,8 @@
                           (NameOriginGenerated
                             (AnonId "nested_unions.h:9:9")),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -815,7 +852,8 @@
                           "ExB"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_unions.h"},
+                      declHeader = "nested_unions.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -838,8 +876,10 @@
                               (NameOriginGenerated
                                 (AnonId "nested_unions.h:9:9")),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

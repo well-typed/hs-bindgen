@@ -20,7 +20,8 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclData
     Struct {
       structName = HsName
@@ -47,7 +48,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -60,7 +62,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "skip_over_long_double.h"},
+            "skip_over_long_double.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -78,8 +81,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -115,7 +120,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -128,7 +134,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "skip_over_long_double.h"},
+              "skip_over_long_double.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -146,8 +153,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -188,7 +197,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -201,7 +211,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "skip_over_long_double.h"},
+                      "skip_over_long_double.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -219,8 +230,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -261,7 +274,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -274,7 +288,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "skip_over_long_double.h"},
+                      "skip_over_long_double.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -292,8 +307,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

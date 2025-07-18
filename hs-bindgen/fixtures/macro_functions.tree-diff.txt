@@ -12,7 +12,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -48,7 +49,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -81,7 +83,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -107,7 +110,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
           CheckedMacroExpr {
@@ -135,7 +139,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -169,7 +174,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -213,7 +219,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -256,7 +263,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -302,7 +310,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr
@@ -346,7 +355,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_functions.h"},
+        "macro_functions.h",
+        declComment = Nothing},
       declKind =
       DeclMacro
         (MacroExpr

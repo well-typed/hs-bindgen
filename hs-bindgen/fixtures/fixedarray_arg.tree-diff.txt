@@ -10,8 +10,8 @@ TranslationUnit {
             "fun_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fixedarray_arg.h"},
+        declHeader = "fixedarray_arg.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -22,7 +22,8 @@ TranslationUnit {
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -39,8 +40,8 @@ TranslationUnit {
             "Triple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fixedarray_arg.h"},
+        declHeader = "fixedarray_arg.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -53,7 +54,8 @@ TranslationUnit {
           typedefType = TypeConstArray
             3
             (TypePrim
-              (PrimIntegral PrimInt Signed))},
+              (PrimIntegral PrimInt Signed)),
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -70,8 +72,8 @@ TranslationUnit {
             "fun_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fixedarray_arg.h"},
+        declHeader = "fixedarray_arg.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -82,7 +84,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "Triple"})],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

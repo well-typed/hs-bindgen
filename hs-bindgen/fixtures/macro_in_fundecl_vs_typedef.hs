@@ -25,7 +25,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          "macro_in_fundecl_vs_typedef.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -37,7 +38,8 @@
                 "un_MC"},
             macroType = TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))},
+                (PrimSignImplicit Nothing)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -137,7 +139,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          "macro_in_fundecl_vs_typedef.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -150,7 +153,8 @@
             typedefType = TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed)))},
+                  (Just Signed))),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -261,7 +265,8 @@
                     "TC"})],
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing))}},
+              (PrimSignImplicit Nothing)),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -301,7 +306,8 @@
               NamePair {
                 nameC = Name "TC",
                 nameHsIdent = HsIdentifier
-                  "TC"})}},
+                  "TC"}),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -344,7 +350,8 @@
               NamePair {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource)}},
+              NameOriginInSource),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -387,7 +394,8 @@
                 NamePair {
                   nameC = Name "TC",
                   nameHsIdent = HsIdentifier
-                    "TC"}))}},
+                    "TC"})),
+          functionComment = Nothing}},
   DeclData
     Struct {
       structName = HsName
@@ -414,7 +422,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -427,7 +436,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "macro_in_fundecl_vs_typedef.h"},
+            "macro_in_fundecl_vs_typedef.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -445,8 +455,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -482,7 +494,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -495,7 +508,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "macro_in_fundecl_vs_typedef.h"},
+              "macro_in_fundecl_vs_typedef.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -513,8 +527,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -555,7 +571,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -568,7 +585,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
+                      "macro_in_fundecl_vs_typedef.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -586,8 +604,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -628,7 +648,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -641,7 +662,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
+                      "macro_in_fundecl_vs_typedef.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -659,8 +681,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -714,7 +738,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -729,7 +754,8 @@
                 "macro_in_fundecl_vs_typedef.h:19:9"),
             declAliases = [Name "struct2"],
             declHeader =
-            "macro_in_fundecl_vs_typedef.h"},
+            "macro_in_fundecl_vs_typedef.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -747,8 +773,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -784,7 +812,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -799,7 +828,8 @@
                   "macro_in_fundecl_vs_typedef.h:19:9"),
               declAliases = [Name "struct2"],
               declHeader =
-              "macro_in_fundecl_vs_typedef.h"},
+              "macro_in_fundecl_vs_typedef.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -817,8 +847,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -859,7 +891,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -874,7 +907,8 @@
                           "macro_in_fundecl_vs_typedef.h:19:9"),
                       declAliases = [Name "struct2"],
                       declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
+                      "macro_in_fundecl_vs_typedef.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -892,8 +926,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -934,7 +970,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -949,7 +986,8 @@
                           "macro_in_fundecl_vs_typedef.h:19:9"),
                       declAliases = [Name "struct2"],
                       declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
+                      "macro_in_fundecl_vs_typedef.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -967,8 +1005,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1022,7 +1062,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1036,7 +1077,8 @@
             declAliases = [
               Name "struct3_t"],
             declHeader =
-            "macro_in_fundecl_vs_typedef.h"},
+            "macro_in_fundecl_vs_typedef.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1054,8 +1096,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1091,7 +1135,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1105,7 +1150,8 @@
               declAliases = [
                 Name "struct3_t"],
               declHeader =
-              "macro_in_fundecl_vs_typedef.h"},
+              "macro_in_fundecl_vs_typedef.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1123,8 +1169,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1165,7 +1213,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1179,7 +1228,8 @@
                       declAliases = [
                         Name "struct3_t"],
                       declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
+                      "macro_in_fundecl_vs_typedef.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1197,8 +1247,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1239,7 +1291,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1253,7 +1306,8 @@
                       declAliases = [
                         Name "struct3_t"],
                       declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
+                      "macro_in_fundecl_vs_typedef.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1271,8 +1325,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1328,7 +1384,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          "macro_in_fundecl_vs_typedef.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1343,7 +1400,8 @@
                 nameC = Name "struct3",
                 nameHsIdent = HsIdentifier
                   "Struct3"}
-              NameOriginInSource},
+              NameOriginInSource,
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1396,7 +1454,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1409,7 +1468,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [Name "struct4"],
             declHeader =
-            "macro_in_fundecl_vs_typedef.h"},
+            "macro_in_fundecl_vs_typedef.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1427,8 +1487,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1464,7 +1526,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1477,7 +1540,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [Name "struct4"],
               declHeader =
-              "macro_in_fundecl_vs_typedef.h"},
+              "macro_in_fundecl_vs_typedef.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1495,8 +1559,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1537,7 +1603,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1550,7 +1617,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [Name "struct4"],
                       declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
+                      "macro_in_fundecl_vs_typedef.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1568,8 +1636,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1610,7 +1680,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1623,7 +1694,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [Name "struct4"],
                       declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
+                      "macro_in_fundecl_vs_typedef.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1641,8 +1713,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1713,7 +1787,8 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1752,7 +1827,8 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1794,7 +1870,8 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1833,7 +1910,8 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1872,7 +1950,8 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1911,4 +1990,5 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid,
+          functionComment = Nothing}}]

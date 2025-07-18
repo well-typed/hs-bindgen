@@ -30,7 +30,8 @@
                     PrimShort
                     Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -42,7 +43,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "type_attributes.h"},
+            "type_attributes.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -64,8 +66,10 @@
                         PrimShort
                         Signed)),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -106,7 +110,8 @@
                       PrimShort
                       Signed)),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -118,7 +123,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "type_attributes.h"},
+              "type_attributes.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -140,8 +146,10 @@
                           PrimShort
                           Signed)),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -187,7 +195,8 @@
                               PrimShort
                               Signed)),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -199,7 +208,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "type_attributes.h"},
+                      "type_attributes.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -221,8 +231,10 @@
                                   PrimShort
                                   Signed)),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -268,7 +280,8 @@
                               PrimShort
                               Signed)),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -280,7 +293,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "type_attributes.h"},
+                      "type_attributes.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -302,8 +316,10 @@
                                   PrimShort
                                   Signed)),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -353,7 +369,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -364,7 +381,8 @@
                 "@NsVar"
                 "un_More_aligned_int"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -495,7 +513,8 @@
                     PrimShort
                     Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -508,7 +527,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "type_attributes.h"},
+            "type_attributes.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -530,8 +550,10 @@
                         PrimShort
                         Signed)),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -572,7 +594,8 @@
                       PrimShort
                       Signed)),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -585,7 +608,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "type_attributes.h"},
+              "type_attributes.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -607,8 +631,10 @@
                           PrimShort
                           Signed)),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -654,7 +680,8 @@
                               PrimShort
                               Signed)),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -667,7 +694,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "type_attributes.h"},
+                      "type_attributes.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -689,8 +717,10 @@
                                   PrimShort
                                   Signed)),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -736,7 +766,8 @@
                               PrimShort
                               Signed)),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -749,7 +780,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "type_attributes.h"},
+                      "type_attributes.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -771,8 +803,10 @@
                                   PrimShort
                                   Signed)),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -824,7 +858,8 @@
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -842,7 +877,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -856,7 +892,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "type_attributes.h"},
+            "type_attributes.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -878,7 +915,8 @@
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "type_attributes.h:16:7",
@@ -889,8 +927,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -928,7 +968,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -946,7 +987,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -960,7 +1002,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "type_attributes.h"},
+              "type_attributes.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -982,7 +1025,8 @@
                         (PrimSignImplicit
                           (Just Signed))),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "type_attributes.h:16:7",
@@ -993,8 +1037,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1037,7 +1083,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1055,7 +1102,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1069,7 +1117,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "type_attributes.h"},
+                      "type_attributes.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1091,7 +1140,8 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "type_attributes.h:16:7",
@@ -1102,8 +1152,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1148,7 +1200,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1166,7 +1219,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1180,7 +1234,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "type_attributes.h"},
+                      "type_attributes.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1202,7 +1257,8 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "type_attributes.h:16:7",
@@ -1213,8 +1269,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1271,7 +1329,8 @@
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1289,7 +1348,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 8,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1314,7 +1374,8 @@
                     "My_unpacked_struct"}
                 NameOriginInSource,
               structFieldOffset = 40,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1327,7 +1388,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "type_attributes.h"},
+            "type_attributes.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1349,7 +1411,8 @@
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "type_attributes.h:22:9",
@@ -1360,7 +1423,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "type_attributes.h:23:30",
@@ -1376,8 +1440,10 @@
                         "My_unpacked_struct"}
                     NameOriginInSource,
                   structFieldOffset = 40,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1415,7 +1481,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1433,7 +1500,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 8,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1458,7 +1526,8 @@
                       "My_unpacked_struct"}
                   NameOriginInSource,
                 structFieldOffset = 40,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1471,7 +1540,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "type_attributes.h"},
+              "type_attributes.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1493,7 +1563,8 @@
                         (PrimSignImplicit
                           (Just Signed))),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "type_attributes.h:22:9",
@@ -1504,7 +1575,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 8,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "type_attributes.h:23:30",
@@ -1520,8 +1592,10 @@
                           "My_unpacked_struct"}
                       NameOriginInSource,
                     structFieldOffset = 40,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1564,7 +1638,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1582,7 +1657,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1607,7 +1683,8 @@
                               "My_unpacked_struct"}
                           NameOriginInSource,
                         structFieldOffset = 40,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1620,7 +1697,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "type_attributes.h"},
+                      "type_attributes.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1642,7 +1720,8 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "type_attributes.h:22:9",
@@ -1653,7 +1732,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "type_attributes.h:23:30",
@@ -1669,8 +1749,10 @@
                                   "My_unpacked_struct"}
                               NameOriginInSource,
                             structFieldOffset = 40,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1716,7 +1798,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1734,7 +1817,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1759,7 +1843,8 @@
                               "My_unpacked_struct"}
                           NameOriginInSource,
                         structFieldOffset = 40,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1772,7 +1857,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "type_attributes.h"},
+                      "type_attributes.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1794,7 +1880,8 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "type_attributes.h:22:9",
@@ -1805,7 +1892,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "type_attributes.h:23:30",
@@ -1821,8 +1909,10 @@
                                   "My_unpacked_struct"}
                               NameOriginInSource,
                             structFieldOffset = 40,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1868,7 +1958,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
           TypeSpec {
@@ -1905,7 +1996,8 @@
           declAliases = [
             Name "wait_status_ptr_t"],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -1927,7 +2019,8 @@
                     "wait_status_ptr_t___ip"},
                 unionFieldType = TypePointer
                   (TypePrim
-                    (PrimIntegral PrimInt Signed))},
+                    (PrimIntegral PrimInt Signed)),
+                unionFieldComment = Nothing},
               UnionField {
                 unionFieldLoc =
                 "type_attributes.h:29:15",
@@ -1941,7 +2034,9 @@
                       nameC = Name "wait",
                       nameHsIdent = HsIdentifier
                         "Wait"}
-                    NameOriginInSource)}]},
+                    NameOriginInSource),
+                unionFieldComment = Nothing}],
+            unionComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2023,7 +2118,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -2034,7 +2130,8 @@
                 "@NsVar"
                 "un_T1"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2134,7 +2231,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -2145,9 +2243,8 @@
                 "@NsVar"
                 "un_Short_a"},
             typedefType = TypePrim
-              (PrimIntegral
-                PrimShort
-                Signed)},
+              (PrimIntegral PrimShort Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

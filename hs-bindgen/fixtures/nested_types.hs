@@ -25,7 +25,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -45,7 +46,8 @@
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -56,7 +58,8 @@
                 "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h"},
+            declHeader = "nested_types.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -74,7 +77,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "nested_types.h:3:10",
@@ -87,8 +91,10 @@
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -124,7 +130,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -144,7 +151,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -155,7 +163,8 @@
                   "Foo"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_types.h"},
+              declHeader = "nested_types.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -173,7 +182,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "nested_types.h:3:10",
@@ -186,8 +196,10 @@
                         (PrimSignImplicit
                           (Just Signed))),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -228,7 +240,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -248,7 +261,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -259,7 +273,8 @@
                           "Foo"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -277,7 +292,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:3:10",
@@ -290,8 +306,10 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -334,7 +352,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -354,7 +373,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -365,7 +385,8 @@
                           "Foo"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -383,7 +404,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:3:10",
@@ -396,8 +418,10 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -452,7 +476,8 @@
                     "Foo"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -474,7 +499,8 @@
                     "Foo"}
                 NameOriginInSource,
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -485,7 +511,8 @@
                 "Bar"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h"},
+            declHeader = "nested_types.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -507,7 +534,8 @@
                         "Foo"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "nested_types.h:8:16",
@@ -522,8 +550,10 @@
                         "Foo"}
                     NameOriginInSource,
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -563,7 +593,8 @@
                       "Foo"}
                   NameOriginInSource,
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -585,7 +616,8 @@
                       "Foo"}
                   NameOriginInSource,
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -596,7 +628,8 @@
                   "Bar"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_types.h"},
+              declHeader = "nested_types.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -618,7 +651,8 @@
                           "Foo"}
                       NameOriginInSource,
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "nested_types.h:8:16",
@@ -633,8 +667,10 @@
                           "Foo"}
                       NameOriginInSource,
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -679,7 +715,8 @@
                               "Foo"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -701,7 +738,8 @@
                               "Foo"}
                           NameOriginInSource,
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -712,7 +750,8 @@
                           "Bar"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -734,7 +773,8 @@
                                   "Foo"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:8:16",
@@ -749,8 +789,10 @@
                                   "Foo"}
                               NameOriginInSource,
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -797,7 +839,8 @@
                               "Foo"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -819,7 +862,8 @@
                               "Foo"}
                           NameOriginInSource,
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -830,7 +874,8 @@
                           "Bar"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -852,7 +897,8 @@
                                   "Foo"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:8:16",
@@ -867,8 +913,10 @@
                                   "Foo"}
                               NameOriginInSource,
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -919,7 +967,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -939,7 +988,8 @@
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -951,7 +1001,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "nested_types.h:12:5"),
             declAliases = [],
-            declHeader = "nested_types.h"},
+            declHeader = "nested_types.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -971,7 +1022,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "nested_types.h:14:14",
@@ -984,8 +1036,10 @@
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1021,7 +1075,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1041,7 +1096,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1053,7 +1109,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "nested_types.h:12:5"),
               declAliases = [],
-              declHeader = "nested_types.h"},
+              declHeader = "nested_types.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1073,7 +1130,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "nested_types.h:14:14",
@@ -1086,8 +1144,10 @@
                         (PrimSignImplicit
                           (Just Signed))),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1128,7 +1188,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1148,7 +1209,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1160,7 +1222,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "nested_types.h:12:5"),
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1180,7 +1243,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:14:14",
@@ -1193,8 +1257,10 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1237,7 +1303,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1257,7 +1324,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1269,7 +1337,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "nested_types.h:12:5"),
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1289,7 +1358,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:14:14",
@@ -1302,8 +1372,10 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1365,7 +1437,8 @@
                 (NameOriginGenerated
                   (AnonId "nested_types.h:12:5")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1383,7 +1456,8 @@
               structFieldType = TypePrim
                 (PrimFloating PrimFloat),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1394,7 +1468,8 @@
                 "Ex3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h"},
+            declHeader = "nested_types.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1417,7 +1492,8 @@
                     (NameOriginGenerated
                       (AnonId "nested_types.h:12:5")),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "nested_types.h:16:11",
@@ -1428,8 +1504,10 @@
                   structFieldType = TypePrim
                     (PrimFloating PrimFloat),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1472,7 +1550,8 @@
                   (NameOriginGenerated
                     (AnonId "nested_types.h:12:5")),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1490,7 +1569,8 @@
                 structFieldType = TypePrim
                   (PrimFloating PrimFloat),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1501,7 +1581,8 @@
                   "Ex3"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_types.h"},
+              declHeader = "nested_types.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1524,7 +1605,8 @@
                       (NameOriginGenerated
                         (AnonId "nested_types.h:12:5")),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "nested_types.h:16:11",
@@ -1535,8 +1617,10 @@
                     structFieldType = TypePrim
                       (PrimFloating PrimFloat),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1584,7 +1668,8 @@
                           (NameOriginGenerated
                             (AnonId "nested_types.h:12:5")),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1602,7 +1687,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimFloat),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1613,7 +1699,8 @@
                           "Ex3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1636,7 +1723,8 @@
                               (NameOriginGenerated
                                 (AnonId "nested_types.h:12:5")),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:16:11",
@@ -1647,8 +1735,10 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimFloat),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1698,7 +1788,8 @@
                           (NameOriginGenerated
                             (AnonId "nested_types.h:12:5")),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1716,7 +1807,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimFloat),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1727,7 +1819,8 @@
                           "Ex3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1750,7 +1843,8 @@
                               (NameOriginGenerated
                                 (AnonId "nested_types.h:12:5")),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:16:11",
@@ -1761,8 +1855,10 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimFloat),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1813,7 +1909,8 @@
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1839,7 +1936,8 @@
                       "Ex4_odd"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1851,7 +1949,8 @@
                 "Ex4_even"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h"},
+            declHeader = "nested_types.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1869,7 +1968,8 @@
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "nested_types.h:26:25",
@@ -1885,8 +1985,10 @@
                           "Ex4_odd"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1922,7 +2024,8 @@
                 structFieldType = TypePrim
                   (PrimFloating PrimDouble),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1948,7 +2051,8 @@
                         "Ex4_odd"}
                     NameOriginInSource),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1960,7 +2064,8 @@
                   "Ex4_even"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_types.h"},
+              declHeader = "nested_types.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1978,7 +2083,8 @@
                     structFieldType = TypePrim
                       (PrimFloating PrimDouble),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "nested_types.h:26:25",
@@ -1994,8 +2100,10 @@
                             "Ex4_odd"}
                         NameOriginInSource),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2036,7 +2144,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2062,7 +2171,8 @@
                                 "Ex4_odd"}
                             NameOriginInSource),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2074,7 +2184,8 @@
                           "Ex4_even"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2092,7 +2203,8 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:26:25",
@@ -2108,8 +2220,10 @@
                                     "Ex4_odd"}
                                 NameOriginInSource),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2152,7 +2266,8 @@
                         structFieldType = TypePrim
                           (PrimFloating PrimDouble),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2178,7 +2293,8 @@
                                 "Ex4_odd"}
                             NameOriginInSource),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2190,7 +2306,8 @@
                           "Ex4_even"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2208,7 +2325,8 @@
                             structFieldType = TypePrim
                               (PrimFloating PrimDouble),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:26:25",
@@ -2224,8 +2342,10 @@
                                     "Ex4_odd"}
                                 NameOriginInSource),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2280,7 +2400,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2306,7 +2427,8 @@
                       "Ex4_even"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2317,7 +2439,8 @@
                 "Ex4_odd"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h"},
+            declHeader = "nested_types.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2335,7 +2458,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "nested_types.h:27:8",
@@ -2351,8 +2475,10 @@
                           "Ex4_even"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -2388,7 +2514,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2414,7 +2541,8 @@
                         "Ex4_even"}
                     NameOriginInSource),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -2425,7 +2553,8 @@
                   "Ex4_odd"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_types.h"},
+              declHeader = "nested_types.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2443,7 +2572,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "nested_types.h:27:8",
@@ -2459,8 +2589,10 @@
                             "Ex4_even"}
                         NameOriginInSource),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2501,7 +2633,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2527,7 +2660,8 @@
                                 "Ex4_even"}
                             NameOriginInSource),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2538,7 +2672,8 @@
                           "Ex4_odd"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2556,7 +2691,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:27:8",
@@ -2572,8 +2708,10 @@
                                     "Ex4_even"}
                                 NameOriginInSource),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2616,7 +2754,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2642,7 +2781,8 @@
                                 "Ex4_even"}
                             NameOriginInSource),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2653,7 +2793,8 @@
                           "Ex4_odd"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_types.h"},
+                      declHeader = "nested_types.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2671,7 +2812,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "nested_types.h:27:8",
@@ -2687,8 +2829,10 @@
                                     "Ex4_even"}
                                 NameOriginInSource),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

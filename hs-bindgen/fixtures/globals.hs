@@ -1,5 +1,6 @@
 [
   DeclInlineCInclude "globals.h",
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -40,7 +41,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -58,7 +60,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -69,7 +72,8 @@
                 "Config"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "globals.h"},
+            declHeader = "globals.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -87,7 +91,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "globals.h:14:7",
@@ -98,8 +103,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -135,7 +142,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -153,7 +161,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -164,7 +173,8 @@
                   "Config"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "globals.h"},
+              declHeader = "globals.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -182,7 +192,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "globals.h:14:7",
@@ -193,8 +204,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -235,7 +248,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -253,7 +267,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -264,7 +279,8 @@
                           "Config"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -282,7 +298,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:14:7",
@@ -293,8 +310,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -337,7 +356,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -355,7 +375,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -366,7 +387,8 @@
                           "Config"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -384,7 +406,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:14:7",
@@ -395,8 +418,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -473,7 +498,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -491,7 +517,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -502,7 +529,8 @@
                 "Inline_struct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "globals.h"},
+            declHeader = "globals.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -522,7 +550,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "globals.h:19:42",
@@ -533,8 +562,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -570,7 +601,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -588,7 +620,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -599,7 +632,8 @@
                   "Inline_struct"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "globals.h"},
+              declHeader = "globals.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -619,7 +653,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "globals.h:19:42",
@@ -630,8 +665,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -672,7 +709,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -690,7 +728,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -701,7 +740,8 @@
                           "Inline_struct"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -721,7 +761,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:19:42",
@@ -732,8 +773,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -776,7 +819,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -794,7 +838,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -805,7 +850,8 @@
                           "Inline_struct"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -825,7 +871,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:19:42",
@@ -836,8 +883,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -889,6 +938,7 @@
               "Inline_struct"}
           NameOriginInSource)},
   DeclInlineCInclude "globals.h",
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1326,6 +1376,7 @@
       foreignImportOrigin = Global
         (TypePrim PrimBool)},
   DeclInlineCInclude "globals.h",
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2056,7 +2107,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2297,7 +2349,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 16,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2538,7 +2591,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2551,7 +2605,8 @@
               (AnonId "globals.h:406:9"),
             declAliases = [
               Name "version_t"],
-            declHeader = "globals.h"},
+            declHeader = "globals.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2685,7 +2740,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "globals.h:409:12",
@@ -2810,7 +2866,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "globals.h:410:12",
@@ -2935,8 +2992,10 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -3195,7 +3254,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3436,7 +3496,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 16,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3677,7 +3738,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -3690,7 +3752,8 @@
                 (AnonId "globals.h:406:9"),
               declAliases = [
                 Name "version_t"],
-              declHeader = "globals.h"},
+              declHeader = "globals.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -3824,7 +3887,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "globals.h:409:12",
@@ -3949,7 +4013,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 16,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "globals.h:410:12",
@@ -4074,8 +4139,10 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -4339,7 +4406,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -4580,7 +4648,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -4821,7 +4890,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -4834,7 +4904,8 @@
                         (AnonId "globals.h:406:9"),
                       declAliases = [
                         Name "version_t"],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -4968,7 +5039,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:409:12",
@@ -5093,7 +5165,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:410:12",
@@ -5218,8 +5291,10 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -5486,7 +5561,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5727,7 +5803,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5968,7 +6045,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -5981,7 +6059,8 @@
                         (AnonId "globals.h:406:9"),
                       declAliases = [
                         Name "version_t"],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -6115,7 +6194,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:409:12",
@@ -6240,7 +6320,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:410:12",
@@ -6365,8 +6446,10 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -6645,7 +6728,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -6663,7 +6747,8 @@
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 16,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -6691,7 +6776,8 @@
                     (NameOriginGenerated
                       (AnonId "globals.h:406:9")))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -6704,7 +6790,8 @@
               (AnonId "globals.h:413:9"),
             declAliases = [
               Name "struct1_t"],
-            declHeader = "globals.h"},
+            declHeader = "globals.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -6838,7 +6925,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "globals.h:416:13",
@@ -6849,7 +6937,8 @@
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "globals.h:417:13",
@@ -6868,8 +6957,10 @@
                         (NameOriginGenerated
                           (AnonId "globals.h:406:9")))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -7128,7 +7219,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -7146,7 +7238,8 @@
                 structFieldType = TypePrim
                   PrimBool,
                 structFieldOffset = 16,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -7174,7 +7267,8 @@
                       (NameOriginGenerated
                         (AnonId "globals.h:406:9")))),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -7187,7 +7281,8 @@
                 (AnonId "globals.h:413:9"),
               declAliases = [
                 Name "struct1_t"],
-              declHeader = "globals.h"},
+              declHeader = "globals.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -7321,7 +7416,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "globals.h:416:13",
@@ -7332,7 +7428,8 @@
                     structFieldType = TypePrim
                       PrimBool,
                     structFieldOffset = 16,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "globals.h:417:13",
@@ -7351,8 +7448,10 @@
                           (NameOriginGenerated
                             (AnonId "globals.h:406:9")))),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -7616,7 +7715,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7634,7 +7734,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7662,7 +7763,8 @@
                               (NameOriginGenerated
                                 (AnonId "globals.h:406:9")))),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -7675,7 +7777,8 @@
                         (AnonId "globals.h:413:9"),
                       declAliases = [
                         Name "struct1_t"],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -7809,7 +7912,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:416:13",
@@ -7820,7 +7924,8 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:417:13",
@@ -7839,8 +7944,10 @@
                                   (NameOriginGenerated
                                     (AnonId "globals.h:406:9")))),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -8107,7 +8214,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -8125,7 +8233,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -8153,7 +8262,8 @@
                               (NameOriginGenerated
                                 (AnonId "globals.h:406:9")))),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -8166,7 +8276,8 @@
                         (AnonId "globals.h:413:9"),
                       declAliases = [
                         Name "struct1_t"],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -8300,7 +8411,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:416:13",
@@ -8311,7 +8423,8 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "globals.h:417:13",
@@ -8330,8 +8443,10 @@
                                   (NameOriginGenerated
                                     (AnonId "globals.h:406:9")))),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -8397,7 +8512,8 @@
                     (NameOriginGenerated
                       (AnonId "globals.h:413:9")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -8410,7 +8526,8 @@
               (AnonId "globals.h:420:9"),
             declAliases = [
               Name "struct2_t"],
-            declHeader = "globals.h"},
+            declHeader = "globals.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -8438,8 +8555,10 @@
                         (NameOriginGenerated
                           (AnonId "globals.h:413:9")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -8485,7 +8604,8 @@
                       (NameOriginGenerated
                         (AnonId "globals.h:413:9")))),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -8498,7 +8618,8 @@
                 (AnonId "globals.h:420:9"),
               declAliases = [
                 Name "struct2_t"],
-              declHeader = "globals.h"},
+              declHeader = "globals.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -8526,8 +8647,10 @@
                           (NameOriginGenerated
                             (AnonId "globals.h:413:9")))),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -8578,7 +8701,8 @@
                               (NameOriginGenerated
                                 (AnonId "globals.h:413:9")))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -8591,7 +8715,8 @@
                         (AnonId "globals.h:420:9"),
                       declAliases = [
                         Name "struct2_t"],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -8619,8 +8744,10 @@
                                   (NameOriginGenerated
                                     (AnonId "globals.h:413:9")))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -8671,7 +8798,8 @@
                               (NameOriginGenerated
                                 (AnonId "globals.h:413:9")))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -8684,7 +8812,8 @@
                         (AnonId "globals.h:420:9"),
                       declAliases = [
                         Name "struct2_t"],
-                      declHeader = "globals.h"},
+                      declHeader = "globals.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -8712,8 +8841,10 @@
                                   (NameOriginGenerated
                                     (AnonId "globals.h:413:9")))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

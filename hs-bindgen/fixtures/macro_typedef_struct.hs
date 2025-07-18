@@ -25,7 +25,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_typedef_struct.h"},
+          "macro_typedef_struct.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -36,7 +37,8 @@
                 "@NsVar"
                 "un_MY_TYPE"},
             macroType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -162,7 +164,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -187,7 +190,8 @@
                     "MY_TYPE"}
                 NameOriginInSource,
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -202,7 +206,8 @@
                 "macro_typedef_struct.h:3:9"),
             declAliases = [Name "bar"],
             declHeader =
-            "macro_typedef_struct.h"},
+            "macro_typedef_struct.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -220,7 +225,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "macro_typedef_struct.h:5:11",
@@ -236,8 +242,10 @@
                         "MY_TYPE"}
                     NameOriginInSource,
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -273,7 +281,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -298,7 +307,8 @@
                       "MY_TYPE"}
                   NameOriginInSource,
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -313,7 +323,8 @@
                   "macro_typedef_struct.h:3:9"),
               declAliases = [Name "bar"],
               declHeader =
-              "macro_typedef_struct.h"},
+              "macro_typedef_struct.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -331,7 +342,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "macro_typedef_struct.h:5:11",
@@ -347,8 +359,10 @@
                           "MY_TYPE"}
                       NameOriginInSource,
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -389,7 +403,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -414,7 +429,8 @@
                               "MY_TYPE"}
                           NameOriginInSource,
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -429,7 +445,8 @@
                           "macro_typedef_struct.h:3:9"),
                       declAliases = [Name "bar"],
                       declHeader =
-                      "macro_typedef_struct.h"},
+                      "macro_typedef_struct.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -447,7 +464,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "macro_typedef_struct.h:5:11",
@@ -463,8 +481,10 @@
                                   "MY_TYPE"}
                               NameOriginInSource,
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -507,7 +527,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -532,7 +553,8 @@
                               "MY_TYPE"}
                           NameOriginInSource,
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -547,7 +569,8 @@
                           "macro_typedef_struct.h:3:9"),
                       declAliases = [Name "bar"],
                       declHeader =
-                      "macro_typedef_struct.h"},
+                      "macro_typedef_struct.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -565,7 +588,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "macro_typedef_struct.h:5:11",
@@ -581,8 +605,10 @@
                                   "MY_TYPE"}
                               NameOriginInSource,
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

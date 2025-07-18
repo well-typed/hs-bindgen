@@ -25,7 +25,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_vs_macro.h"},
+          "typedef_vs_macro.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -36,7 +37,8 @@
                 "@NsVar"
                 "un_T1"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -136,7 +138,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_vs_macro.h"},
+          "typedef_vs_macro.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -149,7 +152,8 @@
             typedefType = TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed)))},
+                  (Just Signed))),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -249,7 +253,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_vs_macro.h"},
+          "typedef_vs_macro.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -260,7 +265,8 @@
                 "@NsVar"
                 "un_M1"},
             macroType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -360,7 +366,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_vs_macro.h"},
+          "typedef_vs_macro.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -372,7 +379,8 @@
                 "un_M2"},
             macroType = TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))},
+                (PrimSignImplicit Nothing)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -473,7 +481,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_vs_macro.h"},
+          "typedef_vs_macro.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -486,7 +495,8 @@
             macroType = TypeConstArray
               3
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -533,7 +543,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_vs_macro.h"},
+          "typedef_vs_macro.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -545,7 +556,8 @@
                 "un_M4"},
             macroType = TypePointer
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -600,7 +612,8 @@
                     nameHsIdent = HsIdentifier
                       "T1"}),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -622,7 +635,8 @@
                     nameHsIdent = HsIdentifier
                       "T2"}),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -644,7 +658,8 @@
                   nameHsIdent = HsIdentifier "M1"}
                 NameOriginInSource,
               structFieldOffset = 64,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -666,7 +681,8 @@
                   nameHsIdent = HsIdentifier "M2"}
                 NameOriginInSource,
               structFieldOffset = 96,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -679,7 +695,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "typedef_vs_macro.h"},
+            "typedef_vs_macro.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -703,7 +720,8 @@
                         nameHsIdent = HsIdentifier
                           "T1"}),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_vs_macro.h:11:6",
@@ -718,7 +736,8 @@
                         nameHsIdent = HsIdentifier
                           "T2"}),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_vs_macro.h:12:6",
@@ -733,7 +752,8 @@
                       nameHsIdent = HsIdentifier "M1"}
                     NameOriginInSource,
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_vs_macro.h:13:6",
@@ -748,8 +768,10 @@
                       nameHsIdent = HsIdentifier "M2"}
                     NameOriginInSource,
                   structFieldOffset = 96,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -789,7 +811,8 @@
                       nameHsIdent = HsIdentifier
                         "T1"}),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -811,7 +834,8 @@
                       nameHsIdent = HsIdentifier
                         "T2"}),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -833,7 +857,8 @@
                     nameHsIdent = HsIdentifier "M1"}
                   NameOriginInSource,
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -855,7 +880,8 @@
                     nameHsIdent = HsIdentifier "M2"}
                   NameOriginInSource,
                 structFieldOffset = 96,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -868,7 +894,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "typedef_vs_macro.h"},
+              "typedef_vs_macro.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -892,7 +919,8 @@
                           nameHsIdent = HsIdentifier
                             "T1"}),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_vs_macro.h:11:6",
@@ -907,7 +935,8 @@
                           nameHsIdent = HsIdentifier
                             "T2"}),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_vs_macro.h:12:6",
@@ -922,7 +951,8 @@
                         nameHsIdent = HsIdentifier "M1"}
                       NameOriginInSource,
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_vs_macro.h:13:6",
@@ -937,8 +967,10 @@
                         nameHsIdent = HsIdentifier "M2"}
                       NameOriginInSource,
                     structFieldOffset = 96,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -983,7 +1015,8 @@
                               nameHsIdent = HsIdentifier
                                 "T1"}),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1005,7 +1038,8 @@
                               nameHsIdent = HsIdentifier
                                 "T2"}),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1027,7 +1061,8 @@
                             nameHsIdent = HsIdentifier "M1"}
                           NameOriginInSource,
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1049,7 +1084,8 @@
                             nameHsIdent = HsIdentifier "M2"}
                           NameOriginInSource,
                         structFieldOffset = 96,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1062,7 +1098,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "typedef_vs_macro.h"},
+                      "typedef_vs_macro.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1086,7 +1123,8 @@
                                   nameHsIdent = HsIdentifier
                                     "T1"}),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_vs_macro.h:11:6",
@@ -1101,7 +1139,8 @@
                                   nameHsIdent = HsIdentifier
                                     "T2"}),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_vs_macro.h:12:6",
@@ -1116,7 +1155,8 @@
                                 nameHsIdent = HsIdentifier "M1"}
                               NameOriginInSource,
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_vs_macro.h:13:6",
@@ -1131,8 +1171,10 @@
                                 nameHsIdent = HsIdentifier "M2"}
                               NameOriginInSource,
                             structFieldOffset = 96,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1181,7 +1223,8 @@
                               nameHsIdent = HsIdentifier
                                 "T1"}),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1203,7 +1246,8 @@
                               nameHsIdent = HsIdentifier
                                 "T2"}),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1225,7 +1269,8 @@
                             nameHsIdent = HsIdentifier "M1"}
                           NameOriginInSource,
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1247,7 +1292,8 @@
                             nameHsIdent = HsIdentifier "M2"}
                           NameOriginInSource,
                         structFieldOffset = 96,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1260,7 +1306,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "typedef_vs_macro.h"},
+                      "typedef_vs_macro.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1284,7 +1331,8 @@
                                   nameHsIdent = HsIdentifier
                                     "T1"}),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_vs_macro.h:11:6",
@@ -1299,7 +1347,8 @@
                                   nameHsIdent = HsIdentifier
                                     "T2"}),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_vs_macro.h:12:6",
@@ -1314,7 +1363,8 @@
                                 nameHsIdent = HsIdentifier "M1"}
                               NameOriginInSource,
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_vs_macro.h:13:6",
@@ -1329,8 +1379,10 @@
                                 nameHsIdent = HsIdentifier "M2"}
                               NameOriginInSource,
                             structFieldOffset = 96,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1387,7 +1439,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_vs_macro.h"},
+          "typedef_vs_macro.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -1398,7 +1451,8 @@
                 "@NsVar"
                 "un_Uint64_t"},
             macroType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1532,7 +1586,8 @@
                       "Uint64_t"}
                   NameOriginInSource),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1545,7 +1600,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "typedef_vs_macro.h"},
+            "typedef_vs_macro.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1568,8 +1624,10 @@
                           "Uint64_t"}
                       NameOriginInSource),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1613,7 +1671,8 @@
                         "Uint64_t"}
                     NameOriginInSource),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1626,7 +1685,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "typedef_vs_macro.h"},
+              "typedef_vs_macro.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1649,8 +1709,10 @@
                             "Uint64_t"}
                         NameOriginInSource),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1699,7 +1761,8 @@
                                 "Uint64_t"}
                             NameOriginInSource),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1712,7 +1775,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "typedef_vs_macro.h"},
+                      "typedef_vs_macro.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1735,8 +1799,10 @@
                                     "Uint64_t"}
                                 NameOriginInSource),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1785,7 +1851,8 @@
                                 "Uint64_t"}
                             NameOriginInSource),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1798,7 +1865,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "typedef_vs_macro.h"},
+                      "typedef_vs_macro.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1821,8 +1889,10 @@
                                     "Uint64_t"}
                                 NameOriginInSource),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

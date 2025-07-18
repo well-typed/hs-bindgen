@@ -9,7 +9,8 @@ TranslationUnit {
             "PtrInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -22,9 +23,8 @@ TranslationUnit {
                 "un_PtrInt"},
             macroType = TypePointer
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -40,7 +40,8 @@ TranslationUnit {
             "PtrPtrChar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -55,7 +56,8 @@ TranslationUnit {
               (TypePointer
                 (TypePrim
                   (PrimChar
-                    (PrimSignImplicit Nothing))))}),
+                    (PrimSignImplicit Nothing)))),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -71,7 +73,8 @@ TranslationUnit {
             "Arr1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -85,9 +88,8 @@ TranslationUnit {
             macroType = TypeConstArray
               2
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -103,7 +105,8 @@ TranslationUnit {
             "Arr2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -118,7 +121,8 @@ TranslationUnit {
               3
               (TypePointer
                 (TypePrim
-                  (PrimFloating PrimFloat)))}),
+                  (PrimFloating PrimFloat))),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -134,7 +138,8 @@ TranslationUnit {
             "Arr3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -153,7 +158,8 @@ TranslationUnit {
                     TypePrim
                       (PrimFloating PrimDouble)]
                   (TypePrim
-                    (PrimFloating PrimFloat))))}),
+                    (PrimFloating PrimFloat)))),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -169,7 +175,8 @@ TranslationUnit {
             "Fun1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -186,7 +193,8 @@ TranslationUnit {
                   (PrimIntegral PrimInt Signed)]
               (TypePointer
                 (TypePrim
-                  (PrimFloating PrimFloat)))}),
+                  (PrimFloating PrimFloat))),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -202,7 +210,8 @@ TranslationUnit {
             "Fun2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -222,9 +231,8 @@ TranslationUnit {
                     (TypePrim
                       (PrimFloating PrimDouble))]
                 (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))}),
+                  (PrimIntegral PrimInt Signed))),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -240,7 +248,8 @@ TranslationUnit {
             "Fun3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -261,7 +270,8 @@ TranslationUnit {
                   (TypePrim
                     (PrimIntegral
                       PrimInt
-                      Signed))))}),
+                      Signed)))),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -277,7 +287,8 @@ TranslationUnit {
             "Fun4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -307,7 +318,8 @@ TranslationUnit {
                     (TypePrim
                       (PrimIntegral
                         PrimLong
-                        Signed)))))}),
+                        Signed))))),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -323,7 +335,8 @@ TranslationUnit {
             "Fun5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -348,7 +361,8 @@ TranslationUnit {
                     (TypePrim
                       (PrimIntegral
                         PrimShort
-                        Signed)))))}),
+                        Signed))))),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -364,7 +378,8 @@ TranslationUnit {
             "MTy"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -376,7 +391,8 @@ TranslationUnit {
                 "@NsVar"
                 "un_MTy"},
             macroType = TypePrim
-              (PrimFloating PrimFloat)}),
+              (PrimFloating PrimFloat),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -392,7 +408,8 @@ TranslationUnit {
             "Tty"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -407,7 +424,8 @@ TranslationUnit {
               nameC = Name "MTy",
               nameHsIdent = HsIdentifier
                 "MTy"}
-            NameOriginInSource},
+            NameOriginInSource,
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -423,7 +441,8 @@ TranslationUnit {
             "UINT8_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -436,7 +455,8 @@ TranslationUnit {
                 "un_UINT8_T"},
             macroType = TypePrim
               (PrimChar
-                (PrimSignExplicit Unsigned))}),
+                (PrimSignExplicit Unsigned)),
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -452,7 +472,8 @@ TranslationUnit {
             "BOOLEAN_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -468,7 +489,8 @@ TranslationUnit {
                 nameC = Name "UINT8_T",
                 nameHsIdent = HsIdentifier
                   "UINT8_T"}
-              NameOriginInSource}),
+              NameOriginInSource,
+            macroTypeComment = Nothing}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -484,7 +506,8 @@ TranslationUnit {
             "Boolean_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h"},
+        declHeader = "macro_types.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -499,7 +522,8 @@ TranslationUnit {
               nameC = Name "BOOLEAN_T",
               nameHsIdent = HsIdentifier
                 "BOOLEAN_T"}
-            NameOriginInSource},
+            NameOriginInSource,
+          typedefComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

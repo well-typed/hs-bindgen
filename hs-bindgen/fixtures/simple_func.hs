@@ -22,7 +22,8 @@
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimFloating PrimDouble)}},
+            (PrimFloating PrimDouble),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -54,7 +55,8 @@
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimFloating PrimDouble)}},
+            (PrimFloating PrimDouble),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -73,7 +75,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -92,7 +95,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -121,4 +125,5 @@
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}}]
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}}]

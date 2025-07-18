@@ -8,9 +8,11 @@
         "@NsConstr"
         "Struct1_t",
       structFields = [],
-      structOrigin = Just
+      structOrigin =
+      Just
         Decl {
-          declInfo = DeclInfo {
+          declInfo =
+          DeclInfo {
             declLoc =
             "typedef_analysis.h:7:8",
             declId = NamePair {
@@ -23,8 +25,19 @@
             declAliases = [
               Name "struct1_t"],
             declHeader =
-            "typedef_analysis.h"},
-          declKind = Struct
+            "typedef_analysis.h",
+            declComment =
+            Just
+              Comment {
+                commentCName = "struct1",
+                commentChildren =
+                [
+                  Paragraph
+                    [
+                      TextContent
+                        "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
+          declKind =
+          Struct
             Struct {
               structNames = RecordNames
                 (HsName
@@ -33,7 +46,17 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment =
+              Just
+                Comment {
+                  commentCName = "struct1",
+                  commentChildren =
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -52,9 +75,11 @@
           "@NsConstr"
           "Struct1_t",
         structFields = [],
-        structOrigin = Just
+        structOrigin =
+        Just
           Decl {
-            declInfo = DeclInfo {
+            declInfo =
+            DeclInfo {
               declLoc =
               "typedef_analysis.h:7:8",
               declId = NamePair {
@@ -67,8 +92,19 @@
               declAliases = [
                 Name "struct1_t"],
               declHeader =
-              "typedef_analysis.h"},
-            declKind = Struct
+              "typedef_analysis.h",
+              declComment =
+              Just
+                Comment {
+                  commentCName = "struct1",
+                  commentChildren =
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
+            declKind =
+            Struct
               Struct {
                 structNames = RecordNames
                   (HsName
@@ -77,7 +113,17 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment =
+                Just
+                  Comment {
+                    commentCName = "struct1",
+                    commentChildren =
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -89,7 +135,8 @@
       StorableInstance {
         storableSizeOf = 0,
         storableAlignment = 1,
-        storablePeek = Lambda
+        storablePeek =
+        Lambda
           (NameHint "ptr")
           (Ap
             (StructCon
@@ -101,9 +148,11 @@
                   "@NsConstr"
                   "Struct1_t",
                 structFields = [],
-                structOrigin = Just
+                structOrigin =
+                Just
                   Decl {
-                    declInfo = DeclInfo {
+                    declInfo =
+                    DeclInfo {
                       declLoc =
                       "typedef_analysis.h:7:8",
                       declId = NamePair {
@@ -116,8 +165,19 @@
                       declAliases = [
                         Name "struct1_t"],
                       declHeader =
-                      "typedef_analysis.h"},
-                    declKind = Struct
+                      "typedef_analysis.h",
+                      declComment =
+                      Just
+                        Comment {
+                          commentCName = "struct1",
+                          commentChildren =
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
+                    declKind =
+                    Struct
                       Struct {
                         structNames = RecordNames
                           (HsName
@@ -126,7 +186,17 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment =
+                        Just
+                          Comment {
+                            commentCName = "struct1",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -136,7 +206,8 @@
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             []),
-        storablePoke = Lambda
+        storablePoke =
+        Lambda
           (NameHint "ptr")
           (Lambda
             (NameHint "s")
@@ -150,9 +221,11 @@
                   "@NsConstr"
                   "Struct1_t",
                 structFields = [],
-                structOrigin = Just
+                structOrigin =
+                Just
                   Decl {
-                    declInfo = DeclInfo {
+                    declInfo =
+                    DeclInfo {
                       declLoc =
                       "typedef_analysis.h:7:8",
                       declId = NamePair {
@@ -165,8 +238,19 @@
                       declAliases = [
                         Name "struct1_t"],
                       declHeader =
-                      "typedef_analysis.h"},
-                    declKind = Struct
+                      "typedef_analysis.h",
+                      declComment =
+                      Just
+                        Comment {
+                          commentCName = "struct1",
+                          commentChildren =
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
+                    declKind =
+                    Struct
                       Struct {
                         structNames = RecordNames
                           (HsName
@@ -175,7 +259,17 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment =
+                        Just
+                          Comment {
+                            commentCName = "struct1",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -222,7 +316,8 @@
             declAliases = [
               Name "struct2_t"],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -232,7 +327,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -266,7 +362,8 @@
               declAliases = [
                 Name "struct2_t"],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -276,7 +373,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -315,7 +413,8 @@
                       declAliases = [
                         Name "struct2_t"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -325,7 +424,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -364,7 +464,8 @@
                       declAliases = [
                         Name "struct2_t"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -374,7 +475,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -416,7 +518,8 @@
           declAliases = [
             Name "struct3_t"],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -443,7 +546,8 @@
           declAliases = [
             Name "struct4_t"],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -472,7 +576,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -480,7 +585,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -511,7 +617,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -519,7 +626,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -555,7 +663,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -563,7 +672,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -599,7 +709,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -607,7 +718,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -659,7 +771,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -675,7 +788,8 @@
                   nameC = Name "struct5",
                   nameHsIdent = HsIdentifier
                     "Struct5"}
-                NameOriginInSource)},
+                NameOriginInSource),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -731,7 +845,8 @@
               (Name "struct6"),
             declAliases = [],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -741,7 +856,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -774,7 +890,8 @@
                 (Name "struct6"),
               declAliases = [],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -784,7 +901,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -822,7 +940,8 @@
                         (Name "struct6"),
                       declAliases = [],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -832,7 +951,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -870,7 +990,8 @@
                         (Name "struct6"),
                       declAliases = [],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -880,7 +1001,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -932,7 +1054,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -949,7 +1072,8 @@
                   nameHsIdent = HsIdentifier
                     "Struct6_Deref"}
                 (NameOriginRenamedFrom
-                  (Name "struct6")))},
+                  (Name "struct6"))),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1005,7 +1129,8 @@
               Name "struct7a",
               Name "struct7b"],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1013,7 +1138,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1046,7 +1172,8 @@
                 Name "struct7a",
                 Name "struct7b"],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1054,7 +1181,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1092,7 +1220,8 @@
                         Name "struct7a",
                         Name "struct7b"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1100,7 +1229,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1138,7 +1268,8 @@
                         Name "struct7a",
                         Name "struct7b"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1146,7 +1277,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1197,7 +1329,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1212,7 +1345,8 @@
                 nameC = Name "struct7",
                 nameHsIdent = HsIdentifier
                   "Struct7"}
-              NameOriginInSource},
+              NameOriginInSource,
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1267,7 +1401,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1282,7 +1417,8 @@
                 nameC = Name "struct7",
                 nameHsIdent = HsIdentifier
                   "Struct7"}
-              NameOriginInSource},
+              NameOriginInSource,
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1332,7 +1468,8 @@
               Name "struct8",
               Name "struct8b"],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1340,7 +1477,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1373,7 +1511,8 @@
                 Name "struct8",
                 Name "struct8b"],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1381,7 +1520,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1419,7 +1559,8 @@
                         Name "struct8",
                         Name "struct8b"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1427,7 +1568,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1465,7 +1607,8 @@
                         Name "struct8",
                         Name "struct8b"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1473,7 +1616,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1524,7 +1668,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1539,7 +1684,8 @@
                 nameC = Name "struct8",
                 nameHsIdent = HsIdentifier
                   "Struct8"}
-              NameOriginInSource},
+              NameOriginInSource,
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1587,7 +1733,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [Name "struct9"],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1595,7 +1742,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1626,7 +1774,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [Name "struct9"],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1634,7 +1783,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1670,7 +1820,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [Name "struct9"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1678,7 +1829,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1714,7 +1866,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [Name "struct9"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1722,7 +1875,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1773,7 +1927,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1791,7 +1946,8 @@
                     nameC = Name "struct9",
                     nameHsIdent = HsIdentifier
                       "Struct9"}
-                  NameOriginInSource))},
+                  NameOriginInSource)),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1842,7 +1998,8 @@
             declAliases = [
               Name "struct10_t"],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1852,7 +2009,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1886,7 +2044,8 @@
               declAliases = [
                 Name "struct10_t"],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1896,7 +2055,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1935,7 +2095,8 @@
                       declAliases = [
                         Name "struct10_t"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1945,7 +2106,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1984,7 +2146,8 @@
                       declAliases = [
                         Name "struct10_t"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1994,7 +2157,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2045,7 +2209,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "typedef_analysis.h"},
+          "typedef_analysis.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -2064,7 +2229,8 @@
                     nameHsIdent = HsIdentifier
                       "Struct10_t"}
                   (NameOriginRenamedFrom
-                    (Name "struct10"))))},
+                    (Name "struct10")))),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2117,7 +2283,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2144,7 +2311,8 @@
                   (NameOriginRenamedFrom
                     (Name "struct11"))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2160,7 +2328,8 @@
             declAliases = [
               Name "struct11_t"],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2180,7 +2349,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:53:20",
@@ -2197,8 +2367,10 @@
                       (NameOriginRenamedFrom
                         (Name "struct11"))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -2234,7 +2406,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2261,7 +2434,8 @@
                     (NameOriginRenamedFrom
                       (Name "struct11"))),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -2277,7 +2451,8 @@
               declAliases = [
                 Name "struct11_t"],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2297,7 +2472,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:53:20",
@@ -2314,8 +2490,10 @@
                         (NameOriginRenamedFrom
                           (Name "struct11"))),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2356,7 +2534,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2383,7 +2562,8 @@
                             (NameOriginRenamedFrom
                               (Name "struct11"))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2399,7 +2579,8 @@
                       declAliases = [
                         Name "struct11_t"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2419,7 +2600,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:53:20",
@@ -2436,8 +2618,10 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct11"))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2480,7 +2664,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2507,7 +2692,8 @@
                             (NameOriginRenamedFrom
                               (Name "struct11"))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2523,7 +2709,8 @@
                       declAliases = [
                         Name "struct11_t"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2543,7 +2730,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:53:20",
@@ -2560,8 +2748,10 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct11"))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2616,7 +2806,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2646,7 +2837,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct12"))))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2662,7 +2854,8 @@
             declAliases = [
               Name "struct12_t"],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2682,7 +2875,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:62:15",
@@ -2702,8 +2896,10 @@
                           (NameOriginRenamedFrom
                             (Name "struct12"))))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -2739,7 +2935,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2769,7 +2966,8 @@
                         (NameOriginRenamedFrom
                           (Name "struct12"))))),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -2785,7 +2983,8 @@
               declAliases = [
                 Name "struct12_t"],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2805,7 +3004,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:62:15",
@@ -2825,8 +3025,10 @@
                             (NameOriginRenamedFrom
                               (Name "struct12"))))),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2867,7 +3069,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2897,7 +3100,8 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct12"))))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2913,7 +3117,8 @@
                       declAliases = [
                         Name "struct12_t"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2933,7 +3138,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:62:15",
@@ -2953,8 +3159,10 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct12"))))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2997,7 +3205,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3027,7 +3236,8 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct12"))))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -3043,7 +3253,8 @@
                       declAliases = [
                         Name "struct12_t"],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -3063,7 +3274,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:62:15",
@@ -3083,8 +3295,10 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct12"))))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -3150,7 +3364,8 @@
                     (NameOriginRenamedFrom
                       (Name "struct1")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3179,7 +3394,8 @@
                     (NameOriginRenamedFrom
                       (Name "struct2")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3210,7 +3426,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct3"))))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3241,7 +3458,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct4"))))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3266,7 +3484,8 @@
                     "Struct5"}
                 NameOriginInSource,
               structFieldOffset = 128,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3291,7 +3510,8 @@
                     nameHsIdent = HsIdentifier
                       "Struct5_t"}),
               structFieldOffset = 128,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3317,7 +3537,8 @@
                 (NameOriginRenamedFrom
                   (Name "struct6")),
               structFieldOffset = 192,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3342,7 +3563,8 @@
                     nameHsIdent = HsIdentifier
                       "Struct6"}),
               structFieldOffset = 192,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3367,7 +3589,8 @@
                     nameHsIdent = HsIdentifier
                       "Struct7a"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3392,7 +3615,8 @@
                     nameHsIdent = HsIdentifier
                       "Struct7b"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3420,7 +3644,8 @@
                         "Struct8"}
                     NameOriginInSource)),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3445,7 +3670,8 @@
                     nameHsIdent = HsIdentifier
                       "Struct8b"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3473,7 +3699,8 @@
                         "Struct9"}
                     NameOriginInSource)),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3498,7 +3725,8 @@
                     nameHsIdent = HsIdentifier
                       "Struct9_t"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3527,7 +3755,8 @@
                     (NameOriginRenamedFrom
                       (Name "struct10")))),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3552,7 +3781,8 @@
                     nameHsIdent = HsIdentifier
                       "Struct10_t_t"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3581,7 +3811,8 @@
                     (NameOriginRenamedFrom
                       (Name "struct11")))),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3610,7 +3841,8 @@
                     (NameOriginRenamedFrom
                       (Name "struct12")))),
               structFieldOffset = 384,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3623,7 +3855,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "typedef_analysis.h"},
+            "typedef_analysis.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -3652,7 +3885,8 @@
                         (NameOriginRenamedFrom
                           (Name "struct1")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:71:13",
@@ -3672,7 +3906,8 @@
                         (NameOriginRenamedFrom
                           (Name "struct2")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:74:14",
@@ -3693,7 +3928,8 @@
                           (NameOriginRenamedFrom
                             (Name "struct3"))))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:75:14",
@@ -3714,7 +3950,8 @@
                           (NameOriginRenamedFrom
                             (Name "struct4"))))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:78:18",
@@ -3730,7 +3967,8 @@
                         "Struct5"}
                     NameOriginInSource,
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:79:13",
@@ -3746,7 +3984,8 @@
                         nameHsIdent = HsIdentifier
                           "Struct5_t"}),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:82:18",
@@ -3763,7 +4002,8 @@
                     (NameOriginRenamedFrom
                       (Name "struct6")),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:83:11",
@@ -3779,7 +4019,8 @@
                         nameHsIdent = HsIdentifier
                           "Struct6"}),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:86:12",
@@ -3795,7 +4036,8 @@
                         nameHsIdent = HsIdentifier
                           "Struct7a"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:87:12",
@@ -3811,7 +4053,8 @@
                         nameHsIdent = HsIdentifier
                           "Struct7b"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:91:11",
@@ -3830,7 +4073,8 @@
                             "Struct8"}
                         NameOriginInSource)),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:92:12",
@@ -3846,7 +4090,8 @@
                         nameHsIdent = HsIdentifier
                           "Struct8b"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:96:11",
@@ -3865,7 +4110,8 @@
                             "Struct9"}
                         NameOriginInSource)),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:97:13",
@@ -3881,7 +4127,8 @@
                         nameHsIdent = HsIdentifier
                           "Struct9_t"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:98:14",
@@ -3901,7 +4148,8 @@
                         (NameOriginRenamedFrom
                           (Name "struct10")))),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:99:16",
@@ -3917,7 +4165,8 @@
                         nameHsIdent = HsIdentifier
                           "Struct10_t_t"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:102:14",
@@ -3937,7 +4186,8 @@
                         (NameOriginRenamedFrom
                           (Name "struct11")))),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "typedef_analysis.h:103:14",
@@ -3957,8 +4207,10 @@
                         (NameOriginRenamedFrom
                           (Name "struct12")))),
                   structFieldOffset = 384,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -4005,7 +4257,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct1")))),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4034,7 +4287,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct2")))),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4065,7 +4319,8 @@
                         (NameOriginRenamedFrom
                           (Name "struct3"))))),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4096,7 +4351,8 @@
                         (NameOriginRenamedFrom
                           (Name "struct4"))))),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4121,7 +4377,8 @@
                       "Struct5"}
                   NameOriginInSource,
                 structFieldOffset = 128,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4146,7 +4403,8 @@
                       nameHsIdent = HsIdentifier
                         "Struct5_t"}),
                 structFieldOffset = 128,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4172,7 +4430,8 @@
                   (NameOriginRenamedFrom
                     (Name "struct6")),
                 structFieldOffset = 192,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4197,7 +4456,8 @@
                       nameHsIdent = HsIdentifier
                         "Struct6"}),
                 structFieldOffset = 192,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4222,7 +4482,8 @@
                       nameHsIdent = HsIdentifier
                         "Struct7a"}),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4247,7 +4508,8 @@
                       nameHsIdent = HsIdentifier
                         "Struct7b"}),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4275,7 +4537,8 @@
                           "Struct8"}
                       NameOriginInSource)),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4300,7 +4563,8 @@
                       nameHsIdent = HsIdentifier
                         "Struct8b"}),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4328,7 +4592,8 @@
                           "Struct9"}
                       NameOriginInSource)),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4353,7 +4618,8 @@
                       nameHsIdent = HsIdentifier
                         "Struct9_t"}),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4382,7 +4648,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct10")))),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4407,7 +4674,8 @@
                       nameHsIdent = HsIdentifier
                         "Struct10_t_t"}),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4436,7 +4704,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct11")))),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4465,7 +4734,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct12")))),
                 structFieldOffset = 384,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -4478,7 +4748,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "typedef_analysis.h"},
+              "typedef_analysis.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -4507,7 +4778,8 @@
                           (NameOriginRenamedFrom
                             (Name "struct1")))),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:71:13",
@@ -4527,7 +4799,8 @@
                           (NameOriginRenamedFrom
                             (Name "struct2")))),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:74:14",
@@ -4548,7 +4821,8 @@
                             (NameOriginRenamedFrom
                               (Name "struct3"))))),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:75:14",
@@ -4569,7 +4843,8 @@
                             (NameOriginRenamedFrom
                               (Name "struct4"))))),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:78:18",
@@ -4585,7 +4860,8 @@
                           "Struct5"}
                       NameOriginInSource,
                     structFieldOffset = 128,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:79:13",
@@ -4601,7 +4877,8 @@
                           nameHsIdent = HsIdentifier
                             "Struct5_t"}),
                     structFieldOffset = 128,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:82:18",
@@ -4618,7 +4895,8 @@
                       (NameOriginRenamedFrom
                         (Name "struct6")),
                     structFieldOffset = 192,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:83:11",
@@ -4634,7 +4912,8 @@
                           nameHsIdent = HsIdentifier
                             "Struct6"}),
                     structFieldOffset = 192,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:86:12",
@@ -4650,7 +4929,8 @@
                           nameHsIdent = HsIdentifier
                             "Struct7a"}),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:87:12",
@@ -4666,7 +4946,8 @@
                           nameHsIdent = HsIdentifier
                             "Struct7b"}),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:91:11",
@@ -4685,7 +4966,8 @@
                               "Struct8"}
                           NameOriginInSource)),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:92:12",
@@ -4701,7 +4983,8 @@
                           nameHsIdent = HsIdentifier
                             "Struct8b"}),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:96:11",
@@ -4720,7 +5003,8 @@
                               "Struct9"}
                           NameOriginInSource)),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:97:13",
@@ -4736,7 +5020,8 @@
                           nameHsIdent = HsIdentifier
                             "Struct9_t"}),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:98:14",
@@ -4756,7 +5041,8 @@
                           (NameOriginRenamedFrom
                             (Name "struct10")))),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:99:16",
@@ -4772,7 +5058,8 @@
                           nameHsIdent = HsIdentifier
                             "Struct10_t_t"}),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:102:14",
@@ -4792,7 +5079,8 @@
                           (NameOriginRenamedFrom
                             (Name "struct11")))),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "typedef_analysis.h:103:14",
@@ -4812,8 +5100,10 @@
                           (NameOriginRenamedFrom
                             (Name "struct12")))),
                     structFieldOffset = 384,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -4865,7 +5155,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct1")))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -4894,7 +5185,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct2")))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -4925,7 +5217,8 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct3"))))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -4956,7 +5249,8 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct4"))))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -4981,7 +5275,8 @@
                               "Struct5"}
                           NameOriginInSource,
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5006,7 +5301,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct5_t"}),
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5032,7 +5328,8 @@
                           (NameOriginRenamedFrom
                             (Name "struct6")),
                         structFieldOffset = 192,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5057,7 +5354,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct6"}),
                         structFieldOffset = 192,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5082,7 +5380,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct7a"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5107,7 +5406,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct7b"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5135,7 +5435,8 @@
                                   "Struct8"}
                               NameOriginInSource)),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5160,7 +5461,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct8b"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5188,7 +5490,8 @@
                                   "Struct9"}
                               NameOriginInSource)),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5213,7 +5516,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct9_t"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5242,7 +5546,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct10")))),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5267,7 +5572,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct10_t_t"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5296,7 +5602,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct11")))),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5325,7 +5632,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct12")))),
                         structFieldOffset = 384,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -5338,7 +5646,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -5367,7 +5676,8 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct1")))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:71:13",
@@ -5387,7 +5697,8 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct2")))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:74:14",
@@ -5408,7 +5719,8 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct3"))))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:75:14",
@@ -5429,7 +5741,8 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct4"))))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:78:18",
@@ -5445,7 +5758,8 @@
                                   "Struct5"}
                               NameOriginInSource,
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:79:13",
@@ -5461,7 +5775,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct5_t"}),
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:82:18",
@@ -5478,7 +5793,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct6")),
                             structFieldOffset = 192,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:83:11",
@@ -5494,7 +5810,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct6"}),
                             structFieldOffset = 192,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:86:12",
@@ -5510,7 +5827,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct7a"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:87:12",
@@ -5526,7 +5844,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct7b"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:91:11",
@@ -5545,7 +5864,8 @@
                                       "Struct8"}
                                   NameOriginInSource)),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:92:12",
@@ -5561,7 +5881,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct8b"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:96:11",
@@ -5580,7 +5901,8 @@
                                       "Struct9"}
                                   NameOriginInSource)),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:97:13",
@@ -5596,7 +5918,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct9_t"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:98:14",
@@ -5616,7 +5939,8 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct10")))),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:99:16",
@@ -5632,7 +5956,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct10_t_t"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:102:14",
@@ -5652,7 +5977,8 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct11")))),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:103:14",
@@ -5672,8 +5998,10 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct12")))),
                             structFieldOffset = 384,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -5743,7 +6071,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct1")))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5772,7 +6101,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct2")))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5803,7 +6133,8 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct3"))))),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5834,7 +6165,8 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct4"))))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5859,7 +6191,8 @@
                               "Struct5"}
                           NameOriginInSource,
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5884,7 +6217,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct5_t"}),
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5910,7 +6244,8 @@
                           (NameOriginRenamedFrom
                             (Name "struct6")),
                         structFieldOffset = 192,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5935,7 +6270,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct6"}),
                         structFieldOffset = 192,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5960,7 +6296,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct7a"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5985,7 +6322,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct7b"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6013,7 +6351,8 @@
                                   "Struct8"}
                               NameOriginInSource)),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6038,7 +6377,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct8b"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6066,7 +6406,8 @@
                                   "Struct9"}
                               NameOriginInSource)),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6091,7 +6432,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct9_t"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6120,7 +6462,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct10")))),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6145,7 +6488,8 @@
                               nameHsIdent = HsIdentifier
                                 "Struct10_t_t"}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6174,7 +6518,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct11")))),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6203,7 +6548,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct12")))),
                         structFieldOffset = 384,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -6216,7 +6562,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "typedef_analysis.h"},
+                      "typedef_analysis.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -6245,7 +6592,8 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct1")))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:71:13",
@@ -6265,7 +6613,8 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct2")))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:74:14",
@@ -6286,7 +6635,8 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct3"))))),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:75:14",
@@ -6307,7 +6657,8 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct4"))))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:78:18",
@@ -6323,7 +6674,8 @@
                                   "Struct5"}
                               NameOriginInSource,
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:79:13",
@@ -6339,7 +6691,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct5_t"}),
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:82:18",
@@ -6356,7 +6709,8 @@
                               (NameOriginRenamedFrom
                                 (Name "struct6")),
                             structFieldOffset = 192,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:83:11",
@@ -6372,7 +6726,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct6"}),
                             structFieldOffset = 192,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:86:12",
@@ -6388,7 +6743,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct7a"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:87:12",
@@ -6404,7 +6760,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct7b"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:91:11",
@@ -6423,7 +6780,8 @@
                                       "Struct8"}
                                   NameOriginInSource)),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:92:12",
@@ -6439,7 +6797,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct8b"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:96:11",
@@ -6458,7 +6817,8 @@
                                       "Struct9"}
                                   NameOriginInSource)),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:97:13",
@@ -6474,7 +6834,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct9_t"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:98:14",
@@ -6494,7 +6855,8 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct10")))),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:99:16",
@@ -6510,7 +6872,8 @@
                                   nameHsIdent = HsIdentifier
                                     "Struct10_t_t"}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:102:14",
@@ -6530,7 +6893,8 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct11")))),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "typedef_analysis.h:103:14",
@@ -6550,8 +6914,10 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct12")))),
                             structFieldOffset = 384,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

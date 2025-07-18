@@ -23,7 +23,8 @@
               "Toggle"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h"},
+          declHeader = "iterator.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -36,7 +37,8 @@
             typedefType = TypeBlock
               (TypeFun
                 []
-                (TypePrim PrimBool))},
+                (TypePrim PrimBool)),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -73,7 +75,8 @@
               NamePair {
                 nameC = Name "Toggle",
                 nameHsIdent = HsIdentifier
-                  "Toggle"})}},
+                  "Toggle"}),
+          functionComment = Nothing}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "_Bool testmodule_toggleNext (Toggle arg1) { return toggleNext(arg1); }",
@@ -101,8 +104,8 @@
                   nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
-          functionRes = TypePrim
-            PrimBool}},
+          functionRes = TypePrim PrimBool,
+          functionComment = Nothing}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void testmodule_releaseToggle (Toggle arg1) { releaseToggle(arg1); }",
@@ -130,7 +133,8 @@
                   nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -155,7 +159,8 @@
               "Counter"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h"},
+          declHeader = "iterator.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -169,9 +174,8 @@
               (TypeFun
                 []
                 (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))},
+                  (PrimIntegral PrimInt Signed))),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -213,7 +217,8 @@
               NamePair {
                 nameC = Name "Counter",
                 nameHsIdent = HsIdentifier
-                  "Counter"})}},
+                  "Counter"}),
+          functionComment = Nothing}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "signed int testmodule_counterNext (Counter arg1) { return counterNext(arg1); }",
@@ -242,7 +247,8 @@
                   nameHsIdent = HsIdentifier
                     "Counter"})],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void testmodule_releaseCounter (Counter arg1) { releaseCounter(arg1); }",
@@ -270,7 +276,8 @@
                   nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -297,7 +304,8 @@
               "VarCounter"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h"},
+          declHeader = "iterator.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -313,9 +321,8 @@
                   TypePrim
                     (PrimIntegral PrimInt Signed)]
                 (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))},
+                  (PrimIntegral PrimInt Signed))),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -353,7 +360,8 @@
               NamePair {
                 nameC = Name "VarCounter",
                 nameHsIdent = HsIdentifier
-                  "VarCounter"})}},
+                  "VarCounter"}),
+          functionComment = Nothing}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "signed int testmodule_varCounterNext (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
@@ -386,7 +394,8 @@
             TypePrim
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed),
+          functionComment = Nothing}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void testmodule_releaseVarCounter (VarCounter arg1) { releaseVarCounter(arg1); }",
@@ -414,4 +423,5 @@
                   nameC = Name "VarCounter",
                   nameHsIdent = HsIdentifier
                     "VarCounter"})],
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid,
+          functionComment = Nothing}}]

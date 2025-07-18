@@ -523,7 +523,8 @@
               "Arr1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "type_naturals.h"},
+          declHeader = "type_naturals.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -536,7 +537,8 @@
             macroType = TypeConstArray
               3
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -583,7 +585,8 @@
               "Arr2"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "type_naturals.h"},
+          declHeader = "type_naturals.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -596,7 +599,8 @@
             macroType = TypeConstArray
               8
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -643,7 +647,8 @@
               "Arr3"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "type_naturals.h"},
+          declHeader = "type_naturals.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -656,7 +661,8 @@
             macroType = TypeConstArray
               18
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -703,7 +709,8 @@
               "Arr4"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "type_naturals.h"},
+          declHeader = "type_naturals.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -716,7 +723,8 @@
             macroType = TypeConstArray
               252
               (TypePrim
-                (PrimIntegral PrimInt Signed))},
+                (PrimIntegral PrimInt Signed)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

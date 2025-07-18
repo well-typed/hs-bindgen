@@ -248,7 +248,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -489,7 +490,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -500,7 +502,8 @@
                 "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "fixedwidth.h"},
+            declHeader = "fixedwidth.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -632,7 +635,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "fixedwidth.h:5:11",
@@ -757,8 +761,10 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1017,7 +1023,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1258,7 +1265,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1269,7 +1277,8 @@
                   "Foo"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "fixedwidth.h"},
+              declHeader = "fixedwidth.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1401,7 +1410,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "fixedwidth.h:5:11",
@@ -1526,8 +1536,10 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1791,7 +1803,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2032,7 +2045,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2043,7 +2057,8 @@
                           "Foo"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "fixedwidth.h"},
+                      declHeader = "fixedwidth.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2175,7 +2190,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "fixedwidth.h:5:11",
@@ -2300,8 +2316,10 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2567,7 +2585,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2808,7 +2827,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2819,7 +2839,8 @@
                           "Foo"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "fixedwidth.h"},
+                      declHeader = "fixedwidth.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2951,7 +2972,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "fixedwidth.h:5:11",
@@ -3076,8 +3098,10 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

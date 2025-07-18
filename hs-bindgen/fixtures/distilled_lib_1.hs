@@ -25,7 +25,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -45,7 +46,8 @@
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -63,7 +65,8 @@
               Name
                 "another_typedef_struct_t"],
             declHeader =
-            "distilled_lib_1.h"},
+            "distilled_lib_1.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -83,7 +86,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:9:32",
@@ -96,8 +100,10 @@
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -133,7 +139,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -153,7 +160,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -171,7 +179,8 @@
                 Name
                   "another_typedef_struct_t"],
               declHeader =
-              "distilled_lib_1.h"},
+              "distilled_lib_1.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -191,7 +200,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:9:32",
@@ -204,8 +214,10 @@
                         (PrimSignImplicit
                           (Just Signed))),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -246,7 +258,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -266,7 +279,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -284,7 +298,8 @@
                         Name
                           "another_typedef_struct_t"],
                       declHeader =
-                      "distilled_lib_1.h"},
+                      "distilled_lib_1.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -304,7 +319,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:9:32",
@@ -317,8 +333,10 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -361,7 +379,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -381,7 +400,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -399,7 +419,8 @@
                         Name
                           "another_typedef_struct_t"],
                       declHeader =
-                      "distilled_lib_1.h"},
+                      "distilled_lib_1.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -419,7 +440,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:9:32",
@@ -432,8 +454,10 @@
                                 (PrimSignImplicit
                                   (Just Signed))),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -492,7 +516,8 @@
           declAliases = [
             Name "another_typedef_enum_e"],
           declHeader =
-          "distilled_lib_1.h"},
+          "distilled_lib_1.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -514,7 +539,8 @@
                   nameC = Name "FOO",
                   nameHsIdent = HsIdentifier
                     "FOO"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "distilled_lib_1.h:10:21",
@@ -522,7 +548,9 @@
                   nameC = Name "BAR",
                   nameHsIdent = HsIdentifier
                     "BAR"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -748,7 +776,8 @@
             nameC = Name "FOO",
             nameHsIdent = HsIdentifier
               "FOO"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -769,7 +798,8 @@
             nameC = Name "BAR",
             nameHsIdent = HsIdentifier
               "BAR"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -871,7 +901,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "distilled_lib_1.h"},
+          "distilled_lib_1.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -882,7 +913,8 @@
                 "@NsVar"
                 "un_A_type_t"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1008,7 +1040,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "distilled_lib_1.h"},
+          "distilled_lib_1.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1019,7 +1052,8 @@
                 "@NsVar"
                 "un_Var_t"},
             typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1145,7 +1179,8 @@
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1386,7 +1421,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 8,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1627,7 +1663,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 16,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1868,7 +1905,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 32,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1899,7 +1937,8 @@
                       (AnonId
                         "distilled_lib_1.h:9:9")))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1932,7 +1971,8 @@
                         (AnonId
                           "distilled_lib_1.h:9:9"))))),
               structFieldOffset = 128,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1950,7 +1990,8 @@
               structFieldType = TypePointer
                 TypeVoid,
               structFieldOffset = 192,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2195,7 +2236,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2225,7 +2267,8 @@
                       (AnonId
                         "distilled_lib_1.h:10:9")))),
               structFieldOffset = 480,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2259,7 +2302,8 @@
                         (AnonId
                           "distilled_lib_1.h:10:9"))))),
               structFieldOffset = 512,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2297,7 +2341,8 @@
                           (AnonId
                             "distilled_lib_1.h:10:9")))))),
               structFieldOffset = 640,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2314,7 +2359,8 @@
             declAliases = [
               Name "a_typedef_struct_t"],
             declHeader =
-            "distilled_lib_1.h"},
+            "distilled_lib_1.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2334,7 +2380,8 @@
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:38:31",
@@ -2459,7 +2506,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:39:31",
@@ -2584,7 +2632,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:40:31",
@@ -2709,7 +2758,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:41:31",
@@ -2731,7 +2781,8 @@
                           (AnonId
                             "distilled_lib_1.h:9:9")))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:42:31",
@@ -2754,7 +2805,8 @@
                             (AnonId
                               "distilled_lib_1.h:9:9"))))),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:43:31",
@@ -2765,7 +2817,8 @@
                   structFieldType = TypePointer
                     TypeVoid,
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:44:31",
@@ -2892,7 +2945,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:45:31",
@@ -2913,7 +2967,8 @@
                           (AnonId
                             "distilled_lib_1.h:10:9")))),
                   structFieldOffset = 480,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:46:31",
@@ -2936,7 +2991,8 @@
                             (AnonId
                               "distilled_lib_1.h:10:9"))))),
                   structFieldOffset = 512,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "distilled_lib_1.h:47:31",
@@ -2961,8 +3017,10 @@
                               (AnonId
                                 "distilled_lib_1.h:10:9")))))),
                   structFieldOffset = 640,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -2998,7 +3056,8 @@
                 structFieldType = TypePrim
                   PrimBool,
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3239,7 +3298,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 8,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3480,7 +3540,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 16,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3721,7 +3782,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3752,7 +3814,8 @@
                         (AnonId
                           "distilled_lib_1.h:9:9")))),
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3785,7 +3848,8 @@
                           (AnonId
                             "distilled_lib_1.h:9:9"))))),
                 structFieldOffset = 128,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -3803,7 +3867,8 @@
                 structFieldType = TypePointer
                   TypeVoid,
                 structFieldOffset = 192,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4048,7 +4113,8 @@
                                   instanceSpecConstraints = [
                                     ]})]}}),
                 structFieldOffset = 256,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4078,7 +4144,8 @@
                         (AnonId
                           "distilled_lib_1.h:10:9")))),
                 structFieldOffset = 480,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4112,7 +4179,8 @@
                           (AnonId
                             "distilled_lib_1.h:10:9"))))),
                 structFieldOffset = 512,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -4150,7 +4218,8 @@
                             (AnonId
                               "distilled_lib_1.h:10:9")))))),
                 structFieldOffset = 640,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -4167,7 +4236,8 @@
               declAliases = [
                 Name "a_typedef_struct_t"],
               declHeader =
-              "distilled_lib_1.h"},
+              "distilled_lib_1.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -4187,7 +4257,8 @@
                     structFieldType = TypePrim
                       PrimBool,
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:38:31",
@@ -4312,7 +4383,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 8,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:39:31",
@@ -4437,7 +4509,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 16,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:40:31",
@@ -4562,7 +4635,8 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:41:31",
@@ -4584,7 +4658,8 @@
                             (AnonId
                               "distilled_lib_1.h:9:9")))),
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:42:31",
@@ -4607,7 +4682,8 @@
                               (AnonId
                                 "distilled_lib_1.h:9:9"))))),
                     structFieldOffset = 128,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:43:31",
@@ -4618,7 +4694,8 @@
                     structFieldType = TypePointer
                       TypeVoid,
                     structFieldOffset = 192,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:44:31",
@@ -4745,7 +4822,8 @@
                                       instanceSpecConstraints = [
                                         ]})]}}),
                     structFieldOffset = 256,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:45:31",
@@ -4766,7 +4844,8 @@
                             (AnonId
                               "distilled_lib_1.h:10:9")))),
                     structFieldOffset = 480,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:46:31",
@@ -4789,7 +4868,8 @@
                               (AnonId
                                 "distilled_lib_1.h:10:9"))))),
                     structFieldOffset = 512,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "distilled_lib_1.h:47:31",
@@ -4814,8 +4894,10 @@
                                 (AnonId
                                   "distilled_lib_1.h:10:9")))))),
                     structFieldOffset = 640,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -4856,7 +4938,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5097,7 +5180,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5338,7 +5422,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5579,7 +5664,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5610,7 +5696,8 @@
                                 (AnonId
                                   "distilled_lib_1.h:9:9")))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5643,7 +5730,8 @@
                                   (AnonId
                                     "distilled_lib_1.h:9:9"))))),
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5661,7 +5749,8 @@
                         structFieldType = TypePointer
                           TypeVoid,
                         structFieldOffset = 192,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5906,7 +5995,8 @@
                                           instanceSpecConstraints = [
                                             ]})]}}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5936,7 +6026,8 @@
                                 (AnonId
                                   "distilled_lib_1.h:10:9")))),
                         structFieldOffset = 480,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -5970,7 +6061,8 @@
                                   (AnonId
                                     "distilled_lib_1.h:10:9"))))),
                         structFieldOffset = 512,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6008,7 +6100,8 @@
                                     (AnonId
                                       "distilled_lib_1.h:10:9")))))),
                         structFieldOffset = 640,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -6025,7 +6118,8 @@
                       declAliases = [
                         Name "a_typedef_struct_t"],
                       declHeader =
-                      "distilled_lib_1.h"},
+                      "distilled_lib_1.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -6045,7 +6139,8 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:38:31",
@@ -6170,7 +6265,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:39:31",
@@ -6295,7 +6391,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:40:31",
@@ -6420,7 +6517,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:41:31",
@@ -6442,7 +6540,8 @@
                                     (AnonId
                                       "distilled_lib_1.h:9:9")))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:42:31",
@@ -6465,7 +6564,8 @@
                                       (AnonId
                                         "distilled_lib_1.h:9:9"))))),
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:43:31",
@@ -6476,7 +6576,8 @@
                             structFieldType = TypePointer
                               TypeVoid,
                             structFieldOffset = 192,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:44:31",
@@ -6603,7 +6704,8 @@
                                               instanceSpecConstraints = [
                                                 ]})]}}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:45:31",
@@ -6624,7 +6726,8 @@
                                     (AnonId
                                       "distilled_lib_1.h:10:9")))),
                             structFieldOffset = 480,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:46:31",
@@ -6647,7 +6750,8 @@
                                       (AnonId
                                         "distilled_lib_1.h:10:9"))))),
                             structFieldOffset = 512,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:47:31",
@@ -6672,8 +6776,10 @@
                                         (AnonId
                                           "distilled_lib_1.h:10:9")))))),
                             structFieldOffset = 640,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -6725,7 +6831,8 @@
                         structFieldType = TypePrim
                           PrimBool,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -6966,7 +7073,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 8,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7207,7 +7315,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 16,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7448,7 +7557,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7479,7 +7589,8 @@
                                 (AnonId
                                   "distilled_lib_1.h:9:9")))),
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7512,7 +7623,8 @@
                                   (AnonId
                                     "distilled_lib_1.h:9:9"))))),
                         structFieldOffset = 128,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7530,7 +7642,8 @@
                         structFieldType = TypePointer
                           TypeVoid,
                         structFieldOffset = 192,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7775,7 +7888,8 @@
                                           instanceSpecConstraints = [
                                             ]})]}}),
                         structFieldOffset = 256,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7805,7 +7919,8 @@
                                 (AnonId
                                   "distilled_lib_1.h:10:9")))),
                         structFieldOffset = 480,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7839,7 +7954,8 @@
                                   (AnonId
                                     "distilled_lib_1.h:10:9"))))),
                         structFieldOffset = 512,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -7877,7 +7993,8 @@
                                     (AnonId
                                       "distilled_lib_1.h:10:9")))))),
                         structFieldOffset = 640,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -7894,7 +8011,8 @@
                       declAliases = [
                         Name "a_typedef_struct_t"],
                       declHeader =
-                      "distilled_lib_1.h"},
+                      "distilled_lib_1.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -7914,7 +8032,8 @@
                             structFieldType = TypePrim
                               PrimBool,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:38:31",
@@ -8039,7 +8158,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 8,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:39:31",
@@ -8164,7 +8284,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 16,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:40:31",
@@ -8289,7 +8410,8 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:41:31",
@@ -8311,7 +8433,8 @@
                                     (AnonId
                                       "distilled_lib_1.h:9:9")))),
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:42:31",
@@ -8334,7 +8457,8 @@
                                       (AnonId
                                         "distilled_lib_1.h:9:9"))))),
                             structFieldOffset = 128,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:43:31",
@@ -8345,7 +8469,8 @@
                             structFieldType = TypePointer
                               TypeVoid,
                             structFieldOffset = 192,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:44:31",
@@ -8472,7 +8597,8 @@
                                               instanceSpecConstraints = [
                                                 ]})]}}),
                             structFieldOffset = 256,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:45:31",
@@ -8493,7 +8619,8 @@
                                     (AnonId
                                       "distilled_lib_1.h:10:9")))),
                             structFieldOffset = 480,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:46:31",
@@ -8516,7 +8643,8 @@
                                       (AnonId
                                         "distilled_lib_1.h:10:9"))))),
                             structFieldOffset = 512,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "distilled_lib_1.h:47:31",
@@ -8541,8 +8669,10 @@
                                         (AnonId
                                           "distilled_lib_1.h:10:9")))))),
                             structFieldOffset = 640,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -8733,7 +8863,8 @@
           declAliases = [
             Name "a_typedef_enum_e"],
           declHeader =
-          "distilled_lib_1.h"},
+          "distilled_lib_1.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -8756,7 +8887,8 @@
                   nameC = Name "ENUM_CASE_0",
                   nameHsIdent = HsIdentifier
                     "ENUM_CASE_0"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "distilled_lib_1.h:64:3",
@@ -8764,7 +8896,8 @@
                   nameC = Name "ENUM_CASE_1",
                   nameHsIdent = HsIdentifier
                     "ENUM_CASE_1"},
-                enumConstantValue = 1},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "distilled_lib_1.h:65:3",
@@ -8772,7 +8905,8 @@
                   nameC = Name "ENUM_CASE_2",
                   nameHsIdent = HsIdentifier
                     "ENUM_CASE_2"},
-                enumConstantValue = 2},
+                enumConstantValue = 2,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "distilled_lib_1.h:66:3",
@@ -8780,7 +8914,9 @@
                   nameC = Name "ENUM_CASE_3",
                   nameHsIdent = HsIdentifier
                     "ENUM_CASE_3"},
-                enumConstantValue = 3}]},
+                enumConstantValue = 3,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9020,7 +9156,8 @@
             nameC = Name "ENUM_CASE_0",
             nameHsIdent = HsIdentifier
               "ENUM_CASE_0"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9041,7 +9178,8 @@
             nameC = Name "ENUM_CASE_1",
             nameHsIdent = HsIdentifier
               "ENUM_CASE_1"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9062,7 +9200,8 @@
             nameC = Name "ENUM_CASE_2",
             nameHsIdent = HsIdentifier
               "ENUM_CASE_2"},
-          enumConstantValue = 2}},
+          enumConstantValue = 2,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9083,7 +9222,8 @@
             nameC = Name "ENUM_CASE_3",
             nameHsIdent = HsIdentifier
               "ENUM_CASE_3"},
-          enumConstantValue = 3}},
+          enumConstantValue = 3,
+          enumConstantComment = Nothing}},
   DeclInlineCInclude
     "distilled_lib_1.h",
   DeclInlineC
@@ -9798,7 +9938,8 @@
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
-                            ]})]}}}},
+                            ]})]}},
+          functionComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -10050,7 +10191,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "distilled_lib_1.h"},
+          "distilled_lib_1.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -10295,7 +10437,8 @@
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = [
-                                  ]})]}}))},
+                                  ]})]}})),
+            typedefComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

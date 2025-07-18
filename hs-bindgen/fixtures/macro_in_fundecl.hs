@@ -24,7 +24,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl.h"},
+          "macro_in_fundecl.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -35,7 +36,8 @@
                 "@NsVar"
                 "un_I"},
             macroType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+              (PrimIntegral PrimInt Signed),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -134,7 +136,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl.h"},
+          "macro_in_fundecl.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -146,7 +149,8 @@
                 "un_C"},
             macroType = TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))},
+                (PrimSignImplicit Nothing)),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -245,7 +249,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl.h"},
+          "macro_in_fundecl.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -256,7 +261,8 @@
                 "@NsVar"
                 "un_F"},
             macroType = TypePrim
-              (PrimFloating PrimFloat)},
+              (PrimFloating PrimFloat),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -350,7 +356,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl.h"},
+          "macro_in_fundecl.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -361,7 +368,8 @@
                 "@NsVar"
                 "un_L"},
             macroType = TypePrim
-              (PrimIntegral PrimLong Signed)},
+              (PrimIntegral PrimLong Signed),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -460,7 +468,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl.h"},
+          "macro_in_fundecl.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -471,9 +480,8 @@
                 "@NsVar"
                 "un_S"},
             macroType = TypePrim
-              (PrimIntegral
-                PrimShort
-                Signed)},
+              (PrimIntegral PrimShort Signed),
+            macroTypeComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -580,7 +588,8 @@
                 (PrimSignImplicit Nothing))],
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing))}},
+              (PrimSignImplicit Nothing)),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -622,7 +631,8 @@
               NamePair {
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource)}},
+              NameOriginInSource),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -664,7 +674,8 @@
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed))))}},
+                  (Just Signed)))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -709,7 +720,8 @@
           functionRes = TypePointer
             (TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing)))}},
+                (PrimSignImplicit Nothing))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -755,7 +767,8 @@
               NamePair {
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource)}},
+              NameOriginInSource),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -788,9 +801,8 @@
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+                (PrimIntegral PrimInt Signed))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -827,9 +839,8 @@
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+                (PrimIntegral PrimInt Signed))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -866,9 +877,8 @@
                     nameHsIdent = HsIdentifier "S"}
                   NameOriginInSource]
               (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+                (PrimIntegral PrimInt Signed))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -907,7 +917,8 @@
                 NamePair {
                   nameC = Name "I",
                   nameHsIdent = HsIdentifier "I"}
-                NameOriginInSource))}},
+                NameOriginInSource)),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -943,7 +954,8 @@
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed))))}},
+                    Signed)))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -983,7 +995,8 @@
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed))))}},
+                    Signed)))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1023,7 +1036,8 @@
                   NamePair {
                     nameC = Name "I",
                     nameHsIdent = HsIdentifier "I"}
-                  NameOriginInSource)))}},
+                  NameOriginInSource))),
+          functionComment = Nothing}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1047,4 +1061,5 @@
             NamePair {
               nameC = Name "I",
               nameHsIdent = HsIdentifier "I"}
-            NameOriginInSource}}]
+            NameOriginInSource,
+          functionComment = Nothing}}]

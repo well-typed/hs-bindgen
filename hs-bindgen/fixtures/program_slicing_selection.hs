@@ -14,7 +14,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [Name "FILE"],
           declHeader =
-          "program_slicing_selection.h"},
+          "program_slicing_selection.h",
+          declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -49,7 +50,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "program_slicing_selection.h"},
+          "program_slicing_selection.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -71,7 +73,8 @@
                   nameC = Name "SUCCESS",
                   nameHsIdent = HsIdentifier
                     "SUCCESS"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "program_slicing_selection.h:9:3",
@@ -79,7 +82,8 @@
                   nameC = Name "NOT_FOUND",
                   nameHsIdent = HsIdentifier
                     "NOT_FOUND"},
-                enumConstantValue = 2},
+                enumConstantValue = 2,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "program_slicing_selection.h:10:3",
@@ -88,7 +92,8 @@
                     "PERMISSION_DENIED",
                   nameHsIdent = HsIdentifier
                     "PERMISSION_DENIED"},
-                enumConstantValue = 13},
+                enumConstantValue = 13,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "program_slicing_selection.h:11:3",
@@ -96,7 +101,8 @@
                   nameC = Name "INVALID_ARGUMENT",
                   nameHsIdent = HsIdentifier
                     "INVALID_ARGUMENT"},
-                enumConstantValue = 22},
+                enumConstantValue = 22,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "program_slicing_selection.h:12:3",
@@ -104,7 +110,8 @@
                   nameC = Name "OUT_OF_MEMORY",
                   nameHsIdent = HsIdentifier
                     "OUT_OF_MEMORY"},
-                enumConstantValue = 12},
+                enumConstantValue = 12,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "program_slicing_selection.h:13:3",
@@ -113,7 +120,9 @@
                     "CUSTOM_ERROR_OTHER",
                   nameHsIdent = HsIdentifier
                     "CUSTOM_ERROR_OTHER"},
-                enumConstantValue = `-1`}]},
+                enumConstantValue = `-1`,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -334,7 +343,8 @@
             nameC = Name "SUCCESS",
             nameHsIdent = HsIdentifier
               "SUCCESS"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -355,7 +365,8 @@
             nameC = Name "NOT_FOUND",
             nameHsIdent = HsIdentifier
               "NOT_FOUND"},
-          enumConstantValue = 2}},
+          enumConstantValue = 2,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -377,7 +388,8 @@
               "PERMISSION_DENIED",
             nameHsIdent = HsIdentifier
               "PERMISSION_DENIED"},
-          enumConstantValue = 13}},
+          enumConstantValue = 13,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -398,7 +410,8 @@
             nameC = Name "INVALID_ARGUMENT",
             nameHsIdent = HsIdentifier
               "INVALID_ARGUMENT"},
-          enumConstantValue = 22}},
+          enumConstantValue = 22,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -419,7 +432,8 @@
             nameC = Name "OUT_OF_MEMORY",
             nameHsIdent = HsIdentifier
               "OUT_OF_MEMORY"},
-          enumConstantValue = 12}},
+          enumConstantValue = 12,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -441,7 +455,8 @@
               "CUSTOM_ERROR_OTHER",
             nameHsIdent = HsIdentifier
               "CUSTOM_ERROR_OTHER"},
-          enumConstantValue = `-1`}},
+          enumConstantValue = `-1`,
+          enumConstantComment = Nothing}},
   DeclData
     Struct {
       structName = HsName
@@ -475,7 +490,8 @@
                     "FileOperationStatus"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -716,7 +732,8 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 64,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -730,7 +747,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "program_slicing_selection.h"},
+            "program_slicing_selection.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -755,7 +773,8 @@
                         "FileOperationStatus"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "program_slicing_selection.h:18:10",
@@ -880,8 +899,10 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -924,7 +945,8 @@
                       "FileOperationStatus"}
                   NameOriginInSource,
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1165,7 +1187,8 @@
                                 instanceSpecConstraints = [
                                   ]})]}},
                 structFieldOffset = 64,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1179,7 +1202,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "program_slicing_selection.h"},
+              "program_slicing_selection.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1204,7 +1228,8 @@
                           "FileOperationStatus"}
                       NameOriginInSource,
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "program_slicing_selection.h:18:10",
@@ -1329,8 +1354,10 @@
                                     instanceSpecConstraints = [
                                       ]})]}},
                     structFieldOffset = 64,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1378,7 +1405,8 @@
                               "FileOperationStatus"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1619,7 +1647,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1633,7 +1662,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "program_slicing_selection.h"},
+                      "program_slicing_selection.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1658,7 +1688,8 @@
                                   "FileOperationStatus"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "program_slicing_selection.h:18:10",
@@ -1783,8 +1814,10 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1834,7 +1867,8 @@
                               "FileOperationStatus"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2075,7 +2109,8 @@
                                         instanceSpecConstraints = [
                                           ]})]}},
                         structFieldOffset = 64,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -2089,7 +2124,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "program_slicing_selection.h"},
+                      "program_slicing_selection.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2114,7 +2150,8 @@
                                   "FileOperationStatus"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "program_slicing_selection.h:18:10",
@@ -2239,8 +2276,10 @@
                                             instanceSpecConstraints = [
                                               ]})]}},
                             structFieldOffset = 64,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2563,4 +2602,5 @@
                 "FileOperationStatus",
               nameHsIdent = HsIdentifier
                 "FileOperationStatus"}
-            NameOriginInSource}}]
+            NameOriginInSource,
+          functionComment = Nothing}}]

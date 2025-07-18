@@ -15,7 +15,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "decls_in_signature.h"},
+          "decls_in_signature.h",
+          declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -49,7 +50,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -67,7 +69,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -80,7 +83,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "decls_in_signature.h"},
+            "decls_in_signature.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -98,7 +102,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "decls_in_signature.h:5:7",
@@ -109,8 +114,10 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -146,7 +153,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -164,7 +172,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -177,7 +186,8 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "decls_in_signature.h"},
+              "decls_in_signature.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -195,7 +205,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "decls_in_signature.h:5:7",
@@ -206,8 +217,10 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -248,7 +261,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -266,7 +280,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -279,7 +294,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "decls_in_signature.h"},
+                      "decls_in_signature.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -297,7 +313,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "decls_in_signature.h:5:7",
@@ -308,8 +325,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -352,7 +371,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -370,7 +390,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -383,7 +404,8 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "decls_in_signature.h"},
+                      "decls_in_signature.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -401,7 +423,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "decls_in_signature.h:5:7",
@@ -412,8 +435,10 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -498,7 +523,8 @@
                 nameHsIdent = HsIdentifier
                   "Outside"}
               NameOriginInSource],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclSimple,
   DeclData
     Struct {
@@ -526,7 +552,8 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -544,10 +571,13 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
-      structOrigin = Just
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
+      structOrigin =
+      Just
         Decl {
-          declInfo = DeclInfo {
+          declInfo =
+          DeclInfo {
             declLoc =
             "decls_in_signature.h:17:16",
             declId = NamePair {
@@ -557,8 +587,23 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "decls_in_signature.h"},
-          declKind = Struct
+            "decls_in_signature.h",
+            declComment =
+            Just
+              Comment {
+                commentCName = "named_struct",
+                commentChildren =
+                [
+                  Paragraph
+                    [TextContent "Error cases"],
+                  Paragraph
+                    [
+                      TextContent
+                        "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                      TextContent
+                        "and the edge cases below)."]]}},
+          declKind =
+          Struct
             Struct {
               structNames = RecordNames
                 (HsName
@@ -577,7 +622,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "decls_in_signature.h:17:42",
@@ -588,8 +634,23 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment =
+              Just
+                Comment {
+                  commentCName = "named_struct",
+                  commentChildren =
+                  [
+                    Paragraph
+                      [TextContent "Error cases"],
+                    Paragraph
+                      [
+                        TextContent
+                          "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                        TextContent
+                          "and the edge cases below)."]]}},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -625,7 +686,8 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}},
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -643,10 +705,13 @@
                 structFieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
+        structOrigin =
+        Just
           Decl {
-            declInfo = DeclInfo {
+            declInfo =
+            DeclInfo {
               declLoc =
               "decls_in_signature.h:17:16",
               declId = NamePair {
@@ -656,8 +721,23 @@
               declOrigin = NameOriginInSource,
               declAliases = [],
               declHeader =
-              "decls_in_signature.h"},
-            declKind = Struct
+              "decls_in_signature.h",
+              declComment =
+              Just
+                Comment {
+                  commentCName = "named_struct",
+                  commentChildren =
+                  [
+                    Paragraph
+                      [TextContent "Error cases"],
+                    Paragraph
+                      [
+                        TextContent
+                          "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                        TextContent
+                          "and the edge cases below)."]]}},
+            declKind =
+            Struct
               Struct {
                 structNames = RecordNames
                   (HsName
@@ -676,7 +756,8 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing},
                   StructField {
                     structFieldLoc =
                     "decls_in_signature.h:17:42",
@@ -687,8 +768,23 @@
                     structFieldType = TypePrim
                       (PrimIntegral PrimInt Signed),
                     structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment =
+                Just
+                  Comment {
+                    commentCName = "named_struct",
+                    commentChildren =
+                    [
+                      Paragraph
+                        [TextContent "Error cases"],
+                      Paragraph
+                        [
+                          TextContent
+                            "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                          TextContent
+                            "and the edge cases below)."]]}},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -700,7 +796,8 @@
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
-        storablePeek = Lambda
+        storablePeek =
+        Lambda
           (NameHint "ptr")
           (Ap
             (StructCon
@@ -729,7 +826,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -747,10 +845,13 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
+                structOrigin =
+                Just
                   Decl {
-                    declInfo = DeclInfo {
+                    declInfo =
+                    DeclInfo {
                       declLoc =
                       "decls_in_signature.h:17:16",
                       declId = NamePair {
@@ -760,8 +861,23 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "decls_in_signature.h"},
-                    declKind = Struct
+                      "decls_in_signature.h",
+                      declComment =
+                      Just
+                        Comment {
+                          commentCName = "named_struct",
+                          commentChildren =
+                          [
+                            Paragraph
+                              [TextContent "Error cases"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                                TextContent
+                                  "and the edge cases below)."]]}},
+                    declKind =
+                    Struct
                       Struct {
                         structNames = RecordNames
                           (HsName
@@ -780,7 +896,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "decls_in_signature.h:17:42",
@@ -791,8 +908,23 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment =
+                        Just
+                          Comment {
+                            commentCName = "named_struct",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [TextContent "Error cases"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                                  TextContent
+                                    "and the edge cases below)."]]}},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -804,7 +936,8 @@
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
-        storablePoke = Lambda
+        storablePoke =
+        Lambda
           (NameHint "ptr")
           (Lambda
             (NameHint "s")
@@ -835,7 +968,8 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -853,10 +987,13 @@
                         structFieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
+                structOrigin =
+                Just
                   Decl {
-                    declInfo = DeclInfo {
+                    declInfo =
+                    DeclInfo {
                       declLoc =
                       "decls_in_signature.h:17:16",
                       declId = NamePair {
@@ -866,8 +1003,23 @@
                       declOrigin = NameOriginInSource,
                       declAliases = [],
                       declHeader =
-                      "decls_in_signature.h"},
-                    declKind = Struct
+                      "decls_in_signature.h",
+                      declComment =
+                      Just
+                        Comment {
+                          commentCName = "named_struct",
+                          commentChildren =
+                          [
+                            Paragraph
+                              [TextContent "Error cases"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                                TextContent
+                                  "and the edge cases below)."]]}},
+                    declKind =
+                    Struct
                       Struct {
                         structNames = RecordNames
                           (HsName
@@ -886,7 +1038,8 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing},
                           StructField {
                             structFieldLoc =
                             "decls_in_signature.h:17:42",
@@ -897,8 +1050,23 @@
                             structFieldType = TypePrim
                               (PrimIntegral PrimInt Signed),
                             structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment =
+                        Just
+                          Comment {
+                            commentCName = "named_struct",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [TextContent "Error cases"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                                  TextContent
+                                    "and the edge cases below)."]]}},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -947,7 +1115,8 @@
       "testmodule_f1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
-      foreignImportOrigin = Function
+      foreignImportOrigin =
+      Function
         Function {
           functionArgs = [
             TypeStruct
@@ -956,7 +1125,22 @@
                 nameHsIdent = HsIdentifier
                   "Named_struct"}
               NameOriginInSource],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment =
+          Just
+            Comment {
+              commentCName =
+              "f1(struct named_struct)",
+              commentChildren =
+              [
+                Paragraph
+                  [TextContent "Error cases"],
+                Paragraph
+                  [
+                    TextContent
+                      "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                    TextContent
+                      "and the edge cases below)."]]}}},
   DeclSimple,
   DeclNewtype
     Newtype {
@@ -983,7 +1167,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "decls_in_signature.h"},
+          "decls_in_signature.h",
+          declComment = Nothing},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -1004,7 +1189,8 @@
                   nameHsIdent = HsIdentifier
                     "named_union_x"},
                 unionFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed)},
+                  (PrimIntegral PrimInt Signed),
+                unionFieldComment = Nothing},
               UnionField {
                 unionFieldLoc =
                 "decls_in_signature.h:20:41",
@@ -1015,7 +1201,9 @@
                 unionFieldType = TypePrim
                   (PrimChar
                     (PrimSignImplicit
-                      (Just Signed)))}]},
+                      (Just Signed))),
+                unionFieldComment = Nothing}],
+            unionComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1092,5 +1280,6 @@
                 nameHsIdent = HsIdentifier
                   "Named_union"}
               NameOriginInSource],
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid,
+          functionComment = Nothing}},
   DeclSimple]

@@ -18,7 +18,8 @@
               nameHsIdent = HsIdentifier "A"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -26,7 +27,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -55,7 +57,8 @@
                 nameHsIdent = HsIdentifier "A"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -63,7 +66,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -97,7 +101,8 @@
                         nameHsIdent = HsIdentifier "A"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -105,7 +110,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -139,7 +145,8 @@
                         nameHsIdent = HsIdentifier "A"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -147,7 +154,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -186,7 +194,8 @@
                 "Struct1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -194,7 +203,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -224,7 +234,8 @@
                   "Struct1"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -232,7 +243,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -267,7 +279,8 @@
                           "Struct1"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -275,7 +288,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -310,7 +324,8 @@
                           "Struct1"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -318,7 +333,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -361,7 +377,8 @@
                 "B_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -369,7 +386,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -399,7 +417,8 @@
                   "B_s"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -407,7 +426,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -442,7 +462,8 @@
                           "B_s"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -450,7 +471,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -485,7 +507,8 @@
                           "B_s"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -493,7 +516,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -532,7 +556,8 @@
                 "Struct2_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -542,7 +567,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -572,7 +598,8 @@
                   "Struct2_s"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -582,7 +609,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -617,7 +645,8 @@
                           "Struct2_s"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -627,7 +656,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -662,7 +692,8 @@
                           "Struct2_s"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -672,7 +703,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -714,7 +746,8 @@
               nameHsIdent = HsIdentifier "C"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -722,7 +755,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -751,7 +785,8 @@
                 nameHsIdent = HsIdentifier "C"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -759,7 +794,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -793,7 +829,8 @@
                         nameHsIdent = HsIdentifier "C"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -801,7 +838,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -835,7 +873,8 @@
                         nameHsIdent = HsIdentifier "C"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -843,7 +882,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -882,7 +922,8 @@
                 "Struct3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -890,7 +931,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -920,7 +962,8 @@
                   "Struct3"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -928,7 +971,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -963,7 +1007,8 @@
                           "Struct3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -971,7 +1016,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1006,7 +1052,8 @@
                           "Struct3"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1014,7 +1061,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1056,7 +1104,8 @@
               nameHsIdent = HsIdentifier "D"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1064,7 +1113,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1093,7 +1143,8 @@
                 nameHsIdent = HsIdentifier "D"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1101,7 +1152,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1135,7 +1187,8 @@
                         nameHsIdent = HsIdentifier "D"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1143,7 +1196,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1177,7 +1231,8 @@
                         nameHsIdent = HsIdentifier "D"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1185,7 +1240,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1224,7 +1280,8 @@
                 "Struct4"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1232,7 +1289,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1262,7 +1320,8 @@
                   "Struct4"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1270,7 +1329,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1305,7 +1365,8 @@
                           "Struct4"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1313,7 +1374,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1348,7 +1410,8 @@
                           "Struct4"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1356,7 +1419,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1399,7 +1463,8 @@
                 "E_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1407,7 +1472,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1437,7 +1503,8 @@
                   "E_s"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1445,7 +1512,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1480,7 +1548,8 @@
                           "E_s"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1488,7 +1557,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1523,7 +1593,8 @@
                           "E_s"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1531,7 +1602,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1570,7 +1642,8 @@
                 "Struct5_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1580,7 +1653,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1610,7 +1684,8 @@
                   "Struct5_s"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1620,7 +1695,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1655,7 +1731,8 @@
                           "Struct5_s"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1665,7 +1742,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1700,7 +1778,8 @@
                           "Struct5_s"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1710,7 +1789,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1753,7 +1833,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:35:9"),
             declAliases = [Name "f"],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1761,7 +1842,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1791,7 +1873,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:35:9"),
               declAliases = [Name "f"],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1799,7 +1882,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1834,7 +1918,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:35:9"),
                       declAliases = [Name "f"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1842,7 +1927,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1877,7 +1963,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:35:9"),
                       declAliases = [Name "f"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1885,7 +1972,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1925,7 +2013,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:36:9"),
             declAliases = [Name "typedef1"],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1933,7 +2022,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1964,7 +2054,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:36:9"),
               declAliases = [Name "typedef1"],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1972,7 +2063,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2008,7 +2100,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:36:9"),
                       declAliases = [Name "typedef1"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2016,7 +2109,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2052,7 +2146,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:36:9"),
                       declAliases = [Name "typedef1"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2060,7 +2155,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2103,7 +2199,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:39:9"),
             declAliases = [Name "g"],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2111,7 +2208,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -2141,7 +2239,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:39:9"),
               declAliases = [Name "g"],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2149,7 +2248,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2184,7 +2284,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:39:9"),
                       declAliases = [Name "g"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2192,7 +2293,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2227,7 +2329,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:39:9"),
                       declAliases = [Name "g"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2235,7 +2338,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2275,7 +2379,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:40:9"),
             declAliases = [Name "typedef2"],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2283,7 +2388,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -2314,7 +2420,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:40:9"),
               declAliases = [Name "typedef2"],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2322,7 +2429,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2358,7 +2466,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:40:9"),
                       declAliases = [Name "typedef2"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2366,7 +2475,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2402,7 +2512,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:40:9"),
                       declAliases = [Name "typedef2"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2410,7 +2521,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2453,7 +2565,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:43:9"),
             declAliases = [Name "h"],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2461,7 +2574,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -2491,7 +2605,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:43:9"),
               declAliases = [Name "h"],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2499,7 +2614,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2534,7 +2650,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:43:9"),
                       declAliases = [Name "h"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2542,7 +2659,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2577,7 +2695,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:43:9"),
                       declAliases = [Name "h"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2585,7 +2704,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2625,7 +2745,8 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:44:9"),
             declAliases = [Name "typedef3"],
-            declHeader = "named_vs_anon.h"},
+            declHeader = "named_vs_anon.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2633,7 +2754,8 @@
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
-              structFlam = Nothing},
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -2664,7 +2786,8 @@
               declOrigin = NameOriginGenerated
                 (AnonId "named_vs_anon.h:44:9"),
               declAliases = [Name "typedef3"],
-              declHeader = "named_vs_anon.h"},
+              declHeader = "named_vs_anon.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -2672,7 +2795,8 @@
                 structSizeof = 0,
                 structAlignment = 1,
                 structFields = [],
-                structFlam = Nothing},
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -2708,7 +2832,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:44:9"),
                       declAliases = [Name "typedef3"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2716,7 +2841,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -2752,7 +2878,8 @@
                       declOrigin = NameOriginGenerated
                         (AnonId "named_vs_anon.h:44:9"),
                       declAliases = [Name "typedef3"],
-                      declHeader = "named_vs_anon.h"},
+                      declHeader = "named_vs_anon.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -2760,7 +2887,8 @@
                         structSizeof = 0,
                         structAlignment = 1,
                         structFields = [],
-                        structFlam = Nothing},
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

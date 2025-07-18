@@ -23,7 +23,8 @@
               "EnumA"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "nested_enums.h"},
+          declHeader = "nested_enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -45,7 +46,8 @@
                   nameC = Name "VALA_1",
                   nameHsIdent = HsIdentifier
                     "VALA_1"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "nested_enums.h:4:17",
@@ -53,7 +55,9 @@
                   nameC = Name "VALA_2",
                   nameHsIdent = HsIdentifier
                     "VALA_2"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -279,7 +283,8 @@
             nameC = Name "VALA_1",
             nameHsIdent = HsIdentifier
               "VALA_1"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -300,7 +305,8 @@
             nameC = Name "VALA_2",
             nameHsIdent = HsIdentifier
               "VALA_2"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclData
     Struct {
       structName = HsName
@@ -333,7 +339,8 @@
                     "EnumA"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -344,7 +351,8 @@
                 "ExA"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_enums.h"},
+            declHeader = "nested_enums.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -366,8 +374,10 @@
                         "EnumA"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -409,7 +419,8 @@
                       "EnumA"}
                   NameOriginInSource,
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -420,7 +431,8 @@
                   "ExA"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_enums.h"},
+              declHeader = "nested_enums.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -442,8 +454,10 @@
                           "EnumA"}
                       NameOriginInSource,
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -490,7 +504,8 @@
                               "EnumA"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -501,7 +516,8 @@
                           "ExA"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_enums.h"},
+                      declHeader = "nested_enums.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -523,8 +539,10 @@
                                   "EnumA"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -571,7 +589,8 @@
                               "EnumA"}
                           NameOriginInSource,
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -582,7 +601,8 @@
                           "ExA"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_enums.h"},
+                      declHeader = "nested_enums.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -604,8 +624,10 @@
                                   "EnumA"}
                               NameOriginInSource,
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -654,7 +676,8 @@
           declOrigin = NameOriginGenerated
             (AnonId "nested_enums.h:9:9"),
           declAliases = [],
-          declHeader = "nested_enums.h"},
+          declHeader = "nested_enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -676,7 +699,8 @@
                   nameC = Name "VALB_1",
                   nameHsIdent = HsIdentifier
                     "VALB_1"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "nested_enums.h:11:17",
@@ -684,7 +708,9 @@
                   nameC = Name "VALB_2",
                   nameHsIdent = HsIdentifier
                     "VALB_2"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -910,7 +936,8 @@
             nameC = Name "VALB_1",
             nameHsIdent = HsIdentifier
               "VALB_1"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -931,7 +958,8 @@
             nameC = Name "VALB_2",
             nameHsIdent = HsIdentifier
               "VALB_2"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclData
     Struct {
       structName = HsName
@@ -965,7 +993,8 @@
                 (NameOriginGenerated
                   (AnonId "nested_enums.h:9:9")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -976,7 +1005,8 @@
                 "ExB"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_enums.h"},
+            declHeader = "nested_enums.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -999,8 +1029,10 @@
                     (NameOriginGenerated
                       (AnonId "nested_enums.h:9:9")),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing,
+              structComment = Nothing},
           declSpec = DeclSpec
             TypeSpec {
               typeSpecModule = Nothing,
@@ -1043,7 +1075,8 @@
                   (NameOriginGenerated
                     (AnonId "nested_enums.h:9:9")),
                 structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
+                structFieldWidth = Nothing,
+                structFieldComment = Nothing}}],
         structOrigin = Just
           Decl {
             declInfo = DeclInfo {
@@ -1054,7 +1087,8 @@
                   "ExB"},
               declOrigin = NameOriginInSource,
               declAliases = [],
-              declHeader = "nested_enums.h"},
+              declHeader = "nested_enums.h",
+              declComment = Nothing},
             declKind = Struct
               Struct {
                 structNames = RecordNames
@@ -1077,8 +1111,10 @@
                       (NameOriginGenerated
                         (AnonId "nested_enums.h:9:9")),
                     structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
+                    structFieldWidth = Nothing,
+                    structFieldComment = Nothing}],
+                structFlam = Nothing,
+                structComment = Nothing},
             declSpec = DeclSpec
               TypeSpec {
                 typeSpecModule = Nothing,
@@ -1126,7 +1162,8 @@
                           (NameOriginGenerated
                             (AnonId "nested_enums.h:9:9")),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1137,7 +1174,8 @@
                           "ExB"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_enums.h"},
+                      declHeader = "nested_enums.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1160,8 +1198,10 @@
                               (NameOriginGenerated
                                 (AnonId "nested_enums.h:9:9")),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,
@@ -1209,7 +1249,8 @@
                           (NameOriginGenerated
                             (AnonId "nested_enums.h:9:9")),
                         structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
+                        structFieldWidth = Nothing,
+                        structFieldComment = Nothing}}],
                 structOrigin = Just
                   Decl {
                     declInfo = DeclInfo {
@@ -1220,7 +1261,8 @@
                           "ExB"},
                       declOrigin = NameOriginInSource,
                       declAliases = [],
-                      declHeader = "nested_enums.h"},
+                      declHeader = "nested_enums.h",
+                      declComment = Nothing},
                     declKind = Struct
                       Struct {
                         structNames = RecordNames
@@ -1243,8 +1285,10 @@
                               (NameOriginGenerated
                                 (AnonId "nested_enums.h:9:9")),
                             structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
+                            structFieldWidth = Nothing,
+                            structFieldComment = Nothing}],
+                        structFlam = Nothing,
+                        structComment = Nothing},
                     declSpec = DeclSpec
                       TypeSpec {
                         typeSpecModule = Nothing,

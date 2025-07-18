@@ -23,7 +23,8 @@
               "First"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -44,14 +45,17 @@
                   nameC = Name "FIRST1",
                   nameHsIdent = HsIdentifier
                     "FIRST1"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc = "enums.h:6:5",
                 enumConstantName = NamePair {
                   nameC = Name "FIRST2",
                   nameHsIdent = HsIdentifier
                     "FIRST2"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -276,7 +280,8 @@
             nameC = Name "FIRST1",
             nameHsIdent = HsIdentifier
               "FIRST1"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -296,7 +301,8 @@
             nameC = Name "FIRST2",
             nameHsIdent = HsIdentifier
               "FIRST2"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -321,7 +327,8 @@
               "Second"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -343,7 +350,8 @@
                   nameC = Name "SECOND_A",
                   nameHsIdent = HsIdentifier
                     "SECOND_A"},
-                enumConstantValue = `-1`},
+                enumConstantValue = `-1`,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:11:5",
@@ -351,7 +359,8 @@
                   nameC = Name "SECOND_B",
                   nameHsIdent = HsIdentifier
                     "SECOND_B"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:12:5",
@@ -359,7 +368,9 @@
                   nameC = Name "SECOND_C",
                   nameHsIdent = HsIdentifier
                     "SECOND_C"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -594,7 +605,8 @@
             nameC = Name "SECOND_A",
             nameHsIdent = HsIdentifier
               "SECOND_A"},
-          enumConstantValue = `-1`}},
+          enumConstantValue = `-1`,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -615,7 +627,8 @@
             nameC = Name "SECOND_B",
             nameHsIdent = HsIdentifier
               "SECOND_B"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -636,7 +649,8 @@
             nameC = Name "SECOND_C",
             nameHsIdent = HsIdentifier
               "SECOND_C"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -661,7 +675,8 @@
               "Same"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -683,7 +698,8 @@
                   nameC = Name "SAME_A",
                   nameHsIdent = HsIdentifier
                     "SAME_A"},
-                enumConstantValue = 1},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:17:5",
@@ -691,7 +707,9 @@
                   nameC = Name "SAME_B",
                   nameHsIdent = HsIdentifier
                     "SAME_B"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -915,7 +933,8 @@
             nameC = Name "SAME_A",
             nameHsIdent = HsIdentifier
               "SAME_A"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -936,7 +955,8 @@
             nameC = Name "SAME_B",
             nameHsIdent = HsIdentifier
               "SAME_B"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -961,7 +981,8 @@
               "Nonseq"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -983,7 +1004,8 @@
                   nameC = Name "NONSEQ_A",
                   nameHsIdent = HsIdentifier
                     "NONSEQ_A"},
-                enumConstantValue = 200},
+                enumConstantValue = 200,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:22:5",
@@ -991,7 +1013,8 @@
                   nameC = Name "NONSEQ_B",
                   nameHsIdent = HsIdentifier
                     "NONSEQ_B"},
-                enumConstantValue = 301},
+                enumConstantValue = 301,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:23:5",
@@ -999,7 +1022,9 @@
                   nameC = Name "NONSEQ_C",
                   nameHsIdent = HsIdentifier
                     "NONSEQ_C"},
-                enumConstantValue = 404}]},
+                enumConstantValue = 404,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1210,7 +1235,8 @@
             nameC = Name "NONSEQ_A",
             nameHsIdent = HsIdentifier
               "NONSEQ_A"},
-          enumConstantValue = 200}},
+          enumConstantValue = 200,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1231,7 +1257,8 @@
             nameC = Name "NONSEQ_B",
             nameHsIdent = HsIdentifier
               "NONSEQ_B"},
-          enumConstantValue = 301}},
+          enumConstantValue = 301,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1252,7 +1279,8 @@
             nameC = Name "NONSEQ_C",
             nameHsIdent = HsIdentifier
               "NONSEQ_C"},
-          enumConstantValue = 404}},
+          enumConstantValue = 404,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1277,7 +1305,8 @@
               "Packed"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -1300,7 +1329,8 @@
                   nameC = Name "PACKED_A",
                   nameHsIdent = HsIdentifier
                     "PACKED_A"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:27:15",
@@ -1308,7 +1338,8 @@
                   nameC = Name "PACKED_B",
                   nameHsIdent = HsIdentifier
                     "PACKED_B"},
-                enumConstantValue = 1},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:27:25",
@@ -1316,7 +1347,9 @@
                   nameC = Name "PACKED_C",
                   nameHsIdent = HsIdentifier
                     "PACKED_C"},
-                enumConstantValue = 2}]},
+                enumConstantValue = 2,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1551,7 +1584,8 @@
             nameC = Name "PACKED_A",
             nameHsIdent = HsIdentifier
               "PACKED_A"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1572,7 +1606,8 @@
             nameC = Name "PACKED_B",
             nameHsIdent = HsIdentifier
               "PACKED_B"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1593,7 +1628,8 @@
             nameC = Name "PACKED_C",
             nameHsIdent = HsIdentifier
               "PACKED_C"},
-          enumConstantValue = 2}},
+          enumConstantValue = 2,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1619,7 +1655,8 @@
           declOrigin = NameOriginGenerated
             (AnonId "enums.h:30:9"),
           declAliases = [Name "enumA"],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -1641,7 +1678,8 @@
                   nameC = Name "A_FOO",
                   nameHsIdent = HsIdentifier
                     "A_FOO"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:30:23",
@@ -1649,7 +1687,9 @@
                   nameC = Name "A_BAR",
                   nameHsIdent = HsIdentifier
                     "A_BAR"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1875,7 +1915,8 @@
             nameC = Name "A_FOO",
             nameHsIdent = HsIdentifier
               "A_FOO"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1896,7 +1937,8 @@
             nameC = Name "A_BAR",
             nameHsIdent = HsIdentifier
               "A_BAR"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1921,7 +1963,8 @@
               "EnumB"},
           declOrigin = NameOriginInSource,
           declAliases = [Name "enumB"],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -1943,7 +1986,8 @@
                   nameC = Name "B_FOO",
                   nameHsIdent = HsIdentifier
                     "B_FOO"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:32:29",
@@ -1951,7 +1995,9 @@
                   nameC = Name "B_BAR",
                   nameHsIdent = HsIdentifier
                     "B_BAR"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2177,7 +2223,8 @@
             nameC = Name "B_FOO",
             nameHsIdent = HsIdentifier
               "B_FOO"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2198,7 +2245,8 @@
             nameC = Name "B_BAR",
             nameHsIdent = HsIdentifier
               "B_BAR"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2223,7 +2271,8 @@
               "EnumC"},
           declOrigin = NameOriginInSource,
           declAliases = [Name "enumC"],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -2245,7 +2294,8 @@
                   nameC = Name "C_FOO",
                   nameHsIdent = HsIdentifier
                     "C_FOO"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:34:21",
@@ -2253,7 +2303,9 @@
                   nameC = Name "C_BAR",
                   nameHsIdent = HsIdentifier
                     "C_BAR"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2479,7 +2531,8 @@
             nameC = Name "C_FOO",
             nameHsIdent = HsIdentifier
               "C_FOO"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2500,7 +2553,8 @@
             nameC = Name "C_BAR",
             nameHsIdent = HsIdentifier
               "C_BAR"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2527,7 +2581,8 @@
           NameOriginRenamedFrom
             (Name "enumD"),
           declAliases = [Name "enumD_t"],
-          declHeader = "enums.h"},
+          declHeader = "enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -2549,7 +2604,8 @@
                   nameC = Name "D_FOO",
                   nameHsIdent = HsIdentifier
                     "D_FOO"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "enums.h:37:21",
@@ -2557,7 +2613,9 @@
                   nameC = Name "D_BAR",
                   nameHsIdent = HsIdentifier
                     "D_BAR"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment = Nothing}],
+            enumComment = Nothing},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2783,7 +2841,8 @@
             nameC = Name "D_FOO",
             nameHsIdent = HsIdentifier
               "D_FOO"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2804,4 +2863,5 @@
             nameC = Name "D_BAR",
             nameHsIdent = HsIdentifier
               "D_BAR"},
-          enumConstantValue = 1}}]
+          enumConstantValue = 1,
+          enumConstantComment = Nothing}}]

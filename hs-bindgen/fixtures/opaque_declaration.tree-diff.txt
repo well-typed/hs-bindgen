@@ -11,7 +11,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "opaque_declaration.h"},
+        "opaque_declaration.h",
+        declComment = Nothing},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -30,7 +31,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "opaque_declaration.h"},
+        "opaque_declaration.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -53,7 +55,8 @@ TranslationUnit {
                       "Foo"}
                   NameOriginInSource),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "opaque_declaration.h:6:17",
@@ -69,8 +72,10 @@ TranslationUnit {
                       "Bar"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -88,7 +93,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "opaque_declaration.h"},
+        "opaque_declaration.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -96,7 +102,8 @@ TranslationUnit {
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
-          structFlam = Nothing},
+          structFlam = Nothing,
+          structComment = Nothing},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -114,7 +121,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "opaque_declaration.h"},
+        "opaque_declaration.h",
+        declComment = Nothing},
       declKind = DeclEnumOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -133,7 +141,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "opaque_declaration.h"},
+        "opaque_declaration.h",
+        declComment = Nothing},
       declKind = DeclUnionOpaque,
       declSpec = DeclSpec
         TypeSpec {
