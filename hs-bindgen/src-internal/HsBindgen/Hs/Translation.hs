@@ -535,6 +535,9 @@ unionDecs info union spec = do
           in  if Hs.Storable `Set.notMember` fInsts
                 then []
                 else
+                  [ Hs.DeclSimple (SHs.DComment comment)
+                  | Just comment <- [unionFieldComment]
+                  ] ++
                   [ Hs.DeclUnionGetter newtypeName hsType $
                       "get_" <> C.nameHs unionFieldName
                   , Hs.DeclUnionSetter newtypeName hsType $
@@ -740,7 +743,16 @@ macroDecs ::
 macroDecs opts info checkedMacro spec =
     case checkedMacro of
       C.MacroType ty   -> macroDecsTypedef opts info ty spec
-      C.MacroExpr expr -> return $ macroVarDecs info expr
+      -- C.MacroExpr will create a simple Var declaration that can not have
+      -- any comment so we generate the top level documentation declaration
+      -- here.
+      --
+      -- TODO: Maybe add comment information to Hs.VarDecl
+      C.MacroExpr expr -> return
+                       $ [ Hs.DeclSimple (SHs.DComment comment)
+                         | Just comment <- [C.declComment info]
+                         ]
+                      ++ macroVarDecs info expr
 
 macroDecsTypedef ::
      State.MonadState InstanceMap m
@@ -1115,15 +1127,18 @@ functionDecs mu typedefs info f _spec =
 -- important that we don't import such headers more than once, but this is taken
 -- care of in 'csources'.
 globalExtern :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
-globalExtern info ty _spec = [
-      Hs.DeclInlineCInclude header
-    , Hs.DeclForeignImport Hs.ForeignImportDecl{
-          foreignImportName     = C.nameHs (C.declId info)
-        , foreignImportType     = HsPtr $ typ ty
-        , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
-        , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
-        , foreignImportOrigin   = Origin.Global ty
-        }
+globalExtern info ty _spec =
+    Hs.DeclInlineCInclude header :
+    [ Hs.DeclSimple (SHs.DComment comment)
+    | Just comment <- [C.declComment info]
+    ] ++
+    [ Hs.DeclForeignImport Hs.ForeignImportDecl{
+        foreignImportName     = C.nameHs (C.declId info)
+      , foreignImportType     = HsPtr $ typ ty
+      , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
+      , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
+      , foreignImportOrigin   = Origin.Global ty
+      }
     ]
   where
     header :: FilePath
