@@ -75,6 +75,7 @@ library
 
       Clang.HighLevel
       Clang.HighLevel.Types
+      Clang.HighLevel.Documentation
   other-modules:
       Clang.LowLevel.FFI
       Clang.LowLevel.Core.Enums
@@ -89,7 +90,6 @@ library
       Clang.Internal.Results
       Clang.HighLevel.Declaration
       Clang.HighLevel.Diagnostics
-      Clang.HighLevel.Documentation
       Clang.HighLevel.Fold
       Clang.HighLevel.SourceLoc
       Clang.HighLevel.Tokens
