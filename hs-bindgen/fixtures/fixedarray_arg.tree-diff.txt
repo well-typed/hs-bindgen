@@ -10,8 +10,8 @@ TranslationUnit {
             "fun_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fixedarray_arg.h"},
+        declHeader = "fixedarray_arg.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -42,8 +42,8 @@ TranslationUnit {
             "Triple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fixedarray_arg.h"},
+        declHeader = "fixedarray_arg.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -73,8 +73,8 @@ TranslationUnit {
             "fun_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fixedarray_arg.h"},
+        declHeader = "fixedarray_arg.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [

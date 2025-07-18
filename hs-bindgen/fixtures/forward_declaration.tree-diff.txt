@@ -13,7 +13,8 @@ TranslationUnit {
           (Name "S1"),
         declAliases = [Name "S1_t"],
         declHeader =
-        "forward_declaration.h"},
+        "forward_declaration.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -31,7 +32,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -50,7 +52,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "forward_declaration.h"},
+        "forward_declaration.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -68,7 +71,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

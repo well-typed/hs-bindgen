@@ -1,5 +1,6 @@
 TranslationUnit {
-  unitDecls = [
+  unitDecls =
+  [
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:9:12",
@@ -9,7 +10,15 @@ TranslationUnit {
             "simpleGlobal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Just
+          Comment {
+            commentCName = "simpleGlobal",
+            commentChildren = [
+              Paragraph
+                [
+                  TextContent
+                    "Global variables"]]}},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -28,7 +37,8 @@ TranslationUnit {
             "Config"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -46,7 +56,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "globals.h:14:7",
@@ -57,7 +68,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -74,7 +86,8 @@ TranslationUnit {
             "compoundGlobal1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypeStruct
           NamePair {
@@ -97,7 +110,8 @@ TranslationUnit {
             "Inline_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -117,7 +131,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "globals.h:19:42",
@@ -128,7 +143,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -145,7 +161,8 @@ TranslationUnit {
             "compoundGlobal2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypeStruct
           NamePair {
@@ -160,7 +177,8 @@ TranslationUnit {
           typeSpecInstances = Map.fromList
             []}},
     Decl {
-      declInfo = DeclInfo {
+      declInfo =
+      DeclInfo {
         declLoc = "globals.h:35:9",
         declId = NamePair {
           nameC = Name "nesInteger",
@@ -168,7 +186,37 @@ TranslationUnit {
             "nesInteger"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment =
+        Just
+          Comment {
+            commentCName = "nesInteger",
+            commentChildren =
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Non-extern non-static global variables"],
+              Paragraph
+                [
+                  TextContent
+                    "These kinds of variables need to be treated with care, to avoid duplicate",
+                  TextContent
+                    "symbols, but do exist in the wild."],
+              Paragraph
+                [
+                  TextContent
+                    "We test with various kinds of initializers as we must explicitly ignore them",
+                  TextContent
+                    "in our parser. The list here roughly follows the definition of `CXCursor`",
+                  TextContent
+                    "[1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl'",
+                  TextContent
+                    "in `HsBindgen.Frontend.Pass.Parse.Decl`."],
+              Paragraph
+                [
+                  TextContent
+                    "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]}},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -187,7 +235,8 @@ TranslationUnit {
             "nesFloating"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
           (PrimFloating PrimFloat)),
@@ -206,7 +255,8 @@ TranslationUnit {
             "nesString1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePointer
           (TypePrim
@@ -228,7 +278,8 @@ TranslationUnit {
             "nesString2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypeConstArray
           3
@@ -251,7 +302,8 @@ TranslationUnit {
             "nesCharacter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
           (PrimChar
@@ -272,7 +324,8 @@ TranslationUnit {
             "nesParen"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -291,7 +344,8 @@ TranslationUnit {
             "nesUnary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -310,7 +364,8 @@ TranslationUnit {
             "nesBinary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -329,7 +384,8 @@ TranslationUnit {
             "nesConditional"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -348,7 +404,8 @@ TranslationUnit {
             "nesCast"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
           (PrimFloating PrimFloat)),
@@ -367,7 +424,8 @@ TranslationUnit {
             "nesCompound"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePointer
           (TypePrim
@@ -387,7 +445,8 @@ TranslationUnit {
             "nesInitList"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypeConstArray
           4
@@ -522,7 +581,8 @@ TranslationUnit {
             "nesBool"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim PrimBool),
       declSpec = DeclSpec
@@ -532,7 +592,8 @@ TranslationUnit {
           typeSpecInstances = Map.fromList
             []}},
     Decl {
-      declInfo = DeclInfo {
+      declInfo =
+      DeclInfo {
         declLoc = "globals.h:60:9",
         declId = NamePair {
           nameC = Name "streamBinary",
@@ -540,7 +601,36 @@ TranslationUnit {
             "streamBinary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment =
+        Just
+          Comment {
+            commentCName = "streamBinary",
+            commentChildren =
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Additional examples of global variables, abstracted from real examples"],
+              Paragraph
+                [
+                  TextContent
+                    "The `streamBinary`/`streamBinary_len` example comes from [1], and is an",
+                  TextContent
+                    "example of a non-extern non-static global (indeed, the header does not even",
+                  TextContent "use",
+                  InlineCommand {
+                    inlineCommandName = "pragma",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Normal,
+                    inlineCommandArgs = []},
+                  TextContent "once",
+                  TextContent "@",
+                  TextContent "or similar)."],
+              Paragraph
+                [
+                  TextContent
+                    "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]}},
       declKind = DeclGlobal
         (TypeConstArray
           4096
@@ -675,7 +765,8 @@ TranslationUnit {
             "streamBinary_len"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypeExtBinding
           ResolvedExtBinding {
@@ -810,7 +901,8 @@ TranslationUnit {
           (AnonId "globals.h:406:9"),
         declAliases = [
           Name "version_t"],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -944,7 +1036,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "globals.h:409:12",
@@ -1069,7 +1162,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 16,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "globals.h:410:12",
@@ -1194,7 +1288,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -1213,7 +1308,8 @@ TranslationUnit {
           (AnonId "globals.h:413:9"),
         declAliases = [
           Name "struct1_t"],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -1347,7 +1443,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "globals.h:416:13",
@@ -1358,7 +1455,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 16,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "globals.h:417:13",
@@ -1377,7 +1475,8 @@ TranslationUnit {
                     (NameOriginGenerated
                       (AnonId "globals.h:406:9")))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -1396,7 +1495,8 @@ TranslationUnit {
           (AnonId "globals.h:420:9"),
         declAliases = [
           Name "struct2_t"],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -1424,7 +1524,8 @@ TranslationUnit {
                     (NameOriginGenerated
                       (AnonId "globals.h:413:9")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -1442,7 +1543,8 @@ TranslationUnit {
             "some_global_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h"},
+        declHeader = "globals.h",
+        declComment = Nothing},
       declKind = DeclGlobal
         (TypeTypedef
           (TypedefSquashed

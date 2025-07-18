@@ -19,6 +19,10 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 $(CAPI.addCSource "#include \"spec_examples.h\"\nvoid testmodule_resample (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n")
 
+{-| Examples from the initial specification
+
+  __from C:__ @int16_T@
+-}
 newtype Int16_T = Int16_T
   { un_Int16_T :: FC.CShort
   }

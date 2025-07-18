@@ -19,7 +19,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_forall (void) { forall(); }",
@@ -40,7 +41,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_mdo (void) { mdo(); }",
@@ -61,7 +63,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_pattern (void) { pattern(); }",
@@ -82,7 +85,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_proc (void) { proc(); }",
@@ -103,7 +107,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_rec (void) { rec(); }",
@@ -124,7 +129,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_using (void) { using(); }",
@@ -145,7 +151,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_anyclass (void) { anyclass(); }",
@@ -166,7 +173,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_capi (void) { capi(); }",
@@ -187,7 +195,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_cases (void) { cases(); }",
@@ -208,7 +217,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_ccall (void) { ccall(); }",
@@ -229,7 +239,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_dynamic (void) { dynamic(); }",
@@ -250,7 +261,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_export (void) { export(); }",
@@ -271,7 +283,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_family (void) { family(); }",
@@ -292,7 +305,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_group (void) { group(); }",
@@ -313,7 +327,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_interruptible (void) { interruptible(); }",
@@ -334,7 +349,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_javascript (void) { javascript(); }",
@@ -355,7 +371,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_label (void) { label(); }",
@@ -376,7 +393,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_prim (void) { prim(); }",
@@ -397,7 +415,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_role (void) { role(); }",
@@ -418,7 +437,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_safe (void) { safe(); }",
@@ -439,7 +459,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_stdcall (void) { stdcall(); }",
@@ -460,7 +481,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_stock (void) { stock(); }",
@@ -481,7 +503,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_unsafe (void) { unsafe(); }",
@@ -502,7 +525,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void testmodule_via (void) { via(); }",
@@ -523,4 +547,5 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing}]

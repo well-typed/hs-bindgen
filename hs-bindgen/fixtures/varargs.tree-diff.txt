@@ -8,7 +8,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "varargs.h"},
+        declHeader = "varargs.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],

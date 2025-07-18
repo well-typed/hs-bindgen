@@ -10,7 +10,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "anonymous.h:3:3"),
         declAliases = [],
-        declHeader = "anonymous.h"},
+        declHeader = "anonymous.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -28,7 +29,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "anonymous.h:5:9",
@@ -39,7 +41,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -56,7 +59,8 @@ TranslationUnit {
             "S1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "anonymous.h"},
+        declHeader = "anonymous.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -79,7 +83,8 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "anonymous.h:3:3")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "anonymous.h:8:7",
@@ -90,7 +95,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -108,7 +114,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "anonymous.h:15:5"),
         declAliases = [],
-        declHeader = "anonymous.h"},
+        declHeader = "anonymous.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -128,7 +135,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -146,7 +154,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "anonymous.h:13:3"),
         declAliases = [],
-        declHeader = "anonymous.h"},
+        declHeader = "anonymous.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -164,7 +173,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "anonymous.h:17:7",
@@ -180,7 +190,8 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "anonymous.h:15:5")),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -197,7 +208,8 @@ TranslationUnit {
             "S2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "anonymous.h"},
+        declHeader = "anonymous.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -220,7 +232,8 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "anonymous.h:13:3")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "anonymous.h:20:7",
@@ -231,7 +244,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -249,7 +263,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "anonymous.h:25:3"),
         declAliases = [],
-        declHeader = "anonymous.h"},
+        declHeader = "anonymous.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -267,7 +282,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "anonymous.h:27:9",
@@ -278,7 +294,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -295,7 +312,8 @@ TranslationUnit {
             "S3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "anonymous.h"},
+        declHeader = "anonymous.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -320,7 +338,8 @@ TranslationUnit {
                     (NameOriginGenerated
                       (AnonId "anonymous.h:25:3")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "anonymous.h:30:7",
@@ -331,7 +350,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

@@ -8,9 +8,11 @@
         "@NsConstr"
         "FILE",
       structFields = [],
-      structOrigin = Just
+      structOrigin =
+      Just
         Decl {
-          declInfo = DeclInfo {
+          declInfo =
+          DeclInfo {
             declLoc =
             "fun_attributes.h:7:9",
             declId = NamePair {
@@ -20,8 +22,21 @@
             declOrigin = NameOriginGenerated
               (AnonId "fun_attributes.h:7:9"),
             declAliases = [Name "FILE"],
-            declHeader =
-            "fun_attributes.h"},
+            declHeader = "fun_attributes.h",
+            declComment =
+            Just
+              Comment {
+                commentCName = "FILE",
+                commentChildren =
+                [
+                  Paragraph
+                    [
+                      TextContent
+                        "Attributes on functions"],
+                  Paragraph
+                    [
+                      TextContent
+                        "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -37,147 +52,266 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment =
+      Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Attributes on functions"],
+          commentOrigin = Just "FILE",
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "FILE",
-        structConstr = HsName
-          "@NsConstr"
-          "FILE",
-        structFields = [],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "fun_attributes.h:7:9",
-              declId = NamePair {
-                nameC = Name "FILE",
-                nameHsIdent = HsIdentifier
-                  "FILE"},
-              declOrigin = NameOriginGenerated
-                (AnonId "fun_attributes.h:7:9"),
-              declAliases = [Name "FILE"],
-              declHeader =
-              "fun_attributes.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "FILE"),
-                structSizeof = 0,
-                structAlignment = 1,
-                structFields = [],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 0,
-        storableAlignment = 1,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "FILE",
-                structConstr = HsName
-                  "@NsConstr"
-                  "FILE",
-                structFields = [],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "fun_attributes.h:7:9",
-                      declId = NamePair {
-                        nameC = Name "FILE",
-                        nameHsIdent = HsIdentifier
-                          "FILE"},
-                      declOrigin = NameOriginGenerated
-                        (AnonId "fun_attributes.h:7:9"),
-                      declAliases = [Name "FILE"],
-                      declHeader =
-                      "fun_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "FILE"),
-                        structSizeof = 0,
-                        structAlignment = 1,
-                        structFields = [],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            []),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "FILE",
-                structConstr = HsName
-                  "@NsConstr"
-                  "FILE",
-                structFields = [],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "fun_attributes.h:7:9",
-                      declId = NamePair {
-                        nameC = Name "FILE",
-                        nameHsIdent = HsIdentifier
-                          "FILE"},
-                      declOrigin = NameOriginGenerated
-                        (AnonId "fun_attributes.h:7:9"),
-                      declAliases = [Name "FILE"],
-                      declHeader =
-                      "fun_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "FILE"),
-                        structSizeof = 0,
-                        structAlignment = 1,
-                        structFields = [],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 0)
-              (Seq [])))}),
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "FILE",
+          structConstr = HsName
+            "@NsConstr"
+            "FILE",
+          structFields = [],
+          structOrigin =
+          Just
+            Decl {
+              declInfo =
+              DeclInfo {
+                declLoc =
+                "fun_attributes.h:7:9",
+                declId = NamePair {
+                  nameC = Name "FILE",
+                  nameHsIdent = HsIdentifier
+                    "FILE"},
+                declOrigin = NameOriginGenerated
+                  (AnonId "fun_attributes.h:7:9"),
+                declAliases = [Name "FILE"],
+                declHeader = "fun_attributes.h",
+                declComment =
+                Just
+                  Comment {
+                    commentCName = "FILE",
+                    commentChildren =
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "Attributes on functions"],
+                      Paragraph
+                        [
+                          TextContent
+                            "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "FILE"),
+                  structSizeof = 0,
+                  structAlignment = 1,
+                  structFields = [],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment =
+          Just
+            Comment {
+              commentTitle = Just
+                [
+                  TextContent
+                    "Attributes on functions"],
+              commentOrigin = Just "FILE",
+              commentChildren =
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}}
+        StorableInstance {
+          storableSizeOf = 0,
+          storableAlignment = 1,
+          storablePeek =
+          Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "FILE",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "FILE",
+                  structFields = [],
+                  structOrigin =
+                  Just
+                    Decl {
+                      declInfo =
+                      DeclInfo {
+                        declLoc =
+                        "fun_attributes.h:7:9",
+                        declId = NamePair {
+                          nameC = Name "FILE",
+                          nameHsIdent = HsIdentifier
+                            "FILE"},
+                        declOrigin = NameOriginGenerated
+                          (AnonId "fun_attributes.h:7:9"),
+                        declAliases = [Name "FILE"],
+                        declHeader = "fun_attributes.h",
+                        declComment =
+                        Just
+                          Comment {
+                            commentCName = "FILE",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Attributes on functions"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "FILE"),
+                          structSizeof = 0,
+                          structAlignment = 1,
+                          structFields = [],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment =
+                  Just
+                    Comment {
+                      commentTitle = Just
+                        [
+                          TextContent
+                            "Attributes on functions"],
+                      commentOrigin = Just "FILE",
+                      commentChildren =
+                      [
+                        Paragraph
+                          [
+                            TextContent
+                              "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}})
+              []),
+          storablePoke =
+          Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "FILE",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "FILE",
+                  structFields = [],
+                  structOrigin =
+                  Just
+                    Decl {
+                      declInfo =
+                      DeclInfo {
+                        declLoc =
+                        "fun_attributes.h:7:9",
+                        declId = NamePair {
+                          nameC = Name "FILE",
+                          nameHsIdent = HsIdentifier
+                            "FILE"},
+                        declOrigin = NameOriginGenerated
+                          (AnonId "fun_attributes.h:7:9"),
+                        declAliases = [Name "FILE"],
+                        declHeader = "fun_attributes.h",
+                        declComment =
+                        Just
+                          Comment {
+                            commentCName = "FILE",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Attributes on functions"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "FILE"),
+                          structSizeof = 0,
+                          structAlignment = 1,
+                          structFields = [],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment =
+                  Just
+                    Comment {
+                      commentTitle = Just
+                        [
+                          TextContent
+                            "Attributes on functions"],
+                      commentOrigin = Just "FILE",
+                      commentChildren =
+                      [
+                        Paragraph
+                          [
+                            TextContent
+                              "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}}
+                (Add 0)
+                (Seq [])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "FILE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "FILE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "FILE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "FILE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -192,7 +326,8 @@
           "un_Size_t",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -203,8 +338,8 @@
               "Size_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "fun_attributes.h"},
+          declHeader = "fun_attributes.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -236,85 +371,139 @@
           Integral,
           Num,
           Real,
-          Storable]},
+          Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Size_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Size_t",
+      deriveInstanceComment =
+      Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -336,7 +525,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -358,7 +548,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -404,7 +595,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -450,7 +642,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -488,7 +681,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -523,7 +717,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -558,7 +753,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -584,7 +780,8 @@
           FunctionAttributes
             HaskellPureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -607,7 +804,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -648,7 +846,8 @@
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed))))}},
+                  (Just Signed))))},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -696,7 +895,8 @@
                       "FILE"}
                   (NameOriginGenerated
                     (AnonId
-                      "fun_attributes.h:7:9")))))}},
+                      "fun_attributes.h:7:9")))))},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -718,7 +918,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -759,7 +960,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -781,12 +983,12 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
     "signed int testmodule_hash (char *arg1) { return hash(arg1); }",
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -811,7 +1013,21 @@
           FunctionAttributes
             CPureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent "Marked",
+                Monospace
+                  [
+                    Bold
+                      [
+                        TextContent
+                          "attribute((pure))"]]]]}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -846,7 +1062,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            TypeVoid}},
+            TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -868,7 +1085,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -891,7 +1109,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -914,7 +1133,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -936,7 +1156,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -954,7 +1175,8 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
-          (PrimIntegral PrimInt Signed))},
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -977,7 +1199,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1000,7 +1223,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1023,7 +1247,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1046,4 +1271,5 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}}]
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing}]

@@ -13,7 +13,8 @@
           "un_Toggle",
         fieldType = HsBlock
           (HsIO (HsPrimType HsPrimCBool)),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc = "iterator.h:3:16",
@@ -23,7 +24,8 @@
               "Toggle"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h"},
+          declHeader = "iterator.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -44,7 +46,8 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        []},
+        [],
+      newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "Toggle testmodule_makeToggle (_Bool arg1) { return makeToggle(arg1); }",
@@ -76,7 +79,8 @@
               NamePair {
                 nameC = Name "Toggle",
                 nameHsIdent = HsIdentifier
-                  "Toggle"})}},
+                  "Toggle"})},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "_Bool testmodule_toggleNext (Toggle arg1) { return toggleNext(arg1); }",
@@ -108,7 +112,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            PrimBool}},
+            PrimBool},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void testmodule_releaseToggle (Toggle arg1) { releaseToggle(arg1); }",
@@ -139,7 +144,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -154,7 +160,8 @@
           "un_Counter",
         fieldType = HsBlock
           (HsIO (HsPrimType HsPrimCInt)),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc = "iterator.h:10:14",
@@ -164,7 +171,8 @@
               "Counter"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h"},
+          declHeader = "iterator.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -188,7 +196,8 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        []},
+        [],
+      newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "Counter testmodule_makeCounter (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
@@ -225,7 +234,8 @@
               NamePair {
                 nameC = Name "Counter",
                 nameHsIdent = HsIdentifier
-                  "Counter"})}},
+                  "Counter"})},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "signed int testmodule_counterNext (Counter arg1) { return counterNext(arg1); }",
@@ -257,7 +267,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void testmodule_releaseCounter (Counter arg1) { releaseCounter(arg1); }",
@@ -288,7 +299,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -305,7 +317,8 @@
           (HsFun
             (HsPrimType HsPrimCInt)
             (HsIO (HsPrimType HsPrimCInt))),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc = "iterator.h:17:14",
@@ -315,7 +328,8 @@
               "VarCounter"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h"},
+          declHeader = "iterator.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -341,7 +355,8 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        []},
+        [],
+      newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "VarCounter testmodule_makeVarCounter (signed int arg1) { return makeVarCounter(arg1); }",
@@ -374,7 +389,8 @@
               NamePair {
                 nameC = Name "VarCounter",
                 nameHsIdent = HsIdentifier
-                  "VarCounter"})}},
+                  "VarCounter"})},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "signed int testmodule_varCounterNext (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
@@ -410,7 +426,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void testmodule_releaseVarCounter (VarCounter arg1) { releaseVarCounter(arg1); }",
@@ -441,4 +458,5 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing}]

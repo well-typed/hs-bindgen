@@ -13,7 +13,8 @@
           "un_EnumA",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc = "nested_enums.h:2:14",
@@ -23,7 +24,8 @@
               "EnumA"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "nested_enums.h"},
+          declHeader = "nested_enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -45,7 +47,8 @@
                   nameC = Name "VALA_1",
                   nameHsIdent = HsIdentifier
                     "VALA_1"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "nested_enums.h:4:17",
@@ -53,7 +56,9 @@
                   nameC = Name "VALA_2",
                   nameHsIdent = HsIdentifier
                     "VALA_2"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment =
+                Nothing}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -61,204 +66,227 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [
-          Eq,
-          Ord,
-          Read,
-          Show,
-          Storable]},
+        [Eq, Ord, Read, Show, Storable],
+      newtypeComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "EnumA",
-        structConstr = HsName
-          "@NsConstr"
-          "EnumA",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_EnumA",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "EnumA",
-                structConstr = HsName
-                  "@NsConstr"
-                  "EnumA",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "un_EnumA",
-                    fieldType = HsPrimType
-                      HsPrimCUInt,
-                    fieldOrigin = GeneratedField}],
-                structOrigin = Nothing,
-                structInstances = Set.fromList
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "EnumA",
+          structConstr = HsName
+            "@NsConstr"
+            "EnumA",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_EnumA",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "EnumA",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "EnumA",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "un_EnumA",
+                      fieldType = HsPrimType
+                        HsPrimCUInt,
+                      fieldOrigin = GeneratedField,
+                      fieldComment = Nothing}],
+                  structOrigin = Nothing,
+                  structInstances = Set.fromList
+                    [Eq, Ord, Read, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "EnumA",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "EnumA",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "un_EnumA",
+                      fieldType = HsPrimType
+                        HsPrimCUInt,
+                      fieldOrigin = GeneratedField,
+                      fieldComment = Nothing}],
+                  structOrigin = Nothing,
+                  structInstances = Set.fromList
+                    [Eq, Ord, Read, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
                   [
-                    Eq,
-                    Ord,
-                    Read,
-                    Show,
-                    Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "EnumA",
-                structConstr = HsName
-                  "@NsConstr"
-                  "EnumA",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "un_EnumA",
-                    fieldType = HsPrimType
-                      HsPrimCUInt,
-                    fieldOrigin = GeneratedField}],
-                structOrigin = Nothing,
-                structInstances = Set.fromList
-                  [Eq, Ord, Read, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "EnumA"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "EnumA",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "EnumA"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "EnumA",
+      deriveInstanceComment =
+      Nothing},
   DeclInstance
-    (InstanceCEnum
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "EnumA",
-        structConstr = HsName
-          "@NsConstr"
-          "EnumA",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_EnumA",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      (HsPrimType HsPrimCUInt)
-      (Map.fromList
-        [
-          _×_ 0 (NE.fromList ["VALA_1"]),
-          _×_ 1 (NE.fromList ["VALA_2"])])
-      True),
-  DeclInstance
-    (InstanceSequentialCEnum
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "EnumA",
-        structConstr = HsName
-          "@NsConstr"
-          "EnumA",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_EnumA",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      (HsName "@NsConstr" "VALA_1")
-      (HsName "@NsConstr" "VALA_2")),
-  DeclInstance
-    (InstanceCEnumShow
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "EnumA",
-        structConstr = HsName
-          "@NsConstr"
-          "EnumA",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_EnumA",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnum
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "EnumA",
+          structConstr = HsName
+            "@NsConstr"
+            "EnumA",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_EnumA",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        (HsPrimType HsPrimCUInt)
+        (Map.fromList
           [
-            Eq,
-            Ord,
-            Read,
-            Show,
-            Storable]}),
+            _×_ 0 (NE.fromList ["VALA_1"]),
+            _×_ 1 (NE.fromList ["VALA_2"])])
+        True,
+      defineInstanceComment =
+      Nothing},
   DeclInstance
-    (InstanceCEnumRead
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "EnumA",
-        structConstr = HsName
-          "@NsConstr"
-          "EnumA",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_EnumA",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [
-            Eq,
-            Ord,
-            Read,
-            Show,
-            Storable]}),
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceSequentialCEnum
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "EnumA",
+          structConstr = HsName
+            "@NsConstr"
+            "EnumA",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_EnumA",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        (HsName "@NsConstr" "VALA_1")
+        (HsName "@NsConstr" "VALA_2"),
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnumShow
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "EnumA",
+          structConstr = HsName
+            "@NsConstr"
+            "EnumA",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_EnumA",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnumRead
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "EnumA",
+          structConstr = HsName
+            "@NsConstr"
+            "EnumA",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_EnumA",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing},
+      defineInstanceComment =
+      Nothing},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -279,7 +307,9 @@
             nameC = Name "VALA_1",
             nameHsIdent = HsIdentifier
               "VALA_1"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing},
+      patSynComment = Nothing},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -300,7 +330,9 @@
             nameC = Name "VALA_2",
             nameHsIdent = HsIdentifier
               "VALA_2"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing},
+      patSynComment = Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -333,7 +365,9 @@
                     "EnumA"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -344,7 +378,8 @@
                 "ExA"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_enums.h"},
+            declHeader = "nested_enums.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -366,7 +401,8 @@
                         "EnumA"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -375,260 +411,292 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "ExA",
-        structConstr = HsName
-          "@NsConstr"
-          "ExA",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "exA_fieldA1",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "EnumA"),
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "nested_enums.h:5:11",
-                structFieldName = NamePair {
-                  nameC = Name "fieldA1",
-                  nameHsIdent = HsIdentifier
-                    "exA_fieldA1"},
-                structFieldType = TypeEnum
-                  NamePair {
-                    nameC = Name "enumA",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "ExA",
+          structConstr = HsName
+            "@NsConstr"
+            "ExA",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "exA_fieldA1",
+              fieldType = HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "EnumA"),
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "nested_enums.h:5:11",
+                  structFieldName = NamePair {
+                    nameC = Name "fieldA1",
                     nameHsIdent = HsIdentifier
-                      "EnumA"}
-                  NameOriginInSource,
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc = "nested_enums.h:1:8",
-              declId = NamePair {
-                nameC = Name "exA",
-                nameHsIdent = HsIdentifier
-                  "ExA"},
-              declOrigin = NameOriginInSource,
-              declAliases = [],
-              declHeader = "nested_enums.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "ExA"),
-                structSizeof = 4,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "nested_enums.h:5:11",
-                    structFieldName = NamePair {
-                      nameC = Name "fieldA1",
+                      "exA_fieldA1"},
+                  structFieldType = TypeEnum
+                    NamePair {
+                      nameC = Name "enumA",
                       nameHsIdent = HsIdentifier
-                        "exA_fieldA1"},
-                    structFieldType = TypeEnum
-                      NamePair {
-                        nameC = Name "enumA",
+                        "EnumA"}
+                    NameOriginInSource,
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc = "nested_enums.h:1:8",
+                declId = NamePair {
+                  nameC = Name "exA",
+                  nameHsIdent = HsIdentifier
+                    "ExA"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader = "nested_enums.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "ExA"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "nested_enums.h:5:11",
+                      structFieldName = NamePair {
+                        nameC = Name "fieldA1",
                         nameHsIdent = HsIdentifier
-                          "EnumA"}
-                      NameOriginInSource,
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "ExA",
-                structConstr = HsName
-                  "@NsConstr"
-                  "ExA",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "exA_fieldA1",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "EnumA"),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "nested_enums.h:5:11",
-                        structFieldName = NamePair {
-                          nameC = Name "fieldA1",
+                          "exA_fieldA1"},
+                      structFieldType = TypeEnum
+                        NamePair {
+                          nameC = Name "enumA",
                           nameHsIdent = HsIdentifier
-                            "exA_fieldA1"},
-                        structFieldType = TypeEnum
-                          NamePair {
-                            nameC = Name "enumA",
+                            "EnumA"}
+                        NameOriginInSource,
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "ExA",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "ExA",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "exA_fieldA1",
+                      fieldType = HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "EnumA"),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "nested_enums.h:5:11",
+                          structFieldName = NamePair {
+                            nameC = Name "fieldA1",
                             nameHsIdent = HsIdentifier
-                              "EnumA"}
-                          NameOriginInSource,
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc = "nested_enums.h:1:8",
-                      declId = NamePair {
-                        nameC = Name "exA",
-                        nameHsIdent = HsIdentifier
-                          "ExA"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader = "nested_enums.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "ExA"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "nested_enums.h:5:11",
-                            structFieldName = NamePair {
-                              nameC = Name "fieldA1",
+                              "exA_fieldA1"},
+                          structFieldType = TypeEnum
+                            NamePair {
+                              nameC = Name "enumA",
                               nameHsIdent = HsIdentifier
-                                "exA_fieldA1"},
-                            structFieldType = TypeEnum
-                              NamePair {
-                                nameC = Name "enumA",
-                                nameHsIdent = HsIdentifier
-                                  "EnumA"}
-                              NameOriginInSource,
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "ExA",
-                structConstr = HsName
-                  "@NsConstr"
-                  "ExA",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "exA_fieldA1",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "EnumA"),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "nested_enums.h:5:11",
-                        structFieldName = NamePair {
-                          nameC = Name "fieldA1",
+                                "EnumA"}
+                            NameOriginInSource,
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc = "nested_enums.h:1:8",
+                        declId = NamePair {
+                          nameC = Name "exA",
                           nameHsIdent = HsIdentifier
-                            "exA_fieldA1"},
-                        structFieldType = TypeEnum
-                          NamePair {
-                            nameC = Name "enumA",
-                            nameHsIdent = HsIdentifier
-                              "EnumA"}
-                          NameOriginInSource,
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc = "nested_enums.h:1:8",
-                      declId = NamePair {
-                        nameC = Name "exA",
-                        nameHsIdent = HsIdentifier
-                          "ExA"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader = "nested_enums.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "ExA"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "nested_enums.h:5:11",
-                            structFieldName = NamePair {
-                              nameC = Name "fieldA1",
-                              nameHsIdent = HsIdentifier
-                                "exA_fieldA1"},
-                            structFieldType = TypeEnum
-                              NamePair {
-                                nameC = Name "enumA",
+                            "ExA"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader = "nested_enums.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "ExA"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "nested_enums.h:5:11",
+                              structFieldName = NamePair {
+                                nameC = Name "fieldA1",
                                 nameHsIdent = HsIdentifier
-                                  "EnumA"}
-                              NameOriginInSource,
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                                  "exA_fieldA1"},
+                              structFieldType = TypeEnum
+                                NamePair {
+                                  nameC = Name "enumA",
+                                  nameHsIdent = HsIdentifier
+                                    "EnumA"}
+                                NameOriginInSource,
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "ExA",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "ExA",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "exA_fieldA1",
+                      fieldType = HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "EnumA"),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "nested_enums.h:5:11",
+                          structFieldName = NamePair {
+                            nameC = Name "fieldA1",
+                            nameHsIdent = HsIdentifier
+                              "exA_fieldA1"},
+                          structFieldType = TypeEnum
+                            NamePair {
+                              nameC = Name "enumA",
+                              nameHsIdent = HsIdentifier
+                                "EnumA"}
+                            NameOriginInSource,
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc = "nested_enums.h:1:8",
+                        declId = NamePair {
+                          nameC = Name "exA",
+                          nameHsIdent = HsIdentifier
+                            "ExA"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader = "nested_enums.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "ExA"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "nested_enums.h:5:11",
+                              structFieldName = NamePair {
+                                nameC = Name "fieldA1",
+                                nameHsIdent = HsIdentifier
+                                  "exA_fieldA1"},
+                              structFieldType = TypeEnum
+                                NamePair {
+                                  nameC = Name "enumA",
+                                  nameHsIdent = HsIdentifier
+                                    "EnumA"}
+                                NameOriginInSource,
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "ExA"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ExA",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "ExA"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ExA",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -643,7 +711,8 @@
           "un_ExB_fieldB1",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc = "nested_enums.h:9:9",
@@ -654,7 +723,8 @@
           declOrigin = NameOriginGenerated
             (AnonId "nested_enums.h:9:9"),
           declAliases = [],
-          declHeader = "nested_enums.h"},
+          declHeader = "nested_enums.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -676,7 +746,8 @@
                   nameC = Name "VALB_1",
                   nameHsIdent = HsIdentifier
                     "VALB_1"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "nested_enums.h:11:17",
@@ -684,7 +755,9 @@
                   nameC = Name "VALB_2",
                   nameHsIdent = HsIdentifier
                     "VALB_2"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment =
+                Nothing}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -692,204 +765,227 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [
-          Eq,
-          Ord,
-          Read,
-          Show,
-          Storable]},
+        [Eq, Ord, Read, Show, Storable],
+      newtypeComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "ExB_fieldB1",
-        structConstr = HsName
-          "@NsConstr"
-          "ExB_fieldB1",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_ExB_fieldB1",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "ExB_fieldB1",
-                structConstr = HsName
-                  "@NsConstr"
-                  "ExB_fieldB1",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "un_ExB_fieldB1",
-                    fieldType = HsPrimType
-                      HsPrimCUInt,
-                    fieldOrigin = GeneratedField}],
-                structOrigin = Nothing,
-                structInstances = Set.fromList
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "ExB_fieldB1",
+          structConstr = HsName
+            "@NsConstr"
+            "ExB_fieldB1",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_ExB_fieldB1",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "ExB_fieldB1",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "ExB_fieldB1",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "un_ExB_fieldB1",
+                      fieldType = HsPrimType
+                        HsPrimCUInt,
+                      fieldOrigin = GeneratedField,
+                      fieldComment = Nothing}],
+                  structOrigin = Nothing,
+                  structInstances = Set.fromList
+                    [Eq, Ord, Read, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "ExB_fieldB1",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "ExB_fieldB1",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "un_ExB_fieldB1",
+                      fieldType = HsPrimType
+                        HsPrimCUInt,
+                      fieldOrigin = GeneratedField,
+                      fieldComment = Nothing}],
+                  structOrigin = Nothing,
+                  structInstances = Set.fromList
+                    [Eq, Ord, Read, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
                   [
-                    Eq,
-                    Ord,
-                    Read,
-                    Show,
-                    Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "ExB_fieldB1",
-                structConstr = HsName
-                  "@NsConstr"
-                  "ExB_fieldB1",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "un_ExB_fieldB1",
-                    fieldType = HsPrimType
-                      HsPrimCUInt,
-                    fieldOrigin = GeneratedField}],
-                structOrigin = Nothing,
-                structInstances = Set.fromList
-                  [Eq, Ord, Read, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "ExB_fieldB1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ExB_fieldB1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "ExB_fieldB1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ExB_fieldB1",
+      deriveInstanceComment =
+      Nothing},
   DeclInstance
-    (InstanceCEnum
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "ExB_fieldB1",
-        structConstr = HsName
-          "@NsConstr"
-          "ExB_fieldB1",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_ExB_fieldB1",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      (HsPrimType HsPrimCUInt)
-      (Map.fromList
-        [
-          _×_ 0 (NE.fromList ["VALB_1"]),
-          _×_ 1 (NE.fromList ["VALB_2"])])
-      True),
-  DeclInstance
-    (InstanceSequentialCEnum
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "ExB_fieldB1",
-        structConstr = HsName
-          "@NsConstr"
-          "ExB_fieldB1",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_ExB_fieldB1",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      (HsName "@NsConstr" "VALB_1")
-      (HsName "@NsConstr" "VALB_2")),
-  DeclInstance
-    (InstanceCEnumShow
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "ExB_fieldB1",
-        structConstr = HsName
-          "@NsConstr"
-          "ExB_fieldB1",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_ExB_fieldB1",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnum
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "ExB_fieldB1",
+          structConstr = HsName
+            "@NsConstr"
+            "ExB_fieldB1",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_ExB_fieldB1",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        (HsPrimType HsPrimCUInt)
+        (Map.fromList
           [
-            Eq,
-            Ord,
-            Read,
-            Show,
-            Storable]}),
+            _×_ 0 (NE.fromList ["VALB_1"]),
+            _×_ 1 (NE.fromList ["VALB_2"])])
+        True,
+      defineInstanceComment =
+      Nothing},
   DeclInstance
-    (InstanceCEnumRead
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "ExB_fieldB1",
-        structConstr = HsName
-          "@NsConstr"
-          "ExB_fieldB1",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_ExB_fieldB1",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [
-            Eq,
-            Ord,
-            Read,
-            Show,
-            Storable]}),
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceSequentialCEnum
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "ExB_fieldB1",
+          structConstr = HsName
+            "@NsConstr"
+            "ExB_fieldB1",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_ExB_fieldB1",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        (HsName "@NsConstr" "VALB_1")
+        (HsName "@NsConstr" "VALB_2"),
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnumShow
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "ExB_fieldB1",
+          structConstr = HsName
+            "@NsConstr"
+            "ExB_fieldB1",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_ExB_fieldB1",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnumRead
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "ExB_fieldB1",
+          structConstr = HsName
+            "@NsConstr"
+            "ExB_fieldB1",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_ExB_fieldB1",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing},
+      defineInstanceComment =
+      Nothing},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -910,7 +1006,9 @@
             nameC = Name "VALB_1",
             nameHsIdent = HsIdentifier
               "VALB_1"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing},
+      patSynComment = Nothing},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -931,7 +1029,9 @@
             nameC = Name "VALB_2",
             nameHsIdent = HsIdentifier
               "VALB_2"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing},
+      patSynComment = Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -965,7 +1065,9 @@
                 (NameOriginGenerated
                   (AnonId "nested_enums.h:9:9")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -976,7 +1078,8 @@
                 "ExB"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_enums.h"},
+            declHeader = "nested_enums.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -999,7 +1102,8 @@
                     (NameOriginGenerated
                       (AnonId "nested_enums.h:9:9")),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -1008,263 +1112,295 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "ExB",
-        structConstr = HsName
-          "@NsConstr"
-          "ExB",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "exB_fieldB1",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "ExB_fieldB1"),
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "nested_enums.h:12:11",
-                structFieldName = NamePair {
-                  nameC = Name "fieldB1",
-                  nameHsIdent = HsIdentifier
-                    "exB_fieldB1"},
-                structFieldType = TypeEnum
-                  NamePair {
-                    nameC = Name "exB_fieldB1",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "ExB",
+          structConstr = HsName
+            "@NsConstr"
+            "ExB",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "exB_fieldB1",
+              fieldType = HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "ExB_fieldB1"),
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "nested_enums.h:12:11",
+                  structFieldName = NamePair {
+                    nameC = Name "fieldB1",
                     nameHsIdent = HsIdentifier
-                      "ExB_fieldB1"}
-                  (NameOriginGenerated
-                    (AnonId "nested_enums.h:9:9")),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc = "nested_enums.h:8:8",
-              declId = NamePair {
-                nameC = Name "exB",
-                nameHsIdent = HsIdentifier
-                  "ExB"},
-              declOrigin = NameOriginInSource,
-              declAliases = [],
-              declHeader = "nested_enums.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "ExB"),
-                structSizeof = 4,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "nested_enums.h:12:11",
-                    structFieldName = NamePair {
-                      nameC = Name "fieldB1",
+                      "exB_fieldB1"},
+                  structFieldType = TypeEnum
+                    NamePair {
+                      nameC = Name "exB_fieldB1",
                       nameHsIdent = HsIdentifier
-                        "exB_fieldB1"},
-                    structFieldType = TypeEnum
-                      NamePair {
-                        nameC = Name "exB_fieldB1",
+                        "ExB_fieldB1"}
+                    (NameOriginGenerated
+                      (AnonId "nested_enums.h:9:9")),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc = "nested_enums.h:8:8",
+                declId = NamePair {
+                  nameC = Name "exB",
+                  nameHsIdent = HsIdentifier
+                    "ExB"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader = "nested_enums.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "ExB"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "nested_enums.h:12:11",
+                      structFieldName = NamePair {
+                        nameC = Name "fieldB1",
                         nameHsIdent = HsIdentifier
-                          "ExB_fieldB1"}
-                      (NameOriginGenerated
-                        (AnonId "nested_enums.h:9:9")),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "ExB",
-                structConstr = HsName
-                  "@NsConstr"
-                  "ExB",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "exB_fieldB1",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "ExB_fieldB1"),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "nested_enums.h:12:11",
-                        structFieldName = NamePair {
-                          nameC = Name "fieldB1",
+                          "exB_fieldB1"},
+                      structFieldType = TypeEnum
+                        NamePair {
+                          nameC = Name "exB_fieldB1",
                           nameHsIdent = HsIdentifier
-                            "exB_fieldB1"},
-                        structFieldType = TypeEnum
-                          NamePair {
-                            nameC = Name "exB_fieldB1",
+                            "ExB_fieldB1"}
+                        (NameOriginGenerated
+                          (AnonId "nested_enums.h:9:9")),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "ExB",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "ExB",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "exB_fieldB1",
+                      fieldType = HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "ExB_fieldB1"),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "nested_enums.h:12:11",
+                          structFieldName = NamePair {
+                            nameC = Name "fieldB1",
                             nameHsIdent = HsIdentifier
-                              "ExB_fieldB1"}
-                          (NameOriginGenerated
-                            (AnonId "nested_enums.h:9:9")),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc = "nested_enums.h:8:8",
-                      declId = NamePair {
-                        nameC = Name "exB",
-                        nameHsIdent = HsIdentifier
-                          "ExB"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader = "nested_enums.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "ExB"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "nested_enums.h:12:11",
-                            structFieldName = NamePair {
-                              nameC = Name "fieldB1",
+                              "exB_fieldB1"},
+                          structFieldType = TypeEnum
+                            NamePair {
+                              nameC = Name "exB_fieldB1",
                               nameHsIdent = HsIdentifier
-                                "exB_fieldB1"},
-                            structFieldType = TypeEnum
-                              NamePair {
-                                nameC = Name "exB_fieldB1",
-                                nameHsIdent = HsIdentifier
-                                  "ExB_fieldB1"}
-                              (NameOriginGenerated
-                                (AnonId "nested_enums.h:9:9")),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "ExB",
-                structConstr = HsName
-                  "@NsConstr"
-                  "ExB",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "exB_fieldB1",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "ExB_fieldB1"),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "nested_enums.h:12:11",
-                        structFieldName = NamePair {
-                          nameC = Name "fieldB1",
+                                "ExB_fieldB1"}
+                            (NameOriginGenerated
+                              (AnonId "nested_enums.h:9:9")),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc = "nested_enums.h:8:8",
+                        declId = NamePair {
+                          nameC = Name "exB",
                           nameHsIdent = HsIdentifier
-                            "exB_fieldB1"},
-                        structFieldType = TypeEnum
-                          NamePair {
-                            nameC = Name "exB_fieldB1",
-                            nameHsIdent = HsIdentifier
-                              "ExB_fieldB1"}
-                          (NameOriginGenerated
-                            (AnonId "nested_enums.h:9:9")),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc = "nested_enums.h:8:8",
-                      declId = NamePair {
-                        nameC = Name "exB",
-                        nameHsIdent = HsIdentifier
-                          "ExB"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader = "nested_enums.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "ExB"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "nested_enums.h:12:11",
-                            structFieldName = NamePair {
-                              nameC = Name "fieldB1",
-                              nameHsIdent = HsIdentifier
-                                "exB_fieldB1"},
-                            structFieldType = TypeEnum
-                              NamePair {
-                                nameC = Name "exB_fieldB1",
+                            "ExB"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader = "nested_enums.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "ExB"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "nested_enums.h:12:11",
+                              structFieldName = NamePair {
+                                nameC = Name "fieldB1",
                                 nameHsIdent = HsIdentifier
-                                  "ExB_fieldB1"}
-                              (NameOriginGenerated
-                                (AnonId "nested_enums.h:9:9")),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                                  "exB_fieldB1"},
+                              structFieldType = TypeEnum
+                                NamePair {
+                                  nameC = Name "exB_fieldB1",
+                                  nameHsIdent = HsIdentifier
+                                    "ExB_fieldB1"}
+                                (NameOriginGenerated
+                                  (AnonId "nested_enums.h:9:9")),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "ExB",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "ExB",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "exB_fieldB1",
+                      fieldType = HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "ExB_fieldB1"),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "nested_enums.h:12:11",
+                          structFieldName = NamePair {
+                            nameC = Name "fieldB1",
+                            nameHsIdent = HsIdentifier
+                              "exB_fieldB1"},
+                          structFieldType = TypeEnum
+                            NamePair {
+                              nameC = Name "exB_fieldB1",
+                              nameHsIdent = HsIdentifier
+                                "ExB_fieldB1"}
+                            (NameOriginGenerated
+                              (AnonId "nested_enums.h:9:9")),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc = "nested_enums.h:8:8",
+                        declId = NamePair {
+                          nameC = Name "exB",
+                          nameHsIdent = HsIdentifier
+                            "ExB"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader = "nested_enums.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "ExB"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "nested_enums.h:12:11",
+                              structFieldName = NamePair {
+                                nameC = Name "fieldB1",
+                                nameHsIdent = HsIdentifier
+                                  "exB_fieldB1"},
+                              structFieldType = TypeEnum
+                                NamePair {
+                                  nameC = Name "exB_fieldB1",
+                                  nameHsIdent = HsIdentifier
+                                    "ExB_fieldB1"}
+                                (NameOriginGenerated
+                                  (AnonId "nested_enums.h:9:9")),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "ExB"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ExB",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "ExB")]
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ExB",
+      deriveInstanceComment =
+      Nothing}]

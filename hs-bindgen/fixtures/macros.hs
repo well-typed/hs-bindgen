@@ -23,7 +23,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         1
-        HsPrimCInt},
+        HsPrimCInt,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -48,7 +49,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         2
-        HsPrimCInt},
+        HsPrimCInt,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -75,7 +77,8 @@
         (InfixAppHead MAdd)
         [
           VarDeclIntegral 3 HsPrimCInt,
-          VarDeclIntegral 3 HsPrimCInt]},
+          VarDeclIntegral 3 HsPrimCInt],
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -102,7 +105,8 @@
         (InfixAppHead MAdd)
         [
           VarDeclIntegral 4 HsPrimCInt,
-          VarDeclIntegral 4 HsPrimCInt]},
+          VarDeclIntegral 4 HsPrimCInt],
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -127,7 +131,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         42
-        HsPrimCInt},
+        HsPrimCInt,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -152,7 +157,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         42
-        HsPrimCInt},
+        HsPrimCInt,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -177,7 +183,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         42
-        HsPrimCInt},
+        HsPrimCInt,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -202,7 +209,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         42
-        HsPrimCInt},
+        HsPrimCInt,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -227,7 +235,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         42
-        HsPrimCInt},
+        HsPrimCInt,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -253,7 +262,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         18446744073709550592
-        HsPrimCULLong},
+        HsPrimCULLong,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -279,7 +289,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         18446744073709550592
-        HsPrimCULLong},
+        HsPrimCULLong,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -305,7 +316,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         18446744073709550592
-        HsPrimCULLong},
+        HsPrimCULLong,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -331,7 +343,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         18446744073709550592
-        HsPrimCULLong},
+        HsPrimCULLong,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -376,7 +389,8 @@
         (InfixAppHead MTuple)
         [
           VarDeclIntegral 1 HsPrimCInt,
-          VarDeclIntegral 2 HsPrimCInt]},
+          VarDeclIntegral 2 HsPrimCInt],
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -421,7 +435,8 @@
         (InfixAppHead MTuple)
         [
           VarDeclIntegral 3 HsPrimCInt,
-          VarDeclIntegral 4 HsPrimCInt]},
+          VarDeclIntegral 4 HsPrimCInt],
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -466,7 +481,8 @@
         (InfixAppHead MTuple)
         [
           VarDeclIntegral 5 HsPrimCInt,
-          VarDeclIntegral 6 HsPrimCInt]},
+          VarDeclIntegral 6 HsPrimCInt],
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -488,7 +504,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        110000.0},
+        110000.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -510,7 +527,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        1.2e-2},
+        1.2e-2,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -532,7 +550,8 @@
                       (FloatLikeTyCon FloatType))))
                 []]}},
       varDeclBody = VarDeclFloat
-        1.3e-2},
+        1.3e-2,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -554,7 +573,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        21.0},
+        21.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -576,7 +596,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        2200.0},
+        2200.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -597,8 +618,8 @@
                     (DataTyCon
                       (FloatLikeTyCon FloatType))))
                 []]}},
-      varDeclBody = VarDeclFloat
-        23.0},
+      varDeclBody = VarDeclFloat 23.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -620,7 +641,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        31.0},
+        31.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -642,7 +664,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        0.32},
+        0.32,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -664,7 +687,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        33.0},
+        33.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -686,7 +710,8 @@
                       (FloatLikeTyCon FloatType))))
                 []]}},
       varDeclBody = VarDeclFloat
-        3.4e-3},
+        3.4e-3,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -708,7 +733,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        650000.0},
+        650000.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -730,7 +756,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        6.6e-2},
+        6.6e-2,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -752,7 +779,8 @@
                       (FloatLikeTyCon FloatType))))
                 []]}},
       varDeclBody = VarDeclFloat
-        6.7e-2},
+        6.7e-2,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -774,7 +802,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        81.0},
+        81.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -795,8 +824,8 @@
                     (DataTyCon
                       (FloatLikeTyCon FloatType))))
                 []]}},
-      varDeclBody = VarDeclFloat
-        82.0},
+      varDeclBody = VarDeclFloat 82.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -818,7 +847,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        15520.0},
+        15520.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -840,7 +870,8 @@
                       (FloatLikeTyCon DoubleType))))
                 []]}},
       varDeclBody = VarDeclDouble
-        98.0},
+        98.0,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -862,7 +893,8 @@
                       (FloatLikeTyCon FloatType))))
                 []]}},
       varDeclBody = VarDeclFloat
-        9.9e-3},
+        9.9e-3,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -887,7 +919,8 @@
         (InfixAppHead MAdd)
         [
           VarDeclDouble 0.1,
-          VarDeclIntegral 1 HsPrimCInt]},
+          VarDeclIntegral 1 HsPrimCInt],
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -914,6 +947,5 @@
         (InfixAppHead MMult)
         [
           VarDeclIntegral 2 HsPrimCLong,
-          VarDeclIntegral
-            2
-            HsPrimCULong]}]
+          VarDeclIntegral 2 HsPrimCULong],
+      varDeclComment = Nothing}]

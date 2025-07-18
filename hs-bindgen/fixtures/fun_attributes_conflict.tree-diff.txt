@@ -1,7 +1,9 @@
 TranslationUnit {
-  unitDecls = [
+  unitDecls =
+  [
     Decl {
-      declInfo = DeclInfo {
+      declInfo =
+      DeclInfo {
         declLoc =
         "fun_attributes_conflict.h:9:5",
         declId = NamePair {
@@ -11,7 +13,21 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "fun_attributes_conflict.h"},
+        "fun_attributes_conflict.h",
+        declComment =
+        Just
+          Comment {
+            commentCName = "square_cp(int)",
+            commentChildren =
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Conflicting attributes on functions for llvm/clang versions 18 and up"],
+              Paragraph
+                [
+                  TextContent
+                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -39,7 +55,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "fun_attributes_conflict.h"},
+        "fun_attributes_conflict.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -67,7 +84,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "fun_attributes_conflict.h"},
+        "fun_attributes_conflict.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -95,7 +113,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "fun_attributes_conflict.h"},
+        "fun_attributes_conflict.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [

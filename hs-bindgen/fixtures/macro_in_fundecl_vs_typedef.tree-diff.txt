@@ -11,7 +11,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -42,7 +43,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -73,7 +75,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -111,7 +114,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -149,7 +153,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -188,7 +193,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -227,7 +233,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -245,7 +252,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -266,7 +274,8 @@ TranslationUnit {
             "macro_in_fundecl_vs_typedef.h:19:9"),
         declAliases = [Name "struct2"],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -284,7 +293,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -304,7 +314,8 @@ TranslationUnit {
         declAliases = [
           Name "struct3_t"],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -322,7 +333,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -341,7 +353,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -374,7 +387,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [Name "struct4"],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -392,7 +406,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -411,7 +426,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -453,7 +469,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -490,7 +507,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -530,7 +548,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -567,7 +586,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -604,7 +624,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl_vs_typedef.h"},
+        "macro_in_fundecl_vs_typedef.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [

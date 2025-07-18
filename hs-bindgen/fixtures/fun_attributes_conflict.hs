@@ -24,7 +24,23 @@
           FunctionAttributes
             HaskellPureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle =
+          Just
+            [
+              TextContent
+                "Conflicting attributes on functions for llvm/clang versions 18 and up"],
+          commentOrigin = Just
+            "square_cp(int)",
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
@@ -50,7 +66,8 @@
           FunctionAttributes
             HaskellPureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
@@ -76,12 +93,12 @@
           FunctionAttributes
             HaskellPureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
     "signed int testmodule_square_pp (signed int arg1) { return square_pp(arg1); }",
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -103,4 +120,18 @@
           FunctionAttributes
             CPureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}}]
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent "Marked",
+                Monospace
+                  [
+                    Bold
+                      [
+                        TextContent
+                          "attribute((pure))"]]]]}}]

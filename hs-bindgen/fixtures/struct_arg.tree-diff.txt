@@ -9,7 +9,8 @@ TranslationUnit {
             "Thing"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h"},
+        declHeader = "struct_arg.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -27,7 +28,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -44,7 +46,8 @@ TranslationUnit {
             "thing_fun_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h"},
+        declHeader = "struct_arg.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -74,7 +77,8 @@ TranslationUnit {
             "thing_fun_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h"},
+        declHeader = "struct_arg.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -104,7 +108,8 @@ TranslationUnit {
             "thing_fun_3a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h"},
+        declHeader = "struct_arg.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -142,7 +147,8 @@ TranslationUnit {
             "thing_fun_3b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h"},
+        declHeader = "struct_arg.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [

@@ -9,7 +9,8 @@ TranslationUnit {
             "by'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -32,7 +33,8 @@ TranslationUnit {
             "forall'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -55,7 +57,8 @@ TranslationUnit {
             "mdo'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -78,7 +81,8 @@ TranslationUnit {
             "pattern'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -101,7 +105,8 @@ TranslationUnit {
             "proc'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -124,7 +129,8 @@ TranslationUnit {
             "rec'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -147,7 +153,8 @@ TranslationUnit {
             "using'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -170,7 +177,8 @@ TranslationUnit {
             "anyclass"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -193,7 +201,8 @@ TranslationUnit {
             "capi"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -216,7 +225,8 @@ TranslationUnit {
             "cases"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -239,7 +249,8 @@ TranslationUnit {
             "ccall"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -262,7 +273,8 @@ TranslationUnit {
             "dynamic"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -285,7 +297,8 @@ TranslationUnit {
             "export"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -308,7 +321,8 @@ TranslationUnit {
             "family"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -331,7 +345,8 @@ TranslationUnit {
             "group"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -354,7 +369,8 @@ TranslationUnit {
             "interruptible"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -377,7 +393,8 @@ TranslationUnit {
             "javascript"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -400,7 +417,8 @@ TranslationUnit {
             "label"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -423,7 +441,8 @@ TranslationUnit {
             "prim"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -446,7 +465,8 @@ TranslationUnit {
             "role"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -469,7 +489,8 @@ TranslationUnit {
             "safe"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -492,7 +513,8 @@ TranslationUnit {
             "stdcall"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -515,7 +537,8 @@ TranslationUnit {
             "stock"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -538,7 +561,8 @@ TranslationUnit {
             "unsafe"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -561,7 +585,8 @@ TranslationUnit {
             "via"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h"},
+        declHeader = "names.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],

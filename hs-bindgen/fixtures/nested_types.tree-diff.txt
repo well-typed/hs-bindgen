@@ -9,7 +9,8 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h"},
+        declHeader = "nested_types.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -27,7 +28,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "nested_types.h:3:10",
@@ -40,7 +42,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -57,7 +60,8 @@ TranslationUnit {
             "Bar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h"},
+        declHeader = "nested_types.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -79,7 +83,8 @@ TranslationUnit {
                     "Foo"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "nested_types.h:8:16",
@@ -94,7 +99,8 @@ TranslationUnit {
                     "Foo"}
                 NameOriginInSource,
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -112,7 +118,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "nested_types.h:12:5"),
         declAliases = [],
-        declHeader = "nested_types.h"},
+        declHeader = "nested_types.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -132,7 +139,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "nested_types.h:14:14",
@@ -145,7 +153,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -162,7 +171,8 @@ TranslationUnit {
             "Ex3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h"},
+        declHeader = "nested_types.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -185,7 +195,8 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "nested_types.h:12:5")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "nested_types.h:16:11",
@@ -196,7 +207,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimFloating PrimFloat),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -214,7 +226,8 @@ TranslationUnit {
             "Ex4_even"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h"},
+        declHeader = "nested_types.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -232,7 +245,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "nested_types.h:26:25",
@@ -248,7 +262,8 @@ TranslationUnit {
                       "Ex4_odd"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -265,7 +280,8 @@ TranslationUnit {
             "Ex4_odd"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h"},
+        declHeader = "nested_types.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -283,7 +299,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "nested_types.h:27:8",
@@ -299,7 +316,8 @@ TranslationUnit {
                       "Ex4_even"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

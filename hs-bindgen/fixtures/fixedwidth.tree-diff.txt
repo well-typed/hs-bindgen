@@ -9,7 +9,8 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fixedwidth.h"},
+        declHeader = "fixedwidth.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -141,7 +142,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "fixedwidth.h:5:11",
@@ -266,7 +268,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

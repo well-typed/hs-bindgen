@@ -19,4 +19,5 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing}]

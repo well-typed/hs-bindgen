@@ -10,7 +10,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -39,7 +40,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -69,7 +71,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -98,7 +101,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -129,7 +133,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -161,7 +166,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -196,7 +202,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -234,7 +241,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -274,7 +282,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -316,7 +325,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -357,7 +367,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -392,7 +403,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -430,7 +442,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -468,7 +481,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -504,7 +518,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -539,7 +554,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -577,7 +593,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -613,7 +630,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_in_fundecl.h"},
+        "macro_in_fundecl.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],

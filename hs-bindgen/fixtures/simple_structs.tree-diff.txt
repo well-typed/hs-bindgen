@@ -10,8 +10,8 @@ TranslationUnit {
             "S1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -29,7 +29,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:4:10",
@@ -42,7 +43,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -62,8 +64,8 @@ TranslationUnit {
         NameOriginRenamedFrom
           (Name "S2"),
         declAliases = [Name "S2_t"],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -83,7 +85,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:10:9",
@@ -94,7 +97,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:11:11",
@@ -105,7 +109,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimFloating PrimFloat),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -125,8 +130,8 @@ TranslationUnit {
           (AnonId
             "simple_structs.h:15:9"),
         declAliases = [Name "S3_t"],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -146,7 +151,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -164,8 +170,8 @@ TranslationUnit {
             "S4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -185,7 +191,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:21:9",
@@ -196,7 +203,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:22:10",
@@ -208,7 +216,8 @@ TranslationUnit {
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -226,8 +235,8 @@ TranslationUnit {
             "S5"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "S5"],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -247,7 +256,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:28:9",
@@ -258,7 +268,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -276,8 +287,8 @@ TranslationUnit {
             "S6"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "S6"],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -297,7 +308,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:31:25",
@@ -308,7 +320,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -328,8 +341,8 @@ TranslationUnit {
           (AnonId
             "simple_structs.h:34:9"),
         declAliases = [],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -351,7 +364,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:34:30",
@@ -362,7 +376,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -380,8 +395,8 @@ TranslationUnit {
             "S7a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -418,8 +433,8 @@ TranslationUnit {
           (AnonId
             "simple_structs.h:35:9"),
         declAliases = [],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -441,7 +456,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "simple_structs.h:35:30",
@@ -452,7 +468,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -470,8 +487,8 @@ TranslationUnit {
             "S7b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "simple_structs.h"},
+        declHeader = "simple_structs.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

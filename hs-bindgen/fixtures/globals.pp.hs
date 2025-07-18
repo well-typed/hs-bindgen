@@ -15,6 +15,10 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 $(CAPI.addCSource "#include \"globals.h\"\n__attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } \n__attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } \n__attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } \n__attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } \n__attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } \n__attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } \n__attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } \n__attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } \n__attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } \n__attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } \n__attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } \n__attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } \n__attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } \n__attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } \n__attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } \n__attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } \n")
 
+{-| Global variables
+
+  __from C:__ @simpleGlobal@
+-}
 foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal :: F.Ptr FC.CInt
 
 data Config = Config
@@ -73,6 +77,16 @@ instance F.Storable Inline_struct where
 
 foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2 :: F.Ptr Inline_struct
 
+{-| Non-extern non-static global variables
+
+  These kinds of variables need to be treated with care, to avoid duplicate symbols, but do exist in the wild.
+
+  We test with various kinds of initializers as we must explicitly ignore them in our parser. The list here roughly follows the definition of `CXCursor` [1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl' in `HsBindgen.Frontend.Pass.Parse.Decl`.
+
+  [1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
+
+  __from C:__ @nesInteger@
+-}
 foreign import ccall safe "get_nesInteger_ptr" nesInteger :: F.Ptr FC.CInt
 
 foreign import ccall safe "get_nesFloating_ptr" nesFloating :: F.Ptr FC.CFloat
@@ -99,6 +113,14 @@ foreign import capi safe "&nesInitList" nesInitList :: F.Ptr ((HsBindgen.Runtime
 
 foreign import ccall safe "get_nesBool_ptr" nesBool :: F.Ptr FC.CBool
 
+{-| Additional examples of global variables, abstracted from real examples
+
+  The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).
+
+  [1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325
+
+  __from C:__ @streamBinary@
+-}
 foreign import capi safe "&streamBinary" streamBinary :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
 
 foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len :: F.Ptr HsBindgen.Runtime.Prelude.Word32

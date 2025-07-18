@@ -55,9 +55,8 @@
             (InfixAppHead MAdd)
             [
               VarDeclVar (Idx 0),
-              VarDeclIntegral
-                1
-                HsPrimCInt]))},
+              VarDeclIntegral 1 HsPrimCInt])),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -96,7 +95,8 @@
                 (InfixAppHead MAdd)
                 [
                   VarDeclVar (Idx 1),
-                  VarDeclVar (Idx 0)]))))},
+                  VarDeclVar (Idx 0)])))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -113,7 +113,8 @@
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
-          (VarDeclVar (Idx 0)))},
+          (VarDeclVar (Idx 0))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -136,7 +137,8 @@
           (VarDeclLambda
             (Lambda
               (NameHint "y")
-              (VarDeclVar (Idx 1)))))},
+              (VarDeclVar (Idx 1))))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -182,7 +184,8 @@
                 (InfixAppHead MRelLT)
                 [
                   VarDeclVar (Idx 1),
-                  VarDeclVar (Idx 0)]))))},
+                  VarDeclVar (Idx 0)])))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -283,7 +286,8 @@
                       VarDeclIntegral
                         12
                         HsPrimCULLong,
-                      VarDeclVar (Idx 0)]]))))},
+                      VarDeclVar (Idx 0)]])))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -371,7 +375,8 @@
                     (InfixAppHead MMult)
                     [
                       VarDeclIntegral 3 HsPrimCULLong,
-                      VarDeclVar (Idx 0)]]))))},
+                      VarDeclVar (Idx 0)]])))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -441,7 +446,8 @@
                   VarDeclApp
                     (VarAppHead
                       (HsName "@NsVar" "iD"))
-                    [VarDeclVar (Idx 1)]]))))},
+                    [VarDeclVar (Idx 1)]])))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -539,7 +545,8 @@
                       VarDeclVar (Idx 0),
                       VarDeclIntegral
                         12
-                        HsPrimCUInt]]))))},
+                        HsPrimCUInt]])))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -629,4 +636,5 @@
                     [
                       VarDeclFloat 10.0,
                       VarDeclVar (Idx 1)],
-                  VarDeclVar (Idx 0)]))))}]
+                  VarDeclVar (Idx 0)])))),
+      varDeclComment = Nothing}]

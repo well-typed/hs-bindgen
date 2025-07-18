@@ -55,6 +55,12 @@ normal =
     \x1 ->
       \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
 
+{-| Error cases
+
+  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+  __from C:__ @named_struct@
+-}
 data Named_struct = Named_struct
   { named_struct_x :: FC.CInt
   , named_struct_y :: FC.CInt
@@ -81,6 +87,12 @@ instance F.Storable Named_struct where
                F.pokeByteOff ptr0 (0 :: Int) named_struct_x2
             >> F.pokeByteOff ptr0 (4 :: Int) named_struct_y3
 
+{-| Error cases
+
+  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+  __from C:__ @f1(struct named_struct)@
+-}
 foreign import ccall safe "testmodule_f1" f1_wrapper :: (F.Ptr Named_struct) -> IO ()
 
 f1 :: Named_struct -> IO ()
@@ -92,18 +104,38 @@ newtype Named_union = Named_union
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Named_union
 
+{-|
+
+  __See:__ 'set_named_union_x'
+
+-}
 get_named_union_x :: Named_union -> FC.CInt
 get_named_union_x =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
+{-|
+
+  __See:__ 'get_named_union_x'
+
+-}
 set_named_union_x :: FC.CInt -> Named_union
 set_named_union_x =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+{-|
+
+  __See:__ 'set_named_union_y'
+
+-}
 get_named_union_y :: Named_union -> FC.CChar
 get_named_union_y =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
+{-|
+
+  __See:__ 'get_named_union_y'
+
+-}
 set_named_union_y :: FC.CChar -> Named_union
 set_named_union_y =
   HsBindgen.Runtime.ByteArray.setUnionPayload

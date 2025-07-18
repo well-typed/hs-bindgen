@@ -23,7 +23,8 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         3
-        HsPrimCInt},
+        HsPrimCInt,
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -53,7 +54,8 @@
           VarDeclApp
             (VarAppHead
               (HsName "@NsVar" "n"))
-            []]},
+            []],
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -213,7 +215,8 @@
                           VarDeclVar (Idx 0)]],
                   VarDeclIntegral
                     1
-                    HsPrimCInt]))))},
+                    HsPrimCInt])))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -372,7 +375,8 @@
                         (InfixAppHead MMult)
                         [
                           VarDeclIntegral 16 HsPrimCInt,
-                          VarDeclVar (Idx 0)]]))))))},
+                          VarDeclVar (Idx 0)]])))))),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -496,7 +500,8 @@
               VarDeclApp
                 (VarAppHead
                   (HsName "@NsVar" "n"))
-                []]]},
+                []]],
+      varDeclComment = Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -512,7 +517,8 @@
         fieldType = HsConstArray
           3
           (HsPrimType HsPrimCInt),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -523,7 +529,8 @@
               "Arr1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "type_naturals.h"},
+          declHeader = "type_naturals.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -544,19 +551,38 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "Arr1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "Arr1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "Arr1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -572,7 +598,8 @@
         fieldType = HsConstArray
           8
           (HsPrimType HsPrimCInt),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -583,7 +610,8 @@
               "Arr2"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "type_naturals.h"},
+          declHeader = "type_naturals.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -604,19 +632,38 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "Arr2"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr2",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "Arr2"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr2",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "Arr2"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr2",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -632,7 +679,8 @@
         fieldType = HsConstArray
           18
           (HsPrimType HsPrimCInt),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -643,7 +691,8 @@
               "Arr3"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "type_naturals.h"},
+          declHeader = "type_naturals.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -664,19 +713,38 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "Arr3"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr3",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "Arr3"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr3",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "Arr3"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr3",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -692,7 +760,8 @@
         fieldType = HsConstArray
           252
           (HsPrimType HsPrimCInt),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -703,7 +772,8 @@
               "Arr4"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "type_naturals.h"},
+          declHeader = "type_naturals.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -724,16 +794,35 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "Arr4"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr4",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "Arr4"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr4",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "Arr4")]
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Arr4",
+      deriveInstanceComment =
+      Nothing}]

@@ -30,7 +30,9 @@
                     PrimShort
                     Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -42,7 +44,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "type_attributes.h"},
+            "type_attributes.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -64,7 +67,8 @@
                         PrimShort
                         Signed)),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -73,260 +77,292 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "S",
-        structConstr = HsName
-          "@NsConstr"
-          "S",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "s_f",
-            fieldType = HsConstArray
-              3
-              (HsPrimType HsPrimCShort),
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "type_attributes.h:8:18",
-                structFieldName = NamePair {
-                  nameC = Name "f",
-                  nameHsIdent = HsIdentifier
-                    "s_f"},
-                structFieldType = TypeConstArray
-                  3
-                  (TypePrim
-                    (PrimIntegral
-                      PrimShort
-                      Signed)),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "type_attributes.h:8:8",
-              declId = NamePair {
-                nameC = Name "S",
-                nameHsIdent = HsIdentifier "S"},
-              declOrigin = NameOriginInSource,
-              declAliases = [],
-              declHeader =
-              "type_attributes.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "S"),
-                structSizeof = 8,
-                structAlignment = 8,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "type_attributes.h:8:18",
-                    structFieldName = NamePair {
-                      nameC = Name "f",
-                      nameHsIdent = HsIdentifier
-                        "s_f"},
-                    structFieldType = TypeConstArray
-                      3
-                      (TypePrim
-                        (PrimIntegral
-                          PrimShort
-                          Signed)),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 8,
-        storableAlignment = 8,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "S",
-                structConstr = HsName
-                  "@NsConstr"
-                  "S",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "s_f",
-                    fieldType = HsConstArray
-                      3
-                      (HsPrimType HsPrimCShort),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:8:18",
-                        structFieldName = NamePair {
-                          nameC = Name "f",
-                          nameHsIdent = HsIdentifier
-                            "s_f"},
-                        structFieldType = TypeConstArray
-                          3
-                          (TypePrim
-                            (PrimIntegral
-                              PrimShort
-                              Signed)),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "type_attributes.h:8:8",
-                      declId = NamePair {
-                        nameC = Name "S",
-                        nameHsIdent = HsIdentifier "S"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "type_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "S"),
-                        structSizeof = 8,
-                        structAlignment = 8,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:8:18",
-                            structFieldName = NamePair {
-                              nameC = Name "f",
-                              nameHsIdent = HsIdentifier
-                                "s_f"},
-                            structFieldType = TypeConstArray
-                              3
-                              (TypePrim
-                                (PrimIntegral
-                                  PrimShort
-                                  Signed)),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "S",
-                structConstr = HsName
-                  "@NsConstr"
-                  "S",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "s_f",
-                    fieldType = HsConstArray
-                      3
-                      (HsPrimType HsPrimCShort),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:8:18",
-                        structFieldName = NamePair {
-                          nameC = Name "f",
-                          nameHsIdent = HsIdentifier
-                            "s_f"},
-                        structFieldType = TypeConstArray
-                          3
-                          (TypePrim
-                            (PrimIntegral
-                              PrimShort
-                              Signed)),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "type_attributes.h:8:8",
-                      declId = NamePair {
-                        nameC = Name "S",
-                        nameHsIdent = HsIdentifier "S"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "type_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "S"),
-                        structSizeof = 8,
-                        structAlignment = 8,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:8:18",
-                            structFieldName = NamePair {
-                              nameC = Name "f",
-                              nameHsIdent = HsIdentifier
-                                "s_f"},
-                            structFieldType = TypeConstArray
-                              3
-                              (TypePrim
-                                (PrimIntegral
-                                  PrimShort
-                                  Signed)),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "S",
+          structConstr = HsName
+            "@NsConstr"
+            "S",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "s_f",
+              fieldType = HsConstArray
+                3
+                (HsPrimType HsPrimCShort),
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "type_attributes.h:8:18",
+                  structFieldName = NamePair {
+                    nameC = Name "f",
+                    nameHsIdent = HsIdentifier
+                      "s_f"},
+                  structFieldType = TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimShort
+                        Signed)),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "type_attributes.h:8:8",
+                declId = NamePair {
+                  nameC = Name "S",
+                  nameHsIdent = HsIdentifier "S"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader =
+                "type_attributes.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "S"),
+                  structSizeof = 8,
+                  structAlignment = 8,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "type_attributes.h:8:18",
+                      structFieldName = NamePair {
+                        nameC = Name "f",
+                        nameHsIdent = HsIdentifier
+                          "s_f"},
+                      structFieldType = TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimShort
+                            Signed)),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 8,
+          storableAlignment = 8,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "S",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "S",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "s_f",
+                      fieldType = HsConstArray
+                        3
+                        (HsPrimType HsPrimCShort),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:8:18",
+                          structFieldName = NamePair {
+                            nameC = Name "f",
+                            nameHsIdent = HsIdentifier
+                              "s_f"},
+                          structFieldType = TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimShort
+                                Signed)),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "type_attributes.h:8:8",
+                        declId = NamePair {
+                          nameC = Name "S",
+                          nameHsIdent = HsIdentifier "S"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "type_attributes.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "S"),
+                          structSizeof = 8,
+                          structAlignment = 8,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:8:18",
+                              structFieldName = NamePair {
+                                nameC = Name "f",
+                                nameHsIdent = HsIdentifier
+                                  "s_f"},
+                              structFieldType = TypeConstArray
+                                3
+                                (TypePrim
+                                  (PrimIntegral
+                                    PrimShort
+                                    Signed)),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "S",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "S",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "s_f",
+                      fieldType = HsConstArray
+                        3
+                        (HsPrimType HsPrimCShort),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:8:18",
+                          structFieldName = NamePair {
+                            nameC = Name "f",
+                            nameHsIdent = HsIdentifier
+                              "s_f"},
+                          structFieldType = TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimShort
+                                Signed)),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "type_attributes.h:8:8",
+                        declId = NamePair {
+                          nameC = Name "S",
+                          nameHsIdent = HsIdentifier "S"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "type_attributes.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "S"),
+                          structSizeof = 8,
+                          structAlignment = 8,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:8:18",
+                              structFieldName = NamePair {
+                                nameC = Name "f",
+                                nameHsIdent = HsIdentifier
+                                  "s_f"},
+                              structFieldType = TypeConstArray
+                                3
+                                (TypePrim
+                                  (PrimIntegral
+                                    PrimShort
+                                    Signed)),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "S"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "S",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "S"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "S",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -341,7 +377,8 @@
           "un_More_aligned_int",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -353,7 +390,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -385,85 +423,139 @@
           Integral,
           Num,
           Real,
-          Storable]},
+          Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "More_aligned_int"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "More_aligned_int",
+      deriveInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -495,7 +587,9 @@
                     PrimShort
                     Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -508,7 +602,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "type_attributes.h"},
+            "type_attributes.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -530,7 +625,8 @@
                         PrimShort
                         Signed)),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -539,263 +635,295 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "S2",
-        structConstr = HsName
-          "@NsConstr"
-          "S2",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "s2_f",
-            fieldType = HsConstArray
-              3
-              (HsPrimType HsPrimCShort),
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "type_attributes.h:11:19",
-                structFieldName = NamePair {
-                  nameC = Name "f",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "S2",
+          structConstr = HsName
+            "@NsConstr"
+            "S2",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "s2_f",
+              fieldType = HsConstArray
+                3
+                (HsPrimType HsPrimCShort),
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "type_attributes.h:11:19",
+                  structFieldName = NamePair {
+                    nameC = Name "f",
+                    nameHsIdent = HsIdentifier
+                      "s2_f"},
+                  structFieldType = TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimShort
+                        Signed)),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "type_attributes.h:11:8",
+                declId = NamePair {
+                  nameC = Name "S2",
                   nameHsIdent = HsIdentifier
-                    "s2_f"},
-                structFieldType = TypeConstArray
-                  3
-                  (TypePrim
-                    (PrimIntegral
-                      PrimShort
-                      Signed)),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "type_attributes.h:11:8",
-              declId = NamePair {
-                nameC = Name "S2",
-                nameHsIdent = HsIdentifier
-                  "S2"},
-              declOrigin = NameOriginInSource,
-              declAliases = [],
-              declHeader =
-              "type_attributes.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "S2"),
-                structSizeof = 16,
-                structAlignment = 16,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "type_attributes.h:11:19",
-                    structFieldName = NamePair {
-                      nameC = Name "f",
-                      nameHsIdent = HsIdentifier
-                        "s2_f"},
-                    structFieldType = TypeConstArray
-                      3
-                      (TypePrim
-                        (PrimIntegral
-                          PrimShort
-                          Signed)),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 16,
-        storableAlignment = 16,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "S2",
-                structConstr = HsName
-                  "@NsConstr"
-                  "S2",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "s2_f",
-                    fieldType = HsConstArray
-                      3
-                      (HsPrimType HsPrimCShort),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:11:19",
-                        structFieldName = NamePair {
-                          nameC = Name "f",
-                          nameHsIdent = HsIdentifier
-                            "s2_f"},
-                        structFieldType = TypeConstArray
-                          3
-                          (TypePrim
-                            (PrimIntegral
-                              PrimShort
-                              Signed)),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "type_attributes.h:11:8",
-                      declId = NamePair {
-                        nameC = Name "S2",
+                    "S2"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader =
+                "type_attributes.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "S2"),
+                  structSizeof = 16,
+                  structAlignment = 16,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "type_attributes.h:11:19",
+                      structFieldName = NamePair {
+                        nameC = Name "f",
                         nameHsIdent = HsIdentifier
-                          "S2"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "type_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "S2"),
-                        structSizeof = 16,
-                        structAlignment = 16,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:11:19",
-                            structFieldName = NamePair {
-                              nameC = Name "f",
-                              nameHsIdent = HsIdentifier
-                                "s2_f"},
-                            structFieldType = TypeConstArray
-                              3
-                              (TypePrim
-                                (PrimIntegral
-                                  PrimShort
-                                  Signed)),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "S2",
-                structConstr = HsName
-                  "@NsConstr"
-                  "S2",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "s2_f",
-                    fieldType = HsConstArray
-                      3
-                      (HsPrimType HsPrimCShort),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:11:19",
-                        structFieldName = NamePair {
-                          nameC = Name "f",
+                          "s2_f"},
+                      structFieldType = TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimShort
+                            Signed)),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 16,
+          storableAlignment = 16,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "S2",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "S2",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "s2_f",
+                      fieldType = HsConstArray
+                        3
+                        (HsPrimType HsPrimCShort),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:11:19",
+                          structFieldName = NamePair {
+                            nameC = Name "f",
+                            nameHsIdent = HsIdentifier
+                              "s2_f"},
+                          structFieldType = TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimShort
+                                Signed)),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "type_attributes.h:11:8",
+                        declId = NamePair {
+                          nameC = Name "S2",
                           nameHsIdent = HsIdentifier
-                            "s2_f"},
-                        structFieldType = TypeConstArray
-                          3
-                          (TypePrim
-                            (PrimIntegral
-                              PrimShort
-                              Signed)),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "type_attributes.h:11:8",
-                      declId = NamePair {
-                        nameC = Name "S2",
-                        nameHsIdent = HsIdentifier
-                          "S2"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "type_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "S2"),
-                        structSizeof = 16,
-                        structAlignment = 16,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:11:19",
-                            structFieldName = NamePair {
-                              nameC = Name "f",
-                              nameHsIdent = HsIdentifier
-                                "s2_f"},
-                            structFieldType = TypeConstArray
-                              3
-                              (TypePrim
-                                (PrimIntegral
-                                  PrimShort
-                                  Signed)),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                            "S2"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "type_attributes.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "S2"),
+                          structSizeof = 16,
+                          structAlignment = 16,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:11:19",
+                              structFieldName = NamePair {
+                                nameC = Name "f",
+                                nameHsIdent = HsIdentifier
+                                  "s2_f"},
+                              structFieldType = TypeConstArray
+                                3
+                                (TypePrim
+                                  (PrimIntegral
+                                    PrimShort
+                                    Signed)),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "S2",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "S2",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "s2_f",
+                      fieldType = HsConstArray
+                        3
+                        (HsPrimType HsPrimCShort),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:11:19",
+                          structFieldName = NamePair {
+                            nameC = Name "f",
+                            nameHsIdent = HsIdentifier
+                              "s2_f"},
+                          structFieldType = TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimShort
+                                Signed)),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "type_attributes.h:11:8",
+                        declId = NamePair {
+                          nameC = Name "S2",
+                          nameHsIdent = HsIdentifier
+                            "S2"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "type_attributes.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "S2"),
+                          structSizeof = 16,
+                          structAlignment = 16,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:11:19",
+                              structFieldName = NamePair {
+                                nameC = Name "f",
+                                nameHsIdent = HsIdentifier
+                                  "s2_f"},
+                              structFieldType = TypeConstArray
+                                3
+                                (TypePrim
+                                  (PrimIntegral
+                                    PrimShort
+                                    Signed)),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "S2"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "S2",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "S2"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "S2",
+      deriveInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -824,7 +952,9 @@
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -842,7 +972,9 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -856,7 +988,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "type_attributes.h"},
+            "type_attributes.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -878,7 +1011,8 @@
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "type_attributes.h:16:7",
@@ -889,7 +1023,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -898,351 +1033,388 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "My_unpacked_struct",
-        structConstr = HsName
-          "@NsConstr"
-          "My_unpacked_struct",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "my_unpacked_struct_c",
-            fieldType = HsPrimType
-              HsPrimCChar,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "type_attributes.h:15:8",
-                structFieldName = NamePair {
-                  nameC = Name "c",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "My_unpacked_struct",
+          structConstr = HsName
+            "@NsConstr"
+            "My_unpacked_struct",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "my_unpacked_struct_c",
+              fieldType = HsPrimType
+                HsPrimCChar,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "type_attributes.h:15:8",
+                  structFieldName = NamePair {
+                    nameC = Name "c",
+                    nameHsIdent = HsIdentifier
+                      "my_unpacked_struct_c"},
+                  structFieldType = TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing},
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "my_unpacked_struct_i",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "type_attributes.h:16:7",
+                  structFieldName = NamePair {
+                    nameC = Name "i",
+                    nameHsIdent = HsIdentifier
+                      "my_unpacked_struct_i"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "type_attributes.h:13:8",
+                declId = NamePair {
+                  nameC = Name
+                    "my_unpacked_struct",
                   nameHsIdent = HsIdentifier
-                    "my_unpacked_struct_c"},
-                structFieldType = TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed))),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}},
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "my_unpacked_struct_i",
-            fieldType = HsPrimType
-              HsPrimCInt,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "type_attributes.h:16:7",
-                structFieldName = NamePair {
-                  nameC = Name "i",
-                  nameHsIdent = HsIdentifier
-                    "my_unpacked_struct_i"},
-                structFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "type_attributes.h:13:8",
-              declId = NamePair {
-                nameC = Name
-                  "my_unpacked_struct",
-                nameHsIdent = HsIdentifier
-                  "My_unpacked_struct"},
-              declOrigin = NameOriginInSource,
-              declAliases = [],
-              declHeader =
-              "type_attributes.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName
+                    "My_unpacked_struct"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader =
+                "type_attributes.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName
+                      "@NsConstr"
+                      "My_unpacked_struct"),
+                  structSizeof = 8,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "type_attributes.h:15:8",
+                      structFieldName = NamePair {
+                        nameC = Name "c",
+                        nameHsIdent = HsIdentifier
+                          "my_unpacked_struct_c"},
+                      structFieldType = TypePrim
+                        (PrimChar
+                          (PrimSignImplicit
+                            (Just Signed))),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing},
+                    StructField {
+                      structFieldLoc =
+                      "type_attributes.h:16:7",
+                      structFieldName = NamePair {
+                        nameC = Name "i",
+                        nameHsIdent = HsIdentifier
+                          "my_unpacked_struct_i"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 32,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 8,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "My_unpacked_struct",
+                  structConstr = HsName
                     "@NsConstr"
-                    "My_unpacked_struct"),
-                structSizeof = 8,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "type_attributes.h:15:8",
-                    structFieldName = NamePair {
-                      nameC = Name "c",
-                      nameHsIdent = HsIdentifier
-                        "my_unpacked_struct_c"},
-                    structFieldType = TypePrim
-                      (PrimChar
-                        (PrimSignImplicit
-                          (Just Signed))),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing},
-                  StructField {
-                    structFieldLoc =
-                    "type_attributes.h:16:7",
-                    structFieldName = NamePair {
-                      nameC = Name "i",
-                      nameHsIdent = HsIdentifier
-                        "my_unpacked_struct_i"},
-                    structFieldType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 8,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "My_unpacked_struct",
-                structConstr = HsName
-                  "@NsConstr"
-                  "My_unpacked_struct",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_unpacked_struct_c",
-                    fieldType = HsPrimType
-                      HsPrimCChar,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:15:8",
-                        structFieldName = NamePair {
-                          nameC = Name "c",
+                    "My_unpacked_struct",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_unpacked_struct_c",
+                      fieldType = HsPrimType
+                        HsPrimCChar,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:15:8",
+                          structFieldName = NamePair {
+                            nameC = Name "c",
+                            nameHsIdent = HsIdentifier
+                              "my_unpacked_struct_c"},
+                          structFieldType = TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed))),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_unpacked_struct_i",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:16:7",
+                          structFieldName = NamePair {
+                            nameC = Name "i",
+                            nameHsIdent = HsIdentifier
+                              "my_unpacked_struct_i"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 32,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "type_attributes.h:13:8",
+                        declId = NamePair {
+                          nameC = Name
+                            "my_unpacked_struct",
                           nameHsIdent = HsIdentifier
-                            "my_unpacked_struct_c"},
-                        structFieldType = TypePrim
-                          (PrimChar
-                            (PrimSignImplicit
-                              (Just Signed))),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_unpacked_struct_i",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:16:7",
-                        structFieldName = NamePair {
-                          nameC = Name "i",
+                            "My_unpacked_struct"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "type_attributes.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName
+                              "@NsConstr"
+                              "My_unpacked_struct"),
+                          structSizeof = 8,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:15:8",
+                              structFieldName = NamePair {
+                                nameC = Name "c",
+                                nameHsIdent = HsIdentifier
+                                  "my_unpacked_struct_c"},
+                              structFieldType = TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed))),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:16:7",
+                              structFieldName = NamePair {
+                                nameC = Name "i",
+                                nameHsIdent = HsIdentifier
+                                  "my_unpacked_struct_i"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [
+                PeekByteOff (Idx 0) 0,
+                PeekByteOff (Idx 0) 4]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "My_unpacked_struct",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "My_unpacked_struct",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_unpacked_struct_c",
+                      fieldType = HsPrimType
+                        HsPrimCChar,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:15:8",
+                          structFieldName = NamePair {
+                            nameC = Name "c",
+                            nameHsIdent = HsIdentifier
+                              "my_unpacked_struct_c"},
+                          structFieldType = TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed))),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_unpacked_struct_i",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:16:7",
+                          structFieldName = NamePair {
+                            nameC = Name "i",
+                            nameHsIdent = HsIdentifier
+                              "my_unpacked_struct_i"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 32,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "type_attributes.h:13:8",
+                        declId = NamePair {
+                          nameC = Name
+                            "my_unpacked_struct",
                           nameHsIdent = HsIdentifier
-                            "my_unpacked_struct_i"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "type_attributes.h:13:8",
-                      declId = NamePair {
-                        nameC = Name
-                          "my_unpacked_struct",
-                        nameHsIdent = HsIdentifier
-                          "My_unpacked_struct"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "type_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName
-                            "@NsConstr"
-                            "My_unpacked_struct"),
-                        structSizeof = 8,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:15:8",
-                            structFieldName = NamePair {
-                              nameC = Name "c",
-                              nameHsIdent = HsIdentifier
-                                "my_unpacked_struct_c"},
-                            structFieldType = TypePrim
-                              (PrimChar
-                                (PrimSignImplicit
-                                  (Just Signed))),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing},
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:16:7",
-                            structFieldName = NamePair {
-                              nameC = Name "i",
-                              nameHsIdent = HsIdentifier
-                                "my_unpacked_struct_i"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [
-              PeekByteOff (Idx 0) 0,
-              PeekByteOff (Idx 0) 4]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "My_unpacked_struct",
-                structConstr = HsName
-                  "@NsConstr"
-                  "My_unpacked_struct",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_unpacked_struct_c",
-                    fieldType = HsPrimType
-                      HsPrimCChar,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:15:8",
-                        structFieldName = NamePair {
-                          nameC = Name "c",
-                          nameHsIdent = HsIdentifier
-                            "my_unpacked_struct_c"},
-                        structFieldType = TypePrim
-                          (PrimChar
-                            (PrimSignImplicit
-                              (Just Signed))),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_unpacked_struct_i",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:16:7",
-                        structFieldName = NamePair {
-                          nameC = Name "i",
-                          nameHsIdent = HsIdentifier
-                            "my_unpacked_struct_i"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "type_attributes.h:13:8",
-                      declId = NamePair {
-                        nameC = Name
-                          "my_unpacked_struct",
-                        nameHsIdent = HsIdentifier
-                          "My_unpacked_struct"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "type_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName
-                            "@NsConstr"
-                            "My_unpacked_struct"),
-                        structSizeof = 8,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:15:8",
-                            structFieldName = NamePair {
-                              nameC = Name "c",
-                              nameHsIdent = HsIdentifier
-                                "my_unpacked_struct_c"},
-                            structFieldType = TypePrim
-                              (PrimChar
-                                (PrimSignImplicit
-                                  (Just Signed))),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing},
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:16:7",
-                            structFieldName = NamePair {
-                              nameC = Name "i",
-                              nameHsIdent = HsIdentifier
-                                "my_unpacked_struct_i"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 2)
-              (Seq
-                [
-                  PokeByteOff (Idx 3) 0 (Idx 0),
-                  PokeByteOff
-                    (Idx 3)
-                    4
-                    (Idx 1)])))}),
+                            "My_unpacked_struct"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "type_attributes.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName
+                              "@NsConstr"
+                              "My_unpacked_struct"),
+                          structSizeof = 8,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:15:8",
+                              structFieldName = NamePair {
+                                nameC = Name "c",
+                                nameHsIdent = HsIdentifier
+                                  "my_unpacked_struct_c"},
+                              structFieldType = TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed))),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:16:7",
+                              structFieldName = NamePair {
+                                nameC = Name "i",
+                                nameHsIdent = HsIdentifier
+                                  "my_unpacked_struct_i"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 2)
+                (Seq
+                  [
+                    PokeByteOff (Idx 3) 0 (Idx 0),
+                    PokeByteOff
+                      (Idx 3)
+                      4
+                      (Idx 1)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "My_unpacked_struct"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "My_unpacked_struct",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "My_unpacked_struct"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "My_unpacked_struct",
+      deriveInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -1271,7 +1443,9 @@
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1289,7 +1463,9 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 8,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1314,7 +1490,9 @@
                     "My_unpacked_struct"}
                 NameOriginInSource,
               structFieldOffset = 40,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1327,7 +1505,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "type_attributes.h"},
+            "type_attributes.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1349,7 +1528,8 @@
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "type_attributes.h:22:9",
@@ -1360,7 +1540,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "type_attributes.h:23:30",
@@ -1376,7 +1557,8 @@
                         "My_unpacked_struct"}
                     NameOriginInSource,
                   structFieldOffset = 40,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -1385,473 +1567,519 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "My_packed_struct",
-        structConstr = HsName
-          "@NsConstr"
-          "My_packed_struct",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "my_packed_struct_c",
-            fieldType = HsPrimType
-              HsPrimCChar,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "type_attributes.h:21:9",
-                structFieldName = NamePair {
-                  nameC = Name "c",
-                  nameHsIdent = HsIdentifier
-                    "my_packed_struct_c"},
-                structFieldType = TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed))),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}},
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "my_packed_struct_i",
-            fieldType = HsPrimType
-              HsPrimCInt,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "type_attributes.h:22:9",
-                structFieldName = NamePair {
-                  nameC = Name "i",
-                  nameHsIdent = HsIdentifier
-                    "my_packed_struct_i"},
-                structFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                structFieldOffset = 8,
-                structFieldWidth = Nothing}},
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "my_packed_struct_s",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "My_unpacked_struct"),
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "type_attributes.h:23:30",
-                structFieldName = NamePair {
-                  nameC = Name "s",
-                  nameHsIdent = HsIdentifier
-                    "my_packed_struct_s"},
-                structFieldType = TypeStruct
-                  NamePair {
-                    nameC = Name
-                      "my_unpacked_struct",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "My_packed_struct",
+          structConstr = HsName
+            "@NsConstr"
+            "My_packed_struct",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "my_packed_struct_c",
+              fieldType = HsPrimType
+                HsPrimCChar,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "type_attributes.h:21:9",
+                  structFieldName = NamePair {
+                    nameC = Name "c",
                     nameHsIdent = HsIdentifier
-                      "My_unpacked_struct"}
-                  NameOriginInSource,
-                structFieldOffset = 40,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "type_attributes.h:19:37",
-              declId = NamePair {
-                nameC = Name "my_packed_struct",
-                nameHsIdent = HsIdentifier
-                  "My_packed_struct"},
-              declOrigin = NameOriginInSource,
-              declAliases = [],
-              declHeader =
-              "type_attributes.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName
+                      "my_packed_struct_c"},
+                  structFieldType = TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing},
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "my_packed_struct_i",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "type_attributes.h:22:9",
+                  structFieldName = NamePair {
+                    nameC = Name "i",
+                    nameHsIdent = HsIdentifier
+                      "my_packed_struct_i"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 8,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing},
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "my_packed_struct_s",
+              fieldType = HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "My_unpacked_struct"),
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "type_attributes.h:23:30",
+                  structFieldName = NamePair {
+                    nameC = Name "s",
+                    nameHsIdent = HsIdentifier
+                      "my_packed_struct_s"},
+                  structFieldType = TypeStruct
+                    NamePair {
+                      nameC = Name
+                        "my_unpacked_struct",
+                      nameHsIdent = HsIdentifier
+                        "My_unpacked_struct"}
+                    NameOriginInSource,
+                  structFieldOffset = 40,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "type_attributes.h:19:37",
+                declId = NamePair {
+                  nameC = Name "my_packed_struct",
+                  nameHsIdent = HsIdentifier
+                    "My_packed_struct"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader =
+                "type_attributes.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName
+                      "@NsConstr"
+                      "My_packed_struct"),
+                  structSizeof = 13,
+                  structAlignment = 1,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "type_attributes.h:21:9",
+                      structFieldName = NamePair {
+                        nameC = Name "c",
+                        nameHsIdent = HsIdentifier
+                          "my_packed_struct_c"},
+                      structFieldType = TypePrim
+                        (PrimChar
+                          (PrimSignImplicit
+                            (Just Signed))),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing},
+                    StructField {
+                      structFieldLoc =
+                      "type_attributes.h:22:9",
+                      structFieldName = NamePair {
+                        nameC = Name "i",
+                        nameHsIdent = HsIdentifier
+                          "my_packed_struct_i"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 8,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing},
+                    StructField {
+                      structFieldLoc =
+                      "type_attributes.h:23:30",
+                      structFieldName = NamePair {
+                        nameC = Name "s",
+                        nameHsIdent = HsIdentifier
+                          "my_packed_struct_s"},
+                      structFieldType = TypeStruct
+                        NamePair {
+                          nameC = Name
+                            "my_unpacked_struct",
+                          nameHsIdent = HsIdentifier
+                            "My_unpacked_struct"}
+                        NameOriginInSource,
+                      structFieldOffset = 40,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 13,
+          storableAlignment = 1,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "My_packed_struct",
+                  structConstr = HsName
                     "@NsConstr"
-                    "My_packed_struct"),
-                structSizeof = 13,
-                structAlignment = 1,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "type_attributes.h:21:9",
-                    structFieldName = NamePair {
-                      nameC = Name "c",
-                      nameHsIdent = HsIdentifier
-                        "my_packed_struct_c"},
-                    structFieldType = TypePrim
-                      (PrimChar
-                        (PrimSignImplicit
-                          (Just Signed))),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing},
-                  StructField {
-                    structFieldLoc =
-                    "type_attributes.h:22:9",
-                    structFieldName = NamePair {
-                      nameC = Name "i",
-                      nameHsIdent = HsIdentifier
-                        "my_packed_struct_i"},
-                    structFieldType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    structFieldOffset = 8,
-                    structFieldWidth = Nothing},
-                  StructField {
-                    structFieldLoc =
-                    "type_attributes.h:23:30",
-                    structFieldName = NamePair {
-                      nameC = Name "s",
-                      nameHsIdent = HsIdentifier
-                        "my_packed_struct_s"},
-                    structFieldType = TypeStruct
-                      NamePair {
-                        nameC = Name
-                          "my_unpacked_struct",
-                        nameHsIdent = HsIdentifier
-                          "My_unpacked_struct"}
-                      NameOriginInSource,
-                    structFieldOffset = 40,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 13,
-        storableAlignment = 1,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "My_packed_struct",
-                structConstr = HsName
-                  "@NsConstr"
-                  "My_packed_struct",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_packed_struct_c",
-                    fieldType = HsPrimType
-                      HsPrimCChar,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:21:9",
-                        structFieldName = NamePair {
-                          nameC = Name "c",
-                          nameHsIdent = HsIdentifier
-                            "my_packed_struct_c"},
-                        structFieldType = TypePrim
-                          (PrimChar
-                            (PrimSignImplicit
-                              (Just Signed))),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_packed_struct_i",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:22:9",
-                        structFieldName = NamePair {
-                          nameC = Name "i",
-                          nameHsIdent = HsIdentifier
-                            "my_packed_struct_i"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 8,
-                        structFieldWidth = Nothing}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_packed_struct_s",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "My_unpacked_struct"),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:23:30",
-                        structFieldName = NamePair {
-                          nameC = Name "s",
-                          nameHsIdent = HsIdentifier
-                            "my_packed_struct_s"},
-                        structFieldType = TypeStruct
-                          NamePair {
-                            nameC = Name
-                              "my_unpacked_struct",
+                    "My_packed_struct",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_packed_struct_c",
+                      fieldType = HsPrimType
+                        HsPrimCChar,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:21:9",
+                          structFieldName = NamePair {
+                            nameC = Name "c",
                             nameHsIdent = HsIdentifier
-                              "My_unpacked_struct"}
-                          NameOriginInSource,
-                        structFieldOffset = 40,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "type_attributes.h:19:37",
-                      declId = NamePair {
-                        nameC = Name "my_packed_struct",
-                        nameHsIdent = HsIdentifier
-                          "My_packed_struct"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "type_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName
-                            "@NsConstr"
-                            "My_packed_struct"),
-                        structSizeof = 13,
-                        structAlignment = 1,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:21:9",
-                            structFieldName = NamePair {
-                              nameC = Name "c",
-                              nameHsIdent = HsIdentifier
-                                "my_packed_struct_c"},
-                            structFieldType = TypePrim
-                              (PrimChar
-                                (PrimSignImplicit
-                                  (Just Signed))),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing},
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:22:9",
-                            structFieldName = NamePair {
-                              nameC = Name "i",
-                              nameHsIdent = HsIdentifier
-                                "my_packed_struct_i"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 8,
-                            structFieldWidth = Nothing},
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:23:30",
-                            structFieldName = NamePair {
-                              nameC = Name "s",
-                              nameHsIdent = HsIdentifier
-                                "my_packed_struct_s"},
-                            structFieldType = TypeStruct
-                              NamePair {
-                                nameC = Name
-                                  "my_unpacked_struct",
-                                nameHsIdent = HsIdentifier
-                                  "My_unpacked_struct"}
-                              NameOriginInSource,
-                            structFieldOffset = 40,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [
-              PeekByteOff (Idx 0) 0,
-              PeekByteOff (Idx 0) 1,
-              PeekByteOff (Idx 0) 5]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "My_packed_struct",
-                structConstr = HsName
-                  "@NsConstr"
-                  "My_packed_struct",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_packed_struct_c",
-                    fieldType = HsPrimType
-                      HsPrimCChar,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:21:9",
-                        structFieldName = NamePair {
-                          nameC = Name "c",
-                          nameHsIdent = HsIdentifier
-                            "my_packed_struct_c"},
-                        structFieldType = TypePrim
-                          (PrimChar
-                            (PrimSignImplicit
-                              (Just Signed))),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_packed_struct_i",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:22:9",
-                        structFieldName = NamePair {
-                          nameC = Name "i",
-                          nameHsIdent = HsIdentifier
-                            "my_packed_struct_i"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 8,
-                        structFieldWidth = Nothing}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "my_packed_struct_s",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "My_unpacked_struct"),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "type_attributes.h:23:30",
-                        structFieldName = NamePair {
-                          nameC = Name "s",
-                          nameHsIdent = HsIdentifier
-                            "my_packed_struct_s"},
-                        structFieldType = TypeStruct
-                          NamePair {
-                            nameC = Name
-                              "my_unpacked_struct",
+                              "my_packed_struct_c"},
+                          structFieldType = TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed))),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_packed_struct_i",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:22:9",
+                          structFieldName = NamePair {
+                            nameC = Name "i",
                             nameHsIdent = HsIdentifier
-                              "My_unpacked_struct"}
-                          NameOriginInSource,
-                        structFieldOffset = 40,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "type_attributes.h:19:37",
-                      declId = NamePair {
-                        nameC = Name "my_packed_struct",
-                        nameHsIdent = HsIdentifier
-                          "My_packed_struct"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "type_attributes.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName
-                            "@NsConstr"
-                            "My_packed_struct"),
-                        structSizeof = 13,
-                        structAlignment = 1,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:21:9",
-                            structFieldName = NamePair {
-                              nameC = Name "c",
+                              "my_packed_struct_i"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 8,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_packed_struct_s",
+                      fieldType = HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "My_unpacked_struct"),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:23:30",
+                          structFieldName = NamePair {
+                            nameC = Name "s",
+                            nameHsIdent = HsIdentifier
+                              "my_packed_struct_s"},
+                          structFieldType = TypeStruct
+                            NamePair {
+                              nameC = Name
+                                "my_unpacked_struct",
                               nameHsIdent = HsIdentifier
-                                "my_packed_struct_c"},
-                            structFieldType = TypePrim
-                              (PrimChar
-                                (PrimSignImplicit
-                                  (Just Signed))),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing},
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:22:9",
-                            structFieldName = NamePair {
-                              nameC = Name "i",
-                              nameHsIdent = HsIdentifier
-                                "my_packed_struct_i"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 8,
-                            structFieldWidth = Nothing},
-                          StructField {
-                            structFieldLoc =
-                            "type_attributes.h:23:30",
-                            structFieldName = NamePair {
-                              nameC = Name "s",
-                              nameHsIdent = HsIdentifier
-                                "my_packed_struct_s"},
-                            structFieldType = TypeStruct
-                              NamePair {
-                                nameC = Name
-                                  "my_unpacked_struct",
+                                "My_unpacked_struct"}
+                            NameOriginInSource,
+                          structFieldOffset = 40,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "type_attributes.h:19:37",
+                        declId = NamePair {
+                          nameC = Name "my_packed_struct",
+                          nameHsIdent = HsIdentifier
+                            "My_packed_struct"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "type_attributes.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName
+                              "@NsConstr"
+                              "My_packed_struct"),
+                          structSizeof = 13,
+                          structAlignment = 1,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:21:9",
+                              structFieldName = NamePair {
+                                nameC = Name "c",
                                 nameHsIdent = HsIdentifier
-                                  "My_unpacked_struct"}
-                              NameOriginInSource,
-                            structFieldOffset = 40,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 3)
-              (Seq
-                [
-                  PokeByteOff (Idx 4) 0 (Idx 0),
-                  PokeByteOff (Idx 4) 1 (Idx 1),
-                  PokeByteOff
-                    (Idx 4)
-                    5
-                    (Idx 2)])))}),
+                                  "my_packed_struct_c"},
+                              structFieldType = TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed))),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:22:9",
+                              structFieldName = NamePair {
+                                nameC = Name "i",
+                                nameHsIdent = HsIdentifier
+                                  "my_packed_struct_i"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 8,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:23:30",
+                              structFieldName = NamePair {
+                                nameC = Name "s",
+                                nameHsIdent = HsIdentifier
+                                  "my_packed_struct_s"},
+                              structFieldType = TypeStruct
+                                NamePair {
+                                  nameC = Name
+                                    "my_unpacked_struct",
+                                  nameHsIdent = HsIdentifier
+                                    "My_unpacked_struct"}
+                                NameOriginInSource,
+                              structFieldOffset = 40,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [
+                PeekByteOff (Idx 0) 0,
+                PeekByteOff (Idx 0) 1,
+                PeekByteOff (Idx 0) 5]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "My_packed_struct",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "My_packed_struct",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_packed_struct_c",
+                      fieldType = HsPrimType
+                        HsPrimCChar,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:21:9",
+                          structFieldName = NamePair {
+                            nameC = Name "c",
+                            nameHsIdent = HsIdentifier
+                              "my_packed_struct_c"},
+                          structFieldType = TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed))),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_packed_struct_i",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:22:9",
+                          structFieldName = NamePair {
+                            nameC = Name "i",
+                            nameHsIdent = HsIdentifier
+                              "my_packed_struct_i"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 8,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "my_packed_struct_s",
+                      fieldType = HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "My_unpacked_struct"),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "type_attributes.h:23:30",
+                          structFieldName = NamePair {
+                            nameC = Name "s",
+                            nameHsIdent = HsIdentifier
+                              "my_packed_struct_s"},
+                          structFieldType = TypeStruct
+                            NamePair {
+                              nameC = Name
+                                "my_unpacked_struct",
+                              nameHsIdent = HsIdentifier
+                                "My_unpacked_struct"}
+                            NameOriginInSource,
+                          structFieldOffset = 40,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "type_attributes.h:19:37",
+                        declId = NamePair {
+                          nameC = Name "my_packed_struct",
+                          nameHsIdent = HsIdentifier
+                            "My_packed_struct"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "type_attributes.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName
+                              "@NsConstr"
+                              "My_packed_struct"),
+                          structSizeof = 13,
+                          structAlignment = 1,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:21:9",
+                              structFieldName = NamePair {
+                                nameC = Name "c",
+                                nameHsIdent = HsIdentifier
+                                  "my_packed_struct_c"},
+                              structFieldType = TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed))),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:22:9",
+                              structFieldName = NamePair {
+                                nameC = Name "i",
+                                nameHsIdent = HsIdentifier
+                                  "my_packed_struct_i"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 8,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "type_attributes.h:23:30",
+                              structFieldName = NamePair {
+                                nameC = Name "s",
+                                nameHsIdent = HsIdentifier
+                                  "my_packed_struct_s"},
+                              structFieldType = TypeStruct
+                                NamePair {
+                                  nameC = Name
+                                    "my_unpacked_struct",
+                                  nameHsIdent = HsIdentifier
+                                    "My_unpacked_struct"}
+                                NameOriginInSource,
+                              structFieldOffset = 40,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 3)
+                (Seq
+                  [
+                    PokeByteOff (Idx 4) 0 (Idx 0),
+                    PokeByteOff (Idx 4) 1 (Idx 1),
+                    PokeByteOff
+                      (Idx 4)
+                      5
+                      (Idx 2)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "My_packed_struct"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "My_packed_struct",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "My_packed_struct"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "My_packed_struct",
+      deriveInstanceComment =
+      Nothing},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -1868,14 +2096,16 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
-              []}}},
+              []}},
+      emptyDataComment = Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1889,7 +2119,8 @@
           "@NsVar"
           "un_Wait_status_ptr_t",
         fieldType = HsByteArray,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -1905,7 +2136,8 @@
           declAliases = [
             Name "wait_status_ptr_t"],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -1927,7 +2159,8 @@
                     "wait_status_ptr_t___ip"},
                 unionFieldType = TypePointer
                   (TypePrim
-                    (PrimIntegral PrimInt Signed))},
+                    (PrimIntegral PrimInt Signed)),
+                unionFieldComment = Nothing},
               UnionField {
                 unionFieldLoc =
                 "type_attributes.h:29:15",
@@ -1941,7 +2174,8 @@
                       nameC = Name "wait",
                       nameHsIdent = HsIdentifier
                         "Wait"}
-                    NameOriginInSource)}]},
+                    NameOriginInSource),
+                unionFieldComment = Nothing}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1949,54 +2183,105 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [Storable]},
+        [Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    (DeriveVia
-      (HsSizedByteArray 8 8))
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Wait_status_ptr_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveVia
+        (HsSizedByteArray 8 8),
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Wait_status_ptr_t",
+      deriveInstanceComment =
+      Nothing},
   DeclUnionGetter
-    (HsName
-      "@NsTypeConstr"
-      "Wait_status_ptr_t")
-    (HsPtr (HsPrimType HsPrimCInt))
-    (HsName
-      "@NsVar"
-      "get_wait_status_ptr_t___ip"),
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_wait_status_ptr_t___ip",
+      unionGetterType = HsPtr
+        (HsPrimType HsPrimCInt),
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "Wait_status_ptr_t",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier
+                  "set_wait_status_ptr_t___ip"]]}},
   DeclUnionSetter
-    (HsName
-      "@NsTypeConstr"
-      "Wait_status_ptr_t")
-    (HsPtr (HsPrimType HsPrimCInt))
-    (HsName
-      "@NsVar"
-      "set_wait_status_ptr_t___ip"),
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_wait_status_ptr_t___ip",
+      unionSetterType = HsPtr
+        (HsPrimType HsPrimCInt),
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "Wait_status_ptr_t",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier
+                  "get_wait_status_ptr_t___ip"]]}},
   DeclUnionGetter
-    (HsName
-      "@NsTypeConstr"
-      "Wait_status_ptr_t")
-    (HsPtr
-      (HsTypRef
-        (HsName
-          "@NsTypeConstr"
-          "Wait")))
-    (HsName
-      "@NsVar"
-      "get_wait_status_ptr_t___up"),
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_wait_status_ptr_t___up",
+      unionGetterType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "Wait")),
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "Wait_status_ptr_t",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier
+                  "set_wait_status_ptr_t___up"]]}},
   DeclUnionSetter
-    (HsName
-      "@NsTypeConstr"
-      "Wait_status_ptr_t")
-    (HsPtr
-      (HsTypRef
-        (HsName
-          "@NsTypeConstr"
-          "Wait")))
-    (HsName
-      "@NsVar"
-      "set_wait_status_ptr_t___up"),
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_wait_status_ptr_t___up",
+      unionSetterType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "Wait")),
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "Wait_status_ptr_t",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier
+                  "get_wait_status_ptr_t___up"]]}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2011,7 +2296,8 @@
           "un_T1",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -2023,7 +2309,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -2055,59 +2342,139 @@
           Integral,
           Num,
           Real,
-          Storable]},
+          Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "T1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "T1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2122,7 +2489,8 @@
           "un_Short_a",
         fieldType = HsPrimType
           HsPrimCShort,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -2134,7 +2502,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "type_attributes.h"},
+          "type_attributes.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -2168,82 +2537,136 @@
           Integral,
           Num,
           Real,
-          Storable]},
+          Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Short_a"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Short_a")]
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Short_a",
+      deriveInstanceComment =
+      Nothing}]
