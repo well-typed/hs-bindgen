@@ -1,0 +1,1 @@
+int __attribute__ ((visibility("hidden"))) nonExternGlobal = 17;
