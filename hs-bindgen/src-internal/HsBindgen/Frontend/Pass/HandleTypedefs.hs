@@ -9,7 +9,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 
@@ -18,7 +18,7 @@ import HsBindgen.Imports
 -------------------------------------------------------------------------------}
 
 handleTypedefs ::
-     C.TranslationUnit ResolveBindingSpec
+     C.TranslationUnit Select
   -> (C.TranslationUnit HandleTypedefs, [Msg HandleTypedefs])
 handleTypedefs C.TranslationUnit{..} = (
       C.TranslationUnit{
@@ -41,7 +41,7 @@ handleTypedefs C.TranslationUnit{..} = (
 
 handleDecl ::
      TypedefAnalysis
-  -> C.Decl ResolveBindingSpec
+  -> C.Decl Select
   -> (Maybe (Msg HandleTypedefs), Maybe (C.Decl HandleTypedefs))
 handleDecl td decl =
     case declKind of
@@ -91,7 +91,7 @@ handleDecl td decl =
 -------------------------------------------------------------------------------}
 
 class HandleUseSites a where
-  handleUseSites :: TypedefAnalysis -> a ResolveBindingSpec -> a HandleTypedefs
+  handleUseSites :: TypedefAnalysis -> a Select -> a HandleTypedefs
 
 instance HandleUseSites C.DeclKind where
   handleUseSites td = \case
@@ -102,7 +102,7 @@ instance HandleUseSites C.DeclKind where
       C.DeclEnum enum       -> C.DeclEnum (handleUseSites td enum)
       C.DeclEnumOpaque      -> C.DeclEnumOpaque
       C.DeclTypedef typedef -> C.DeclTypedef (handleUseSites td typedef)
-      C.DeclMacro macro     -> C.DeclMacro (handleUseSites td macro)
+      C.DeclMacro macro     -> C.DeclMacro (handleUseSites td (coercePass macro))
       C.DeclFunction fun    -> C.DeclFunction (handleUseSites td fun)
       C.DeclGlobal ty       -> C.DeclGlobal (handleUseSites td ty)
       C.DeclConst ty        -> C.DeclConst (handleUseSites td ty)
@@ -164,7 +164,7 @@ instance HandleUseSites C.Function where
 instance HandleUseSites C.Type where
   handleUseSites td = go
     where
-      go :: C.Type ResolveBindingSpec -> C.Type HandleTypedefs
+      go :: C.Type Select -> C.Type HandleTypedefs
 
       -- Simple cases
 

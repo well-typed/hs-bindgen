@@ -4,7 +4,7 @@ module HsBindgen.Frontend.Pass.Parse (parseDecls) where
 import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 
-import HsBindgen.C.Predicate (IsMainFile, Predicate)
+import HsBindgen.C.Predicate (IsMainHeader, ParsePredicate)
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.Decl
@@ -21,9 +21,9 @@ import HsBindgen.Util.Tracer
 parseDecls ::
      Tracer IO ParseMsg
   -> RootHeader
-  -> Predicate
+  -> ParsePredicate
   -> IncludeGraph
-  -> IsMainFile
+  -> IsMainHeader
   -> GetMainHeader
   -> CXTranslationUnit
   -> IO (C.TranslationUnit Parse)
@@ -32,7 +32,7 @@ parseDecls
   rootHeader
   predicate
   includeGraph
-  isMainFile
+  isMainHeader
   getMainHeader
   unit = do
     root  <- clang_getTranslationUnitCursor unit
@@ -48,7 +48,7 @@ parseDecls
     parseEnv = ParseDecl.Env{
           envUnit          = unit
         , envRootHeader    = rootHeader
-        , envIsMainFile    = isMainFile
+        , envIsMainHeader  = isMainHeader
         , envGetMainHeader = getMainHeader
         , envPredicate     = predicate
         , envTracer        = tracer

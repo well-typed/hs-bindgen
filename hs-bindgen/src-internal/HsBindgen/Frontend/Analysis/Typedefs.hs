@@ -17,9 +17,9 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage(..), ValOrRef(..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
-import HsBindgen.Imports
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefs)
+import HsBindgen.Frontend.Pass.Select.IsPass (Select)
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
@@ -139,10 +139,10 @@ instance Monoid TypedefAnalysis where
   Analysis proper
 -------------------------------------------------------------------------------}
 
-fromDecls :: DeclUseGraph -> [C.Decl ResolveBindingSpec] -> TypedefAnalysis
+fromDecls :: DeclUseGraph -> [C.Decl Select] -> TypedefAnalysis
 fromDecls declUseGraph = mconcat . map aux
   where
-    aux :: C.Decl ResolveBindingSpec -> TypedefAnalysis
+    aux :: C.Decl Select -> TypedefAnalysis
     aux C.Decl{declInfo, declKind} =
         case declKind of
           C.DeclTypedef typedef ->
@@ -153,12 +153,12 @@ fromDecls declUseGraph = mconcat . map aux
 analyseTypedef ::
      DeclUseGraph
   -> C.DeclId
-  -> C.Typedef ResolveBindingSpec
+  -> C.Typedef Select
   -> TypedefAnalysis
 analyseTypedef declUseGraph uid typedef =
     go ByValue $ C.typedefType typedef
   where
-    go :: ValOrRef -> C.Type ResolveBindingSpec -> TypedefAnalysis
+    go :: ValOrRef -> C.Type Select -> TypedefAnalysis
     go valOrRef ty | Just taggedTypeId <- toTaggedTypeId ty =
         typedefOfTagged (C.declIdName uid) valOrRef taggedTypeId $
           getUseSites (origNsPrelimDeclId taggedTypeId)
@@ -236,7 +236,7 @@ updateOrigin oldName = \case
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
-toTaggedTypeId :: C.Type ResolveBindingSpec -> Maybe C.TaggedTypeId
+toTaggedTypeId :: C.Type Select -> Maybe C.TaggedTypeId
 toTaggedTypeId = \case
     C.TypeStruct C.DeclId{..} -> Just $
       C.TaggedTypeId declIdName C.TagKindStruct declIdOrigin

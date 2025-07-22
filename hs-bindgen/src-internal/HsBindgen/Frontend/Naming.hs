@@ -31,11 +31,9 @@ module HsBindgen.Frontend.Naming (
     -- * PrelimDeclId
   , PrelimDeclId(..)
   , getPrelimDeclId
-
     -- ** NsPrelimDeclId
   , NsPrelimDeclId(..)
   , nsPrelimDeclId
-
     -- ** QualPrelimDeclId
   , QualPrelimDeclId(..)
   , qualPrelimDeclId
@@ -45,6 +43,11 @@ module HsBindgen.Frontend.Naming (
 
     -- * DeclId
   , DeclId(..)
+    -- ** QualDeclId
+  , QualDeclId(..)
+  , qualDeclId
+  , qualDeclIdText
+  , qualDeclIdNsPrelimDeclId
 
     -- * TaggedTypeId
   , TaggedTypeId(..)
@@ -419,6 +422,40 @@ instance PrettyForTrace (Located DeclId) where
             , PP.showToCtxDoc loc
             ]
     in  prettyForTrace declIdName <+> PP.parens details
+
+{-------------------------------------------------------------------------------
+  QualDeclId
+-------------------------------------------------------------------------------}
+
+-- | Declaration identity, qualified by 'NameKind'
+data QualDeclId = QualDeclId {
+      qualDeclIdName   :: Name
+    , qualDeclIdOrigin :: NameOrigin
+    , qualDeclIdKind   :: NameKind
+    }
+  deriving stock (Eq, Generic, Ord, Show)
+
+qualDeclId :: DeclId -> NameKind -> QualDeclId
+qualDeclId DeclId{..} nameKind = QualDeclId {
+      qualDeclIdName   = declIdName
+    , qualDeclIdOrigin = declIdOrigin
+    , qualDeclIdKind   = nameKind
+    }
+
+qualDeclIdText :: QualDeclId -> Text
+qualDeclIdText QualDeclId{..} = case qualDeclIdOrigin of
+    NameOriginGenerated{} -> "anon:" <> getName qualDeclIdName
+    _otherwise -> qualNameText $ QualName qualDeclIdName qualDeclIdKind
+
+qualDeclIdNsPrelimDeclId :: QualDeclId -> NsPrelimDeclId
+qualDeclIdNsPrelimDeclId QualDeclId{..} = case qualDeclIdOrigin of
+    NameOriginInSource             -> NsPrelimDeclIdNamed qualDeclIdName ns
+    NameOriginRenamedFrom origName -> NsPrelimDeclIdNamed origName ns
+    NameOriginGenerated   anonId   -> NsPrelimDeclIdAnon anonId
+    NameOriginBuiltin              -> NsPrelimDeclIdBuiltin qualDeclIdName
+  where
+    ns :: TypeNamespace
+    ns = nameKindTypeNamespace qualDeclIdKind
 
 {-------------------------------------------------------------------------------
   TaggedTypeId

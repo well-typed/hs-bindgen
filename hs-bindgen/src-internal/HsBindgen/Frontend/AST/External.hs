@@ -54,6 +54,8 @@ module HsBindgen.Frontend.AST.External (
   , C.AnonId(..)
   , C.NameOrigin(..)
   , C.QualPrelimDeclId(..)
+  , C.QualDeclId(..)
+  , C.qualDeclIdText
   , MangleNames.NamePair(..)
   , MangleNames.nameHs
   , MangleNames.RecordNames(..)

@@ -36,6 +36,10 @@ module HsBindgen.TH (
 
     -- ** Selection predicates
   , Common.Predicate(..)
+  , Common.HeaderPathPredicate (..)
+  , Common.DeclPredicate (..)
+  , Common.ParsePredicate
+  , Common.SelectPredicate
   , Common.Regex -- opaque
   , Common.mergePredicates
 
@@ -57,10 +61,10 @@ module HsBindgen.TH (
   , Common.FrontendMsg(..)
   , Common.ParseMsg(..)
   , Common.SortMsg(..)
-  , Common.SliceMsg(..)
   , Common.HandleMacrosMsg(..)
   , Common.NameAnonMsg(..)
   , Common.ResolveBindingSpecMsg(..)
+  , Common.SelectMsg(..)
   , Common.HandleTypedefsMsg(..)
   , Common.MangleNamesMsg(..)
   , Common.ParseTypeException(..)

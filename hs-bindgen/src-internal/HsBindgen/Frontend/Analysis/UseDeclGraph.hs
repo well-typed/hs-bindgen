@@ -16,6 +16,8 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
     -- * Query
   , toDecls
   , getTransitiveDeps
+    -- * Deletion
+  , deleteDeps
     -- * Debugging
   , dumpMermaid
   ) where
@@ -114,6 +116,18 @@ toDecls index (Wrap graph) =
 
 getTransitiveDeps :: UseDeclGraph -> C.NsPrelimDeclId -> Set C.NsPrelimDeclId
 getTransitiveDeps = DynGraph.reaches . unwrap
+
+{-------------------------------------------------------------------------------
+  Deletion
+-------------------------------------------------------------------------------}
+
+-- | Delete dependencies
+deleteDeps ::
+     C.NsPrelimDeclId
+  -> [C.NsPrelimDeclId]
+  -> UseDeclGraph
+  -> UseDeclGraph
+deleteDeps declId depIds = Wrap . DynGraph.deleteEdges declId depIds . unwrap
 
 {-------------------------------------------------------------------------------
   Construction auxiliary: sort key

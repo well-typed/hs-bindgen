@@ -83,8 +83,8 @@ getUnparsedMacro unit curr = do
 -- could reasonably expect to be supported eventually, and \"unexpected\", for
 -- strange C input.
 data ParseMsg =
-    -- | We skipped over a declaration
-    ParseSkipped (C.DeclInfo Parse)
+    -- | We excluded a declaration
+    ParseExcluded (C.DeclInfo Parse)
 
     -- | Unsupported type
     --
@@ -170,8 +170,8 @@ data ParseMsg =
 
 instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
-      ParseSkipped info ->
-          prettyForTrace info >< " not selected"
+      ParseExcluded info ->
+          prettyForTrace info >< " excluded"
       ParseUnsupportedType info err -> noBindingsGenerated info $
           prettyForTrace err
       ParseUnsupportedImplicitFields info -> noBindingsGenerated info $
@@ -206,7 +206,7 @@ instance PrettyForTrace ParseMsg where
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel ParseMsg where
   getDefaultLogLevel = \case
-      ParseSkipped{}                   -> Info
+      ParseExcluded{}                  -> Info
       ParseUnsupportedType _ctxt err   -> getDefaultLogLevel err
       ParseUnsupportedImplicitFields{} -> Warning
       ParseUnexpectedAnonInSignature{} -> Warning
