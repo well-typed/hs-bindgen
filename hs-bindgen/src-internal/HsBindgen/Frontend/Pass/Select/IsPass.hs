@@ -1,10 +1,10 @@
-module HsBindgen.Frontend.Pass.Slice.IsPass (
-    Slice
+module HsBindgen.Frontend.Pass.Select.IsPass (
+    Select
     -- * Configuration
   , ProgramSlicing (..)
-  , SliceConfig (..)
+  , SelectConfig (..)
     -- * Trace messages
-  , SliceMsg (..)
+  , SelectMsg (..)
   , SelectReason (..)
   ) where
 
@@ -12,12 +12,15 @@ import Data.Default (Default (def))
 import Data.Set (Set)
 import Data.Set qualified as Set
 
-import HsBindgen.C.Predicate
-import HsBindgen.Frontend.AST.Internal (ValidPass)
+import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.C.Predicate (SelectPredicate)
+import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Sort.IsPass (Sort)
+import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
+    ResolveBindingSpec, ResolvedExtBinding)
+import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
@@ -26,21 +29,24 @@ import Text.SimplePrettyPrint qualified as PP
   Definition
 -------------------------------------------------------------------------------}
 
-type Slice :: Pass
-data Slice a deriving anyclass ValidPass
+type Select :: Pass
+data Select a deriving anyclass ValidPass
 
-type family AnnSlice ix where
-  AnnSlice ix = Ann ix Sort
+type family AnnSelect ix where
+  AnnSelect "Decl"            = BindingSpec.TypeSpec
+  AnnSelect "TranslationUnit" = DeclMeta
+  AnnSelect _                 = NoAnn
 
-instance IsPass Slice where
-  type Id         Slice = Id         Sort
-  type FieldName  Slice = FieldName  Sort
-  type TypedefRef Slice = TypedefRef Sort
-  type MacroBody  Slice = MacroBody  Sort
-  type ExtBinding Slice = ExtBinding Sort
-  type Ann ix     Slice = AnnSlice ix
-  type Config     Slice = SliceConfig
-  type Msg        Slice = SliceMsg
+instance IsPass Select where
+  type Id         Select = C.DeclId
+  type FieldName  Select = C.Name
+  type TypedefRef Select = C.Name
+  -- NOTE Using @CheckedMacro Select@ is incompatible with 'CoercePass'
+  type MacroBody  Select = CheckedMacro ResolveBindingSpec
+  type ExtBinding Select = ResolvedExtBinding
+  type Ann ix     Select = AnnSelect ix
+  type Config     Select = SelectConfig
+  type Msg        Select = SelectMsg
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -57,9 +63,9 @@ instance Default ProgramSlicing where
   def :: ProgramSlicing
   def = DisableProgramSlicing
 
-data SliceConfig = SliceConfig {
-      sliceConfigProgramSlicing :: ProgramSlicing
-    , sliceConfigPredicate      :: Predicate
+data SelectConfig = SelectConfig {
+      selectConfigProgramSlicing :: ProgramSlicing
+    , selectConfigPredicate      :: SelectPredicate
     }
   deriving stock (Show, Eq)
 
@@ -67,11 +73,11 @@ data SliceConfig = SliceConfig {
   Trace messages
 -------------------------------------------------------------------------------}
 
--- | Slice trace messages
-data SliceMsg =
-    SliceTransitiveDependencyUnavailable C.NsPrelimDeclId
-  | SliceSkipped (C.DeclInfo Slice)
-  | SliceSelected SelectReason
+-- | Select trace messages
+data SelectMsg =
+    SelectTransitiveDependencyUnavailable C.NsPrelimDeclId
+  | SelectExcluded (C.DeclInfo Select)
+  | SelectSelected SelectReason
   deriving stock (Show, Eq)
 
 data SelectReason =
@@ -94,18 +100,18 @@ instance PrettyForTrace SelectReason where
 instance HasDefaultLogLevel SelectReason where
   getDefaultLogLevel _ = Info
 
-instance PrettyForTrace SliceMsg where
+instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
-    SliceTransitiveDependencyUnavailable qualId ->
+    SelectTransitiveDependencyUnavailable qualId ->
       "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
-    SliceSkipped  info -> prettyForTrace info >< " not selected"
-    SliceSelected reason -> prettyForTrace reason
+    SelectExcluded info   -> prettyForTrace info >< " excluded"
+    SelectSelected reason -> prettyForTrace reason
 
-instance HasDefaultLogLevel SliceMsg where
+instance HasDefaultLogLevel SelectMsg where
   getDefaultLogLevel = \case
-    SliceTransitiveDependencyUnavailable{} -> Error
-    SliceSkipped{}                         -> Info
-    SliceSelected reason                   -> getDefaultLogLevel reason
+    SelectTransitiveDependencyUnavailable{} -> Error
+    SelectExcluded{}                        -> Info
+    SelectSelected reason                   -> getDefaultLogLevel reason
 
-instance HasSource SliceMsg where
+instance HasSource SelectMsg where
   getSource = const HsBindgen

@@ -26,7 +26,7 @@ module HsBindgen.App.Common (
 
 import Control.Exception (Exception (displayException))
 import Control.Monad.IO.Class (MonadIO)
-import Data.Bifunctor (Bifunctor (bimap), first, second)
+import Data.Bifunctor (Bifunctor (bimap), first)
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -123,7 +123,8 @@ parseConfig :: Parser Config
 parseConfig = Config
     <$> parseClangArgs
     <*> parseTranslationOpts
-    <*> parsePredicate
+    <*> parseParsePredicate
+    <*> parseSelectPredicate
     <*> parseProgramSlicing
     <*> parseHsModuleOpts
     <*> parseHsRenderOpts
@@ -339,45 +340,75 @@ parsePrescriptiveBindingSpec = optional $ strOption $ mconcat [
   Other options and command line arguments
 -------------------------------------------------------------------------------}
 
-parsePredicate :: Parser Predicate
-parsePredicate = fmap aux . many . asum $ [
-      flag' (Right SelectAll) $ mconcat [
-          long "select-all"
-        , help "Process all elements"
+parseParsePredicate :: Parser ParsePredicate
+parseParsePredicate = fmap aux . many . asum $ [
+      flag' (Right PTrue) $ mconcat [
+          long "parse-all"
+        , help "Parse all declarations"
         ]
-    , fmap (Right . SelectByFileName) $ strOption $ mconcat [
-          long "select-by-filename"
-        , help "Select files with names that match PCRE"
+    , flag' (Right (PIf SelectFromMainHeaders)) $ mconcat [
+          long "parse-from-main-headers"
+        , help "Parse declarations in main headers (default)"
+        ]
+    , fmap (Right . PIf . SelectByHeaderPath) $ strOption $ mconcat [
+          long "parse-by-header-path"
+        , help "Parse declarations in headers with paths that match PCRE"
         , metavar "PCRE"
         ]
-    , fmap (Left . SelectByFileName) $ strOption $ mconcat [
-          long "skip-by-filename"
-        , help "Skip files with names that match PCRE"
+    , fmap (Left . PIf . SelectByHeaderPath) $ strOption $ mconcat [
+          long "parse-except-by-header-path"
+        , help "Parse except declarations in headers with paths that match PCRE"
         , metavar "PCRE"
-        ]
-    , fmap (Right . SelectByElementName) $ strOption $ mconcat [
-          long "select-by-element-name"
-        , help "Select elements with names that match PCRE"
-        , metavar "PCRE"
-        ]
-    , fmap (Left . SelectByElementName) $ strOption $ mconcat [
-          long "skip-by-element-name"
-        , help "Skip elements with names that match PCRE"
-        , metavar "PCRE"
-        ]
-    , flag' (Right SelectFromMainFiles) $ mconcat [
-          long "select-from-main-files"
-        , help "Only process elements from main files (default)"
         ]
     ]
   where
-    defSelectFromMainFiles :: [Predicate] -> [Predicate]
-    defSelectFromMainFiles [] = [SelectFromMainFiles]
-    defSelectFromMainFiles ps = ps
-    aux :: [Either Predicate Predicate] -> Predicate
-    aux ps = uncurry mergePredicates $
-               second defSelectFromMainFiles $
-                 partitionEithers ps
+    aux :: [Either ParsePredicate ParsePredicate] -> ParsePredicate
+    aux = uncurry mergePredicates . fmap applyDefault . partitionEithers
+
+    applyDefault :: [ParsePredicate] -> [ParsePredicate]
+    applyDefault = \case
+      [] -> [def]
+      ps -> ps
+
+parseSelectPredicate :: Parser SelectPredicate
+parseSelectPredicate = fmap aux . many . asum $ [
+      flag' (Right PTrue) $ mconcat [
+          long "select-all"
+        , help "Select all declarations (default)"
+        ]
+    , flag' (Right (PIf (Left SelectFromMainHeaders))) $ mconcat [
+          long "select-from-main-headers"
+        , help "Select declarations in main headers"
+        ]
+    , fmap (Right . PIf . Left . SelectByHeaderPath) $ strOption $ mconcat [
+          long "select-by-header-path"
+        , help "Select declarations in headers with paths that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (Left . PIf . Left . SelectByHeaderPath) $ strOption $ mconcat [
+          long "select-except-by-header-path"
+        , help "Select except declarations in headers with paths that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (Right . PIf . Right . SelectByDeclName) $ strOption $ mconcat [
+          long "select-by-decl-name"
+        , help "Select declarations with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    , fmap (Left . PIf . Right . SelectByDeclName) $ strOption $ mconcat [
+          long "select-except-by-decl-name"
+        , help "Select except declarations with names that match PCRE"
+        , metavar "PCRE"
+        ]
+    ]
+  where
+    aux :: [Either SelectPredicate SelectPredicate] -> SelectPredicate
+    aux = uncurry mergePredicates . fmap applyDefault . partitionEithers
+
+    applyDefault :: [SelectPredicate] -> [SelectPredicate]
+    applyDefault = \case
+      [] -> [def]
+      ps -> ps
 
 parseProgramSlicing :: Parser ProgramSlicing
 parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat [

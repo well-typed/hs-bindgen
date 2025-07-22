@@ -8,8 +8,8 @@ import GHC.Generics (Generic)
 import Clang.Args
 import HsBindgen.Backend.PP.Render
 import HsBindgen.Backend.PP.Translation
-import HsBindgen.C.Predicate
-import HsBindgen.Frontend.Pass.Slice.IsPass
+import HsBindgen.C.Predicate (ParsePredicate, SelectPredicate)
+import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Hs.Translation
 
 -- | Configuration of @hs-bindgen@.
@@ -20,13 +20,14 @@ import HsBindgen.Hs.Translation
 -- 'Config' should contain user-provided data, not @hs-bindgen@-provided data.
 data Config = Config {
       -- Translation
-      configClangArgs      :: ClangArgs
-    , configTranslation    :: TranslationOpts
-    , configPredicate      :: Predicate
-    , configProgramSlicing :: ProgramSlicing
+      configClangArgs       :: ClangArgs
+    , configTranslation     :: TranslationOpts
+    , configParsePredicate  :: ParsePredicate
+    , configSelectPredicate :: SelectPredicate
+    , configProgramSlicing  :: ProgramSlicing
       -- Pretty printing
-    , configHsModuleOpts   :: HsModuleOpts
-    , configHsRenderOpts   :: HsRenderOpts
+    , configHsModuleOpts    :: HsModuleOpts
+    , configHsRenderOpts    :: HsRenderOpts
     }
   deriving stock (Show, Generic)
 

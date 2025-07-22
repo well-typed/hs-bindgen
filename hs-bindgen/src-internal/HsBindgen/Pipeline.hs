@@ -75,12 +75,7 @@ parseCHeaders ::
    -> PrescriptiveBindingSpec
    -> [CHeaderIncludePath]
    -> IO C.TranslationUnit
-parseCHeaders tracer config extSpec pSpec =
-    C.parseCHeaders
-      tracer
-      config
-      extSpec
-      pSpec
+parseCHeaders = C.parseCHeaders
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Config -> [C.Decl] -> [Hs.Decl]

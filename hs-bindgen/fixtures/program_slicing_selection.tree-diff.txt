@@ -2,25 +2,6 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "alltypes.h:320:16",
-        declId = NamePair {
-          nameC = Name "_IO_FILE",
-          nameHsIdent = HsIdentifier
-            "C_IO_FILE"},
-        declOrigin = NameOriginInSource,
-        declAliases = [Name "FILE"],
-        declHeader =
-        "program_slicing_selection.h",
-        declComment = Nothing},
-      declKind = DeclStructOpaque,
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
         declLoc =
         "program_slicing_selection.h:7:6",
         declId = NamePair {

@@ -31,8 +31,10 @@ module HsBindgen.Frontend.AST.Internal (
   , ValidPass
     -- * Helper functions
   , declNsPrelimDeclId
+  , declOrigNsPrelimDeclId
   , declQualPrelimDeclId
   , declQualName
+  , declQualDeclId
   , declKindNameKind
   ) where
 
@@ -459,9 +461,19 @@ declNsPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.nsPrelimDeclId declId $
       C.nameKindTypeNamespace (declKindNameKind declKind)
 
+declOrigNsPrelimDeclId :: Id p ~ C.DeclId => Decl p -> C.NsPrelimDeclId
+declOrigNsPrelimDeclId = C.qualDeclIdNsPrelimDeclId . declQualDeclId
+
 declQualPrelimDeclId :: Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
 declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.qualPrelimDeclId declId (declKindNameKind declKind)
+
+declQualDeclId :: Id p ~ C.DeclId => Decl p -> C.QualDeclId
+declQualDeclId Decl{declInfo = DeclInfo{declId}, declKind} = C.QualDeclId {
+      qualDeclIdName   = C.declIdName   declId
+    , qualDeclIdOrigin = C.declIdOrigin declId
+    , qualDeclIdKind   = declKindNameKind declKind
+    }
 
 declQualName :: Id p ~ C.DeclId => Decl p -> C.QualName
 declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
