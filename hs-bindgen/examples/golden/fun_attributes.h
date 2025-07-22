@@ -2,9 +2,6 @@
  * Attributes on functions
  *
  * Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
- *
- * TODO: https://github.com/well-typed/hs-bindgen/issues/67
- * We should take advantage of `pure` and `const attributes.
  */
 
 typedef struct {} FILE;
@@ -142,4 +139,3 @@ static int x1 (void) __attribute__ ((weakref ("y")));
 
 /* is equivalent to... */
 static int x2 (void) __attribute__ ((weakref, alias ("y")));
-

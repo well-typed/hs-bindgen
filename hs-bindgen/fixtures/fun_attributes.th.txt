@@ -56,7 +56,7 @@ foreign import ccall safe "test_internal_my_alloc1" my_alloc1 :: Size_t ->
 foreign import ccall safe "test_internal_my_alloc2" my_alloc2 :: Size_t ->
                                                                  IO (Ptr Void)
 foreign import ccall safe "test_internal_square" square :: CInt ->
-                                                           IO CInt
+                                                           CInt
 foreign import ccall safe "test_internal_old_fn" old_fn :: IO CInt
 foreign import ccall safe "test_internal_my_dgettext" my_dgettext :: Ptr CChar ->
                                                                      Ptr CChar -> IO (Ptr CChar)

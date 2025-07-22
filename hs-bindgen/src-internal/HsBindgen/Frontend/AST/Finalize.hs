@@ -215,12 +215,14 @@ instance Finalize Int.Function where
 
   finalize function = Ext.Function{
         functionArgs = map finalize functionArgs
+      , functionAttrs
       , functionRes  = finalize functionRes
       }
     where
       Int.Function {
           functionArgs
         , functionRes
+        , functionAttrs
         , functionAnn = NoAnn
         } = function
 

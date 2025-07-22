@@ -148,6 +148,7 @@ instance (
   coercePass Function{..} = Function{
         functionArgs = map coercePass functionArgs
       , functionRes  = coercePass functionRes
+      , functionAttrs
       , functionAnn
       }
 

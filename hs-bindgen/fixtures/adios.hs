@@ -286,6 +286,9 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude "adios.h",
   DeclInlineC
@@ -304,6 +307,9 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude "adios.h",
   DeclInlineC
@@ -322,4 +328,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}}]

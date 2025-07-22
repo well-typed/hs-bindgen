@@ -35,6 +35,8 @@ module HsBindgen.Frontend.AST.External (
   , Macro.XVar(..)
     -- ** Functions
   , Function(..)
+  , Int.FunctionAttributes(..)
+  , Int.FunctionPurity(..)
     -- * Types
   , Type(..)
   , ResolveBindingSpec.ResolvedExtBinding(..)
@@ -195,6 +197,7 @@ data Typedef = Typedef {
 
 data Function = Function {
       functionArgs :: [Type]
+    , functionAttrs :: Int.FunctionAttributes
     , functionRes  :: Type
     }
   deriving stock (Show, Eq, Generic)

@@ -2,24 +2,26 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "simple_func.h:1:8",
+        declLoc =
+        "fun_attributes_conflict.h:9:5",
         declId = NamePair {
-          nameC = Name "erf",
+          nameC = Name "square_cp",
           nameHsIdent = HsIdentifier
-            "erf"},
+            "square_cp"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader =
+        "fun_attributes_conflict.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
             TypePrim
-              (PrimFloating PrimDouble)],
+              (PrimIntegral PrimInt Signed)],
           functionAttrs =
           FunctionAttributes
-            ImpureFunction,
+            HaskellPureFunction,
           functionRes = TypePrim
-            (PrimFloating PrimDouble)},
+            (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -28,28 +30,26 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "simple_func.h:3:22",
+        declLoc =
+        "fun_attributes_conflict.h:11:5",
         declId = NamePair {
-          nameC = Name "bad_fma",
+          nameC = Name "square_pc",
           nameHsIdent = HsIdentifier
-            "bad_fma"},
+            "square_pc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader =
+        "fun_attributes_conflict.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
             TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble)],
+              (PrimIntegral PrimInt Signed)],
           functionAttrs =
           FunctionAttributes
-            ImpureFunction,
+            HaskellPureFunction,
           functionRes = TypePrim
-            (PrimFloating PrimDouble)},
+            (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -58,72 +58,52 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "simple_func.h:7:6",
+        declLoc =
+        "fun_attributes_conflict.h:13:5",
         declId = NamePair {
-          nameC = Name "no_args",
+          nameC = Name "square_cc",
           nameHsIdent = HsIdentifier
-            "no_args"},
+            "square_cc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "simple_func.h:9:6",
-        declId = NamePair {
-          nameC = Name "no_args_no_void",
-          nameHsIdent = HsIdentifier
-            "no_args_no_void"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "simple_func.h"},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "simple_func.h:11:5",
-        declId = NamePair {
-          nameC = Name "fun",
-          nameHsIdent = HsIdentifier
-            "fun"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader =
+        "fun_attributes_conflict.h"},
       declKind = DeclFunction
         Function {
           functionArgs = [
             TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed))),
-            TypePrim
-              (PrimFloating PrimDouble)],
+              (PrimIntegral PrimInt Signed)],
           functionAttrs =
           FunctionAttributes
-            ImpureFunction,
+            HaskellPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "fun_attributes_conflict.h:15:5",
+        declId = NamePair {
+          nameC = Name "square_pp",
+          nameHsIdent = HsIdentifier
+            "square_pp"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "fun_attributes_conflict.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionAttrs =
+          FunctionAttributes
+            CPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -132,4 +112,5 @@ TranslationUnit {
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
             []}}],
-  unitDeps = ["simple_func"]}
+  unitDeps = [
+    "fun_attributes_conflict"]}

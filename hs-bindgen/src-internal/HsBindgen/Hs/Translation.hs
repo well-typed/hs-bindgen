@@ -1042,7 +1042,9 @@ functionDecs ::
 functionDecs mu typedefs info f _spec =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.declHeader info
     , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
-    , Hs.DeclForeignImport $ Hs.ForeignImportDecl
+    ] ++
+    toList (Hs.DeclSimple <$> ioComment) ++
+    [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = importName
         , foreignImportType     = importType
         , foreignImportOrigName = T.pack wrapperName
@@ -1068,6 +1070,7 @@ functionDecs mu typedefs info f _spec =
 
     res = wrapType $ C.functionRes f
     args = wrapType <$> C.functionArgs f
+    attrs = C.functionAttrs f
 
     -- types which we cannot pass directly using C FFI.
     wrapType :: C.Type -> WrappedType
@@ -1090,10 +1093,40 @@ functionDecs mu typedefs info f _spec =
             foldr HsFun (HsIO $ typ' CFunRes C.TypeVoid) (typ' CFunArg . unwrapType <$> (args ++ [res]))
 
         WrapType {} ->
-            foldr HsFun (HsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
+            foldr HsFun (hsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
 
         CAType {} ->
             panicPure "ConstantArray cannot occur as a result type"
+
+    -- | Decide based on the function attributes whether to include 'IO' in the
+    -- result type of the foreign import. See the documentation on
+    -- 'C.FunctionPurity'.
+    --
+    -- An exception to the rules: the foreign import function returns @void@
+    -- when @res@ is a heap type, in which case a @const@ or @pure@ attribute
+    -- does not make much sense, and so we just return the result in 'IO'.
+    hsIO :: HsType -> HsType
+    -- | C-pure functions can be safely encapsulated using 'unsafePerformIO' to
+    -- create a Haskell-pure functions. We include a comment in the generated
+    -- bindings to this effect.
+    --
+    -- TODO: put the comment directly on the foreign import as Haddocks. This
+    -- might be possible after #924.
+    ioComment :: Maybe SHs.SDecl
+    (hsIO, ioComment) = case C.functionPurity attrs of
+        C.HaskellPureFunction -> (id  , Nothing)
+        C.CPureFunction       -> (HsIO, Just (SHs.DComment pureComment))
+        C.ImpureFunction      -> (HsIO, Nothing)
+
+    -- | A comment to put on bindings for C-pure functions
+    pureComment :: String
+    pureComment =
+        "C functions that have the @pure@ attribute may read from pointers, \
+        \and since the contents of pointers can change, these functions are \
+        \\"impure\" in the Haskell sense of the word, so we have to return \
+        \the result in 'IO'. Note however that uses of a C-pure function can \
+        \sometimes be safely encapsulated with @unsafePerformIO@ to obtain a \
+        \Haskell-pure function."
 
     -- below is generation of C wrapper for userland-capi.
     innerName :: String

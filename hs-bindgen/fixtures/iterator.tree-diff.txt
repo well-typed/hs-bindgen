@@ -43,6 +43,9 @@ TranslationUnit {
         Function {
           functionArgs = [
             TypePrim PrimBool],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -74,6 +77,9 @@ TranslationUnit {
                   nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             PrimBool},
       declSpec = DeclSpec
@@ -101,6 +107,9 @@ TranslationUnit {
                   nameC = Name "Toggle",
                   nameHsIdent = HsIdentifier
                     "Toggle"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -157,6 +166,9 @@ TranslationUnit {
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -188,6 +200,9 @@ TranslationUnit {
                   nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -215,6 +230,9 @@ TranslationUnit {
                   nameC = Name "Counter",
                   nameHsIdent = HsIdentifier
                     "Counter"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -271,6 +289,9 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -304,6 +325,9 @@ TranslationUnit {
                     "VarCounter"}),
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -332,6 +356,9 @@ TranslationUnit {
                   nameC = Name "VarCounter",
                   nameHsIdent = HsIdentifier
                     "VarCounter"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {

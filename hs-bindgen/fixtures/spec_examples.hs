@@ -2071,5 +2071,8 @@
                     (NameOriginGenerated
                       (AnonId
                         "spec_examples.h:14:9")))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclSimple]

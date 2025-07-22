@@ -102,6 +102,9 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "Outside"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -180,6 +183,9 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "Named_struct"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -258,6 +264,9 @@ TranslationUnit {
                 nameHsIdent = HsIdentifier
                   "Named_union"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {

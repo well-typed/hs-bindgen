@@ -259,6 +259,9 @@
                   nameC = Name "TC",
                   nameHsIdent = HsIdentifier
                     "TC"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit Nothing))}},
@@ -296,6 +299,9 @@
             TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -339,6 +345,9 @@
                     nameC = Name "TC",
                     nameHsIdent = HsIdentifier
                       "TC"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
@@ -381,6 +390,9 @@
                   nameC = Name "MC",
                   nameHsIdent = HsIdentifier "MC"}
                 NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
@@ -1713,6 +1725,9 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -1752,6 +1767,9 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -1794,6 +1812,9 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -1833,6 +1854,9 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -1872,6 +1896,9 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -1911,4 +1938,7 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}}]
