@@ -16,4 +16,7 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}}]

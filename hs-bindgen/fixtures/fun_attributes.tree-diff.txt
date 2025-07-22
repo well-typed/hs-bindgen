@@ -3,14 +3,13 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:10:9",
+        "fun_attributes.h:7:9",
         declId = NamePair {
           nameC = Name "FILE",
           nameHsIdent = HsIdentifier
             "FILE"},
         declOrigin = NameOriginGenerated
-          (AnonId
-            "fun_attributes.h:10:9"),
+          (AnonId "fun_attributes.h:7:9"),
         declAliases = [Name "FILE"],
         declHeader =
         "fun_attributes.h"},
@@ -31,7 +30,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:11:13",
+        "fun_attributes.h:8:13",
         declId = NamePair {
           nameC = Name "size_t",
           nameHsIdent = HsIdentifier
@@ -60,7 +59,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:19:6",
+        "fun_attributes.h:16:6",
         declId = NamePair {
           nameC = Name "__f1",
           nameHsIdent = HsIdentifier
@@ -72,6 +71,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -82,7 +84,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:20:6",
+        "fun_attributes.h:17:6",
         declId = NamePair {
           nameC = Name "f1",
           nameHsIdent = HsIdentifier
@@ -94,6 +96,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -104,7 +109,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:24:7",
+        "fun_attributes.h:21:7",
         declId = NamePair {
           nameC = Name "my_memalign",
           nameHsIdent = HsIdentifier
@@ -128,6 +133,9 @@ TranslationUnit {
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
@@ -139,7 +147,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:29:7",
+        "fun_attributes.h:26:7",
         declId = NamePair {
           nameC = Name "my_calloc",
           nameHsIdent = HsIdentifier
@@ -163,6 +171,9 @@ TranslationUnit {
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
@@ -174,7 +185,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:30:7",
+        "fun_attributes.h:27:7",
         declId = NamePair {
           nameC = Name "my_realloc",
           nameHsIdent = HsIdentifier
@@ -193,6 +204,9 @@ TranslationUnit {
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
@@ -204,7 +218,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:35:7",
+        "fun_attributes.h:32:7",
         declId = NamePair {
           nameC = Name "my_alloc1",
           nameHsIdent = HsIdentifier
@@ -222,6 +236,9 @@ TranslationUnit {
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
@@ -233,7 +250,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:36:7",
+        "fun_attributes.h:33:7",
         declId = NamePair {
           nameC = Name "my_alloc2",
           nameHsIdent = HsIdentifier
@@ -251,6 +268,9 @@ TranslationUnit {
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
@@ -262,7 +282,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:40:5",
+        "fun_attributes.h:37:5",
         declId = NamePair {
           nameC = Name "square",
           nameHsIdent = HsIdentifier
@@ -276,6 +296,9 @@ TranslationUnit {
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs =
+          FunctionAttributes
+            HaskellPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -287,7 +310,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:49:5",
+        "fun_attributes.h:46:5",
         declId = NamePair {
           nameC = Name "old_fn",
           nameHsIdent = HsIdentifier
@@ -299,6 +322,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -310,7 +336,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:60:1",
+        "fun_attributes.h:57:1",
         declId = NamePair {
           nameC = Name "my_dgettext",
           nameHsIdent = HsIdentifier
@@ -332,6 +358,9 @@ TranslationUnit {
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             (TypePrim
               (PrimChar
@@ -346,7 +375,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:71:9",
+        "fun_attributes.h:68:9",
         declId = NamePair {
           nameC = Name "fdopen",
           nameHsIdent = HsIdentifier
@@ -365,6 +394,9 @@ TranslationUnit {
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed
@@ -376,7 +408,7 @@ TranslationUnit {
                       "FILE"}
                   (NameOriginGenerated
                     (AnonId
-                      "fun_attributes.h:10:9")))))},
+                      "fun_attributes.h:7:9")))))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -386,7 +418,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:75:65",
+        "fun_attributes.h:72:65",
         declId = NamePair {
           nameC = Name "f2",
           nameHsIdent = HsIdentifier
@@ -398,6 +430,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -408,7 +443,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:81:1",
+        "fun_attributes.h:78:1",
         declId = NamePair {
           nameC = Name "my_memcpy",
           nameHsIdent = HsIdentifier
@@ -428,6 +463,9 @@ TranslationUnit {
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
@@ -439,7 +477,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:98:6",
+        "fun_attributes.h:95:6",
         declId = NamePair {
           nameC = Name "fatal",
           nameHsIdent = HsIdentifier
@@ -451,6 +489,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -461,7 +502,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:106:5",
+        "fun_attributes.h:103:5",
         declId = NamePair {
           nameC = Name "hash",
           nameHsIdent = HsIdentifier
@@ -478,6 +519,9 @@ TranslationUnit {
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            CPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -489,7 +533,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:111:1",
+        "fun_attributes.h:108:1",
         declId = NamePair {
           nameC = Name "mymalloc",
           nameHsIdent = HsIdentifier
@@ -507,6 +551,9 @@ TranslationUnit {
                   nameC = Name "size_t",
                   nameHsIdent = HsIdentifier
                     "Size_t"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
@@ -518,7 +565,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:115:13",
+        "fun_attributes.h:112:13",
         declId = NamePair {
           nameC = Name "foobar",
           nameHsIdent = HsIdentifier
@@ -530,6 +577,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -540,7 +590,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:122:5",
+        "fun_attributes.h:119:5",
         declId = NamePair {
           nameC = Name "core2_func",
           nameHsIdent = HsIdentifier
@@ -552,6 +602,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -563,7 +616,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:123:5",
+        "fun_attributes.h:120:5",
         declId = NamePair {
           nameC = Name "sse3_func",
           nameHsIdent = HsIdentifier
@@ -575,6 +628,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -586,7 +642,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:127:49",
+        "fun_attributes.h:124:49",
         declId = NamePair {
           nameC = Name "f3",
           nameHsIdent = HsIdentifier
@@ -598,6 +654,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -608,7 +667,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:128:5",
+        "fun_attributes.h:125:5",
         declId = NamePair {
           nameC = Name "i",
           nameHsIdent = HsIdentifier "i"},
@@ -628,7 +687,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:132:5",
+        "fun_attributes.h:129:5",
         declId = NamePair {
           nameC = Name "fn",
           nameHsIdent = HsIdentifier
@@ -640,6 +699,34 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "fun_attributes.h:135:12",
+        declId = NamePair {
+          nameC = Name "y",
+          nameHsIdent = HsIdentifier "y"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "fun_attributes.h"},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -653,8 +740,9 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:138:12",
         declId = NamePair {
-          nameC = Name "y",
-          nameHsIdent = HsIdentifier "y"},
+          nameC = Name "x1",
+          nameHsIdent = HsIdentifier
+            "x1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
@@ -662,6 +750,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
@@ -675,29 +766,6 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:141:12",
         declId = NamePair {
-          nameC = Name "x1",
-          nameHsIdent = HsIdentifier
-            "x1"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [],
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:144:12",
-        declId = NamePair {
           nameC = Name "x2",
           nameHsIdent = HsIdentifier
             "x2"},
@@ -708,6 +776,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec

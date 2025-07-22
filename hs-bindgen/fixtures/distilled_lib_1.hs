@@ -9683,6 +9683,9 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = [
                                 ]})]}})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeExtBinding
             ResolvedExtBinding {
               extCName = QualName {

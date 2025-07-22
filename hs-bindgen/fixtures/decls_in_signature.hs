@@ -498,6 +498,9 @@
                 nameHsIdent = HsIdentifier
                   "Outside"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclSimple,
   DeclData
@@ -956,6 +959,9 @@
                 nameHsIdent = HsIdentifier
                   "Named_struct"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclSimple,
   DeclNewtype
@@ -1092,5 +1098,8 @@
                 nameHsIdent = HsIdentifier
                   "Named_union"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclSimple]

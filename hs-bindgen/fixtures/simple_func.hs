@@ -21,6 +21,9 @@
           functionArgs = [
             TypePrim
               (PrimFloating PrimDouble)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimFloating PrimDouble)}},
   DeclInlineCInclude
@@ -53,6 +56,9 @@
               (PrimFloating PrimDouble),
             TypePrim
               (PrimFloating PrimDouble)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimFloating PrimDouble)}},
   DeclInlineCInclude
@@ -73,6 +79,9 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "simple_func.h",
@@ -92,6 +101,9 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "simple_func.h",
@@ -120,5 +132,8 @@
                   (Just Signed))),
             TypePrim
               (PrimFloating PrimDouble)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}}]

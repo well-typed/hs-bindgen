@@ -26,6 +26,9 @@
               3
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclSimple,
@@ -121,6 +124,9 @@
                   nameC = Name "triple",
                   nameHsIdent = HsIdentifier
                     "Triple"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclSimple]

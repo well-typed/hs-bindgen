@@ -88,6 +88,9 @@ TranslationUnit {
                   nameC = Name "TC",
                   nameHsIdent = HsIdentifier
                     "TC"})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit Nothing))},
@@ -120,6 +123,9 @@ TranslationUnit {
             TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
@@ -156,6 +162,9 @@ TranslationUnit {
                     nameC = Name "TC",
                     nameHsIdent = HsIdentifier
                       "TC"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
@@ -191,6 +200,9 @@ TranslationUnit {
                   nameC = Name "MC",
                   nameHsIdent = HsIdentifier "MC"}
                 NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
@@ -420,6 +432,9 @@ TranslationUnit {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -454,6 +469,9 @@ TranslationUnit {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -491,6 +509,9 @@ TranslationUnit {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -525,6 +546,9 @@ TranslationUnit {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -559,6 +583,9 @@ TranslationUnit {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
@@ -593,6 +620,9 @@ TranslationUnit {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {

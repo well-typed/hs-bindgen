@@ -12,6 +12,9 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {

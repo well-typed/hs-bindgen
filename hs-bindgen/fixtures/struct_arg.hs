@@ -320,6 +320,9 @@
                 nameHsIdent = HsIdentifier
                   "Thing"}
               NameOriginInSource],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)}},
   DeclSimple,
@@ -350,6 +353,9 @@
           functionArgs = [
             TypePrim
               (PrimIntegral PrimInt Signed)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
@@ -401,6 +407,9 @@
               NameOriginInSource,
             TypePrim
               (PrimFloating PrimDouble)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
@@ -446,6 +455,9 @@
               NameOriginInSource,
             TypePrim
               (PrimFloating PrimDouble)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit
