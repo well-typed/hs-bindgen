@@ -35,7 +35,23 @@ module HsBindgen.Common (
 
     -- * Logging
   , TraceMsg.TraceMsg(..)
-  , Resolve.ResolveHeaderMsg(..)
+  , TraceMsg.BindingSpecMsg(..)
+  , TraceMsg.ClangMsg(..)
+  , TraceMsg.DeclIndexError(..)
+  , TraceMsg.Diagnostic(..)
+  , TraceMsg.FrontendMsg(..)
+  , TraceMsg.ParseMsg(..)
+  , TraceMsg.SortMsg(..)
+  , TraceMsg.SliceMsg(..)
+  , TraceMsg.HandleMacrosMsg(..)
+  , TraceMsg.NameAnonMsg(..)
+  , TraceMsg.ResolveBindingSpecMsg(..)
+  , TraceMsg.HandleTypedefsMsg(..)
+  , TraceMsg.MangleNamesMsg(..)
+  , TraceMsg.ParseTypeException(..)
+  , TraceMsg.ReparseError(..)
+  , TraceMsg.ResolveHeaderMsg(..)
+  , TraceMsg.TcMacroError(..)
     -- ** Tracer definition and main API
   , Tracer.Tracer -- opaque
   , Tracer.Contravariant(..)
@@ -73,7 +89,6 @@ import HsBindgen.Config qualified as Config
 import HsBindgen.Frontend.Pass.Slice.IsPass qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
-import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.TraceMsg qualified as TraceMsg
 import HsBindgen.Util.Tracer qualified as Tracer
 

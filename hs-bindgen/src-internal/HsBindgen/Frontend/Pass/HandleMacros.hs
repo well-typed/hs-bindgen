@@ -380,12 +380,12 @@ reparseMacro :: Reparse (
   , C.CheckedMacro HandleMacros
   )
 reparseMacro typeEnv tokens = do
-    Macro{macroName, macroArgs, macroBody} <- first MacroErrorReparse $
+    Macro{macroName, macroArgs, macroBody} <- first HandleMacrosErrorReparse $
       Reparse.reparseWith (Reparse.reparseMacro typeEnv) tokens
     -- TODO: It's a bit strange that the macro type inference works for
     -- /all/ classes of macros, rather than just expressions.
     Vec.reifyList macroArgs $ \args -> do
-      inf <- first MacroErrorTc $ Macro.tcMacro typeEnv macroName args macroBody
+      inf <- first HandleMacrosErrorTc $ Macro.tcMacro typeEnv macroName args macroBody
       case macroBody of
         ExpressionMacro body ->
           return (
@@ -401,11 +401,11 @@ reparseMacro typeEnv tokens = do
             Right typ ->
               return (inf, C.MacroType $ C.CheckedMacroType typ NoAnn)
             Left err ->
-              Left (MacroErrorUnsupportedType err)
+              Left (HandleMacrosErrorUnsupportedType err)
         EmptyMacro ->
-          Left MacroErrorEmpty
+          Left HandleMacrosErrorEmpty
         AttributeMacro _ ->
-          Left MacroErrorAttribute
+          Left HandleMacrosErrorAttribute
  where
    dropEval ::
         Macro.Quant (Macro.FunValue, Macro.Type 'Macro.Ty)
@@ -414,12 +414,12 @@ reparseMacro typeEnv tokens = do
 
 reparseTypedef :: Reparse (C.Type HandleMacros)
 reparseTypedef typeEnv tokens =
-    first MacroErrorReparse $
+    first HandleMacrosErrorReparse $
       Reparse.reparseWith (Reparse.reparseTypedef typeEnv) tokens
 
 reparseField :: Reparse (C.Type HandleMacros, C.Name)
 reparseField typeEnv tokens =
-    first MacroErrorReparse $
+    first HandleMacrosErrorReparse $
       Reparse.reparseWith (Reparse.reparseFieldDecl typeEnv) tokens
 
 reparseFunctionDecl :: Reparse (
@@ -427,5 +427,5 @@ reparseFunctionDecl :: Reparse (
   , C.Name
   )
 reparseFunctionDecl typeEnv tokens =
-    first MacroErrorReparse $
+    first HandleMacrosErrorReparse $
       Reparse.reparseWith (Reparse.reparseFunDecl typeEnv) tokens

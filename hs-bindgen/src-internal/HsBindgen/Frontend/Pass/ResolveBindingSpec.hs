@@ -43,7 +43,8 @@ resolveBindingSpec
     let (decls, MState{..}) =
           runM extSpec pSpec unitIncludeGraph (declNonSelected unitAnn) $
             resolveDecls unitDecls
-        notUsedErrs = BindingSpecTypeNotUsed <$> Set.toAscList stateNoPTypes
+        notUsedErrs =
+          ResolveBindingSpecTypeNotUsed <$> Set.toAscList stateNoPTypes
     in  (reassemble decls, reverse stateErrors ++ notUsedErrs)
   where
     reassemble ::
@@ -343,7 +344,8 @@ instance Resolve C.Type where
           let cQualName = C.QualName cName nameKind
           -- check for type omitted by binding specification
           when (Set.member cQualName stateOmitTypes) $
-            RWS.modify' $ insertError (BindingSpecOmittedTypeUse cQualName)
+            RWS.modify' $
+              insertError (ResolveBindingSpecOmittedTypeUse cQualName)
           -- check for selected external binding
           case Map.lookup cQualName stateExtTypes of
             Just ty -> return ty
@@ -391,7 +393,7 @@ resolveExtBinding cQualName declPaths  = do
             return Nothing
       Just BindingSpec.Omit -> do
         RWS.modify' $
-          insertError (BindingSpecOmittedTypeUse cQualName)
+          insertError (ResolveBindingSpecOmittedTypeUse cQualName)
         return Nothing
       Nothing ->
         return Nothing
@@ -402,9 +404,9 @@ getExtHsRef ::
   -> Either (Msg ResolveBindingSpec) ExtHsRef
 getExtHsRef cQualName typeSpec = do
     extHsRefModule <-
-      maybe (Left (BindingSpecExtHsRefNoModule cQualName)) Right $
+      maybe (Left (ResolveBindingSpecExtHsRefNoModule cQualName)) Right $
         BindingSpec.typeSpecModule typeSpec
     extHsRefIdentifier <-
-      maybe (Left (BindingSpecExtHsRefNoIdentifier cQualName)) Right $
+      maybe (Left (ResolveBindingSpecExtHsRefNoIdentifier cQualName)) Right $
         BindingSpec.typeSpecIdentifier typeSpec
     return ExtHsRef{extHsRefModule, extHsRefIdentifier}

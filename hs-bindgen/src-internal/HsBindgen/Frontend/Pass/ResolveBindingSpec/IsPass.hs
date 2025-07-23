@@ -1,14 +1,10 @@
 module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
     ResolveBindingSpec
   , ResolvedExtBinding(..)
-  , Msg(..)
+  , ResolveBindingSpecMsg(..)
   ) where
 
-import Control.Exception (Exception (..))
-import Data.Text qualified as Text
-
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -16,6 +12,8 @@ import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell (ExtHsRef)
+import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint ((<+>))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -46,12 +44,7 @@ instance IsPass ResolveBindingSpec where
   type MacroBody  ResolveBindingSpec = CheckedMacro ResolveBindingSpec
   type ExtBinding ResolveBindingSpec = ResolvedExtBinding
   type Ann ix     ResolveBindingSpec = AnnResolveBindingSpec ix
-  data Msg        ResolveBindingSpec =
-      BindingSpecExtHsRefNoModule C.QualName
-    | BindingSpecExtHsRefNoIdentifier C.QualName
-    | BindingSpecOmittedTypeUse C.QualName
-    | BindingSpecTypeNotUsed C.QualName
-    deriving stock (Show, Eq)
+  type Msg        ResolveBindingSpec = ResolveBindingSpecMsg
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | Name of the C declaration for which we are using this binding
@@ -69,19 +62,30 @@ data ResolvedExtBinding = ResolvedExtBinding{
   Trace messages
 -------------------------------------------------------------------------------}
 
-instance Exception (Msg ResolveBindingSpec) where
-  toException = hsBindgenExceptionToException
-  fromException = hsBindgenExceptionFromException
-  displayException = \case
-      BindingSpecExtHsRefNoModule cQualName ->
-        "Haskell module not specified in binding specification: "
-          ++ Text.unpack (C.qualNameText cQualName)
-      BindingSpecExtHsRefNoIdentifier cQualName ->
-        "Haskell identifier not specified in binding specification: "
-          ++ Text.unpack (C.qualNameText cQualName)
-      BindingSpecOmittedTypeUse cQualName ->
-        "type omitted by binding specification used: "
-          ++ Text.unpack (C.qualNameText cQualName)
-      BindingSpecTypeNotUsed cQualName ->
-        "binding specification for type not used: "
-          ++ Text.unpack (C.qualNameText cQualName)
+data ResolveBindingSpecMsg =
+    ResolveBindingSpecExtHsRefNoModule     C.QualName
+  | ResolveBindingSpecExtHsRefNoIdentifier C.QualName
+  | ResolveBindingSpecOmittedTypeUse       C.QualName
+  | ResolveBindingSpecTypeNotUsed          C.QualName
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace ResolveBindingSpecMsg where
+  prettyForTrace = \case
+      ResolveBindingSpecExtHsRefNoModule cQualName ->
+        "Haskell module not specified in binding specification:"
+          <+> prettyForTrace cQualName
+      ResolveBindingSpecExtHsRefNoIdentifier cQualName ->
+        "Haskell identifier not specified in binding specification:"
+          <+> prettyForTrace cQualName
+      ResolveBindingSpecOmittedTypeUse cQualName ->
+        "type omitted by binding specification used:"
+          <+> prettyForTrace cQualName
+      ResolveBindingSpecTypeNotUsed cQualName ->
+        "binding specification for type not used:"
+          <+> prettyForTrace cQualName
+
+instance HasDefaultLogLevel ResolveBindingSpecMsg where
+  getDefaultLogLevel = const Error
+
+instance HasSource ResolveBindingSpecMsg where
+  getSource = const HsBindgen

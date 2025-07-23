@@ -1,7 +1,7 @@
 module HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (
     HandleTypedefs
   , RenamedTypedefRef(..)
-  , Msg(..)
+  , HandleTypedefsMsg(..)
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -15,7 +15,6 @@ import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint qualified as PP
-import HsBindgen.Frontend.Pass.Parse.IsPass
 
 {-------------------------------------------------------------------------------
   Pass definition
@@ -36,11 +35,7 @@ instance IsPass HandleTypedefs where
   type MacroBody  HandleTypedefs = C.CheckedMacro HandleTypedefs
   type ExtBinding HandleTypedefs = ResolvedExtBinding
   type Ann ix     HandleTypedefs = AnnHandleTypedefs ix
-
-  data Msg HandleTypedefs =
-      SquashedTypedef (C.DeclInfo HandleTypedefs)
-    | RenamedTagged (C.DeclInfo HandleTypedefs) C.Name
-    deriving stock (Show, Eq)
+  type Msg        HandleTypedefs = HandleTypedefsMsg
 
 {-------------------------------------------------------------------------------
   Annotations
@@ -81,20 +76,28 @@ data RenamedTypedefRef p =
   Trace messages
 -------------------------------------------------------------------------------}
 
-instance PrettyForTrace (Msg HandleTypedefs) where
+data HandleTypedefsMsg =
+    HandleTypedefsSquashed (C.DeclInfo HandleTypedefs)
+  | HandleTypedefsRenamedTagged (C.DeclInfo HandleTypedefs) C.Name
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace HandleTypedefsMsg where
   prettyForTrace = \case
-      SquashedTypedef info -> PP.hsep [
+      HandleTypedefsSquashed info -> PP.hsep [
           "Squashed typedef"
         , prettyForTrace info
         ]
-      RenamedTagged info newName -> PP.hsep [
+      HandleTypedefsRenamedTagged info newName -> PP.hsep [
           "Renamed"
         , prettyForTrace info
         , "to"
         , prettyForTrace newName
         ]
 
-instance HasDefaultLogLevel (Msg HandleTypedefs) where
+instance HasDefaultLogLevel HandleTypedefsMsg where
   getDefaultLogLevel = \case
-      SquashedTypedef{} -> Info
-      RenamedTagged{}   -> Info
+      HandleTypedefsSquashed{}      -> Info
+      HandleTypedefsRenamedTagged{} -> Info
+
+instance HasSource HandleTypedefsMsg where
+  getSource = const HsBindgen

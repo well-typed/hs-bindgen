@@ -7,7 +7,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
   , NewtypeNames(..)
   , DeclSpec(..)
     -- * Trace messages
-  , Msg(..)
+  , MangleNamesMsg(..)
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -48,10 +48,7 @@ instance IsPass MangleNames where
   type MacroBody  MangleNames = CheckedMacro MangleNames
   type ExtBinding MangleNames = ResolvedExtBinding
   type Ann ix     MangleNames = AnnMangleNames ix
-  data Msg        MangleNames =
-      CouldNotMangle Text
-    | MissingDeclaration C.QualName
-    deriving stock (Show, Eq)
+  type Msg        MangleNames = MangleNamesMsg
 
 {-------------------------------------------------------------------------------
   Identifiers
@@ -114,15 +111,23 @@ newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
   Trace messages
 -------------------------------------------------------------------------------}
 
+data MangleNamesMsg =
+    MangleNamesCouldNotMangle Text
+  | MangleNamesMissingDeclaration C.QualName
+  deriving stock (Show, Eq)
 
-instance PrettyForTrace (Msg MangleNames) where
-  prettyForTrace (CouldNotMangle name) =
-    "Could not mangle C name: " >< textToCtxDoc name
-  prettyForTrace (MissingDeclaration cQualName) = hcat [
-      "Missing declaration: '"
-    , prettyForTrace cQualName
-    , "'; did you select the declaration?"
-    ]
+instance PrettyForTrace MangleNamesMsg where
+  prettyForTrace = \case
+      MangleNamesCouldNotMangle name ->
+        "Could not mangle C name: " >< textToCtxDoc name
+      MangleNamesMissingDeclaration cQualName -> hcat [
+          "Missing declaration: '"
+        , prettyForTrace cQualName
+        , "'; did you select the declaration?"
+        ]
 
-instance HasDefaultLogLevel (Msg MangleNames) where
+instance HasDefaultLogLevel MangleNamesMsg where
   getDefaultLogLevel = const Error
+
+instance HasSource MangleNamesMsg where
+  getSource = const HsBindgen

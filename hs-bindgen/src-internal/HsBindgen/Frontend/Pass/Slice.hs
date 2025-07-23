@@ -150,11 +150,11 @@ getSliceMsgs transitiveDependencies
         (Set.fromList $ map C.declNsPrelimDeclId selectedDeclarations)
 
     errorMsgs :: [Msg Slice]
-    errorMsgs = map TransitiveDependencyUnavailable $
+    errorMsgs = map SliceTransitiveDependencyUnavailable $
       Set.toList unavailableTransitiveDeps
 
     skipMsgs :: [Msg Slice]
-    skipMsgs = map (Skipped . C.declInfo) unmatchedDeclarations
+    skipMsgs = map (SliceSkipped . C.declInfo) unmatchedDeclarations
 
     -- We have a map from root to transitive dependencies. However, to report why
     -- something was selected, we need a map from each transitive dependency to its
@@ -164,7 +164,7 @@ getSliceMsgs transitiveDependencies
       addRootWithTransitiveDependencies Map.empty rootToTransitiveDependencies
 
     selectMsgs :: [Msg Slice]
-    selectMsgs = map (Selected . uncurry TransitiveDependencyOf) $
+    selectMsgs = map (SliceSelected . uncurry TransitiveDependencyOf) $
      Map.toList transitiveDependencyToRoots
 
 addRootWithTransitiveDependencies ::

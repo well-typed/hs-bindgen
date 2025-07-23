@@ -1,7 +1,7 @@
 module HsBindgen.Frontend.Pass.Sort.IsPass (
     Sort
   , DeclMeta(..)
-  , Msg(..)
+  , SortMsg(..)
   ) where
 
 import HsBindgen.Frontend.Analysis.DeclIndex
@@ -39,9 +39,7 @@ instance IsPass Sort where
   type MacroBody  Sort = MacroBody  Parse
   type ExtBinding Sort = ExtBinding Parse
   type Ann ix     Sort = AnnSort ix
-  data Msg        Sort =
-      SortErrorDeclIndex DeclIndexError
-    deriving stock (Show, Eq)
+  type Msg        Sort = SortMsg
 
 {-------------------------------------------------------------------------------
   Information about the declarations
@@ -59,8 +57,17 @@ data DeclMeta = DeclMeta {
   Trace messages
 -------------------------------------------------------------------------------}
 
-instance PrettyForTrace (Msg Sort) where
-  prettyForTrace (SortErrorDeclIndex x) = prettyForTrace x
+data SortMsg =
+    SortErrorDeclIndex DeclIndexError
+  deriving stock (Show, Eq)
 
-instance HasDefaultLogLevel (Msg Sort) where
-  getDefaultLogLevel (SortErrorDeclIndex x) = getDefaultLogLevel x
+instance PrettyForTrace SortMsg where
+  prettyForTrace = \case
+    SortErrorDeclIndex x -> prettyForTrace x
+
+instance HasDefaultLogLevel SortMsg where
+  getDefaultLogLevel = \case
+    SortErrorDeclIndex x -> getDefaultLogLevel x
+
+instance HasSource SortMsg where
+  getSource = const HsBindgen
