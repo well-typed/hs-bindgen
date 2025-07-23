@@ -10,8 +10,8 @@ import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.BindingSpec
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
+import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -76,11 +76,7 @@ runM ::
   -> M a
   -> (a, MState)
 runM extSpec pSpec includeGraph nonSelectedDecls (WrapM m) =
-    let env        = MEnv
-                       (bindingSpecResolved extSpec)
-                       (bindingSpecResolved pSpec)
-                       includeGraph
-                       nonSelectedDecls
+    let env        = MEnv extSpec pSpec includeGraph nonSelectedDecls
         state0     = initMState pSpec
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
@@ -90,8 +86,8 @@ runM extSpec pSpec includeGraph nonSelectedDecls (WrapM m) =
 -------------------------------------------------------------------------------}
 
 data MEnv = MEnv {
-      envExtSpec          :: BindingSpec.ResolvedBindingSpec
-    , envPSpec            :: BindingSpec.ResolvedBindingSpec
+      envExtSpec          :: ExternalBindingSpec
+    , envPSpec            :: PrescriptiveBindingSpec
     , envIncludeGraph     :: IncludeGraph
     , envNonSelectedDecls :: NonSelectedDecls
     }
@@ -113,8 +109,7 @@ initMState :: PrescriptiveBindingSpec -> MState
 initMState pSpec = MState {
       stateErrors    = []
     , stateExtTypes  = Map.empty
-    , stateNoPTypes  = Map.keysSet $
-        BindingSpec.bindingSpecTypes $ bindingSpecResolved pSpec
+    , stateNoPTypes  = BindingSpec.getTypes pSpec
     , stateOmitTypes = Set.empty
     }
 

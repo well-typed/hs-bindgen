@@ -1,9 +1,12 @@
 -- | Binding specification
 --
+-- This /private/ module may only be used by "HsBindgen.BindingSpec" and
+-- sub-modules.
+--
 -- Intended for qualified import.
 --
--- > import HsBindgen.BindingSpec.Internal qualified as BindingSpec
-module HsBindgen.BindingSpec.Internal (
+-- > import HsBindgen.BindingSpec.Private qualified as BindingSpec
+module HsBindgen.BindingSpec.Private (
     -- * Types
     BindingSpec(..)
   , UnresolvedBindingSpec

@@ -1,12 +1,14 @@
 -- | Standard library external binding specification
 --
+-- This /private/ module may only be used by "HsBindgen.BindingSpec".
+--
 -- Intended for qualified import.
 --
--- > import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
+-- > import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 --
 -- The types for these bindings are defined in @HsBindgen.Runtime.Prelude@ in
 -- the @hs-bindgen-runtime@ library, in the same order.
-module HsBindgen.BindingSpec.Stdlib (
+module HsBindgen.BindingSpec.Private.Stdlib (
     -- * Binding specification
     bindingSpec
   ) where
@@ -15,7 +17,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import Clang.Paths
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
+import HsBindgen.BindingSpec.Private qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C

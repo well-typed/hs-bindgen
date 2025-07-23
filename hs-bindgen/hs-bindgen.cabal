@@ -76,8 +76,8 @@ library internal
       HsBindgen.Backend.TH.Translation
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen
-      HsBindgen.BindingSpec.Stdlib
-      HsBindgen.BindingSpec.Internal
+      HsBindgen.BindingSpec.Private
+      HsBindgen.BindingSpec.Private.Stdlib
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
@@ -385,7 +385,6 @@ test-suite test-hs-bindgen
     , test-common
   build-depends:
       -- Inherited dependencies
-    , containers
     , debruijn
     , directory
     , filepath

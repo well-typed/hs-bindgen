@@ -7,7 +7,7 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
 import Control.Exception (Exception (..))
 import Data.Text qualified as Text
 
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming

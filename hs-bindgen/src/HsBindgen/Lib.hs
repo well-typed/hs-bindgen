@@ -36,12 +36,14 @@ module HsBindgen.Lib (
     -- ** Binding specifications
   , Common.BindingSpec -- opaque
   , Common.emptyBindingSpec
+  , BindingSpec.ExternalBindingSpec
+  , BindingSpec.PrescriptiveBindingSpec
   , Common.EnableStdlibBindingSpec(..)
-  , Pipeline.loadExtBindingSpecs
-  , Pipeline.loadPrescriptiveBindingSpec
-  , Pipeline.getStdlibBindingSpec
-  , Pipeline.encodeBindingSpecJson
-  , Pipeline.encodeBindingSpecYaml
+  , BindingSpec.loadExtBindingSpecs
+  , BindingSpec.loadPrescriptiveBindingSpec
+  , BindingSpec.getStdlibBindingSpec
+  , BindingSpec.encodeBindingSpecJson
+  , BindingSpec.encodeBindingSpecYaml
 
     -- ** Translation options
   , Common.TranslationOpts(..)
@@ -103,6 +105,8 @@ import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
+import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
@@ -169,10 +173,7 @@ genBindingSpec ::
   -> HsDecls
   -> IO ()
 genBindingSpec config headerIncludePaths path =
-      Pipeline.genBindingSpec
-        config
-        headerIncludePaths
-        path
+      BindingSpec.genBindingSpec config headerIncludePaths path
     . unwrapHsDecls
 
 {-------------------------------------------------------------------------------

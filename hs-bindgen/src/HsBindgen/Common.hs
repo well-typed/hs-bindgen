@@ -4,9 +4,9 @@ module HsBindgen.Common (
     Config.Config(..)
 
     -- * Binding specifications
-  , Pipeline.BindingSpec -- opaque
-  , Pipeline.EnableStdlibBindingSpec(..)
-  , Pipeline.emptyBindingSpec
+  , BindingSpec.BindingSpec -- opaque
+  , BindingSpec.EnableStdlibBindingSpec(..)
+  , BindingSpec.emptyBindingSpec
 
     -- ** Clang arguments
   , Args.ClangArgs(..)
@@ -67,12 +67,12 @@ import System.FilePath qualified as FilePath
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Config qualified as Config
 import HsBindgen.Frontend.Pass.Slice.IsPass qualified as Slice
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
-import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.TraceMsg qualified as TraceMsg
 import HsBindgen.Util.Tracer qualified as Tracer

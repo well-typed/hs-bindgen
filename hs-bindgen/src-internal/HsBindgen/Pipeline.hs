@@ -24,25 +24,11 @@ module HsBindgen.Pipeline (
   , hashIncludeWith
   , genBindingsFromCHeader
 
-    -- * Binding specifications
-  , BindingSpec (..)
-  , emptyBindingSpec
-  , EnableStdlibBindingSpec (..)
-  , loadExtBindingSpecs
-  , loadPrescriptiveBindingSpec
-  , getStdlibBindingSpec
-  , encodeBindingSpecJson
-  , encodeBindingSpecYaml
-  , genBindingSpec
-
     -- * Test generation
   , genTests
   ) where
 
-import Data.ByteString qualified as BSS
-import Data.ByteString.Lazy qualified as BSL
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
 
@@ -54,10 +40,8 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
-import HsBindgen.BindingSpec
-import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
-import HsBindgen.BindingSpec.Stdlib qualified as Stdlib
+import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend.AST.External qualified as C
@@ -66,7 +50,6 @@ import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Simplify (simplifySHs)
@@ -242,13 +225,17 @@ hashIncludeWith tracer config@Config{..} fps = do
     -- TODO #703: For now, we only load binding spec defaults. We should
     -- however, have configuration options.
     extBindingSpec <- liftIO $
-      loadExtBindingSpecs tracerIO configClangArgs EnableStdlibBindingSpec []
+      BindingSpec.loadExtBindingSpecs
+        (contramap TraceBindingSpec tracerIO)
+        configClangArgs
+        BindingSpec.EnableStdlibBindingSpec
+        []
     unit <- TH.runIO $
       parseCHeaders
         tracerIO
         config
         extBindingSpec
-        emptyBindingSpec
+        BindingSpec.emptyBindingSpec
         headerIncludePaths
     genBindingsFromCHeader config unit
 
@@ -278,90 +265,6 @@ genBindingsFromCHeader config unit = do
     genTH sdecls
   where
     C.TranslationUnit{unitDecls, unitDeps} = unit
-
-{-------------------------------------------------------------------------------
-  Binding specifications
--------------------------------------------------------------------------------}
-
--- | Configure if the @stdlib@ binding specification should be used
-data EnableStdlibBindingSpec =
-    -- | Automatically include @stdlib@
-    EnableStdlibBindingSpec
-  | DisableStdlibBindingSpec
-  deriving stock (Show, Eq)
-
--- | Load external binding specifications
---
--- The format is determined by filename extension.  The following formats are
--- supported:
---
--- * YAML (@.yaml@ extension)
--- * JSON (@.json@ extension)
-loadExtBindingSpecs ::
-     Tracer IO TraceMsg
-  -> ClangArgs
-  -> EnableStdlibBindingSpec
-  -> [FilePath]
-  -> IO BindingSpec
-loadExtBindingSpecs tracer args stdlibSpec =
-      fmap (uncurry BindingSpec)
-    . BindingSpec.load
-        (contramap TraceBindingSpec tracer)
-        BindingSpec.BindingSpecResolveExternalHeader
-        args
-        stdSpec
-  where
-    stdSpec :: BindingSpec.UnresolvedBindingSpec
-    stdSpec = case stdlibSpec of
-      EnableStdlibBindingSpec  -> Stdlib.bindingSpec
-      DisableStdlibBindingSpec -> BindingSpec.empty
-
--- | Load prescriptive binding specification
---
--- The format is determined by filename extension.  The following formats are
--- supported:
---
--- * YAML (@.yaml@ extension)
--- * JSON (@.json@ extension)
-loadPrescriptiveBindingSpec ::
-     Tracer IO TraceMsg
-  -> ClangArgs
-  -> FilePath
-  -> IO BindingSpec
-loadPrescriptiveBindingSpec tracer args path = uncurry BindingSpec <$>
-    BindingSpec.load
-      (contramap TraceBindingSpec tracer)
-      BindingSpec.BindingSpecResolvePrescriptiveHeader
-      args
-      BindingSpec.empty
-      [path]
-
-getStdlibBindingSpec ::
-     Tracer IO TraceMsg
-  -> ClangArgs
-  -> IO BindingSpec
-getStdlibBindingSpec tracer args =
-    loadExtBindingSpecs tracer args EnableStdlibBindingSpec []
-
-encodeBindingSpecJson :: BindingSpec -> BSL.ByteString
-encodeBindingSpecJson = BindingSpec.encodeJson . bindingSpecUnresolved
-
-encodeBindingSpecYaml :: BindingSpec -> BSS.ByteString
-encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
-
--- | Generate binding specification
-genBindingSpec ::
-     Config
-  -> [CHeaderIncludePath]
-  -> FilePath
-  -> [Hs.Decl]
-  -> IO ()
-genBindingSpec Config{..} headerIncludePaths path =
-      BindingSpec.writeFile path
-    . BindingSpec.genBindingSpec headerIncludePaths moduleName
-  where
-    moduleName :: HsModuleName
-    moduleName = HsModuleName $ Text.pack (hsModuleOptsName configHsModuleOpts)
 
 {-------------------------------------------------------------------------------
   Test generation

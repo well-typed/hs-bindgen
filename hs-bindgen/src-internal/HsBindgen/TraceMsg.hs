@@ -17,7 +17,7 @@ module HsBindgen.TraceMsg (
   ) where
 
 import Clang.HighLevel.Types (Diagnostic (..))
-import HsBindgen.BindingSpec.Internal (BindingSpecMsg (..))
+import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.C.Reparse.Infra (ReparseError (..))
 import HsBindgen.C.Tc.Macro (TcMacroError (..))
 import HsBindgen.Clang (ClangMsg (..))
