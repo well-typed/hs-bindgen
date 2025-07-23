@@ -133,7 +133,6 @@ structDecl info = simpleFold $ \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
-        comment   <- clang_getComment curr
 
         let mkStruct :: [C.StructField Parse] -> C.Decl Parse
             mkStruct fields = C.Decl {
@@ -143,7 +142,6 @@ structDecl info = simpleFold $ \curr -> do
                   , structAlignment = fromIntegral alignment
                   , structFields    = fields
                   , structAnn       = NoAnn
-                  , structComment   = comment
                   }
               , declAnn  = NoAnn
               }
@@ -199,7 +197,6 @@ unionDecl info = simpleFold $ \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
-        comment   <- clang_getComment curr
 
         let mkUnion :: [C.UnionField Parse] -> C.Decl Parse
             mkUnion fields = C.Decl{
@@ -209,7 +206,6 @@ unionDecl info = simpleFold $ \curr -> do
                     , unionAlignment = fromIntegral alignment
                     , unionFields    = fields
                     , unionAnn       = NoAnn
-                    , unionComment   = comment
                     }
                 , declAnn  = NoAnn
                 }
@@ -297,14 +293,12 @@ typedefDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 typedefDecl info = simpleFold $ \curr -> do
     typedefType <- fromCXType =<< clang_getTypedefDeclUnderlyingType curr
     typedefAnn  <- getReparseInfo curr
-    typedefComment <- clang_getComment curr
     let decl :: C.Decl Parse
         decl = C.Decl{
             declInfo = info
           , declKind = C.DeclTypedef C.Typedef{
                 typedefType
               , typedefAnn
-              , typedefComment
               }
           , declAnn  = NoAnn
           }
@@ -325,7 +319,6 @@ enumDecl info = simpleFold $ \curr -> do
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
         ety       <- fromCXType =<< clang_getEnumDeclIntegerType curr
-        comment   <- clang_getComment curr
 
         let mkEnum :: [C.EnumConstant Parse] -> C.Decl Parse
             mkEnum constants = C.Decl{
@@ -336,7 +329,6 @@ enumDecl info = simpleFold $ \curr -> do
                   , enumAlignment = fromIntegral alignment
                   , enumConstants = constants
                   , enumAnn       = NoAnn
-                  , enumComment   = comment
                   }
               , declAnn  = NoAnn
               }
@@ -378,7 +370,6 @@ functionDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn <- getReparseInfo curr
-    functionComment <- clang_getComment curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
         mkDecl purity = C.Decl{
             declInfo = info
@@ -387,7 +378,6 @@ functionDecl info = simpleFold $ \curr -> do
               , functionRes
               , functionAttrs = C.FunctionAttributes purity
               , functionAnn
-              , functionComment
               }
           , declAnn  = NoAnn
           }

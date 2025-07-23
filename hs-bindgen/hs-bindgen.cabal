@@ -145,6 +145,8 @@ library internal
       HsBindgen.Hs.AST.SigmaType
       HsBindgen.Hs.AST.Strategy
       HsBindgen.Hs.AST.Type
+      HsBindgen.Hs.Haddock.Documentation
+      HsBindgen.Hs.Haddock.Translation
       HsBindgen.Hs.Origin
       HsBindgen.Hs.Translation
       HsBindgen.Hs.CallConv

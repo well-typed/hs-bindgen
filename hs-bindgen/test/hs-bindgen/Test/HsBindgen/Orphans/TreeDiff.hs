@@ -22,6 +22,7 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type qualified as HsType
 import HsBindgen.Hs.CallConv qualified as Hs
+import HsBindgen.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -119,6 +120,13 @@ instance ToExpr Hs.ExtHsRef
 instance ToExpr Hs.CallConv
 instance ToExpr Hs.ImportStyle
 
+instance ToExpr Hs.Comment
+instance ToExpr Hs.ListType
+instance ToExpr Hs.HeaderLevel
+instance ToExpr Hs.CommentBlockContent
+instance ToExpr Hs.CommentInlineContent
+instance ToExpr Hs.CommentMeta
+
 instance ToExpr (C.MExpr C.Ps) where
   toExpr = \case
     C.MTerm tm ->
@@ -203,6 +211,10 @@ instance ToExpr Hs.PatSyn
 instance ToExpr Hs.StorableInstance
 instance ToExpr t => ToExpr (Hs.Strategy t)
 instance ToExpr Hs.VarDecl
+instance ToExpr Hs.UnionGetter
+instance ToExpr Hs.UnionSetter
+instance ToExpr Hs.DefineInstance
+instance ToExpr Hs.DeriveInstance
 
 instance ToExpr a => ToExpr (Origin.Decl a)
 instance ToExpr Origin.EmptyData
@@ -232,8 +244,8 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclPatSyn" [toExpr patSyn]
     Hs.DeclDefineInstance inst ->
       Expr.App "DeclInstance" [toExpr inst]
-    Hs.DeclDeriveInstance strategy typeClass name ->
-      Expr.App "DeclNewtypeInstance" [toExpr strategy, toExpr typeClass, toExpr name]
+    Hs.DeclDeriveInstance di ->
+      Expr.App "DeclNewtypeInstance" [toExpr di]
     Hs.DeclInlineCInclude header ->
       Expr.App "DeclInlineCInclude" [toExpr header]
     Hs.DeclInlineC src ->
@@ -242,10 +254,10 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclForeignImport" [toExpr foreignImport]
     Hs.DeclVar v ->
       Expr.App "DeclVar" [toExpr v]
-    Hs.DeclUnionGetter u f n ->
-      Expr.App "DeclUnionGetter" [toExpr u, toExpr f, toExpr n]
-    Hs.DeclUnionSetter u f n ->
-      Expr.App "DeclUnionSetter" [toExpr u, toExpr f, toExpr n]
+    Hs.DeclUnionGetter ug ->
+      Expr.App "DeclUnionGetter" [toExpr ug]
+    Hs.DeclUnionSetter us ->
+      Expr.App "DeclUnionSetter" [toExpr us]
     Hs.DeclSimple _d ->
       Expr.App "DeclSimple" [] -- TODO: no ToExpr SDecl
 

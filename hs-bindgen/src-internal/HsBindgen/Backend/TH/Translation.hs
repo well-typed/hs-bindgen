@@ -491,10 +491,9 @@ mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
-      DComment {} -> return []
-      DVar x ty tm -> sequence
-          [ TH.sigD (hsNameToTH x) (mkType EmptyEnv ty)
-          , simpleDecl (hsNameToTH x) tm
+      DVar Var {..} -> sequence
+          [ TH.sigD (hsNameToTH varName) (mkType EmptyEnv varType)
+          , simpleDecl (hsNameToTH varName) varExpr
           ]
 
       DInst i  -> singleton <$> TH.instanceD
@@ -541,9 +540,9 @@ mkDecl = \case
                [field])
                (nestedDeriving $ newtypeDeriv n)
 
-      DDerivingInstance s ty -> do
-          s' <- strategy s
-          singleton <$> TH.standaloneDerivWithStrategyD (Just s') (TH.cxt []) (mkType EmptyEnv ty)
+      DDerivingInstance DerivingInstance {..} -> do
+          s' <- strategy derivingInstanceStrategy
+          singleton <$> TH.standaloneDerivWithStrategyD (Just s') (TH.cxt []) (mkType EmptyEnv derivingInstanceType)
 
       DForeignImport ForeignImport {..} -> fmap (singleton . TH.ForeignD) $ do
           -- Variable names here refer to the syntax of foreign declarations at

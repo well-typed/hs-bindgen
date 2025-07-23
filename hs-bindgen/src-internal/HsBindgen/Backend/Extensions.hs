@@ -12,10 +12,8 @@ import HsBindgen.Hs.AST (Strategy (..))
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
-    DComment {} -> mconcat [
-      ]
-    DVar _name ty _expr -> mconcat [
-        typeExtensions ty
+    DVar Var {..} -> mconcat [
+        typeExtensions varType
       ]
     DInst x -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
@@ -31,13 +29,13 @@ requiredExtensions = \case
     DEmptyData{} -> mconcat [
         ext TH.EmptyDataDecls
       ]
-    DDerivingInstance strategy ty -> mconcat [
+    DDerivingInstance DerivingInstance {..} -> mconcat [
         Set.fromList [
             TH.DerivingStrategies
           , TH.StandaloneDeriving
           ]
-      , strategyExtensions strategy
-      , typeExtensions ty
+      , strategyExtensions derivingInstanceStrategy
+      , typeExtensions derivingInstanceType
       ]
     DForeignImport ForeignImport{foreignImportType} -> mconcat [
         -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774

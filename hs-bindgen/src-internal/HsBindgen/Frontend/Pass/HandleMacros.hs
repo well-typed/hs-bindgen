@@ -214,7 +214,6 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
         , declKind = C.DeclTypedef C.Typedef {
               typedefType = coercePass typedefType
             , typedefAnn  = NoAnn
-            , typedefComment = Nothing
             }
         , declAnn  = NoAnn
         }
@@ -225,7 +224,6 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
         , declKind = C.DeclTypedef C.Typedef{
               typedefType = ty
             , typedefAnn  = NoAnn
-            , typedefComment = Nothing
             }
         , declAnn  = NoAnn
         }
@@ -401,7 +399,7 @@ reparseMacro typeEnv tokens = do
         TypeMacro typeName ->
           case Reparse.typeNameType typeName of
             Right typ ->
-              return (inf, C.MacroType $ C.CheckedMacroType typ NoAnn Nothing)
+              return (inf, C.MacroType $ C.CheckedMacroType typ NoAnn)
             Left err ->
               Left (HandleMacrosErrorUnsupportedType err)
         EmptyMacro ->

@@ -71,7 +71,6 @@ instance (
       , structAlignment
       , structFields = map coercePass structFields
       , structAnn
-      , structComment
       }
 
 instance (
@@ -98,7 +97,6 @@ instance (
       , unionAlignment
       , unionFields = map coercePass unionFields
       , unionAnn
-      , unionComment
       }
 
 instance (
@@ -121,7 +119,6 @@ instance (
   coercePass Typedef{..} = Typedef {
         typedefType = coercePass typedefType
       , typedefAnn
-      , typedefComment
       }
 
 instance (
@@ -135,7 +132,6 @@ instance (
       , enumAlignment
       , enumConstants = map coercePass enumConstants
       , enumAnn
-      , enumComment
       }
 
 instance (
@@ -157,7 +153,6 @@ instance (
       , functionRes  = coercePass functionRes
       , functionAttrs
       , functionAnn
-      , functionComment
       }
 
 instance (
@@ -173,7 +168,6 @@ instance (
   coercePass CheckedMacroType{..} = CheckedMacroType {
         macroType = coercePass macroType
       , macroTypeAnn
-      , macroTypeComment
       }
 
 instance (

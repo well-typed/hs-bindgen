@@ -21,19 +21,16 @@ import System.IO
 
 import HsBindgen.Backend.PP.Names
 import HsBindgen.Backend.PP.Translation
-import HsBindgen.Frontend.AST.External
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Hs.CallConv
+import HsBindgen.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
-import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.SHs.AST
 import Text.SimplePrettyPrint
-
-import Clang.HighLevel.Documentation qualified as C
 
 import C.Char (CharValue (..))
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
@@ -105,12 +102,12 @@ instance Pretty ImportListItem where
   Comment pretty-printing
 -------------------------------------------------------------------------------}
 
--- | Here we generate valid Haddock for 'C.Comment'. There are roughly 3 types
+-- | Here we generate valid Haddock for 'Hs.Comment'. There are roughly 3 types
 -- of Haddocks that we might be able to generate:
 --
 -- * Module Description Commments: Unfortunately, libclang doesn't allow us to
 -- parse module level comments because they are not associated with any AST
--- node. Assuming that the this comment is not immediately followed by a
+-- node. Assuming that the comment is not immediately followed by a
 -- declaration, in that case the module level comment will get confused with a
 -- top level declaration comment.
 --
@@ -129,249 +126,74 @@ instance Pretty ImportListItem where
 -- these two.
 --
 data CommentKind
-  = TopLevelComment C.Comment
-  | PartOfDeclarationComment C.Comment
+  = TopLevelComment Hs.Comment
+  | PartOfDeclarationComment Hs.Comment
 
 instance Pretty CommentKind where
   pretty commentKind =
-    let (commentStart, C.Comment {..}) =
+    let (commentStart, Hs.Comment {..}) =
           case commentKind of
             TopLevelComment c          -> ("{-|", c)
             PartOfDeclarationComment c -> ("{- ^", c)
         indentation = length commentStart - 1
-     in case commentChildren of
-          [] | Text.null commentCName -> empty
-             | otherwise              -> "-- | __from C:__ @" >< textToCtxDoc commentCName >< "@"
-          (h:rest) ->
-            let firstContent =
-                  case h of
-                    C.Paragraph [C.TextContent ""] -> empty
-                    _ -> pretty h
-             in vcat
-              $ string commentStart <+> firstContent
-              : map (nest indentation . pretty) rest
-              ++ [ nest indentation ("__from C:__ @" >< textToCtxDoc commentCName >< "@")
-                 , "-}"
-                 ]
+        fromCCtxDoc =
+          case commentOrigin of
+            Nothing    -> empty
+            Just cName -> "__from C:__ @" >< textToCtxDoc cName >< "@"
+        firstContent =
+          case commentTitle of
+            Nothing -> empty
+            Just ct -> hsep (map pretty ct)
+     in  vsep (string commentStart <+> firstContent
+              : map (nest indentation . pretty) commentChildren)
+      $$ vcat [ ""
+              , nest indentation fromCCtxDoc
+              , "-}"
+              ]
 
-instance Pretty C.CommentBlockContent where
+instance Pretty Hs.CommentBlockContent where
   pretty = \case
-    C.Paragraph{..} ->
-      formatParagraphContent paragraphContent
+    Hs.Paragraph{..}      -> hsep
+                           . map pretty
+                           $ paragraphContent
+    Hs.CodeBlock{..}      -> vcat
+                           $ ["@"]
+                          ++ map textToCtxDoc codeBlockLines ++ ["@"]
+    Hs.Verbatim{..}      -> ">" <+> textToCtxDoc verbatimContent
+    Hs.Example{..}        -> ">>>" <+> textToCtxDoc exampleContent
+    Hs.Property{..}       -> "prop>" <+> textToCtxDoc propertyContent
+    Hs.ListItem{..}       ->
+      let listMarker =
+            case listItemType of
+              Hs.BulletList -> "*"
+              Hs.NumberedList n -> showToCtxDoc n >< "."
+       in listMarker <+> vcat (map pretty listItemContent)
+    Hs.DefinitionList{..} -> "["
+                          >< pretty definitionListTerm
+                          >< "]:"
+                         <+> vcat (map pretty definitionListContent)
+    Hs.Header{..}         -> string (replicate (fromEnum headerLevel) '=')
+                         <+> (hsep $ map pretty headerContent)
 
-    -- Only commands that can be associated with declarations are supported.
-    -- Other commands are ignored.
-    C.BlockCommand{..} ->
-      let args = if null blockCommandArgs
-                    then empty
-                    else hsep (map textToCtxDoc blockCommandArgs)
-          inlinePrettyDoc = formatParagraphContent blockCommandParagraph
-          inlinePrettyDocWithArgs = args <+> inlinePrettyDoc
-       in case Text.unpack blockCommandName of
-            "anchor"          -> "#" >< inlinePrettyDocWithArgs >< "#"
-            "attention"       -> "__/ATTENTION:/__" <+> inlinePrettyDocWithArgs
-            "brief"           -> inlinePrettyDocWithArgs
-            "details"         -> inlinePrettyDocWithArgs
-            "deprecated"      -> "__deprecated:__" <+> inlinePrettyDocWithArgs
-            "dir"             -> "[" >< inlinePrettyDocWithArgs >< "]"
-                              >< "(" >< inlinePrettyDocWithArgs >< ")"
-            "example"         -> "__example:__" <+> inlinePrettyDoc
-                              >< if null blockCommandArgs
-                                    then empty
-                                    else "at line" >< args
-            "exception"       -> "__exception:__" <+> inlinePrettyDocWithArgs
-            "important"       -> "__important:__" <+> inlinePrettyDocWithArgs
-            "invariant"       -> "__invariant:__" <+> inlinePrettyDocWithArgs
-            "li"              -> "*" <+> inlinePrettyDocWithArgs
-            "note"            -> "__NOTE:__" <+> inlinePrettyDocWithArgs
-            "par"             -> "__" >< args >< "__\n"
-                              $$ inlinePrettyDoc
-            "paragraph"       -> "__" >< args >< "__\n"
-                              $$ inlinePrettyDoc
-            "subparagraph"    -> "__" >< args >< "__\n"
-                              $$ inlinePrettyDoc
-            "subsubparagraph" -> "__" >< args >< "__\n"
-                              $$ inlinePrettyDoc
-            "pre"             -> "__pre condition:__"  <+> inlinePrettyDocWithArgs
-            "post"            -> "__post condition:__" <+> inlinePrettyDocWithArgs
-            "property"        -> "prop>" <+> inlinePrettyDocWithArgs
-            "ref"             -> "[" >< args >< "]"
-                              >< "(" >< inlinePrettyDocWithArgs >< ")"
-            "raisewarning"    -> "__/WARNING:/__" <+> inlinePrettyDocWithArgs
-            "remark"          -> "__remark:__" <+> inlinePrettyDocWithArgs
-            "remarks"         -> "__remark:__" <+> inlinePrettyDocWithArgs
-            "result"          -> "__returns:__" <+> inlinePrettyDocWithArgs
-            "return"          -> "__returns:__" <+> inlinePrettyDocWithArgs
-            "returns"         -> "__returns:__" <+> inlinePrettyDocWithArgs
-            "retval"          -> "__returns:__" <+> inlinePrettyDocWithArgs
-            "sa"              -> "__see:__" <+> inlinePrettyDocWithArgs
-            "section"         -> "==" <+> "#" >< args >< "#" <+> inlinePrettyDocWithArgs
-            "see"             -> "__see:__" <+> inlinePrettyDocWithArgs
-            "short"           -> inlinePrettyDocWithArgs
-            "since"           -> "@since:" <+> inlinePrettyDocWithArgs
-            "subsection"      -> "===" <+> "#" >< args >< "#" <+> inlinePrettyDoc
-            "subsubsection"   -> "====" <+> "#" >< args >< "#" <+> inlinePrettyDoc
-            "throw"           -> "__exception:__" <+> inlinePrettyDocWithArgs
-            "throws"          -> "__exception:__" <+> inlinePrettyDocWithArgs
-            "todo"            -> "__TODO:__" <+> inlinePrettyDocWithArgs
-            "warning"         -> "__/WARNING:/__" <+> inlinePrettyDocWithArgs
 
-            -- Unvalid commands are ignored
-            _             -> empty
-
-    C.ParamCommand{..} ->
-      let dirStr = case paramCommandDirection of
-            Nothing                                  -> empty
-            Just C.CXCommentParamPassDirection_In    -> "/(input)/"
-            Just C.CXCommentParamPassDirection_Out   -> "/(output)/"
-            Just C.CXCommentParamPassDirection_InOut -> "/(input,output)/"
-      in  "*"  <+> "__@" >< textToCtxDoc paramCommandName >< "@" <+> dirStr
-                >< "__" <+> "-" <+> hsep (map pretty paramCommandContent)
-
-    -- In C T Params are not used but we output them similarly to
-    -- ParamCommand above
-    C.TParamCommand{..} ->
-          "*" <+> "__@" >< textToCtxDoc tParamCommandName >< "@"
-               >< "__" <+> "-" <+> hsep (map pretty tParamCommandContent)
-
-    C.VerbatimBlockCommand{..} ->
-      vcat (["@"] ++ map textToCtxDoc verbatimBlockLines ++ ["@\n"])
-
-    C.VerbatimLine{..} ->
-      ">" <+> textToCtxDoc verbatimLine >< "\n"
-
--- | There might be list items that we want to pretty print. To find them we
--- will group all list paragraphs, if any, and collect all their contents
--- until the next list item marker.
---
--- After that all we have to do is to hsep the inner groups and vcat the outer
--- group.
---
--- When formatting the list items, we just have to address that numbered lists
--- can be created by using a '-#'.
---
-formatParagraphContent :: [C.CommentInlineContent] -> CtxDoc
-formatParagraphContent = vcat
-                       . processGroups 1 []
-                       . groupListParagraphs
-                       -- Filter unnecessary spaces that will lead to excess
-                       -- of new lines
-                       . filter (\case
-                                    C.TextContent "" -> False
-                                    _                -> True
-                                )
-  where
-    processGroups :: Int -> [CtxDoc] -> [[C.CommentInlineContent]] -> [CtxDoc]
-    processGroups _ acc [] = reverse acc
-    processGroups n acc (group:rest) =
-      case group of
-        [] -> processGroups n acc rest
-        (h@(C.TextContent t) : restContent)
-          | isListMarker h ->
-            case convertListMarker t n of
-              Nothing ->
-                processGroups n (hsep (map pretty group) : acc) rest
-              Just (marker, afterMarker, isHash) ->
-                let lastItem  = if null rest then "\n" else empty
-                    nextN     = if isHash then n + 1 else n
-                    formatted = marker <+> hsep (map pretty (C.TextContent afterMarker : restContent)) >< lastItem
-                in processGroups nextN (formatted : acc) rest
-        _ -> processGroups n (hsep (map pretty group) >< "\n" : acc) rest
-
--- | Group inline content by list items
---
--- If the paragraphs contains list items, each list item and its content
--- will be in a separate group. Otherwise, returns a singleton list.
---
-groupListParagraphs :: [C.CommentInlineContent] -> [[C.CommentInlineContent]]
-groupListParagraphs [] = []
--- Check if first item is a list marker
-groupListParagraphs (h : rest)
-  | isListMarker h =
-    let (itemContent, remaining) = break isListMarker rest
-     in (h : itemContent) : groupListParagraphs remaining
--- Not a list item, check if there are any list items later
-groupListParagraphs contents =
-  let (nonItemContent, remaining) = break isListMarker contents
-   in case remaining of
-        [] -> [nonItemContent]
-        _  -> nonItemContent : groupListParagraphs remaining
-
--- | Check if text starts with a list marker
-isListMarker :: C.CommentInlineContent -> Bool
-isListMarker (C.TextContent t) =
-  case Text.unpack t of
-    ('-':' ':_)     -> True
-    ('-':'#':' ':_) -> True
-    ('*':' ':_)     -> True
-    ('+':' ':_)     -> True
-    _ -> case span Data.Char.isDigit (Text.unpack t) of
-          ((_:_), '.':' ':_) -> True
-          _                  -> False
-isListMarker _ = False
-
--- | Correctly format a valid Haddock list marker item.
--- If the Text provided is a list marker, then return the pretty formatted
--- marker, the remaining item text and a flag stating if the marker was a
--- hashtag or not. The flag will be used to correctly build a numerical list.
---
-convertListMarker :: Text -> Int ->  Maybe (CtxDoc, Text, Bool)
-convertListMarker text i =
-  case Text.unpack text of
-    ('-':'#':' ':rest) ->
-      Just (showToCtxDoc i >< ".", Text.pack rest, True)
-    ('-':' ':rest) -> Just ("*", Text.pack rest, False)
-    ('*':' ':rest) -> Just ("*", Text.pack rest, False)
-    ('+':' ':rest) -> Just ("*", Text.pack rest, False)
-    _ -> case span Data.Char.isDigit (Text.unpack text) of
-      (digits@(_:_), '.':' ':rest) ->
-        Just (string (digits ++ "."), Text.pack rest, False)
-      _ -> Nothing
-
-instance Pretty C.CommentInlineContent where
+instance Pretty Hs.CommentInlineContent where
   pretty = \case
-    C.TextContent{..} -> textToCtxDoc textContent
+    Hs.TextContent{..} -> textToCtxDoc textContent
+    Hs.Monospace{..}   -> "@" >< hsep (map pretty monospaceContent) >< "@"
+    Hs.Emph{..}        -> "/" >< hsep (map pretty emphContent) >< "/"
+    Hs.Bold{..}        -> "__" >< hsep (map pretty boldContent) >< "__"
+    Hs.Module{..}      -> "\"" >< textToCtxDoc moduleContent >< "\""
+    Hs.Identifier{..}  -> "'" >< textToCtxDoc identifierContent >< "'"
+    Hs.Type{..}        -> "t'" >< textToCtxDoc typeContent
+    Hs.Link{..}        -> "[" >< hsep (map pretty linkLabel) >< "]"
+                       >< "(" >< textToCtxDoc linkURL >< ")"
+    Hs.URL{..}         -> "<" >< textToCtxDoc urlContent >< ">"
+    Hs.Anchor{..}      -> "#" >< textToCtxDoc anchorContent >< "#"
+    Hs.Math{..}        -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
+    Hs.Metadata{..}    -> pretty metadataContent
 
-    -- Here we mostly care about render kind since most of the comments are
-    -- already taken care of by libclang parser, e.g. \&, \#, et al.
-    C.InlineCommand{..} ->
-      let argsDoc = hsep (map textToCtxDoc inlineCommandArgs)
-       in case inlineCommandRenderKind of
-            C.CXCommentInlineCommandRenderKind_Normal     -> argsDoc
-            C.CXCommentInlineCommandRenderKind_Bold       -> "__" >< argsDoc >< "__"
-            C.CXCommentInlineCommandRenderKind_Monospaced -> "@"  >< argsDoc >< "@"
-            C.CXCommentInlineCommandRenderKind_Emphasized -> "/"  >< argsDoc >< "/"
-            C.CXCommentInlineCommandRenderKind_Anchor     -> "#"  >< argsDoc >< "#"
-
-    C.HtmlStartTag{..} ->
-      -- Convert common HTML tags to Haddock equivalents
-      case Text.unpack htmlStartTagName of
-        "b"      -> "__"
-        "i"      -> "/"
-        "code"   -> "@"
-        "em"     -> "/"
-        "strong" -> "__"
-        "tt"     -> "@"
-        _        ->
-          -- Keep other HTML tags as-is (Haddock supports HTML)
-          let attrs = if null htmlStartTagAttributes
-                      then empty
-                      else hsep (map formatAttr htmlStartTagAttributes)
-              formatAttr (name, value) = textToCtxDoc name >< "="
-                                      >< "\"" >< textToCtxDoc value >< "\""
-              closing = if htmlStartTagIsSelfClosing then "/" else ""
-          in "<" >< textToCtxDoc htmlStartTagName <+> attrs >< closing >< ">"
-
-    C.HtmlEndTag{..} ->
-      -- Convert common HTML end tags to Haddock equivalents
-      case Text.unpack htmlEndTagName of
-        "b"      -> "__"
-        "i"      -> "/"
-        "code"   -> "@"
-        "em"     -> "/"
-        "strong" -> "__"
-        "tt"     -> "@"
-        _        -> "</" >< textToCtxDoc htmlEndTagName >< ">"
+instance Pretty Hs.CommentMeta where
+  pretty Hs.Since{..} = "@since:" <+> textToCtxDoc sinceContent
 
 {-------------------------------------------------------------------------------
   Declaration pretty-printing
@@ -379,14 +201,14 @@ instance Pretty C.CommentInlineContent where
 
 instance Pretty SDecl where
   pretty = \case
-    DComment s -> pretty (TopLevelComment s)
-
-    DVar name ty expr ->
-      (pretty name <+> string "::" <+> pretty ty)
+    DVar Var {..} ->
+      maybe empty (pretty . TopLevelComment) varComment
+      $$
+      (pretty varName <+> string "::" <+> pretty varType)
       $$
       fsep
-        [ pretty name <+> char '='
-        , nest 2 $ pretty expr
+        [ pretty varName <+> char '='
+        , nest 2 $ pretty varExpr
         ]
 
     DInst Instance{..} ->
@@ -403,14 +225,12 @@ instance Pretty SDecl where
             [ ppUnqualBackendName (resolve name) <+> char '='
             , nest 2 (pretty expr)
             ]
-      in  vsep $ inst : typs ++ decs
+          prettyTopLevelComment = maybe empty (pretty . TopLevelComment) instanceComment
+      in  vsep $ prettyTopLevelComment : inst : typs ++ decs
 
     DRecord Record{..} ->
       let d = hsep ["data", pretty dataType, char '=', pretty dataCon]
-          prettyTopLevelComment =
-            case declComment (Origin.declInfo dataOrigin) of
-              Nothing -> empty
-              Just c  -> pretty (TopLevelComment c)
+          prettyTopLevelComment = maybe empty (pretty . TopLevelComment) dataComment
       in  prettyTopLevelComment
        $$ (hang d 2 $ vcat [
             vlist '{' '}'
@@ -418,32 +238,22 @@ instance Pretty SDecl where
                       , "::"
                       , pretty (fieldType f)
                       ]
-              $$ fieldComment
+              $$ prettyFieldComment
               | f <- dataFields
-              , let fieldComment = case fieldOrigin f of
-                      Origin.GeneratedField                     -> empty
-                      Origin.StructField sf
-                        | Just comment <- structFieldComment sf ->
-                          pretty (PartOfDeclarationComment comment)
-                        | otherwise -> empty
+              , let prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment f)
               ]
           , nestedDeriving dataDeriv
           ])
 
     DEmptyData EmptyData{..} ->
-      let prettyComment =
-            case declComment (Origin.declInfo emptyDataOrigin) of
-              Nothing -> empty
-              Just c  -> pretty (TopLevelComment c)
+      let prettyComment = maybe empty (pretty . TopLevelComment) emptyDataComment
        in  prettyComment
         $$ hsep ["data", pretty emptyDataName]
 
     DNewtype Newtype{..} ->
       let d = hsep ["newtype", pretty newtypeName, char '=', pretty newtypeCon]
-          prettyComment =
-            case declComment (Origin.declInfo newtypeOrigin) of
-              Nothing -> empty
-              Just c  -> pretty (TopLevelComment c)
+          prettyComment = maybe empty (pretty . TopLevelComment) newtypeComment
+          prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment newtypeField)
       in  prettyComment
        $$ (hang d 2 $ vcat [
               vlist '{' '}'
@@ -452,14 +262,7 @@ instance Pretty SDecl where
                     , "::"
                     , pretty (fieldType newtypeField)
                     ]
-                $$ fieldComment
-                | let fieldComment =
-                        case fieldOrigin newtypeField of
-                          Origin.GeneratedField                     -> empty
-                          Origin.StructField sf
-                            | Just comment <- structFieldComment sf ->
-                              pretty (PartOfDeclarationComment comment)
-                            | otherwise -> empty
+                $$ prettyFieldComment
                 ]
             , nestedDeriving newtypeDeriv
             ])
@@ -491,12 +294,7 @@ instance Pretty SDecl where
                     ImportAsPtr   -> "&"
                 , string $ Text.unpack foreignImportOrigName
                 ])
-          prettyFunctionComment =
-            case foreignImportOrigin of
-              Origin.Function f
-                | Just comment <- functionComment f -> pretty (TopLevelComment comment)
-                | otherwise                         -> empty
-              Origin.Global _                       -> empty
+          prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment
       in  prettyFunctionComment
        $$ hsep [ "foreign import"
                , callconv
@@ -507,14 +305,13 @@ instance Pretty SDecl where
                , pretty foreignImportType
                ]
 
-    DDerivingInstance s t -> "deriving" <+> strategy s <+> "instance" <+> pretty t
+    DDerivingInstance DerivingInstance {..} -> maybe empty (pretty . TopLevelComment) derivingInstanceComment
+                                            $$ "deriving" <+> strategy derivingInstanceStrategy
+                                                          <+> "instance"
+                                                          <+> pretty derivingInstanceType
 
     DPatternSynonym PatternSynonym {..} ->
-      let prettyEnumConstantComment =
-            case patSynOrigin of
-              Origin.EnumConstant c
-                | Just comment <- enumConstantComment c -> pretty (TopLevelComment comment)
-                | otherwise                             -> empty
+      let prettyEnumConstantComment = maybe empty (pretty . TopLevelComment) patSynComment
        in vcat [ prettyEnumConstantComment
                , "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
                , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS

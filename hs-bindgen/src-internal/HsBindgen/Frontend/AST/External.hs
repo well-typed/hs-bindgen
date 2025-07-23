@@ -133,8 +133,6 @@ data Struct = Struct {
 
       -- | Type of the elements of the FLAM, if any
     , structFlam :: Maybe StructField
-
-    , structComment :: Maybe Comment
   }
   deriving stock (Show, Eq, Generic)
 
@@ -158,7 +156,6 @@ data Union = Union {
     , unionSizeof    :: Int
     , unionAlignment :: Int
     , unionFields    :: [UnionField]
-    , unionComment   :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -180,7 +177,6 @@ data Enum = Enum {
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumConstants :: [EnumConstant]
-    , enumComment   :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -199,7 +195,6 @@ data EnumConstant = EnumConstant {
 data Typedef = Typedef {
       typedefNames   :: MangleNames.NewtypeNames
     , typedefType    :: Type
-    , typedefComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -211,7 +206,6 @@ data Function = Function {
       functionArgs    :: [Type]
     , functionAttrs   :: Int.FunctionAttributes
     , functionRes     :: Type
-    , functionComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 
@@ -227,7 +221,6 @@ data CheckedMacro =
 data CheckedMacroType = CheckedMacroType {
       macroTypeNames   :: MangleNames.NewtypeNames
     , macroType        :: Type
-    , macroTypeComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)
 

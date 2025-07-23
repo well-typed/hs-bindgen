@@ -141,7 +141,6 @@ data Struct p = Struct {
     , structAlignment :: Int
     , structFields    :: [StructField p]
     , structAnn       :: Ann "Struct" p
-    , structComment   :: Maybe Comment
     }
 
 data StructField p = StructField {
@@ -159,7 +158,6 @@ data Union p = Union {
     , unionAlignment :: Int
     , unionFields    :: [UnionField p]
     , unionAnn       :: Ann "Union" p
-    , unionComment   :: Maybe Comment
     }
 
 data UnionField p = UnionField {
@@ -173,7 +171,6 @@ data UnionField p = UnionField {
 data Typedef p = Typedef {
       typedefType    :: Type p
     , typedefAnn     :: Ann "Typedef" p
-    , typedefComment :: Maybe Comment
     }
 
 data Enum p = Enum {
@@ -182,7 +179,6 @@ data Enum p = Enum {
     , enumAlignment :: Int
     , enumConstants :: [EnumConstant p]
     , enumAnn       :: Ann "Enum" p
-    , enumComment   :: Maybe Comment
     }
 
 data EnumConstant p = EnumConstant {
@@ -197,7 +193,6 @@ data Function p = Function {
     , functionRes     :: Type p
     , functionAttrs   :: FunctionAttributes
     , functionAnn     :: Ann "Function" p
-    , functionComment :: Maybe Comment
     }
 
 -- | Function attributes specify properties for C functions.
@@ -306,7 +301,6 @@ data CheckedMacro p =
 data CheckedMacroType p = CheckedMacroType{
       macroType        :: Type p
     , macroTypeAnn     :: Ann "CheckedMacroType" p
-    , macroTypeComment :: Maybe Comment
     }
 
 -- | Checked expression (function) macro
