@@ -21,11 +21,11 @@ execDev Dev{..} = case devCmd of
     DevCmdParse cmdOpts -> execParse devGlobalOpts cmdOpts
 
 execParse :: GlobalOpts -> ParseOpts -> IO ()
-execParse GlobalOpts{..} opts =
+execParse globalOpts opts =
   doParse >>= fromMaybeWithFatalError >>= print
   where
     doParse :: IO (Maybe TranslationUnit)
-    doParse = withTracerStdOut tracerConfig $ \tracer -> do
+    doParse = withCliTracer globalOpts $ \tracer -> do
       (extSpec, pSpec) <- loadBindingSpecs
                             tracer
                             opts.config.configClangArgs

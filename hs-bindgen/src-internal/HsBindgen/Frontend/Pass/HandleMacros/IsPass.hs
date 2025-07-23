@@ -73,15 +73,14 @@ instance PrettyForTrace HandleMacrosMsg where
 
 -- | Default log level
 --
--- We use 'Info' for macros that are /always/ unsupported, and 'Warning' for
--- macros that we might perhaps except to be supported but something went wrong.
+-- Reparse and typechecking errors may indicate that something went wrong, or
+-- they may be caused by macro syntax that we do not yet support.  They are
+-- 'Info' by default because there are many unsupported macros in standard
+-- library implementations.  Users may optionally make them 'Warning' instead.
+--
+-- Other errors are 'Info' because they are /always/ unsupported.
 instance HasDefaultLogLevel HandleMacrosMsg where
-  getDefaultLogLevel = \case
-    HandleMacrosErrorReparse{}         -> Warning
-    HandleMacrosErrorTc{}              -> Warning
-    HandleMacrosErrorEmpty{}           -> Info
-    HandleMacrosErrorAttribute{}       -> Info
-    HandleMacrosErrorUnsupportedType{} -> Info
+  getDefaultLogLevel = const Info
 
 instance HasSource HandleMacrosMsg where
   getSource = const HsBindgen

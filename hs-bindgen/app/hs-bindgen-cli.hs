@@ -39,9 +39,9 @@ execCli Cli{..} = case cliCmd of
 -------------------------------------------------------------------------------}
 
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
-execPreprocess GlobalOpts{..} opts = do
+execPreprocess globalOpts opts = do
     hsDecls <- fromMaybeWithFatalError <=<
-      withTracerStdOut tracerConfig $ \tracer -> do
+      withCliTracer globalOpts $ \tracer -> do
         (extSpec, pSpec) <- loadBindingSpecs
                               tracer
                               opts.config.configClangArgs
@@ -57,9 +57,9 @@ execPreprocess GlobalOpts{..} opts = do
     mu     = getModuleUnique opts.config.configHsModuleOpts
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
-execGenTests GlobalOpts{..} opts = do
+execGenTests globalOpts opts = do
     hsDecls <-
-      fromMaybeWithFatalError <=< withTracerStdOut tracerConfig $ \tracer -> do
+      fromMaybeWithFatalError <=< withCliTracer globalOpts $ \tracer -> do
         (extSpec, pSpec) <- loadBindingSpecs
                               tracer
                               opts.config.configClangArgs
@@ -87,14 +87,14 @@ execLiterate opts = do
     throw' = throwIO . LiterateFileException opts.input
 
 execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
-execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
-    spec <- fromMaybeWithFatalError =<< withTracerStdOut tracerConfig
-      (\tracer -> getStdlibBindingSpec tracer clangArgs)
+execBindingSpec globalOpts BindingSpecCmdStdlib{..} = do
+    spec <- fromMaybeWithFatalError <=< withCliTracer globalOpts $ \tracer ->
+      getStdlibBindingSpec (contramap TraceBindingSpec tracer) clangArgs
     BS.putStr $ encodeBindingSpecYaml spec
 
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
-execResolve GlobalOpts{..} opts = do
-    mErr <- withTracerStdOut tracerConfig $ \tracer -> do
+execResolve globalOpts opts = do
+    mErr <- withCliTracer globalOpts $ \tracer -> do
       let tracerResolve = contramap TraceResolveHeader  tracer
       forM_ opts.inputs $ \header -> do
         mPath <- resolveHeader tracerResolve opts.clangArgs header
