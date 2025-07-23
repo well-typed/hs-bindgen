@@ -1,7 +1,6 @@
 -- | Golden tests
 module Test.HsBindgen.Golden (tests) where
 
-import Data.List qualified as List
 import Data.Text qualified as Text
 import Test.Tasty
 
@@ -74,6 +73,7 @@ testCases = [
     , defaultTest "anonymous"
     , defaultTest "bitfields"
     , defaultTest "bool"
+    , defaultTest "distilled_lib_1"
     , defaultTest "enums"
     , defaultTest "enum_cpp_syntax"
     , defaultTest "fixedarray_arg"
@@ -127,11 +127,6 @@ testCases = [
           Just . Expected $ C.declId info
         TraceClang (ClangDiagnostic _diag) ->
           Just Tolerated
-        _otherwise ->
-          Nothing
-    , testTraceCustom "distilled_lib_1" (replicate 2 ()) $ \case
-        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc (TcErrors _))) ->
-          Just $ Expected ()
         _otherwise ->
           Nothing
     , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
@@ -296,12 +291,7 @@ testCases = [
           testRustBindgen = RustBindgenFail
         }
     , (defaultTest "named_vs_anon"){
-          testClangVersion   = Just (>= (19, 1, 0))
-        , testTracePredicate = customTracePredicate [] $ \case
-            TraceFrontend (FrontendHandleMacros _) ->
-              Just Tolerated
-            _otherwise ->
-              Nothing
+          testClangVersion = Just (>= (19, 1, 0))
         }
     , (defaultTest "program_slicing_simple"){
           -- Check that program slicing generates bindings for uint32_t if we
@@ -315,14 +305,9 @@ testCases = [
             , qualNameKind = C.NameKindOrdinary
             }
         , testTracePredicate = customTracePredicate [
-              "ReparseError"
-            , "SelectedUInt32"
+              "SelectedUInt32"
             , "SelectedUInt64"
             ] $ \case
-            TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse err)) ->
-              if "Unexpected primitive type" `List.isInfixOf` reparseError err
-                then Just $ Expected "ReparseError"
-                else Nothing
             TraceFrontend (FrontendSlice
                            (SliceSelected
                             (TransitiveDependencyOf
@@ -342,8 +327,7 @@ testCases = [
             , configProgramSlicing = EnableProgramSlicing
             }
         , testTracePredicate = customTracePredicate [
-              "ReparseError"
-            , "SelectedFileOpterationStatus"
+              "SelectedFileOpterationStatus"
             , "SelectedSizeT"
             , "SelectedFile"
             , "SelectedIoFile"
@@ -357,10 +341,6 @@ testCases = [
               ParseUnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
               ParseUnsupportedConst _                            -> Just Tolerated
               _other                                             -> Nothing
-            TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse err)) ->
-              if "Unexpected primitive type" `List.isInfixOf` reparseError err
-                then Just $ Expected "ReparseError"
-                else Nothing
             TraceFrontend (FrontendSlice
                            (SliceSelected
                             (TransitiveDependencyOf
