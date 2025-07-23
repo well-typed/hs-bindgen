@@ -2,21 +2,18 @@
 module Test.HsBindgen.Golden (tests) where
 
 import Data.List qualified as List
-import Data.Map qualified as Map
 import Data.Text qualified as Text
 import Test.Tasty
 
 import Clang.Args
 import Clang.Version
-import HsBindgen.BindingSpec
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Slice.IsPass as Slice
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.TracePredicate
@@ -313,25 +310,10 @@ testCases = [
               configPredicate      = SelectFromMainFiles
             , configProgramSlicing = EnableProgramSlicing
             }
-        , testOnExtSpec = \extSpec ->
-            let uInt32T = C.QualName {
-                    qualNameName = "uint32_t"
-                  , qualNameKind = C.NameKindOrdinary
-                  }
-            in Pipeline.BindingSpec {
-                bindingSpecUnresolved =
-                    BindingSpec.BindingSpec
-                  . Map.delete uInt32T
-                  . BindingSpec.bindingSpecTypes
-                  . Pipeline.bindingSpecUnresolved
-                  $ extSpec
-              , bindingSpecResolved =
-                    BindingSpec.BindingSpec
-                  . Map.delete uInt32T
-                  . BindingSpec.bindingSpecTypes
-                  . Pipeline.bindingSpecResolved
-                  $ extSpec
-              }
+        , testOnExtSpec = BindingSpec.deleteType C.QualName{
+              qualNameName = "uint32_t"
+            , qualNameKind = C.NameKindOrdinary
+            }
         , testTracePredicate = customTracePredicate [
               "ReparseError"
             , "SelectedUInt32"

@@ -6,7 +6,6 @@ import System.FilePath ((</>))
 import Test.Tasty (TestTree)
 
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
 import HsBindgen.Language.Haskell qualified as Hs
 
 import Test.Common.Util.Tasty
@@ -24,8 +23,8 @@ check testResources test =
       decls <- runTestTranslate testResources test
 
       let output :: String
-          output = UTF8.toString . BindingSpec.encodeYaml $
-              BindingSpec.genBindingSpec [testInputInclude test]
+          output = UTF8.toString $
+              BindingSpec.genBindingSpecYaml [testInputInclude test]
                 (Hs.HsModuleName "Example")
                 decls
 

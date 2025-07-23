@@ -34,6 +34,7 @@ import Test.Tasty (TestName)
 import Clang.HighLevel.Types qualified as Clang
 import Clang.Paths
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend.AST.External qualified as C
@@ -199,7 +200,7 @@ getTestExtSpec testResources TestCase{testOnExtSpec} =
 --
 -- TODO: We're not testing with prescriptive binding specifications yet.
 getTestPSpec :: IO TestResources -> TestCase -> IO PrescriptiveBindingSpec
-getTestPSpec _ _ = return Pipeline.emptyBindingSpec
+getTestPSpec _ _ = return BindingSpec.emptyBindingSpec
 
 withTestTracer ::
      TestCase

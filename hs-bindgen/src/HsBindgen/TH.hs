@@ -82,8 +82,8 @@ import Language.Haskell.TH qualified as TH
 import HsBindgen.Common qualified as Common
 
 import Clang.Args qualified as Args
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Pipeline qualified as Pipeline
-
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -107,11 +107,11 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 loadExtBindingSpecs ::
      Tracer TH.Q TraceMsg
   -> Args.ClangArgs
-  -> Pipeline.EnableStdlibBindingSpec
+  -> Common.EnableStdlibBindingSpec
   -> [FilePath]
   -> TH.Q Common.BindingSpec
 loadExtBindingSpecs tracer args stdlibConf =
-    TH.runIO . Pipeline.loadExtBindingSpecs tracer' args stdlibConf
+    TH.runIO . BindingSpec.loadExtBindingSpecs tracer' args stdlibConf
   where
-    tracer' :: Tracer IO TraceMsg
-    tracer' = natTracer TH.runQ tracer
+    tracer' :: Tracer IO BindingSpec.BindingSpecMsg
+    tracer' = natTracer TH.runQ $ contramap TraceBindingSpec tracer

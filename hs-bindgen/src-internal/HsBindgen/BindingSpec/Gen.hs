@@ -1,15 +1,27 @@
+-- | Binding specification generation
+--
+-- Intended for qualified import.
+--
+-- > import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 module HsBindgen.BindingSpec.Gen (
-    -- * API
+    -- * Public API
     genBindingSpec
+
+    -- * Internal API
+  , genBindingSpecYaml
   ) where
 
+import Data.ByteString (ByteString)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 
 import Clang.Paths
-import HsBindgen.BindingSpec.Internal (UnresolvedBindingSpec)
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
+import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
+import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
+import HsBindgen.BindingSpec.Private qualified as BindingSpec
+import HsBindgen.Config (Config(..))
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
@@ -20,16 +32,54 @@ import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
-  API
+  Public API
+-------------------------------------------------------------------------------}
+
+-- | Generate binding specification
+--
+-- The format is determined by filename extension.  The following formats are
+-- supported:
+--
+-- * YAML (@.yaml@ extension)
+-- * JSON (@.json@ extension)
+genBindingSpec ::
+     Config
+  -> [CHeaderIncludePath]
+  -> FilePath
+  -> [Hs.Decl]
+  -> IO ()
+genBindingSpec Config{..} headerIncludePaths path =
+      BindingSpec.writeFile path
+    . genBindingSpec' headerIncludePaths hsModuleName
+  where
+    hsModuleName :: HsModuleName
+    hsModuleName =
+      HsModuleName $ Text.pack (hsModuleOptsName configHsModuleOpts)
+
+{-------------------------------------------------------------------------------
+  Internal API (for tests)
+-------------------------------------------------------------------------------}
+
+-- | Generate binding specification
+genBindingSpecYaml ::
+     [CHeaderIncludePath]
+  -> HsModuleName
+  -> [Hs.Decl]
+  -> ByteString
+genBindingSpecYaml headerIncludePaths hsModuleName =
+    BindingSpec.encodeYaml . genBindingSpec' headerIncludePaths hsModuleName
+
+{-------------------------------------------------------------------------------
+  Auxiliary functions
 -------------------------------------------------------------------------------}
 
 -- TODO omitted types
-genBindingSpec ::
+genBindingSpec' ::
      [CHeaderIncludePath]
   -> HsModuleName
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
-genBindingSpec headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
+genBindingSpec' headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
   where
     aux ::
          Hs.Decl
@@ -62,10 +112,6 @@ genBindingSpec headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
 
     headers :: Set CHeaderIncludePath
     headers = Set.fromList headerIncludePaths
-
-{-------------------------------------------------------------------------------
-  Auxiliary functions
--------------------------------------------------------------------------------}
 
 type Spec = (C.QualName, BindingSpec.Omittable BindingSpec.TypeSpec)
 

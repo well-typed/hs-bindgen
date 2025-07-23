@@ -14,7 +14,7 @@ import System.FilePath qualified as FilePath
 import Clang.Enum.Simple
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as Paths
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Reparse.Decl qualified as C
 import HsBindgen.C.Tc.Macro qualified as CMacro
 import HsBindgen.Frontend.AST.External qualified as C

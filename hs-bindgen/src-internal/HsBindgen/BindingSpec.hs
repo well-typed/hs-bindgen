@@ -1,14 +1,60 @@
 -- | Binding specification
 --
--- Public interface.
+-- Intended for qualified import.
+--
+-- > import HsBindgen.BindingSpec qualified as BindingSpec
 module HsBindgen.BindingSpec (
-    BindingSpec (..)
+    -- * Public API
+    -- ** Type
+    BindingSpec -- opaque
+  , emptyBindingSpec
   , ExternalBindingSpec
   , PrescriptiveBindingSpec
-  , emptyBindingSpec
+    -- ** Configuration
+  , EnableStdlibBindingSpec(..)
+    -- ** Loading
+  , loadExtBindingSpecs
+  , loadPrescriptiveBindingSpec
+  , getStdlibBindingSpec
+    -- ** Encoding
+  , encodeBindingSpecJson
+  , encodeBindingSpecYaml
+    -- ** Trace messages
+  , BindingSpec.BindingSpecReadMsg(..)
+  , BindingSpec.BindingSpecResolveMsg(..)
+  , BindingSpec.BindingSpecMergeMsg(..)
+  , BindingSpec.BindingSpecMsg(..)
+
+    -- * Internal API
+    -- ** Types
+  , BindingSpec.Omittable(..)
+  , BindingSpec.TypeSpec(..)
+  , BindingSpec.defaultTypeSpec
+  , BindingSpec.InstanceSpec(..)
+  , BindingSpec.StrategySpec(..)
+  , BindingSpec.ConstraintSpec(..)
+    -- ** Query
+  , getTypes
+  , lookupTypeSpec
+    -- ** Test API
+  , deleteType
   ) where
 
-import HsBindgen.BindingSpec.Internal qualified as BindingSpec
+import Data.ByteString qualified as BSS
+import Data.ByteString.Lazy qualified as BSL
+import Data.Map.Strict qualified as Map
+
+import Clang.Args (ClangArgs)
+import Clang.Paths (SourcePath)
+import HsBindgen.BindingSpec.Private qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
+import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
+import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  Public API
+-------------------------------------------------------------------------------}
 
 -- | Binding specification
 --
@@ -27,25 +73,120 @@ data BindingSpec = BindingSpec {
     }
   deriving stock (Show)
 
--- | External binding specification
---
--- This type alias is just used as documentation. This type name is used because
--- there is no need for a type alias for binding specifications.
---
--- See 'BindingSpec'.
-type ExternalBindingSpec = BindingSpec
-
--- | Prescriptive binding specification
---
--- This type alias is just used as documentation. This type name is used because
--- there is no need for a type alias for binding specifications.
---
--- See 'BindingSpec'.
-type PrescriptiveBindingSpec = BindingSpec
-
 -- | Empty binding specification
 emptyBindingSpec :: BindingSpec
 emptyBindingSpec = BindingSpec {
       bindingSpecUnresolved = BindingSpec.empty
     , bindingSpecResolved   = BindingSpec.empty
+    }
+
+-- | External binding specification
+--
+-- This type alias is just used as documentation.
+type ExternalBindingSpec = BindingSpec
+
+-- | Prescriptive binding specification
+--
+-- This type alias is just used as documentation.
+type PrescriptiveBindingSpec = BindingSpec
+
+-- | Configure if the @stdlib@ binding specification should be used
+data EnableStdlibBindingSpec =
+    -- | Automatically include @stdlib@
+    EnableStdlibBindingSpec
+  | DisableStdlibBindingSpec
+  deriving stock (Show, Eq)
+
+-- | Load external binding specifications
+--
+-- The format is determined by filename extension.  The following formats are
+-- supported:
+--
+-- * YAML (@.yaml@ extension)
+-- * JSON (@.json@ extension)
+loadExtBindingSpecs ::
+     Tracer IO BindingSpec.BindingSpecMsg
+  -> ClangArgs
+  -> EnableStdlibBindingSpec
+  -> [FilePath]
+  -> IO BindingSpec
+loadExtBindingSpecs tracer args enableStdlib =
+      fmap (uncurry BindingSpec)
+    . BindingSpec.load
+        tracer
+        BindingSpec.BindingSpecResolveExternalHeader
+        args
+        stdSpec
+  where
+    stdSpec :: BindingSpec.UnresolvedBindingSpec
+    stdSpec = case enableStdlib of
+      EnableStdlibBindingSpec  -> Stdlib.bindingSpec
+      DisableStdlibBindingSpec -> BindingSpec.empty
+
+-- | Load prescriptive binding specification
+--
+-- The format is determined by filename extension.  The following formats are
+-- supported:
+--
+-- * YAML (@.yaml@ extension)
+-- * JSON (@.json@ extension)
+loadPrescriptiveBindingSpec ::
+     Tracer IO BindingSpec.BindingSpecMsg
+  -> ClangArgs
+  -> FilePath
+  -> IO BindingSpec
+loadPrescriptiveBindingSpec tracer args path = uncurry BindingSpec <$>
+    BindingSpec.load
+      tracer
+      BindingSpec.BindingSpecResolvePrescriptiveHeader
+      args
+      BindingSpec.empty
+      [path]
+
+-- | Get the standard library external binding specification
+getStdlibBindingSpec ::
+     Tracer IO BindingSpec.BindingSpecMsg
+  -> ClangArgs
+  -> IO BindingSpec
+getStdlibBindingSpec tracer args =
+    loadExtBindingSpecs tracer args EnableStdlibBindingSpec []
+
+-- | Encode a binding specification (JSON format)
+encodeBindingSpecJson :: BindingSpec -> BSL.ByteString
+encodeBindingSpecJson = BindingSpec.encodeJson . bindingSpecUnresolved
+
+-- | Encode a binding specification (YAML format)
+encodeBindingSpecYaml :: BindingSpec -> BSS.ByteString
+encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
+
+{-------------------------------------------------------------------------------
+  Internal API
+-------------------------------------------------------------------------------}
+
+-- | Get the set of types in a binding specifications
+getTypes :: BindingSpec -> Set C.QualName
+getTypes = Map.keysSet . BindingSpec.bindingSpecTypes . bindingSpecResolved
+
+-- | Lookup the @'Omittable' 'TypeSpec'@ associated with a C type
+lookupTypeSpec ::
+     C.QualName
+  -> Set SourcePath
+  -> BindingSpec
+  -> Maybe (BindingSpec.Omittable BindingSpec.TypeSpec)
+lookupTypeSpec cQualName headers =
+    BindingSpec.lookupTypeSpec cQualName headers . bindingSpecResolved
+
+-- | Delete a type from a binding specification
+--
+-- This is used in a test that should probably be refactored to not need this.
+deleteType :: C.QualName -> BindingSpec -> BindingSpec
+deleteType cQualName BindingSpec{..} = BindingSpec {
+      bindingSpecUnresolved = bindingSpecUnresolved {
+          BindingSpec.bindingSpecTypes = Map.delete cQualName $
+            BindingSpec.bindingSpecTypes bindingSpecUnresolved
+        }
+    , bindingSpecResolved = bindingSpecResolved {
+          BindingSpec.bindingSpecTypes = Map.delete cQualName $
+            BindingSpec.bindingSpecTypes bindingSpecResolved
+        }
     }

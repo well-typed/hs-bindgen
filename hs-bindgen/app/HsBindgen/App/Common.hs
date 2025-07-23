@@ -398,18 +398,16 @@ loadBindingSpecs ::
      Tracer IO TraceMsg
   -> ClangArgs
   -> BindingSpecConfig
-  -> IO (BindingSpec, BindingSpec)
+  -> IO (ExternalBindingSpec, PrescriptiveBindingSpec)
 loadBindingSpecs tracer clangArgs opts = do
+    let tracer' = contramap TraceBindingSpec tracer
     extSpecs <- loadExtBindingSpecs
-                  tracer
+                  tracer'
                   clangArgs
                   opts.stdlibSpec
                   opts.extBindingSpecs
     pSpec <- case opts.prescriptiveBindingSpec of
-               Just path -> loadPrescriptiveBindingSpec
-                              tracer
-                              clangArgs
-                              path
+               Just path -> loadPrescriptiveBindingSpec tracer' clangArgs path
                Nothing   -> pure emptyBindingSpec
     pure (extSpecs, pSpec)
 
