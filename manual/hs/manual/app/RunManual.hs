@@ -15,6 +15,7 @@ import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 
 import Example
+import NonExternGlobal
 import Structs
 
 import Game.Player
@@ -249,6 +250,14 @@ main = do
     withCString "\DC1" $ \ptr -> print =<< hash ptr
     print (hashSafe "abc")
     print (square 2)
+
+    -- Globals
+    config <- peek globalConfig
+    print config
+    poke globalConfig $ config{globalConfig_numThreads = 3}
+    printGlobalConfig
+    print =<< peek nonExternGlobalString
+    print =<< peek nonExternGlobalInt
 
 {-------------------------------------------------------------------------------
   Aux

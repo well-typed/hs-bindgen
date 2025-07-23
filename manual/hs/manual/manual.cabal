@@ -36,6 +36,7 @@ executable run-manual
   other-modules:
       Example
       Structs
+      NonExternGlobal
 
   ghc-options:
       -- Avoid gcc warnings about non-NFC characters
