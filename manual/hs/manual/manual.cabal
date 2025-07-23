@@ -36,3 +36,8 @@ executable run-manual
   other-modules:
       Example
       Structs
+
+  ghc-options:
+      -- Avoid gcc warnings about non-NFC characters
+      -- See <https://github.com/well-typed/hs-bindgen/issues/918>
+      -optc -Wno-normalized
