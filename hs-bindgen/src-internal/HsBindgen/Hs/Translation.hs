@@ -26,7 +26,6 @@ import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.CallConv
@@ -942,17 +941,17 @@ wrapperDecl
 wrapperDecl innerName wrapperName res args
     | isVoidW res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid (unwrapType <$> args')
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> args')
           [PC.Expr $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
 
     | isWrappedHeap res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid (unwrapType <$> (args' :> res))
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> (args' :> res))
           [PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call innerName (callArgs args' (IS <$> PC.argsToIdx args'))]
 
     | otherwise
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (unwrapType res) (unwrapType <$> args')
+        PC.FunDefn wrapperName (unwrapType res) C.ImpureFunction (unwrapType <$> args')
           [PC.Return $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
   where
     callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
@@ -1213,22 +1212,14 @@ globalExtern info ty _spec =
     stubType :: C.Type
     stubType = C.TypePointer ty
 
-    -- TODO: it seems that it is currently not possible to use handy
-    -- abstractions like "HsBindgen.PrettyC" to generate the stub, because the
-    -- stub function is not a closed expression. Could we add an abstraction or
-    -- AST constructor somewhere that would prevent us from generating the
-    -- string directly? If so, where should it be added?
     prettyStub :: String
-    prettyStub =
-        showString "__attribute__ ((const)) "
-      . C.showsFunctionType (showString stubName) [] stubType
-      . showString " { "
-      . showString "return "
-      . showChar '&'
-      . showString varName
-      . showChar ';'
-      . showString " } "
-      $ ""
+    prettyStub = PC.prettyDecl stubDecl " "
+
+    stubDecl :: PC.Decl
+    stubDecl =
+        PC.withArgs [] $ \args' ->
+          PC.FunDefn stubName stubType C.HaskellPureFunction args'
+            [PC.Return $ PC.Address $ PC.NamedVar varName]
 
 globalConst :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
 globalConst = throwPure_TODO 41 "Constants not yet supported"

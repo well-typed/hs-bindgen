@@ -23,7 +23,7 @@ import Control.Monad.State.Strict (State, evalState, put, get)
 type Name = String
 
 data Decl where
-    FunDefn :: Name -> C.Type -> Args ctx -> [Stmt ctx] -> Decl
+    FunDefn :: Name -> C.Type -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> Decl
 
 deriving instance Show Decl
 
@@ -55,15 +55,32 @@ data LVal ctx
 data Expr ctx
     = Call Name [Expr ctx]
     | Var (Idx ctx)
+      -- | A named variable can be used to refer to variables that are free with
+      -- respect to the enclosing 'Decl'\/'FunDefn'.
+      --
+      -- If a variable is bound by the function definition, use 'Var' instead.
+      --
+      -- For example, any global variable is a free variable with respect to a
+      -- function definition:
+      --
+      -- > int i = 0;
+      -- > void i_plus (int j) { i += j; }
+      --
+      -- With respect to the function definition, @i@ is a free variable, @j@ is
+      -- a bound variable. A 'FunDefn' describing @i_plus@ should use 'NamedVar'
+      -- for @i@, and 'Var' for @j@.
+    | NamedVar Name
     | DeRef (Expr ctx)
+      -- | The @&@ C-operator.
+    | Address (Expr ctx)
   deriving Show
 
 prettyDecl :: Decl -> ShowS
-prettyDecl (FunDefn n ty args stmts) = prettyFunDefn n ty args stmts
+prettyDecl (FunDefn n ty attrs args stmts) = prettyFunDefn n ty attrs args stmts
 
-prettyFunDefn :: forall ctx. Name -> C.Type -> Args ctx -> [Stmt ctx] -> ShowS
-prettyFunDefn fun res args stmts =
-    C.showsFunctionType (showString fun) args' res .
+prettyFunDefn :: forall ctx. Name -> C.Type -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> ShowS
+prettyFunDefn fun res pur args stmts =
+    C.showsFunctionType (showString fun) pur args' res .
     showString " { " . foldMapShowS (prettyStmt env) stmts . showString " }"
   where
     args0 :: State Int (Env ctx ((ShowS, C.Type), ShowS))
@@ -87,9 +104,11 @@ prettyLVal env (LVar x)   = lookupEnv x env
 prettyLVal env (LDeRef x) = showChar '*' . prettyLVal env x
 
 prettyExpr :: Env ctx ShowS -> Expr ctx -> ShowS
-prettyExpr env (Var s)     = lookupEnv s env
-prettyExpr env (DeRef e)   = showChar '*' . prettyExpr env e
-prettyExpr env (Call f xs) = showString f . showChar '(' . foldMapSepShowS (showString ", ") (prettyExpr env) xs . showChar ')'
+prettyExpr env  (Var s)      = lookupEnv s env
+prettyExpr _env (NamedVar n) = showString n
+prettyExpr env  (DeRef e)    = showChar '*' . prettyExpr env e
+prettyExpr env  (Address e)  = showChar '&' . prettyExpr env e
+prettyExpr env  (Call f xs)  = showString f . showChar '(' . foldMapSepShowS (showString ", ") (prettyExpr env) xs . showChar ')'
 
 foldMapShowS :: (a -> ShowS) -> [a] -> ShowS
 foldMapShowS f = foldr (\a b -> f a . b) id
