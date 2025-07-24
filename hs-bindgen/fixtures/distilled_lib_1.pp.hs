@@ -24,7 +24,7 @@ import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 import qualified Text.Read
 
-$(CAPI.addCSource "#include \"distilled_lib_1.h\"\nint32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }\n")
+$(CAPI.addCSource "#include \"distilled_lib_1.h\"\nint32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }\n__attribute__ ((const)) var_t *get_v_ptr (void) { return &v; } \n")
 
 data Another_typedef_struct_t = Another_typedef_struct_t
   { another_typedef_struct_t_foo :: FC.CInt
@@ -309,4 +309,4 @@ newtype Callback_t = Callback_t
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
-foreign import capi safe "&v" v :: F.Ptr Var_t
+foreign import ccall safe "get_v_ptr" v :: F.Ptr Var_t

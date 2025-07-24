@@ -1,5 +1,7 @@
 [
   DeclInlineCInclude "bool_c23.h",
+  DeclInlineC
+    "__attribute__ ((const)) _Bool *get_b_ptr (void) { return &b; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -7,8 +9,9 @@
         "b",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCBool),
-      foreignImportOrigName = "b",
+      foreignImportOrigName =
+      "get_b_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim PrimBool)}]

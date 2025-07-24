@@ -10333,6 +10333,8 @@
       "Callback_t"),
   DeclInlineCInclude
     "distilled_lib_1.h",
+  DeclInlineC
+    "__attribute__ ((const)) var_t *get_v_ptr (void) { return &v; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10343,9 +10345,10 @@
           (HsName
             "@NsTypeConstr"
             "Var_t")),
-      foreignImportOrigName = "v",
+      foreignImportOrigName =
+      "get_v_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefRegular

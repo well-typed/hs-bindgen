@@ -939,6 +939,8 @@
           functionRes = TypeVoid}},
   DeclInlineCInclude
     "fun_attributes.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_i_ptr (void) { return &i; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -946,9 +948,10 @@
         "i",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
-      foreignImportOrigName = "i",
+      foreignImportOrigName =
+      "get_i_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed))},
