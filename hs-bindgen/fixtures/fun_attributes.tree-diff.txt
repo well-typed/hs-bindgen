@@ -675,7 +675,7 @@ TranslationUnit {
         declAliases = [],
         declHeader =
         "fun_attributes.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec

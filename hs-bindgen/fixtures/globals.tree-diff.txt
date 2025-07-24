@@ -10,7 +10,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
@@ -75,7 +75,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypeStruct
           NamePair {
             nameC = Name "config",
@@ -146,7 +146,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypeStruct
           NamePair {
             nameC = Name "inline_struct",
@@ -169,7 +169,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
@@ -188,7 +188,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
@@ -207,7 +207,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePointer
           (TypePrim
             (PrimChar
@@ -229,7 +229,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypeConstArray
           3
           (TypePrim
@@ -252,7 +252,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimChar
             (PrimSignImplicit
@@ -273,7 +273,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
@@ -292,7 +292,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
@@ -311,7 +311,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
@@ -330,7 +330,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
@@ -349,7 +349,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
@@ -368,7 +368,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePointer
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -388,7 +388,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypeConstArray
           4
           (TypeExtBinding
@@ -523,7 +523,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim PrimBool),
       declSpec = DeclSpec
         TypeSpec {
@@ -541,7 +541,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypeConstArray
           4096
           (TypeExtBinding
@@ -676,7 +676,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypeExtBinding
           ResolvedExtBinding {
             extCName = QualName {
@@ -1443,7 +1443,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "globals.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypeTypedef
           (TypedefSquashed
             (Name "struct2_t")

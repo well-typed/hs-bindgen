@@ -1780,7 +1780,7 @@ TranslationUnit {
         declAliases = [],
         declHeader =
         "distilled_lib_1.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
             NamePair {
