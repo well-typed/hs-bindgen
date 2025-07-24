@@ -41,6 +41,7 @@ module HsBindgen.Frontend.AST.External (
   , Type(..)
   , ResolveBindingSpec.ResolvedExtBinding(..)
   , isVoid
+  , isArray
     -- * Names
   , AnonId(..)
   , NameOrigin(..)
@@ -265,3 +266,11 @@ data TypedefRef =
 isVoid :: Type -> Bool
 isVoid TypeVoid = True
 isVoid _        = False
+
+-- | Arrays can be of known or unknown size.
+isArray :: Type -> Bool
+isArray TypeConstArray{}      = True
+-- TODO: this may or may not be correct; we don't actually support arrays of
+-- unknown size yet. We should reconsider this when looking at #377.
+isArray TypeIncompleteArray{} = True
+isArray _                     = False

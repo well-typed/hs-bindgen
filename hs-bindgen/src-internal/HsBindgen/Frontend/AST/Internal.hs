@@ -129,6 +129,10 @@ data DeclKind p =
   | DeclEnumOpaque
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
+    -- TODO: contrary to what the constructor name suggests, we use 'DeclExtern'
+    -- both for global variables that are extern and that are non-extern. Should
+    -- we rename this constructor to 'DeclGlobal', and propagate similar name
+    -- changes elsewhere in the pipeline?
   | DeclExtern (Type p)
   | DeclConst (Type p)
 

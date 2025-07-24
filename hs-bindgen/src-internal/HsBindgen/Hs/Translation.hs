@@ -26,6 +26,7 @@ import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.CallConv
@@ -1147,20 +1148,87 @@ functionDecs mu typedefs info f _spec =
 -- variable is not linked in; we therefore add an explicit import. It is
 -- important that we don't import such headers more than once, but this is taken
 -- care of in 'csources'.
+--
+-- On Windows, simply generating a foreign import of a global variable's address
+-- can lead to errors (see #898). For example, given a global @int
+-- simpleGlobal@, the following foreign import might cause an error:
+--
+-- > foreign import capi safe "&simpleGlobal" simpleGlobal :: F.Ptr FC.CInt
+--
+-- So, instead we generate a /stub/ function that simply returns the address of
+-- the global variable ...
+--
+-- > __attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) {
+-- >   return &simpleGlobal;
+-- > }
+--
+-- ... and then create a foreign import for the stub.
+--
+-- > foreign import capi safe "get_simpleGlobal_ptr" simpleGlobal :: F.Ptr FC.CInt
+--
+-- Note that stub function also has a @const@ function attribute to emphasise
+-- that the function always returns the same address throughout the lifetime of
+-- the program, which means we can omit the 'IO' from the foreign import.
+--
+-- The exception to this stub generation is that we forego the stub in case the
+-- global variable has an array type. It is not straigthforward (if possible at
+-- all) to return pointers to arrays from a C function without losing the
+-- array's length information.
 globalExtern :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
-globalExtern info ty _spec = [
-      Hs.DeclInlineCInclude header
-    , Hs.DeclForeignImport Hs.ForeignImportDecl{
-          foreignImportName     = C.nameHs (C.declId info)
-        , foreignImportType     = HsPtr $ typ ty
-        , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
-        , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
-        , foreignImportOrigin   = Origin.Global ty
-        }
-    ]
+globalExtern info ty _spec =
+    Hs.DeclInlineCInclude (getCHeaderIncludePath $ C.declHeader info) :
+    if not (C.isArray ty) then
+      [ Hs.DeclInlineC prettyStub
+      , Hs.DeclForeignImport $ Hs.ForeignImportDecl
+          { foreignImportName     = importName
+          , foreignImportType     = importType
+          , foreignImportOrigName = T.pack stubName
+          , foreignImportCallConv = CallConvUserlandCAPI
+          , foreignImportOrigin   = Origin.Global ty
+          }
+      ]
+    else
+      [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
+          { foreignImportName     = C.nameHs (C.declId info)
+          , foreignImportType     = importType
+          , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
+          , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
+          , foreignImportOrigin   = Origin.Global ty
+          }
+      ]
   where
-    header :: FilePath
-    header = getCHeaderIncludePath $ C.declHeader info
+    importName :: HsName 'NsVar
+    importName = C.nameHs (C.declId info)
+
+    importType :: HsType
+    importType = typ stubType
+
+    -- TODO: the stub name should go through the name mangler. See #946.
+    stubName :: String
+    stubName = "get_" ++ varName ++ "_ptr"
+
+    varName :: String
+    varName = T.unpack (C.getName . C.nameC . C.declId $ info)
+
+    stubType :: C.Type
+    stubType = C.TypePointer ty
+
+    -- TODO: it seems that it is currently not possible to use handy
+    -- abstractions like "HsBindgen.PrettyC" to generate the stub, because the
+    -- stub function is not a closed expression. Could we add an abstraction or
+    -- AST constructor somewhere that would prevent us from generating the
+    -- string directly? If so, where should it be added?
+    prettyStub :: String
+    prettyStub =
+        showString "__attribute__ ((const)) "
+      . C.showsFunctionType (showString stubName) [] stubType
+      . showString " { "
+      . showString "return "
+      . showChar '&'
+      . showString varName
+      . showChar ';'
+      . showString " } "
+      $ ""
 
 globalConst :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
 globalConst = throwPure_TODO 41 "Constants not yet supported"
