@@ -454,7 +454,7 @@ varDecl info = simpleFold $ \curr -> do
           VarGlobal isExtern -> do
             unless isExtern $
               recordTrace $ ParsePotentialDuplicateGlobal info
-            return [mkDecl $ C.DeclExtern typ]
+            return [mkDecl $ C.DeclGlobal typ]
           VarConst _isExternOrStatic -> do
             recordTrace $ ParseUnsupportedConst info
             return []

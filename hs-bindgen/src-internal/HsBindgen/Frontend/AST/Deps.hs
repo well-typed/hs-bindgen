@@ -59,7 +59,7 @@ depsOfDecl (DeclFunction (Function {..})) =
   where
     aux :: ValOrRef -> NsPrelimDeclId -> (Usage, NsPrelimDeclId)
     aux isPtr nsid = (UsedInFunction isPtr, nsid)
-depsOfDecl (DeclExtern ty) =
+depsOfDecl (DeclGlobal ty) =
     map (first UsedInVar) $ depsOfType ty
 depsOfDecl (DeclConst ty) =
     map (first UsedInVar) $ depsOfType ty

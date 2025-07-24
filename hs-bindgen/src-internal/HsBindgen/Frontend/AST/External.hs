@@ -113,7 +113,8 @@ data DeclKind =
   | DeclEnumOpaque
   | DeclMacro CheckedMacro
   | DeclFunction Function
-  | DeclExtern Type
+    -- | A global variables, whether it be declared @extern@, @static@ or neither.
+  | DeclGlobal Type
   | DeclConst Type
   deriving stock (Show, Eq, Generic)
 

@@ -87,7 +87,7 @@ instance Finalize Int.DeclKind where
   finalize (Int.DeclTypedef typedef) = Ext.DeclTypedef (finalize typedef)
   finalize (Int.DeclMacro macro)     = Ext.DeclMacro (finalize macro)
   finalize (Int.DeclFunction func)   = Ext.DeclFunction (finalize func)
-  finalize (Int.DeclExtern ty)       = Ext.DeclExtern (finalize ty)
+  finalize (Int.DeclGlobal ty)       = Ext.DeclGlobal (finalize ty)
   finalize (Int.DeclConst ty)        = Ext.DeclConst (finalize ty)
 
 instance Finalize Int.Struct where

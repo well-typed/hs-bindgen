@@ -312,7 +312,7 @@ generateDecs opts mu typedefs (C.Decl info kind spec) =
         return $ functionDecs mu typedefs info f spec
       C.DeclMacro macro ->
         macroDecs opts info macro spec
-      C.DeclExtern ty ->
+      C.DeclGlobal ty ->
         return $ globalExtern info ty spec
       C.DeclConst ty ->
         return $ globalConst info ty spec
