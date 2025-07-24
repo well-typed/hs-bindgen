@@ -13,6 +13,7 @@ module Clang.LowLevel.Core.Enums (
   , CXDiagnosticSeverity(..)
   , CX_StorageClass(..)
   , CXTLSKind(..)
+  , CXVisibilityKind(..)
   ) where
 
 import GHC.Generics (Generic)
@@ -1303,4 +1304,18 @@ data CXTLSKind =
     CXTLS_None
   | CXTLS_Dynamic
   | CXTLS_Static
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
+
+{-------------------------------------------------------------------------------
+  CXVisibilityKind
+-------------------------------------------------------------------------------}
+
+-- | Describe the visibility of the entity referred to by a cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb>
+data CXVisibilityKind =
+    CXVisibility_Invalid
+  | CXVisibility_Hidden
+  | CXVisibility_Protected
+  | CXVisibility_Default
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)

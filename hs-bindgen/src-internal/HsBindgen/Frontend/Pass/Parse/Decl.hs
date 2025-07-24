@@ -358,6 +358,7 @@ enumConstantDecl curr = do
 functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 functionDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
+    vis  <- getCursorVisibility curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn <- getReparseInfo curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
@@ -378,6 +379,9 @@ functionDecl info = simpleFold $ \curr -> do
           (anonDecls, otherDecls) = partitionAnonDecls decls
       if not (null anonDecls) then do
         recordTrace $ ParseUnexpectedAnonInSignature info
+        return []
+      else if not (isValidVisibilityAttr vis) then do
+        recordTrace $ UnexpectedNonDefaultVisibility info
         return []
       else do
         return $ otherDecls ++ [mkDecl purity]
@@ -416,8 +420,8 @@ functionDecl info = simpleFold $ \curr -> do
           Right CXCursor_ConstAttr -> foldContinueWith $ [Right C.HaskellPureFunction]
           Right CXCursor_PureAttr  -> foldContinueWith $ [Right C.CPureFunction]
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- Take visibility into account.
+          -- @visibility@ attributes, where the value is obtained using
+          -- @clang_getCursorVisibility@.
           Right CXCursor_VisibilityAttr -> foldContinue
 
           -- Attributes we (probably?) want to ignore
@@ -433,6 +437,7 @@ functionDecl info = simpleFold $ \curr -> do
 varDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 varDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
+    vis  <- getCursorVisibility curr
     cls  <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
         mkDecl kind = C.Decl{
@@ -448,6 +453,9 @@ varDecl info = simpleFold $ \curr -> do
       let (anonDecls, otherDecls) = partitionAnonDecls (concat nestedDecls)
       if not (null anonDecls) then do
         recordTrace $ ParseUnexpectedAnonInExtern info
+        return []
+      else if not (isValidVisibilityAttr vis) then do
+        recordTrace $ UnexpectedNonDefaultVisibility info
         return []
       else (otherDecls ++) <$> do
         case cls of
@@ -516,8 +524,8 @@ varDecl info = simpleFold $ \curr -> do
           -- ('CXCursor_CharacterLiteral').
           Right CXCursor_UnexposedExpr -> foldContinue
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- Take visibility into account.
+          -- @visibility@ attributes, where the value is obtained using
+          -- @clang_getCursorVisibility@.
           Right CXCursor_VisibilityAttr -> foldContinue
 
           -- Panic on anything we don't recognize
@@ -658,3 +666,25 @@ classifyVarDecl curr = do
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal
+
+-- TODO: document
+getCursorVisibility :: MonadIO m => CXCursor -> m C.VisibilityAttr
+getCursorVisibility curr = do
+    vis  <- fromSimpleEnum <$> clang_getCursorVisibility curr
+    case vis of
+      Right vis' -> case vis' of
+        CXVisibility_Default -> pure C.DefaultVisibilityAttr
+        CXVisibility_Hidden -> pure C.HiddenVisibilityAttr
+        CXVisibility_Protected -> pure C.ProtectedVisibilityAttr
+        CXVisibility_Invalid -> do
+          loc <- HighLevel.clang_getCursorLocation' curr
+          panicIO $ "Invalid visibility " ++ show vis' ++ " at " ++ show loc
+      -- Panic on anything we don't recognize
+      Left x -> do
+        loc <- HighLevel.clang_getCursorLocation' curr
+        panicIO $ "Unexpected visibility " ++ show x ++ " at " ++ show loc
+
+isValidVisibilityAttr :: C.VisibilityAttr -> Bool
+isValidVisibilityAttr = \case
+    C.DefaultVisibilityAttr -> True
+    _ -> False

@@ -21,6 +21,7 @@ module HsBindgen.Frontend.AST.Internal (
   , FunctionAttributes(..)
   , FunctionPurity(..)
   , decideFunctionPurity
+  , VisibilityAttr(..)
     -- ** Macros
   , CheckedMacro(..)
   , CheckedMacroType(..)
@@ -199,6 +200,8 @@ data Function p = Function {
 -- put on C functions. For example, a C function can have multiple @pure@
 -- and\/or @const@ attributes, but we interpret these attributes together as a
 -- 'FunctionPurity', see 'decideFunctionPurity'.
+--
+-- <https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html>
 data FunctionAttributes = FunctionAttributes {
       functionPurity :: FunctionPurity
     }
@@ -283,6 +286,17 @@ decideFunctionPurity = foldr prefer ImpureFunction
       ImpureFunction -> ()
       HaskellPureFunction -> ()
       CPureFunction -> ()
+
+-- | Visibility attributes affect the linkage of declarations they are attached
+-- to.
+--
+-- <https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-visibility-function-attribute>
+data VisibilityAttr =
+    DefaultVisibilityAttr
+  | HiddenVisibilityAttr
+  | ProtectedVisibilityAttr
+  | InternalVisibilityAttr
+  deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Macros
