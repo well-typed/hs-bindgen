@@ -15,7 +15,7 @@ import Clang.LowLevel.Core
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
+import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
@@ -30,7 +30,7 @@ type Parse :: Pass
 data Parse a deriving anyclass ValidPass
 
 type family AnnParse (ix :: Symbol) :: Star where
-  AnnParse "TranslationUnit" = NonSelectedDecls
+  AnnParse "TranslationUnit" = NonParsedDecls
   AnnParse "StructField"     = ReparseInfo
   AnnParse "UnionField"      = ReparseInfo
   AnnParse "Typedef"         = ReparseInfo

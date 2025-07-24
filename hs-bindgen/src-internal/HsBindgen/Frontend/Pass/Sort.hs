@@ -43,6 +43,6 @@ mkDeclMeta unit =
     C.TranslationUnit{
         unitDecls
       , unitIncludeGraph
-      , unitAnn = declNonSelected
+      , unitAnn = declNonParsed
       } = unit
 

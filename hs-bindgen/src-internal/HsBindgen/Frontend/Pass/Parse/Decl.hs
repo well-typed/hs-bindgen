@@ -37,7 +37,7 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
             selected <- evalPredicate info kind
             if selected
               then runFold (parser info) curr
-              else recordNonSelectedDecl info kind >> foldContinue
+              else recordNonParsedDecl info kind >> foldContinue
 
     dispatch curr $ \case
       -- Ordinary kinds that we parse

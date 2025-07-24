@@ -9,7 +9,6 @@ import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 
-import Clang.HighLevel.Types
 import HsBindgen.C.Predicate (IsMainHeader)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
@@ -17,7 +16,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonSelectedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -78,22 +76,14 @@ selectDecls isMainHeader SelectConfig{..} unitRBS =
               Set.union (Set.fromList selectedRoots) transitiveDependencies
 
             -- NOTE: Careful, we need to maintain the order of declarations so
-            -- that children come before parents.  'partition' does that for us.
-            selectedDeclarations, nonSelectedDecls :: [C.Decl Select]
-            (selectedDeclarations, nonSelectedDecls) =
-                partition
-                  ( (`Set.member` selectedDeclarationIds)
-                  . C.declOrigNsPrelimDeclId
-                  )
-                  decls
-
-            nonSelectedDecls' :: NonSelectedDecls
-            nonSelectedDecls' = Foldable.foldl' insertNonSelected
-              (declNonSelected $ C.unitAnn unitRBS) nonSelectedDecls
-
-            declMeta' :: DeclMeta
-            declMeta' =
-              (C.unitAnn unitSelect) { declNonSelected = nonSelectedDecls' }
+            -- that children come before parents.  'filter' does that for us.
+            selectedDeclarations :: [C.Decl Select]
+            selectedDeclarations =
+              filter
+                ( (`Set.member` selectedDeclarationIds)
+                . C.declOrigNsPrelimDeclId
+                )
+                decls
 
             selectMsgs :: [Msg Select]
             selectMsgs =
@@ -102,12 +92,7 @@ selectDecls isMainHeader SelectConfig{..} unitRBS =
                 selectedDeclarations
                 unmatchedDeclarations
                 rootToTransitiveDependencies
-        in
-          ( unitSelect {
-                C.unitDecls = selectedDeclarations
-              , C.unitAnn = declMeta'
-              }
-          , selectMsgs )
+        in (unitSelect { C.unitDecls = selectedDeclarations }, selectMsgs)
   where
     unitSelect :: C.TranslationUnit Select
     unitSelect = coercePass unitRBS
@@ -125,13 +110,6 @@ selectDecls isMainHeader SelectConfig{..} unitRBS =
 
     useDeclGraph :: UseDeclGraph
     useDeclGraph = declUseDecl $ C.unitAnn unitSelect
-
-    insertNonSelected :: NonSelectedDecls -> C.Decl Select -> NonSelectedDecls
-    insertNonSelected nonSelectedDecls decl =
-      insert
-        (C.declQualName decl)
-        (singleLocPath (C.declLoc (C.declInfo decl)))
-        nonSelectedDecls
 
 {-------------------------------------------------------------------------------
   Trace messages

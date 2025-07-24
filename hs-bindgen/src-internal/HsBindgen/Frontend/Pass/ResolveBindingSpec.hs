@@ -19,8 +19,8 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
-import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
+import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
+import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
@@ -48,7 +48,7 @@ resolveBindingSpec
             pSpec
             unitIncludeGraph
             (declUseDecl unitAnn)
-            (declNonSelected unitAnn)
+            (declNonParsed unitAnn)
             (resolveDecls unitDecls)
         notUsedErrs =
           ResolveBindingSpecTypeNotUsed <$> Set.toAscList stateNoPTypes
@@ -82,11 +82,11 @@ runM ::
   -> PrescriptiveBindingSpec
   -> IncludeGraph
   -> UseDeclGraph
-  -> NonSelectedDecls
+  -> NonParsedDecls
   -> M a
   -> (a, MState)
-runM extSpec pSpec includeGraph useDeclGraph nonSelectedDecls (WrapM m) =
-    let env        = MEnv extSpec pSpec includeGraph nonSelectedDecls
+runM extSpec pSpec includeGraph useDeclGraph nonParsedDecls (WrapM m) =
+    let env        = MEnv extSpec pSpec includeGraph nonParsedDecls
         state0     = initMState pSpec useDeclGraph
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
@@ -96,10 +96,10 @@ runM extSpec pSpec includeGraph useDeclGraph nonSelectedDecls (WrapM m) =
 -------------------------------------------------------------------------------}
 
 data MEnv = MEnv {
-      envExtSpec          :: ExternalBindingSpec
-    , envPSpec            :: PrescriptiveBindingSpec
-    , envIncludeGraph     :: IncludeGraph
-    , envNonSelectedDecls :: NonSelectedDecls
+      envExtSpec        :: ExternalBindingSpec
+    , envPSpec          :: PrescriptiveBindingSpec
+    , envIncludeGraph   :: IncludeGraph
+    , envNonParsedDecls :: NonParsedDecls
     }
   deriving (Show)
 
@@ -398,7 +398,7 @@ instance Resolve C.Type where
             Just ty -> return (Set.singleton nsid, ty)
             Nothing -> do
               -- check for external binding of non-selected type
-              case NonSelectedDecls.lookup cQualName envNonSelectedDecls of
+              case NonParsedDecls.lookup cQualName envNonParsedDecls of
                 Nothing -> return (Set.empty, mk qualDeclIdName)
                 Just sourcePath -> do
                   let declPaths =

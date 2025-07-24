@@ -1,6 +1,6 @@
-module HsBindgen.Frontend.NonSelectedDecls (
+module HsBindgen.Frontend.NonParsedDecls (
     -- * Type
-    NonSelectedDecls(..)
+    NonParsedDecls(..)
     -- * API
   , empty
   , insert
@@ -18,12 +18,12 @@ import HsBindgen.Imports
   Type
 -------------------------------------------------------------------------------}
 
--- | Declarations that are not selected during parsing
+-- | Declarations that are not parsed
 --
--- It is important to keep track of these non-selected declarations because they
--- can be given external bindings.  We do /not/ support external bindings for
--- /anonymous/ non-selected declarations; /if/ you want to provide an external
--- binding for some local type, for example
+-- It is important to keep track of these declarations because they can be given
+-- external bindings.  We do /not/ support external bindings for /anonymous/
+-- non-parsed declarations; /if/ you want to provide an external binding for
+-- some local type, for example
 --
 -- > struct rect {
 -- >   struct { int x; int y; } bottomleft;
@@ -32,8 +32,8 @@ import HsBindgen.Imports
 --
 -- then you need to make sure that you /traverse/ @rect@, so that the
 -- @NameAnon@ pass can do its work.
-newtype NonSelectedDecls = NonSelectedDecls {
-      unNonSelectedDecls :: Map C.QualName SourcePath
+newtype NonParsedDecls = NonParsedDecls {
+      unNonParsedDecls :: Map C.QualName SourcePath
     }
   deriving (Eq, Show)
 
@@ -41,15 +41,15 @@ newtype NonSelectedDecls = NonSelectedDecls {
   API
 -------------------------------------------------------------------------------}
 
-empty :: NonSelectedDecls
-empty = NonSelectedDecls Map.empty
+empty :: NonParsedDecls
+empty = NonParsedDecls Map.empty
 
 insert ::
      C.QualName
   -> SourcePath
-  -> NonSelectedDecls
-  -> NonSelectedDecls
-insert k v = NonSelectedDecls . Map.insert k v . unNonSelectedDecls
+  -> NonParsedDecls
+  -> NonParsedDecls
+insert k v = NonParsedDecls . Map.insert k v . unNonParsedDecls
 
-lookup :: C.QualName -> NonSelectedDecls -> Maybe SourcePath
-lookup k = Map.lookup k . unNonSelectedDecls
+lookup :: C.QualName -> NonParsedDecls -> Maybe SourcePath
+lookup k = Map.lookup k . unNonParsedDecls
