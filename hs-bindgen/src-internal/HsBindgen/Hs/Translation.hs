@@ -312,7 +312,7 @@ generateDecs opts mu typedefs (C.Decl info kind spec) =
         return $ functionDecs mu typedefs info f spec
       C.DeclMacro macro ->
         macroDecs opts info macro spec
-      C.DeclExtern ty ->
+      C.DeclGlobal ty ->
         return $ globalExtern info ty spec
       C.DeclConst ty ->
         return $ globalConst info ty spec
@@ -941,17 +941,17 @@ wrapperDecl
 wrapperDecl innerName wrapperName res args
     | isVoidW res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid (unwrapType <$> args')
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> args')
           [PC.Expr $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
 
     | isWrappedHeap res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid (unwrapType <$> (args' :> res))
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> (args' :> res))
           [PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call innerName (callArgs args' (IS <$> PC.argsToIdx args'))]
 
     | otherwise
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (unwrapType res) (unwrapType <$> args')
+        PC.FunDefn wrapperName (unwrapType res) C.ImpureFunction (unwrapType <$> args')
           [PC.Return $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
   where
     callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
@@ -1147,20 +1147,79 @@ functionDecs mu typedefs info f _spec =
 -- variable is not linked in; we therefore add an explicit import. It is
 -- important that we don't import such headers more than once, but this is taken
 -- care of in 'csources'.
+--
+-- On Windows, simply generating a foreign import of a global variable's address
+-- can lead to errors (see #898). For example, given a global @int
+-- simpleGlobal@, the following foreign import might cause an error:
+--
+-- > foreign import capi safe "&simpleGlobal" simpleGlobal :: F.Ptr FC.CInt
+--
+-- So, instead we generate a /stub/ function that simply returns the address of
+-- the global variable ...
+--
+-- > __attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) {
+-- >   return &simpleGlobal;
+-- > }
+--
+-- ... and then create a foreign import for the stub.
+--
+-- > foreign import capi safe "get_simpleGlobal_ptr" simpleGlobal :: F.Ptr FC.CInt
+--
+-- Note that stub function also has a @const@ function attribute to emphasise
+-- that the function always returns the same address throughout the lifetime of
+-- the program, which means we can omit the 'IO' from the foreign import.
+--
+-- The exception to this stub generation is that we forego the stub in case the
+-- global variable has an array type. It is not straigthforward (if possible at
+-- all) to return pointers to arrays from a C function without losing the
+-- array's length information.
 globalExtern :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
-globalExtern info ty _spec = [
-      Hs.DeclInlineCInclude header
-    , Hs.DeclForeignImport Hs.ForeignImportDecl{
-          foreignImportName     = C.nameHs (C.declId info)
-        , foreignImportType     = HsPtr $ typ ty
-        , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
-        , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
-        , foreignImportOrigin   = Origin.Global ty
-        }
-    ]
+globalExtern info ty _spec =
+    Hs.DeclInlineCInclude (getCHeaderIncludePath $ C.declHeader info) :
+    if not (C.isArray ty) then
+      [ Hs.DeclInlineC prettyStub
+      , Hs.DeclForeignImport $ Hs.ForeignImportDecl
+          { foreignImportName     = importName
+          , foreignImportType     = importType
+          , foreignImportOrigName = T.pack stubName
+          , foreignImportCallConv = CallConvUserlandCAPI
+          , foreignImportOrigin   = Origin.Global ty
+          }
+      ]
+    else
+      [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
+          { foreignImportName     = C.nameHs (C.declId info)
+          , foreignImportType     = importType
+          , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
+          , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
+          , foreignImportOrigin   = Origin.Global ty
+          }
+      ]
   where
-    header :: FilePath
-    header = getCHeaderIncludePath $ C.declHeader info
+    importName :: HsName 'NsVar
+    importName = C.nameHs (C.declId info)
+
+    importType :: HsType
+    importType = typ stubType
+
+    -- TODO: the stub name should go through the name mangler. See #946.
+    stubName :: String
+    stubName = "get_" ++ varName ++ "_ptr"
+
+    varName :: String
+    varName = T.unpack (C.getName . C.nameC . C.declId $ info)
+
+    stubType :: C.Type
+    stubType = C.TypePointer ty
+
+    prettyStub :: String
+    prettyStub = PC.prettyDecl stubDecl " "
+
+    stubDecl :: PC.Decl
+    stubDecl =
+        PC.withArgs [] $ \args' ->
+          PC.FunDefn stubName stubType C.HaskellPureFunction args'
+            [PC.Return $ PC.Address $ PC.NamedVar varName]
 
 globalConst :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
 globalConst = throwPure_TODO 41 "Constants not yet supported"

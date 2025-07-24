@@ -20,6 +20,7 @@
 -- signed int test_internal_core2_func (void) { return core2_func(); }
 -- signed int test_internal_sse3_func (void) { return sse3_func(); }
 -- void test_internal_f3 (void) { f3(); }
+-- __attribute__ ((const)) signed int *get_i_ptr (void) { return &i; } 
 -- signed int test_internal_fn (void) { return fn(); }
 -- signed int test_internal_y (void) { return y(); }
 -- signed int test_internal_x1 (void) { return x1(); }
@@ -74,7 +75,7 @@ foreign import ccall safe "test_internal_foobar" foobar :: IO Unit
 foreign import ccall safe "test_internal_core2_func" core2_func :: IO CInt
 foreign import ccall safe "test_internal_sse3_func" sse3_func :: IO CInt
 foreign import ccall safe "test_internal_f3" f3 :: IO Unit
-foreign import ccall safe "&i" i :: Ptr CInt
+foreign import ccall safe "get_i_ptr" i :: Ptr CInt
 foreign import ccall safe "test_internal_fn" fn :: IO CInt
 foreign import ccall safe "test_internal_y" y :: IO CInt
 foreign import ccall safe "test_internal_x1" x1 :: IO CInt

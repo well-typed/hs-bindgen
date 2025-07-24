@@ -4,7 +4,23 @@
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/globals.h
 -- #include "globals.h"
-foreign import ccall safe "&simpleGlobal" simpleGlobal :: Ptr CInt
+-- __attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } 
+-- __attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } 
+-- __attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } 
+-- __attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } 
+-- __attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } 
+-- __attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } 
+-- __attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } 
+-- __attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } 
+-- __attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } 
+-- __attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } 
+-- __attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } 
+-- __attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } 
+-- __attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } 
+-- __attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } 
+-- __attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } 
+-- __attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } 
+foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal :: Ptr CInt
 data Config
     = Config {config_x :: CInt, config_y :: CInt}
     deriving stock (Eq, Show)
@@ -15,7 +31,7 @@ instance Storable Config
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Config config_x_3
                                             config_y_4 -> pokeByteOff ptr_1 (0 :: Int) config_x_3 >> pokeByteOff ptr_1 (4 :: Int) config_y_4}}
-foreign import ccall safe "&compoundGlobal1" compoundGlobal1 :: Ptr Config
+foreign import ccall safe "get_compoundGlobal1_ptr" compoundGlobal1 :: Ptr Config
 data Inline_struct
     = Inline_struct {inline_struct_x :: CInt, inline_struct_y :: CInt}
     deriving stock (Eq, Show)
@@ -26,25 +42,25 @@ instance Storable Inline_struct
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Inline_struct inline_struct_x_3
                                                    inline_struct_y_4 -> pokeByteOff ptr_1 (0 :: Int) inline_struct_x_3 >> pokeByteOff ptr_1 (4 :: Int) inline_struct_y_4}}
-foreign import ccall safe "&compoundGlobal2" compoundGlobal2 :: Ptr Inline_struct
-foreign import ccall safe "&nesInteger" nesInteger :: Ptr CInt
-foreign import ccall safe "&nesFloating" nesFloating :: Ptr CFloat
-foreign import ccall safe "&nesString1" nesString1 :: Ptr (Ptr CChar)
+foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2 :: Ptr Inline_struct
+foreign import ccall safe "get_nesInteger_ptr" nesInteger :: Ptr CInt
+foreign import ccall safe "get_nesFloating_ptr" nesFloating :: Ptr CFloat
+foreign import ccall safe "get_nesString1_ptr" nesString1 :: Ptr (Ptr CChar)
 foreign import ccall safe "&nesString2" nesString2 :: Ptr (ConstantArray 3
                                                                          CChar)
-foreign import ccall safe "&nesCharacter" nesCharacter :: Ptr CChar
-foreign import ccall safe "&nesParen" nesParen :: Ptr CInt
-foreign import ccall safe "&nesUnary" nesUnary :: Ptr CInt
-foreign import ccall safe "&nesBinary" nesBinary :: Ptr CInt
-foreign import ccall safe "&nesConditional" nesConditional :: Ptr CInt
-foreign import ccall safe "&nesCast" nesCast :: Ptr CFloat
-foreign import ccall safe "&nesCompound" nesCompound :: Ptr (Ptr CInt)
+foreign import ccall safe "get_nesCharacter_ptr" nesCharacter :: Ptr CChar
+foreign import ccall safe "get_nesParen_ptr" nesParen :: Ptr CInt
+foreign import ccall safe "get_nesUnary_ptr" nesUnary :: Ptr CInt
+foreign import ccall safe "get_nesBinary_ptr" nesBinary :: Ptr CInt
+foreign import ccall safe "get_nesConditional_ptr" nesConditional :: Ptr CInt
+foreign import ccall safe "get_nesCast_ptr" nesCast :: Ptr CFloat
+foreign import ccall safe "get_nesCompound_ptr" nesCompound :: Ptr (Ptr CInt)
 foreign import ccall safe "&nesInitList" nesInitList :: Ptr (ConstantArray 4
                                                                            HsBindgen.Runtime.Prelude.Word8)
-foreign import ccall safe "&nesBool" nesBool :: Ptr CBool
+foreign import ccall safe "get_nesBool_ptr" nesBool :: Ptr CBool
 foreign import ccall safe "&streamBinary" streamBinary :: Ptr (ConstantArray 4096
                                                                              HsBindgen.Runtime.Prelude.Word8)
-foreign import ccall safe "&streamBinary_len" streamBinary_len :: Ptr HsBindgen.Runtime.Prelude.Word32
+foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len :: Ptr HsBindgen.Runtime.Prelude.Word32
 data Version_t
     = Version_t {version_t_major :: HsBindgen.Runtime.Prelude.Word8,
                  version_t_minor :: HsBindgen.Runtime.Prelude.Word16,
@@ -80,4 +96,4 @@ instance Storable Struct2_t
            peek = \ptr_0 -> pure Struct2_t <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Struct2_t struct2_t_field1_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_t_field1_3}}
-foreign import ccall safe "&some_global_struct" some_global_struct :: Ptr Struct2_t
+foreign import ccall safe "get_some_global_struct_ptr" some_global_struct :: Ptr Struct2_t

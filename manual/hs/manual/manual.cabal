@@ -21,7 +21,7 @@ executable run-manual
   main-is:         RunManual.hs
   ghc-options:     -main-is RunManual
   hs-source-dirs:  app, generated
-  extra-libraries: example, structs
+  extra-libraries: example, structs, globals
 
   build-depends:
     -- Internal.
@@ -36,6 +36,7 @@ executable run-manual
   other-modules:
       Example
       Structs
+      Globals
 
   ghc-options:
       -- Avoid gcc warnings about non-NFC characters

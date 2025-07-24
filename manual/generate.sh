@@ -37,6 +37,13 @@ cabal run hs-bindgen-cli -- \
     --module Structs \
     structs.h
 
+cabal run hs-bindgen-cli -- \
+  preprocess \
+    -I c \
+    -o hs/manual/generated/Globals.hs \
+    --module Globals \
+    globals.h
+
 echo "# "
 echo "# External bindings: vector example"
 echo "# "

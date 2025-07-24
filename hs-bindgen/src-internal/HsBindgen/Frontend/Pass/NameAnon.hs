@@ -121,7 +121,7 @@ instance NameUseSites C.DeclKind where
       C.DeclTypedef typedef  -> C.DeclTypedef (nameUseSites env typedef)
       C.DeclMacro macro      -> C.DeclMacro (nameUseSites env macro)
       C.DeclFunction fun     -> C.DeclFunction (nameUseSites env fun)
-      C.DeclExtern ty        -> C.DeclExtern (nameUseSites env ty)
+      C.DeclGlobal ty        -> C.DeclGlobal (nameUseSites env ty)
       C.DeclConst ty         -> C.DeclConst (nameUseSites env ty)
 
 instance NameUseSites C.Struct where

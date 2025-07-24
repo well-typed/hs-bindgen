@@ -13,9 +13,9 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-$(CAPI.addCSource "#include \"globals.h\"\n")
+$(CAPI.addCSource "#include \"globals.h\"\n__attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } \n__attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } \n__attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } \n__attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } \n__attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } \n__attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } \n__attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } \n__attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } \n__attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } \n__attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } \n__attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } \n__attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } \n__attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } \n__attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } \n__attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } \n__attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } \n")
 
-foreign import capi safe "&simpleGlobal" simpleGlobal :: F.Ptr FC.CInt
+foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal :: F.Ptr FC.CInt
 
 data Config = Config
   { config_x :: FC.CInt
@@ -43,7 +43,7 @@ instance F.Storable Config where
                F.pokeByteOff ptr0 (0 :: Int) config_x2
             >> F.pokeByteOff ptr0 (4 :: Int) config_y3
 
-foreign import capi safe "&compoundGlobal1" compoundGlobal1 :: F.Ptr Config
+foreign import ccall safe "get_compoundGlobal1_ptr" compoundGlobal1 :: F.Ptr Config
 
 data Inline_struct = Inline_struct
   { inline_struct_x :: FC.CInt
@@ -71,37 +71,37 @@ instance F.Storable Inline_struct where
                F.pokeByteOff ptr0 (0 :: Int) inline_struct_x2
             >> F.pokeByteOff ptr0 (4 :: Int) inline_struct_y3
 
-foreign import capi safe "&compoundGlobal2" compoundGlobal2 :: F.Ptr Inline_struct
+foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2 :: F.Ptr Inline_struct
 
-foreign import capi safe "&nesInteger" nesInteger :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesInteger_ptr" nesInteger :: F.Ptr FC.CInt
 
-foreign import capi safe "&nesFloating" nesFloating :: F.Ptr FC.CFloat
+foreign import ccall safe "get_nesFloating_ptr" nesFloating :: F.Ptr FC.CFloat
 
-foreign import capi safe "&nesString1" nesString1 :: F.Ptr (F.Ptr FC.CChar)
+foreign import ccall safe "get_nesString1_ptr" nesString1 :: F.Ptr (F.Ptr FC.CChar)
 
 foreign import capi safe "&nesString2" nesString2 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar)
 
-foreign import capi safe "&nesCharacter" nesCharacter :: F.Ptr FC.CChar
+foreign import ccall safe "get_nesCharacter_ptr" nesCharacter :: F.Ptr FC.CChar
 
-foreign import capi safe "&nesParen" nesParen :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesParen_ptr" nesParen :: F.Ptr FC.CInt
 
-foreign import capi safe "&nesUnary" nesUnary :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesUnary_ptr" nesUnary :: F.Ptr FC.CInt
 
-foreign import capi safe "&nesBinary" nesBinary :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesBinary_ptr" nesBinary :: F.Ptr FC.CInt
 
-foreign import capi safe "&nesConditional" nesConditional :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesConditional_ptr" nesConditional :: F.Ptr FC.CInt
 
-foreign import capi safe "&nesCast" nesCast :: F.Ptr FC.CFloat
+foreign import ccall safe "get_nesCast_ptr" nesCast :: F.Ptr FC.CFloat
 
-foreign import capi safe "&nesCompound" nesCompound :: F.Ptr (F.Ptr FC.CInt)
+foreign import ccall safe "get_nesCompound_ptr" nesCompound :: F.Ptr (F.Ptr FC.CInt)
 
 foreign import capi safe "&nesInitList" nesInitList :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8)
 
-foreign import capi safe "&nesBool" nesBool :: F.Ptr FC.CBool
+foreign import ccall safe "get_nesBool_ptr" nesBool :: F.Ptr FC.CBool
 
 foreign import capi safe "&streamBinary" streamBinary :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
 
-foreign import capi safe "&streamBinary_len" streamBinary_len :: F.Ptr HsBindgen.Runtime.Prelude.Word32
+foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len :: F.Ptr HsBindgen.Runtime.Prelude.Word32
 
 data Version_t = Version_t
   { version_t_major :: HsBindgen.Runtime.Prelude.Word8
@@ -184,4 +184,4 @@ instance F.Storable Struct2_t where
           Struct2_t struct2_t_field12 ->
             F.pokeByteOff ptr0 (0 :: Int) struct2_t_field12
 
-foreign import capi safe "&some_global_struct" some_global_struct :: F.Ptr Struct2_t
+foreign import ccall safe "get_some_global_struct_ptr" some_global_struct :: F.Ptr Struct2_t

@@ -129,7 +129,8 @@ data DeclKind p =
   | DeclEnumOpaque
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
-  | DeclExtern (Type p)
+    -- | A global variables, whether it be declared @extern@, @static@ or neither.
+  | DeclGlobal (Type p)
   | DeclConst (Type p)
 
 data Struct p = Struct {

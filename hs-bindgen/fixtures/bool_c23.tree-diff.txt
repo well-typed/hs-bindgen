@@ -9,7 +9,7 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "bool_c23.h"},
-      declKind = DeclExtern
+      declKind = DeclGlobal
         (TypePrim PrimBool),
       declSpec = DeclSpec
         TypeSpec {

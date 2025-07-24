@@ -59,7 +59,7 @@ instance (
     DeclEnumOpaque        -> DeclEnumOpaque
     DeclMacro macro       -> DeclMacro macro
     DeclFunction function -> DeclFunction (coercePass function)
-    DeclExtern ty         -> DeclExtern (coercePass ty)
+    DeclGlobal ty         -> DeclGlobal (coercePass ty)
     DeclConst ty          -> DeclConst (coercePass ty)
 
 instance (

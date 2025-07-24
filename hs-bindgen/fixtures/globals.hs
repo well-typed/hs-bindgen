@@ -1,5 +1,7 @@
 [
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -8,9 +10,9 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "simpleGlobal",
+      "get_simpleGlobal_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed))},
@@ -426,6 +428,8 @@
       "@NsTypeConstr"
       "Config"),
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -437,9 +441,9 @@
             "@NsTypeConstr"
             "Config")),
       foreignImportOrigName =
-      "compoundGlobal1",
+      "get_compoundGlobal1_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeStruct
           NamePair {
@@ -867,6 +871,8 @@
       "@NsTypeConstr"
       "Inline_struct"),
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -878,9 +884,9 @@
             "@NsTypeConstr"
             "Inline_struct")),
       foreignImportOrigName =
-      "compoundGlobal2",
+      "get_compoundGlobal2_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeStruct
           NamePair {
@@ -889,6 +895,8 @@
               "Inline_struct"}
           NameOriginInSource)},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -897,13 +905,15 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "nesInteger",
+      "get_nesInteger_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -912,13 +922,15 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCFloat),
       foreignImportOrigName =
-      "nesFloating",
+      "get_nesFloating_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -928,9 +940,9 @@
         (HsPtr
           (HsPrimType HsPrimCChar)),
       foreignImportOrigName =
-      "nesString1",
+      "get_nesString1_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePointer
           (TypePrim
@@ -959,6 +971,8 @@
               (PrimSignImplicit
                 (Just Signed)))))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -967,15 +981,17 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCChar),
       foreignImportOrigName =
-      "nesCharacter",
+      "get_nesCharacter_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimChar
             (PrimSignImplicit
               (Just Signed))))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -984,13 +1000,15 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "nesParen",
+      "get_nesParen_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -999,13 +1017,15 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "nesUnary",
+      "get_nesUnary_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1014,13 +1034,15 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "nesBinary",
+      "get_nesBinary_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1029,13 +1051,15 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "nesConditional",
+      "get_nesConditional_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1044,13 +1068,15 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCFloat),
       foreignImportOrigName =
-      "nesCast",
+      "get_nesCast_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1059,9 +1085,9 @@
       foreignImportType = HsPtr
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "nesCompound",
+      "get_nesCompound_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePointer
           (TypePrim
@@ -1312,6 +1338,8 @@
                           instanceSpecConstraints = [
                             ]})]}}))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1320,9 +1348,9 @@
       foreignImportType = HsPtr
         (HsPrimType HsPrimCBool),
       foreignImportOrigName =
-      "nesBool",
+      "get_nesBool_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim PrimBool)},
   DeclInlineCInclude "globals.h",
@@ -1569,6 +1597,8 @@
                           instanceSpecConstraints = [
                             ]})]}}))},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1687,9 +1717,9 @@
                       instanceSpecConstraints = [
                         ]})]}),
       foreignImportOrigName =
-      "streamBinary_len",
+      "get_streamBinary_len_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeExtBinding
           ResolvedExtBinding {
@@ -8742,6 +8772,8 @@
       "@NsTypeConstr"
       "Struct2_t"),
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -8753,9 +8785,9 @@
             "@NsTypeConstr"
             "Struct2_t")),
       foreignImportOrigName =
-      "some_global_struct",
+      "get_some_global_struct_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefSquashed

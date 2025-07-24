@@ -55,7 +55,7 @@ processDecl C.Decl{declInfo, declKind} =
       C.DeclEnum enum       -> Just <$> processEnum info' enum
       C.DeclEnumOpaque      -> Just <$> processOpaque C.DeclEnumOpaque info'
       C.DeclFunction fun    -> Just <$> processFunction info' fun
-      C.DeclExtern ty       -> Just <$> processGlobal info' C.DeclExtern ty
+      C.DeclGlobal ty       -> Just <$> processGlobal info' C.DeclGlobal ty
       C.DeclConst ty        -> Just <$> processGlobal info' C.DeclConst ty
   where
     info' :: C.DeclInfo HandleMacros
