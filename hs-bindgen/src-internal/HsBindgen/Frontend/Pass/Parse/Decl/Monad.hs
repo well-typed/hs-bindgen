@@ -88,7 +88,7 @@ data Env = Env {
     , envIsMainFile    :: IsMainFile
     , envGetMainHeader :: GetMainHeader
     , envPredicate     :: Predicate
-    , envTracer        :: Tracer IO (Msg Parse)
+    , envTracer        :: Tracer IO ParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -106,7 +106,7 @@ evalPredicate info kind = wrapEff $ \ParseSupport{parseEnv} -> do
                      (C.declLoc info)
                      (qualPrelimDeclId (C.declId info) kind)
                      (envPredicate parseEnv)
-    unless selected $ traceWith (envTracer parseEnv) (Skipped info)
+    unless selected $ traceWith (envTracer parseEnv) (ParseSkipped info)
     return selected
 
 {-------------------------------------------------------------------------------
@@ -189,7 +189,7 @@ recordNonSelectedDecl declInfo nameKind =
   Logging
 -------------------------------------------------------------------------------}
 
-recordTrace :: HasCallStack => Msg Parse -> ParseDecl ()
+recordTrace :: HasCallStack => ParseMsg -> ParseDecl ()
 recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
     traceWith (envTracer parseEnv) trace
 

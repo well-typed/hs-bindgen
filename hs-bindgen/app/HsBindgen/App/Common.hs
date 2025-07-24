@@ -3,6 +3,8 @@ module HsBindgen.App.Common (
     -- * Global options
     GlobalOpts(..)
   , parseGlobalOpts
+    -- * Macro warnings
+  , MacroLogLevel(..)
     -- * HsBindgen 'Config'
   , parseConfig
     -- * Clang-related options
@@ -13,6 +15,7 @@ module HsBindgen.App.Common (
     -- * Input option
   , parseInputs
     -- * Auxiliary hs-bindgen functions
+  , withCliTracer
   , fromMaybeWithFatalError
   , loadBindingSpecs
   , footerWith
@@ -24,6 +27,7 @@ module HsBindgen.App.Common (
 import Control.Exception (Exception (displayException))
 import Control.Monad.IO.Class (MonadIO)
 import Data.Bifunctor (Bifunctor (bimap), first, second)
+import Data.Bool (bool)
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -34,6 +38,8 @@ import Options.Applicative.Extra (helperWith)
 import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
                                  vcat, (<+>))
 import Prettyprinter.Util (reflow)
+import System.Console.ANSI (hSupportsANSIColor)
+import System.IO qualified as IO
 
 import HsBindgen.Lib
 
@@ -42,12 +48,16 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig :: TracerConfig
+      tracerConfig  :: TracerConfig
+    , macroWarnings :: MacroLogLevel
     }
   deriving stock (Show)
 
 parseGlobalOpts :: Parser GlobalOpts
-parseGlobalOpts = GlobalOpts <$> parseTracerConfig
+parseGlobalOpts =
+    GlobalOpts
+      <$> parseTracerConfig
+      <*> parseMacroWarnings
 
 {-------------------------------------------------------------------------------
   Tracer configuration
@@ -93,6 +103,19 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
       short 's'
     , long "show-call-stack"
     , help "Show call stacks in traces"
+    ]
+
+{-------------------------------------------------------------------------------
+  Macro warnings
+-------------------------------------------------------------------------------}
+
+data MacroLogLevel = MacroLogInfo | MacroLogWarning
+  deriving (Eq, Show)
+
+parseMacroWarnings :: Parser MacroLogLevel
+parseMacroWarnings = flag MacroLogInfo MacroLogWarning $ mconcat [
+      long "macro-warnings"
+    , help "Make macro reparse and typecheck errors warnings (default info)"
     ]
 
 {-------------------------------------------------------------------------------
@@ -385,6 +408,29 @@ parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
+
+withCliTracer ::
+     GlobalOpts
+  -> (Tracer IO TraceMsg -> IO a)
+  -> IO (Maybe a)
+withCliTracer GlobalOpts{..} action' = do
+    ansiColor <- getAnsiColor
+    let customLogLevel = case macroWarnings of
+          MacroLogInfo    -> DefaultLogLevel
+          MacroLogWarning -> CustomLogLevel $ \case
+            TraceFrontend frontendMsg -> case frontendMsg of
+              FrontendHandleMacros handleMacrosMsg -> case handleMacrosMsg of
+                HandleMacrosErrorReparse{} -> Warning
+                HandleMacrosErrorTc{}      -> Warning
+                _otherwise                 -> getDefaultLogLevel handleMacrosMsg
+              _otherwise -> getDefaultLogLevel frontendMsg
+            traceMsg -> getDefaultLogLevel traceMsg
+    withTracerCustom ansiColor tracerConfig customLogLevel putStrLn action'
+  where
+    -- TODO make it easier to customize tracing (without having to do this)
+    getAnsiColor :: IO AnsiColor
+    getAnsiColor =
+      bool DisableAnsiColor EnableAnsiColor <$> hSupportsANSIColor IO.stdout
 
 -- | Extract the result or exit gracefully with an error message.
 --

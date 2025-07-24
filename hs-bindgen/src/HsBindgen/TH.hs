@@ -50,7 +50,23 @@ module HsBindgen.TH (
 
     -- * Logging
   , Common.TraceMsg(..)
+  , Common.BindingSpecMsg(..)
+  , Common.ClangMsg(..)
+  , Common.DeclIndexError(..)
+  , Common.Diagnostic(..)
+  , Common.FrontendMsg(..)
+  , Common.ParseMsg(..)
+  , Common.SortMsg(..)
+  , Common.SliceMsg(..)
+  , Common.HandleMacrosMsg(..)
+  , Common.NameAnonMsg(..)
+  , Common.ResolveBindingSpecMsg(..)
+  , Common.HandleTypedefsMsg(..)
+  , Common.MangleNamesMsg(..)
+  , Common.ParseTypeException(..)
+  , Common.ReparseError(..)
   , Common.ResolveHeaderMsg(..)
+  , Common.TcMacroError(..)
     -- ** Tracer definition and main API
   , Common.Tracer -- opaque
   , Common.Contravariant(..)

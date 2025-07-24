@@ -1,7 +1,6 @@
 -- | Golden tests
 module Test.HsBindgen.Golden (tests) where
 
-import Data.List qualified as List
 import Data.Text qualified as Text
 import Test.Tasty
 
@@ -74,6 +73,7 @@ testCases = [
     , defaultTest "anonymous"
     , defaultTest "bitfields"
     , defaultTest "bool"
+    , defaultTest "distilled_lib_1"
     , defaultTest "enums"
     , defaultTest "enum_cpp_syntax"
     , defaultTest "fixedarray_arg"
@@ -123,19 +123,14 @@ testCases = [
       --
 
     , testTraceCustom "decls_in_signature" ["f3", "f4", "f5"] $ \case
-        TraceFrontend (FrontendParse (UnexpectedAnonInSignature info)) ->
+        TraceFrontend (FrontendParse (ParseUnexpectedAnonInSignature info)) ->
           Just . Expected $ C.declId info
         TraceClang (ClangDiagnostic _diag) ->
           Just Tolerated
         _otherwise ->
           Nothing
-    , testTraceCustom "distilled_lib_1" (replicate 2 ()) $ \case
-        TraceFrontend (FrontendHandleMacros (MacroErrorTc (TcErrors _))) ->
-          Just $ Expected ()
-        _otherwise ->
-          Nothing
     , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
-        TraceFrontend (FrontendParse (UnsupportedType info UnsupportedLongDouble)) ->
+        TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedLongDouble)) ->
           Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
@@ -160,14 +155,14 @@ testCases = [
               , Labelled "Squashed" "struct12_t"
               ]
       in testTraceCustom "typedef_analysis" declsWithMsgs $ \case
-        TraceFrontend (FrontendHandleTypedefs (SquashedTypedef info)) ->
+        TraceFrontend (FrontendHandleTypedefs (HandleTypedefsSquashed info)) ->
           Just $ Expected $ Labelled "Squashed" $ declIdName (C.declId info)
-        TraceFrontend (FrontendHandleTypedefs (RenamedTagged info _to)) ->
+        TraceFrontend (FrontendHandleTypedefs (HandleTypedefsRenamedTagged info _to)) ->
           Just $ Expected $ Labelled "Renamed"  $ declIdName (C.declId info)
         _otherwise ->
           Nothing
     , testTraceSimple "varargs" $ \case
-        TraceFrontend (FrontendParse (UnsupportedType _ UnsupportedVariadicFunction)) ->
+        TraceFrontend (FrontendParse (ParseUnsupportedType _ UnsupportedVariadicFunction)) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
@@ -177,17 +172,17 @@ testCases = [
       --
 
     , failingTestSimple "long_double" $ \case
-        TraceFrontend (FrontendParse (UnsupportedType _ UnsupportedLongDouble)) ->
+        TraceFrontend (FrontendParse (ParseUnsupportedType _ UnsupportedLongDouble)) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
     , failingTestSimple "implicit_fields_struct" $ \case
-        TraceFrontend (FrontendParse (UnsupportedImplicitFields {})) ->
+        TraceFrontend (FrontendParse (ParseUnsupportedImplicitFields {})) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
     , failingTestSimple "declaration_unselected_b" $ \case
-        TraceFrontend (FrontendMangleNames (MissingDeclaration {})) ->
+        TraceFrontend (FrontendMangleNames (MangleNamesMissingDeclaration {})) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
@@ -217,7 +212,7 @@ testCases = [
         _otherwise ->
           Nothing
     , failingTestSimple "unsupported_builtin" $ \case
-        TraceFrontend (FrontendParse (UnsupportedType _info (UnsupportedBuiltin "__builtin_va_list"))) ->
+        TraceFrontend (FrontendParse (ParseUnsupportedType _info (UnsupportedBuiltin "__builtin_va_list"))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
@@ -234,9 +229,9 @@ testCases = [
           -- We are currently issueing a "non-extern non'static global" warning
           -- for @i@, which may not be correct @visibility@ is @hidden@.
           testTracePredicate = customTracePredicate' ["my_printf", "i"] $ \case
-             TraceFrontend (FrontendParse (UnsupportedType info UnsupportedVariadicFunction)) ->
+             TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedVariadicFunction)) ->
                Just $ Expected (C.declId info)
-             TraceFrontend (FrontendParse (PotentialDuplicateGlobal info)) ->
+             TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
                Just $ Expected (C.declId info)
              _otherwise ->
                Nothing
@@ -277,9 +272,9 @@ testCases = [
           -- different llvm version? For now we just disable it.
           testRustBindgen    = RustBindgenIgnore
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
-            TraceFrontend (FrontendParse (PotentialDuplicateGlobal info)) ->
+            TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
               Just $ Expected (C.declId info)
-            TraceFrontend (FrontendParse (UnexpectedAnonInExtern info)) ->
+            TraceFrontend (FrontendParse (ParseUnexpectedAnonInExtern info)) ->
               Just $ Expected (C.declId info)
             _otherwise ->
               Nothing
@@ -296,12 +291,7 @@ testCases = [
           testRustBindgen = RustBindgenFail
         }
     , (defaultTest "named_vs_anon"){
-          testClangVersion   = Just (>= (19, 1, 0))
-        , testTracePredicate = customTracePredicate [] $ \case
-            TraceFrontend (FrontendHandleMacros _) ->
-              Just Tolerated
-            _otherwise ->
-              Nothing
+          testClangVersion = Just (>= (19, 1, 0))
         }
     , (defaultTest "program_slicing_simple"){
           -- Check that program slicing generates bindings for uint32_t if we
@@ -315,22 +305,17 @@ testCases = [
             , qualNameKind = C.NameKindOrdinary
             }
         , testTracePredicate = customTracePredicate [
-              "ReparseError"
-            , "SelectedUInt32"
+              "SelectedUInt32"
             , "SelectedUInt64"
             ] $ \case
-            TraceFrontend (FrontendHandleMacros (MacroErrorReparse err)) ->
-              if "Unexpected primitive type" `List.isInfixOf` reparseError err
-                then Just $ Expected "ReparseError"
-                else Nothing
             TraceFrontend (FrontendSlice
-                           (Selected
+                           (SliceSelected
                             (TransitiveDependencyOf
                              (NsPrelimDeclIdNamed nm _) _)))
               | nm == "uint32_t" -> Just $ Expected "SelectedUInt32"
               | nm == "uint64_t" -> Just $ Expected "SelectedUInt64"
-            TraceFrontend (FrontendSlice (Selected _)) -> Just Unexpected
-            TraceFrontend (FrontendSlice (Slice.Skipped _)) -> Just Tolerated
+            TraceFrontend (FrontendSlice (SliceSelected _)) -> Just Unexpected
+            TraceFrontend (FrontendSlice (SliceSkipped _))  -> Just Tolerated
             _otherwise ->
               Nothing
         }
@@ -342,8 +327,7 @@ testCases = [
             , configProgramSlicing = EnableProgramSlicing
             }
         , testTracePredicate = customTracePredicate [
-              "ReparseError"
-            , "SelectedFileOpterationStatus"
+              "SelectedFileOpterationStatus"
             , "SelectedSizeT"
             , "SelectedFile"
             , "SelectedIoFile"
@@ -352,25 +336,21 @@ testCases = [
               -- TODO: Ideally, we do not see this warnings because they affect
               -- skipped declarations. See
               -- https://github.com/well-typed/hs-bindgen/issues/905.
-              UnsupportedType _ UnsupportedLongDouble       -> Just Tolerated
-              UnsupportedType _ UnsupportedVariadicFunction -> Just Tolerated
-              UnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
-              UnsupportedConst _                            -> Just Tolerated
-              _other                                        -> Nothing
-            TraceFrontend (FrontendHandleMacros (MacroErrorReparse err)) ->
-              if "Unexpected primitive type" `List.isInfixOf` reparseError err
-                then Just $ Expected "ReparseError"
-                else Nothing
+              ParseUnsupportedType _ UnsupportedLongDouble       -> Just Tolerated
+              ParseUnsupportedType _ UnsupportedVariadicFunction -> Just Tolerated
+              ParseUnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
+              ParseUnsupportedConst _                            -> Just Tolerated
+              _other                                             -> Nothing
             TraceFrontend (FrontendSlice
-                           (Selected
+                           (SliceSelected
                             (TransitiveDependencyOf
                              (NsPrelimDeclIdNamed nm _) _)))
               | nm == "FileOperationStatus" -> Just $ Expected "SelectedFileOpterationStatus"
               | nm == "size_t"              -> Just $ Expected "SelectedSizeT"
               | nm == "FILE"                -> Just $ Expected "SelectedFile"
               | nm == "_IO_FILE"            -> Just $ Expected "SelectedIoFile"
-            TraceFrontend (FrontendSlice (Selected _)) -> Just Unexpected
-            TraceFrontend (FrontendSlice (Slice.Skipped _)) -> Just Tolerated
+            TraceFrontend (FrontendSlice (SliceSelected _)) -> Just Unexpected
+            TraceFrontend (FrontendSlice (SliceSkipped _))  -> Just Tolerated
             _otherwise ->
               Nothing
           -- TODO: Also, we may want to specify an allow list; see
@@ -380,7 +360,7 @@ testCases = [
     , (defaultFailingTest "thread_local"){
           testClangVersion   = Just (>= (16, 0, 0))
         , testTracePredicate = singleTracePredicate $ \case
-            TraceFrontend (FrontendParse (UnsupportedTLS{})) ->
+            TraceFrontend (FrontendParse (ParseUnsupportedTLS{})) ->
               Just $ Expected ()
             _otherwise ->
               Nothing

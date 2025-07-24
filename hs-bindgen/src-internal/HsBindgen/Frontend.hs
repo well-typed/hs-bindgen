@@ -14,6 +14,7 @@ import HsBindgen.C.Predicate (Predicate (SelectAll))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
+import HsBindgen.Frontend.Pass (Msg)
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs

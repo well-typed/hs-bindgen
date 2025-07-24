@@ -92,7 +92,7 @@ fromCName :: forall ns.
 fromCName fc _ (C.Name cName) =
     case mFixed of
       Just (HsName hsName) -> (HsIdentifier hsName, Nothing)
-      Nothing              -> (HsIdentifier "", Just $ CouldNotMangle cName)
+      Nothing -> (HsIdentifier "", Just $ MangleNamesCouldNotMangle cName)
   where
     mFixed :: Maybe (HsName ns)
     mFixed = FixCandidate.fixCandidate fc cName
@@ -108,7 +108,7 @@ newtype M a = WrapM {
       Functor
     , Applicative
     , Monad
-    , MonadState [Msg MangleNames]
+    , MonadState [MangleNamesMsg]
     , MonadReader Env
     )
 
@@ -148,7 +148,7 @@ mangleQualName cQualName@(C.QualName cName _namespace) nameOrigin = do
         -- most likely because the user did not select the declaration. If the
         -- declaration was completely missing, Clang would have complained
         -- already.
-        modify (MissingDeclaration cQualName :)
+        modify (MangleNamesMissingDeclaration cQualName :)
         -- Use a fake Haskell ID.
         return (NamePair cName (HsIdentifier "MissingDeclaration"), nameOrigin)
 

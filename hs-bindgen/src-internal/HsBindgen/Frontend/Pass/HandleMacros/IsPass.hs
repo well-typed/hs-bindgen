@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
     HandleMacros
-  , Msg(..)
+  , HandleMacrosMsg(..)
   ) where
 
 import HsBindgen.C.Reparse.Infra
@@ -34,49 +34,53 @@ instance IsPass HandleMacros where
   type MacroBody  HandleMacros = CheckedMacro HandleMacros
   type ExtBinding HandleMacros = Void
   type Ann ix     HandleMacros = AnnHandleMacros ix
-  -- TODO: We might want source location information here
-  data Msg        HandleMacros =
-      -- | We could not parse the macro
-      MacroErrorReparse ReparseError
-
-      -- | We could not type-check the macro
-    | MacroErrorTc TcMacroError
-
-      -- | Unsupported macro: empty body
-    | MacroErrorEmpty
-
-      -- | Unsupported macro: defines C compiler attribute
-    | MacroErrorAttribute
-
-      -- | Macro that defines an unsupported type
-    | MacroErrorUnsupportedType String
-    deriving stock (Show, Eq)
+  type Msg        HandleMacros = HandleMacrosMsg
 
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
 
-instance PrettyForTrace (Msg HandleMacros) where
+-- TODO: We might want source location information here
+data HandleMacrosMsg =
+    -- | We could not parse the macro
+    HandleMacrosErrorReparse ReparseError
+
+    -- | We could not type-check the macro
+  | HandleMacrosErrorTc TcMacroError
+
+    -- | Unsupported macro: empty body
+  | HandleMacrosErrorEmpty
+
+    -- | Unsupported macro: defines C compiler attribute
+  | HandleMacrosErrorAttribute
+
+    -- | Macro that defines an unsupported type
+  | HandleMacrosErrorUnsupportedType String
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace HandleMacrosMsg where
   prettyForTrace = \case
-      MacroErrorReparse x ->
+      HandleMacrosErrorReparse x ->
         prettyForTrace x
-      MacroErrorTc x ->
+      HandleMacrosErrorTc x ->
         textToCtxDoc $ Macro.pprTcMacroError x
-      MacroErrorEmpty ->
+      HandleMacrosErrorEmpty ->
         "Unsupported empty macro"
-      MacroErrorAttribute ->
+      HandleMacrosErrorAttribute ->
         "Unsupported attribute macro"
-      MacroErrorUnsupportedType err ->
+      HandleMacrosErrorUnsupportedType err ->
         "Unsupported type: " >< string err
 
 -- | Default log level
 --
--- We use 'Info' for macros that are /always/ unsupported, and 'Warning' for
--- macros that we might perhaps except to be supported but something went wrong.
-instance HasDefaultLogLevel (Msg HandleMacros) where
-  getDefaultLogLevel = \case
-    MacroErrorReparse{}         -> Warning
-    MacroErrorTc{}              -> Warning
-    MacroErrorEmpty{}           -> Info
-    MacroErrorAttribute{}       -> Info
-    MacroErrorUnsupportedType{} -> Info
+-- Reparse and typechecking errors may indicate that something went wrong, or
+-- they may be caused by macro syntax that we do not yet support.  They are
+-- 'Info' by default because there are many unsupported macros in standard
+-- library implementations.  Users may optionally make them 'Warning' instead.
+--
+-- Other errors are 'Info' because they are /always/ unsupported.
+instance HasDefaultLogLevel HandleMacrosMsg where
+  getDefaultLogLevel = const Info
+
+instance HasSource HandleMacrosMsg where
+  getSource = const HsBindgen

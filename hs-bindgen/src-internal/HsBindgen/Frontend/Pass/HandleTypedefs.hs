@@ -50,7 +50,7 @@ handleDecl td decl =
       C.DeclTypedef{} ->
         case Map.lookup curName (TypedefAnalysis.squash td) of
           Just _ty -> (
-              Just $ SquashedTypedef declInfo'
+              Just $ HandleTypedefsSquashed declInfo'
             , Nothing
             )
           Nothing -> (
@@ -66,7 +66,7 @@ handleDecl td decl =
                case Map.lookup curName (TypedefAnalysis.rename td) of
                  Nothing -> (Nothing, declInfo')
                  Just (newName, newOrigin) -> (
-                     Just $ RenamedTagged declInfo' newName
+                     Just $ HandleTypedefsRenamedTagged declInfo' newName
                    , declInfo {
                        declId = DeclId newName newOrigin
                      }

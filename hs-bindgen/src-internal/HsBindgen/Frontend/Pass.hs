@@ -76,7 +76,7 @@ class IsPass (p :: Pass) where
   type Config p = NoConfig
 
   -- | Trace messages possibly emitted by the pass
-  data Msg p :: Star
+  type Msg p :: Star
 
 data NoAnn = NoAnn
   deriving stock (Show, Eq)

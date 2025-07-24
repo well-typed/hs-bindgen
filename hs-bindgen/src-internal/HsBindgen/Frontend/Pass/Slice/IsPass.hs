@@ -4,7 +4,7 @@ module HsBindgen.Frontend.Pass.Slice.IsPass (
   , ProgramSlicing (..)
   , SliceConfig (..)
     -- * Trace messages
-  , Msg (..)
+  , SliceMsg (..)
   , SelectReason (..)
   ) where
 
@@ -40,13 +40,7 @@ instance IsPass Slice where
   type ExtBinding Slice = ExtBinding Sort
   type Ann ix     Slice = AnnSlice ix
   type Config     Slice = SliceConfig
-
-  -- | Slice trace messages
-  data Msg        Slice =
-      TransitiveDependencyUnavailable NsPrelimDeclId
-    | Skipped (C.DeclInfo Slice)
-    | Selected SelectReason
-    deriving stock (Show, Eq)
+  type Msg        Slice = SliceMsg
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -73,6 +67,13 @@ data SliceConfig = SliceConfig {
   Trace messages
 -------------------------------------------------------------------------------}
 
+-- | Slice trace messages
+data SliceMsg =
+    SliceTransitiveDependencyUnavailable NsPrelimDeclId
+  | SliceSkipped (C.DeclInfo Slice)
+  | SliceSelected SelectReason
+  deriving stock (Show, Eq)
+
 data SelectReason =
     TransitiveDependencyOf {
       selectedDecl           :: NsPrelimDeclId
@@ -93,18 +94,18 @@ instance PrettyForTrace SelectReason where
 instance HasDefaultLogLevel SelectReason where
   getDefaultLogLevel _ = Info
 
-instance PrettyForTrace (Msg Slice) where
+instance PrettyForTrace SliceMsg where
   prettyForTrace = \case
-    TransitiveDependencyUnavailable qualId ->
+    SliceTransitiveDependencyUnavailable qualId ->
       "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
-    Skipped  info -> prettyForTrace info >< " not selected"
-    Selected reason -> prettyForTrace reason
+    SliceSkipped  info -> prettyForTrace info >< " not selected"
+    SliceSelected reason -> prettyForTrace reason
 
-instance HasDefaultLogLevel (Msg Slice) where
+instance HasDefaultLogLevel SliceMsg where
   getDefaultLogLevel = \case
-    TransitiveDependencyUnavailable _ -> Error
-    Skipped{}       -> Info
-    Selected reason -> getDefaultLogLevel reason
+    SliceTransitiveDependencyUnavailable{} -> Error
+    SliceSkipped{}                         -> Info
+    SliceSelected reason                   -> getDefaultLogLevel reason
 
-instance HasSource (Msg Slice) where
+instance HasSource SliceMsg where
   getSource = const HsBindgen

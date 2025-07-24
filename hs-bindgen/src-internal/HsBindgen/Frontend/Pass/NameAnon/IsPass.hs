@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Pass.NameAnon.IsPass (
     NameAnon
-  , Msg (..)
+  , NameAnonMsg(..)
   ) where
 
 import HsBindgen.Frontend.AST.Internal (ValidPass)
@@ -32,26 +32,31 @@ instance IsPass NameAnon where
   type MacroBody  NameAnon = C.CheckedMacro NameAnon
   type ExtBinding NameAnon = Void
   type Ann ix     NameAnon = AnnNameAnon ix
-  data Msg        NameAnon =
-      -- | Skipped unused anonymous declaration entirely
-      --
-      -- @clang@ will produce a warning for this ("declaration does not declare
-      -- anything"); we issue a separate message here in case we skip over
-      -- something that we shouldn't.
-      NameAnonSkipped (C.DeclInfo Parse)
-    deriving stock (Show, Eq)
+  type Msg        NameAnon = NameAnonMsg
 
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
 
-instance PrettyForTrace (Msg NameAnon) where
+data NameAnonMsg =
+    -- | Skipped unused anonymous declaration entirely
+    --
+    -- @clang@ will produce a warning for this ("declaration does not declare
+    -- anything"); we issue a separate message here in case we skip over
+    -- something that we shouldn't.
+    NameAnonSkipped (C.DeclInfo Parse)
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace NameAnonMsg where
   prettyForTrace = \case
       NameAnonSkipped info -> hsep [
           "Skipped unused anonynous declaration"
         , prettyForTrace info
         ]
 
-instance HasDefaultLogLevel (Msg NameAnon) where
+instance HasDefaultLogLevel NameAnonMsg where
   getDefaultLogLevel = \case
       NameAnonSkipped{} -> Debug -- clang already warned
+
+instance HasSource NameAnonMsg where
+  getSource = const HsBindgen
