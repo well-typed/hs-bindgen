@@ -27,7 +27,7 @@ ifeq ($(LLVM_BACKEND),1)
 	EXTRAFLAGS:=
 endif
 
-default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT}
+default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT} libglobals${TARGET_EXT}
 
 .PHONY: clean
 clean:
@@ -40,6 +40,18 @@ libexample${TARGET_EXT}: manual_examples.o
 
 manual_examples.o: manual_examples.c manual_examples.h
 	gcc ${EXTRAFLAGS} -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/manual/c
+
+libstructs${TARGET_EXT}: structs.o
+	gcc ${EXTRAFLAGS} -Wall -shared -o libstructs${TARGET_EXT} structs.o
+
+structs.o: structs.c structs.h
+	gcc ${EXTRAFLAGS} -Wall -o structs.o -c -fPIC structs.c
+
+libglobals${TARGET_EXT}: globals.o
+	gcc ${EXTRAFLAGS} -Wall -shared -o libglobals${TARGET_EXT} globals.o
+
+globals.o: globals.c globals.h
+	gcc ${EXTRAFLAGS} -Wall -o globals.o -c -fPIC globals.c
 
 # Example for external bindings
 
@@ -63,9 +75,3 @@ game_world.o: game_world.c game_world.h
 
 game_player.o: game_player.c game_player.h
 	gcc ${EXTRAFLAGS} -Wall -o game_player.o -c -fPIC game_player.c
-
-libstructs${TARGET_EXT}: structs.o
-	gcc ${EXTRAFLAGS} -Wall -shared -o libstructs${TARGET_EXT} structs.o
-
-structs.o: structs.c structs.h
-	gcc ${EXTRAFLAGS} -Wall -o structs.o -c -fPIC structs.c
