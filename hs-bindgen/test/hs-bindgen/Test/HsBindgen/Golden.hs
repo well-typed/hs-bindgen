@@ -228,10 +228,12 @@ testCases = [
           -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
           -- We are currently issueing a "non-extern non'static global" warning
           -- for @i@, which may not be correct @visibility@ is @hidden@.
-          testTracePredicate = customTracePredicate' ["my_printf", "i"] $ \case
+          testTracePredicate = customTracePredicate' ["my_printf", "i", "f3"] $ \case
              TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedVariadicFunction)) ->
                Just $ Expected (C.declId info)
              TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
+               Just $ Expected (C.declId info)
+             TraceFrontend (FrontendParse (UnexpectedNonDefaultVisibility info)) ->
                Just $ Expected (C.declId info)
              _otherwise ->
                Nothing
@@ -243,6 +245,15 @@ testCases = [
                Just Tolerated
              _otherwise ->
                Nothing
+        }
+    , (defaultTest "visibility_attributes") {
+          testTracePredicate = customTracePredicate' ["i0", "i1", "f2", "f3", "f4", "i2", "i3", "i4"] $ \case
+            TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (UnexpectedNonDefaultVisibility info)) ->
+              Just $ Expected (C.declId info)
+            _otherwise ->
+              Nothing
         }
     , let declsWithWarnings :: [PrelimDeclId]
           declsWithWarnings = [

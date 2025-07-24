@@ -918,46 +918,6 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void testmodule_f3 (void) { f3(); }",
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "f3",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
-      foreignImportOrigName =
-      "testmodule_f3",
-      foreignImportCallConv =
-      CallConvUserlandCAPI,
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid}},
-  DeclInlineCInclude
-    "fun_attributes.h",
-  DeclInlineC
-    "__attribute__ ((const)) signed int *get_i_ptr (void) { return &i; } ",
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "i",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
-      foreignImportOrigName =
-      "get_i_ptr",
-      foreignImportCallConv =
-      CallConvUserlandCAPI,
-      foreignImportOrigin = Global
-        (TypePrim
-          (PrimIntegral PrimInt Signed))},
-  DeclInlineCInclude
-    "fun_attributes.h",
-  DeclInlineC
     "signed int testmodule_fn (void) { return fn(); }",
   DeclForeignImport
     ForeignImportDecl {

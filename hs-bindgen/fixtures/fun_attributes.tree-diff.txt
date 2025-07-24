@@ -642,51 +642,6 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:124:49",
-        declId = NamePair {
-          nameC = Name "f3",
-          nameHsIdent = HsIdentifier
-            "f3"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:125:5",
-        declId = NamePair {
-          nameC = Name "i",
-          nameHsIdent = HsIdentifier "i"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader =
-        "fun_attributes.h"},
-      declKind = DeclGlobal
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
         "fun_attributes.h:129:5",
         declId = NamePair {
           nameC = Name "fn",

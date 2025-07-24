@@ -167,6 +167,9 @@ data ParseMsg =
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/41>
   | ParseUnsupportedConst (C.DeclInfo Parse)
+
+    -- TODO: document
+  | UnexpectedNonDefaultVisibility (C.DeclInfo Parse)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseMsg where
@@ -195,6 +198,9 @@ instance PrettyForTrace ParseMsg where
         ]
       ParseUnsupportedConst info -> noBindingsGenerated info $
           "constants not yet supported (#41)"
+      UnexpectedNonDefaultVisibility info -> noBindingsGenerated info $
+          "linking will likely fail if header files contain declarations \
+          \with non-default (hidden, protected, internal) visibility"
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
       noBindingsGenerated info reason = hcat [
@@ -216,6 +222,7 @@ instance HasDefaultLogLevel ParseMsg where
       ParseUnknownStorageClass{}       -> Warning
       ParsePotentialDuplicateGlobal{}  -> Notice
       ParseUnsupportedConst{}          -> Warning
+      UnexpectedNonDefaultVisibility{} -> Warning
 
 instance HasSource ParseMsg where
   getSource = const HsBindgen

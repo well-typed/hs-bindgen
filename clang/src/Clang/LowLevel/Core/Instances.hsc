@@ -859,3 +859,20 @@ instance IsSimpleEnum CXTLSKind where
   simpleFromC (#const CXTLS_Static)  = Just CXTLS_Static
 
   simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
+  CXVisibilityKind
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXVisibilityKind where
+  simpleToC CXVisibility_Invalid   = #const CXVisibility_Invalid
+  simpleToC CXVisibility_Hidden    = #const CXVisibility_Hidden
+  simpleToC CXVisibility_Protected = #const CXVisibility_Protected
+  simpleToC CXVisibility_Default   = #const CXVisibility_Default
+
+  simpleFromC (#const CXVisibility_Invalid)   = Just CXVisibility_Invalid
+  simpleFromC (#const CXVisibility_Hidden)    = Just CXVisibility_Hidden
+  simpleFromC (#const CXVisibility_Protected) = Just CXVisibility_Protected
+  simpleFromC (#const CXVisibility_Default)   = Just CXVisibility_Default
+
+  simpleFromC _otherwise = Nothing
