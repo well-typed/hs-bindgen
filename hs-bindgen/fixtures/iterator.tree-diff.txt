@@ -9,7 +9,8 @@ TranslationUnit {
             "Toggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -38,7 +39,8 @@ TranslationUnit {
             "makeToggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -67,7 +69,8 @@ TranslationUnit {
             "toggleNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -97,7 +100,8 @@ TranslationUnit {
             "releaseToggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -126,7 +130,8 @@ TranslationUnit {
             "Counter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -158,7 +163,8 @@ TranslationUnit {
             "makeCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -190,7 +196,8 @@ TranslationUnit {
             "counterNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -220,7 +227,8 @@ TranslationUnit {
             "releaseCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -249,7 +257,8 @@ TranslationUnit {
             "VarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -283,7 +292,8 @@ TranslationUnit {
             "makeVarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -313,7 +323,8 @@ TranslationUnit {
             "varCounterNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -346,7 +357,8 @@ TranslationUnit {
             "releaseVarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h"},
+        declHeader = "iterator.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [

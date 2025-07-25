@@ -17,7 +17,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [97],
-          unicodeCodePoint = Just 'a'}},
+          unicodeCodePoint = Just 'a'},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -36,7 +37,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [34],
-          unicodeCodePoint = Just `'"'`}},
+          unicodeCodePoint = Just `'"'`},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -55,7 +57,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [9],
-          unicodeCodePoint = Just '\t'}},
+          unicodeCodePoint = Just '\t'},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -74,8 +77,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [0],
-          unicodeCodePoint = Just
-            '\NUL'}},
+          unicodeCodePoint = Just '\NUL'},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -94,7 +97,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [39],
-          unicodeCodePoint = Just '\''}},
+          unicodeCodePoint = Just '\''},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -113,7 +117,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [63],
-          unicodeCodePoint = Just '?'}},
+          unicodeCodePoint = Just '?'},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -132,7 +137,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [83],
-          unicodeCodePoint = Nothing}},
+          unicodeCodePoint = Nothing},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -151,7 +157,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [83],
-          unicodeCodePoint = Nothing}},
+          unicodeCodePoint = Nothing},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -170,7 +177,8 @@
         CharValue {
           charValue =
           Prim.byteArrayFromList [1, 255],
-          unicodeCodePoint = Nothing}},
+          unicodeCodePoint = Nothing},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -191,7 +199,8 @@
           Prim.byteArrayFromList
             [227, 129, 130],
           unicodeCodePoint = Just
-            '\12354'}},
+            '\12354'},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -212,7 +221,8 @@
           Prim.byteArrayFromList
             [227, 129, 130],
           unicodeCodePoint = Just
-            '\12354'}},
+            '\12354'},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -232,7 +242,8 @@
           charValue =
           Prim.byteArrayFromList
             [227, 129, 130],
-          unicodeCodePoint = Nothing}},
+          unicodeCodePoint = Nothing},
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -277,7 +288,8 @@
                           (IntLikeTyCon HsIntType))))
                     []]]}},
       varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [97])},
+        (Prim.byteArrayFromList [97]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -322,7 +334,8 @@
                           (IntLikeTyCon HsIntType))))
                     []]]}},
       varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [39])},
+        (Prim.byteArrayFromList [39]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -367,7 +380,8 @@
                           (IntLikeTyCon HsIntType))))
                     []]]}},
       varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [9])},
+        (Prim.byteArrayFromList [9]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -412,7 +426,8 @@
                           (IntLikeTyCon HsIntType))))
                     []]]}},
       varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [0])},
+        (Prim.byteArrayFromList [0]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -457,7 +472,8 @@
                           (IntLikeTyCon HsIntType))))
                     []]]}},
       varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [39])},
+        (Prim.byteArrayFromList [39]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -502,7 +518,8 @@
                           (IntLikeTyCon HsIntType))))
                     []]]}},
       varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [63])},
+        (Prim.byteArrayFromList [63]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -547,7 +564,8 @@
                           (IntLikeTyCon HsIntType))))
                     []]]}},
       varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [83])},
+        (Prim.byteArrayFromList [83]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -592,7 +610,8 @@
                           (IntLikeTyCon HsIntType))))
                     []]]}},
       varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [83])},
+        (Prim.byteArrayFromList [83]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -638,7 +657,8 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
-          [227, 129, 130])},
+          [227, 129, 130]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -684,7 +704,8 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
-          [227, 129, 130])},
+          [227, 129, 130]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -730,7 +751,8 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
-          [227, 129, 130])},
+          [227, 129, 130]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -784,7 +806,8 @@
             1,
             255,
             1,
-            255])},
+            255]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -830,7 +853,8 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
-          [1, 2, 3, 4, 5, 6])},
+          [1, 2, 3, 4, 5, 6]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -876,7 +900,8 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
-          [104, 105, 106, 0])},
+          [104, 105, 106, 0]),
+      varDeclComment = Nothing},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -931,4 +956,5 @@
             101,
             102,
             0,
-            103])}]
+            103]),
+      varDeclComment = Nothing}]

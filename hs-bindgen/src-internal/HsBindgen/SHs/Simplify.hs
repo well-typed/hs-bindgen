@@ -77,9 +77,9 @@ instance Monoid SimpleInstances where
 
 toSimpleInstances :: SDecl -> Maybe (HsName NsTypeConstr, SimpleInstances)
 toSimpleInstances = \case
-    DDerivingInstance DeriveStock (TApp (TGlobal cls) (TCon name)) ->
+    DDerivingInstance (DerivingInstance DeriveStock (TApp (TGlobal cls) (TCon name)) _) ->
       Just (name, mempty{strategyStock = Set.singleton cls})
-    DDerivingInstance DeriveNewtype (TApp (TGlobal cls) (TCon name)) ->
+    DDerivingInstance (DerivingInstance DeriveNewtype (TApp (TGlobal cls) (TCon name)) _)->
       Just (name, mempty{strategyNewtype = Set.singleton cls})
     _otherwise
       -> Nothing

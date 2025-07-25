@@ -9,17 +9,19 @@ module Clang.HighLevel.Documentation (
   , CXCommentParamPassDirection(..)
     -- * Top-Level
   , clang_getComment
-    -- * Translation
   ) where
 
 import Control.Monad
 import Control.Monad.IO.Class
 import Data.Either
 import Data.Text (Text)
+import Data.Text qualified as Text
 
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
+
+import GHC.Generics (Generic)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -42,7 +44,7 @@ data Comment = Comment {
       -- | Children of a the comment
     , commentChildren :: [CommentBlockContent]
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq, Generic)
 
 -- | Reified Clang comment block content
 data CommentBlockContent =
@@ -72,7 +74,7 @@ data CommentBlockContent =
     | VerbatimLine {
         verbatimLine :: Text
       }
-  deriving stock (Show)
+  deriving stock (Show, Eq, Generic)
 
 -- | Reified Clang comment inline content
 data CommentInlineContent =
@@ -92,7 +94,7 @@ data CommentInlineContent =
     | HtmlEndTag {
         htmlEndTagName :: Text
       }
-  deriving stock (Show)
+  deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -109,7 +111,7 @@ clang_getComment cursor = do
     case eCommentKind of
       Right CXComment_Null -> pure Nothing
       Right CXComment_FullComment -> do
-        commentCName <- clang_getCursorDisplayName cursor
+        commentCName <- Text.strip <$> clang_getCursorDisplayName cursor
         commentChildren <- getChildren (getBlockContent cursor) comment
         pure $ Just Comment{..}
       Right commentKind ->
@@ -133,16 +135,17 @@ getBlockContent cursor comment = do
         pure Paragraph{..}
 
       Right CXComment_BlockCommand -> do
-        blockCommandName <- clang_BlockCommandComment_getCommandName comment
+        blockCommandName <- Text.strip <$> clang_BlockCommandComment_getCommandName comment
         idxs <- getIdxs <$> clang_BlockCommandComment_getNumArgs comment
         blockCommandArgs <-
-          mapM (clang_BlockCommandComment_getArgText comment) idxs
+              fmap Text.strip
+          <$> mapM (clang_BlockCommandComment_getArgText comment) idxs
         blockCommandParagraph <- getChildren (getInlineContent cursor)
           =<< clang_BlockCommandComment_getParagraph comment
         pure BlockCommand{..}
 
       Right CXComment_ParamCommand -> do
-        paramCommandName <- clang_ParamCommandComment_getParamName comment
+        paramCommandName <- Text.strip <$> clang_ParamCommandComment_getParamName comment
         paramCommandIndex <- do
           isValid <- clang_ParamCommandComment_isParamIndexValid comment
           if isValid
@@ -159,7 +162,7 @@ getBlockContent cursor comment = do
         pure ParamCommand{..}
 
       Right CXComment_TParamCommand -> do
-        tParamCommandName <- clang_TParamCommandComment_getParamName comment
+        tParamCommandName <- Text.strip <$> clang_TParamCommandComment_getParamName comment
         tParamCommandPosition <- do
           isValid <- clang_TParamCommandComment_isParamPositionValid comment
           if isValid
@@ -173,12 +176,14 @@ getBlockContent cursor comment = do
         pure TParamCommand{..}
 
       Right CXComment_VerbatimBlockCommand -> do
-        verbatimBlockLines <- getChildren (getVerbatimBlockLine cursor) comment
+        verbatimBlockLines <- fmap Text.strip
+                          <$> getChildren (getVerbatimBlockLine cursor) comment
         pure VerbatimBlockCommand{..}
 
       Right CXComment_VerbatimLine -> do
         -- rest of line after misused command becomes a verbatim line
-        verbatimLine <- clang_VerbatimLineComment_getText comment
+        verbatimLine <- Text.strip
+                    <$> clang_VerbatimLineComment_getText comment
         pure VerbatimLine{..}
 
       Right commentKind -> errorWithContext cursor $
@@ -199,32 +204,33 @@ getInlineContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
       Right CXComment_Text -> do
-        textContent <- clang_TextComment_getText comment
+        textContent <- Text.strip <$> clang_TextComment_getText comment
         pure TextContent{..}
 
       Right CXComment_InlineCommand -> do
-        inlineCommandName <- clang_InlineCommandComment_getCommandName comment
+        inlineCommandName <- Text.strip <$> clang_InlineCommandComment_getCommandName comment
         inlineCommandRenderKind <-
           fromRight CXCommentInlineCommandRenderKind_Normal . fromSimpleEnum
             <$> clang_InlineCommandComment_getRenderKind comment
         idxs <- getIdxs <$> clang_InlineCommandComment_getNumArgs comment
         inlineCommandArgs <-
-          mapM (clang_InlineCommandComment_getArgText comment) idxs
+              fmap Text.strip
+          <$> mapM (clang_InlineCommandComment_getArgText comment) idxs
         pure InlineCommand{..}
 
       Right CXComment_HTMLStartTag -> do
-        htmlStartTagName <- clang_HTMLTagComment_getTagName comment
+        htmlStartTagName <- Text.strip <$> clang_HTMLTagComment_getTagName comment
         htmlStartTagIsSelfClosing <-
           clang_HTMLStartTagComment_isSelfClosing comment
         idxs <- getIdxs <$> clang_HTMLStartTag_getNumAttrs comment
         htmlStartTagAttributes <- forM idxs $ \idx -> do
-          attrName  <- clang_HTMLStartTag_getAttrName  comment idx
-          attrValue <- clang_HTMLStartTag_getAttrValue comment idx
+          attrName  <- Text.strip <$> clang_HTMLStartTag_getAttrName  comment idx
+          attrValue <- Text.strip <$> clang_HTMLStartTag_getAttrValue comment idx
           pure (attrName, attrValue)
         pure HtmlStartTag{..}
 
       Right CXComment_HTMLEndTag -> do
-        htmlEndTagName <- clang_HTMLTagComment_getTagName comment
+        htmlEndTagName <- Text.strip <$> clang_HTMLTagComment_getTagName comment
         pure HtmlEndTag{..}
 
       Right commentKind -> errorWithContext cursor $
@@ -245,7 +251,8 @@ getVerbatimBlockLine cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
       Right CXComment_VerbatimBlockLine ->
-        clang_VerbatimBlockLineComment_getText comment
+            Text.strip
+        <$> clang_VerbatimBlockLineComment_getText comment
 
       Right commentKind -> errorWithContext cursor $
         "child comment of non-verbatim-block-line kind " ++ show commentKind
@@ -270,10 +277,7 @@ getIdxs n = [0 .. n - 1]
   Translation
 -------------------------------------------------------------------------------}
 
--- TODO need options and context to translate references
--- TODO need indentation, comment position, and max line width
---translateComment :: Comment -> String
---translateComment = undefined
+-- See "HsBindgen.Backend.PP.Render"
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

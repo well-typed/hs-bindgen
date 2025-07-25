@@ -14,4 +14,5 @@
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
-        (TypePrim PrimBool)}]
+        (TypePrim PrimBool),
+      foreignImportComment = Nothing}]

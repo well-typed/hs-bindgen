@@ -13,7 +13,8 @@ TranslationUnit {
           Name "uint_fast32_t",
           Name "uint_least32_t"],
         declHeader =
-        "program_slicing_simple.h"},
+        "program_slicing_simple.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -44,7 +45,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "program_slicing_simple.h"},
+        "program_slicing_simple.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -176,7 +178,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "program_slicing_simple.h:5:12",
@@ -191,7 +194,8 @@ TranslationUnit {
                     nameHsIdent = HsIdentifier
                       "Uint32_t"}),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

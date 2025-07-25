@@ -66,6 +66,7 @@ instance Finalize Int.DeclInfo where
       , declOrigin = nameOrigin
       , declAliases
       , declHeader
+      , declComment
       }
     where
       Int.DeclInfo{
@@ -73,6 +74,7 @@ instance Finalize Int.DeclInfo where
         , declId = (namePair, nameOrigin)
         , declAliases
         , declHeader
+        , declComment
         } = info
 
 instance Finalize Int.DeclKind where
@@ -119,6 +121,7 @@ instance Finalize Int.StructField where
       , structFieldType = finalize structFieldType
       , structFieldOffset
       , structFieldWidth
+      , structFieldComment
       }
     where
       Int.StructField {
@@ -128,6 +131,7 @@ instance Finalize Int.StructField where
         , structFieldOffset
         , structFieldWidth
         , structFieldAnn = NoAnn
+        , structFieldComment
         } = field
 
 instance Finalize Int.Union where
@@ -154,6 +158,7 @@ instance Finalize Int.UnionField where
         unionFieldLoc
       , unionFieldName
       , unionFieldType = finalize unionFieldType
+      , unionFieldComment
       }
     where
       Int.UnionField {
@@ -161,6 +166,7 @@ instance Finalize Int.UnionField where
         , unionFieldName
         , unionFieldType
         , unionFieldAnn = NoAnn
+        , unionFieldComment
         } = field
 
 instance Finalize Int.Enum where
@@ -189,12 +195,14 @@ instance Finalize Int.EnumConstant where
         enumConstantLoc
       , enumConstantName
       , enumConstantValue
+      , enumConstantComment
       }
     where
       Int.EnumConstant {
           enumConstantLoc
         , enumConstantName
         , enumConstantValue
+        , enumConstantComment
         } = constant
 
 instance Finalize Int.Typedef where

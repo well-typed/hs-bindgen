@@ -9,7 +9,8 @@ TranslationUnit {
             "Myint"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "typedefs.h"},
+        declHeader = "typedefs.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -36,7 +37,8 @@ TranslationUnit {
             "Intptr"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "typedefs.h"},
+        declHeader = "typedefs.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

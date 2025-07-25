@@ -13,7 +13,8 @@
           "un_MY_TYPE",
         fieldType = HsPrimType
           HsPrimCInt,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -25,7 +26,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_typedef_struct.h"},
+          "macro_typedef_struct.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -57,85 +59,139 @@
           Integral,
           Num,
           Real,
-          Storable]},
+          Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "MY_TYPE"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MY_TYPE",
+      deriveInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -162,7 +218,9 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -187,7 +245,9 @@
                     "MY_TYPE"}
                 NameOriginInSource,
               structFieldOffset = 32,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -202,7 +262,8 @@
                 "macro_typedef_struct.h:3:9"),
             declAliases = [Name "bar"],
             declHeader =
-            "macro_typedef_struct.h"},
+            "macro_typedef_struct.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -220,7 +281,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing},
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
                 StructField {
                   structFieldLoc =
                   "macro_typedef_struct.h:5:11",
@@ -236,7 +298,8 @@
                         "MY_TYPE"}
                     NameOriginInSource,
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -245,365 +308,406 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Bar",
-        structConstr = HsName
-          "@NsConstr"
-          "Bar",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "bar_x",
-            fieldType = HsPrimType
-              HsPrimCInt,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "macro_typedef_struct.h:4:7",
-                structFieldName = NamePair {
-                  nameC = Name "x",
-                  nameHsIdent = HsIdentifier
-                    "bar_x"},
-                structFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}},
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "bar_y",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "MY_TYPE"),
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "macro_typedef_struct.h:5:11",
-                structFieldName = NamePair {
-                  nameC = Name "y",
-                  nameHsIdent = HsIdentifier
-                    "bar_y"},
-                structFieldType =
-                TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "MY_TYPE",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Bar",
+          structConstr = HsName
+            "@NsConstr"
+            "Bar",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "bar_x",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "macro_typedef_struct.h:4:7",
+                  structFieldName = NamePair {
+                    nameC = Name "x",
                     nameHsIdent = HsIdentifier
-                      "MY_TYPE"}
-                  NameOriginInSource,
-                structFieldOffset = 32,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "macro_typedef_struct.h:3:9",
-              declId = NamePair {
-                nameC = Name "bar",
-                nameHsIdent = HsIdentifier
-                  "Bar"},
-              declOrigin = NameOriginGenerated
-                (AnonId
-                  "macro_typedef_struct.h:3:9"),
-              declAliases = [Name "bar"],
-              declHeader =
-              "macro_typedef_struct.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "Bar"),
-                structSizeof = 8,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "macro_typedef_struct.h:4:7",
-                    structFieldName = NamePair {
-                      nameC = Name "x",
-                      nameHsIdent = HsIdentifier
-                        "bar_x"},
-                    structFieldType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing},
-                  StructField {
-                    structFieldLoc =
-                    "macro_typedef_struct.h:5:11",
-                    structFieldName = NamePair {
-                      nameC = Name "y",
-                      nameHsIdent = HsIdentifier
-                        "bar_y"},
-                    structFieldType =
-                    TypeMacroTypedef
-                      NamePair {
-                        nameC = Name "MY_TYPE",
-                        nameHsIdent = HsIdentifier
-                          "MY_TYPE"}
-                      NameOriginInSource,
-                    structFieldOffset = 32,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 8,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
+                      "bar_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing},
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "bar_y",
+              fieldType = HsTypRef
+                (HsName
                   "@NsTypeConstr"
-                  "Bar",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Bar",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "bar_x",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_typedef_struct.h:4:7",
-                        structFieldName = NamePair {
-                          nameC = Name "x",
-                          nameHsIdent = HsIdentifier
-                            "bar_x"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "bar_y",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "MY_TYPE"),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_typedef_struct.h:5:11",
-                        structFieldName = NamePair {
-                          nameC = Name "y",
-                          nameHsIdent = HsIdentifier
-                            "bar_y"},
-                        structFieldType =
-                        TypeMacroTypedef
-                          NamePair {
-                            nameC = Name "MY_TYPE",
-                            nameHsIdent = HsIdentifier
-                              "MY_TYPE"}
-                          NameOriginInSource,
-                        structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_typedef_struct.h:3:9",
-                      declId = NamePair {
-                        nameC = Name "bar",
+                  "MY_TYPE"),
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "macro_typedef_struct.h:5:11",
+                  structFieldName = NamePair {
+                    nameC = Name "y",
+                    nameHsIdent = HsIdentifier
+                      "bar_y"},
+                  structFieldType =
+                  TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "MY_TYPE",
+                      nameHsIdent = HsIdentifier
+                        "MY_TYPE"}
+                    NameOriginInSource,
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "macro_typedef_struct.h:3:9",
+                declId = NamePair {
+                  nameC = Name "bar",
+                  nameHsIdent = HsIdentifier
+                    "Bar"},
+                declOrigin = NameOriginGenerated
+                  (AnonId
+                    "macro_typedef_struct.h:3:9"),
+                declAliases = [Name "bar"],
+                declHeader =
+                "macro_typedef_struct.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Bar"),
+                  structSizeof = 8,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "macro_typedef_struct.h:4:7",
+                      structFieldName = NamePair {
+                        nameC = Name "x",
                         nameHsIdent = HsIdentifier
-                          "Bar"},
-                      declOrigin = NameOriginGenerated
-                        (AnonId
-                          "macro_typedef_struct.h:3:9"),
-                      declAliases = [Name "bar"],
-                      declHeader =
-                      "macro_typedef_struct.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Bar"),
-                        structSizeof = 8,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_typedef_struct.h:4:7",
-                            structFieldName = NamePair {
-                              nameC = Name "x",
-                              nameHsIdent = HsIdentifier
-                                "bar_x"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing},
-                          StructField {
-                            structFieldLoc =
-                            "macro_typedef_struct.h:5:11",
-                            structFieldName = NamePair {
-                              nameC = Name "y",
-                              nameHsIdent = HsIdentifier
-                                "bar_y"},
-                            structFieldType =
-                            TypeMacroTypedef
-                              NamePair {
-                                nameC = Name "MY_TYPE",
-                                nameHsIdent = HsIdentifier
-                                  "MY_TYPE"}
-                              NameOriginInSource,
-                            structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [
-              PeekByteOff (Idx 0) 0,
-              PeekByteOff (Idx 0) 4]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Bar",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Bar",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "bar_x",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_typedef_struct.h:4:7",
-                        structFieldName = NamePair {
-                          nameC = Name "x",
-                          nameHsIdent = HsIdentifier
-                            "bar_x"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "bar_y",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "MY_TYPE"),
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_typedef_struct.h:5:11",
-                        structFieldName = NamePair {
-                          nameC = Name "y",
-                          nameHsIdent = HsIdentifier
-                            "bar_y"},
-                        structFieldType =
-                        TypeMacroTypedef
-                          NamePair {
-                            nameC = Name "MY_TYPE",
-                            nameHsIdent = HsIdentifier
-                              "MY_TYPE"}
-                          NameOriginInSource,
-                        structFieldOffset = 32,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_typedef_struct.h:3:9",
-                      declId = NamePair {
-                        nameC = Name "bar",
+                          "bar_x"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing},
+                    StructField {
+                      structFieldLoc =
+                      "macro_typedef_struct.h:5:11",
+                      structFieldName = NamePair {
+                        nameC = Name "y",
                         nameHsIdent = HsIdentifier
-                          "Bar"},
-                      declOrigin = NameOriginGenerated
-                        (AnonId
-                          "macro_typedef_struct.h:3:9"),
-                      declAliases = [Name "bar"],
-                      declHeader =
-                      "macro_typedef_struct.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Bar"),
-                        structSizeof = 8,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_typedef_struct.h:4:7",
-                            structFieldName = NamePair {
-                              nameC = Name "x",
+                          "bar_y"},
+                      structFieldType =
+                      TypeMacroTypedef
+                        NamePair {
+                          nameC = Name "MY_TYPE",
+                          nameHsIdent = HsIdentifier
+                            "MY_TYPE"}
+                        NameOriginInSource,
+                      structFieldOffset = 32,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 8,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Bar",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Bar",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "bar_x",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_typedef_struct.h:4:7",
+                          structFieldName = NamePair {
+                            nameC = Name "x",
+                            nameHsIdent = HsIdentifier
+                              "bar_x"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "bar_y",
+                      fieldType = HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "MY_TYPE"),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_typedef_struct.h:5:11",
+                          structFieldName = NamePair {
+                            nameC = Name "y",
+                            nameHsIdent = HsIdentifier
+                              "bar_y"},
+                          structFieldType =
+                          TypeMacroTypedef
+                            NamePair {
+                              nameC = Name "MY_TYPE",
                               nameHsIdent = HsIdentifier
-                                "bar_x"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing},
-                          StructField {
-                            structFieldLoc =
-                            "macro_typedef_struct.h:5:11",
-                            structFieldName = NamePair {
-                              nameC = Name "y",
-                              nameHsIdent = HsIdentifier
-                                "bar_y"},
-                            structFieldType =
-                            TypeMacroTypedef
-                              NamePair {
-                                nameC = Name "MY_TYPE",
+                                "MY_TYPE"}
+                            NameOriginInSource,
+                          structFieldOffset = 32,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_typedef_struct.h:3:9",
+                        declId = NamePair {
+                          nameC = Name "bar",
+                          nameHsIdent = HsIdentifier
+                            "Bar"},
+                        declOrigin = NameOriginGenerated
+                          (AnonId
+                            "macro_typedef_struct.h:3:9"),
+                        declAliases = [Name "bar"],
+                        declHeader =
+                        "macro_typedef_struct.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Bar"),
+                          structSizeof = 8,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_typedef_struct.h:4:7",
+                              structFieldName = NamePair {
+                                nameC = Name "x",
                                 nameHsIdent = HsIdentifier
-                                  "MY_TYPE"}
-                              NameOriginInSource,
-                            structFieldOffset = 32,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 2)
-              (Seq
-                [
-                  PokeByteOff (Idx 3) 0 (Idx 0),
-                  PokeByteOff
-                    (Idx 3)
-                    4
-                    (Idx 1)])))}),
+                                  "bar_x"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "macro_typedef_struct.h:5:11",
+                              structFieldName = NamePair {
+                                nameC = Name "y",
+                                nameHsIdent = HsIdentifier
+                                  "bar_y"},
+                              structFieldType =
+                              TypeMacroTypedef
+                                NamePair {
+                                  nameC = Name "MY_TYPE",
+                                  nameHsIdent = HsIdentifier
+                                    "MY_TYPE"}
+                                NameOriginInSource,
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [
+                PeekByteOff (Idx 0) 0,
+                PeekByteOff (Idx 0) 4]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Bar",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Bar",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "bar_x",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_typedef_struct.h:4:7",
+                          structFieldName = NamePair {
+                            nameC = Name "x",
+                            nameHsIdent = HsIdentifier
+                              "bar_x"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "bar_y",
+                      fieldType = HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "MY_TYPE"),
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_typedef_struct.h:5:11",
+                          structFieldName = NamePair {
+                            nameC = Name "y",
+                            nameHsIdent = HsIdentifier
+                              "bar_y"},
+                          structFieldType =
+                          TypeMacroTypedef
+                            NamePair {
+                              nameC = Name "MY_TYPE",
+                              nameHsIdent = HsIdentifier
+                                "MY_TYPE"}
+                            NameOriginInSource,
+                          structFieldOffset = 32,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_typedef_struct.h:3:9",
+                        declId = NamePair {
+                          nameC = Name "bar",
+                          nameHsIdent = HsIdentifier
+                            "Bar"},
+                        declOrigin = NameOriginGenerated
+                          (AnonId
+                            "macro_typedef_struct.h:3:9"),
+                        declAliases = [Name "bar"],
+                        declHeader =
+                        "macro_typedef_struct.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Bar"),
+                          structSizeof = 8,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_typedef_struct.h:4:7",
+                              structFieldName = NamePair {
+                                nameC = Name "x",
+                                nameHsIdent = HsIdentifier
+                                  "bar_x"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "macro_typedef_struct.h:5:11",
+                              structFieldName = NamePair {
+                                nameC = Name "y",
+                                nameHsIdent = HsIdentifier
+                                  "bar_y"},
+                              structFieldType =
+                              TypeMacroTypedef
+                                NamePair {
+                                  nameC = Name "MY_TYPE",
+                                  nameHsIdent = HsIdentifier
+                                    "MY_TYPE"}
+                                NameOriginInSource,
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 2)
+                (Seq
+                  [
+                    PokeByteOff (Idx 3) 0 (Idx 0),
+                    PokeByteOff
+                      (Idx 3)
+                      4
+                      (Idx 1)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "Bar"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Bar",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "Bar")]
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Bar",
+      deriveInstanceComment =
+      Nothing}]

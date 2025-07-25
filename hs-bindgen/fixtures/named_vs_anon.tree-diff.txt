@@ -9,7 +9,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "A"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -34,7 +35,8 @@ TranslationUnit {
             "Struct1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -59,7 +61,8 @@ TranslationUnit {
             "B_s"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -84,7 +87,8 @@ TranslationUnit {
             "Struct2_s"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -110,7 +114,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "C"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -135,7 +140,8 @@ TranslationUnit {
             "Struct3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -159,7 +165,8 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "D"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -184,7 +191,8 @@ TranslationUnit {
             "Struct4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -209,7 +217,8 @@ TranslationUnit {
             "E_s"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -234,7 +243,8 @@ TranslationUnit {
             "Struct5_s"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -261,7 +271,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "named_vs_anon.h:35:9"),
         declAliases = [Name "f"],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -287,7 +298,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "named_vs_anon.h:36:9"),
         declAliases = [Name "typedef1"],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -312,7 +324,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "named_vs_anon.h:39:9"),
         declAliases = [Name "g"],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -338,7 +351,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "named_vs_anon.h:40:9"),
         declAliases = [Name "typedef2"],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -363,7 +377,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "named_vs_anon.h:43:9"),
         declAliases = [Name "h"],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -389,7 +404,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "named_vs_anon.h:44:9"),
         declAliases = [Name "typedef3"],
-        declHeader = "named_vs_anon.h"},
+        declHeader = "named_vs_anon.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

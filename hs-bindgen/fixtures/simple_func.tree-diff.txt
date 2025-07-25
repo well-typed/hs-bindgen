@@ -9,7 +9,8 @@ TranslationUnit {
             "erf"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -35,7 +36,8 @@ TranslationUnit {
             "bad_fma"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -65,7 +67,8 @@ TranslationUnit {
             "no_args"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -88,7 +91,8 @@ TranslationUnit {
             "no_args_no_void"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -111,7 +115,8 @@ TranslationUnit {
             "fun"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_func.h"},
+        declHeader = "simple_func.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [

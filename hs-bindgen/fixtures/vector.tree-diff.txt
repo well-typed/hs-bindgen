@@ -10,7 +10,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "vector.h:1:9"),
         declAliases = [Name "vector"],
-        declHeader = "vector.h"},
+        declHeader = "vector.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -28,7 +29,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "vector.h:3:12",
@@ -39,7 +41,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -56,7 +59,8 @@ TranslationUnit {
             "new_vector"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "vector.h"},
+        declHeader = "vector.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [

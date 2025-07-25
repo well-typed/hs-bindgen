@@ -13,7 +13,8 @@
           "un_MyEnum",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc = "uses_utf8.h:4:6",
@@ -23,7 +24,8 @@
               "MyEnum"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "uses_utf8.h"},
+          declHeader = "uses_utf8.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -45,7 +47,8 @@
                   nameC = Name "Say\20320\22909",
                   nameHsIdent = HsIdentifier
                     "Say\20320\22909"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "uses_utf8.h:6:9",
@@ -53,7 +56,9 @@
                   nameC = Name "Say\25308\25308",
                   nameHsIdent = HsIdentifier
                     "Say\25308\25308"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment =
+                Nothing}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -61,214 +66,237 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [
-          Eq,
-          Ord,
-          Read,
-          Show,
-          Storable]},
+        [Eq, Ord, Read, Show, Storable],
+      newtypeComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "MyEnum",
-        structConstr = HsName
-          "@NsConstr"
-          "MyEnum",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_MyEnum",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "MyEnum",
-                structConstr = HsName
-                  "@NsConstr"
-                  "MyEnum",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "un_MyEnum",
-                    fieldType = HsPrimType
-                      HsPrimCUInt,
-                    fieldOrigin = GeneratedField}],
-                structOrigin = Nothing,
-                structInstances = Set.fromList
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "MyEnum",
+          structConstr = HsName
+            "@NsConstr"
+            "MyEnum",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_MyEnum",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "MyEnum",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "MyEnum",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "un_MyEnum",
+                      fieldType = HsPrimType
+                        HsPrimCUInt,
+                      fieldOrigin = GeneratedField,
+                      fieldComment = Nothing}],
+                  structOrigin = Nothing,
+                  structInstances = Set.fromList
+                    [Eq, Ord, Read, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "MyEnum",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "MyEnum",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "un_MyEnum",
+                      fieldType = HsPrimType
+                        HsPrimCUInt,
+                      fieldOrigin = GeneratedField,
+                      fieldComment = Nothing}],
+                  structOrigin = Nothing,
+                  structInstances = Set.fromList
+                    [Eq, Ord, Read, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
                   [
-                    Eq,
-                    Ord,
-                    Read,
-                    Show,
-                    Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "MyEnum",
-                structConstr = HsName
-                  "@NsConstr"
-                  "MyEnum",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "un_MyEnum",
-                    fieldType = HsPrimType
-                      HsPrimCUInt,
-                    fieldOrigin = GeneratedField}],
-                structOrigin = Nothing,
-                structInstances = Set.fromList
-                  [Eq, Ord, Read, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "MyEnum"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MyEnum",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "MyEnum"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MyEnum",
+      deriveInstanceComment =
+      Nothing},
   DeclInstance
-    (InstanceCEnum
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "MyEnum",
-        structConstr = HsName
-          "@NsConstr"
-          "MyEnum",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_MyEnum",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      (HsPrimType HsPrimCUInt)
-      (Map.fromList
-        [
-          _×_
-            0
-            (NE.fromList
-              ["Say\20320\22909"]),
-          _×_
-            1
-            (NE.fromList
-              ["Say\25308\25308"])])
-      True),
-  DeclInstance
-    (InstanceSequentialCEnum
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "MyEnum",
-        structConstr = HsName
-          "@NsConstr"
-          "MyEnum",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_MyEnum",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      (HsName
-        "@NsConstr"
-        "Say\20320\22909")
-      (HsName
-        "@NsConstr"
-        "Say\25308\25308")),
-  DeclInstance
-    (InstanceCEnumShow
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "MyEnum",
-        structConstr = HsName
-          "@NsConstr"
-          "MyEnum",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_MyEnum",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnum
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "MyEnum",
+          structConstr = HsName
+            "@NsConstr"
+            "MyEnum",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_MyEnum",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        (HsPrimType HsPrimCUInt)
+        (Map.fromList
           [
-            Eq,
-            Ord,
-            Read,
-            Show,
-            Storable]}),
+            _×_
+              0
+              (NE.fromList
+                ["Say\20320\22909"]),
+            _×_
+              1
+              (NE.fromList
+                ["Say\25308\25308"])])
+        True,
+      defineInstanceComment =
+      Nothing},
   DeclInstance
-    (InstanceCEnumRead
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "MyEnum",
-        structConstr = HsName
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceSequentialCEnum
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "MyEnum",
+          structConstr = HsName
+            "@NsConstr"
+            "MyEnum",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_MyEnum",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        (HsName
           "@NsConstr"
-          "MyEnum",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_MyEnum",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [
-            Eq,
-            Ord,
-            Read,
-            Show,
-            Storable]}),
+          "Say\20320\22909")
+        (HsName
+          "@NsConstr"
+          "Say\25308\25308"),
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnumShow
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "MyEnum",
+          structConstr = HsName
+            "@NsConstr"
+            "MyEnum",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_MyEnum",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnumRead
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "MyEnum",
+          structConstr = HsName
+            "@NsConstr"
+            "MyEnum",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_MyEnum",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing},
+      defineInstanceComment =
+      Nothing},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -289,7 +317,9 @@
             nameC = Name "Say\20320\22909",
             nameHsIdent = HsIdentifier
               "Say\20320\22909"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing},
+      patSynComment = Nothing},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -310,4 +340,6 @@
             nameC = Name "Say\25308\25308",
             nameHsIdent = HsIdentifier
               "Say\25308\25308"},
-          enumConstantValue = 1}}]
+          enumConstantValue = 1,
+          enumConstantComment = Nothing},
+      patSynComment = Nothing}]

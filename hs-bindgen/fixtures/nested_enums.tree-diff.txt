@@ -9,7 +9,8 @@ TranslationUnit {
             "EnumA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_enums.h"},
+        declHeader = "nested_enums.h",
+        declComment = Nothing},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -31,7 +32,8 @@ TranslationUnit {
                 nameC = Name "VALA_1",
                 nameHsIdent = HsIdentifier
                   "VALA_1"},
-              enumConstantValue = 0},
+              enumConstantValue = 0,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "nested_enums.h:4:17",
@@ -39,7 +41,9 @@ TranslationUnit {
                 nameC = Name "VALA_2",
                 nameHsIdent = HsIdentifier
                   "VALA_2"},
-              enumConstantValue = 1}]},
+              enumConstantValue = 1,
+              enumConstantComment =
+              Nothing}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -55,7 +59,8 @@ TranslationUnit {
             "ExA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_enums.h"},
+        declHeader = "nested_enums.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -77,7 +82,8 @@ TranslationUnit {
                     "EnumA"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -95,7 +101,8 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "nested_enums.h:9:9"),
         declAliases = [],
-        declHeader = "nested_enums.h"},
+        declHeader = "nested_enums.h",
+        declComment = Nothing},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -117,7 +124,8 @@ TranslationUnit {
                 nameC = Name "VALB_1",
                 nameHsIdent = HsIdentifier
                   "VALB_1"},
-              enumConstantValue = 0},
+              enumConstantValue = 0,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "nested_enums.h:11:17",
@@ -125,7 +133,9 @@ TranslationUnit {
                 nameC = Name "VALB_2",
                 nameHsIdent = HsIdentifier
                   "VALB_2"},
-              enumConstantValue = 1}]},
+              enumConstantValue = 1,
+              enumConstantComment =
+              Nothing}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -141,7 +151,8 @@ TranslationUnit {
             "ExB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_enums.h"},
+        declHeader = "nested_enums.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -164,7 +175,8 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "nested_enums.h:9:9")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

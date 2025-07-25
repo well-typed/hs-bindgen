@@ -9,7 +9,8 @@ TranslationUnit {
             "Flags"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h"},
+        declHeader = "bitfields.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -29,7 +30,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:3:9",
@@ -40,7 +42,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 8,
-              structFieldWidth = Just 1},
+              structFieldWidth = Just 1,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:4:9",
@@ -51,7 +54,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 9,
-              structFieldWidth = Just 1},
+              structFieldWidth = Just 1,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:5:9",
@@ -62,7 +66,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 10,
-              structFieldWidth = Just 1},
+              structFieldWidth = Just 1,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:6:10",
@@ -75,7 +80,8 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 16,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:7:9",
@@ -86,7 +92,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 24,
-              structFieldWidth = Just 2}],
+              structFieldWidth = Just 2,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -103,7 +110,8 @@ TranslationUnit {
             "Overflow32"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h"},
+        declHeader = "bitfields.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -123,7 +131,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Just 17},
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:14:9",
@@ -134,7 +143,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Just 17},
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:15:9",
@@ -145,7 +155,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Just 17}],
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -162,7 +173,8 @@ TranslationUnit {
             "Overflow32b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h"},
+        declHeader = "bitfields.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -182,7 +194,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 0,
-              structFieldWidth = Just 17},
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:20:10",
@@ -193,7 +206,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 17,
-              structFieldWidth = Just 17},
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:21:10",
@@ -204,7 +218,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 34,
-              structFieldWidth = Just 17}],
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -221,7 +236,8 @@ TranslationUnit {
             "Overflow32c"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h"},
+        declHeader = "bitfields.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -241,7 +257,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 0,
-              structFieldWidth = Just 17},
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:26:10",
@@ -252,7 +269,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Just 17},
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:27:10",
@@ -263,7 +281,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 64,
-              structFieldWidth = Just 17}],
+              structFieldWidth = Just 17,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -280,7 +299,8 @@ TranslationUnit {
             "Overflow64"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h"},
+        declHeader = "bitfields.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -300,7 +320,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 0,
-              structFieldWidth = Just 33},
+              structFieldWidth = Just 33,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:32:10",
@@ -311,7 +332,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 64,
-              structFieldWidth = Just 33}],
+              structFieldWidth = Just 33,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -328,7 +350,8 @@ TranslationUnit {
             "AlignA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h"},
+        declHeader = "bitfields.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -347,7 +370,8 @@ TranslationUnit {
                 (PrimChar
                   (PrimSignExplicit Unsigned)),
               structFieldOffset = 0,
-              structFieldWidth = Just 1},
+              structFieldWidth = Just 1,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:38:6",
@@ -358,7 +382,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 1,
-              structFieldWidth = Just 10}],
+              structFieldWidth = Just 10,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -375,7 +400,8 @@ TranslationUnit {
             "AlignB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h"},
+        declHeader = "bitfields.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -394,7 +420,8 @@ TranslationUnit {
                 (PrimChar
                   (PrimSignExplicit Unsigned)),
               structFieldOffset = 0,
-              structFieldWidth = Just 7},
+              structFieldWidth = Just 7,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "bitfields.h:43:6",
@@ -405,7 +432,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Just 31}],
+              structFieldWidth = Just 31,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

@@ -11,7 +11,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "macro_typedef_struct.h"},
+        "macro_typedef_struct.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -43,7 +44,8 @@ TranslationUnit {
             "macro_typedef_struct.h:3:9"),
         declAliases = [Name "bar"],
         declHeader =
-        "macro_typedef_struct.h"},
+        "macro_typedef_struct.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -61,7 +63,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "macro_typedef_struct.h:5:11",
@@ -77,7 +80,8 @@ TranslationUnit {
                     "MY_TYPE"}
                 NameOriginInSource,
               structFieldOffset = 32,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

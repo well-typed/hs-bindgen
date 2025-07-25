@@ -29,6 +29,7 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.CallConv
+import HsBindgen.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -41,6 +42,7 @@ import HsBindgen.SHs.Translation qualified as SHs
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), Idx (..), pattern I1, pattern I2,
                  sizeEnv, tabulateEnv, weaken, zipWithEnv)
+import HsBindgen.Hs.Haddock.Translation (generateHaddocks)
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -346,9 +348,10 @@ structDecs opts info struct spec fields = do
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
-        fieldName   = C.nameHs (C.structFieldName f)
-      , fieldType   = typ (C.structFieldType f)
-      , fieldOrigin = Origin.StructField f
+        fieldName    = C.nameHs (C.structFieldName f)
+      , fieldType    = typ (C.structFieldType f)
+      , fieldOrigin  = Origin.StructField f
+      , fieldComment = fmap generateHaddocks (C.structFieldComment f)
       }
 
     candidateInsts :: Set HsTypeClass
@@ -375,6 +378,7 @@ structDecs opts info struct spec fields = do
               , declKind = Origin.Struct struct
               , declSpec = spec
               }
+          , structComment = fmap generateHaddocks (C.declComment info)
           }
 
         structDecl :: Hs.Decl
@@ -383,21 +387,34 @@ structDecs opts info struct spec fields = do
         storableDecl :: [Hs.Decl]
         storableDecl
           | Hs.Storable `Set.notMember` insts = []
-          | otherwise = singleton $ Hs.DeclDefineInstance $
-              Hs.InstanceStorable hsStruct Hs.StorableInstance {
-                  Hs.storableSizeOf    = C.structSizeof struct
-                , Hs.storableAlignment = C.structAlignment struct
-                , Hs.storablePeek      = Hs.Lambda "ptr" $
-                    Hs.Ap (Hs.StructCon hsStruct) $
-                      map (peekStructField IZ) (C.structFields struct)
-                , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-                    Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ toList $
-                      Vec.zipWith (pokeStructField (weaken wk I1)) fields xs
-                }
+          | otherwise = singleton
+                      $ Hs.DeclDefineInstance
+                          Hs.DefineInstance {
+                            defineInstanceComment      = Nothing
+                          , defineInstanceDeclarations =
+                              Hs.InstanceStorable
+                                  hsStruct
+                                  Hs.StorableInstance {
+                                    Hs.storableSizeOf    = C.structSizeof struct
+                                  , Hs.storableAlignment = C.structAlignment struct
+                                  , Hs.storablePeek      = Hs.Lambda "ptr" $
+                                      Hs.Ap (Hs.StructCon hsStruct) $
+                                        map (peekStructField IZ) (C.structFields struct)
+                                  , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                                      Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ toList $
+                                        Vec.zipWith (pokeStructField (weaken wk I1)) fields xs
+                                  }
+                          }
 
         optDecls :: [Hs.Decl]
         optDecls = [
-            Hs.DeclDeriveInstance strat clss structName
+            Hs.DeclDeriveInstance
+              Hs.DeriveInstance {
+                deriveInstanceStrategy = strat
+              , deriveInstanceClass    = clss
+              , deriveInstanceName     = structName
+              , deriveInstanceComment  = Nothing
+              }
           | (strat, clss) <- translationDeriveStruct opts
           , clss `Set.member` insts
           ]
@@ -405,10 +422,15 @@ structDecs opts info struct spec fields = do
         hasFlamDecl :: [Hs.Decl]
         hasFlamDecl = case C.structFlam struct of
           Nothing   -> []
-          Just flam -> singleton $ Hs.DeclDefineInstance $ Hs.InstanceHasFLAM
-            hsStruct
-            (typ (C.structFieldType flam))
-            (C.structFieldOffset flam `div` 8)
+          Just flam -> singleton
+                     $ Hs.DeclDefineInstance
+                        Hs.DefineInstance {
+                          defineInstanceComment      = Nothing
+                        , defineInstanceDeclarations =
+                            Hs.InstanceHasFLAM hsStruct
+                                               (typ (C.structFieldType flam))
+                                               (C.structFieldOffset flam `div` 8)
+                        }
 
 peekStructField :: Idx ctx -> C.StructField -> Hs.PeekByteOff ctx
 peekStructField ptr f = case C.structFieldWidth f of
@@ -445,6 +467,7 @@ opaqueDecs origin info spec = do
           , declKind = origin
           , declSpec = spec
           }
+      , emptyDataComment = fmap generateHaddocks (C.declComment info)
       }
 
 opaqueStructDecs ::
@@ -496,15 +519,17 @@ unionDecs info union spec = do
       , newtypeInstances = insts
 
       , newtypeField = Hs.Field {
-            fieldName   = C.newtypeField (C.unionNames union)
-          , fieldType   = Hs.HsByteArray
-          , fieldOrigin = Origin.GeneratedField
+            fieldName    = C.newtypeField (C.unionNames union)
+          , fieldType    = Hs.HsByteArray
+          , fieldOrigin  = Origin.GeneratedField
+          , fieldComment = Nothing
           }
       , newtypeOrigin = Origin.Decl{
             declInfo = info
           , declKind = Origin.Union union
           , declSpec = spec
           }
+      , newtypeComment = fmap generateHaddocks (C.declComment info)
       }
 
     newtypeDecl :: Hs.Decl
@@ -512,7 +537,13 @@ unionDecs info union spec = do
 
     storableDecl :: Hs.Decl
     storableDecl =
-      Hs.DeclDeriveInstance (Hs.DeriveVia sba) Hs.Storable newtypeName
+      Hs.DeclDeriveInstance
+        Hs.DeriveInstance {
+          deriveInstanceStrategy = Hs.DeriveVia sba
+        , deriveInstanceClass    = Hs.Storable
+        , deriveInstanceName     = newtypeName
+        , deriveInstanceComment  = Nothing
+        }
 
     sba :: Hs.HsType
     sba =
@@ -532,13 +563,36 @@ unionDecs info union spec = do
         getAccessorDecls C.UnionField{..} =
           let hsType = typ unionFieldType
               fInsts = getInstances instanceMap newtypeName insts [hsType]
+              getterName = "get_" <> C.nameHs unionFieldName
+              setterName = "set_" <> C.nameHs unionFieldName
+              commentRefName name = Just
+                Hs.Comment {
+                  commentTitle    = Nothing
+                , commentOrigin   = Nothing
+                , commentChildren = [ Hs.Paragraph
+                                      [ Hs.Bold [Hs.TextContent "See:"]
+                                      , Hs.Identifier name
+                                      ]
+                                    ]
+                }
           in  if Hs.Storable `Set.notMember` fInsts
                 then []
                 else
-                  [ Hs.DeclUnionGetter newtypeName hsType $
-                      "get_" <> C.nameHs unionFieldName
-                  , Hs.DeclUnionSetter newtypeName hsType $
-                      "set_" <> C.nameHs unionFieldName
+                  [ Hs.DeclUnionGetter
+                      Hs.UnionGetter {
+                        unionGetterName    = getterName
+                      , unionGetterType    = hsType
+                      , unionGetterConstr  = newtypeName
+                      , unionGetterComment = fmap generateHaddocks unionFieldComment
+                                          <> commentRefName (getHsName setterName)
+                      }
+                  , Hs.DeclUnionSetter
+                      Hs.UnionSetter {
+                        unionSetterName    = setterName
+                      , unionSetterType    = hsType
+                      , unionSetterConstr  = newtypeName
+                      , unionSetterComment = commentRefName (getHsName getterName)
+                      }
                   ]
 
 {-------------------------------------------------------------------------------
@@ -565,9 +619,10 @@ enumDecs opts info e spec = do
 
     newtypeField :: Hs.Field
     newtypeField = Hs.Field {
-        fieldName   = C.newtypeField (C.enumNames e)
-      , fieldType   = typ (C.enumType e)
-      , fieldOrigin = Origin.GeneratedField
+        fieldName    = C.newtypeField (C.enumNames e)
+      , fieldType    = typ (C.enumType e)
+      , fieldOrigin  = Origin.GeneratedField
+      , fieldComment = Nothing
       }
 
     insts :: Set HsTypeClass
@@ -585,6 +640,7 @@ enumDecs opts info e spec = do
           , declKind = Origin.Enum e
           , declSpec = spec
           }
+      , newtypeComment = fmap generateHaddocks (C.declComment info)
       }
 
     newtypeDecl :: Hs.Decl
@@ -597,34 +653,46 @@ enumDecs opts info e spec = do
       , structFields    = Vec.singleton newtypeField
       , structInstances = insts
       , structOrigin    = Nothing
+      , structComment   = Nothing
       }
 
     storableDecl :: Hs.Decl
-    storableDecl = Hs.DeclDefineInstance $
-      Hs.InstanceStorable hsStruct Hs.StorableInstance {
-          Hs.storableSizeOf    = C.enumSizeof e
-        , Hs.storableAlignment = C.enumAlignment e
-        , Hs.storablePeek      = Hs.Lambda "ptr" $
-            Hs.Ap (Hs.StructCon hsStruct) [ Hs.PeekByteOff IZ 0 ]
-        , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-            Hs.ElimStruct IZ hsStruct (AS AZ) $
-              Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
-        }
+    storableDecl = Hs.DeclDefineInstance
+      Hs.DefineInstance {
+        defineInstanceComment      = Nothing
+      , defineInstanceDeclarations =
+          Hs.InstanceStorable hsStruct Hs.StorableInstance {
+              Hs.storableSizeOf    = C.enumSizeof e
+            , Hs.storableAlignment = C.enumAlignment e
+            , Hs.storablePeek      = Hs.Lambda "ptr" $
+                Hs.Ap (Hs.StructCon hsStruct) [ Hs.PeekByteOff IZ 0 ]
+            , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                Hs.ElimStruct IZ hsStruct (AS AZ) $
+                  Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
+            }
+      }
 
     optDecls :: [Hs.Decl]
     optDecls = [
-        Hs.DeclDeriveInstance strat clss newtypeName
+        Hs.DeclDeriveInstance
+          Hs.DeriveInstance {
+            deriveInstanceName     = newtypeName
+          , deriveInstanceClass    = clss
+          , deriveInstanceStrategy = strat
+          , deriveInstanceComment  = Nothing
+          }
       | (strat, clss) <- translationDeriveEnum opts
       ]
 
     valueDecls :: [Hs.Decl]
     valueDecls =
         [ Hs.DeclPatSyn Hs.PatSyn
-          { patSynName   = C.nameHs enumConstantName
-          , patSynType   = newtypeName
-          , patSynConstr = newtypeConstr
-          , patSynValue  = enumConstantValue
-          , patSynOrigin = Origin.EnumConstant enumValue
+          { patSynName    = C.nameHs enumConstantName
+          , patSynType    = newtypeName
+          , patSynConstr  = newtypeConstr
+          , patSynValue   = enumConstantValue
+          , patSynOrigin  = Origin.EnumConstant enumValue
+          , patSynComment = fmap generateHaddocks enumConstantComment
           }
         | enumValue@C.EnumConstant{..} <- C.enumConstants e
         ]
@@ -644,13 +712,29 @@ enumDecs opts info e spec = do
             return (NonEmpty.head minNames, NonEmpty.head maxNames)
           fTyp = Hs.fieldType newtypeField
           vStrs = fmap (T.unpack . getHsName) <$> vNames
-          cEnumDecl = Hs.DeclDefineInstance $
-            Hs.InstanceCEnum hsStruct fTyp vStrs (isJust mSeqBounds)
-          cEnumShowDecl = Hs.DeclDefineInstance (Hs.InstanceCEnumShow hsStruct)
-          cEnumReadDecl = Hs.DeclDefineInstance (Hs.InstanceCEnumRead hsStruct)
+          cEnumDecl = Hs.DeclDefineInstance
+            Hs.DefineInstance {
+              defineInstanceComment      = Nothing
+            , defineInstanceDeclarations = Hs.InstanceCEnum hsStruct fTyp vStrs (isJust mSeqBounds)
+            }
+          cEnumShowDecl = Hs.DeclDefineInstance
+            Hs.DefineInstance {
+              defineInstanceComment      = Nothing
+            , defineInstanceDeclarations = Hs.InstanceCEnumShow hsStruct
+            }
+          cEnumReadDecl = Hs.DeclDefineInstance
+            Hs.DefineInstance {
+              defineInstanceComment      = Nothing
+            , defineInstanceDeclarations = Hs.InstanceCEnumRead hsStruct
+            }
           sequentialCEnumDecl = case mSeqBounds of
-            Just (nameMin, nameMax) -> List.singleton . Hs.DeclDefineInstance $
-              Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
+            Just (nameMin, nameMax) -> List.singleton
+                                     . Hs.DeclDefineInstance
+                                     $ Hs.DefineInstance {
+                                         defineInstanceComment      = Nothing
+                                       , defineInstanceDeclarations =
+                                           Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
+                                       }
             Nothing -> []
       in  cEnumDecl : sequentialCEnumDecl ++ [cEnumShowDecl, cEnumReadDecl]
 
@@ -675,9 +759,10 @@ typedefDecs opts info typedef spec = do
 
     newtypeField :: Hs.Field
     newtypeField = Hs.Field {
-        fieldName   = C.newtypeField (C.typedefNames typedef)
-      , fieldType   = typ (C.typedefType typedef)
-      , fieldOrigin = Origin.GeneratedField
+        fieldName    = C.newtypeField (C.typedefNames typedef)
+      , fieldType    = typ (C.typedefType typedef)
+      , fieldOrigin  = Origin.GeneratedField
+      , fieldComment = Nothing
       }
 
     candidateInsts :: Set HsTypeClass
@@ -708,6 +793,7 @@ typedefDecs opts info typedef spec = do
               , declKind = Origin.Typedef typedef
               , declSpec = spec
               }
+          , newtypeComment = fmap generateHaddocks (C.declComment info)
           }
 
         newtypeDecl :: Hs.Decl
@@ -717,11 +803,23 @@ typedefDecs opts info typedef spec = do
         storableDecl
           | Hs.Storable `Set.notMember` insts = []
           | otherwise = singleton $
-              Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName
+              Hs.DeclDeriveInstance
+                Hs.DeriveInstance {
+                  deriveInstanceStrategy = Hs.DeriveNewtype
+                , deriveInstanceClass    = Hs.Storable
+                , deriveInstanceName     = newtypeName
+                , deriveInstanceComment  = Nothing
+                }
 
         optDecls :: [Hs.Decl]
         optDecls = [
-            Hs.DeclDeriveInstance strat clss newtypeName
+            Hs.DeclDeriveInstance
+              Hs.DeriveInstance {
+                deriveInstanceStrategy = strat
+              , deriveInstanceClass    = clss
+              , deriveInstanceName     = newtypeName
+              , deriveInstanceComment  = Nothing
+              }
           | (strat, clss) <- translationDeriveTypedef opts
           , clss `Set.member` insts
           ]
@@ -779,15 +877,17 @@ macroDecsTypedef opts info macroType spec = do
           , newtypeInstances = insts
 
           , newtypeField = Hs.Field {
-                fieldName   = C.newtypeField (C.macroTypeNames macroType)
-              , fieldType   = fieldType
-              , fieldOrigin = Origin.GeneratedField
+                fieldName    = C.newtypeField (C.macroTypeNames macroType)
+              , fieldType    = fieldType
+              , fieldOrigin  = Origin.GeneratedField
+              , fieldComment = Nothing
               }
           , newtypeOrigin = Origin.Decl {
                 declInfo = info
               , declKind = Origin.Macro macroType
               , declSpec = spec
               }
+          , newtypeComment = fmap generateHaddocks (C.declComment info)
           }
 
         newtypeDecl :: Hs.Decl
@@ -797,11 +897,23 @@ macroDecsTypedef opts info macroType spec = do
         storableDecl
           | Hs.Storable `Set.notMember` insts = []
           | otherwise = singleton $
-              Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName
+              Hs.DeclDeriveInstance
+                Hs.DeriveInstance {
+                  deriveInstanceStrategy = Hs.DeriveNewtype
+                , deriveInstanceClass    = Hs.Storable
+                , deriveInstanceName     = newtypeName
+                , deriveInstanceComment  = Nothing
+                }
 
         optDecls :: [Hs.Decl]
         optDecls = [
-            Hs.DeclDeriveInstance strat clss newtypeName
+            Hs.DeclDeriveInstance
+              Hs.DeriveInstance {
+                deriveInstanceStrategy = strat
+              , deriveInstanceClass    = clss
+              , deriveInstanceName     = newtypeName
+              , deriveInstanceComment  = Nothing
+              }
           | (strat, clss) <- translationDeriveTypedef opts
           , clss `Set.member` insts
           ]
@@ -966,15 +1078,21 @@ hsWrapperDecl
 hsWrapperDecl hiName loName res args = case res of
   HeapType {} ->
     SHs.DVar
-      hiName
-      (SHs.translateType hsty)
-      (goA EmptyEnv args)
+      SHs.Var {
+        varName    = hiName
+      , varType    = SHs.translateType hsty
+      , varExpr    = goA EmptyEnv args
+      , varComment = Nothing
+      }
 
   WrapType {} ->
     SHs.DVar
-      hiName
-      (SHs.translateType hsty)
-      (goB EmptyEnv args)
+      SHs.Var {
+        varName    = hiName
+      , varType    = SHs.translateType hsty
+      , varExpr    = goB EmptyEnv args
+      , varComment = Nothing
+      }
 
   CAType {} ->
     panicPure "ConstantArray cannot occur as a result type"
@@ -1042,14 +1160,15 @@ functionDecs ::
 functionDecs mu typedefs info f _spec =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.declHeader info
     , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
-    ] ++
-    toList (Hs.DeclSimple <$> ioComment) ++
-    [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
+    , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = importName
         , foreignImportType     = importType
         , foreignImportOrigName = T.pack wrapperName
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Function f
+        , foreignImportComment  = fmap generateHaddocks
+                                       (C.declComment info)
+                               <> ioComment
         }
     ] ++
     [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res args
@@ -1109,24 +1228,30 @@ functionDecs mu typedefs info f _spec =
     -- | C-pure functions can be safely encapsulated using 'unsafePerformIO' to
     -- create a Haskell-pure functions. We include a comment in the generated
     -- bindings to this effect.
-    --
-    -- TODO: put the comment directly on the foreign import as Haddocks. This
-    -- might be possible after #924.
-    ioComment :: Maybe SHs.SDecl
+    ioComment :: Maybe Hs.Comment
     (hsIO, ioComment) = case C.functionPurity attrs of
         C.HaskellPureFunction -> (id  , Nothing)
-        C.CPureFunction       -> (HsIO, Just (SHs.DComment pureComment))
+        C.CPureFunction       -> (HsIO, Just pureComment)
         C.ImpureFunction      -> (HsIO, Nothing)
 
     -- | A comment to put on bindings for C-pure functions
-    pureComment :: String
+    --
+    -- "Marked @__attribute((pure))__@"
+    pureComment :: Hs.Comment
     pureComment =
-        "C functions that have the @pure@ attribute may read from pointers, \
-        \and since the contents of pointers can change, these functions are \
-        \\"impure\" in the Haskell sense of the word, so we have to return \
-        \the result in 'IO'. Note however that uses of a C-pure function can \
-        \sometimes be safely encapsulated with @unsafePerformIO@ to obtain a \
-        \Haskell-pure function."
+      Hs.Comment {
+        Hs.commentTitle    = Nothing
+      , Hs.commentOrigin   = Nothing
+      , Hs.commentChildren =
+          [ Hs.Paragraph
+            [ Hs.TextContent "Marked"
+            , Hs.Monospace
+              [ Hs.Bold
+                [ Hs.TextContent "attribute((pure))" ]
+              ]
+            ]
+          ]
+      }
 
     -- below is generation of C wrapper for userland-capi.
     innerName :: String
@@ -1184,6 +1309,7 @@ globalExtern info ty _spec =
           , foreignImportOrigName = T.pack stubName
           , foreignImportCallConv = CallConvUserlandCAPI
           , foreignImportOrigin   = Origin.Global ty
+          , foreignImportComment  = fmap generateHaddocks (C.declComment info)
           }
       ]
     else
@@ -1193,6 +1319,7 @@ globalExtern info ty _spec =
           , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
           , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
           , foreignImportOrigin   = Origin.Global ty
+          , foreignImportComment  = fmap generateHaddocks (C.declComment info)
           }
       ]
   where
@@ -1235,9 +1362,10 @@ macroVarDecs ::
 macroVarDecs info macroExpr = [
       Hs.DeclVar $
         Hs.VarDecl
-          { varDeclName = hsVarName
-          , varDeclType = quantTyHsTy macroExprType
-          , varDeclBody = hsBody
+          { varDeclName    = hsVarName
+          , varDeclType    = quantTyHsTy macroExprType
+          , varDeclBody    = hsBody
+          , varDeclComment = fmap generateHaddocks (C.declComment info)
           }
     | hsBody <- toList $ macroLamHsExpr macroExprArgs macroExprBody
     ]

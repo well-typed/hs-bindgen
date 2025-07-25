@@ -19,18 +19,38 @@ newtype UnionA = UnionA
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable UnionA
 
+{-|
+
+  __See:__ 'set_unionA_a'
+
+-}
 get_unionA_a :: UnionA -> FC.CInt
 get_unionA_a =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
+{-|
+
+  __See:__ 'get_unionA_a'
+
+-}
 set_unionA_a :: FC.CInt -> UnionA
 set_unionA_a =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+{-|
+
+  __See:__ 'set_unionA_b'
+
+-}
 get_unionA_b :: UnionA -> FC.CChar
 get_unionA_b =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
+{-|
+
+  __See:__ 'get_unionA_b'
+
+-}
 set_unionA_b :: FC.CChar -> UnionA
 set_unionA_b =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -63,18 +83,38 @@ newtype ExB_fieldB1 = ExB_fieldB1
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable ExB_fieldB1
 
+{-|
+
+  __See:__ 'set_exB_fieldB1_a'
+
+-}
 get_exB_fieldB1_a :: ExB_fieldB1 -> FC.CInt
 get_exB_fieldB1_a =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
+{-|
+
+  __See:__ 'get_exB_fieldB1_a'
+
+-}
 set_exB_fieldB1_a :: FC.CInt -> ExB_fieldB1
 set_exB_fieldB1_a =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+{-|
+
+  __See:__ 'set_exB_fieldB1_b'
+
+-}
 get_exB_fieldB1_b :: ExB_fieldB1 -> FC.CChar
 get_exB_fieldB1_b =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
+{-|
+
+  __See:__ 'get_exB_fieldB1_b'
+
+-}
 set_exB_fieldB1_b :: FC.CChar -> ExB_fieldB1
 set_exB_fieldB1_b =
   HsBindgen.Runtime.ByteArray.setUnionPayload

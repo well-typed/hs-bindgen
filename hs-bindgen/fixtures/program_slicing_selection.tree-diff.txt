@@ -10,7 +10,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [Name "FILE"],
         declHeader =
-        "program_slicing_selection.h"},
+        "program_slicing_selection.h",
+        declComment = Nothing},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
@@ -30,7 +31,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "program_slicing_selection.h"},
+        "program_slicing_selection.h",
+        declComment = Nothing},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -52,7 +54,8 @@ TranslationUnit {
                 nameC = Name "SUCCESS",
                 nameHsIdent = HsIdentifier
                   "SUCCESS"},
-              enumConstantValue = 0},
+              enumConstantValue = 0,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "program_slicing_selection.h:9:3",
@@ -60,7 +63,8 @@ TranslationUnit {
                 nameC = Name "NOT_FOUND",
                 nameHsIdent = HsIdentifier
                   "NOT_FOUND"},
-              enumConstantValue = 2},
+              enumConstantValue = 2,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "program_slicing_selection.h:10:3",
@@ -69,7 +73,8 @@ TranslationUnit {
                   "PERMISSION_DENIED",
                 nameHsIdent = HsIdentifier
                   "PERMISSION_DENIED"},
-              enumConstantValue = 13},
+              enumConstantValue = 13,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "program_slicing_selection.h:11:3",
@@ -77,7 +82,8 @@ TranslationUnit {
                 nameC = Name "INVALID_ARGUMENT",
                 nameHsIdent = HsIdentifier
                   "INVALID_ARGUMENT"},
-              enumConstantValue = 22},
+              enumConstantValue = 22,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "program_slicing_selection.h:12:3",
@@ -85,7 +91,8 @@ TranslationUnit {
                 nameC = Name "OUT_OF_MEMORY",
                 nameHsIdent = HsIdentifier
                   "OUT_OF_MEMORY"},
-              enumConstantValue = 12},
+              enumConstantValue = 12,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "program_slicing_selection.h:13:3",
@@ -94,7 +101,9 @@ TranslationUnit {
                   "CUSTOM_ERROR_OTHER",
                 nameHsIdent = HsIdentifier
                   "CUSTOM_ERROR_OTHER"},
-              enumConstantValue = `-1`}]},
+              enumConstantValue = `-1`,
+              enumConstantComment =
+              Nothing}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -113,7 +122,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "program_slicing_selection.h"},
+        "program_slicing_selection.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -138,7 +148,8 @@ TranslationUnit {
                     "FileOperationStatus"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc =
               "program_slicing_selection.h:18:10",
@@ -263,7 +274,8 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 64,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -282,7 +294,8 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader =
-        "program_slicing_selection.h"},
+        "program_slicing_selection.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [

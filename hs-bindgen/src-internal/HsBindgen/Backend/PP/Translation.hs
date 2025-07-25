@@ -140,9 +140,8 @@ instance Monoid ImportAcc where
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl -> ImportAcc
 resolveDeclImports = \case
-    DComment {} -> mempty
-    DVar _name ty e ->
-      resolveTypeImports ty <> resolveExprImports e
+    DVar Var {..} ->
+      resolveTypeImports varType <> resolveExprImports varExpr
     DInst Instance{..} -> mconcat $
         resolveGlobalImports instanceClass
       : map (resolveGlobalImports . fst) instanceDecs
@@ -156,7 +155,8 @@ resolveDeclImports = \case
         resolveTypeImports $ fieldType newtypeField
       , resolveNestedDeriv newtypeDeriv
       ]
-    DDerivingInstance s ty -> resolveStrategyImports s <> resolveTypeImports ty
+    DDerivingInstance DerivingInstance {..} -> resolveStrategyImports derivingInstanceStrategy
+                                            <> resolveTypeImports derivingInstanceType
     DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>

@@ -25,7 +25,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimFloating PrimDouble)}},
+            (PrimFloating PrimDouble)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -60,7 +61,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimFloating PrimDouble)}},
+            (PrimFloating PrimDouble)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -82,7 +84,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -104,7 +107,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -136,4 +140,5 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}}]
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing}]

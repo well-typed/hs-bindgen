@@ -9,7 +9,8 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "typenames.h"},
+        declHeader = "typenames.h",
+        declComment = Nothing},
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
@@ -31,7 +32,8 @@ TranslationUnit {
                 nameC = Name "FOO1",
                 nameHsIdent = HsIdentifier
                   "FOO1"},
-              enumConstantValue = 0},
+              enumConstantValue = 0,
+              enumConstantComment = Nothing},
             EnumConstant {
               enumConstantLoc =
               "typenames.h:16:2",
@@ -39,7 +41,9 @@ TranslationUnit {
                 nameC = Name "FOO2",
                 nameHsIdent = HsIdentifier
                   "FOO2"},
-              enumConstantValue = 1}]},
+              enumConstantValue = 1,
+              enumConstantComment =
+              Nothing}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -55,7 +59,8 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "typenames.h"},
+        declHeader = "typenames.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

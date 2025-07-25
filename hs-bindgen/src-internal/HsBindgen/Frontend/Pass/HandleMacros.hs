@@ -211,7 +211,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
           declInfo = info
-        , declKind = C.DeclTypedef C.Typedef{
+        , declKind = C.DeclTypedef C.Typedef {
               typedefType = coercePass typedefType
             , typedefAnn  = NoAnn
             }

@@ -13,7 +13,8 @@
           "un_MC",
         fieldType = HsPrimType
           HsPrimCChar,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -25,7 +26,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          "macro_in_fundecl_vs_typedef.h",
+          declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
@@ -58,59 +60,139 @@
           Integral,
           Num,
           Real,
-          Storable]},
+          Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "MC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "MC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -125,7 +207,8 @@
           "un_TC",
         fieldType = HsPrimType
           HsPrimCChar,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -137,7 +220,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          "macro_in_fundecl_vs_typedef.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -171,59 +255,139 @@
           Integral,
           Num,
           Real,
-          Storable]},
+          Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "TC"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "TC",
+      deriveInstanceComment =
+      Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -264,7 +428,8 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing))}},
+              (PrimSignImplicit Nothing))},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -307,7 +472,8 @@
               NamePair {
                 nameC = Name "TC",
                 nameHsIdent = HsIdentifier
-                  "TC"})}},
+                  "TC"})},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -353,7 +519,8 @@
               NamePair {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource)}},
+              NameOriginInSource)},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -399,7 +566,8 @@
                 NamePair {
                   nameC = Name "TC",
                   nameHsIdent = HsIdentifier
-                    "TC"}))}},
+                    "TC"}))},
+      foreignImportComment = Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -426,7 +594,9 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -439,7 +609,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "macro_in_fundecl_vs_typedef.h"},
+            "macro_in_fundecl_vs_typedef.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -457,7 +628,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -466,240 +638,268 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Struct1",
-        structConstr = HsName
-          "@NsConstr"
-          "Struct1",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "struct1_a",
-            fieldType = HsPrimType
-              HsPrimCInt,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "macro_in_fundecl_vs_typedef.h:18:30",
-                structFieldName = NamePair {
-                  nameC = Name "a",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Struct1",
+          structConstr = HsName
+            "@NsConstr"
+            "Struct1",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "struct1_a",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "macro_in_fundecl_vs_typedef.h:18:30",
+                  structFieldName = NamePair {
+                    nameC = Name "a",
+                    nameHsIdent = HsIdentifier
+                      "struct1_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "macro_in_fundecl_vs_typedef.h:18:16",
+                declId = NamePair {
+                  nameC = Name "struct1",
                   nameHsIdent = HsIdentifier
-                    "struct1_a"},
-                structFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "macro_in_fundecl_vs_typedef.h:18:16",
-              declId = NamePair {
-                nameC = Name "struct1",
-                nameHsIdent = HsIdentifier
-                  "Struct1"},
-              declOrigin = NameOriginInSource,
-              declAliases = [],
-              declHeader =
-              "macro_in_fundecl_vs_typedef.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "Struct1"),
-                structSizeof = 4,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "macro_in_fundecl_vs_typedef.h:18:30",
-                    structFieldName = NamePair {
-                      nameC = Name "a",
-                      nameHsIdent = HsIdentifier
-                        "struct1_a"},
-                    structFieldType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct1",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct1",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct1_a",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_in_fundecl_vs_typedef.h:18:30",
-                        structFieldName = NamePair {
-                          nameC = Name "a",
-                          nameHsIdent = HsIdentifier
-                            "struct1_a"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_in_fundecl_vs_typedef.h:18:16",
-                      declId = NamePair {
-                        nameC = Name "struct1",
+                    "Struct1"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader =
+                "macro_in_fundecl_vs_typedef.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Struct1"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "macro_in_fundecl_vs_typedef.h:18:30",
+                      structFieldName = NamePair {
+                        nameC = Name "a",
                         nameHsIdent = HsIdentifier
-                          "Struct1"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct1"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_in_fundecl_vs_typedef.h:18:30",
-                            structFieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = HsIdentifier
-                                "struct1_a"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct1",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct1",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct1_a",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_in_fundecl_vs_typedef.h:18:30",
-                        structFieldName = NamePair {
-                          nameC = Name "a",
+                          "struct1_a"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct1",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct1",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct1_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_in_fundecl_vs_typedef.h:18:30",
+                          structFieldName = NamePair {
+                            nameC = Name "a",
+                            nameHsIdent = HsIdentifier
+                              "struct1_a"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_in_fundecl_vs_typedef.h:18:16",
+                        declId = NamePair {
+                          nameC = Name "struct1",
                           nameHsIdent = HsIdentifier
-                            "struct1_a"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_in_fundecl_vs_typedef.h:18:16",
-                      declId = NamePair {
-                        nameC = Name "struct1",
-                        nameHsIdent = HsIdentifier
-                          "Struct1"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct1"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_in_fundecl_vs_typedef.h:18:30",
-                            structFieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = HsIdentifier
-                                "struct1_a"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                            "Struct1"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "macro_in_fundecl_vs_typedef.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct1"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_in_fundecl_vs_typedef.h:18:30",
+                              structFieldName = NamePair {
+                                nameC = Name "a",
+                                nameHsIdent = HsIdentifier
+                                  "struct1_a"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct1",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct1",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct1_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_in_fundecl_vs_typedef.h:18:30",
+                          structFieldName = NamePair {
+                            nameC = Name "a",
+                            nameHsIdent = HsIdentifier
+                              "struct1_a"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_in_fundecl_vs_typedef.h:18:16",
+                        declId = NamePair {
+                          nameC = Name "struct1",
+                          nameHsIdent = HsIdentifier
+                            "Struct1"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "macro_in_fundecl_vs_typedef.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct1"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_in_fundecl_vs_typedef.h:18:30",
+                              structFieldName = NamePair {
+                                nameC = Name "a",
+                                nameHsIdent = HsIdentifier
+                                  "struct1_a"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Struct1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct1",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Struct1"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct1",
+      deriveInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -726,7 +926,9 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -741,7 +943,8 @@
                 "macro_in_fundecl_vs_typedef.h:19:9"),
             declAliases = [Name "struct2"],
             declHeader =
-            "macro_in_fundecl_vs_typedef.h"},
+            "macro_in_fundecl_vs_typedef.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -759,7 +962,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -768,246 +972,274 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Struct2",
-        structConstr = HsName
-          "@NsConstr"
-          "Struct2",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "struct2_a",
-            fieldType = HsPrimType
-              HsPrimCInt,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "macro_in_fundecl_vs_typedef.h:19:30",
-                structFieldName = NamePair {
-                  nameC = Name "a",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Struct2",
+          structConstr = HsName
+            "@NsConstr"
+            "Struct2",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "struct2_a",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "macro_in_fundecl_vs_typedef.h:19:30",
+                  structFieldName = NamePair {
+                    nameC = Name "a",
+                    nameHsIdent = HsIdentifier
+                      "struct2_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "macro_in_fundecl_vs_typedef.h:19:9",
+                declId = NamePair {
+                  nameC = Name "struct2",
                   nameHsIdent = HsIdentifier
-                    "struct2_a"},
-                structFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "macro_in_fundecl_vs_typedef.h:19:9",
-              declId = NamePair {
-                nameC = Name "struct2",
-                nameHsIdent = HsIdentifier
-                  "Struct2"},
-              declOrigin = NameOriginGenerated
-                (AnonId
-                  "macro_in_fundecl_vs_typedef.h:19:9"),
-              declAliases = [Name "struct2"],
-              declHeader =
-              "macro_in_fundecl_vs_typedef.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "Struct2"),
-                structSizeof = 4,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "macro_in_fundecl_vs_typedef.h:19:30",
-                    structFieldName = NamePair {
-                      nameC = Name "a",
-                      nameHsIdent = HsIdentifier
-                        "struct2_a"},
-                    structFieldType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct2",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct2",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct2_a",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_in_fundecl_vs_typedef.h:19:30",
-                        structFieldName = NamePair {
-                          nameC = Name "a",
-                          nameHsIdent = HsIdentifier
-                            "struct2_a"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_in_fundecl_vs_typedef.h:19:9",
-                      declId = NamePair {
-                        nameC = Name "struct2",
+                    "Struct2"},
+                declOrigin = NameOriginGenerated
+                  (AnonId
+                    "macro_in_fundecl_vs_typedef.h:19:9"),
+                declAliases = [Name "struct2"],
+                declHeader =
+                "macro_in_fundecl_vs_typedef.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Struct2"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "macro_in_fundecl_vs_typedef.h:19:30",
+                      structFieldName = NamePair {
+                        nameC = Name "a",
                         nameHsIdent = HsIdentifier
-                          "Struct2"},
-                      declOrigin = NameOriginGenerated
-                        (AnonId
-                          "macro_in_fundecl_vs_typedef.h:19:9"),
-                      declAliases = [Name "struct2"],
-                      declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct2"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_in_fundecl_vs_typedef.h:19:30",
-                            structFieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = HsIdentifier
-                                "struct2_a"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct2",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct2",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct2_a",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_in_fundecl_vs_typedef.h:19:30",
-                        structFieldName = NamePair {
-                          nameC = Name "a",
+                          "struct2_a"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct2",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct2",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct2_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_in_fundecl_vs_typedef.h:19:30",
+                          structFieldName = NamePair {
+                            nameC = Name "a",
+                            nameHsIdent = HsIdentifier
+                              "struct2_a"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_in_fundecl_vs_typedef.h:19:9",
+                        declId = NamePair {
+                          nameC = Name "struct2",
                           nameHsIdent = HsIdentifier
-                            "struct2_a"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_in_fundecl_vs_typedef.h:19:9",
-                      declId = NamePair {
-                        nameC = Name "struct2",
-                        nameHsIdent = HsIdentifier
-                          "Struct2"},
-                      declOrigin = NameOriginGenerated
-                        (AnonId
-                          "macro_in_fundecl_vs_typedef.h:19:9"),
-                      declAliases = [Name "struct2"],
-                      declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct2"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_in_fundecl_vs_typedef.h:19:30",
-                            structFieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = HsIdentifier
-                                "struct2_a"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                            "Struct2"},
+                        declOrigin = NameOriginGenerated
+                          (AnonId
+                            "macro_in_fundecl_vs_typedef.h:19:9"),
+                        declAliases = [Name "struct2"],
+                        declHeader =
+                        "macro_in_fundecl_vs_typedef.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct2"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_in_fundecl_vs_typedef.h:19:30",
+                              structFieldName = NamePair {
+                                nameC = Name "a",
+                                nameHsIdent = HsIdentifier
+                                  "struct2_a"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct2",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct2",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct2_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_in_fundecl_vs_typedef.h:19:30",
+                          structFieldName = NamePair {
+                            nameC = Name "a",
+                            nameHsIdent = HsIdentifier
+                              "struct2_a"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_in_fundecl_vs_typedef.h:19:9",
+                        declId = NamePair {
+                          nameC = Name "struct2",
+                          nameHsIdent = HsIdentifier
+                            "Struct2"},
+                        declOrigin = NameOriginGenerated
+                          (AnonId
+                            "macro_in_fundecl_vs_typedef.h:19:9"),
+                        declAliases = [Name "struct2"],
+                        declHeader =
+                        "macro_in_fundecl_vs_typedef.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct2"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_in_fundecl_vs_typedef.h:19:30",
+                              structFieldName = NamePair {
+                                nameC = Name "a",
+                                nameHsIdent = HsIdentifier
+                                  "struct2_a"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Struct2"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct2",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Struct2"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct2",
+      deriveInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -1034,7 +1266,9 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1048,7 +1282,8 @@
             declAliases = [
               Name "struct3_t"],
             declHeader =
-            "macro_in_fundecl_vs_typedef.h"},
+            "macro_in_fundecl_vs_typedef.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1066,7 +1301,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -1075,243 +1311,271 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Struct3",
-        structConstr = HsName
-          "@NsConstr"
-          "Struct3",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "struct3_a",
-            fieldType = HsPrimType
-              HsPrimCInt,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "macro_in_fundecl_vs_typedef.h:20:30",
-                structFieldName = NamePair {
-                  nameC = Name "a",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Struct3",
+          structConstr = HsName
+            "@NsConstr"
+            "Struct3",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "struct3_a",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "macro_in_fundecl_vs_typedef.h:20:30",
+                  structFieldName = NamePair {
+                    nameC = Name "a",
+                    nameHsIdent = HsIdentifier
+                      "struct3_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "macro_in_fundecl_vs_typedef.h:20:16",
+                declId = NamePair {
+                  nameC = Name "struct3",
                   nameHsIdent = HsIdentifier
-                    "struct3_a"},
-                structFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "macro_in_fundecl_vs_typedef.h:20:16",
-              declId = NamePair {
-                nameC = Name "struct3",
-                nameHsIdent = HsIdentifier
-                  "Struct3"},
-              declOrigin = NameOriginInSource,
-              declAliases = [
-                Name "struct3_t"],
-              declHeader =
-              "macro_in_fundecl_vs_typedef.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "Struct3"),
-                structSizeof = 4,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "macro_in_fundecl_vs_typedef.h:20:30",
-                    structFieldName = NamePair {
-                      nameC = Name "a",
-                      nameHsIdent = HsIdentifier
-                        "struct3_a"},
-                    structFieldType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct3",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct3",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct3_a",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_in_fundecl_vs_typedef.h:20:30",
-                        structFieldName = NamePair {
-                          nameC = Name "a",
-                          nameHsIdent = HsIdentifier
-                            "struct3_a"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_in_fundecl_vs_typedef.h:20:16",
-                      declId = NamePair {
-                        nameC = Name "struct3",
+                    "Struct3"},
+                declOrigin = NameOriginInSource,
+                declAliases = [
+                  Name "struct3_t"],
+                declHeader =
+                "macro_in_fundecl_vs_typedef.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Struct3"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "macro_in_fundecl_vs_typedef.h:20:30",
+                      structFieldName = NamePair {
+                        nameC = Name "a",
                         nameHsIdent = HsIdentifier
-                          "Struct3"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [
-                        Name "struct3_t"],
-                      declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct3"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_in_fundecl_vs_typedef.h:20:30",
-                            structFieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = HsIdentifier
-                                "struct3_a"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct3",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct3",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct3_a",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_in_fundecl_vs_typedef.h:20:30",
-                        structFieldName = NamePair {
-                          nameC = Name "a",
+                          "struct3_a"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct3",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct3",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct3_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_in_fundecl_vs_typedef.h:20:30",
+                          structFieldName = NamePair {
+                            nameC = Name "a",
+                            nameHsIdent = HsIdentifier
+                              "struct3_a"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_in_fundecl_vs_typedef.h:20:16",
+                        declId = NamePair {
+                          nameC = Name "struct3",
                           nameHsIdent = HsIdentifier
-                            "struct3_a"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_in_fundecl_vs_typedef.h:20:16",
-                      declId = NamePair {
-                        nameC = Name "struct3",
-                        nameHsIdent = HsIdentifier
-                          "Struct3"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [
-                        Name "struct3_t"],
-                      declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct3"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_in_fundecl_vs_typedef.h:20:30",
-                            structFieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = HsIdentifier
-                                "struct3_a"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                            "Struct3"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [
+                          Name "struct3_t"],
+                        declHeader =
+                        "macro_in_fundecl_vs_typedef.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct3"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_in_fundecl_vs_typedef.h:20:30",
+                              structFieldName = NamePair {
+                                nameC = Name "a",
+                                nameHsIdent = HsIdentifier
+                                  "struct3_a"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct3",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct3",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct3_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_in_fundecl_vs_typedef.h:20:30",
+                          structFieldName = NamePair {
+                            nameC = Name "a",
+                            nameHsIdent = HsIdentifier
+                              "struct3_a"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_in_fundecl_vs_typedef.h:20:16",
+                        declId = NamePair {
+                          nameC = Name "struct3",
+                          nameHsIdent = HsIdentifier
+                            "Struct3"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [
+                          Name "struct3_t"],
+                        declHeader =
+                        "macro_in_fundecl_vs_typedef.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct3"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_in_fundecl_vs_typedef.h:20:30",
+                              structFieldName = NamePair {
+                                nameC = Name "a",
+                                nameHsIdent = HsIdentifier
+                                  "struct3_a"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Struct3"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct3",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Struct3"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct3",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1328,7 +1592,8 @@
           (HsName
             "@NsTypeConstr"
             "Struct3"),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -1340,7 +1605,8 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader =
-          "macro_in_fundecl_vs_typedef.h"},
+          "macro_in_fundecl_vs_typedef.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -1363,25 +1629,38 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Struct3_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct3_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Struct3_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct3_t",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Struct3_t"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct3_t",
+      deriveInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -1408,7 +1687,9 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1421,7 +1702,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [Name "struct4"],
             declHeader =
-            "macro_in_fundecl_vs_typedef.h"},
+            "macro_in_fundecl_vs_typedef.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -1439,7 +1721,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -1448,240 +1731,268 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Struct4",
-        structConstr = HsName
-          "@NsConstr"
-          "Struct4",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "struct4_a",
-            fieldType = HsPrimType
-              HsPrimCInt,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "macro_in_fundecl_vs_typedef.h:21:30",
-                structFieldName = NamePair {
-                  nameC = Name "a",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Struct4",
+          structConstr = HsName
+            "@NsConstr"
+            "Struct4",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "struct4_a",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "macro_in_fundecl_vs_typedef.h:21:30",
+                  structFieldName = NamePair {
+                    nameC = Name "a",
+                    nameHsIdent = HsIdentifier
+                      "struct4_a"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "macro_in_fundecl_vs_typedef.h:21:16",
+                declId = NamePair {
+                  nameC = Name "struct4",
                   nameHsIdent = HsIdentifier
-                    "struct4_a"},
-                structFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "macro_in_fundecl_vs_typedef.h:21:16",
-              declId = NamePair {
-                nameC = Name "struct4",
-                nameHsIdent = HsIdentifier
-                  "Struct4"},
-              declOrigin = NameOriginInSource,
-              declAliases = [Name "struct4"],
-              declHeader =
-              "macro_in_fundecl_vs_typedef.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "Struct4"),
-                structSizeof = 4,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "macro_in_fundecl_vs_typedef.h:21:30",
-                    structFieldName = NamePair {
-                      nameC = Name "a",
-                      nameHsIdent = HsIdentifier
-                        "struct4_a"},
-                    structFieldType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct4",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct4",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct4_a",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_in_fundecl_vs_typedef.h:21:30",
-                        structFieldName = NamePair {
-                          nameC = Name "a",
-                          nameHsIdent = HsIdentifier
-                            "struct4_a"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_in_fundecl_vs_typedef.h:21:16",
-                      declId = NamePair {
-                        nameC = Name "struct4",
+                    "Struct4"},
+                declOrigin = NameOriginInSource,
+                declAliases = [Name "struct4"],
+                declHeader =
+                "macro_in_fundecl_vs_typedef.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Struct4"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "macro_in_fundecl_vs_typedef.h:21:30",
+                      structFieldName = NamePair {
+                        nameC = Name "a",
                         nameHsIdent = HsIdentifier
-                          "Struct4"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [Name "struct4"],
-                      declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct4"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_in_fundecl_vs_typedef.h:21:30",
-                            structFieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = HsIdentifier
-                                "struct4_a"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct4",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct4",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct4_a",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "macro_in_fundecl_vs_typedef.h:21:30",
-                        structFieldName = NamePair {
-                          nameC = Name "a",
+                          "struct4_a"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct4",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct4",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct4_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_in_fundecl_vs_typedef.h:21:30",
+                          structFieldName = NamePair {
+                            nameC = Name "a",
+                            nameHsIdent = HsIdentifier
+                              "struct4_a"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_in_fundecl_vs_typedef.h:21:16",
+                        declId = NamePair {
+                          nameC = Name "struct4",
                           nameHsIdent = HsIdentifier
-                            "struct4_a"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "macro_in_fundecl_vs_typedef.h:21:16",
-                      declId = NamePair {
-                        nameC = Name "struct4",
-                        nameHsIdent = HsIdentifier
-                          "Struct4"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [Name "struct4"],
-                      declHeader =
-                      "macro_in_fundecl_vs_typedef.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct4"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "macro_in_fundecl_vs_typedef.h:21:30",
-                            structFieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = HsIdentifier
-                                "struct4_a"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                            "Struct4"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [Name "struct4"],
+                        declHeader =
+                        "macro_in_fundecl_vs_typedef.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct4"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_in_fundecl_vs_typedef.h:21:30",
+                              structFieldName = NamePair {
+                                nameC = Name "a",
+                                nameHsIdent = HsIdentifier
+                                  "struct4_a"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct4",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct4",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct4_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "macro_in_fundecl_vs_typedef.h:21:30",
+                          structFieldName = NamePair {
+                            nameC = Name "a",
+                            nameHsIdent = HsIdentifier
+                              "struct4_a"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "macro_in_fundecl_vs_typedef.h:21:16",
+                        declId = NamePair {
+                          nameC = Name "struct4",
+                          nameHsIdent = HsIdentifier
+                            "Struct4"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [Name "struct4"],
+                        declHeader =
+                        "macro_in_fundecl_vs_typedef.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct4"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "macro_in_fundecl_vs_typedef.h:21:30",
+                              structFieldName = NamePair {
+                                nameC = Name "a",
+                                nameHsIdent = HsIdentifier
+                                  "struct4_a"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Struct4"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct4",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Struct4"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct4",
+      deriveInstanceComment =
+      Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1728,7 +2039,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1770,7 +2082,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1815,7 +2128,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1857,7 +2171,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1899,7 +2214,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -1941,4 +2257,5 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}}]
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing}]

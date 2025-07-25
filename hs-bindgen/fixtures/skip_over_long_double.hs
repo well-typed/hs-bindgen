@@ -23,7 +23,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid}},
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -50,7 +51,9 @@
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing}}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -63,7 +66,8 @@
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeader =
-            "skip_over_long_double.h"},
+            "skip_over_long_double.h",
+            declComment = Nothing},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -81,7 +85,8 @@
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing}],
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -90,237 +95,265 @@
               typeSpecInstances = Map.fromList
                 []}},
       structInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      structComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Struct2",
-        structConstr = HsName
-          "@NsConstr"
-          "Struct2",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "struct2_x",
-            fieldType = HsPrimType
-              HsPrimCInt,
-            fieldOrigin = StructField
-              StructField {
-                structFieldLoc =
-                "skip_over_long_double.h:14:7",
-                structFieldName = NamePair {
-                  nameC = Name "x",
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Struct2",
+          structConstr = HsName
+            "@NsConstr"
+            "Struct2",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "struct2_x",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "skip_over_long_double.h:14:7",
+                  structFieldName = NamePair {
+                    nameC = Name "x",
+                    nameHsIdent = HsIdentifier
+                      "struct2_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc =
+                "skip_over_long_double.h:13:8",
+                declId = NamePair {
+                  nameC = Name "struct2",
                   nameHsIdent = HsIdentifier
-                    "struct2_x"},
-                structFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                structFieldOffset = 0,
-                structFieldWidth = Nothing}}],
-        structOrigin = Just
-          Decl {
-            declInfo = DeclInfo {
-              declLoc =
-              "skip_over_long_double.h:13:8",
-              declId = NamePair {
-                nameC = Name "struct2",
-                nameHsIdent = HsIdentifier
-                  "Struct2"},
-              declOrigin = NameOriginInSource,
-              declAliases = [],
-              declHeader =
-              "skip_over_long_double.h"},
-            declKind = Struct
-              Struct {
-                structNames = RecordNames
-                  (HsName "@NsConstr" "Struct2"),
-                structSizeof = 4,
-                structAlignment = 4,
-                structFields = [
-                  StructField {
-                    structFieldLoc =
-                    "skip_over_long_double.h:14:7",
-                    structFieldName = NamePair {
-                      nameC = Name "x",
-                      nameHsIdent = HsIdentifier
-                        "struct2_x"},
-                    structFieldType = TypePrim
-                      (PrimIntegral PrimInt Signed),
-                    structFieldOffset = 0,
-                    structFieldWidth = Nothing}],
-                structFlam = Nothing},
-            declSpec = DeclSpec
-              TypeSpec {
-                typeSpecModule = Nothing,
-                typeSpecIdentifier = Nothing,
-                typeSpecInstances = Map.fromList
-                  []}},
-        structInstances = Set.fromList
-          [Eq, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct2",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct2",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct2_x",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "skip_over_long_double.h:14:7",
-                        structFieldName = NamePair {
-                          nameC = Name "x",
-                          nameHsIdent = HsIdentifier
-                            "struct2_x"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "skip_over_long_double.h:13:8",
-                      declId = NamePair {
-                        nameC = Name "struct2",
+                    "Struct2"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader =
+                "skip_over_long_double.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Struct2"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "skip_over_long_double.h:14:7",
+                      structFieldName = NamePair {
+                        nameC = Name "x",
                         nameHsIdent = HsIdentifier
-                          "Struct2"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "skip_over_long_double.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct2"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "skip_over_long_double.h:14:7",
-                            structFieldName = NamePair {
-                              nameC = Name "x",
-                              nameHsIdent = HsIdentifier
-                                "struct2_x"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Struct2",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Struct2",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "struct2_x",
-                    fieldType = HsPrimType
-                      HsPrimCInt,
-                    fieldOrigin = StructField
-                      StructField {
-                        structFieldLoc =
-                        "skip_over_long_double.h:14:7",
-                        structFieldName = NamePair {
-                          nameC = Name "x",
+                          "struct2_x"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct2",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct2",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct2_x",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "skip_over_long_double.h:14:7",
+                          structFieldName = NamePair {
+                            nameC = Name "x",
+                            nameHsIdent = HsIdentifier
+                              "struct2_x"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "skip_over_long_double.h:13:8",
+                        declId = NamePair {
+                          nameC = Name "struct2",
                           nameHsIdent = HsIdentifier
-                            "struct2_x"},
-                        structFieldType = TypePrim
-                          (PrimIntegral PrimInt Signed),
-                        structFieldOffset = 0,
-                        structFieldWidth = Nothing}}],
-                structOrigin = Just
-                  Decl {
-                    declInfo = DeclInfo {
-                      declLoc =
-                      "skip_over_long_double.h:13:8",
-                      declId = NamePair {
-                        nameC = Name "struct2",
-                        nameHsIdent = HsIdentifier
-                          "Struct2"},
-                      declOrigin = NameOriginInSource,
-                      declAliases = [],
-                      declHeader =
-                      "skip_over_long_double.h"},
-                    declKind = Struct
-                      Struct {
-                        structNames = RecordNames
-                          (HsName "@NsConstr" "Struct2"),
-                        structSizeof = 4,
-                        structAlignment = 4,
-                        structFields = [
-                          StructField {
-                            structFieldLoc =
-                            "skip_over_long_double.h:14:7",
-                            structFieldName = NamePair {
-                              nameC = Name "x",
-                              nameHsIdent = HsIdentifier
-                                "struct2_x"},
-                            structFieldType = TypePrim
-                              (PrimIntegral PrimInt Signed),
-                            structFieldOffset = 0,
-                            structFieldWidth = Nothing}],
-                        structFlam = Nothing},
-                    declSpec = DeclSpec
-                      TypeSpec {
-                        typeSpecModule = Nothing,
-                        typeSpecIdentifier = Nothing,
-                        typeSpecInstances = Map.fromList
-                          []}},
-                structInstances = Set.fromList
-                  [Eq, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                            "Struct2"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "skip_over_long_double.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct2"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "skip_over_long_double.h:14:7",
+                              structFieldName = NamePair {
+                                nameC = Name "x",
+                                nameHsIdent = HsIdentifier
+                                  "struct2_x"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Struct2",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Struct2",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "struct2_x",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "skip_over_long_double.h:14:7",
+                          structFieldName = NamePair {
+                            nameC = Name "x",
+                            nameHsIdent = HsIdentifier
+                              "struct2_x"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc =
+                        "skip_over_long_double.h:13:8",
+                        declId = NamePair {
+                          nameC = Name "struct2",
+                          nameHsIdent = HsIdentifier
+                            "Struct2"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader =
+                        "skip_over_long_double.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Struct2"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "skip_over_long_double.h:14:7",
+                              structFieldName = NamePair {
+                                nameC = Name "x",
+                                nameHsIdent = HsIdentifier
+                                  "struct2_x"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Struct2"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct2",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Struct2")]
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Struct2",
+      deriveInstanceComment =
+      Nothing}]

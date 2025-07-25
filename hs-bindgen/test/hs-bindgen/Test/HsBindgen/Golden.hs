@@ -225,10 +225,11 @@ testCases = [
           testClangVersion = Just (>= (15, 0, 0))
         }
     , (defaultTest "fun_attributes") {
+          testClangVersion = Just (>= (15, 0, 0))
           -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
           -- We are currently issueing a "non-extern non'static global" warning
           -- for @i@, which may not be correct @visibility@ is @hidden@.
-          testTracePredicate = customTracePredicate' ["my_printf", "i"] $ \case
+        , testTracePredicate = customTracePredicate' ["my_printf", "i"] $ \case
              TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedVariadicFunction)) ->
                Just $ Expected (C.declId info)
              TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->

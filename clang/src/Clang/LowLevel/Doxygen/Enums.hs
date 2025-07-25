@@ -4,6 +4,8 @@ module Clang.LowLevel.Doxygen.Enums (
   , CXCommentParamPassDirection(..)
   ) where
 
+import GHC.Generics (Generic)
+
 -- | Describes the type of the comment AST node ('CXComment').
 --
 -- A comment node can be considered block content (e. g., paragraph), inline
@@ -123,7 +125,7 @@ data CXCommentInlineCommandRenderKind =
     -- | Command argument should not be rendered (since it only defines an
     -- anchor).
   | CXCommentInlineCommandRenderKind_Anchor
-  deriving stock (Show, Eq, Ord, Enum, Bounded)
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
 
 -- | Describes parameter passing direction for @\\param@ or @\\arg@ command.
 --
@@ -137,4 +139,4 @@ data CXCommentParamPassDirection =
 
     -- | The parameter is an input and output parameter.
   | CXCommentParamPassDirection_InOut
-  deriving stock (Show, Eq, Ord, Enum, Bounded)
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)

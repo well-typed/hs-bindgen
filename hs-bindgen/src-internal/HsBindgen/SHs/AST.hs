@@ -10,10 +10,12 @@ module HsBindgen.SHs.AST (
     SDecl (..),
     ClosedType,
     SType (..),
+    Var (..),
     Instance (..),
     Field (..),
     Record (..),
     EmptyData (..),
+    DerivingInstance (..),
     Newtype (..),
     ForeignImport (..),
     PatternSynonym (..),
@@ -25,6 +27,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.CallConv
+import HsBindgen.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
@@ -237,15 +240,14 @@ deriving stock instance Show (SAlt ctx)
 
 -- | Simple declarations
 data SDecl =
-    DVar (HsName NsVar) ClosedType ClosedExpr
+    DVar Var
   | DInst Instance
   | DRecord Record
   | DNewtype Newtype
   | DEmptyData EmptyData
-  | DDerivingInstance (Hs.Strategy ClosedType) ClosedType
+  | DDerivingInstance DerivingInstance
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
-  | DComment String
   | DCSource String
   deriving stock (Show)
 
@@ -267,11 +269,20 @@ infixl 9 `TApp`
 
 deriving stock instance Show (SType ctx)
 
+data Var = Var {
+      varName    :: HsName NsVar
+    , varType    :: ClosedType
+    , varExpr    :: ClosedExpr
+    , varComment :: Maybe Comment
+    }
+  deriving stock (Show)
+
 data Instance  = Instance {
-      instanceClass :: Global
-    , instanceArgs  :: [ClosedType]
-    , instanceTypes :: [(Global, ClosedType, ClosedType)]
-    , instanceDecs  :: [(Global, ClosedExpr)]
+      instanceClass   :: Global
+    , instanceArgs    :: [ClosedType]
+    , instanceTypes   :: [(Global, ClosedType, ClosedType)]
+    , instanceDecs    :: [(Global, ClosedExpr)]
+    , instanceComment :: Maybe Comment
     }
   deriving stock (Show)
 
@@ -279,30 +290,41 @@ data Field = Field {
       fieldName   :: HsName NsVar
     , fieldType   :: ClosedType
     , fieldOrigin :: Origin.Field
+    , fieldComment :: Maybe Comment
     }
   deriving stock (Show)
 
 data Record = Record {
-      dataType   :: HsName NsTypeConstr
-    , dataCon    :: HsName NsConstr
-    , dataFields :: [Field]
-    , dataOrigin :: Origin.Decl Origin.Struct
-    , dataDeriv  :: [(Hs.Strategy ClosedType, [Global])]
+      dataType    :: HsName NsTypeConstr
+    , dataCon     :: HsName NsConstr
+    , dataFields  :: [Field]
+    , dataOrigin  :: Origin.Decl Origin.Struct
+    , dataDeriv   :: [(Hs.Strategy ClosedType, [Global])]
+    , dataComment :: Maybe Comment
     }
   deriving stock (Show)
 
 data EmptyData = EmptyData {
-      emptyDataName   :: HsName NsTypeConstr
-    , emptyDataOrigin :: Origin.Decl Origin.EmptyData
+      emptyDataName    :: HsName NsTypeConstr
+    , emptyDataOrigin  :: Origin.Decl Origin.EmptyData
+    , emptyDataComment :: Maybe Comment
+    }
+  deriving stock (Show)
+
+data DerivingInstance = DerivingInstance {
+      derivingInstanceStrategy :: Hs.Strategy ClosedType
+    , derivingInstanceType     :: ClosedType
+    , derivingInstanceComment  :: Maybe Comment
     }
   deriving stock (Show)
 
 data Newtype = Newtype {
-      newtypeName   :: HsName NsTypeConstr
-    , newtypeCon    :: HsName NsConstr
-    , newtypeField  :: Field
-    , newtypeOrigin :: Origin.Decl Origin.Newtype
-    , newtypeDeriv  :: [(Hs.Strategy ClosedType, [Global])]
+      newtypeName    :: HsName NsTypeConstr
+    , newtypeCon     :: HsName NsConstr
+    , newtypeField   :: Field
+    , newtypeOrigin  :: Origin.Decl Origin.Newtype
+    , newtypeDeriv   :: [(Hs.Strategy ClosedType, [Global])]
+    , newtypeComment :: Maybe Comment
     }
   deriving stock (Show)
 
@@ -312,13 +334,15 @@ data ForeignImport = ForeignImport
     , foreignImportOrigName :: Text
     , foreignImportCallConv :: CallConv
     , foreignImportOrigin   :: Origin.ForeignImport
+    , foreignImportComment  :: Maybe Comment
     }
   deriving stock (Show)
 
 data PatternSynonym = PatternSynonym
-    { patSynName   :: HsName NsConstr
-    , patSynType   :: ClosedType
-    , patSynRHS    :: PatExpr
-    , patSynOrigin :: Origin.PatSyn
+    { patSynName    :: HsName NsConstr
+    , patSynType    :: ClosedType
+    , patSynRHS     :: PatExpr
+    , patSynOrigin  :: Origin.PatSyn
+    , patSynComment :: Maybe Comment
     }
   deriving stock (Show)

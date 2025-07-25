@@ -30,7 +30,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclSimple,
   DeclNewtype
     Newtype {
@@ -47,7 +48,8 @@
         fieldType = HsConstArray
           3
           (HsPrimType HsPrimCInt),
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
@@ -58,8 +60,8 @@
               "Triple"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "fixedarray_arg.h"},
+          declHeader = "fixedarray_arg.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -80,25 +82,38 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [Eq, Show, Storable]},
+        [Eq, Show, Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Triple"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Triple",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Triple"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Triple",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Triple"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Triple",
+      deriveInstanceComment =
+      Nothing},
   DeclInlineCInclude
     "fixedarray_arg.h",
   DeclInlineC
@@ -128,5 +143,6 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)}},
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
   DeclSimple]

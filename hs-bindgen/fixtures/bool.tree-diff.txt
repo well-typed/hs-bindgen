@@ -9,7 +9,8 @@ TranslationUnit {
             "Bools1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool.h"},
+        declHeader = "bool.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -26,7 +27,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc = "bool.h:3:11",
               structFieldName = NamePair {
@@ -36,7 +38,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 8,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -53,7 +56,8 @@ TranslationUnit {
             "Bools2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool.h"},
+        declHeader = "bool.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -70,7 +74,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc = "bool.h:10:10",
               structFieldName = NamePair {
@@ -80,7 +85,8 @@ TranslationUnit {
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 8,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -97,7 +103,8 @@ TranslationUnit {
             "BOOL"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool.h"},
+        declHeader = "bool.h",
+        declComment = Nothing},
       declKind = DeclMacro
         (MacroType
           CheckedMacroType {
@@ -124,7 +131,8 @@ TranslationUnit {
             "Bools3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool.h"},
+        declHeader = "bool.h",
+        declComment = Nothing},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -146,7 +154,8 @@ TranslationUnit {
                     "BOOL"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing},
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
             StructField {
               structFieldLoc = "bool.h:17:10",
               structFieldName = NamePair {
@@ -161,7 +170,8 @@ TranslationUnit {
                     "BOOL"}
                 NameOriginInSource,
               structFieldOffset = 8,
-              structFieldWidth = Nothing}],
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

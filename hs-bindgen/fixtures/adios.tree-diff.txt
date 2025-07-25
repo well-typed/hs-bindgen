@@ -9,7 +9,8 @@ TranslationUnit {
             "Adio'0301s"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -36,7 +37,8 @@ TranslationUnit {
             "C\25968\23383"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -63,7 +65,8 @@ TranslationUnit {
             "c\978"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -86,7 +89,8 @@ TranslationUnit {
             "\25308\25308"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -109,7 +113,8 @@ TranslationUnit {
             "say\25308\25308"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h"},
+        declHeader = "adios.h",
+        declComment = Nothing},
       declKind = DeclFunction
         Function {
           functionArgs = [],

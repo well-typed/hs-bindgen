@@ -81,13 +81,14 @@ nameDecl env decl = do
           , declAliases = findAliasesOf env nsid
           , declLoc
           , declHeader
+          , declComment
           }
       , declKind = nameUseSites env declKind
       , declAnn
       }
   where
     C.Decl{declInfo, declKind, declAnn} = decl
-    C.DeclInfo{declId, declLoc, declHeader} = declInfo
+    C.DeclInfo{declId, declLoc, declHeader, declComment} = declInfo
 
     nsid :: NsPrelimDeclId
     nsid = C.declNsPrelimDeclId decl

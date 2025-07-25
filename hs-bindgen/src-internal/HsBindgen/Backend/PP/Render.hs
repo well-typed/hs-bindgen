@@ -24,6 +24,7 @@ import HsBindgen.Backend.PP.Translation
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Hs.CallConv
+import HsBindgen.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
@@ -96,19 +97,118 @@ instance Pretty ImportListItem where
         hsep ["import qualified", string hsImportModuleName, "as", string q]
       Nothing -> hsep ["import qualified", string hsImportModuleName]
 
+
+{-------------------------------------------------------------------------------
+  Comment pretty-printing
+-------------------------------------------------------------------------------}
+
+-- | Here we generate valid Haddock for 'Hs.Comment'. There are roughly 3 types
+-- of Haddocks that we might be able to generate:
+--
+-- * Module Description Commments: Unfortunately, libclang doesn't allow us to
+-- parse module level comments because they are not associated with any AST
+-- node. Assuming that the comment is not immediately followed by a
+-- declaration, in that case the module level comment will get confused with a
+-- top level declaration comment.
+--
+-- * Top Level Comments: These comments are the top level comments for any
+-- declaration.
+--
+-- * Parts of a Declaration Comments: In addition to documenting the whole
+-- declaration, in some cases we can also document individual parts of the declaration.
+
+-- As mentioned above Libclang can only parse comments that immediately before
+-- a supported declaration. Any comments before a not supported declaration,
+-- e.g. macros, will be lost.
+
+-- With this being said we can only do a best effort to generate Top Level and
+-- Parts of a Declaration documentation. The following data type distinguishes
+-- these two.
+--
+data CommentKind
+  = TopLevelComment Hs.Comment
+  | PartOfDeclarationComment Hs.Comment
+
+instance Pretty CommentKind where
+  pretty commentKind =
+    let (commentStart, Hs.Comment {..}) =
+          case commentKind of
+            TopLevelComment c          -> ("{-|", c)
+            PartOfDeclarationComment c -> ("{- ^", c)
+        indentation = length commentStart - 1
+        fromCCtxDoc =
+          case commentOrigin of
+            Nothing    -> empty
+            Just cName -> "__from C:__ @" >< textToCtxDoc cName >< "@"
+        firstContent =
+          case commentTitle of
+            Nothing -> empty
+            Just ct -> hsep (map pretty ct)
+     in  vsep (string commentStart <+> firstContent
+              : map (nest indentation . pretty) commentChildren)
+      $$ vcat [ ""
+              , nest indentation fromCCtxDoc
+              , "-}"
+              ]
+
+instance Pretty Hs.CommentBlockContent where
+  pretty = \case
+    Hs.Paragraph{..}      -> hsep
+                           . map pretty
+                           $ paragraphContent
+    Hs.CodeBlock{..}      -> vcat
+                           $ ["@"]
+                          ++ map textToCtxDoc codeBlockLines ++ ["@"]
+    Hs.Verbatim{..}      -> ">" <+> textToCtxDoc verbatimContent
+    Hs.Example{..}        -> ">>>" <+> textToCtxDoc exampleContent
+    Hs.Property{..}       -> "prop>" <+> textToCtxDoc propertyContent
+    Hs.ListItem{..}       ->
+      let listMarker =
+            case listItemType of
+              Hs.BulletList -> "*"
+              Hs.NumberedList n -> showToCtxDoc n >< "."
+       in listMarker <+> vcat (map pretty listItemContent)
+    Hs.DefinitionList{..} -> "["
+                          >< pretty definitionListTerm
+                          >< "]:"
+                         <+> vcat (map pretty definitionListContent)
+    Hs.Header{..}         -> string (replicate (fromEnum headerLevel) '=')
+                         <+> (hsep $ map pretty headerContent)
+
+
+instance Pretty Hs.CommentInlineContent where
+  pretty = \case
+    Hs.TextContent{..} -> textToCtxDoc textContent
+    Hs.Monospace{..}   -> "@" >< hsep (map pretty monospaceContent) >< "@"
+    Hs.Emph{..}        -> "/" >< hsep (map pretty emphContent) >< "/"
+    Hs.Bold{..}        -> "__" >< hsep (map pretty boldContent) >< "__"
+    Hs.Module{..}      -> "\"" >< textToCtxDoc moduleContent >< "\""
+    Hs.Identifier{..}  -> "'" >< textToCtxDoc identifierContent >< "'"
+    Hs.Type{..}        -> "t'" >< textToCtxDoc typeContent
+    Hs.Link{..}        -> "[" >< hsep (map pretty linkLabel) >< "]"
+                       >< "(" >< textToCtxDoc linkURL >< ")"
+    Hs.URL{..}         -> "<" >< textToCtxDoc urlContent >< ">"
+    Hs.Anchor{..}      -> "#" >< textToCtxDoc anchorContent >< "#"
+    Hs.Math{..}        -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
+    Hs.Metadata{..}    -> pretty metadataContent
+
+instance Pretty Hs.CommentMeta where
+  pretty Hs.Since{..} = "@since:" <+> textToCtxDoc sinceContent
+
 {-------------------------------------------------------------------------------
   Declaration pretty-printing
 -------------------------------------------------------------------------------}
 
 instance Pretty SDecl where
   pretty = \case
-    DComment s -> "--" <+> string s
-    DVar name ty expr ->
-      (pretty name <+> string "::" <+> pretty ty)
+    DVar Var {..} ->
+      maybe empty (pretty . TopLevelComment) varComment
+      $$
+      (pretty varName <+> string "::" <+> pretty varType)
       $$
       fsep
-        [ pretty name <+> char '='
-        , nest 2 $ pretty expr
+        [ pretty varName <+> char '='
+        , nest 2 $ pretty varExpr
         ]
 
     DInst Instance{..} ->
@@ -125,33 +225,47 @@ instance Pretty SDecl where
             [ ppUnqualBackendName (resolve name) <+> char '='
             , nest 2 (pretty expr)
             ]
-      in  vsep $ inst : typs ++ decs
+          prettyTopLevelComment = maybe empty (pretty . TopLevelComment) instanceComment
+      in  vsep $ prettyTopLevelComment : inst : typs ++ decs
 
     DRecord Record{..} ->
       let d = hsep ["data", pretty dataType, char '=', pretty dataCon]
-      in  hang d 2 $ vcat [
-              vlist '{' '}'
-                [ hsep [pretty (fieldName f), "::", pretty (fieldType f)]
-                | f <- dataFields
-                ]
-            , nestedDeriving dataDeriv
-            ]
+          prettyTopLevelComment = maybe empty (pretty . TopLevelComment) dataComment
+      in  prettyTopLevelComment
+       $$ (hang d 2 $ vcat [
+            vlist '{' '}'
+              [  hsep [ pretty (fieldName f)
+                      , "::"
+                      , pretty (fieldType f)
+                      ]
+              $$ prettyFieldComment
+              | f <- dataFields
+              , let prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment f)
+              ]
+          , nestedDeriving dataDeriv
+          ])
 
-    DEmptyData d ->
-      hsep ["data", pretty (emptyDataName d)]
+    DEmptyData EmptyData{..} ->
+      let prettyComment = maybe empty (pretty . TopLevelComment) emptyDataComment
+       in  prettyComment
+        $$ hsep ["data", pretty emptyDataName]
 
     DNewtype Newtype{..} ->
       let d = hsep ["newtype", pretty newtypeName, char '=', pretty newtypeCon]
-      in  hang d 2 $ vcat [
+          prettyComment = maybe empty (pretty . TopLevelComment) newtypeComment
+          prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment newtypeField)
+      in  prettyComment
+       $$ (hang d 2 $ vcat [
               vlist '{' '}'
                 [ hsep
                     [ pretty (fieldName newtypeField)
                     , "::"
                     , pretty (fieldType newtypeField)
                     ]
+                $$ prettyFieldComment
                 ]
             , nestedDeriving newtypeDeriv
-            ]
+            ])
 
     DForeignImport ForeignImport{..} ->
       -- Variable names here refer to the syntax of foreign declarations at
@@ -180,22 +294,28 @@ instance Pretty SDecl where
                     ImportAsPtr   -> "&"
                 , string $ Text.unpack foreignImportOrigName
                 ])
-      in hsep [
-          "foreign import"
-        , callconv
-        , safety
-        , "\"" >< impent >< "\""
-        , pretty foreignImportName
-        , "::"
-        , pretty foreignImportType
-        ]
+          prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment
+      in  prettyFunctionComment
+       $$ hsep [ "foreign import"
+               , callconv
+               , safety
+               , "\"" >< impent >< "\""
+               , pretty foreignImportName
+               , "::"
+               , pretty foreignImportType
+               ]
 
-    DDerivingInstance s t -> "deriving" <+> strategy s <+> "instance" <+> pretty t
+    DDerivingInstance DerivingInstance {..} -> maybe empty (pretty . TopLevelComment) derivingInstanceComment
+                                            $$ "deriving" <+> strategy derivingInstanceStrategy
+                                                          <+> "instance"
+                                                          <+> pretty derivingInstanceType
 
-    DPatternSynonym PatternSynonym {..} -> vcat
-      [ "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
-      , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
-      ]
+    DPatternSynonym PatternSynonym {..} ->
+      let prettyEnumConstantComment = maybe empty (pretty . TopLevelComment) patSynComment
+       in vcat [ prettyEnumConstantComment
+               , "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
+               , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
+               ]
 
     DCSource src ->
       -- the single string literal is quite ugly, but it's simple

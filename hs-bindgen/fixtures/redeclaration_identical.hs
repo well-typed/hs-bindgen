@@ -23,4 +23,5 @@
                 []]}},
       varDeclBody = VarDeclIntegral
         5
-        HsPrimCInt}]
+        HsPrimCInt,
+      varDeclComment = Nothing}]

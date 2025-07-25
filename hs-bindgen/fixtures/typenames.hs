@@ -13,7 +13,8 @@
           "un_Foo",
         fieldType = HsPrimType
           HsPrimCUInt,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc = "typenames.h:14:6",
@@ -23,7 +24,8 @@
               "Foo"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typenames.h"},
+          declHeader = "typenames.h",
+          declComment = Nothing},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -45,7 +47,8 @@
                   nameC = Name "FOO1",
                   nameHsIdent = HsIdentifier
                     "FOO1"},
-                enumConstantValue = 0},
+                enumConstantValue = 0,
+                enumConstantComment = Nothing},
               EnumConstant {
                 enumConstantLoc =
                 "typenames.h:16:2",
@@ -53,7 +56,9 @@
                   nameC = Name "FOO2",
                   nameHsIdent = HsIdentifier
                     "FOO2"},
-                enumConstantValue = 1}]},
+                enumConstantValue = 1,
+                enumConstantComment =
+                Nothing}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -61,200 +66,227 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [
-          Eq,
-          Ord,
-          Read,
-          Show,
-          Storable]},
+        [Eq, Ord, Read, Show, Storable],
+      newtypeComment = Nothing},
   DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Foo",
-        structConstr = HsName
-          "@NsConstr"
-          "Foo",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_Foo",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Foo",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Foo",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "un_Foo",
-                    fieldType = HsPrimType
-                      HsPrimCUInt,
-                    fieldOrigin = GeneratedField}],
-                structOrigin = Nothing,
-                structInstances = Set.fromList
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Foo",
+          structConstr = HsName
+            "@NsConstr"
+            "Foo",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_Foo",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Foo",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Foo",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "un_Foo",
+                      fieldType = HsPrimType
+                        HsPrimCUInt,
+                      fieldOrigin = GeneratedField,
+                      fieldComment = Nothing}],
+                  structOrigin = Nothing,
+                  structInstances = Set.fromList
+                    [Eq, Ord, Read, Show, Storable],
+                  structComment = Nothing})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Foo",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Foo",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "un_Foo",
+                      fieldType = HsPrimType
+                        HsPrimCUInt,
+                      fieldOrigin = GeneratedField,
+                      fieldComment = Nothing}],
+                  structOrigin = Nothing,
+                  structInstances = Set.fromList
+                    [Eq, Ord, Read, Show, Storable],
+                  structComment = Nothing}
+                (Add 1)
+                (Seq
                   [
-                    Eq,
-                    Ord,
-                    Read,
-                    Show,
-                    Storable]})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Foo",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Foo",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "un_Foo",
-                    fieldType = HsPrimType
-                      HsPrimCUInt,
-                    fieldOrigin = GeneratedField}],
-                structOrigin = Nothing,
-                structInstances = Set.fromList
-                  [Eq, Ord, Read, Show, Storable]}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclInstance
-    (InstanceCEnum
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Foo",
-        structConstr = HsName
-          "@NsConstr"
-          "Foo",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_Foo",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      (HsPrimType HsPrimCUInt)
-      (Map.fromList
-        [
-          _×_ 0 (NE.fromList ["FOO1"]),
-          _×_ 1 (NE.fromList ["FOO2"])])
-      True),
-  DeclInstance
-    (InstanceSequentialCEnum
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Foo",
-        structConstr = HsName
-          "@NsConstr"
-          "Foo",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_Foo",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [Eq, Ord, Read, Show, Storable]}
-      (HsName "@NsConstr" "FOO1")
-      (HsName "@NsConstr" "FOO2")),
-  DeclInstance
-    (InstanceCEnumShow
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Foo",
-        structConstr = HsName
-          "@NsConstr"
-          "Foo",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_Foo",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnum
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Foo",
+          structConstr = HsName
+            "@NsConstr"
+            "Foo",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_Foo",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        (HsPrimType HsPrimCUInt)
+        (Map.fromList
           [
-            Eq,
-            Ord,
-            Read,
-            Show,
-            Storable]}),
+            _×_ 0 (NE.fromList ["FOO1"]),
+            _×_ 1 (NE.fromList ["FOO2"])])
+        True,
+      defineInstanceComment =
+      Nothing},
   DeclInstance
-    (InstanceCEnumRead
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Foo",
-        structConstr = HsName
-          "@NsConstr"
-          "Foo",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "un_Foo",
-            fieldType = HsPrimType
-              HsPrimCUInt,
-            fieldOrigin = GeneratedField}],
-        structOrigin = Nothing,
-        structInstances = Set.fromList
-          [
-            Eq,
-            Ord,
-            Read,
-            Show,
-            Storable]}),
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceSequentialCEnum
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Foo",
+          structConstr = HsName
+            "@NsConstr"
+            "Foo",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_Foo",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing}
+        (HsName "@NsConstr" "FOO1")
+        (HsName "@NsConstr" "FOO2"),
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnumShow
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Foo",
+          structConstr = HsName
+            "@NsConstr"
+            "Foo",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_Foo",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceCEnumRead
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Foo",
+          structConstr = HsName
+            "@NsConstr"
+            "Foo",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "un_Foo",
+              fieldType = HsPrimType
+                HsPrimCUInt,
+              fieldOrigin = GeneratedField,
+              fieldComment = Nothing}],
+          structOrigin = Nothing,
+          structInstances = Set.fromList
+            [Eq, Ord, Read, Show, Storable],
+          structComment = Nothing},
+      defineInstanceComment =
+      Nothing},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -275,7 +307,9 @@
             nameC = Name "FOO1",
             nameHsIdent = HsIdentifier
               "FOO1"},
-          enumConstantValue = 0}},
+          enumConstantValue = 0,
+          enumConstantComment = Nothing},
+      patSynComment = Nothing},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -296,7 +330,9 @@
             nameC = Name "FOO2",
             nameHsIdent = HsIdentifier
               "FOO2"},
-          enumConstantValue = 1}},
+          enumConstantValue = 1,
+          enumConstantComment = Nothing},
+      patSynComment = Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -311,7 +347,8 @@
           "un_Foo",
         fieldType = HsPrimType
           HsPrimCDouble,
-        fieldOrigin = GeneratedField},
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc = "typenames.h:19:16",
@@ -321,7 +358,8 @@
               "Foo"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typenames.h"},
+          declHeader = "typenames.h",
+          declComment = Nothing},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -352,52 +390,126 @@
           Real,
           RealFloat,
           RealFrac,
-          Storable]},
+          Storable],
+      newtypeComment = Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Floating
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Floating,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Fractional
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      Fractional,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    RealFloat
-    (HsName "@NsTypeConstr" "Foo"),
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = RealFloat,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
   DeclNewtypeInstance
-    DeriveNewtype
-    RealFrac
-    (HsName "@NsTypeConstr" "Foo")]
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = RealFrac,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing}]

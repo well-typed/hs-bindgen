@@ -23,6 +23,10 @@ module HsBindgen.Hs.AST (
     -- * Declarations
   , Decl(..)
   , InstanceDecl(..)
+  , UnionGetter(..)
+  , UnionSetter(..)
+  , DefineInstance(..)
+  , DeriveInstance(..)
     -- ** Variable declarations
   , VarDecl(..)
   , SigmaType(..)
@@ -61,6 +65,7 @@ import HsBindgen.Hs.AST.SigmaType
 import HsBindgen.Hs.AST.Strategy
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.CallConv
+import HsBindgen.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
@@ -75,9 +80,10 @@ import C.Char qualified
 -------------------------------------------------------------------------------}
 
 data Field = Field {
-      fieldName   :: HsName NsVar
-    , fieldType   :: HsType
-    , fieldOrigin :: Origin.Field
+      fieldName    :: HsName NsVar
+    , fieldType    :: HsType
+    , fieldOrigin  :: Origin.Field
+    , fieldComment :: Maybe Comment
     }
   deriving stock (Generic, Show)
 
@@ -90,12 +96,14 @@ data Struct (n :: Nat) = Struct {
       -- struct. This is a nasty hack that we should get rid of.
     , structOrigin    :: Maybe (Origin.Decl Origin.Struct)
     , structInstances :: Set HsTypeClass
+    , structComment   :: Maybe Comment
     }
   deriving stock (Generic, Show)
 
 data EmptyData = EmptyData {
-      emptyDataName   :: HsName NsTypeConstr
-    , emptyDataOrigin :: Origin.Decl Origin.EmptyData
+      emptyDataName    :: HsName NsTypeConstr
+    , emptyDataOrigin  :: Origin.Decl Origin.EmptyData
+    , emptyDataComment :: Maybe Comment
     }
   deriving stock (Generic, Show)
 
@@ -105,6 +113,7 @@ data Newtype = Newtype {
     , newtypeField     :: Field
     , newtypeOrigin    :: Origin.Decl Origin.Newtype
     , newtypeInstances :: Set HsTypeClass
+    , newtypeComment   :: Maybe Comment
     }
   deriving stock (Generic, Show)
 
@@ -114,7 +123,32 @@ data ForeignImportDecl = ForeignImportDecl
     , foreignImportOrigName :: Text
     , foreignImportCallConv :: CallConv
     , foreignImportOrigin   :: Origin.ForeignImport
+    , foreignImportComment  :: Maybe Comment
     }
+  deriving stock (Generic, Show)
+
+data UnionGetter = UnionGetter
+  { unionGetterName    :: HsName NsVar
+  , unionGetterType    :: HsType
+  , unionGetterConstr  :: HsName NsTypeConstr
+  , unionGetterComment :: Maybe Comment
+  }
+  deriving stock (Generic, Show)
+
+data UnionSetter = UnionSetter
+  { unionSetterName    :: HsName NsVar
+  , unionSetterType    :: HsType
+  , unionSetterConstr  :: HsName NsTypeConstr
+  , unionSetterComment :: Maybe Comment
+  }
+  deriving stock (Generic, Show)
+
+data DeriveInstance = DeriveInstance
+  { deriveInstanceStrategy :: Strategy HsType
+  , deriveInstanceClass    :: HsTypeClass
+  , deriveInstanceName     :: HsName NsTypeConstr
+  , deriveInstanceComment  :: Maybe Comment
+  }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
@@ -145,16 +179,23 @@ data Decl where
     DeclEmpty           :: EmptyData -> Decl
     DeclNewtype         :: Newtype -> Decl
     DeclPatSyn          :: PatSyn -> Decl
-    DeclDefineInstance  :: InstanceDecl -> Decl
-    DeclDeriveInstance  :: Strategy HsType -> HsTypeClass -> HsName NsTypeConstr -> Decl
+    DeclDefineInstance  :: DefineInstance -> Decl
+    DeclDeriveInstance  :: DeriveInstance -> Decl
     DeclInlineCInclude  :: String -> Decl
     DeclInlineC         :: String -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
-    DeclUnionGetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
-    DeclUnionSetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
+    DeclUnionGetter     :: UnionGetter -> Decl
+    DeclUnionSetter     :: UnionSetter -> Decl
     DeclSimple          :: SHs.SDecl -> Decl
 deriving instance Show Decl
+
+data DefineInstance =
+  DefineInstance
+    { defineInstanceDeclarations :: InstanceDecl
+    , defineInstanceComment      :: Maybe Comment
+    }
+  deriving stock (Generic, Show)
 
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
@@ -182,11 +223,12 @@ type VarDecl :: Star
 data VarDecl =
   VarDecl
     -- | Name of variable/function.
-    { varDeclName :: HsName NsVar
+    { varDeclName    :: HsName NsVar
     -- | Type of variable/function.
-    , varDeclType :: SigmaType
+    , varDeclType    :: SigmaType
     -- | RHS of variable/function.
-    , varDeclBody :: VarDeclRHS EmptyCtx
+    , varDeclBody    :: VarDeclRHS EmptyCtx
+    , varDeclComment :: Maybe Comment
     }
   deriving stock (Generic, Show)
 
@@ -227,11 +269,12 @@ deriving stock instance Show VarDeclRHSAppHead
 -- @
 --
 data PatSyn = PatSyn
-    { patSynName   :: HsName NsConstr
-    , patSynType   :: HsName NsTypeConstr
-    , patSynConstr :: HsName NsConstr
-    , patSynValue  :: Integer
-    , patSynOrigin :: Origin.PatSyn
+    { patSynName    :: HsName NsConstr
+    , patSynType    :: HsName NsTypeConstr
+    , patSynConstr  :: HsName NsConstr
+    , patSynValue   :: Integer
+    , patSynOrigin  :: Origin.PatSyn
+    , patSynComment :: Maybe Comment
     }
   deriving stock (Generic, Show)
 
