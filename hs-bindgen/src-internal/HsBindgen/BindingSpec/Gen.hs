@@ -28,7 +28,6 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Origin qualified as HsOrigin
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
@@ -122,7 +121,7 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
     Just originDecl ->
       let cQualName = getCQualName (HsOrigin.declInfo originDecl) $
             case HsOrigin.declKind originDecl of
-              HsOrigin.Struct{} -> C.NameKindStruct
+              HsOrigin.Struct{} -> C.NameKindTagged C.TagKindStruct
           hsIdentifier = HsIdentifier $ getHsName (Hs.structName hsStruct)
           MangleNames.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
           typeSpec = BindingSpec.TypeSpec {
@@ -140,9 +139,9 @@ getEmptyDataSpec hsModuleName edata =
     let originDecl = Hs.emptyDataOrigin edata
         cQualName = getCQualName (HsOrigin.declInfo originDecl) $
           case HsOrigin.declKind originDecl of
-            HsOrigin.OpaqueStruct -> C.NameKindStruct
-            HsOrigin.OpaqueEnum   -> C.NameKindEnum
-            HsOrigin.OpaqueUnion  -> C.NameKindUnion
+            HsOrigin.OpaqueStruct -> C.NameKindTagged C.TagKindStruct
+            HsOrigin.OpaqueEnum   -> C.NameKindTagged C.TagKindEnum
+            HsOrigin.OpaqueUnion  -> C.NameKindTagged C.TagKindUnion
         hsIdentifier = HsIdentifier $ getHsName (Hs.emptyDataName edata)
         typeSpec = BindingSpec.TypeSpec {
             typeSpecModule     = Just hsModuleName
@@ -157,9 +156,9 @@ getNewtypeSpec hsModuleName hsNewtype =
     let originDecl = Hs.newtypeOrigin hsNewtype
         cQualName = getCQualName (HsOrigin.declInfo originDecl) $
           case HsOrigin.declKind originDecl of
-            HsOrigin.Enum{}    -> C.NameKindEnum
+            HsOrigin.Enum{}    -> C.NameKindTagged C.TagKindEnum
             HsOrigin.Typedef{} -> C.NameKindOrdinary
-            HsOrigin.Union{}   -> C.NameKindUnion
+            HsOrigin.Union{}   -> C.NameKindTagged C.TagKindUnion
             HsOrigin.Macro{}   -> C.NameKindOrdinary
         hsIdentifier = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
         MangleNames.DeclSpec typeSpec' = HsOrigin.declSpec originDecl

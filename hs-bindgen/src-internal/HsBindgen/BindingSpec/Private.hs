@@ -65,8 +65,8 @@ import Prelude hiding (readFile, writeFile)
 import Clang.Args
 import Clang.Paths
 import HsBindgen.Errors
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve

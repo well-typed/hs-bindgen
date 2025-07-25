@@ -22,11 +22,15 @@ module HsBindgen.Common (
 
     -- ** Selection predicates
   , Predicate.Predicate(..)
+  , Predicate.HeaderPathPredicate (..)
+  , Predicate.DeclPredicate (..)
+  , Predicate.ParsePredicate
+  , Predicate.SelectPredicate
   , Predicate.Regex -- opaque
   , Predicate.mergePredicates
 
     -- ** Program slicing
-  , Slice.ProgramSlicing(..)
+  , Select.ProgramSlicing(..)
 
     -- * Paths
   , Paths.CIncludePathDir(..)
@@ -42,10 +46,10 @@ module HsBindgen.Common (
   , TraceMsg.FrontendMsg(..)
   , TraceMsg.ParseMsg(..)
   , TraceMsg.SortMsg(..)
-  , TraceMsg.SliceMsg(..)
   , TraceMsg.HandleMacrosMsg(..)
   , TraceMsg.NameAnonMsg(..)
   , TraceMsg.ResolveBindingSpecMsg(..)
+  , TraceMsg.SelectMsg(..)
   , TraceMsg.HandleTypedefsMsg(..)
   , TraceMsg.MangleNamesMsg(..)
   , TraceMsg.ParseTypeException(..)
@@ -86,7 +90,7 @@ import Clang.Paths qualified as Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Config qualified as Config
-import HsBindgen.Frontend.Pass.Slice.IsPass qualified as Slice
+import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.TraceMsg qualified as TraceMsg

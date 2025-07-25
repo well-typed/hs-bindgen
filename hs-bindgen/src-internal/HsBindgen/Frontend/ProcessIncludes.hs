@@ -14,7 +14,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import HsBindgen.C.Predicate (IsMainFile)
+import HsBindgen.C.Predicate (IsMainHeader)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -104,7 +104,7 @@ type GetMainHeader = SourcePath -> CHeaderIncludePath
 processIncludes ::
      RootHeader
   -> CXTranslationUnit
-  -> IO (IncludeGraph, IsMainFile, GetMainHeader)
+  -> IO (IncludeGraph, IsMainHeader, GetMainHeader)
 processIncludes rootHeader unit = do
     root     <- clang_getTranslationUnitCursor unit
     includes <- HighLevel.clang_visitChildren root $ simpleFold $ \curr -> do
@@ -130,8 +130,8 @@ processIncludes rootHeader unit = do
         mainPaths :: Set SourcePath
         mainPaths = Map.keysSet mainPathMap
 
-        isMainFile :: IsMainFile
-        isMainFile loc = singleLocPath loc `Set.member` mainPaths
+        isMainHeader :: IsMainHeader
+        isMainHeader loc = singleLocPath loc `Set.member` mainPaths
 
         getMainHeader :: GetMainHeader
         getMainHeader = case mainPathPairs of
@@ -142,7 +142,7 @@ processIncludes rootHeader unit = do
               (`Map.lookup` mainPathMap)
                 =<< IncludeGraph.getMainPath mainPaths includeGraph path
 
-    return (includeGraph, isMainFile, getMainHeader)
+    return (includeGraph, isMainHeader, getMainHeader)
 
 {-------------------------------------------------------------------------------
   Process inclusion directives

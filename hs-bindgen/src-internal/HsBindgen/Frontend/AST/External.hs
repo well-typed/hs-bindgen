@@ -43,8 +43,19 @@ module HsBindgen.Frontend.AST.External (
   , isVoid
   , isArray
     -- * Names
-  , AnonId(..)
-  , NameOrigin(..)
+  , C.Name(..)
+  , C.TypeNamespace(..)
+  , C.TagKind(..)
+  , C.NameKind(..)
+  , C.nameKindTypeNamespace
+  , C.QualName(..)
+  , C.qualNameText
+  , C.parseQualName
+  , C.AnonId(..)
+  , C.NameOrigin(..)
+  , C.QualPrelimDeclId(..)
+  , C.QualDeclId(..)
+  , C.qualDeclIdText
   , MangleNames.NamePair(..)
   , MangleNames.nameHs
   , MangleNames.RecordNames(..)
@@ -58,7 +69,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
 import HsBindgen.Imports
@@ -98,7 +109,7 @@ data Decl = Decl {
 data DeclInfo = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: MangleNames.NamePair
-    , declOrigin  :: NameOrigin
+    , declOrigin  :: C.NameOrigin
     , declAliases :: [C.Name]
     , declHeader  :: CHeaderIncludePath
     , declComment :: Maybe Comment
@@ -233,11 +244,11 @@ data CheckedMacroType = CheckedMacroType {
 -- For type /declarations/ see 'Decl'.
 data Type =
     TypePrim C.PrimType
-  | TypeStruct MangleNames.NamePair NameOrigin
-  | TypeUnion MangleNames.NamePair NameOrigin
-  | TypeEnum MangleNames.NamePair NameOrigin
+  | TypeStruct MangleNames.NamePair C.NameOrigin
+  | TypeUnion MangleNames.NamePair C.NameOrigin
+  | TypeEnum MangleNames.NamePair C.NameOrigin
   | TypeTypedef TypedefRef
-  | TypeMacroTypedef MangleNames.NamePair NameOrigin
+  | TypeMacroTypedef MangleNames.NamePair C.NameOrigin
   | TypePointer Type
   | TypeConstArray Natural Type
   | TypeFun [Type] Type

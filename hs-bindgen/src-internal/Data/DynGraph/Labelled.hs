@@ -15,6 +15,8 @@ module Data.DynGraph.Labelled (
   , dff
   , dfFindMember
   , findTrailFrom
+    -- * Deletion
+  , deleteEdges
     -- * Debugging
   , dumpMermaid
     -- * Auxiliary: tree traversals
@@ -189,6 +191,30 @@ findTrailFrom DynGraph{..} f = go
             currIx <- Map.lookup curr vtxMap
             next   <- Set.toList <$> IntMap.lookup currIx edges
             return $ map (first (idxMap IntMap.!)) next
+
+{-------------------------------------------------------------------------------
+  Deletion
+-------------------------------------------------------------------------------}
+
+-- | Delete edges
+--
+-- This function deletes all edges between a given vertex and any vertex in the
+-- specified list.  It never deletes vertices, even if removing edges results in
+-- a disconnected graph.
+deleteEdges :: Ord a => a -> [a] -> DynGraph l a -> DynGraph l a
+deleteEdges vFrom vs dynGraph@DynGraph{..}
+    | null vs   = dynGraph
+    | otherwise = case Map.lookup vFrom vtxMap of
+        Just ixFrom ->
+          let ixs = IntSet.fromList $ mapMaybe (vtxMap Map.!?) vs
+              f   = mne . Set.filter ((`IntSet.notMember` ixs) . fst)
+          in  dynGraph { edges = IntMap.update f ixFrom edges }
+        Nothing -> dynGraph
+  where
+    mne :: Set a -> Maybe (Set a)
+    mne s
+      | Set.null s = Nothing
+      | otherwise  = Just s
 
 {-------------------------------------------------------------------------------
   Internal

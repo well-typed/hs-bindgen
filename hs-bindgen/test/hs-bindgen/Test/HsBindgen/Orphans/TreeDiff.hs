@@ -86,6 +86,7 @@ instance ToExpr C.RecordNames
 instance ToExpr C.ResolvedExtBinding
 instance ToExpr C.Struct
 instance ToExpr C.StructField
+instance ToExpr C.TagKind
 instance ToExpr C.TranslationUnit
 instance ToExpr C.Type
 instance ToExpr C.Typedef

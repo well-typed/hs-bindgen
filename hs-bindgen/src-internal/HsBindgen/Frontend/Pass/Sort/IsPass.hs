@@ -8,7 +8,7 @@ import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Internal (ValidPass)
-import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
+import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse, ReparseInfo)
 import HsBindgen.Imports
@@ -46,10 +46,10 @@ instance IsPass Sort where
 -------------------------------------------------------------------------------}
 
 data DeclMeta = DeclMeta {
-      declIndex       :: DeclIndex
-    , declUseDecl     :: UseDeclGraph
-    , declDeclUse     :: DeclUseGraph
-    , declNonSelected :: NonSelectedDecls
+      declIndex     :: DeclIndex
+    , declUseDecl   :: UseDeclGraph
+    , declDeclUse   :: DeclUseGraph
+    , declNonParsed :: NonParsedDecls
     }
   deriving stock (Show, Eq)
 
