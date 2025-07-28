@@ -65,13 +65,18 @@ module HsBindgen.Common (
   , Tracer.HasSource(..)
   , Tracer.Verbosity(..)
     -- ** Tracer configuration
-  , Tracer.AnsiColor(..)
   , Tracer.ShowTimeStamp(..)
   , Tracer.ShowCallStack(..)
   , Tracer.TracerConfig(..)
+    -- *** Custom output
+  , Tracer.AnsiColor(..)
+  , Tracer.Report
+  , Tracer.OutputConfig(..)
+    -- *** Custom log levels
   , Tracer.CustomLogLevel(..)
+  , TraceMsg.customLogLevelFrom
+  , TraceMsg.CustomLogLevelSetting(..)
     -- ** Tracers
-  , Tracer.withTracerStdOut
   , Tracer.withTracerCustom
 
     -- * Re-exports

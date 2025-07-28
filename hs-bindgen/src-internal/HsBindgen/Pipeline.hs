@@ -155,13 +155,17 @@ data QuoteIncludePathDir =
   deriving stock (Eq, Show)
 
 -- | Options
-newtype HashIncludeOpts = HashIncludeOpts {
-    extraIncludeDirs :: [QuoteIncludePathDir]
+data HashIncludeOpts = HashIncludeOpts {
+    extraIncludeDirs       :: [QuoteIncludePathDir]
+  , customLogLevelSettings :: [CustomLogLevelSetting]
   }
   deriving stock (Eq, Show)
 
 instance Default HashIncludeOpts where
-  def = HashIncludeOpts { extraIncludeDirs = [] }
+  def = HashIncludeOpts {
+      extraIncludeDirs       = []
+    , customLogLevelSettings = []
+    }
 
 -- | Generate bindings for the given C headers (simple)
 --
@@ -187,11 +191,13 @@ hashInclude ::
      [FilePath]  -- ^ Input headers, as written in C @#include@
   -> HashIncludeOpts
   -> TH.Q [TH.Dec]
-hashInclude fps HashIncludeOpts {..} = do
+hashInclude fps HashIncludeOpts{..} = do
   quoteIncludeDirs <- toFilePaths extraIncludeDirs
-  let tracerConf :: TracerConfig
+  let customLogLevel :: CustomLogLevel TraceMsg
+      customLogLevel = customLogLevelFrom customLogLevelSettings
+      tracerConf :: TracerConfig
       tracerConf = def { tVerbosity = Verbosity Notice }
-  maybeDecls <- withTracerStdOut tracerConf $ \tracer -> do
+  maybeDecls <- withTracerCustom outputConfigQ customLogLevel tracerConf $ \tracer -> do
     let args :: ClangArgs
         args = def {
             clangQuoteIncludePathDirs = CIncludePathDir <$> quoteIncludeDirs

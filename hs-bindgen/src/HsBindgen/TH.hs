@@ -80,13 +80,19 @@ module HsBindgen.TH (
   , Common.HasSource(..)
   , Common.Verbosity(..)
     -- ** Tracer configuration
-  , Common.AnsiColor(..)
   , Common.ShowTimeStamp(..)
   , Common.ShowCallStack(..)
   , Common.TracerConfig(..)
+    -- *** Custom output
+  , Common.AnsiColor(..)
+  , Common.Report
+  , Common.OutputConfig(..)
+  , Tracer.outputConfigQ
+    -- *** Custom log levels
   , Common.CustomLogLevel(..)
+  , Common.customLogLevelFrom
+  , Common.CustomLogLevelSetting(..)
     -- ** Tracers
-  , Common.withTracerStdOut
   , Common.withTracerCustom
 
    -- * Re-exports
@@ -102,6 +108,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
+import HsBindgen.Util.Tracer qualified as Tracer
 
 #ifdef MIN_VERSION_th_compat
 import Language.Haskell.TH.Syntax.Compat qualified as THSyntax

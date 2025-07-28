@@ -261,7 +261,6 @@ executable hs-bindgen-cli
     , hs-bindgen
   build-depends:
       -- Inherited dependencies
-    , ansi-terminal
     , bytestring
   build-depends:
       -- External dependencies
@@ -295,7 +294,6 @@ executable hs-bindgen-dev
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
-    , ansi-terminal
   build-depends:
       -- External dependencies
     , optparse-applicative >= 0.18      && < 0.19
