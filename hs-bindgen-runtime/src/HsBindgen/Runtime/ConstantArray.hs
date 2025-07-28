@@ -15,7 +15,7 @@ import Prelude hiding (repeat)
 import Data.Coerce (Coercible, coerce)
 import Data.Proxy (Proxy (..))
 import Data.Vector.Storable qualified as VS
-import Foreign.ForeignPtr (withForeignPtr, mallocForeignPtr)
+import Foreign.ForeignPtr (withForeignPtr, mallocForeignPtrArray)
 import Foreign.Marshal.Utils (copyBytes)
 import Foreign.Ptr (Ptr, castPtr)
 import Foreign.Storable (Storable (..))
@@ -40,7 +40,7 @@ instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
     alignment _ = alignment (undefined :: a)
 
     peek ptr = do
-        fptr <- mallocForeignPtr
+        fptr <- mallocForeignPtrArray size
         withForeignPtr fptr $ \ptr' -> do
             copyBytes ptr' (castPtr ptr) (size * sizeOfA)
         vs <- VS.freeze (VS.MVector size fptr)
