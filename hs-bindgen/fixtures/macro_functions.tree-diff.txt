@@ -246,7 +246,7 @@ TranslationUnit {
                     MTerm
                       (MVar NoXVar (Name "Y") [])]],
             macroExprType =
-            "(forall a b. Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => IntLike b_10[tau] ~ MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (IntLike a -> b -> ShiftRes (IntLike a)))"}),
+            "(forall a b. Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => Shift a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b) => (a -> b -> ShiftRes a))"}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -385,6 +385,135 @@ TranslationUnit {
                   (MVar NoXVar (Name "Y") [])],
             macroExprType =
             "(forall a b. Mult (FloatLike FloatType) a => Div (MultRes (FloatLike FloatType) a) b => (a -> b -> DivRes (MultRes (FloatLike FloatType) a) b))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:18:9",
+        declId = NamePair {
+          nameC = Name "SWAP32",
+          nameHsIdent = HsIdentifier
+            "sWAP32"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "macro_functions.h",
+        declComment = Nothing},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [Name "w"],
+            macroExprBody = MApp
+              MBitwiseOr
+              [
+                MApp
+                  MBitwiseAnd
+                  [
+                    MApp
+                      MShiftRight
+                      [
+                        MTerm
+                          (MVar NoXVar (Name "w") []),
+                        MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "24",
+                              integerLiteralType = Int Signed,
+                              integerLiteralValue = 24})],
+                    MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "0xff",
+                          integerLiteralType = Int Signed,
+                          integerLiteralValue = 255})],
+                MApp
+                  MBitwiseAnd
+                  [
+                    MApp
+                      MShiftLeft
+                      [
+                        MTerm
+                          (MVar NoXVar (Name "w") []),
+                        MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "8",
+                              integerLiteralType = Int Signed,
+                              integerLiteralValue = 8})],
+                    MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "0xff0000",
+                          integerLiteralType = Int Signed,
+                          integerLiteralValue =
+                          16711680})]],
+            macroExprType =
+            "(forall a. Bitwise (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) => Bitwise (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed)))) => Shift a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> BitsRes (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed)))))))"}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_functions.h:19:9",
+        declId = NamePair {
+          nameC = Name "AV_VERSION_INT",
+          nameHsIdent = HsIdentifier
+            "aV_VERSION_INT"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "macro_functions.h",
+        declComment = Nothing},
+      declKind =
+      DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [
+              Name "a",
+              Name "b",
+              Name "c"],
+            macroExprBody = MApp
+              MBitwiseOr
+              [
+                MApp
+                  MBitwiseOr
+                  [
+                    MApp
+                      MShiftLeft
+                      [
+                        MTerm
+                          (MVar NoXVar (Name "a") []),
+                        MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "16",
+                              integerLiteralType = Int Signed,
+                              integerLiteralValue = 16})],
+                    MApp
+                      MShiftLeft
+                      [
+                        MTerm
+                          (MVar NoXVar (Name "b") []),
+                        MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "8",
+                              integerLiteralType = Int Signed,
+                              integerLiteralValue = 8})]],
+                MTerm
+                  (MVar NoXVar (Name "c") [])],
+            macroExprType =
+            "(forall a b c. Bitwise (ShiftRes a) (ShiftRes b) => Bitwise (BitsRes (ShiftRes a) (ShiftRes b)) c => Shift b (IntLike (CIntegralType (IntLike (Int Signed)))) => Shift a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> b -> c -> BitsRes (BitsRes (ShiftRes a) (ShiftRes b)) c))"}),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

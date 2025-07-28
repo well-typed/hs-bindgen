@@ -14,8 +14,8 @@ fUN1 :: forall a_0 b_1 . (Add a_0 (MultRes CULLong b_1),
         a_0 -> b_1 -> AddRes a_0 (MultRes CULLong b_1)
 fUN1 = \x_0 -> \y_1 -> (+) x_0 ((*) (12 :: CULLong) y_1)
 fUN2 :: forall a_0 b_1 . (Mult CULLong b_1,
-                          (~) (IntLike b_1) (MultRes CULLong b_1)) =>
-        IntLike a_0 -> b_1 -> ShiftRes (IntLike a_0)
+                          Shift a_0 (MultRes CULLong b_1)) =>
+        a_0 -> b_1 -> ShiftRes a_0
 fUN2 = \x_0 -> \y_1 -> (<<) x_0 ((*) (3 :: CULLong) y_1)
 g :: forall a_0 b_1 . Add a_0 CInt => b_1 -> a_0 -> AddRes a_0 CInt
 g = \x_0 -> \y_1 -> cONST (iNCR y_1) (iD x_0)
@@ -27,3 +27,18 @@ dIV2 :: forall a_0 b_1 . (Mult CFloat a_0,
                           Div (MultRes CFloat a_0) b_1) =>
         a_0 -> b_1 -> DivRes (MultRes CFloat a_0) b_1
 dIV2 = \x_0 -> \y_1 -> (/) ((*) (10.0 :: CFloat) x_0) y_1
+sWAP32 :: forall a_0 . (Bitwise (BitsRes (ShiftRes a_0) CInt)
+                                (BitsRes (ShiftRes a_0) CInt),
+                        Bitwise (ShiftRes a_0) CInt,
+                        Shift a_0 CInt) =>
+          a_0 ->
+          BitsRes (BitsRes (ShiftRes a_0) CInt) (BitsRes (ShiftRes a_0) CInt)
+sWAP32 = \w_0 -> (.|.) ((.&.) ((>>) w_0 (24 :: CInt)) (255 :: CInt)) ((.&.) ((<<) w_0 (8 :: CInt)) (16711680 :: CInt))
+aV_VERSION_INT :: forall a_0 b_1 c_2 . (Bitwise (ShiftRes a_0)
+                                                (ShiftRes b_1),
+                                        Bitwise (BitsRes (ShiftRes a_0) (ShiftRes b_1)) c_2,
+                                        Shift b_1 CInt,
+                                        Shift a_0 CInt) =>
+                  a_0 ->
+                  b_1 -> c_2 -> BitsRes (BitsRes (ShiftRes a_0) (ShiftRes b_1)) c_2
+aV_VERSION_INT = \a_0 -> \b_1 -> \c_2 -> (.|.) ((.|.) ((<<) a_0 (16 :: CInt)) ((<<) b_1 (8 :: CInt))) c_2

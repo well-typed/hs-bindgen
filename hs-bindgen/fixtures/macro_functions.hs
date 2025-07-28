@@ -319,48 +319,39 @@
                                   (LongLong Unsigned)))))))
                       []],
                 TyVarTy (Idx 1)],
-            NomEqTy
-              (TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [TyVarTy (Idx 1)])
-              (TyConAppTy
-                (ATyCon
-                  (FamilyTyCon MultResTyCon))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (IntLike
-                                    (LongLong Unsigned)))))))
-                        []],
-                  TyVarTy (Idx 1)])],
-          quantTyBody = FunTy
-            (TyConAppTy
-              (ATyCon
+            ClassTy
+              (AClass
                 (GenerativeTyCon
-                  (DataTyCon IntLikeTyCon)))
-              [TyVarTy (Idx 0)])
+                  (ClassTyCon ShiftTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon MultResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon IntLikeTyCon)))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (GenerativeTyCon
+                              (DataTyCon
+                                (IntLikeTyCon
+                                  (CIntegralType
+                                    (IntLike
+                                      (LongLong Unsigned)))))))
+                          []],
+                    TyVarTy (Idx 1)]]],
+          quantTyBody = FunTy
+            (TyVarTy (Idx 0))
             (FunTy
               (TyVarTy (Idx 1))
               (TyConAppTy
                 (ATyCon
                   (FamilyTyCon ShiftResTyCon))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [TyVarTy (Idx 0)]]))}},
+                [TyVarTy (Idx 0)]))}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
@@ -637,4 +628,308 @@
                       VarDeclFloat 10.0,
                       VarDeclVar (Idx 1)],
                   VarDeclVar (Idx 0)])))),
+      varDeclComment = Nothing},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "sWAP32",
+      varDeclType = ForallTy {
+        forallTyBinders = [
+          NameHint "a"],
+        forallTy = QuantTy {
+          quantTyCts = [
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon BitwiseTyCon)))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon BitsResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (FamilyTyCon ShiftResTyCon))
+                      [TyVarTy (Idx 0)],
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon IntLikeTyCon)))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (GenerativeTyCon
+                              (DataTyCon
+                                (IntLikeTyCon
+                                  (CIntegralType
+                                    (IntLike (Int Signed)))))))
+                          []]],
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon BitsResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (FamilyTyCon ShiftResTyCon))
+                      [TyVarTy (Idx 0)],
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon IntLikeTyCon)))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (GenerativeTyCon
+                              (DataTyCon
+                                (IntLikeTyCon
+                                  (CIntegralType
+                                    (IntLike (Int Signed)))))))
+                          []]]],
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon BitwiseTyCon)))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon ShiftResTyCon))
+                  [TyVarTy (Idx 0)],
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
+                      []]],
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon ShiftTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
+                      []]]],
+          quantTyBody = FunTy
+            (TyVarTy (Idx 0))
+            (TyConAppTy
+              (ATyCon
+                (FamilyTyCon BitsResTyCon))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon BitsResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (FamilyTyCon ShiftResTyCon))
+                      [TyVarTy (Idx 0)],
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon IntLikeTyCon)))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (GenerativeTyCon
+                              (DataTyCon
+                                (IntLikeTyCon
+                                  (CIntegralType
+                                    (IntLike (Int Signed)))))))
+                          []]],
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon BitsResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (FamilyTyCon ShiftResTyCon))
+                      [TyVarTy (Idx 0)],
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon IntLikeTyCon)))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (GenerativeTyCon
+                              (DataTyCon
+                                (IntLikeTyCon
+                                  (CIntegralType
+                                    (IntLike (Int Signed)))))))
+                          []]]])}},
+      varDeclBody = VarDeclLambda
+        (Lambda
+          (NameHint "w")
+          (VarDeclApp
+            (InfixAppHead MBitwiseOr)
+            [
+              VarDeclApp
+                (InfixAppHead MBitwiseAnd)
+                [
+                  VarDeclApp
+                    (InfixAppHead MShiftRight)
+                    [
+                      VarDeclVar (Idx 0),
+                      VarDeclIntegral 24 HsPrimCInt],
+                  VarDeclIntegral 255 HsPrimCInt],
+              VarDeclApp
+                (InfixAppHead MBitwiseAnd)
+                [
+                  VarDeclApp
+                    (InfixAppHead MShiftLeft)
+                    [
+                      VarDeclVar (Idx 0),
+                      VarDeclIntegral 8 HsPrimCInt],
+                  VarDeclIntegral
+                    16711680
+                    HsPrimCInt]])),
+      varDeclComment = Nothing},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "aV_VERSION_INT",
+      varDeclType = ForallTy {
+        forallTyBinders = [
+          NameHint "a",
+          NameHint "b",
+          NameHint "c"],
+        forallTy = QuantTy {
+          quantTyCts = [
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon BitwiseTyCon)))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon ShiftResTyCon))
+                  [TyVarTy (Idx 0)],
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon ShiftResTyCon))
+                  [TyVarTy (Idx 1)]],
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon BitwiseTyCon)))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon BitsResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (FamilyTyCon ShiftResTyCon))
+                      [TyVarTy (Idx 0)],
+                    TyConAppTy
+                      (ATyCon
+                        (FamilyTyCon ShiftResTyCon))
+                      [TyVarTy (Idx 1)]],
+                TyVarTy (Idx 2)],
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon ShiftTyCon)))
+              [
+                TyVarTy (Idx 1),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
+                      []]],
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon ShiftTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
+                      []]]],
+          quantTyBody = FunTy
+            (TyVarTy (Idx 0))
+            (FunTy
+              (TyVarTy (Idx 1))
+              (FunTy
+                (TyVarTy (Idx 2))
+                (TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon BitsResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (FamilyTyCon BitsResTyCon))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (FamilyTyCon ShiftResTyCon))
+                          [TyVarTy (Idx 0)],
+                        TyConAppTy
+                          (ATyCon
+                            (FamilyTyCon ShiftResTyCon))
+                          [TyVarTy (Idx 1)]],
+                    TyVarTy (Idx 2)])))}},
+      varDeclBody = VarDeclLambda
+        (Lambda
+          (NameHint "a")
+          (VarDeclLambda
+            (Lambda
+              (NameHint "b")
+              (VarDeclLambda
+                (Lambda
+                  (NameHint "c")
+                  (VarDeclApp
+                    (InfixAppHead MBitwiseOr)
+                    [
+                      VarDeclApp
+                        (InfixAppHead MBitwiseOr)
+                        [
+                          VarDeclApp
+                            (InfixAppHead MShiftLeft)
+                            [
+                              VarDeclVar (Idx 2),
+                              VarDeclIntegral 16 HsPrimCInt],
+                          VarDeclApp
+                            (InfixAppHead MShiftLeft)
+                            [
+                              VarDeclVar (Idx 1),
+                              VarDeclIntegral 8 HsPrimCInt]],
+                      VarDeclVar (Idx 0)])))))),
       varDeclComment = Nothing}]
