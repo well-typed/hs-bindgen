@@ -50,7 +50,6 @@ import HsBindgen.Runtime.ConstantArray       qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Marshal             qualified
 import HsBindgen.Runtime.SizedByteArray      qualified
-import HsBindgen.Runtime.Syntax              qualified
 
 import DeBruijn (Env (..), lookupEnv, EmptyCtx, Add (..))
 import GHC.Exts (Int(..), sizeofByteArray#)
@@ -164,8 +163,6 @@ mkGlobal = \case
       Shift_shiftL          -> '(C.<<)
       Shift_shiftR          -> '(C.>>)
 
-      IntLike_tycon        -> ''HsBindgen.Runtime.Syntax.IntLike
-      FloatLike_tycon      -> ''HsBindgen.Runtime.Syntax.FloatLike
       GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
       GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble
       CFloat_constructor  -> 'Foreign.C.Types.CFloat
@@ -352,9 +349,6 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Shift_resTyCon        -> TH.varE name
     Shift_shiftL          -> TH.varE name
     Shift_shiftR          -> TH.varE name
-
-    IntLike_tycon   -> panicPure "type in expression"
-    FloatLike_tycon -> panicPure "type in expression"
 
     CFloat_constructor           -> TH.conE name
     CDouble_constructor          -> TH.conE name
