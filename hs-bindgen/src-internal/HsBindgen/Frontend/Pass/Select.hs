@@ -6,7 +6,6 @@ import Data.List (partition)
 import Data.Set (Set)
 import Data.Set qualified as Set
 
-import HsBindgen.C.Predicate (IsMainHeader)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
@@ -26,11 +25,12 @@ type Root = C.NsPrelimDeclId
 type TransitiveDependency = C.NsPrelimDeclId
 
 selectDecls ::
-     IsMainHeader
+     Predicate.IsMainHeader
+  -> Predicate.IsInMainHeaderDir
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpec
   -> (C.TranslationUnit Select, [Msg Select])
-selectDecls isMainHeader SelectConfig{..} unitRBS =
+selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     case selectConfigProgramSlicing of
       DisableProgramSlicing ->
         let matchedDecls :: [C.Decl Select]
@@ -74,6 +74,7 @@ selectDecls isMainHeader SelectConfig{..} unitRBS =
     matchDecl decl =
       Predicate.matchSelect
         isMainHeader
+        isInMainHeaderDir
         (C.declLoc $ C.declInfo decl)
         (C.declQualDeclId decl)
         selectConfigPredicate

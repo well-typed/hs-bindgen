@@ -301,7 +301,7 @@ testCases = [
           -- remove it from the standard external binding specification
           testOnConfig = \cfg -> cfg{
               configParsePredicate  = PTrue
-            , configSelectPredicate = PIf (Left SelectFromMainHeaders)
+            , configSelectPredicate = PIf (Left FromMainHeaders)
             , configProgramSlicing  = EnableProgramSlicing
             }
         , testOnExtSpec = BindingSpec.deleteType C.QualName{
@@ -325,8 +325,8 @@ testCases = [
           testOnConfig = \cfg -> cfg{
               configParsePredicate  = PTrue
             , configSelectPredicate = POr
-                (PIf . Right $ SelectByDeclName "FileOperationRecord")
-                (PIf . Right $ SelectByDeclName "read_file_chunk")
+                (PIf . Right $ DeclNameMatches "FileOperationRecord")
+                (PIf . Right $ DeclNameMatches "read_file_chunk")
             , configProgramSlicing  = EnableProgramSlicing
             }
         , testTracePredicate = customTracePredicate [

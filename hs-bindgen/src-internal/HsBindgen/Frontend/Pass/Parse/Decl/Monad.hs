@@ -36,7 +36,6 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import HsBindgen.C.Predicate (IsMainHeader, ParsePredicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
 import HsBindgen.Errors
@@ -82,12 +81,13 @@ run env f = do
 -------------------------------------------------------------------------------}
 
 data Env = Env {
-      envUnit          :: CXTranslationUnit
-    , envRootHeader    :: RootHeader
-    , envIsMainHeader  :: IsMainHeader
-    , envGetMainHeader :: GetMainHeader
-    , envPredicate     :: ParsePredicate
-    , envTracer        :: Tracer IO ParseMsg
+      envUnit              :: CXTranslationUnit
+    , envRootHeader        :: RootHeader
+    , envIsMainHeader      :: Predicate.IsMainHeader
+    , envIsInMainHeaderDir :: Predicate.IsInMainHeaderDir
+    , envGetMainHeader     :: GetMainHeader
+    , envPredicate         :: Predicate.ParsePredicate
+    , envTracer            :: Tracer IO ParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -102,6 +102,7 @@ evalPredicate :: C.DeclInfo Parse -> C.NameKind -> ParseDecl Bool
 evalPredicate info kind = wrapEff $ \ParseSupport{parseEnv} -> do
     let selected = Predicate.matchParse
                      (envIsMainHeader parseEnv)
+                     (envIsInMainHeaderDir parseEnv)
                      (C.declLoc info)
                      (C.qualPrelimDeclId (C.declId info) kind)
                      (envPredicate parseEnv)

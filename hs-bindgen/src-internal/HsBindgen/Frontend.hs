@@ -102,7 +102,8 @@ processTranslationUnit
   pSpec
   rootHeader
   unit = do
-    (includeGraph, isMainFile, getMainHeader) <- processIncludes rootHeader unit
+    (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader) <-
+      processIncludes rootHeader unit
 
     afterParse <-
       parseDecls
@@ -110,7 +111,8 @@ processTranslationUnit
         rootHeader
         configParsePredicate
         includeGraph
-        isMainFile
+        isMainHeader
+        isInMainHeaderDir
         getMainHeader
         unit
 
@@ -125,7 +127,7 @@ processTranslationUnit
         (afterResolveBindingSpec, msgsResolveBindingSpecs) =
           resolveBindingSpec extSpec pSpec afterNameAnon
         (afterSelect, msgsSelect) =
-          selectDecls isMainFile selectConfig afterResolveBindingSpec
+          selectDecls isMainHeader isInMainHeaderDir selectConfig afterResolveBindingSpec
         (afterHandleTypedefs, msgsHandleTypedefs) =
           handleTypedefs afterSelect
         (afterMangleNames, msgsMangleNames) =

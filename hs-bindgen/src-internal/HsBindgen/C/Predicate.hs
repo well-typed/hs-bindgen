@@ -14,12 +14,18 @@ module HsBindgen.C.Predicate (
   , Regex -- opaque
     -- * Execution (internal API)
   , IsMainHeader
+  , mkIsMainHeader
+  , IsInMainHeaderDir
+  , mkIsInMainHeaderDir
   , matchParse
   , matchSelect
     -- * Merging
   , mergePredicates
   ) where
 
+import Data.List qualified as List
+import Data.Set qualified as Set
+import System.FilePath qualified as FilePath
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text ()
 
@@ -32,7 +38,7 @@ import HsBindgen.Imports
   Definition
 -------------------------------------------------------------------------------}
 
--- | Select which declarations in the C header(s) we want to keep
+-- | Predicate that determines which declarations should be kept
 data Predicate a =
     -- | Match any declaration
     PTrue
@@ -53,26 +59,32 @@ data Predicate a =
   | PIf a
   deriving (Show, Eq)
 
--- | Select declarations based on header paths
+-- | Predicate that determines which declarations should be kept, based on
+-- header paths
 data HeaderPathPredicate =
-    -- | Only include declarations in main files (not included files)
-    SelectFromMainHeaders
+    -- | Only include declarations in main headers (not included headers)
+    FromMainHeaders
+
+    -- | Only include declarations in headers in main header directories,
+    -- including subdirectories
+  | FromMainHeaderDirs
 
     -- | Match header path against regex
-  | SelectByHeaderPath Regex
+  | HeaderPathMatches Regex
   deriving (Show, Eq)
 
--- | Select declarations based on the declarations themselves
+-- | Predicate that determines which declarations should be kept, based on the
+-- declarations themselves
 newtype DeclPredicate =
     -- | Match declaration name against regex
-    SelectByDeclName Regex
+    DeclNameMatches Regex
   deriving (Show, Eq)
 
 -- | Predicates for the @Parse@ pass select based on header file paths
 type ParsePredicate = Predicate HeaderPathPredicate
 
 instance Default ParsePredicate where
-  def = PIf SelectFromMainHeaders
+  def = PIf FromMainHeaders
 
 -- | Predicates for the @Select@ pass select based on header file paths or the
 -- declarations themselves
@@ -89,9 +101,32 @@ instance Default SelectPredicate where
 
 -- | Check if a declaration is from one of the main headers
 --
--- This check is somewhat subtle, and we punt on the precise implementation in
--- this module. See "HsBindgen.Frontend.ProcessIncludes" for discussion.
+-- Dealing with main headers is somewhat subtle.  See
+-- "HsBindgen.Frontend.ProcessIncludes" for discussion.
 type IsMainHeader = SingleLoc -> Bool
+
+-- | Construct an 'IsMainHeader' function for the given main header paths
+mkIsMainHeader ::
+     Set SourcePath -- ^ Main header paths
+  -> IsMainHeader
+mkIsMainHeader paths loc = singleLocPath loc `Set.member` paths
+
+-- | Check if a declaration is in a main header directory, including
+-- subdirectories
+type IsInMainHeaderDir = SingleLoc -> Bool
+
+-- | Construct an 'IsInMainHeaderDir' function for the given main header paths
+mkIsInMainHeaderDir ::
+     Set SourcePath -- ^ Main header paths
+  -> IsInMainHeaderDir
+mkIsInMainHeaderDir paths loc =
+    let dir = FilePath.splitDirectories . FilePath.takeDirectory $
+          getSourcePath (singleLocPath loc)
+    in  any (`List.isPrefixOf` dir) mainDirs
+  where
+    mainDirs :: [[FilePath]]
+    mainDirs = map FilePath.splitDirectories . Set.toList $
+      Set.map (FilePath.takeDirectory . getSourcePath) paths
 
 -- | Match 'ParsePredicate' predicates
 --
@@ -104,13 +139,14 @@ type IsMainHeader = SingleLoc -> Bool
 --   `nonSelectedDecls`, for example).
 matchParse ::
      IsMainHeader
+  -> IsInMainHeaderDir
   -> SingleLoc
   -> C.QualPrelimDeclId
   -> ParsePredicate
   -> Bool
-matchParse isMainHeader loc qid
+matchParse isMainHeader isInMainHeaderDir loc qid
     | isBuiltin = const False
-    | otherwise = eval (matchHeaderPath isMainHeader loc)
+    | otherwise = eval (matchHeaderPath isMainHeader isInMainHeaderDir loc)
   where
     isBuiltin :: Bool
     isBuiltin = case qid of
@@ -120,12 +156,13 @@ matchParse isMainHeader loc qid
 -- | Match 'SelectPredicate' predicates
 matchSelect ::
      IsMainHeader
+  -> IsInMainHeaderDir
   -> SingleLoc
   -> C.QualDeclId
   -> SelectPredicate
   -> Bool
-matchSelect isMainHeader loc qid =
-    eval $ either (matchHeaderPath isMainHeader loc) (matchDecl qid)
+matchSelect isMainHeader isInMainHeaderDir loc qid = eval $
+    either (matchHeaderPath isMainHeader isInMainHeaderDir loc) (matchDecl qid)
 
 {-------------------------------------------------------------------------------
   Merging
@@ -188,17 +225,23 @@ eval f = go
       PIf    p1    -> f p1
 
 -- | Match 'HeaderPathPredicate' predicates
-matchHeaderPath :: IsMainHeader -> SingleLoc -> HeaderPathPredicate -> Bool
-matchHeaderPath isMainHeader loc = \case
-    SelectFromMainHeaders -> isMainHeader loc
-    SelectByHeaderPath re ->
+matchHeaderPath ::
+     IsMainHeader
+  -> IsInMainHeaderDir
+  -> SingleLoc
+  -> HeaderPathPredicate
+  -> Bool
+matchHeaderPath isMainHeader isInMainHeaderDir loc = \case
+    FromMainHeaders      -> isMainHeader loc
+    FromMainHeaderDirs   -> isInMainHeaderDir loc
+    HeaderPathMatches re ->
       let (SourcePath path) = singleLocPath loc
        in matchTest re path
 
 -- | Match 'DeclPredicate' predicates
 matchDecl :: C.QualDeclId -> DeclPredicate -> Bool
 matchDecl qid = \case
-    SelectByDeclName re -> matchTest re (C.qualDeclIdText qid)
+    DeclNameMatches re -> matchTest re (C.qualDeclIdText qid)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs
