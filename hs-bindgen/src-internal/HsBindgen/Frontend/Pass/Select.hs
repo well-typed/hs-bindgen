@@ -2,10 +2,7 @@ module HsBindgen.Frontend.Pass.Select (
     selectDecls
   ) where
 
-import Data.Foldable qualified as Foldable
 import Data.List (partition)
-import Data.Map.Strict (Map)
-import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 
@@ -38,61 +35,34 @@ selectDecls isMainHeader SelectConfig{..} unitRBS =
       DisableProgramSlicing ->
         let matchedDecls :: [C.Decl Select]
             matchedDecls = filter matchDecl decls
-         in (unitSelect { C.unitDecls = matchedDecls }, [])
 
-      -- When program slicing is enabled, we select all declarations while
-      -- parsing.  Instead, we apply the selection predicate here, and also
-      -- select all transitive dependencies.
+            selectMsgs :: [Msg Select]
+            selectMsgs = map (SelectSelected . C.declInfo) matchedDecls
+         in (unitSelect { C.unitDecls = matchedDecls }, selectMsgs)
+
       EnableProgramSlicing ->
-        let matchedDeclarations   :: [C.Decl Select]
-            unmatchedDeclarations :: [C.Decl Select]
-            (matchedDeclarations, unmatchedDeclarations) =
-              partition matchDecl decls
+        let matchedDecls, unmatchedDecls :: [C.Decl Select]
+            (matchedDecls, unmatchedDecls) = partition matchDecl decls
 
             selectedRoots :: [Root]
-            selectedRoots = map C.declOrigNsPrelimDeclId matchedDeclarations
+            selectedRoots = map C.declOrigNsPrelimDeclId matchedDecls
 
-            -- NOTE: We traverse the use-decl graph N times, where N is the
-            -- number of roots.  We could track the transitives of multiple
-            -- roots in a single traversal.
-            --
-            -- See issue https://github.com/well-typed/hs-bindgen/issues/517.
-            getTransitives :: Root -> (Root, Set TransitiveDependency)
-            getTransitives root =
-              (root, UseDeclGraph.getTransitiveDeps useDeclGraph root)
-
-            rootToTransitiveDependencies :: [(Root, Set TransitiveDependency)]
-            rootToTransitiveDependencies = map getTransitives selectedRoots
-
-            transitiveDependencies :: Set TransitiveDependency
-            transitiveDependencies =
-              Foldable.foldl'
-                (<>)
-                Set.empty
-                (map snd rootToTransitiveDependencies)
-
-            selectedDeclarationIds :: Set C.NsPrelimDeclId
-            selectedDeclarationIds =
-              Set.union (Set.fromList selectedRoots) transitiveDependencies
+            transitiveDeps :: Set TransitiveDependency
+            transitiveDeps =
+              UseDeclGraph.getTransitiveDeps useDeclGraph selectedRoots
 
             -- NOTE: Careful, we need to maintain the order of declarations so
             -- that children come before parents.  'filter' does that for us.
-            selectedDeclarations :: [C.Decl Select]
-            selectedDeclarations =
+            selectedDecls :: [C.Decl Select]
+            selectedDecls =
               filter
-                ( (`Set.member` selectedDeclarationIds)
-                . C.declOrigNsPrelimDeclId
-                )
+                ((`Set.member` transitiveDeps) . C.declOrigNsPrelimDeclId)
                 decls
 
             selectMsgs :: [Msg Select]
             selectMsgs =
-              getSelectMsgs
-                transitiveDependencies
-                selectedDeclarations
-                unmatchedDeclarations
-                rootToTransitiveDependencies
-        in (unitSelect { C.unitDecls = selectedDeclarations }, selectMsgs)
+              getSelectMsgs transitiveDeps selectedDecls unmatchedDecls
+        in (unitSelect { C.unitDecls = selectedDecls }, selectMsgs)
   where
     unitSelect :: C.TranslationUnit Select
     unitSelect = coercePass unitRBS
@@ -115,61 +85,21 @@ selectDecls isMainHeader SelectConfig{..} unitRBS =
   Trace messages
 -------------------------------------------------------------------------------}
 
-type TransitiveDependencyToRoots = Map TransitiveDependency (Set Root)
-
 getSelectMsgs
   :: Set C.NsPrelimDeclId
   -> [C.Decl Select]
   -> [C.Decl Select]
-  -> [(Root, Set TransitiveDependency)]
   -> [Msg Select]
-getSelectMsgs transitiveDependencies
-              selectedDeclarations
-              unmatchedDeclarations
-              rootToTransitiveDependencies
-  = errorMsgs ++ excludeMsgs ++ selectMsgs
+getSelectMsgs transitiveDeps selectedDecls unmatchedDecls =
+    errorMsgs ++ excludeMsgs ++ selectMsgs
   where
     unavailableTransitiveDeps :: Set C.NsPrelimDeclId
     unavailableTransitiveDeps =
-      transitiveDependencies `Set.difference`
-        (Set.fromList $ map C.declOrigNsPrelimDeclId selectedDeclarations)
+      transitiveDeps `Set.difference`
+        (Set.fromList $ map C.declOrigNsPrelimDeclId selectedDecls)
 
-    errorMsgs :: [Msg Select]
+    errorMsgs, excludeMsgs, selectMsgs :: [Msg Select]
     errorMsgs = map SelectTransitiveDependencyUnavailable $
       Set.toList unavailableTransitiveDeps
-
-    excludeMsgs :: [Msg Select]
-    excludeMsgs = map (SelectExcluded . C.declInfo) unmatchedDeclarations
-
-    -- We have a map from root to transitive dependencies.  However, to report
-    -- why something was selected, we need a map from each transitive dependency
-    -- to its roots.
-    transitiveDependencyToRoots :: TransitiveDependencyToRoots
-    transitiveDependencyToRoots = Foldable.foldl'
-      addRootWithTransitiveDependencies Map.empty rootToTransitiveDependencies
-
-    selectMsgs :: [Msg Select]
-    selectMsgs = map (SelectSelected . uncurry TransitiveDependencyOf) $
-     Map.toList transitiveDependencyToRoots
-
-addRootWithTransitiveDependencies ::
-     TransitiveDependencyToRoots
-  -> (Root, Set TransitiveDependency)
-  -> TransitiveDependencyToRoots
-addRootWithTransitiveDependencies mp (root, transitiveDeps) =
-  Foldable.foldl' addTransitiveDependency mp transitiveDeps
-  where addTransitiveDependency
-          :: TransitiveDependencyToRoots
-          -> TransitiveDependency
-          -> TransitiveDependencyToRoots
-        addTransitiveDependency m transitiveDep
-          -- Do not add the root itself as transitive dependency because it
-          -- leads to weird trace messages:
-          --
-          -- > Selected X because it is a transitive dependency of X.
-          | root == transitiveDep = m
-          | otherwise             = Map.alter addRoot transitiveDep m
-
-        addRoot :: Maybe (Set Root) -> Maybe (Set Root)
-        addRoot Nothing      = Just $ Set.singleton root
-        addRoot (Just roots) = Just $ Set.insert root roots
+    excludeMsgs = map (SelectExcluded . C.declInfo) unmatchedDecls
+    selectMsgs  = map (SelectSelected . C.declInfo) selectedDecls

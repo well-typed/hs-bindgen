@@ -61,10 +61,12 @@ insertEdge = flip Labelled.insertEdge ()
 vertices :: DynGraph a -> [a]
 vertices = Labelled.vertices
 
--- | Gets the set of vertices that are reachable from the specified vertex
+-- | Gets the set of vertices that are reachable from any of the specified
+-- vertices
 --
--- The specified vertex is included in the set.
-reaches :: Ord a => DynGraph a -> a -> Set a
+-- The specified vertices are included in the set (assuming that they are in
+-- the graph).
+reaches :: Ord a => DynGraph a -> [a] -> Set a
 reaches = Labelled.reaches
 
 -- | Gets a topological sort of the graph

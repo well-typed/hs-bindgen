@@ -388,6 +388,7 @@ test-suite test-hs-bindgen
     , test-common
   build-depends:
       -- Inherited dependencies
+    , containers
     , debruijn
     , directory
     , filepath

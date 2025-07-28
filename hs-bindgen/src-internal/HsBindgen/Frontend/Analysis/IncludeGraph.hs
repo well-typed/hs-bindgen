@@ -63,7 +63,7 @@ fromList edges = List.foldl' add empty edges
 -------------------------------------------------------------------------------}
 
 reaches :: IncludeGraph -> SourcePath -> Set SourcePath
-reaches (IncludeGraph graph) = DynGraph.reaches graph
+reaches (IncludeGraph graph) = DynGraph.reaches graph . List.singleton
 
 toSortedList :: IncludeGraph -> [SourcePath]
 toSortedList (IncludeGraph graph) =

@@ -114,7 +114,7 @@ toDecls index (Wrap graph) =
     mapMaybe (`DeclIndex.lookup` index) . DynGraph.postorderForest $
       DynGraph.dff graph
 
-getTransitiveDeps :: UseDeclGraph -> C.NsPrelimDeclId -> Set C.NsPrelimDeclId
+getTransitiveDeps :: UseDeclGraph -> [C.NsPrelimDeclId] -> Set C.NsPrelimDeclId
 getTransitiveDeps = DynGraph.reaches . unwrap
 
 {-------------------------------------------------------------------------------

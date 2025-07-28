@@ -5,12 +5,9 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   , SelectConfig (..)
     -- * Trace messages
   , SelectMsg (..)
-  , SelectReason (..)
   ) where
 
 import Data.Default (Default (def))
-import Data.Set (Set)
-import Data.Set qualified as Set
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate (SelectPredicate)
@@ -23,7 +20,6 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
@@ -77,41 +73,21 @@ data SelectConfig = SelectConfig {
 data SelectMsg =
     SelectTransitiveDependencyUnavailable C.NsPrelimDeclId
   | SelectExcluded (C.DeclInfo Select)
-  | SelectSelected SelectReason
+  | SelectSelected (C.DeclInfo Select)
   deriving stock (Show, Eq)
-
-data SelectReason =
-    TransitiveDependencyOf {
-      selectedDecl           :: C.NsPrelimDeclId
-      -- NOTE: The inverse dependencies form tree. For now, we just flatten the
-      -- tree to list all inverse dependencies.
-    , transitiveDependencyOf :: Set C.NsPrelimDeclId
-    }
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace SelectReason where
-  prettyForTrace (TransitiveDependencyOf sel deps) =
-    PP.hang
-      ("Selected " >< prettyForTrace sel)
-      2
-      (PP.hangs' "because it is a transitive dependency of" 2 $
-         map prettyForTrace $ Set.toList deps)
-
-instance HasDefaultLogLevel SelectReason where
-  getDefaultLogLevel _ = Info
 
 instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
     SelectTransitiveDependencyUnavailable qualId ->
       "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
-    SelectExcluded info   -> prettyForTrace info >< " excluded"
-    SelectSelected reason -> prettyForTrace reason
+    SelectExcluded info -> prettyForTrace info >< " excluded"
+    SelectSelected info -> "Selected " >< prettyForTrace info
 
 instance HasDefaultLogLevel SelectMsg where
   getDefaultLogLevel = \case
     SelectTransitiveDependencyUnavailable{} -> Error
     SelectExcluded{}                        -> Info
-    SelectSelected reason                   -> getDefaultLogLevel reason
+    SelectSelected{}                        -> Info
 
 instance HasSource SelectMsg where
   getSource = const HsBindgen

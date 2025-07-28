@@ -1,6 +1,8 @@
 -- | Golden tests
 module Test.HsBindgen.Golden (tests) where
 
+import Data.Set (Set)
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Test.Tasty
 
@@ -307,14 +309,14 @@ testCases = [
             , qualNameKind = C.NameKindOrdinary
             }
         , testTracePredicate = customTracePredicate [
-              "SelectedUInt32"
+              "selected foo"
+            , "selected uint32_t"
             ] $ \case
-            TraceFrontend (FrontendSelect
-                           (SelectSelected
-                            (TransitiveDependencyOf
-                             (C.NsPrelimDeclIdNamed nm _) _)))
-              | nm == "uint32_t" -> Just $ Expected "SelectedUInt32"
-            TraceFrontend (FrontendSelect (SelectSelected _)) -> Just Unexpected
+            TraceFrontend (FrontendSelect (SelectSelected info)) ->
+              expectSelected info $ Set.fromList [
+                  "foo"
+                , "uint32_t"
+                ]
             TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
             _otherwise ->
               Nothing
@@ -328,7 +330,9 @@ testCases = [
             , configProgramSlicing  = EnableProgramSlicing
             }
         , testTracePredicate = customTracePredicate [
-              "SelectedFileOpterationStatus"
+              "selected FileOperationRecord"
+            , "selected FileOperationStatus"
+            , "selected read_file_chunk"
             ] $ \case
             TraceFrontend (FrontendParse msg) -> case msg of
               -- TODO: Ideally, we do not see this warnings because they affect
@@ -339,12 +343,12 @@ testCases = [
               ParseUnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
               ParseUnsupportedConst _                            -> Just Tolerated
               _other                                             -> Nothing
-            TraceFrontend (FrontendSelect
-                           (SelectSelected
-                            (TransitiveDependencyOf
-                             (C.NsPrelimDeclIdNamed nm _) _)))
-              | nm == "FileOperationStatus" -> Just $ Expected "SelectedFileOpterationStatus"
-            TraceFrontend (FrontendSelect (SelectSelected _)) -> Just Unexpected
+            TraceFrontend (FrontendSelect (SelectSelected info)) ->
+              expectSelected info $ Set.fromList [
+                  "FileOperationRecord"
+                , "FileOperationStatus"
+                , "read_file_chunk"
+                ]
             TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
             _otherwise ->
               Nothing
@@ -364,3 +368,13 @@ testCases = [
           testRustBindgen = RustBindgenFail
         }
     ]
+  where
+    expectSelected ::
+         C.DeclInfo Select
+      -> Set C.Name
+      -> Maybe (TraceExpectation String)
+    expectSelected info expectedNames = case C.declIdName (C.declId info) of
+      name
+        | Set.member name expectedNames ->
+            Just . Expected $ "selected " ++ Text.unpack (C.getName name)
+        | otherwise -> Just Unexpected
