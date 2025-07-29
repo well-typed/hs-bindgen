@@ -1,4 +1,4 @@
-[ "--include-path=examples"
+[ "--quote-include-path=examples"
 , "--module=Test.PP.Test02"
 , "test_02.h"
 ]

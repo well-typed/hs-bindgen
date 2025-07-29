@@ -457,15 +457,15 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
 
     systemIncludePathOption :: OA.Parser [CIncludePathDir]
     systemIncludePathOption = OA.many . OA.strOption $ mconcat
-      [ OA.long "system-include-path"
+      [ OA.short 'I'
+      , OA.long "system-include-path"
       , OA.metavar "DIR"
       , OA.help "System include search path directory"
       ]
 
     quoteIncludePathOption :: OA.Parser [CIncludePathDir]
     quoteIncludePathOption = OA.many . OA.strOption $ mconcat
-      [ OA.short 'I'
-      , OA.long "include-path"
+      [ OA.long "quote-include-path"
       , OA.metavar "DIR"
       , OA.help "Quote include search path directory"
       ]
