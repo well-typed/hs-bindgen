@@ -2,29 +2,29 @@
 
 module HsBindgen.Orphans () where
 
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception (displayException))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified as Aeson
-import Data.GADT.Compare (GEq(geq))
+import Data.GADT.Compare (GEq (geq))
 import Data.Text qualified as Text
-import Data.Type.Equality ((:~:)(Refl))
+import Data.Type.Equality ((:~:) (Refl))
 import DeBruijn.Idx (Idx, idxToInt)
 import Unsafe.Coerce (unsafeCoerce)
 
-import Clang.Paths
+import HsBindgen.Frontend.RootHeader
 
 {-------------------------------------------------------------------------------
   Aeson
 -------------------------------------------------------------------------------}
 
-instance Aeson.FromJSON CHeaderIncludePath where
-  parseJSON = Aeson.withText "CHeaderIncludePath" $
+instance Aeson.FromJSON HashIncludeArg where
+  parseJSON = Aeson.withText "HashIncludeArg" $
       either (Aeson.parseFail . displayException) return
-    . parseCHeaderIncludePath
+    . parseHashIncludeArg
     . Text.unpack
 
-instance Aeson.ToJSON CHeaderIncludePath where
-  toJSON = Aeson.String . Text.pack . renderCHeaderIncludePath
+instance Aeson.ToJSON HashIncludeArg where
+  toJSON = Aeson.String . Text.pack . renderHashIncludeArg
 
 {-------------------------------------------------------------------------------
   DeBruijn

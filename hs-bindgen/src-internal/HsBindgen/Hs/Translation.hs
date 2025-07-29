@@ -19,13 +19,13 @@ import GHC.Exts qualified as IsList (IsList (..))
 
 import C.Char qualified
 import C.Type qualified (FloatingType (..), IntegralType (IntLike))
-import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.RootHeader (getHashIncludeArg)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.CallConv
@@ -1158,7 +1158,7 @@ functionDecs ::
   -> C.DeclSpec
   -> [Hs.Decl]
 functionDecs mu typedefs info f _spec =
-    [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.declHeader info
+    [ Hs.DeclInlineCInclude $ getHashIncludeArg $ C.declHeader info
     , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = importName
@@ -1300,7 +1300,7 @@ functionDecs mu typedefs info f _spec =
 -- array's length information.
 globalExtern :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
 globalExtern info ty _spec =
-    Hs.DeclInlineCInclude (getCHeaderIncludePath $ C.declHeader info) :
+    Hs.DeclInlineCInclude (getHashIncludeArg $ C.declHeader info) :
     if not (C.isArray ty) then
       [ Hs.DeclInlineC prettyStub
       , Hs.DeclForeignImport $ Hs.ForeignImportDecl

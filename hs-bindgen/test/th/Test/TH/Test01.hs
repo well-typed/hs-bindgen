@@ -21,4 +21,5 @@ import HsBindgen.TH
 -- Used by generated code
 import Foreign.C.Types
 
-hashInclude ["test_01.h"] def { extraIncludeDirs = [ PackageRoot "examples" ] }
+withHsBindgen def { extraQuoteIncludeDirs = [ RelativeToPkgRoot "examples" ] } $
+  hashInclude $ CHeaderQuoteIncludePath "test_01.h"

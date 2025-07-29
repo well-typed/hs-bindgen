@@ -22,6 +22,7 @@ import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
 import HsBindgen.Clang
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Resolve (resolveHeader)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -34,11 +35,11 @@ data Options = Options {
       optBuiltin           :: !Bool
     , optComments          :: !Bool
     , optExtents           :: !Bool
-    , optFile              :: !CHeaderIncludePath
+    , optFile              :: !HashIncludeArg
     , optKind              :: !Bool
-    , optQuoteIncludePath  :: [CIncludePathDir]
+    , optQuoteIncludePath  :: [CIncludeDir]
     , optSameFile          :: !Bool
-    , optSystemIncludePath :: [CIncludePathDir]
+    , optSystemIncludePath :: [CIncludeDir]
     , optType              :: !Bool
     }
 
@@ -61,7 +62,7 @@ instance Exception AstDumpException where
 
 clangAstDump :: Options -> IO ()
 clangAstDump opts@Options{..} = do
-    putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
+    putStrLn $ "## `" ++ renderHashIncludeArg optFile ++ "`"
     putStrLn ""
 
     maybeRes <- withTracerStdOut tracerConf $ \tracer -> do
@@ -455,7 +456,7 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       optFile              <- fileArgument
       pure (optAll, Options{..})
 
-    systemIncludePathOption :: OA.Parser [CIncludePathDir]
+    systemIncludePathOption :: OA.Parser [CIncludeDir]
     systemIncludePathOption = OA.many . OA.strOption $ mconcat
       [ OA.short 'I'
       , OA.long "system-include-path"
@@ -463,17 +464,17 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       , OA.help "System include search path directory"
       ]
 
-    quoteIncludePathOption :: OA.Parser [CIncludePathDir]
+    quoteIncludePathOption :: OA.Parser [CIncludeDir]
     quoteIncludePathOption = OA.many . OA.strOption $ mconcat
       [ OA.long "quote-include-path"
       , OA.metavar "DIR"
       , OA.help "Quote include search path directory"
       ]
 
-    fileArgument :: OA.Parser CHeaderIncludePath
+    fileArgument :: OA.Parser HashIncludeArg
     fileArgument =
       OA.argument
-        (OA.eitherReader $ first displayException . parseCHeaderIncludePath)
+        (OA.eitherReader $ first displayException . parseHashIncludeArg)
         $ mconcat [
               OA.metavar "FILE"
             , OA.help "C (header) file to parse"

@@ -6,6 +6,7 @@ module HsBindgen.Common (
     -- * Binding specifications
   , BindingSpec.BindingSpec -- opaque
   , BindingSpec.EnableStdlibBindingSpec(..)
+  , BindingSpec.BindingSpecConfig(..)
   , BindingSpec.emptyBindingSpec
 
     -- ** Clang arguments
@@ -33,7 +34,11 @@ module HsBindgen.Common (
   , Select.ProgramSlicing(..)
 
     -- * Paths
-  , Paths.CIncludePathDir(..)
+  , RootHeader.HashIncludeArg(..)
+  -- TODO: https://github.com/well-typed/hs-bindgen/issues/958. Will be removed
+  -- (instead we emit a warning trace).
+  , RootHeader.parseHashIncludeArg
+  , Paths.CIncludeDir(..)
   , (FilePath.</>)
   , FilePath.joinPath
 
@@ -95,6 +100,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Config qualified as Config
 import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.TraceMsg qualified as TraceMsg

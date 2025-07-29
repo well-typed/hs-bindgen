@@ -10,11 +10,12 @@ module HsBindgen.GenTests.C (
 --import System.FilePath qualified as FilePath
 --import System.FilePath.Posix qualified as Posix
 
-import Clang.Paths
+
 --import HsBindgen.Errors
 --import HsBindgen.C.AST qualified as C
 --import HsBindgen.C.AST.Name
 import HsBindgen.Errors
+import HsBindgen.Frontend.RootHeader
 --import HsBindgen.GenTests.Internal
 --    ( CFunPrefix, getCFunPrefix, prettyHsName )
 import HsBindgen.Hs.AST qualified as Hs
@@ -31,10 +32,10 @@ genTestsC ::
      FilePath             -- ^ C test header file path
   -> FilePath             -- ^ C test source file path
   -> Int                  -- ^ Maximum line length
-  -> [CHeaderIncludePath] -- ^ C header paths
+  -> [HashIncludeArg] -- ^ C header paths
   -> [Hs.Decl]            -- ^ Declarations
   -> IO ()
-genTestsC = panicPure "TODO" -- TODO refactor
+genTestsC = throwPure_TODO 22 "generate test suite"
 
 {-
 genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
@@ -46,7 +47,7 @@ genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
 
     cTestHeaderFilename, cHeaderFilename :: FilePath
     cTestHeaderFilename = FilePath.takeFileName cTestHeaderPath
-    cHeaderFilename = Posix.takeFileName $ getCHeaderIncludePath cHeaderPath
+    cHeaderFilename = Posix.takeFileName $ getHashIncludeArg cHeaderPath
 
     cFunPrefix :: CFunPrefix
     cFunPrefix = getCFunPrefix cTestHeaderFilename

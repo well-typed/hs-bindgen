@@ -23,7 +23,7 @@ import HsBindgen.Config
 import HsBindgen.Errors
 import HsBindgen.Frontend (processTranslationUnit)
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.RootHeader (RootHeader)
+import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
@@ -38,7 +38,7 @@ parseCHeaders ::
   -> Config
   -> ExternalBindingSpec
   -> PrescriptiveBindingSpec
-  -> [CHeaderIncludePath]
+  -> [HashIncludeArg]
   -> IO C.TranslationUnit
 parseCHeaders tracer config@Config{..} extSpec pSpec mainFiles =
     fmap (fromMaybe C.emptyTranslationUnit) $

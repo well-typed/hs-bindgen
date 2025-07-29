@@ -10,14 +10,12 @@ module HsBindgen.App.Common (
     -- * Clang-related options
   , parseClangArgs
     -- * Binding specifications
-  , BindingSpecConfig(..)
   , parseBindingSpecConfig
     -- * Input option
   , parseInputs
     -- * Auxiliary hs-bindgen functions
   , withCliTracer
   , fromMaybeWithFatalError
-  , loadBindingSpecs
   , footerWith
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -223,7 +221,7 @@ parseGnuOption = switch $ mconcat [
     , help "Enable GNU extensions"
     ]
 
-parseSystemIncludeDirOptions :: Parser [CIncludePathDir]
+parseSystemIncludeDirOptions :: Parser [CIncludeDir]
 parseSystemIncludeDirOptions = many . strOption $ mconcat [
       short 'I'
     , long "system-include-path"
@@ -231,7 +229,7 @@ parseSystemIncludeDirOptions = many . strOption $ mconcat [
     , help "System include search path directory"
     ]
 
-parseQuoteIncludeDirOptions :: Parser [CIncludePathDir]
+parseQuoteIncludeDirOptions :: Parser [CIncludeDir]
 parseQuoteIncludeDirOptions = many . strOption $ mconcat [
       long "quote-include-path"
     , metavar "DIR"
@@ -300,13 +298,6 @@ parseHsRenderOpts =
 {-------------------------------------------------------------------------------
   Binding specifications
 -------------------------------------------------------------------------------}
-
-data BindingSpecConfig = BindingSpecConfig {
-      stdlibSpec              :: EnableStdlibBindingSpec
-    , extBindingSpecs         :: [FilePath]
-    , prescriptiveBindingSpec :: Maybe FilePath
-    }
-  deriving stock (Show)
 
 parseBindingSpecConfig :: Parser BindingSpecConfig
 parseBindingSpecConfig =
@@ -434,14 +425,14 @@ parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat 
 --
 -- This uses standard syntax for one or more arguments, which
 -- @optparse-applicative@ does not get right when just using 'some'.
-parseInputs :: Parser [CHeaderIncludePath]
+parseInputs :: Parser [HashIncludeArg]
 parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
       help "Input C header(s), relative to an include path directory"
     , metavar "HEADER..."
     ]
   where
-    parseHeader :: String -> Either String CHeaderIncludePath
-    parseHeader = first displayException . parseCHeaderIncludePath
+    parseHeader :: String -> Either String HashIncludeArg
+    parseHeader = first displayException . parseHashIncludeArg
 
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
@@ -465,23 +456,6 @@ withCliTracer GlobalOpts{..} action' = do
 -- the result.
 fromMaybeWithFatalError :: MonadIO m => Maybe b -> m b
 fromMaybeWithFatalError k = maybe fatalError pure k
-
-loadBindingSpecs ::
-     Tracer IO TraceMsg
-  -> ClangArgs
-  -> BindingSpecConfig
-  -> IO (ExternalBindingSpec, PrescriptiveBindingSpec)
-loadBindingSpecs tracer clangArgs opts = do
-    let tracer' = contramap TraceBindingSpec tracer
-    extSpecs <- loadExtBindingSpecs
-                  tracer'
-                  clangArgs
-                  opts.stdlibSpec
-                  opts.extBindingSpecs
-    pSpec <- case opts.prescriptiveBindingSpec of
-               Just path -> loadPrescriptiveBindingSpec tracer' clangArgs path
-               Nothing   -> pure emptyBindingSpec
-    pure (extSpecs, pSpec)
 
 -- | Footer of command line help.
 footerWith :: ParserPrefs -> Doc

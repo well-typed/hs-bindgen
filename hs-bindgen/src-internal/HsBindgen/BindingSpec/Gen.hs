@@ -17,14 +17,14 @@ import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
-import Clang.Paths
-import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
+import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private qualified as BindingSpec
-import HsBindgen.Config (Config(..))
+import HsBindgen.Config (Config (..))
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Origin qualified as HsOrigin
 import HsBindgen.Imports
@@ -43,13 +43,13 @@ import HsBindgen.Language.Haskell
 -- * JSON (@.json@ extension)
 genBindingSpec ::
      Config
-  -> [CHeaderIncludePath]
+  -> [HashIncludeArg]
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genBindingSpec Config{..} headerIncludePaths path =
+genBindingSpec Config{..} hashIncludeArgs path =
       BindingSpec.writeFile path
-    . genBindingSpec' headerIncludePaths hsModuleName
+    . genBindingSpec' hashIncludeArgs hsModuleName
   where
     hsModuleName :: HsModuleName
     hsModuleName =
@@ -61,12 +61,12 @@ genBindingSpec Config{..} headerIncludePaths path =
 
 -- | Generate binding specification
 genBindingSpecYaml ::
-     [CHeaderIncludePath]
+     [HashIncludeArg]
   -> HsModuleName
   -> [Hs.Decl]
   -> ByteString
-genBindingSpecYaml headerIncludePaths hsModuleName =
-    BindingSpec.encodeYaml . genBindingSpec' headerIncludePaths hsModuleName
+genBindingSpecYaml hashIncludeArgs hsModuleName =
+    BindingSpec.encodeYaml . genBindingSpec' hashIncludeArgs hsModuleName
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -74,11 +74,11 @@ genBindingSpecYaml headerIncludePaths hsModuleName =
 
 -- TODO omitted types
 genBindingSpec' ::
-     [CHeaderIncludePath]
+     [HashIncludeArg]
   -> HsModuleName
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
-genBindingSpec' headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
+genBindingSpec' hashIncludeArgs hsModuleName = foldr aux BindingSpec.empty
   where
     aux ::
          Hs.Decl
@@ -109,8 +109,8 @@ genBindingSpec' headerIncludePaths hsModuleName = foldr aux BindingSpec.empty
             BindingSpec.bindingSpecTypes spec
       }
 
-    headers :: Set CHeaderIncludePath
-    headers = Set.fromList headerIncludePaths
+    headers :: Set HashIncludeArg
+    headers = Set.fromList hashIncludeArgs
 
 type Spec = (C.QualName, BindingSpec.Omittable BindingSpec.TypeSpec)
 

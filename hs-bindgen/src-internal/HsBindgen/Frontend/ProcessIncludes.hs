@@ -17,7 +17,7 @@ import HsBindgen.C.Predicate
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.RootHeader (RootHeader)
+import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 
@@ -36,14 +36,14 @@ import HsBindgen.Imports
   > #include "b.h"
 
   These paths must be interpreted with respect to the @C_INCLUDE_PATH@, the @-I@
-  command line options, etc.; we use 'CHeaderIncludePath' for this concept.
+  command line options, etc.; we use 'HashIncludeArg' for this concept.
 
   == Selecting declarations
 
   When we see a declaration in the @clang@ AST, we might need to check if this
   declaration is from one of these main headers (as opposed to a header
   /included by/ one of the main headers). Unfortunately, @clang@ does not
-  give us a 'CHeaderIncludePath' for the declaration, but rather a 'SourcePath'.
+  give us a 'HashIncludeArg' for the declaration, but rather a 'SourcePath'.
   The exact nature of this 'SourcePath' is a @clang@ internal detail, but it
   might for example be @/the/full/path/to/b.h@.
 
@@ -54,7 +54,7 @@ import HsBindgen.Imports
   and @internal/b.h@ exist in the library (or indeed, this particular @b.h@
   might be from a different library altogether).
 
-  Therefore we need a /mapping/ from 'CHeaderIncludePath' to 'SourcePath', at
+  Therefore we need a /mapping/ from 'HashIncludeArg' to 'SourcePath', at
   least for the includes in the root header. The only reliable way that we found
   to get this mapping is by looking at how @clang@ resolves these headers as it
   parses the root header (there is an API specifically for resolving header
@@ -70,7 +70,7 @@ import HsBindgen.Imports
   When we see a function declaration, we must associate that function
   declaration with one of the main headers (so that we can generate the correct
   @#include@ when producing code for that function). It's not entirely obvious
-  if we should use a 'CHeaderIncludePath' or a 'SourcePath' for this purpose;
+  if we should use a 'HashIncludeArg' or a 'SourcePath' for this purpose;
   we currently choose the former, so that we can generate the somewhat cleaner
   lookling
 
@@ -89,12 +89,12 @@ import HsBindgen.Imports
   its /location/ as an index into the root header.
 
   (Note that we cannot really build a map from 'SourcePath' to
-  'CHeaderIncludePath': multiple 'CHeaderIncludePath's in the root header could
+  'HashIncludeArg': multiple 'HashIncludeArg's in the root header could
   in principle resolve to the /same/ 'SourcePath.')
 -------------------------------------------------------------------------------}
 
 -- | Function to get the main header that (transitively) includes a source path
-type GetMainHeader = SourcePath -> CHeaderIncludePath
+type GetMainHeader = SourcePath -> HashIncludeArg
 
 -- | Process includes
 --
@@ -119,11 +119,11 @@ processIncludes rootHeader unit = do
         includeGraph = IncludeGraph.fromList $
           map (\Include{..} -> (includeFrom, includeTo)) includes
 
-        mainPathPairs :: [(SourcePath, CHeaderIncludePath)]
+        mainPathPairs :: [(SourcePath, HashIncludeArg)]
         mainPathPairs =
           mapMaybe (\Include{..} -> (includeTo,) <$> includeRoot) includes
 
-        mainPathMap :: Map SourcePath CHeaderIncludePath
+        mainPathMap :: Map SourcePath HashIncludeArg
         mainPathMap = Map.fromList mainPathPairs
 
         mainPaths :: Set SourcePath
@@ -170,7 +170,7 @@ processIncludes rootHeader unit = do
 data Include = Include {
       includeFrom :: SourcePath
     , includeTo   :: SourcePath
-    , includeRoot :: Maybe CHeaderIncludePath
+    , includeRoot :: Maybe HashIncludeArg
     }
 
 processInclude :: RootHeader -> CXCursor -> IO Include
@@ -195,7 +195,7 @@ getIncludeTo curr = do
 
 ifFromRootHeader ::
      MonadIO m
-  => RootHeader -> CXCursor -> (CHeaderIncludePath -> m r) -> m (Maybe r)
+  => RootHeader -> CXCursor -> (HashIncludeArg -> m r) -> m (Maybe r)
 ifFromRootHeader rootHeader curr k = do
     isMain <- clang_Location_isFromMainFile =<< clang_getCursorLocation curr
     if isMain then do
@@ -205,5 +205,5 @@ ifFromRootHeader rootHeader curr k = do
 
 ifFromRootHeader_ ::
      MonadIO m
-  => RootHeader -> CXCursor -> (CHeaderIncludePath -> m ()) -> m ()
+  => RootHeader -> CXCursor -> (HashIncludeArg -> m ()) -> m ()
 ifFromRootHeader_ rootHeader curr k = void $ ifFromRootHeader rootHeader curr k
