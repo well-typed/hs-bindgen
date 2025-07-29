@@ -81,7 +81,7 @@ mkTestClangArgs packageRoot = def {
     , clangCStandard = Just $
         C23
     , clangSystemIncludePathDirs = [
-          CIncludePathDir (packageRoot </> "musl-include/x86_64")
+          CIncludeDir (packageRoot </> "musl-include/x86_64")
         ]
     }
 
@@ -92,7 +92,7 @@ getTestDefaultClangArgs testResources extraIncludeDirs =
     aux :: TestResources -> ClangArgs
     aux TestResources{testPackageRoot, testClangArgs} = testClangArgs{
           clangQuoteIncludePathDirs =
-            map (CIncludePathDir . (</>) testPackageRoot) extraIncludeDirs
+            map (CIncludeDir . (</>) testPackageRoot) extraIncludeDirs
         }
 
 {-------------------------------------------------------------------------------

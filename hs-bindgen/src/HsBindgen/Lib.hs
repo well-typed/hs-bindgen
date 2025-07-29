@@ -39,8 +39,10 @@ module HsBindgen.Lib (
   , BindingSpec.ExternalBindingSpec
   , BindingSpec.PrescriptiveBindingSpec
   , Common.EnableStdlibBindingSpec(..)
+  , Common.BindingSpecConfig(..)
   , BindingSpec.loadExtBindingSpecs
   , BindingSpec.loadPrescriptiveBindingSpec
+  , BindingSpec.loadBindingSpecs
   , BindingSpec.getStdlibBindingSpec
   , BindingSpec.encodeBindingSpecJson
   , BindingSpec.encodeBindingSpecYaml
@@ -67,9 +69,11 @@ module HsBindgen.Lib (
   , Backend.PP.HsRenderOpts(..)
 
     -- * Paths
-  , Paths.CHeaderIncludePath -- opaque
-  , Paths.parseCHeaderIncludePath
-  , Common.CIncludePathDir(..)
+  , Common.HashIncludeArg(..)
+  -- TODO: https://github.com/well-typed/hs-bindgen/issues/958. Will be removed
+  -- (instead we emit a warning trace).
+  , Common.parseHashIncludeArg
+  , Common.CIncludeDir(..)
   , (Common.</>)
   , Common.joinPath
 
@@ -138,6 +142,7 @@ import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Tracer qualified as Tracer
 
 import HsBindgen.BindingSpec
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.ModuleUnique
 import HsBindgen.Util.Tracer
 
@@ -160,7 +165,7 @@ translateCHeaders ::
      -> Common.Config
      -> ExternalBindingSpec
      -> PrescriptiveBindingSpec
-     -> [Paths.CHeaderIncludePath]
+     -> [HashIncludeArg]
      -> IO HsDecls
 translateCHeaders mu tracer config extSpec pSpec =
     fmap WrapHsDecls .
@@ -193,12 +198,12 @@ preprocessIO config fp = Pipeline.preprocessIO config fp . unwrapHsDecls
 
 genBindingSpec ::
      Common.Config
-  -> [Paths.CHeaderIncludePath]
+  -> [HashIncludeArg]
   -> FilePath
   -> HsDecls
   -> IO ()
-genBindingSpec config headerIncludePaths path =
-      BindingSpec.genBindingSpec config headerIncludePaths path
+genBindingSpec config hashIncludeArgs path =
+      BindingSpec.genBindingSpec config hashIncludeArgs path
     . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
@@ -207,12 +212,12 @@ genBindingSpec config headerIncludePaths path =
 
 genTests ::
      Common.Config
-  -> [Paths.CHeaderIncludePath]
+  -> [HashIncludeArg]
   -> FilePath -- ^ Test suite directory path
   -> HsDecls
   -> IO ()
-genTests config headerIncludePaths testDir =
-    Pipeline.genTests config headerIncludePaths testDir . unwrapHsDecls
+genTests config hashIncludeArgs testDir =
+    Pipeline.genTests config hashIncludeArgs testDir . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   Paths
@@ -222,7 +227,7 @@ genTests config headerIncludePaths testDir =
 resolveHeader ::
      Tracer IO Resolve.ResolveHeaderMsg
   -> Args.ClangArgs
-  -> Paths.CHeaderIncludePath -- ^ The header we want to resolve
+  -> HashIncludeArg -- ^ The header we want to resolve
   -> IO (Maybe FilePath)
 resolveHeader tracer args path =
     fmap Paths.getSourcePath <$>

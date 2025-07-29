@@ -12,9 +12,11 @@ module HsBindgen.BindingSpec (
   , PrescriptiveBindingSpec
     -- ** Configuration
   , EnableStdlibBindingSpec(..)
+  , BindingSpecConfig(..)
     -- ** Loading
   , loadExtBindingSpecs
   , loadPrescriptiveBindingSpec
+  , loadBindingSpecs
   , getStdlibBindingSpec
     -- ** Encoding
   , encodeBindingSpecJson
@@ -142,6 +144,37 @@ loadPrescriptiveBindingSpec tracer args path = uncurry BindingSpec <$>
       args
       BindingSpec.empty
       [path]
+
+data BindingSpecConfig = BindingSpecConfig {
+      bindingSpecStdlibSpec              :: EnableStdlibBindingSpec
+    , bindingSpecExtBindingSpecs         :: [FilePath]
+    , bindingSpecPrescriptiveBindingSpec :: Maybe FilePath
+    }
+  deriving stock (Show)
+
+instance Default BindingSpecConfig where
+  def = BindingSpecConfig {
+          bindingSpecStdlibSpec              = EnableStdlibBindingSpec
+        , bindingSpecExtBindingSpecs         = []
+        , bindingSpecPrescriptiveBindingSpec = Nothing
+        }
+
+-- | A combination of 'loadExtBindingSpecs' and 'loadPrescriptiveBindingSpec'.
+loadBindingSpecs ::
+     Tracer IO BindingSpec.BindingSpecMsg
+  -> ClangArgs
+  -> BindingSpecConfig
+  -> IO (ExternalBindingSpec, PrescriptiveBindingSpec)
+loadBindingSpecs tracer clangArgs BindingSpecConfig{..} = do
+    extSpecs <- loadExtBindingSpecs
+                  tracer
+                  clangArgs
+                  bindingSpecStdlibSpec
+                  bindingSpecExtBindingSpecs
+    pSpec <- case bindingSpecPrescriptiveBindingSpec of
+               Just path -> loadPrescriptiveBindingSpec tracer clangArgs path
+               Nothing   -> pure emptyBindingSpec
+    pure (extSpecs, pSpec)
 
 -- | Get the standard library external binding specification
 getStdlibBindingSpec ::

@@ -16,6 +16,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.Clang
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (hang, hsep, string)
@@ -26,8 +27,8 @@ import Text.SimplePrettyPrint (hang, hsep, string)
 
 data ResolveHeaderMsg =
     ResolveHeaderClang ClangMsg
-  | ResolveHeaderSuccess  CHeaderIncludePath SourcePath
-  | ResolveHeaderNotFound CHeaderIncludePath
+  | ResolveHeaderSuccess  HashIncludeArg SourcePath
+  | ResolveHeaderNotFound HashIncludeArg
   deriving stock (Eq, Show)
 
 instance HasDefaultLogLevel ResolveHeaderMsg where
@@ -48,13 +49,13 @@ instance PrettyForTrace ResolveHeaderMsg where
       "during header resolution:" 2 (prettyForTrace msg)
     ResolveHeaderSuccess header path -> hsep [
         "header"
-      , string $ getCHeaderIncludePath header
+      , string $ getHashIncludeArg header
       , "resolved to"
       , string $ getSourcePath path
       ]
     ResolveHeaderNotFound header -> hsep [
         "header"
-      , string $ getCHeaderIncludePath header
+      , string $ getHashIncludeArg header
       , "not found"
       ]
 
@@ -66,7 +67,7 @@ instance PrettyForTrace ResolveHeaderMsg where
 resolveHeader ::
      Tracer IO ResolveHeaderMsg
   -> ClangArgs
-  -> CHeaderIncludePath -- ^ The header we want to resolve
+  -> HashIncludeArg -- ^ The header we want to resolve
   -> IO (Maybe SourcePath)
 resolveHeader tracer args target =
     withClang (contramap ResolveHeaderClang tracer) setup $ \unit -> do
@@ -95,7 +96,7 @@ resolveHeader tracer args target =
 
 -- | Try to resolve the target using the current cursor, if possible
 tryResolve ::
-     CHeaderIncludePath  -- ^ Path we want to resolve
+     HashIncludeArg  -- ^ Path we want to resolve
   -> CXCursor
   -> IO (Maybe SourcePath)
 tryResolve target curr = runMaybeT $ do
@@ -123,7 +124,7 @@ tryResolve target curr = runMaybeT $ do
     return $ SourcePath path
   where
     target' :: Text
-    target' = Text.pack $ getCHeaderIncludePath target
+    target' = Text.pack $ getHashIncludeArg target
 
     cannotResolve :: MaybeT IO ()
     cannotResolve = MaybeT $ return Nothing

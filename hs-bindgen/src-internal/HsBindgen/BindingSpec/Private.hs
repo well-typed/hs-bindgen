@@ -66,6 +66,7 @@ import Clang.Args
 import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.Orphans ()
@@ -108,12 +109,12 @@ newtype BindingSpec header = BindingSpec {
 --
 -- The headers are as specified in a C include directive, relative to a
 -- directory in the C include search path.
-type UnresolvedBindingSpec = BindingSpec CHeaderIncludePath
+type UnresolvedBindingSpec = BindingSpec HashIncludeArg
 
 -- | Binding specification with resolved headers
 --
 -- The resolved header is the filesystem path in the current environment.
-type ResolvedBindingSpec = BindingSpec (CHeaderIncludePath, SourcePath)
+type ResolvedBindingSpec = BindingSpec (HashIncludeArg, SourcePath)
 
 --------------------------------------------------------------------------------
 
@@ -231,7 +232,7 @@ data BindingSpecReadMsg =
   | -- | Invalid C name
     BindingSpecReadInvalidCName FilePath Text
   | -- | Multiple entries for the same C type
-    BindingSpecReadConflict FilePath C.QualName CHeaderIncludePath
+    BindingSpecReadConflict FilePath C.QualName HashIncludeArg
   deriving stock (Eq, Show)
 
 instance HasDefaultLogLevel BindingSpecReadMsg where
@@ -254,7 +255,7 @@ instance PrettyForTrace BindingSpecReadMsg where
     BindingSpecReadConflict path cQualName header ->
       "multiple entries in " >< string path >< " for C type: "
         >< textToCtxDoc (C.qualNameText cQualName)
-        >< " (" >< string (getCHeaderIncludePath header) >< ")"
+        >< " (" >< string (getHashIncludeArg header) >< ")"
 
 --------------------------------------------------------------------------------
 
@@ -486,9 +487,9 @@ merge = \case
     mkTypeErrs = fmap BindingSpecMergeConflict . Set.toList
 
     mergeTypes ::
-         (Set C.QualName, Map C.QualName [(Set CHeaderIncludePath, a)])
-      -> (C.QualName, [(Set CHeaderIncludePath, a)])
-      -> (Set C.QualName, Map C.QualName [(Set CHeaderIncludePath, a)])
+         (Set C.QualName, Map C.QualName [(Set HashIncludeArg, a)])
+      -> (C.QualName, [(Set HashIncludeArg, a)])
+      -> (Set C.QualName, Map C.QualName [(Set HashIncludeArg, a)])
     mergeTypes (dupSet, acc) (cQualName, rs) =
       case Map.insertLookupWithKey (const (++)) cQualName rs acc of
         (Nothing, acc') -> (dupSet, acc')
@@ -511,12 +512,12 @@ resolve ::
 resolve tracer injResolveHeader args uSpec = do
     headerMap <- Map.fromList <$> mapMaybeM resolveHeader' allHeaders
 
-    let lookup' :: CHeaderIncludePath -> Maybe (CHeaderIncludePath, SourcePath)
+    let lookup' :: HashIncludeArg -> Maybe (HashIncludeArg, SourcePath)
         lookup' uHeader = (uHeader,) <$> Map.lookup uHeader headerMap
 
         resolveSet ::
-             Set CHeaderIncludePath
-          -> Maybe (Set (CHeaderIncludePath, SourcePath))
+             Set HashIncludeArg
+          -> Maybe (Set (HashIncludeArg, SourcePath))
         resolveSet uHeaders =
           -- ignore headers that are not found
           case mapMaybe lookup' (Set.toList uHeaders) of
@@ -525,8 +526,8 @@ resolve tracer injResolveHeader args uSpec = do
 
         resolveType ::
              C.QualName
-          -> (Set CHeaderIncludePath, a)
-          -> IO (Maybe (Set (CHeaderIncludePath, SourcePath), a))
+          -> (Set HashIncludeArg, a)
+          -> IO (Maybe (Set (HashIncludeArg, SourcePath), a))
         resolveType cQualName (uHeaders, x) = case resolveSet uHeaders of
           Just rHeaders -> return $ Just (rHeaders, x)
           Nothing       -> do
@@ -535,10 +536,10 @@ resolve tracer injResolveHeader args uSpec = do
 
         resolveTypes ::
              C.QualName
-          -> [(Set CHeaderIncludePath, a)]
+          -> [(Set HashIncludeArg, a)]
           -> IO
                ( Maybe
-                   (C.QualName, [(Set (CHeaderIncludePath, SourcePath), a)])
+                   (C.QualName, [(Set (HashIncludeArg, SourcePath), a)])
                )
         resolveTypes cQualName uKVs =
           mapMaybeM (resolveType cQualName) uKVs >>= \case
@@ -550,7 +551,7 @@ resolve tracer injResolveHeader args uSpec = do
       mapMaybeM (uncurry resolveTypes) (Map.toList (bindingSpecTypes uSpec))
     return BindingSpec {..}
   where
-    allHeaders :: [CHeaderIncludePath]
+    allHeaders :: [HashIncludeArg]
     allHeaders = Set.toAscList . mconcat $
       fst <$> concat (Map.elems (bindingSpecTypes uSpec))
 
@@ -558,8 +559,8 @@ resolve tracer injResolveHeader args uSpec = do
     resolveTracer = contramap injResolveHeader tracer
 
     resolveHeader' ::
-         CHeaderIncludePath
-      -> IO (Maybe (CHeaderIncludePath, SourcePath))
+         HashIncludeArg
+      -> IO (Maybe (HashIncludeArg, SourcePath))
     resolveHeader' uHeader =
       fmap (uHeader,) <$> resolveHeader resolveTracer args uHeader
 
@@ -616,7 +617,7 @@ instance Aeson.ToJSON ABindingSpec where
 --------------------------------------------------------------------------------
 
 data ATypeSpecMapping = ATypeSpecMapping {
-      aTypeSpecMappingHeaders    :: [CHeaderIncludePath]
+      aTypeSpecMappingHeaders    :: [HashIncludeArg]
     , aTypeSpecMappingCName      :: Text
     , aTypeSpecMappingModule     :: Maybe HsModuleName
     , aTypeSpecMappingIdentifier :: Maybe HsIdentifier
@@ -713,13 +714,13 @@ fromABindingSpec path ABindingSpec{..} =
     mkTypeMap ::
          [AOmittable ATypeSpecMapping]
       -> ( [BindingSpecReadMsg]
-         , Map C.QualName [(Set CHeaderIncludePath, Omittable TypeSpec)]
+         , Map C.QualName [(Set HashIncludeArg, Omittable TypeSpec)]
          )
     mkTypeMap =
       mkTypeMapErrs . foldr mkTypeMapInsert (Set.empty, Map.empty, Map.empty)
 
     mkTypeMapErrs ::
-         (Set Text, Map C.QualName (Set CHeaderIncludePath), a)
+         (Set Text, Map C.QualName (Set HashIncludeArg), a)
       -> ([BindingSpecReadMsg], a)
     mkTypeMapErrs (invalids, conflicts, x) =
       let invalidErrs = BindingSpecReadInvalidCName path <$> Set.toList invalids
@@ -733,12 +734,12 @@ fromABindingSpec path ABindingSpec{..} =
     mkTypeMapInsert ::
          AOmittable ATypeSpecMapping
       -> ( Set Text
-         , Map C.QualName (Set CHeaderIncludePath)
-         , Map C.QualName [(Set CHeaderIncludePath, Omittable TypeSpec)]
+         , Map C.QualName (Set HashIncludeArg)
+         , Map C.QualName [(Set HashIncludeArg, Omittable TypeSpec)]
          )
       -> ( Set Text
-         , Map C.QualName (Set CHeaderIncludePath)
-         , Map C.QualName [(Set CHeaderIncludePath, Omittable TypeSpec)]
+         , Map C.QualName (Set HashIncludeArg)
+         , Map C.QualName [(Set HashIncludeArg, Omittable TypeSpec)]
          )
     mkTypeMapInsert aoTypeMapping (invalids, conflicts, acc) =
       let (cname, headers, oTypeSpec) = case aoTypeMapping of
@@ -766,10 +767,10 @@ fromABindingSpec path ABindingSpec{..} =
 
     mkTypeMapDup ::
          C.QualName
-      -> [(Set CHeaderIncludePath, a)]
-      -> [(Set CHeaderIncludePath, a)]
-      -> Map C.QualName (Set CHeaderIncludePath)
-      -> Map C.QualName (Set CHeaderIncludePath)
+      -> [(Set HashIncludeArg, a)]
+      -> [(Set HashIncludeArg, a)]
+      -> Map C.QualName (Set HashIncludeArg)
+      -> Map C.QualName (Set HashIncludeArg)
     mkTypeMapDup cQualName newV oldV =
       case Set.intersection (mconcat (fst <$> newV)) (mconcat (fst <$> oldV)) of
         commonHeaders

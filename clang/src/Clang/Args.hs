@@ -48,10 +48,10 @@ data ClangArgs = ClangArgs {
     , clangStdInc :: Bool
 
       -- | Directories in the system include search path
-    , clangSystemIncludePathDirs :: [CIncludePathDir]
+    , clangSystemIncludePathDirs :: [CIncludeDir]
 
       -- | Directories in the non-system include search path
-    , clangQuoteIncludePathDirs :: [CIncludePathDir]
+    , clangQuoteIncludePathDirs :: [CIncludeDir]
 
       -- | Enable block support
       --
@@ -164,10 +164,10 @@ fromClangArgs ClangArgs{..} = aux [
         ]
 
     , return $ concat . map concat $ [
-          [ ["-isystem", getCIncludePathDir path]
+          [ ["-isystem", getCIncludeDir path]
           | path <- clangSystemIncludePathDirs
           ]
-        , [ ["-I", getCIncludePathDir path]
+        , [ ["-I", getCIncludeDir path]
           | path <- clangQuoteIncludePathDirs
           ]
         ]

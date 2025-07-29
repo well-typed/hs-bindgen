@@ -17,17 +17,23 @@ module HsBindgen.Pipeline (
   , preprocessIO
 
     -- * Template Haskell API
-  , QuoteIncludePathDir (..)
-  , HashIncludeOpts (..)
+  , IncludeDir (..)
+  , HashIncludeOpts ( extraQuoteIncludeDirs
+                    , extraSystemIncludeDirs
+                    , tracerOutputConfigQ
+                    , tracerCustomLogLevel
+                    , tracerTracerConfig
+                    )
+  , withHsBindgen
   , hashInclude
-  , hashInclude'
-  , hashIncludeWith
   , genBindingsFromCHeader
 
     -- * Test generation
   , genTests
   ) where
 
+import Control.Exception (Exception (displayException))
+import Control.Monad.State (State, execState, modify)
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
@@ -40,11 +46,13 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
-import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
+import HsBindgen.BindingSpec (BindingSpecConfig, ExternalBindingSpec,
+                              PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
@@ -73,7 +81,7 @@ parseCHeaders ::
    -> Config
    -> ExternalBindingSpec
    -> PrescriptiveBindingSpec
-   -> [CHeaderIncludePath]
+   -> [HashIncludeArg]
    -> IO C.TranslationUnit
 parseCHeaders = C.parseCHeaders
 
@@ -116,11 +124,11 @@ translateCHeaders
   -> Config
   -> ExternalBindingSpec
   -> PrescriptiveBindingSpec
-  -> [CHeaderIncludePath]
+  -> [HashIncludeArg]
   -> IO [Hs.Decl]
-translateCHeaders mu tracer config extSpec pSpec headerIncludePaths = do
+translateCHeaders mu tracer config extSpec pSpec hashIncludeArgs = do
     C.TranslationUnit{unitDecls} <-
-      parseCHeaders tracer config extSpec pSpec headerIncludePaths
+      parseCHeaders tracer config extSpec pSpec hashIncludeArgs
     return $ genHsDecls mu config unitDecls
 
 -- | Generate bindings for the given C header
@@ -139,106 +147,128 @@ preprocessIO config fp = genPP config fp . genModule config . genSHsDecls
   Template Haskell API
 -------------------------------------------------------------------------------}
 
--- Potential TODO: Make this an opaque type, ensure path exists, and construct
--- normal file path right away.
+-- IDEA: Make 'QuoteIncludePathDir' an opaque type, ensure path exists, and
+-- construct normal file path right away.
 
--- | Project-specific (quoted) C include directory
-data QuoteIncludePathDir =
-    -- | Relative to package root.
-    PackageRoot FilePath
-  | QuoteIncludeDir FilePath
+-- | Project-specific C include directory.
+--
+-- Will be added either to the C sytem include search path or the C quote
+-- include search path, depending on whether it is used in
+-- 'extraQuoteIncludeDirs', or 'extraSystemIncludeDirs'.
+data IncludeDir =
+    IncludeDir    FilePath
+    -- | Include directory relative to package root.
+  | RelativeToPkgRoot FilePath
   deriving stock (Eq, Show)
 
--- | Options
+-- | Options (opaque, but with record selector functions exported).
 data HashIncludeOpts = HashIncludeOpts {
-    extraIncludeDirs       :: [QuoteIncludePathDir]
-  , customLogLevelSettings :: [CustomLogLevelSetting]
+    extraQuoteIncludeDirs  :: [IncludeDir]
+  , extraSystemIncludeDirs :: [IncludeDir]
+    -- * Binding specifications
+  , bindingSpecConfig      :: BindingSpecConfig
+    -- * Tracer
+  , tracerOutputConfigQ    :: OutputConfig TH.Q
+  , tracerCustomLogLevel   :: CustomLogLevel TraceMsg
+  , tracerTracerConfig     :: TracerConfig
   }
-  deriving stock (Eq, Show)
 
 instance Default HashIncludeOpts where
   def = HashIncludeOpts {
-      extraIncludeDirs       = []
-    , customLogLevelSettings = []
+      extraQuoteIncludeDirs  = []
+    , extraSystemIncludeDirs = []
+    , bindingSpecConfig      = def
+    , tracerTracerConfig     = def { tVerbosity = Verbosity Notice }
+    , tracerCustomLogLevel   = mempty
+    , tracerOutputConfigQ    = outputConfigQ
     }
 
--- | Generate bindings for the given C headers (simple)
---
--- Use default options ('Opts').
---
--- In particular, do not add custom C include directories.
---
--- Please see 'hashInclude' or 'hashIncludeWith' for customized binding
--- generation.
-hashInclude' ::
-     [FilePath]  -- ^ Input headers, as written in C @#include@
-  -> TH.Q [TH.Dec]
-hashInclude' fps = hashInclude fps def
+-- | Internal! See 'withHsBindgen'.
+newtype WithHsBindgenM a =  WithHsBindgenM {
+    getWithHsBindgenM :: State WithHsBindgenState a
+  }
 
--- | Generate bindings for the given C headers (custom C include directories)
---
--- Use default options ('Opts') but allow specification of custom C include
--- directories.
---
--- Please see 'hashInclude' (simple interface) or 'hashIncludeWith' (customized
--- binding generation).
-hashInclude ::
-     [FilePath]  -- ^ Input headers, as written in C @#include@
-  -> HashIncludeOpts
-  -> TH.Q [TH.Dec]
-hashInclude fps HashIncludeOpts{..} = do
-  quoteIncludeDirs <- toFilePaths extraIncludeDirs
-  let customLogLevel :: CustomLogLevel TraceMsg
-      customLogLevel = customLogLevelFrom customLogLevelSettings
-      tracerConf :: TracerConfig
-      tracerConf = def { tVerbosity = Verbosity Notice }
-  maybeDecls <- withTracerCustom outputConfigQ customLogLevel tracerConf $ \tracer -> do
-    let args :: ClangArgs
-        args = def {
-            clangQuoteIncludePathDirs = CIncludePathDir <$> quoteIncludeDirs
-          }
-        config :: Config
-        config = def { configClangArgs = args }
-    hashIncludeWith tracer config fps
-  case maybeDecls of
-    Nothing    -> TH.reportError "An error happened (see above)" >> pure []
-    Just decls -> pure decls
-  where
-    toFilePath :: FilePath -> QuoteIncludePathDir -> FilePath
-    toFilePath root (PackageRoot     x) = root </> x
-    toFilePath _    (QuoteIncludeDir x) = x
+-- | Internal! State manipulated by monadic 'hashInclude' directives.
+newtype WithHsBindgenState = WithHsBindgenState {
+    hashIncludeArgs :: [HashIncludeArg]
+  }
 
-    toFilePaths :: [QuoteIncludePathDir] -> TH.Q [FilePath]
-    toFilePaths xs = do
-      root <- getPackageRoot
-      pure $ map (toFilePath root) xs
-
--- | Generate bindings for the given C headers
-hashIncludeWith ::
-     Tracer TH.Q TraceMsg
-  -> Config
-  -> [FilePath] -- ^ Input headers, as written in C @#include@
-  -> TH.Q [TH.Dec]
-hashIncludeWith tracer config@Config{..} fps = do
-    headerIncludePaths <-
-      mapM (either (TH.runIO . throwIO) return . parseCHeaderIncludePath) fps
+-- | Generate bindings for given C header include paths at compile-time.
+--
+-- Use together with 'hashInclude'.
+--
+-- For example,
+--
+-- > withHsBindgen def $ do
+-- >   hashInclude "a.h"
+-- >   hashInclude "b.h"
+withHsBindgen :: HashIncludeOpts -> WithHsBindgenM () -> TH.Q [TH.Dec]
+withHsBindgen HashIncludeOpts{..} hashIncludes = do
+  quoteIncludeDirs <- toFilePaths extraQuoteIncludeDirs
+  systemIncludeDirs <- toFilePaths extraSystemIncludeDirs
+  let clangArgs :: ClangArgs
+      clangArgs = def {
+          clangQuoteIncludePathDirs  = CIncludeDir <$> quoteIncludeDirs
+        , clangSystemIncludePathDirs = CIncludeDir <$> systemIncludeDirs
+        }
+      config :: Config
+      config = def { configClangArgs = clangArgs }
+  maybeDecls <- withTracer $ \tracer -> do
+    hashIncludeArgsValidated <- mapM getHeaderIncludePathOrFail hashIncludeArgsReversed
     let tracerIO = natTracer TH.runQ tracer
-    -- TODO #703: For now, we only load binding spec defaults. We should
-    -- however, have configuration options.
-    extBindingSpec <- liftIO $
-      BindingSpec.loadExtBindingSpecs
+    (extBindingSpec, prescriptiveBindingSpec) <- TH.runIO $
+      BindingSpec.loadBindingSpecs
         (contramap TraceBindingSpec tracerIO)
-        configClangArgs
-        BindingSpec.EnableStdlibBindingSpec
-        []
+        clangArgs
+        bindingSpecConfig
     unit <- TH.runIO $
       parseCHeaders
         tracerIO
         config
         extBindingSpec
-        BindingSpec.emptyBindingSpec
-        headerIncludePaths
+        prescriptiveBindingSpec
+        hashIncludeArgsValidated
     genBindingsFromCHeader config unit
+  case maybeDecls of
+    Nothing    -> TH.reportError "An error happened (see above)" >> pure []
+    Just decls -> pure decls
+  where
+    toFilePath :: FilePath -> IncludeDir -> FilePath
+    toFilePath root (RelativeToPkgRoot x) = root </> x
+    toFilePath _    (IncludeDir        x) = x
+
+    toFilePaths :: [IncludeDir] -> TH.Q [FilePath]
+    toFilePaths xs = do
+      root <- getPackageRoot
+      pure $ map (toFilePath root) xs
+
+    withTracer :: (Tracer TH.Q TraceMsg -> TH.Q b) -> TH.Q (Maybe b)
+    withTracer = withTracerCustom
+                   tracerOutputConfigQ
+                   tracerCustomLogLevel
+                   tracerTracerConfig
+
+    getHeaderIncludePathOrFail :: HashIncludeArg -> TH.Q HashIncludeArg
+    getHeaderIncludePathOrFail =
+      either (fail . displayException) pure . validateHashIncludeArg
+
+    withHsBindgenState :: WithHsBindgenState
+    withHsBindgenState =
+      execState (getWithHsBindgenM hashIncludes) (WithHsBindgenState [])
+
+    -- Restore order of include directives.
+    hashIncludeArgsReversed :: [HashIncludeArg]
+    hashIncludeArgsReversed = reverse $ hashIncludeArgs withHsBindgenState
+
+-- | "Hash include" (i.e., generate bindings for) a file.
+--
+-- See 'withHsBindgen'.
+hashInclude :: HashIncludeArg -> WithHsBindgenM ()
+hashInclude arg = WithHsBindgenM $ modify addArg
+  where -- Prepend the include directive to the list. That is, the order of
+        -- include directives will be reversed.
+        addArg :: WithHsBindgenState -> WithHsBindgenState
+        addArg = WithHsBindgenState . (arg :) . hashIncludeArgs
 
 -- | Non-IO part of 'hashIncludeWith'
 genBindingsFromCHeader
@@ -272,10 +302,10 @@ genBindingsFromCHeader config unit = do
 -------------------------------------------------------------------------------}
 
 -- | Generate tests
-genTests :: Config -> [CHeaderIncludePath] -> FilePath -> [Hs.Decl] -> IO ()
-genTests Config{..} headerIncludePaths testDir decls =
+genTests :: Config -> [HashIncludeArg] -> FilePath -> [Hs.Decl] -> IO ()
+genTests Config{..} hashIncludeArgs testDir decls =
     GenTests.genTests
-      headerIncludePaths
+      hashIncludeArgs
       decls
       (hsModuleOptsName configHsModuleOpts)
       (hsLineLength configHsRenderOpts)

@@ -16,10 +16,10 @@ module HsBindgen.BindingSpec.Private.Stdlib (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import Clang.Paths
 import HsBindgen.BindingSpec.Private qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 
@@ -38,7 +38,7 @@ bindingSpec = BindingSpec.BindingSpec{bindingSpecTypes}
     bindingSpecTypes ::
       Map
         C.QualName
-        [(Set CHeaderIncludePath, BindingSpec.Omittable BindingSpec.TypeSpec)]
+        [(Set HashIncludeArg, BindingSpec.Omittable BindingSpec.TypeSpec)]
     bindingSpecTypes = Map.fromList [
         -- Integral types
         mkT "int8_t"         "Int8"     intI inttypesH
@@ -115,7 +115,7 @@ bindingSpec = BindingSpec.BindingSpec{bindingSpecTypes}
       , mkT "sig_atomic_t" "CSigAtomic" intI $ mkH ["signal.h"]
       ]
 
-    inttypesH :: Set CHeaderIncludePath
+    inttypesH :: Set HashIncludeArg
     inttypesH = mkH ["inttypes.h", "stdint.h"]
 
     divI :: [HsTypeClass]
@@ -163,16 +163,16 @@ bindingSpec = BindingSpec.BindingSpec{bindingSpecTypes}
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
-mkH :: [FilePath] -> Set CHeaderIncludePath
+mkH :: [FilePath] -> Set HashIncludeArg
 mkH = Set.fromList . map CHeaderSystemIncludePath
 
 mkT ::
      Text
   -> HsIdentifier
   -> [HsTypeClass]
-  -> Set CHeaderIncludePath
+  -> Set HashIncludeArg
   -> ( C.QualName
-     , [(Set CHeaderIncludePath , BindingSpec.Omittable BindingSpec.TypeSpec)]
+     , [(Set HashIncludeArg , BindingSpec.Omittable BindingSpec.TypeSpec)]
      )
 mkT t hsId insts headers = case C.parseQualName t of
     Just cQualName -> (cQualName, [(headers, BindingSpec.Require typeSpec)])

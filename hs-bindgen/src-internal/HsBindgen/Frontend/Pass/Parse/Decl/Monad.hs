@@ -45,7 +45,7 @@ import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
-import HsBindgen.Frontend.RootHeader (RootHeader)
+import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -94,7 +94,7 @@ getTranslationUnit :: ParseDecl CXTranslationUnit
 getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
     return (envUnit parseEnv)
 
-evalGetMainHeader :: SourcePath -> ParseDecl CHeaderIncludePath
+evalGetMainHeader :: SourcePath -> ParseDecl HashIncludeArg
 evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
     return $ (envGetMainHeader parseEnv) path
 

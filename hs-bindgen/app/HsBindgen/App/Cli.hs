@@ -17,7 +17,6 @@ import Data.Version (showVersion)
 import GHC.Generics (Generic)
 import Options.Applicative
 
-import Clang.Paths
 import Clang.Version (clang_getClangVersion)
 import HsBindgen.Lib
 
@@ -106,7 +105,7 @@ pureParseCmdPreprocess =
 
 data PreprocessOpts = PreprocessOpts {
       config            :: Config
-    , inputs            :: [CHeaderIncludePath]
+    , inputs            :: [HashIncludeArg]
     , output            :: Maybe FilePath
     , bindingSpecConfig :: BindingSpecConfig
     , genBindingSpec    :: Maybe FilePath
@@ -129,7 +128,7 @@ parsePreprocessOpts =
 data GenTestsOpts = GenTestsOpts {
       config            :: Config
     , output            :: FilePath
-    , inputs            :: [CHeaderIncludePath]
+    , inputs            :: [HashIncludeArg]
     , bindingSpecConfig :: BindingSpecConfig
     }
   deriving stock (Show, Generic)
@@ -192,7 +191,7 @@ parseBindingSpecCmdStdlib = BindingSpecCmdStdlib <$> parseClangArgs
 -------------------------------------------------------------------------------}
 
 data ResolveOpts = ResolveOpts {
-      inputs    :: [CHeaderIncludePath]
+      inputs    :: [HashIncludeArg]
     , clangArgs :: ClangArgs
     }
   deriving stock (Show, Generic)
