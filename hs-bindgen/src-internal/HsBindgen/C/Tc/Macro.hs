@@ -222,6 +222,54 @@ applySubst subst = goTy
       NomEqPred a b ->
         NomEqPred ( goTy a ) ( goTy b )
 
+-- | Are all the types in the range of the substitution atomic?
+--
+-- See 'isAtomicType'.
+isAtomicSubst :: Subst tv -> Bool
+isAtomicSubst ( Subst s ) = all ( isAtomicType . snd ) s
+
+-- | Is this type atomic, i.e. does it have a counterpart in source Haskell?
+--
+-- The only reason a type would not be atomic is that in the macro typechecker
+-- language, @IntLike@ and @FloatLike@ essentially behave like data families,
+-- whereas in Haskell one instead has separate datatypes such as @data Int = ...@,
+-- @data Word = ...@.
+-- This means there is no Haskell equivalent of the type @IntLike alpha@ for
+-- an unfilled metavariable @alpha@; it really corresponds to a family of types.
+--
+-- One might wonder why the macro type system departs from Haskell in this way;
+-- the foundational reason is that it allows one to easily write families of
+-- typeclass instances which cover all int-like types (see 'classInstancesWithDefaults').
+isAtomicType :: Type ki -> Bool
+isAtomicType = \case
+  Data IntLikeTyCon args
+    -- A well-kinded argument must be of one of the following two forms:
+    --
+    --   1. TyVarTy {}.
+    --      This means we have a type like 'IntLike a' for a type variable a,
+    --      precisely what we want to rule out as there is no Haskell counterpart
+    --      for such a type.
+    --   2. TyConApp (PrimIntInfoTyCon inty) VNil
+    --      This means we have a concrete integral type in hand, which is fine.
+    | TyVarTy {} ::: VNil <- args
+    -> False
+    | otherwise
+    -> True
+  Data FloatLikeTyCon args
+    -- Similar comment as for the IntLikeTyCon case above.
+    | TyVarTy {} ::: VNil <- args
+    -> False
+    | otherwise
+    -> True
+  TyConAppTy _tc args ->
+    all isAtomicType args
+  FunTy args res ->
+    all isAtomicType args && isAtomicType res
+  TyVarTy {} ->
+    True
+  NomEqPred a b
+    -> isAtomicType a && isAtomicType b
+
 {-------------------------------------------------------------------------------
   Constraints & errors
 -------------------------------------------------------------------------------}
@@ -1085,7 +1133,7 @@ typeHead :: Type Ty -> Maybe TypeHead
 typeHead = \case
   FunTy {} ->
     Just FunTyHead
-  TyConAppTy tc _ ->
+  TyConAppTy tc _args ->
     case tc of
       GenerativeTyCon ( DataTyCon dc ) ->
         Just $ TyConHead $ dataTyConTag dc
@@ -1304,17 +1352,24 @@ addInertDict sol ( ( cls, args ), ctOrig ) inerts@( InertSet { inertDicts = dict
       doInsert = Just . insertTrie key ( ( ct, ctOrig ), sol ) . fromMaybe mempty
 
 addInertEq :: Solubility -> ( Type Ct, CtOrigin ) -> InertSet -> InertSet
-addInertEq sol eq inerts@( InertSet { inertEqs = eqs } ) =
-  inerts { inertEqs = eqs ++ [ ( eq, sol ) ] }
+addInertEq sol eq@( NomEqPred lhs rhs, _ ) inerts@( InertSet { inertEqs = eqs } )
+  | not $ any seen eqs
+  = inerts { inertEqs = eqs ++ [ ( eq, sol ) ] }
+  where
+    seen ( ( NomEqPred lhs' rhs', _ ), _ )
+      =  ( lhs `eqType` lhs' && rhs `eqType` rhs' )
+      || ( lhs `eqType` rhs' && rhs `eqType` lhs' )
+    seen _ = False
+addInertEq _ _ inerts = inerts
 
 nextWorkItem :: TcSolveM ( Maybe ( Type Ct, CtOrigin ) )
 nextWorkItem = do
-  st@( SolverState { solverWorkList = wl } ) <- State.get
+  st@( SolverState { solverSubst = subst, solverWorkList = wl } ) <- State.get
   case wl of
     [] -> return Nothing
-    ct : others -> do
+    ( ctPred, ctOrig ) : others -> do
       State.put $ st { solverWorkList = others }
-      return $ Just ct
+      return $ Just ( applySubst subst ctPred, ctOrig )
 
 solvingLoop :: ( ( Type Ct, CtOrigin ) -> TcSolveM () ) -> TcSolveM ()
 solvingLoop solveOne = loop 1
@@ -1344,15 +1399,23 @@ runTcSolveM cts ( State.StateT f ) =
   Typechecking macros: constraint solving
 -------------------------------------------------------------------------------}
 
--- | Solve a constraint, either directly or by matching against
--- the provided instance environment.
-solveCt :: HandleOverlap -> Defaulting -> InstEnv -> ( Type Ct, CtOrigin ) -> TcSolveM ()
-solveCt handleOverlap defaulting instEnv ( ct, ctOrig ) =
+-- | Solve a constraint.
+solveCt :: Defaulting -> InstEnv -> ( Type Ct, CtOrigin ) -> TcSolveM ()
+solveCt defaulting instEnv ( ct, ctOrig ) =
   case ct of
     NomEqPred a b ->
+      -- NB: we don't do any defaulting in equality constraints.
+      --
+      -- The reasoning is that, with the current type system, every equality
+      -- constraint arises from a class constraint, e.g. if we have
+      --   AddRes a b ~ c
+      -- we necessarily have an 'AddRes a b' class constraint as well.
+      --
+      -- Hence defaulting of equality constraints happens as a by-product of
+      -- defaulting of class constraints.
       solveEqCt ctOrig a b
     Class cls args ->
-      solveDictCt handleOverlap defaulting ctOrig cls ( instEnv cls ) args
+      solveDictCt defaulting ctOrig cls ( instEnv cls ) args
 
 -- | Solve an equality constraint.
 solveEqCt :: CtOrigin -> Type Ty -> Type Ty -> TcSolveM ()
@@ -1451,27 +1514,17 @@ data Defaulting
   | Don'tDefault
   deriving stock ( Eq, Show )
 
--- | How to handle the situation in which multiple instances match?
-data HandleOverlap
-  -- | Arbitrarily pick the first instance.
-  = PickFirst
-  -- | Defer the decision.
-  | Defer
-  deriving stock ( Eq, Show )
-
 -- | Solve a class constraint by looking up in the provided instance environment
 -- for this class.
 solveDictCt
-  :: HandleOverlap
-      -- ^ How to handle the presence of multiple matching instances
-  -> Defaulting
+  :: Defaulting
       -- ^ Do defaulting as well (if possible)?
   -> CtOrigin
   -> ClassTyCon nbArgs
   -> TrieMap TypeHead Instance
   -> Vec nbArgs ( Type Ty )
   -> TcSolveM ()
-solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
+solveDictCt doDefault ctOrig cls instEnv args = do
   matchingDict <- lookupCt ct
   case matchingDict of
     Just {} -> do
@@ -1489,7 +1542,15 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
           modifyingInerts $
             addInertDict Insoluble ( ( cls, args ), ctOrig )
         ( newCts, subst ) : rest
-          | null rest || handleOverlap == PickFirst
+          | null rest
+          , isAtomicSubst subst
+          , all ( isAtomicType . fst ) newCts
+            -- Non-atomicity means we are dealing with a family of instances,
+            -- e.g. @instance forall a. C (IntLike a)@, which really stands
+            -- for a family of instances in Haskell-land.
+            --
+            -- NB: this is the only place where we could possibly introduce
+            -- non-atomic types.
           -> do
             debugTraceM $ unlines
               [ "solveDictCt: solved constraint"
@@ -1516,7 +1577,7 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                     , "ct: " ++ show ct
                     ]
                return Nothing
-          Just ( ( newCts, matchSubst ), dfltCands ) -> fmap ( newCts, ) <$> do
+          Just ( ( newCts, matchSubst ), dfltCands ) -> do
             case doDefault of
               Don'tDefault -> do
                 debugTraceM $
@@ -1525,7 +1586,7 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                     , "ct: " ++ show ct
                     , "subst: " ++ show matchSubst
                     ]
-                return $ Just matchSubst
+                return $ Just ( newCts, matchSubst )
               DefaultTyVarsExcept qtvs -> do
                 candSubsts <- lift dfltCands
                   -- Only do defaulting when no candidate type variables
@@ -1541,8 +1602,12 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                         , "ct: " ++ show ct
                         , "subst: " ++ show matchSubst
                         ]
-                    return $ Just matchSubst
+                    return $ Just ( newCts, matchSubst )
                   dfltSubst1 : _ -> do
+                    -- TODO: instead of picking the first one,
+                    -- we should accumulate all candidate defaulting substitutions
+                    -- for all constraints and try to find a consistent set
+                    -- of defaulting assignments (#940).
                     debugTraceM $
                       unlines
                         [ "solveDictCt: matchOne SUCCESS (defaulting)"
@@ -1551,14 +1616,33 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                         , "matchSubst: " ++ show matchSubst
                         , "dfltSubst: " ++ show dfltSubst1
                         ]
-                    return $ Just dfltSubst1
+                    return $ Just ( newCts, dfltSubst1 )
 
+-- | Check that the second substitution does not "further substitute" the
+-- given set of type variables.
+--
+-- Assumes that the second substitution refines the first one, i.e. that one
+-- can arrive at the second substitution by adding more substitutions to the
+-- first.
+--
+-- Example: @qtvs = {α}@, @subst1 = {α ↦ IntLike β}@.
+--
+--  1. @subst2 = {α ↦ IntLike β}@.
+--     OK: @α@ maps to the same thing in both substitutions.
+--  2. @subst2 = {α ↦ IntLike (Int Signed), β ↦ Int Signed }@
+--     Not OK: @α@ is further substituted.
 doesNotRefine :: IntSet -> Subst tv -> Subst tv -> Bool
 doesNotRefine qtvs ( Subst matchSubst ) ( Subst dfltSubst ) =
-  and $
-    IntMap.intersectionWith ( \ ( _, ty1 ) ( _, ty2 ) -> ty1 `eqType` ty2 )
-      ( matchSubst `IntMap.restrictKeys` qtvs )
-      ( dfltSubst  `IntMap.restrictKeys` qtvs )
+  all noRefinement $ IntSet.toList qtvs
+    where
+      noRefinement tv =
+        case IntMap.lookup tv dfltSubst of
+          Nothing -> True
+          Just ( _, dfltTy ) ->
+            case IntMap.lookup tv matchSubst of
+              Nothing -> False
+              Just ( _, matchTy ) ->
+                matchTy `eqType` dfltTy
 
 {-
 -- | Combine two substitutions, if they are compatible.
@@ -1640,7 +1724,7 @@ simplifyAndDefault quantTvs cts =
     return ( subst, inerts )
 
   where
-    solveOne = solveCt Defer ( DefaultTyVarsExcept quantTvs ) classInstancesWithDefaults
+    solveOne = solveCt ( DefaultTyVarsExcept quantTvs ) classInstancesWithDefaults
 
 {-------------------------------------------------------------------------------
   Evaluation
@@ -1867,8 +1951,14 @@ tcMacro tyEnv macroNm args body =
 
     -- Step 4: generalise.
     let
-      qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars $
-                   freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys )
+      qtvsFVs =
+        getFVs noBoundVars $
+          freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys )
+      qtvsList = reverse $ seenTvsRevList qtvsFVs
+      ctTvs =
+        seenTvs $ getFVs noBoundVars $
+          freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ map fst simpleCts )
+      ambigs = ctTvs IntSet.\\ seenTvs qtvsFVs
 
     debugTraceM $
       unlines
@@ -1879,7 +1969,40 @@ tcMacro tyEnv macroNm args body =
         , "ctSubst: " ++ show ctSubst
         , "simpleCts: " ++ show simpleCts
         , "qtvs: " ++ show qtvsList
+        , "ambigs: " ++ show ambigs
         ]
+
+    -- Panic if there are metavariables in the constraints that are not
+    -- in the argument/result type, i.e. ambiguous type variables.
+    -- These should have been defaulted away.
+    unless (IntSet.null ambigs) $
+      panicPure $
+        unlines
+          [ "tcMacro: ambiguous type variables"
+          , "ambigs: " ++ show ambigs
+          , "qtvs: " ++ show qtvsList
+          , "cts: " ++ show simpleCts
+          , "argTys: " ++ show argTys
+          , "bodyTy: " ++ show bodyTy
+          ]
+
+    -- Panic if there are any non-atomic types, which don't have natural
+    -- counterparts in Haskell-land. See 'isAtomicType'.
+    let allAtomic = and [ all isAtomicType argTys
+                        , isAtomicType bodyTy
+                        , all ( isAtomicType . fst ) simpleCts
+                        ]
+
+    unless allAtomic $
+      panicPure $
+        unlines
+          [ "tcMacro computed a non-atomic type"
+          , "qtvs: " ++ show qtvsList
+          , "cts: " ++ show simpleCts
+          , "argTys: " ++ show argTys
+          , "bodyTy: " ++ show bodyTy
+          ]
+
     return $
       Vec.reifyList qtvsList \ qtvs ->
         Quant \ tys ->

@@ -645,9 +645,9 @@ pattern Class :: ClassTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type Ct
 pattern Class cls args = TyConAppTy ( GenerativeTyCon ( ClassTyCon cls ) ) args
 {-# COMPLETE Class, NomEqPred #-}
 
-pattern Data :: DataTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type Ty
+pattern Data :: () => ki ~ Ty => DataTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type ki
 pattern Data tc args = TyConAppTy ( GenerativeTyCon ( DataTyCon tc ) ) args
-pattern FamApp :: FamilyTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type Ty
+pattern FamApp :: () => ki ~ Ty => FamilyTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type ki
 pattern FamApp tc args = TyConAppTy ( FamilyTyCon tc ) args
 
 pattern Not :: Type Ty -> Type Ct

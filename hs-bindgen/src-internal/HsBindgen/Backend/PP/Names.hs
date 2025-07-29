@@ -46,7 +46,6 @@ import HsBindgen.Runtime.ConstantArray       qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Marshal             qualified
 import HsBindgen.Runtime.SizedByteArray      qualified
-import HsBindgen.Runtime.Syntax              qualified
 
 {-------------------------------------------------------------------------------
   Imports
@@ -142,7 +141,6 @@ moduleOf "NonEmpty" _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf ":|"       _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf ident m0 = case parts of
     ["C","Operator","Classes"]       -> HsImportModule "C.Expr.HostPlatform" (Just "C")
-    ["HsBindgen","Runtime","Syntax"] -> HsImportModule "HsBindgen.Runtime.Syntax" (Just "HsBindgen")
     ["GHC", "Bits"]                  -> HsImportModule "Data.Bits" (Just "Bits")
     ["GHC", "Base"]                  -> iPrelude
     ["GHC", "Classes"]               -> iPrelude
@@ -304,9 +302,6 @@ resolveGlobal = \case
     Shift_resTyCon        -> importQ ''C.Expr.HostPlatform.ShiftRes
     Shift_shiftL          -> importU '(C.Expr.HostPlatform.<<)
     Shift_shiftR          -> importU '(C.Expr.HostPlatform.>>)
-
-    IntLike_tycon    -> importQ ''HsBindgen.Runtime.Syntax.IntLike
-    FloatLike_tycon  -> importQ ''HsBindgen.Runtime.Syntax.FloatLike
 
     GHC_Float_castWord32ToFloat -> importQ 'GHC.Float.castWord32ToFloat
     GHC_Float_castWord64ToDouble -> importQ 'GHC.Float.castWord64ToDouble

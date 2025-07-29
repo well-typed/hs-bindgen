@@ -146,9 +146,6 @@ data Global =
   | Shift_shiftL
   | Shift_shiftR
 
-  | IntLike_tycon
-  | FloatLike_tycon
-
   | CFloat_constructor
   | CDouble_constructor
   | GHC_Float_castWord32ToFloat

@@ -1392,7 +1392,16 @@ quantTyHsTy qty@(Macro.Quant @kis _) =
       Hs.NomEqTy (goTy env a) (goTy env b)
 
     goTy :: Map Text (Idx ctx) -> Macro.Type Macro.Ty -> Hs.TauType ctx
-    goTy env (Macro.TyVarTy tv) = Hs.TyVarTy (env Map.! Macro.tyVarName tv) -- XXX: partial Map.!
+    goTy env (Macro.TyVarTy tv) =
+      case Map.lookup (Macro.tyVarName tv) env of
+        Just hsTv ->
+          Hs.TyVarTy hsTv
+        Nothing ->
+          panicPure $ unlines
+            [ "quantTyHsTy: unbound type variable " ++ show tv
+            , "env: " ++ show env
+            , "macro: " ++ show (Macro.mkQuantTyBody qty)
+            ]
     goTy env (Macro.FunTy as r) =
       foldr (Hs.FunTy . goTy env) (goTy env r) as
     goTy env (Macro.TyConAppTy tc as) =

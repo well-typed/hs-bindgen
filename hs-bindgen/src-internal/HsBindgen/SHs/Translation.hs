@@ -241,6 +241,12 @@ translateTau = \case
     | otherwise
     -> foldl' TApp (tyConGlobal tc) (fmap translateTau args)
 
+-- | Convert @IntLike inty@ and @FloatLike floaty@ to Haskell types.
+--
+-- The macro typechecker will never produce a type such as @IntLike a@ for
+-- a skolem type variable @a@, because this type has no Haskell counterpart.
+--
+-- See 'HsBindgen.C.Tc.Macro.isAtomicType'.
 simpleTyConApp :: Macro.TyCon args Macro.Ty -> [Hs.TauType ctx] -> Maybe (SType ctx)
 simpleTyConApp
   (Macro.GenerativeTyCon (Macro.DataTyCon Macro.IntLikeTyCon))
@@ -265,10 +271,6 @@ tyConGlobal = \case
             TGlobal $ Tuple_type n
           Macro.VoidTyCon ->
             TGlobal $ PrimType HsPrimVoid
-          Macro.IntLikeTyCon   ->
-            TGlobal IntLike_tycon
-          Macro.FloatLikeTyCon ->
-            TGlobal FloatLike_tycon
           Macro.PrimIntInfoTyCon inty ->
             TGlobal $ PrimType $
               case inty of
@@ -280,6 +282,16 @@ tyConGlobal = \case
             TGlobal Foreign_Ptr
           Macro.CharLitTyCon ->
             TGlobal CharValue_tycon
+
+          -- These two TyCons are handled by 'simpleTyConApp'.
+          Macro.IntLikeTyCon   ->
+            panicPure "tyConGlobal IntLikeTyCon"
+          Macro.FloatLikeTyCon ->
+            panicPure "tyConGlobal FloatLikeTyCon"
+
+          -- These two TyCons are only used for macros that do not define
+          -- functions; they dont't occur in the code path that deals
+          -- with type inference of macro functions.
           Macro.PrimTyTyCon ->
             panicPure "tyConGlobal PrimTyTyCon"
           Macro.EmptyTyCon ->
