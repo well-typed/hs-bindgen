@@ -27,7 +27,6 @@ module HsBindgen.App.Common (
 import Control.Exception (Exception (displayException))
 import Control.Monad.IO.Class (MonadIO)
 import Data.Bifunctor (Bifunctor (bimap), first, second)
-import Data.Bool (bool)
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -38,8 +37,6 @@ import Options.Applicative.Extra (helperWith)
 import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
                                  vcat, (<+>))
 import Prettyprinter.Util (reflow)
-import System.Console.ANSI (hSupportsANSIColor)
-import System.IO qualified as IO
 
 import HsBindgen.Lib
 
@@ -414,23 +411,11 @@ withCliTracer ::
   -> (Tracer IO TraceMsg -> IO a)
   -> IO (Maybe a)
 withCliTracer GlobalOpts{..} action' = do
-    ansiColor <- getAnsiColor
-    let customLogLevel = case macroWarnings of
-          MacroLogInfo    -> DefaultLogLevel
-          MacroLogWarning -> CustomLogLevel $ \case
-            TraceFrontend frontendMsg -> case frontendMsg of
-              FrontendHandleMacros handleMacrosMsg -> case handleMacrosMsg of
-                HandleMacrosErrorReparse{} -> Warning
-                HandleMacrosErrorTc{}      -> Warning
-                _otherwise                 -> getDefaultLogLevel handleMacrosMsg
-              _otherwise -> getDefaultLogLevel frontendMsg
-            traceMsg -> getDefaultLogLevel traceMsg
-    withTracerCustom ansiColor tracerConfig customLogLevel putStrLn action'
-  where
-    -- TODO make it easier to customize tracing (without having to do this)
-    getAnsiColor :: IO AnsiColor
-    getAnsiColor =
-      bool DisableAnsiColor EnableAnsiColor <$> hSupportsANSIColor IO.stdout
+    let customLogLevelSettings = case macroWarnings of
+          MacroLogInfo    -> []
+          MacroLogWarning -> [MacroTracesAreWarnings]
+        customLogLevel = customLogLevelFrom customLogLevelSettings
+    withTracerCustom def customLogLevel tracerConfig action'
 
 -- | Extract the result or exit gracefully with an error message.
 --

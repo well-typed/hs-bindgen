@@ -21,6 +21,9 @@ module HsBindgen.TraceMsg (
   , ReparseError(..)
   , ResolveHeaderMsg(..)
   , TcMacroError(..)
+  -- * Log level customization
+  , customLogLevelFrom
+  , CustomLogLevelSetting (..)
   ) where
 
 import Clang.HighLevel.Types (Diagnostic (..))
@@ -30,16 +33,15 @@ import HsBindgen.C.Tc.Macro (TcMacroError (..))
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (..))
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosMsg(..))
-import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefsMsg(..))
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg(..))
-import HsBindgen.Frontend.Pass.NameAnon.IsPass (NameAnonMsg(..))
-import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsg(..))
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosMsg (..))
+import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefsMsg (..))
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
+import HsBindgen.Frontend.Pass.NameAnon.IsPass (NameAnonMsg (..))
+import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
-  (ResolveBindingSpecMsg(..))
-import HsBindgen.Frontend.Pass.Slice.IsPass (SliceMsg(..))
-import HsBindgen.Frontend.Pass.Sort.IsPass (SortMsg(..))
+import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpecMsg (..))
+import HsBindgen.Frontend.Pass.Slice.IsPass (SliceMsg (..))
+import HsBindgen.Frontend.Pass.Sort.IsPass (SortMsg (..))
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -77,3 +79,30 @@ instance HasSource TraceMsg where
     TraceClang         x -> getSource x
     TraceFrontend      x -> getSource x
     TraceResolveHeader x -> getSource x
+
+{-------------------------------------------------------------------------------
+  Log level customization
+-------------------------------------------------------------------------------}
+
+-- | Get a custom log level function from a list of available settings.
+--
+-- NOTE: The order of settings matters. The first setting specifying a custom
+-- log level for the emitted trace overrules later settings.
+customLogLevelFrom :: [CustomLogLevelSetting] -> CustomLogLevel TraceMsg
+customLogLevelFrom = mconcat . map fromCustomLogLevelSetting
+
+-- | List of predefined log level customization settings.
+data CustomLogLevelSetting =
+    -- | Change macro-related parsing traces to 'Warning's. By default, traces
+    -- emitted while parsing macros are 'Info' messages.
+    MacroTracesAreWarnings
+  deriving stock (Eq, Show)
+
+fromCustomLogLevelSetting :: CustomLogLevelSetting -> CustomLogLevel TraceMsg
+fromCustomLogLevelSetting MacroTracesAreWarnings = macroTracesAreWarnings
+  where
+    macroTracesAreWarnings :: CustomLogLevel TraceMsg
+    macroTracesAreWarnings = CustomLogLevel $ \case
+        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{})) -> Just Warning
+        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))      -> Just Warning
+        _otherTrace -> Nothing

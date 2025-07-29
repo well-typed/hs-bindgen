@@ -38,9 +38,10 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
         ]
     , testGroup "LeftOnError" [
           testCase "left" $ do
-              let noOutput _ = pure ()
-                  tracerConf = def { tVerbosity = Verbosity Debug }
-                  withTracer = withTracerCustom DisableAnsiColor tracerConf DefaultLogLevel noOutput
+              let noOutput _ _ = pure ()
+                  outputConfig = OutputReport noOutput DisableAnsiColor
+                  tracerConf   = def { tVerbosity = Verbosity Debug }
+                  withTracer   = withTracerCustom outputConfig mempty tracerConf
               res <- withTracer $ \tracer -> do traceWith tracer er
               res @?= Nothing
         ]
@@ -130,11 +131,11 @@ instance HasSource TestTrace where
   getSource = const HsBindgen
 
 assertMaxLevel :: [TestTrace] -> Level -> Assertion
-assertMaxLevel = assertMaxLevelWithCustomLogLevel DefaultLogLevel
+assertMaxLevel = assertMaxLevelWithCustomLogLevel mempty
 
 assertMaxLevelWithDegrade :: [TestTrace] -> Level -> Assertion
 assertMaxLevelWithDegrade =
-  assertMaxLevelWithCustomLogLevel (CustomLogLevel $ const Info)
+  assertMaxLevelWithCustomLogLevel (CustomLogLevel $ const $ Just Info)
 
 assertMaxLevelWithCustomLogLevel
   :: CustomLogLevel TestTrace -> [TestTrace] -> Level -> Assertion
@@ -144,11 +145,12 @@ assertMaxLevelWithCustomLogLevel customLogLevel traces expectedLevel = do
 
 testTracerIO :: CustomLogLevel TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
-  let noOutput _ = pure ()
-      tracerConf = def { tVerbosity = Verbosity Debug }
+  let noOutput _ _ = pure ()
+      outputConfig = OutputReport noOutput DisableAnsiColor
+      tracerConfig = def { tVerbosity = Verbosity Debug }
       -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,
       -- and not by the tests (e.g., 'withTracePredicate').
-      withTracer = withTracerCustom' DisableAnsiColor tracerConf customLogLevel noOutput
+      withTracer = withTracerCustom' outputConfig  customLogLevel tracerConfig
   (_, maxLogLevel) <- withTracer $ \tracer -> do
     mapM_ (traceWith tracer) traces
   pure maxLogLevel

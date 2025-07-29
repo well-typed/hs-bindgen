@@ -101,13 +101,19 @@ module HsBindgen.Lib (
   , Common.HasSource(..)
   , Common.Verbosity(..)
     -- ** Tracer configuration
-  , Common.AnsiColor(..)
   , Common.ShowTimeStamp(..)
   , Common.ShowCallStack(..)
   , Common.TracerConfig(..)
+    -- *** Custom output
+  , Common.AnsiColor(..)
+  , Common.Report
+  , Common.OutputConfig(..)
+    -- *** Custom log levels
   , Common.CustomLogLevel(..)
+  , Common.customLogLevelFrom
+  , Common.CustomLogLevelSetting(..)
     -- ** Tracers
-  , Common.withTracerStdOut
+  , Tracer.withTracerStdOut
   , Common.withTracerCustom
   , Tracer.fatalError
 
