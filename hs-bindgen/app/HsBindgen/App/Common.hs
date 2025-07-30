@@ -224,15 +224,15 @@ parseGnuOption = switch $ mconcat [
 
 parseSystemIncludeDirOptions :: Parser [CIncludePathDir]
 parseSystemIncludeDirOptions = many . strOption $ mconcat [
-      long "system-include-path"
+      short 'I'
+    , long "system-include-path"
     , metavar "DIR"
     , help "System include search path directory"
     ]
 
 parseQuoteIncludeDirOptions :: Parser [CIncludePathDir]
 parseQuoteIncludeDirOptions = many . strOption $ mconcat [
-      short 'I'
-    , long "include-path"
+      long "quote-include-path"
     , metavar "DIR"
     , help "Quote include search path directory"
     ]
@@ -254,9 +254,11 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
     readOtherArg :: String -> Either String String
     readOtherArg s
       | "-I" `List.isPrefixOf` s =
-          Left "Include path must be set using hs-bindgen --include-path options"
+          Left "Include path must be set using hs-bindgen -I/--system-include-path options"
       | "-isystem" `List.isPrefixOf` s =
-          Left "System include path must be set using hs-bindgen --system-include-path options"
+          Left "System include path must be set using hs-bindgen -I/--system-include-path options"
+      | "-iquote" `List.isPrefixOf` s =
+          Left "Quote include path must be set using hs-bindgen --quote-include-path options"
       | s == "-nostdinc" =
           Left "No standard includes option must be set using hs-bindgen --no-stdinc option"
       | s == "-std" || "-std=" `List.isPrefixOf` s =
