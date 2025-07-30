@@ -111,7 +111,7 @@ library internal
       HsBindgen.Frontend.Macros.AST.C
       HsBindgen.Frontend.Macros.AST.Syntax
       HsBindgen.Frontend.Naming
-      HsBindgen.Frontend.NonSelectedDecls
+      HsBindgen.Frontend.NonParsedDecls
       HsBindgen.Frontend.Pass
       HsBindgen.Frontend.Pass.HandleMacros
       HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -129,8 +129,8 @@ library internal
       HsBindgen.Frontend.Pass.Parse.Type.Monad
       HsBindgen.Frontend.Pass.ResolveBindingSpec
       HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
-      HsBindgen.Frontend.Pass.Slice
-      HsBindgen.Frontend.Pass.Slice.IsPass
+      HsBindgen.Frontend.Pass.Select
+      HsBindgen.Frontend.Pass.Select.IsPass
       HsBindgen.Frontend.Pass.Sort
       HsBindgen.Frontend.Pass.Sort.IsPass
       HsBindgen.Frontend.ProcessIncludes
@@ -153,7 +153,6 @@ library internal
       HsBindgen.Imports
       HsBindgen.Language.C
       HsBindgen.Language.C.Literal
-      HsBindgen.Language.C.Name
       HsBindgen.Language.C.Prim
       HsBindgen.Language.Haskell
       HsBindgen.ModuleUnique
@@ -389,6 +388,7 @@ test-suite test-hs-bindgen
     , test-common
   build-depends:
       -- Inherited dependencies
+    , containers
     , debruijn
     , directory
     , filepath

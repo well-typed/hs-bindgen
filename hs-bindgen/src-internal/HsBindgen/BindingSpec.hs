@@ -48,8 +48,8 @@ import Clang.Args (ClangArgs)
 import Clang.Paths (SourcePath)
 import HsBindgen.BindingSpec.Private qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

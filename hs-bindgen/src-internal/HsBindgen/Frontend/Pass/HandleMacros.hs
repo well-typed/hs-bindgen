@@ -17,13 +17,12 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Macros.AST.Syntax
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Slice.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -31,7 +30,7 @@ import HsBindgen.Language.C qualified as C
 
 -- | Sort and typecheck macros, and reparse declarations
 handleMacros ::
-      C.TranslationUnit Slice
+      C.TranslationUnit Sort
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     first reassemble $ runM . fmap catMaybes $ mapM processDecl unitDecls
@@ -43,7 +42,7 @@ handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
         , unitAnn
         }
 
-processDecl :: C.Decl Slice -> M (Maybe (C.Decl HandleMacros))
+processDecl :: C.Decl Sort -> M (Maybe (C.Decl HandleMacros))
 processDecl C.Decl{declInfo, declKind} =
     case declKind of
       C.DeclMacro macro     -> processMacro info' macro
@@ -67,7 +66,7 @@ processDecl C.Decl{declInfo, declKind} =
 
 processStruct ::
      C.DeclInfo HandleMacros
-  -> C.Struct Slice
+  -> C.Struct Sort
   -> M (C.Decl HandleMacros)
 processStruct info C.Struct{..} =
     mkDecl <$> mapM processStructField structFields
@@ -79,7 +78,7 @@ processStruct info C.Struct{..} =
         , declAnn  = NoAnn
         }
 
-processStructField :: C.StructField Slice -> M (C.StructField HandleMacros)
+processStructField :: C.StructField Sort -> M (C.StructField HandleMacros)
 processStructField C.StructField{..} =
     case structFieldAnn of
       ReparseNotNeeded ->
@@ -106,7 +105,7 @@ processStructField C.StructField{..} =
 
 processUnion ::
      C.DeclInfo HandleMacros
-  -> C.Union Slice
+  -> C.Union Sort
   -> M (C.Decl HandleMacros)
 processUnion info C.Union{..} =
     combineFields <$> mapM processUnionField unionFields
@@ -118,7 +117,7 @@ processUnion info C.Union{..} =
         , declAnn  = NoAnn
         }
 
-processUnionField :: C.UnionField Slice -> M (C.UnionField HandleMacros)
+processUnionField :: C.UnionField Sort -> M (C.UnionField HandleMacros)
 processUnionField C.UnionField{..} =
     case unionFieldAnn of
       ReparseNotNeeded ->
@@ -156,7 +155,7 @@ processOpaque kind info =
 
 processEnum ::
      C.DeclInfo HandleMacros
-  -> C.Enum Slice
+  -> C.Enum Sort
   -> M (C.Decl HandleMacros)
 processEnum info C.Enum{..} =
     mkDecl <$> mapM processEnumConstant enumConstants
@@ -173,13 +172,13 @@ processEnum info C.Enum{..} =
         }
 
 processEnumConstant ::
-     C.EnumConstant Slice
+     C.EnumConstant Sort
   -> M (C.EnumConstant HandleMacros)
 processEnumConstant C.EnumConstant{..} = return C.EnumConstant{..}
 
 processTypedef ::
      C.DeclInfo HandleMacros
-  -> C.Typedef Slice
+  -> C.Typedef Sort
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
     modify $ \st -> st{
@@ -205,8 +204,8 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
   where
     name :: C.Name
     name = case C.declId info of
-      PrelimDeclIdNamed n -> n
-      _otherwise          -> panicPure "unexpected anonymous typedef"
+      C.PrelimDeclIdNamed n -> n
+      _otherwise            -> panicPure "unexpected anonymous typedef"
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
@@ -237,8 +236,8 @@ processMacro info (UnparsedMacro tokens) =
   where
     name :: C.Name
     name = case C.declId info of
-      PrelimDeclIdNamed n -> n
-      _otherwise          -> panicPure "unexpected anonymous macro"
+      C.PrelimDeclIdNamed n -> n
+      _otherwise            -> panicPure "unexpected anonymous macro"
 
     withReparse ::
          ( Macro.Quant (FunValue, Macro.Type Macro.Ty)
@@ -257,7 +256,7 @@ processMacro info (UnparsedMacro tokens) =
 
 processFunction ::
      C.DeclInfo HandleMacros
-  -> C.Function Slice
+  -> C.Function Sort
   -> M (C.Decl HandleMacros)
 processFunction info C.Function {..} =
     case functionAnn of
@@ -301,7 +300,7 @@ processFunction info C.Function {..} =
 processGlobal ::
      C.DeclInfo HandleMacros
   -> (C.Type HandleMacros -> C.DeclKind HandleMacros)
-  -> C.Type Slice
+  -> C.Type Sort
   -> M (C.Decl HandleMacros)
 processGlobal info f ty =
     return $ C.Decl{

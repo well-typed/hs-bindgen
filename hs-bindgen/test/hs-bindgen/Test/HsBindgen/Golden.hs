@@ -1,18 +1,20 @@
 -- | Golden tests
 module Test.HsBindgen.Golden (tests) where
 
+import Data.Set (Set)
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Test.Tasty
 
 import Clang.Args
 import Clang.Version
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.C.Predicate (Predicate (..))
+import HsBindgen.C.Predicate
+  (DeclPredicate(..), HeaderPathPredicate(..), Predicate(..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Slice.IsPass as Slice
-import HsBindgen.Language.C qualified as C
+import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.TracePredicate
@@ -119,7 +121,7 @@ testCases = [
         diagnosticCategoryText diag == "Semantic Issue"
 
       --
-      -- Tets that require a trace predicate
+      -- Tests that require a trace predicate
       --
 
     , testTraceCustom "decls_in_signature" ["f3", "f4", "f5"] $ \case
@@ -156,9 +158,9 @@ testCases = [
               ]
       in testTraceCustom "typedef_analysis" declsWithMsgs $ \case
         TraceFrontend (FrontendHandleTypedefs (HandleTypedefsSquashed info)) ->
-          Just $ Expected $ Labelled "Squashed" $ declIdName (C.declId info)
+          Just $ Expected $ Labelled "Squashed" $ C.declIdName (C.declId info)
         TraceFrontend (FrontendHandleTypedefs (HandleTypedefsRenamedTagged info _to)) ->
-          Just $ Expected $ Labelled "Renamed"  $ declIdName (C.declId info)
+          Just $ Expected $ Labelled "Renamed"  $ C.declIdName (C.declId info)
         _otherwise ->
           Nothing
     , testTraceSimple "varargs" $ \case
@@ -245,7 +247,7 @@ testCases = [
              _otherwise ->
                Nothing
         }
-    , let declsWithWarnings :: [PrelimDeclId]
+    , let declsWithWarnings :: [C.PrelimDeclId]
           declsWithWarnings = [
                 -- non-extern non-static globals
                 "nesInteger"
@@ -298,40 +300,39 @@ testCases = [
           -- Check that program slicing generates bindings for uint32_t if we
           -- remove it from the standard external binding specification
           testOnConfig = \cfg -> cfg{
-              configPredicate      = SelectFromMainFiles
-            , configProgramSlicing = EnableProgramSlicing
+              configParsePredicate  = PTrue
+            , configSelectPredicate = PIf (Left FromMainHeaders)
+            , configProgramSlicing  = EnableProgramSlicing
             }
         , testOnExtSpec = BindingSpec.deleteType C.QualName{
               qualNameName = "uint32_t"
             , qualNameKind = C.NameKindOrdinary
             }
         , testTracePredicate = customTracePredicate [
-              "SelectedUInt32"
-            , "SelectedUInt64"
+              "selected foo"
+            , "selected uint32_t"
             ] $ \case
-            TraceFrontend (FrontendSlice
-                           (SliceSelected
-                            (TransitiveDependencyOf
-                             (NsPrelimDeclIdNamed nm _) _)))
-              | nm == "uint32_t" -> Just $ Expected "SelectedUInt32"
-              | nm == "uint64_t" -> Just $ Expected "SelectedUInt64"
-            TraceFrontend (FrontendSlice (SliceSelected _)) -> Just Unexpected
-            TraceFrontend (FrontendSlice (SliceSkipped _))  -> Just Tolerated
+            TraceFrontend (FrontendSelect (SelectSelected info)) ->
+              expectSelected info $ Set.fromList [
+                  "foo"
+                , "uint32_t"
+                ]
+            TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
             _otherwise ->
               Nothing
         }
     , (defaultTest "program_slicing_selection"){
           testOnConfig = \cfg -> cfg{
-              configPredicate      = SelectIfEither
-                (SelectByElementName "FileOperationRecord")
-                (SelectByElementName "read_file_chunk")
-            , configProgramSlicing = EnableProgramSlicing
+              configParsePredicate  = PTrue
+            , configSelectPredicate = POr
+                (PIf . Right $ DeclNameMatches "FileOperationRecord")
+                (PIf . Right $ DeclNameMatches "read_file_chunk")
+            , configProgramSlicing  = EnableProgramSlicing
             }
         , testTracePredicate = customTracePredicate [
-              "SelectedFileOpterationStatus"
-            , "SelectedSizeT"
-            , "SelectedFile"
-            , "SelectedIoFile"
+              "selected FileOperationRecord"
+            , "selected FileOperationStatus"
+            , "selected read_file_chunk"
             ] $ \case
             TraceFrontend (FrontendParse msg) -> case msg of
               -- TODO: Ideally, we do not see this warnings because they affect
@@ -342,16 +343,13 @@ testCases = [
               ParseUnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
               ParseUnsupportedConst _                            -> Just Tolerated
               _other                                             -> Nothing
-            TraceFrontend (FrontendSlice
-                           (SliceSelected
-                            (TransitiveDependencyOf
-                             (NsPrelimDeclIdNamed nm _) _)))
-              | nm == "FileOperationStatus" -> Just $ Expected "SelectedFileOpterationStatus"
-              | nm == "size_t"              -> Just $ Expected "SelectedSizeT"
-              | nm == "FILE"                -> Just $ Expected "SelectedFile"
-              | nm == "_IO_FILE"            -> Just $ Expected "SelectedIoFile"
-            TraceFrontend (FrontendSlice (SliceSelected _)) -> Just Unexpected
-            TraceFrontend (FrontendSlice (SliceSkipped _))  -> Just Tolerated
+            TraceFrontend (FrontendSelect (SelectSelected info)) ->
+              expectSelected info $ Set.fromList [
+                  "FileOperationRecord"
+                , "FileOperationStatus"
+                , "read_file_chunk"
+                ]
+            TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
             _otherwise ->
               Nothing
           -- TODO: Also, we may want to specify an allow list; see
@@ -370,3 +368,13 @@ testCases = [
           testRustBindgen = RustBindgenFail
         }
     ]
+  where
+    expectSelected ::
+         C.DeclInfo Select
+      -> Set C.Name
+      -> Maybe (TraceExpectation String)
+    expectSelected info expectedNames = case C.declIdName (C.declId info) of
+      name
+        | Set.member name expectedNames ->
+            Just . Expected $ "selected " ++ Text.unpack (C.getName name)
+        | otherwise -> Just Unexpected

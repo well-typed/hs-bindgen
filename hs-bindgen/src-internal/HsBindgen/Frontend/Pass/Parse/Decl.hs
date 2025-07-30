@@ -13,14 +13,13 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -38,17 +37,22 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
             selected <- evalPredicate info kind
             if selected
               then runFold (parser info) curr
-              else recordNonSelectedDecl info kind >> foldContinue
+              else recordNonParsedDecl info kind >> foldContinue
 
     dispatch curr $ \case
-      -- Kinds that we parse
+      -- Ordinary kinds that we parse
       CXCursor_FunctionDecl    -> parseWith functionDecl    C.NameKindOrdinary
       CXCursor_VarDecl         -> parseWith varDecl         C.NameKindOrdinary
       CXCursor_TypedefDecl     -> parseWith typedefDecl     C.NameKindOrdinary
       CXCursor_MacroDefinition -> parseWith macroDefinition C.NameKindOrdinary
-      CXCursor_StructDecl      -> parseWith structDecl      C.NameKindStruct
-      CXCursor_UnionDecl       -> parseWith unionDecl       C.NameKindUnion
-      CXCursor_EnumDecl        -> parseWith enumDecl        C.NameKindEnum
+
+      -- Tagged kinds that we parse
+      CXCursor_StructDecl ->
+        parseWith structDecl (C.NameKindTagged C.TagKindStruct)
+      CXCursor_UnionDecl ->
+        parseWith unionDecl  (C.NameKindTagged C.TagKindUnion)
+      CXCursor_EnumDecl ->
+        parseWith enumDecl   (C.NameKindTagged C.TagKindEnum)
 
       -- Process macro expansions independent of any selection predicates
       CXCursor_MacroExpansion -> runFold macroExpansion curr
@@ -78,7 +82,7 @@ handleTypeException curr err = do
 
 getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr -> do
-    declId     <- getPrelimDeclId curr
+    declId     <- C.getPrelimDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
     declComment <- clang_getComment curr
@@ -546,9 +550,9 @@ varDecl info = simpleFold $ \curr -> do
 partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
 partitionAnonDecls = List.partition (declIdIsAnon . C.declId . C.declInfo)
   where
-    declIdIsAnon :: PrelimDeclId -> Bool
-    declIdIsAnon PrelimDeclIdAnon{} = True
-    declIdIsAnon _otherwise         = False
+    declIdIsAnon :: C.PrelimDeclId -> Bool
+    declIdIsAnon C.PrelimDeclIdAnon{} = True
+    declIdIsAnon _otherwise           = False
 
 -- | Detect implicit fields inside a struct
 --
@@ -605,7 +609,7 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclStruct struct -> C.structFields struct
           _otherwise          -> []
 
-    fieldDeps :: [NsPrelimDeclId]
+    fieldDeps :: [C.NsPrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool

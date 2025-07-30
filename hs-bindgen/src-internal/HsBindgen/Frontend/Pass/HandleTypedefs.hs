@@ -5,22 +5,20 @@ import Data.Map.Strict qualified as Map
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 handleTypedefs ::
-     C.TranslationUnit ResolveBindingSpec
+     C.TranslationUnit Select
   -> (C.TranslationUnit HandleTypedefs, [Msg HandleTypedefs])
 handleTypedefs C.TranslationUnit{..} = (
       C.TranslationUnit{
@@ -34,7 +32,7 @@ handleTypedefs C.TranslationUnit{..} = (
     td = TypedefAnalysis.fromDecls (declDeclUse unitAnn) unitDecls
 
     msgs   :: [Maybe (Msg HandleTypedefs)]
-    decls' :: [Maybe (Decl HandleTypedefs)]
+    decls' :: [Maybe (C.Decl HandleTypedefs)]
     (msgs, decls') = unzip $ map (handleDecl td) unitDecls
 
 {-------------------------------------------------------------------------------
@@ -43,8 +41,8 @@ handleTypedefs C.TranslationUnit{..} = (
 
 handleDecl ::
      TypedefAnalysis
-  -> Decl ResolveBindingSpec
-  -> (Maybe (Msg HandleTypedefs), Maybe (Decl HandleTypedefs))
+  -> C.Decl Select
+  -> (Maybe (Msg HandleTypedefs), Maybe (C.Decl HandleTypedefs))
 handleDecl td decl =
     case declKind of
       C.DeclTypedef{} ->
@@ -55,7 +53,7 @@ handleDecl td decl =
             )
           Nothing -> (
               Nothing
-            , Just Decl{
+            , Just C.Decl{
                   declInfo = declInfo'
                 , declKind = handleUseSites td declKind
                 , declAnn
@@ -68,24 +66,24 @@ handleDecl td decl =
                  Just (newName, newOrigin) -> (
                      Just $ HandleTypedefsRenamedTagged declInfo' newName
                    , declInfo {
-                       declId = DeclId newName newOrigin
+                       C.declId = C.DeclId newName newOrigin
                      }
                    )
         in ( mMsg
-           , Just Decl{
+           , Just C.Decl{
                   declInfo = updatedInfo
                 , declKind = handleUseSites td declKind
                 , declAnn
                }
            )
   where
-    Decl{
-        declInfo = declInfo@DeclInfo{declId = DeclId{declIdName = curName}}
+    C.Decl{
+        declInfo = declInfo@C.DeclInfo{declId = C.DeclId{declIdName = curName}}
       , declKind
       , declAnn
       } = decl
 
-    declInfo' :: DeclInfo HandleTypedefs
+    declInfo' :: C.DeclInfo HandleTypedefs
     declInfo' = coercePass declInfo
 
 {-------------------------------------------------------------------------------
@@ -93,9 +91,9 @@ handleDecl td decl =
 -------------------------------------------------------------------------------}
 
 class HandleUseSites a where
-  handleUseSites :: TypedefAnalysis -> a ResolveBindingSpec -> a HandleTypedefs
+  handleUseSites :: TypedefAnalysis -> a Select -> a HandleTypedefs
 
-instance HandleUseSites DeclKind where
+instance HandleUseSites C.DeclKind where
   handleUseSites td = \case
       C.DeclStruct struct   -> C.DeclStruct (handleUseSites td struct)
       C.DeclStructOpaque    -> C.DeclStructOpaque
@@ -104,7 +102,7 @@ instance HandleUseSites DeclKind where
       C.DeclEnum enum       -> C.DeclEnum (handleUseSites td enum)
       C.DeclEnumOpaque      -> C.DeclEnumOpaque
       C.DeclTypedef typedef -> C.DeclTypedef (handleUseSites td typedef)
-      C.DeclMacro macro     -> C.DeclMacro (handleUseSites td macro)
+      C.DeclMacro macro     -> C.DeclMacro (handleUseSites td (coercePass macro))
       C.DeclFunction fun    -> C.DeclFunction (handleUseSites td fun)
       C.DeclGlobal ty       -> C.DeclGlobal (handleUseSites td ty)
       C.DeclConst ty        -> C.DeclConst (handleUseSites td ty)
@@ -166,7 +164,7 @@ instance HandleUseSites C.Function where
 instance HandleUseSites C.Type where
   handleUseSites td = go
     where
-      go :: C.Type ResolveBindingSpec -> C.Type HandleTypedefs
+      go :: C.Type Select -> C.Type HandleTypedefs
 
       -- Simple cases
 
@@ -192,15 +190,15 @@ instance HandleUseSites C.Type where
       go (C.TypeTypedef name) = squash name
 
       rename ::
-           (DeclId -> Type HandleTypedefs)
-        -> (DeclId -> Type HandleTypedefs)
-      rename mkType uid@DeclId{..} =
+           (C.DeclId -> C.Type HandleTypedefs)
+        -> (C.DeclId -> C.Type HandleTypedefs)
+      rename mkType uid@C.DeclId{..} =
         case Map.lookup declIdName (TypedefAnalysis.rename td) of
-          Just (newName, newOrigin) -> mkType $ DeclId newName newOrigin
+          Just (newName, newOrigin) -> mkType $ C.DeclId newName newOrigin
           Nothing                   -> mkType uid
 
-      squash :: C.Name -> Type HandleTypedefs
+      squash :: C.Name -> C.Type HandleTypedefs
       squash name = C.TypeTypedef $
           case Map.lookup name (TypedefAnalysis.squash td) of
-            Nothing -> TypedefRegular $ DeclId name NameOriginInSource
+            Nothing -> TypedefRegular $ C.DeclId name C.NameOriginInSource
             Just ty -> TypedefSquashed name ty

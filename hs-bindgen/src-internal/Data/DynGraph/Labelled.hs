@@ -15,6 +15,8 @@ module Data.DynGraph.Labelled (
   , dff
   , dfFindMember
   , findTrailFrom
+    -- * Deletion
+  , deleteEdges
     -- * Debugging
   , dumpMermaid
     -- * Auxiliary: tree traversals
@@ -123,20 +125,14 @@ insertEdge vFrom l vTo dynGraph0 =
 vertices :: DynGraph l a -> [a]
 vertices DynGraph{..} = Map.keys vtxMap
 
--- | Gets the set of vertices that are reachable from the specified vertex
+-- | Gets the set of vertices that are reachable from any of the specified
+-- vertices
 --
--- The specified vertex is included in the set.
---
--- NOTE: We /could/ generalize this to
---
--- > reaches :: (Ord a, Ord l) => DynGraph l a -> a -> ([l], a)
---
--- where we additionally record paths also; we don't need this currently, so
--- not yet done.
-reaches :: (Ord a, Ord l) => DynGraph l a -> a -> Set a
-reaches DynGraph{..} v = case Map.lookup v vtxMap of
-    Just idx -> Set.fromList $ (idxMap IntMap.!) <$> reaches' edges idx
-    Nothing  -> mempty
+-- The specified vertices are included in the set (assuming that they are in
+-- the graph).
+reaches :: Ord a => DynGraph l a -> [a] -> Set a
+reaches DynGraph{..} =
+    Set.map (idxMap IntMap.!) . reaches' edges . mapMaybe (vtxMap Map.!?)
 
 -- | Gets the set of vertices that are immediate neighbors of the specified
 -- vertex
@@ -191,6 +187,30 @@ findTrailFrom DynGraph{..} f = go
             return $ map (first (idxMap IntMap.!)) next
 
 {-------------------------------------------------------------------------------
+  Deletion
+-------------------------------------------------------------------------------}
+
+-- | Delete edges
+--
+-- This function deletes all edges between a given vertex and any vertex in the
+-- specified list.  It never deletes vertices, even if removing edges results in
+-- a disconnected graph.
+deleteEdges :: Ord a => a -> [a] -> DynGraph l a -> DynGraph l a
+deleteEdges vFrom vs dynGraph@DynGraph{..}
+    | null vs   = dynGraph
+    | otherwise = case Map.lookup vFrom vtxMap of
+        Just ixFrom ->
+          let ixs = IntSet.fromList $ mapMaybe (vtxMap Map.!?) vs
+              f   = mne . Set.filter ((`IntSet.notMember` ixs) . fst)
+          in  dynGraph { edges = IntMap.update f ixFrom edges }
+        Nothing -> dynGraph
+  where
+    mne :: Set a -> Maybe (Set a)
+    mne s
+      | Set.null s = Nothing
+      | otherwise  = Just s
+
+{-------------------------------------------------------------------------------
   Internal
 -------------------------------------------------------------------------------}
 
@@ -209,23 +229,24 @@ insertVertex' v dynGraph@DynGraph{..} =
     idxMap' :: IntMap a
     idxMap' = IntMap.insert i' v idxMap
 
--- | Get a list of vertex indexes reachable from the specified vertex index in
--- the specified edge map
+-- | Get the set of vertices that are reachable from any of the specified
+-- vertices
 --
--- The specified vertex index is included in the list.
+-- The specified vertices are included in the set (assuming that they are in
+-- the graph).
 --
 -- Note that 'Map' is used so that lookup and insertion can be performed at the
 -- same time.
-reaches' :: Ord l => IntMap (Set (Int, l)) -> Int -> [Int]
-reaches' edgeMap = aux Map.empty . pure
+reaches' :: IntMap (Set (Int, l)) -> [Int] -> Set Int
+reaches' edgeMap = aux Map.empty
   where
-    aux :: Map Int () -> [Int] -> [Int]
-    aux acc [] = Map.keys acc
-    aux acc (x:xs) =
-      case Map.insertLookupWithKey (\_key _new old -> old) x () acc of
-        (Just (), _)    -> aux acc xs
+    aux :: Map Int () -> [Int] -> Set Int
+    aux acc []         = Map.keysSet acc
+    aux acc (idx:idxs) =
+      case Map.insertLookupWithKey (\_key _new old -> old) idx () acc of
+        (Just (), _)    -> aux acc idxs
         (Nothing, acc') -> aux acc' $
-          map fst (Set.toList (IntMap.findWithDefault mempty x edgeMap)) ++ xs
+          maybe [] (map fst . Set.toList) (IntMap.lookup idx edgeMap) ++ idxs
 
 -- | Gets a topological sort of the graph
 topSort' :: DynGraph l a -> [Int]
@@ -237,7 +258,7 @@ dff' :: DynGraph l a -> [Tree Int]
 dff' dynGraph@DynGraph{..} = dfs' dynGraph (IntMap.keys idxMap)
 
 -- | Gets a spanning forest of the part of the graph reachable from the listed
--- vertext indexes, obtained from a depth-first search of the graph starting at
+-- vertex indexes, obtained from a depth-first search of the graph starting at
 -- each of the listed vertex indexes in order
 dfs' :: forall l a. DynGraph l a -> [Int] -> [Tree Int]
 dfs' DynGraph{..} idxs0 = case Map.size vtxMap of

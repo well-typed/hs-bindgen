@@ -17,7 +17,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
     -- ** "State"
   , recordMacroExpansionAt
   , checkHasMacroExpansion
-  , recordNonSelectedDecl
+  , recordNonParsedDecl
     -- ** Logging
   , recordTrace
     -- ** Errors
@@ -36,19 +36,17 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import HsBindgen.C.Predicate (IsMainFile, Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
-import HsBindgen.Frontend.NonSelectedDecls qualified as NonSelectedDecls
+import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
+import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -72,23 +70,24 @@ data ParseSupport = ParseSupport {
 
 type instance Support ParseDeclMonad = ParseSupport
 
-run :: Env -> ParseDecl a -> IO (NonSelectedDecls, a)
+run :: Env -> ParseDecl a -> IO (NonParsedDecls, a)
 run env f = do
     support <- ParseSupport env <$> newIORef initParseState
     x <- unwrapEff f support
-    (, x) . stateNonSelectedDecls <$> readIORef (parseState support)
+    (, x) . stateNonParsedDecls <$> readIORef (parseState support)
 
 {-------------------------------------------------------------------------------
   "Reader"
 -------------------------------------------------------------------------------}
 
 data Env = Env {
-      envUnit          :: CXTranslationUnit
-    , envRootHeader    :: RootHeader
-    , envIsMainFile    :: IsMainFile
-    , envGetMainHeader :: GetMainHeader
-    , envPredicate     :: Predicate
-    , envTracer        :: Tracer IO ParseMsg
+      envUnit              :: CXTranslationUnit
+    , envRootHeader        :: RootHeader
+    , envIsMainHeader      :: Predicate.IsMainHeader
+    , envIsInMainHeaderDir :: Predicate.IsInMainHeaderDir
+    , envGetMainHeader     :: GetMainHeader
+    , envPredicate         :: Predicate.ParsePredicate
+    , envTracer            :: Tracer IO ParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -101,12 +100,13 @@ evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
 
 evalPredicate :: C.DeclInfo Parse -> C.NameKind -> ParseDecl Bool
 evalPredicate info kind = wrapEff $ \ParseSupport{parseEnv} -> do
-    let selected = Predicate.match
-                     (envIsMainFile parseEnv)
+    let selected = Predicate.matchParse
+                     (envIsMainHeader parseEnv)
+                     (envIsInMainHeaderDir parseEnv)
                      (C.declLoc info)
-                     (qualPrelimDeclId (C.declId info) kind)
+                     (C.qualPrelimDeclId (C.declId info) kind)
                      (envPredicate parseEnv)
-    unless selected $ traceWith (envTracer parseEnv) (ParseSkipped info)
+    unless selected $ traceWith (envTracer parseEnv) (ParseExcluded info)
     return selected
 
 {-------------------------------------------------------------------------------
@@ -119,17 +119,17 @@ data ParseState = ParseState {
       -- Declarations with expanded macros need to be reparsed.
       stateMacroExpansions :: Set SingleLoc
 
-      -- | Non-selected declarations
+      -- | Non-parsed declarations
       --
-      -- We need to track which header each omitted declaration is declared in
+      -- We need to track which header each excluded declaration is declared in
       -- so that we can resolve external bindings.
-    , stateNonSelectedDecls :: NonSelectedDecls
+    , stateNonParsedDecls :: NonParsedDecls
     }
 
 initParseState :: ParseState
 initParseState = ParseState{
       stateMacroExpansions  = Set.empty
-    , stateNonSelectedDecls = NonSelectedDecls.empty
+    , stateNonParsedDecls = NonParsedDecls.empty
     }
 
 recordMacroExpansionAt :: SingleLoc -> ParseDecl ()
@@ -161,17 +161,17 @@ checkHasMacroExpansion extent = do
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
 
-recordNonSelectedDecl :: C.DeclInfo Parse -> C.NameKind -> ParseDecl ()
-recordNonSelectedDecl declInfo nameKind =
+recordNonParsedDecl :: C.DeclInfo Parse -> C.NameKind -> ParseDecl ()
+recordNonParsedDecl declInfo nameKind =
     case declName of
       Just cname -> do
         let cQualName  = C.QualName cname nameKind
             sourcePath = singleLocPath (C.declLoc declInfo)
         wrapEff $ \ParseSupport{parseState} ->
           modifyIORef parseState $ \st -> st{
-              stateNonSelectedDecls =
-                NonSelectedDecls.insert cQualName sourcePath $
-                  stateNonSelectedDecls st
+              stateNonParsedDecls =
+                NonParsedDecls.insert cQualName sourcePath $
+                  stateNonParsedDecls st
             }
       Nothing ->
         -- We __do not track unselected anonymous declarations__. If we want to
@@ -181,9 +181,9 @@ recordNonSelectedDecl declInfo nameKind =
   where
     declName :: Maybe C.Name
     declName = case C.declId declInfo of
-      PrelimDeclIdNamed   cname   -> Just cname
-      PrelimDeclIdAnon{}          -> Nothing
-      PrelimDeclIdBuiltin builtin -> Just builtin
+      C.PrelimDeclIdNamed   cname   -> Just cname
+      C.PrelimDeclIdAnon{}          -> Nothing
+      C.PrelimDeclIdBuiltin builtin -> Just builtin
 
 {-------------------------------------------------------------------------------
   Logging

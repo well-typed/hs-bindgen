@@ -14,12 +14,11 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.NonSelectedDecls (NonSelectedDecls)
+import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint
 
@@ -31,7 +30,7 @@ type Parse :: Pass
 data Parse a deriving anyclass ValidPass
 
 type family AnnParse (ix :: Symbol) :: Star where
-  AnnParse "TranslationUnit" = NonSelectedDecls
+  AnnParse "TranslationUnit" = NonParsedDecls
   AnnParse "StructField"     = ReparseInfo
   AnnParse "UnionField"      = ReparseInfo
   AnnParse "Typedef"         = ReparseInfo
@@ -39,7 +38,7 @@ type family AnnParse (ix :: Symbol) :: Star where
   AnnParse _                 = NoAnn
 
 instance IsPass Parse where
-  type Id         Parse = PrelimDeclId
+  type Id         Parse = C.PrelimDeclId
   type FieldName  Parse = C.Name
   type TypedefRef Parse = C.Name
   type MacroBody  Parse = UnparsedMacro
@@ -84,8 +83,8 @@ getUnparsedMacro unit curr = do
 -- could reasonably expect to be supported eventually, and \"unexpected\", for
 -- strange C input.
 data ParseMsg =
-    -- | We skipped over a declaration
-    ParseSkipped (C.DeclInfo Parse)
+    -- | We excluded a declaration
+    ParseExcluded (C.DeclInfo Parse)
 
     -- | Unsupported type
     --
@@ -171,8 +170,8 @@ data ParseMsg =
 
 instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
-      ParseSkipped info ->
-          prettyForTrace info >< " not selected"
+      ParseExcluded info ->
+          prettyForTrace info >< " excluded"
       ParseUnsupportedType info err -> noBindingsGenerated info $
           prettyForTrace err
       ParseUnsupportedImplicitFields info -> noBindingsGenerated info $
@@ -207,7 +206,7 @@ instance PrettyForTrace ParseMsg where
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel ParseMsg where
   getDefaultLogLevel = \case
-      ParseSkipped{}                   -> Info
+      ParseExcluded{}                  -> Info
       ParseUnsupportedType _ctxt err   -> getDefaultLogLevel err
       ParseUnsupportedImplicitFields{} -> Warning
       ParseUnexpectedAnonInSignature{} -> Warning

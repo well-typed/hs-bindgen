@@ -5,180 +5,243 @@
 -- > import HsBindgen.C.Predicate (Predicate(..))
 -- > import HsBindgen.C.Predicate qualified as Predicate
 module HsBindgen.C.Predicate (
+    -- * Definition
     Predicate (..)
+  , HeaderPathPredicate (..)
+  , DeclPredicate (..)
+  , ParsePredicate
+  , SelectPredicate
   , Regex -- opaque
     -- * Execution (internal API)
-  , IsMainFile
-  , match
+  , IsMainHeader
+  , mkIsMainHeader
+  , IsInMainHeaderDir
+  , mkIsInMainHeaderDir
+  , matchParse
+  , matchSelect
     -- * Merging
   , mergePredicates
   ) where
 
+import Data.List qualified as List
+import Data.Set qualified as Set
+import System.FilePath qualified as FilePath
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text ()
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
--- | Select which definitions in the C header(s) we want to keep
-data Predicate =
-    -- | The filter that always matches
-    --
-    -- Base case when combining predicates with AND.
-    SelectAll
+-- | Predicate that determines which declarations should be kept
+data Predicate a =
+    -- | Match any declaration
+    PTrue
 
-    -- | The filter that never matches
-    --
-    -- Base case when combining predicates with OR.
-  | SelectNone
+    -- | Match no declaration
+  | PFalse
 
     -- | Logical conjunction
-    --
-    -- Used to combine negated predicates.
-  | SelectIfBoth Predicate Predicate
+  | PAnd (Predicate a) (Predicate a)
 
     -- | Logical disjunction
-    --
-    -- Used to combine positive predicates.
-  | SelectIfEither Predicate Predicate
+  | POr (Predicate a) (Predicate a)
 
     -- | Logical negation
-    --
-    -- Used to negate selection predicates
-  | SelectNegate Predicate
+  | PNot (Predicate a)
 
-    -- | Include definitions in main files (and not in included files)
-  | SelectFromMainFiles
-
-    -- | Match filename against regex
-  | SelectByFileName Regex
-
-    -- | Match element against regex
-  | SelectByElementName Regex
+    -- | Concrete predicates
+  | PIf a
   deriving (Show, Eq)
 
-instance Default Predicate where
-  def :: Predicate
-  def = SelectFromMainFiles
+-- | Predicate that determines which declarations should be kept, based on
+-- header paths
+data HeaderPathPredicate =
+    -- | Only include declarations in main headers (not included headers)
+    FromMainHeaders
+
+    -- | Only include declarations in headers in main header directories,
+    -- including subdirectories
+  | FromMainHeaderDirs
+
+    -- | Match header path against regex
+  | HeaderPathMatches Regex
+  deriving (Show, Eq)
+
+-- | Predicate that determines which declarations should be kept, based on the
+-- declarations themselves
+newtype DeclPredicate =
+    -- | Match declaration name against regex
+    DeclNameMatches Regex
+  deriving (Show, Eq)
+
+-- | Predicates for the @Parse@ pass select based on header file paths
+type ParsePredicate = Predicate HeaderPathPredicate
+
+instance Default ParsePredicate where
+  def = PIf FromMainHeaderDirs
+
+-- | Predicates for the @Select@ pass select based on header file paths or the
+-- declarations themselves
+type SelectPredicate = Predicate (Either HeaderPathPredicate DeclPredicate)
+
+instance Default SelectPredicate where
+  def = PIf (Left FromMainHeaders)
 
 {-------------------------------------------------------------------------------
-  Match
+  Execution
 
   NOTE: This is internal API (users construct filters, but don't use them).
 -------------------------------------------------------------------------------}
 
--- | Check if a declaration is from one of the main files
+-- | Check if a declaration is from one of the main headers
 --
--- This check is somewhat subtle, and we punt on the precise implementation in
--- this module. See "HsBindgen.Frontend.ProcessIncludes" for discussion.
-type IsMainFile = SingleLoc -> Bool
+-- Dealing with main headers is somewhat subtle.  See
+-- "HsBindgen.Frontend.ProcessIncludes" for discussion.
+type IsMainHeader = SingleLoc -> Bool
 
--- | Match predicate
---
--- NOTE: We never select builtins:
---
--- * Builtins don't have declarations, therefore "selecting" them makes no
---   sense. We will never have to deal with builtins when processing def sites
---   (`Parse.Decl`)
--- * We /may/ have to deal with builtins at _use sites_ (`Parse.Type`), where
---   we'd have to special case them and map them to types we define, or indeed
---   deal with them in external bindings (they _do_ get added to
---   `nonSelectedDecls`, for example).
-match ::
-     IsMainFile
-  -> SingleLoc
-  -> QualPrelimDeclId
-  -> Predicate
-  -> Bool
-match isMainFile loc qid = \p ->
-       not (isBuiltin qid)
-    && go p
+-- | Construct an 'IsMainHeader' function for the given main header paths
+mkIsMainHeader ::
+     Set SourcePath -- ^ Main header paths
+  -> IsMainHeader
+mkIsMainHeader paths loc = singleLocPath loc `Set.member` paths
+
+-- | Check if a declaration is in a main header directory, including
+-- subdirectories
+type IsInMainHeaderDir = SingleLoc -> Bool
+
+-- | Construct an 'IsInMainHeaderDir' function for the given main header paths
+mkIsInMainHeaderDir ::
+     Set SourcePath -- ^ Main header paths
+  -> IsInMainHeaderDir
+mkIsInMainHeaderDir paths loc =
+    let dir = FilePath.splitDirectories . FilePath.takeDirectory $
+          getSourcePath (singleLocPath loc)
+    in  any (`List.isPrefixOf` dir) mainDirs
   where
-    go :: Predicate -> Bool
-    go p =
-        -- NOTE: The semantics we implement here /MUST/ line up with @reduce@.
-        --
-        -- As long the interpretation of
-        --
-        -- o 'SelectAll'
-        -- o 'SelectNone'
-        -- o 'SelectIfBoth'
-        -- o 'SelectIfEither'
-        -- o 'SelectNegate'
-        --
-        -- is just the "obvious" boolean interpretation, this will be ok.
-        case reduce p of
-          -- Boolean logic
-          SelectAll            -> True
-          SelectNone           -> False
-          SelectIfBoth   p1 p2 -> go p1 && go p2
-          SelectIfEither p1 p2 -> go p1 || go p2
-          SelectNegate   p1    -> not (go p1)
-          -- Special cases
-          SelectFromMainFiles    -> isMainFile loc
-          SelectByFileName re    -> matchFilename    re $ singleLocPath loc
-          SelectByElementName re -> matchElementName re $ qid
+    mainDirs :: [[FilePath]]
+    mainDirs = map FilePath.splitDirectories . Set.toList $
+      Set.map (FilePath.takeDirectory . getSourcePath) paths
 
-    matchFilename :: Regex -> SourcePath -> Bool
-    matchFilename re (SourcePath path) = matchTest re path
+-- | Match 'ParsePredicate' predicates
+--
+-- * Built-ins don't have declarations, therefore /selecting/ them makes no
+--   sense.   We never have to deal with built-ins when processing def sites
+--   (@Parse.Decl@).
+-- * We /may/ have to deal with built-ins at __use sites__ (@Parse.Type@), where
+--   we'd have to special case them and map them to types we define, or indeed
+--   deal with them in external bindings (they /do/ get added to
+--   `nonSelectedDecls`, for example).
+matchParse ::
+     IsMainHeader
+  -> IsInMainHeaderDir
+  -> SingleLoc
+  -> C.QualPrelimDeclId
+  -> ParsePredicate
+  -> Bool
+matchParse isMainHeader isInMainHeaderDir loc qid
+    | isBuiltin = const False
+    | otherwise = eval (matchHeaderPath isMainHeader isInMainHeaderDir loc)
+  where
+    isBuiltin :: Bool
+    isBuiltin = case qid of
+      C.QualPrelimDeclIdBuiltin{} -> True
+      _otherwise                  -> False
 
-    matchElementName :: Regex -> QualPrelimDeclId -> Bool
-    matchElementName re = \case
-      QualPrelimDeclIdNamed name kind ->
-        matchTest re (C.qualNameText $ C.QualName name kind)
-      _otherwise -> False
-
-isBuiltin :: QualPrelimDeclId -> Bool
-isBuiltin = \case
-    QualPrelimDeclIdBuiltin{} -> True
-    _otherwise                -> False
+-- | Match 'SelectPredicate' predicates
+matchSelect ::
+     IsMainHeader
+  -> IsInMainHeaderDir
+  -> SingleLoc
+  -> C.QualDeclId
+  -> SelectPredicate
+  -> Bool
+matchSelect isMainHeader isInMainHeaderDir loc qid = eval $
+    either (matchHeaderPath isMainHeader isInMainHeaderDir loc) (matchDecl qid)
 
 {-------------------------------------------------------------------------------
-  Reduce and merge
+  Merging
 -------------------------------------------------------------------------------}
 
 -- | Merge lists of negative and positive predicates
 --
 -- Combine the negative predicates using AND, and the positive predicates using
 -- OR.
-mergePredicates :: [Predicate] -> [Predicate] -> Predicate
+mergePredicates :: Eq a => [Predicate a] -> [Predicate a] -> Predicate a
 mergePredicates negatives positives =
-    let mergeNeg p q = reduce $ SelectIfBoth (reduce $ SelectNegate $ reduce p) q
-        neg = foldr mergeNeg SelectAll negatives
-        mergePos p q = reduce $ SelectIfEither (reduce p) q
-        pos = foldr mergePos SelectNone positives
-     in reduce $ SelectIfBoth neg pos
+    let mergeNeg p q = reduce $ PAnd (reduce $ PNot $ reduce p) q
+        neg = foldr mergeNeg PTrue negatives
+        mergePos p q = reduce $ POr (reduce p) q
+        pos = foldr mergePos PFalse positives
+     in reduce $ PAnd neg pos
 
--- | Boolean logic reduction (internal API)
+{-------------------------------------------------------------------------------
+  Internal auxiliary: execution
+-------------------------------------------------------------------------------}
+
+-- | Boolean logic reduction
 --
--- NOTE:
---
--- * This is /not/ recursive: we call this at every step in 'match'
--- * This needs to match the semantics of 'match' precisely.
-reduce :: Predicate -> Predicate
+-- * This is /not/ recursive: we call this at every step in 'eval'
+-- * This needs to match the semantics of 'eval' precisely.
+reduce :: Eq a => Predicate a -> Predicate a
 reduce = \case
-  (SelectNegate (SelectNegate p)) -> p
-  (SelectNegate SelectAll)        -> SelectNone
-  (SelectNegate SelectNone)       -> SelectAll
+  PNot (PNot p) -> p
+  PNot PTrue    -> PFalse
+  PNot PFalse   -> PTrue
   --
-  (SelectIfBoth SelectAll q) -> q
-  (SelectIfBoth p SelectAll) -> p
-  (SelectIfBoth p q)
-    | p == SelectNone || q == SelectNone -> SelectNone
+  PAnd PTrue q -> q
+  PAnd p PTrue -> p
+  PAnd p q | p == PFalse || q == PFalse -> PFalse
   --
-  (SelectIfEither SelectNone q) -> q
-  (SelectIfEither p SelectNone) -> p
-  (SelectIfEither p q)
-    | p == SelectAll  || q == SelectAll -> SelectAll
+  POr PFalse q -> q
+  POr p PFalse -> p
+  POr p q | p == PTrue || q == PTrue -> PTrue
   --
   p -> p
+
+-- | Evaluate a predicate
+--
+-- * This needs to match the semantics of 'reduce' precisely.  It should be OK
+--   as long as /obvious/ boolean interpretations are used.
+eval :: forall a.
+     Eq a
+  => (a -> Bool)  -- ^ Evaluation function for concrete predicates
+  -> Predicate a
+  -> Bool
+eval f = go
+  where
+    go :: Predicate a -> Bool
+    go p = case reduce p of
+      PTrue        -> True
+      PFalse       -> False
+      PAnd   p1 p2 -> go p1 && go p2
+      POr    p1 p2 -> go p1 || go p2
+      PNot   p1    -> not (go p1)
+      PIf    p1    -> f p1
+
+-- | Match 'HeaderPathPredicate' predicates
+matchHeaderPath ::
+     IsMainHeader
+  -> IsInMainHeaderDir
+  -> SingleLoc
+  -> HeaderPathPredicate
+  -> Bool
+matchHeaderPath isMainHeader isInMainHeaderDir loc = \case
+    FromMainHeaders      -> isMainHeader loc
+    FromMainHeaderDirs   -> isInMainHeaderDir loc
+    HeaderPathMatches re ->
+      let (SourcePath path) = singleLocPath loc
+       in matchTest re path
+
+-- | Match 'DeclPredicate' predicates
+matchDecl :: C.QualDeclId -> DeclPredicate -> Bool
+matchDecl qid = \case
+    DeclNameMatches re -> matchTest re (C.qualDeclIdText qid)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs
@@ -193,7 +256,7 @@ data Regex = Regex {
 instance Eq Regex where
   x == y = regexString x == regexString y
 
--- | Validatity of the 'Show' instance depends on the 'IsString' instance
+-- | Validity of the 'Show' instance depends on the 'IsString' instance
 instance Show Regex where
   show = show . regexString
 

@@ -6,11 +6,10 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell (ExtHsRef)
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((<+>))
@@ -38,7 +37,7 @@ type family AnnResolveBindingSpec ix where
   AnnResolveBindingSpec _                 = NoAnn
 
 instance IsPass ResolveBindingSpec where
-  type Id         ResolveBindingSpec = DeclId
+  type Id         ResolveBindingSpec = C.DeclId
   type FieldName  ResolveBindingSpec = C.Name
   type TypedefRef ResolveBindingSpec = C.Name
   type MacroBody  ResolveBindingSpec = CheckedMacro ResolveBindingSpec

@@ -8,6 +8,7 @@ module HsBindgen.Frontend.AST.PrettyPrinter (
 import Data.Text qualified as Text
 
 import HsBindgen.Frontend.AST.External
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -118,8 +119,8 @@ showsName namePair = \case
     NameOriginRenamedFrom nm -> showsCName nm
     _otherwise               -> showsCName (nameC namePair)
 
-showsCName :: C.Name -> String -> String
-showsCName = showString . Text.unpack . C.getName
+showsCName :: Name -> String -> String
+showsCName = showString . Text.unpack . getName
 
 showsTypedefName :: TypedefRef -> String -> String
 showsTypedefName (TypedefRegular  np)     = showsName  np NameOriginInSource

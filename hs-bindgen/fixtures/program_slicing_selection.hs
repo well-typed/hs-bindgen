@@ -1,29 +1,4 @@
 [
-  DeclEmpty
-    EmptyData {
-      emptyDataName = HsName
-        "@NsTypeConstr"
-        "C_IO_FILE",
-      emptyDataOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc = "alltypes.h:320:16",
-          declId = NamePair {
-            nameC = Name "_IO_FILE",
-            nameHsIdent = HsIdentifier
-              "C_IO_FILE"},
-          declOrigin = NameOriginInSource,
-          declAliases = [Name "FILE"],
-          declHeader =
-          "program_slicing_selection.h",
-          declComment = Nothing},
-        declKind = OpaqueStruct,
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      emptyDataComment = Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName

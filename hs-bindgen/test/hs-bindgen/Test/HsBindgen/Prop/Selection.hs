@@ -5,7 +5,7 @@ module Test.HsBindgen.Prop.Selection (tests) where
 import Data.String (IsString (fromString))
 import Data.Text qualified as Text
 import Test.Tasty (TestTree, testGroup)
-import Test.Tasty.HUnit (Assertion, testCase, (@?=))
+import Test.Tasty.HUnit (Assertion, HasCallStack, testCase, (@?=))
 import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
                               Fun, Function (function),
                               NonNegative (getNonNegative), Property,
@@ -15,135 +15,217 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.Predicate
-import HsBindgen.Language.C qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.Naming qualified as C
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Prop.Selection" [
-          testGroup "match" [
-            testProperty "all"                    prop_selectAll
-          , testProperty "none"                   prop_selectNone
-          , testProperty "and"                    prop_selectIfBoth
-          , testProperty "or"                     prop_selectIfEither
-          , testProperty "negate"                 prop_selectNegate
-          , testProperty "from-main-files"        prop_selectFromMainFiles
-          , testProperty "by-file-name/all"       prop_selectByFileNameAll
-          , testProperty "by-file-name/needle"    prop_selectByFileNameNeedle
-          , testProperty "by-element-name/all"    prop_selectByElementNameAll
-          , testProperty "by-element-name/needle" prop_selectByElementNameNeedle
-          ]
-        , testGroup "merge" [
-            testProperty "select/none"     prop_mergeSelectNone
-          , testProperty "select/add/all"  prop_mergeAddSelectAll
-          , testProperty "select/add/none" prop_mergeAddSelectNone
-          , testCase     "all/pos"         mergeAllPos
-          , testCase     "all/neg"         mergeAllNeg
-          , testCase     "skip/one"        mergeSkipOne
-          , testCase     "skip/two"        mergeSkipTwo
-          ]
+      testGroup "matchParse" [
+          testProperty "true"                  prop_parseTrue
+        , testProperty "false"                 prop_parseFalse
+        , testProperty "and"                   prop_parseAnd
+        , testProperty "or"                    prop_parseOr
+        , testProperty "not"                   prop_parseNot
+        , testProperty "from-main-headers"     prop_parseFromMainHeaders
+        , testProperty "from-main-header-dirs" prop_parseFromMainHeaderDirs
+        , testProperty "header-path/all"       prop_parseHeaderPathMatchesAll
+        , testProperty "header-path/needle"    prop_parseHeaderPathMatchesNeedle
         ]
+    , testGroup "matchSelect" [
+          testProperty "true"                  prop_selectTrue
+        , testProperty "false"                 prop_selectFalse
+        , testProperty "and"                   prop_selectAnd
+        , testProperty "or"                    prop_selectOr
+        , testProperty "not"                   prop_selectNot
+        , testProperty "from-main-headers"     prop_selectFromMainHeaders
+        , testProperty "from-main-header-dirs" prop_selectFromMainHeaderDirs
+        , testProperty "header-path/all"       prop_selectHeaderPathMatchesAll
+        , testProperty "header-path/needle"    prop_selectHeaderPathMatchesNeedle
+        , testProperty "decl-name/all"         prop_selectDeclNameMatchesAll
+        , testProperty "decl-name/needle"      prop_selectDeclNameMatchesNeedle
+        ]
+    , testGroup "mergePredicates" [
+          testProperty "select/false"     prop_mergeFalse
+        , testProperty "select/add/true"  prop_mergeAddTrue
+        , testProperty "select/add/false" prop_mergeAddFalse
+        , testCase     "true/pos"         mergeTruePos
+        , testCase     "true/neg"         mergeTrueNeg
+        , testCase     "exclude/one"      mergeExcludeOne
+        , testCase     "exclude/two"      mergeExcludeTwo
+        ]
+    ]
 
 {-------------------------------------------------------------------------------
-  Selection properties
+  Parse pass selection properties
 -------------------------------------------------------------------------------}
 
-prop_selectAll :: SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectAll loc qid = match (const True) loc qid SelectAll
+prop_parseTrue :: SingleLoc -> C.QualPrelimDeclId -> Bool
+prop_parseTrue loc qid = matchParse (const True) (const True) loc qid PTrue
 
-prop_selectNone :: SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectNone loc qid = not $ match (const True) loc qid SelectNone
+prop_parseFalse :: SingleLoc -> C.QualPrelimDeclId -> Bool
+prop_parseFalse loc qid =
+    not $ matchParse (const True) (const True) loc qid PFalse
 
-prop_selectIfBoth
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId
-  -> Predicate -> Predicate -> Bool
-prop_selectIfBoth (Fn isMainFile) loc qid p1 p2 =
-  let p1Res = match isMainFile loc qid p1
-      p2Res = match isMainFile loc qid p2
-      p1AndP2Res = match isMainFile loc qid (SelectIfBoth p1 p2)
-   in (p1Res && p2Res) == p1AndP2Res
+prop_parseAnd
+  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
+  -> C.QualPrelimDeclId -> ParsePredicate -> ParsePredicate -> Bool
+prop_parseAnd (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p1 p2 =
+    let p1Res = matchParse isMainHeader isInMainHeaderDir loc qid p1
+        p2Res = matchParse isMainHeader isInMainHeaderDir loc qid p2
+        p1AndP2Res =
+          matchParse isMainHeader isInMainHeaderDir loc qid (PAnd p1 p2)
+     in (p1Res && p2Res) == p1AndP2Res
 
-prop_selectIfEither
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId
-  -> Predicate -> Predicate -> Bool
-prop_selectIfEither (Fn isMainFile) loc qid p1 p2 =
-  let p1Res = match isMainFile loc qid p1
-      p2Res = match isMainFile loc qid p2
-      p1AndP2Res = match isMainFile loc qid (SelectIfEither p1 p2)
-   in (p1Res || p2Res) == p1AndP2Res
+prop_parseOr
+  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
+  -> C.QualPrelimDeclId -> ParsePredicate -> ParsePredicate -> Bool
+prop_parseOr (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p1 p2 =
+    let p1Res = matchParse isMainHeader isInMainHeaderDir loc qid p1
+        p2Res = matchParse isMainHeader isInMainHeaderDir loc qid p2
+        p1OrP2Res =
+          matchParse isMainHeader isInMainHeaderDir loc qid (POr p1 p2)
+     in (p1Res || p2Res) == p1OrP2Res
 
-prop_selectNegate
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Predicate
-  -> Property
-prop_selectNegate (Fn isMainFile) loc qid predicate =
-      match isMainFile loc qid predicate
-  =/= match isMainFile loc qid (SelectNegate predicate)
+prop_parseNot
+  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
+  -> C.QualPrelimDeclId -> ParsePredicate -> Property
+prop_parseNot (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p =
+      matchParse isMainHeader isInMainHeaderDir loc qid p
+  =/= matchParse isMainHeader isInMainHeaderDir loc qid (PNot p)
 
-prop_selectFromMainFiles
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectFromMainFiles (Fn isMainFile) loc qid =
-  match isMainFile loc qid SelectFromMainFiles == isMainFile loc
+prop_parseFromMainHeaders
+  :: Fun SingleLoc Bool -> SingleLoc -> C.QualPrelimDeclId -> Bool
+prop_parseFromMainHeaders (Fn isMainHeader) loc qid =
+  let p = PIf FromMainHeaders
+   in matchParse isMainHeader unused loc qid p == isMainHeader loc
 
-prop_selectByFileNameAll
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectByFileNameAll (Fn isMainFile) loc qid =
-  match isMainFile loc qid (SelectByFileName ".*")
+prop_parseFromMainHeaderDirs
+  :: Fun SingleLoc Bool -> SingleLoc -> C.QualPrelimDeclId -> Bool
+prop_parseFromMainHeaderDirs (Fn isInMainHeaderDir) loc qid =
+  let p = PIf FromMainHeaderDirs
+   in matchParse unused isInMainHeaderDir loc qid p == isInMainHeaderDir loc
 
-prop_selectByFileNameNeedle
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectByFileNameNeedle (Fn isMainFile) loc qid =
-  let (SourcePath sourcePath) = singleLocPath loc
-      sourcePath' = sourcePath <> "NEEDLE" <> sourcePath
-      loc' = loc { singleLocPath = SourcePath sourcePath'}
-   in match isMainFile loc' qid (SelectByFileName "NEEDLE")
+prop_parseHeaderPathMatchesAll :: SingleLoc -> C.QualPrelimDeclId -> Bool
+prop_parseHeaderPathMatchesAll loc qid =
+  let p = PIf (HeaderPathMatches ".*")
+   in matchParse unused unused loc qid p
 
-prop_selectByElementNameAll
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectByElementNameAll (Fn isMainFile) loc qid =
-    maybeNot $ match isMainFile loc qid (SelectByElementName ".*")
-  where
-    maybeNot :: (Bool -> Bool)
-    maybeNot = case qid of
-      QualPrelimDeclIdNamed{} -> id
-      _othewise               -> not
+prop_parseHeaderPathMatchesNeedle :: SingleLoc -> C.QualPrelimDeclId -> Bool
+prop_parseHeaderPathMatchesNeedle loc qid =
+  let (SourcePath path) = singleLocPath loc
+      path' = path <> "NEEDLE" <> path
+      loc' = loc { singleLocPath = SourcePath path' }
+      p = PIf (HeaderPathMatches "NEEDLE")
+   in matchParse unused unused loc' qid p
 
-prop_selectByElementNameNeedle
-  :: Fun SingleLoc Bool -> SingleLoc -> QualPrelimDeclId -> Bool
-prop_selectByElementNameNeedle (Fn isMainFile) loc = \case
-    QualPrelimDeclIdNamed name kind ->
-      let name' = name <> "NEEDLE" <> name
-          qid'  = QualPrelimDeclIdNamed name' kind
-       in match isMainFile loc qid' (SelectByElementName "NEEDLE")
-    _otherwise ->
-      True -- skip
+{-------------------------------------------------------------------------------
+  Select pass selection properties
+-------------------------------------------------------------------------------}
+
+prop_selectTrue :: SingleLoc -> C.QualDeclId -> Bool
+prop_selectTrue loc qid = matchSelect (const True) (const True) loc qid PTrue
+
+prop_selectFalse :: SingleLoc -> C.QualDeclId -> Bool
+prop_selectFalse loc qid =
+    not $ matchSelect (const True) (const True) loc qid PFalse
+
+prop_selectAnd
+  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId
+  -> SelectPredicate -> SelectPredicate -> Bool
+prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p1 p2 =
+    let p1Res = matchSelect isMainHeader isInMainHeaderDir loc qid p1
+        p2Res = matchSelect isMainHeader isInMainHeaderDir loc qid p2
+        p1AndP2Res =
+          matchSelect isMainHeader isInMainHeaderDir loc qid (PAnd p1 p2)
+     in (p1Res && p2Res) == p1AndP2Res
+
+prop_selectOr
+  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId
+  -> SelectPredicate -> SelectPredicate -> Bool
+prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p1 p2 =
+    let p1Res = matchSelect isMainHeader isInMainHeaderDir loc qid p1
+        p2Res = matchSelect isMainHeader isInMainHeaderDir loc qid p2
+        p1OrP2Res =
+          matchSelect isMainHeader isInMainHeaderDir loc qid (POr p1 p2)
+     in (p1Res || p2Res) == p1OrP2Res
+
+prop_selectNot
+  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId
+  -> SelectPredicate -> Property
+prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p =
+      matchSelect isMainHeader isInMainHeaderDir loc qid p
+  =/= matchSelect isMainHeader isInMainHeaderDir loc qid (PNot p)
+
+prop_selectFromMainHeaders
+  :: Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId -> Bool
+prop_selectFromMainHeaders (Fn isMainHeader) loc qid =
+  let p = PIf $ Left FromMainHeaders
+   in matchSelect isMainHeader unused loc qid p == isMainHeader loc
+
+prop_selectFromMainHeaderDirs
+  :: Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId -> Bool
+prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) loc qid =
+  let p = PIf $ Left FromMainHeaderDirs
+   in matchSelect unused isInMainHeaderDir loc qid p == isInMainHeaderDir loc
+
+prop_selectHeaderPathMatchesAll :: SingleLoc -> C.QualDeclId -> Bool
+prop_selectHeaderPathMatchesAll loc qid =
+  let p = PIf $ Left (HeaderPathMatches ".*")
+   in matchSelect unused unused loc qid p
+
+prop_selectHeaderPathMatchesNeedle :: SingleLoc -> C.QualDeclId -> Bool
+prop_selectHeaderPathMatchesNeedle loc qid =
+  let (SourcePath path) = singleLocPath loc
+      path' = path <> "NEEDLE" <> path
+      loc' = loc { singleLocPath = SourcePath path' }
+      p = PIf $ Left (HeaderPathMatches "NEEDLE")
+   in matchSelect unused unused loc' qid p
+
+prop_selectDeclNameMatchesAll :: SingleLoc -> C.QualDeclId -> Bool
+prop_selectDeclNameMatchesAll loc qid =
+  let p = PIf $ Right (DeclNameMatches ".*")
+   in matchSelect unused unused loc qid p
+
+prop_selectDeclNameMatchesNeedle :: SingleLoc -> C.QualDeclId -> Bool
+prop_selectDeclNameMatchesNeedle loc qid =
+  let name  = C.qualDeclIdName qid
+      qid'  = qid { C.qualDeclIdName = name <> "NEEDLE" <> name }
+      p     = PIf $ Right (DeclNameMatches "NEEDLE")
+   in matchSelect unused unused loc qid' p
 
 {-------------------------------------------------------------------------------
   Match tests and properties
 -------------------------------------------------------------------------------}
 
-prop_mergeSelectNone :: [Predicate] -> Property
-prop_mergeSelectNone ps = mergePredicates ps [] === SelectNone
+prop_mergeFalse :: [ParsePredicate] -> Property
+prop_mergeFalse ps = mergePredicates ps [] === PFalse
 
-prop_mergeAddSelectAll :: [Predicate] -> [Predicate] -> Property
-prop_mergeAddSelectAll ps qs =
-  mergePredicates ps [SelectAll] === mergePredicates ps (SelectAll : qs)
+prop_mergeAddTrue :: [ParsePredicate] -> [ParsePredicate] -> Property
+prop_mergeAddTrue ps qs =
+  mergePredicates ps [PTrue] === mergePredicates ps (PTrue : qs)
 
-prop_mergeAddSelectNone :: [Predicate] -> [Predicate] -> Property
-prop_mergeAddSelectNone ps qs =
-  mergePredicates ps qs === mergePredicates (SelectNone : ps) qs
+prop_mergeAddFalse :: [ParsePredicate] -> [ParsePredicate] -> Property
+prop_mergeAddFalse ps qs =
+  mergePredicates ps qs === mergePredicates (PFalse : ps) qs
 
-mergeAllPos, mergeAllNeg :: Assertion
-mergeAllPos = mergePredicates [] [SelectAll] @?= SelectAll
-mergeAllNeg = mergePredicates [SelectNone] [SelectAll] @?= SelectAll
+mergeTruePos, mergeTrueNeg :: Assertion
+mergeTruePos =
+  mergePredicates @HeaderPathPredicate []       [PTrue] @?= PTrue
+mergeTrueNeg =
+  mergePredicates @HeaderPathPredicate [PFalse] [PTrue] @?= PTrue
 
-mergeSkipOne :: Assertion
-mergeSkipOne = mergePredicates [SelectByElementName "a"] [SelectAll]
-                @?= SelectNegate (SelectByElementName "a")
+mergeExcludeOne :: Assertion
+mergeExcludeOne = mergePredicates [p] [PTrue] @?= PNot p
+  where
+    p :: SelectPredicate
+    p = PIf $ Right (DeclNameMatches "a")
 
-mergeSkipTwo :: Assertion
-mergeSkipTwo = mergePredicates [pa, pb] [SelectAll]
-                 @?= SelectIfBoth (SelectNegate pa) (SelectNegate pb)
-  where pa = SelectByElementName "a"
-        pb = SelectByElementName "b"
+mergeExcludeTwo :: Assertion
+mergeExcludeTwo = mergePredicates [pa, pb] [PTrue] @?= PAnd (PNot pa) (PNot pb)
+  where
+    pa, pb :: SelectPredicate
+    pa = PIf $ Right (DeclNameMatches "a")
+    pb = PIf $ Right (DeclNameMatches "b")
 
 {-------------------------------------------------------------------------------
   Helpers
@@ -176,21 +258,40 @@ instance Arbitrary C.Name where
 instance Arbitrary C.NameKind where
   arbitrary = elements [minBound .. maxBound]
 
-instance Arbitrary QualPrelimDeclId where
+instance Arbitrary C.QualPrelimDeclId where
   -- TODO: We currently never produce anonymous or builtin declarations.
   -- In this module we check that selection predicates behave as boolean
   -- functions; this is not true for builtins (which are /never/ selected).
-  arbitrary = QualPrelimDeclIdNamed <$> arbitrary <*> arbitrary
+  arbitrary = C.QualPrelimDeclIdNamed <$> arbitrary <*> arbitrary
 
-instance Arbitrary Predicate where
+instance Arbitrary C.NameOrigin where
+  -- TODO: We currently never produce anonymous or builtin declarations.
+  -- See comment for @Arbitrary C.QualPrelimDeclId@
+  arbitrary = pure C.NameOriginInSource
+
+instance Arbitrary C.QualDeclId where
+  arbitrary = C.QualDeclId <$> arbitrary <*> arbitrary <*> arbitrary
+
+instance Arbitrary ParsePredicate where
   arbitrary = oneof [
-                  pure SelectAll
-                , SelectIfBoth <$> arbitrary <*> arbitrary
-                , SelectNegate <$> arbitrary
-                , pure SelectFromMainFiles
-                , SelectByFileName <$> elements regexPatterns
-                , SelectByElementName <$> elements regexPatterns
-                ]
+      pure PTrue
+    , PAnd <$> arbitrary <*> arbitrary
+    , PNot <$> arbitrary
+    , pure (PIf FromMainHeaders)
+    , pure (PIf FromMainHeaderDirs)
+    , PIf . HeaderPathMatches <$> elements regexPatterns
+    ]
+
+instance Arbitrary SelectPredicate where
+  arbitrary = oneof [
+      pure PTrue
+    , PAnd <$> arbitrary <*> arbitrary
+    , PNot <$> arbitrary
+    , pure (PIf (Left FromMainHeaders))
+    , pure (PIf (Left FromMainHeaderDirs))
+    , PIf . Left  . HeaderPathMatches <$> elements regexPatterns
+    , PIf . Right . DeclNameMatches   <$> elements regexPatterns
+    ]
 
 regexPatterns :: [Regex]
 regexPatterns = map fromString
@@ -229,3 +330,6 @@ regexPatterns = map fromString
   , ""
   , "^$"
   ]
+
+unused :: HasCallStack => a
+unused = panicPure "unexpected use"

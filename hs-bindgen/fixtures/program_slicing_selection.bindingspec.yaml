@@ -17,7 +17,3 @@ types:
   - Read
   - Show
   - Storable
-- headers: program_slicing_selection.h
-  cname: struct _IO_FILE
-  module: Example
-  identifier: C_IO_FILE

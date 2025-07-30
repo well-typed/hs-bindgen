@@ -10,7 +10,6 @@
 -- addDependentFile examples/golden/program_slicing_selection.h
 -- #include "program_slicing_selection.h"
 -- enum FileOperationStatus test_internal_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }
-data C_IO_FILE
 newtype FileOperationStatus
     = FileOperationStatus {un_FileOperationStatus :: CInt}
     deriving stock (Eq, Ord)

@@ -23,7 +23,7 @@ import Data.Map.Strict qualified as Map
 import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -37,7 +37,7 @@ import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 --
 -- This excludes declarations that were not excluded by the selection predicate.
 newtype DeclIndex = Wrap {
-      unwrap :: Map NsPrelimDeclId (C.Decl Parse)
+      unwrap :: Map C.NsPrelimDeclId (C.Decl Parse)
     }
   deriving stock (Show, Eq)
 
@@ -47,8 +47,8 @@ newtype DeclIndex = Wrap {
 
 -- | Construction state (internal type)
 data PartialIndex = PartialIndex{
-      index  :: !(Map NsPrelimDeclId (C.Decl Parse))
-    , errors :: !(Map NsPrelimDeclId DeclIndexError)
+      index  :: !(Map C.NsPrelimDeclId (C.Decl Parse))
+    , errors :: !(Map C.NsPrelimDeclId DeclIndexError)
     }
 
 fromDecls :: [C.Decl Parse] -> (DeclIndex, [DeclIndexError])
@@ -78,7 +78,7 @@ fromDecls decls =
                          Just e  -> Map.insert nsid e errors
             }
      where
-       nsid :: NsPrelimDeclId
+       nsid :: C.NsPrelimDeclId
        nsid = C.declNsPrelimDeclId decl
 
     insert ::
@@ -133,7 +133,7 @@ sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
 
 data DeclIndexError =
     Redeclaration {
-        redeclarationId  :: NsPrelimDeclId
+        redeclarationId  :: C.NsPrelimDeclId
       , redeclarationOld :: SingleLoc
       , redeclarationNew :: SingleLoc
       }
@@ -159,10 +159,10 @@ instance HasDefaultLogLevel DeclIndexError where
   Query
 -------------------------------------------------------------------------------}
 
-lookup :: NsPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
+lookup :: C.NsPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
 lookup nsid = Map.lookup nsid . unwrap
 
-(!) :: HasCallStack => DeclIndex -> NsPrelimDeclId -> C.Decl Parse
+(!) :: HasCallStack => DeclIndex -> C.NsPrelimDeclId -> C.Decl Parse
 (!) declIndex nsid =
     fromMaybe (panicPure $ "Unknown key: " ++ show nsid) $
        lookup nsid declIndex

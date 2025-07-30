@@ -10,7 +10,6 @@ import Control.Monad
 
 import Clang.LowLevel.Core
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
-import HsBindgen.C.Predicate (Predicate (SelectAll))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
@@ -27,8 +26,8 @@ import HsBindgen.Frontend.Pass.Parse (parseDecls)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
-import HsBindgen.Frontend.Pass.Slice
-import HsBindgen.Frontend.Pass.Slice.IsPass
+import HsBindgen.Frontend.Pass.Select
+import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.ProcessIncludes
@@ -46,10 +45,10 @@ import Text.SimplePrettyPrint (showToCtxDoc)
 --
 -- 1. 'Parse'
 -- 2. 'Sort'
--- 3. 'Slice'
--- 4. 'HandleMacros'
--- 5. 'NameAnon'
--- 6. 'ResolveBindingSpec'
+-- 3. 'HandleMacros'
+-- 4. 'NameAnon'
+-- 5. 'ResolveBindingSpec'
+-- 6. 'Select'
 -- 7. 'HandleTypedefs'
 -- 8. 'MangleNames'
 --
@@ -81,6 +80,11 @@ import Text.SimplePrettyPrint (showToCtxDoc)
 -- - 'ResolveBindingSpec' must come before 'HandleTypedefs' to enable users to
 --   configure if a specific typedef is squashed for not.
 --
+-- - 'Select' must come after 'ResolveBindingSpec' so that selection is done
+--   after declarations have been omitted via prescriptive binding
+--   specification.  It must come before 'HandleTypedefs' because selection
+--   should be done before renaming to be consistent with 'ResolveBindingSpec'.
+--
 -- - 'MangleNames': Name mangling depends on information from the binding spec,
 --   and must therefore happen after 'ResolveBindingSpec'. It could be put into
 --   the 'Hs' phase, but we have to draw the line somewhere.
@@ -98,18 +102,17 @@ processTranslationUnit
   pSpec
   rootHeader
   unit = do
-    (includeGraph, isMainFile, getMainHeader) <- processIncludes rootHeader unit
-    let predicateParse = case configProgramSlicing of
-          EnableProgramSlicing  -> SelectAll
-          DisableProgramSlicing -> configPredicate
+    (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader) <-
+      processIncludes rootHeader unit
 
     afterParse <-
       parseDecls
         (contramap FrontendParse tracer)
         rootHeader
-        predicateParse
+        configParsePredicate
         includeGraph
-        isMainFile
+        isMainHeader
+        isInMainHeaderDir
         getMainHeader
         unit
 
@@ -117,16 +120,16 @@ processTranslationUnit
 
     let (afterSort, msgsSort) =
           sortDecls afterParse
-        (afterSlice, msgsSlice) =
-          sliceDecls isMainFile sliceConfig afterSort
         (afterHandleMacros, msgsHandleMacros) =
-          handleMacros afterSlice
+          handleMacros afterSort
         (afterNameAnon, msgsNameAnon) =
           nameAnon afterHandleMacros
         (afterResolveBindingSpec, msgsResolveBindingSpecs) =
           resolveBindingSpec extSpec pSpec afterNameAnon
+        (afterSelect, msgsSelect) =
+          selectDecls isMainHeader isInMainHeaderDir selectConfig afterResolveBindingSpec
         (afterHandleTypedefs, msgsHandleTypedefs) =
-          handleTypedefs afterResolveBindingSpec
+          handleTypedefs afterSelect
         (afterMangleNames, msgsMangleNames) =
           mangleNames afterHandleTypedefs
 
@@ -134,17 +137,17 @@ processTranslationUnit
     --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
     forM_ msgsSort                $ traceWith tracer . FrontendSort
-    forM_ msgsSlice               $ traceWith tracer . FrontendSlice
     forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
     forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
     forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
+    forM_ msgsSelect              $ traceWith tracer . FrontendSelect
     forM_ msgsHandleTypedefs      $ traceWith tracer . FrontendHandleTypedefs
     forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
 
     return $ finalize afterMangleNames
   where
-    sliceConfig :: SliceConfig
-    sliceConfig = SliceConfig configProgramSlicing configPredicate
+    selectConfig :: SelectConfig
+    selectConfig = SelectConfig configProgramSlicing configSelectPredicate
 
 {-------------------------------------------------------------------------------
   Logging
@@ -156,7 +159,7 @@ processTranslationUnit
 data FrontendMsg =
     FrontendParse (Msg Parse)
   | FrontendSort (Msg Sort)
-  | FrontendSlice (Msg Slice)
+  | FrontendSelect (Msg Select)
   | FrontendHandleMacros (Msg HandleMacros)
   | FrontendNameAnon (Msg NameAnon)
   | FrontendResolveBindingSpecs (Msg ResolveBindingSpec)
@@ -168,7 +171,7 @@ instance PrettyForTrace FrontendMsg where
   prettyForTrace = \case
     FrontendParse               x -> prettyForTrace x
     FrontendSort                x -> prettyForTrace x
-    FrontendSlice               x -> prettyForTrace x
+    FrontendSelect              x -> prettyForTrace x
     FrontendHandleMacros        x -> prettyForTrace x
     FrontendNameAnon            x -> prettyForTrace x
     FrontendResolveBindingSpecs x -> showToCtxDoc x -- TODO
@@ -179,7 +182,7 @@ instance HasDefaultLogLevel FrontendMsg where
   getDefaultLogLevel = \case
     FrontendParse               x -> getDefaultLogLevel x
     FrontendSort                x -> getDefaultLogLevel x
-    FrontendSlice               x -> getDefaultLogLevel x
+    FrontendSelect              x -> getDefaultLogLevel x
     FrontendHandleMacros        x -> getDefaultLogLevel x
     FrontendNameAnon            x -> getDefaultLogLevel x
     FrontendResolveBindingSpecs _ -> Error
