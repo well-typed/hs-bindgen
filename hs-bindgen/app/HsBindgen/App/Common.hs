@@ -348,11 +348,11 @@ parseParsePredicate = fmap aux . many . asum $ [
         ]
     , flag' (Right (PIf FromMainHeaders)) $ mconcat [
           long "parse-from-main-headers"
-        , help "Parse declarations in main headers (default)"
+        , help "Parse declarations in main headers"
         ]
     , flag' (Right (PIf FromMainHeaderDirs)) $ mconcat [
           long "parse-from-main-header-dirs"
-        , help "Parse declarations in main header directories"
+        , help "Parse declarations in main header directories (default)"
         ]
     , fmap (Right . PIf . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-by-header-path"
@@ -378,11 +378,11 @@ parseSelectPredicate :: Parser SelectPredicate
 parseSelectPredicate = fmap aux . many . asum $ [
       flag' (Right PTrue) $ mconcat [
           long "select-all"
-        , help "Select all declarations (default)"
+        , help "Select all declarations"
         ]
     , flag' (Right (PIf (Left FromMainHeaders))) $ mconcat [
           long "select-from-main-headers"
-        , help "Select declarations in main headers"
+        , help "Select declarations in main headers (default)"
         ]
     , flag' (Right (PIf (Left FromMainHeaderDirs))) $ mconcat [
           long "select-from-main-header-dirs"

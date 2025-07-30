@@ -84,14 +84,14 @@ newtype DeclPredicate =
 type ParsePredicate = Predicate HeaderPathPredicate
 
 instance Default ParsePredicate where
-  def = PIf FromMainHeaders
+  def = PIf FromMainHeaderDirs
 
 -- | Predicates for the @Select@ pass select based on header file paths or the
 -- declarations themselves
 type SelectPredicate = Predicate (Either HeaderPathPredicate DeclPredicate)
 
 instance Default SelectPredicate where
-  def = PTrue
+  def = PIf (Left FromMainHeaders)
 
 {-------------------------------------------------------------------------------
   Execution
