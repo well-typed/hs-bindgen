@@ -163,8 +163,8 @@ data IncludeDir =
 
 -- | Options (opaque, but with record selector functions exported).
 data HashIncludeOpts = HashIncludeOpts {
-    extraQuoteIncludeDirs  :: [IncludeDir]
-  , extraSystemIncludeDirs :: [IncludeDir]
+    extraSystemIncludeDirs :: [IncludeDir]
+  , extraQuoteIncludeDirs  :: [IncludeDir]
     -- * Binding specifications
   , bindingSpecConfig      :: BindingSpecConfig
     -- * Tracer
@@ -175,8 +175,8 @@ data HashIncludeOpts = HashIncludeOpts {
 
 instance Default HashIncludeOpts where
   def = HashIncludeOpts {
-      extraQuoteIncludeDirs  = []
-    , extraSystemIncludeDirs = []
+      extraSystemIncludeDirs = []
+    , extraQuoteIncludeDirs  = []
     , bindingSpecConfig      = def
     , tracerTracerConfig     = def { tVerbosity = Verbosity Notice }
     , tracerCustomLogLevel   = mempty
@@ -204,12 +204,13 @@ newtype WithHsBindgenState = WithHsBindgenState {
 -- >   hashInclude "b.h"
 withHsBindgen :: HashIncludeOpts -> WithHsBindgenM () -> TH.Q [TH.Dec]
 withHsBindgen HashIncludeOpts{..} hashIncludes = do
+  checkHsBindgenRuntimePreludeIsInScope
   quoteIncludeDirs <- toFilePaths extraQuoteIncludeDirs
   systemIncludeDirs <- toFilePaths extraSystemIncludeDirs
   let clangArgs :: ClangArgs
       clangArgs = def {
-          clangQuoteIncludePathDirs  = CIncludeDir <$> quoteIncludeDirs
-        , clangSystemIncludePathDirs = CIncludeDir <$> systemIncludeDirs
+          clangExtraSystemIncludeDirs = CIncludeDir <$> systemIncludeDirs
+        , clangExtraQuoteIncludeDirs  = CIncludeDir <$> quoteIncludeDirs
         }
       config :: Config
       config = def { configClangArgs = clangArgs }
@@ -310,3 +311,29 @@ genTests Config{..} hashIncludeArgs testDir decls =
       (hsModuleOptsName configHsModuleOpts)
       (hsLineLength configHsRenderOpts)
       testDir
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}
+
+-- See discussion of the PR https://github.com/well-typed/hs-bindgen/pull/957,
+-- in particular https://gitlab.haskell.org/ghc/ghc/-/issues/25774, and
+-- https://gitlab.haskell.org/ghc/ghc/-/issues/8510.
+checkHsBindgenRuntimePreludeIsInScope :: TH.Q ()
+checkHsBindgenRuntimePreludeIsInScope = do
+  maybeTypeName <- TH.lookupTypeName (qualifier ++ "." ++ uniqueTypeName)
+  when (isNothing maybeTypeName) $ fail errMsg
+  where
+    qualifier :: String
+    qualifier = "HsBindgen.Runtime.Prelude"
+
+    uniqueTypeName :: String
+    uniqueTypeName = "HsBindgenRuntimePreludeIsInScope"
+
+    errMsg :: String
+    errMsg = unlines [
+        "'HsBindgen.Runtime.Prelude' is out of scope."
+      , "    Please add the following import to your module:"
+      , ""
+      , "      import qualified HsBindgen.Runtime.Prelude"
+      ]

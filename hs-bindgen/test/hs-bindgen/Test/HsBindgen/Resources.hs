@@ -80,7 +80,7 @@ mkTestClangArgs packageRoot = def {
         (Target_Linux_X86_64, TargetEnvOverride "gnu")
     , clangCStandard = Just $
         C23
-    , clangSystemIncludePathDirs = [
+    , clangExtraSystemIncludeDirs = [
           CIncludeDir (packageRoot </> "musl-include/x86_64")
         ]
     }
@@ -91,7 +91,7 @@ getTestDefaultClangArgs testResources extraIncludeDirs =
   where
     aux :: TestResources -> ClangArgs
     aux TestResources{testPackageRoot, testClangArgs} = testClangArgs{
-          clangQuoteIncludePathDirs =
+          clangExtraQuoteIncludeDirs =
             map (CIncludeDir . (</>) testPackageRoot) extraIncludeDirs
         }
 

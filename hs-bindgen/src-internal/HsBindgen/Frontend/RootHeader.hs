@@ -7,7 +7,7 @@
 module HsBindgen.Frontend.RootHeader (
     RootHeader -- opaque
   , fromMainFiles
-    -- * Filenames passed to @#include@
+    -- * Filenames or paths passed to @#include@
   , HashIncludeArg(..)
   , getHashIncludeArg
   , ParseHashIncludeArgException(..)
@@ -47,30 +47,30 @@ fromMainFiles :: [HashIncludeArg] -> RootHeader
 fromMainFiles = RootHeader
 
 {-------------------------------------------------------------------------------
-  Filenames passed to @#include@
+  Filenames or paths passed to @#include@
 -------------------------------------------------------------------------------}
 
--- | C header path, as specified in an include directive
+-- | C header filename or path, as specified in an @#include@ directive
 --
--- This type represents an unresolved C header path.  It is relative to a
--- directory in the C include search path.
+-- This type represents an unresolved C header filename or path.  It is relative
+-- to a directory in the C include search path.
 --
 -- Forward slashes (@/@) must be used, even on Windows.
 data HashIncludeArg =
-    -- | C header path corresponding to @#include <PATH>@ syntax
-    CHeaderSystemIncludePath FilePath
-  | -- | C header path corresponding to @#include "PATH"@ syntax
-    CHeaderQuoteIncludePath  FilePath
+    -- | C header filename or path corresponding to @#include <PATH>@ syntax
+    System FilePath
+  | -- | C header filename or path corresponding to @#include "PATH"@ syntax
+    Quote  FilePath
   deriving (Eq, Ord, Show)
 
 -- | Get the 'FilePath' representation of a 'HashIncludeArg'
 getHashIncludeArg :: HashIncludeArg -> FilePath
 getHashIncludeArg = \case
-  CHeaderSystemIncludePath path -> path
-  CHeaderQuoteIncludePath  path -> path
+  System path -> path
+  Quote  path -> path
 
--- TODO https://github.com/well-typed/hs-bindgen/issues/958: Rename and use a
--- trace with Warning default log level.
+-- TODO https://github.com/well-typed/hs-bindgen/issues/958: Use a trace with
+-- Warning default log level.
 -- | Failed to parse a 'HashIncludeArg'
 data ParseHashIncludeArgException =
     -- | Path contains a backslash
@@ -89,8 +89,8 @@ instance Exception ParseHashIncludeArgException where
 -- TODO https://github.com/well-typed/hs-bindgen/issues/958: Remove parser.
 -- | Parse a 'HashIncludeArg'
 --
--- Prefix @system:@ is used to construct a 'CHeaderSystemIncludePath'.  No
--- prefix is used to construct a 'CHeaderQuoteIncludePath'.
+-- Prefix @system:@ is used to construct a 'System'.  No prefix is used to
+-- construct a 'Quote'.
 --
 -- This function returns an error if the path is not relative or if it contains
 -- a backslash.
@@ -98,32 +98,32 @@ parseHashIncludeArg ::
      String
   -> Either ParseHashIncludeArgException HashIncludeArg
 parseHashIncludeArg path = case List.stripPrefix "system:" path of
-    Nothing    -> validateHashIncludeArg $ CHeaderQuoteIncludePath  path
-    Just path' -> validateHashIncludeArg $ CHeaderSystemIncludePath path'
+    Nothing    -> validateHashIncludeArg $ Quote  path
+    Just path' -> validateHashIncludeArg $ System path'
 
 validateHashIncludeArg ::
      HashIncludeArg
   -> Either ParseHashIncludeArgException HashIncludeArg
 validateHashIncludeArg = \case
-  (CHeaderQuoteIncludePath path)  -> CHeaderQuoteIncludePath  <$> aux path
-  (CHeaderSystemIncludePath path) -> CHeaderSystemIncludePath <$> aux path
+  (Quote path)  -> Quote  <$> aux path
+  (System path) -> System <$> aux path
   where
     aux :: FilePath -> Either ParseHashIncludeArgException FilePath
     aux path
-      | '\\' `elem` path = Left $ ParseHashIncludeArgBackslash path
+      | '\\' `elem` path         = Left $ ParseHashIncludeArgBackslash path
       | FilePath.isRelative path = Right path
-      | otherwise = Left $ ParseHashIncludeArgNotRelative path
+      | otherwise                = Left $ ParseHashIncludeArgNotRelative path
 
 -- TODO https://github.com/well-typed/hs-bindgen/issues/958: Remove ('system:'
 -- prefix not used anymore).
 -- | Render a 'HashIncludeArg'
 --
--- A 'CHeaderSystemIncludePath' is rendered with a @system:@ prefix.  A
--- 'CHeaderQuoteIncludePath' is rendered without a prefix.
+-- A 'System' is rendered with a @system:@ prefix.  A
+-- 'Quote' is rendered without a prefix.
 renderHashIncludeArg :: HashIncludeArg -> String
 renderHashIncludeArg = \case
-    CHeaderSystemIncludePath path -> "system:" ++ path
-    CHeaderQuoteIncludePath  path -> path
+    System path -> "system:" ++ path
+    Quote  path -> path
 
 
 
@@ -140,8 +140,8 @@ content (RootHeader headers) =
   where
     toLine :: HashIncludeArg -> String
     toLine = \case
-      CHeaderSystemIncludePath path -> "#include <" ++ path ++ ">"
-      CHeaderQuoteIncludePath  path -> "#include \"" ++ path ++ "\""
+      System path -> "#include <"  ++ path ++ ">"
+      Quote  path -> "#include \"" ++ path ++ "\""
 
 {-------------------------------------------------------------------------------
   Query

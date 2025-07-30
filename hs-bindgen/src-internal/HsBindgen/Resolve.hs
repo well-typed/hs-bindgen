@@ -80,8 +80,8 @@ resolveHeader tracer args target =
     setup :: ClangSetup
     setup = defaultClangSetup args $ ClangInputMemory "hs-bindgen-resolve.h" $
         case target of
-          CHeaderSystemIncludePath path -> "#include <"  ++ path ++ ">"
-          CHeaderQuoteIncludePath  path -> "#include \"" ++ path ++ "\""
+          System path -> "#include <"  ++ path ++ ">"
+          Quote  path -> "#include \"" ++ path ++ "\""
 
     visit :: Fold IO SourcePath
     visit = simpleFold $ \curr -> do

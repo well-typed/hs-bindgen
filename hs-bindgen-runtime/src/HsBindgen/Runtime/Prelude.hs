@@ -85,6 +85,13 @@ module HsBindgen.Runtime.Prelude (
     -- * Signal types
     -- $SignalTypes
   , Foreign.C.CSigAtomic(..)
+
+    -- * Array types
+    -- $ArrayTypes
+  , SizedByteArray.SizedByteArray(..)
+
+    -- * Unique type
+  , HsBindgenRuntimePreludeIsInScope
   ) where
 
 import Data.Int qualified
@@ -92,6 +99,7 @@ import Data.Word qualified
 import Foreign.C qualified
 
 import HsBindgen.Runtime.LibC qualified as LibC
+import HsBindgen.Runtime.SizedByteArray qualified as SizedByteArray
 
 {-------------------------------------------------------------------------------
   Primitive types
@@ -339,3 +347,23 @@ import HsBindgen.Runtime.LibC qualified as LibC
 -- accessed as an atomic entity even in the presence of asynchronous signals.
 -- It is defined in the @signal.h@ header file.  'Foreign.C.CSigAtomic', defined
 -- in @base@ with a platform-specific implementation.
+
+{-------------------------------------------------------------------------------
+  Array types
+-------------------------------------------------------------------------------}
+
+-- $ArrayTypes
+--
+-- A 'SizedByteArray.SizedByteArray' is a 'Data.Array.Byte.ByteArray' with given
+-- size.
+
+{-------------------------------------------------------------------------------
+  Unique type
+-------------------------------------------------------------------------------}
+
+-- | A type unique to "HsBindgen.Runtime.Prelude".
+--
+-- We use this type to ensure that "HsBindgen.Runtime.Prelude" is in scope when
+-- generiting bindings with Template Haskell at compile time. We print a helpful
+-- error messaage if the module is not in scope.
+data HsBindgenRuntimePreludeIsInScope
