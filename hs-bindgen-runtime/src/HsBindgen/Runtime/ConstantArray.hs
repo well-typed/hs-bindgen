@@ -1,6 +1,9 @@
 {-# LANGUAGE ViewPatterns #-}
 module HsBindgen.Runtime.ConstantArray (
     ConstantArray
+    -- * Pointers
+  , isConstantArray
+  , isFirstElem
     -- * Construction
   , repeat
   , fromList
@@ -8,6 +11,8 @@ module HsBindgen.Runtime.ConstantArray (
   , toVector
   , toList
   , withPtr
+    -- * Auxiliary
+  , intVal
   ) where
 
 import Prelude hiding (repeat)
@@ -28,11 +33,39 @@ import GHC.Stack
   Definition
 -------------------------------------------------------------------------------}
 
+-- | A C array of known size
 newtype ConstantArray (n :: Nat) a = CA (VS.Vector a)
   deriving (Eq, Show)
   deriving anyclass (ReadRaw, StaticSize, WriteRaw)
 
 type role ConstantArray nominal nominal
+
+{-------------------------------------------------------------------------------
+  Pointers
+-------------------------------------------------------------------------------}
+
+-- | Use a pointer to the first element of an array as a pointer to the whole of
+-- said array.
+--
+-- The coercible abstraction is here so that the function can see through
+-- @newtype@ wrappers of @typedefs@.
+isConstantArray ::
+     forall arrayLike n a. Coercible arrayLike (ConstantArray n a)
+  => Proxy n
+  -> Ptr a
+  -> Ptr arrayLike
+isConstantArray _ = castPtr
+
+-- | Use a pointer to a whole array as a pointer to the first element of said
+-- array.
+--
+-- The coercible constraint is here so that the function can see through
+-- @newtype@ wrappers of @typedefs@.
+isFirstElem ::
+     forall arrayLike n a. Coercible arrayLike (ConstantArray n a)
+  => Ptr arrayLike
+  -> (Proxy n, Ptr a)
+isFirstElem ptr = (Proxy @n, castPtr ptr)
 
 instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
     sizeOf _ = intVal (Proxy @n) * sizeOf (undefined :: a)
@@ -101,7 +134,7 @@ withPtr (coerce -> CA v) k = do
     withForeignPtr fptr k
 
 {-------------------------------------------------------------------------------
-  Internal auxiliary
+  Auxiliary
 -------------------------------------------------------------------------------}
 
 intVal :: forall n. KnownNat n => Proxy n -> Int
