@@ -4,12 +4,11 @@
 
 module Test.TH.Test02 where
 
+import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
--- Used by generated code
-import HsBindgen.Runtime.Prelude qualified
-
-withHsBindgen def {
-    extraQuoteIncludeDirs = [ RelativeToPkgRoot "examples"]
+let opts = def {
+    extraSystemIncludeDirs = [ RelativeToPkgRoot "examples"]
   , tracerCustomLogLevel = customLogLevelFrom [UCharHeaderResolutionTraceIsInfo]
-  } $ hashInclude $ CHeaderQuoteIncludePath "test_02.h"
+  }
+ in withHsBindgen opts $ hashInclude $ Quote "test_02.h"

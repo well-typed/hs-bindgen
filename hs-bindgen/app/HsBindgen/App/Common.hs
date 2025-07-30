@@ -139,14 +139,14 @@ parseClangArgs = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
-    clangTarget                <- optional parseTarget
-    clangCStandard             <- Just <$> parseCStandard
-    clangStdInc                <- not <$> parseNoStdInc
-    clangEnableGnu             <- parseGnuOption
-    clangSystemIncludePathDirs <- parseSystemIncludeDirOptions
-    clangQuoteIncludePathDirs  <- parseQuoteIncludeDirOptions
-    clangEnableBlocks          <- parseEnableBlocks
-    clangOtherArgs             <- parseOtherArgs
+    clangTarget                 <- optional parseTarget
+    clangCStandard              <- Just <$> parseCStandard
+    clangStdInc                 <- not <$> parseNoStdInc
+    clangEnableGnu              <- parseGnuOption
+    clangExtraSystemIncludeDirs <- parseSystemIncludeDirOptions
+    clangExtraQuoteIncludeDirs  <- parseQuoteIncludeDirOptions
+    clangEnableBlocks           <- parseEnableBlocks
+    clangOtherArgs              <- parseOtherArgs
     pure ClangArgs {..}
 
 parseTarget :: Parser (Target, TargetEnv)

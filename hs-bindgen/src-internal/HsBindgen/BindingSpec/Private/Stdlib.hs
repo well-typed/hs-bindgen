@@ -164,7 +164,7 @@ bindingSpec = BindingSpec.BindingSpec{bindingSpecTypes}
 -------------------------------------------------------------------------------}
 
 mkH :: [FilePath] -> Set HashIncludeArg
-mkH = Set.fromList . map CHeaderSystemIncludePath
+mkH = Set.fromList . map System
 
 mkT ::
      Text
