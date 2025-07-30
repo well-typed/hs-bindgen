@@ -1,0 +1,39 @@
+types:
+- headers: array.h
+  cname: struct Example
+  module: Example
+  identifier: Example
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: array.h
+  cname: list
+  module: Example
+  identifier: List
+  instances:
+  - Eq
+  - Show
+- headers: array.h
+  cname: matrix
+  module: Example
+  identifier: Matrix
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: array.h
+  cname: triplet
+  module: Example
+  identifier: Triplet
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: array.h
+  cname: tripletlist
+  module: Example
+  identifier: Tripletlist
+  instances:
+  - Eq
+  - Show

@@ -10,6 +10,7 @@
 -- __attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } 
 -- __attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } 
 -- __attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } 
+-- __attribute__ ((const)) char (*get_nesString2_ptr (void))[3] { return &nesString2; } 
 -- __attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } 
 -- __attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } 
 -- __attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } 
@@ -17,7 +18,9 @@
 -- __attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } 
 -- __attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } 
 -- __attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } 
+-- __attribute__ ((const)) uint8_t (*get_nesInitList_ptr (void))[4] { return &nesInitList; } 
 -- __attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } 
+-- __attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } 
 -- __attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } 
 -- __attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } 
 foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal :: Ptr CInt
@@ -46,8 +49,8 @@ foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2 :: Ptr Inlin
 foreign import ccall safe "get_nesInteger_ptr" nesInteger :: Ptr CInt
 foreign import ccall safe "get_nesFloating_ptr" nesFloating :: Ptr CFloat
 foreign import ccall safe "get_nesString1_ptr" nesString1 :: Ptr (Ptr CChar)
-foreign import ccall safe "&nesString2" nesString2 :: Ptr (ConstantArray 3
-                                                                         CChar)
+foreign import ccall safe "get_nesString2_ptr" nesString2 :: Ptr (ConstantArray 3
+                                                                                CChar)
 foreign import ccall safe "get_nesCharacter_ptr" nesCharacter :: Ptr CChar
 foreign import ccall safe "get_nesParen_ptr" nesParen :: Ptr CInt
 foreign import ccall safe "get_nesUnary_ptr" nesUnary :: Ptr CInt
@@ -55,11 +58,11 @@ foreign import ccall safe "get_nesBinary_ptr" nesBinary :: Ptr CInt
 foreign import ccall safe "get_nesConditional_ptr" nesConditional :: Ptr CInt
 foreign import ccall safe "get_nesCast_ptr" nesCast :: Ptr CFloat
 foreign import ccall safe "get_nesCompound_ptr" nesCompound :: Ptr (Ptr CInt)
-foreign import ccall safe "&nesInitList" nesInitList :: Ptr (ConstantArray 4
-                                                                           HsBindgen.Runtime.Prelude.Word8)
+foreign import ccall safe "get_nesInitList_ptr" nesInitList :: Ptr (ConstantArray 4
+                                                                                  HsBindgen.Runtime.Prelude.Word8)
 foreign import ccall safe "get_nesBool_ptr" nesBool :: Ptr CBool
-foreign import ccall safe "&streamBinary" streamBinary :: Ptr (ConstantArray 4096
-                                                                             HsBindgen.Runtime.Prelude.Word8)
+foreign import ccall safe "get_streamBinary_ptr" streamBinary :: Ptr (ConstantArray 4096
+                                                                                    HsBindgen.Runtime.Prelude.Word8)
 foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len :: Ptr HsBindgen.Runtime.Prelude.Word32
 data Version_t
     = Version_t {version_t_major :: HsBindgen.Runtime.Prelude.Word8,

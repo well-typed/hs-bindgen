@@ -1081,6 +1081,8 @@
                 (Just Signed))))),
       foreignImportComment = Nothing},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) char (*get_nesString2_ptr (void))[3] { return &nesString2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1091,9 +1093,9 @@
           3
           (HsPrimType HsPrimCChar)),
       foreignImportOrigName =
-      "nesString2",
+      "get_nesString2_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeConstArray
           3
@@ -1232,6 +1234,8 @@
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) uint8_t (*get_nesInitList_ptr (void))[4] { return &nesInitList; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1352,9 +1356,9 @@
                         instanceSpecConstraints = [
                           ]})]})),
       foreignImportOrigName =
-      "nesInitList",
+      "get_nesInitList_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeConstArray
           4
@@ -1493,6 +1497,8 @@
         (TypePrim PrimBool),
       foreignImportComment = Nothing},
   DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1613,9 +1619,9 @@
                         instanceSpecConstraints = [
                           ]})]})),
       foreignImportOrigName =
-      "streamBinary",
+      "get_streamBinary_ptr",
       foreignImportCallConv =
-      CallConvGhcCCall ImportAsPtr,
+      CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeConstArray
           4096
