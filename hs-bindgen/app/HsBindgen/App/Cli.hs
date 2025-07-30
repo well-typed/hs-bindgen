@@ -11,25 +11,36 @@ module HsBindgen.App.Cli (
   , pureParseCmdPreprocess
   ) where
 
+import Data.List qualified as List
+import Data.Text qualified as Text
+import Data.Version (showVersion)
 import GHC.Generics (Generic)
 import Options.Applicative
 
 import Clang.Paths
+import Clang.Version (clang_getClangVersion)
 import HsBindgen.Lib
 
 import HsBindgen.App.Common
+import Paths_hs_bindgen qualified as Package
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 getCli :: IO Cli
-getCli = customExecParser p opts
+getCli = do
+    clangVersion <- Text.unpack <$> clang_getClangVersion
+    let vers = List.intercalate "\n" [
+            "hs-bindgen " ++ showVersion Package.version
+          , clangVersion
+          ]
+    customExecParser p (opts vers)
   where
     p = prefs $ helpShowGlobals <> subparserInline
 
-    opts :: ParserInfo Cli
-    opts = info (parseCli <**> helper) $
+    opts :: String -> ParserInfo Cli
+    opts vers = info (parseCli <**> simpleVersioner vers <**> helper) $
       mconcat [
           header "hs-bindgen - generate Haskell bindings from C headers"
         , footerDoc (Just $ footerWith p)
