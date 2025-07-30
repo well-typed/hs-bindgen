@@ -131,7 +131,7 @@ data DeclKind p =
   | DeclEnumOpaque
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
-    -- | A global variables, whether it be declared @extern@, @static@ or neither.
+    -- | A global variable, whether it be declared @extern@, @static@ or neither.
   | DeclGlobal (Type p)
   | DeclConst (Type p)
 

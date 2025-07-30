@@ -41,6 +41,7 @@ import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 
+import HsBindgen.Runtime.IncompleteArray     qualified
 import HsBindgen.Runtime.Bitfield            qualified
 import HsBindgen.Runtime.Block               qualified
 import HsBindgen.Runtime.ByteArray           qualified
@@ -80,6 +81,7 @@ mkGlobal = \case
       Ptr_constructor      -> 'GHC.Ptr.Ptr
       Foreign_FunPtr       -> ''Foreign.Ptr.FunPtr
       ConstantArray        -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
+      IncompleteArray      -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
       IO_type              -> ''IO
       HasFlexibleArrayMember_class -> ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
       HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
@@ -91,6 +93,7 @@ mkGlobal = \case
       CAPI_with             -> 'Foreign.with
       CAPI_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
       ConstantArray_withPtr -> 'HsBindgen.Runtime.ConstantArray.withPtr
+      IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
 
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
@@ -265,6 +268,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Ptr_constructor      -> TH.conE name
     Foreign_FunPtr       -> panicPure "type in expression"
     ConstantArray        -> panicPure "type in expression"
+    IncompleteArray      -> panicPure "type in expression"
     IO_type              -> panicPure "type in expression"
     HasFlexibleArrayMember_class -> panicPure "class in expression"
     HasFlexibleArrayMember_offset -> TH.varE name
@@ -278,6 +282,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CAPI_with             -> TH.varE name
     CAPI_allocaAndPeek    -> TH.varE name
     ConstantArray_withPtr -> TH.varE name
+    IncompleteArray_withPtr -> TH.varE name
 
     -- Other type classes
     Bits_class        -> panicPure "class in expression"

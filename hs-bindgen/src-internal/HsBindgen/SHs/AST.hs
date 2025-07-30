@@ -60,6 +60,7 @@ data Global =
   | Ptr_constructor
   | Foreign_FunPtr
   | ConstantArray
+  | IncompleteArray
   | IO_type
   | HasFlexibleArrayMember_class
   | HasFlexibleArrayMember_offset
@@ -73,6 +74,7 @@ data Global =
   | CAPI_with
   | CAPI_allocaAndPeek
   | ConstantArray_withPtr
+  | IncompleteArray_withPtr
 
     -- Other type classes
   | Bits_class

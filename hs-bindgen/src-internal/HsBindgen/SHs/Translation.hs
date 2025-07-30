@@ -206,6 +206,7 @@ translateType = \case
     Hs.HsPtr t              -> TApp (TGlobal Foreign_Ptr) (translateType t)
     Hs.HsFunPtr t           -> TApp (TGlobal Foreign_FunPtr) (translateType t)
     Hs.HsConstArray n t     -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
+    Hs.HsIncompleteArray t  -> TGlobal IncompleteArray `TApp` (translateType t)
     Hs.HsIO t               -> TApp (TGlobal IO_type) (translateType t)
     Hs.HsFun a b            -> TFun (translateType a) (translateType b)
     Hs.HsExtBinding i t     -> TExt i t

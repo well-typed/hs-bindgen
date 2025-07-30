@@ -161,6 +161,9 @@ getInstances instanceMap name = aux
           HsConstArray _n hsType' ->
             -- constrain by ConstantArray item type in next step
             aux (acc /\ cArrayInsts) $ hsType' : hsTypes
+          HsIncompleteArray hsType' ->
+            -- constrain by Array item type in next step
+            aux (acc /\ arrayInsts) $ hsType' : hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO{} -> Set.empty
@@ -275,6 +278,12 @@ getInstances instanceMap name = aux
       , Hs.WriteRaw
       ]
 
+    arrayInsts :: Set HsTypeClass
+    arrayInsts = Set.fromList [
+        Hs.Eq
+      , Hs.Show
+      ]
+
     typeSpecInsts :: BindingSpec.TypeSpec -> Set HsTypeClass
     typeSpecInsts typeSpec = Set.fromAscList [
         cls
@@ -315,7 +324,7 @@ generateDecs opts mu typedefs (C.Decl info kind spec) =
       C.DeclMacro macro ->
         macroDecs opts info macro spec
       C.DeclGlobal ty ->
-        return $ globalExtern info ty spec
+        return $ global info ty spec
       C.DeclConst ty ->
         return $ globalConst info ty spec
 
@@ -419,6 +428,7 @@ structDecs opts info struct spec fields = do
           , clss `Set.member` insts
           ]
 
+        -- TODO: FLAMs that are multi-dimensional arrays are not supported
         hasFlamDecl :: [Hs.Decl]
         hasFlamDecl = case C.structFlam struct of
           Nothing   -> []
@@ -956,9 +966,9 @@ typ' ctx = go ctx
         C.TypeFun {} -> Hs.HsFunPtr (go CPtrArg t)
         _            -> Hs.HsPtr (go CPtrArg t)
     go _ (C.TypeConstArray n ty) =
-        Hs.HsConstArray n (go CTop ty)
-    go c (C.TypeIncompleteArray ty) =
-        goArrayUnknownSize c ty
+        Hs.HsConstArray n $ go CTop ty
+    go _ (C.TypeIncompleteArray ty) =
+        Hs.HsIncompleteArray $ go CTop ty
     go _ (C.TypeFun xs y) =
         foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
     go _ (C.TypeBlock ty) =
@@ -986,17 +996,6 @@ typ' ctx = go ctx
       --
       --   #define MyVoid void
 
-    goArrayUnknownSize :: TypeContext -> C.Type -> HsType
-    goArrayUnknownSize CFunArg t =
-         -- Arrays of unknown size as function args are treated as pointers.
-         -- <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
-         Hs.HsPtr $ go CTop t
-    goArrayUnknownSize c _ =
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/377>
-        -- We need to extend 'TypeContext' with a context for extern
-        -- declarations, and then allow for arrays of unknown size.
-        panicPure $ "unexpected array of unknown size in context " ++ show c
-
 integralType :: C.PrimIntType -> C.PrimSign -> HsPrimType
 integralType C.PrimInt      C.Signed   = HsPrimCInt
 integralType C.PrimInt      C.Unsigned = HsPrimCUInt
@@ -1020,6 +1019,7 @@ data WrappedType
     = WrapType C.Type -- ^ ordinary, "primitive" types which can be handled by Haskell FFI directly
     | HeapType C.Type -- ^ types passed on heap
     | CAType C.Type Natural C.Type -- ^ constant arrays. The C ABI is to pass these as pointers, but we need a wrapper on Haskell side.
+    | AType C.Type C.Type
   deriving Show
 
 -- | Type in low-level Haskell wrapper
@@ -1027,12 +1027,14 @@ unwrapType :: WrappedType -> C.Type
 unwrapType (WrapType ty)   = ty
 unwrapType (HeapType ty)   = C.TypePointer ty
 unwrapType (CAType _ _ ty) = C.TypePointer ty
+unwrapType (AType _ ty)    = C.TypePointer ty
 
 -- | Type in high-level Haskell wrapper
 unwrapOrigType :: WrappedType -> C.Type
 unwrapOrigType (WrapType ty)    = ty
 unwrapOrigType (HeapType ty)    = ty
 unwrapOrigType (CAType oty _ _) = oty
+unwrapOrigType (AType oty _)    = oty
 
 isVoidW :: WrappedType -> Bool
 isVoidW = C.isVoid . unwrapType
@@ -1042,6 +1044,7 @@ isWrappedHeap :: WrappedType -> Bool
 isWrappedHeap WrapType {} = False
 isWrappedHeap HeapType {} = True
 isWrappedHeap CAType {}   = False
+isWrappedHeap AType {}    = False
 
 -- | userland-api C wrapper.
 wrapperDecl
@@ -1096,6 +1099,9 @@ hsWrapperDecl hiName loName res args = case res of
 
   CAType {} ->
     panicPure "ConstantArray cannot occur as a result type"
+
+  AType {} ->
+    panicPure "Array cannot occur as a result type"
   where
     hsty = foldr HsFun (HsIO $ typ' CFunRes $ unwrapOrigType res) (typ' CFunArg . unwrapOrigType <$> args)
 
@@ -1121,6 +1127,11 @@ hsWrapperDecl hiName loName res args = case res of
             , SHs.ELam "ptr" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
             ]
 
+        AType {} -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr)
+            [ SHs.EBound x
+            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
+            ]
+
         WrapType {} ->
             goA' tys xs (x : zs)
 
@@ -1140,6 +1151,11 @@ hsWrapperDecl hiName loName res args = case res of
           ]
 
         CAType {} -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr)
+            [ SHs.EBound x
+            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) (IZ : fmap IS zs)
+            ]
+
+        AType {} -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr)
             [ SHs.EBound x
             , SHs.ELam "ptr" $ goB' tys (IS <$> xs) (IZ : fmap IS zs)
             ]
@@ -1181,6 +1197,7 @@ functionDecs mu typedefs info f _spec =
         p WrapType {} = False
         p HeapType {} = True
         p CAType {}   = True
+        p AType {}    = True
 
     highlevelName = C.nameHs (C.declId info)
     importName
@@ -1198,6 +1215,7 @@ functionDecs mu typedefs info f _spec =
         go C.TypeStruct {}         = HeapType oty
         go C.TypeUnion {}          = HeapType oty
         go (C.TypeConstArray n ty) = CAType oty n ty
+        go (C.TypeIncompleteArray ty) = AType oty ty
         go (C.TypeTypedef ref)     = case ref of
           C.TypedefRegular n ->
             let t = Map.findWithDefault (panicPure $ "Unbound typedef " ++ show n) (C.nameC n) typedefs
@@ -1216,6 +1234,9 @@ functionDecs mu typedefs info f _spec =
 
         CAType {} ->
             panicPure "ConstantArray cannot occur as a result type"
+
+        AType {} ->
+            panicPure "Array cannot occur as a result type"
 
     -- | Decide based on the function attributes whether to include 'IO' in the
     -- result type of the foreign import. See the documentation on
@@ -1294,34 +1315,19 @@ functionDecs mu typedefs info f _spec =
 -- that the function always returns the same address throughout the lifetime of
 -- the program, which means we can omit the 'IO' from the foreign import.
 --
--- The exception to this stub generation is that we forego the stub in case the
--- global variable has an array type. It is not straigthforward (if possible at
--- all) to return pointers to arrays from a C function without losing the
--- array's length information.
-globalExtern :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
-globalExtern info ty _spec =
-    Hs.DeclInlineCInclude (getCHeaderIncludePath $ C.declHeader info) :
-    if not (C.isArray ty) then
-      [ Hs.DeclInlineC prettyStub
-      , Hs.DeclForeignImport $ Hs.ForeignImportDecl
-          { foreignImportName     = importName
-          , foreignImportType     = importType
-          , foreignImportOrigName = T.pack stubName
-          , foreignImportCallConv = CallConvUserlandCAPI
-          , foreignImportOrigin   = Origin.Global ty
-          , foreignImportComment  = fmap generateHaddocks (C.declComment info)
-          }
-      ]
-    else
-      [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
-          { foreignImportName     = C.nameHs (C.declId info)
-          , foreignImportType     = importType
-          , foreignImportOrigName = C.getName $ C.nameC (C.declId info)
-          , foreignImportCallConv = CallConvGhcCCall ImportAsPtr
-          , foreignImportOrigin   = Origin.Global ty
-          , foreignImportComment  = fmap generateHaddocks (C.declComment info)
-          }
-      ]
+global :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
+global info ty _spec =
+    [ Hs.DeclInlineCInclude (getCHeaderIncludePath $ C.declHeader info)
+    , Hs.DeclInlineC prettyStub
+    , Hs.DeclForeignImport $ Hs.ForeignImportDecl
+        { foreignImportName     = importName
+        , foreignImportType     = importType
+        , foreignImportOrigName = T.pack stubName
+        , foreignImportCallConv = CallConvUserlandCAPI
+        , foreignImportOrigin   = Origin.Global ty
+        , foreignImportComment  = fmap generateHaddocks (C.declComment info)
+        }
+    ]
   where
     importName :: HsName 'NsVar
     importName = C.nameHs (C.declId info)
