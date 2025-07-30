@@ -7,6 +7,8 @@ import Data.Text qualified as Text
 import Test.Tasty
 
 import Clang.Args
+import Clang.Enum.Simple
+import Clang.LowLevel.Core
 import Clang.Version
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Predicate
@@ -78,8 +80,6 @@ testCases = [
     , defaultTest "distilled_lib_1"
     , defaultTest "enums"
     , defaultTest "enum_cpp_syntax"
-    , defaultTest "fixedarray_arg"
-    , defaultTest "fixedarray"
     , defaultTest "fixedwidth"
     , defaultTest "flam"
     , defaultTest "forward_declaration"
@@ -188,22 +188,6 @@ testCases = [
           Just $ Expected ()
         _otherwise ->
           Nothing
-    , failingTestSimple "fixedarray_res_a" $ \case
-         TraceClang (ClangDiagnostic x) ->
-           if "brackets are not allowed here" `Text.isInfixOf` diagnosticSpelling x
-             then Just (Expected ())
-             else Just Tolerated
-         _otherwise ->
-           Nothing
-    , failingTestSimple "fixedarray_res_b" $ \case
-        TraceClang (ClangDiagnostic x) ->
-          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
-            then Just (Expected ())
-            else Nothing
-        TraceClang _ ->
-          Just Tolerated
-        _otherwise ->
-          Nothing
     , failingTestSimple "redeclaration_different" $ \case
         TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {}))) ->
           Just (Expected ())
@@ -219,10 +203,108 @@ testCases = [
         _otherwise ->
           Nothing
 
+      -- Arrays
+    , failingTestSimple "array_res_1" $ \case
+        TraceClang (ClangDiagnostic x) ->
+          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
+            else Nothing
+        TraceClang _ ->
+          Just Tolerated
+        _otherwise ->
+          Nothing
+    , failingTestSimple "array_res_2" $ \case
+        TraceClang (ClangDiagnostic x) ->
+          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
+            else Nothing
+        TraceClang _ ->
+          Just Tolerated
+        _otherwise ->
+          Nothing
+    , failingTestSimple "array_res_3" $ \case
+        TraceClang (ClangDiagnostic x) ->
+          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
+            else Nothing
+        TraceClang _ ->
+          Just Tolerated
+        _otherwise ->
+          Nothing
+    , failingTestSimple "array_res_4" $ \case
+        TraceClang (ClangDiagnostic x) ->
+          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
+            else Nothing
+        TraceClang _ ->
+          Just Tolerated
+        _otherwise ->
+          Nothing
+    , failingTestSimple "array_res_5" $ \case
+        TraceClang (ClangDiagnostic x) ->
+          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
+            else Nothing
+        TraceClang _ ->
+          Just Tolerated
+        _otherwise ->
+          Nothing
+    , failingTestSimple "array_res_6" $ \case
+        TraceClang (ClangDiagnostic x) ->
+          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
+            else Nothing
+        TraceClang _ ->
+          Just Tolerated
+        _otherwise ->
+          Nothing
+    , failingTestSimple "array_res_7" $ \case
+        TraceClang (ClangDiagnostic x) ->
+          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
+            else Nothing
+        TraceClang _ ->
+          Just Tolerated
+        _otherwise ->
+          Nothing
+    , failingTestSimple "array_res_8" $ \case
+        TraceClang (ClangDiagnostic x) ->
+          if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
+            else Nothing
+        TraceClang _ ->
+          Just Tolerated
+        _otherwise ->
+          Nothing
+
       --
       -- Miscellaneous other tests that require special treatment
       --
 
+    , let declsWithWarnings = [
+              -- Potential duplicates
+              "arr0"
+            , "arr1"
+            , "arr6"
+              -- Unkown storage class: static non-const
+            , "arr4"
+            , "arr5"
+            , "arr8"
+            ]
+      in (defaultTest "array") {
+          testClangVersion = Just (>= (19, 0, 0))
+        , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
+            TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
+               Just $ Expected (C.declId info)
+            TraceClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"}) ->
+               Just Tolerated
+            TraceClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-tentative-definition-array"}) ->
+               Just Tolerated
+            TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+               Just $ Expected (C.declId info)
+            _otherwise ->
+               Nothing
+        }
     , (defaultTest "bool_c23") {
           testClangVersion = Just (>= (15, 0, 0))
         }
