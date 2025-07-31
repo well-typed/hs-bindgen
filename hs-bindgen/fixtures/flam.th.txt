@@ -39,3 +39,14 @@ instance Storable Diff
                                           diff_second_4 -> pokeByteOff ptr_1 (0 :: Int) diff_first_3 >> pokeByteOff ptr_1 (8 :: Int) diff_second_4}}
 instance HasFlexibleArrayMember CChar Diff
     where {flexibleArrayMemberOffset = \_ty_0 -> 9}
+data Triplets
+    = Triplets {triplets_len :: CInt}
+    deriving stock (Eq, Show)
+instance Storable Triplets
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Triplets <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Triplets triplets_len_3 -> pokeByteOff ptr_1 (0 :: Int) triplets_len_3}}
+instance HasFlexibleArrayMember (ConstantArray 3 CInt) Triplets
+    where {flexibleArrayMemberOffset = \_ty_0 -> 4}

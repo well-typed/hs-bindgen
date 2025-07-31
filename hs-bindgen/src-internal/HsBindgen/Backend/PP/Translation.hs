@@ -143,8 +143,9 @@ resolveDeclImports = \case
     DVar Var {..} ->
       resolveTypeImports varType <> resolveExprImports varExpr
     DInst Instance{..} -> mconcat $
-        resolveGlobalImports instanceClass
-      : map (resolveGlobalImports . fst) instanceDecs
+         [resolveGlobalImports instanceClass]
+      ++ map resolveTypeImports instanceArgs
+      ++ map (resolveGlobalImports . fst) instanceDecs
       ++ map (resolveExprImports . snd) instanceDecs
     DRecord Record{..} -> mconcat [
         mconcat $ map (resolveTypeImports . fieldType) dataFields

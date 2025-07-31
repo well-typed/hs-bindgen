@@ -428,7 +428,6 @@ structDecs opts info struct spec fields = do
           , clss `Set.member` insts
           ]
 
-        -- TODO: FLAMs that are multi-dimensional arrays are not supported
         hasFlamDecl :: [Hs.Decl]
         hasFlamDecl = case C.structFlam struct of
           Nothing   -> []

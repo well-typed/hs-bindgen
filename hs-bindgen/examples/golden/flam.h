@@ -19,3 +19,11 @@ struct diff {
 	char second;
 	char flam[];
 };
+
+//! The flexible array member is a multi-dimensional array of unknown size. In
+//! particular, it is a is an array of unknown size, where each element is of
+//! type length-3-array-of-int.
+struct triplets {
+  int len;
+  int flam[][3];
+};

@@ -90,3 +90,19 @@ const _: () = {
     ["Offset of field: diff::second"][::std::mem::offset_of!(diff, second) - 8usize];
     ["Offset of field: diff::flam"][::std::mem::offset_of!(diff, flam) - 9usize];
 };
+/**! The flexible array member is a multi-dimensional array of unknown size. In
+! particular, it is a is an array of unknown size, where each element is of
+! type length-3-array-of-int.*/
+#[repr(C)]
+#[derive(Debug)]
+pub struct triplets {
+    pub len: ::std::os::raw::c_int,
+    pub flam: __IncompleteArrayField<[::std::os::raw::c_int; 3usize]>,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of triplets"][::std::mem::size_of::<triplets>() - 4usize];
+    ["Alignment of triplets"][::std::mem::align_of::<triplets>() - 4usize];
+    ["Offset of field: triplets::len"][::std::mem::offset_of!(triplets, len) - 0usize];
+    ["Offset of field: triplets::flam"][::std::mem::offset_of!(triplets, flam) - 4usize];
+};

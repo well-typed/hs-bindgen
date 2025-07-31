@@ -31,3 +31,11 @@ types:
   - Eq
   - Show
   - Storable
+- headers: flam.h
+  cname: struct triplets
+  module: Example
+  identifier: Triplets
+  instances:
+  - Eq
+  - Show
+  - Storable
