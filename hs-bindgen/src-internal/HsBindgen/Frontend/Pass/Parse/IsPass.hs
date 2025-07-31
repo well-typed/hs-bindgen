@@ -166,6 +166,26 @@ data ParseMsg =
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/41>
   | ParseUnsupportedConst (C.DeclInfo Parse)
+
+    -- | A function declaration has non-default visibility.
+    --
+    -- If a function declaration has non-default visibility, then we do not
+    -- generate a binding and emit this message instead. We do this to prevent
+    -- linker errors.
+    --
+    -- For more details, see the section on visibility in the low-level dev
+    -- manual.
+  | ParseFunctionNonDefaultVisibility (C.DeclInfo Parse)
+
+    -- | A global variable declaration has non-default visibility.
+    --
+    -- If a global variable declaration has non-default visibility, then we
+    -- still generate a binding but we also emit this message. We do this to
+    -- notify the users that the global variable might not behave as expected.
+    --
+    -- For more details, see the section on visibility in the low-level dev
+    -- manual.
+  | ParseGlobalVariableNonDefaultVisibility (C.DeclInfo Parse)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseMsg where
@@ -194,6 +214,18 @@ instance PrettyForTrace ParseMsg where
         ]
       ParseUnsupportedConst info -> noBindingsGenerated info $
           "constants not yet supported (#41)"
+      ParseFunctionNonDefaultVisibility info -> noBindingsGenerated info $ hcat [
+          "linking will likely fail if header files contain function "
+        , "declarations with non-default (hidden/protected/internal) "
+        , "visibility"
+        ]
+      ParseGlobalVariableNonDefaultVisibility info -> hcat [
+          "Bindings generated for "
+        , prettyForTrace info
+        , "might not behave as expected because the global variable "
+        , "declaration in the header file has non-default "
+        , "(hidden/protected/internal) visibility"
+        ]
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
       noBindingsGenerated info reason = hcat [
@@ -206,15 +238,17 @@ instance PrettyForTrace ParseMsg where
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel ParseMsg where
   getDefaultLogLevel = \case
-      ParseExcluded{}                  -> Info
-      ParseUnsupportedType _ctxt err   -> getDefaultLogLevel err
-      ParseUnsupportedImplicitFields{} -> Warning
-      ParseUnexpectedAnonInSignature{} -> Warning
-      ParseUnexpectedAnonInExtern{}    -> Warning
-      ParseUnsupportedTLS{}            -> Warning
-      ParseUnknownStorageClass{}       -> Warning
-      ParsePotentialDuplicateGlobal{}  -> Notice
-      ParseUnsupportedConst{}          -> Warning
+      ParseExcluded{}                           -> Info
+      ParseUnsupportedType _ctxt err            -> getDefaultLogLevel err
+      ParseUnsupportedImplicitFields{}          -> Warning
+      ParseUnexpectedAnonInSignature{}          -> Warning
+      ParseUnexpectedAnonInExtern{}             -> Warning
+      ParseUnsupportedTLS{}                     -> Warning
+      ParseUnknownStorageClass{}                -> Warning
+      ParsePotentialDuplicateGlobal{}           -> Notice
+      ParseUnsupportedConst{}                   -> Warning
+      ParseFunctionNonDefaultVisibility{}       -> Warning
+      ParseGlobalVariableNonDefaultVisibility{} -> Notice
 
 instance HasSource ParseMsg where
   getSource = const HsBindgen
