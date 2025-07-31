@@ -14,11 +14,8 @@
 
 module Test.TH.Test01 where
 
- -- TODO: GHC issue, we need to import this
-import HsBindgen.Runtime.SizedByteArray (SizedByteArray (..))
+import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
--- Used by generated code
-import Foreign.C.Types
-
-hashInclude ["test_01.h"] def { extraIncludeDirs = [ PackageRoot "examples" ] }
+let opts = def { extraIncludeDirs = [ RelativeToPkgRoot "examples" ] }
+ in withHsBindgen opts $ hashInclude "test_01.h"

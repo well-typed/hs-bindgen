@@ -47,11 +47,11 @@ data ClangArgs = ClangArgs {
       -- @#include@ directories (@False@ will pass @-nostdinc@)
     , clangStdInc :: Bool
 
-      -- | Directories in the system include search path
-    , clangSystemIncludePathDirs :: [CIncludePathDir]
-
-      -- | Directories in the non-system include search path
-    , clangQuoteIncludePathDirs :: [CIncludePathDir]
+      -- | Directories that will be added to the include search path
+      --
+      -- This corresponds to the @-I@ clang argument, see
+      -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management>.
+    , clangExtraIncludeDirs :: [CIncludeDir]
 
       -- | Enable block support
       --
@@ -70,14 +70,13 @@ data ClangArgs = ClangArgs {
 
 instance Default ClangArgs where
  def = ClangArgs {
-      clangTarget                = Nothing
-    , clangCStandard             = Nothing
-    , clangEnableGnu             = False
-    , clangStdInc                = True
-    , clangSystemIncludePathDirs = []
-    , clangQuoteIncludePathDirs  = []
-    , clangEnableBlocks          = False
-    , clangOtherArgs             = []
+      clangTarget           = Nothing
+    , clangCStandard        = Nothing
+    , clangEnableGnu        = False
+    , clangStdInc           = True
+    , clangExtraIncludeDirs = []
+    , clangEnableBlocks     = False
+    , clangOtherArgs        = []
     }
 
 -- | C standard
@@ -163,13 +162,9 @@ fromClangArgs ClangArgs{..} = aux [
         , [ "-fblocks"  | clangEnableBlocks ]
         ]
 
-    , return $ concat . map concat $ [
-          [ ["-isystem", getCIncludePathDir path]
-          | path <- clangSystemIncludePathDirs
-          ]
-        , [ ["-I", getCIncludePathDir path]
-          | path <- clangQuoteIncludePathDirs
-          ]
+    , return $ concat [
+          ["-I", getCIncludeDir path]
+        | path <- clangExtraIncludeDirs
         ]
 
     , return clangOtherArgs

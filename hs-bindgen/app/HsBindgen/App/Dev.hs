@@ -61,7 +61,7 @@ parseDevCmd = subparser $ mconcat [
 -------------------------------------------------------------------------------}
 
 data ParseOpts = ParseOpts {
-      inputPaths        :: [CHeaderIncludePath]
+      inputPaths        :: [HashIncludeArg]
     , config            :: Config
     , bindingSpecConfig :: BindingSpecConfig
     }

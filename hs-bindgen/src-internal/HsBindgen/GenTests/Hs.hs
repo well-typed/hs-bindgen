@@ -27,7 +27,7 @@ genTestsHs ::
   -> Int       -- ^ Maximum line length
   -> [Hs.Decl] -- ^ Declarations
   -> IO ()
-genTestsHs = panicPure "TODO" -- TODO refactor
+genTestsHs = throwPure_TODO 22 "generate test suite"
 
 {-
 genTestsHs

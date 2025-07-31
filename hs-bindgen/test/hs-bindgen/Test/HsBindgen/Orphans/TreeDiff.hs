@@ -19,6 +19,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.C.Reparse.Decl qualified as C
 import HsBindgen.C.Tc.Macro qualified as CMacro
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type qualified as HsType
 import HsBindgen.Hs.CallConv qualified as Hs
@@ -48,8 +49,8 @@ instance ToExpr CInt where
 instance ToExpr Paths.SourcePath where
   toExpr = toExpr . FilePath.takeBaseName . Paths.getSourcePath
 
-instance ToExpr Paths.CHeaderIncludePath where
-  toExpr = toExpr . Paths.getCHeaderIncludePath
+instance ToExpr RootHeader.HashIncludeArg where
+  toExpr = toExpr . RootHeader.getHashIncludeArg
 
 instance ToExpr (C.MTerm C.Ps)
 instance ToExpr (C.XVar C.Ps)

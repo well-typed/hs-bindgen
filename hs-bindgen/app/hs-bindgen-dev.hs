@@ -27,7 +27,7 @@ execParse globalOpts opts =
     doParse :: IO (Maybe TranslationUnit)
     doParse = withCliTracer globalOpts $ \tracer -> do
       (extSpec, pSpec) <- loadBindingSpecs
-                            tracer
+                            (contramap TraceBindingSpec tracer)
                             opts.config.configClangArgs
                             opts.bindingSpecConfig
       Pipeline.parseCHeaders

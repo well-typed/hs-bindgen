@@ -32,12 +32,12 @@ import System.FilePath ((</>))
 import Test.Tasty (TestName)
 
 import Clang.HighLevel.Types qualified as Clang
-import Clang.Paths
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib (TraceMsg (..))
 import HsBindgen.Pipeline qualified as Pipeline
@@ -99,9 +99,9 @@ data TestRustBindgen =
   Derived
 -------------------------------------------------------------------------------}
 
-testInputInclude :: TestCase -> CHeaderIncludePath
+testInputInclude :: TestCase -> HashIncludeArg
 testInputInclude TestCase{testName} =
-    CHeaderQuoteIncludePath $ testName ++ ".h"
+    Quote $ testName ++ ".h"
 
 testInputPath :: TestCase -> FilePath
 testInputPath TestCase{testDir, testName} =

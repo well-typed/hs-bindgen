@@ -7,13 +7,12 @@
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.TH (
     -- * Template Haskell API
-    Pipeline.hashInclude'
+    Pipeline.withHsBindgen
   , Pipeline.hashInclude
-  , Pipeline.hashIncludeWith
 
     -- * Options
   , Common.Config(..)
-  , Pipeline.QuoteIncludePathDir(..)
+  , Pipeline.IncludeDir(..)
   , Pipeline.HashIncludeOpts(..)
 
     -- ** Clang arguments
@@ -27,7 +26,7 @@ module HsBindgen.TH (
   , Common.BindingSpec -- opaque
   , Common.emptyBindingSpec
   , Common.EnableStdlibBindingSpec(..)
-  , loadExtBindingSpecs
+  , Common.BindingSpecConfig(..)
 
     -- ** Translation options
   , Common.TranslationOpts(..)
@@ -47,10 +46,13 @@ module HsBindgen.TH (
   , Common.ProgramSlicing(..)
 
     -- * Paths
-  , Common.CIncludePathDir(..)
+  , Common.HashIncludeArg(..)
+  -- TODO: https://github.com/well-typed/hs-bindgen/issues/958. Will be removed
+  -- (instead we emit a warning trace).
+  , Common.parseHashIncludeArg
+  , Common.CIncludeDir(..)
   , (Common.</>)
   , Common.joinPath
-  , THSyntax.getPackageRoot
 
     -- * Logging
   , Common.TraceMsg(..)
@@ -102,42 +104,7 @@ module HsBindgen.TH (
   , Common.Default(..)
   ) where
 
-import Language.Haskell.TH qualified as TH
-
 import HsBindgen.Common qualified as Common
 
-import Clang.Args qualified as Args
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Pipeline qualified as Pipeline
-import HsBindgen.TraceMsg
-import HsBindgen.Util.Tracer
 import HsBindgen.Util.Tracer qualified as Tracer
-
-#ifdef MIN_VERSION_th_compat
-import Language.Haskell.TH.Syntax.Compat qualified as THSyntax
-#else
-import Language.Haskell.TH.Syntax qualified as THSyntax
-#endif
-
-{-------------------------------------------------------------------------------
-  Binding specifications
--------------------------------------------------------------------------------}
-
--- | Load external binding specifications
---
--- The format is determined by filename extension.  The following formats are
--- supported:
---
--- * YAML (@.yaml@ extension)
--- * JSON (@.json@ extension)
-loadExtBindingSpecs ::
-     Tracer TH.Q TraceMsg
-  -> Args.ClangArgs
-  -> Common.EnableStdlibBindingSpec
-  -> [FilePath]
-  -> TH.Q Common.BindingSpec
-loadExtBindingSpecs tracer args stdlibConf =
-    TH.runIO . BindingSpec.loadExtBindingSpecs tracer' args stdlibConf
-  where
-    tracer' :: Tracer IO BindingSpec.BindingSpecMsg
-    tracer' = natTracer TH.runQ $ contramap TraceBindingSpec tracer

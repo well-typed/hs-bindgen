@@ -48,12 +48,11 @@ Configuration of `libclang` via environment variables is important because:
   `hs-bindgen`'s behavior for packages that use it.
 
 - Users may want to configure `hs-bindgen`'s behavior when it is invoked via
-  Template Haskell (using `hashInclude`, `hashInclude'` or `hashIncludeWith`),
-  without modifying the source code.
+  Template Haskell (using `withHsBindgen` and `hashInclude`), without modifying
+  the source code.
 
 Note that when using `hs-bindgen-cli`, users can fully configure `libclang`
 with command-line arguments. For instance, they can set:
 
-- `--system-include-path DIR`,
-- `--quote-include-path DIR`, and
+- `-I DIR`,
 - `--clang-option OPTION` (for other options passed directly to `libclang`).

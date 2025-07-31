@@ -22,6 +22,7 @@ import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
 import HsBindgen.Clang
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Resolve (resolveHeader)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -31,15 +32,14 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data Options = Options {
-      optBuiltin           :: !Bool
-    , optComments          :: !Bool
-    , optExtents           :: !Bool
-    , optFile              :: !CHeaderIncludePath
-    , optKind              :: !Bool
-    , optQuoteIncludePath  :: [CIncludePathDir]
-    , optSameFile          :: !Bool
-    , optSystemIncludePath :: [CIncludePathDir]
-    , optType              :: !Bool
+      optBuiltin     :: !Bool
+    , optComments    :: !Bool
+    , optExtents     :: !Bool
+    , optFile        :: !HashIncludeArg
+    , optKind        :: !Bool
+    , optIncludePath :: [CIncludeDir]
+    , optSameFile    :: !Bool
+    , optType        :: !Bool
     }
 
 {-------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ instance Exception AstDumpException where
 
 clangAstDump :: Options -> IO ()
 clangAstDump opts@Options{..} = do
-    putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
+    putStrLn $ "## `" ++ renderHashIncludeArg optFile ++ "`"
     putStrLn ""
 
     maybeRes <- withTracerStdOut tracerConf $ \tracer -> do
@@ -96,8 +96,7 @@ clangAstDump opts@Options{..} = do
 
     cArgs :: ClangArgs
     cArgs = def {
-        clangSystemIncludePathDirs = optSystemIncludePath
-      , clangQuoteIncludePathDirs  = optQuoteIncludePath
+        clangExtraIncludeDirs = optIncludePath
       }
 
     cOpts :: BitfieldEnum CXTranslationUnit_Flags
@@ -450,30 +449,21 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       -- other options/arguments
       optBuiltin  <- mkFlag "builtin"   "show builtin macros"
       optSameFile <- mkFlag "same-file" "only show from specified file"
-      optSystemIncludePath <- systemIncludePathOption
-      optQuoteIncludePath  <- quoteIncludePathOption
-      optFile              <- fileArgument
+      optIncludePath <- systemIncludePathOption
+      optFile        <- fileArgument
       pure (optAll, Options{..})
 
-    systemIncludePathOption :: OA.Parser [CIncludePathDir]
+    systemIncludePathOption :: OA.Parser [CIncludeDir]
     systemIncludePathOption = OA.many . OA.strOption $ mconcat
       [ OA.short 'I'
-      , OA.long "system-include-path"
       , OA.metavar "DIR"
-      , OA.help "System include search path directory"
+      , OA.help "Include search path directory"
       ]
 
-    quoteIncludePathOption :: OA.Parser [CIncludePathDir]
-    quoteIncludePathOption = OA.many . OA.strOption $ mconcat
-      [ OA.long "quote-include-path"
-      , OA.metavar "DIR"
-      , OA.help "Quote include search path directory"
-      ]
-
-    fileArgument :: OA.Parser CHeaderIncludePath
+    fileArgument :: OA.Parser HashIncludeArg
     fileArgument =
       OA.argument
-        (OA.eitherReader $ first displayException . parseCHeaderIncludePath)
+        (OA.eitherReader $ first displayException . parseHashIncludeArg)
         $ mconcat [
               OA.metavar "FILE"
             , OA.help "C (header) file to parse"

@@ -232,12 +232,6 @@ library
   build-depends:
       -- Inherited dependencies
     , filepath
-    , template-haskell
-
-  if impl(ghc < 9.4)
-    build-depends:
-        -- for getPackageRoot
-        th-compat ^>=0.1.6
 
 executable hs-bindgen-cli
   import:         lang

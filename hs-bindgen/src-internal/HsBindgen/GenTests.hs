@@ -7,7 +7,7 @@ import Data.List qualified as List
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
-import Clang.Paths
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.GenTests.C (genTestsC)
 import HsBindgen.GenTests.Hs (genTestsHs)
 import HsBindgen.GenTests.Readme (genTestsReadme)
@@ -20,13 +20,13 @@ import HsBindgen.Imports
 
 -- | Generate test suite
 genTests ::
-     [CHeaderIncludePath]
+     [HashIncludeArg]
   -> [Hs.Decl]
   -> String   -- ^ Generated Haskell module name
   -> Int      -- ^ Maximum line length
   -> FilePath -- ^ Test suite directory path
   -> IO ()
-genTests headerIncludePaths decls moduleName lineLength testSuitePath = do
+genTests hashIncludeArgs decls moduleName lineLength testSuitePath = do
     -- fails when testSuitePath already exists
     mapM_ Dir.createDirectory $
       testSuitePath : cbitsPath : srcPath : modulePaths
@@ -40,7 +40,7 @@ genTests headerIncludePaths decls moduleName lineLength testSuitePath = do
       cTestHeaderPath
       cTestSourcePath
       lineLength
-      headerIncludePaths
+      hashIncludeArgs
       decls
     genTestsHs
       hsTestPath

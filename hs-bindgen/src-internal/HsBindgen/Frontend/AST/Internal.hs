@@ -42,12 +42,12 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
-import Clang.Paths
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -116,7 +116,7 @@ data DeclInfo p = DeclInfo{
       -- 2. This is an error in the C code.
       --
       -- This means that there is always a /single/ header to choose here.
-    , declHeader :: CHeaderIncludePath
+    , declHeader :: HashIncludeArg
 
     , declComment :: Maybe Comment
     }

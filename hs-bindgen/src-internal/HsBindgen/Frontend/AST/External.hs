@@ -71,6 +71,7 @@ import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -110,7 +111,7 @@ data DeclInfo = DeclInfo{
     , declId      :: MangleNames.NamePair
     , declOrigin  :: C.NameOrigin
     , declAliases :: [C.Name]
-    , declHeader  :: CHeaderIncludePath
+    , declHeader  :: HashIncludeArg
     , declComment :: Maybe Comment
     }
   deriving stock (Show, Eq, Generic)

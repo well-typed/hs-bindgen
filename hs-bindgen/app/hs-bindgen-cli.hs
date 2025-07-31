@@ -43,7 +43,7 @@ execPreprocess globalOpts opts = do
     hsDecls <- fromMaybeWithFatalError <=<
       withCliTracer globalOpts $ \tracer -> do
         (extSpec, pSpec) <- loadBindingSpecs
-                              tracer
+                              (contramap TraceBindingSpec tracer)
                               opts.config.configClangArgs
                               opts.bindingSpecConfig
         translateCHeaders mu tracer opts.config extSpec pSpec opts.inputs
@@ -61,7 +61,7 @@ execGenTests globalOpts opts = do
     hsDecls <-
       fromMaybeWithFatalError <=< withCliTracer globalOpts $ \tracer -> do
         (extSpec, pSpec) <- loadBindingSpecs
-                              tracer
+                              (contramap TraceBindingSpec tracer)
                               opts.config.configClangArgs
                               opts.bindingSpecConfig
         translateCHeaders mu tracer opts.config extSpec pSpec opts.inputs

@@ -99,7 +99,6 @@ library
       -- External dependencies
     , data-default  >= 0.8   && < 0.9
     , exceptions    >= 0.10  && < 0.11
-    , filepath      >= 1.4   && < 1.6
     , mtl           >= 2.2   && < 2.4
     , text          >= 1.2   && < 2.2
     , unliftio-core >= 0.2.1 && < 0.3

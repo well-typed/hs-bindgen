@@ -6,9 +6,11 @@
 
 module Test.TH.Simple where
 
+import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
-hashInclude ["simple.h"] def { extraIncludeDirs = [ PackageRoot "examples" ] }
+let opts = def { extraIncludeDirs = [ RelativeToPkgRoot "examples" ] }
+ in withHsBindgen opts $ hashInclude "simple.h"
 
 x :: Simple
 x = Simple { simple_n = 10 }
