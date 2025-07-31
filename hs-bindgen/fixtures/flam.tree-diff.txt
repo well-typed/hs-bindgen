@@ -1,5 +1,6 @@
 TranslationUnit {
-  unitDecls = [
+  unitDecls =
+  [
     Decl {
       declInfo = DeclInfo {
         declLoc = "flam.h:2:8",
@@ -203,6 +204,69 @@ TranslationUnit {
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 72,
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc = "flam.h:26:8",
+        declId = NamePair {
+          nameC = Name "triplets",
+          nameHsIdent = HsIdentifier
+            "Triplets"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "flam.h",
+        declComment =
+        Just
+          Comment {
+            commentCName = "triplets",
+            commentChildren =
+            [
+              Paragraph
+                [
+                  TextContent
+                    "The flexible array member is a multi-dimensional array of unknown size. In",
+                  TextContent
+                    "particular, it is a is an array of unknown size, where each element is of",
+                  TextContent
+                    "type length-3-array-of-int."]]}},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Triplets"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc = "flam.h:27:7",
+              structFieldName = NamePair {
+                nameC = Name "len",
+                nameHsIdent = HsIdentifier
+                  "triplets_len"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Just
+            StructField {
+              structFieldLoc = "flam.h:28:7",
+              structFieldName = NamePair {
+                nameC = Name "flam",
+                nameHsIdent = HsIdentifier
+                  "triplets_flam"},
+              structFieldType = TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)),
+              structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing}},
       declSpec = DeclSpec

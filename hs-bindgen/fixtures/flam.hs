@@ -2000,4 +2000,604 @@
         (HsPrimType HsPrimCChar)
         9,
       defineInstanceComment =
+      Nothing},
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
+        "Triplets",
+      structConstr = HsName
+        "@NsConstr"
+        "Triplets",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "triplets_len",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc = "flam.h:27:7",
+              structFieldName = NamePair {
+                nameC = Name "len",
+                nameHsIdent = HsIdentifier
+                  "triplets_len"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
+      structOrigin =
+      Just
+        Decl {
+          declInfo =
+          DeclInfo {
+            declLoc = "flam.h:26:8",
+            declId = NamePair {
+              nameC = Name "triplets",
+              nameHsIdent = HsIdentifier
+                "Triplets"},
+            declOrigin = NameOriginInSource,
+            declAliases = [],
+            declHeader = "flam.h",
+            declComment =
+            Just
+              Comment {
+                commentCName = "triplets",
+                commentChildren =
+                [
+                  Paragraph
+                    [
+                      TextContent
+                        "The flexible array member is a multi-dimensional array of unknown size. In",
+                      TextContent
+                        "particular, it is a is an array of unknown size, where each element is of",
+                      TextContent
+                        "type length-3-array-of-int."]]}},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Triplets"),
+              structSizeof = 4,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc = "flam.h:27:7",
+                  structFieldName = NamePair {
+                    nameC = Name "len",
+                    nameHsIdent = HsIdentifier
+                      "triplets_len"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Just
+                StructField {
+                  structFieldLoc = "flam.h:28:7",
+                  structFieldName = NamePair {
+                    nameC = Name "flam",
+                    nameHsIdent = HsIdentifier
+                      "triplets_flam"},
+                  structFieldType = TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral PrimInt Signed)),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
+      structInstances = Set.fromList
+        [Eq, Show, Storable],
+      structComment =
+      Just
+        Comment {
+          commentTitle =
+          Just
+            [
+              TextContent
+                "The flexible array member is a multi-dimensional array of unknown size. In",
+              TextContent
+                "particular, it is a is an array of unknown size, where each element is of",
+              TextContent
+                "type length-3-array-of-int."],
+          commentOrigin = Just "triplets",
+          commentChildren = []}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Triplets",
+          structConstr = HsName
+            "@NsConstr"
+            "Triplets",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "triplets_len",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc = "flam.h:27:7",
+                  structFieldName = NamePair {
+                    nameC = Name "len",
+                    nameHsIdent = HsIdentifier
+                      "triplets_len"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin =
+          Just
+            Decl {
+              declInfo =
+              DeclInfo {
+                declLoc = "flam.h:26:8",
+                declId = NamePair {
+                  nameC = Name "triplets",
+                  nameHsIdent = HsIdentifier
+                    "Triplets"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader = "flam.h",
+                declComment =
+                Just
+                  Comment {
+                    commentCName = "triplets",
+                    commentChildren =
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "The flexible array member is a multi-dimensional array of unknown size. In",
+                          TextContent
+                            "particular, it is a is an array of unknown size, where each element is of",
+                          TextContent
+                            "type length-3-array-of-int."]]}},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Triplets"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc = "flam.h:27:7",
+                      structFieldName = NamePair {
+                        nameC = Name "len",
+                        nameHsIdent = HsIdentifier
+                          "triplets_len"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Just
+                    StructField {
+                      structFieldLoc = "flam.h:28:7",
+                      structFieldName = NamePair {
+                        nameC = Name "flam",
+                        nameHsIdent = HsIdentifier
+                          "triplets_flam"},
+                      structFieldType = TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed)),
+                      structFieldOffset = 32,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment =
+          Just
+            Comment {
+              commentTitle =
+              Just
+                [
+                  TextContent
+                    "The flexible array member is a multi-dimensional array of unknown size. In",
+                  TextContent
+                    "particular, it is a is an array of unknown size, where each element is of",
+                  TextContent
+                    "type length-3-array-of-int."],
+              commentOrigin = Just "triplets",
+              commentChildren = []}}
+        StorableInstance {
+          storableSizeOf = 4,
+          storableAlignment = 4,
+          storablePeek =
+          Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Triplets",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Triplets",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "triplets_len",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc = "flam.h:27:7",
+                          structFieldName = NamePair {
+                            nameC = Name "len",
+                            nameHsIdent = HsIdentifier
+                              "triplets_len"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin =
+                  Just
+                    Decl {
+                      declInfo =
+                      DeclInfo {
+                        declLoc = "flam.h:26:8",
+                        declId = NamePair {
+                          nameC = Name "triplets",
+                          nameHsIdent = HsIdentifier
+                            "Triplets"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader = "flam.h",
+                        declComment =
+                        Just
+                          Comment {
+                            commentCName = "triplets",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "The flexible array member is a multi-dimensional array of unknown size. In",
+                                  TextContent
+                                    "particular, it is a is an array of unknown size, where each element is of",
+                                  TextContent
+                                    "type length-3-array-of-int."]]}},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Triplets"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc = "flam.h:27:7",
+                              structFieldName = NamePair {
+                                nameC = Name "len",
+                                nameHsIdent = HsIdentifier
+                                  "triplets_len"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Just
+                            StructField {
+                              structFieldLoc = "flam.h:28:7",
+                              structFieldName = NamePair {
+                                nameC = Name "flam",
+                                nameHsIdent = HsIdentifier
+                                  "triplets_flam"},
+                              structFieldType = TypeConstArray
+                                3
+                                (TypePrim
+                                  (PrimIntegral PrimInt Signed)),
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment =
+                  Just
+                    Comment {
+                      commentTitle =
+                      Just
+                        [
+                          TextContent
+                            "The flexible array member is a multi-dimensional array of unknown size. In",
+                          TextContent
+                            "particular, it is a is an array of unknown size, where each element is of",
+                          TextContent
+                            "type length-3-array-of-int."],
+                      commentOrigin = Just "triplets",
+                      commentChildren = []}})
+              [PeekByteOff (Idx 0) 0]),
+          storablePoke =
+          Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Triplets",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Triplets",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "triplets_len",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc = "flam.h:27:7",
+                          structFieldName = NamePair {
+                            nameC = Name "len",
+                            nameHsIdent = HsIdentifier
+                              "triplets_len"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin =
+                  Just
+                    Decl {
+                      declInfo =
+                      DeclInfo {
+                        declLoc = "flam.h:26:8",
+                        declId = NamePair {
+                          nameC = Name "triplets",
+                          nameHsIdent = HsIdentifier
+                            "Triplets"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader = "flam.h",
+                        declComment =
+                        Just
+                          Comment {
+                            commentCName = "triplets",
+                            commentChildren =
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "The flexible array member is a multi-dimensional array of unknown size. In",
+                                  TextContent
+                                    "particular, it is a is an array of unknown size, where each element is of",
+                                  TextContent
+                                    "type length-3-array-of-int."]]}},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Triplets"),
+                          structSizeof = 4,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc = "flam.h:27:7",
+                              structFieldName = NamePair {
+                                nameC = Name "len",
+                                nameHsIdent = HsIdentifier
+                                  "triplets_len"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Just
+                            StructField {
+                              structFieldLoc = "flam.h:28:7",
+                              structFieldName = NamePair {
+                                nameC = Name "flam",
+                                nameHsIdent = HsIdentifier
+                                  "triplets_flam"},
+                              structFieldType = TypeConstArray
+                                3
+                                (TypePrim
+                                  (PrimIntegral PrimInt Signed)),
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment =
+                  Just
+                    Comment {
+                      commentTitle =
+                      Just
+                        [
+                          TextContent
+                            "The flexible array member is a multi-dimensional array of unknown size. In",
+                          TextContent
+                            "particular, it is a is an array of unknown size, where each element is of",
+                          TextContent
+                            "type length-3-array-of-int."],
+                      commentOrigin = Just "triplets",
+                      commentChildren = []}}
+                (Add 1)
+                (Seq
+                  [
+                    PokeByteOff
+                      (Idx 2)
+                      0
+                      (Idx 0)])))},
+      defineInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Triplets",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Triplets",
+      deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasFLAM
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Triplets",
+          structConstr = HsName
+            "@NsConstr"
+            "Triplets",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "triplets_len",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc = "flam.h:27:7",
+                  structFieldName = NamePair {
+                    nameC = Name "len",
+                    nameHsIdent = HsIdentifier
+                      "triplets_len"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin =
+          Just
+            Decl {
+              declInfo =
+              DeclInfo {
+                declLoc = "flam.h:26:8",
+                declId = NamePair {
+                  nameC = Name "triplets",
+                  nameHsIdent = HsIdentifier
+                    "Triplets"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader = "flam.h",
+                declComment =
+                Just
+                  Comment {
+                    commentCName = "triplets",
+                    commentChildren =
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "The flexible array member is a multi-dimensional array of unknown size. In",
+                          TextContent
+                            "particular, it is a is an array of unknown size, where each element is of",
+                          TextContent
+                            "type length-3-array-of-int."]]}},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Triplets"),
+                  structSizeof = 4,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc = "flam.h:27:7",
+                      structFieldName = NamePair {
+                        nameC = Name "len",
+                        nameHsIdent = HsIdentifier
+                          "triplets_len"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Just
+                    StructField {
+                      structFieldLoc = "flam.h:28:7",
+                      structFieldName = NamePair {
+                        nameC = Name "flam",
+                        nameHsIdent = HsIdentifier
+                          "triplets_flam"},
+                      structFieldType = TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed)),
+                      structFieldOffset = 32,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment =
+          Just
+            Comment {
+              commentTitle =
+              Just
+                [
+                  TextContent
+                    "The flexible array member is a multi-dimensional array of unknown size. In",
+                  TextContent
+                    "particular, it is a is an array of unknown size, where each element is of",
+                  TextContent
+                    "type length-3-array-of-int."],
+              commentOrigin = Just "triplets",
+              commentChildren = []}}
+        (HsConstArray
+          3
+          (HsPrimType HsPrimCInt))
+        4,
+      defineInstanceComment =
       Nothing}]

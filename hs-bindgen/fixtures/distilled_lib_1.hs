@@ -9472,12 +9472,12 @@
   DeclInlineCInclude
     "distilled_lib_1.h",
   DeclInlineC
-    "int32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }",
+    "int32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "some_fun",
+        "some_fun_wrapper",
       foreignImportType = HsFun
         (HsPtr
           (HsTypRef
@@ -10188,6 +10188,7 @@
                           instanceSpecConstraints = [
                             ]})]}}},
       foreignImportComment = Nothing},
+  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName

@@ -18,6 +18,7 @@ requiredExtensions = \case
     DInst x -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
       , [ext TH.TypeFamilies          | not (null (instanceTypes x))]
+      , typeExtensions <$> instanceArgs x
       ]
     DRecord r -> mconcat [
         recordExtensions r

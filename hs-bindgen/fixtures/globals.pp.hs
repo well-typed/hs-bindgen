@@ -13,7 +13,7 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-$(CAPI.addCSource "#include \"globals.h\"\n__attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } \n__attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } \n__attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } \n__attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } \n__attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } \n__attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } \n__attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } \n__attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } \n__attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } \n__attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } \n__attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } \n__attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } \n__attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } \n__attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } \n__attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } \n__attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } \n")
+$(CAPI.addCSource "#include \"globals.h\"\n__attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } \n__attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } \n__attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } \n__attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } \n__attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } \n__attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } \n__attribute__ ((const)) char (*get_nesString2_ptr (void))[3] { return &nesString2; } \n__attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } \n__attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } \n__attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } \n__attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } \n__attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } \n__attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } \n__attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } \n__attribute__ ((const)) uint8_t (*get_nesInitList_ptr (void))[4] { return &nesInitList; } \n__attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } \n__attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } \n__attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } \n__attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } \n")
 
 {-| Global variables
 
@@ -93,7 +93,7 @@ foreign import ccall safe "get_nesFloating_ptr" nesFloating :: F.Ptr FC.CFloat
 
 foreign import ccall safe "get_nesString1_ptr" nesString1 :: F.Ptr (F.Ptr FC.CChar)
 
-foreign import capi safe "&nesString2" nesString2 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar)
+foreign import ccall safe "get_nesString2_ptr" nesString2 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar)
 
 foreign import ccall safe "get_nesCharacter_ptr" nesCharacter :: F.Ptr FC.CChar
 
@@ -109,7 +109,7 @@ foreign import ccall safe "get_nesCast_ptr" nesCast :: F.Ptr FC.CFloat
 
 foreign import ccall safe "get_nesCompound_ptr" nesCompound :: F.Ptr (F.Ptr FC.CInt)
 
-foreign import capi safe "&nesInitList" nesInitList :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8)
+foreign import ccall safe "get_nesInitList_ptr" nesInitList :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8)
 
 foreign import ccall safe "get_nesBool_ptr" nesBool :: F.Ptr FC.CBool
 
@@ -121,7 +121,7 @@ foreign import ccall safe "get_nesBool_ptr" nesBool :: F.Ptr FC.CBool
 
   __from C:__ @streamBinary@
 -}
-foreign import capi safe "&streamBinary" streamBinary :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
+foreign import ccall safe "get_streamBinary_ptr" streamBinary :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
 
 foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len :: F.Ptr HsBindgen.Runtime.Prelude.Word32
 

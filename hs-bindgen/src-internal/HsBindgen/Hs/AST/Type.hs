@@ -56,6 +56,7 @@ data HsType =
     HsPrimType HsPrimType
   | HsTypRef (HsName NsTypeConstr)
   | HsConstArray Natural HsType
+  | HsIncompleteArray HsType
   | HsPtr HsType
   | HsFunPtr HsType
   | HsIO HsType

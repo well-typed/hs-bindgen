@@ -1,8 +1,4 @@
 #pragma once
 
-char nonExternGlobalString[] = "hi there";
-int nonExternGlobalInt = 8;
-
-// TODO: enable once #377 is resolved
-// extern char externGlobalString[];
+int globalInt = 8;
 extern int externGlobalInt;

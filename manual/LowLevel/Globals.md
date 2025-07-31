@@ -1,7 +1,5 @@
 # Global variables
 
-## Example usage
-
 Consider
 
 ```c
@@ -18,7 +16,7 @@ void printGlobalConfig();
 This results in
 
 ```hs
-foreign import capi safe "example.h &globalConfig"
+foreign import {-# details elided #-}
   globalConfig :: Ptr GlobalConfig
 ```
 
@@ -53,10 +51,10 @@ Some headers define globals without declaring them to be `extern`, for example
 int nonExternGlobalInt = 8;
 ```
 
-The code `hs-bindgen` produces for this is as expected:
+The code `hs-bindgen` produces for this is the same as for extern globals.
 
 ```hs
-foreign import capi safe "&nonExternGlobalInt"
+foreign import {-# details elided #-}
   nonExternGlobalInt :: F.Ptr FC.CInt
 ```
 
@@ -93,6 +91,222 @@ extern struct {
 
 will result in a warning, and not produce any bindings.
 
-# Constants
+## Constants
 
 TODO
+
+## Guidelines for binding generation
+
+The approach to generating foreign imports for global variables is as follows:
+
+* The foreign import should return a pointer to the location in memory where the
+  global is stored, rather than the value of the global itself, so that we can
+  modify the value at that location.
+
+* But first, we generate a stub C function that returns the address of the
+  global variable. This stub is necessary to prevent linker errors on Windows.
+  For more information about the error, see [issue #898][issue-898] and [PR
+  #927][pr-927].
+
+* Then, we create a foreign import of that stub C function.
+
+[issue-898]:https://github.com/well-typed/hs-bindgen/issues/898
+[pr-927]:https://github.com/well-typed/hs-bindgen/pull/927
+
+We include examples of generated bindings for a variety of types below.
+
+### Simple value: `int`
+
+Global:
+```c
+int x;
+```
+
+Stub:
+```c
+// The x_ptr_c indirection is just here to give the pointer a name that we
+// can refer to in the memory layout. It is not included in the stub that we
+// actually generate
+__attribute__ ((const)) int* get_x_ptr(void) {
+    int *x_ptr_c = &x;
+    return x_ptr_c;
+}
+```
+
+Import:
+```hs
+foreign import ccall safe "get_x_ptr" x_ptr :: Ptr CInt
+```
+
+Memory layout:
+
+| type                     | name          | address | value   |
+| ------------------------ | ------------- | ------- | ------- |
+| int                      | x             | 1000    | 17      |
+|                          |               | ...     |         |
+| int*                     | x_ptr_c       | 2000    | 1000    |
+|                          |               | ...     |         |
+| Ptr CInt                 | x_ptr         | 3000    | 1000    |
+
+### Pointer value: `int*`
+
+There is some ambiguity here: does `int*` point to a single `int`, or a sequence
+of `int`s? We can not detect this, so we treat it as if it points to a single
+`int` and generate a binding accordingly. From Haskell, one can still use the
+generated binding to the pointer as if it were pointing to a sequence of `int`s.
+Of course, this is only safe if the user knows that it is pointing to a sequence
+of `int`s.
+
+Global:
+```c
+int* x;
+```
+
+Stub:
+```c
+// The x_ptr_c indirection is just here to give the pointer a name that we
+// can refer to in the memory layout. It is not included in the stub that we
+// actually generate
+int** get_x() {
+  int** x_ptr_c = &x;
+  return x_ptr_c;
+}
+```
+
+Import:
+```hs
+foreign import ccall safe "get_x_ptr" x_ptr :: Ptr (Ptr CInt)
+
+-- The code below is not included in the generated bindings.
+-- It should be included by a user of the bindings if they want
+-- to use array utilities provided by @hs-bindgen-runtime@.
+
+x_constant_array_ptr :: IO (Ptr (ConstantArray 3 CInt))
+x_constant_array_ptr = ConstantArray.isConstantArray (Proxy @3) <$> peek x_ptr
+
+x_incomplete_array_ptr :: IO (Ptr (IncompleteArray CInt))
+x_incomplete_array_ptr = IncompleteArray.isIncompleteArray <$> peek x_ptr
+```
+
+Memory layout:
+
+| type                     | name          | address | value   |
+| ------------------------ | ------------- | ------- | ------- |
+| int                      |               | 1000    | 1       |
+|                          |               | 1004    | 2       |
+|                          |               | 1008    | 3       |
+|                          |               | ...     |         |
+| int*                     | x             | 2000    | 1000    |
+|                          |               | ...     |         |
+| int**                    | x_ptr_c       | 3000    | 2000    |
+|                          |               | ...     |         |
+| Ptr (Ptr CInt)           | x_ptr         | 4000    | 2000    |
+
+### Arrays of known size: `int[3]`
+
+We have a subtle choice here of what to generate a binding for. The options are:
+
+* Generate a binding to the pointer to the first element of the array. This
+  emphasises individual elements.
+
+* Generate a binding to the pointer to the whole of the array. This emphasises
+  the array as a whole.
+
+For uniformity, we use the latter option.
+
+Note that the *value* of the pointer is the same regardless of which approach we
+pick. A pointer to the first element of the array points to the start of the
+array, and a pointer to the array as a whole *also* points to the start of the
+array. The difference is only in the type of the pointer. As such, a user of the
+generated bindings can safely cast the pointer to the whole array to a pointer
+to the first element of the array.
+
+Global:
+```c
+typedef int triplet[3];
+triplet x;
+```
+
+Stub:
+```c
+// The x_ptr_c indirection is just here to give the pointer a name that we
+// can refer to in the memory layout. It is not included in the stub that we
+// actually generate
+__attribute__ ((const)) triplet *get_x_ptr(void) {
+  x_ptr_c = &x;
+  return x_ptr_c;
+}
+```
+
+Import:
+```hs
+newtype Triplet = Triplet (ConstantArray 3 CInt)
+foreign import ccall safe "get_x_ptr" x_ptr :: Ptr Triplet
+
+-- The code below is not included in the generated bindings.
+-- It should be included by a user of the bindings if they want
+-- to use the array pointer as an array element pointer instead.
+
+x_elem_ptr :: Ptr CInt
+x_elem_ptr = snd $ ConstantArray.isFirstElem x_ptr
+```
+
+Memory layout:
+
+| type                       | name          | address | value   |
+| -------------------------- | ------------- | ------- | ------- |
+| int[3]                     | x             | 1000    | 1       |
+|                            |               | 1004    | 2       |
+|                            |               | 1008    | 3       |
+|                            |               | ...     |         |
+| (*int)[3]                  | x_ptr_c       | 2000    | 1000    |
+|                            |               | ...     |         |
+| Ptr (ConstantArray 3 CInt) | x_ptr         | 3000    | 1000    |
+
+# Arrays of unknown size: `int[]`
+
+The approach is here is exactly the same as for arrays of known size. The
+difference is only in the types: we use `IncompleteArray` instead of
+`ConstantArray`.
+
+Global:
+```c
+typedef int list[];
+list x;
+```
+
+Stub:
+```c
+// The x_ptr_c indirection is just here to give the pointer a name that we
+// can refer to in the memory layout. It is not included in the stub that we
+// actually generate
+__attribute__ ((const)) list *get_x_ptr(void) {
+  x_ptr_c = &x;
+  return x_ptr_c;
+}
+```
+
+Import:
+```hs
+newtype List = List (IncompleteArray CInt)
+foreign import ccall safe "get_x_ptr" x_ptr :: Ptr List
+
+-- The code below is not included in the generated bindings.
+-- It should be included by a user of the bindings if they want
+-- to use the array pointer as an array element pointer instead.
+
+x_elem_ptr :: Ptr CInt
+x_elem_ptr = IncompleteArray.isFirstElem x_ptr
+```
+
+Memory layout:
+
+| type                       | name          | address | value   |
+| -------------------------- | ------------- | ------- | ------- |
+| int[]                      | x             | 1000    | 1       |
+|                            |               | 1004    | 2       |
+|                            |               | 1008    | 3       |
+|                            |               | ...     |         |
+| (*int)[]                   | x_ptr_c       | 2000    | 1000    |
+|                            |               | ...     |         |
+| Ptr (IncompleteArray CInt) | x_ptr         | 3000    | 1000    |

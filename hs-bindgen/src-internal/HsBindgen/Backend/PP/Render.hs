@@ -214,7 +214,7 @@ instance Pretty SDecl where
     DInst Instance{..} ->
       let inst = hsep $
             ["instance", pretty (resolve instanceClass)]
-              ++ map pretty instanceArgs
+              ++ map (prettyPrec 1) instanceArgs
               ++ ["where"]
           typs = flip map instanceTypes $ \(g, typArg, typSyn) -> nest 2 $ fsep
             [ "type" <+> ppUnqualBackendName (resolve g) <+> prettyPrec 1 typArg

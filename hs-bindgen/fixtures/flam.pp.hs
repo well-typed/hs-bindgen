@@ -1,3 +1,4 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -6,6 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -118,3 +120,34 @@ instance F.Storable Diff where
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Diff where
 
   flexibleArrayMemberOffset = \_ty0 -> 9
+
+{-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
+
+  __from C:__ @triplets@
+-}
+data Triplets = Triplets
+  { triplets_len :: FC.CInt
+  }
+  deriving stock (Eq, Show)
+
+instance F.Storable Triplets where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Triplets
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Triplets triplets_len2 ->
+            F.pokeByteOff ptr0 (0 :: Int) triplets_len2
+
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) Triplets where
+
+  flexibleArrayMemberOffset = \_ty0 -> 4

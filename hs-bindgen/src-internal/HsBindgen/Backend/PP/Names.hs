@@ -37,6 +37,7 @@ import GHC.Float           qualified
 import GHC.Ptr             qualified
 import Text.Read           qualified
 
+import HsBindgen.Runtime.IncompleteArray     qualified
 import HsBindgen.Runtime.Bitfield            qualified
 import HsBindgen.Runtime.Block               qualified
 import HsBindgen.Runtime.ByteArray           qualified
@@ -214,6 +215,7 @@ resolveGlobal = \case
     Foreign_FunPtr       -> importQ ''Foreign.FunPtr
     Ptr_constructor      -> importQ ''GHC.Ptr.Ptr
     ConstantArray        -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
+    IncompleteArray      -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
     IO_type              -> importU ''IO
     HasFlexibleArrayMember_class -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
     HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
@@ -225,6 +227,7 @@ resolveGlobal = \case
     CAPI_with             -> importQ 'Foreign.with
     CAPI_allocaAndPeek    -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
     ConstantArray_withPtr -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
+    IncompleteArray_withPtr -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
 
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded
