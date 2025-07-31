@@ -41,8 +41,8 @@ nullSourcePath (SourcePath path) = Text.null path
 
 -- | C include directory
 --
--- C system and quote include search paths are ordered list of directories that
--- are used to resolve header file paths. The name comes from environment
+-- The C system and quote include search paths are ordered lists of directories
+-- that are used to resolve header file paths. The name comes from environment
 -- variables @C_INCLUDE_PATH@ and @CPATH@. It is unforuntaly confusing
 -- terminology that a /search/ path is a list of /filesystem/ paths.
 --

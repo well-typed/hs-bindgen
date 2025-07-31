@@ -80,7 +80,7 @@ mkTestClangArgs packageRoot = def {
         (Target_Linux_X86_64, TargetEnvOverride "gnu")
     , clangCStandard = Just $
         C23
-    , clangExtraSystemIncludeDirs = [
+    , clangExtraIncludeDirs = [
           CIncludeDir (packageRoot </> "musl-include/x86_64")
         ]
     }
@@ -91,8 +91,13 @@ getTestDefaultClangArgs testResources extraIncludeDirs =
   where
     aux :: TestResources -> ClangArgs
     aux TestResources{testPackageRoot, testClangArgs} = testClangArgs{
-          clangExtraQuoteIncludeDirs =
-            map (CIncludeDir . (</>) testPackageRoot) extraIncludeDirs
+          clangExtraIncludeDirs =
+               -- NOTE: The include search path is traversed from left to right.
+               -- That is, earlier flags overrule later flags, and so, the
+               -- test-specific include directories must come before the default
+               -- include directories.
+               map (CIncludeDir . (</>) testPackageRoot) extraIncludeDirs
+            <> clangExtraIncludeDirs testClangArgs
         }
 
 {-------------------------------------------------------------------------------

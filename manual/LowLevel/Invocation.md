@@ -54,6 +54,5 @@ Configuration of `libclang` via environment variables is important because:
 Note that when using `hs-bindgen-cli`, users can fully configure `libclang`
 with command-line arguments. For instance, they can set:
 
-- `--system-include-path DIR`,
-- `--quote-include-path DIR`, and
+- `-I DIR`,
 - `--clang-option OPTION` (for other options passed directly to `libclang`).

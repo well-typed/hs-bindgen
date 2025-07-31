@@ -47,18 +47,11 @@ data ClangArgs = ClangArgs {
       -- @#include@ directories (@False@ will pass @-nostdinc@)
     , clangStdInc :: Bool
 
-      -- | Directories that will be added to the system include search path
+      -- | Directories that will be added to the include search path
       --
-      -- NOTE: This is not a search path: these are /additional/ directories to
-      -- be /added/ to the search path.
-    , clangExtraSystemIncludeDirs :: [CIncludeDir]
-
-      -- | Directories that will be added to the non-system (i.e., quote)
-      -- include search path
-      --
-      -- NOTE: This is not a search path: these are /additional/ directories to
-      -- be /added/ to the search path.
-    , clangExtraQuoteIncludeDirs :: [CIncludeDir]
+      -- This corresponds to the @-I@ clang argument, see
+      -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management>.
+    , clangExtraIncludeDirs :: [CIncludeDir]
 
       -- | Enable block support
       --
@@ -77,14 +70,13 @@ data ClangArgs = ClangArgs {
 
 instance Default ClangArgs where
  def = ClangArgs {
-      clangTarget                 = Nothing
-    , clangCStandard              = Nothing
-    , clangEnableGnu              = False
-    , clangStdInc                 = True
-    , clangExtraSystemIncludeDirs = []
-    , clangExtraQuoteIncludeDirs  = []
-    , clangEnableBlocks           = False
-    , clangOtherArgs              = []
+      clangTarget           = Nothing
+    , clangCStandard        = Nothing
+    , clangEnableGnu        = False
+    , clangStdInc           = True
+    , clangExtraIncludeDirs = []
+    , clangEnableBlocks     = False
+    , clangOtherArgs        = []
     }
 
 -- | C standard
@@ -170,13 +162,9 @@ fromClangArgs ClangArgs{..} = aux [
         , [ "-fblocks"  | clangEnableBlocks ]
         ]
 
-    , return $ concat . map concat $ [
-          [ ["-isystem", getCIncludeDir path]
-          | path <- clangExtraSystemIncludeDirs
-          ]
-        , [ ["-I", getCIncludeDir path]
-          | path <- clangExtraQuoteIncludeDirs
-          ]
+    , return $ concat [
+          ["-I", getCIncludeDir path]
+        | path <- clangExtraIncludeDirs
         ]
 
     , return clangOtherArgs

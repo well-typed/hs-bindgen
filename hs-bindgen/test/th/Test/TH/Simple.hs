@@ -9,8 +9,8 @@ module Test.TH.Simple where
 import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
-let opts = def { extraSystemIncludeDirs = [ RelativeToPkgRoot "examples" ] }
- in withHsBindgen opts $ hashInclude $ Quote "simple.h"
+let opts = def { extraIncludeDirs = [ RelativeToPkgRoot "examples" ] }
+ in withHsBindgen opts $ hashInclude "simple.h"
 
 x :: Simple
 x = Simple { simple_n = 10 }

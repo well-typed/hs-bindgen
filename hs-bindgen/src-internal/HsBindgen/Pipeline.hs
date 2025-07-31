@@ -18,8 +18,7 @@ module HsBindgen.Pipeline (
 
     -- * Template Haskell API
   , IncludeDir (..)
-  , HashIncludeOpts ( extraQuoteIncludeDirs
-                    , extraSystemIncludeDirs
+  , HashIncludeOpts ( extraIncludeDirs
                     , tracerOutputConfigQ
                     , tracerCustomLogLevel
                     , tracerTracerConfig
@@ -147,14 +146,9 @@ preprocessIO config fp = genPP config fp . genModule config . genSHsDecls
   Template Haskell API
 -------------------------------------------------------------------------------}
 
--- IDEA: Make 'QuoteIncludePathDir' an opaque type, ensure path exists, and
--- construct normal file path right away.
-
 -- | Project-specific C include directory.
 --
--- Will be added either to the C sytem include search path or the C quote
--- include search path, depending on whether it is used in
--- 'extraQuoteIncludeDirs', or 'extraSystemIncludeDirs'.
+-- Will be added either to the C include search path.
 data IncludeDir =
     IncludeDir    FilePath
     -- | Include directory relative to package root.
@@ -163,33 +157,31 @@ data IncludeDir =
 
 -- | Options (opaque, but with record selector functions exported).
 data HashIncludeOpts = HashIncludeOpts {
-    extraSystemIncludeDirs :: [IncludeDir]
-  , extraQuoteIncludeDirs  :: [IncludeDir]
+    extraIncludeDirs     :: [IncludeDir]
     -- * Binding specifications
-  , bindingSpecConfig      :: BindingSpecConfig
+  , bindingSpecConfig    :: BindingSpecConfig
     -- * Tracer
-  , tracerOutputConfigQ    :: OutputConfig TH.Q
-  , tracerCustomLogLevel   :: CustomLogLevel TraceMsg
-  , tracerTracerConfig     :: TracerConfig
+  , tracerOutputConfigQ  :: OutputConfig TH.Q
+  , tracerCustomLogLevel :: CustomLogLevel TraceMsg
+  , tracerTracerConfig   :: TracerConfig
   }
 
 instance Default HashIncludeOpts where
   def = HashIncludeOpts {
-      extraSystemIncludeDirs = []
-    , extraQuoteIncludeDirs  = []
-    , bindingSpecConfig      = def
-    , tracerTracerConfig     = def { tVerbosity = Verbosity Notice }
-    , tracerCustomLogLevel   = mempty
-    , tracerOutputConfigQ    = outputConfigQ
+      extraIncludeDirs     = []
+    , bindingSpecConfig    = def
+    , tracerTracerConfig   = def { tVerbosity = Verbosity Notice }
+    , tracerCustomLogLevel = mempty
+    , tracerOutputConfigQ  = outputConfigQ
     }
 
 -- | Internal! See 'withHsBindgen'.
-newtype WithHsBindgenM a =  WithHsBindgenM {
-    getWithHsBindgenM :: State WithHsBindgenState a
+newtype WithHsBindgen a =  WithHsBindgen {
+    getWithHsBindgen :: State WithHsBindgenState a
   }
 
 -- | Internal! State manipulated by monadic 'hashInclude' directives.
-newtype WithHsBindgenState = WithHsBindgenState {
+data WithHsBindgenState = WithHsBindgenState {
     hashIncludeArgs :: [HashIncludeArg]
   }
 
@@ -202,15 +194,13 @@ newtype WithHsBindgenState = WithHsBindgenState {
 -- > withHsBindgen def $ do
 -- >   hashInclude "a.h"
 -- >   hashInclude "b.h"
-withHsBindgen :: HashIncludeOpts -> WithHsBindgenM () -> TH.Q [TH.Dec]
+withHsBindgen :: HashIncludeOpts -> WithHsBindgen () -> TH.Q [TH.Dec]
 withHsBindgen HashIncludeOpts{..} hashIncludes = do
   checkHsBindgenRuntimePreludeIsInScope
-  quoteIncludeDirs <- toFilePaths extraQuoteIncludeDirs
-  systemIncludeDirs <- toFilePaths extraSystemIncludeDirs
+  includeDirs <- toFilePaths extraIncludeDirs
   let clangArgs :: ClangArgs
       clangArgs = def {
-          clangExtraSystemIncludeDirs = CIncludeDir <$> systemIncludeDirs
-        , clangExtraQuoteIncludeDirs  = CIncludeDir <$> quoteIncludeDirs
+          clangExtraIncludeDirs = CIncludeDir <$> includeDirs
         }
       config :: Config
       config = def { configClangArgs = clangArgs }
@@ -255,21 +245,29 @@ withHsBindgen HashIncludeOpts{..} hashIncludes = do
 
     withHsBindgenState :: WithHsBindgenState
     withHsBindgenState =
-      execState (getWithHsBindgenM hashIncludes) (WithHsBindgenState [])
+      execState (getWithHsBindgen hashIncludes) (WithHsBindgenState [])
 
     -- Restore order of include directives.
     hashIncludeArgsReversed :: [HashIncludeArg]
     hashIncludeArgsReversed = reverse $ hashIncludeArgs withHsBindgenState
 
--- | "Hash include" (i.e., generate bindings for) a file.
+-- | @#include@ (i.e., generate bindings for) a C header.
+--
+-- For example, the Haskell code,
+--
+-- > hashInclude "a.h"
+--
+-- corresponds to the following C code using angular brackets,
+--
+-- > #include <a.h>
 --
 -- See 'withHsBindgen'.
-hashInclude :: HashIncludeArg -> WithHsBindgenM ()
-hashInclude arg = WithHsBindgenM $ modify addArg
+hashInclude :: FilePath -> WithHsBindgen ()
+hashInclude arg = WithHsBindgen $ modify addArg
   where -- Prepend the include directive to the list. That is, the order of
         -- include directives will be reversed.
         addArg :: WithHsBindgenState -> WithHsBindgenState
-        addArg = WithHsBindgenState . (arg :) . hashIncludeArgs
+        addArg = WithHsBindgenState . (System arg :) . hashIncludeArgs
 
 -- | Non-IO part of 'hashIncludeWith'
 genBindingsFromCHeader

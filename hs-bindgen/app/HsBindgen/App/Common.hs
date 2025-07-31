@@ -88,15 +88,13 @@ parseVerbosity =
 
 parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [
-      short 't'
-    , long "show-time"
+      long "show-time"
     , help "Show time stamps in traces"
     ]
 
 parseShowCallStack :: Parser ShowCallStack
 parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
-      short 's'
-    , long "show-call-stack"
+      long "show-call-stack"
     , help "Show call stacks in traces"
     ]
 
@@ -139,14 +137,13 @@ parseClangArgs = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
-    clangTarget                 <- optional parseTarget
-    clangCStandard              <- Just <$> parseCStandard
-    clangStdInc                 <- not <$> parseNoStdInc
-    clangEnableGnu              <- parseGnuOption
-    clangExtraSystemIncludeDirs <- parseSystemIncludeDirOptions
-    clangExtraQuoteIncludeDirs  <- parseQuoteIncludeDirOptions
-    clangEnableBlocks           <- parseEnableBlocks
-    clangOtherArgs              <- parseOtherArgs
+    clangTarget           <- optional parseTarget
+    clangCStandard        <- Just <$> parseCStandard
+    clangStdInc           <- not <$> parseNoStdInc
+    clangEnableGnu        <- parseGnuOption
+    clangExtraIncludeDirs <- parseIncludeDirOptions
+    clangEnableBlocks     <- parseEnableBlocks
+    clangOtherArgs        <- parseOtherArgs
     pure ClangArgs {..}
 
 parseTarget :: Parser (Target, TargetEnv)
@@ -221,19 +218,11 @@ parseGnuOption = switch $ mconcat [
     , help "Enable GNU extensions"
     ]
 
-parseSystemIncludeDirOptions :: Parser [CIncludeDir]
-parseSystemIncludeDirOptions = many . strOption $ mconcat [
+parseIncludeDirOptions :: Parser [CIncludeDir]
+parseIncludeDirOptions = many . strOption $ mconcat [
       short 'I'
-    , long "system-include-path"
     , metavar "DIR"
-    , help "System include search path directory"
-    ]
-
-parseQuoteIncludeDirOptions :: Parser [CIncludeDir]
-parseQuoteIncludeDirOptions = many . strOption $ mconcat [
-      long "quote-include-path"
-    , metavar "DIR"
-    , help "Quote include search path directory"
+    , help "Include search path directory"
     ]
 
 -- TODO: Perhaps we should mimick clang's @-f@ parameter?
@@ -250,20 +239,22 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
     , help "Pass option to libclang"
     ]
   where
+    isIncludeDirPrefix :: String -> Bool
+    isIncludeDirPrefix s =
+         ("-I" `List.isPrefixOf` s)
+      || ("-isystem" `List.isPrefixOf` s)
+      || ("-iquote" `List.isPrefixOf` s)
+
     readOtherArg :: String -> Either String String
     readOtherArg s
-      | "-I" `List.isPrefixOf` s =
-          Left "Include path must be set using hs-bindgen -I/--system-include-path options"
-      | "-isystem" `List.isPrefixOf` s =
-          Left "System include path must be set using hs-bindgen -I/--system-include-path options"
-      | "-iquote" `List.isPrefixOf` s =
-          Left "Quote include path must be set using hs-bindgen --quote-include-path options"
+      | isIncludeDirPrefix s =
+          Left "Add include directories using the 'hs-bindgen' -I option"
       | s == "-nostdinc" =
-          Left "No standard includes option must be set using hs-bindgen --no-stdinc option"
+          Left "No standard includes option must be set using 'hs-bindgen' --no-stdinc option"
       | s == "-std" || "-std=" `List.isPrefixOf` s =
-          Left "C standard must be set using hs-bindgen --standard option"
+          Left "C standard must be set using 'hs-bindgen' --standard option"
       | s == "--target" || "--target=" `List.isPrefixOf` s =
-          Left "Target must be set using hs-bindgen --target option"
+          Left "Target must be set using 'hs-bindgen' --target option"
       | otherwise = Right s
 
 {-------------------------------------------------------------------------------

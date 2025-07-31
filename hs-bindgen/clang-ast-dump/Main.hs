@@ -32,15 +32,14 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data Options = Options {
-      optBuiltin           :: !Bool
-    , optComments          :: !Bool
-    , optExtents           :: !Bool
-    , optFile              :: !HashIncludeArg
-    , optKind              :: !Bool
-    , optQuoteIncludePath  :: [CIncludeDir]
-    , optSameFile          :: !Bool
-    , optSystemIncludePath :: [CIncludeDir]
-    , optType              :: !Bool
+      optBuiltin     :: !Bool
+    , optComments    :: !Bool
+    , optExtents     :: !Bool
+    , optFile        :: !HashIncludeArg
+    , optKind        :: !Bool
+    , optIncludePath :: [CIncludeDir]
+    , optSameFile    :: !Bool
+    , optType        :: !Bool
     }
 
 {-------------------------------------------------------------------------------
@@ -97,8 +96,7 @@ clangAstDump opts@Options{..} = do
 
     cArgs :: ClangArgs
     cArgs = def {
-        clangExtraSystemIncludeDirs = optSystemIncludePath
-      , clangExtraQuoteIncludeDirs  = optQuoteIncludePath
+        clangExtraIncludeDirs = optIncludePath
       }
 
     cOpts :: BitfieldEnum CXTranslationUnit_Flags
@@ -451,24 +449,15 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       -- other options/arguments
       optBuiltin  <- mkFlag "builtin"   "show builtin macros"
       optSameFile <- mkFlag "same-file" "only show from specified file"
-      optSystemIncludePath <- systemIncludePathOption
-      optQuoteIncludePath  <- quoteIncludePathOption
-      optFile              <- fileArgument
+      optIncludePath <- systemIncludePathOption
+      optFile        <- fileArgument
       pure (optAll, Options{..})
 
     systemIncludePathOption :: OA.Parser [CIncludeDir]
     systemIncludePathOption = OA.many . OA.strOption $ mconcat
       [ OA.short 'I'
-      , OA.long "system-include-path"
       , OA.metavar "DIR"
-      , OA.help "System include search path directory"
-      ]
-
-    quoteIncludePathOption :: OA.Parser [CIncludeDir]
-    quoteIncludePathOption = OA.many . OA.strOption $ mconcat
-      [ OA.long "quote-include-path"
-      , OA.metavar "DIR"
-      , OA.help "Quote include search path directory"
+      , OA.help "Include search path directory"
       ]
 
     fileArgument :: OA.Parser HashIncludeArg
