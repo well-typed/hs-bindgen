@@ -1,0 +1,30 @@
+-- addDependentFile examples/golden/visibility_attributes.h
+-- #include "visibility_attributes.h"
+-- void test_internal_f0 (void) { f0(); }
+-- void test_internal_f1 (void) { f1(); }
+-- void test_internal_f5 (void) { f5(); }
+-- void test_internal_f6 (void) { f6(); }
+-- __attribute__ ((const)) signed int *get_i0_ptr (void) { return &i0; } 
+-- __attribute__ ((const)) signed int *get_i1_ptr (void) { return &i1; } 
+-- __attribute__ ((const)) signed int *get_i2_ptr (void) { return &i2; } 
+-- __attribute__ ((const)) signed int *get_i3_ptr (void) { return &i3; } 
+-- __attribute__ ((const)) signed int *get_i4_ptr (void) { return &i4; } 
+-- __attribute__ ((const)) signed int *get_i5_ptr (void) { return &i5; } 
+-- __attribute__ ((const)) signed int *get_i6_ptr (void) { return &i6; } 
+-- __attribute__ ((const)) signed int *get_i7_ptr (void) { return &i7; } 
+-- __attribute__ ((const)) signed int *get_i8_ptr (void) { return &i8; } 
+-- __attribute__ ((const)) signed int *get_i9_ptr (void) { return &i9; } 
+foreign import ccall safe "test_internal_f0" f0 :: IO Unit
+foreign import ccall safe "test_internal_f1" f1 :: IO Unit
+foreign import ccall safe "test_internal_f5" f5 :: IO Unit
+foreign import ccall safe "test_internal_f6" f6 :: IO Unit
+foreign import ccall safe "get_i0_ptr" i0 :: Ptr CInt
+foreign import ccall safe "get_i1_ptr" i1 :: Ptr CInt
+foreign import ccall safe "get_i2_ptr" i2 :: Ptr CInt
+foreign import ccall safe "get_i3_ptr" i3 :: Ptr CInt
+foreign import ccall safe "get_i4_ptr" i4 :: Ptr CInt
+foreign import ccall safe "get_i5_ptr" i5 :: Ptr CInt
+foreign import ccall safe "get_i6_ptr" i6 :: Ptr CInt
+foreign import ccall safe "get_i7_ptr" i7 :: Ptr CInt
+foreign import ccall safe "get_i8_ptr" i8 :: Ptr CInt
+foreign import ccall safe "get_i9_ptr" i9 :: Ptr CInt

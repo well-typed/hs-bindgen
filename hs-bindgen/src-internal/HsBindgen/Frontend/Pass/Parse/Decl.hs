@@ -372,6 +372,7 @@ enumConstantDecl curr = do
 functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 functionDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
+    vis  <- getCursorVisibility curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn <- getReparseInfo curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
@@ -392,6 +393,9 @@ functionDecl info = simpleFold $ \curr -> do
           (anonDecls, otherDecls) = partitionAnonDecls decls
       if not (null anonDecls) then do
         recordTrace $ ParseUnexpectedAnonInSignature info
+        return []
+      else if not (shouldGenerateBindingForVisibility vis) then do
+        recordTrace $ ParseFunctionNonDefaultVisibility info
         return []
       else do
         return $ otherDecls ++ [mkDecl purity]
@@ -430,8 +434,8 @@ functionDecl info = simpleFold $ \curr -> do
           Right CXCursor_ConstAttr -> foldContinueWith $ [Right C.HaskellPureFunction]
           Right CXCursor_PureAttr  -> foldContinueWith $ [Right C.CPureFunction]
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- Take visibility into account.
+          -- @visibility@ attributes. The visibility itself the value is
+          -- obtained using 'getCursorVisibility'.
           Right CXCursor_VisibilityAttr -> foldContinue
 
           -- Attributes we (probably?) want to ignore
@@ -447,6 +451,7 @@ functionDecl info = simpleFold $ \curr -> do
 varDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 varDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
+    vis  <- getCursorVisibility curr
     cls  <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
         mkDecl kind = C.Decl{
@@ -464,9 +469,14 @@ varDecl info = simpleFold $ \curr -> do
         recordTrace $ ParseUnexpectedAnonInExtern info
         return []
       else (otherDecls ++) <$> do
+        when (vis /= DefaultVisibility) $
+          recordTrace $ ParseGlobalVariableNonDefaultVisibility info
         case cls of
           VarGlobal isExtern -> do
             unless isExtern $
+              -- TODO: we could downgrade the severity of this message a tad in
+              -- case the global variable has non-public visibility and the C
+              -- library is a static library (i.e., archive).
               recordTrace $ ParsePotentialDuplicateGlobal info
             return [mkDecl $ C.DeclGlobal typ]
           VarConst _isExternOrStatic -> do
@@ -530,8 +540,8 @@ varDecl info = simpleFold $ \curr -> do
           -- ('CXCursor_CharacterLiteral').
           Right CXCursor_UnexposedExpr -> foldContinue
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- Take visibility into account.
+          -- @visibility@ attributes, where the value is obtained using
+          -- @clang_getCursorVisibility@.
           Right CXCursor_VisibilityAttr -> foldContinue
 
           -- Panic on anything we don't recognize
@@ -672,3 +682,54 @@ classifyVarDecl curr = do
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal
+
+-- | The visibility of a linker symbol determines whether or not a linker symbol
+-- is visible outside of the shared object that it is defined in.
+--
+-- See the section on visibility in the low-level dev manual for more details.
+data Visibility =
+    -- | Public visibility
+    --
+    -- Despite the name, /default/ always means public.
+    DefaultVisibility
+    -- | Non-public visibility.
+  | HiddenVisibility
+    -- | Public visibility, but the linker symbol can not be overridden.
+    --
+    -- This visibility is rarely useful in practice. For binding generation, we
+    -- treat it as non-public visibility.
+  | ProtectedVisibility
+  deriving stock (Show, Eq, Generic)
+
+-- | Retrieve the visibilty of the entity that the cursor is currently pointing
+-- to.
+getCursorVisibility :: MonadIO m => CXCursor -> m Visibility
+getCursorVisibility curr = do
+    vis  <- fromSimpleEnum <$> clang_getCursorVisibility curr
+    case vis of
+      -- See https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb
+      Right vis' -> case vis' of
+        -- Symbol seen by the linker and acts like a normal symbol.
+        CXVisibility_Default -> pure DefaultVisibility
+        -- Symbol not seen by the linker.
+        CXVisibility_Hidden -> pure HiddenVisibility
+        -- Symbol seen by the linker but resolves to a symbol inside this object.
+        CXVisibility_Protected -> pure ProtectedVisibility
+        -- This value indicates that no visibility information is available for a provided CXCursor.
+        CXVisibility_Invalid -> do
+          loc <- HighLevel.clang_getCursorLocation' curr
+          panicIO $ "Invalid visibility " ++ show vis' ++ " at " ++ show loc
+      -- Panic on anything we don't recognize
+      Left x -> do
+        loc <- HighLevel.clang_getCursorLocation' curr
+        panicIO $ "Unexpected visibility " ++ show x ++ " at " ++ show loc
+
+-- | We should only generate bindings for declarations with 'DefaultVisibility',
+-- i.e., public visibility.
+--
+-- See the section on visibility in the low-level dev manual for more details.
+shouldGenerateBindingForVisibility :: Visibility -> Bool
+shouldGenerateBindingForVisibility = \case
+    DefaultVisibility -> True
+    HiddenVisibility -> False
+    ProtectedVisibility -> False
