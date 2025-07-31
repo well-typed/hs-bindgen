@@ -256,7 +256,8 @@ foreign import capi unsafe "clang_wrappers.h clang_isUnexposed"
 
 -- enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor); // no enum
 
--- enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor); // no enum
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorVisibility :: R CXCursor_ -> IO (SimpleEnum CXVisibilityKind)
 
 -- enum CXAvailabilityKind clang_getCursorAvailability (CXCursor cursor); // no enum
 
