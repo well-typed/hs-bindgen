@@ -31,18 +31,6 @@ data ResolveHeaderMsg =
   | ResolveHeaderNotFound HashIncludeArg
   deriving stock (Eq, Show)
 
-instance HasDefaultLogLevel ResolveHeaderMsg where
-  getDefaultLogLevel = \case
-    ResolveHeaderClang x    -> getDefaultLogLevel x
-    ResolveHeaderSuccess{}  -> Info
-    ResolveHeaderNotFound{} -> Error
-
-instance HasSource ResolveHeaderMsg where
-  getSource = \case
-    ResolveHeaderClang x    -> getSource x
-    ResolveHeaderSuccess{}  -> HsBindgen
-    ResolveHeaderNotFound{} -> HsBindgen
-
 instance PrettyForTrace ResolveHeaderMsg where
   prettyForTrace = \case
     ResolveHeaderClang msg -> hang
@@ -58,6 +46,18 @@ instance PrettyForTrace ResolveHeaderMsg where
       , string $ getHashIncludeArg header
       , "not found"
       ]
+
+instance HasDefaultLogLevel ResolveHeaderMsg where
+  getDefaultLogLevel = \case
+    ResolveHeaderClang x    -> getDefaultLogLevel x
+    ResolveHeaderSuccess{}  -> Info
+    ResolveHeaderNotFound{} -> Error
+
+instance HasSource ResolveHeaderMsg where
+  getSource = \case
+    ResolveHeaderClang x    -> getSource x
+    ResolveHeaderSuccess{}  -> HsBindgen
+    ResolveHeaderNotFound{} -> HsBindgen
 
 {-------------------------------------------------------------------------------
   API

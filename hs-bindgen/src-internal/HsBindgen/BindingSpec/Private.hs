@@ -335,25 +335,8 @@ data BindingSpecMsg =
     BindingSpecReadMsg    BindingSpecReadMsg
   | BindingSpecResolveMsg BindingSpecResolveMsg
   | BindingSpecMergeMsg   BindingSpecMergeMsg
-  deriving stock (Eq, Show)
-
-instance HasDefaultLogLevel BindingSpecMsg where
-  getDefaultLogLevel = \case
-    BindingSpecReadMsg    x -> getDefaultLogLevel x
-    BindingSpecResolveMsg x -> getDefaultLogLevel x
-    BindingSpecMergeMsg   x -> getDefaultLogLevel x
-
-instance HasSource BindingSpecMsg where
-  getSource = \case
-    BindingSpecReadMsg    x -> getSource x
-    BindingSpecResolveMsg x -> getSource x
-    BindingSpecMergeMsg   x -> getSource x
-
-instance PrettyForTrace BindingSpecMsg where
-  prettyForTrace = \case
-    BindingSpecReadMsg    x -> prettyForTrace x
-    BindingSpecResolveMsg x -> prettyForTrace x
-    BindingSpecMergeMsg   x -> prettyForTrace x
+  deriving stock    (Eq, Show, Generic)
+  deriving anyclass (HasDefaultLogLevel,  HasSource, PrettyForTrace)
 
 {-------------------------------------------------------------------------------
   API

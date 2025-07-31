@@ -41,8 +41,10 @@ import Control.Tracer (Contravariant (..))
 import Control.Tracer qualified as ContraTracer
 import Data.Default (Default (..))
 import Data.IORef (IORef, modifyIORef, newIORef, readIORef)
+import Data.Kind (Type)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
+import GHC.Generics as GHC
 import GHC.Stack (CallStack, HasCallStack, callStack, prettyCallStack)
 import Language.Haskell.TH (Q, reportError, reportWarning)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
@@ -54,6 +56,7 @@ import System.Exit (exitFailure)
 import System.IO (Handle, hPutStrLn, stdout)
 
 import Text.SimplePrettyPrint
+
 
 {-------------------------------------------------------------------------------
   Definition and main API
@@ -159,10 +162,46 @@ getColorForLevel = \case
 -- | Convert values to textual representations used in traces.
 class PrettyForTrace a where
   prettyForTrace :: a -> CtxDoc
+  default prettyForTrace :: (Generic a, GPrettyForTrace (Rep a)) => a -> CtxDoc
+  prettyForTrace = gPrettyForTrace'
+
+class GPrettyForTrace (r :: Type -> Type) where
+  gPrettyForTrace :: r x -> CtxDoc
+
+instance GPrettyForTrace r => GPrettyForTrace (M1 tag meta r) where
+  gPrettyForTrace (M1 x) = gPrettyForTrace x
+
+instance (GPrettyForTrace r1, GPrettyForTrace r2) => GPrettyForTrace (r1 :+: r2) where
+  gPrettyForTrace (L1 x) = gPrettyForTrace x
+  gPrettyForTrace (R1 x) = gPrettyForTrace x
+
+instance PrettyForTrace a => GPrettyForTrace (K1 tag a) where
+  gPrettyForTrace (K1 x) = prettyForTrace x
+
+gPrettyForTrace' :: (GHC.Generic a, GPrettyForTrace (GHC.Rep a)) => a -> CtxDoc
+gPrettyForTrace' = gPrettyForTrace .  GHC.from
 
 -- | Get default (or suggested) log level of values used in traces.
 class HasDefaultLogLevel a where
   getDefaultLogLevel :: a -> Level
+  default getDefaultLogLevel :: (Generic a, GHasDefaultLogLevel (Rep a)) => a -> Level
+  getDefaultLogLevel = gGetDefaultLogLevel'
+
+class GHasDefaultLogLevel (r :: Type -> Type) where
+  gGetDefaultLogLevel :: r x -> Level
+
+instance GHasDefaultLogLevel r => GHasDefaultLogLevel (M1 tag meta r) where
+  gGetDefaultLogLevel (M1 x) = gGetDefaultLogLevel x
+
+instance (GHasDefaultLogLevel r1, GHasDefaultLogLevel r2) => GHasDefaultLogLevel (r1 :+: r2) where
+  gGetDefaultLogLevel (L1 x) = gGetDefaultLogLevel x
+  gGetDefaultLogLevel (R1 x) = gGetDefaultLogLevel x
+
+instance HasDefaultLogLevel a => GHasDefaultLogLevel (K1 tag a) where
+  gGetDefaultLogLevel (K1 x) = getDefaultLogLevel x
+
+gGetDefaultLogLevel' :: (GHC.Generic a, GHasDefaultLogLevel (GHC.Rep a)) => a -> Level
+gGetDefaultLogLevel' = gGetDefaultLogLevel .  GHC.from
 
 -- | Possible sources of traces. The 'Source' is shown by default in traces, and
 -- so should be useful to users of @hs-bindgen@.
@@ -177,6 +216,24 @@ alignSource = \case
 -- | Get source or context of values used in traces.
 class HasSource a where
   getSource :: a -> Source
+  default getSource :: (Generic a, GHasSource (Rep a)) => a -> Source
+  getSource = gGetSource'
+
+class GHasSource (r :: Type -> Type) where
+  gGetSource :: r x -> Source
+
+instance GHasSource r => GHasSource (M1 tag meta r) where
+  gGetSource (M1 x) = gGetSource x
+
+instance (GHasSource r1, GHasSource r2) => GHasSource (r1 :+: r2) where
+  gGetSource (L1 x) = gGetSource x
+  gGetSource (R1 x) = gGetSource x
+
+instance HasSource a => GHasSource (K1 tag a) where
+  gGetSource (K1 x) = getSource x
+
+gGetSource' :: (GHC.Generic a, GHasSource (GHC.Rep a)) => a -> Source
+gGetSource' = gGetSource .  GHC.from
 
 newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
