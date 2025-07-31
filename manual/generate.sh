@@ -44,6 +44,13 @@ cabal run hs-bindgen-cli -- \
     --module Globals \
     globals.h
 
+cabal run hs-bindgen-cli -- \
+  preprocess \
+    -I c \
+    -o hs/manual/generated/Arrays.hs \
+    --module Arrays \
+    arrays.h
+
 echo "# "
 echo "# External bindings: vector example"
 echo "# "

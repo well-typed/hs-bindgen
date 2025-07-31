@@ -1,19 +1,25 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DataKinds #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module RunManual (main) where
 
 import Control.Exception (bracket)
 import Data.Vector.Storable qualified as VS
-import Foreign
+import Foreign as F
 import Foreign.C (castCCharToChar, withCString)
 import Foreign.C qualified as FC
 import System.IO.Unsafe
 import Text.Read (readEither)
 
+import GHC.TypeNats
+
 import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
+import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.ConstantArray qualified as CA
 
+import Arrays as Arrays
 import Example
 import Globals
 import Structs
@@ -205,7 +211,7 @@ main = do
     section "Structs"
     --
 
-    bracket (withCString "Rich" $ \cstr -> surname_alloc cstr) surname_free $
+    bracket (withCString "Rich" $ \cstr -> surname_alloc_wrapper cstr) surname_free $
       \ptr -> do
         (surname :: Surname) <- peek ptr
         putStrLn $ "The length of the surname is: " <> show (surname_len surname)
@@ -263,14 +269,108 @@ main = do
     config' <- peek globalConfig
     print config'
 
-    putStrLn ""
-
-    print =<< peek nonExternGlobalString
-    print =<< peek nonExternGlobalInt
-    -- TODO: enable once #377 is resolved
-    -- print =<< peek externGlobalString
+    print =<< peek globalInt
     print =<< peek externGlobalInt
 
+    --
+    -- Arrays
+    section "Arrays"
+    --
+    do
+      -- Global array variables
+      subsection "Global variables"
+      reverseConstantArray Arrays.arr1
+      reverseConstantArrayElems Arrays.arr1
+
+      reverseConstantArray Arrays.arr2
+      reverseConstantArrayElems Arrays.arr2
+
+      reverseIncompleteArray 3 Arrays.arr3
+      reverseIncompleteArrayElems 3 Arrays.arr3
+
+      print =<< F.peek Arrays.sudoku
+      print =<< IA.peekArray 2 Arrays.triplets
+
+      -- Matrix transpose
+      subsection "Matrix transpose"
+      let inputMatrix = Arrays.Matrix $
+            CA.fromList [
+                Arrays.Triplet $ CA.fromList [1, 2, 3]
+              , Arrays.Triplet $ CA.fromList [4, 5, 6]
+              , Arrays.Triplet $ CA.fromList [7, 8, 9]
+              ]
+      print inputMatrix
+      outputMatrix <- transposeMatrix inputMatrix
+      print outputMatrix
+
+      -- Complex example
+      subsection "Complex example"
+      ts <- IA.peekArray 2 Arrays.triplets
+      let tripletAddresses = [advancePtr (IA.isFirstElem Arrays.triplets) n | n <- [0..]]
+      print (zip (IA.toList ts) tripletAddresses)
+      print =<< IA.peekArray 3 Arrays.global_triplet_ptrs
+      Arrays.pretty_print_triplets_wrapper (castPtr Arrays.global_triplet_ptrs)
+
+{-------------------------------------------------------------------------------
+  Arrays
+-------------------------------------------------------------------------------}
+
+reverseConstantArray :: (Storable a, Show a, KnownNat n) => Ptr (CA.ConstantArray n a) -> IO ()
+reverseConstantArray ptr = do
+    -- Print the input contents
+    xs <- F.peek ptr
+    print xs
+    -- Reverse the array
+    let ys = CA.fromList . reverse . CA.toList $ xs
+    F.poke ptr ys
+    -- Print the output contents
+    zs <- F.peek ptr
+    print zs
+
+reverseConstantArrayElems :: (Storable a, Show a, KnownNat n) => Ptr (CA.ConstantArray n a) -> IO ()
+reverseConstantArrayElems ptr = do
+    let (p, ptr') = CA.isFirstElem ptr
+    -- Print the input contents
+    xs <- F.peekArray (CA.intVal p) ptr'
+    print xs
+    -- Reverse the array
+    let ys = reverse xs
+    F.pokeArray ptr' ys
+    -- Print the output contents
+    zs <- F.peekArray (CA.intVal p) ptr'
+    print zs
+
+reverseIncompleteArray :: (Storable a, Show a) => Int -> Ptr (IA.IncompleteArray a) -> IO ()
+reverseIncompleteArray n ptr = do
+    -- Print the input contents
+    xs <- IA.peekArray n ptr
+    print xs
+    -- Reverse the array
+    let ys = IA.fromList . reverse . IA.toList $ xs
+    IA.pokeArray ptr ys
+    -- Print the output contents
+    zs <- IA.peekArray n ptr
+    print zs
+
+reverseIncompleteArrayElems :: (Storable a, Show a) => Int -> Ptr (IA.IncompleteArray a) -> IO ()
+reverseIncompleteArrayElems n ptr = do
+    let ptr' = IA.isFirstElem ptr
+    -- Print the input contents
+    xs <- F.peekArray n ptr'
+    print xs
+    -- Reverse the array
+    let ys = reverse xs
+    F.pokeArray ptr' ys
+    -- Print the output contents
+    zs <- F.peekArray n ptr'
+    print zs
+
+transposeMatrix :: Arrays.Matrix -> IO Arrays.Matrix
+transposeMatrix inputMatrix =
+    CA.withPtr inputMatrix $ \inputPtr -> do
+      F.alloca $ \(outputPtr :: Ptr Matrix) -> do
+        Arrays.transpose_wrapper (inputPtr) (snd $ CA.isFirstElem outputPtr)
+        peek outputPtr
 
 {-------------------------------------------------------------------------------
   Aux
@@ -280,4 +380,10 @@ section :: String -> IO ()
 section s = do
   putStrLn ""
   putStrLn $ "*** " <> s <> " ***"
+  putStrLn ""
+
+subsection :: String -> IO ()
+subsection s = do
+  putStrLn ""
+  putStrLn $ "** " <> s <> " **"
   putStrLn ""

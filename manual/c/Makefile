@@ -27,7 +27,7 @@ ifeq ($(LLVM_BACKEND),1)
 	EXTRAFLAGS:=
 endif
 
-default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT} libglobals${TARGET_EXT}
+default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT} libglobals${TARGET_EXT} libarrays${TARGET_EXT}
 
 .PHONY: clean
 clean:
@@ -52,6 +52,12 @@ libglobals${TARGET_EXT}: globals.o
 
 globals.o: globals.c globals.h
 	gcc ${EXTRAFLAGS} -Wall -o globals.o -c -fPIC globals.c
+
+libarrays${TARGET_EXT}: arrays.o
+	gcc ${EXTRAFLAGS} -Wall -shared -o libarrays${TARGET_EXT} arrays.o
+
+arrays.o: arrays.c arrays.h
+	gcc ${EXTRAFLAGS} -Wall -o arrays.o -c -fPIC arrays.c
 
 # Example for external bindings
 

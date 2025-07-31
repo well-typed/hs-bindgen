@@ -21,7 +21,7 @@ executable run-manual
   main-is:         RunManual.hs
   ghc-options:     -main-is RunManual
   hs-source-dirs:  app, generated
-  extra-libraries: example, structs, globals
+  extra-libraries: example, structs, globals, arrays
 
   build-depends:
     -- Internal.
@@ -34,6 +34,7 @@ executable run-manual
     , vector
 
   other-modules:
+      Arrays
       Example
       Structs
       Globals
