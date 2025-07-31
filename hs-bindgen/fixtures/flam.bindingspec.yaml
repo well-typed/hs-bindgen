@@ -16,17 +16,17 @@ types:
   - Show
   - Storable
 - headers: flam.h
-  cname: foo_bar
+  cname: struct pascal
   module: Example
-  identifier: Foo_bar
+  identifier: Pascal
   instances:
   - Eq
   - Show
   - Storable
 - headers: flam.h
-  cname: struct pascal
+  cname: '@foo_bar'
   module: Example
-  identifier: Pascal
+  identifier: Foo_bar
   instances:
   - Eq
   - Show

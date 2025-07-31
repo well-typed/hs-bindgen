@@ -16,7 +16,7 @@ types:
   - Show
   - Storable
 - headers: globals.h
-  cname: struct1_t
+  cname: '@struct1_t'
   module: Example
   identifier: Struct1_t
   instances:
@@ -24,7 +24,7 @@ types:
   - Show
   - Storable
 - headers: globals.h
-  cname: struct2_t
+  cname: '@struct2_t'
   module: Example
   identifier: Struct2_t
   instances:
@@ -32,7 +32,7 @@ types:
   - Show
   - Storable
 - headers: globals.h
-  cname: version_t
+  cname: '@version_t'
   module: Example
   identifier: Version_t
   instances:

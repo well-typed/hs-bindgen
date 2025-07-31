@@ -1,13 +1,5 @@
 types:
 - headers: fun_attributes.h
-  cname: FILE
-  module: Example
-  identifier: FILE
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: fun_attributes.h
   cname: size_t
   module: Example
   identifier: Size_t
@@ -24,4 +16,12 @@ types:
   - Integral
   - Num
   - Real
+  - Storable
+- headers: fun_attributes.h
+  cname: '@FILE'
+  module: Example
+  identifier: FILE
+  instances:
+  - Eq
+  - Show
   - Storable

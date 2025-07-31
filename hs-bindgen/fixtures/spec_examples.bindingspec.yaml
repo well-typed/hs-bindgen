@@ -20,14 +20,6 @@ types:
   module: Example
   identifier: C
 - headers: spec_examples.h
-  cname: cint16_T
-  module: Example
-  identifier: Cint16_T
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: spec_examples.h
   cname: int16_T
   module: Example
   identifier: Int16_T
@@ -80,4 +72,12 @@ types:
   - Integral
   - Num
   - Real
+  - Storable
+- headers: spec_examples.h
+  cname: '@cint16_T'
+  module: Example
+  identifier: Cint16_T
+  instances:
+  - Eq
+  - Show
   - Storable
