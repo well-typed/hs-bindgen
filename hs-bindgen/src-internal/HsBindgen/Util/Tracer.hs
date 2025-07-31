@@ -14,6 +14,7 @@ module HsBindgen.Util.Tracer (
     -- * Data types and typeclasses useful for tracing
   , Level (..)
   , PrettyForTrace (..)
+  , gPrettyForTrace'
   , HasDefaultLogLevel (..)
   , Source (..)
   , HasSource (..)
@@ -54,6 +55,9 @@ import System.Exit (exitFailure)
 import System.IO (Handle, hPutStrLn, stdout)
 
 import Text.SimplePrettyPrint
+
+import Data.Kind (Type)
+import GHC.Generics
 
 {-------------------------------------------------------------------------------
   Definition and main API
@@ -159,6 +163,22 @@ getColorForLevel = \case
 -- | Convert values to textual representations used in traces.
 class PrettyForTrace a where
   prettyForTrace :: a -> CtxDoc
+
+class GPrettyForTrace (r :: Type -> Type) where
+  gPrettyForTrace :: r x -> CtxDoc
+
+instance GPrettyForTrace r => GPrettyForTrace (M1 tag meta r) where
+  gPrettyForTrace (M1 x) = gPrettyForTrace x
+
+instance (GPrettyForTrace r1, GPrettyForTrace r2) => GPrettyForTrace (r1 :+: r2) where
+  gPrettyForTrace (L1 x) = gPrettyForTrace x
+  gPrettyForTrace (R1 x) = gPrettyForTrace x
+
+instance PrettyForTrace a => GPrettyForTrace (K1 tag a) where
+  gPrettyForTrace (K1 x) = prettyForTrace x
+
+gPrettyForTrace' :: (Generic a, GPrettyForTrace (Rep a)) => a -> CtxDoc
+gPrettyForTrace' = gPrettyForTrace .  from
 
 -- | Get default (or suggested) log level of values used in traces.
 class HasDefaultLogLevel a where

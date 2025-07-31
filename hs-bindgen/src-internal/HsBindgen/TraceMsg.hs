@@ -9,22 +9,25 @@ module HsBindgen.TraceMsg (
   , DeclIndexError(..)
   , Diagnostic(..)
   , FrontendMsg(..)
-  , ParseMsg(..)
-  , SortMsg(..)
   , HandleMacrosMsg(..)
-  , NameAnonMsg(..)
-  , ResolveBindingSpecMsg(..)
-  , SelectMsg(..)
   , HandleTypedefsMsg(..)
+  , HashIncludeArgMsg(..)
   , MangleNamesMsg(..)
+  , NameAnonMsg(..)
+  , ParseMsg(..)
   , ParseTypeException(..)
   , ReparseError(..)
+  , ResolveBindingSpecMsg(..)
   , ResolveHeaderMsg(..)
+  , SelectMsg(..)
+  , SortMsg(..)
   , TcMacroError(..)
   -- * Log level customization
   , customLogLevelFrom
   , CustomLogLevelSetting (..)
   ) where
+
+import GHC.Generics (Generic)
 
 import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
@@ -42,7 +45,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpecMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Frontend.Pass.Sort.IsPass (SortMsg (..))
-import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg, getHashIncludeArg)
+import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg (..), getHashIncludeArg)
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -59,15 +62,18 @@ data TraceMsg =
   | TraceFrontend FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
   | TraceHashIncludeArg HashIncludeArgMsg
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Generic)
 
 instance PrettyForTrace TraceMsg where
-  prettyForTrace = \case
-    TraceBindingSpec    x -> prettyForTrace x
-    TraceClang          x -> prettyForTrace x
-    TraceFrontend       x -> prettyForTrace x
-    TraceResolveHeader  x -> prettyForTrace x
-    TraceHashIncludeArg x -> prettyForTrace x
+  prettyForTrace = gPrettyForTrace'
+
+-- instance PrettyForTrace TraceMsg where
+--   prettyForTrace = \case
+--     TraceBindingSpec    x -> prettyForTrace x
+--     TraceClang          x -> prettyForTrace x
+--     TraceFrontend       x -> prettyForTrace x
+--     TraceResolveHeader  x -> prettyForTrace x
+--     TraceHashIncludeArg x -> prettyForTrace x
 
 instance HasDefaultLogLevel TraceMsg where
   getDefaultLogLevel = \case
