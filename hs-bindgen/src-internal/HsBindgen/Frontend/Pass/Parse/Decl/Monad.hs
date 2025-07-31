@@ -192,7 +192,7 @@ recordNonParsedDecl declInfo nameKind =
             }
       Nothing ->
         -- We __do not track unselected anonymous declarations__. If we want to
-        -- use descriptive binding specification with anonymous declarations, we
+        -- use an external binding specification with anonymous declarations, we
         -- __must__ select these declarations.
         return ()
   where

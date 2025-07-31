@@ -9,22 +9,6 @@ types:
   instances:
   - Storable
 - headers: unions.h
-  cname: AnonA_polar
-  module: Example
-  identifier: AnonA_polar
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: unions.h
-  cname: AnonA_xy
-  module: Example
-  identifier: AnonA_xy
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: unions.h
   cname: struct Dim
   module: Example
   identifier: Dim
@@ -63,4 +47,20 @@ types:
   module: Example
   identifier: DimPayloadB
   instances:
+  - Storable
+- headers: unions.h
+  cname: '@AnonA_polar'
+  module: Example
+  identifier: AnonA_polar
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: unions.h
+  cname: '@AnonA_xy'
+  module: Example
+  identifier: AnonA_xy
+  instances:
+  - Eq
+  - Show
   - Storable

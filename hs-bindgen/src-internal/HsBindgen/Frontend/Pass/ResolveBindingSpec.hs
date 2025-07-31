@@ -407,8 +407,8 @@ instance Resolve C.Type where
         -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpec)
       aux mk cQualDeclId@C.QualDeclId{..} =
         RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
-          let cQualName = C.QualName qualDeclIdName qualDeclIdKind
-              nsid = C.qualDeclIdNsPrelimDeclId cQualDeclId
+          let cQualName = C.qualDeclIdQualName cQualDeclId
+              nsid      = C.qualDeclIdNsPrelimDeclId cQualDeclId
           -- check for type omitted by binding specification
           when (Set.member cQualName stateOmitTypes) $
             RWS.modify' $

@@ -15,14 +15,14 @@ types:
   instances:
   - Storable
 - headers: nested_unions.h
-  cname: exB_fieldB1
-  module: Example
-  identifier: ExB_fieldB1
-  instances:
-  - Storable
-- headers: nested_unions.h
   cname: union unionA
   module: Example
   identifier: UnionA
+  instances:
+  - Storable
+- headers: nested_unions.h
+  cname: '@exB_fieldB1'
+  module: Example
+  identifier: ExB_fieldB1
   instances:
   - Storable

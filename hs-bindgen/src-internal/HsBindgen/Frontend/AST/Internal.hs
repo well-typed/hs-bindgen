@@ -517,8 +517,7 @@ declQualDeclId Decl{declInfo = DeclInfo{declId}, declKind} = C.QualDeclId {
     }
 
 declQualName :: Id p ~ C.DeclId => Decl p -> C.QualName
-declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.QualName (C.declIdName declId) (declKindNameKind declKind)
+declQualName = C.qualDeclIdQualName . declQualDeclId
 
 declKindNameKind :: DeclKind p -> C.NameKind
 declKindNameKind = \case

@@ -142,10 +142,13 @@ class MangleDecl a where
     -> a HandleTypedefs -> M (a MangleNames)
 
 mangleQualName :: C.QualName -> C.NameOrigin -> M (NamePair, C.NameOrigin)
-mangleQualName cQualName@(C.QualName cName _namespace) nameOrigin = do
+mangleQualName cQualName cNameOrigin = do
+    let cName = case cQualName of
+          C.QualName{..}     -> qualNameName
+          C.QualNameAnon{..} -> qualNameAnonGeneratedName
     nm <- asks envNameMap
     case Map.lookup cQualName nm of
-      Just hsName -> return (NamePair cName hsName, nameOrigin)
+      Just hsName -> return (NamePair cName hsName, cNameOrigin)
       Nothing     -> do
         -- NB: We did not register any declaration with the given ID. This is
         -- most likely because the user did not select the declaration. If the
@@ -153,7 +156,14 @@ mangleQualName cQualName@(C.QualName cName _namespace) nameOrigin = do
         -- already.
         modify (MangleNamesMissingDeclaration cQualName :)
         -- Use a fake Haskell ID.
-        return (NamePair cName (Hs.Identifier "MissingDeclaration"), nameOrigin)
+        return
+          (NamePair cName (Hs.Identifier "MissingDeclaration"), cNameOrigin)
+
+mangleQualName' :: C.DeclId -> C.NameKind -> M (NamePair, C.NameOrigin)
+mangleQualName' cDeclId cNameKind =
+    mangleQualName
+      (C.qualDeclIdQualName (C.qualDeclId cDeclId cNameKind))
+      (C.declIdOrigin cDeclId)
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
@@ -451,20 +461,14 @@ instance MangleDecl C.CheckedMacroType where
 
 instance Mangle C.Type where
   mangle = \case
-      C.TypeStruct C.DeclId{..} -> C.TypeStruct <$>
-        mangleQualName
-          (C.QualName declIdName (C.NameKindTagged C.TagKindStruct))
-          declIdOrigin
-      C.TypeUnion C.DeclId{..} -> C.TypeUnion <$>
-        mangleQualName
-          (C.QualName declIdName (C.NameKindTagged C.TagKindUnion))
-          declIdOrigin
-      C.TypeEnum C.DeclId{..} -> C.TypeEnum <$>
-        mangleQualName
-          (C.QualName declIdName (C.NameKindTagged C.TagKindEnum))
-          declIdOrigin
-      C.TypeMacroTypedef C.DeclId{..} -> C.TypeMacroTypedef <$>
-        mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
+      C.TypeStruct       cDeclId -> C.TypeStruct <$>
+        mangleQualName' cDeclId (C.NameKindTagged C.TagKindStruct)
+      C.TypeUnion        cDeclId -> C.TypeUnion <$>
+        mangleQualName' cDeclId (C.NameKindTagged C.TagKindUnion)
+      C.TypeEnum         cDeclId -> C.TypeEnum <$>
+        mangleQualName' cDeclId (C.NameKindTagged C.TagKindEnum)
+      C.TypeMacroTypedef cDeclId -> C.TypeMacroTypedef <$>
+        mangleQualName' cDeclId C.NameKindOrdinary
 
       -- Recursive cases
       C.TypeTypedef ref         -> C.TypeTypedef <$> mangle ref
@@ -482,10 +486,11 @@ instance Mangle C.Type where
       C.TypeComplex prim   -> return $ C.TypeComplex prim
 
 instance Mangle RenamedTypedefRef where
-  mangle (TypedefRegular C.DeclId{..}) = TypedefRegular <$>
-    mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
-  mangle (TypedefSquashed cName ty) =
-    TypedefSquashed cName <$> mangle ty
+  mangle = \case
+      TypedefRegular cDeclId ->
+        TypedefRegular <$> mangleQualName' cDeclId C.NameKindOrdinary
+      TypedefSquashed cName ty ->
+        TypedefSquashed cName <$> mangle ty
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

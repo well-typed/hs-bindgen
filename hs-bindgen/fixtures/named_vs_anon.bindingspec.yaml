@@ -43,30 +43,6 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: f
-  module: Example
-  identifier: F
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: named_vs_anon.h
-  cname: g
-  module: Example
-  identifier: G
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: named_vs_anon.h
-  cname: h
-  module: Example
-  identifier: H
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: named_vs_anon.h
   cname: struct struct1
   module: Example
   identifier: Struct1
@@ -107,7 +83,31 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: typedef1
+  cname: '@f'
+  module: Example
+  identifier: F
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: '@g'
+  module: Example
+  identifier: G
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: '@h'
+  module: Example
+  identifier: H
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: named_vs_anon.h
+  cname: '@typedef1'
   module: Example
   identifier: Typedef1
   instances:
@@ -115,7 +115,7 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: typedef2
+  cname: '@typedef2'
   module: Example
   identifier: Typedef2
   instances:
@@ -123,7 +123,7 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: typedef3
+  cname: '@typedef3'
   module: Example
   identifier: Typedef3
   instances:

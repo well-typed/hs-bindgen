@@ -73,6 +73,7 @@ module HsBindgen.Frontend.Naming (
     -- ** QualDeclId
   , QualDeclId(..)
   , qualDeclId
+  , qualDeclIdQualName
   , qualDeclIdText
   , qualDeclIdNsPrelimDeclId
 
@@ -220,30 +221,43 @@ nameKindPrefix = \case
   QualName
 -------------------------------------------------------------------------------}
 
--- | C name, qualified by the 'NameKind'
---
--- This is the parsed representation of a @libclang@ C spelling.
-data QualName = QualName {
-      qualNameName :: Name
-    , qualNameKind :: NameKind
-    }
+-- | C name, qualified to distinguish kinds and anonymous names
+data QualName =
+    -- | Valid C name
+    --
+    -- This is the parsed representation of a @libclang@ C spelling.
+    QualName {
+        qualNameName :: Name
+      , qualNameKind :: NameKind
+      }
+
+    -- | Generated name for an anonymous C type
+    --
+    -- Syntax: @\@foo@ references an anonymous C type with generated name @foo@.
+  | QualNameAnon {
+        qualNameAnonGeneratedName :: Name
+      }
   deriving stock (Eq, Generic, Ord, Show)
 
 instance PrettyForTrace QualName where
   prettyForTrace = PP.textToCtxDoc . qualNameText
 
 qualNameText :: QualName -> Text
-qualNameText QualName{..} = case nameKindPrefix qualNameKind of
-    Nothing     -> getName qualNameName
-    Just prefix -> prefix <> " " <> getName qualNameName
+qualNameText = \case
+    QualName{..}     -> case nameKindPrefix qualNameKind of
+      Nothing     -> getName qualNameName
+      Just prefix -> Text.unwords [prefix, getName qualNameName]
+    QualNameAnon{..} -> "@" <> getName qualNameAnonGeneratedName
 
 parseQualName :: Text -> Maybe QualName
-parseQualName t = case Text.words t of
-    [n]           -> Just $ QualName (Name n) NameKindOrdinary
-    ["struct", n] -> Just $ QualName (Name n) (NameKindTagged TagKindStruct)
-    ["union",  n] -> Just $ QualName (Name n) (NameKindTagged TagKindUnion)
-    ["enum",   n] -> Just $ QualName (Name n) (NameKindTagged TagKindEnum)
-    _otherwise    -> Nothing
+parseQualName t = case Text.stripPrefix "@" t of
+    Nothing -> case Text.words t of
+      [n]           -> Just $ QualName (Name n) NameKindOrdinary
+      ["struct", n] -> Just $ QualName (Name n) (NameKindTagged TagKindStruct)
+      ["union",  n] -> Just $ QualName (Name n) (NameKindTagged TagKindUnion)
+      ["enum",   n] -> Just $ QualName (Name n) (NameKindTagged TagKindEnum)
+      _otherwise    -> Nothing
+    Just n  -> Just $ QualNameAnon (Name n)
 
 {-------------------------------------------------------------------------------
   AnonId
@@ -473,10 +487,13 @@ qualDeclId DeclId{..} nameKind = QualDeclId {
     , qualDeclIdKind   = nameKind
     }
 
+qualDeclIdQualName :: QualDeclId -> QualName
+qualDeclIdQualName QualDeclId{..} = case qualDeclIdOrigin of
+    NameOriginGenerated{} -> QualNameAnon qualDeclIdName
+    _otherwise            -> QualName qualDeclIdName qualDeclIdKind
+
 qualDeclIdText :: QualDeclId -> Text
-qualDeclIdText QualDeclId{..} = case qualDeclIdOrigin of
-    NameOriginGenerated{} -> "anon:" <> getName qualDeclIdName
-    _otherwise -> qualNameText $ QualName qualDeclIdName qualDeclIdKind
+qualDeclIdText = qualNameText . qualDeclIdQualName
 
 qualDeclIdNsPrelimDeclId :: QualDeclId -> NsPrelimDeclId
 qualDeclIdNsPrelimDeclId QualDeclId{..} = case qualDeclIdOrigin of

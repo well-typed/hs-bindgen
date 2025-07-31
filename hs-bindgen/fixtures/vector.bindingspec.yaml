@@ -3,7 +3,7 @@ version:
   binding_specification: '1.0'
 types:
 - headers: vector.h
-  cname: vector
+  cname: '@vector'
   module: Example
   identifier: Vector
   instances:
