@@ -3,16 +3,6 @@ version:
   binding_specification: '1.0'
 types:
 - headers: enums.h
-  cname: enumA
-  module: Example
-  identifier: EnumA
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: enums.h
   cname: enum enumB
   module: Example
   identifier: EnumB
@@ -86,6 +76,16 @@ types:
   cname: enum second
   module: Example
   identifier: Second
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: '@enumA'
+  module: Example
+  identifier: EnumA
   instances:
   - Eq
   - Ord

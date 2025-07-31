@@ -44,22 +44,6 @@ types:
   - Show
   - Storable
 - headers: globals.h
-  cname: struct1_t
-  module: Example
-  identifier: Struct1_t
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: globals.h
-  cname: struct2_t
-  module: Example
-  identifier: Struct2_t
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: globals.h
   cname: struct tuple
   module: Example
   identifier: Tuple
@@ -68,7 +52,23 @@ types:
   - Show
   - Storable
 - headers: globals.h
-  cname: version_t
+  cname: '@struct1_t'
+  module: Example
+  identifier: Struct1_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: globals.h
+  cname: '@struct2_t'
+  module: Example
+  identifier: Struct2_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: globals.h
+  cname: '@version_t'
   module: Example
   identifier: Version_t
   instances:

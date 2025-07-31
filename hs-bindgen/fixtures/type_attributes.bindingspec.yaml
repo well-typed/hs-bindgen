@@ -93,7 +93,7 @@ types:
   module: Example
   identifier: Wait
 - headers: type_attributes.h
-  cname: wait_status_ptr_t
+  cname: '@wait_status_ptr_t'
   module: Example
   identifier: Wait_status_ptr_t
   instances:

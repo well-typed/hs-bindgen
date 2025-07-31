@@ -13,7 +13,6 @@ module HsBindgen.BindingSpec.Gen (
 
 import Data.ByteString (ByteString)
 import Data.Map.Strict qualified as Map
-import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -164,12 +163,10 @@ getNewtypeSpec hsModuleName hsNewtype =
 
 getCQualName :: C.DeclInfo -> C.NameKind -> C.QualName
 getCQualName declInfo cNameKind = case C.declOrigin declInfo of
-    C.NameOriginInSource -> C.QualName cName cNameKind
-    C.NameOriginGenerated{} ->
-      let cName' = fromMaybe cName (listToMaybe (C.declAliases declInfo))
-      in  C.QualName cName' C.NameKindOrdinary
+    C.NameOriginInSource              -> C.QualName cName cNameKind
+    C.NameOriginGenerated{}           -> C.QualNameAnon cName
     C.NameOriginRenamedFrom fromCName -> C.QualName fromCName cNameKind
-    C.NameOriginBuiltin -> C.QualName cName C.NameKindOrdinary
+    C.NameOriginBuiltin               -> C.QualName cName C.NameKindOrdinary
   where
     cName :: C.Name
     cName = C.nameC (C.declId declInfo)

@@ -19,14 +19,6 @@ types:
   - Show
   - Storable
 - headers: nested_types.h
-  cname: ex3_ex3_struct
-  module: Example
-  identifier: Ex3_ex3_struct
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: nested_types.h
   cname: struct ex4_even
   module: Example
   identifier: Ex4_even
@@ -46,6 +38,14 @@ types:
   cname: struct foo
   module: Example
   identifier: Foo
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: nested_types.h
+  cname: '@ex3_ex3_struct'
+  module: Example
+  identifier: Ex3_ex3_struct
   instances:
   - Eq
   - Show

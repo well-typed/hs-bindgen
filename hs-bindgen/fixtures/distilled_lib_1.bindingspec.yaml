@@ -21,37 +21,9 @@ types:
   - Real
   - Storable
 - headers: distilled_lib_1.h
-  cname: a_typedef_enum_e
-  module: Example
-  identifier: A_typedef_enum_e
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: distilled_lib_1.h
   cname: struct a_typedef_struct
   module: Example
   identifier: A_typedef_struct_t
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: distilled_lib_1.h
-  cname: another_typedef_enum_e
-  module: Example
-  identifier: Another_typedef_enum_e
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
-- headers: distilled_lib_1.h
-  cname: another_typedef_struct_t
-  module: Example
-  identifier: Another_typedef_struct_t
   instances:
   - Eq
   - Show
@@ -82,4 +54,32 @@ types:
   - Integral
   - Num
   - Real
+  - Storable
+- headers: distilled_lib_1.h
+  cname: '@a_typedef_enum_e'
+  module: Example
+  identifier: A_typedef_enum_e
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: distilled_lib_1.h
+  cname: '@another_typedef_enum_e'
+  module: Example
+  identifier: Another_typedef_enum_e
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: distilled_lib_1.h
+  cname: '@another_typedef_struct_t'
+  module: Example
+  identifier: Another_typedef_struct_t
+  instances:
+  - Eq
+  - Show
   - Storable
