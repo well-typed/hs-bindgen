@@ -61,7 +61,7 @@ instance Exception AstDumpException where
 
 clangAstDump :: Options -> IO ()
 clangAstDump opts@Options{..} = do
-    putStrLn $ "## `" ++ renderHashIncludeArg optFile ++ "`"
+    putStrLn $ "## `" ++ getHashIncludeArg optFile ++ "`"
     putStrLn ""
 
     maybeRes <- withTracerStdOut tracerConf $ \tracer -> do
@@ -463,7 +463,7 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
     fileArgument :: OA.Parser HashIncludeArg
     fileArgument =
       OA.argument
-        (OA.eitherReader $ first displayException . parseHashIncludeArg)
+        (OA.eitherReader $ first (show . prettyForTrace) . hashIncludeArgEither)
         $ mconcat [
               OA.metavar "FILE"
             , OA.help "C (header) file to parse"

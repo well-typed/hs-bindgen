@@ -34,10 +34,9 @@ module HsBindgen.Common (
   , Select.ProgramSlicing(..)
 
     -- * Paths
-  , RootHeader.HashIncludeArg(..)
-  -- TODO: https://github.com/well-typed/hs-bindgen/issues/958. Will be removed
-  -- (instead we emit a warning trace).
-  , RootHeader.parseHashIncludeArg
+  , RootHeader.HashIncludeArg
+  , RootHeader.getHashIncludeArg
+  , RootHeader.hashIncludeArgEither
   , Paths.CIncludeDir(..)
   , (FilePath.</>)
   , FilePath.joinPath

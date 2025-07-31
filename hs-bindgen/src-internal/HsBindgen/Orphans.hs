@@ -2,7 +2,6 @@
 
 module HsBindgen.Orphans () where
 
-import Control.Exception (Exception (displayException))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified as Aeson
 import Data.GADT.Compare (GEq (geq))
@@ -12,6 +11,7 @@ import DeBruijn.Idx (Idx, idxToInt)
 import Unsafe.Coerce (unsafeCoerce)
 
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Aeson
@@ -19,12 +19,12 @@ import HsBindgen.Frontend.RootHeader
 
 instance Aeson.FromJSON HashIncludeArg where
   parseJSON = Aeson.withText "HashIncludeArg" $
-      either (Aeson.parseFail . displayException) return
-    . parseHashIncludeArg
+      either (Aeson.parseFail . show . prettyForTrace) pure
+    . hashIncludeArgEither
     . Text.unpack
 
 instance Aeson.ToJSON HashIncludeArg where
-  toJSON = Aeson.String . Text.pack . renderHashIncludeArg
+  toJSON = Aeson.String . Text.pack . getHashIncludeArg
 
 {-------------------------------------------------------------------------------
   DeBruijn

@@ -22,7 +22,6 @@ module HsBindgen.App.Common (
   , cmd'
   ) where
 
-import Control.Exception (Exception (displayException))
 import Control.Monad.IO.Class (MonadIO)
 import Data.Bifunctor (Bifunctor (bimap), first)
 import Data.Char qualified as Char
@@ -423,7 +422,7 @@ parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
     ]
   where
     parseHeader :: String -> Either String HashIncludeArg
-    parseHeader = first displayException . parseHashIncludeArg
+    parseHeader = first (show . prettyForTrace) . hashIncludeArgEither
 
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions

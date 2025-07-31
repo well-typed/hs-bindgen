@@ -8,13 +8,13 @@ module HsBindgen.Frontend.RootHeader (
     RootHeader -- opaque
   , fromMainFiles
     -- * Filenames or paths passed to @#include@
-  , HashIncludeArg(..)
+  , HashIncludeArg
   , getHashIncludeArg
-  , ParseHashIncludeArgException(..)
-  , parseHashIncludeArg
-  , validateHashIncludeArg
-  , renderHashIncludeArg
-
+  , hashIncludeArgEither
+  , hashIncludeArgWithTrace
+  , hashIncludeArgUnsafe
+    -- ** Trace message
+  , HashIncludeArgMsg(..)
     -- * Generate header
   , name
   , content
@@ -23,8 +23,6 @@ module HsBindgen.Frontend.RootHeader (
   , lookup
   ) where
 
-import Control.Exception (Exception (displayException))
-import Data.List qualified as List
 import Data.Maybe (listToMaybe)
 import Prelude hiding (lookup)
 import System.FilePath qualified as FilePath
@@ -33,12 +31,14 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
--- | Abstract representation of the root header
+-- | Abstract representation of the root header.
 --
 -- This is /precisely/ the set of main files as specified by the user.
 newtype RootHeader = RootHeader [HashIncludeArg]
@@ -47,85 +47,75 @@ fromMainFiles :: [HashIncludeArg] -> RootHeader
 fromMainFiles = RootHeader
 
 {-------------------------------------------------------------------------------
-  Filenames or paths passed to @#include@
+  C header files passed to @#include@
 -------------------------------------------------------------------------------}
 
--- | C header filename or path, as specified in an @#include@ directive
+-- | C header file, as specified in an @#include@ directive (opaque).
 --
 -- This type represents an unresolved C header filename or path.  It is relative
 -- to a directory in the C include search path.
 --
 -- Forward slashes (@/@) must be used, even on Windows.
-data HashIncludeArg =
-    -- | C header filename or path corresponding to @#include <PATH>@ syntax
-    System FilePath
-  | -- | C header filename or path corresponding to @#include "PATH"@ syntax
-    Quote  FilePath
+--
+-- We only support C header files corresponding to @#include <PATH>@ syntax, and
+-- do not use "quote" includes corresponding to @#include "PATH"@.
+newtype HashIncludeArg = System { unHashIncludeArg :: FilePath }
   deriving (Eq, Ord, Show)
 
 -- | Get the 'FilePath' representation of a 'HashIncludeArg'
 getHashIncludeArg :: HashIncludeArg -> FilePath
-getHashIncludeArg = \case
-  System path -> path
-  Quote  path -> path
+getHashIncludeArg = unHashIncludeArg
 
--- TODO https://github.com/well-typed/hs-bindgen/issues/958: Use a trace with
--- Warning default log level.
--- | Failed to parse a 'HashIncludeArg'
-data ParseHashIncludeArgException =
-    -- | Path contains a backslash
-    ParseHashIncludeArgBackslash String
-  | -- | Path is not relative
-    ParseHashIncludeArgNotRelative String
-  deriving (Show)
-
-instance Exception ParseHashIncludeArgException where
-  displayException = \case
-    ParseHashIncludeArgBackslash path ->
-      "C header include path contains a backslash: " ++ path
-    ParseHashIncludeArgNotRelative path ->
-      "C header include path not relative: " ++ path
-
--- TODO https://github.com/well-typed/hs-bindgen/issues/958: Remove parser.
--- | Parse a 'HashIncludeArg'
+-- | Parse an argument to @#include@.
 --
--- Prefix @system:@ is used to construct a 'System'.  No prefix is used to
--- construct a 'Quote'.
+-- Return an error if the C header file is not relative or if it contains a
+-- backslash.
+hashIncludeArgEither :: FilePath -> Either HashIncludeArgMsg HashIncludeArg
+hashIncludeArgEither arg
+    | '\\' `elem` arg         = Left $ HashIncludeArgBackslash arg
+    | FilePath.isRelative arg = Right $ System arg
+    | otherwise               = Left $ HashIncludeArgNotRelative arg
+
+-- | Construct a 'HashIncludeArg'.
 --
--- This function returns an error if the path is not relative or if it contains
--- a backslash.
-parseHashIncludeArg ::
-     String
-  -> Either ParseHashIncludeArgException HashIncludeArg
-parseHashIncludeArg path = case List.stripPrefix "system:" path of
-    Nothing    -> validateHashIncludeArg $ Quote  path
-    Just path' -> validateHashIncludeArg $ System path'
+-- Emit a trace if the C header file is not relative or if it contains a
+-- backslash.
+hashIncludeArgWithTrace
+  :: Monad m
+  => Tracer m HashIncludeArgMsg
+  -> FilePath
+  -> m HashIncludeArg
+hashIncludeArgWithTrace tracer arg = case hashIncludeArgEither arg of
+  Left msg -> traceWith tracer msg >> pure (System arg)
+  Right x  -> pure x
 
-validateHashIncludeArg ::
-     HashIncludeArg
-  -> Either ParseHashIncludeArgException HashIncludeArg
-validateHashIncludeArg = \case
-  (Quote path)  -> Quote  <$> aux path
-  (System path) -> System <$> aux path
-  where
-    aux :: FilePath -> Either ParseHashIncludeArgException FilePath
-    aux path
-      | '\\' `elem` path         = Left $ ParseHashIncludeArgBackslash path
-      | FilePath.isRelative path = Right path
-      | otherwise                = Left $ ParseHashIncludeArgNotRelative path
+-- | Internal; used to construct the standard library binding specifications and
+-- in tests.
+hashIncludeArgUnsafe :: FilePath -> HashIncludeArg
+hashIncludeArgUnsafe = System
 
--- TODO https://github.com/well-typed/hs-bindgen/issues/958: Remove ('system:'
--- prefix not used anymore).
--- | Render a 'HashIncludeArg'
---
--- A 'System' is rendered with a @system:@ prefix.  A
--- 'Quote' is rendered without a prefix.
-renderHashIncludeArg :: HashIncludeArg -> String
-renderHashIncludeArg = \case
-    System path -> "system:" ++ path
-    Quote  path -> path
+{-------------------------------------------------------------------------------
+  Trace message
+-------------------------------------------------------------------------------}
 
+-- | @#include@ argument trace messages.
+data HashIncludeArgMsg =
+    HashIncludeArgBackslash   FilePath
+  | HashIncludeArgNotRelative FilePath
+  deriving (Show, Eq, Ord)
 
+instance PrettyForTrace HashIncludeArgMsg where
+  prettyForTrace = \case
+    HashIncludeArgBackslash arg
+      -> PP.string $ "C header include file contains a backslash: " ++ arg
+    HashIncludeArgNotRelative arg
+      -> PP.string $ "C header include file not relative: " ++ arg
+
+instance HasDefaultLogLevel HashIncludeArgMsg where
+  getDefaultLogLevel = const Warning
+
+instance HasSource HashIncludeArgMsg where
+  getSource = const HsBindgen
 
 {-------------------------------------------------------------------------------
   Generate header
@@ -139,9 +129,7 @@ content (RootHeader headers) =
     unlines $ map toLine headers
   where
     toLine :: HashIncludeArg -> String
-    toLine = \case
-      System path -> "#include <"  ++ path ++ ">"
-      Quote  path -> "#include \"" ++ path ++ "\""
+    toLine arg = "#include <"  ++ (getHashIncludeArg arg) ++ ">"
 
 {-------------------------------------------------------------------------------
   Query

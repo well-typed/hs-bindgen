@@ -69,10 +69,9 @@ module HsBindgen.Lib (
   , Backend.PP.HsRenderOpts(..)
 
     -- * Paths
-  , Common.HashIncludeArg(..)
-  -- TODO: https://github.com/well-typed/hs-bindgen/issues/958. Will be removed
-  -- (instead we emit a warning trace).
-  , Common.parseHashIncludeArg
+  , Common.HashIncludeArg
+  , Common.getHashIncludeArg
+  , Common.hashIncludeArgEither
   , Common.CIncludeDir(..)
   , (Common.</>)
   , Common.joinPath

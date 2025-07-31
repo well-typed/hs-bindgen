@@ -31,8 +31,7 @@ module HsBindgen.Pipeline (
   , genTests
   ) where
 
-import Control.Exception (Exception (displayException))
-import Control.Monad.State (State, execState, modify)
+import Control.Monad.RWS (MonadReader (..), RWST, execRWST, modify)
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
@@ -150,7 +149,7 @@ preprocessIO config fp = genPP config fp . genModule config . genSHsDecls
 --
 -- Will be added either to the C include search path.
 data IncludeDir =
-    IncludeDir    FilePath
+    IncludeDir        FilePath
     -- | Include directory relative to package root.
   | RelativeToPkgRoot FilePath
   deriving stock (Eq, Show)
@@ -176,16 +175,19 @@ instance Default HashIncludeOpts where
     }
 
 -- | Internal! See 'withHsBindgen'.
-newtype WithHsBindgen a =  WithHsBindgen {
-    getWithHsBindgen :: State WithHsBindgenState a
+type Bindgen a = RWST BindgenEnv () BindgenState TH.Q a
+
+-- | Internal! Environment available to 'hashInclude'.
+data BindgenEnv = BindgenEnv {
+    bindgenEnvTracer :: Tracer IO TraceMsg
   }
 
--- | Internal! State manipulated by monadic 'hashInclude' directives.
-data WithHsBindgenState = WithHsBindgenState {
-    hashIncludeArgs :: [HashIncludeArg]
+-- | Internal! State manipulated by 'hashInclude'.
+data BindgenState = BindgenState {
+    bindgenStateHashIncludeArgs :: [HashIncludeArg]
   }
 
--- | Generate bindings for given C header include paths at compile-time.
+-- | Generate bindings for given C headers at compile-time.
 --
 -- Use together with 'hashInclude'.
 --
@@ -194,7 +196,7 @@ data WithHsBindgenState = WithHsBindgenState {
 -- > withHsBindgen def $ do
 -- >   hashInclude "a.h"
 -- >   hashInclude "b.h"
-withHsBindgen :: HashIncludeOpts -> WithHsBindgen () -> TH.Q [TH.Dec]
+withHsBindgen :: HashIncludeOpts -> Bindgen () -> TH.Q [TH.Dec]
 withHsBindgen HashIncludeOpts{..} hashIncludes = do
   checkHsBindgenRuntimePreludeIsInScope
   includeDirs <- toFilePaths extraIncludeDirs
@@ -204,22 +206,34 @@ withHsBindgen HashIncludeOpts{..} hashIncludes = do
         }
       config :: Config
       config = def { configClangArgs = clangArgs }
+
   maybeDecls <- withTracer $ \tracer -> do
-    hashIncludeArgsValidated <- mapM getHeaderIncludePathOrFail hashIncludeArgsReversed
     let tracerIO = natTracer TH.runQ tracer
+    -- Traverse #include directives.
+    bindgenState <- fst <$> execRWST
+      hashIncludes
+      (BindgenEnv tracerIO)
+      (BindgenState [])
+    -- Restore original order of include directives.
+    let hashIncludeArgs :: [HashIncludeArg]
+        hashIncludeArgs = reverse $ bindgenStateHashIncludeArgs bindgenState
+    -- External and prescriptive binding specifications.
     (extBindingSpec, prescriptiveBindingSpec) <- TH.runIO $
       BindingSpec.loadBindingSpecs
         (contramap TraceBindingSpec tracerIO)
         clangArgs
         bindingSpecConfig
+    -- Parse translation unit.
     unit <- TH.runIO $
       parseCHeaders
         tracerIO
         config
         extBindingSpec
         prescriptiveBindingSpec
-        hashIncludeArgsValidated
+        hashIncludeArgs
+    -- Generate bindings.
     genBindingsFromCHeader config unit
+  -- Error handling.
   case maybeDecls of
     Nothing    -> TH.reportError "An error happened (see above)" >> pure []
     Just decls -> pure decls
@@ -239,18 +253,6 @@ withHsBindgen HashIncludeOpts{..} hashIncludes = do
                    tracerCustomLogLevel
                    tracerTracerConfig
 
-    getHeaderIncludePathOrFail :: HashIncludeArg -> TH.Q HashIncludeArg
-    getHeaderIncludePathOrFail =
-      either (fail . displayException) pure . validateHashIncludeArg
-
-    withHsBindgenState :: WithHsBindgenState
-    withHsBindgenState =
-      execState (getWithHsBindgen hashIncludes) (WithHsBindgenState [])
-
-    -- Restore order of include directives.
-    hashIncludeArgsReversed :: [HashIncludeArg]
-    hashIncludeArgsReversed = reverse $ hashIncludeArgs withHsBindgenState
-
 -- | @#include@ (i.e., generate bindings for) a C header.
 --
 -- For example, the Haskell code,
@@ -262,12 +264,17 @@ withHsBindgen HashIncludeOpts{..} hashIncludes = do
 -- > #include <a.h>
 --
 -- See 'withHsBindgen'.
-hashInclude :: FilePath -> WithHsBindgen ()
-hashInclude arg = WithHsBindgen $ modify addArg
-  where -- Prepend the include directive to the list. That is, the order of
-        -- include directives will be reversed.
-        addArg :: WithHsBindgenState -> WithHsBindgenState
-        addArg = WithHsBindgenState . (System arg :) . hashIncludeArgs
+hashInclude :: FilePath -> Bindgen ()
+hashInclude arg = do
+  tracer       <- contramap TraceHashIncludeArg . bindgenEnvTracer <$> ask
+  -- We never fail, but emit a trace if C headers contain unexpected characters
+  -- such as backslashes.
+  argValidated <- liftIO $ hashIncludeArgWithTrace tracer arg
+  let -- Prepend the C header to the list. That is, the order of include
+      -- directives will be reversed.
+      prependArg :: BindgenState -> BindgenState
+      prependArg = BindgenState . (argValidated :) . bindgenStateHashIncludeArgs
+  modify prependArg
 
 -- | Non-IO part of 'hashIncludeWith'
 genBindingsFromCHeader
@@ -276,14 +283,15 @@ genBindingsFromCHeader
     -> C.TranslationUnit
     -> q [TH.Dec]
 genBindingsFromCHeader config unit = do
-    -- record dependencies, including transitively included headers
+    -- Record dependencies, including transitively included headers.
     mapM_ (addDependentFile . getSourcePath) unitDeps
 
     mu <- getModuleUnique
     let sdecls = genSHsDecls $ genHsDecls mu config unitDecls
 
-    -- extensions checks.
-    -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)
+    -- Extensions checks.
+    -- Potential TODO: we could also check which enabled extension may interfere
+    -- with the generated code. (e.g. Strict/Data)
     enabledExts <- Set.fromList <$> extsEnabled
     let requiredExts = genExtensions sdecls
         missingExts  = requiredExts `Set.difference` enabledExts
@@ -291,7 +299,7 @@ genBindingsFromCHeader config unit = do
       reportError $ "Missing LANGUAGE extensions: "
         ++ unwords (map show (toList missingExts))
 
-    -- generate TH declarations
+    -- Generate TH declarations.
     genTH sdecls
   where
     C.TranslationUnit{unitDecls, unitDeps} = unit

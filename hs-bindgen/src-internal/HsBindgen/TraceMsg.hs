@@ -42,7 +42,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpecMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Frontend.Pass.Sort.IsPass (SortMsg (..))
-import HsBindgen.Frontend.RootHeader (getHashIncludeArg)
+import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg, getHashIncludeArg)
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -58,28 +58,32 @@ data TraceMsg =
   | TraceClang ClangMsg
   | TraceFrontend FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
+  | TraceHashIncludeArg HashIncludeArgMsg
   deriving stock (Show, Eq)
 
 instance PrettyForTrace TraceMsg where
   prettyForTrace = \case
-    TraceBindingSpec   x -> prettyForTrace x
-    TraceClang         x -> prettyForTrace x
-    TraceFrontend      x -> prettyForTrace x
-    TraceResolveHeader x -> prettyForTrace x
+    TraceBindingSpec    x -> prettyForTrace x
+    TraceClang          x -> prettyForTrace x
+    TraceFrontend       x -> prettyForTrace x
+    TraceResolveHeader  x -> prettyForTrace x
+    TraceHashIncludeArg x -> prettyForTrace x
 
 instance HasDefaultLogLevel TraceMsg where
   getDefaultLogLevel = \case
-    TraceBindingSpec   x -> getDefaultLogLevel x
-    TraceClang         x -> getDefaultLogLevel x
-    TraceFrontend      x -> getDefaultLogLevel x
-    TraceResolveHeader x -> getDefaultLogLevel x
+    TraceBindingSpec    x -> getDefaultLogLevel x
+    TraceClang          x -> getDefaultLogLevel x
+    TraceFrontend       x -> getDefaultLogLevel x
+    TraceResolveHeader  x -> getDefaultLogLevel x
+    TraceHashIncludeArg x -> getDefaultLogLevel x
 
 instance HasSource TraceMsg where
   getSource = \case
-    TraceBindingSpec   x -> getSource x
-    TraceClang         x -> getSource x
-    TraceFrontend      x -> getSource x
-    TraceResolveHeader x -> getSource x
+    TraceBindingSpec    x -> getSource x
+    TraceClang          x -> getSource x
+    TraceFrontend       x -> getSource x
+    TraceResolveHeader  x -> getSource x
+    TraceHashIncludeArg x -> getSource x
 
 {-------------------------------------------------------------------------------
   Log level customization
