@@ -46,9 +46,9 @@ module HsBindgen.TH (
   , Common.ProgramSlicing(..)
 
     -- * Paths
-  , Common.HashIncludeArg
-  , Common.getHashIncludeArg
-  , Common.hashIncludeArgEither
+  , Common.HashIncludeArg(..)
+  , Common.hashIncludeArg
+  , Common.hashIncludeArgWithTrace
   , Common.CIncludeDir(..)
   , (Common.</>)
   , Common.joinPath

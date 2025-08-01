@@ -34,9 +34,9 @@ module HsBindgen.Common (
   , Select.ProgramSlicing(..)
 
     -- * Paths
-  , RootHeader.HashIncludeArg
-  , RootHeader.getHashIncludeArg
-  , RootHeader.hashIncludeArgEither
+  , RootHeader.HashIncludeArg(..)
+  , RootHeader.hashIncludeArg
+  , RootHeader.hashIncludeArgWithTrace
   , Paths.CIncludeDir(..)
   , (FilePath.</>)
   , FilePath.joinPath

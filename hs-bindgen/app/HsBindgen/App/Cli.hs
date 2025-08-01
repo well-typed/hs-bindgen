@@ -105,7 +105,7 @@ pureParseCmdPreprocess =
 
 data PreprocessOpts = PreprocessOpts {
       config            :: Config
-    , inputs            :: [HashIncludeArg]
+    , inputs            :: [UncheckedHashIncludeArg]
     , output            :: Maybe FilePath
     , bindingSpecConfig :: BindingSpecConfig
     , genBindingSpec    :: Maybe FilePath
@@ -128,7 +128,7 @@ parsePreprocessOpts =
 data GenTestsOpts = GenTestsOpts {
       config            :: Config
     , output            :: FilePath
-    , inputs            :: [HashIncludeArg]
+    , inputs            :: [UncheckedHashIncludeArg]
     , bindingSpecConfig :: BindingSpecConfig
     }
   deriving stock (Show, Generic)
@@ -191,7 +191,7 @@ parseBindingSpecCmdStdlib = BindingSpecCmdStdlib <$> parseClangArgs
 -------------------------------------------------------------------------------}
 
 data ResolveOpts = ResolveOpts {
-      inputs    :: [HashIncludeArg]
+      inputs    :: [UncheckedHashIncludeArg]
     , clangArgs :: ClangArgs
     }
   deriving stock (Show, Generic)

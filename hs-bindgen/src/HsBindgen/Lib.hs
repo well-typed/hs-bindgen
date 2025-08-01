@@ -69,9 +69,9 @@ module HsBindgen.Lib (
   , Backend.PP.HsRenderOpts(..)
 
     -- * Paths
-  , Common.HashIncludeArg
-  , Common.getHashIncludeArg
-  , Common.hashIncludeArgEither
+  , Common.HashIncludeArg(..)
+  , Common.hashIncludeArg
+  , Common.hashIncludeArgWithTrace
   , Common.CIncludeDir(..)
   , (Common.</>)
   , Common.joinPath

@@ -12,7 +12,9 @@ module HsBindgen.App.Common (
     -- * Binding specifications
   , parseBindingSpecConfig
     -- * Input option
+  , UncheckedHashIncludeArg
   , parseInputs
+  , checkInputs
     -- * Auxiliary hs-bindgen functions
   , withCliTracer
   , fromMaybeWithFatalError
@@ -23,7 +25,7 @@ module HsBindgen.App.Common (
   ) where
 
 import Control.Monad.IO.Class (MonadIO)
-import Data.Bifunctor (Bifunctor (bimap), first)
+import Data.Bifunctor (Bifunctor (bimap))
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -411,18 +413,29 @@ parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat 
   Input arguments
 -------------------------------------------------------------------------------}
 
+-- | Unchecked @#include@ argument
+--
+-- We need to emit trace messages monadically, so we do not check values within
+-- the pure parser.
+type UncheckedHashIncludeArg = FilePath
+
 -- | Parse one or more input header arguments
 --
 -- This uses standard syntax for one or more arguments, which
 -- @optparse-applicative@ does not get right when just using 'some'.
-parseInputs :: Parser [HashIncludeArg]
-parseInputs = some . argument (eitherReader parseHeader) $ mconcat [
+parseInputs :: Parser [UncheckedHashIncludeArg]
+parseInputs = some . strArgument $ mconcat [
       help "Input C header(s), relative to an include path directory"
     , metavar "HEADER..."
     ]
-  where
-    parseHeader :: String -> Either String HashIncludeArg
-    parseHeader = first (show . prettyForTrace) . hashIncludeArgEither
+
+-- | Check the @#include@ arguments, emitting trace messages
+checkInputs ::
+     Tracer IO TraceMsg
+  -> [UncheckedHashIncludeArg]
+  -> IO [HashIncludeArg]
+checkInputs tracer = mapM $
+    hashIncludeArgWithTrace (contramap TraceHashIncludeArg tracer)
 
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
@@ -484,7 +497,7 @@ environmentVariablesFooter p =
     triples = map (`targetTriple` TargetEnvDefault) targets
 
     envVarsDocs :: [(Doc, Doc)]
-    envVarsDocs = map (bimap pretty  (align . reflow)) envVars
+    envVarsDocs = map (bimap pretty (align . reflow)) envVars
 
     envVars :: [(Text, Text)]
     envVars = [ ("BINDGEN_EXTRA_CLANG_ARGS",
