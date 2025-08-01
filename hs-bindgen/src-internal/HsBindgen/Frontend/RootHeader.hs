@@ -12,6 +12,7 @@ module HsBindgen.Frontend.RootHeader (
   , name
   , content
     -- ** Query
+  , isInRootHeader
   , at
   , lookup
 
@@ -69,6 +70,10 @@ content (RootHeader headers) =
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
+
+-- | Check if the specified location is in the root header
+isInRootHeader :: MultiLoc -> Bool
+isInRootHeader = (== name) . singleLocPath . multiLocExpansion
 
 -- | Get the 'HashIncludeArg' for the include at the specified location in the
 -- root header
