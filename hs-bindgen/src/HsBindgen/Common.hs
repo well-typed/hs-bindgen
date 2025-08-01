@@ -35,9 +35,8 @@ module HsBindgen.Common (
 
     -- * Paths
   , RootHeader.HashIncludeArg(..)
-  -- TODO: https://github.com/well-typed/hs-bindgen/issues/958. Will be removed
-  -- (instead we emit a warning trace).
-  , RootHeader.parseHashIncludeArg
+  , RootHeader.hashIncludeArg
+  , RootHeader.hashIncludeArgWithTrace
   , Paths.CIncludeDir(..)
   , (FilePath.</>)
   , FilePath.joinPath

@@ -13,11 +13,8 @@ module HsBindgen.Clang (
   , getExtraClangArgs
   ) where
 
-import Control.Monad.IO.Class (MonadIO (liftIO))
-import Data.Maybe (isJust)
 import Data.Text qualified as Text
 import GHC.ResponseFile (unescapeArgs)
-import GHC.Stack (HasCallStack)
 import System.Environment (lookupEnv)
 
 import Clang.Args
@@ -28,6 +25,8 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (showToCtxDoc, string, textToCtxDoc, (><))
 
@@ -121,7 +120,17 @@ instance PrettyForTrace ClangMsg where
   prettyForTrace = \case
       ClangExtraArgs  x -> prettyForTrace x
       ClangErrorCode  x -> "clang error " >< showToCtxDoc x
-      ClangDiagnostic x -> textToCtxDoc $ diagnosticFormatted x
+      ClangDiagnostic Diagnostic{..}
+        | RootHeader.isInRootHeader diagnosticLocation -> textToCtxDoc $
+            case getFileNotFound diagnosticSpelling of
+              Just header -> "unable to resolve #include <" <> header <> ">"
+              Nothing     ->
+                Text.stripStart $ Text.dropWhile (/= ' ') diagnosticFormatted
+        | otherwise -> textToCtxDoc diagnosticFormatted
+    where
+      getFileNotFound :: Text -> Maybe Text
+      getFileNotFound =
+        fmap (Text.dropWhile (== '\'')) . Text.stripSuffix "' file not found"
 
 instance HasDefaultLogLevel ClangMsg where
   getDefaultLogLevel = \case

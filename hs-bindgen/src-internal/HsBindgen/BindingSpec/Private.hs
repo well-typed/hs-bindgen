@@ -233,13 +233,19 @@ data BindingSpecReadMsg =
     BindingSpecReadInvalidCName FilePath Text
   | -- | Multiple entries for the same C type
     BindingSpecReadConflict FilePath C.QualName HashIncludeArg
+  | -- | @#include@ argument message
+    BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
   deriving stock (Eq, Show)
 
 instance HasDefaultLogLevel BindingSpecReadMsg where
-  getDefaultLogLevel = const Error
+  getDefaultLogLevel = \case
+    x@BindingSpecReadHashIncludeArg{} -> getDefaultLogLevel x
+    _otherwise                        -> Error
 
 instance HasSource BindingSpecReadMsg where
-  getSource = const HsBindgen
+  getSource = \case
+    x@BindingSpecReadHashIncludeArg{} -> getSource x
+    _otherwise                        -> HsBindgen
 
 instance PrettyForTrace BindingSpecReadMsg where
   prettyForTrace = \case
@@ -256,6 +262,8 @@ instance PrettyForTrace BindingSpecReadMsg where
       "multiple entries in " >< string path >< " for C type: "
         >< textToCtxDoc (C.qualNameText cQualName)
         >< " (" >< string (getHashIncludeArg header) >< ")"
+    BindingSpecReadHashIncludeArg path msg ->
+      prettyForTrace msg >< " in " >< string path
 
 --------------------------------------------------------------------------------
 
@@ -617,7 +625,7 @@ instance Aeson.ToJSON ABindingSpec where
 --------------------------------------------------------------------------------
 
 data ATypeSpecMapping = ATypeSpecMapping {
-      aTypeSpecMappingHeaders    :: [HashIncludeArg]
+      aTypeSpecMappingHeaders    :: [FilePath]
     , aTypeSpecMappingCName      :: Text
     , aTypeSpecMappingModule     :: Maybe HsModuleName
     , aTypeSpecMappingIdentifier :: Maybe HsIdentifier
@@ -717,31 +725,35 @@ fromABindingSpec path ABindingSpec{..} =
          , Map C.QualName [(Set HashIncludeArg, Omittable TypeSpec)]
          )
     mkTypeMap =
-      mkTypeMapErrs . foldr mkTypeMapInsert (Set.empty, Map.empty, Map.empty)
+        mkTypeMapErrs
+      . foldr mkTypeMapInsert (Set.empty, [], Map.empty, Map.empty)
 
     mkTypeMapErrs ::
-         (Set Text, Map C.QualName (Set HashIncludeArg), a)
+         (Set Text, [HashIncludeArgMsg], Map C.QualName (Set HashIncludeArg), a)
       -> ([BindingSpecReadMsg], a)
-    mkTypeMapErrs (invalids, conflicts, x) =
+    mkTypeMapErrs (invalids, msgs, conflicts, x) =
       let invalidErrs = BindingSpecReadInvalidCName path <$> Set.toList invalids
+          argErrs = BindingSpecReadHashIncludeArg path <$> msgs
           conflictErrs = [
               BindingSpecReadConflict path cQualName header
             | (cQualName, headers) <- Map.toList conflicts
             , header <- Set.toList headers
             ]
-      in  (invalidErrs ++ conflictErrs, x)
+      in  (invalidErrs ++ argErrs ++ conflictErrs, x)
 
     mkTypeMapInsert ::
          AOmittable ATypeSpecMapping
       -> ( Set Text
+         , [HashIncludeArgMsg]
          , Map C.QualName (Set HashIncludeArg)
          , Map C.QualName [(Set HashIncludeArg, Omittable TypeSpec)]
          )
       -> ( Set Text
+         , [HashIncludeArgMsg]
          , Map C.QualName (Set HashIncludeArg)
          , Map C.QualName [(Set HashIncludeArg, Omittable TypeSpec)]
          )
-    mkTypeMapInsert aoTypeMapping (invalids, conflicts, acc) =
+    mkTypeMapInsert aoTypeMapping (invalids, msgs, conflicts, acc) =
       let (cname, headers, oTypeSpec) = case aoTypeMapping of
             ARequire ATypeSpecMapping{..} ->
               let typ = TypeSpec {
@@ -753,17 +765,19 @@ fromABindingSpec path ABindingSpec{..} =
               in  (aTypeSpecMappingCName, aTypeSpecMappingHeaders, Require typ)
             AOmit ATypeSpecMapping{..} ->
               (aTypeSpecMappingCName, aTypeSpecMappingHeaders, Omit)
+          (msgs', headers') = bimap ((msgs ++) . concat) Set.fromList $
+            unzip (map hashIncludeArg headers)
       in  case C.parseQualName cname of
-            Nothing -> (Set.insert cname invalids, conflicts, acc)
+            Nothing -> (Set.insert cname invalids, msgs', conflicts, acc)
             Just cQualName ->
-              let newV = [(Set.fromList headers, oTypeSpec)]
+              let newV = [(headers', oTypeSpec)]
                   x = Map.insertLookupWithKey (const (++)) cQualName newV acc
               in  case x of
-                    (Nothing,   acc') -> (invalids, conflicts, acc')
+                    (Nothing,   acc') -> (invalids, msgs', conflicts, acc')
                     (Just oldV, acc') ->
                       let conflicts' =
                             mkTypeMapDup cQualName newV oldV conflicts
-                      in  (invalids, conflicts', acc')
+                      in  (invalids, msgs', conflicts', acc')
 
     mkTypeMapDup ::
          C.QualName
@@ -800,7 +814,8 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
     aBindingSpecTypes = [
         case oType of
           Require TypeSpec{..} -> ARequire ATypeSpecMapping {
-              aTypeSpecMappingHeaders    = Set.toAscList headers
+              aTypeSpecMappingHeaders    =
+                map getHashIncludeArg (Set.toAscList headers)
             , aTypeSpecMappingCName      = C.qualNameText cQualName
             , aTypeSpecMappingModule     = typeSpecModule
             , aTypeSpecMappingIdentifier = typeSpecIdentifier
@@ -821,7 +836,8 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
                 ]
             }
           Omit -> AOmit ATypeSpecMapping {
-              aTypeSpecMappingHeaders    = Set.toAscList headers
+              aTypeSpecMappingHeaders    =
+                map getHashIncludeArg (Set.toAscList headers)
             , aTypeSpecMappingCName      = C.qualNameText cQualName
             , aTypeSpecMappingModule     = Nothing
             , aTypeSpecMappingIdentifier = Nothing

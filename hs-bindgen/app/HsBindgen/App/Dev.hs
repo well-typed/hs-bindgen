@@ -61,15 +61,15 @@ parseDevCmd = subparser $ mconcat [
 -------------------------------------------------------------------------------}
 
 data ParseOpts = ParseOpts {
-      inputPaths        :: [HashIncludeArg]
-    , config            :: Config
+      config            :: Config
     , bindingSpecConfig :: BindingSpecConfig
+    , inputPaths        :: [UncheckedHashIncludeArg]
     }
   deriving (Show)
 
 parseParseOpts :: Parser ParseOpts
 parseParseOpts =
     ParseOpts
-      <$> parseInputs
-      <*> parseConfig
+      <$> parseConfig
       <*> parseBindingSpecConfig
+      <*> parseInputs

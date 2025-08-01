@@ -101,7 +101,7 @@ data TestRustBindgen =
 
 testInputInclude :: TestCase -> HashIncludeArg
 testInputInclude TestCase{testName} =
-    Quote $ testName ++ ".h"
+    HashIncludeArg $ testName ++ ".h"
 
 testInputPath :: TestCase -> FilePath
 testInputPath TestCase{testDir, testName} =

@@ -70,9 +70,8 @@ module HsBindgen.Lib (
 
     -- * Paths
   , Common.HashIncludeArg(..)
-  -- TODO: https://github.com/well-typed/hs-bindgen/issues/958. Will be removed
-  -- (instead we emit a warning trace).
-  , Common.parseHashIncludeArg
+  , Common.hashIncludeArg
+  , Common.hashIncludeArgWithTrace
   , Common.CIncludeDir(..)
   , (Common.</>)
   , Common.joinPath

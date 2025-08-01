@@ -40,35 +40,39 @@ execCli Cli{..} = case cliCmd of
 
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
 execPreprocess globalOpts opts = do
-    hsDecls <- fromMaybeWithFatalError <=<
+    (hsDecls, inputs) <- fromMaybeWithFatalError <=<
       withCliTracer globalOpts $ \tracer -> do
+        inputs <- checkInputs tracer opts.inputs
         (extSpec, pSpec) <- loadBindingSpecs
                               (contramap TraceBindingSpec tracer)
                               opts.config.configClangArgs
                               opts.bindingSpecConfig
-        translateCHeaders mu tracer opts.config extSpec pSpec opts.inputs
+        (, inputs) <$>
+          translateCHeaders mu tracer opts.config extSpec pSpec inputs
 
     preprocessIO opts.config opts.output hsDecls
 
     case opts.genBindingSpec of
       Nothing   -> return ()
-      Just path -> genBindingSpec opts.config opts.inputs path hsDecls
+      Just path -> genBindingSpec opts.config inputs path hsDecls
   where
-    mu     = getModuleUnique opts.config.configHsModuleOpts
+    mu = getModuleUnique opts.config.configHsModuleOpts
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
 execGenTests globalOpts opts = do
-    hsDecls <-
-      fromMaybeWithFatalError <=< withCliTracer globalOpts $ \tracer -> do
+    (hsDecls, inputs) <- fromMaybeWithFatalError <=<
+      withCliTracer globalOpts $ \tracer -> do
+        inputs <- checkInputs tracer opts.inputs
         (extSpec, pSpec) <- loadBindingSpecs
                               (contramap TraceBindingSpec tracer)
                               opts.config.configClangArgs
                               opts.bindingSpecConfig
-        translateCHeaders mu tracer opts.config extSpec pSpec opts.inputs
+        (, inputs) <$>
+          translateCHeaders mu tracer opts.config extSpec pSpec inputs
 
-    genTests opts.config opts.inputs opts.output hsDecls
+    genTests opts.config inputs opts.output hsDecls
   where
-    mu     = getModuleUnique opts.config.configHsModuleOpts
+    mu = getModuleUnique opts.config.configHsModuleOpts
 
 execLiterate :: LiterateOpts -> IO ()
 execLiterate opts = do
@@ -96,7 +100,8 @@ execResolve :: GlobalOpts -> ResolveOpts -> IO ()
 execResolve globalOpts opts = do
     mErr <- withCliTracer globalOpts $ \tracer -> do
       let tracerResolve = contramap TraceResolveHeader  tracer
-      forM_ opts.inputs $ \header -> do
+      inputs <- checkInputs tracer opts.inputs
+      forM_ inputs $ \header -> do
         mPath <- resolveHeader tracerResolve opts.clangArgs header
         putStrLn . unwords $ case mPath of
           Just path -> [show header, "resolves to", show path]
