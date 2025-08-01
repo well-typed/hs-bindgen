@@ -305,6 +305,9 @@ testCases = [
             _otherwise ->
                Nothing
         }
+    , (defaultTest "doxygen_docs") {
+          testClangVersion = Just (>= (19, 0, 0))
+        }
     , (defaultTest "bool_c23") {
           testClangVersion = Just (>= (15, 0, 0))
         }
