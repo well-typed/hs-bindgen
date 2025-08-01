@@ -7,6 +7,8 @@ module HsBindgen.Backend.PP.Render (
     HsRenderOpts(..)
   , render
   , renderIO
+    -- * Rendering comments
+  , CommentKind (..)
   ) where
 
 import Data.Char qualified
@@ -128,13 +130,15 @@ instance Pretty ImportListItem where
 data CommentKind
   = TopLevelComment Hs.Comment
   | PartOfDeclarationComment Hs.Comment
+  | THComment Hs.Comment
 
 instance Pretty CommentKind where
   pretty commentKind =
-    let (commentStart, Hs.Comment {..}) =
+    let (commentStart, commentEnd, Hs.Comment {..}) =
           case commentKind of
-            TopLevelComment c          -> ("{-|", c)
-            PartOfDeclarationComment c -> ("{- ^", c)
+            TopLevelComment c          -> ("{-|", "-}", c)
+            PartOfDeclarationComment c -> ("{- ^", "-}", c)
+            THComment c                -> ("", "", c)
         indentation = length commentStart - 1
         fromCCtxDoc =
           case commentOrigin of
