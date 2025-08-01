@@ -22,9 +22,4 @@ foreign import ccall safe "testmodule_square_pc" square_pc :: FC.CInt -> FC.CInt
 
 foreign import ccall safe "testmodule_square_cc" square_cc :: FC.CInt -> FC.CInt
 
-{-|
-
-  Marked @__attribute((pure))__@
-
--}
 foreign import ccall safe "testmodule_square_pp" square_pp :: FC.CInt -> IO FC.CInt

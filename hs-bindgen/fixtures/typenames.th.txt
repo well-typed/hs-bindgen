@@ -11,30 +11,31 @@ newtype Foo
                       RealFloat,
                       RealFrac)
 instance Storable Foo
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Foo un_Foo_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo un_Foo_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_3
 instance CEnum Foo
-    where {type CEnumZ Foo = CUInt;
-           toCEnum = Foo;
-           fromCEnum = un_Foo;
-           declaredValues = \_ -> declaredValuesFromList [(0,
-                                                           singleton "FOO1"),
-                                                          (1, singleton "FOO2")];
-           showsUndeclared = showsWrappedUndeclared "Foo";
-           readPrecUndeclared = readPrecWrappedUndeclared "Foo";
-           isDeclared = seqIsDeclared;
-           mkDeclared = seqMkDeclared}
+    where type CEnumZ Foo = CUInt
+          toCEnum = Foo
+          fromCEnum = un_Foo
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "FOO1"),
+                                                         (1, singleton "FOO2")]
+          showsUndeclared = showsWrappedUndeclared "Foo"
+          readPrecUndeclared = readPrecWrappedUndeclared "Foo"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
 instance SequentialCEnum Foo
-    where {minDeclaredValue = FOO1; maxDeclaredValue = FOO2}
+    where minDeclaredValue = FOO1
+          maxDeclaredValue = FOO2
 instance Show Foo
-    where {showsPrec = showsCEnum}
+    where showsPrec = showsCEnum
 instance Read Foo
-    where {readPrec = readPrecCEnum;
-           readList = readListDefault;
-           readListPrec = readListPrecDefault}
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0
 pattern FOO2 :: Foo

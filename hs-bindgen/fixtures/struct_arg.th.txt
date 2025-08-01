@@ -6,11 +6,11 @@
 -- char test_internal_thing_fun_3b (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }
 data Thing = Thing {thing_x :: CInt} deriving stock (Eq, Show)
 instance Storable Thing
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Thing <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Thing thing_x_3 -> pokeByteOff ptr_1 (0 :: Int) thing_x_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Thing <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Thing thing_x_3 -> pokeByteOff ptr_1 (0 :: Int) thing_x_3
 foreign import ccall safe "test_internal_thing_fun_1" thing_fun_1_wrapper :: Ptr Thing ->
                                                                              IO CInt
 thing_fun_1 :: Thing -> IO CInt

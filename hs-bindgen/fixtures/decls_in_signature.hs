@@ -1280,16 +1280,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "Named_union",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_named_union_x"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1300,16 +1291,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "Named_union",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_named_union_x"]]}},
+      unionSetterComment = Nothing},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -1320,16 +1302,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "Named_union",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_named_union_y"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1340,16 +1313,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "Named_union",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_named_union_y"]]}},
+      unionSetterComment = Nothing},
   DeclInlineCInclude
     "decls_in_signature.h",
   DeclInlineC

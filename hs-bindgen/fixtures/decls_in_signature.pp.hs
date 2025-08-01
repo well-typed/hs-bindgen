@@ -104,38 +104,18 @@ newtype Named_union = Named_union
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Named_union
 
-{-|
-
-  __See:__ 'set_named_union_x'
-
--}
 get_named_union_x :: Named_union -> FC.CInt
 get_named_union_x =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
-{-|
-
-  __See:__ 'get_named_union_x'
-
--}
 set_named_union_x :: FC.CInt -> Named_union
 set_named_union_x =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
-{-|
-
-  __See:__ 'set_named_union_y'
-
--}
 get_named_union_y :: Named_union -> FC.CChar
 get_named_union_y =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
-{-|
-
-  __See:__ 'get_named_union_y'
-
--}
 set_named_union_y :: FC.CChar -> Named_union
 set_named_union_y =
   HsBindgen.Runtime.ByteArray.setUnionPayload

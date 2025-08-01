@@ -7,8 +7,8 @@ data Struct2
     = Struct2 {struct2_x :: CInt}
     deriving stock (Eq, Show)
 instance Storable Struct2
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Struct2 <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Struct2 struct2_x_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_x_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Struct2 <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Struct2 struct2_x_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_x_3

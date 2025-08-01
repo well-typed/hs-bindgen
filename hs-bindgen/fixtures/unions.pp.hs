@@ -74,38 +74,18 @@ newtype DimPayload = DimPayload
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayload
 
-{-|
-
-  __See:__ 'set_dimPayload_dim2'
-
--}
 get_dimPayload_dim2 :: DimPayload -> Dim2
 get_dimPayload_dim2 =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
-{-|
-
-  __See:__ 'get_dimPayload_dim2'
-
--}
 set_dimPayload_dim2 :: Dim2 -> DimPayload
 set_dimPayload_dim2 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
-{-|
-
-  __See:__ 'set_dimPayload_dim3'
-
--}
 get_dimPayload_dim3 :: DimPayload -> Dim2
 get_dimPayload_dim3 =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
-{-|
-
-  __See:__ 'get_dimPayload_dim3'
-
--}
 set_dimPayload_dim3 :: Dim2 -> DimPayload
 set_dimPayload_dim3 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -141,38 +121,18 @@ newtype DimPayloadB = DimPayloadB
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayloadB
 
-{-|
-
-  __See:__ 'set_dimPayloadB_dim2'
-
--}
 get_dimPayloadB_dim2 :: DimPayloadB -> Dim2
 get_dimPayloadB_dim2 =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
-{-|
-
-  __See:__ 'get_dimPayloadB_dim2'
-
--}
 set_dimPayloadB_dim2 :: Dim2 -> DimPayloadB
 set_dimPayloadB_dim2 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
-{-|
-
-  __See:__ 'set_dimPayloadB_dim3'
-
--}
 get_dimPayloadB_dim3 :: DimPayloadB -> Dim2
 get_dimPayloadB_dim3 =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
-{-|
-
-  __See:__ 'get_dimPayloadB_dim3'
-
--}
 set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
 set_dimPayloadB_dim3 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -260,38 +220,18 @@ newtype AnonA = AnonA
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance F.Storable AnonA
 
-{-|
-
-  __See:__ 'set_anonA_xy'
-
--}
 get_anonA_xy :: AnonA -> AnonA_xy
 get_anonA_xy =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
-{-|
-
-  __See:__ 'get_anonA_xy'
-
--}
 set_anonA_xy :: AnonA_xy -> AnonA
 set_anonA_xy =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
-{-|
-
-  __See:__ 'set_anonA_polar'
-
--}
 get_anonA_polar :: AnonA -> AnonA_polar
 get_anonA_polar =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
-{-|
-
-  __See:__ 'get_anonA_polar'
-
--}
 set_anonA_polar :: AnonA_polar -> AnonA
 set_anonA_polar =
   HsBindgen.Runtime.ByteArray.setUnionPayload

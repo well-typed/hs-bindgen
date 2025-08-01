@@ -75,11 +75,6 @@ foreign import ccall safe "testmodule_my_memcpy" my_memcpy :: (F.Ptr Void) -> (F
 
 foreign import ccall safe "testmodule_fatal" fatal :: IO ()
 
-{-|
-
-  Marked @__attribute((pure))__@
-
--}
 foreign import ccall safe "testmodule_hash" hash :: (F.Ptr FC.CChar) -> IO FC.CInt
 
 foreign import ccall safe "testmodule_mymalloc" mymalloc :: Size_t -> IO (F.Ptr Void)

@@ -90,15 +90,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "UnionA",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier "set_unionA_a"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -109,15 +101,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "UnionA",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier "get_unionA_a"]]}},
+      unionSetterComment = Nothing},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -128,15 +112,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "UnionA",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier "set_unionA_b"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -147,15 +123,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "UnionA",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier "get_unionA_b"]]}},
+      unionSetterComment = Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -591,16 +559,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "ExB_fieldB1",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_exB_fieldB1_a"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -611,16 +570,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "ExB_fieldB1",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_exB_fieldB1_a"]]}},
+      unionSetterComment = Nothing},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -631,16 +581,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "ExB_fieldB1",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_exB_fieldB1_b"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -651,16 +592,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "ExB_fieldB1",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_exB_fieldB1_b"]]}},
+      unionSetterComment = Nothing},
   DeclData
     Struct {
       structName = HsName

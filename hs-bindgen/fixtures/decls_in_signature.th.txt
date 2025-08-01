@@ -8,27 +8,45 @@ data Outside
     = Outside {outside_x :: CInt, outside_y :: CInt}
     deriving stock (Eq, Show)
 instance Storable Outside
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Outside <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Outside outside_x_3
-                                             outside_y_4 -> pokeByteOff ptr_1 (0 :: Int) outside_x_3 >> pokeByteOff ptr_1 (4 :: Int) outside_y_4}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Outside <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Outside outside_x_3
+                                           outside_y_4 -> pokeByteOff ptr_1 (0 :: Int) outside_x_3 >> pokeByteOff ptr_1 (4 :: Int) outside_y_4
 foreign import ccall safe "test_internal_normal" normal_wrapper :: Ptr Opaque ->
                                                                    Ptr Outside ->
                                                                    Ptr Outside -> IO Unit
 normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
+{-| Error cases
+
+  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+  __from C:__ @named_struct@
+-}
 data Named_struct
     = Named_struct {named_struct_x :: CInt, named_struct_y :: CInt}
+      {- ^ Error cases
+
+         See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+         __from C:__ @named_struct@
+      -}
     deriving stock (Eq, Show)
 instance Storable Named_struct
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Named_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Named_struct named_struct_x_3
-                                                  named_struct_y_4 -> pokeByteOff ptr_1 (0 :: Int) named_struct_x_3 >> pokeByteOff ptr_1 (4 :: Int) named_struct_y_4}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Named_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Named_struct named_struct_x_3
+                                                named_struct_y_4 -> pokeByteOff ptr_1 (0 :: Int) named_struct_x_3 >> pokeByteOff ptr_1 (4 :: Int) named_struct_y_4
+{-| Error cases
+
+  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+  __from C:__ @f1(struct named_struct)@
+-}
 foreign import ccall safe "test_internal_f1" f1_wrapper :: Ptr Named_struct ->
                                                            IO Unit
 f1 :: Named_struct -> IO Unit
