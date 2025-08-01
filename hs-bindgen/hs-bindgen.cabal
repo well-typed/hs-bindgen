@@ -388,6 +388,7 @@ test-suite test-hs-bindgen
     , directory
     , filepath
     , mtl
+    , parsec
     , tasty
     , tasty-hunit
     , template-haskell

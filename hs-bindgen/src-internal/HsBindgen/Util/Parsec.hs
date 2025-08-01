@@ -6,15 +6,22 @@ module HsBindgen.Util.Parsec (
     -- * General purpose
   , Consumer(..)
   , foldTokens
+    -- * Auxiliary
+  , parseUnnamed
   ) where
 
+import Control.Applicative ((<|>))
 import Control.Monad (guard)
 import Data.Char (toLower)
 import Text.Parsec (Consumed (..), ParseError, ParsecT, Reply (..), SourcePos,
                     State (..), Stream (..), mkPT, tokenPrim, unknownError,
                     (<?>))
+import Text.ParserCombinators.Parsec (manyTill, anyChar, try, string, many,
+                                      noneOf, Parser)
 import Text.Parsec.Error (Message (..), newErrorMessage)
 import Text.Parsec.Pos (updatePosChar, updatePosString)
+import Data.Text (Text)
+import Data.Text qualified as Text
 
 {-------------------------------------------------------------------------------
   Character streams
@@ -133,3 +140,25 @@ _tokens' showTokens updatePos expected =
     go (t:ts) = Look { onEof   = Nothing
                      , onToken = \t' -> guard (t == t') >> return (go ts)
                      }
+
+{-------------------------------------------------------------------------------
+  Auxiliary
+-------------------------------------------------------------------------------}
+
+parseUnnamed :: Parser Text
+parseUnnamed = do
+  before <- manyTill anyChar (try (string "(unnamed at "))
+  after <- parsePathToFilename
+  rest <- many anyChar
+  return $ Text.pack (before ++ "(unnamed at " ++ after ++ rest)
+
+-- | Extract only the final filename and :line:col
+--
+parsePathToFilename :: Parser String
+parsePathToFilename = do
+  -- Consume everything up to the final slash or backslash before filename
+  _ <- many (noneOf "/\\")
+  segments <- many (try ((string "/" <|> string "\\") >> many (noneOf "/\\")))
+  case segments of
+    []    -> fail "no filepath"
+    (_:_) -> return $ last segments
