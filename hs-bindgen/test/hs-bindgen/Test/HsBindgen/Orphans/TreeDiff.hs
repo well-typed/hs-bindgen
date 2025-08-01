@@ -34,6 +34,8 @@ import C.Type qualified as CExpr
 
 import DeBruijn (Add, Idx, S, Size, addToInt, idxToInt, sizeToInt)
 
+import Test.HsBindgen.Resources
+
 {-------------------------------------------------------------------------------
   base
 -------------------------------------------------------------------------------}
@@ -235,33 +237,36 @@ instance ToExpr (Hs.VarDeclRHS ctx)
 instance ToExpr (t ctx) => ToExpr (Hs.Seq t ctx)
 
 instance ToExpr Hs.Decl where
-  toExpr = \case
-    Hs.DeclData struct ->
-      Expr.App "DeclData" [toExpr struct]
-    Hs.DeclEmpty name ->
-      Expr.App "DeclEmpty" [toExpr name]
-    Hs.DeclNewtype nt ->
-      Expr.App "DeclNewtype" [toExpr nt]
-    Hs.DeclPatSyn patSyn ->
-      Expr.App "DeclPatSyn" [toExpr patSyn]
-    Hs.DeclDefineInstance inst ->
-      Expr.App "DeclInstance" [toExpr inst]
-    Hs.DeclDeriveInstance di ->
-      Expr.App "DeclNewtypeInstance" [toExpr di]
-    Hs.DeclInlineCInclude header ->
-      Expr.App "DeclInlineCInclude" [toExpr header]
-    Hs.DeclInlineC src ->
-      Expr.App "DeclInlineC" [toExpr src]
-    Hs.DeclForeignImport foreignImport ->
-      Expr.App "DeclForeignImport" [toExpr foreignImport]
-    Hs.DeclVar v ->
-      Expr.App "DeclVar" [toExpr v]
-    Hs.DeclUnionGetter ug ->
-      Expr.App "DeclUnionGetter" [toExpr ug]
-    Hs.DeclUnionSetter us ->
-      Expr.App "DeclUnionSetter" [toExpr us]
-    Hs.DeclSimple _d ->
-      Expr.App "DeclSimple" [] -- TODO: no ToExpr SDecl
+  toExpr hsDecl =
+    -- We need to normalise the comments in case there's unnamed structures
+    -- with absolute paths.
+    case normaliseCommentOriginDecl hsDecl of
+      Hs.DeclData struct ->
+        Expr.App "DeclData" [toExpr struct]
+      Hs.DeclEmpty name ->
+        Expr.App "DeclEmpty" [toExpr name]
+      Hs.DeclNewtype nt ->
+        Expr.App "DeclNewtype" [toExpr nt]
+      Hs.DeclPatSyn patSyn ->
+        Expr.App "DeclPatSyn" [toExpr patSyn]
+      Hs.DeclDefineInstance inst ->
+        Expr.App "DeclInstance" [toExpr inst]
+      Hs.DeclDeriveInstance di ->
+        Expr.App "DeclNewtypeInstance" [toExpr di]
+      Hs.DeclInlineCInclude header ->
+        Expr.App "DeclInlineCInclude" [toExpr header]
+      Hs.DeclInlineC src ->
+        Expr.App "DeclInlineC" [toExpr src]
+      Hs.DeclForeignImport foreignImport ->
+        Expr.App "DeclForeignImport" [toExpr foreignImport]
+      Hs.DeclVar v ->
+        Expr.App "DeclVar" [toExpr v]
+      Hs.DeclUnionGetter ug ->
+        Expr.App "DeclUnionGetter" [toExpr ug]
+      Hs.DeclUnionSetter us ->
+        Expr.App "DeclUnionSetter" [toExpr us]
+      Hs.DeclSimple _d ->
+        Expr.App "DeclSimple" [] -- TODO: no ToExpr SDecl
 
 instance ToExpr a => ToExpr (Vec n a) where
   toExpr = Expr.Lst . map toExpr . Vec.toList

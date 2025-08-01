@@ -2206,16 +2206,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "Wait_status_ptr_t",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_wait_status_ptr_t___ip"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -2226,16 +2217,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "Wait_status_ptr_t",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_wait_status_ptr_t___ip"]]}},
+      unionSetterComment = Nothing},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -2249,16 +2231,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "Wait_status_ptr_t",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_wait_status_ptr_t___up"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -2272,16 +2245,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "Wait_status_ptr_t",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_wait_status_ptr_t___up"]]}},
+      unionSetterComment = Nothing},
   DeclNewtype
     Newtype {
       newtypeName = HsName

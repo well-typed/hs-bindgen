@@ -121,17 +121,4 @@
             CPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                TextContent "Marked",
-                Monospace
-                  [
-                    Bold
-                      [
-                        TextContent
-                          "attribute((pure))"]]]]}}]
+      foreignImportComment = Nothing}]

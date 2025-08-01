@@ -11,11 +11,11 @@ set_unionA_b :: CChar -> UnionA
 set_unionA_b = setUnionPayload
 data ExA = ExA {exA_fieldA1 :: UnionA}
 instance Storable ExA
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure ExA <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {ExA exA_fieldA1_3 -> pokeByteOff ptr_1 (0 :: Int) exA_fieldA1_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure ExA <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   ExA exA_fieldA1_3 -> pokeByteOff ptr_1 (0 :: Int) exA_fieldA1_3
 newtype ExB_fieldB1 = ExB_fieldB1 {un_ExB_fieldB1 :: ByteArray}
 deriving via (SizedByteArray 4 4) instance Storable ExB_fieldB1
 get_exB_fieldB1_a :: ExB_fieldB1 -> CInt
@@ -28,8 +28,8 @@ set_exB_fieldB1_b :: CChar -> ExB_fieldB1
 set_exB_fieldB1_b = setUnionPayload
 data ExB = ExB {exB_fieldB1 :: ExB_fieldB1}
 instance Storable ExB
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure ExB <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {ExB exB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) exB_fieldB1_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure ExB <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   ExB exB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) exB_fieldB1_3

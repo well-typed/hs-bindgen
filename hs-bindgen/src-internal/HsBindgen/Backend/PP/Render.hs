@@ -7,6 +7,8 @@ module HsBindgen.Backend.PP.Render (
     HsRenderOpts(..)
   , render
   , renderIO
+    -- * Rendering comments
+  , CommentKind (..)
   ) where
 
 import Data.Char qualified
@@ -128,13 +130,15 @@ instance Pretty ImportListItem where
 data CommentKind
   = TopLevelComment Hs.Comment
   | PartOfDeclarationComment Hs.Comment
+  | THComment Hs.Comment
 
 instance Pretty CommentKind where
   pretty commentKind =
-    let (commentStart, Hs.Comment {..}) =
+    let (commentStart, commentEnd, Hs.Comment {..}) =
           case commentKind of
-            TopLevelComment c          -> ("{-|", c)
-            PartOfDeclarationComment c -> ("{- ^", c)
+            TopLevelComment c          -> ("{-|", "-}", c)
+            PartOfDeclarationComment c -> ("{- ^", "-}", c)
+            THComment c                -> ("", "", c)
         indentation = length commentStart - 1
         fromCCtxDoc =
           case commentOrigin of
@@ -144,12 +148,11 @@ instance Pretty CommentKind where
           case commentTitle of
             Nothing -> empty
             Just ct -> hsep (map pretty ct)
-     in  vsep (string commentStart <+> firstContent
-              : map (nest indentation . pretty) commentChildren)
-      $$ vcat [ ""
-              , nest indentation fromCCtxDoc
-              , "-}"
-              ]
+     in   vsep (string commentStart <+> firstContent
+               : map (nest indentation . pretty) commentChildren)
+      $+$ vcat [ nest indentation fromCCtxDoc
+               , string commentEnd
+               ]
 
 instance Pretty Hs.CommentBlockContent where
   pretty = \case
@@ -158,7 +161,12 @@ instance Pretty Hs.CommentBlockContent where
                            $ paragraphContent
     Hs.CodeBlock{..}      -> vcat
                            $ ["@"]
-                          ++ map textToCtxDoc codeBlockLines ++ ["@"]
+                          ++ map (\s -> (if Text.null s
+                                            then nest minBound
+                                            else id)
+                                      $ textToCtxDoc s
+                                 ) codeBlockLines
+                          ++ ["@"]
     Hs.Verbatim{..}      -> ">" <+> textToCtxDoc verbatimContent
     Hs.Example{..}        -> ">>>" <+> textToCtxDoc exampleContent
     Hs.Property{..}       -> "prop>" <+> textToCtxDoc propertyContent
@@ -232,18 +240,19 @@ instance Pretty SDecl where
       let d = hsep ["data", pretty dataType, char '=', pretty dataCon]
           prettyTopLevelComment = maybe empty (pretty . TopLevelComment) dataComment
       in  prettyTopLevelComment
-       $$ (hang d 2 $ vcat [
-            vlist '{' '}'
-              [  hsep [ pretty (fieldName f)
-                      , "::"
-                      , pretty (fieldType f)
-                      ]
-              $$ prettyFieldComment
-              | f <- dataFields
-              , let prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment f)
-              ]
-          , nestedDeriving dataDeriv
-          ])
+       $$ (hang d 2 $
+            vcat [ vlist '{' '}'
+                     [   hsep [ pretty (fieldName f)
+                              , "::"
+                              , pretty (fieldType f)
+                              ]
+                     $$ prettyFieldComment
+                     | f <- dataFields
+                     , let prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment f)
+                     ]
+                 , nestedDeriving dataDeriv
+                 ]
+          )
 
     DEmptyData EmptyData{..} ->
       let prettyComment = maybe empty (pretty . TopLevelComment) emptyDataComment
@@ -256,16 +265,16 @@ instance Pretty SDecl where
           prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment newtypeField)
       in  prettyComment
        $$ (hang d 2 $ vcat [
-              vlist '{' '}'
-                [ hsep
-                    [ pretty (fieldName newtypeField)
-                    , "::"
-                    , pretty (fieldType newtypeField)
-                    ]
-                $$ prettyFieldComment
-                ]
-            , nestedDeriving newtypeDeriv
-            ])
+             vlist '{' '}'
+               [ hsep
+                   [ pretty (fieldName newtypeField)
+                   , "::"
+                   , pretty (fieldType newtypeField)
+                   ]
+               $$ prettyFieldComment
+               ]
+           , nestedDeriving newtypeDeriv
+           ])
 
     DForeignImport ForeignImport{..} ->
       -- Variable names here refer to the syntax of foreign declarations at

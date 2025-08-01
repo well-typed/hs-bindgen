@@ -3,11 +3,11 @@ data S
     = S {s_f :: (ConstantArray 3 CShort)}
     deriving stock (Eq, Show)
 instance Storable S
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> pure S <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {S s_f_3 -> pokeByteOff ptr_1 (0 :: Int) s_f_3}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> pure S <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   S s_f_3 -> pokeByteOff ptr_1 (0 :: Int) s_f_3
 newtype More_aligned_int
     = More_aligned_int {un_More_aligned_int :: CInt}
     deriving stock (Eq, Ord, Read, Show)
@@ -24,35 +24,35 @@ data S2
     = S2 {s2_f :: (ConstantArray 3 CShort)}
     deriving stock (Eq, Show)
 instance Storable S2
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 16 :: Int;
-           peek = \ptr_0 -> pure S2 <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {S2 s2_f_3 -> pokeByteOff ptr_1 (0 :: Int) s2_f_3}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 16 :: Int
+          peek = \ptr_0 -> pure S2 <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   S2 s2_f_3 -> pokeByteOff ptr_1 (0 :: Int) s2_f_3
 data My_unpacked_struct
     = My_unpacked_struct {my_unpacked_struct_c :: CChar,
                           my_unpacked_struct_i :: CInt}
     deriving stock (Eq, Show)
 instance Storable My_unpacked_struct
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure My_unpacked_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {My_unpacked_struct my_unpacked_struct_c_3
-                                                        my_unpacked_struct_i_4 -> pokeByteOff ptr_1 (0 :: Int) my_unpacked_struct_c_3 >> pokeByteOff ptr_1 (4 :: Int) my_unpacked_struct_i_4}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure My_unpacked_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   My_unpacked_struct my_unpacked_struct_c_3
+                                                      my_unpacked_struct_i_4 -> pokeByteOff ptr_1 (0 :: Int) my_unpacked_struct_c_3 >> pokeByteOff ptr_1 (4 :: Int) my_unpacked_struct_i_4
 data My_packed_struct
     = My_packed_struct {my_packed_struct_c :: CChar,
                         my_packed_struct_i :: CInt,
                         my_packed_struct_s :: My_unpacked_struct}
     deriving stock (Eq, Show)
 instance Storable My_packed_struct
-    where {sizeOf = \_ -> 13 :: Int;
-           alignment = \_ -> 1 :: Int;
-           peek = \ptr_0 -> ((pure My_packed_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int)) <*> peekByteOff ptr_0 (5 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {My_packed_struct my_packed_struct_c_3
-                                                      my_packed_struct_i_4
-                                                      my_packed_struct_s_5 -> pokeByteOff ptr_1 (0 :: Int) my_packed_struct_c_3 >> (pokeByteOff ptr_1 (1 :: Int) my_packed_struct_i_4 >> pokeByteOff ptr_1 (5 :: Int) my_packed_struct_s_5)}}
+    where sizeOf = \_ -> 13 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> ((pure My_packed_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int)) <*> peekByteOff ptr_0 (5 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   My_packed_struct my_packed_struct_c_3
+                                                    my_packed_struct_i_4
+                                                    my_packed_struct_s_5 -> pokeByteOff ptr_1 (0 :: Int) my_packed_struct_c_3 >> (pokeByteOff ptr_1 (1 :: Int) my_packed_struct_i_4 >> pokeByteOff ptr_1 (5 :: Int) my_packed_struct_s_5)
 data Wait
 newtype Wait_status_ptr_t
     = Wait_status_ptr_t {un_Wait_status_ptr_t :: ByteArray}

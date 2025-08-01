@@ -188,7 +188,7 @@ vcat = \case
 infixl 5 $+$
 ($+$) :: CtxDoc -> CtxDoc -> CtxDoc
 dL $+$ dR = CtxDoc $ \ctx ->
-    runCtxDoc ctx dL PP.$+$ "" PP.$+$ runCtxDoc ctx dR
+    runCtxDoc ctx dL PP.$+$ PP.nest minBound "" PP.$+$ runCtxDoc ctx dR
 
 -- | Vertically join documents, separating by blank lines
 vsep :: [CtxDoc] -> CtxDoc
@@ -200,7 +200,7 @@ vsep = \case
     aux dL dR
         | PP.isEmpty dL = dR
         | PP.isEmpty dR = dL
-        | otherwise     = dL PP.$+$ "" PP.$+$ dR
+        | otherwise     = dL PP.$+$ PP.nest minBound "" PP.$+$ dR
 
 -- | Horizontally /or/ vertically join documents, depending on if there is
 -- room on the line

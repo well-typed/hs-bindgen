@@ -375,6 +375,7 @@ test-suite test-hs-bindgen
 
   build-depends:
       -- Internal dependencies
+    , containers
     , c-expr
     , clang
     , hs-bindgen
@@ -387,6 +388,7 @@ test-suite test-hs-bindgen
     , directory
     , filepath
     , mtl
+    , parsec
     , tasty
     , tasty-hunit
     , template-haskell

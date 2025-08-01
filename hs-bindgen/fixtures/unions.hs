@@ -1095,16 +1095,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "DimPayload",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_dimPayload_dim2"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1115,16 +1106,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "DimPayload",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_dimPayload_dim2"]]}},
+      unionSetterComment = Nothing},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -1135,16 +1117,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "DimPayload",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_dimPayload_dim3"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1155,16 +1128,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "DimPayload",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_dimPayload_dim3"]]}},
+      unionSetterComment = Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -1737,16 +1701,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "DimPayloadB",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_dimPayloadB_dim2"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1757,16 +1712,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "DimPayloadB",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_dimPayloadB_dim2"]]}},
+      unionSetterComment = Nothing},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -1777,16 +1723,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "DimPayloadB",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_dimPayloadB_dim3"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1797,16 +1734,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "DimPayloadB",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_dimPayloadB_dim3"]]}},
+      unionSetterComment = Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -3332,15 +3260,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "AnonA",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier "set_anonA_xy"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -3353,15 +3273,7 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "AnonA",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier "get_anonA_xy"]]}},
+      unionSetterComment = Nothing},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -3374,16 +3286,7 @@
       unionGetterConstr = HsName
         "@NsTypeConstr"
         "AnonA",
-      unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "set_anonA_polar"]]}},
+      unionGetterComment = Nothing},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -3396,13 +3299,4 @@
       unionSetterConstr = HsName
         "@NsTypeConstr"
         "AnonA",
-      unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
-            Paragraph
-              [
-                Bold [TextContent "See:"],
-                Identifier
-                  "get_anonA_polar"]]}}]
+      unionSetterComment = Nothing}]

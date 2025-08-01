@@ -4,18 +4,18 @@ data Bar
     = Bar {bar_ptrA :: (Ptr Foo), bar_ptrB :: (Ptr Bar)}
     deriving stock (Eq, Show)
 instance Storable Bar
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Bar bar_ptrA_3
-                                         bar_ptrB_4 -> pokeByteOff ptr_1 (0 :: Int) bar_ptrA_3 >> pokeByteOff ptr_1 (8 :: Int) bar_ptrB_4}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Bar bar_ptrA_3
+                                       bar_ptrB_4 -> pokeByteOff ptr_1 (0 :: Int) bar_ptrA_3 >> pokeByteOff ptr_1 (8 :: Int) bar_ptrB_4
 data Baz = Baz {} deriving stock (Eq, Show)
 instance Storable Baz
-    where {sizeOf = \_ -> 0 :: Int;
-           alignment = \_ -> 1 :: Int;
-           peek = \ptr_0 -> pure Baz;
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Baz -> return ()}}
+    where sizeOf = \_ -> 0 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> pure Baz
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Baz -> return ()
 data Quu
 data Opaque_union

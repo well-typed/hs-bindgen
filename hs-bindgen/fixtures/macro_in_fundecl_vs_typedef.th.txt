@@ -46,29 +46,29 @@ data Struct1
     = Struct1 {struct1_a :: CInt}
     deriving stock (Eq, Show)
 instance Storable Struct1
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Struct1 <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Struct1 struct1_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct1_a_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Struct1 <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Struct1 struct1_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct1_a_3
 data Struct2
     = Struct2 {struct2_a :: CInt}
     deriving stock (Eq, Show)
 instance Storable Struct2
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Struct2 <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Struct2 struct2_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_a_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Struct2 <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Struct2 struct2_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_a_3
 data Struct3
     = Struct3 {struct3_a :: CInt}
     deriving stock (Eq, Show)
 instance Storable Struct3
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Struct3 <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Struct3 struct3_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct3_a_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Struct3 <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Struct3 struct3_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct3_a_3
 newtype Struct3_t
     = Struct3_t {un_Struct3_t :: Struct3}
     deriving stock (Eq, Show)
@@ -77,11 +77,11 @@ data Struct4
     = Struct4 {struct4_a :: CInt}
     deriving stock (Eq, Show)
 instance Storable Struct4
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Struct4 <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Struct4 struct4_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct4_a_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Struct4 <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Struct4 struct4_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct4_a_3
 foreign import ccall safe "test_internal_struct_typedef1" struct_typedef1 :: Ptr Struct2 ->
                                                                              MC -> IO Unit
 foreign import ccall safe "test_internal_struct_typedef2" struct_typedef2 :: Ptr Struct3_t ->
