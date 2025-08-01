@@ -105,10 +105,10 @@ pureParseCmdPreprocess =
 
 data PreprocessOpts = PreprocessOpts {
       config            :: Config
-    , inputs            :: [UncheckedHashIncludeArg]
-    , output            :: Maybe FilePath
     , bindingSpecConfig :: BindingSpecConfig
+    , output            :: Maybe FilePath
     , genBindingSpec    :: Maybe FilePath
+    , inputs            :: [UncheckedHashIncludeArg]
     }
   deriving stock (Show, Generic)
 
@@ -116,10 +116,10 @@ parsePreprocessOpts :: Parser PreprocessOpts
 parsePreprocessOpts =
     PreprocessOpts
       <$> parseConfig
-      <*> parseInputs
-      <*> parseOutput
       <*> parseBindingSpecConfig
+      <*> parseOutput
       <*> optional parseGenBindingSpec
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Test generation command
@@ -127,9 +127,9 @@ parsePreprocessOpts =
 
 data GenTestsOpts = GenTestsOpts {
       config            :: Config
+    , bindingSpecConfig :: BindingSpecConfig
     , output            :: FilePath
     , inputs            :: [UncheckedHashIncludeArg]
-    , bindingSpecConfig :: BindingSpecConfig
     }
   deriving stock (Show, Generic)
 
@@ -137,9 +137,9 @@ parseGenTestsOpts :: Parser GenTestsOpts
 parseGenTestsOpts =
     GenTestsOpts
       <$> parseConfig
+      <*> parseBindingSpecConfig
       <*> parseGenTestsOutput
       <*> parseInputs
-      <*> parseBindingSpecConfig
 
 {-------------------------------------------------------------------------------
   Literate command
@@ -191,16 +191,16 @@ parseBindingSpecCmdStdlib = BindingSpecCmdStdlib <$> parseClangArgs
 -------------------------------------------------------------------------------}
 
 data ResolveOpts = ResolveOpts {
-      inputs    :: [UncheckedHashIncludeArg]
-    , clangArgs :: ClangArgs
+      clangArgs :: ClangArgs
+    , inputs    :: [UncheckedHashIncludeArg]
     }
   deriving stock (Show, Generic)
 
 parseResolveOpts :: Parser ResolveOpts
 parseResolveOpts =
     ResolveOpts
-      <$> parseInputs
-      <*> parseClangArgs
+      <$> parseClangArgs
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Output options
