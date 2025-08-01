@@ -111,7 +111,7 @@ clang_getComment cursor = do
     case eCommentKind of
       Right CXComment_Null -> pure Nothing
       Right CXComment_FullComment -> do
-        commentCName <- Text.strip <$> clang_getCursorDisplayName cursor
+        commentCName <- clang_getCursorDisplayName cursor
         commentChildren <- getChildren (getBlockContent cursor) comment
         pure $ Just Comment{..}
       Right commentKind ->

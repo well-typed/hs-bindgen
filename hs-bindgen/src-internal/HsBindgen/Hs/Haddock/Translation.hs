@@ -16,14 +16,32 @@ generateHaddocks C.Comment{..} =
   let (commentTitle, commentChildren') =
         case commentChildren of
           (C.Paragraph [C.TextContent ""]:rest) -> (Nothing, rest)
-          (C.Paragraph ci:rest)                 -> (Just (map convertInlineContent ci), rest)
+          (C.Paragraph ci:rest)                 -> ( Just $ concatMap convertInlineContent
+                                                          $ filter (\case
+                                                                      C.TextContent "" -> False
+                                                                      _                -> True
+                                                                   )
+                                                          $ ci
+                                                   , rest
+                                                   )
           _                                     -> (Nothing, commentChildren)
    in Hs.Comment {
         commentTitle
       , commentOrigin   = if Text.null commentCName
                              then Nothing
-                             else Just commentCName
-      , commentChildren = concatMap convertBlockContent commentChildren'
+                             else Just (Text.strip commentCName)
+      , commentChildren = concatMap ( convertBlockContent
+                                    . (\case
+                                          C.Paragraph ci -> C.Paragraph
+                                                          $ filter (\case
+                                                                      C.TextContent "" -> False
+                                                                      _                -> True
+                                                                   )
+                                                          $ ci
+                                          cb             -> cb
+                                      )
+                                    )
+                        $ commentChildren'
       }
 
 -- | Convert Clang block content to Haddock block content
@@ -49,7 +67,7 @@ convertBlockContent = \case
         textArgs    = extractTextLines args
         unwordsArgs = Text.unwords textArgs
 
-        inlineComment        = map convertInlineContent blockCommandParagraph
+        inlineComment        = concatMap convertInlineContent blockCommandParagraph
         textInlineComment    = extractTextLines inlineComment
         unwordsInlineComment = Text.unwords textInlineComment
 
@@ -58,7 +76,7 @@ convertBlockContent = \case
         unwordsInlineCommentWithArgs = unwordsArgs <> " " <> unwordsInlineComment
      in -- Only commands that can be associated with declarations are supported.
         -- Other commands are ignored.
-        case Text.toLower blockCommandName of
+        case Text.toLower (Text.strip blockCommandName) of
           -- Anchor
           "anchor" -> [Hs.Paragraph [Hs.Anchor unwordsInlineCommentWithArgs]]
 
@@ -160,30 +178,34 @@ convertBlockContent = \case
 
 -- | Convert inline content
 --
-convertInlineContent :: C.CommentInlineContent -> Hs.CommentInlineContent
+convertInlineContent :: C.CommentInlineContent -> [Hs.CommentInlineContent]
 convertInlineContent = \case
-  C.TextContent{..} -> Hs.TextContent (Text.strip textContent)
+  C.TextContent{..}
+    | Text.null textContent -> []
+    | otherwise             -> [Hs.TextContent (Text.strip textContent)]
 
   C.InlineCommand{..} ->
     let args     = map (Hs.TextContent . Text.strip) inlineCommandArgs
         argsText = Text.unwords (map Text.strip inlineCommandArgs)
-    in case inlineCommandRenderKind of
-      C.CXCommentInlineCommandRenderKind_Normal     -> Hs.TextContent argsText
-      C.CXCommentInlineCommandRenderKind_Bold       -> Hs.Bold args
-      C.CXCommentInlineCommandRenderKind_Monospaced -> Hs.Monospace args
-      C.CXCommentInlineCommandRenderKind_Emphasized -> Hs.Emph args
-      C.CXCommentInlineCommandRenderKind_Anchor     -> Hs.Anchor (Text.unwords inlineCommandArgs)
+    in pure
+     $ case inlineCommandRenderKind of
+        C.CXCommentInlineCommandRenderKind_Normal     -> Hs.TextContent argsText
+        C.CXCommentInlineCommandRenderKind_Bold       -> Hs.Bold args
+        C.CXCommentInlineCommandRenderKind_Monospaced -> Hs.Monospace args
+        C.CXCommentInlineCommandRenderKind_Emphasized -> Hs.Emph args
+        C.CXCommentInlineCommandRenderKind_Anchor     -> Hs.Anchor (Text.unwords (map Text.strip inlineCommandArgs))
 
   -- HTML is not currently supported
   --
   -- TODO: See issue #948
-  C.HtmlStartTag{} -> Hs.TextContent ""
-  C.HtmlEndTag{}   -> Hs.TextContent ""
+  C.HtmlStartTag{} -> []
+  C.HtmlEndTag{}   -> []
 
 -- | Extract text lines from inline content
 --
 extractTextLines :: [Hs.CommentInlineContent] -> [Text]
-extractTextLines = map extractText
+extractTextLines = filter (not . Text.null)
+                 . map extractText
   where
     extractText (Hs.TextContent t) = Text.strip t
     extractText _                  = ""
@@ -261,13 +283,13 @@ formatParagraphContent = processGroups 1 []
                   listItem =
                     Hs.ListItem listType
                                 [ Hs.Paragraph
-                                    ( Hs.TextContent afterMarker
-                                    : map convertInlineContent restContent
+                                    ( Hs.TextContent (Text.strip afterMarker)
+                                    : concatMap convertInlineContent restContent
                                     )
                                 ]
                in processGroups nextN (listItem : acc) rest
-          | otherwise -> processGroups n (Hs.Paragraph (map convertInlineContent group) : acc) rest
-        _ -> processGroups n (Hs.Paragraph (map convertInlineContent group) : acc) rest
+          | otherwise -> processGroups n (Hs.Paragraph (concatMap convertInlineContent group) : acc) rest
+        _ -> processGroups n (Hs.Paragraph (concatMap convertInlineContent group) : acc) rest
 
     -- | Check if text starts with a list marker
     isListMarker :: C.CommentInlineContent -> Bool
