@@ -140,10 +140,10 @@ parseClangArgs = do
     -- instead of positional one.
     clangTarget           <- optional parseTarget
     clangCStandard        <- Just <$> parseCStandard
-    clangStdInc           <- not <$> parseNoStdInc
     clangEnableGnu        <- parseGnuOption
-    clangExtraIncludeDirs <- parseIncludeDirOptions
     clangEnableBlocks     <- parseEnableBlocks
+    clangStdInc           <- not <$> parseNoStdInc
+    clangExtraIncludeDirs <- parseIncludeDirOptions
     clangOtherArgs        <- parseOtherArgs
     pure ClangArgs {..}
 
