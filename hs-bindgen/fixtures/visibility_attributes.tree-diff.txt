@@ -1,87 +1,17 @@
 TranslationUnit {
-  unitDecls =
-  [
-    Decl {
-      declInfo =
-      DeclInfo {
-        declLoc =
-        "fun_attributes.h:7:9",
-        declId = NamePair {
-          nameC = Name "FILE",
-          nameHsIdent = HsIdentifier
-            "FILE"},
-        declOrigin = NameOriginGenerated
-          (AnonId "fun_attributes.h:7:9"),
-        declAliases = [Name "FILE"],
-        declHeader = "fun_attributes.h",
-        declComment =
-        Just
-          Comment {
-            commentCName = "FILE",
-            commentChildren =
-            [
-              Paragraph
-                [
-                  TextContent
-                    "Attributes on functions"],
-              Paragraph
-                [
-                  TextContent
-                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
-      declKind = DeclStruct
-        Struct {
-          structNames = RecordNames
-            (HsName "@NsConstr" "FILE"),
-          structSizeof = 0,
-          structAlignment = 1,
-          structFields = [],
-          structFlam = Nothing},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+  unitDecls = [
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:8:13",
+        "visibility_attributes.h:17:56",
         declId = NamePair {
-          nameC = Name "size_t",
+          nameC = Name "f0",
           nameHsIdent = HsIdentifier
-            "Size_t"},
+            "f0"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclTypedef
-        Typedef {
-          typedefNames = NewtypeNames {
-            newtypeConstr = HsName
-              "@NsConstr"
-              "Size_t",
-            newtypeField = HsName
-              "@NsVar"
-              "un_Size_t"},
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:16:6",
-        declId = NamePair {
-          nameC = Name "__f1",
-          nameHsIdent = HsIdentifier
-            "__f1"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -99,14 +29,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:17:6",
+        "visibility_attributes.h:18:56",
         declId = NamePair {
           nameC = Name "f1",
           nameHsIdent = HsIdentifier
             "f1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -124,323 +55,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:21:7",
+        "visibility_attributes.h:24:56",
         declId = NamePair {
-          nameC = Name "my_memalign",
+          nameC = Name "f5",
           nameHsIdent = HsIdentifier
-            "my_memalign"},
+            "f5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:26:7",
-        declId = NamePair {
-          nameC = Name "my_calloc",
-          nameHsIdent = HsIdentifier
-            "my_calloc"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:27:7",
-        declId = NamePair {
-          nameC = Name "my_realloc",
-          nameHsIdent = HsIdentifier
-            "my_realloc"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypePointer TypeVoid,
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:32:7",
-        declId = NamePair {
-          nameC = Name "my_alloc1",
-          nameHsIdent = HsIdentifier
-            "my_alloc1"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:33:7",
-        declId = NamePair {
-          nameC = Name "my_alloc2",
-          nameHsIdent = HsIdentifier
-            "my_alloc2"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:37:5",
-        declId = NamePair {
-          nameC = Name "square",
-          nameHsIdent = HsIdentifier
-            "square"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
-          functionAttrs =
-          FunctionAttributes
-            HaskellPureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:46:5",
-        declId = NamePair {
-          nameC = Name "old_fn",
-          nameHsIdent = HsIdentifier
-            "old_fn"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:57:1",
-        declId = NamePair {
-          nameC = Name "my_dgettext",
-          nameHsIdent = HsIdentifier
-            "my_dgettext"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed)))),
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            (TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed))))},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:68:9",
-        declId = NamePair {
-          nameC = Name "fdopen",
-          nameHsIdent = HsIdentifier
-            "fdopen"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            (TypeTypedef
-              (TypedefSquashed
-                (Name "FILE")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "FILE",
-                    nameHsIdent = HsIdentifier
-                      "FILE"}
-                  (NameOriginGenerated
-                    (AnonId
-                      "fun_attributes.h:7:9")))))},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:72:65",
-        declId = NamePair {
-          nameC = Name "f2",
-          nameHsIdent = HsIdentifier
-            "f2"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -458,48 +81,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:78:1",
+        "visibility_attributes.h:25:56",
         declId = NamePair {
-          nameC = Name "my_memcpy",
+          nameC = Name "f6",
           nameHsIdent = HsIdentifier
-            "my_memcpy"},
+            "f6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypePointer TypeVoid,
-            TypePointer TypeVoid,
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:95:6",
-        declId = NamePair {
-          nameC = Name "fatal",
-          nameHsIdent = HsIdentifier
-            "fatal"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -517,77 +107,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:103:5",
+        "visibility_attributes.h:31:56",
         declId = NamePair {
-          nameC = Name "hash",
+          nameC = Name "f10",
           nameHsIdent = HsIdentifier
-            "hash"},
+            "f10"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
-          functionAttrs =
-          FunctionAttributes
-            CPureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:108:1",
-        declId = NamePair {
-          nameC = Name "mymalloc",
-          nameHsIdent = HsIdentifier
-            "mymalloc"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
-        declComment = Nothing},
-      declKind = DeclFunction
-        Function {
-          functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "fun_attributes.h:112:13",
-        declId = NamePair {
-          nameC = Name "foobar",
-          nameHsIdent = HsIdentifier
-            "foobar"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -605,14 +133,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:119:5",
+        "visibility_attributes.h:32:56",
         declId = NamePair {
-          nameC = Name "core2_func",
+          nameC = Name "f11",
           nameHsIdent = HsIdentifier
-            "core2_func"},
+            "f11"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -620,8 +149,7 @@ TranslationUnit {
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -631,14 +159,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:120:5",
+        "visibility_attributes.h:38:56",
         declId = NamePair {
-          nameC = Name "sse3_func",
+          nameC = Name "f15",
           nameHsIdent = HsIdentifier
-            "sse3_func"},
+            "f15"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -646,8 +175,7 @@ TranslationUnit {
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -657,14 +185,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:129:5",
+        "visibility_attributes.h:39:56",
         declId = NamePair {
-          nameC = Name "fn",
+          nameC = Name "f16",
           nameHsIdent = HsIdentifier
-            "fn"},
+            "f16"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -672,8 +201,7 @@ TranslationUnit {
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -683,13 +211,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:135:12",
+        "visibility_attributes.h:45:56",
         declId = NamePair {
-          nameC = Name "y",
-          nameHsIdent = HsIdentifier "y"},
+          nameC = Name "f20",
+          nameHsIdent = HsIdentifier
+            "f20"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -697,8 +227,7 @@ TranslationUnit {
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -708,14 +237,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:138:12",
+        "visibility_attributes.h:46:56",
         declId = NamePair {
-          nameC = Name "x1",
+          nameC = Name "f21",
           nameHsIdent = HsIdentifier
-            "x1"},
+            "f21"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -723,8 +253,7 @@ TranslationUnit {
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+          functionRes = TypeVoid},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -734,14 +263,15 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:141:12",
+        "visibility_attributes.h:47:56",
         declId = NamePair {
-          nameC = Name "x2",
+          nameC = Name "f22",
           nameHsIdent = HsIdentifier
-            "x2"},
+            "f22"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeader =
+        "visibility_attributes.h",
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -749,12 +279,370 @@ TranslationUnit {
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:48:56",
+        declId = NamePair {
+          nameC = Name "f23",
+          nameHsIdent = HsIdentifier
+            "f23"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:49:56",
+        declId = NamePair {
+          nameC = Name "f24",
+          nameHsIdent = HsIdentifier
+            "f24"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:52:56",
+        declId = NamePair {
+          nameC = Name "f25",
+          nameHsIdent = HsIdentifier
+            "f25"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:53:56",
+        declId = NamePair {
+          nameC = Name "f26",
+          nameHsIdent = HsIdentifier
+            "f26"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:54:56",
+        declId = NamePair {
+          nameC = Name "f27",
+          nameHsIdent = HsIdentifier
+            "f27"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:55:56",
+        declId = NamePair {
+          nameC = Name "f28",
+          nameHsIdent = HsIdentifier
+            "f28"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:56:56",
+        declId = NamePair {
+          nameC = Name "f29",
+          nameHsIdent = HsIdentifier
+            "f29"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:61:48",
+        declId = NamePair {
+          nameC = Name "i0",
+          nameHsIdent = HsIdentifier
+            "i0"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:62:48",
+        declId = NamePair {
+          nameC = Name "i1",
+          nameHsIdent = HsIdentifier
+            "i1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:68:48",
+        declId = NamePair {
+          nameC = Name "i5",
+          nameHsIdent = HsIdentifier
+            "i5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:69:48",
+        declId = NamePair {
+          nameC = Name "i6",
+          nameHsIdent = HsIdentifier
+            "i6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:75:55",
+        declId = NamePair {
+          nameC = Name "i10",
+          nameHsIdent = HsIdentifier
+            "i10"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:76:55",
+        declId = NamePair {
+          nameC = Name "i11",
+          nameHsIdent = HsIdentifier
+            "i11"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:82:55",
+        declId = NamePair {
+          nameC = Name "i15",
+          nameHsIdent = HsIdentifier
+            "i15"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:83:55",
+        declId = NamePair {
+          nameC = Name "i16",
+          nameHsIdent = HsIdentifier
+            "i16"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
             []}}],
-  unitDeps = ["fun_attributes"]}
+  unitDeps = [
+    "visibility_attributes"]}
