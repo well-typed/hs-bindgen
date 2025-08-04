@@ -12,6 +12,8 @@ import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
+import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Parse
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
@@ -29,16 +31,21 @@ selectDecls ::
   -> Predicate.IsInMainHeaderDir
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpec
-  -> (C.TranslationUnit Select, [Msg Select])
+  -> (C.TranslationUnit Select, [Msg Parse], [Msg Parse], [Msg Select])
 selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     case selectConfigProgramSlicing of
       DisableProgramSlicing ->
         let matchedDecls :: [C.Decl Select]
             matchedDecls = filter matchDecl decls
 
+            parseMsgsDelayed, parseMsgsOmitted :: [Msg Parse]
+            (parseMsgsDelayed, parseMsgsOmitted) = getParseMsgs ann matchedDecls
+
             selectMsgs :: [Msg Select]
             selectMsgs = map (SelectSelected . C.declInfo) matchedDecls
-         in (unitSelect { C.unitDecls = matchedDecls }, selectMsgs)
+         in ( unitSelect { C.unitDecls = matchedDecls }
+            , parseMsgsDelayed, parseMsgsOmitted, selectMsgs
+            )
 
       EnableProgramSlicing ->
         let matchedDecls, unmatchedDecls :: [C.Decl Select]
@@ -59,16 +66,25 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
                 ((`Set.member` transitiveDeps) . C.declOrigNsPrelimDeclId)
                 decls
 
+            parseMsgsDelayed, parseMsgsOmitted :: [Msg Parse]
+            (parseMsgsDelayed, parseMsgsOmitted) = getParseMsgs ann selectedDecls
+
             selectMsgs :: [Msg Select]
             selectMsgs =
               getSelectMsgs transitiveDeps selectedDecls unmatchedDecls
-        in (unitSelect { C.unitDecls = selectedDecls }, selectMsgs)
+
+        in ( unitSelect { C.unitDecls = selectedDecls }
+           , parseMsgsDelayed, parseMsgsOmitted, selectMsgs
+           )
   where
     unitSelect :: C.TranslationUnit Select
     unitSelect = coercePass unitRBS
 
     decls :: [C.Decl Select]
     decls = C.unitDecls unitSelect
+
+    ann :: DeclMeta
+    ann = C.unitAnn unitSelect
 
     matchDecl :: C.Decl Select -> Bool
     matchDecl decl =
@@ -104,3 +120,7 @@ getSelectMsgs transitiveDeps selectedDecls unmatchedDecls =
       Set.toList unavailableTransitiveDeps
     excludeMsgs = map (SelectExcluded . C.declInfo) unmatchedDecls
     selectMsgs  = map (SelectSelected . C.declInfo) selectedDecls
+
+getParseMsgs :: DeclMeta -> [C.Decl Select] -> ([Msg Parse], [Msg Parse])
+getParseMsgs meta decls =
+    Parse.getParseMsgs (map C.declInfo decls) (declParseMsgs meta)

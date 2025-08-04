@@ -17,7 +17,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.AST.Internal hiding (Type)
-import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass hiding (Config)
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -121,7 +120,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
           nameAnon afterHandleMacros
         (afterResolveBindingSpec, msgsResolveBindingSpecs) =
           resolveBindingSpec bootExternalBindingSpec bootPrescriptiveBindingSpec afterNameAnon
-        (afterSelect, msgsSelect) =
+        (afterSelect, msgsParseDelayed, msgsParseOmitted, msgsSelect) =
           selectDecls isMainHeader isInMainHeaderDir selectConfig afterResolveBindingSpec
         (afterHandleTypedefs, msgsHandleTypedefs) =
           handleTypedefs afterSelect
@@ -137,6 +136,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
     forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
     forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
+    forM_ msgsParseDelayed        $ traceWith tracer . FrontendParse
+    forM_ msgsParseOmitted        $ traceWith tracer . FrontendParse
     forM_ msgsSelect              $ traceWith tracer . FrontendSelect
     forM_ msgsHandleTypedefs      $ traceWith tracer . FrontendHandleTypedefs
     forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
@@ -189,7 +190,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     emptyTranslationUnit = TranslationUnit {
         unitDecls = []
       , unitIncludeGraph = IncludeGraph.empty
-      , unitAnn = NonParsedDecls.empty
+      , unitAnn          = emptyParseDeclMeta
       }
 
     emptyParseResult :: (TranslationUnit Parse, IsMainHeader, IsInMainHeaderDir)
