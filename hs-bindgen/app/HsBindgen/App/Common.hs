@@ -240,15 +240,9 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
     , help "Pass option to libclang"
     ]
   where
-    isIncludeDirPrefix :: String -> Bool
-    isIncludeDirPrefix s =
-         ("-I" `List.isPrefixOf` s)
-      || ("-isystem" `List.isPrefixOf` s)
-      || ("-iquote" `List.isPrefixOf` s)
-
     readOtherArg :: String -> Either String String
     readOtherArg s
-      | isIncludeDirPrefix s =
+      | "-I" `List.isPrefixOf` s =
           Left "Add include directories using the 'hs-bindgen' -I option"
       | s == "-nostdinc" =
           Left "No standard includes option must be set using 'hs-bindgen' --no-stdinc option"
