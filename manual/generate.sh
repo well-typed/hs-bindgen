@@ -90,10 +90,12 @@ mkdir -p hs/hs-game/generated/Game
 cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
+    --select-by-header-path 'game_internal\.h$' \
     -o hs/hs-game/generated/Game/State.hs \
     --gen-binding-spec external/game.yaml \
     --module Game.State \
-    game_internal.h
+    game_world.h \
+    game_player.h
 
 cabal run hs-bindgen-cli -- \
   preprocess \

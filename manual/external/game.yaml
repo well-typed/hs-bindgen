@@ -1,5 +1,7 @@
 types:
-- headers: game_internal.h
+- headers:
+  - game_player.h
+  - game_world.h
   cname: game_state
   module: Game.State
   identifier: Game_state
@@ -8,7 +10,9 @@ types:
   - Ord
   - Show
   - Storable
-- headers: game_internal.h
+- headers:
+  - game_player.h
+  - game_world.h
   cname: struct game_state_details
   module: Game.State
   identifier: Game_state_details
