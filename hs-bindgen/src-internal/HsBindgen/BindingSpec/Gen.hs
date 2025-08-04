@@ -22,7 +22,6 @@ import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
@@ -116,7 +115,7 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
             case HsOrigin.declKind originDecl of
               HsOrigin.Struct{} -> C.NameKindTagged C.TagKindStruct
           hsIdentifier = HsIdentifier $ getHsName (Hs.structName hsStruct)
-          MangleNames.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
+          C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
           typeSpec = BindingSpec.TypeSpec {
               typeSpecModule     = Just hsModuleName
             , typeSpecIdentifier = Just hsIdentifier
@@ -154,7 +153,7 @@ getNewtypeSpec hsModuleName hsNewtype =
             HsOrigin.Union{}   -> C.NameKindTagged C.TagKindUnion
             HsOrigin.Macro{}   -> C.NameKindOrdinary
         hsIdentifier = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
-        MangleNames.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
+        C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
         typeSpec = BindingSpec.TypeSpec {
             typeSpecModule     = Just hsModuleName
           , typeSpecIdentifier = Just hsIdentifier
@@ -174,7 +173,7 @@ getCQualName declInfo cNameKind = case C.declOrigin declInfo of
     C.NameOriginBuiltin -> C.QualName cName C.NameKindOrdinary
   where
     cName :: C.Name
-    cName = MangleNames.nameC (C.declId declInfo)
+    cName = C.nameC (C.declId declInfo)
 
 mkInstSpecs ::
      Set HsTypeClass

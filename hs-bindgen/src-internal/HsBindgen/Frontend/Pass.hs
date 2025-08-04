@@ -82,10 +82,10 @@ class IsPass (p :: Pass) where
   type Msg p :: Star
 
 data NoAnn = NoAnn
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 data NoConfig = NoConfig
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 data NoMsg = NoMsg
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)

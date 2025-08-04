@@ -51,7 +51,7 @@ import HsBindgen.Imports
 newtype UseDeclGraph = Wrap {
       unwrap :: DynGraph Usage C.NsPrelimDeclId
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 toDynGraph :: UseDeclGraph -> DynGraph Usage C.NsPrelimDeclId
 toDynGraph = unwrap

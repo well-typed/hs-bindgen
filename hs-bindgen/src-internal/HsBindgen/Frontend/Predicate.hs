@@ -32,6 +32,7 @@ import Text.Regex.PCRE.Text ()
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -148,17 +149,17 @@ matchParse ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SingleLoc
-  -> C.QualPrelimDeclId
+  -> PrelimDeclId
   -> ParsePredicate
   -> Bool
-matchParse isMainHeader isInMainHeaderDir loc qid
+matchParse isMainHeader isInMainHeaderDir loc prelimDeclId
     | isBuiltin = const False
     | otherwise = eval (matchHeaderPath isMainHeader isInMainHeaderDir loc)
   where
     isBuiltin :: Bool
-    isBuiltin = case qid of
-      C.QualPrelimDeclIdBuiltin{} -> True
-      _otherwise                  -> False
+    isBuiltin = case prelimDeclId of
+      PrelimDeclIdBuiltin{} -> True
+      _otherwise            -> False
 
 -- | Match 'SelectPredicate' predicates
 matchSelect ::
@@ -248,7 +249,7 @@ matchHeaderPath isMainHeader isInMainHeaderDir loc = \case
 -- | Match 'DeclPredicate' predicates
 matchDecl :: C.QualDeclId -> DeclPredicate -> Bool
 matchDecl qid = \case
-    DeclNameMatches re -> matchTest re (C.qualDeclIdText qid)
+    DeclNameMatches re -> matchTest re $ C.qualDeclIdText qid
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs

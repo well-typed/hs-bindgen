@@ -29,7 +29,6 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
 import Data.IORef
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import GHC.Stack
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
@@ -38,10 +37,12 @@ import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.Eff
 import HsBindgen.Errors
+import HsBindgen.Frontend.AST.External (NameKind)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
@@ -70,11 +71,16 @@ data ParseSupport = ParseSupport {
 
 type instance Support ParseDeclMonad = ParseSupport
 
-run :: Env -> ParseDecl a -> IO (NonParsedDecls, a)
+run :: Env -> ParseDecl a -> IO (Ann "TranslationUnit" Parse, a)
 run env f = do
     support <- ParseSupport env <$> newIORef initParseState
     x <- unwrapEff f support
-    (, x) . stateNonParsedDecls <$> readIORef (parseState support)
+    state <- readIORef (parseState support)
+    let meta = ParseDeclMeta {
+            parseDeclNonParsed = stateNonParsedDecls state
+          , parseDeclParseMsg  = stateParseMsgs state
+          }
+    pure (meta, x)
 
 {-------------------------------------------------------------------------------
   "Reader"
@@ -98,13 +104,13 @@ evalGetMainHeader :: SourcePath -> ParseDecl HashIncludeArg
 evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
     return $ (envGetMainHeader parseEnv) path
 
-evalPredicate :: C.DeclInfo Parse -> C.NameKind -> ParseDecl Bool
-evalPredicate info kind = wrapEff $ \ParseSupport{parseEnv} -> do
+evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
+evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> do
     let selected = Predicate.matchParse
                      (envIsMainHeader parseEnv)
                      (envIsInMainHeaderDir parseEnv)
                      (C.declLoc info)
-                     (C.qualPrelimDeclId (C.declId info) kind)
+                     (C.declId info)
                      (envPredicate parseEnv)
     unless selected $ traceWith (envTracer parseEnv) (ParseExcluded info)
     return selected
@@ -124,12 +130,21 @@ data ParseState = ParseState {
       -- We need to track which header each excluded declaration is declared in
       -- so that we can resolve external bindings.
     , stateNonParsedDecls :: NonParsedDecls
+
+      -- | Some traces are linked to specific declarations. However, we only
+      -- select and process a subset of all parsed declarations. To reduce
+      -- noise, we only emit traces linked to selected and processed
+      -- declarations. Since we change the info object between passes, we link
+      -- messages to source locations. For a given declaration, the source
+      -- location should be constant across all passes.
+    , stateParseMsgs :: ParseMsgs Parse
     }
 
 initParseState :: ParseState
 initParseState = ParseState{
-      stateMacroExpansions  = Set.empty
-    , stateNonParsedDecls = NonParsedDecls.empty
+      stateMacroExpansions = Set.empty
+    , stateNonParsedDecls  = NonParsedDecls.empty
+    , stateParseMsgs       = emptyParseMsgs
     }
 
 recordMacroExpansionAt :: SingleLoc -> ParseDecl ()
@@ -189,9 +204,11 @@ recordNonParsedDecl declInfo nameKind =
   Logging
 -------------------------------------------------------------------------------}
 
-recordTrace :: HasCallStack => ParseMsg -> ParseDecl ()
-recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
-    traceWith (envTracer parseEnv) trace
+recordTrace :: C.DeclInfo Parse -> NameKind -> ParseMsg -> ParseDecl ()
+recordTrace info kind trace = wrapEff $ \ParseSupport{parseState} ->
+    modifyIORef parseState $ \st -> st{
+        stateParseMsgs = recordParseMsg info kind trace (stateParseMsgs st)
+      }
 
 {-------------------------------------------------------------------------------
   Errors
