@@ -9116,4 +9116,284 @@
                   "Struct2_t"}
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
-      foreignImportComment = Nothing}]
+      foreignImportComment = Nothing},
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_globalConstant_ptr (void) { return &globalConstant; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "get_globalConstant_ptr",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "get_globalConstant_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [TextContent "Constants"],
+          commentOrigin = Just
+            "globalConstant",
+          commentChildren = []}},
+  DeclSimple,
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "ConstInt",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_ConstInt",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "globals.h:448:19",
+          declId = NamePair {
+            nameC = Name "ConstInt",
+            nameHsIdent = HsIdentifier
+              "ConstInt"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeader = "globals.h",
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "ConstInt",
+              newtypeField = HsName
+                "@NsVar"
+                "un_ConstInt"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable],
+      newtypeComment = Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) ConstInt *get_anotherGlobalConstant_ptr (void) { return &anotherGlobalConstant; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "get_anotherGlobalConstant_ptr",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "ConstInt")),
+      foreignImportOrigName =
+      "get_anotherGlobalConstant_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "ConstInt",
+              nameHsIdent = HsIdentifier
+                "ConstInt"})),
+      foreignImportComment = Nothing},
+  DeclSimple,
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_staticConst_ptr (void) { return &staticConst; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "get_staticConst_ptr",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "get_staticConst_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Nothing},
+  DeclSimple,
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int *get_classless_ptr (void) { return &classless; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "get_classless_ptr",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "get_classless_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Nothing},
+  DeclSimple]

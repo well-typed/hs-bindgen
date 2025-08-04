@@ -23,6 +23,10 @@
 -- __attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } 
 -- __attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } 
 -- __attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } 
+-- __attribute__ ((const)) signed int *get_globalConstant_ptr (void) { return &globalConstant; } 
+-- __attribute__ ((const)) ConstInt *get_anotherGlobalConstant_ptr (void) { return &anotherGlobalConstant; } 
+-- __attribute__ ((const)) signed int *get_staticConst_ptr (void) { return &staticConst; } 
+-- __attribute__ ((const)) signed int *get_classless_ptr (void) { return &classless; } 
 foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal :: Ptr CInt
 data Config
     = Config {config_x :: CInt, config_y :: CInt}
@@ -100,3 +104,27 @@ instance Storable Struct2_t
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Struct2_t struct2_t_field1_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_t_field1_3}}
 foreign import ccall safe "get_some_global_struct_ptr" some_global_struct :: Ptr Struct2_t
+foreign import ccall safe "get_globalConstant_ptr" get_globalConstant_ptr :: Ptr CInt
+globalConstant :: CInt
+globalConstant = unsafePerformIO (peek get_globalConstant_ptr)
+newtype ConstInt
+    = ConstInt {un_ConstInt :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+foreign import ccall safe "get_anotherGlobalConstant_ptr" get_anotherGlobalConstant_ptr :: Ptr ConstInt
+anotherGlobalConstant :: ConstInt
+anotherGlobalConstant = unsafePerformIO (peek get_anotherGlobalConstant_ptr)
+foreign import ccall safe "get_staticConst_ptr" get_staticConst_ptr :: Ptr CInt
+staticConst :: CInt
+staticConst = unsafePerformIO (peek get_staticConst_ptr)
+foreign import ccall safe "get_classless_ptr" get_classless_ptr :: Ptr CInt
+classless :: CInt
+classless = unsafePerformIO (peek get_classless_ptr)

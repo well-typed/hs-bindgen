@@ -350,6 +350,8 @@ testCases = [
               , "some_global_struct"
                 -- Other warnings
               , "unusableAnon"
+                -- Duplicate symbols
+              , "classless"
               ]
       in (defaultTest "globals") {
           -- Getting different output from (the same version of) rust-bindgen
@@ -423,7 +425,6 @@ testCases = [
               ParseUnsupportedType _ UnsupportedLongDouble       -> Just Tolerated
               ParseUnsupportedType _ UnsupportedVariadicFunction -> Just Tolerated
               ParseUnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
-              ParseUnsupportedConst _                            -> Just Tolerated
               _other                                             -> Nothing
             TraceFrontend (FrontendSelect (SelectSelected info)) ->
               expectSelected info $ Set.fromList [

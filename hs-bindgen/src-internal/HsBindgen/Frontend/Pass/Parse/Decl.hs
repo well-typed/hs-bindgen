@@ -469,12 +469,10 @@ varDecl info = simpleFold $ \curr -> do
             unless isExtern $
               recordTrace $ ParsePotentialDuplicateGlobal info
             return [mkDecl $ C.DeclGlobal typ]
-          VarConst _isExternOrStatic -> do
-            recordTrace $ ParseUnsupportedConst info
-            return []
-            --unless isExternOrStatic $
-            --  recordTrace $ PotentialDuplicateGlobal info
-            --return [mkDecl $ C.DeclConst typ]
+          VarConst sc -> do
+            unless (sc == Extern || sc == Static) $
+              recordTrace $ ParsePotentialDuplicateGlobal info
+            return [mkDecl $ C.DeclConst typ]
           VarThreadLocal -> do
             recordTrace $ ParseUnsupportedTLS info
             return []
@@ -629,8 +627,8 @@ data VarClassification =
     -- > extern const int globalConstant;
     -- > static const int staticConst = 123;
     --
-    -- We record if the variable is declared @extern@ or @static@, for the same
-    -- reason as in 'VarGlobal'.
+    -- We record if the variable is declared @extern@, @static@, or neither, for
+    -- the same reason as in 'VarGlobal'.
     --
     -- NOTE: `static` can be useful to be able to specify the /value/ of the
     -- constant in the header file (perhaps so that the compiler can inline it).
@@ -640,7 +638,7 @@ data VarClassification =
     --
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/829>
     -- We could in principle expose the /value/ of the constant, if we know it.
-  | VarConst Bool
+  | VarConst StorageClass
 
     -- | Thread local variables
     --
@@ -654,6 +652,9 @@ data VarClassification =
   | VarUnsupported (SimpleEnum CX_StorageClass)
   deriving stock (Show)
 
+data StorageClass = Extern | Static | None
+  deriving stock (Show, Eq)
+
 classifyVarDecl :: MonadIO m => CXCursor -> m VarClassification
 classifyVarDecl curr = do
     tls <- clang_getCursorTLSKind curr
@@ -666,9 +667,9 @@ classifyVarDecl curr = do
         case (fromSimpleEnum storage, isConst) of
           (Right CX_SC_Extern , False) -> return $ VarGlobal True
           (Right CX_SC_None   , False) -> return $ VarGlobal False
-          (Right CX_SC_Extern , True ) -> return $ VarConst True
-          (Right CX_SC_Static , True ) -> return $ VarConst True
-          (Right CX_SC_None   , True)  -> return $ VarConst False
+          (Right CX_SC_Extern , True ) -> return $ VarConst Extern
+          (Right CX_SC_Static , True ) -> return $ VarConst Static
+          (Right CX_SC_None   , True)  -> return $ VarConst None
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal

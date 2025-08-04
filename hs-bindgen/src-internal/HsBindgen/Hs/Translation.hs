@@ -1354,7 +1354,52 @@ global info ty _spec =
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
 globalConst :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
-globalConst = throwPure_TODO 41 "Constants not yet supported"
+globalConst info ty _spec =
+    [ Hs.DeclInlineCInclude (getHashIncludeArg $ C.declHeader info)
+    , Hs.DeclInlineC prettyStub
+    , Hs.DeclForeignImport $ Hs.ForeignImportDecl
+        { foreignImportName     = HsName $ T.pack stubName
+        , foreignImportType     = importType
+        , foreignImportOrigName = T.pack stubName
+        , foreignImportCallConv = CallConvUserlandCAPI
+        , foreignImportOrigin   = Origin.Global ty
+        , foreignImportComment  = fmap generateHaddocks (C.declComment info)
+        }
+    , Hs.DeclSimple $ SHs.DVar $ SHs.Var {
+          varName    = importName
+        , varType    = SHs.translateType (typ ty)
+        , varExpr    =
+                       SHs.EGlobal SHs.IO_unsafePerformIO
+            `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
+            `SHs.EApp` SHs.EFree (HsName $ T.pack stubName))
+        , varComment = Nothing
+        }
+    ]
+  where
+    importName :: HsName 'NsVar
+    importName = C.nameHs (C.declId info)
+
+    importType :: HsType
+    importType = typ stubType
+
+    -- TODO: the stub name should go through the name mangler. See #946.
+    stubName :: String
+    stubName = "get_" ++ varName ++ "_ptr"
+
+    varName :: String
+    varName = T.unpack (C.getName . C.nameC . C.declId $ info)
+
+    stubType :: C.Type
+    stubType = C.TypePointer ty
+
+    prettyStub :: String
+    prettyStub = PC.prettyDecl stubDecl " "
+
+    stubDecl :: PC.Decl
+    stubDecl =
+        PC.withArgs [] $ \args' ->
+          PC.FunDefn stubName stubType C.HaskellPureFunction args'
+            [PC.Return $ PC.Address $ PC.NamedVar varName]
 
 {-------------------------------------------------------------------------------
   Macro
