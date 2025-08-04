@@ -58,7 +58,7 @@ module HsBindgen.Frontend.Naming (
 
 import Data.Text qualified as Text
 
-import Clang.HighLevel (ShowFile(..))
+import Clang.HighLevel (ShowFile (..))
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core

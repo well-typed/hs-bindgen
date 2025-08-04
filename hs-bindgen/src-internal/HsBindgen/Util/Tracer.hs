@@ -220,7 +220,7 @@ alignSource = \case
 
 newtype TraceId = TraceId { unTraceId :: String }
   deriving stock (Show, Eq, Ord)
-  deriving IsString via String
+  deriving (IsString, Semigroup, Monoid) via String
 
 class PrettyForTrace a => IsTrace l a | a -> l where
   -- | Get default (or suggested) log level of a trace.

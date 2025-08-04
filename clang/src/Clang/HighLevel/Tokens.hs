@@ -12,10 +12,10 @@ import GHC.Generics (Generic)
 import GHC.Stack
 
 import Clang.Enum.Simple
-import Clang.HighLevel.SourceLoc (Range, MultiLoc, SingleLoc)
+import Clang.HighLevel.SourceLoc (MultiLoc, Range, SingleLoc)
 import Clang.HighLevel.SourceLoc qualified as SourceLoc
-import Clang.LowLevel.Core qualified as Core
 import Clang.LowLevel.Core hiding (clang_tokenize)
+import Clang.LowLevel.Core qualified as Core
 
 {-------------------------------------------------------------------------------
   Definition
@@ -27,12 +27,12 @@ data Token a = Token {
     , tokenExtent     :: !(Range MultiLoc)
     , tokenCursorKind :: !(SimpleEnum CXCursorKind)
     }
-  deriving stock (Show, Eq, Functor, Foldable, Traversable, Generic)
+  deriving stock (Show, Eq, Ord, Functor, Foldable, Traversable, Generic)
 
 newtype TokenSpelling = TokenSpelling {
       getTokenSpelling :: Text
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Extraction

@@ -14,12 +14,13 @@ import Data.Text qualified as Text
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming (NameKind (..), TagKind (..))
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
-import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeExceptionInContext (..))
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -35,7 +36,7 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
           -> C.NameKind
           -> ParseDecl (Next ParseDecl [C.Decl Parse])
         parseWith parser kind = do
-            selected <- evalPredicate info kind
+            selected <- evalPredicate info
             if selected
               then runFold (parser info) curr
               else recordNonParsedDecl info kind >> foldContinue
@@ -68,14 +69,29 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
       -- Report error for declarations we don't recognize
       kind -> unknownCursorKind curr kind
 
+-- NOTE: The exception handler does not require the cursor anymore. If this
+-- continues to be so in the future, the cursor could be removed.
 handleTypeException ::
      CXCursor
-  -> ParseTypeException
+  -> ParseTypeExceptionInContext ParseTypeExceptionContext
   -> ParseDecl (Maybe [C.Decl Parse])
-handleTypeException curr err = do
-    info <- getDeclInfo curr
-    recordTrace $ ParseUnsupportedType info err
+handleTypeException _curr err = do
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1036: For nested
+    -- structures, the error message contains the info object of the inner
+    -- declaration, while the info object we obtain here refers to the outer
+    -- declaration. (That is, the exception handler receives the cursor of the
+    -- outer object).
+    --
+    -- We should record the trace using the info contained in the error message
+    -- ('contextInfo'). However, if we do so, we completely lose information
+    -- about the outer object. We should treat nested declarations with all
+    -- inner declarations failing in a correct way.
+    info <- getDeclInfo _curr
+    recordTrace info contextNameKind $
+      ParseUnsupportedType info (parseException err)
     return Nothing
+  where
+    ParseTypeExceptionContext{..} = parseContext err
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations
@@ -165,7 +181,8 @@ structDecl info = simpleFold $ \curr -> do
             partitionChildren xs
               | null unused = return $ Just (used, fields)
               | otherwise   = do
-                  recordTrace $ ParseUnsupportedImplicitFields info
+                  recordTrace info (NameKindTagged TagKindStruct)
+                    $ ParseUnsupportedImplicitFields info
                   return Nothing
               where
                 otherDecls :: [C.Decl Parse]
@@ -175,7 +192,7 @@ structDecl info = simpleFold $ \curr -> do
                 used, unused :: [C.Decl Parse]
                 (used, unused) = detectStructImplicitFields otherDecls fields
 
-        foldRecurseWith (declOrFieldDecl structFieldDecl) $ \xs -> do
+        foldRecurseWith (declOrFieldDecl $ structFieldDecl info) $ \xs -> do
           mPartitioned <- partitionChildren xs
           case mPartitioned of
             Just (decls, fields) ->
@@ -227,7 +244,7 @@ unionDecl info = simpleFold $ \curr -> do
                 fields     :: [C.UnionField Parse]
                 (otherDecls, fields) = first concat $ partitionEithers xs
 
-        foldRecurseWith (declOrFieldDecl unionFieldDecl) $ \xs -> do
+        foldRecurseWith (declOrFieldDecl $ unionFieldDecl info) $ \xs -> do
           (decls, fields) <- partitionChildren xs
           return $ decls ++ [mkUnion fields]
       DefinitionUnavailable -> do
@@ -253,11 +270,13 @@ declOrFieldDecl fieldDecl = simpleFold $ \curr -> do
       _otherwise -> do
         fmap Left <$> runFold foldDecl curr
 
-structFieldDecl :: CXCursor -> ParseDecl (C.StructField Parse)
-structFieldDecl = \curr -> do
+structFieldDecl :: C.DeclInfo Parse -> CXCursor -> ParseDecl (C.StructField Parse)
+structFieldDecl info = \curr -> do
     structFieldLoc    <- HighLevel.clang_getCursorLocation' curr
     structFieldName   <- C.Name <$> clang_getCursorDisplayName curr
-    structFieldType   <- fromCXType =<< clang_getCursorType curr
+    structFieldType   <-
+      fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindStruct))
+        =<< clang_getCursorType curr
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
     structFieldWidth  <- structWidth curr
@@ -279,11 +298,13 @@ structWidth = \curr -> do
       then Just . fromIntegral <$> clang_getFieldDeclBitWidth curr
       else return Nothing
 
-unionFieldDecl :: CXCursor -> ParseDecl (C.UnionField Parse)
-unionFieldDecl = \curr -> do
+unionFieldDecl :: C.DeclInfo Parse -> CXCursor -> ParseDecl (C.UnionField Parse)
+unionFieldDecl info = \curr -> do
     unionFieldLoc  <- HighLevel.clang_getCursorLocation' curr
     unionFieldName <- C.Name <$> clang_getCursorDisplayName curr
-    unionFieldType <- fromCXType =<< clang_getCursorType curr
+    unionFieldType <-
+      fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindUnion))
+        =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
     unionFieldComment   <- fmap parseCommentReferences <$> clang_getComment curr
     pure C.UnionField{
@@ -296,7 +317,8 @@ unionFieldDecl = \curr -> do
 
 typedefDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 typedefDecl info = simpleFold $ \curr -> do
-    typedefType <- fromCXType =<< clang_getTypedefDeclUnderlyingType curr
+    typedefType <- fromCXType' (ParseTypeExceptionContext info NameKindOrdinary)
+                     =<< clang_getTypedefDeclUnderlyingType curr
     typedefAnn  <- getReparseInfo curr
     let decl :: C.Decl Parse
         decl = C.Decl{
@@ -323,7 +345,9 @@ enumDecl info = simpleFold $ \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
-        ety       <- fromCXType =<< clang_getEnumDeclIntegerType curr
+        ety       <-
+          fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindEnum))
+            =<< clang_getEnumDeclIntegerType curr
 
         let mkEnum :: [C.EnumConstant Parse] -> C.Decl Parse
             mkEnum constants = C.Decl{
@@ -373,10 +397,10 @@ enumConstantDecl curr = do
 functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 functionDecl info = simpleFold $ \curr -> do
     visibility <- getCursorVisibility curr
-    linkage <- getCursorLinkage curr
-    declCls <- HighLevel.classifyDeclaration curr
-
-    typ  <- fromCXType =<< clang_getCursorType curr
+    linkage    <- getCursorLinkage curr
+    declCls    <- HighLevel.classifyDeclaration curr
+    typ        <- fromCXType' (ParseTypeExceptionContext info NameKindOrdinary)
+                    =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction curr typ
     functionAnn <- getReparseInfo curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
@@ -407,13 +431,14 @@ functionDecl info = simpleFold $ \curr -> do
         let isDefn = declCls == Definition
 
         if not (null anonDecls) then do
-          recordTrace $ ParseUnexpectedAnonInSignature info
+          recordTrace info NameKindOrdinary $ ParseUnexpectedAnonInSignature info
           return []
         else do
           when (visibilityCanCauseErrors visibility linkage isDefn) $
-            recordTrace $ ParseNonPublicVisibility info
+            recordTrace info NameKindOrdinary $ ParseNonPublicVisibility info
           when (isDefn && linkage == ExternalLinkage) $
-            recordTrace $ ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+            recordTrace info NameKindOrdinary $
+              ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
           return $ otherDecls ++ [mkDecl purity]
   where
     guardTypeFunction ::
@@ -484,11 +509,11 @@ functionDecl info = simpleFold $ \curr -> do
 varDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 varDecl info = simpleFold $ \curr -> do
     visibility <- getCursorVisibility curr
-    linkage <- getCursorLinkage curr
-    declCls <- HighLevel.classifyDeclaration curr
-
-    typ  <- fromCXType =<< clang_getCursorType curr
-    cls  <- classifyVarDecl curr
+    linkage    <- getCursorLinkage curr
+    declCls    <- HighLevel.classifyDeclaration curr
+    typ        <- fromCXType' (ParseTypeExceptionContext info NameKindOrdinary)
+                    =<< clang_getCursorType curr
+    cls        <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
         mkDecl kind = C.Decl{
             declInfo = info
@@ -515,23 +540,24 @@ varDecl info = simpleFold $ \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         if not (null anonDecls) then do
-          recordTrace $ ParseUnexpectedAnonInExtern info
+          recordTrace info NameKindOrdinary $ ParseUnexpectedAnonInExtern info
           return []
         else (otherDecls ++) <$> do
           when (visibilityCanCauseErrors visibility linkage isDefn) $
-            recordTrace $ ParseNonPublicVisibility info
+            recordTrace info NameKindOrdinary $ ParseNonPublicVisibility info
           when (isDefn && linkage == ExternalLinkage) $
-            recordTrace $ ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+            recordTrace info NameKindOrdinary $
+              ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
           case cls of
             VarGlobal -> do
               return [mkDecl $ C.DeclGlobal typ]
             VarConst -> do
               return [mkDecl $ C.DeclConst typ]
             VarThreadLocal -> do
-              recordTrace $ ParseUnsupportedTLS info
+              recordTrace info NameKindOrdinary $ ParseUnsupportedTLS info
               return []
             VarUnsupported storage -> do
-              recordTrace $ ParseUnknownStorageClass info storage
+              recordTrace info NameKindOrdinary $ ParseUnknownStorageClass info storage
               return []
   where
     -- Look for nested declarations inside the global variable type
@@ -807,3 +833,7 @@ visibilityCanCauseErrors ::
   -> Bool
 visibilityCanCauseErrors NonPublicVisibility ExternalLinkage False = True
 visibilityCanCauseErrors _ _ _ = False
+
+fromCXType' :: MonadIO m
+  => ParseTypeExceptionContext -> CXType -> m (C.Type Parse)
+fromCXType' = fromCXType @ParseTypeExceptionContext

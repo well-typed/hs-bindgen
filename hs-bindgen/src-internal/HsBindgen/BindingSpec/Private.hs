@@ -134,7 +134,7 @@ type ResolvedBindingSpec = BindingSpec (HashIncludeArg, SourcePath)
 data Omittable a =
     Require a
   | Omit
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Show, Eq, Ord, Generic)
 
 --------------------------------------------------------------------------------
 
@@ -149,7 +149,7 @@ data TypeSpec = TypeSpec {
     , -- | Instance specification
       typeSpecInstances :: Map HsTypeClass (Omittable InstanceSpec)
     }
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Show, Eq, Ord, Generic)
 
 defaultTypeSpec :: TypeSpec
 defaultTypeSpec = TypeSpec {
@@ -174,7 +174,7 @@ data InstanceSpec = InstanceSpec {
       -- If specified, /all/ constraints must be listed.
       instanceSpecConstraints :: [ConstraintSpec]
     }
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Show, Eq, Ord, Generic)
 
 --------------------------------------------------------------------------------
 
@@ -216,7 +216,7 @@ data ConstraintSpec = ConstraintSpec {
       constraintSpecClass :: HsTypeClass
     , constraintSpecRef   :: ExtHsRef
     }
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Types: Trace messages

@@ -35,7 +35,7 @@ import HsBindgen.Imports
 newtype NonParsedDecls = NonParsedDecls {
       unNonParsedDecls :: Map C.QualName SourcePath
     }
-  deriving (Eq, Show)
+  deriving (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   API

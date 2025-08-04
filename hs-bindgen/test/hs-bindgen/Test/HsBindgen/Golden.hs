@@ -142,7 +142,7 @@ testCases = [
       --
 
     , testTraceCustom "decls_in_signature" ["f3", "f4", "f5"] $ \case
-        TraceFrontend (FrontendParse (ParseUnexpectedAnonInSignature info)) ->
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnexpectedAnonInSignature info))) ->
           Just . Expected $ C.declId info
         TraceFrontend (FrontendClang (ClangDiagnostic _diag)) ->
           Just Tolerated
@@ -174,19 +174,21 @@ testCases = [
     , testTraceCustom "redeclaration" ["x", "n"] $ \case
         TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
           Just $ Expected (C.declId info)
-        TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static)))) ->
           Just $ Expected (C.declId info)
         _otherwise ->
           Nothing
     , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
-        TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedLongDouble)) ->
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedType info UnsupportedLongDouble))) ->
           Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
     , testTraceCustom "tentative_definitions" ["i1", "i2", "i3", "i3"] $ \case
         TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
           Just $ Expected (C.declId info)
-        TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParsePotentialDuplicateSymbol info _isPublic))) ->
+          Just $ Expected (C.declId info)
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static)))) ->
           Just $ Expected (C.declId info)
         TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
           Just Tolerated
@@ -220,7 +222,7 @@ testCases = [
         _otherwise ->
           Nothing
     , testTraceCustom "varargs" ["f", "g"] $ \case
-        TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedVariadicFunction)) ->
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedType info UnsupportedVariadicFunction))) ->
           Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
@@ -251,7 +253,7 @@ testCases = [
               Just $ Expected (C.declId info)
             TraceFrontend (FrontendParse (ParseNonPublicVisibility info)) ->
               Just $ Expected (C.declId info)
-            TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+            TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static)))) ->
               Just $ Expected (C.declId info)
             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
               Just Tolerated
@@ -264,12 +266,12 @@ testCases = [
       --
 
     , failingTestSimple "long_double" $ \case
-        TraceFrontend (FrontendParse (ParseUnsupportedType _ UnsupportedLongDouble)) ->
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedType _ UnsupportedLongDouble))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
     , failingTestSimple "implicit_fields_struct" $ \case
-        TraceFrontend (FrontendParse (ParseUnsupportedImplicitFields {})) ->
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedImplicitFields {}))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
@@ -295,7 +297,7 @@ testCases = [
         _otherwise ->
           Nothing
     , failingTestSimple "unsupported_builtin" $ \case
-        TraceFrontend (FrontendParse (ParseUnsupportedType _info (UnsupportedBuiltin "__builtin_va_list"))) ->
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedType _info (UnsupportedBuiltin "__builtin_va_list")))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
@@ -398,7 +400,30 @@ testCases = [
                Just Tolerated
             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-tentative-definition-array"})) ->
                Just Tolerated
-            TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+            TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static)))) ->
+               Just $ Expected (C.declId info)
+            _otherwise ->
+               Nothing
+        }
+    , (defaultTest "delay_traces") {
+          testOnFrontendConfig = \cfg -> cfg{
+              frontendSelectPredicate =
+                POr
+                  (PIf (Right (DeclNameMatches "_function")))
+                  -- NOTE: Matching for name kind is not good practice, but we
+                  -- want to check if nested, but skipped declarations are
+                  -- correctly assigned name kinds.
+                  (PIf (Right (DeclNameMatches "struct")))
+            }
+        , testTracePredicate = customTracePredicate' [
+              "long_double_function"
+            , "var_arg_function"
+            , "long_double_s"
+            , "nested_long_double_s"
+            ] $ \case
+            TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedType info UnsupportedLongDouble))) ->
+               Just $ Expected (C.declId info)
+            TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedType info UnsupportedVariadicFunction))) ->
                Just $ Expected (C.declId info)
             _otherwise ->
                Nothing
@@ -419,22 +444,22 @@ testCases = [
     , (defaultTest "fun_attributes") {
           testClangVersion = Just (>= (15, 0, 0))
         , testTracePredicate = customTracePredicate' ["my_printf", "i", "f3"] $ \case
-             TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedVariadicFunction)) ->
-               Just $ Expected (C.declId info)
-             TraceFrontend (FrontendParse (ParseNonPublicVisibility info)) ->
-               Just $ Expected (C.declId info)
-             TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
-               Just $ Expected (C.declId info)
-             _otherwise ->
-               Nothing
+            TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedType info UnsupportedVariadicFunction))) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (ParseNonPublicVisibility info)) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
+              Just $ Expected (C.declId info)
+            _otherwise ->
+              Nothing
         , testRustBindgen = RustBindgenFail
         }
     , (defaultTest "fun_attributes_conflict") {
           testTracePredicate = customTracePredicate [] $ \case
-             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-ignored-attributes"})) ->
-               Just Tolerated
-             _otherwise ->
-               Nothing
+            TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-ignored-attributes"})) ->
+              Just Tolerated
+            _otherwise ->
+              Nothing
         }
     , let declsWithWarnings :: [C.PrelimDeclId]
           declsWithWarnings = [
@@ -468,7 +493,7 @@ testCases = [
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
             TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
               Just $ Expected (C.declId info)
-            TraceFrontend (FrontendParse (ParseUnexpectedAnonInExtern info)) ->
+            TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnexpectedAnonInExtern info))) ->
               Just $ Expected (C.declId info)
             _otherwise ->
               Nothing
@@ -507,7 +532,6 @@ testCases = [
                   "foo"
                 , "uint32_t"
                 ]
-            TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
             _otherwise ->
               Nothing
         }
@@ -542,7 +566,6 @@ testCases = [
                 , "FileOperationStatus"
                 , "read_file_chunk"
                 ]
-            TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
             TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
               Just $ Expected (show x)
             _otherwise ->
@@ -554,7 +577,7 @@ testCases = [
     , (defaultFailingTest "thread_local"){
           testClangVersion   = Just (>= (16, 0, 0))
         , testTracePredicate = singleTracePredicate $ \case
-            TraceFrontend (FrontendParse (ParseUnsupportedTLS{})) ->
+            TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedTLS{}))) ->
               Just $ Expected ()
             _otherwise ->
               Nothing

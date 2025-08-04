@@ -96,24 +96,19 @@ module HsBindgen.Frontend.Macro.Tc.Type (
 -- base
 import Data.Kind qualified as Hs
 import Data.List.NonEmpty qualified as NE
-import Data.Maybe
-  ( fromJust )
-import Data.Proxy
-  ( Proxy(..) )
-import Data.Type.Equality
-  ( type (:~:)(..) )
+import Data.Maybe (fromJust)
+import Data.Proxy (Proxy (..))
+import Data.Type.Equality (type (:~:) (..))
 import Foreign.C.Types
 import Foreign.Ptr qualified as Foreign
-import GHC.Show
-  ( showSpace )
+import GHC.Show (showSpace)
 
 -- fin
-import Data.Type.Nat qualified as Nat
-  ( SNat(..), SNatI, snat, eqNat, reflectToNum )
+import Data.Type.Nat qualified as Nat (SNat (..), SNatI, cmpNat, eqNat,
+                                       reflectToNum, snat)
 
 -- some
-import Data.GADT.Compare
-  ( GEq (..), defaultEq )
+import Data.GADT.Compare (GEq (..), GOrdering (..), defaultEq)
 
 -- text
 import Data.Text qualified as Text
@@ -125,11 +120,11 @@ import Data.Vec.Lazy qualified as Vec
 import C.Type qualified
 
 -- hs-bindgen
-import HsBindgen.Imports
+
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.TestEquality
-  ( equals2 )
+import HsBindgen.Util.TestEquality (equals2)
 
 {-------------------------------------------------------------------------------
   Type system for macros
@@ -186,6 +181,20 @@ instance Eq ( Quant ( Vec n ( Type ki ) ) ) where
       Nothing -> False
       Just Refl ->
         mkQuantTyBody qty1 == mkQuantTyBody qty2
+
+instance Ord ( Quant ( Type ki ) ) where
+  ( Quant @n1 _ ) `compare` ( Quant @n2 _ ) =
+    case Nat.cmpNat @n1 @n2 of
+      GLT -> LT
+      GEQ -> EQ
+      GGT -> GT
+
+instance Ord ( Quant ( Vec n ( Type ki ) ) ) where
+  ( Quant @n1 _ ) `compare` ( Quant @n2 _ ) =
+    case Nat.cmpNat @n1 @n2 of
+      GLT -> LT
+      GEQ -> EQ
+      GGT -> GT
 
 -- | The body of a quantified type (what's under the forall).
 type QuantTyBody :: Hs.Type -> Hs.Type

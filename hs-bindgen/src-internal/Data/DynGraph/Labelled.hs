@@ -65,6 +65,7 @@ data DynGraph l a = DynGraph {
 
 deriving instance (Show a, Show l) => Show (DynGraph l a)
 deriving instance (Eq   a, Eq   l) => Eq   (DynGraph l a)
+deriving instance (Ord  a, Ord  l) => Ord  (DynGraph l a)
 
 {-------------------------------------------------------------------------------
   Construction

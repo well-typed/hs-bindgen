@@ -15,6 +15,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
+import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsgKey (..), mapParseMsgs)
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 
@@ -29,6 +30,10 @@ nameAnon ::
 nameAnon C.TranslationUnit{..} = (
       C.TranslationUnit{
           unitDecls = unitDecls'
+        , unitAnn = unitAnn {
+            declParseMsgs = mapParseMsgs (getDeclIdParseMsgKey env) $
+              declParseMsgs unitAnn
+          }
         , ..
         }
     , msgs
@@ -72,12 +77,12 @@ nameDecl ::
   -> C.Decl HandleMacros
   -> Either (Msg NameAnon) (C.Decl NameAnon)
 nameDecl env decl = do
-    case mName of
-      Nothing             -> Left  $ NameAnonSkipped (coercePass declInfo)
-      Just (name, origin) -> Right $ C.Decl{
+    case getDeclId env nsId declId of
+      Left _        -> Left  $ NameAnonSkipped (coercePass declInfo)
+      Right declId' -> Right $ C.Decl{
         declInfo = C.DeclInfo{
-            declId      = C.DeclId name origin
-          , declAliases = findAliasesOf env nsid
+            declId = declId'
+          , declAliases = findAliasesOf env nsId
           , declLoc
           , declHeader
           , declComment = fmap (nameUseSites env) declComment
@@ -89,19 +94,44 @@ nameDecl env decl = do
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{declId, declLoc, declHeader, declComment} = declInfo
 
-    nsid :: C.NsPrelimDeclId
-    nsid = C.declNsPrelimDeclId decl
+    nsId :: C.NsPrelimDeclId
+    nsId = C.declNsPrelimDeclId decl
 
-    mName :: Maybe (C.Name, C.NameOrigin)
-    mName =
-        case declId of
-          C.PrelimDeclIdNamed n ->
-            Just (n, C.NameOriginInSource)
-          C.PrelimDeclIdAnon anonId ->
-            (, C.NameOriginGenerated anonId) . nameForAnon <$>
-              findNamedUseOf env nsid
-          C.PrelimDeclIdBuiltin name ->
-            Just (name, C.NameOriginInSource)
+-- Get the declaration identifier. May fail for anonymous declarations, if they
+-- have no use sites; in which case we used to return 'Nothing'. However, we do
+-- not want to lose parse messages, so we use an 'Either'. See
+-- 'getDeclIdParseMsgKey'; related:
+-- https://github.com/well-typed/hs-bindgen/issues/1036.
+getDeclId ::
+     RenameEnv
+  -> C.NsPrelimDeclId
+  -> Id HandleMacros
+  -> Either (Id NameAnon) (Id NameAnon)
+getDeclId env nsid declId =
+   case declId of
+     C.PrelimDeclIdNamed n ->
+       Right $ C.DeclId n C.NameOriginInSource
+     C.PrelimDeclIdAnon anonId ->
+       let orig :: C.NameOrigin
+           orig = C.NameOriginGenerated anonId
+       in  case nameForAnon <$> findNamedUseOf env nsid of
+             Nothing   -> Left  $ C.DeclId "unused_anonymous_declaration" orig
+             Just name -> Right $ C.DeclId name                           orig
+     C.PrelimDeclIdBuiltin name ->
+       Right $ C.DeclId name C.NameOriginInSource
+
+getDeclIdParseMsgKey :: RenameEnv -> ParseMsgKey HandleMacros -> ParseMsgKey NameAnon
+getDeclIdParseMsgKey env key = key{parseMsgDeclId = declId'}
+  where
+    declId :: Id HandleMacros
+    declId = parseMsgDeclId key
+
+    nsId :: C.NsPrelimDeclId
+    nsId = C.nsPrelimDeclId declId $
+      C.nameKindTypeNamespace (parseMsgDeclKind key)
+
+    declId' :: Id NameAnon
+    declId' = either id id $ getDeclId env nsId declId
 
 {-------------------------------------------------------------------------------
   Use sites

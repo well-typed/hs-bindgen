@@ -39,7 +39,7 @@ handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     reassemble decls' = C.TranslationUnit{
           unitDecls = decls'
         , unitIncludeGraph
-        , unitAnn
+        , unitAnn = coerceDeclMeta unitAnn
         }
 
 processDecl :: C.Decl Sort -> M (Maybe (C.Decl HandleMacros))
