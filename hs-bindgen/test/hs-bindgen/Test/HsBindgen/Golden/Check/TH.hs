@@ -19,7 +19,7 @@ import Language.Haskell.TH.Ppr qualified as TH
 
 import System.FilePath (makeRelative)
 
-import HsBindgen.Backend.PP.Render (CommentKind(..))
+import HsBindgen.Backend.PP.Render (CommentKind(..), prettyCommentKind)
 import HsBindgen.Guasi
 import HsBindgen.Hs.Haddock.Documentation (Comment (..))
 import HsBindgen.Lib
@@ -63,9 +63,8 @@ check testResources test =
               , [ "-- " ++ l
                 | src <- cSources, l <- lines src
                 ]
-              , [ show $ prettyWithDocumentationMap True normalisedDocMap d
-                | let normalisedDocMap = Map.map normaliseCommentOrigin documentationMap
-                , d <- unqualNames thdecs
+              , [ show $ prettyWithDocumentationMap True documentationMap d
+                | d <- unqualNames thdecs
                 ]
               ]
 
@@ -203,7 +202,7 @@ formatDecDoc docMap thDec =
   case getDecDocLoc thDec >>= join . (`Map.lookup` docMap) of
     Nothing -> TH.empty
     Just c  -> pure
-             $ runCtxDoc defaultContext (pretty (TopLevelComment c))
+             $ runCtxDoc defaultContext (prettyCommentKind False (TopLevelComment c))
 
 {-------------------------------------------------------------------------------
   TH Compatibility Functions
@@ -383,7 +382,8 @@ getConNamesDoc :: Map TH.DocLoc (Maybe Comment) -> [TH.Name] -> TH.Doc
 getConNamesDoc docMap names =
   case foldMap (\n -> join $ Map.lookup (TH.DeclDoc n) docMap) names of
     Nothing -> TH.empty
-    Just c  -> pure $ runCtxDoc defaultContext (pretty (PartOfDeclarationComment c))
+    Just c  -> pure
+             $ runCtxDoc defaultContext (prettyCommentKind False (PartOfDeclarationComment c))
 
 -- | Get constructor names (defined here as it's not in all TH versions)
 get_cons_names :: TH.Con -> [TH.Name]

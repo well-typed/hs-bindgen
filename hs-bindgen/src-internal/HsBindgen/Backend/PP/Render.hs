@@ -8,6 +8,7 @@ module HsBindgen.Backend.PP.Render (
   , render
   , renderIO
     -- * Rendering comments
+  , prettyCommentKind
   , CommentKind (..)
   ) where
 
@@ -132,27 +133,34 @@ data CommentKind
   | PartOfDeclarationComment Hs.Comment
   | THComment Hs.Comment
 
+prettyCommentKind :: Bool -> CommentKind -> CtxDoc
+prettyCommentKind includeCName commentKind =
+  let (commentStart, commentEnd, Hs.Comment {..}) =
+        case commentKind of
+          TopLevelComment c          -> ("{-|", "-}", c)
+          PartOfDeclarationComment c -> ("{- ^", "-}", c)
+          THComment c                -> ("", "", c)
+      indentation = length commentStart - 1
+      fromCCtxDoc =
+        case commentOrigin of
+          Nothing    -> empty
+          Just cName
+            | includeCName ->
+              nest indentation $
+                "__from C:__ @" >< textToCtxDoc cName >< "@"
+            | otherwise    -> empty
+      firstContent =
+        case commentTitle of
+          Nothing -> empty
+          Just ct -> hsep (map pretty ct)
+   in   vsep (string commentStart <+> firstContent
+             : map (nest indentation . pretty) commentChildren)
+    $+$ vcat [ fromCCtxDoc
+             , string commentEnd
+             ]
+
 instance Pretty CommentKind where
-  pretty commentKind =
-    let (commentStart, commentEnd, Hs.Comment {..}) =
-          case commentKind of
-            TopLevelComment c          -> ("{-|", "-}", c)
-            PartOfDeclarationComment c -> ("{- ^", "-}", c)
-            THComment c                -> ("", "", c)
-        indentation = length commentStart - 1
-        fromCCtxDoc =
-          case commentOrigin of
-            Nothing    -> empty
-            Just cName -> "__from C:__ @" >< textToCtxDoc cName >< "@"
-        firstContent =
-          case commentTitle of
-            Nothing -> empty
-            Just ct -> hsep (map pretty ct)
-     in   vsep (string commentStart <+> firstContent
-               : map (nest indentation . pretty) commentChildren)
-      $+$ vcat [ nest indentation fromCCtxDoc
-               , string commentEnd
-               ]
+  pretty = prettyCommentKind True
 
 instance Pretty Hs.CommentBlockContent where
   pretty = \case
@@ -167,7 +175,7 @@ instance Pretty Hs.CommentBlockContent where
                                       $ textToCtxDoc s
                                  ) codeBlockLines
                           ++ ["@"]
-    Hs.Verbatim{..}      -> ">" <+> textToCtxDoc verbatimContent
+    Hs.Verbatim{..}       -> ">" <+> textToCtxDoc verbatimContent
     Hs.Example{..}        -> ">>>" <+> textToCtxDoc exampleContent
     Hs.Property{..}       -> "prop>" <+> textToCtxDoc propertyContent
     Hs.ListItem{..}       ->
