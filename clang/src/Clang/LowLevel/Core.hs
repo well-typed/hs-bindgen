@@ -212,7 +212,7 @@ import Data.Text qualified as Text
 import Foreign
 import Foreign.C
 import GHC.Stack
-import System.IO.Unsafe (unsafePerformIO, unsafeDupablePerformIO)
+import System.IO.Unsafe (unsafeDupablePerformIO, unsafePerformIO)
 
 import Clang.Args
 import Clang.Enum.Bitfield
@@ -245,6 +245,7 @@ newtype CXIndex = CXIndex (Ptr ())
 data DisplayDiagnostics =
     DisplayDiagnostics
   | DontDisplayDiagnostics
+  deriving stock (Show, Eq)
 
 foreign import capi unsafe "clang-c/Index.h clang_createIndex"
   nowrapper_clang_createIndex ::
