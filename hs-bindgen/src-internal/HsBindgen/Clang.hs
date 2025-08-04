@@ -28,7 +28,8 @@ import Clang.Paths
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (showToCtxDoc, string, textToCtxDoc, (><))
+import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Top-level call into clang
@@ -40,10 +41,15 @@ data ClangSetup = ClangSetup{
     , clangInput       :: ClangInput
     , clangFlags       :: BitfieldEnum CXTranslationUnit_Flags
     }
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace ClangSetup where
+  prettyForTrace = PP.showToCtxDoc
 
 data ClangInput =
     ClangInputFile SourcePath
   | ClangInputMemory FilePath String
+  deriving stock (Show, Eq)
 
 defaultClangSetup :: ClangArgs -> ClangInput -> ClangSetup
 defaultClangSetup clangArgs clangInput = ClangSetup{
@@ -59,7 +65,8 @@ withClang :: forall a.
   -> (CXTranslationUnit -> IO (Maybe a))
   -> IO (Maybe a)
 withClang tracer setup k =
-    withExtraClangArgs (contramap ClangExtraArgs tracer) clangArgs $ \args  ->
+    withExtraClangArgs (contramap ClangExtraArgs tracer) clangArgs $ \args  -> do
+    traceWith tracer $ ClangSetupMsg setup
     HighLevel.withIndex clangDiagnostics $ \index -> do
       let withUnit :: SourcePath -> [CXUnsavedFile] -> IO (Maybe a)
           withUnit path unsaved =
@@ -114,19 +121,21 @@ data ClangMsg =
     ClangExtraArgs ExtraClangArgsMsg
   | ClangErrorCode (SimpleEnum CXErrorCode)
   | ClangDiagnostic Diagnostic
+  | ClangSetupMsg ClangSetup
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ClangMsg where
   prettyForTrace = \case
       ClangExtraArgs  x -> prettyForTrace x
-      ClangErrorCode  x -> "clang error " >< showToCtxDoc x
+      ClangErrorCode  x -> "clang error " >< PP.showToCtxDoc x
       ClangDiagnostic Diagnostic{..}
-        | RootHeader.isInRootHeader diagnosticLocation -> textToCtxDoc $
+        | RootHeader.isInRootHeader diagnosticLocation -> PP.textToCtxDoc $
             case getFileNotFound diagnosticSpelling of
               Just header -> "unable to resolve #include <" <> header <> ">"
               Nothing     ->
                 Text.stripStart $ Text.dropWhile (/= ' ') diagnosticFormatted
-        | otherwise -> textToCtxDoc diagnosticFormatted
+        | otherwise -> PP.textToCtxDoc diagnosticFormatted
+      ClangSetupMsg x   -> prettyForTrace x
     where
       getFileNotFound :: Text -> Maybe Text
       getFileNotFound =
@@ -137,12 +146,14 @@ instance HasDefaultLogLevel ClangMsg where
       ClangExtraArgs  x -> getDefaultLogLevel x
       ClangErrorCode  _ -> Error
       ClangDiagnostic x -> if diagnosticIsError x then Error else Warning
+      ClangSetupMsg   _ -> Debug
 
 instance HasSource ClangMsg where
   getSource = \case
       ClangExtraArgs  x -> getSource x
       ClangErrorCode  _ -> Libclang
       ClangDiagnostic _ -> Libclang
+      ClangSetupMsg   _ -> HsBindgen
 
 {-------------------------------------------------------------------------------
   @BINDGEN_EXTRA_CLANG_ARGS@ environment variable
@@ -160,10 +171,10 @@ data ExtraClangArgsMsg =
 instance PrettyForTrace ExtraClangArgsMsg where
   prettyForTrace = \case
     ExtraClangArgsNone ->
-      "No " >< string extraClangArgsEnvNameBase >< " environment variables"
+      "No " >< PP.string extraClangArgsEnvNameBase >< " environment variables"
     ExtraClangArgsParsed {..} ->
-      "Picked up evironment variable " >< string envName ><
-      "; parsed 'libclang' arguments: " >< showToCtxDoc envArgs
+      "Picked up evironment variable " >< PP.string envName ><
+      "; parsed 'libclang' arguments: " >< PP.showToCtxDoc envArgs
 
 instance HasDefaultLogLevel ExtraClangArgsMsg where
   getDefaultLogLevel = \case
