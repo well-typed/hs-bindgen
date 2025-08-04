@@ -183,12 +183,14 @@ The C name `game_state` is then considered to be defined "in" `game_world.h` or
 `game_player.h`, or in any header file that is (possibly transitively) included
 by those two headers.
 
-> [!NOTE]
-> Generation of external bindings does not currently have any support for
-> declaring headers to be internal, so bindings like the above currently need to
-> be handwritten (or adjusted from generated ones).
-> https://github.com/well-typed/hs-bindgen/issues/592 .
+In this example, module `Game.State` represents the declarations in
+`game_internal.h`.  A binding specification that only refers to the public
+headers can be generated as follows:
 
-
-
-
+* The public headers should be specified as inputs.  Note that an internal
+  header should never be specified as input.
+* All declarations in the main header directories should be parsed.  This is the
+  default.
+* A predicate should be specified so that only the desired declarations in the
+  internal header are selected.  Selecting by header path makes it easy to
+  select all declarations in the internal header.
