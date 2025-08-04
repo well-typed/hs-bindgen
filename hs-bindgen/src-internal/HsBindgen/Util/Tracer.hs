@@ -15,6 +15,7 @@ module HsBindgen.Util.Tracer (
   , Level (..)
   , PrettyForTrace (..)
   , HasDefaultLogLevel (..)
+  , HasDefaultSafeLogLevel (..)
   , Source (..)
   , HasSource (..)
   , Verbosity (..)
@@ -32,6 +33,8 @@ module HsBindgen.Util.Tracer (
   , withTracerCustom
   , fatalError
   , withTracerCustom'
+    -- * Safe tracers
+  , withTracerSafe
   ) where
 
 import Control.Applicative (ZipList (ZipList, getZipList))
@@ -159,6 +162,15 @@ getColorForLevel = \case
   Warning -> Yellow
   Error   -> Red
 
+-- | Safe log or verbosity level to be used by the backend.
+--
+-- We intentionally limit 'SafeLevel' to debug and info messages. Notices,
+-- warnings and errors should be handled in the frontend.
+--
+-- Traces with safe log levels can not abort the program.
+data SafeLevel = SafeDebug | SafeInfo
+  deriving stock (Show, Eq)
+
 -- | Convert values to textual representations used in traces.
 class PrettyForTrace a where
   prettyForTrace :: a -> CtxDoc
@@ -181,7 +193,7 @@ instance PrettyForTrace a => GPrettyForTrace (K1 tag a) where
 gPrettyForTrace' :: (GHC.Generic a, GPrettyForTrace (GHC.Rep a)) => a -> CtxDoc
 gPrettyForTrace' = gPrettyForTrace .  GHC.from
 
--- | Get default (or suggested) log level of values used in traces.
+-- | Get default (or suggested) log level of a trace.
 class HasDefaultLogLevel a where
   getDefaultLogLevel :: a -> Level
   default getDefaultLogLevel :: (Generic a, GHasDefaultLogLevel (Rep a)) => a -> Level
@@ -202,6 +214,34 @@ instance HasDefaultLogLevel a => GHasDefaultLogLevel (K1 tag a) where
 
 gGetDefaultLogLevel' :: (GHC.Generic a, GHasDefaultLogLevel (GHC.Rep a)) => a -> Level
 gGetDefaultLogLevel' = gGetDefaultLogLevel .  GHC.from
+
+-- | Get default (or suggested) safe log level.
+class HasDefaultSafeLogLevel a where
+  getDefaultSafeLogLevel :: a -> SafeLevel
+  default getDefaultSafeLogLevel
+    :: (Generic a, GHasDefaultSafeLogLevel (Rep a))
+    => a -> SafeLevel
+  getDefaultSafeLogLevel = gGetDefaultSafeLogLevel'
+
+class GHasDefaultSafeLogLevel (r :: Type -> Type) where
+  gGetDefaultSafeLogLevel :: r x -> SafeLevel
+
+instance GHasDefaultSafeLogLevel r => GHasDefaultSafeLogLevel (M1 tag meta r) where
+  gGetDefaultSafeLogLevel (M1 x) = gGetDefaultSafeLogLevel x
+
+instance
+     (GHasDefaultSafeLogLevel r1, GHasDefaultSafeLogLevel r2)
+  => GHasDefaultSafeLogLevel (r1 :+: r2) where
+  gGetDefaultSafeLogLevel (L1 x) = gGetDefaultSafeLogLevel x
+  gGetDefaultSafeLogLevel (R1 x) = gGetDefaultSafeLogLevel x
+
+instance HasDefaultSafeLogLevel a => GHasDefaultSafeLogLevel (K1 tag a) where
+  gGetDefaultSafeLogLevel (K1 x) = getDefaultSafeLogLevel x
+
+gGetDefaultSafeLogLevel'
+  :: (GHC.Generic a, GHasDefaultSafeLogLevel (GHC.Rep a))
+  => a -> SafeLevel
+gGetDefaultSafeLogLevel' = gGetDefaultSafeLogLevel .  GHC.from
 
 -- | Possible sources of traces. The 'Source' is shown by default in traces, and
 -- so should be useful to users of @hs-bindgen@.
@@ -336,7 +376,7 @@ withTracerStdOut ::
   -> m (Maybe b)
 withTracerStdOut = withTracerCustom def mempty
 
--- | Run an action with a tracer using a custom report function.
+-- | Run an action with a custom tracer.
 --
 -- Return 'Nothing' if an 'Error' trace was emitted.
 withTracerCustom
@@ -355,7 +395,7 @@ fatalError = liftIO $ do
   putStrLn "An error happened (see above)"
   exitFailure
 
--- | Run an action with a tracer using a custom report function.
+-- | Run an action with a custom tracer.
 --
 -- Return the maximum log level of traces.
 --
@@ -382,6 +422,39 @@ withTracerCustom' outputConfig customLogLevel tracerConf action = do
         let report _lvl = liftIO . hPutStrLn handle
         pure (report, ansiColor)
       OutputReport report ansiColor -> pure (report, ansiColor)
+
+{-------------------------------------------------------------------------------
+  Safe tracer
+-------------------------------------------------------------------------------}
+
+-- | Run an action with a safe tracer using a custom output configuration.
+--
+-- Always returns a result (if the action does not panic).
+--
+-- See 'SafeLevel'.
+withTracerSafe
+  :: (MonadIO m, PrettyForTrace a, HasDefaultSafeLogLevel a, HasSource a)
+  => OutputConfig m
+  -> TracerConfig
+  -> (Tracer m a -> m b)
+  -> m b
+withTracerSafe outputConfig tracerConf action =
+    fst <$> withTracerCustom' outputConfig mempty tracerConf action'
+  where
+    action' tracerUnsafe = action (contramap SafeTrace tracerUnsafe)
+
+data SafeTrace a = SafeTrace { getSafeTrace :: a }
+  deriving (Show, Eq, Generic)
+
+instance PrettyForTrace a => PrettyForTrace (SafeTrace a) where
+  prettyForTrace = prettyForTrace . getSafeTrace
+
+instance HasDefaultSafeLogLevel a => HasDefaultLogLevel (SafeTrace a) where
+  getDefaultLogLevel x = case getDefaultSafeLogLevel (getSafeTrace x) of
+    SafeDebug -> Debug
+    SafeInfo  -> Info
+instance HasSource a => HasSource (SafeTrace a) where
+  getSource = getSource . getSafeTrace
 
 {-------------------------------------------------------------------------------
   Internal helpers
