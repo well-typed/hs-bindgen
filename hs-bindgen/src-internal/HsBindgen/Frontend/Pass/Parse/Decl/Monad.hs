@@ -29,13 +29,13 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
 import Data.IORef
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import GHC.Stack
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
+import Data.Map.Strict qualified as Map
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Eff
 import HsBindgen.Errors
@@ -87,6 +87,7 @@ data Env = Env {
     , envIsInMainHeaderDir :: Predicate.IsInMainHeaderDir
     , envGetMainHeader     :: GetMainHeader
     , envPredicate         :: Predicate.ParsePredicate
+    -- TODO: Probably the tracer is not required anymore.
     , envTracer            :: Tracer IO ParseMsg
     }
 
@@ -124,12 +125,21 @@ data ParseState = ParseState {
       -- We need to track which header each excluded declaration is declared in
       -- so that we can resolve external bindings.
     , stateNonParsedDecls :: NonParsedDecls
+
+      -- | Some traces are linked to specific declarations. However, we only
+      -- select and process a subset of all parsed declarations. To reduce
+      -- noise, we only emit traces linked to selected and processed
+      -- declarations. Since we change the info object between passes, we link
+      -- messages to source locations. For a given declaration, the source
+      -- location should be constant across all passes.
+    , stateParseMsgs :: Map SingleLoc [ParseMsg]
     }
 
 initParseState :: ParseState
 initParseState = ParseState{
       stateMacroExpansions  = Set.empty
     , stateNonParsedDecls = NonParsedDecls.empty
+    , stateParseMsgs = Map.empty
     }
 
 recordMacroExpansionAt :: SingleLoc -> ParseDecl ()
@@ -189,9 +199,15 @@ recordNonParsedDecl declInfo nameKind =
   Logging
 -------------------------------------------------------------------------------}
 
-recordTrace :: HasCallStack => ParseMsg -> ParseDecl ()
-recordTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
-    traceWith (envTracer parseEnv) trace
+recordTrace :: (C.DeclInfo Parse) -> ParseMsg -> ParseDecl ()
+recordTrace info trace = wrapEff $ \ParseSupport{parseState} ->
+    modifyIORef parseState $ \st -> st{
+        stateParseMsgs =
+          Map.alter (Just <$> add trace) (C.declLoc info) (stateParseMsgs st)
+      }
+  where
+    add x Nothing   = [x]
+    add x (Just xs) = x:xs
 
 {-------------------------------------------------------------------------------
   Errors

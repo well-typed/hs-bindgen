@@ -6,8 +6,8 @@ import Data.List qualified as List
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types
 import Clang.HighLevel.Documentation
+import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
@@ -73,7 +73,7 @@ handleTypeException ::
   -> ParseDecl (Maybe [C.Decl Parse])
 handleTypeException curr err = do
     info <- getDeclInfo curr
-    recordTrace $ ParseUnsupportedType info err
+    recordTrace info $ ParseUnsupportedType info err
     return Nothing
 
 {-------------------------------------------------------------------------------
@@ -164,7 +164,7 @@ structDecl info = simpleFold $ \curr -> do
             partitionChildren xs
               | null unused = return $ Just (used, fields)
               | otherwise   = do
-                  recordTrace $ ParseUnsupportedImplicitFields info
+                  recordTrace info $ ParseUnsupportedImplicitFields info
                   return Nothing
               where
                 otherDecls :: [C.Decl Parse]
@@ -391,7 +391,7 @@ functionDecl info = simpleFold $ \curr -> do
           purity = C.decideFunctionPurity attrs
           (anonDecls, otherDecls) = partitionAnonDecls decls
       if not (null anonDecls) then do
-        recordTrace $ ParseUnexpectedAnonInSignature info
+        recordTrace info $ ParseUnexpectedAnonInSignature info
         return []
       else do
         return $ otherDecls ++ [mkDecl purity]
@@ -461,25 +461,25 @@ varDecl info = simpleFold $ \curr -> do
     foldRecurseWith nestedDecl $ \nestedDecls -> do
       let (anonDecls, otherDecls) = partitionAnonDecls (concat nestedDecls)
       if not (null anonDecls) then do
-        recordTrace $ ParseUnexpectedAnonInExtern info
+        recordTrace info $ ParseUnexpectedAnonInExtern info
         return []
       else (otherDecls ++) <$> do
         case cls of
           VarGlobal isExtern -> do
             unless isExtern $
-              recordTrace $ ParsePotentialDuplicateGlobal info
+              recordTrace info $ ParsePotentialDuplicateGlobal info
             return [mkDecl $ C.DeclGlobal typ]
           VarConst _isExternOrStatic -> do
-            recordTrace $ ParseUnsupportedConst info
+            recordTrace info $ ParseUnsupportedConst info
             return []
             --unless isExternOrStatic $
             --  recordTrace $ PotentialDuplicateGlobal info
             --return [mkDecl $ C.DeclConst typ]
           VarThreadLocal -> do
-            recordTrace $ ParseUnsupportedTLS info
+            recordTrace info $ ParseUnsupportedTLS info
             return []
           VarUnsupported storage -> do
-            recordTrace $ ParseUnknownStorageClass info storage
+            recordTrace info $ ParseUnknownStorageClass info storage
             return []
   where
     -- Look for nested declarations inside the global variable type

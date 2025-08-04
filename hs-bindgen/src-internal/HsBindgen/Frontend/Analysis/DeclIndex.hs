@@ -35,7 +35,7 @@ import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
 -- | Index of all declarations we have parsed
 --
--- This excludes declarations that were not excluded by the selection predicate.
+-- This excludes declarations removed by the selection predicate.
 newtype DeclIndex = Wrap {
       unwrap :: Map C.NsPrelimDeclId (C.Decl Parse)
     }
