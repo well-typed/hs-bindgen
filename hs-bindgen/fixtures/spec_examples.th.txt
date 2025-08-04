@@ -1,8 +1,14 @@
 -- addDependentFile examples/golden/spec_examples.h
--- #include "spec_examples.h"
+-- #include <spec_examples.h>
 -- void test_internal_resample (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }
+{-| Examples from the initial specification
+
+-}
 newtype Int16_T
     = Int16_T {un_Int16_T :: CShort}
+      {- ^ Examples from the initial specification
+
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -41,19 +47,19 @@ data Cint16_T
     = Cint16_T {cint16_T_re :: Int16_T, cint16_T_im :: Int16_T}
     deriving stock (Eq, Show)
 instance Storable Cint16_T
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 2 :: Int;
-           peek = \ptr_0 -> (pure Cint16_T <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (2 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Cint16_T cint16_T_re_3
-                                              cint16_T_im_4 -> pokeByteOff ptr_1 (0 :: Int) cint16_T_re_3 >> pokeByteOff ptr_1 (2 :: Int) cint16_T_im_4}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 2 :: Int
+          peek = \ptr_0 -> (pure Cint16_T <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (2 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Cint16_T cint16_T_re_3
+                                            cint16_T_im_4 -> pokeByteOff ptr_1 (0 :: Int) cint16_T_re_3 >> pokeByteOff ptr_1 (2 :: Int) cint16_T_im_4
 data B = B {} deriving stock (Eq, Show)
 instance Storable B
-    where {sizeOf = \_ -> 0 :: Int;
-           alignment = \_ -> 1 :: Int;
-           peek = \ptr_0 -> pure B;
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {B -> return ()}}
+    where sizeOf = \_ -> 0 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> pure B
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   B -> return ()
 data C
 data A
     = A {a_x :: CDouble,
@@ -63,15 +69,15 @@ data A
          a_c :: (Ptr C)}
     deriving stock (Eq, Show)
 instance Storable A
-    where {sizeOf = \_ -> 152 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> ((((pure A <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)) <*> peekByteOff ptr_0 (144 :: Int)) <*> peekByteOff ptr_0 (144 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {A a_x_3
-                                       a_label_4
-                                       a_samples_5
-                                       a_b_6
-                                       a_c_7 -> pokeByteOff ptr_1 (0 :: Int) a_x_3 >> (pokeByteOff ptr_1 (8 :: Int) a_label_4 >> (pokeByteOff ptr_1 (16 :: Int) a_samples_5 >> (pokeByteOff ptr_1 (144 :: Int) a_b_6 >> pokeByteOff ptr_1 (144 :: Int) a_c_7)))}}
+    where sizeOf = \_ -> 152 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> ((((pure A <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)) <*> peekByteOff ptr_0 (144 :: Int)) <*> peekByteOff ptr_0 (144 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   A a_x_3
+                                     a_label_4
+                                     a_samples_5
+                                     a_b_6
+                                     a_c_7 -> pokeByteOff ptr_1 (0 :: Int) a_x_3 >> (pokeByteOff ptr_1 (8 :: Int) a_label_4 >> (pokeByteOff ptr_1 (16 :: Int) a_samples_5 >> (pokeByteOff ptr_1 (144 :: Int) a_b_6 >> pokeByteOff ptr_1 (144 :: Int) a_c_7)))
 foreign import ccall safe "test_internal_resample" resample_wrapper :: Ptr Int32_T ->
                                                                        Ptr Cint16_T ->
                                                                        Int64_T ->

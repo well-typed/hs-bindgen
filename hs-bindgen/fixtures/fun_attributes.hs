@@ -25,18 +25,15 @@
             declHeader = "fun_attributes.h",
             declComment =
             Just
-              Comment {
-                commentCName = "FILE",
-                commentChildren =
-                [
-                  Paragraph
-                    [
-                      TextContent
-                        "Attributes on functions"],
-                  Paragraph
-                    [
-                      TextContent
-                        "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "Attributes on functions"],
+                Paragraph
+                  [
+                    TextContent
+                      "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -96,18 +93,15 @@
                 declHeader = "fun_attributes.h",
                 declComment =
                 Just
-                  Comment {
-                    commentCName = "FILE",
-                    commentChildren =
-                    [
-                      Paragraph
-                        [
-                          TextContent
-                            "Attributes on functions"],
-                      Paragraph
-                        [
-                          TextContent
-                            "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "Attributes on functions"],
+                    Paragraph
+                      [
+                        TextContent
+                          "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -171,18 +165,15 @@
                         declHeader = "fun_attributes.h",
                         declComment =
                         Just
-                          Comment {
-                            commentCName = "FILE",
-                            commentChildren =
-                            [
-                              Paragraph
-                                [
-                                  TextContent
-                                    "Attributes on functions"],
-                              Paragraph
-                                [
-                                  TextContent
-                                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "Attributes on functions"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -246,18 +237,15 @@
                         declHeader = "fun_attributes.h",
                         declComment =
                         Just
-                          Comment {
-                            commentCName = "FILE",
-                            commentChildren =
-                            [
-                              Paragraph
-                                [
-                                  TextContent
-                                    "Attributes on functions"],
-                              Paragraph
-                                [
-                                  TextContent
-                                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "Attributes on functions"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames

@@ -62,14 +62,14 @@ data ExampleStruct
                      exampleStruct_m2 :: M2}
     deriving stock (Eq, Show)
 instance Storable ExampleStruct
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (((pure ExampleStruct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (12 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {ExampleStruct exampleStruct_t1_3
-                                                   exampleStruct_t2_4
-                                                   exampleStruct_m1_5
-                                                   exampleStruct_m2_6 -> pokeByteOff ptr_1 (0 :: Int) exampleStruct_t1_3 >> (pokeByteOff ptr_1 (4 :: Int) exampleStruct_t2_4 >> (pokeByteOff ptr_1 (8 :: Int) exampleStruct_m1_5 >> pokeByteOff ptr_1 (12 :: Int) exampleStruct_m2_6))}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (((pure ExampleStruct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (12 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   ExampleStruct exampleStruct_t1_3
+                                                 exampleStruct_t2_4
+                                                 exampleStruct_m1_5
+                                                 exampleStruct_m2_6 -> pokeByteOff ptr_1 (0 :: Int) exampleStruct_t1_3 >> (pokeByteOff ptr_1 (4 :: Int) exampleStruct_t2_4 >> (pokeByteOff ptr_1 (8 :: Int) exampleStruct_m1_5 >> pokeByteOff ptr_1 (12 :: Int) exampleStruct_m2_6))
 newtype Uint64_t
     = Uint64_t {un_Uint64_t :: CInt}
     deriving stock (Eq, Ord, Read, Show)
@@ -84,8 +84,8 @@ newtype Uint64_t
                       Real)
 data Foo = Foo {foo_a :: (Ptr Uint64_t)} deriving stock (Eq, Show)
 instance Storable Foo
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Foo foo_a_3 -> pokeByteOff ptr_1 (0 :: Int) foo_a_3}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo foo_a_3 -> pokeByteOff ptr_1 (0 :: Int) foo_a_3

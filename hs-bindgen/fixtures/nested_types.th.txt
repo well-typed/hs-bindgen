@@ -3,61 +3,61 @@ data Foo
     = Foo {foo_i :: CInt, foo_c :: CChar}
     deriving stock (Eq, Show)
 instance Storable Foo
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Foo foo_i_3
-                                         foo_c_4 -> pokeByteOff ptr_1 (0 :: Int) foo_i_3 >> pokeByteOff ptr_1 (4 :: Int) foo_c_4}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo foo_i_3
+                                       foo_c_4 -> pokeByteOff ptr_1 (0 :: Int) foo_i_3 >> pokeByteOff ptr_1 (4 :: Int) foo_c_4
 data Bar
     = Bar {bar_foo1 :: Foo, bar_foo2 :: Foo}
     deriving stock (Eq, Show)
 instance Storable Bar
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Bar bar_foo1_3
-                                         bar_foo2_4 -> pokeByteOff ptr_1 (0 :: Int) bar_foo1_3 >> pokeByteOff ptr_1 (8 :: Int) bar_foo2_4}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Bar bar_foo1_3
+                                       bar_foo2_4 -> pokeByteOff ptr_1 (0 :: Int) bar_foo1_3 >> pokeByteOff ptr_1 (8 :: Int) bar_foo2_4
 data Ex3_ex3_struct
     = Ex3_ex3_struct {ex3_ex3_struct_ex3_a :: CInt,
                       ex3_ex3_struct_ex3_b :: CChar}
     deriving stock (Eq, Show)
 instance Storable Ex3_ex3_struct
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Ex3_ex3_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Ex3_ex3_struct ex3_ex3_struct_ex3_a_3
-                                                    ex3_ex3_struct_ex3_b_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_ex3_a_3 >> pokeByteOff ptr_1 (4 :: Int) ex3_ex3_struct_ex3_b_4}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Ex3_ex3_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex3_ex3_struct ex3_ex3_struct_ex3_a_3
+                                                  ex3_ex3_struct_ex3_b_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_ex3_a_3 >> pokeByteOff ptr_1 (4 :: Int) ex3_ex3_struct_ex3_b_4
 data Ex3
     = Ex3 {ex3_ex3_struct :: Ex3_ex3_struct, ex3_ex3_c :: CFloat}
     deriving stock (Eq, Show)
 instance Storable Ex3
-    where {sizeOf = \_ -> 12 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Ex3 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Ex3 ex3_ex3_struct_3
-                                         ex3_ex3_c_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_3 >> pokeByteOff ptr_1 (8 :: Int) ex3_ex3_c_4}}
+    where sizeOf = \_ -> 12 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Ex3 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex3 ex3_ex3_struct_3
+                                       ex3_ex3_c_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_3 >> pokeByteOff ptr_1 (8 :: Int) ex3_ex3_c_4
 data Ex4_even
     = Ex4_even {ex4_even_value :: CDouble,
                 ex4_even_next :: (Ptr Ex4_odd)}
     deriving stock (Eq, Show)
 instance Storable Ex4_even
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure Ex4_even <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Ex4_even ex4_even_value_3
-                                              ex4_even_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_even_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_even_next_4}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Ex4_even <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex4_even ex4_even_value_3
+                                            ex4_even_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_even_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_even_next_4
 data Ex4_odd
     = Ex4_odd {ex4_odd_value :: CInt, ex4_odd_next :: (Ptr Ex4_even)}
     deriving stock (Eq, Show)
 instance Storable Ex4_odd
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure Ex4_odd <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Ex4_odd ex4_odd_value_3
-                                             ex4_odd_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_odd_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_odd_next_4}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Ex4_odd <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex4_odd ex4_odd_value_3
+                                           ex4_odd_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_odd_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_odd_next_4

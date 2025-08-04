@@ -28,14 +28,11 @@
             "typedef_analysis.h",
             declComment =
             Just
-              Comment {
-                commentCName = "struct1",
-                commentChildren =
-                [
-                  Paragraph
-                    [
-                      TextContent
-                        "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -96,14 +93,11 @@
                 "typedef_analysis.h",
                 declComment =
                 Just
-                  Comment {
-                    commentCName = "struct1",
-                    commentChildren =
-                    [
-                      Paragraph
-                        [
-                          TextContent
-                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -168,14 +162,11 @@
                         "typedef_analysis.h",
                         declComment =
                         Just
-                          Comment {
-                            commentCName = "struct1",
-                            commentChildren =
-                            [
-                              Paragraph
-                                [
-                                  TextContent
-                                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -240,14 +231,11 @@
                         "typedef_analysis.h",
                         declComment =
                         Just
-                          Comment {
-                            commentCName = "struct1",
-                            commentChildren =
-                            [
-                              Paragraph
-                                [
-                                  TextContent
-                                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]}},
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames

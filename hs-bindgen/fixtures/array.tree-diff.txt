@@ -11,13 +11,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr0",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Global, complete, not initialised"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Global, complete, not initialised"]]},
       declKind = DeclGlobal
         (TypeConstArray
           3
@@ -40,13 +38,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr1",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Global, complete, initialised"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Global, complete, initialised"]]},
       declKind = DeclGlobal
         (TypeConstArray
           3
@@ -69,13 +65,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr2",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Global, extern, complete, not initialised"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Global, extern, complete, not initialised"]]},
       declKind = DeclGlobal
         (TypeConstArray
           3
@@ -98,13 +92,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr3",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Global, extern, complete, initialised"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Global, extern, complete, initialised"]]},
       declKind = DeclGlobal
         (TypeConstArray
           3
@@ -127,13 +119,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr6",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Global, incomplete"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Global, incomplete"]]},
       declKind = DeclGlobal
         (TypeConstArray
           1
@@ -156,13 +146,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr7",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Global, extern, incomplete"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Global, extern, incomplete"]]},
       declKind = DeclGlobal
         (TypeIncompleteArray
           (TypePrim
@@ -365,13 +353,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr_1",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of known size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of known size"]]},
       declKind = DeclGlobal
         (TypeConstArray
           3
@@ -394,13 +380,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr_2",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of known size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of known size, typedef"]]},
       declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
@@ -425,13 +409,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr_3",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of unknown size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of unknown size"]]},
       declKind = DeclGlobal
         (TypeIncompleteArray
           (TypePrim
@@ -453,13 +435,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr_4",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of unknown size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of unknown size, typedef"]]},
       declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
@@ -484,13 +464,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr_5",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of known size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of known size"]]},
       declKind = DeclGlobal
         (TypeConstArray
           4
@@ -517,13 +495,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr_6",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of known size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of known size, typedef"]]},
       declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
@@ -548,13 +524,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr_7",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of unknown size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of unknown size"]]},
       declKind = DeclGlobal
         (TypeIncompleteArray
           (TypeConstArray
@@ -580,13 +554,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "arr_8",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of unknown size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of unknown size, typedef"]]},
       declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
@@ -611,14 +583,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName =
-            "fun_1(int, int *)",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of known size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of known size"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -650,13 +619,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_2(int *)",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of known size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of known size, typedef"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -688,13 +655,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_3(int *)",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of unknown size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of unknown size"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -723,13 +688,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_4(int *)",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of unknown size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of unknown size, typedef"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -761,14 +724,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName =
-            "fun_5(int (*)[3])",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of known size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of known size"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -802,14 +762,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName =
-            "fun_6(int (*)[3])",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of known size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of known size, typedef"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -841,14 +798,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName =
-            "fun_7(int (*)[3])",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of unknown size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of unknown size"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -881,14 +835,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName =
-            "fun_8(int (*)[3])",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of unknown size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of unknown size, typedef"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
@@ -920,13 +871,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_9()",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of known size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of known size"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -957,13 +906,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_10()",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of known size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of known size, typedef"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -994,13 +941,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_11()",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of unknown size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of unknown size"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -1030,13 +975,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_12()",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Array of unknown size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Array of unknown size, typedef"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -1067,13 +1010,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_13()",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of known size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of known size"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -1106,13 +1047,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_14()",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of known size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of known size, typedef"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -1143,13 +1082,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_15()",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of unknown size"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of unknown size"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [],
@@ -1181,13 +1118,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "array.h",
         declComment = Just
-          Comment {
-            commentCName = "fun_16()",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Multi-dimensional array of unknown size, typedef"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Multi-dimensional array of unknown size, typedef"]]},
       declKind = DeclFunction
         Function {
           functionArgs = [],

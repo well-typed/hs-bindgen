@@ -12,13 +12,11 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          Comment {
-            commentCName = "simpleGlobal",
-            commentChildren = [
-              Paragraph
-                [
-                  TextContent
-                    "Global variables"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Global variables"]]},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -189,34 +187,31 @@ TranslationUnit {
         declHeader = "globals.h",
         declComment =
         Just
-          Comment {
-            commentCName = "nesInteger",
-            commentChildren =
-            [
-              Paragraph
-                [
-                  TextContent
-                    "Non-extern non-static global variables"],
-              Paragraph
-                [
-                  TextContent
-                    "These kinds of variables need to be treated with care, to avoid duplicate",
-                  TextContent
-                    "symbols, but do exist in the wild."],
-              Paragraph
-                [
-                  TextContent
-                    "We test with various kinds of initializers as we must explicitly ignore them",
-                  TextContent
-                    "in our parser. The list here roughly follows the definition of `CXCursor`",
-                  TextContent
-                    "[1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl'",
-                  TextContent
-                    "in `HsBindgen.Frontend.Pass.Parse.Decl`."],
-              Paragraph
-                [
-                  TextContent
-                    "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Non-extern non-static global variables"],
+            Paragraph
+              [
+                TextContent
+                  "These kinds of variables need to be treated with care, to avoid duplicate",
+                TextContent
+                  "symbols, but do exist in the wild."],
+            Paragraph
+              [
+                TextContent
+                  "We test with various kinds of initializers as we must explicitly ignore them",
+                TextContent
+                  "in our parser. The list here roughly follows the definition of `CXCursor`",
+                TextContent
+                  "[1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl'",
+                TextContent
+                  "in `HsBindgen.Frontend.Pass.Parse.Decl`."],
+            Paragraph
+              [
+                TextContent
+                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -604,33 +599,30 @@ TranslationUnit {
         declHeader = "globals.h",
         declComment =
         Just
-          Comment {
-            commentCName = "streamBinary",
-            commentChildren =
-            [
-              Paragraph
-                [
-                  TextContent
-                    "Additional examples of global variables, abstracted from real examples"],
-              Paragraph
-                [
-                  TextContent
-                    "The `streamBinary`/`streamBinary_len` example comes from [1], and is an",
-                  TextContent
-                    "example of a non-extern non-static global (indeed, the header does not even",
-                  TextContent "use",
-                  InlineCommand {
-                    inlineCommandName = "pragma",
-                    inlineCommandRenderKind =
-                    CXCommentInlineCommandRenderKind_Normal,
-                    inlineCommandArgs = []},
-                  TextContent "once",
-                  TextContent "@",
-                  TextContent "or similar)."],
-              Paragraph
-                [
-                  TextContent
-                    "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]}},
+          [
+            Paragraph
+              [
+                TextContent
+                  "Additional examples of global variables, abstracted from real examples"],
+            Paragraph
+              [
+                TextContent
+                  "The `streamBinary`/`streamBinary_len` example comes from [1], and is an",
+                TextContent
+                  "example of a non-extern non-static global (indeed, the header does not even",
+                TextContent "use",
+                InlineCommand {
+                  inlineCommandName = "pragma",
+                  inlineCommandRenderKind =
+                  CXCommentInlineCommandRenderKind_Normal,
+                  inlineCommandArgs = []},
+                TextContent "once",
+                TextContent "@",
+                TextContent "or similar)."],
+            Paragraph
+              [
+                TextContent
+                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]},
       declKind = DeclGlobal
         (TypeConstArray
           4096

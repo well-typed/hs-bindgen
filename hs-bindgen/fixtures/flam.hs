@@ -2044,18 +2044,15 @@
             declHeader = "flam.h",
             declComment =
             Just
-              Comment {
-                commentCName = "triplets",
-                commentChildren =
-                [
-                  Paragraph
-                    [
-                      TextContent
-                        "The flexible array member is a multi-dimensional array of unknown size. In",
-                      TextContent
-                        "particular, it is a is an array of unknown size, where each element is of",
-                      TextContent
-                        "type length-3-array-of-int."]]}},
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "The flexible array member is a multi-dimensional array of unknown size. In",
+                    TextContent
+                      "particular, it is a is an array of unknown size, where each element is of",
+                    TextContent
+                      "type length-3-array-of-int."]]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2156,18 +2153,15 @@
                 declHeader = "flam.h",
                 declComment =
                 Just
-                  Comment {
-                    commentCName = "triplets",
-                    commentChildren =
-                    [
-                      Paragraph
-                        [
-                          TextContent
-                            "The flexible array member is a multi-dimensional array of unknown size. In",
-                          TextContent
-                            "particular, it is a is an array of unknown size, where each element is of",
-                          TextContent
-                            "type length-3-array-of-int."]]}},
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "The flexible array member is a multi-dimensional array of unknown size. In",
+                        TextContent
+                          "particular, it is a is an array of unknown size, where each element is of",
+                        TextContent
+                          "type length-3-array-of-int."]]},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -2272,18 +2266,15 @@
                         declHeader = "flam.h",
                         declComment =
                         Just
-                          Comment {
-                            commentCName = "triplets",
-                            commentChildren =
-                            [
-                              Paragraph
-                                [
-                                  TextContent
-                                    "The flexible array member is a multi-dimensional array of unknown size. In",
-                                  TextContent
-                                    "particular, it is a is an array of unknown size, where each element is of",
-                                  TextContent
-                                    "type length-3-array-of-int."]]}},
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "The flexible array member is a multi-dimensional array of unknown size. In",
+                                TextContent
+                                  "particular, it is a is an array of unknown size, where each element is of",
+                                TextContent
+                                  "type length-3-array-of-int."]]},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -2388,18 +2379,15 @@
                         declHeader = "flam.h",
                         declComment =
                         Just
-                          Comment {
-                            commentCName = "triplets",
-                            commentChildren =
-                            [
-                              Paragraph
-                                [
-                                  TextContent
-                                    "The flexible array member is a multi-dimensional array of unknown size. In",
-                                  TextContent
-                                    "particular, it is a is an array of unknown size, where each element is of",
-                                  TextContent
-                                    "type length-3-array-of-int."]]}},
+                          [
+                            Paragraph
+                              [
+                                TextContent
+                                  "The flexible array member is a multi-dimensional array of unknown size. In",
+                                TextContent
+                                  "particular, it is a is an array of unknown size, where each element is of",
+                                TextContent
+                                  "type length-3-array-of-int."]]},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -2529,18 +2517,15 @@
                 declHeader = "flam.h",
                 declComment =
                 Just
-                  Comment {
-                    commentCName = "triplets",
-                    commentChildren =
-                    [
-                      Paragraph
-                        [
-                          TextContent
-                            "The flexible array member is a multi-dimensional array of unknown size. In",
-                          TextContent
-                            "particular, it is a is an array of unknown size, where each element is of",
-                          TextContent
-                            "type length-3-array-of-int."]]}},
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "The flexible array member is a multi-dimensional array of unknown size. In",
+                        TextContent
+                          "particular, it is a is an array of unknown size, where each element is of",
+                        TextContent
+                          "type length-3-array-of-int."]]},
               declKind = Struct
                 Struct {
                   structNames = RecordNames

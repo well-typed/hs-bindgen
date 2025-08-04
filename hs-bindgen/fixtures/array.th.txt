@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/array.h
--- #include "array.h"
+-- #include <array.h>
 -- __attribute__ ((const)) signed int (*get_arr0_ptr (void))[3] { return &arr0; } 
 -- __attribute__ ((const)) signed int (*get_arr1_ptr (void))[3] { return &arr1; } 
 -- __attribute__ ((const)) signed int (*get_arr2_ptr (void))[3] { return &arr2; } 
@@ -30,16 +30,34 @@
 -- matrix *test_internal_fun_14 (void) { return fun_14(); }
 -- signed int (*test_internal_fun_15 (void))[][3] { return fun_15(); }
 -- tripletlist *test_internal_fun_16 (void) { return fun_16(); }
+{-| Global, complete, not initialised
+
+-}
 foreign import ccall safe "get_arr0_ptr" arr0 :: Ptr (ConstantArray 3
                                                                     CInt)
+{-| Global, complete, initialised
+
+-}
 foreign import ccall safe "get_arr1_ptr" arr1 :: Ptr (ConstantArray 3
                                                                     CInt)
+{-| Global, extern, complete, not initialised
+
+-}
 foreign import ccall safe "get_arr2_ptr" arr2 :: Ptr (ConstantArray 3
                                                                     CInt)
+{-| Global, extern, complete, initialised
+
+-}
 foreign import ccall safe "get_arr3_ptr" arr3 :: Ptr (ConstantArray 3
                                                                     CInt)
+{-| Global, incomplete
+
+-}
 foreign import ccall safe "get_arr6_ptr" arr6 :: Ptr (ConstantArray 1
                                                                     CInt)
+{-| Global, extern, incomplete
+
+-}
 foreign import ccall safe "get_arr7_ptr" arr7 :: Ptr (IncompleteArray CInt)
 newtype Triplet
     = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
@@ -61,68 +79,140 @@ data Example
                example_sudoku :: (ConstantArray 3 (ConstantArray 3 CInt))}
     deriving stock (Eq, Show)
 instance Storable Example
-    where {sizeOf = \_ -> 48 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Example <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (12 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Example example_triple_3
-                                             example_sudoku_4 -> pokeByteOff ptr_1 (0 :: Int) example_triple_3 >> pokeByteOff ptr_1 (12 :: Int) example_sudoku_4}}
+    where sizeOf = \_ -> 48 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Example <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (12 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Example example_triple_3
+                                           example_sudoku_4 -> pokeByteOff ptr_1 (0 :: Int) example_triple_3 >> pokeByteOff ptr_1 (12 :: Int) example_sudoku_4
+{-| Array of known size
+
+-}
 foreign import ccall safe "get_arr_1_ptr" arr_1 :: Ptr (ConstantArray 3
                                                                       CInt)
+{-| Array of known size, typedef
+
+-}
 foreign import ccall safe "get_arr_2_ptr" arr_2 :: Ptr Triplet
+{-| Array of unknown size
+
+-}
 foreign import ccall safe "get_arr_3_ptr" arr_3 :: Ptr (IncompleteArray CInt)
+{-| Array of unknown size, typedef
+
+-}
 foreign import ccall safe "get_arr_4_ptr" arr_4 :: Ptr List
+{-| Multi-dimensional array of known size
+
+-}
 foreign import ccall safe "get_arr_5_ptr" arr_5 :: Ptr (ConstantArray 4
                                                                       (ConstantArray 3 CInt))
+{-| Multi-dimensional array of known size, typedef
+
+-}
 foreign import ccall safe "get_arr_6_ptr" arr_6 :: Ptr Matrix
+{-| Multi-dimensional array of unknown size
+
+-}
 foreign import ccall safe "get_arr_7_ptr" arr_7 :: Ptr (IncompleteArray (ConstantArray 3
                                                                                        CInt))
+{-| Multi-dimensional array of unknown size, typedef
+
+-}
 foreign import ccall safe "get_arr_8_ptr" arr_8 :: Ptr Tripletlist
+{-| Array of known size
+
+-}
 foreign import ccall safe "test_internal_fun_1" fun_1_wrapper :: CInt ->
                                                                  Ptr CInt -> IO CInt
 fun_1 :: CInt -> ConstantArray 3 CInt -> IO CInt
 fun_1 = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_1_wrapper x_0 ptr_2)
+{-| Array of known size, typedef
+
+-}
 foreign import ccall safe "test_internal_fun_2" fun_2_wrapper :: Ptr CInt ->
                                                                  IO CInt
 fun_2 :: Triplet -> IO CInt
 fun_2 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_2_wrapper ptr_1)
+{-| Array of unknown size
+
+-}
 foreign import ccall safe "test_internal_fun_3" fun_3_wrapper :: Ptr CInt ->
                                                                  IO CInt
 fun_3 :: IncompleteArray CInt -> IO CInt
 fun_3 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_3_wrapper ptr_1)
+{-| Array of unknown size, typedef
+
+-}
 foreign import ccall safe "test_internal_fun_4" fun_4_wrapper :: Ptr CInt ->
                                                                  IO CInt
 fun_4 :: List -> IO CInt
 fun_4 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_4_wrapper ptr_1)
+{-| Multi-dimensional array of known size
+
+-}
 foreign import ccall safe "test_internal_fun_5" fun_5_wrapper :: Ptr (ConstantArray 3
                                                                                     CInt) ->
                                                                  IO CInt
 fun_5 :: ConstantArray 4 (ConstantArray 3 CInt) -> IO CInt
 fun_5 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_5_wrapper ptr_1)
+{-| Multi-dimensional array of known size, typedef
+
+-}
 foreign import ccall safe "test_internal_fun_6" fun_6_wrapper :: Ptr (ConstantArray 3
                                                                                     CInt) ->
                                                                  IO CInt
 fun_6 :: Matrix -> IO CInt
 fun_6 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_6_wrapper ptr_1)
+{-| Multi-dimensional array of unknown size
+
+-}
 foreign import ccall safe "test_internal_fun_7" fun_7_wrapper :: Ptr (ConstantArray 3
                                                                                     CInt) ->
                                                                  IO CInt
 fun_7 :: IncompleteArray (ConstantArray 3 CInt) -> IO CInt
 fun_7 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_7_wrapper ptr_1)
+{-| Multi-dimensional array of unknown size, typedef
+
+-}
 foreign import ccall safe "test_internal_fun_8" fun_8_wrapper :: Ptr (ConstantArray 3
                                                                                     CInt) ->
                                                                  IO CInt
 fun_8 :: Tripletlist -> IO CInt
 fun_8 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_8_wrapper ptr_1)
+{-| Array of known size
+
+-}
 foreign import ccall safe "test_internal_fun_9" fun_9 :: IO (Ptr (ConstantArray 3
                                                                                 CInt))
+{-| Array of known size, typedef
+
+-}
 foreign import ccall safe "test_internal_fun_10" fun_10 :: IO (Ptr Triplet)
+{-| Array of unknown size
+
+-}
 foreign import ccall safe "test_internal_fun_11" fun_11 :: IO (Ptr (IncompleteArray CInt))
+{-| Array of unknown size, typedef
+
+-}
 foreign import ccall safe "test_internal_fun_12" fun_12 :: IO (Ptr List)
+{-| Multi-dimensional array of known size
+
+-}
 foreign import ccall safe "test_internal_fun_13" fun_13 :: IO (Ptr (ConstantArray 4
                                                                                   (ConstantArray 3
                                                                                                  CInt)))
+{-| Multi-dimensional array of known size, typedef
+
+-}
 foreign import ccall safe "test_internal_fun_14" fun_14 :: IO (Ptr Matrix)
+{-| Multi-dimensional array of unknown size
+
+-}
 foreign import ccall safe "test_internal_fun_15" fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3
                                                                                                    CInt)))
+{-| Multi-dimensional array of unknown size, typedef
+
+-}
 foreign import ccall safe "test_internal_fun_16" fun_16 :: IO (Ptr Tripletlist)

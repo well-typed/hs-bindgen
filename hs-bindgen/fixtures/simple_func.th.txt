@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/simple_func.h
--- #include "simple_func.h"
+-- #include <simple_func.h>
 -- double test_internal_erf (double arg1) { return erf(arg1); }
 -- double test_internal_bad_fma (double arg1, double arg2, double arg3) { return bad_fma(arg1, arg2, arg3); }
 -- void test_internal_no_args (void) { no_args(); }

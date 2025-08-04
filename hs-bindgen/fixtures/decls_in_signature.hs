@@ -616,18 +616,15 @@
             "decls_in_signature.h",
             declComment =
             Just
-              Comment {
-                commentCName = "named_struct",
-                commentChildren =
-                [
-                  Paragraph
-                    [TextContent "Error cases"],
-                  Paragraph
-                    [
-                      TextContent
-                        "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                      TextContent
-                        "and the edge cases below)."]]}},
+              [
+                Paragraph
+                  [TextContent "Error cases"],
+                Paragraph
+                  [
+                    TextContent
+                      "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                    TextContent
+                      "and the edge cases below)."]]},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -754,18 +751,15 @@
                 "decls_in_signature.h",
                 declComment =
                 Just
-                  Comment {
-                    commentCName = "named_struct",
-                    commentChildren =
-                    [
-                      Paragraph
-                        [TextContent "Error cases"],
-                      Paragraph
-                        [
-                          TextContent
-                            "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                          TextContent
-                            "and the edge cases below)."]]}},
+                  [
+                    Paragraph
+                      [TextContent "Error cases"],
+                    Paragraph
+                      [
+                        TextContent
+                          "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                        TextContent
+                          "and the edge cases below)."]]},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -896,18 +890,15 @@
                         "decls_in_signature.h",
                         declComment =
                         Just
-                          Comment {
-                            commentCName = "named_struct",
-                            commentChildren =
-                            [
-                              Paragraph
-                                [TextContent "Error cases"],
-                              Paragraph
-                                [
-                                  TextContent
-                                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                                  TextContent
-                                    "and the edge cases below)."]]}},
+                          [
+                            Paragraph
+                              [TextContent "Error cases"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                                TextContent
+                                  "and the edge cases below)."]]},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -1040,18 +1031,15 @@
                         "decls_in_signature.h",
                         declComment =
                         Just
-                          Comment {
-                            commentCName = "named_struct",
-                            commentChildren =
-                            [
-                              Paragraph
-                                [TextContent "Error cases"],
-                              Paragraph
-                                [
-                                  TextContent
-                                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                                  TextContent
-                                    "and the edge cases below)."]]}},
+                          [
+                            Paragraph
+                              [TextContent "Error cases"],
+                            Paragraph
+                              [
+                                TextContent
+                                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                                TextContent
+                                  "and the edge cases below)."]]},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames

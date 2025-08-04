@@ -1,0 +1,12 @@
+CApiFFI
+TemplateHaskell
+TypeFamilies
+DataKinds
+StandaloneDeriving
+DerivingStrategies
+DerivingVia
+MultiParamTypeClasses
+EmptyDataDecls
+GeneralizedNewtypeDeriving
+ExplicitForAll
+PatternSynonyms

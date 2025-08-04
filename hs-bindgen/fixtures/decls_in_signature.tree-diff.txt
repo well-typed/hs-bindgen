@@ -133,18 +133,15 @@ TranslationUnit {
         "decls_in_signature.h",
         declComment =
         Just
-          Comment {
-            commentCName = "named_struct",
-            commentChildren =
-            [
-              Paragraph
-                [TextContent "Error cases"],
-              Paragraph
-                [
-                  TextContent
-                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                  TextContent
-                    "and the edge cases below)."]]}},
+          [
+            Paragraph
+              [TextContent "Error cases"],
+            Paragraph
+              [
+                TextContent
+                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                TextContent
+                  "and the edge cases below)."]]},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -200,19 +197,15 @@ TranslationUnit {
         "decls_in_signature.h",
         declComment =
         Just
-          Comment {
-            commentCName =
-            "f1(struct named_struct)",
-            commentChildren =
-            [
-              Paragraph
-                [TextContent "Error cases"],
-              Paragraph
-                [
-                  TextContent
-                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                  TextContent
-                    "and the edge cases below)."]]}},
+          [
+            Paragraph
+              [TextContent "Error cases"],
+            Paragraph
+              [
+                TextContent
+                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                TextContent
+                  "and the edge cases below)."]]},
       declKind = DeclFunction
         Function {
           functionArgs = [
