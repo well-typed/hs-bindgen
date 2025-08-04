@@ -275,9 +275,13 @@ static inline unsigned wrap_Cursor_hasAttrs(const CXCursor* C) {
   return clang_Cursor_hasAttrs(*C);
 }
 
-/* enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor); // no enum */
+static inline enum CXLinkageKind wrap_getCursorLinkage(const CXCursor* cursor) {
+  return clang_getCursorLinkage(*cursor);
+}
 
-/* enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor); // no enum */
+static inline enum CXVisibilityKind wrap_getCursorVisibility(const CXCursor* cursor) {
+  return clang_getCursorVisibility(*cursor);
+}
 
 /* enum CXAvailabilityKind clang_getCursorAvailability (CXCursor cursor); // no enum */
 

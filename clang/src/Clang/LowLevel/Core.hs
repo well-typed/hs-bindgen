@@ -91,6 +91,8 @@ module Clang.LowLevel.Core (
   , CXCursor(..)
   , CXCursorKind(..)
   , CXTLSKind(..)
+  , CXLinkageKind(..)
+  , CXVisibilityKind(..)
   , clang_getTranslationUnitCursor
   , clang_equalCursors
   , clang_getCursorSemanticParent
@@ -102,6 +104,8 @@ module Clang.LowLevel.Core (
   , clang_getCursorKindSpelling
   , clang_Cursor_getTranslationUnit
   , clang_isDeclaration
+  , clang_getCursorLinkage
+  , clang_getCursorVisibility
   , clang_getIncludedFile
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
@@ -895,6 +899,9 @@ clang_getCursorLexicalParent cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorLexicalParent cursor'
 
+-- | Determine the "thread-local storage (TLS) kind" of the declaration referred to by a cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga524e1bd046dfb581484ec50e8f22ae7a>
 clang_getCursorTLSKind :: MonadIO m => CXCursor -> m (SimpleEnum CXTLSKind)
 clang_getCursorTLSKind cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
@@ -943,6 +950,26 @@ clang_Cursor_getTranslationUnit cursor = liftIO $ checkNotNull $
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga660aa4846fce0a54e20073ab6a5465a0>
 clang_isDeclaration :: MonadIO m => SimpleEnum CXCursorKind -> m Bool
 clang_isDeclaration kind = liftIO $ cToBool <$> nowrapper_isDeclaration kind
+
+-- | Determine the linkage of the entity referred to by a given cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga359dae25aa1a71176a5e33f3c7ee1740>
+clang_getCursorLinkage :: MonadIO m => CXCursor -> m (SimpleEnum CXLinkageKind)
+clang_getCursorLinkage cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getCursorLinkage cursor'
+
+-- | Describe the visibility of the entity referred to by a cursor.
+--
+-- This returns the default visibility if not explicitly specified by a
+-- visibility attribute. The default visibility may be changed by commandline
+-- arguments.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga935b442bd6bde168cf354b7629b471d8>
+clang_getCursorVisibility :: MonadIO m => CXCursor -> m (SimpleEnum CXVisibilityKind)
+clang_getCursorVisibility cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getCursorVisibility cursor'
 
 -- | Retrieve the file that is included by the given inclusion directive cursor.
 --
