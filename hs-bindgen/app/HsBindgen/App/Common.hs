@@ -144,6 +144,7 @@ parseClangArgs = do
     clangEnableBlocks     <- parseEnableBlocks
     clangStdInc           <- not <$> parseNoStdInc
     clangExtraIncludeDirs <- parseIncludeDirOptions
+    clangDefineMacros     <- parseDefineMacroOptions
     clangOtherArgs        <- parseOtherArgs
     pure ClangArgs {..}
 
@@ -224,6 +225,14 @@ parseIncludeDirOptions = many . strOption $ mconcat [
       short 'I'
     , metavar "DIR"
     , help "Include search path directory"
+    ]
+
+parseDefineMacroOptions :: Parser [String]
+parseDefineMacroOptions = many . strOption $ mconcat [
+      short 'D'
+    , long "define-macro"
+    , metavar "<macro>=<value>"
+    , help "Define <macro> to <value> (or 1 if <value> omitted)"
     ]
 
 -- TODO: Perhaps we should mimick clang's @-f@ parameter?

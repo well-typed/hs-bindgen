@@ -49,9 +49,19 @@ data ClangArgs = ClangArgs {
 
       -- | Directories that will be added to the include search path
       --
-      -- This corresponds to the @-I@ clang argument, see
+      -- This corresponds to the @-I@ clang argument.  See
       -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management>.
     , clangExtraIncludeDirs :: [CIncludeDir]
+
+      -- | Preprocessor macro definitions
+      --
+      -- A definition of form @<macro>=<value>@ defines a macro with the
+      -- specified value.  A definition of form @<macro>@ defines a macro with
+      -- value @1@.
+      --
+      -- This corresponds to the @-D@ clang argument.  See
+      -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#preprocessor-options>.
+    , clangDefineMacros :: [String]
 
       -- | Enable block support
       --
@@ -75,6 +85,7 @@ instance Default ClangArgs where
     , clangEnableGnu        = False
     , clangStdInc           = True
     , clangExtraIncludeDirs = []
+    , clangDefineMacros     = []
     , clangEnableBlocks     = False
     , clangOtherArgs        = []
     }
@@ -165,6 +176,11 @@ fromClangArgs ClangArgs{..} = aux [
     , return $ concat [
           ["-I", getCIncludeDir path]
         | path <- clangExtraIncludeDirs
+        ]
+
+    , return $ concat [
+          ["-D" ++ defn]
+        | defn <- clangDefineMacros
         ]
 
     , return clangOtherArgs
