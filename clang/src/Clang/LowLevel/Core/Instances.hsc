@@ -846,6 +846,25 @@ instance IsSimpleEnum CX_StorageClass where
   simpleFromC _otherwise = Nothing
 
 {-------------------------------------------------------------------------------
+  CXLinkageKind
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXLinkageKind where
+  simpleToC CXLinkage_Invalid        = #const CXLinkage_Invalid
+  simpleToC CXLinkage_NoLinkage      = #const CXLinkage_NoLinkage
+  simpleToC CXLinkage_Internal       = #const CXLinkage_Internal
+  simpleToC CXLinkage_UniqueExternal = #const CXLinkage_UniqueExternal
+  simpleToC CXLinkage_External       = #const CXLinkage_External
+
+  simpleFromC (#const CXLinkage_Invalid)        = Just CXLinkage_Invalid
+  simpleFromC (#const CXLinkage_NoLinkage)      = Just CXLinkage_NoLinkage
+  simpleFromC (#const CXLinkage_Internal)       = Just CXLinkage_Internal
+  simpleFromC (#const CXLinkage_UniqueExternal) = Just CXLinkage_UniqueExternal
+  simpleFromC (#const CXLinkage_External)       = Just CXLinkage_External
+
+  simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
   CXTLSKind
 -------------------------------------------------------------------------------}
 
@@ -857,5 +876,22 @@ instance IsSimpleEnum CXTLSKind where
   simpleFromC (#const CXTLS_None)    = Just CXTLS_None
   simpleFromC (#const CXTLS_Dynamic) = Just CXTLS_Dynamic
   simpleFromC (#const CXTLS_Static)  = Just CXTLS_Static
+
+  simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
+  CXVisibilityKind
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXVisibilityKind where
+  simpleToC CXVisibility_Invalid   = #const CXVisibility_Invalid
+  simpleToC CXVisibility_Hidden    = #const CXVisibility_Hidden
+  simpleToC CXVisibility_Protected = #const CXVisibility_Protected
+  simpleToC CXVisibility_Default   = #const CXVisibility_Default
+
+  simpleFromC (#const CXVisibility_Invalid)   = Just CXVisibility_Invalid
+  simpleFromC (#const CXVisibility_Hidden)    = Just CXVisibility_Hidden
+  simpleFromC (#const CXVisibility_Protected) = Just CXVisibility_Protected
+  simpleFromC (#const CXVisibility_Default)   = Just CXVisibility_Default
 
   simpleFromC _otherwise = Nothing

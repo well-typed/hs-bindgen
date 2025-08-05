@@ -91,8 +91,8 @@ unsigned clang_isInvalid (enum CXCursorKind k);
 unsigned clang_isTranslationUnit (enum CXCursorKind k);
 unsigned clang_isPreprocessing (enum CXCursorKind k);
 unsigned clang_isUnexposed (enum CXCursorKind k);
-// enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor); // no enum
-// enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor); // no enum
+enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor);
+enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor);
 // enum CXAvailabilityKind clang_getCursorAvailability (CXCursor cursor); // no enum
 // int clang_getCursorPlatformAvailability (CXCursor cursor, int *always_deprecated, CXString *deprecated_message, int *always_unavailable, CXString *unavailable_message, CXPlatformAvailability *availability, int availability_size);
 // void clang_disposeCXPlatformAvailability (CXPlatformAvailability *availability);

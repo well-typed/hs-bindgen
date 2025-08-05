@@ -310,13 +310,10 @@ testCases = [
         }
     , (defaultTest "fun_attributes") {
           testClangVersion = Just (>= (15, 0, 0))
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- We are currently issueing a "non-extern non'static global" warning
-          -- for @i@, which may not be correct @visibility@ is @hidden@.
-        , testTracePredicate = customTracePredicate' ["my_printf", "i"] $ \case
+        , testTracePredicate = customTracePredicate' ["my_printf", "i", "f3"] $ \case
              TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedVariadicFunction)) ->
                Just $ Expected (C.declId info)
-             TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
+             TraceFrontend (FrontendParse (ParseExternalLinkageNonPublicVisibility info)) ->
                Just $ Expected (C.declId info)
              _otherwise ->
                Nothing
@@ -328,6 +325,37 @@ testCases = [
                Just Tolerated
              _otherwise ->
                Nothing
+        }
+    , let declsWithWarnings = [
+              -- Function declarations with external linkage and non-public visibility
+              "f2" , "f3" ,  "f4"
+            , "f7" , "f8" ,  "f9"
+            , "f12", "f13", "f14"
+            , "f17", "f18", "f19"
+              -- Duplicate symbols
+            , "i0", "i1"
+            , "i5", "i6"
+              -- Global variable declarations with external linkage and non-public visibility
+            , "i2" , "i3" , "i4"
+            , "i7" , "i8" , "i9"
+            , "i12", "i13", "i14"
+            , "i17", "i18", "i19"
+              -- Unsupported storage class
+            , "i20", "i21", "i22", "i23", "i24"
+            , "i25", "i26", "i27", "i28", "i29"
+            ]
+      in (defaultTest "visibility_attributes") {
+          testTracePredicate = customTracePredicate' declsWithWarnings $ \case
+            TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (ParseExternalLinkageNonPublicVisibility info)) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+              Just $ Expected (C.declId info)
+            TraceClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"}) ->
+              Just Tolerated
+            _otherwise ->
+              Nothing
         }
     , let declsWithWarnings :: [C.PrelimDeclId]
           declsWithWarnings = [

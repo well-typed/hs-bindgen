@@ -12,7 +12,9 @@ module Clang.LowLevel.Core.Enums (
   , CXDiagnosticDisplayOptions(..)
   , CXDiagnosticSeverity(..)
   , CX_StorageClass(..)
+  , CXLinkageKind(..)
   , CXTLSKind(..)
+  , CXVisibilityKind(..)
   ) where
 
 import GHC.Generics (Generic)
@@ -1292,6 +1294,31 @@ data CX_StorageClass =
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
 
 {-------------------------------------------------------------------------------
+  CXLinkageKind
+-------------------------------------------------------------------------------}
+
+-- | Describe the linkage of the entity referred to by a cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gace57c68a7a11b0967b184a7ef9fbeb9e>
+data CXLinkageKind =
+    -- | This value indicates that no linkage information is available for a
+    -- provided CXCursor.
+    CXLinkage_Invalid
+    -- | This is the linkage for variables, parameters, and so on that have
+    -- automatic storage.
+    --
+    -- This covers normal (non-extern) local variables.
+  | CXLinkage_NoLinkage
+    -- | This is the linkage for static variables and static functions.
+  | CXLinkage_Internal
+    -- | This is the linkage for entities with external linkage that live in C++
+    -- anonymous namespaces.
+  | CXLinkage_UniqueExternal
+    -- | This is the linkage for entities with true, external linkage.
+  | CXLinkage_External
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
+
+{-------------------------------------------------------------------------------
   CXTLSKind
 -------------------------------------------------------------------------------}
 
@@ -1303,4 +1330,23 @@ data CXTLSKind =
     CXTLS_None
   | CXTLS_Dynamic
   | CXTLS_Static
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
+
+{-------------------------------------------------------------------------------
+  CXVisibilityKind
+-------------------------------------------------------------------------------}
+
+-- | Describe the visibility of the entity referred to by a cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb>
+data CXVisibilityKind =
+    -- | This value indicates that no visibility information is available for a
+    -- provided CXCursor.
+    CXVisibility_Invalid
+    -- | Symbol not seen by the linker.
+  | CXVisibility_Hidden
+    -- | Symbol seen by the linker but resolves to a symbol inside this object.
+  | CXVisibility_Protected
+    -- | Symbol seen by the linker and acts like a normal symbol.
+  | CXVisibility_Default
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)

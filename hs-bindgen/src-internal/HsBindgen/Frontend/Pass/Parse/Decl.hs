@@ -372,6 +372,8 @@ enumConstantDecl curr = do
 functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 functionDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
+    visibility <- getCursorVisibility curr
+    linkage <- getCursorLinkage curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn <- getReparseInfo curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
@@ -392,6 +394,12 @@ functionDecl info = simpleFold $ \curr -> do
           (anonDecls, otherDecls) = partitionAnonDecls decls
       if not (null anonDecls) then do
         recordTrace $ ParseUnexpectedAnonInSignature info
+        return []
+      -- Only generate bindings for declarations with external linkage and
+      -- public visiblity. See the section on visibility in the low-level dev
+      -- manual for more information.
+      else if visibility == NonPublicVisibility && linkage == ExternalLinkage then do
+        recordTrace $ ParseExternalLinkageNonPublicVisibility info
         return []
       else do
         return $ otherDecls ++ [mkDecl purity]
@@ -430,8 +438,8 @@ functionDecl info = simpleFold $ \curr -> do
           Right CXCursor_ConstAttr -> foldContinueWith $ [Right C.HaskellPureFunction]
           Right CXCursor_PureAttr  -> foldContinueWith $ [Right C.CPureFunction]
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- Take visibility into account.
+          -- @visibility@ attributes. The visibility itself the value is
+          -- obtained using 'getCursorVisibility'.
           Right CXCursor_VisibilityAttr -> foldContinue
 
           -- Attributes we (probably?) want to ignore
@@ -447,6 +455,8 @@ functionDecl info = simpleFold $ \curr -> do
 varDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 varDecl info = simpleFold $ \curr -> do
     typ  <- fromCXType =<< clang_getCursorType curr
+    visibility <- getCursorVisibility curr
+    linkage <- getCursorLinkage curr
     cls  <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
         mkDecl kind = C.Decl{
@@ -462,6 +472,12 @@ varDecl info = simpleFold $ \curr -> do
       let (anonDecls, otherDecls) = partitionAnonDecls (concat nestedDecls)
       if not (null anonDecls) then do
         recordTrace $ ParseUnexpectedAnonInExtern info
+        return []
+      -- Only generate bindings for declarations with external linkage and
+      -- public visiblity. See the section on visibility in the low-level dev
+      -- manual for more information.
+      else if visibility == NonPublicVisibility && linkage == ExternalLinkage then do
+        recordTrace $ ParseExternalLinkageNonPublicVisibility info
         return []
       else (otherDecls ++) <$> do
         case cls of
@@ -530,8 +546,8 @@ varDecl info = simpleFold $ \curr -> do
           -- ('CXCursor_CharacterLiteral').
           Right CXCursor_UnexposedExpr -> foldContinue
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- Take visibility into account.
+          -- @visibility@ attributes, where the value is obtained using
+          -- @clang_getCursorVisibility@.
           Right CXCursor_VisibilityAttr -> foldContinue
 
           -- Panic on anything we don't recognize
@@ -672,3 +688,66 @@ classifyVarDecl curr = do
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal
+
+-- | The linkage of a linker symbol determines whether or not a linker symbol is
+-- visible outside the translation unit it is defined in.
+--
+-- See the section on visibility in the low-level dev manual for more details.
+data Linkage =
+    InternalLinkage
+  | NoLinkage
+  | ExternalLinkage
+  deriving stock (Show, Eq, Generic)
+
+-- | Retrieve the linkage of the entity that the cursor is currently pointing
+-- to.
+getCursorLinkage :: MonadIO m => CXCursor -> m Linkage
+getCursorLinkage curr = do
+    linkage   <- clang_getCursorLinkage curr
+    case fromSimpleEnum linkage of
+      Right linkage' -> case linkage' of
+        CXLinkage_Invalid -> do
+          loc <- HighLevel.clang_getCursorLocation' curr
+          panicIO $ "Invalid linkage " ++ show linkage' ++ " at " ++ show loc
+        CXLinkage_NoLinkage -> pure NoLinkage
+        CXLinkage_Internal -> pure InternalLinkage
+        -- This is C++ specific
+        CXLinkage_UniqueExternal -> do
+          loc <- HighLevel.clang_getCursorLocation' curr
+          panicIO $ "Unsupported linkage " ++ show linkage' ++ " at " ++ show loc
+        CXLinkage_External -> pure ExternalLinkage
+      -- Panic on anything we don't recognize
+      Left x -> do
+        loc <- HighLevel.clang_getCursorLocation' curr
+        panicIO $ "Unexpected linkage " ++ show x ++ " at " ++ show loc
+
+-- | The visibility of a linker symbol determines whether or not a linker symbol
+-- is visible outside of the shared object that it is defined in.
+--
+-- See the section on visibility in the low-level dev manual for more details.
+data Visibility =
+    PublicVisibility
+  | NonPublicVisibility
+  deriving stock (Show, Eq, Generic)
+
+-- | Retrieve the visibilty of the entity that the cursor is currently pointing
+-- to.
+getCursorVisibility :: MonadIO m => CXCursor -> m Visibility
+getCursorVisibility curr = do
+    vis  <- fromSimpleEnum <$> clang_getCursorVisibility curr
+    case vis of
+      -- See https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb
+      Right vis' -> case vis' of
+        -- Despite the name, /default/ always means public.
+        CXVisibility_Default -> pure PublicVisibility
+        CXVisibility_Hidden -> pure NonPublicVisibility
+        -- This visibility is rarely useful in practice. For binding generation,
+        -- we treat it as non-public visibility.
+        CXVisibility_Protected -> pure NonPublicVisibility
+        CXVisibility_Invalid -> do
+          loc <- HighLevel.clang_getCursorLocation' curr
+          panicIO $ "Invalid visibility " ++ show vis' ++ " at " ++ show loc
+      -- Panic on anything we don't recognize
+      Left x -> do
+        loc <- HighLevel.clang_getCursorLocation' curr
+        panicIO $ "Unexpected visibility " ++ show x ++ " at " ++ show loc

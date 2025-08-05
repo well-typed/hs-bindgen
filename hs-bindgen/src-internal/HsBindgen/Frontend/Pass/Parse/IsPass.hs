@@ -166,6 +166,31 @@ data ParseMsg =
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/41>
   | ParseUnsupportedConst (C.DeclInfo Parse)
+
+    -- | In a header file, if a function declaration or global variable
+    -- declaration has external linkage but non-public visibility, then this can
+    -- lead to a linker error. For example:
+    --
+    -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
+    -- > extern int __attribute__ ((visibility ("hidden"))) i;
+    --
+    -- In such cases, we do not generate a binding and emit this message
+    -- instead. We do this to prevent linker errors, but arguably it's a bug in
+    -- the library if declarations with external linkage have non-public
+    -- visibility in a header file, given the way that header files are
+    -- @#include@d in other header and body files.
+    --
+    -- The linkage\/visibility check is conservative, and may rule out
+    -- declarations that do not lead to linker errors. We take this for granted.
+    -- For example, the following does not immediately lead to linker errors if
+    -- a binding is generated for it:
+    --
+    -- > int __attribute__ ((visibility ("hidden"))) i = 7;
+    --
+    -- For more details, see the section on visibility in the low-level dev
+    -- manual.
+  | ParseExternalLinkageNonPublicVisibility (C.DeclInfo Parse)
+
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseMsg where
@@ -194,6 +219,10 @@ instance PrettyForTrace ParseMsg where
         ]
       ParseUnsupportedConst info -> noBindingsGenerated info $
           "constants not yet supported (#41)"
+      ParseExternalLinkageNonPublicVisibility info -> noBindingsGenerated info $ hcat [
+          "A function declaration or global variable declaration that has external "
+        , "linkage, but non-public visibility, can lead to a linker error"
+        ]
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
       noBindingsGenerated info reason = hcat [
@@ -206,15 +235,16 @@ instance PrettyForTrace ParseMsg where
 -- | Unsupported features are warnings, because we skip over them
 instance HasDefaultLogLevel ParseMsg where
   getDefaultLogLevel = \case
-      ParseExcluded{}                  -> Info
-      ParseUnsupportedType _ctxt err   -> getDefaultLogLevel err
-      ParseUnsupportedImplicitFields{} -> Warning
-      ParseUnexpectedAnonInSignature{} -> Warning
-      ParseUnexpectedAnonInExtern{}    -> Warning
-      ParseUnsupportedTLS{}            -> Warning
-      ParseUnknownStorageClass{}       -> Warning
-      ParsePotentialDuplicateGlobal{}  -> Notice
-      ParseUnsupportedConst{}          -> Warning
+      ParseExcluded{}                           -> Info
+      ParseUnsupportedType _ctxt err            -> getDefaultLogLevel err
+      ParseUnsupportedImplicitFields{}          -> Warning
+      ParseUnexpectedAnonInSignature{}          -> Warning
+      ParseUnexpectedAnonInExtern{}             -> Warning
+      ParseUnsupportedTLS{}                     -> Warning
+      ParseUnknownStorageClass{}                -> Warning
+      ParsePotentialDuplicateGlobal{}           -> Notice
+      ParseUnsupportedConst{}                   -> Warning
+      ParseExternalLinkageNonPublicVisibility{} -> Warning
 
 instance HasSource ParseMsg where
   getSource = const HsBindgen
