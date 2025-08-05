@@ -7,46 +7,41 @@ can save time and frustration.
 
 The following terminology is used by `hs-bindgen`.
 
-Header
-: A header is a C source file that is generally used to declare data types and
-functions, as well as define macros.  Header files use the `.h` extension.
-`hs-bindgen` generates bindings from header files.
+* __Header__: A header is a C source file that is generally used to declare data
+  types and functions, as well as define macros.  Header files use the `.h`
+  extension.  `hs-bindgen` generates bindings from header files.
 
-Include
-: An include is the inclusion of a header using a `#include` directive, which is
-processed by the C preprocessor.  The recursively processed content of the
-referenced header is inserted into the source.  Note that there may be
-whitespace between the `#` and `include`, used to visually format blocks within
-macro logic.
+* __Include__: An include is the inclusion of a header using a `#include`
+  directive, which is processed by the C preprocessor.  The recursively
+  processed content of the referenced header is inserted into the source.  Note
+  that there may be whitespace between the `#` and `include`, used to visually
+  format blocks within macro logic.
 
-System include
-: A system include is the inclusion of a header using an include directive of
-the form `#include <stdio.h>`.  `hs-bindgen` only uses system includes.
+* __System include__: A system include is the inclusion of a header using an
+  include directive of the form `#include <stdio.h>`.  `hs-bindgen` only uses
+  system includes.
 
-Quote include
-: A quote include is the inclusion of a header using an include directive of the
-form `#include "stdio.h"`.  While `hs-bindgen` does not use quote includes, the
-headers being translated may use them, so it is still important to understand
-them.
+* __Quote include__: A quote include is the inclusion of a header using an
+  include directive of the form `#include "stdio.h"`.  While `hs-bindgen` does
+  not use quote includes, the headers being translated may use them, so it is
+  still important to understand them.
 
-Header resolution
-: The preprocessor must locate the source of a header specified in an include
-directive, which we call header resolution.  Header resolution is
-implementation-specific: it may be done differently in different toolchains.
-See below for details about how Clang does header resolution.
+* __Header resolution__: The preprocessor must locate the source of a header
+  specified in an include directive, which we call header resolution.  Header
+  resolution is implementation-specific: it may be done differently in different
+  toolchains.  See below for details about how Clang does header resolution.
 
-C include search path
-: A C include search path is a list of directories to search when resolving a
-header.  Similar to how the more well-known `PATH` environment variable is a
-list of directory paths used to search for executables, `C_INCLUDE_PATH` is a
-list of directory paths used to search for headers.  The multiple meanings of
-the word "path" is an unfortunate source of confusion, so we take care to
-specify *search path* to refer to a list of directories.
+* __C include search path__: A C include search path is a list of directories to
+  search when resolving a header.  Similar to how the more well-known `PATH`
+  environment variable is a list of directory paths used to search for
+  executables, `C_INCLUDE_PATH` is a list of directory paths used to search for
+  headers.  The multiple meanings of the word "path" is an unfortunate source of
+  confusion, so we take care to specify *search path* to refer to a list of
+  directories.
 
-Default include directories
-: Default include directories are the directories that are in a C include search
-path by default.  They generally include *standard system directories* and
-*compiler builtin directories*.
+* __Default include directories__: Default include directories are the
+  directories that are in a C include search path by default.  They generally
+  include *standard system directories* and *compiler builtin directories*.
 
 ## Clang
 
