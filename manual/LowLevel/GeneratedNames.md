@@ -184,7 +184,7 @@ data Config_Deref = Config_Deref {
 #### Top-level anonymous types
 
 For top-level anonymous type declarations we don't generate any code(such
-declarations are unuseable).
+declarations are unusable).
 
 ## Fixing candidates
 
