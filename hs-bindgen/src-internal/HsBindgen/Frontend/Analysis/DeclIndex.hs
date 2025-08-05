@@ -155,6 +155,9 @@ instance HasDefaultLogLevel DeclIndexError where
       -- rather than an error.
       Redeclaration{} -> Warning
 
+instance HasSource DeclIndexError where
+  getSource = const HsBindgen
+
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}

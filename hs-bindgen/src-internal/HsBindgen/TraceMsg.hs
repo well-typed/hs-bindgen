@@ -9,22 +9,24 @@ module HsBindgen.TraceMsg (
   , DeclIndexError(..)
   , Diagnostic(..)
   , FrontendMsg(..)
-  , ParseMsg(..)
-  , SortMsg(..)
   , HandleMacrosMsg(..)
-  , NameAnonMsg(..)
-  , ResolveBindingSpecMsg(..)
-  , SelectMsg(..)
   , HandleTypedefsMsg(..)
   , MangleNamesMsg(..)
+  , NameAnonMsg(..)
+  , ParseMsg(..)
   , ParseTypeException(..)
   , ReparseError(..)
+  , ResolveBindingSpecMsg(..)
   , ResolveHeaderMsg(..)
+  , SelectMsg(..)
+  , SortMsg(..)
   , TcMacroError(..)
   -- * Log level customization
   , customLogLevelFrom
   , CustomLogLevelSetting (..)
   ) where
+
+import GHC.Generics (Generic)
 
 import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
@@ -59,31 +61,8 @@ data TraceMsg =
   | TraceFrontend FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
   | TraceHashIncludeArg HashIncludeArgMsg
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace TraceMsg where
-  prettyForTrace = \case
-    TraceBindingSpec    x -> prettyForTrace x
-    TraceClang          x -> prettyForTrace x
-    TraceFrontend       x -> prettyForTrace x
-    TraceResolveHeader  x -> prettyForTrace x
-    TraceHashIncludeArg x -> prettyForTrace x
-
-instance HasDefaultLogLevel TraceMsg where
-  getDefaultLogLevel = \case
-    TraceBindingSpec    x -> getDefaultLogLevel x
-    TraceClang          x -> getDefaultLogLevel x
-    TraceFrontend       x -> getDefaultLogLevel x
-    TraceResolveHeader  x -> getDefaultLogLevel x
-    TraceHashIncludeArg x -> getDefaultLogLevel x
-
-instance HasSource TraceMsg where
-  getSource = \case
-    TraceBindingSpec    x -> getSource x
-    TraceClang          x -> getSource x
-    TraceFrontend       x -> getSource x
-    TraceResolveHeader  x -> getSource x
-    TraceHashIncludeArg x -> getSource x
+  deriving stock    (Show, Eq, Generic)
+  deriving anyclass (PrettyForTrace , HasDefaultLogLevel , HasSource)
 
 {-------------------------------------------------------------------------------
   Log level customization

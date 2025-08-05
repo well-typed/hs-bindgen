@@ -7,6 +7,7 @@ module HsBindgen.Frontend (
   ) where
 
 import Control.Monad
+import GHC.Generics (Generic)
 
 import Clang.LowLevel.Core
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
@@ -33,7 +34,6 @@ import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (showToCtxDoc)
 
 {-------------------------------------------------------------------------------
   Construction
@@ -165,31 +165,5 @@ data FrontendMsg =
   | FrontendResolveBindingSpecs (Msg ResolveBindingSpec)
   | FrontendHandleTypedefs (Msg HandleTypedefs)
   | FrontendMangleNames (Msg MangleNames)
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace FrontendMsg where
-  prettyForTrace = \case
-    FrontendParse               x -> prettyForTrace x
-    FrontendSort                x -> prettyForTrace x
-    FrontendSelect              x -> prettyForTrace x
-    FrontendHandleMacros        x -> prettyForTrace x
-    FrontendNameAnon            x -> prettyForTrace x
-    FrontendResolveBindingSpecs x -> showToCtxDoc x -- TODO
-    FrontendHandleTypedefs      x -> prettyForTrace x
-    FrontendMangleNames         x -> prettyForTrace x
-
-instance HasDefaultLogLevel FrontendMsg where
-  getDefaultLogLevel = \case
-    FrontendParse               x -> getDefaultLogLevel x
-    FrontendSort                x -> getDefaultLogLevel x
-    FrontendSelect              x -> getDefaultLogLevel x
-    FrontendHandleMacros        x -> getDefaultLogLevel x
-    FrontendNameAnon            x -> getDefaultLogLevel x
-    FrontendResolveBindingSpecs _ -> Error
-    FrontendHandleTypedefs      x -> getDefaultLogLevel x
-    FrontendMangleNames         x -> getDefaultLogLevel x
-
-instance HasSource FrontendMsg where
-  getSource = \case
-    FrontendParse x -> getSource x
-    _otherwise      -> HsBindgen
+  deriving stock    (Show, Eq, Generic)
+  deriving anyclass (PrettyForTrace , HasDefaultLogLevel , HasSource)

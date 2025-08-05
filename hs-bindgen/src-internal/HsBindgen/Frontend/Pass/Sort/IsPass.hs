@@ -59,15 +59,5 @@ data DeclMeta = DeclMeta {
 
 data SortMsg =
     SortErrorDeclIndex DeclIndexError
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace SortMsg where
-  prettyForTrace = \case
-    SortErrorDeclIndex x -> prettyForTrace x
-
-instance HasDefaultLogLevel SortMsg where
-  getDefaultLogLevel = \case
-    SortErrorDeclIndex x -> getDefaultLogLevel x
-
-instance HasSource SortMsg where
-  getSource = const HsBindgen
+  deriving stock    (Show, Eq, Generic)
+  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
