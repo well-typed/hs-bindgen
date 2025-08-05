@@ -1,7 +1,8 @@
 # Includes
 
-Includes are a surprisingly common source of issues.  Understanding the details
-can save time and frustration.
+Configuring command-line options and environment variables so that C `#include`
+directives resolve to the intended headers can be surprisingly tricky.
+Understanding the details can save time and frustration.
 
 ## Terminology
 
@@ -71,6 +72,8 @@ The following are used to add a directory to a C include search path:
   precedence over the following options.
 * `-isystem <directory>` adds a directory to the system C include search path.
 * `-iquote <directory>` adds a directory to the quote C include search path.
+* `-idirafter <directory>` adds a directory to the end of the system C include
+  search path.
 
 These options can be passed multiple times, and the directories are added to
 the C include search paths in the same order.
@@ -142,10 +145,11 @@ that this is separate from compilation of the generated bindings, described in
 the CAPI section below.
 
 `libclang` constructs C include search paths like Clang, but compiler builtin
-directories are *not* included by default.  Unless using an alternate standard
-library, the compiler builtin directory must be configured using an
-command-line option or environment variable.  The compiler builtin directory
-should be for the version of `libclang` being used.
+directories are *not* included by default.  When using the GNU C library, a
+compiler builtin directory must be configured using a command-line option or
+environment variable.  The compiler builtin directory should be for the version
+of `libclang` being used.  When using Musl, configuring a compiler builtin
+directory should not be necessary.
 
 `hs-bindgen` passes Clang command-line options to `libclang`.  See
 [Clang options][] for details.  Include options that `hs-bindgen` passes to
@@ -157,18 +161,17 @@ Clang environment variables, described above.
 
 ### `hs-bindgen` command-line options
 
-`hs-bindgen-cli` provides a `-I <DIRECTORY>` option that adds a directory to the
-system C include search path.  It is translated to a Clang `-I` option.
+`hs-bindgen-cli` provides the following include options:
 
-`hs-bindgen-cli` also provides a `--no-stdinc` option that disables the default
-include directories.  It is translated to a Clang `-nostdinc` option.
+* `-I <directory>` adds a directory to the system C include search path.
+  (Clang option: `-I`)
+
+* `--no-stdinc` disables the default include directories.  (Clang option:
+  `-nostdinc`)
 
 Clang has many more include options, which may be passed via `--clang-option`
-options.  For example, a Clang option can be used to configure the quote C
-include search path.  Since all `hs-bindgen` includes are system includes, there
-is no need to configure the quote include search path for `hs-bindgen`, but
-configuration could be necessary for the C project that bindings are being
-generated for.
+options.  For example, Clang option `-idirafter` may be used to add a directory
+to the end of the system C include search path.
 
 ### `hs-bindgen` environment variables
 
@@ -195,11 +198,12 @@ are C syntax.  Forward slashes must be used as directory separators, even when
 using Windows.  (Backslashes are interpreted as characters in a directory or
 file name.)
 
-For example, many Haskell projects store project C code in an `include` and/or
-`cbits` directory.  That directory should be added to the system C include
-search path, and header arguments should be relative to it.  For example, the
-following command runs the preprocessor on header `foo.h` in the `include`
-directory:
+For example, a best practice for Haskell projects is to store project C code in
+`include` and `cbits` directories, where the `include` directory contains the
+headers and the `cbits` directory contains the `.c` source.  That `include`
+directory should be added to the system C include search path, and header
+arguments should be relative to it.  The following command runs the preprocessor
+on header `foo.h` in the `include` directory:
 
 ```
 $ hs-bindgen-cli preprocess -I include foo.h
@@ -218,12 +222,12 @@ search path.
 
 A C include search path is used to search for C headers, so only adding
 directories that contain C header files is best practice.  Adding a directory
-that contains C source as well as C header files is a not optimal.  Adding a
+that contains C source as well as C header files is suboptimal.  Adding a
 directory that contains many types of files (such as a Haskell project
-directory) is dirty.  Command `hs-bindgen-cli preprocess -I . include/foo.h`
-is therefore a dirty hack, but it works as long as `foo.h` (and any
-transitively included headers) do not rely on `include` being in the system C
-include search path.
+directory) is bad practice.  Command
+`hs-bindgen-cli preprocess -I . include/foo.h` is therefore a hack, but it works
+as long as `foo.h` (and any transitively included headers) do not rely on the
+`include` directory being in the system C include search path.
 
 ### CAPI
 

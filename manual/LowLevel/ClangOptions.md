@@ -17,17 +17,28 @@ well.
 [Clang command-line options]: <https://clang.llvm.org/docs/ClangCommandLineReference.html>
 
 When using `hs-bindgen-cli preprocess`, Clang options may be specified as
-command-line options.  Common options are exposed as `hs-bindgen` command-line
-options, while arbitrary Clang options may be passed using `--clang-option`.
-You may specify this option any number of times.
+command-line options.  Common options are exposed as `hs-bindgen-cli`
+command-line options, while arbitrary Clang options may be passed using
+`--clang-option`.
+
+Example:
+
+```
+$ hs-bindgen-cli preprocess \
+    --standard c23 \
+    -I include \
+    --clang-option="-idirafter/opt/acme-0.1.0/include" \
+    --module Foo \
+    --output Foo.hs \
+    foo.h
+```
 
 ## Environment variables
 
 Clang options may also be set using environment variables.  This is
 particularly useful when setting environment-specific configuration that may
-not be hard-coded in the source code.  When used with the CLI, options passed
-with the CLI take precedence.  It is the only way to configure Clang options
-when using the Template Haskell API.
+not be hard-coded in the source code.  Options specified via the CLI or the
+Template Haskell API take precedence.
 
 - __When compiling natively (i.e., without specifying a target)__, `hs-bindgen`
   reads `BINDGEN_EXTRA_CLANG_ARGS` and splits its string value into command-line
