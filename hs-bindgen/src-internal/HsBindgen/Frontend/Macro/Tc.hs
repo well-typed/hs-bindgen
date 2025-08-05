@@ -4,7 +4,7 @@
 {-# LANGUAGE ParallelListComp #-}
 
 -- | Type inference for simple function-like C macros.
-module HsBindgen.C.Tc.Macro
+module HsBindgen.Frontend.Macro.Tc
   (
     -- * Typechecking macros
     tcMacro
@@ -100,9 +100,9 @@ import C.Operators qualified as C.Op
 import C.Expr.HostPlatform qualified as C.Expr
 
 -- hs-bindgen
-import HsBindgen.C.Tc.Macro.Type
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macro.AST.Syntax
+import HsBindgen.Frontend.Macro.Tc.Type
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C

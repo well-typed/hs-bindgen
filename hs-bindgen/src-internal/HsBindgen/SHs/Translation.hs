@@ -13,9 +13,9 @@ import Data.Text qualified as T
 import Data.Type.Nat qualified as Fin
 import Data.Vec.Lazy qualified as Vec
 
-import HsBindgen.C.Tc.Macro qualified as Macro hiding (IntegralType)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macro.AST.Syntax qualified as C
+import HsBindgen.Frontend.Macro.Tc qualified as Macro hiding (IntegralType)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports

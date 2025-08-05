@@ -1,20 +1,20 @@
 -- | Common parsers (for values throughout the AST)
-module HsBindgen.C.Reparse.Common (
+module HsBindgen.Frontend.Macro.Reparse.Common (
     reparseName
   , reparseLocName
   , manyTillLookahead
   , getRemaining
   ) where
 
-import Text.Parsec hiding (token)
 import Data.Text qualified as Text
+import Text.Parsec hiding (token)
 
 import Clang.Enum.Simple
-import Clang.LowLevel.Core
 import Clang.HighLevel.Types
+import Clang.LowLevel.Core
 
-import HsBindgen.C.Reparse.Infra
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Macro.Reparse.Infra
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

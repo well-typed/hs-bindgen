@@ -80,15 +80,6 @@ library internal
       HsBindgen.BindingSpec.Private.Stdlib
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
-      HsBindgen.C.Reparse
-      HsBindgen.C.Reparse.Common
-      HsBindgen.C.Reparse.Decl
-      HsBindgen.C.Reparse.Infra
-      HsBindgen.C.Reparse.Literal
-      HsBindgen.C.Reparse.Macro
-      HsBindgen.C.Reparse.Type
-      HsBindgen.C.Tc.Macro
-      HsBindgen.C.Tc.Macro.Type
       HsBindgen.Clang
       HsBindgen.Config
       HsBindgen.Config.FixCandidate
@@ -110,6 +101,15 @@ library internal
       HsBindgen.Frontend.AST.PrettyPrinter
       HsBindgen.Frontend.Macro.AST.C
       HsBindgen.Frontend.Macro.AST.Syntax
+      HsBindgen.Frontend.Macro.Reparse
+      HsBindgen.Frontend.Macro.Reparse.Common
+      HsBindgen.Frontend.Macro.Reparse.Decl
+      HsBindgen.Frontend.Macro.Reparse.Infra
+      HsBindgen.Frontend.Macro.Reparse.Literal
+      HsBindgen.Frontend.Macro.Reparse.Macro
+      HsBindgen.Frontend.Macro.Reparse.Type
+      HsBindgen.Frontend.Macro.Tc
+      HsBindgen.Frontend.Macro.Tc.Type
       HsBindgen.Frontend.Naming
       HsBindgen.Frontend.NonParsedDecls
       HsBindgen.Frontend.Pass

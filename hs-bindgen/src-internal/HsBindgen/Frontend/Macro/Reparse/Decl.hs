@@ -1,7 +1,7 @@
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
-module HsBindgen.C.Reparse.Decl
+module HsBindgen.Frontend.Macro.Reparse.Decl
   ( -- * Reparsing API
     reparseFieldDecl, reparseFunDecl, reparseTypedef
 
@@ -62,15 +62,15 @@ import Data.Text qualified as Text (pack, unpack)
 -- hs-bindgen
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core (CXTokenKind (..))
-import HsBindgen.C.Reparse.Common (manyTillLookahead, reparseName)
-import HsBindgen.C.Reparse.Infra
-import HsBindgen.C.Reparse.Macro (mExpr)
-import HsBindgen.C.Reparse.Type
-import HsBindgen.C.Tc.Macro qualified as Macro
-import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macro.AST.C qualified as C
 import HsBindgen.Frontend.Macro.AST.Syntax
+import HsBindgen.Frontend.Macro.Reparse.Common (manyTillLookahead, reparseName)
+import HsBindgen.Frontend.Macro.Reparse.Infra
+import HsBindgen.Frontend.Macro.Reparse.Macro (mExpr)
+import HsBindgen.Frontend.Macro.Reparse.Type
+import HsBindgen.Frontend.Macro.Tc qualified as Macro
+import HsBindgen.Frontend.Macro.Tc.Type qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports (fromMaybe)
 import HsBindgen.Language.C qualified as C

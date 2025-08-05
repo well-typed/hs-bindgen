@@ -1,4 +1,4 @@
-module HsBindgen.C.Reparse.Literal (
+module HsBindgen.Frontend.Macro.Reparse.Literal (
     IntSuffix(..)
   , reparseLiteralInteger
   , reparseLiteralFloating
@@ -9,15 +9,15 @@ module HsBindgen.C.Reparse.Literal (
 import Control.Monad (replicateM)
 import Data.Char
 import Data.Scientific qualified as Scientific
+import GHC.Exts qualified as IsList (IsList (..))
 import Text.Parsec
 import Text.Parsec.Pos (updatePosChar)
-import GHC.Exts qualified as IsList (IsList(..))
 
 import C.Char qualified
 import C.Type qualified
 
+import HsBindgen.Frontend.Macro.Reparse.Infra
 import HsBindgen.Imports
-import HsBindgen.C.Reparse.Infra
 import HsBindgen.Util.Parsec
 
 

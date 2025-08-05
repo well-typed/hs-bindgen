@@ -4,7 +4,7 @@
 -- to reparse parts of the input, mostly to deal with macros.
 --
 -- Intended for unqualified import.
-module HsBindgen.C.Reparse (
+module HsBindgen.Frontend.Macro.Reparse (
     -- * Definition
     Reparse
   , ReparseError(..)
@@ -16,6 +16,6 @@ module HsBindgen.C.Reparse (
   , reparseMacro
   ) where
 
-import HsBindgen.C.Reparse.Decl
-import HsBindgen.C.Reparse.Infra
-import HsBindgen.C.Reparse.Macro
+import HsBindgen.Frontend.Macro.Reparse.Decl
+import HsBindgen.Frontend.Macro.Reparse.Infra
+import HsBindgen.Frontend.Macro.Reparse.Macro

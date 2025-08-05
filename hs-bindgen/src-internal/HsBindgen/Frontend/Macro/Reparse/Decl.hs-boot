@@ -1,7 +1,7 @@
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
-module HsBindgen.C.Reparse.Decl
+module HsBindgen.Frontend.Macro.Reparse.Decl
   ( TypeName
   , reparseTypeName
 
@@ -13,8 +13,8 @@ module HsBindgen.C.Reparse.Decl
   where
 
 -- hs-bindgen
-import HsBindgen.C.Reparse.Infra
-import HsBindgen.C.Tc.Macro.Type qualified as Macro
+import HsBindgen.Frontend.Macro.Reparse.Infra
+import HsBindgen.Frontend.Macro.Tc.Type qualified as Macro
 
 --------------------------------------------------------------------------------
 

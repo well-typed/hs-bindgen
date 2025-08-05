@@ -1,4 +1,4 @@
-module HsBindgen.C.Reparse.Macro (
+module HsBindgen.Frontend.Macro.Reparse.Macro (
     reparseMacro, mExpr
   ) where
 
@@ -9,16 +9,16 @@ import Text.Parsec
 import Text.Parsec.Expr
 
 import Clang.LowLevel.Core
-import HsBindgen.C.Reparse.Common (reparseLocName, reparseName)
-import HsBindgen.C.Reparse.Infra
-import HsBindgen.C.Reparse.Literal
-import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Macro.AST.Syntax
+import HsBindgen.Frontend.Macro.Reparse.Common (reparseLocName, reparseName)
+import HsBindgen.Frontend.Macro.Reparse.Infra
+import HsBindgen.Frontend.Macro.Reparse.Literal
+import HsBindgen.Frontend.Macro.Tc qualified as Macro
 import HsBindgen.Language.C qualified as C
 
-import {-# SOURCE #-} HsBindgen.C.Reparse.Decl (reparseAttributeSpecifier,
-                                                reparseTypeName)
+import {-# SOURCE #-} HsBindgen.Frontend.Macro.Reparse.Decl (reparseAttributeSpecifier,
+                                                             reparseTypeName)
 
 {-------------------------------------------------------------------------------
   Top-level

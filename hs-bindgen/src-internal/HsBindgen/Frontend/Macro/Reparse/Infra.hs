@@ -1,5 +1,5 @@
 -- | Infrastructure for reparsing
-module HsBindgen.C.Reparse.Infra (
+module HsBindgen.Frontend.Macro.Reparse.Infra (
     -- * Parser type
     Reparse
   , reparseWith

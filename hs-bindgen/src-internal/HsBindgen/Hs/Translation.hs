@@ -20,11 +20,11 @@ import GHC.Exts qualified as IsList (IsList (..))
 import C.Char qualified
 import C.Type qualified (FloatingType (..), IntegralType (IntLike))
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Macro.Tc qualified as Macro
 import HsBindgen.Frontend.RootHeader (getHashIncludeArg)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type

@@ -32,12 +32,12 @@ import System.FilePath (takeBaseName)
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.C.Tc.Macro.Type
+import HsBindgen.Frontend.Macro.Tc.Type
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality (equals1)
 
-import {-# SOURCE #-} HsBindgen.C.Reparse.Decl
+import {-# SOURCE #-} HsBindgen.Frontend.Macro.Reparse.Decl
 
 {-------------------------------------------------------------------------------
   Top-level

@@ -1,7 +1,7 @@
 {-# LANGUAGE MagicHash #-}
 
 -- | Macro types: the types that we infer for macros.
-module HsBindgen.C.Tc.Macro.Type (
+module HsBindgen.Frontend.Macro.Tc.Type (
     -- * Names
     Name
   , FunName

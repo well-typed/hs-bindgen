@@ -1,4 +1,4 @@
-module HsBindgen.C.Reparse.Type (
+module HsBindgen.Frontend.Macro.Reparse.Type (
   reparsePrimType
   ) where
 
@@ -6,7 +6,7 @@ import Data.List (intercalate)
 import Data.Text qualified as Text
 import Text.Parsec
 
-import HsBindgen.C.Reparse.Infra
+import HsBindgen.Frontend.Macro.Reparse.Infra
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 

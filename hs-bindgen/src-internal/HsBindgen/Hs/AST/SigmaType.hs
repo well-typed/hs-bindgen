@@ -12,9 +12,9 @@ module HsBindgen.Hs.AST.SigmaType (
 
 import DeBruijn (Ctx, Idx (..))
 
+import HsBindgen.Frontend.Macro.Tc qualified as Macro
 import HsBindgen.Imports
 import HsBindgen.NameHint
-import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Util.TestEquality
 
 -- | A σ-type, of the form @forall tvs. ctxt => body@.
