@@ -18,11 +18,12 @@ module HsBindgen.Pipeline (
 
     -- * Template Haskell API
   , IncludeDir (..)
-  , HashIncludeOpts ( extraIncludeDirs
-                    , tracerOutputConfigQ
-                    , tracerCustomLogLevel
-                    , tracerTracerConfig
-                    )
+  , BindgenOpts ( extraIncludeDirs
+                , baseConfig
+                , tracerOutputConfigQ
+                , tracerCustomLogLevel
+                , tracerTracerConfig
+                )
   , withHsBindgen
   , hashInclude
   , genBindingsFromCHeader
@@ -155,8 +156,10 @@ data IncludeDir =
   deriving stock (Eq, Show)
 
 -- | Options (opaque, but with record selector functions exported).
-data HashIncludeOpts = HashIncludeOpts {
+data BindgenOpts = BindgenOpts {
+    -- * General configuration
     extraIncludeDirs     :: [IncludeDir]
+  , baseConfig           :: Config
     -- * Binding specifications
   , bindingSpecConfig    :: BindingSpecConfig
     -- * Tracer
@@ -165,9 +168,10 @@ data HashIncludeOpts = HashIncludeOpts {
   , tracerTracerConfig   :: TracerConfig
   }
 
-instance Default HashIncludeOpts where
-  def = HashIncludeOpts {
+instance Default BindgenOpts where
+  def = BindgenOpts {
       extraIncludeDirs     = []
+    , baseConfig           = def
     , bindingSpecConfig    = def
     , tracerTracerConfig   = def { tVerbosity = Verbosity Notice }
     , tracerCustomLogLevel = mempty
@@ -196,8 +200,8 @@ data BindgenState = BindgenState {
 -- > withHsBindgen def $ do
 -- >   hashInclude "a.h"
 -- >   hashInclude "b.h"
-withHsBindgen :: HashIncludeOpts -> Bindgen () -> TH.Q [TH.Dec]
-withHsBindgen HashIncludeOpts{..} hashIncludes = do
+withHsBindgen :: BindgenOpts -> Bindgen () -> TH.Q [TH.Dec]
+withHsBindgen BindgenOpts{..} hashIncludes = do
   checkHsBindgenRuntimePreludeIsInScope
   includeDirs <- toFilePaths extraIncludeDirs
   let clangArgs :: ClangArgs
