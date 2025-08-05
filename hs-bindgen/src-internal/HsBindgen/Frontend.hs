@@ -136,6 +136,9 @@ processTranslationUnit
     -- writeFile "usedecl.mermaid" $
     --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/967: By emitting all
+    -- traces in one place, we lose the callstack and timestamp information of
+    -- the individual traces.
     forM_ msgsSort                $ traceWith tracer . FrontendSort
     forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
     forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
