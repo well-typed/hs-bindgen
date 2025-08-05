@@ -76,6 +76,9 @@ data Global =
   | ConstantArray_withPtr
   | IncompleteArray_withPtr
 
+    -- Unsafe
+  | IO_unsafePerformIO
+
     -- Other type classes
   | Bits_class
   | Bounded_class

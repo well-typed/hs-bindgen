@@ -436,30 +436,30 @@ struct2_t some_global_struct = {
 
 /**
  * Constants
- *
- * TODO https://github.com/well-typed/hs-bindgen/issues/41
  */
 
-// // Constant
-// //
-// // Although this is a constant, we don't expect an initializer (since it's
-// // `extern`).
-// extern const int globalConstant;
+// Constant
+//
+// Although this is a constant, we don't expect an initializer (since it's
+// `extern`).
+extern const int globalConstant;
 
-// // Constant, through typedef
-// typedef const int ConstInt;
-// extern ConstInt anotherGlobalConstant;
+// Constant, through typedef
+typedef const int ConstInt;
+extern ConstInt anotherGlobalConstant;
 
-// // Constant, but local to the file
-// //
-// // Unlike with `extern`, in this we _do_ expect an initializer.
-// static const int staticConst = 123;
+// Constant, but local to the file
+//
+// Unlike with `extern`, in this we _do_ expect an initializer.
+static const int staticConst = 123;
 
-// // No storage class specified
-// //
-// // Even though this is declared `const`, this is still an error (for the same
-// // reason as `notActuallyGlobal`).
-// const int classless;
+// No storage class specified
+//
+// Even though this is declared `const`, this is still an error (for the same
+// reason as `notActuallyGlobal`).
+const int classless;
+
+// TODO(#41): more elaborate types, such as structs, arrays
 
 /**
  * Error cases

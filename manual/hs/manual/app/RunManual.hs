@@ -21,7 +21,7 @@ import HsBindgen.Runtime.ConstantArray qualified as CA
 
 import Arrays as Arrays
 import Example
-import Globals
+import Globals as Globals
 import Structs
 
 import Game.Player
@@ -261,16 +261,23 @@ main = do
     -- Globals
     section "Globals"
     --
+    do
+      config <- peek globalConfig
+      print config
+      poke globalConfig $ config{globalConfig_numThreads = 3}
+      printGlobalConfig
+      config' <- peek globalConfig
+      print config'
 
-    config <- peek globalConfig
-    print config
-    poke globalConfig $ config{globalConfig_numThreads = 3}
-    printGlobalConfig
-    config' <- peek globalConfig
-    print config'
+      print =<< peek globalInt
+      print =<< peek externGlobalInt
 
-    print =<< peek globalInt
-    print =<< peek externGlobalInt
+      -- Constants
+      subsection "Constants"
+      print Globals.globalConstant
+      print Globals.anotherGlobalConstant
+      print Globals.staticConst
+      print Globals.classless
 
     --
     -- Arrays

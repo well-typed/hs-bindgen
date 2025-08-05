@@ -1,5 +1,23 @@
 types:
 - headers: globals.h
+  cname: ConstInt
+  module: Example
+  identifier: ConstInt
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: globals.h
   cname: struct config
   module: Example
   identifier: Config

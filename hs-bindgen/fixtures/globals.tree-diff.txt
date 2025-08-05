@@ -1561,6 +1561,124 @@ TranslationUnit {
           typeSpecModule = Nothing,
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:445:18",
+        declId = NamePair {
+          nameC = Name "globalConstant",
+          nameHsIdent = HsIdentifier
+            "globalConstant"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          Comment {
+            commentCName = "globalConstant",
+            commentChildren = [
+              Paragraph
+                [TextContent "Constants"]]}},
+      declKind = DeclConst
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:448:19",
+        declId = NamePair {
+          nameC = Name "ConstInt",
+          nameHsIdent = HsIdentifier
+            "ConstInt"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "ConstInt",
+            newtypeField = HsName
+              "@NsVar"
+              "un_ConstInt"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:449:17",
+        declId = NamePair {
+          nameC = Name
+            "anotherGlobalConstant",
+          nameHsIdent = HsIdentifier
+            "anotherGlobalConstant"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "ConstInt",
+              nameHsIdent = HsIdentifier
+                "ConstInt"})),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:454:18",
+        declId = NamePair {
+          nameC = Name "staticConst",
+          nameHsIdent = HsIdentifier
+            "staticConst"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:460:11",
+        declId = NamePair {
+          nameC = Name "classless",
+          nameHsIdent = HsIdentifier
+            "classless"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
             []}}],
   unitDeps = [
     "stdbool",
