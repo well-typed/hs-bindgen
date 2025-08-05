@@ -1,7 +1,7 @@
 -- | The syntax for macros recognized by hs-bindgen
 --
 -- Intended for unqualified import.
-module HsBindgen.Frontend.Macros.AST.Syntax (
+module HsBindgen.Frontend.Macro.AST.Syntax (
     -- * Definition
     Macro(..)
   , MacroBody(..)
@@ -17,15 +17,15 @@ module HsBindgen.Frontend.Macros.AST.Syntax (
   ) where
 
 import Data.Char (toUpper)
-import Data.GADT.Compare (GEq(geq))
+import Data.GADT.Compare (GEq (geq))
 import Data.Kind qualified as Hs
-import Data.Nat (Nat(..))
+import Data.Nat (Nat (..))
 import Data.Proxy
 import Data.String
-import Data.Type.Equality ( type (:~:)(..) )
+import Data.Type.Equality (type (:~:) (..))
 import Data.Type.Nat (SNatI)
 import Data.Type.Nat qualified as Nat
-import Data.Vec.Lazy (Vec(..))
+import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
@@ -35,7 +35,7 @@ import Clang.Paths
 import HsBindgen.C.Tc.Macro.Type
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.TestEquality ( equals1 )
+import HsBindgen.Util.TestEquality (equals1)
 
 import {-# SOURCE #-} HsBindgen.C.Reparse.Decl
 

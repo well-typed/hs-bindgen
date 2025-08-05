@@ -34,23 +34,16 @@ module HsBindgen.C.Reparse.Decl
   where
 
 -- base
-import Control.Monad
-  ( void )
-import Data.Either
-  ( partitionEithers )
-import Data.Functor
-  ( ($>) )
+import Control.Monad (void)
+import Data.Either (partitionEithers)
+import Data.Functor (($>))
 import Data.Kind qualified as Hs
 
-import Data.List
-  ( intercalate )
+import Data.List (intercalate)
 import Data.List.NonEmpty qualified as NE
-import Data.Maybe
-  ( isJust, mapMaybe )
-import Numeric.Natural
-  ( Natural )
-import GHC.Generics
-  ( Generic )
+import Data.Maybe (isJust, mapMaybe)
+import GHC.Generics (Generic)
+import Numeric.Natural (Natural)
 
 -- c-expr
 import C.Type qualified
@@ -63,23 +56,21 @@ import Data.Set qualified as Set
 import Text.Parsec
 
 -- text
-import Data.Text
-  ( Text )
-import Data.Text qualified as Text
-  ( pack, unpack )
+import Data.Text (Text)
+import Data.Text qualified as Text (pack, unpack)
 
 -- hs-bindgen
 import Clang.HighLevel.Types
-import Clang.LowLevel.Core ( CXTokenKind(..) )
-import HsBindgen.C.Reparse.Common (reparseName, manyTillLookahead)
+import Clang.LowLevel.Core (CXTokenKind (..))
+import HsBindgen.C.Reparse.Common (manyTillLookahead, reparseName)
 import HsBindgen.C.Reparse.Infra
-import HsBindgen.C.Reparse.Macro ( mExpr )
+import HsBindgen.C.Reparse.Macro (mExpr)
 import HsBindgen.C.Reparse.Type
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Errors
-import HsBindgen.Frontend.Macros.AST.C qualified as C
-import HsBindgen.Frontend.Macros.AST.Syntax
+import HsBindgen.Frontend.Macro.AST.C qualified as C
+import HsBindgen.Frontend.Macro.AST.Syntax
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports (fromMaybe)
 import HsBindgen.Language.C qualified as C

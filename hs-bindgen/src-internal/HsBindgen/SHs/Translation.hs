@@ -8,14 +8,14 @@ module HsBindgen.SHs.Translation (
 
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Proxy (Proxy(..))
+import Data.Proxy (Proxy (..))
 import Data.Text qualified as T
 import Data.Type.Nat qualified as Fin
 import Data.Vec.Lazy qualified as Vec
 
-import HsBindgen.C.Tc.Macro qualified as Macro hiding ( IntegralType )
+import HsBindgen.C.Tc.Macro qualified as Macro hiding (IntegralType)
 import HsBindgen.Errors
-import HsBindgen.Frontend.Macros.AST.Syntax qualified as C
+import HsBindgen.Frontend.Macro.AST.Syntax qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
@@ -24,9 +24,9 @@ import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 
 import DeBruijn (rzeroAdd)
-import DeBruijn.Internal.Size (Size(UnsafeSize))
-import Witherable (ordNub)
+import DeBruijn.Internal.Size (Size (UnsafeSize))
 import HsBindgen.Hs.Haddock.Documentation (Comment)
+import Witherable (ordNub)
 
 {-------------------------------------------------------------------------------
   Declarations

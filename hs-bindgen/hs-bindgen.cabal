@@ -108,8 +108,8 @@ library internal
       HsBindgen.Frontend.AST.Finalize
       HsBindgen.Frontend.AST.Internal
       HsBindgen.Frontend.AST.PrettyPrinter
-      HsBindgen.Frontend.Macros.AST.C
-      HsBindgen.Frontend.Macros.AST.Syntax
+      HsBindgen.Frontend.Macro.AST.C
+      HsBindgen.Frontend.Macro.AST.Syntax
       HsBindgen.Frontend.Naming
       HsBindgen.Frontend.NonParsedDecls
       HsBindgen.Frontend.Pass

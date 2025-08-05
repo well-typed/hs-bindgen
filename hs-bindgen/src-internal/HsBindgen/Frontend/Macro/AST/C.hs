@@ -3,7 +3,7 @@
 -- Intended for qualified import:
 --
 -- > import HsBindgen.Frontend.Macros.AST.C qualified as C
-module HsBindgen.Frontend.Macros.AST.C (
+module HsBindgen.Frontend.Macro.AST.C (
     -- * Types
     Type
   , pattern TypePrim

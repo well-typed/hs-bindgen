@@ -16,7 +16,7 @@ import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Macros.AST.Syntax
+import HsBindgen.Frontend.Macro.AST.Syntax
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass

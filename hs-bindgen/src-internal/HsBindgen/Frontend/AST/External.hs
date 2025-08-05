@@ -67,7 +67,7 @@ import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Frontend.AST.Internal qualified as Int
-import HsBindgen.Frontend.Macros.AST.Syntax qualified as Macro
+import HsBindgen.Frontend.Macro.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
