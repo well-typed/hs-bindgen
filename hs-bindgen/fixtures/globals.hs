@@ -9119,14 +9119,14 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_globalConstant_ptr (void) { return &globalConstant; } ",
+    "__attribute__ ((const)) signed int get_globalConstant_ptr (void) { return globalConstant; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "get_globalConstant_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+        "globalConstant",
+      foreignImportType = HsPrimType
+        HsPrimCInt,
       foreignImportOrigName =
       "get_globalConstant_ptr",
       foreignImportCallConv =
@@ -9141,7 +9141,6 @@
           commentOrigin = Just
             "globalConstant",
           commentChildren = []}},
-  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -9335,17 +9334,16 @@
       Nothing},
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "__attribute__ ((const)) ConstInt *get_anotherGlobalConstant_ptr (void) { return &anotherGlobalConstant; } ",
+    "__attribute__ ((const)) ConstInt get_anotherGlobalConstant_ptr (void) { return anotherGlobalConstant; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "get_anotherGlobalConstant_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "ConstInt")),
+        "anotherGlobalConstant",
+      foreignImportType = HsTypRef
+        (HsName
+          "@NsTypeConstr"
+          "ConstInt"),
       foreignImportOrigName =
       "get_anotherGlobalConstant_ptr",
       foreignImportCallConv =
@@ -9358,17 +9356,16 @@
               nameHsIdent = HsIdentifier
                 "ConstInt"})),
       foreignImportComment = Nothing},
-  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_staticConst_ptr (void) { return &staticConst; } ",
+    "__attribute__ ((const)) signed int get_staticConst_ptr (void) { return staticConst; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "get_staticConst_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+        "staticConst",
+      foreignImportType = HsPrimType
+        HsPrimCInt,
       foreignImportOrigName =
       "get_staticConst_ptr",
       foreignImportCallConv =
@@ -9377,17 +9374,16 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing},
-  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_classless_ptr (void) { return &classless; } ",
+    "__attribute__ ((const)) signed int get_classless_ptr (void) { return classless; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "get_classless_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+        "classless",
+      foreignImportType = HsPrimType
+        HsPrimCInt,
       foreignImportOrigName =
       "get_classless_ptr",
       foreignImportCallConv =
@@ -9395,5 +9391,4 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
-  DeclSimple]
+      foreignImportComment = Nothing}]

@@ -1358,22 +1358,22 @@ globalConst info ty _spec =
     [ Hs.DeclInlineCInclude (getHashIncludeArg $ C.declHeader info)
     , Hs.DeclInlineC prettyStub
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName     = HsName $ T.pack stubName
+        { foreignImportName     = importName -- HsName $ T.pack stubName
         , foreignImportType     = importType
         , foreignImportOrigName = T.pack stubName
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Global ty
         , foreignImportComment  = fmap generateHaddocks (C.declComment info)
         }
-    , Hs.DeclSimple $ SHs.DVar $ SHs.Var {
-          varName    = importName
-        , varType    = SHs.translateType (typ ty)
-        , varExpr    =
-                       SHs.EGlobal SHs.IO_unsafePerformIO
-            `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
-            `SHs.EApp` SHs.EFree (HsName $ T.pack stubName))
-        , varComment = Nothing
-        }
+    -- , Hs.DeclSimple $ SHs.DVar $ SHs.Var {
+    --       varName    = importName
+    --     , varType    = SHs.translateType (typ ty)
+    --     , varExpr    =
+    --                    SHs.EGlobal SHs.IO_unsafePerformIO
+    --         `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
+    --         `SHs.EApp` SHs.EFree (HsName $ T.pack stubName))
+    --     , varComment = Nothing
+    --     }
     ]
   where
     importName :: HsName 'NsVar
@@ -1390,7 +1390,7 @@ globalConst info ty _spec =
     varName = T.unpack (C.getName . C.nameC . C.declId $ info)
 
     stubType :: C.Type
-    stubType = C.TypePointer ty
+    stubType = ty
 
     prettyStub :: String
     prettyStub = PC.prettyDecl stubDecl " "
@@ -1399,7 +1399,7 @@ globalConst info ty _spec =
     stubDecl =
         PC.withArgs [] $ \args' ->
           PC.FunDefn stubName stubType C.HaskellPureFunction args'
-            [PC.Return $ PC.Address $ PC.NamedVar varName]
+            [PC.Return $ PC.NamedVar varName]
 
 {-------------------------------------------------------------------------------
   Macro

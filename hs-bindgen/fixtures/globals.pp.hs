@@ -12,13 +12,12 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import GHC.IO.Unsafe (unsafePerformIO)
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(CAPI.addCSource "#include \"globals.h\"\n__attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } \n__attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } \n__attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } \n__attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } \n__attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } \n__attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } \n__attribute__ ((const)) char (*get_nesString2_ptr (void))[3] { return &nesString2; } \n__attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } \n__attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } \n__attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } \n__attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } \n__attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } \n__attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } \n__attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } \n__attribute__ ((const)) uint8_t (*get_nesInitList_ptr (void))[4] { return &nesInitList; } \n__attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } \n__attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } \n__attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } \n__attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } \n__attribute__ ((const)) signed int *get_globalConstant_ptr (void) { return &globalConstant; } \n__attribute__ ((const)) ConstInt *get_anotherGlobalConstant_ptr (void) { return &anotherGlobalConstant; } \n__attribute__ ((const)) signed int *get_staticConst_ptr (void) { return &staticConst; } \n__attribute__ ((const)) signed int *get_classless_ptr (void) { return &classless; } \n")
+$(CAPI.addCSource "#include \"globals.h\"\n__attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } \n__attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } \n__attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } \n__attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } \n__attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } \n__attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } \n__attribute__ ((const)) char (*get_nesString2_ptr (void))[3] { return &nesString2; } \n__attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } \n__attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } \n__attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } \n__attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } \n__attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } \n__attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } \n__attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } \n__attribute__ ((const)) uint8_t (*get_nesInitList_ptr (void))[4] { return &nesInitList; } \n__attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } \n__attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } \n__attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } \n__attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } \n__attribute__ ((const)) signed int get_globalConstant_ptr (void) { return globalConstant; } \n__attribute__ ((const)) ConstInt get_anotherGlobalConstant_ptr (void) { return anotherGlobalConstant; } \n__attribute__ ((const)) signed int get_staticConst_ptr (void) { return staticConst; } \n__attribute__ ((const)) signed int get_classless_ptr (void) { return classless; } \n")
 
 {-| Global variables
 
@@ -217,11 +216,7 @@ foreign import ccall safe "get_some_global_struct_ptr" some_global_struct :: F.P
 
   __from C:__ @globalConstant@
 -}
-foreign import ccall safe "get_globalConstant_ptr" get_globalConstant_ptr :: F.Ptr FC.CInt
-
-globalConstant :: FC.CInt
-globalConstant =
-  unsafePerformIO (F.peek get_globalConstant_ptr)
+foreign import ccall safe "get_globalConstant_ptr" globalConstant :: FC.CInt
 
 newtype ConstInt = ConstInt
   { un_ConstInt :: FC.CInt
@@ -229,20 +224,8 @@ newtype ConstInt = ConstInt
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "get_anotherGlobalConstant_ptr" get_anotherGlobalConstant_ptr :: F.Ptr ConstInt
+foreign import ccall safe "get_anotherGlobalConstant_ptr" anotherGlobalConstant :: ConstInt
 
-anotherGlobalConstant :: ConstInt
-anotherGlobalConstant =
-  unsafePerformIO (F.peek get_anotherGlobalConstant_ptr)
+foreign import ccall safe "get_staticConst_ptr" staticConst :: FC.CInt
 
-foreign import ccall safe "get_staticConst_ptr" get_staticConst_ptr :: F.Ptr FC.CInt
-
-staticConst :: FC.CInt
-staticConst =
-  unsafePerformIO (F.peek get_staticConst_ptr)
-
-foreign import ccall safe "get_classless_ptr" get_classless_ptr :: F.Ptr FC.CInt
-
-classless :: FC.CInt
-classless =
-  unsafePerformIO (F.peek get_classless_ptr)
+foreign import ccall safe "get_classless_ptr" classless :: FC.CInt
