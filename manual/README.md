@@ -1,18 +1,32 @@
 # `hs-bindgen` manual
 
 * [Design goals](DesignGoals.md)
+* [Installation](Installation.md)
 
 ## Generating low-level bindings
 
 * [Introduction](LowLevel/Introduction.md)
+
+### Usage
+
 * [Invocation](LowLevel/Invocation.md)
-* [Generated Names](LowLevel/GeneratedNames.md)
+* [Tracing](LowLevel/Tracing.md)
+* [Clang options](LowLevel/ClangOptions.md)
+* [Includes](LowLevel/Includes.md)
+* [Predicates and slicing](LowLevel/PredicatesAndSlicing.md)
+* [Binding specifications](LowLevel/BindingSpecifications.md)
+* [Test generation](LowLevel/TestGeneration.md)
+* [CrossCompilation](LowLevel/CrossCompilation.md)
+
+### Translation
+
+* [Generated names](LowLevel/GeneratedNames.md)
 * [Structs](LowLevel/Structs.md)
 * [Enums](LowLevel/Enums.md)
 * [Unions](LowLevel/Unions.md)
 * [Functions](LowLevel/Functions.md)
 * [Global variables and constants](LowLevel/Globals.md)
-* [External Bindings](LowLevel/ExternalBindings.md)
+* [Macros](LowLevel/Macros.md)
 
 ## Handwriting high-level bindings
 
