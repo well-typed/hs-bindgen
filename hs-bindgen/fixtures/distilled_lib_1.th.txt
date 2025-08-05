@@ -3,7 +3,7 @@
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/distilled_lib_1.h
--- #include "distilled_lib_1.h"
+-- #include <distilled_lib_1.h>
 -- int32_t test_internal_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }
 -- __attribute__ ((const)) var_t *get_v_ptr (void) { return &v; } 
 data Another_typedef_struct_t

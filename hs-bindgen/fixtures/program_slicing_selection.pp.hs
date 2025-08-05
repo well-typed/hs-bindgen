@@ -17,7 +17,7 @@ import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
 
-$(CAPI.addCSource "#include \"program_slicing_selection.h\"\nenum FileOperationStatus testmodule_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n")
+$(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus testmodule_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n")
 
 newtype FileOperationStatus = FileOperationStatus
   { un_FileOperationStatus :: FC.CInt

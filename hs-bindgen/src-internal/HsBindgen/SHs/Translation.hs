@@ -47,7 +47,7 @@ csources decls = unlines $ headers ++ bodies
     -- It is important that we don't include the same header more than once,
     -- /especially/ for non-extern non-static globals.
     headers = ordNub
-      [ "#include \"" ++ header ++ "\""
+      [ "#include <" ++ header ++ ">"
       | Hs.DeclInlineCInclude header <- decls
       ]
 

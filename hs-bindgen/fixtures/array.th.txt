@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/array.h
--- #include "array.h"
+-- #include <array.h>
 -- __attribute__ ((const)) signed int (*get_arr0_ptr (void))[3] { return &arr0; } 
 -- __attribute__ ((const)) signed int (*get_arr1_ptr (void))[3] { return &arr1; } 
 -- __attribute__ ((const)) signed int (*get_arr2_ptr (void))[3] { return &arr2; } 

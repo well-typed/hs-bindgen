@@ -8,7 +8,7 @@
 -- addDependentFile musl-include/x86_64/stdio.h
 -- addDependentFile musl-include/x86_64/errno.h
 -- addDependentFile examples/golden/program_slicing_selection.h
--- #include "program_slicing_selection.h"
+-- #include <program_slicing_selection.h>
 -- enum FileOperationStatus test_internal_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }
 newtype FileOperationStatus
     = FileOperationStatus {un_FileOperationStatus :: CInt}

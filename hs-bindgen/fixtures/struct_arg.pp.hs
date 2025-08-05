@@ -11,7 +11,7 @@ import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include \"struct_arg.h\"\nsigned int testmodule_thing_fun_1 (struct thing *arg1) { return thing_fun_1(*arg1); }\nvoid testmodule_thing_fun_2 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }\nvoid testmodule_thing_fun_3a (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }\nchar testmodule_thing_fun_3b (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }\n")
+$(CAPI.addCSource "#include <struct_arg.h>\nsigned int testmodule_thing_fun_1 (struct thing *arg1) { return thing_fun_1(*arg1); }\nvoid testmodule_thing_fun_2 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }\nvoid testmodule_thing_fun_3a (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }\nchar testmodule_thing_fun_3b (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }\n")
 
 data Thing = Thing
   { thing_x :: FC.CInt

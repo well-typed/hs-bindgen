@@ -14,7 +14,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
-$(CAPI.addCSource "#include \"adios.h\"\nvoid testmodule_\978 (void) { \978(); }\nvoid testmodule_\25308\25308 (void) { \25308\25308(); }\nvoid testmodule_Say\25308\25308 (void) { Say\25308\25308(); }\n")
+$(CAPI.addCSource "#include <adios.h>\nvoid testmodule_\978 (void) { \978(); }\nvoid testmodule_\25308\25308 (void) { \25308\25308(); }\nvoid testmodule_Say\25308\25308 (void) { Say\25308\25308(); }\n")
 
 newtype Adio'0301s = Adio'0301s
   { un_Adio'0301s :: FC.CInt

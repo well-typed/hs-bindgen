@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/skip_over_long_double.h
--- #include "skip_over_long_double.h"
+-- #include <skip_over_long_double.h>
 -- void test_internal_fun2 (signed int arg1) { fun2(arg1); }
 foreign import ccall safe "test_internal_fun2" fun2 :: CInt ->
                                                        IO Unit

@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/decls_in_signature.h
--- #include "decls_in_signature.h"
+-- #include <decls_in_signature.h>
 -- void test_internal_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }
 -- void test_internal_f1 (struct named_struct *arg1) { f1(*arg1); }
 -- void test_internal_f2 (union named_union *arg1) { f2(*arg1); }
