@@ -7,13 +7,13 @@
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.TH (
     -- * Template Haskell API
-    Pipeline.withHsBindgen
-  , Pipeline.hashInclude
+    PipelineTH.withHsBindgen
+  , PipelineTH.hashInclude
 
     -- * Options
   , Common.Config(..)
-  , Pipeline.IncludeDir(..)
-  , Pipeline.BindgenOpts(..)
+  , PipelineTH.IncludeDir(..)
+  , PipelineTH.BindgenOpts(..)
 
     -- ** Clang arguments
   , Common.ClangArgs(..)
@@ -105,5 +105,6 @@ module HsBindgen.TH (
 
 import HsBindgen.Common qualified as Common
 
-import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Pipeline.TH qualified as PipelineTH
+
 import HsBindgen.Util.Tracer qualified as Tracer

@@ -40,7 +40,7 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib (TraceMsg (..))
-import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Pipeline.Lib qualified as Pipeline
 import HsBindgen.Util.Tracer
 
 import Test.Common.HsBindgen.TracePredicate

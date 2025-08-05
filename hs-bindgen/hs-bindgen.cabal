@@ -158,7 +158,8 @@ library internal
       HsBindgen.ModuleUnique
       HsBindgen.NameHint
       HsBindgen.Orphans
-      HsBindgen.Pipeline
+      HsBindgen.Pipeline.Lib
+      HsBindgen.Pipeline.TH
       HsBindgen.PrettyC
       HsBindgen.Resolve
       HsBindgen.SHs.AST

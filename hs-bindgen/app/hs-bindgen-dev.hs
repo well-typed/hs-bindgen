@@ -7,7 +7,7 @@ import HsBindgen.Lib
 
 -- It is OK to import some internal libraries for our development client.
 import HsBindgen.Frontend.AST.External (TranslationUnit)
-import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Pipeline.Lib qualified as Pipeline
 
 {-------------------------------------------------------------------------------
   Main application

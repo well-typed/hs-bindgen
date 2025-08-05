@@ -136,9 +136,10 @@ import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Tracer qualified as Tracer
+
+import HsBindgen.Pipeline.Lib qualified as Pipeline
 
 import HsBindgen.BindingSpec
 import HsBindgen.Frontend.RootHeader
