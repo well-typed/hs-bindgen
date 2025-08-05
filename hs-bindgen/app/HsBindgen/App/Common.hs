@@ -234,23 +234,11 @@ parseEnableBlocks = switch $ mconcat [
     ]
 
 parseOtherArgs :: Parser [String]
-parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
+parseOtherArgs = many . strOption $ mconcat [
       long "clang-option"
     , metavar "OPTION"
     , help "Pass option to libclang"
     ]
-  where
-    readOtherArg :: String -> Either String String
-    readOtherArg s
-      | "-I" `List.isPrefixOf` s =
-          Left "Add include directories using the 'hs-bindgen' -I option"
-      | s == "-nostdinc" =
-          Left "No standard includes option must be set using 'hs-bindgen' --no-stdinc option"
-      | s == "-std" || "-std=" `List.isPrefixOf` s =
-          Left "C standard must be set using 'hs-bindgen' --standard option"
-      | s == "--target" || "--target=" `List.isPrefixOf` s =
-          Left "Target must be set using 'hs-bindgen' --target option"
-      | otherwise = Right s
 
 {-------------------------------------------------------------------------------
   Translation options
