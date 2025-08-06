@@ -5,6 +5,8 @@ import Control.Monad
 import Control.Monad.Error.Class
 import GHC.Stack
 
+import Clang.HighLevel qualified as HighLevel
+import Clang.HighLevel.Types (CursorSpelling(..))
 import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -84,7 +86,14 @@ fromDecl ty = do
       CXCursor_EnumDecl    -> return $ C.TypeEnum   declId
       CXCursor_StructDecl  -> return $ C.TypeStruct declId
       CXCursor_UnionDecl   -> return $ C.TypeUnion  declId
-      CXCursor_TypedefDecl -> C.TypeTypedef <$> typedefName declId
+      CXCursor_TypedefDecl
+        | declId == C.PrelimDeclIdNamed "va_list" ->
+            getUnderlyingTypeCursorSpelling decl >>= \case
+              ClangBuiltin "__builtin_va_list" ->
+                throwError UnsupportedVariadicFunction
+              _otherwise ->
+                C.TypeTypedef <$> typedefName declId
+        | otherwise -> C.TypeTypedef <$> typedefName declId
       kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where
     typedefName :: C.PrelimDeclId -> ParseType C.Name
@@ -92,6 +101,13 @@ fromDecl ty = do
       C.PrelimDeclIdNamed name   -> return name
       C.PrelimDeclIdAnon{}       -> panicPure "Unexpected anonymous typedef"
       C.PrelimDeclIdBuiltin name -> throwError $ UnsupportedBuiltin name
+
+    getUnderlyingTypeCursorSpelling :: MonadIO m => CXCursor -> m CursorSpelling
+    getUnderlyingTypeCursorSpelling =
+          HighLevel.clang_getCursorSpelling
+      <=< clang_getTypeDeclaration
+      <=< clang_Type_getNamedType
+      <=< clang_getTypedefDeclUnderlyingType
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto ty = do
