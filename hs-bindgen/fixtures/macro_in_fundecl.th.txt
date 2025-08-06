@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/macro_in_fundecl.h
--- #include "macro_in_fundecl.h"
+-- #include <macro_in_fundecl.h>
 -- char test_internal_quux (F arg1, char arg2) { return quux(arg1, arg2); }
 -- C *test_internal_wam (float arg1, C *arg2) { return wam(arg1, arg2); }
 -- char *test_internal_foo1 (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }

@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/names.h
--- #include "names.h"
+-- #include <names.h>
 -- void test_internal_by (void) { by(); }
 -- void test_internal_forall (void) { forall(); }
 -- void test_internal_mdo (void) { mdo(); }

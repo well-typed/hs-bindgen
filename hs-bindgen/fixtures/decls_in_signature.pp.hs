@@ -17,7 +17,7 @@ import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include \"decls_in_signature.h\"\nvoid testmodule_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }\nvoid testmodule_f1 (struct named_struct *arg1) { f1(*arg1); }\nvoid testmodule_f2 (union named_union *arg1) { f2(*arg1); }\n")
+$(CAPI.addCSource "#include <decls_in_signature.h>\nvoid testmodule_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }\nvoid testmodule_f1 (struct named_struct *arg1) { f1(*arg1); }\nvoid testmodule_f2 (union named_union *arg1) { f2(*arg1); }\n")
 
 data Opaque
 

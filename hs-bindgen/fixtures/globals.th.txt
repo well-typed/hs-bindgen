@@ -3,7 +3,7 @@
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/globals.h
--- #include "globals.h"
+-- #include <globals.h>
 -- __attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } 
 -- __attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } 
 -- __attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } 

@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/fun_attributes_conflict.h
--- #include "fun_attributes_conflict.h"
+-- #include <fun_attributes_conflict.h>
 -- signed int test_internal_square_cp (signed int arg1) { return square_cp(arg1); }
 -- signed int test_internal_square_pc (signed int arg1) { return square_pc(arg1); }
 -- signed int test_internal_square_cc (signed int arg1) { return square_cc(arg1); }

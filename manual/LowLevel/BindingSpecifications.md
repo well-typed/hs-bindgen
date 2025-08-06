@@ -1,6 +1,18 @@
-# External bindings
+# Binding specifications
 
-## Introduction
+TODO
+
+## Binding specification files
+
+TODO
+
+## Binding specification generation
+
+TODO
+
+## External bindings
+
+TODO
 
 ### Running example
 
@@ -53,7 +65,7 @@ would be much nicer if we can process libraries separately, and reuse
 definitions from one library in another. That is the purpose of external
 bindings.
 
-## Generating and using external bindings
+### Generating and using external bindings
 
 When we generate bindings for `vector.h`, we can ask `hs-bindgen` to produce
 external bindings in addition to the Haskell module (command line flag
@@ -83,7 +95,7 @@ foreign import capi safe "vector_rotate.h vector_rotate"
   vector_rotate :: Ptr Vector.Vector -> CDouble -> IO (Ptr Vector.Vector)
 ```
 
-## Substituting hand-written types
+### Substituting hand-written types
 
 External bindings can also be used to use hand-written types instead of
 generated ones. For example, by default `hs-bindgen` would generate the
@@ -138,7 +150,7 @@ foreign import capi safe "vector_length.h vector_length"
 Of course it will be the user's responsibility in this case to ensure that the
 Haskell type is compatible with the type that the C code expects.
 
-## Internal headers
+### Internal headers
 
 Some C libraries make use of internal headers: headers that are not part of
 the public API. For example, suppose we have some game library consisting of
@@ -183,12 +195,22 @@ The C name `game_state` is then considered to be defined "in" `game_world.h` or
 `game_player.h`, or in any header file that is (possibly transitively) included
 by those two headers.
 
-> [!NOTE]
-> Generation of external bindings does not currently have any support for
-> declaring headers to be internal, so bindings like the above currently need to
-> be handwritten (or adjusted from generated ones).
-> https://github.com/well-typed/hs-bindgen/issues/592 .
+In this example, module `Game.State` represents the declarations in
+`game_internal.h`.  A binding specification that only refers to the public
+headers can be generated as follows:
 
+* The public headers should be specified as inputs.  Note that an internal
+  header should never be specified as input.
+* All declarations in the main header directories should be parsed.  This is the
+  default.
+* A predicate should be specified so that only the desired declarations in the
+  internal header are selected.  Selecting by header path makes it easy to
+  select all declarations in the internal header.
 
+## Standard library bindings
 
+TODO
 
+## Prescriptive binding specifications
+
+TODO

@@ -4,7 +4,7 @@ module Clang.Paths (
   , getSourcePath
   , nullSourcePath
 
-    -- * C include path directories
+    -- * C include directories
   , CIncludeDir(..)
   ) where
 
@@ -36,23 +36,29 @@ nullSourcePath :: SourcePath -> Bool
 nullSourcePath (SourcePath path) = Text.null path
 
 {-------------------------------------------------------------------------------
-  C include path directories
+  C include directories
 -------------------------------------------------------------------------------}
 
 -- | C include directory
 --
--- The C system and quote include search paths are ordered lists of directories
--- that are used to resolve header file paths. The name comes from environment
--- variables @C_INCLUDE_PATH@ and @CPATH@. It is unforuntaly confusing
--- terminology that a /search/ path is a list of /filesystem/ paths.
+-- A /C include directory/ is a directory that contains C header files, and a
+-- /C include search path/ is a list of C include directories that is used to
+-- resolve headers.
 --
--- The wrapped directory 'FilePath' may be absolute or relative to the current
--- working directory. When it is relative, resolved header file paths in
--- @libclang@ source locations are also relative.
+-- The wrapped 'FilePath' may be absolute or relative to the current working
+-- directory.  When an include directive is resolved using a relative
+-- 'CIncludeDir', the resulting 'SourcePath' is also relative.
 --
--- For example, resolving "<stdint.h>" with a C system include search path that
--- contains 'CIncludeDir' @/usr/include@ may resolve to 'SourcePath'
--- @/usr/include/stdint.h@.
+-- Examples:
+--
+-- * When using a C include search path that contains 'CIncludeDir'
+--   @/usr/include@, @#include <stdint.h>@ may resolve to 'SourcePath'
+--   @/usr/include/stdint.h@.
+--
+-- * When using a C include search path that contains 'CIncludeDir' @include@ (a
+--   directory in the current working directory), @#include <foo.h>@ may resolve
+--   to 'SourcePath' @include/foo.h@ (also relative to the current working
+--   directory).
 newtype CIncludeDir = CIncludeDir { getCIncludeDir :: FilePath }
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Eq, IsString, Ord, Show)

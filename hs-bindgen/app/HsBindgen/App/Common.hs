@@ -140,10 +140,11 @@ parseClangArgs = do
     -- instead of positional one.
     clangTarget           <- optional parseTarget
     clangCStandard        <- Just <$> parseCStandard
-    clangStdInc           <- not <$> parseNoStdInc
     clangEnableGnu        <- parseGnuOption
-    clangExtraIncludeDirs <- parseIncludeDirOptions
     clangEnableBlocks     <- parseEnableBlocks
+    clangStdInc           <- not <$> parseNoStdInc
+    clangExtraIncludeDirs <- parseIncludeDirOptions
+    clangDefineMacros     <- parseDefineMacroOptions
     clangOtherArgs        <- parseOtherArgs
     pure ClangArgs {..}
 
@@ -226,6 +227,14 @@ parseIncludeDirOptions = many . strOption $ mconcat [
     , help "Include search path directory"
     ]
 
+parseDefineMacroOptions :: Parser [String]
+parseDefineMacroOptions = many . strOption $ mconcat [
+      short 'D'
+    , long "define-macro"
+    , metavar "<macro>=<value>"
+    , help "Define <macro> to <value> (or 1 if <value> omitted)"
+    ]
+
 -- TODO: Perhaps we should mimick clang's @-f@ parameter?
 parseEnableBlocks :: Parser Bool
 parseEnableBlocks = switch $ mconcat [
@@ -234,29 +243,11 @@ parseEnableBlocks = switch $ mconcat [
     ]
 
 parseOtherArgs :: Parser [String]
-parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
+parseOtherArgs = many . strOption $ mconcat [
       long "clang-option"
     , metavar "OPTION"
     , help "Pass option to libclang"
     ]
-  where
-    isIncludeDirPrefix :: String -> Bool
-    isIncludeDirPrefix s =
-         ("-I" `List.isPrefixOf` s)
-      || ("-isystem" `List.isPrefixOf` s)
-      || ("-iquote" `List.isPrefixOf` s)
-
-    readOtherArg :: String -> Either String String
-    readOtherArg s
-      | isIncludeDirPrefix s =
-          Left "Add include directories using the 'hs-bindgen' -I option"
-      | s == "-nostdinc" =
-          Left "No standard includes option must be set using 'hs-bindgen' --no-stdinc option"
-      | s == "-std" || "-std=" `List.isPrefixOf` s =
-          Left "C standard must be set using 'hs-bindgen' --standard option"
-      | s == "--target" || "--target=" `List.isPrefixOf` s =
-          Left "Target must be set using 'hs-bindgen' --target option"
-      | otherwise = Right s
 
 {-------------------------------------------------------------------------------
   Translation options

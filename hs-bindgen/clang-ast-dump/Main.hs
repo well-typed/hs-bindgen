@@ -449,12 +449,12 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       -- other options/arguments
       optBuiltin  <- mkFlag "builtin"   "show builtin macros"
       optSameFile <- mkFlag "same-file" "only show from specified file"
-      optIncludePath <- systemIncludePathOption
+      optIncludePath <- includeDirOptions
       optFile        <- fileArgument
       pure (optAll, Options{..})
 
-    systemIncludePathOption :: OA.Parser [CIncludeDir]
-    systemIncludePathOption = OA.many . OA.strOption $ mconcat
+    includeDirOptions :: OA.Parser [CIncludeDir]
+    includeDirOptions = OA.many . OA.strOption $ mconcat
       [ OA.short 'I'
       , OA.metavar "DIR"
       , OA.help "Include search path directory"

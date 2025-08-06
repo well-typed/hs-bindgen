@@ -8,7 +8,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
 
-$(CAPI.addCSource "#include \"fun_attributes_conflict.h\"\nsigned int testmodule_square_cp (signed int arg1) { return square_cp(arg1); }\nsigned int testmodule_square_pc (signed int arg1) { return square_pc(arg1); }\nsigned int testmodule_square_cc (signed int arg1) { return square_cc(arg1); }\nsigned int testmodule_square_pp (signed int arg1) { return square_pp(arg1); }\n")
+$(CAPI.addCSource "#include <fun_attributes_conflict.h>\nsigned int testmodule_square_cp (signed int arg1) { return square_cp(arg1); }\nsigned int testmodule_square_pc (signed int arg1) { return square_pc(arg1); }\nsigned int testmodule_square_cc (signed int arg1) { return square_cc(arg1); }\nsigned int testmodule_square_pp (signed int arg1) { return square_pp(arg1); }\n")
 
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 

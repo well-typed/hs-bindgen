@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/fun_attributes.h
--- #include "fun_attributes.h"
+-- #include <fun_attributes.h>
 -- void test_internal___f1 (void) { __f1(); }
 -- void test_internal_f1 (void) { f1(); }
 -- void *test_internal_my_memalign (size_t arg1, size_t arg2) { return my_memalign(arg1, arg2); }

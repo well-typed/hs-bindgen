@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/adios.h
--- #include "adios.h"
+-- #include <adios.h>
 -- void test_internal_ϒ (void) { ϒ(); }
 -- void test_internal_拜拜 (void) { 拜拜(); }
 -- void test_internal_Say拜拜 (void) { Say拜拜(); }

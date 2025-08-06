@@ -108,7 +108,7 @@ struct aula1 {
 };
 ```
 
-Somtimes, we refer to such fields as _implicit fields_. `libclang` [does not
+Sometimes, we refer to such fields as _implicit fields_. `libclang` [does not
 provide enough information about the alignment of implicit
 fields](https://github.com/llvm/llvm-project/issues/122257), and so `hs-bindgen`
 does not support implicit fields yet. We [plan to support implicit

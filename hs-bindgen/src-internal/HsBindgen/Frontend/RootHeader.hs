@@ -99,7 +99,7 @@ lookup rootHeader loc = do
 
 -- | @#include@ argument (opaque)
 --
--- We only support system includes, using @#include <PATH>@ syntax.  This type
+-- We only support bracket includes, using @#include <PATH>@ syntax.  This type
 -- represents the @PATH@ to a header.
 --
 -- A @#include@ argument is generally relative to a directory in the C include

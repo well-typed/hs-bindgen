@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/vector.h
--- #include "vector.h"
+-- #include <vector.h>
 -- vector *test_internal_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }
 data Vector
     = Vector {vector_x :: CDouble, vector_y :: CDouble}
