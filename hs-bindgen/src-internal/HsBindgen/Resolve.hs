@@ -2,11 +2,13 @@ module HsBindgen.Resolve (
     -- * Trace messages
     ResolveHeaderMsg(..)
     -- * API
-  , resolveHeader
+  , resolveHeaders
   ) where
 
+import Control.Monad ((<=<))
 import Control.Monad.Trans.Maybe (MaybeT (..), runMaybeT)
-import Data.Maybe (listToMaybe)
+import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 
 import Clang.Args
@@ -16,8 +18,10 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.Clang
+import HsBindgen.Errors (panicIO)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Util.List ((!?))
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (hang, hsep, string)
 
@@ -63,66 +67,60 @@ instance HasSource ResolveHeaderMsg where
   API
 -------------------------------------------------------------------------------}
 
--- | Resolve a header
-resolveHeader ::
+-- | Resolve any number of headers
+resolveHeaders ::
      Tracer IO ResolveHeaderMsg
   -> ClangArgs
-  -> HashIncludeArg -- ^ The header we want to resolve
-  -> IO (Maybe SourcePath)
-resolveHeader tracer args target =
-    withClang (contramap ResolveHeaderClang tracer) setup $ \unit -> do
-      rootCursor <- clang_getTranslationUnitCursor unit
-      mPath <- listToMaybe <$> HighLevel.clang_visitChildren rootCursor visit
-      traceWith tracer $
-        maybe (ResolveHeaderNotFound target) (ResolveHeaderSuccess target) mPath
-      return mPath
+  -> Set HashIncludeArg
+  -> IO (Map HashIncludeArg SourcePath)
+resolveHeaders tracer args headers =
+      fmap (fromMaybe Map.empty)
+    . withClang' (contramap ResolveHeaderClang tracer) clangSetup
+    $ \unit -> do
+        root     <- clang_getTranslationUnitCursor unit
+        includes <- Map.fromList <$> HighLevel.clang_visitChildren root visit
+        forM_ headerList $ \header ->
+            traceWith tracer
+          . maybe (ResolveHeaderNotFound header) (ResolveHeaderSuccess header)
+          $ Map.lookup header includes
+        return $ Just includes
   where
-    setup :: ClangSetup
-    setup = defaultClangSetup args $ ClangInputMemory "hs-bindgen-resolve.h" $
-              "#include <"  ++ getHashIncludeArg target ++ ">"
+    headerList :: [HashIncludeArg]
+    headerList = Set.toAscList headers
 
-    visit :: Fold IO SourcePath
-    visit = simpleFold $ \curr -> do
-        mResolved <- tryResolve target curr
-        case mResolved of
-          Nothing   -> foldContinue
-          Just path -> foldBreakWith path
+    rootHeaderName :: FilePath
+    rootHeaderName = "hs-bindgen-resolve.h"
 
-{-------------------------------------------------------------------------------
-  Internal: look for the relevant part of the clang AST
--------------------------------------------------------------------------------}
+    rootHeaderPath :: SourcePath
+    rootHeaderPath = SourcePath $ Text.pack rootHeaderName
 
--- | Try to resolve the target using the current cursor, if possible
-tryResolve ::
-     HashIncludeArg  -- ^ Path we want to resolve
-  -> CXCursor
-  -> IO (Maybe SourcePath)
-tryResolve target curr = runMaybeT $ do
-    srcPath     <- singleLocPath  <$> HighLevel.clang_getCursorLocation' curr
-    eCursorKind <- fromSimpleEnum <$> clang_getCursorKind curr
-    displayName <- clang_getCursorDisplayName curr
-    path        <- clang_getFileName =<< clang_getIncludedFile curr
+    rootHeaderContent :: String
+    rootHeaderContent = unlines [
+        "#include <" ++ getHashIncludeArg header ++ ">"
+      | header <- headerList
+      ]
 
-    -- Skip builtin macros
-    when (nullSourcePath srcPath) $
-      cannotResolve
-    -- Only parse the generated header
-    unless (srcPath == SourcePath (Text.pack "hs-bindgen-resolve.h")) $
-      cannotResolve
-    -- Only parse the inclusion directive
-    unless (eCursorKind == Right CXCursor_InclusionDirective) $
-      cannotResolve
-    -- Check that the inclusion directive is for the specified header
-    unless (displayName == target') $
-      cannotResolve
-    -- Check that the included header was found
-    when (Text.null path) $
-      cannotResolve
+    clangSetup :: ClangSetup
+    clangSetup = defaultClangSetup args $
+      ClangInputMemory rootHeaderName rootHeaderContent
 
-    return $ SourcePath path
-  where
-    target' :: Text
-    target' = Text.pack $ getHashIncludeArg target
-
-    cannotResolve :: MaybeT IO ()
-    cannotResolve = MaybeT $ return Nothing
+    visit :: Fold IO (HashIncludeArg, SourcePath)
+    visit = simpleFold $ \curr ->
+      maybe foldContinue foldContinueWith <=< runMaybeT $ do
+        loc  <- clang_getCursorLocation curr
+        sloc <- HighLevel.clang_getExpansionLocation loc
+        let srcPath = singleLocPath sloc
+        -- Skip builtin macros
+        guard $ not (nullSourcePath srcPath)
+        -- Only process the root header
+        guard $ srcPath == rootHeaderPath
+        -- Only process inclusion directives
+        guard . (== Right CXCursor_InclusionDirective) . fromSimpleEnum
+          =<< clang_getCursorKind curr
+        -- Only process when resolved
+        path <- clang_getFileName =<< clang_getIncludedFile curr
+        guard $ not (Text.null path)
+        -- Process include
+        header <- maybe (panicIO "resolveHeaders unknown include") return $
+          headerList !? (singleLocLine sloc - 1)
+        return (header, SourcePath path)

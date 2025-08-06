@@ -5,6 +5,7 @@ module HsBindgen.Clang (
   , ClangInput(..)
   , defaultClangSetup
   , withClang
+  , withClang'
     -- * Trace messages
   , ClangMsg(..)
   , ExtraClangArgsMsg(..)
@@ -53,29 +54,57 @@ defaultClangSetup clangArgs clangInput = ClangSetup{
     , clangFlags = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
     }
 
+-- | Call clang to parse with the specified 'ClangSetup'
+--
+-- All diagnostics are traced.  'Nothing' is returned if any of them are errors.
+-- The specified continuation is called only when there are no error
+-- diagnostics.
 withClang :: forall a.
      Tracer IO ClangMsg
   -> ClangSetup
   -> (CXTranslationUnit -> IO (Maybe a))
   -> IO (Maybe a)
-withClang tracer setup k =
+withClang tracer setup k = withClang' tracer setup $ \unit -> do
+    anyIsError <- traceDiagnostics unit
+    if anyIsError
+      then return Nothing
+      else k unit
+  where
+    traceDiagnostics :: CXTranslationUnit -> IO Bool
+    traceDiagnostics unit =
+        go False =<< HighLevel.clang_getDiagnostics unit Nothing
+      where
+        go :: Bool -> [Diagnostic] -> IO Bool
+        go !anyIsError []     = return anyIsError
+        go !anyIsError (d:ds) = do
+            traceWith (contramap ClangDiagnostic tracer) d
+            go (anyIsError || diagnosticIsError d) ds
+
+-- | Call clang to parse with the specified 'ClangSetup'
+--
+-- Diagnostics are not traced, and the specified continuation is called even if
+-- there are error diagnostics.
+--
+-- This function is needed for @resolveHeaders@, where we need the paths for the
+-- resolved headers even if some headers are not found.
+withClang' :: forall a.
+     Tracer IO ClangMsg
+  -> ClangSetup
+  -> (CXTranslationUnit -> IO (Maybe a))
+  -> IO (Maybe a)
+withClang' tracer setup k =
     withExtraClangArgs (contramap ClangExtraArgs tracer) clangArgs $ \args  ->
     HighLevel.withIndex clangDiagnostics $ \index -> do
       let withUnit :: SourcePath -> [CXUnsavedFile] -> IO (Maybe a)
           withUnit path unsaved =
-               HighLevel.withTranslationUnit2
-                 index
-                 (Just path)
-                 args
-                 unsaved
-                 clangFlags
-                 onErrorCode
-                 ( \unit -> do
-                      anyIsError <- traceDiagnostics unit
-                      if anyIsError
-                        then return Nothing
-                        else k unit
-                 )
+             HighLevel.withTranslationUnit2
+               index
+               (Just path)
+               args
+               unsaved
+               clangFlags
+               onErrorCode
+               k
       case clangInput of
         ClangInputFile path ->
           withUnit path []
@@ -94,16 +123,6 @@ withClang tracer setup k =
     onErrorCode err = do
         traceWith tracer $ ClangErrorCode err
         return Nothing
-
-    traceDiagnostics :: CXTranslationUnit -> IO Bool
-    traceDiagnostics unit = do
-        go False =<< HighLevel.clang_getDiagnostics unit Nothing
-      where
-        go :: Bool -> [Diagnostic] -> IO Bool
-        go !anyIsError []     = return anyIsError
-        go !anyIsError (d:ds) = do
-            traceWith (contramap ClangDiagnostic tracer) d
-            go (anyIsError || diagnosticIsError d) ds
 
 {-------------------------------------------------------------------------------
   Log messages

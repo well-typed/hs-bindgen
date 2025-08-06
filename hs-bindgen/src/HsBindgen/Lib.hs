@@ -6,7 +6,7 @@
 module HsBindgen.Lib (
     -- * Run @hs-bindgen@
     HsBindgen.hsBindgen
-  , resolveHeader
+  , resolveHeaders
   , HsBindgen.Artefact(..)
   , HsBindgen.Artefacts
 
@@ -125,6 +125,9 @@ module HsBindgen.Lib (
   , HsBindgen.NP (..)
   ) where
 
+import Data.Map.Strict (Map)
+import Data.Set (Set)
+
 import HsBindgen.Common qualified as Common
 
 import HsBindgen qualified
@@ -137,12 +140,12 @@ import HsBindgen.Util.Tracer qualified as Tracer
 import Clang.Paths qualified as Paths
 import HsBindgen.Resolve qualified as Resolve
 
--- | Resolve a header, used for debugging
-resolveHeader ::
+-- | Resolve headers, used for debugging
+resolveHeaders ::
      Tracer.Tracer IO Common.ResolveHeaderMsg
   -> Common.ClangArgs
-  -> Common.HashIncludeArg -- ^ The header we want to resolve
-  -> IO (Maybe FilePath)
-resolveHeader tracer args path =
+  -> Set Common.HashIncludeArg
+  -> IO (Map Common.HashIncludeArg FilePath)
+resolveHeaders tracer args headers =
     fmap Paths.getSourcePath <$>
-      Resolve.resolveHeader tracer args path
+      Resolve.resolveHeaders tracer args headers
