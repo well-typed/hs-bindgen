@@ -12,6 +12,8 @@ import Data.Generics qualified as SYB
 import Control.Monad (join)
 import Control.Monad.State.Strict (State, get, put, runState)
 
+import Clang.Version
+
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import Language.Haskell.TH.PprLib qualified as TH
@@ -60,7 +62,7 @@ check testResources test =
                   ++ convertWindows (makeRelative pkgroot fp)
                 | fp <- dependencyFiles
                 ]
-              , [ "-- " ++ l
+              , [ "-- " ++ normalizeQuotes l
                 | src <- cSources, l <- lines src
                 ]
               , [ show $ prettyWithDocumentationMap True documentationMap d
@@ -74,6 +76,25 @@ check testResources test =
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".th.txt")
+
+    -- Clang version 19 uses <> for some reason.
+    --
+    -- If generating Golden tests from an older clang (e.g. 19) version then
+    -- this is needed.
+    --
+    normalizeQuotes :: String -> String
+    normalizeQuotes =
+      case clangVersion of
+        ClangVersionUnknown _ -> id
+        ClangVersion v
+          -- Put your clang version here
+          | v >= (19, 0 ,0) -> go False
+          | otherwise       -> id
+      where
+        go _ [] = []
+        go False ('"':xs) = '<' : go True xs
+        go True ('"':xs) = '>' : go False xs
+        go inBracket (x:xs) = x : go inBracket xs
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: manipulate output
@@ -149,7 +170,7 @@ instance Guasi Qu where
                 }
         return dec
 
-    withFieldDoc docLoc s = Qu $ do
+    putFieldDoc docLoc s = Qu $ do
         q@QuState{ documentationMap = docMap } <- get
         put $!
           q { documentationMap =

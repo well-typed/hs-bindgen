@@ -105,7 +105,7 @@ instance Pretty ImportListItem where
   Comment pretty-printing
 -------------------------------------------------------------------------------}
 
--- | Here we generate valid Haddock for 'Hs.Comment'. There are roughly 3 types
+-- | Here we generate valid Haddock for 'Hs.Comment'. There are roughly 4 types
 -- of Haddocks that we might be able to generate:
 --
 -- * Module Description Commments: Unfortunately, libclang doesn't allow us to
@@ -119,6 +119,10 @@ instance Pretty ImportListItem where
 --
 -- * Parts of a Declaration Comments: In addition to documenting the whole
 -- declaration, in some cases we can also document individual parts of the declaration.
+--
+-- * Template Haskell Comments: These comments can be either top level or
+-- parts of a declaration, but won't carry any specific documentation string
+-- like \"--\".
 
 -- As mentioned above Libclang can only parse comments that immediately before
 -- a supported declaration. Any comments before a not supported declaration,
@@ -130,9 +134,16 @@ instance Pretty ImportListItem where
 --
 data CommentKind
   = TopLevelComment Hs.Comment
+    -- ^ Comments that will beging with \"{-|\" for top level declarations
   | PartOfDeclarationComment Hs.Comment
+    -- ^ Comments that will beging with \"{-^\" for fields and part of
+    -- declarations
   | THComment Hs.Comment
+    -- ^ Comments that will not begin with any specific documentation string
+    -- since they will be taken care of by Template Haskell
 
+-- Once #947 is done this won't be needed
+--
 prettyCommentKind :: Bool -> CommentKind -> CtxDoc
 prettyCommentKind includeCName commentKind =
   let (commentStart, commentEnd, Hs.Comment {..}) =
@@ -169,11 +180,7 @@ instance Pretty Hs.CommentBlockContent where
                            $ paragraphContent
     Hs.CodeBlock{..}      -> vcat
                            $ ["@"]
-                          ++ map (\s -> (if Text.null s
-                                            then nest minBound
-                                            else id)
-                                      $ textToCtxDoc s
-                                 ) codeBlockLines
+                          ++ map textToCtxDoc codeBlockLines
                           ++ ["@"]
     Hs.Verbatim{..}       -> ">" <+> textToCtxDoc verbatimContent
     Hs.Example{..}        -> ">>>" <+> textToCtxDoc exampleContent

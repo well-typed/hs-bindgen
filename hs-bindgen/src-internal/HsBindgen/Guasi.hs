@@ -31,9 +31,9 @@ class TH.Quote g => Guasi g where
     withDecDoc   :: Maybe Comment -> g TH.Dec -> g TH.Dec
 
     -- | Attach a documentation string to a 'TH.DocLoc'. This is mostly used
-    -- for fields.
+    -- for data structure fields.
     --
-    withFieldDoc :: TH.DocLoc -> Maybe Comment -> g ()
+    putFieldDoc :: TH.DocLoc -> Maybe Comment -> g ()
 
 -- |
 --
@@ -55,7 +55,7 @@ instance Guasi TH.Q where
 
     withDecDoc mbComment =
       TH.withDecDoc (maybe "" (show . pretty . THComment) mbComment)
-    withFieldDoc docLoc mbComment =
+    putFieldDoc docLoc mbComment =
       TH.addModFinalizer $
         TH.putDoc docLoc (maybe "" (show . pretty . THComment) mbComment)
 

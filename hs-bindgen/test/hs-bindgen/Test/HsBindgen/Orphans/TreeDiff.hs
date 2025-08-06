@@ -69,6 +69,8 @@ instance ToExpr C.CommentBlockContent
 -- troublesome for golden tests because they won't run on the same machine who
 -- generated the fixtures. With this being said, we remove the commentCName
 -- from the picture.
+--
+-- Once #947 is done this won't be needed
 instance ToExpr C.Comment where
   toExpr C.Comment{..} =
     toExpr commentChildren

@@ -182,7 +182,16 @@ dL $$ dR = CtxDoc $ \ctx ->
 vcat :: [CtxDoc] -> CtxDoc
 vcat = \case
     [] -> empty
-    ds -> CtxDoc $ \ctx -> foldl1 (PP.$+$) $ map (runCtxDoc ctx) ds
+    ds -> CtxDoc $ \ctx -> foldl1 aux $ map (runCtxDoc ctx) ds
+  where
+    -- If there are empty spaces, aka newlines we won't create extra
+    -- unneded whitespaces
+    aux :: PP.Doc -> PP.Doc -> PP.Doc
+    aux dL dR
+        | dL == "" && dR == "" = PP.nest minBound dL PP.$+$ PP.nest minBound dR
+        | dL == ""             = PP.nest minBound dL PP.$+$ dR
+        | dR == ""             = dL PP.$+$ PP.nest minBound dR
+        | otherwise            = dL PP.$+$ dR
 
 -- | Vertically join two documents, separating by a blank line
 infixl 5 $+$
@@ -191,6 +200,9 @@ dL $+$ dR = CtxDoc $ \ctx ->
     runCtxDoc ctx dL PP.$+$ PP.nest minBound "" PP.$+$ runCtxDoc ctx dR
 
 -- | Vertically join documents, separating by blank lines
+--
+-- If there the context is nested the new line won't create unneded empty
+-- spaces.
 vsep :: [CtxDoc] -> CtxDoc
 vsep = \case
     [] -> empty

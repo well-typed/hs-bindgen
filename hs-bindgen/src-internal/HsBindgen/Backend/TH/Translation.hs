@@ -54,6 +54,7 @@ import HsBindgen.Runtime.SizedByteArray      qualified
 
 import DeBruijn (Env (..), lookupEnv, EmptyCtx, Add (..))
 import GHC.Exts (Int(..), sizeofByteArray#)
+import HsBindgen.Hs.Haddock.Documentation (Comment)
 
 {-------------------------------------------------------------------------------
   Backend definition
@@ -507,27 +508,30 @@ mkDecl = \case
           TH.instanceD (return [])
                        (appsT (TH.conT $ mkGlobal $ instanceClass i)
                            (map (mkType EmptyEnv) $ instanceArgs i))
-                       ( map ( withDecDoc instComment
-                             . instTySyn
-                             )
-                             (instanceTypes i)
+                       -- Workaround for issue #976
+                       ( ( (\case
+                              (h:t) -> withDecDoc instComment h : t
+                              x     -> x
+                           )
+                         $ map instTySyn (instanceTypes i)
+                         )
                            ++ map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
                          )
       DRecord d -> do
-        let _fieldsAndDocs :: ([q TH.VarBangType], [q ()])
+        let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe Comment)])
             _fieldsAndDocs@(fields, docs) = unzip
               [ ( TH.varBangType thFieldName $
                     TH.bangType
                       (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                       (mkType EmptyEnv (fieldType f))
-                , withFieldDoc (TH.DeclDoc thFieldName) fComment
+                , ((TH.DeclDoc thFieldName), fComment)
                 )
               | f <- dataFields d
               , let thFieldName = hsNameToTH (fieldName f)
                     fComment = fieldComment f
               ]
 
-        sequence_ docs
+        traverse_ (uncurry putFieldDoc) docs
 
         fmap singleton $
           withDecDoc (dataComment d) $
@@ -558,7 +562,7 @@ mkDecl = \case
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv (fieldType (newtypeField n)))
 
-        withFieldDoc (TH.DeclDoc thFieldName) fComment
+        putFieldDoc (TH.DeclDoc thFieldName) fComment
 
         fmap singleton $
           withDecDoc newTyComment $
