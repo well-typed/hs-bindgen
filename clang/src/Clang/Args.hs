@@ -43,8 +43,12 @@ data ClangArgs = ClangArgs {
       -- | Enable GNU extensions when 'True'
     , clangEnableGnu :: Bool
 
-      -- | Enable both standard system @#include@ directories and builtin
-      -- @#include@ directories (@False@ will pass @-nostdinc@)
+      -- | Enable default standard system directories
+      --
+      -- Note that @libclang@ does not configure compiler builtin directories by
+      -- default.
+      --
+      -- Setting this value to @False@ passes the @-nostdinc@ Clang option.
     , clangStdInc :: Bool
 
       -- | Directories that will be added to the include search path

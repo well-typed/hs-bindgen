@@ -18,9 +18,9 @@ The following terminology is used by `hs-bindgen`.
   that there may be whitespace between the `#` and `include`, used to visually
   format blocks within macro logic.
 
-* __System include__: A system include is the inclusion of a header using an
+* __Bracket include__: A bracket include is the inclusion of a header using an
   include directive of the form `#include <stdio.h>`.  `hs-bindgen` only uses
-  system includes.
+  bracket includes.
 
 * __Quote include__: A quote include is the inclusion of a header using an
   include directive of the form `#include "stdio.h"`.  While `hs-bindgen` does
@@ -44,36 +44,43 @@ The following terminology is used by `hs-bindgen`.
   directories that are in a C include search path by default.  They generally
   include *standard system directories* and *compiler builtin directories*.
 
+* __System header__: A system header is essentially a header that a user cannot
+  easily change themselves.  Clang distinguishes system headers so that it can
+  suppress warnings that originate with them, which it does by default.
+
 ## Clang
 
-Clang maintains two separate C include search paths:
+This section describes common Clang usage.  See [Clang documentation][] for
+additional information.  See the `hs-bindgen` section below for details about
+how to configure Clang via `hs-bindgen`.
 
-* The *system C include search path* initially contains some default include
-  directories.
-* The *quote C include search path* is initially empty.
+[Clang documentation]: <https://clang.llvm.org/docs/index.html>
 
-Clang modifies these C include search paths based on command-line options and
-environment variables, described below.  In general, precedence for each type of
-C include search path is as follows:
+Clang maintains separate C include search paths.
 
-1. Directories specified via command-line options
-2. Directories specified via environment variables
-3. Default include directories
+The *bracket C include search path* takes precedence in resolution of bracket
+includes.  Clang constructs it with the following order:
+
+1. Directories specified via `-I` command-line options
+2. Directories specified via `-isystem` command-line options
+3. Directories specified via environment variables
+4. Default include directories
+5. Directories specified via `-idirafter` command-line options
+
+The *quote C include search path* takes precedence in resolution of quote
+includes.  Clang constructs it from `-iquote` command-line options.
 
 ### Clang command-line options
 
-This section describes *common* Clang command-line options for configuring C
-include search paths.  See the `hs-bindgen` section below for information about
-how to use these options via `hs-bindgen`.
+The following options are used to add a directory to a C include search path:
 
-The following are used to add a directory to a C include search path:
-
-* `-I <directory>` adds a directory to the system C include search path, with
-  precedence over the following options.
-* `-isystem <directory>` adds a directory to the system C include search path.
+* `-I <directory>` adds a directory to the bracket C include search path.
+* `-isystem <directory>` adds a directory to the bracket C include search path.
+  Headers resolved from the directory are considered system headers.
+* `-idirafter <directory>` adds a directory to the end of the bracket C include
+  search path.  Headers resolved from the directory are considered system
+  headers.
 * `-iquote <directory>` adds a directory to the quote C include search path.
-* `-idirafter <directory>` adds a directory to the end of the system C include
-  search path.
 
 These options can be passed multiple times, and the directories are added to
 the C include search paths in the same order.
@@ -92,8 +99,8 @@ Reference:
 ### Clang environment variables
 
 Environment variable `C_INCLUDE_PATH` is a delimited list of directory paths to
-be added to the system C include search path.  Environment variable `CPATH` does
-the same.
+be added to the bracket C include search path.  Environment variable `CPATH`
+does the same.
 
 Linux example:
 
@@ -114,14 +121,14 @@ example, putting a Clang compiler builtin directory in `C_INCLUDE_PATH` could
 result in errors when running `gcc` in the same shell.
 
 Note that there are also system-specific environment variables that may add to
-the system C include search path.
+the bracket C include search path.
 
 ### Clang header resolution
 
-Header resolution for a system include is done by searching for the specified
+Header resolution for a bracket include is done by searching for the specified
 header relative to the following directories:
 
-1. Directories in the system C include search path, in order
+1. Directories in the bracket C include search path, in order
 2. Directories in the quote C include search path, in order
 
 Header resolution for a quote include is done by searching for the specified
@@ -129,12 +136,12 @@ header relative to the following directories:
 
 1. Directory containing the header currently being processed
 2. Directories in the quote C include search path, in order
-3. Directories in the system C include search path, in order
+3. Directories in the bracket C include search path, in order
 4. Current working directory
 
 Quote includes are generally used for including headers within a C project.
 Since the directory containing the header currently being processed is checked
-first, one rarely has to configure a quote C include search path.  System
+first, one rarely has to configure a quote C include search path.  Bracket
 includes are generally used for including headers of dependencies, including
 standard headers.
 
@@ -163,7 +170,7 @@ Clang environment variables, described above.
 
 `hs-bindgen-cli` provides the following include options:
 
-* `-I <directory>` adds a directory to the system C include search path.
+* `-I <directory>` adds a directory to the bracket C include search path.
   (Clang option: `-I`)
 
 * `--no-stdinc` disables the default include directories.  (Clang option:
@@ -171,7 +178,17 @@ Clang environment variables, described above.
 
 Clang has many more include options, which may be passed via `--clang-option`
 options.  For example, Clang option `-idirafter` may be used to add a directory
-to the end of the system C include search path.
+to the end of the bracket C include search path.
+
+```
+$ hs-bindgen-cli preprocess \
+    --standard c23 \
+    -I include \
+    --clang-option="-idirafter/opt/acme-0.1.0/include" \
+    --module Foo \
+    --output Foo.hs \
+    foo.h
+```
 
 ### `hs-bindgen` environment variables
 
@@ -188,7 +205,7 @@ Precedence is as follows:
 Headers to translate are specified as arguments to `hs-bindgen-cli preprocess`
 or Template Haskell `hashInclude` function calls.  In addition, headers are
 specified in [Binding specifications][].  All of these headers are resolved
-via `libclang` using system includes.
+via `libclang` using bracket includes.
 
 [Binding specifications]: <BindingSpecifications.md>
 
@@ -201,7 +218,7 @@ file name.)
 For example, a best practice for Haskell projects is to store project C code in
 `include` and `cbits` directories, where the `include` directory contains the
 headers and the `cbits` directory contains the `.c` source.  That `include`
-directory should be added to the system C include search path, and header
+directory should be added to the bracket C include search path, and header
 arguments should be relative to it.  The following command runs the preprocessor
 on header `foo.h` in the `include` directory:
 
@@ -210,14 +227,14 @@ $ hs-bindgen-cli preprocess -I include foo.h
 ```
 
 This translates to include directive `#include <foo.h>`.  Header resolution
-searches for `foo.h` in the system C include search path and finds it in the
+searches for `foo.h` in the bracket C include search path and finds it in the
 `include` directory.
 
 Note that `hs-bindgen-cli preprocess include/foo.h` does not work in general,
 even though it is convenient to type with tab-completion.  It translates to
 include directive `#include <include/foo.h>`.  Header resolution searches for
-`include/foo.h` in the system C include search path, and it will not find
-`foo.h` unless you add the current working directory to the system C include
+`include/foo.h` in the bracket C include search path, and it will not find
+`foo.h` unless you add the current working directory to the bracket C include
 search path.
 
 A C include search path is used to search for C headers, so only adding
@@ -227,7 +244,7 @@ directory that contains many types of files (such as a Haskell project
 directory) is bad practice.  Command
 `hs-bindgen-cli preprocess -I . include/foo.h` is therefore a hack, but it works
 as long as `foo.h` (and any transitively included headers) do not rely on the
-`include` directory being in the system C include search path.
+`include` directory being in the bracket C include search path.
 
 ### CAPI
 
@@ -238,7 +255,7 @@ called, which generally defaults to GCC on Linux and Clang on Windows.  Check
 the "C compiler command" in the output of `ghc --info` to confirm which compiler
 is used.
 
-GHC passes `-I` options to the C compiler to configure the system C include
+GHC passes `-I` options to the C compiler to configure the bracket C include
 path.  These options are determined by configuration in the `.cabal` files for
 the package and all transitive dependencies, the `cabal.project` and
 `cabal.project.local` files for the project, and any command-line configuration
