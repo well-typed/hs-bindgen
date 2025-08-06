@@ -2,9 +2,9 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.C.Predicate (Predicate(..))
--- > import HsBindgen.C.Predicate qualified as Predicate
-module HsBindgen.C.Predicate (
+-- > import HsBindgen.Frontend.Predicate (Predicate(..))
+-- > import HsBindgen.Frontend.Predicate qualified as Predicate
+module HsBindgen.Frontend.Predicate (
     -- * Definition
     Predicate (..)
   , HeaderPathPredicate (..)

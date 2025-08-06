@@ -10,14 +10,14 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
 import Data.Default (Default (def))
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.C.Predicate (SelectPredicate)
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
-    ResolveBindingSpec, ResolvedExtBinding)
+import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpec,
+                                                          ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
+import HsBindgen.Frontend.Predicate (SelectPredicate)
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))
 

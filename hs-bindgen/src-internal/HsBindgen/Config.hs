@@ -8,8 +8,8 @@ import GHC.Generics (Generic)
 import Clang.Args
 import HsBindgen.Backend.PP.Render
 import HsBindgen.Backend.PP.Translation
-import HsBindgen.C.Predicate (ParsePredicate, SelectPredicate)
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
+import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
 import HsBindgen.Hs.Translation
 
 -- | Configuration of @hs-bindgen@.

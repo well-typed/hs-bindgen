@@ -79,7 +79,6 @@ library internal
       HsBindgen.BindingSpec.Private
       HsBindgen.BindingSpec.Private.Stdlib
       HsBindgen.C.Parser
-      HsBindgen.C.Predicate
       HsBindgen.Clang
       HsBindgen.Config
       HsBindgen.Config.FixCandidate
@@ -133,6 +132,7 @@ library internal
       HsBindgen.Frontend.Pass.Select.IsPass
       HsBindgen.Frontend.Pass.Sort
       HsBindgen.Frontend.Pass.Sort.IsPass
+      HsBindgen.Frontend.Predicate
       HsBindgen.Frontend.ProcessIncludes
       HsBindgen.Frontend.RootHeader
       HsBindgen.GenTests
