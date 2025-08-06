@@ -23,29 +23,41 @@
 -- __attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } 
 -- __attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } 
 -- __attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } 
+{-| Global variables
+
+-}
 foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal :: Ptr CInt
 data Config
     = Config {config_x :: CInt, config_y :: CInt}
     deriving stock (Eq, Show)
 instance Storable Config
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Config <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Config config_x_3
-                                            config_y_4 -> pokeByteOff ptr_1 (0 :: Int) config_x_3 >> pokeByteOff ptr_1 (4 :: Int) config_y_4}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Config <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Config config_x_3
+                                          config_y_4 -> pokeByteOff ptr_1 (0 :: Int) config_x_3 >> pokeByteOff ptr_1 (4 :: Int) config_y_4
 foreign import ccall safe "get_compoundGlobal1_ptr" compoundGlobal1 :: Ptr Config
 data Inline_struct
     = Inline_struct {inline_struct_x :: CInt, inline_struct_y :: CInt}
     deriving stock (Eq, Show)
 instance Storable Inline_struct
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Inline_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Inline_struct inline_struct_x_3
-                                                   inline_struct_y_4 -> pokeByteOff ptr_1 (0 :: Int) inline_struct_x_3 >> pokeByteOff ptr_1 (4 :: Int) inline_struct_y_4}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Inline_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Inline_struct inline_struct_x_3
+                                                 inline_struct_y_4 -> pokeByteOff ptr_1 (0 :: Int) inline_struct_x_3 >> pokeByteOff ptr_1 (4 :: Int) inline_struct_y_4
 foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2 :: Ptr Inline_struct
+{-| Non-extern non-static global variables
+
+  These kinds of variables need to be treated with care, to avoid duplicate symbols, but do exist in the wild.
+
+  We test with various kinds of initializers as we must explicitly ignore them in our parser. The list here roughly follows the definition of `CXCursor` [1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl' in `HsBindgen.Frontend.Pass.Parse.Decl`.
+
+  [1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
+
+-}
 foreign import ccall safe "get_nesInteger_ptr" nesInteger :: Ptr CInt
 foreign import ccall safe "get_nesFloating_ptr" nesFloating :: Ptr CFloat
 foreign import ccall safe "get_nesString1_ptr" nesString1 :: Ptr (Ptr CChar)
@@ -61,6 +73,13 @@ foreign import ccall safe "get_nesCompound_ptr" nesCompound :: Ptr (Ptr CInt)
 foreign import ccall safe "get_nesInitList_ptr" nesInitList :: Ptr (ConstantArray 4
                                                                                   HsBindgen.Runtime.Prelude.Word8)
 foreign import ccall safe "get_nesBool_ptr" nesBool :: Ptr CBool
+{-| Additional examples of global variables, abstracted from real examples
+
+  The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).
+
+  [1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325
+
+-}
 foreign import ccall safe "get_streamBinary_ptr" streamBinary :: Ptr (ConstantArray 4096
                                                                                     HsBindgen.Runtime.Prelude.Word8)
 foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len :: Ptr HsBindgen.Runtime.Prelude.Word32
@@ -70,33 +89,33 @@ data Version_t
                  version_t_patch :: HsBindgen.Runtime.Prelude.Word8}
     deriving stock (Eq, Show)
 instance Storable Version_t
-    where {sizeOf = \_ -> 6 :: Int;
-           alignment = \_ -> 2 :: Int;
-           peek = \ptr_0 -> ((pure Version_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (2 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Version_t version_t_major_3
-                                               version_t_minor_4
-                                               version_t_patch_5 -> pokeByteOff ptr_1 (0 :: Int) version_t_major_3 >> (pokeByteOff ptr_1 (2 :: Int) version_t_minor_4 >> pokeByteOff ptr_1 (4 :: Int) version_t_patch_5)}}
+    where sizeOf = \_ -> 6 :: Int
+          alignment = \_ -> 2 :: Int
+          peek = \ptr_0 -> ((pure Version_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (2 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Version_t version_t_major_3
+                                             version_t_minor_4
+                                             version_t_patch_5 -> pokeByteOff ptr_1 (0 :: Int) version_t_major_3 >> (pokeByteOff ptr_1 (2 :: Int) version_t_minor_4 >> pokeByteOff ptr_1 (4 :: Int) version_t_patch_5)
 data Struct1_t
     = Struct1_t {struct1_t_x :: HsBindgen.Runtime.Prelude.Word16,
                  struct1_t_y :: CBool,
                  struct1_t_version :: Version_t}
     deriving stock (Eq, Show)
 instance Storable Struct1_t
-    where {sizeOf = \_ -> 10 :: Int;
-           alignment = \_ -> 2 :: Int;
-           peek = \ptr_0 -> ((pure Struct1_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (2 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Struct1_t struct1_t_x_3
-                                               struct1_t_y_4
-                                               struct1_t_version_5 -> pokeByteOff ptr_1 (0 :: Int) struct1_t_x_3 >> (pokeByteOff ptr_1 (2 :: Int) struct1_t_y_4 >> pokeByteOff ptr_1 (4 :: Int) struct1_t_version_5)}}
+    where sizeOf = \_ -> 10 :: Int
+          alignment = \_ -> 2 :: Int
+          peek = \ptr_0 -> ((pure Struct1_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (2 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Struct1_t struct1_t_x_3
+                                             struct1_t_y_4
+                                             struct1_t_version_5 -> pokeByteOff ptr_1 (0 :: Int) struct1_t_x_3 >> (pokeByteOff ptr_1 (2 :: Int) struct1_t_y_4 >> pokeByteOff ptr_1 (4 :: Int) struct1_t_version_5)
 data Struct2_t
     = Struct2_t {struct2_t_field1 :: Struct1_t}
     deriving stock (Eq, Show)
 instance Storable Struct2_t
-    where {sizeOf = \_ -> 10 :: Int;
-           alignment = \_ -> 2 :: Int;
-           peek = \ptr_0 -> pure Struct2_t <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Struct2_t struct2_t_field1_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_t_field1_3}}
+    where sizeOf = \_ -> 10 :: Int
+          alignment = \_ -> 2 :: Int
+          peek = \ptr_0 -> pure Struct2_t <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Struct2_t struct2_t_field1_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_t_field1_3
 foreign import ccall safe "get_some_global_struct_ptr" some_global_struct :: Ptr Struct2_t

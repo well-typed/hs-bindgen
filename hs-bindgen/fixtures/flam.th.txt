@@ -1,52 +1,58 @@
 -- addDependentFile examples/golden/flam.h
 data Pascal = Pascal {pascal_len :: CInt} deriving stock (Eq, Show)
 instance Storable Pascal
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Pascal <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Pascal pascal_len_3 -> pokeByteOff ptr_1 (0 :: Int) pascal_len_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Pascal <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Pascal pascal_len_3 -> pokeByteOff ptr_1 (0 :: Int) pascal_len_3
 instance HasFlexibleArrayMember CChar Pascal
-    where {flexibleArrayMemberOffset = \_ty_0 -> 4}
+    where flexibleArrayMemberOffset = \_ty_0 -> 4
 data Foo_bar
     = Foo_bar {foo_bar_x :: CInt, foo_bar_y :: CInt}
     deriving stock (Eq, Show)
 instance Storable Foo_bar
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Foo_bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Foo_bar foo_bar_x_3
-                                             foo_bar_y_4 -> pokeByteOff ptr_1 (0 :: Int) foo_bar_x_3 >> pokeByteOff ptr_1 (4 :: Int) foo_bar_y_4}}
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Foo_bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo_bar foo_bar_x_3
+                                           foo_bar_y_4 -> pokeByteOff ptr_1 (0 :: Int) foo_bar_x_3 >> pokeByteOff ptr_1 (4 :: Int) foo_bar_y_4
 data Foo = Foo {foo_len :: CInt} deriving stock (Eq, Show)
 instance Storable Foo
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Foo foo_len_3 -> pokeByteOff ptr_1 (0 :: Int) foo_len_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo foo_len_3 -> pokeByteOff ptr_1 (0 :: Int) foo_len_3
 instance HasFlexibleArrayMember Foo_bar Foo
-    where {flexibleArrayMemberOffset = \_ty_0 -> 4}
+    where flexibleArrayMemberOffset = \_ty_0 -> 4
 data Diff
     = Diff {diff_first :: CLong, diff_second :: CChar}
     deriving stock (Eq, Show)
 instance Storable Diff
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure Diff <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Diff diff_first_3
-                                          diff_second_4 -> pokeByteOff ptr_1 (0 :: Int) diff_first_3 >> pokeByteOff ptr_1 (8 :: Int) diff_second_4}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Diff <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Diff diff_first_3
+                                        diff_second_4 -> pokeByteOff ptr_1 (0 :: Int) diff_first_3 >> pokeByteOff ptr_1 (8 :: Int) diff_second_4
 instance HasFlexibleArrayMember CChar Diff
-    where {flexibleArrayMemberOffset = \_ty_0 -> 9}
+    where flexibleArrayMemberOffset = \_ty_0 -> 9
+{-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
+
+-}
 data Triplets
     = Triplets {triplets_len :: CInt}
+      {- ^ The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
+
+      -}
     deriving stock (Eq, Show)
 instance Storable Triplets
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Triplets <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Triplets triplets_len_3 -> pokeByteOff ptr_1 (0 :: Int) triplets_len_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Triplets <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Triplets triplets_len_3 -> pokeByteOff ptr_1 (0 :: Int) triplets_len_3
 instance HasFlexibleArrayMember (ConstantArray 3 CInt) Triplets
-    where {flexibleArrayMemberOffset = \_ty_0 -> 4}
+    where flexibleArrayMemberOffset = \_ty_0 -> 4

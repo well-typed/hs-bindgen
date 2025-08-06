@@ -62,7 +62,19 @@ instance ToExpr C.CXCommentParamPassDirection
 instance ToExpr C.CommentInlineContent
 instance ToExpr C.CXCommentInlineCommandRenderKind
 instance ToExpr C.CommentBlockContent
-instance ToExpr C.Comment
+
+-- | If there are unnamed structures in the parsed C header files, then
+-- 'C.Comment.commentCName' is going to point to an absolute path and line
+-- number where the said structure is defined. This absolute path is
+-- troublesome for golden tests because they won't run on the same machine who
+-- generated the fixtures. With this being said, we remove the commentCName
+-- from the picture.
+--
+-- Once #947 is done this won't be needed
+instance ToExpr C.Comment where
+  toExpr C.Comment{..} =
+    toExpr commentChildren
+
 instance ToExpr C.Decl
 instance ToExpr C.DeclInfo
 instance ToExpr C.DeclKind

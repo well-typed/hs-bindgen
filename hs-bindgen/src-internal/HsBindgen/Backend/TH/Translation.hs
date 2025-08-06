@@ -54,6 +54,7 @@ import HsBindgen.Runtime.SizedByteArray      qualified
 
 import DeBruijn (Env (..), lookupEnv, EmptyCtx, Add (..))
 import GHC.Exts (Int(..), sizeofByteArray#)
+import HsBindgen.Hs.Haddock.Documentation (Comment)
 
 {-------------------------------------------------------------------------------
   Backend definition
@@ -490,99 +491,147 @@ mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
-      DVar Var {..} -> sequence
-          [ TH.sigD (hsNameToTH varName) (mkType EmptyEnv varType)
-          , simpleDecl (hsNameToTH varName) varExpr
+      DVar Var {..} -> do
+        let thVarName = hsNameToTH varName
+
+        sequence $
+          [ withDecDoc varComment $
+              TH.sigD thVarName (mkType EmptyEnv varType)
+          , simpleDecl thVarName varExpr
           ]
 
-      DInst i  -> singleton <$> TH.instanceD
-                    (return [])
-                    (appsT (TH.conT $ mkGlobal $ instanceClass i)
-                        (map (mkType EmptyEnv) $ instanceArgs i))
-                    ( map instTySyn (instanceTypes i)
-                        ++ map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
-                    )
-      DRecord d ->
-        let fields :: [q TH.VarBangType]
-            fields =
-              [ TH.varBangType (hsNameToTH (fieldName f)) $
-                  TH.bangType
-                    (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
-                    (mkType EmptyEnv (fieldType f))
+      DInst i  -> do
+
+        let instComment = instanceComment i
+
+        fmap singleton $
+          TH.instanceD (return [])
+                       (appsT (TH.conT $ mkGlobal $ instanceClass i)
+                           (map (mkType EmptyEnv) $ instanceArgs i))
+                       -- Workaround for issue #976
+                       ( ( (\case
+                              (h:t) -> withDecDoc instComment h : t
+                              x     -> x
+                           )
+                         $ map instTySyn (instanceTypes i)
+                         )
+                           ++ map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
+                         )
+      DRecord d -> do
+        let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe Comment)])
+            _fieldsAndDocs@(fields, docs) = unzip
+              [ ( TH.varBangType thFieldName $
+                    TH.bangType
+                      (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
+                      (mkType EmptyEnv (fieldType f))
+                , ((TH.DeclDoc thFieldName), fComment)
+                )
               | f <- dataFields d
+              , let thFieldName = hsNameToTH (fieldName f)
+                    fComment = fieldComment f
               ]
-        in singleton <$>
-          TH.dataD
-            (TH.cxt [])
-            (hsNameToTH $ dataType d)
-            []
-            Nothing
-            [TH.recC (hsNameToTH (dataCon d)) fields]
-            (nestedDeriving $ dataDeriv d)
 
-      DEmptyData d -> singleton <$>
-          TH.dataD (TH.cxt []) (hsNameToTH (emptyDataName d)) [] Nothing [] []
+        traverse_ (uncurry putFieldDoc) docs
 
-      DNewtype n ->
-        let field :: q TH.VarBangType
-            field = TH.varBangType (hsNameToTH (fieldName (newtypeField n))) $
+        fmap singleton $
+          withDecDoc (dataComment d) $
+            TH.dataD
+              (TH.cxt [])
+              (hsNameToTH $ dataType d)
+              []
+              Nothing
+              [TH.recC (hsNameToTH (dataCon d)) fields]
+              (nestedDeriving $ dataDeriv d)
+
+      DEmptyData d -> do
+
+        let thEmptyDataName = hsNameToTH (emptyDataName d)
+
+        fmap singleton $
+          withDecDoc (emptyDataComment d) $
+            TH.dataD (TH.cxt []) thEmptyDataName [] Nothing [] []
+
+      DNewtype n -> do
+        let thFieldName = hsNameToTH (fieldName (newtypeField n))
+            thNewtypeName = hsNameToTH $ newtypeName n
+            fComment = fieldComment (newtypeField n)
+            newTyComment = newtypeComment n
+            field :: q TH.VarBangType
+            field = TH.varBangType thFieldName $
               TH.bangType
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv (fieldType (newtypeField n)))
-        in singleton <$>
-             TH.newtypeD
-               (TH.cxt [])
-               (hsNameToTH $ newtypeName n)
-               []
-               Nothing
-               (TH.recC (hsNameToTH (newtypeCon n))
-               [field])
-               (nestedDeriving $ newtypeDeriv n)
+
+        putFieldDoc (TH.DeclDoc thFieldName) fComment
+
+        fmap singleton $
+          withDecDoc newTyComment $
+            TH.newtypeD
+              (TH.cxt [])
+              thNewtypeName
+              []
+              Nothing
+              (TH.recC (hsNameToTH (newtypeCon n))
+              [field])
+              (nestedDeriving $ newtypeDeriv n)
 
       DDerivingInstance DerivingInstance {..} -> do
-          s' <- strategy derivingInstanceStrategy
-          singleton <$> TH.standaloneDerivWithStrategyD (Just s') (TH.cxt []) (mkType EmptyEnv derivingInstanceType)
+        s' <- strategy derivingInstanceStrategy
 
-      DForeignImport ForeignImport {..} -> fmap (singleton . TH.ForeignD) $ do
-          -- Variable names here refer to the syntax of foreign declarations at
-          -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
-          --
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
-          -- We should generate both safe and unsafe bindings.
-          let safety :: TH.Safety
-              safety = TH.Safe
+        fmap singleton $
+          withDecDoc derivingInstanceComment $
+            TH.standaloneDerivWithStrategyD
+              (Just s')
+              (TH.cxt [])
+              (mkType EmptyEnv derivingInstanceType)
 
-              callconv :: TH.Callconv
-              impent   :: String
-              (callconv, impent) =
-                case foreignImportCallConv of
-                  CallConvUserlandCAPI -> (TH.CCall,
-                      Text.unpack foreignImportOrigName
-                    )
-                  CallConvGhcCAPI header -> (TH.CApi, concat [
-                      header
-                    , Text.unpack foreignImportOrigName
-                    ])
-                  CallConvGhcCCall style -> (TH.CCall, concat [
-                      case style of
-                        ImportAsValue -> ""
-                        ImportAsPtr   -> "&"
-                    , Text.unpack foreignImportOrigName
-                    ])
+      DForeignImport ForeignImport {..} -> do
+        -- Variable names here refer to the syntax of foreign declarations at
+        -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
+        --
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
+        -- We should generate both safe and unsafe bindings.
+        let safety :: TH.Safety
+            safety = TH.Safe
 
-          TH.ImportF
-            <$> pure callconv
-            <*> pure safety
-            <*> pure impent
-            <*> pure (hsNameToTH foreignImportName)
-            <*> mkType EmptyEnv foreignImportType
+            callconv :: TH.Callconv
+            impent   :: String
+            (callconv, impent) =
+              case foreignImportCallConv of
+                CallConvUserlandCAPI -> (TH.CCall,
+                    Text.unpack foreignImportOrigName
+                  )
+                CallConvGhcCAPI header -> (TH.CApi, concat [
+                    header
+                  , Text.unpack foreignImportOrigName
+                  ])
+                CallConvGhcCCall style -> (TH.CCall, concat [
+                    case style of
+                      ImportAsValue -> ""
+                      ImportAsPtr   -> "&"
+                  , Text.unpack foreignImportOrigName
+                  ])
 
-      DPatternSynonym ps -> sequence
-          [ TH.patSynSigD
-            (hsNameToTH (patSynName ps))
-            (mkType EmptyEnv (patSynType ps))
+        fmap singleton $
+          withDecDoc foreignImportComment $
+            fmap TH.ForeignD $
+              TH.ImportF
+                <$> pure callconv
+                <*> pure safety
+                <*> pure impent
+                <*> pure (hsNameToTH foreignImportName)
+                <*> mkType EmptyEnv foreignImportType
+
+      DPatternSynonym ps -> do
+        let thPatSynName = hsNameToTH (patSynName ps)
+
+        sequence
+          [ withDecDoc (patSynComment ps) $
+              TH.patSynSigD
+              thPatSynName
+              (mkType EmptyEnv (patSynType ps))
           , TH.patSynD
-            (hsNameToTH (patSynName ps))
+            thPatSynName
             (TH.prefixPatSyn [])
             TH.implBidir
             (mkPat (patSynRHS ps))

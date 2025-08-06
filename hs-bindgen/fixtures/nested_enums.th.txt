@@ -1,69 +1,71 @@
 -- addDependentFile examples/golden/nested_enums.h
 newtype EnumA = EnumA {un_EnumA :: CUInt} deriving stock (Eq, Ord)
 instance Storable EnumA
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3
 instance CEnum EnumA
-    where {type CEnumZ EnumA = CUInt;
-           toCEnum = EnumA;
-           fromCEnum = un_EnumA;
-           declaredValues = \_ -> declaredValuesFromList [(0,
-                                                           singleton "VALA_1"),
-                                                          (1, singleton "VALA_2")];
-           showsUndeclared = showsWrappedUndeclared "EnumA";
-           readPrecUndeclared = readPrecWrappedUndeclared "EnumA";
-           isDeclared = seqIsDeclared;
-           mkDeclared = seqMkDeclared}
+    where type CEnumZ EnumA = CUInt
+          toCEnum = EnumA
+          fromCEnum = un_EnumA
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "VALA_1"),
+                                                         (1, singleton "VALA_2")]
+          showsUndeclared = showsWrappedUndeclared "EnumA"
+          readPrecUndeclared = readPrecWrappedUndeclared "EnumA"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
 instance SequentialCEnum EnumA
-    where {minDeclaredValue = VALA_1; maxDeclaredValue = VALA_2}
+    where minDeclaredValue = VALA_1
+          maxDeclaredValue = VALA_2
 instance Show EnumA
-    where {showsPrec = showsCEnum}
+    where showsPrec = showsCEnum
 instance Read EnumA
-    where {readPrec = readPrecCEnum;
-           readList = readListDefault;
-           readListPrec = readListPrecDefault}
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
 pattern VALA_1 :: EnumA
 pattern VALA_1 = EnumA 0
 pattern VALA_2 :: EnumA
 pattern VALA_2 = EnumA 1
 data ExA = ExA {exA_fieldA1 :: EnumA} deriving stock (Eq, Show)
 instance Storable ExA
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure ExA <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {ExA exA_fieldA1_3 -> pokeByteOff ptr_1 (0 :: Int) exA_fieldA1_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure ExA <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   ExA exA_fieldA1_3 -> pokeByteOff ptr_1 (0 :: Int) exA_fieldA1_3
 newtype ExB_fieldB1
     = ExB_fieldB1 {un_ExB_fieldB1 :: CUInt}
     deriving stock (Eq, Ord)
 instance Storable ExB_fieldB1
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure ExB_fieldB1 <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {ExB_fieldB1 un_ExB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) un_ExB_fieldB1_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure ExB_fieldB1 <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   ExB_fieldB1 un_ExB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) un_ExB_fieldB1_3
 instance CEnum ExB_fieldB1
-    where {type CEnumZ ExB_fieldB1 = CUInt;
-           toCEnum = ExB_fieldB1;
-           fromCEnum = un_ExB_fieldB1;
-           declaredValues = \_ -> declaredValuesFromList [(0,
-                                                           singleton "VALB_1"),
-                                                          (1, singleton "VALB_2")];
-           showsUndeclared = showsWrappedUndeclared "ExB_fieldB1";
-           readPrecUndeclared = readPrecWrappedUndeclared "ExB_fieldB1";
-           isDeclared = seqIsDeclared;
-           mkDeclared = seqMkDeclared}
+    where type CEnumZ ExB_fieldB1 = CUInt
+          toCEnum = ExB_fieldB1
+          fromCEnum = un_ExB_fieldB1
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "VALB_1"),
+                                                         (1, singleton "VALB_2")]
+          showsUndeclared = showsWrappedUndeclared "ExB_fieldB1"
+          readPrecUndeclared = readPrecWrappedUndeclared "ExB_fieldB1"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
 instance SequentialCEnum ExB_fieldB1
-    where {minDeclaredValue = VALB_1; maxDeclaredValue = VALB_2}
+    where minDeclaredValue = VALB_1
+          maxDeclaredValue = VALB_2
 instance Show ExB_fieldB1
-    where {showsPrec = showsCEnum}
+    where showsPrec = showsCEnum
 instance Read ExB_fieldB1
-    where {readPrec = readPrecCEnum;
-           readList = readListDefault;
-           readListPrec = readListPrecDefault}
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
 pattern VALB_1 :: ExB_fieldB1
 pattern VALB_1 = ExB_fieldB1 0
 pattern VALB_2 :: ExB_fieldB1
@@ -72,8 +74,8 @@ data ExB
     = ExB {exB_fieldB1 :: ExB_fieldB1}
     deriving stock (Eq, Show)
 instance Storable ExB
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure ExB <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {ExB exB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) exB_fieldB1_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure ExB <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   ExB exB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) exB_fieldB1_3

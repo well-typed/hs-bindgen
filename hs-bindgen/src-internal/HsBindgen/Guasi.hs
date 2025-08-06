@@ -3,9 +3,14 @@ module HsBindgen.Guasi (
 ) where
 
 import Data.Char (toLower, isLetter)
+import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 
 import HsBindgen.ModuleUnique
+import HsBindgen.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.PP.Render (CommentKind(..))
+
+import Text.SimplePrettyPrint (pretty)
 
 -- | An intermediate class between 'TH.Quote' and 'TH.Quasi'
 -- which doesn't provide reification functionality of 'TH.Quasi',
@@ -20,6 +25,15 @@ class TH.Quote g => Guasi g where
     extsEnabled :: g [TH.Extension]
     reportError :: String -> g ()
     addCSource :: String -> g ()
+
+    -- | Attach a documentation string to a declaration
+    --
+    withDecDoc   :: Maybe Comment -> g TH.Dec -> g TH.Dec
+
+    -- | Attach a documentation string to a 'TH.DocLoc'. This is mostly used
+    -- for data structure fields.
+    --
+    putFieldDoc :: TH.DocLoc -> Maybe Comment -> g ()
 
 -- |
 --
@@ -38,6 +52,12 @@ instance Guasi TH.Q where
     reportError = TH.reportError
 
     addCSource = TH.addForeignSource TH.LangC
+
+    withDecDoc mbComment =
+      TH.withDecDoc (maybe "" (show . pretty . THComment) mbComment)
+    putFieldDoc docLoc mbComment =
+      TH.addModFinalizer $
+        TH.putDoc docLoc (maybe "" (show . pretty . THComment) mbComment)
 
 mapHead :: (a -> a) -> [a] -> [a]
 mapHead _ []     = []

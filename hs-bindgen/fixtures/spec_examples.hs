@@ -27,13 +27,11 @@
           declAliases = [],
           declHeader = "spec_examples.h",
           declComment = Just
-            Comment {
-              commentCName = "int16_T",
-              commentChildren = [
-                Paragraph
-                  [
-                    TextContent
-                      "Examples from the initial specification"]]}},
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Examples from the initial specification"]]},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {

@@ -14,30 +14,30 @@ newtype FileOperationStatus
     = FileOperationStatus {un_FileOperationStatus :: CInt}
     deriving stock (Eq, Ord)
 instance Storable FileOperationStatus
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure FileOperationStatus <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {FileOperationStatus un_FileOperationStatus_3 -> pokeByteOff ptr_1 (0 :: Int) un_FileOperationStatus_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure FileOperationStatus <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   FileOperationStatus un_FileOperationStatus_3 -> pokeByteOff ptr_1 (0 :: Int) un_FileOperationStatus_3
 instance CEnum FileOperationStatus
-    where {type CEnumZ FileOperationStatus = CInt;
-           toCEnum = FileOperationStatus;
-           fromCEnum = un_FileOperationStatus;
-           declaredValues = \_ -> declaredValuesFromList [(-1,
-                                                           singleton "CUSTOM_ERROR_OTHER"),
-                                                          (0, singleton "SUCCESS"),
-                                                          (2, singleton "NOT_FOUND"),
-                                                          (12, singleton "OUT_OF_MEMORY"),
-                                                          (13, singleton "PERMISSION_DENIED"),
-                                                          (22, singleton "INVALID_ARGUMENT")];
-           showsUndeclared = showsWrappedUndeclared "FileOperationStatus";
-           readPrecUndeclared = readPrecWrappedUndeclared "FileOperationStatus"}
+    where type CEnumZ FileOperationStatus = CInt
+          toCEnum = FileOperationStatus
+          fromCEnum = un_FileOperationStatus
+          declaredValues = \_ -> declaredValuesFromList [(-1,
+                                                          singleton "CUSTOM_ERROR_OTHER"),
+                                                         (0, singleton "SUCCESS"),
+                                                         (2, singleton "NOT_FOUND"),
+                                                         (12, singleton "OUT_OF_MEMORY"),
+                                                         (13, singleton "PERMISSION_DENIED"),
+                                                         (22, singleton "INVALID_ARGUMENT")]
+          showsUndeclared = showsWrappedUndeclared "FileOperationStatus"
+          readPrecUndeclared = readPrecWrappedUndeclared "FileOperationStatus"
 instance Show FileOperationStatus
-    where {showsPrec = showsCEnum}
+    where showsPrec = showsCEnum
 instance Read FileOperationStatus
-    where {readPrec = readPrecCEnum;
-           readList = readListDefault;
-           readListPrec = readListPrecDefault}
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
 pattern SUCCESS :: FileOperationStatus
 pattern SUCCESS = FileOperationStatus 0
 pattern NOT_FOUND :: FileOperationStatus
@@ -55,12 +55,12 @@ data FileOperationRecord
                            fileOperationRecord_bytes_processed :: HsBindgen.Runtime.Prelude.CSize}
     deriving stock (Eq, Show)
 instance Storable FileOperationRecord
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure FileOperationRecord <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {FileOperationRecord fileOperationRecord_status_3
-                                                         fileOperationRecord_bytes_processed_4 -> pokeByteOff ptr_1 (0 :: Int) fileOperationRecord_status_3 >> pokeByteOff ptr_1 (8 :: Int) fileOperationRecord_bytes_processed_4}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure FileOperationRecord <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   FileOperationRecord fileOperationRecord_status_3
+                                                       fileOperationRecord_bytes_processed_4 -> pokeByteOff ptr_1 (0 :: Int) fileOperationRecord_status_3 >> pokeByteOff ptr_1 (8 :: Int) fileOperationRecord_bytes_processed_4
 foreign import ccall safe "test_internal_read_file_chunk" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                              Ptr Void ->
                                                                              HsBindgen.Runtime.Prelude.CSize ->

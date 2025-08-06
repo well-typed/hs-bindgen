@@ -7,9 +7,9 @@ data Foo
            foo_thirty_two :: HsBindgen.Runtime.Prelude.Word32}
     deriving stock (Eq, Show)
 instance Storable Foo
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Foo foo_sixty_four_3
-                                         foo_thirty_two_4 -> pokeByteOff ptr_1 (0 :: Int) foo_sixty_four_3 >> pokeByteOff ptr_1 (8 :: Int) foo_thirty_two_4}}
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo foo_sixty_four_3
+                                       foo_thirty_two_4 -> pokeByteOff ptr_1 (0 :: Int) foo_sixty_four_3 >> pokeByteOff ptr_1 (8 :: Int) foo_thirty_two_4

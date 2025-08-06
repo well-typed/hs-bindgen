@@ -6,30 +6,31 @@ newtype Foo_enum
     = Foo_enum {un_Foo_enum :: HsBindgen.Runtime.Prelude.Word32}
     deriving stock (Eq, Ord)
 instance Storable Foo_enum
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Foo_enum <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Foo_enum un_Foo_enum_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_enum_3}}
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Foo_enum <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo_enum un_Foo_enum_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_enum_3
 instance CEnum Foo_enum
-    where {type CEnumZ Foo_enum = HsBindgen.Runtime.Prelude.Word32;
-           toCEnum = Foo_enum;
-           fromCEnum = un_Foo_enum;
-           declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
-                                                          (1, singleton "B"),
-                                                          (2, singleton "C")];
-           showsUndeclared = showsWrappedUndeclared "Foo_enum";
-           readPrecUndeclared = readPrecWrappedUndeclared "Foo_enum";
-           isDeclared = seqIsDeclared;
-           mkDeclared = seqMkDeclared}
+    where type CEnumZ Foo_enum = HsBindgen.Runtime.Prelude.Word32
+          toCEnum = Foo_enum
+          fromCEnum = un_Foo_enum
+          declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
+                                                         (1, singleton "B"),
+                                                         (2, singleton "C")]
+          showsUndeclared = showsWrappedUndeclared "Foo_enum"
+          readPrecUndeclared = readPrecWrappedUndeclared "Foo_enum"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
 instance SequentialCEnum Foo_enum
-    where {minDeclaredValue = A; maxDeclaredValue = C}
+    where minDeclaredValue = A
+          maxDeclaredValue = C
 instance Show Foo_enum
-    where {showsPrec = showsCEnum}
+    where showsPrec = showsCEnum
 instance Read Foo_enum
-    where {readPrec = readPrecCEnum;
-           readList = readListDefault;
-           readListPrec = readListPrecDefault}
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
 pattern A :: Foo_enum
 pattern A = Foo_enum 0
 pattern B :: Foo_enum

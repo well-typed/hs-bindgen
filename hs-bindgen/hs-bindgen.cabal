@@ -375,6 +375,7 @@ test-suite test-hs-bindgen
 
   build-depends:
       -- Internal dependencies
+    , containers
     , c-expr
     , clang
     , hs-bindgen
