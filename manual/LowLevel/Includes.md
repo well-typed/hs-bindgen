@@ -1,8 +1,10 @@
 # Includes
 
 Configuring command-line options and environment variables so that C `#include`
-directives resolve to the intended headers can be surprisingly tricky.
-Understanding the details can save time and frustration.
+directives resolve to the intended headers can be surprisingly tricky.  For
+example, include directive `#include <stdint.h>` may need to resolve to file
+`/usr/include/stdint.h` on a given system.  Understanding the details can save
+time and frustration.
 
 ## Terminology
 
@@ -33,12 +35,7 @@ The following terminology is used by `hs-bindgen`.
   toolchains.  See below for details about how Clang does header resolution.
 
 * __C include search path__: A C include search path is a list of directories to
-  search when resolving a header.  Similar to how the more well-known `PATH`
-  environment variable is a list of directory paths used to search for
-  executables, `C_INCLUDE_PATH` is a list of directory paths used to search for
-  headers.  The multiple meanings of the word "path" is an unfortunate source of
-  confusion, so we take care to specify *search path* to refer to a list of
-  directories.
+  search when resolving a header.
 
 * __Default include directories__: Default include directories are the
   directories that are in a C include search path by default.  They generally
