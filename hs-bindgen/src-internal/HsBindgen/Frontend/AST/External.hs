@@ -90,7 +90,7 @@ data TranslationUnit = TranslationUnit{
   deriving stock (Show, Eq, Generic)
 
 emptyTranslationUnit :: TranslationUnit
-emptyTranslationUnit = TranslationUnit{
+emptyTranslationUnit = TranslationUnit {
       unitDecls = []
     , unitDeps  = []
     }

@@ -78,7 +78,6 @@ library internal
       HsBindgen.BindingSpec.Gen
       HsBindgen.BindingSpec.Private
       HsBindgen.BindingSpec.Private.Stdlib
-      HsBindgen.C.Parser
       HsBindgen.Clang
       HsBindgen.Config
       HsBindgen.Config.FixCandidate

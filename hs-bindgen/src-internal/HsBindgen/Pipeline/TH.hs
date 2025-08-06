@@ -23,8 +23,8 @@ import Clang.Args
 import Clang.Paths
 import HsBindgen.BindingSpec (BindingSpecConfig)
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.C.Parser qualified as C
 import HsBindgen.Config (Config (..))
+import HsBindgen.Frontend
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
@@ -126,8 +126,8 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         bindingSpecConfig
     -- Parse translation unit.
     unit <- TH.runIO $
-      C.parseCHeaders
-        tracerIO
+      frontend
+        (contramap TraceFrontend tracerIO)
         config
         extBindingSpec
         prescriptiveBindingSpec
@@ -177,7 +177,7 @@ hashInclude arg = do
       prependArg = BindgenState . (argValidated :) . bindgenStateHashIncludeArgs
   modify prependArg
 
--- | Non-IO part of 'hashIncludeWith'
+-- | Internal API; exported for testing; non-IO part of 'withHsBindgen'
 genBindingsFromCHeader
     :: Guasi q
     => Config

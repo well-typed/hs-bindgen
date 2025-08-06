@@ -1,6 +1,8 @@
 module HsBindgen.Pipeline.Lib (
-    -- * Translation pipeline components
-    parseCHeaders
+    -- * Frontend and translate
+    translateCHeaders
+
+    -- * Backend
   , genHsDecls
   , genSHsDecls
   , genModule
@@ -8,9 +10,6 @@ module HsBindgen.Pipeline.Lib (
   , genPPString
   , genTH
   , genExtensions
-
-    -- * Preprocessor API
-  , translateCHeaders
   , preprocessPure
   , preprocessIO
 
@@ -26,9 +25,9 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
-import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
-import HsBindgen.C.Parser qualified as C
+import HsBindgen.BindingSpec
 import HsBindgen.Config (Config (..))
+import HsBindgen.Frontend
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.GenTests qualified as GenTests
@@ -40,22 +39,28 @@ import HsBindgen.ModuleUnique
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Simplify (simplifySHs)
 import HsBindgen.SHs.Translation qualified as SHs
-import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
-  Translation pipeline components
+  Parse and translate
 -------------------------------------------------------------------------------}
 
--- | Parse C headers
-parseCHeaders ::
-      Tracer IO TraceMsg
+-- | Translate C headers to Haskell declarations
+translateCHeaders ::
+      ModuleUnique
+   -> Tracer IO FrontendMsg
    -> Config
    -> ExternalBindingSpec
    -> PrescriptiveBindingSpec
    -> [HashIncludeArg]
-   -> IO C.TranslationUnit
-parseCHeaders = C.parseCHeaders
+   -> IO [Hs.Decl]
+translateCHeaders mu tracer config extSpec pSpec hashIncludeArgs =
+    fmap (genHsDecls mu config . C.unitDecls) $
+      frontend tracer config extSpec pSpec hashIncludeArgs
+
+{-------------------------------------------------------------------------------
+  Backend
+-------------------------------------------------------------------------------}
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Config -> [C.Decl] -> [Hs.Decl]
@@ -84,24 +89,6 @@ genTH = fmap concat . traverse Backend.TH.mkDecl
 -- | Generate set of required extensions
 genExtensions :: [SHs.SDecl] -> Set TH.Extension
 genExtensions = foldMap requiredExtensions
-
-{-------------------------------------------------------------------------------
-  Preprocessor API
--------------------------------------------------------------------------------}
-
--- | Parse a C header and generate @Hs@ declarations
-translateCHeaders
-  :: ModuleUnique
-  -> Tracer IO TraceMsg
-  -> Config
-  -> ExternalBindingSpec
-  -> PrescriptiveBindingSpec
-  -> [HashIncludeArg]
-  -> IO [Hs.Decl]
-translateCHeaders mu tracer config extSpec pSpec hashIncludeArgs = do
-    C.TranslationUnit{unitDecls} <-
-      parseCHeaders tracer config extSpec pSpec hashIncludeArgs
-    return $ genHsDecls mu config unitDecls
 
 -- | Generate bindings for the given C header
 preprocessPure :: Config -> [Hs.Decl] -> String

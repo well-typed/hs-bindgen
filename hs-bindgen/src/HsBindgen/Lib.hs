@@ -4,11 +4,11 @@
 
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.Lib (
-    -- * Parsing and translating
+    -- * Frontend
     HsDecls -- opaque
   , translateCHeaders
 
-    -- * Preprocessor
+    -- * Backend
   , preprocessPure
   , preprocessIO
 
@@ -160,21 +160,15 @@ newtype HsDecls = WrapHsDecls {
 
 -- | Translate C headers to Haskell declarations
 translateCHeaders ::
-     ModuleUnique
-     -> Tracer IO Common.TraceMsg
-     -> Common.Config
-     -> ExternalBindingSpec
-     -> PrescriptiveBindingSpec
-     -> [HashIncludeArg]
-     -> IO HsDecls
-translateCHeaders mu tracer config extSpec pSpec =
-    fmap WrapHsDecls .
-      Pipeline.translateCHeaders
-        mu
-        tracer
-        config
-        extSpec
-        pSpec
+      ModuleUnique
+   -> Tracer IO Common.FrontendMsg
+   -> Common.Config
+   -> ExternalBindingSpec
+   -> PrescriptiveBindingSpec
+   -> [HashIncludeArg]
+   -> IO HsDecls
+translateCHeaders mu tracer config extSpec pSpec headers =
+  WrapHsDecls <$> Pipeline.translateCHeaders mu tracer config extSpec pSpec headers
 
 {-------------------------------------------------------------------------------
   Preprocessor

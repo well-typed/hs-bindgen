@@ -21,6 +21,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
+import GHC.Generics (Generic)
 import HsBindgen.Clang
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Resolve (resolveHeader)
@@ -59,14 +60,20 @@ instance Exception AstDumpException where
   Implementation
 -------------------------------------------------------------------------------}
 
+data DumpTrace =
+    DumpTraceResolveHeader ResolveHeaderMsg
+  | DumpTraceClang         ClangMsg
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
+
 clangAstDump :: Options -> IO ()
 clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ getHashIncludeArg optFile ++ "`"
     putStrLn ""
 
     maybeRes <- withTracerStdOut tracerConf $ \tracer -> do
-      let tracerResolve = contramap TraceResolveHeader tracer
-          tracerClang   = contramap TraceClang         tracer
+      let tracerResolve = contramap DumpTraceResolveHeader tracer
+          tracerClang   = contramap DumpTraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return
           =<< resolveHeader tracerResolve cArgs optFile
       let setup :: ClangSetup

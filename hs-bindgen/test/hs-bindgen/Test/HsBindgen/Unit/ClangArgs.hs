@@ -4,8 +4,11 @@ import System.Environment (setEnv, unsetEnv)
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import HsBindgen.C.Parser (getTargetTriple)
-import HsBindgen.Clang (splitArguments, getExtraClangArgs)
+import Clang.Args
+import Clang.LowLevel.Core
+import HsBindgen.Clang
+import HsBindgen.Errors
+import HsBindgen.Imports
 import HsBindgen.Lib
 
 import Test.Common.HsBindgen.TracePredicate
@@ -30,12 +33,26 @@ testGetTargetTriple :: IO TestResources -> Assertion
 testGetTargetTriple testResources = do
     clangArgs <- getTestDefaultClangArgs testResources []
 
+    let setup :: ClangSetup
+        setup = defaultClangSetup clangArgs $
+                  ClangInputMemory "hs-bindgen-triple.h" ""
+
     triple <- withTracePredicate defaultTracePredicate $ \tracer ->
-      getTargetTriple (contramap TraceClang tracer) clangArgs
+      getTargetTriple tracer setup
 
     -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
     -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
     triple @?= "x86_64-pc-linux-gnu"
+  where
+    getTargetTriple :: Tracer IO ClangMsg -> ClangSetup -> IO Text
+    getTargetTriple tracer setup =
+        fmap (fromMaybe (panicPure "getTargetTriple failed")) $
+        withClang tracer setup $ \unit -> Just <$>
+          bracket
+            (clang_getTranslationUnitTargetInfo unit)
+            clang_TargetInfo_dispose
+            clang_TargetInfo_getTriple
+
 
 {-------------------------------------------------------------------------------
   Get extra clang args

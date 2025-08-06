@@ -336,7 +336,7 @@ data BindingSpecMsg =
   | BindingSpecResolveMsg BindingSpecResolveMsg
   | BindingSpecMergeMsg   BindingSpecMergeMsg
   deriving stock    (Eq, Show, Generic)
-  deriving anyclass (HasDefaultLogLevel,  HasSource, PrettyForTrace)
+  deriving anyclass (HasDefaultLogLevel, HasSource, PrettyForTrace)
 
 {-------------------------------------------------------------------------------
   API

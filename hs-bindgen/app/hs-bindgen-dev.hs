@@ -6,8 +6,8 @@ import HsBindgen.App.Dev
 import HsBindgen.Lib
 
 -- It is OK to import some internal libraries for our development client.
+import HsBindgen.Frontend (frontend)
 import HsBindgen.Frontend.AST.External (TranslationUnit)
-import HsBindgen.Pipeline.Lib qualified as Pipeline
 
 {-------------------------------------------------------------------------------
   Main application
@@ -31,4 +31,9 @@ execParse globalOpts opts =
                             (contramap TraceBindingSpec tracer)
                             opts.config.configClangArgs
                             opts.bindingSpecConfig
-      Pipeline.parseCHeaders tracer opts.config extSpec pSpec inputPaths
+      frontend
+        (contramap TraceFrontend tracer)
+        opts.config
+        extSpec
+        pSpec
+        inputPaths

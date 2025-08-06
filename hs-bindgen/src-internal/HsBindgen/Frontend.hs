@@ -2,16 +2,19 @@
 --
 -- Intended for unqualified import.
 module HsBindgen.Frontend (
-    processTranslationUnit
+    frontend
   , FrontendMsg(..)
   ) where
 
 import Control.Monad
-import GHC.Generics (Generic)
 
+import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
-import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
+import Clang.Paths
+import HsBindgen.BindingSpec
+import HsBindgen.Clang
 import HsBindgen.Config
+import HsBindgen.Frontend.AST.External (emptyTranslationUnit)
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.Pass (Msg)
@@ -23,7 +26,7 @@ import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.NameAnon
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse (parseDecls)
+import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
@@ -33,6 +36,8 @@ import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -43,7 +48,7 @@ import HsBindgen.Util.Tracer
 --
 -- Overview of passes (see documentation of 'HsBindgen.Frontend.Pass.IsPass'):
 --
--- 1. 'Parse'
+-- 1. 'Parse' (impure; all other passes are pure)
 -- 2. 'Sort'
 -- 3. 'HandleMacros'
 -- 4. 'NameAnon'
@@ -88,67 +93,88 @@ import HsBindgen.Util.Tracer
 -- - 'MangleNames': Name mangling depends on information from the binding spec,
 --   and must therefore happen after 'ResolveBindingSpec'. It could be put into
 --   the 'Hs' phase, but we have to draw the line somewhere.
-processTranslationUnit ::
+frontend ::
      Tracer IO FrontendMsg
   -> Config
   -> ExternalBindingSpec
   -> PrescriptiveBindingSpec
-  -> RootHeader
-  -> CXTranslationUnit -> IO Ext.TranslationUnit
-processTranslationUnit
-  tracer
-  Config{..}
-  extSpec
-  pSpec
-  rootHeader
-  unit = do
-    (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader) <-
-      processIncludes rootHeader unit
+  -> [RootHeader.HashIncludeArg]
+  -> IO Ext.TranslationUnit
+frontend tracer Config{..} extSpec pSpec hashIncludeArgs = do
+    -- Impure: parse source code with `libclang` and reify.
+    mParseResult <-
+      withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
+        (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader) <-
+          processIncludes rootHeader unit
+        reifiedUnit <- parseDecls
+          (contramap FrontendParse tracer)
+          rootHeader
+          configParsePredicate
+          includeGraph
+          isMainHeader
+          isInMainHeaderDir
+          getMainHeader
+          unit
+        pure (reifiedUnit, isMainHeader, isInMainHeaderDir)
 
-    afterParse <-
-      parseDecls
-        (contramap FrontendParse tracer)
-        rootHeader
-        configParsePredicate
-        includeGraph
-        isMainHeader
-        isInMainHeaderDir
-        getMainHeader
-        unit
+    case mParseResult of
+      -- Possibly fail early.
+      Nothing -> pure emptyTranslationUnit
+      -- Pure: other passes.
+      Just (afterParse, isMainHeader, isInMainHeaderDir) -> do
 
-    -- writeFile "includegraph.mermaid" $ IncludeGraph.dumpMermaid includeGraph
+        -- writeFile "includegraph.mermaid" $ IncludeGraph.dumpMermaid includeGraph
 
-    let (afterSort, msgsSort) =
-          sortDecls afterParse
-        (afterHandleMacros, msgsHandleMacros) =
-          handleMacros afterSort
-        (afterNameAnon, msgsNameAnon) =
-          nameAnon afterHandleMacros
-        (afterResolveBindingSpec, msgsResolveBindingSpecs) =
-          resolveBindingSpec extSpec pSpec afterNameAnon
-        (afterSelect, msgsSelect) =
-          selectDecls isMainHeader isInMainHeaderDir selectConfig afterResolveBindingSpec
-        (afterHandleTypedefs, msgsHandleTypedefs) =
-          handleTypedefs afterSelect
-        (afterMangleNames, msgsMangleNames) =
-          mangleNames afterHandleTypedefs
+        let (afterSort, msgsSort) =
+              sortDecls afterParse
+            (afterHandleMacros, msgsHandleMacros) =
+              handleMacros afterSort
+            (afterNameAnon, msgsNameAnon) =
+              nameAnon afterHandleMacros
+            (afterResolveBindingSpec, msgsResolveBindingSpecs) =
+              resolveBindingSpec extSpec pSpec afterNameAnon
+            (afterSelect, msgsSelect) =
+              selectDecls isMainHeader isInMainHeaderDir selectConfig afterResolveBindingSpec
+            (afterHandleTypedefs, msgsHandleTypedefs) =
+              handleTypedefs afterSelect
+            (afterMangleNames, msgsMangleNames) =
+              mangleNames afterHandleTypedefs
 
-    -- writeFile "usedecl.mermaid" $
-    --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
+        -- writeFile "usedecl.mermaid" $
+        --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
 
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/967: By emitting all
-    -- traces in one place, we lose the callstack and timestamp information of
-    -- the individual traces.
-    forM_ msgsSort                $ traceWith tracer . FrontendSort
-    forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
-    forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
-    forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-    forM_ msgsSelect              $ traceWith tracer . FrontendSelect
-    forM_ msgsHandleTypedefs      $ traceWith tracer . FrontendHandleTypedefs
-    forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
+        -- TODO https://github.com/well-typed/hs-bindgen/issues/967: By emitting
+        -- all traces in one place, we lose the callstack and timestamp
+        -- information of the individual traces.
+        forM_ msgsSort                $ traceWith tracer . FrontendSort
+        forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
+        forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
+        forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
+        forM_ msgsSelect              $ traceWith tracer . FrontendSelect
+        forM_ msgsHandleTypedefs      $ traceWith tracer . FrontendHandleTypedefs
+        forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
 
-    return $ finalize afterMangleNames
+        return $ finalize afterMangleNames
   where
+    rootHeader :: RootHeader
+    rootHeader = RootHeader.fromMainFiles hashIncludeArgs
+
+    setup :: ClangSetup
+    setup = (defaultClangSetup configClangArgs $ ClangInputMemory hFilePath hContent) {
+          clangFlags = bitfieldEnum [
+              CXTranslationUnit_SkipFunctionBodies
+            , CXTranslationUnit_DetailedPreprocessingRecord
+            , CXTranslationUnit_IncludeAttributedTypes
+            , CXTranslationUnit_VisitImplicitAttributes
+            ]
+        }
+
+    hFilePath :: FilePath
+    hFilePath = getSourcePath RootHeader.name
+
+    hContent :: String
+    hContent = RootHeader.content rootHeader
+
     selectConfig :: SelectConfig
     selectConfig = SelectConfig configProgramSlicing configSelectPredicate
 
@@ -156,17 +182,18 @@ processTranslationUnit
   Logging
 -------------------------------------------------------------------------------}
 
--- | Trace messages from the frontend
+-- | Frontend trace messages
 --
 -- Most passes in the frontend have their own set of trace messages.
 data FrontendMsg =
-    FrontendParse (Msg Parse)
+    FrontendClang ClangMsg
+  | FrontendParse (Msg Parse)
   | FrontendSort (Msg Sort)
-  | FrontendSelect (Msg Select)
   | FrontendHandleMacros (Msg HandleMacros)
   | FrontendNameAnon (Msg NameAnon)
   | FrontendResolveBindingSpecs (Msg ResolveBindingSpec)
+  | FrontendSelect (Msg Select)
   | FrontendHandleTypedefs (Msg HandleTypedefs)
   | FrontendMangleNames (Msg MangleNames)
   deriving stock    (Show, Eq, Generic)
-  deriving anyclass (PrettyForTrace , HasDefaultLogLevel , HasSource)
+  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
