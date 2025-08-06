@@ -13,7 +13,7 @@ module HsBindgen.TH (
     -- * Options
   , Common.Config(..)
   , Pipeline.IncludeDir(..)
-  , Pipeline.HashIncludeOpts(..)
+  , Pipeline.BindgenOpts(..)
 
     -- ** Clang arguments
   , Common.ClangArgs(..)
