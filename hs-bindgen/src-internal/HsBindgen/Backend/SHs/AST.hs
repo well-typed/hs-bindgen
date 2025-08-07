@@ -1,5 +1,5 @@
 -- | Simplified HS abstract syntax tree
-module HsBindgen.SHs.AST (
+module HsBindgen.Backend.SHs.AST (
 -- TODO: drop S prefix?
     Global (..),
     ClosedExpr,

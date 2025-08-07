@@ -32,7 +32,7 @@ import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
-import HsBindgen.SHs.AST
+import HsBindgen.Backend.SHs.AST
 import Text.SimplePrettyPrint
 
 import C.Char (CharValue (..))

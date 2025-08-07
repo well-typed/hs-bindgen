@@ -21,7 +21,7 @@ import Data.Set qualified as Set
 import Language.Haskell.TH.Syntax qualified as TH
 
 import HsBindgen.Imports
-import HsBindgen.SHs.AST
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.Hs.AST.Type
 
 import C.Char ( CharValue(..), charValueFromAddr )

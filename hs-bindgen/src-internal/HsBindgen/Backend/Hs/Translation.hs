@@ -37,8 +37,8 @@ import HsBindgen.Language.Haskell
 import HsBindgen.ModuleUnique
 import HsBindgen.NameHint
 import HsBindgen.PrettyC qualified as PC
-import HsBindgen.SHs.AST qualified as SHs
-import HsBindgen.SHs.Translation qualified as SHs
+import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.SHs.Translation qualified as SHs
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), Idx (..), pattern I1, pattern I2,
                  sizeEnv, tabulateEnv, weaken, zipWithEnv)

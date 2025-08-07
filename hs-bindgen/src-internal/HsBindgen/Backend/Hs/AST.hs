@@ -71,7 +71,7 @@ import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
-import HsBindgen.SHs.AST qualified as SHs
+import HsBindgen.Backend.SHs.AST qualified as SHs
 
 import C.Char qualified
 

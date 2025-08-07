@@ -6,8 +6,8 @@ import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Hs.AST (Strategy (..))
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
-import HsBindgen.SHs.AST
 
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension

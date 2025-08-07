@@ -88,6 +88,9 @@ library internal
       HsBindgen.Backend.Hs.Origin
       HsBindgen.Backend.Hs.Translation
       HsBindgen.Backend.Hs.CallConv
+      HsBindgen.Backend.SHs.AST
+      HsBindgen.Backend.SHs.Simplify
+      HsBindgen.Backend.SHs.Translation
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen
       HsBindgen.BindingSpec.Private
@@ -161,9 +164,6 @@ library internal
       HsBindgen.Pipeline.TH
       HsBindgen.PrettyC
       HsBindgen.Resolve
-      HsBindgen.SHs.AST
-      HsBindgen.SHs.Simplify
-      HsBindgen.SHs.Translation
       HsBindgen.TraceMsg
       HsBindgen.Util.Monad
       HsBindgen.Util.Parsec

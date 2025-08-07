@@ -28,6 +28,9 @@ import HsBindgen.Backend.Artefact.TH.Translation qualified as Backend.TH
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Translation qualified as Hs
+import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.SHs.Simplify (simplifySHs)
+import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.BindingSpec
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend
@@ -36,9 +39,6 @@ import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.ModuleUnique
-import HsBindgen.SHs.AST qualified as SHs
-import HsBindgen.SHs.Simplify (simplifySHs)
-import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

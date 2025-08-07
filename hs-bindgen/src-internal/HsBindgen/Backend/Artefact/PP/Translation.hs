@@ -22,7 +22,7 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
-import HsBindgen.SHs.AST
+import HsBindgen.Backend.SHs.AST
 
 {-------------------------------------------------------------------------------
   GhcPragma
