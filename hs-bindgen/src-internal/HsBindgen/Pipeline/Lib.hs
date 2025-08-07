@@ -23,6 +23,7 @@ import HsBindgen.Backend.Artefact.PP.Render (HsRenderOpts (..))
 import HsBindgen.Backend.Artefact.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.Artefact.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.Artefact.PP.Translation qualified as Backend.PP
+import HsBindgen.Backend.Artefact.Test qualified as GenTests
 import HsBindgen.Backend.Artefact.TH.Translation qualified as Backend.TH
 import HsBindgen.Backend.Extensions
 import HsBindgen.BindingSpec
@@ -30,7 +31,6 @@ import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs

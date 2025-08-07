@@ -1,4 +1,4 @@
-module HsBindgen.GenTests.C (
+module HsBindgen.Backend.Artefact.Test.C (
     genTestsC
   ) where
 
@@ -16,7 +16,7 @@ module HsBindgen.GenTests.C (
 --import HsBindgen.C.AST.Name
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
---import HsBindgen.GenTests.Internal
+--import HsBindgen.Backend.Artefact.Test.Internal
 --    ( CFunPrefix, getCFunPrefix, prettyHsName )
 import HsBindgen.Hs.AST qualified as Hs
 --import HsBindgen.Hs.AST.Name

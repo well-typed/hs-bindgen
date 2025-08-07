@@ -1,4 +1,4 @@
-module HsBindgen.GenTests.Hs (
+module HsBindgen.Backend.Artefact.Test.Hs (
     genTestsHs
   ) where
 
@@ -8,7 +8,7 @@ module HsBindgen.GenTests.Hs (
 --import System.FilePath qualified as FilePath
 
 import HsBindgen.Errors
---import HsBindgen.GenTests.Internal
+--import HsBindgen.Backend.Artefact.Test.Internal
 import HsBindgen.Hs.AST qualified as Hs
 --import HsBindgen.Hs.AST.Name
 --import Text.SimplePrettyPrint

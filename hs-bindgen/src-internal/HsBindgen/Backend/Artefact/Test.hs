@@ -1,4 +1,4 @@
-module HsBindgen.GenTests (
+module HsBindgen.Backend.Artefact.Test (
     genTests
   ) where
 
@@ -7,10 +7,10 @@ import Data.List qualified as List
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
+import HsBindgen.Backend.Artefact.Test.C (genTestsC)
+import HsBindgen.Backend.Artefact.Test.Hs (genTestsHs)
+import HsBindgen.Backend.Artefact.Test.Readme (genTestsReadme)
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.GenTests.C (genTestsC)
-import HsBindgen.GenTests.Hs (genTestsHs)
-import HsBindgen.GenTests.Readme (genTestsReadme)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Imports
 

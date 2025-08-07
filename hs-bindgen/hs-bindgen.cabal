@@ -74,6 +74,11 @@ library internal
       HsBindgen.Backend.Artefact.PP.Render
       HsBindgen.Backend.Artefact.PP.Translation
       HsBindgen.Backend.Artefact.TH.Translation
+      HsBindgen.Backend.Artefact.Test
+      HsBindgen.Backend.Artefact.Test.C
+      HsBindgen.Backend.Artefact.Test.Hs
+      HsBindgen.Backend.Artefact.Test.Internal
+      HsBindgen.Backend.Artefact.Test.Readme
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen
       HsBindgen.BindingSpec.Private
@@ -134,11 +139,6 @@ library internal
       HsBindgen.Frontend.Predicate
       HsBindgen.Frontend.ProcessIncludes
       HsBindgen.Frontend.RootHeader
-      HsBindgen.GenTests
-      HsBindgen.GenTests.C
-      HsBindgen.GenTests.Hs
-      HsBindgen.GenTests.Internal
-      HsBindgen.GenTests.Readme
       HsBindgen.Guasi
       HsBindgen.Hs.AST
       HsBindgen.Hs.AST.SigmaType
