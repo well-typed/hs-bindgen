@@ -18,8 +18,8 @@ import Data.Text qualified as Text
 
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Artefact.PP.Names
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Type qualified as Hs
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.SHs.AST

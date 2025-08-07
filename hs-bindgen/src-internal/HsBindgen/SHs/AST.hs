@@ -24,11 +24,11 @@ module HsBindgen.SHs.AST (
 import DeBruijn (Ctx, EmptyCtx, Idx, Add)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Hs.AST.Strategy qualified as Hs
-import HsBindgen.Hs.AST.Type
-import HsBindgen.Hs.CallConv
-import HsBindgen.Hs.Haddock.Documentation (Comment)
-import HsBindgen.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint

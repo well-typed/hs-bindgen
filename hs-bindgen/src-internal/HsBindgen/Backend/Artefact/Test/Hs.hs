@@ -9,8 +9,8 @@ module HsBindgen.Backend.Artefact.Test.Hs (
 
 import HsBindgen.Errors
 --import HsBindgen.Backend.Artefact.Test.Internal
-import HsBindgen.Hs.AST qualified as Hs
---import HsBindgen.Hs.AST.Name
+import HsBindgen.Backend.Hs.AST qualified as Hs
+--import HsBindgen.Backend.Hs.AST.Name
 --import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------

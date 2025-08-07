@@ -39,7 +39,7 @@ import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend qualified as Frontend
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Lib (FrontendMsg (..), TraceMsg (..))
 import HsBindgen.Pipeline.Lib qualified as Pipeline
 import HsBindgen.Util.Tracer

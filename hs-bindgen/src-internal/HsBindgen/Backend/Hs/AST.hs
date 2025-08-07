@@ -8,8 +8,8 @@
 --
 -- Intended for qualified import:
 --
--- > import HsBindgen.Hs.AST qualified as Hs
-module HsBindgen.Hs.AST (
+-- > import HsBindgen.Backend.Hs.AST qualified as Hs
+module HsBindgen.Backend.Hs.AST (
     -- * Generated Haskell datatypes
     Field(..)
   , Struct(..)
@@ -61,12 +61,12 @@ import Data.Type.Nat qualified as Nat
 import DeBruijn (Ctx, EmptyCtx, Wk (..), Add (..), Idx (..))
 
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Hs.AST.SigmaType
-import HsBindgen.Hs.AST.Strategy
-import HsBindgen.Hs.AST.Type
-import HsBindgen.Hs.CallConv
-import HsBindgen.Hs.Haddock.Documentation (Comment)
-import HsBindgen.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.AST.SigmaType
+import HsBindgen.Backend.Hs.AST.Strategy
+import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint

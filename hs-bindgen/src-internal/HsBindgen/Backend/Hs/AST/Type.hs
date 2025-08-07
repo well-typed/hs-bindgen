@@ -1,4 +1,4 @@
-module HsBindgen.Hs.AST.Type (
+module HsBindgen.Backend.Hs.AST.Type (
   HsPrimType (..),
   HsType (..),
   hsPrimIntTy,

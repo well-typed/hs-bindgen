@@ -1,4 +1,4 @@
-module HsBindgen.Hs.AST.Strategy (
+module HsBindgen.Backend.Hs.AST.Strategy (
     Strategy (..),
 ) where
 

@@ -22,7 +22,7 @@ import Language.Haskell.TH.Syntax qualified as TH
 
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
-import HsBindgen.Hs.AST.Type
+import HsBindgen.Backend.Hs.AST.Type
 
 import C.Char ( CharValue(..), charValueFromAddr )
 
@@ -194,7 +194,7 @@ span' e (x:xs')
 resolveGlobal :: Global -> ResolvedName
 resolveGlobal = \case
     -- When adding a new global that resolves to a non-qualified identifier, be
-    -- sure to reserve the name in "HsBindgen.Hs.AST.Name".
+    -- sure to reserve the name in "HsBindgen.Backend.Hs.AST.Name".
     Tuple_type i         -> tupleResolvedName True  i
     Tuple_constructor i  -> tupleResolvedName False i
     Applicative_pure     -> importU 'pure

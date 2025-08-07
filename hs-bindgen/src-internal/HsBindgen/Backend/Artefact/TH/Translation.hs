@@ -32,9 +32,9 @@ import C.Char (CharValue(..), charValueFromAddr)
 import C.Expr.HostPlatform qualified as C
 import HsBindgen.Errors
 import HsBindgen.Guasi
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Type
-import HsBindgen.Hs.CallConv
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
@@ -54,7 +54,7 @@ import HsBindgen.Runtime.SizedByteArray      qualified
 
 import DeBruijn (Env (..), lookupEnv, EmptyCtx, Add (..))
 import GHC.Exts (Int(..), sizeofByteArray#)
-import HsBindgen.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 
 {-------------------------------------------------------------------------------
   Backend definition

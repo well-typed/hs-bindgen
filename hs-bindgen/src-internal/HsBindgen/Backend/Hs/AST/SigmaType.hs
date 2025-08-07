@@ -1,7 +1,7 @@
 -- | Types used for translation of macro types.
 --
--- These are completely separate from ones in "HsBindgen.Hs.AST.Type"
-module HsBindgen.Hs.AST.SigmaType (
+-- These are completely separate from ones in "HsBindgen.Backend.Hs.AST.Type"
+module HsBindgen.Backend.Hs.AST.SigmaType (
     SigmaType(..),
     PhiType(..),
     TauType(..),

@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards #-}
 
 -- | Low-level translation of the C header to a Haskell module
-module HsBindgen.Hs.Translation (
+module HsBindgen.Backend.Hs.Translation (
     TranslationOpts(..)
   , generateDeclarations
   ) where
@@ -26,11 +26,11 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Macro.Tc qualified as Macro
 import HsBindgen.Frontend.RootHeader (getHashIncludeArg)
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Type
-import HsBindgen.Hs.CallConv
-import HsBindgen.Hs.Haddock.Documentation qualified as Hs
-import HsBindgen.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
@@ -42,7 +42,7 @@ import HsBindgen.SHs.Translation qualified as SHs
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), Idx (..), pattern I1, pattern I2,
                  sizeEnv, tabulateEnv, weaken, zipWithEnv)
-import HsBindgen.Hs.Haddock.Translation (generateHaddocks)
+import HsBindgen.Backend.Hs.Haddock.Translation (generateHaddocks)
 
 {-------------------------------------------------------------------------------
   Configuration

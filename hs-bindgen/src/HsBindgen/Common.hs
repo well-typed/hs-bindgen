@@ -100,8 +100,8 @@ import HsBindgen.Config qualified as Config
 import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
 import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.Translation qualified as Hs
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.Translation qualified as Hs
 import HsBindgen.TraceMsg qualified as TraceMsg
 import HsBindgen.Util.Tracer qualified as Tracer
 

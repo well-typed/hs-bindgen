@@ -10,8 +10,8 @@ import System.FilePath qualified as FilePath
 import HsBindgen.Backend.Artefact.Test.C (genTestsC)
 import HsBindgen.Backend.Artefact.Test.Hs (genTestsHs)
 import HsBindgen.Backend.Artefact.Test.Readme (genTestsReadme)
+import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

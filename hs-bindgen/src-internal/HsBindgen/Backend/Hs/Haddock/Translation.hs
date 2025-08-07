@@ -1,11 +1,11 @@
-module HsBindgen.Hs.Haddock.Translation where
+module HsBindgen.Backend.Hs.Haddock.Translation where
 
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.Char (isDigit)
 
 import Clang.HighLevel.Documentation qualified as C
-import HsBindgen.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import Data.Maybe (isJust)
 import Text.Read (readMaybe)
 import GHC.Natural (Natural)

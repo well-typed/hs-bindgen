@@ -7,7 +7,7 @@ import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 
 import HsBindgen.ModuleUnique
-import HsBindgen.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Backend.Artefact.PP.Render (CommentKind(..))
 
 import Text.SimplePrettyPrint (pretty)

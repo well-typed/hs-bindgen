@@ -23,7 +23,7 @@ import System.FilePath (makeRelative)
 
 import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..), prettyCommentKind)
 import HsBindgen.Guasi
-import HsBindgen.Hs.Haddock.Documentation (Comment (..))
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment (..))
 import HsBindgen.Lib
 import HsBindgen.Pipeline.TH qualified as PipelineTH
 

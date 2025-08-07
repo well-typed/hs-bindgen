@@ -133,9 +133,9 @@ import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 import HsBindgen.Backend.Artefact.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.Artefact.PP.Translation qualified as Backend.PP
+import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Tracer qualified as Tracer
 

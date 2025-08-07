@@ -4,7 +4,7 @@ module HsBindgen.SHs.Simplify (simplifySHs) where
 import Data.Map.Strict qualified as Map
 import Data.Set        qualified as Set
 
-import HsBindgen.Hs.AST.Strategy
+import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.SHs.AST

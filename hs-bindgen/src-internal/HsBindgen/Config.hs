@@ -10,7 +10,7 @@ import HsBindgen.Backend.Artefact.PP.Render
 import HsBindgen.Backend.Artefact.PP.Translation
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
-import HsBindgen.Hs.Translation
+import HsBindgen.Backend.Hs.Translation
 
 -- | Configuration of @hs-bindgen@.
 --

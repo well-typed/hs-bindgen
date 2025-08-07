@@ -20,11 +20,11 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Macro.Reparse.Decl qualified as C
 import HsBindgen.Frontend.Macro.Tc qualified as CMacro
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Type qualified as HsType
-import HsBindgen.Hs.CallConv qualified as Hs
-import HsBindgen.Hs.Haddock.Documentation qualified as Hs
-import HsBindgen.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type qualified as HsType
+import HsBindgen.Backend.Hs.CallConv qualified as Hs
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint

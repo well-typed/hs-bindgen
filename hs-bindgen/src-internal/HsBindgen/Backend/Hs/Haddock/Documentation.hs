@@ -1,4 +1,4 @@
-module HsBindgen.Hs.Haddock.Documentation where
+module HsBindgen.Backend.Hs.Haddock.Documentation where
 
 import Data.Text (Text)
 import GHC.Generics (Generic)

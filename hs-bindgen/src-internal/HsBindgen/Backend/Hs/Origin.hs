@@ -10,8 +10,8 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Hs.Origin qualified as Origin
-module HsBindgen.Hs.Origin (
+-- > import HsBindgen.Backend.Hs.Origin qualified as Origin
+module HsBindgen.Backend.Hs.Origin (
     -- * Declarations
     Decl(..)
   , Struct(..)

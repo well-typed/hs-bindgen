@@ -24,10 +24,10 @@ import System.IO
 
 import HsBindgen.Backend.Artefact.PP.Names
 import HsBindgen.Backend.Artefact.PP.Translation
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Type (HsPrimType (..))
-import HsBindgen.Hs.CallConv
-import HsBindgen.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
+import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell

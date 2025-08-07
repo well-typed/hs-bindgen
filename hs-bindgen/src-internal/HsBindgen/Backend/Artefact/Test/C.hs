@@ -18,9 +18,9 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 --import HsBindgen.Backend.Artefact.Test.Internal
 --    ( CFunPrefix, getCFunPrefix, prettyHsName )
-import HsBindgen.Hs.AST qualified as Hs
---import HsBindgen.Hs.AST.Name
---import HsBindgen.Hs.AST.Type qualified as HsT
+import HsBindgen.Backend.Hs.AST qualified as Hs
+--import HsBindgen.Backend.Hs.AST.Name
+--import HsBindgen.Backend.Hs.AST.Type qualified as HsT
 --import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------

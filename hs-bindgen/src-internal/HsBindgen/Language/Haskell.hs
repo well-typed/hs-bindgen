@@ -54,8 +54,8 @@ newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
 --
 -- Example: @CTm@
 --
--- This type is different from 'HsBindgen.Hs.AST.HsName' in that it does not
--- specify a 'HsBindgen.Hs.AST.Namespace'.
+-- This type is different from 'HsBindgen.Backend.Hs.AST.HsName' in that it does not
+-- specify a 'HsBindgen.Backend.Hs.AST.Namespace'.
 newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
   deriving stock (Generic)
   -- 'Show' instance valid due to 'IsString' instance

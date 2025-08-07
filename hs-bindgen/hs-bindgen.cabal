@@ -79,6 +79,15 @@ library internal
       HsBindgen.Backend.Artefact.Test.Hs
       HsBindgen.Backend.Artefact.Test.Internal
       HsBindgen.Backend.Artefact.Test.Readme
+      HsBindgen.Backend.Hs.AST
+      HsBindgen.Backend.Hs.AST.SigmaType
+      HsBindgen.Backend.Hs.AST.Strategy
+      HsBindgen.Backend.Hs.AST.Type
+      HsBindgen.Backend.Hs.Haddock.Documentation
+      HsBindgen.Backend.Hs.Haddock.Translation
+      HsBindgen.Backend.Hs.Origin
+      HsBindgen.Backend.Hs.Translation
+      HsBindgen.Backend.Hs.CallConv
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen
       HsBindgen.BindingSpec.Private
@@ -140,15 +149,6 @@ library internal
       HsBindgen.Frontend.ProcessIncludes
       HsBindgen.Frontend.RootHeader
       HsBindgen.Guasi
-      HsBindgen.Hs.AST
-      HsBindgen.Hs.AST.SigmaType
-      HsBindgen.Hs.AST.Strategy
-      HsBindgen.Hs.AST.Type
-      HsBindgen.Hs.Haddock.Documentation
-      HsBindgen.Hs.Haddock.Translation
-      HsBindgen.Hs.Origin
-      HsBindgen.Hs.Translation
-      HsBindgen.Hs.CallConv
       HsBindgen.Imports
       HsBindgen.Language.C
       HsBindgen.Language.C.Literal

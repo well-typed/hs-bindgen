@@ -16,8 +16,8 @@ import Data.Vec.Lazy qualified as Vec
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macro.AST.Syntax qualified as C
 import HsBindgen.Frontend.Macro.Tc qualified as Macro hiding (IntegralType)
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Type
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
@@ -25,7 +25,7 @@ import HsBindgen.SHs.AST
 
 import DeBruijn (rzeroAdd)
 import DeBruijn.Internal.Size (Size (UnsafeSize))
-import HsBindgen.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import Witherable (ordNub)
 
 {-------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 -- | Calling conventions
 --
 -- Intended for unqualified import.
-module HsBindgen.Hs.CallConv (
+module HsBindgen.Backend.Hs.CallConv (
     CallConv(..)
   , ImportStyle(..)
   ) where

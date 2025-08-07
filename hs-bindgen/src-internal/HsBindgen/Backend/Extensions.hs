@@ -5,9 +5,9 @@ module HsBindgen.Backend.Extensions (
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 
+import HsBindgen.Backend.Hs.AST (Strategy (..))
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
-import HsBindgen.Hs.AST (Strategy (..))
 
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension

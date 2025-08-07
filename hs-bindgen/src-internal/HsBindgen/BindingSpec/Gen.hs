@@ -25,8 +25,8 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.Origin qualified as HsOrigin
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 
