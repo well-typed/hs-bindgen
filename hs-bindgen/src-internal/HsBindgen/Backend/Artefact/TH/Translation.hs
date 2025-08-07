@@ -1,7 +1,7 @@
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE TemplateHaskellQuotes #-}
 
-module HsBindgen.Backend.TH.Translation (
+module HsBindgen.Backend.Artefact.TH.Translation (
     mkDecl,
 ) where
 

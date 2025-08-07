@@ -6,8 +6,8 @@ import Data.Default (Default)
 import GHC.Generics (Generic)
 
 import Clang.Args
-import HsBindgen.Backend.PP.Render
-import HsBindgen.Backend.PP.Translation
+import HsBindgen.Backend.Artefact.PP.Render
+import HsBindgen.Backend.Artefact.PP.Translation
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
 import HsBindgen.Hs.Translation

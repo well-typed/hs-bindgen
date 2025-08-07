@@ -17,7 +17,7 @@ import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
-import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
+import HsBindgen.Backend.Artefact.PP.Translation (HsModuleOpts (..))
 import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private qualified as BindingSpec
 import HsBindgen.Config (Config (..))

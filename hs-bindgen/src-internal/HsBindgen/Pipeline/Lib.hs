@@ -19,12 +19,12 @@ module HsBindgen.Pipeline.Lib (
 
 import Language.Haskell.TH qualified as TH
 
+import HsBindgen.Backend.Artefact.PP.Render (HsRenderOpts (..))
+import HsBindgen.Backend.Artefact.PP.Render qualified as Backend.PP
+import HsBindgen.Backend.Artefact.PP.Translation (HsModuleOpts (..))
+import HsBindgen.Backend.Artefact.PP.Translation qualified as Backend.PP
+import HsBindgen.Backend.Artefact.TH.Translation qualified as Backend.TH
 import HsBindgen.Backend.Extensions
-import HsBindgen.Backend.PP.Render (HsRenderOpts (..))
-import HsBindgen.Backend.PP.Render qualified as Backend.PP
-import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
-import HsBindgen.Backend.PP.Translation qualified as Backend.PP
-import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.BindingSpec
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend

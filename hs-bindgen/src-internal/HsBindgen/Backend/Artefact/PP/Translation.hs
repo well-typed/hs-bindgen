@@ -1,6 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module HsBindgen.Backend.PP.Translation (
+module HsBindgen.Backend.Artefact.PP.Translation (
     -- * GhcPragma
     GhcPragma (..)
     -- * ImportListItem
@@ -17,7 +17,7 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 
 import HsBindgen.Backend.Extensions
-import HsBindgen.Backend.PP.Names
+import HsBindgen.Backend.Artefact.PP.Names
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports

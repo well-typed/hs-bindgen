@@ -2,7 +2,7 @@
 
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module HsBindgen.Backend.PP.Render (
+module HsBindgen.Backend.Artefact.PP.Render (
     -- * Rendering
     HsRenderOpts(..)
   , render
@@ -22,8 +22,8 @@ import GHC.Float (castDoubleToWord64, castFloatToWord32)
 import Numeric (showHex)
 import System.IO
 
-import HsBindgen.Backend.PP.Names
-import HsBindgen.Backend.PP.Translation
+import HsBindgen.Backend.Artefact.PP.Names
+import HsBindgen.Backend.Artefact.PP.Translation
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Hs.CallConv

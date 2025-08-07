@@ -70,10 +70,10 @@ library internal
       Data.DynGraph
       Data.DynGraph.Labelled
       HsBindgen.Backend.Extensions
-      HsBindgen.Backend.PP.Names
-      HsBindgen.Backend.PP.Render
-      HsBindgen.Backend.PP.Translation
-      HsBindgen.Backend.TH.Translation
+      HsBindgen.Backend.Artefact.PP.Names
+      HsBindgen.Backend.Artefact.PP.Render
+      HsBindgen.Backend.Artefact.PP.Translation
+      HsBindgen.Backend.Artefact.TH.Translation
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen
       HsBindgen.BindingSpec.Private

@@ -8,7 +8,7 @@ import Language.Haskell.TH.Syntax qualified as TH
 
 import HsBindgen.ModuleUnique
 import HsBindgen.Hs.Haddock.Documentation (Comment)
-import HsBindgen.Backend.PP.Render (CommentKind(..))
+import HsBindgen.Backend.Artefact.PP.Render (CommentKind(..))
 
 import Text.SimplePrettyPrint (pretty)
 

@@ -21,7 +21,7 @@ import Language.Haskell.TH.Syntax qualified as TH
 
 import System.FilePath (makeRelative)
 
-import HsBindgen.Backend.PP.Render (CommentKind (..), prettyCommentKind)
+import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..), prettyCommentKind)
 import HsBindgen.Guasi
 import HsBindgen.Hs.Haddock.Documentation (Comment (..))
 import HsBindgen.Lib

@@ -131,8 +131,8 @@ import HsBindgen.Common qualified as Common
 
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
-import HsBindgen.Backend.PP.Render qualified as Backend.PP
-import HsBindgen.Backend.PP.Translation qualified as Backend.PP
+import HsBindgen.Backend.Artefact.PP.Render qualified as Backend.PP
+import HsBindgen.Backend.Artefact.PP.Translation qualified as Backend.PP
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Hs.AST qualified as Hs
