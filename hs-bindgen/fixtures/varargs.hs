@@ -1,16 +1,16 @@
 [
   DeclInlineCInclude "varargs.h",
   DeclInlineC
-    "void testmodule_g (void) { g(); }",
+    "void testmodule_h (void) { h(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "g",
+        "h",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_g",
+      "testmodule_h",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

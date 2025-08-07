@@ -5,6 +5,7 @@ import Control.Monad
 import Control.Monad.Error.Class
 import GHC.Stack
 
+import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (CursorSpelling(..))
 import Clang.LowLevel.Core
@@ -103,11 +104,15 @@ fromDecl ty = do
       C.PrelimDeclIdBuiltin name -> throwError $ UnsupportedBuiltin name
 
     getUnderlyingTypeCursorSpelling :: MonadIO m => CXCursor -> m CursorSpelling
-    getUnderlyingTypeCursorSpelling =
-          HighLevel.clang_getCursorSpelling
-      <=< clang_getTypeDeclaration
-      <=< clang_Type_getNamedType
-      <=< clang_getTypedefDeclUnderlyingType
+    getUnderlyingTypeCursorSpelling typedefCurr = do
+      uType  <- clang_getTypedefDeclUnderlyingType typedefCurr
+      -- Later versions of Clang use elaborated types, earlier versions do not
+      uType' <- case fromSimpleEnum (cxtKind uType) of
+        Right CXType_Elaborated -> clang_Type_getNamedType uType
+        Right{}                 -> return uType
+        _otherwise              -> panicPure "Invalid underlying type"
+      uDecl  <-clang_getTypeDeclaration uType'
+      HighLevel.clang_getCursorSpelling uDecl
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto ty = do
