@@ -103,6 +103,7 @@ frontend ::
 frontend tracer Config{..} extSpec pSpec hashIncludeArgs = do
     -- Impure: parse source code with `libclang` and reify.
     mParseResult <-
+      -- TODO: Maybe come up with empty values here, and avoid failing early below.
       withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader) <-
           processIncludes rootHeader unit
