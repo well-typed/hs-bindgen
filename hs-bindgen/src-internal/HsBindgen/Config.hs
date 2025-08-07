@@ -1,5 +1,6 @@
 module HsBindgen.Config
   ( Config (..)
+  , ConfigPP (..)
   ) where
 
 import Data.Default (Default)
@@ -8,9 +9,9 @@ import GHC.Generics (Generic)
 import Clang.Args
 import HsBindgen.Backend.Artefact.PP.Render
 import HsBindgen.Backend.Artefact.PP.Translation
+import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
-import HsBindgen.Backend.Hs.Translation
 
 -- | Configuration of @hs-bindgen@.
 --
@@ -25,6 +26,7 @@ data Config = Config {
     , configParsePredicate  :: ParsePredicate
     , configSelectPredicate :: SelectPredicate
     , configProgramSlicing  :: ProgramSlicing
+      -- TODO: Pretty printing should be separate.
       -- Pretty printing
     , configHsModuleOpts    :: HsModuleOpts
     , configHsRenderOpts    :: HsRenderOpts
@@ -32,3 +34,8 @@ data Config = Config {
   deriving stock (Show, Generic)
 
 instance Default Config
+
+data ConfigPP = ConfigPP {
+      configPPHsModuleOpts :: HsModuleOpts
+    , configPPHsRenderOpts :: HsRenderOpts
+    }

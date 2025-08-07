@@ -16,6 +16,7 @@ import HsBindgen.Lib
 -- NOTE: HsBindgen.Errors is an internal library.
 import HsBindgen.Errors
 
+import HsBindgen
 import HsBindgen.App.Cli
 import HsBindgen.App.Common
 
@@ -63,6 +64,35 @@ execPreprocess globalOpts opts = do
       Just path -> genBindingSpec opts.config inputs path hsDecls
   where
     mu = getModuleUnique opts.config.configHsModuleOpts
+
+-- execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
+-- execPreprocess globalOpts opts = do
+--     fromMaybeWithFatalError <=<
+--       withCliTracer globalOpts $ \tracer -> do
+--         inputs <- checkInputs tracer opts.inputs
+--         (extSpec, pSpec) <- loadBindingSpecs
+--                               (contramap TraceBindingSpec tracer)
+--                               opts.config.configClangArgs
+--                               opts.bindingSpecConfig
+--         -- TODO: Will write output, even with Error trace.
+--         mRes <-
+--           hsBindgen
+--             (contramap TraceFrontend tracer)
+--             opts.config
+--             extSpec
+--             pSpec
+--             inputs
+--             (HCons (Hs mu) (HCons (writeBindings mu opts.config) HNil))
+
+--         case mRes of
+--           Nothing -> pure ()
+--           Just (HCons hsDecls _) ->
+--             case opts.genBindingSpec of
+--               Nothing   -> return ()
+--               -- TODO: Need to unwrap 'HsDecls'.
+--               Just path -> genBindingSpec opts.config inputs path hsDecls
+--   where
+--     mu = getModuleUnique opts.config.configHsModuleOpts
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
 execGenTests globalOpts opts = do
