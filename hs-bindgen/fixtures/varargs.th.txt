@@ -1,4 +1,6 @@
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdarg.h
 -- addDependentFile examples/golden/varargs.h
 -- #include <varargs.h>
--- void test_internal_g (void) { g(); }
-foreign import ccall safe "test_internal_g" g :: IO Unit
+-- void test_internal_h (void) { h(); }
+foreign import ccall safe "test_internal_h" h :: IO Unit

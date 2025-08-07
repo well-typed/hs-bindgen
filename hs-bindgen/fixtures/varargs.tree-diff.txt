@@ -2,10 +2,10 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "varargs.h:5:6",
+        declLoc = "varargs.h:8:6",
         declId = NamePair {
-          nameC = Name "g",
-          nameHsIdent = HsIdentifier "g"},
+          nameC = Name "h",
+          nameHsIdent = HsIdentifier "h"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeader = "varargs.h",
@@ -23,4 +23,7 @@ TranslationUnit {
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
             []}}],
-  unitDeps = ["varargs"]}
+  unitDeps = [
+    "alltypes",
+    "stdarg",
+    "varargs"]}

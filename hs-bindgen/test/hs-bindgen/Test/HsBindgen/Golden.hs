@@ -182,9 +182,9 @@ testCases = [
           Just $ Expected $ Labelled "Renamed"  $ C.declIdName (C.declId info)
         _otherwise ->
           Nothing
-    , testTraceSimple "varargs" $ \case
-        TraceFrontend (FrontendParse (ParseUnsupportedType _ UnsupportedVariadicFunction)) ->
-          Just $ Expected ()
+    , testTraceCustom "varargs" ["f", "g"] $ \case
+        TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedVariadicFunction)) ->
+          Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
 
