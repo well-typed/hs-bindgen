@@ -7,6 +7,7 @@ module HsBindgen.Resolve (
 
 import Control.Monad ((<=<))
 import Control.Monad.Trans.Maybe (MaybeT (..), runMaybeT)
+import Data.Either (partitionEithers)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
@@ -31,15 +32,22 @@ import Text.SimplePrettyPrint (hang, hsep, string)
 
 data ResolveHeaderMsg =
     ResolveHeaderClang ClangMsg
-  | ResolveHeaderSuccess  HashIncludeArg SourcePath
+  | ResolveHeaderFound HashIncludeArg SourcePath
   | ResolveHeaderNotFound HashIncludeArg
+
+    -- | Header not attempted to be resolved, /perhaps/ due to an error while
+    -- parsing previous headers
+    --
+    -- NOTE: We have not been able to construct an example that causes this to
+    -- happen, but we can at least detect if it happens.
+  | ResolveHeaderNotAttempted HashIncludeArg
   deriving stock (Eq, Show)
 
 instance PrettyForTrace ResolveHeaderMsg where
   prettyForTrace = \case
     ResolveHeaderClang msg -> hang
       "during header resolution:" 2 (prettyForTrace msg)
-    ResolveHeaderSuccess header path -> hsep [
+    ResolveHeaderFound header path -> hsep [
         "header"
       , string $ getHashIncludeArg header
       , "resolved to"
@@ -48,20 +56,27 @@ instance PrettyForTrace ResolveHeaderMsg where
     ResolveHeaderNotFound header -> hsep [
         "header"
       , string $ getHashIncludeArg header
-      , "not found"
+      , "could not be resolved (header not found)"
+      ]
+    ResolveHeaderNotAttempted header -> hsep [
+        "header"
+      , string $ getHashIncludeArg header
+      , "not attempted to be resolved"
       ]
 
 instance HasDefaultLogLevel ResolveHeaderMsg where
   getDefaultLogLevel = \case
-    ResolveHeaderClang x    -> getDefaultLogLevel x
-    ResolveHeaderSuccess{}  -> Info
-    ResolveHeaderNotFound{} -> Error
+    ResolveHeaderClang x        -> getDefaultLogLevel x
+    ResolveHeaderFound{}        -> Info
+    ResolveHeaderNotFound{}     -> Error
+    ResolveHeaderNotAttempted{} -> Error
 
 instance HasSource ResolveHeaderMsg where
   getSource = \case
-    ResolveHeaderClang x    -> getSource x
-    ResolveHeaderSuccess{}  -> HsBindgen
-    ResolveHeaderNotFound{} -> HsBindgen
+    ResolveHeaderClang x        -> getSource x
+    ResolveHeaderFound{}        -> HsBindgen
+    ResolveHeaderNotFound{}     -> HsBindgen
+    ResolveHeaderNotAttempted{} -> HsBindgen
 
 {-------------------------------------------------------------------------------
   API
@@ -77,13 +92,17 @@ resolveHeaders tracer args headers =
       fmap (fromMaybe Map.empty)
     . withClang' (contramap ResolveHeaderClang tracer) clangSetup
     $ \unit -> do
-        root     <- clang_getTranslationUnitCursor unit
-        includes <- Map.fromList <$> HighLevel.clang_visitChildren root visit
-        forM_ headerList $ \header ->
-            traceWith tracer
-          . maybe (ResolveHeaderNotFound header) (ResolveHeaderSuccess header)
-          $ Map.lookup header includes
-        return $ Just includes
+        root <- clang_getTranslationUnitCursor unit
+        (notFounds, successes) <-
+          bimap Set.fromList Map.fromList . partitionEithers
+            <$> HighLevel.clang_visitChildren root visit
+        forM_ headerList $ \header -> traceWith tracer $
+          case Map.lookup header successes of
+            Just path -> ResolveHeaderFound header path
+            Nothing
+              | Set.member header notFounds -> ResolveHeaderNotFound header
+              | otherwise -> ResolveHeaderNotAttempted header
+        return $ Just successes
   where
     headerList :: [HashIncludeArg]
     headerList = Set.toAscList headers
@@ -104,23 +123,20 @@ resolveHeaders tracer args headers =
     clangSetup = defaultClangSetup args $
       ClangInputMemory rootHeaderName rootHeaderContent
 
-    visit :: Fold IO (HashIncludeArg, SourcePath)
+    visit :: Fold IO (Either HashIncludeArg (HashIncludeArg, SourcePath))
     visit = simpleFold $ \curr ->
       maybe foldContinue foldContinueWith <=< runMaybeT $ do
-        loc  <- clang_getCursorLocation curr
-        sloc <- HighLevel.clang_getExpansionLocation loc
-        let srcPath = singleLocPath sloc
-        -- Skip builtin macros
-        guard $ not (nullSourcePath srcPath)
+        sloc <- HighLevel.clang_getCursorLocation' curr
         -- Only process the root header
-        guard $ srcPath == rootHeaderPath
+        guard $ singleLocPath sloc == rootHeaderPath
         -- Only process inclusion directives
         guard . (== Right CXCursor_InclusionDirective) . fromSimpleEnum
           =<< clang_getCursorKind curr
-        -- Only process when resolved
-        path <- clang_getFileName =<< clang_getIncludedFile curr
-        guard $ not (Text.null path)
-        -- Process include
+        -- Process inclusion directive
         header <- maybe (panicIO "resolveHeaders unknown include") return $
           headerList !? (singleLocLine sloc - 1)
-        return (header, SourcePath path)
+        path <- clang_getFileName =<< clang_getIncludedFile curr
+        return $
+          if Text.null path
+            then Left header
+            else Right (header, SourcePath path)

@@ -103,10 +103,10 @@ execResolve GlobalOpts{..} ResolveOpts{..} = do
         case Map.lookup header includes of
           Just path -> (False <$) . putStrLn $
             "#include <" ++ getHashIncludeArg header
-              ++ "> resolves to " ++ show path
+              ++ "> resolved to " ++ show path
           Nothing   -> (True  <$) . putStrLn $
             "#include <" ++ getHashIncludeArg header
-              ++ "> does not resolve (header not found)"
+              ++ "> could not be resolved (header not found)"
     case mErr of
       Just False -> exitSuccess
       Just True  -> exitFailure
@@ -119,7 +119,7 @@ execResolve GlobalOpts{..} ResolveOpts{..} = do
 
     customLogLevel :: CustomLogLevel Level TraceMsg
     customLogLevel = CustomLogLevel $ \case
-      TraceResolveHeader ResolveHeaderSuccess{}  -> Just Debug
+      TraceResolveHeader ResolveHeaderFound{}    -> Just Debug
       TraceResolveHeader ResolveHeaderNotFound{} -> Just Debug
       _otherTrace -> Nothing
 
