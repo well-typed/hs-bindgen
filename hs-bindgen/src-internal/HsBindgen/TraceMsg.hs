@@ -71,7 +71,7 @@ data TraceMsg =
 --
 -- NOTE: The order of settings matters. The first setting specifying a custom
 -- log level for the emitted trace overrules later settings.
-customLogLevelFrom :: [CustomLogLevelSetting] -> CustomLogLevel TraceMsg
+customLogLevelFrom :: [CustomLogLevelSetting] -> CustomLogLevel TraceMsg Level
 customLogLevelFrom = mconcat . map fromCustomLogLevelSetting
 
 -- | List of predefined log level customization settings.
@@ -83,17 +83,17 @@ data CustomLogLevelSetting =
   | UCharHeaderResolutionTraceIsInfo
   deriving stock (Eq, Show)
 
-fromCustomLogLevelSetting :: CustomLogLevelSetting -> CustomLogLevel TraceMsg
+fromCustomLogLevelSetting :: CustomLogLevelSetting -> CustomLogLevel TraceMsg Level
 fromCustomLogLevelSetting = \case
   MacroTracesAreWarnings     -> macroTracesAreWarnings
   UCharHeaderResolutionTraceIsInfo -> uCharResolutionTraceIsInfo
   where
-    macroTracesAreWarnings :: CustomLogLevel TraceMsg
+    macroTracesAreWarnings :: CustomLogLevel TraceMsg Level
     macroTracesAreWarnings = CustomLogLevel $ \case
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{})) -> Just Warning
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))      -> Just Warning
         _otherTrace -> Nothing
-    uCharResolutionTraceIsInfo :: CustomLogLevel TraceMsg
+    uCharResolutionTraceIsInfo :: CustomLogLevel TraceMsg Level
     uCharResolutionTraceIsInfo = CustomLogLevel $ \case
         TraceResolveHeader (ResolveHeaderNotFound h)
           | getHashIncludeArg h == "uchar.h" -> Just Info
