@@ -374,12 +374,12 @@ parseSelectPredicate = fmap aux . many . asum $ [
         ]
     , fmap (Right . PIf . Right . DeclNameMatches) $ strOption $ mconcat [
           long "select-by-decl-name"
-        , help "Select declarations with names that match PCRE"
+        , help "Select declarations with C names that match PCRE"
         , metavar "PCRE"
         ]
     , fmap (Left . PIf . Right . DeclNameMatches) $ strOption $ mconcat [
           long "select-except-by-decl-name"
-        , help "Select except declarations with names that match PCRE"
+        , help "Select except declarations with C names that match PCRE"
         , metavar "PCRE"
         ]
     ]
