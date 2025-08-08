@@ -124,13 +124,22 @@ instance PrettyForTrace ClangMsg where
         | RootHeader.isInRootHeader diagnosticLocation -> textToCtxDoc $
             case getFileNotFound diagnosticSpelling of
               Just header -> "unable to resolve #include <" <> header <> ">"
-              Nothing     ->
-                Text.stripStart $ Text.dropWhile (/= ' ') diagnosticFormatted
+              Nothing     -> case getFileNotFoundQ diagnosticSpelling of
+                Just header ->
+                  "unable to resolve #include <" <> header
+                    <> "> (must specify header relative to directory in C include search path)"
+                Nothing     ->
+                  Text.stripStart $ Text.dropWhile (/= ' ') diagnosticFormatted
         | otherwise -> textToCtxDoc diagnosticFormatted
     where
       getFileNotFound :: Text -> Maybe Text
       getFileNotFound =
         fmap (Text.dropWhile (== '\'')) . Text.stripSuffix "' file not found"
+
+      getFileNotFoundQ :: Text -> Maybe Text
+      getFileNotFoundQ =
+          fmap (Text.dropWhile (== '\'') . Text.dropWhile (/= '\''))
+        . Text.stripSuffix "' file not found with <angled> include; use \"quotes\" instead"
 
 instance HasDefaultLogLevel ClangMsg where
   getDefaultLogLevel = \case
