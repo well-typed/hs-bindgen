@@ -78,9 +78,7 @@
 - error: {lhs: "undefined", rhs: "panicPure"}
 - error: {lhs: "fail", rhs: "panicIO"}
 # 'fail' is the only way to abort in Q.
-- ignore: {name: "Use panicIO", within: "HsBindgen.TH" }
-- ignore: {name: "Use panicIO", within: "HsBindgen.Pipeline" }
-
+- ignore: {name: "Use panicIO", within: "HsBindgen.Pipeline.TH" }
 # These cannot be used in hs-bindgen-runtime because they are defined in hs-bindgen.
 - ignore: {name: "Use panicIO",   within: "HsBindgen.Runtime.**" }
 - ignore: {name: "Use panicPure", within: "HsBindgen.Runtime.**" }

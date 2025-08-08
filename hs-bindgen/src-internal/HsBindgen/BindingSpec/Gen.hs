@@ -17,7 +17,7 @@ import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
-import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
+import HsBindgen.Backend.Artefact.PP.Translation (HsModuleOpts (..))
 import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private qualified as BindingSpec
 import HsBindgen.Config (Config (..))
@@ -25,8 +25,8 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.Origin qualified as HsOrigin
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 

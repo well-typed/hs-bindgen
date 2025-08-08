@@ -6,12 +6,12 @@ import System.FilePath ((</>))
 import Test.Tasty
 
 import HsBindgen.Imports
-import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Pipeline.Lib qualified as Pipeline
 
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
-import Test.HsBindgen.Resources
 import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests

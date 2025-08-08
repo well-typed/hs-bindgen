@@ -36,11 +36,12 @@ import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Config (Config (..))
+import HsBindgen.Frontend qualified as Frontend
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Lib (TraceMsg (..))
-import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Lib (FrontendMsg (..), TraceMsg (..))
+import HsBindgen.Pipeline.Lib qualified as Pipeline
 import HsBindgen.Util.Tracer
 
 import Test.Common.HsBindgen.TracePredicate
@@ -151,8 +152,9 @@ testDiagnostic ::
   -> TestCase
 testDiagnostic filename p =
     testTraceSimple filename $ \case
-      TraceClang (ClangDiagnostic x) | p x -> Just $ Expected ()
-      _otherwise                           -> Nothing
+      TraceFrontend (FrontendClang (ClangDiagnostic x))
+        | p x -> Just $ Expected ()
+      _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
   Construction: failing tests (tests with no output)
@@ -216,8 +218,8 @@ runTestParse testResources test = do
     pSpec   <- getTestPSpec   testResources test
 
     withTestTracer test $ \tracer ->
-      Pipeline.parseCHeaders
-        tracer
+      Frontend.frontend
+        (contramap TraceFrontend tracer)
         config
         extSpec
         pSpec
@@ -232,7 +234,7 @@ runTestTranslate testResources test = do
     withTestTracer test $ \tracer ->
       Pipeline.translateCHeaders
         "testmodule"
-        tracer
+        (contramap TraceFrontend tracer)
         config
         extSpec
         pSpec

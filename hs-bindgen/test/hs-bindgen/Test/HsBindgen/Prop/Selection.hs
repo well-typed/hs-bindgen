@@ -14,9 +14,9 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.C.Predicate
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Predicate
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Prop.Selection" [

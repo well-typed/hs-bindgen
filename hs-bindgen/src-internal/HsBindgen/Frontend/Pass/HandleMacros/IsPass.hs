@@ -3,10 +3,10 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
   , HandleMacrosMsg(..)
   ) where
 
-import HsBindgen.C.Reparse.Infra
-import HsBindgen.C.Tc.Macro
-import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.Macro.Reparse.Infra
+import HsBindgen.Frontend.Macro.Tc
+import HsBindgen.Frontend.Macro.Tc qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)

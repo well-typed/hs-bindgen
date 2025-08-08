@@ -30,11 +30,11 @@ import GHC.Generics (Generic)
 
 import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
-import HsBindgen.C.Reparse.Infra (ReparseError (..))
-import HsBindgen.C.Tc.Macro (TcMacroError (..))
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (..))
+import HsBindgen.Frontend.Macro.Reparse.Infra (ReparseError (..))
+import HsBindgen.Frontend.Macro.Tc (TcMacroError (..))
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosMsg (..))
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefsMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
@@ -57,12 +57,11 @@ import HsBindgen.Util.Tracer
 -- Lazy on purpose to avoid evaluation when traces are not reported.
 data TraceMsg =
     TraceBindingSpec BindingSpecMsg
-  | TraceClang ClangMsg
   | TraceFrontend FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
   | TraceHashIncludeArg HashIncludeArgMsg
   deriving stock    (Show, Eq, Generic)
-  deriving anyclass (PrettyForTrace , HasDefaultLogLevel , HasSource)
+  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
 
 {-------------------------------------------------------------------------------
   Log level customization

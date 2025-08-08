@@ -11,12 +11,12 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import Clang.Version
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.C.Predicate
-  (DeclPredicate(..), HeaderPathPredicate(..), Predicate(..))
 import HsBindgen.Config
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Predicate (DeclPredicate (..),
+                                     HeaderPathPredicate (..), Predicate (..))
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.TracePredicate
@@ -146,7 +146,7 @@ testCases = [
     , testTraceCustom "decls_in_signature" ["f3", "f4", "f5"] $ \case
         TraceFrontend (FrontendParse (ParseUnexpectedAnonInSignature info)) ->
           Just . Expected $ C.declId info
-        TraceClang (ClangDiagnostic _diag) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic _diag)) ->
           Just Tolerated
         _otherwise ->
           Nothing
@@ -210,7 +210,7 @@ testCases = [
     , failingTestSimple "redeclaration_different" $ \case
         TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {}))) ->
           Just (Expected ())
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "macro redefined" `Text.isInfixOf` diagnosticSpelling x
             then Just Tolerated
             else Nothing
@@ -224,74 +224,74 @@ testCases = [
 
       -- Arrays
     , failingTestSimple "array_res_1" $ \case
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
             else Nothing
-        TraceClang _ ->
+        TraceFrontend (FrontendClang _) ->
           Just Tolerated
         _otherwise ->
           Nothing
     , failingTestSimple "array_res_2" $ \case
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
             else Nothing
-        TraceClang _ ->
+        TraceFrontend (FrontendClang _) ->
           Just Tolerated
         _otherwise ->
           Nothing
     , failingTestSimple "array_res_3" $ \case
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
             else Nothing
-        TraceClang _ ->
+        TraceFrontend (FrontendClang _) ->
           Just Tolerated
         _otherwise ->
           Nothing
     , failingTestSimple "array_res_4" $ \case
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
             else Nothing
-        TraceClang _ ->
+        TraceFrontend (FrontendClang _) ->
           Just Tolerated
         _otherwise ->
           Nothing
     , failingTestSimple "array_res_5" $ \case
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
             else Nothing
-        TraceClang _ ->
+        TraceFrontend (FrontendClang _) ->
           Just Tolerated
         _otherwise ->
           Nothing
     , failingTestSimple "array_res_6" $ \case
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
             else Nothing
-        TraceClang _ ->
+        TraceFrontend (FrontendClang _) ->
           Just Tolerated
         _otherwise ->
           Nothing
     , failingTestSimple "array_res_7" $ \case
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
             else Nothing
-        TraceClang _ ->
+        TraceFrontend (FrontendClang _) ->
           Just Tolerated
         _otherwise ->
           Nothing
     , failingTestSimple "array_res_8" $ \case
-        TraceClang (ClangDiagnostic x) ->
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
             else Nothing
-        TraceClang _ ->
+        TraceFrontend (FrontendClang _) ->
           Just Tolerated
         _otherwise ->
           Nothing
@@ -315,9 +315,9 @@ testCases = [
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
             TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
                Just $ Expected (C.declId info)
-            TraceClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"}) ->
+            TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
                Just Tolerated
-            TraceClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-tentative-definition-array"}) ->
+            TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-tentative-definition-array"})) ->
                Just Tolerated
             TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
                Just $ Expected (C.declId info)
@@ -346,7 +346,7 @@ testCases = [
         }
     , (defaultTest "fun_attributes_conflict") {
           testTracePredicate = customTracePredicate [] $ \case
-             TraceClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-ignored-attributes"}) ->
+             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-ignored-attributes"})) ->
                Just Tolerated
              _otherwise ->
                Nothing

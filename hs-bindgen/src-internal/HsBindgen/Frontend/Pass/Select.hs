@@ -6,7 +6,6 @@ import Data.List (partition)
 import Data.Set (Set)
 import Data.Set qualified as Set
 
-import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
@@ -16,6 +15,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
+import HsBindgen.Frontend.Predicate qualified as Predicate
 
 -- | A declaration directly selected by the selection predicate.
 type Root = C.NsPrelimDeclId

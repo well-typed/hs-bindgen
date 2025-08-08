@@ -277,7 +277,7 @@ getIdxs n = [0 .. n - 1]
   Translation
 -------------------------------------------------------------------------------}
 
--- See "HsBindgen.Backend.PP.Render"
+-- See "HsBindgen.Backend.Artefact.PP.Render"
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

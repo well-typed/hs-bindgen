@@ -4,11 +4,11 @@
 
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.Lib (
-    -- * Parsing and translating
+    -- * Frontend
     HsDecls -- opaque
   , translateCHeaders
 
-    -- * Preprocessor
+    -- * Backend
   , preprocessPure
   , preprocessIO
 
@@ -131,14 +131,15 @@ import HsBindgen.Common qualified as Common
 
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
-import HsBindgen.Backend.PP.Render qualified as Backend.PP
-import HsBindgen.Backend.PP.Translation qualified as Backend.PP
+import HsBindgen.Backend.Artefact.PP.Render qualified as Backend.PP
+import HsBindgen.Backend.Artefact.PP.Translation qualified as Backend.PP
+import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Tracer qualified as Tracer
+
+import HsBindgen.Pipeline.Lib qualified as Pipeline
 
 import HsBindgen.BindingSpec
 import HsBindgen.Frontend.RootHeader
@@ -159,21 +160,15 @@ newtype HsDecls = WrapHsDecls {
 
 -- | Translate C headers to Haskell declarations
 translateCHeaders ::
-     ModuleUnique
-     -> Tracer IO Common.TraceMsg
-     -> Common.Config
-     -> ExternalBindingSpec
-     -> PrescriptiveBindingSpec
-     -> [HashIncludeArg]
-     -> IO HsDecls
-translateCHeaders mu tracer config extSpec pSpec =
-    fmap WrapHsDecls .
-      Pipeline.translateCHeaders
-        mu
-        tracer
-        config
-        extSpec
-        pSpec
+      ModuleUnique
+   -> Tracer IO Common.FrontendMsg
+   -> Common.Config
+   -> ExternalBindingSpec
+   -> PrescriptiveBindingSpec
+   -> [HashIncludeArg]
+   -> IO HsDecls
+translateCHeaders mu tracer config extSpec pSpec headers =
+  WrapHsDecls <$> Pipeline.translateCHeaders mu tracer config extSpec pSpec headers
 
 {-------------------------------------------------------------------------------
   Preprocessor

@@ -5,9 +5,9 @@
 -- | Golden test: TH output
 module Test.HsBindgen.Golden.Check.TH (check) where
 
+import Data.Generics qualified as SYB
 import Data.Map (Map)
 import Data.Map.Strict qualified as Map
-import Data.Generics qualified as SYB
 
 import Control.Monad (join)
 import Control.Monad.State.Strict (State, get, put, runState)
@@ -15,24 +15,24 @@ import Control.Monad.State.Strict (State, get, put, runState)
 import Clang.Version
 
 import Language.Haskell.TH qualified as TH
-import Language.Haskell.TH.Syntax qualified as TH
-import Language.Haskell.TH.PprLib qualified as TH
 import Language.Haskell.TH.Ppr qualified as TH
+import Language.Haskell.TH.PprLib qualified as TH
+import Language.Haskell.TH.Syntax qualified as TH
 
 import System.FilePath (makeRelative)
 
-import HsBindgen.Backend.PP.Render (CommentKind(..), prettyCommentKind)
+import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..), prettyCommentKind)
 import HsBindgen.Guasi
-import HsBindgen.Hs.Haddock.Documentation (Comment (..))
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment (..))
 import HsBindgen.Lib
-import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Pipeline.TH qualified as PipelineTH
 
 import Text.SimplePrettyPrint
 
 import Test.Common.Util.Tasty
-import Test.Common.Util.Tasty.Golden (ActualValue(..))
-import Test.HsBindgen.Resources
+import Test.Common.Util.Tasty.Golden (ActualValue (..))
 import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 import Test.Tasty hiding (after)
 
 {-------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ check testResources test =
         pkgroot <- getTestPackageRoot testResources
 
         let decls :: Qu [TH.Dec]
-            decls = Pipeline.genBindingsFromCHeader config unit
+            decls = PipelineTH.genBindingsFromCHeader config unit
 
             (QuState{..}, thdecs) = runQu decls
 

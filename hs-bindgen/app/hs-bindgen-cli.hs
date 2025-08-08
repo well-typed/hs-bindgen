@@ -13,7 +13,7 @@ import Text.Read (readMaybe)
 
 import HsBindgen.Lib
 
--- NOTE: HsBindgen is an internal library.
+-- NOTE: HsBindgen.Errors is an internal library.
 import HsBindgen.Errors
 
 import HsBindgen.App.Cli
@@ -48,7 +48,13 @@ execPreprocess globalOpts opts = do
                               opts.config.configClangArgs
                               opts.bindingSpecConfig
         (, inputs) <$>
-          translateCHeaders mu tracer opts.config extSpec pSpec inputs
+          translateCHeaders
+            mu
+            (contramap TraceFrontend tracer)
+            opts.config
+            extSpec
+            pSpec
+            inputs
 
     preprocessIO opts.config opts.output hsDecls
 
@@ -68,7 +74,13 @@ execGenTests globalOpts opts = do
                               opts.config.configClangArgs
                               opts.bindingSpecConfig
         (, inputs) <$>
-          translateCHeaders mu tracer opts.config extSpec pSpec inputs
+          translateCHeaders
+            mu
+            (contramap TraceFrontend tracer)
+            opts.config
+            extSpec
+            pSpec
+            inputs
 
     genTests opts.config inputs opts.output hsDecls
   where

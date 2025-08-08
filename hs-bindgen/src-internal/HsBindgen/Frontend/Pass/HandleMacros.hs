@@ -8,15 +8,15 @@ import Data.Set qualified as Set
 import Data.Vec.Lazy qualified as Vec
 
 import Clang.HighLevel.Types
-import HsBindgen.C.Reparse qualified as Reparse
-import HsBindgen.C.Reparse.Decl qualified as Reparse
-import HsBindgen.C.Tc.Macro qualified as Macro
-import HsBindgen.C.Tc.Macro.Type (MacroTypes)
-import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Macros.AST.Syntax
+import HsBindgen.Frontend.Macro.AST.Syntax
+import HsBindgen.Frontend.Macro.Reparse qualified as Reparse
+import HsBindgen.Frontend.Macro.Reparse.Decl qualified as Reparse
+import HsBindgen.Frontend.Macro.Tc qualified as Macro
+import HsBindgen.Frontend.Macro.Tc.Type (MacroTypes)
+import HsBindgen.Frontend.Macro.Tc.Type qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
