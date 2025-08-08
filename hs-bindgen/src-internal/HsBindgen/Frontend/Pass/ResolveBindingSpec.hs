@@ -303,13 +303,18 @@ instance Resolve C.Typedef where
 instance Resolve C.Function where
   resolve C.Function{..} = do
       (argsDepIds, functionArgs') <-
-        first Set.unions . unzip <$> mapM resolve functionArgs
+        first Set.unions . unzip
+          <$> mapM (\(mbName, ty) -> do
+                      (x, y) <- resolve ty
+                      pure (x, (mbName, y))
+                   )
+                   functionArgs
       (resDepIds, functionRes') <- resolve functionRes
       return
         (Set.union argsDepIds resDepIds, reassemble functionArgs' functionRes')
     where
       reassemble ::
-           [C.Type ResolveBindingSpec]
+           [(ArgumentName ResolveBindingSpec, C.Type ResolveBindingSpec)]
         -> C.Type ResolveBindingSpec
         -> C.Function ResolveBindingSpec
       reassemble functionArgs' functionRes' = C.Function {

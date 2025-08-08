@@ -1213,7 +1213,7 @@ functionDecs opts moduleName typedefs info f _spec =
         | otherwise  = highlevelName
 
     res = wrapType $ C.functionRes f
-    args = wrapType <$> C.functionArgs f
+    args = (wrapType . snd) <$> C.functionArgs f
     attrs = C.functionAttrs f
 
     -- types which we cannot pass directly using C FFI.

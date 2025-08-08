@@ -156,7 +156,7 @@ instance HandleUseSites C.CheckedMacroType where
 
 instance HandleUseSites C.Function where
   handleUseSites td C.Function{..} = C.Function{
-        functionArgs = map (handleUseSites td) functionArgs
+        functionArgs = map (bimap id (handleUseSites td)) functionArgs
       , functionRes  = handleUseSites td functionRes
       , ..
       }

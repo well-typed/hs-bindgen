@@ -28,13 +28,14 @@ type family AnnHandleTypedefs ix where
   AnnHandleTypedefs _                 = NoAnn
 
 instance IsPass HandleTypedefs where
-  type Id         HandleTypedefs = C.DeclId
-  type FieldName  HandleTypedefs = C.Name
-  type TypedefRef HandleTypedefs = RenamedTypedefRef HandleTypedefs
-  type MacroBody  HandleTypedefs = C.CheckedMacro HandleTypedefs
-  type ExtBinding HandleTypedefs = ResolvedExtBinding
-  type Ann ix     HandleTypedefs = AnnHandleTypedefs ix
-  type Msg        HandleTypedefs = HandleTypedefsMsg
+  type Id           HandleTypedefs = C.DeclId
+  type FieldName    HandleTypedefs = C.Name
+  type ArgumentName HandleTypedefs = Maybe C.Name
+  type TypedefRef   HandleTypedefs = RenamedTypedefRef HandleTypedefs
+  type MacroBody    HandleTypedefs = C.CheckedMacro HandleTypedefs
+  type ExtBinding   HandleTypedefs = ResolvedExtBinding
+  type Ann ix       HandleTypedefs = AnnHandleTypedefs ix
+  type Msg          HandleTypedefs = HandleTypedefsMsg
 
 {-------------------------------------------------------------------------------
   Annotations

@@ -20,6 +20,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
+import Data.Text qualified as Text
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -376,7 +377,7 @@ functionDecl info = simpleFold $ \curr -> do
     declCls <- HighLevel.classifyDeclaration curr
 
     typ  <- fromCXType =<< clang_getCursorType curr
-    (functionArgs, functionRes) <- guardTypeFunction typ
+    (functionArgs, functionRes) <- guardTypeFunction curr typ
     functionAnn <- getReparseInfo curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
         mkDecl purity = C.Decl{
@@ -416,12 +417,23 @@ functionDecl info = simpleFold $ \curr -> do
           return $ otherDecls ++ [mkDecl purity]
   where
     guardTypeFunction ::
-         C.Type Parse
-      -> ParseDecl ([C.Type Parse], C.Type Parse)
-    guardTypeFunction ty =
+         CXCursor
+      -> C.Type Parse
+      -> ParseDecl ([(Maybe C.Name, C.Type Parse)], C.Type Parse)
+    guardTypeFunction curr ty =
         case ty of
-          C.TypeFun args res ->
-            pure (args, res)
+          C.TypeFun args res -> do
+            args' <- forM (zip args [0 :: Int ..]) $ \(argCType, i) -> do
+              argCursor <- clang_Cursor_getArgument curr i
+
+              argName <- clang_getCursorDisplayName argCursor
+              let mbArgName =
+                    if Text.null argName
+                       then Nothing
+                       else Just (C.Name argName)
+
+              return (mbArgName, argCType)
+            pure (args', res)
           otherType ->
             panicIO $ "Expected function type, but got " <> show otherType
 

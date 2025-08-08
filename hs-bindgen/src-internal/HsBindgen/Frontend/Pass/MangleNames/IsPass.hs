@@ -41,13 +41,14 @@ type family AnnMangleNames ix where
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id         MangleNames = (NamePair, C.NameOrigin)
-  type FieldName  MangleNames = NamePair
-  type TypedefRef MangleNames = RenamedTypedefRef MangleNames
-  type MacroBody  MangleNames = CheckedMacro MangleNames
-  type ExtBinding MangleNames = ResolvedExtBinding
-  type Ann ix     MangleNames = AnnMangleNames ix
-  type Msg        MangleNames = MangleNamesMsg
+  type Id           MangleNames = (NamePair, C.NameOrigin)
+  type FieldName    MangleNames = NamePair
+  type ArgumentName MangleNames = Maybe NamePair
+  type TypedefRef   MangleNames = RenamedTypedefRef MangleNames
+  type MacroBody    MangleNames = CheckedMacro MangleNames
+  type ExtBinding   MangleNames = ResolvedExtBinding
+  type Ann ix       MangleNames = AnnMangleNames ix
+  type Msg          MangleNames = MangleNamesMsg
 
 {-------------------------------------------------------------------------------
   Identifiers

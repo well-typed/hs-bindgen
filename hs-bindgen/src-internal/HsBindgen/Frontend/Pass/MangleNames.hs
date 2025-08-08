@@ -17,6 +17,7 @@ import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
+import Data.Bitraversable (bimapM)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -221,6 +222,18 @@ mkTypedefNames = mkNewtypeNames
 mkMacroTypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkMacroTypeNames = mkNewtypeNames
 
+-- | Mangle function argument name
+--
+-- Function argument names are not really used when generating Haskell code.
+-- They are more relevant for documentation purposes so we don't do any
+-- mangling.
+mangleArgumentName :: C.Name -> M NamePair
+mangleArgumentName argName = do
+    fc <- asks envFixCandidate
+    let (hsName, mError) = fromCName fc (Proxy @NsConstr) argName
+    forM_ mError $ modify . (:)
+    return $ NamePair argName hsName
+
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
@@ -358,7 +371,7 @@ instance MangleDecl C.Typedef where
 instance MangleDecl C.Function where
   mangleDecl _info C.Function{..} = do
       let mk ::
-               [C.Type MangleNames]
+               [(Maybe NamePair, C.Type MangleNames)]
             -> C.Type MangleNames
             -> C.Function MangleNames
           mk functionArgs' functionRes' = C.Function{
@@ -366,7 +379,8 @@ instance MangleDecl C.Function where
               , functionRes  = functionRes'
               , ..
               }
-      mk <$> mapM mangle functionArgs <*> mangle functionRes
+      mk <$> mapM (bimapM (traverse mangleArgumentName) mangle) functionArgs
+         <*> mangle functionRes
 
 instance MangleDecl C.CheckedMacro where
   mangleDecl info = \case

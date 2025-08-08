@@ -4,6 +4,7 @@ import Prelude hiding (Enum)
 
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Pass
+import Data.Bifunctor (bimap)
 
 {-------------------------------------------------------------------------------
   Coercing between passes
@@ -146,10 +147,11 @@ instance (
 
 instance (
       CoercePass Type p p'
+    , ArgumentName p ~ ArgumentName p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
   coercePass Function{..} = Function {
-        functionArgs = map coercePass functionArgs
+        functionArgs = map (bimap id coercePass) functionArgs
       , functionRes  = coercePass functionRes
       , functionAttrs
       , functionAnn
@@ -172,6 +174,7 @@ instance (
 
 instance (
       Id p ~ Id p'
+    , ArgumentName p ~ ArgumentName p'
     , TypedefRef p ~ TypedefRef p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass Type p p' where

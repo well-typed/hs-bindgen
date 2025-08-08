@@ -34,15 +34,16 @@ type family AnnSelect ix where
   AnnSelect _                 = NoAnn
 
 instance IsPass Select where
-  type Id         Select = C.DeclId
-  type FieldName  Select = C.Name
-  type TypedefRef Select = C.Name
+  type Id           Select = C.DeclId
+  type FieldName    Select = C.Name
+  type ArgumentName Select = Maybe C.Name
+  type TypedefRef   Select = C.Name
   -- NOTE Using @CheckedMacro Select@ is incompatible with 'CoercePass'
-  type MacroBody  Select = CheckedMacro ResolveBindingSpec
-  type ExtBinding Select = ResolvedExtBinding
-  type Ann ix     Select = AnnSelect ix
-  type Config     Select = SelectConfig
-  type Msg        Select = SelectMsg
+  type MacroBody    Select = CheckedMacro ResolveBindingSpec
+  type ExtBinding   Select = ResolvedExtBinding
+  type Ann ix       Select = AnnSelect ix
+  type Config       Select = SelectConfig
+  type Msg          Select = SelectMsg
 
 {-------------------------------------------------------------------------------
   Configuration
