@@ -36,7 +36,6 @@ data Dev = Dev {
       devGlobalOpts :: GlobalOpts
     , devCmd        :: DevCmd
     }
-  deriving (Show)
 
 parseDev :: Parser Dev
 parseDev =

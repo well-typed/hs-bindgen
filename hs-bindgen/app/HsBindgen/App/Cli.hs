@@ -54,7 +54,6 @@ data Cli = Cli {
       cliGlobalOpts :: GlobalOpts
     , cliCmd        :: CliCmd
     }
-  deriving (Show)
 
 parseCli :: Parser Cli
 parseCli =

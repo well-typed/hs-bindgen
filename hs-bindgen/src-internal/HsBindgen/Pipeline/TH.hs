@@ -5,10 +5,10 @@ module HsBindgen.Pipeline.TH (
     IncludeDir (..)
   , BindgenOpts ( extraIncludeDirs
                 , baseConfig
-                , tracerOutputConfigQ
-                , tracerCustomLogLevel
+                , bindingSpecConfig
                 , tracerTracerConfig
                 )
+  , tracerConfigDefQ
   , withHsBindgen
   , hashInclude
   , genBindingsFromCHeader
@@ -60,9 +60,7 @@ data BindgenOpts = BindgenOpts {
     -- * Binding specifications
   , bindingSpecConfig    :: BindingSpecConfig
     -- * Tracer
-  , tracerOutputConfigQ  :: OutputConfig TH.Q
-  , tracerCustomLogLevel :: CustomLogLevel TraceMsg
-  , tracerTracerConfig   :: TracerConfig
+  , tracerTracerConfig   :: TracerConfig TH.Q TraceMsg Level
   }
 
 instance Default BindgenOpts where
@@ -70,10 +68,16 @@ instance Default BindgenOpts where
       extraIncludeDirs     = []
     , baseConfig           = def
     , bindingSpecConfig    = def
-    , tracerTracerConfig   = def { tVerbosity = Verbosity Notice }
-    , tracerCustomLogLevel = mempty
-    , tracerOutputConfigQ  = outputConfigQ
+    , tracerTracerConfig   = tracerConfigDefQ
     }
+
+-- | The default tracer configuration in Q has verbosity 'Notice' and uses
+-- 'outputConfigQ'.
+tracerConfigDefQ :: TracerConfig TH.Q TraceMsg Level
+tracerConfigDefQ = def {
+        tVerbosity = Verbosity Notice
+      , tOutputConfig = outputConfigQ
+      }
 
 -- | Internal! See 'withHsBindgen'.
 type Bindgen a = RWST BindgenEnv () BindgenState TH.Q a
@@ -108,7 +112,7 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
       config :: Config
       config = def { configClangArgs = clangArgs }
 
-  maybeDecls <- withTracer $ \tracer -> do
+  maybeDecls <- withTracerQ $ \tracer -> do
     let tracerIO = natTracer TH.runQ tracer
     -- Traverse #include directives.
     bindgenState <- fst <$> execRWST
@@ -148,11 +152,8 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
       root <- getPackageRoot
       pure $ map (toFilePath root) xs
 
-    withTracer :: (Tracer TH.Q TraceMsg -> TH.Q b) -> TH.Q (Maybe b)
-    withTracer = withTracerCustom
-                   tracerOutputConfigQ
-                   tracerCustomLogLevel
-                   tracerTracerConfig
+    withTracerQ :: (Tracer TH.Q TraceMsg -> TH.Q b) -> TH.Q (Maybe b)
+    withTracerQ = withTracer tracerTracerConfig
 
 -- | @#include@ (i.e., generate bindings for) a C header.
 --

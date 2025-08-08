@@ -14,6 +14,7 @@ module HsBindgen.TH (
   , Common.Config(..)
   , PipelineTH.IncludeDir(..)
   , PipelineTH.BindgenOpts(..)
+  , PipelineTH.tracerConfigDefQ
 
     -- ** Clang arguments
   , Common.ClangArgs(..)
@@ -97,7 +98,7 @@ module HsBindgen.TH (
   , Common.customLogLevelFrom
   , Common.CustomLogLevelSetting(..)
     -- ** Tracers
-  , Common.withTracerCustom
+  , Common.withTracer
 
    -- * Re-exports
   , Common.Default(..)

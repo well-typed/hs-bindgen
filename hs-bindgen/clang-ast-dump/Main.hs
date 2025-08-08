@@ -71,7 +71,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ getHashIncludeArg optFile ++ "`"
     putStrLn ""
 
-    maybeRes <- withTracerStdOut tracerConf $ \tracer -> do
+    maybeRes <- withTracer tracerConf $ \tracer -> do
       let tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return
@@ -95,8 +95,7 @@ clangAstDump opts@Options{..} = do
       Nothing -> fatalError
       Just _  -> pure ()
   where
-
-    tracerConf :: TracerConfig
+    tracerConf :: TracerConfig IO DumpTrace Level
     tracerConf = def {
         tVerbosity = Verbosity Notice
       }

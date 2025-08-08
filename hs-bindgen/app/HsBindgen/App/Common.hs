@@ -44,10 +44,9 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig  :: TracerConfig
+      tracerConfig  :: TracerConfig IO TraceMsg Level
     , macroWarnings :: MacroLogLevel
     }
-  deriving stock (Show)
 
 parseGlobalOpts :: Parser GlobalOpts
 parseGlobalOpts =
@@ -59,10 +58,12 @@ parseGlobalOpts =
   Tracer configuration
 -------------------------------------------------------------------------------}
 
-parseTracerConfig :: Parser TracerConfig
+parseTracerConfig :: Parser (TracerConfig IO TraceMsg Level)
 parseTracerConfig =
     TracerConfig
       <$> parseVerbosity
+      <*> pure def
+      <*> pure mempty
       <*> parseShowTimeStamp
       <*> parseShowCallStack
 
@@ -441,7 +442,12 @@ withCliTracer GlobalOpts{..} action' = do
           MacroLogInfo    -> []
           MacroLogWarning -> [MacroTracesAreWarnings]
         customLogLevel = customLogLevelFrom customLogLevelSettings
-    withTracerCustom def customLogLevel tracerConfig action'
+
+        tracerConfig' :: TracerConfig IO TraceMsg Level
+        tracerConfig' = tracerConfig {
+          tCustomLogLevel = customLogLevel
+        }
+    withTracer tracerConfig' action'
 
 -- | Extract the result or exit gracefully with an error message.
 --
