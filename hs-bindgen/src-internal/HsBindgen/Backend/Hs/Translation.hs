@@ -969,7 +969,7 @@ typ' ctx = go ctx
     go _ (C.TypeIncompleteArray ty) =
         Hs.HsIncompleteArray $ go CTop ty
     go _ (C.TypeFun xs y) =
-        foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
+        foldr (\(_, x) res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
     go _ (C.TypeBlock ty) =
         HsBlock $ go CTop ty
     go _ (C.TypeExtBinding ext) =
@@ -1204,7 +1204,7 @@ functionDecs mu typedefs info f _spec =
         | otherwise  = highlevelName
 
     res = wrapType $ C.functionRes f
-    args = wrapType <$> C.functionArgs f
+    args = (wrapType . snd) <$> C.functionArgs f
     attrs = C.functionAttrs f
 
     -- types which we cannot pass directly using C FFI.

@@ -269,7 +269,7 @@ processFunction info C.Function {..} =
     withoutReparse = return C.Decl{
           declInfo = info
         , declKind = C.DeclFunction C.Function{
-              functionArgs = map coercePass functionArgs
+              functionArgs = map (bimap id coercePass) functionArgs
             , functionRes = coercePass functionRes
             , functionAnn = NoAnn
             , ..
@@ -278,7 +278,7 @@ processFunction info C.Function {..} =
         }
 
     withReparse ::
-         (([C.Type HandleMacros], C.Type HandleMacros), C.Name)
+         (([(ArgumentName HandleMacros, C.Type HandleMacros)], C.Type HandleMacros), C.Name)
       -> M (C.Decl HandleMacros)
     withReparse ((tys, ty), _name) = do
        -- TODO: We should assert that the name is the name we were expecting
@@ -422,7 +422,7 @@ reparseField typeEnv tokens =
       Reparse.reparseWith (Reparse.reparseFieldDecl typeEnv) tokens
 
 reparseFunctionDecl :: Reparse (
-    ([C.Type HandleMacros], C.Type HandleMacros)
+    ([(ArgumentName HandleMacros, C.Type HandleMacros)], C.Type HandleMacros)
   , C.Name
   )
 reparseFunctionDecl typeEnv tokens =

@@ -214,7 +214,7 @@ data Typedef = Typedef {
 -------------------------------------------------------------------------------}
 
 data Function = Function {
-      functionArgs    :: [Type]
+      functionArgs    :: [(Maybe MangleNames.NamePair, Type)]
     , functionAttrs   :: Int.FunctionAttributes
     , functionRes     :: Type
     }
@@ -251,7 +251,7 @@ data Type =
   | TypeMacroTypedef MangleNames.NamePair C.NameOrigin
   | TypePointer Type
   | TypeConstArray Natural Type
-  | TypeFun [Type] Type
+  | TypeFun [(Maybe MangleNames.NamePair, Type)] Type
   | TypeVoid
 
     -- | Arrays of unknown size

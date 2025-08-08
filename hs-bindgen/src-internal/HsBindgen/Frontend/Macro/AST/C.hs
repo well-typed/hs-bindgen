@@ -38,7 +38,7 @@ pattern TypePrim prim = C.TypePrim prim
 pattern TypeVoid :: Type
 pattern TypeVoid = C.TypeVoid
 
-pattern TypeFun :: [Type] -> Type -> Type
+pattern TypeFun :: [(Maybe C.Name, Type)] -> Type -> Type
 pattern TypeFun args res = C.TypeFun args res
 
 pattern TypePointer :: Type -> Type

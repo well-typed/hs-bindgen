@@ -173,7 +173,7 @@ instance NameUseSites C.CheckedMacroType where
 
 instance NameUseSites C.Function where
   nameUseSites env C.Function{..} = C.Function{
-        functionArgs = map (nameUseSites env) functionArgs
+        functionArgs = map (bimap id (nameUseSites env)) functionArgs
       , functionRes  = nameUseSites env functionRes
       , ..
       }
@@ -195,7 +195,7 @@ instance NameUseSites C.Type where
 
       -- Recursive cases
       go (C.TypePointer ty)         = C.TypePointer (go ty)
-      go (C.TypeFun args res)       = C.TypeFun (map go args) (go res)
+      go (C.TypeFun args res)       = C.TypeFun (map (bimap id go) args) (go res)
       go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)
       go (C.TypeBlock ty)           = C.TypeBlock (go ty)

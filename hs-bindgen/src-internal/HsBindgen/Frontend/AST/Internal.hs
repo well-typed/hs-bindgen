@@ -188,7 +188,7 @@ data EnumConstant p = EnumConstant {
     }
 
 data Function p = Function {
-      functionArgs    :: [Type p]
+      functionArgs    :: [(ArgumentName p, Type p)]
     , functionRes     :: Type p
     , functionAttrs   :: FunctionAttributes
     , functionAnn     :: Ann "Function" p
@@ -330,7 +330,7 @@ data Type p =
   | TypeMacroTypedef (Id p)
 
   | TypePointer (Type p)
-  | TypeFun [Type p] (Type p)
+  | TypeFun [(ArgumentName p, Type p)] (Type p)
   | TypeVoid
   | TypeConstArray Natural (Type p)
   | TypeExtBinding (ExtBinding p)
@@ -393,10 +393,12 @@ class ( IsPass p
       , Show (ExtBinding p)
       , Show (MacroBody  p)
       , Show (TypedefRef p)
+      , Show (ArgumentName p)
 
       , Eq (ExtBinding p)
       , Eq (MacroBody  p)
       , Eq (TypedefRef p)
+      , Eq (ArgumentName p)
 
         -- Annotations
 

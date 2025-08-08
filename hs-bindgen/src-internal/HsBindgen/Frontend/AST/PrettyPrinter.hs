@@ -152,7 +152,7 @@ showsType x (TypeFun args res)      =
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function
     -- declarations.
-    showsFunctionType (showParen True (x 0)) ImpureFunction (zipWith named [1..] args) res
+    showsFunctionType (showParen True (x 0)) ImpureFunction (zipWith named [1..] (map snd args)) res
   where
     named :: Int -> Type -> (ShowS, Type)
     named i t = (showString "arg" . shows i, t)

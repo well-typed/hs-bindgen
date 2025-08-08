@@ -93,7 +93,7 @@ reparseFieldDecl tyEnv = do
     Right ( ty, DeclName nm ) -> return ( ty, nm )
 
 -- | Reparse a C function declaration.
-reparseFunDecl :: Macro.TypeEnv -> Reparse (([C.Type],C.Type), C.Name)
+reparseFunDecl :: Macro.TypeEnv -> Reparse (([(Maybe C.Name, C.Type)],C.Type), C.Name)
 reparseFunDecl tyEnv = do
   ( specs, decl ) <- reparseDeclaration @Concrete tyEnv
   eof
@@ -494,7 +494,7 @@ directDeclaratorTypeAndName ty = \case
               ++ " " ++ intercalate ", " ( map show ms )
     directDeclaratorTypeAndName funTy d
 
-parameterTypes :: [Parameter] -> ([Int], [C.Type])
+parameterTypes :: [Parameter] -> ([Int], [(Maybe C.Name, C.Type)])
 parameterTypes ps =
   partitionEithers $
     zipWith aux [1..] ps
@@ -502,10 +502,29 @@ parameterTypes ps =
     aux i ( Parameter { parameterDeclSpecifiers = specs, parameterDeclarator = decl }) =
       -- TODO: dropping attributes
       let declSpecs = fmap fst $ NE.toList specs
+          mbArgName = extractNameFromDeclator decl
       in
         case parameterDeclaratorType declSpecs decl of
             Left {} -> Left i
-            Right ty -> Right ty
+            Right ty -> Right (mbArgName, ty)
+
+    extractNameFromDeclator :: ParameterDeclarator -> Maybe C.Name
+    extractNameFromDeclator decl =
+        case decl of
+          ParameterAbstractDeclarator _       -> Nothing
+          ParameterDeclarator Declarator {..} ->
+            extractNameFromDirectDeclator directDeclarator
+
+    extractNameFromDirectDeclator :: DirectDeclarator 'Concrete -> Maybe C.Name
+    extractNameFromDirectDeclator ddecl =
+      case ddecl of
+        IdentifierDeclarator (DeclName t) _              -> Just t
+        ParenDeclarator Declarator {..}                  ->
+          extractNameFromDirectDeclator directDeclarator
+        ArrayDirectDeclarator ArrayDeclarator {..}       ->
+          extractNameFromDirectDeclator arrayDirectDeclarator
+        FunctionDirectDeclarator FunctionDeclarator {..} ->
+          extractNameFromDirectDeclator functionDirectDeclarator
 
 parameterDeclaratorType :: [DeclarationSpecifier] -> ParameterDeclarator -> Either String C.Type
 parameterDeclaratorType specs = \case

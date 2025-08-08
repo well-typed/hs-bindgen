@@ -303,13 +303,18 @@ instance Resolve C.Typedef where
 instance Resolve C.Function where
   resolve C.Function{..} = do
       (argsDepIds, functionArgs') <-
-        first Set.unions . unzip <$> mapM resolve functionArgs
+        first Set.unions . unzip
+          <$> mapM (\(mbName, ty) -> do
+                      (x, y) <- resolve ty
+                      pure (x, (mbName, y))
+                   )
+                   functionArgs
       (resDepIds, functionRes') <- resolve functionRes
       return
         (Set.union argsDepIds resDepIds, reassemble functionArgs' functionRes')
     where
       reassemble ::
-           [C.Type ResolveBindingSpec]
+           [(ArgumentName ResolveBindingSpec, C.Type ResolveBindingSpec)]
         -> C.Type ResolveBindingSpec
         -> C.Function ResolveBindingSpec
       reassemble functionArgs' functionRes' = C.Function {
@@ -351,7 +356,12 @@ instance Resolve C.Type where
       -- Recursive cases
       C.TypePointer t         -> fmap C.TypePointer <$> resolve t
       C.TypeFun args res      -> do
-        (argsDepIds, args') <- first Set.unions . unzip <$> mapM resolve args
+        (argsDepIds, args') <- first Set.unions . unzip
+                           <$> mapM (\(mbName, ty) -> do
+                                       (x, y) <- resolve ty
+                                       pure (x, (mbName, y))
+                                    )
+                                    args
         (resDepIds,  res')  <- resolve res
         return (Set.union argsDepIds resDepIds, C.TypeFun args' res')
       C.TypeConstArray n t    -> fmap (C.TypeConstArray n) <$> resolve t
