@@ -497,26 +497,55 @@
       foreignImportName = HsName
         "@NsVar"
         "normal_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
             (HsName
-              "@NsTypeConstr"
-              "Opaque")))
-        (HsFun
-          (HsPtr
+              "@NsVar"
+              "ptr_to_opaque"),
+          functionParameterType = HsPtr
             (HsTypRef
               (HsName
                 "@NsTypeConstr"
-                "Outside")))
-          (HsFun
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Outside")))
-            (HsIO
-              (HsPrimType HsPrimUnit)))),
+                "Opaque")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_opaque",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "ptr_to_defined"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_defined",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "by_value"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "by_value",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369",
       foreignImportCallConv =
@@ -524,26 +553,44 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "opaque",
+                  nameC = Name "ptr_to_opaque",
                   nameHsIdent = HsIdentifier
-                    "Opaque"}
-                NameOriginInSource),
-            TypePointer
+                    "ptr_to_opaque"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "opaque",
+                    nameHsIdent = HsIdentifier
+                      "Opaque"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_defined",
+                  nameHsIdent = HsIdentifier
+                    "ptr_to_defined"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "outside",
+                    nameHsIdent = HsIdentifier
+                      "Outside"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "by_value",
+                  nameHsIdent = HsIdentifier
+                    "by_value"})
               (TypeStruct
                 NamePair {
                   nameC = Name "outside",
                   nameHsIdent = HsIdentifier
                     "Outside"}
-                NameOriginInSource),
-            TypeStruct
-              NamePair {
-                nameC = Name "outside",
-                nameHsIdent = HsIdentifier
-                  "Outside"}
-              NameOriginInSource],
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1136,12 +1183,22 @@
       foreignImportName = HsName
         "@NsVar"
         "f1_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Named_struct")))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_struct")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_8b60d38de80093fa",
@@ -1150,12 +1207,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeStruct
-              NamePair {
-                nameC = Name "named_struct",
-                nameHsIdent = HsIdentifier
-                  "Named_struct"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = HsIdentifier
+                    "Named_struct"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1347,12 +1410,22 @@
       foreignImportName = HsName
         "@NsVar"
         "f2_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Named_union")))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_union")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_4a86b0420a250963",
@@ -1361,12 +1434,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeUnion
-              NamePair {
-                nameC = Name "named_union",
-                nameHsIdent = HsIdentifier
-                  "Named_union"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "named_union",
+                  nameHsIdent = HsIdentifier
+                    "Named_union"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

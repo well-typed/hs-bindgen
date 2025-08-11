@@ -18,9 +18,13 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 $(CAPI.addCSource "#include <definitions.h>\nsigned int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }\n__attribute__ ((const)) signed int *get_n_ptr (void) { return &n; } \n")
 
-foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo :: FC.CDouble -> IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo
+  :: FC.CDouble
+     {- ^ __from C:__ @x@ -}
+  -> IO FC.CInt
 
-foreign import ccall safe "get_n_ptr" n_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_n_ptr" n_ptr
+  :: F.Ptr FC.CInt
 
 data X = X
   { x_n :: FC.CInt

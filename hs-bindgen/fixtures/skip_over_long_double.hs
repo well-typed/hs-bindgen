@@ -8,8 +8,15 @@
       foreignImportName = HsName
         "@NsVar"
         "fun2",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed",
@@ -18,8 +25,10 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

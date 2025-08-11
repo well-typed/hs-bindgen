@@ -7,8 +7,10 @@
       foreignImportName = HsName
         "@NsVar"
         "by'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_a08e966b63669ba8",
       foreignImportCallConv =
@@ -29,8 +31,10 @@
       foreignImportName = HsName
         "@NsVar"
         "forall'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_946148697abf4575",
       foreignImportCallConv =
@@ -51,8 +55,10 @@
       foreignImportName = HsName
         "@NsVar"
         "mdo'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_a1ece6a6fa8e9763",
       foreignImportCallConv =
@@ -73,8 +79,10 @@
       foreignImportName = HsName
         "@NsVar"
         "pattern'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_1e48788938305e48",
       foreignImportCallConv =
@@ -95,8 +103,10 @@
       foreignImportName = HsName
         "@NsVar"
         "proc'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_9bb16600c50998ed",
       foreignImportCallConv =
@@ -117,8 +127,10 @@
       foreignImportName = HsName
         "@NsVar"
         "rec'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_8dfd7fa26e360d8e",
       foreignImportCallConv =
@@ -139,8 +151,10 @@
       foreignImportName = HsName
         "@NsVar"
         "using'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_57c5446244bcece1",
       foreignImportCallConv =
@@ -161,8 +175,10 @@
       foreignImportName = HsName
         "@NsVar"
         "anyclass",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_a2a878b7e49c1a71",
       foreignImportCallConv =
@@ -183,8 +199,10 @@
       foreignImportName = HsName
         "@NsVar"
         "capi",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_2f73a4347f70a468",
       foreignImportCallConv =
@@ -205,8 +223,10 @@
       foreignImportName = HsName
         "@NsVar"
         "cases",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_cb2993ce15743783",
       foreignImportCallConv =
@@ -227,8 +247,10 @@
       foreignImportName = HsName
         "@NsVar"
         "ccall",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_954c564a2bd129a5",
       foreignImportCallConv =
@@ -249,8 +271,10 @@
       foreignImportName = HsName
         "@NsVar"
         "dynamic",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_3a96dcbee4c024e0",
       foreignImportCallConv =
@@ -271,8 +295,10 @@
       foreignImportName = HsName
         "@NsVar"
         "export",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_2e78d006337ea551",
       foreignImportCallConv =
@@ -293,8 +319,10 @@
       foreignImportName = HsName
         "@NsVar"
         "family",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_10c8e433951b50a8",
       foreignImportCallConv =
@@ -315,8 +343,10 @@
       foreignImportName = HsName
         "@NsVar"
         "group",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_6217d85466fed7df",
       foreignImportCallConv =
@@ -337,8 +367,10 @@
       foreignImportName = HsName
         "@NsVar"
         "interruptible",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_00164685ff44cb75",
       foreignImportCallConv =
@@ -359,8 +391,10 @@
       foreignImportName = HsName
         "@NsVar"
         "javascript",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_c810b13a75ea93bc",
       foreignImportCallConv =
@@ -381,8 +415,10 @@
       foreignImportName = HsName
         "@NsVar"
         "label",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_41d6d93a2614dff5",
       foreignImportCallConv =
@@ -403,8 +439,10 @@
       foreignImportName = HsName
         "@NsVar"
         "prim",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_bdfec7f41298a418",
       foreignImportCallConv =
@@ -425,8 +463,10 @@
       foreignImportName = HsName
         "@NsVar"
         "role",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_0d10aaa9ecbf0f2f",
       foreignImportCallConv =
@@ -447,8 +487,10 @@
       foreignImportName = HsName
         "@NsVar"
         "safe",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_0ebc368c3818b18b",
       foreignImportCallConv =
@@ -469,8 +511,10 @@
       foreignImportName = HsName
         "@NsVar"
         "stdcall",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_764bfbe5fbb4fac9",
       foreignImportCallConv =
@@ -491,8 +535,10 @@
       foreignImportName = HsName
         "@NsVar"
         "stock",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_6597a6eedc28f577",
       foreignImportCallConv =
@@ -513,8 +559,10 @@
       foreignImportName = HsName
         "@NsVar"
         "unsafe",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_1aef1bdf2d1ba544",
       foreignImportCallConv =
@@ -535,8 +583,10 @@
       foreignImportName = HsName
         "@NsVar"
         "via",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_names_d428a3f008917f79",
       foreignImportCallConv =

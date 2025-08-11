@@ -7,8 +7,10 @@
       foreignImportName = HsName
         "@NsVar"
         "simpleGlobal_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_simpleGlobal_ptr",
       foreignImportCallConv =
@@ -487,11 +489,14 @@
       foreignImportName = HsName
         "@NsVar"
         "compoundGlobal1_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Config")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Config"))),
       foreignImportOrigName =
       "get_compoundGlobal1_ptr",
       foreignImportCallConv =
@@ -975,11 +980,14 @@
       foreignImportName = HsName
         "@NsVar"
         "compoundGlobal2_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Inline_struct")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Inline_struct"))),
       foreignImportOrigName =
       "get_compoundGlobal2_ptr",
       foreignImportCallConv =
@@ -1000,8 +1008,10 @@
       foreignImportName = HsName
         "@NsVar"
         "nesInteger_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_nesInteger_ptr",
       foreignImportCallConv =
@@ -1048,8 +1058,11 @@
       foreignImportName = HsName
         "@NsVar"
         "nesFloating_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCFloat),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPrimType HsPrimCFloat)),
       foreignImportOrigName =
       "get_nesFloating_ptr",
       foreignImportCallConv =
@@ -1066,9 +1079,12 @@
       foreignImportName = HsName
         "@NsVar"
         "nesString1_ptr",
-      foreignImportType = HsPtr
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
         (HsPtr
-          (HsPrimType HsPrimCChar)),
+          (HsPtr
+            (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
       "get_nesString1_ptr",
       foreignImportCallConv =
@@ -1088,10 +1104,13 @@
       foreignImportName = HsName
         "@NsVar"
         "nesString2_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          3
-          (HsPrimType HsPrimCChar)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            3
+            (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
       "get_nesString2_ptr",
       foreignImportCallConv =
@@ -1112,8 +1131,11 @@
       foreignImportName = HsName
         "@NsVar"
         "nesCharacter_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCChar),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPrimType HsPrimCChar)),
       foreignImportOrigName =
       "get_nesCharacter_ptr",
       foreignImportCallConv =
@@ -1132,8 +1154,10 @@
       foreignImportName = HsName
         "@NsVar"
         "nesParen_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_nesParen_ptr",
       foreignImportCallConv =
@@ -1150,8 +1174,10 @@
       foreignImportName = HsName
         "@NsVar"
         "nesUnary_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_nesUnary_ptr",
       foreignImportCallConv =
@@ -1168,8 +1194,10 @@
       foreignImportName = HsName
         "@NsVar"
         "nesBinary_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_nesBinary_ptr",
       foreignImportCallConv =
@@ -1186,8 +1214,10 @@
       foreignImportName = HsName
         "@NsVar"
         "nesConditional_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_nesConditional_ptr",
       foreignImportCallConv =
@@ -1204,8 +1234,11 @@
       foreignImportName = HsName
         "@NsVar"
         "nesCast_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCFloat),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPrimType HsPrimCFloat)),
       foreignImportOrigName =
       "get_nesCast_ptr",
       foreignImportCallConv =
@@ -1222,8 +1255,12 @@
       foreignImportName = HsName
         "@NsVar"
         "nesCompound_ptr",
-      foreignImportType = HsPtr
-        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_nesCompound_ptr",
       foreignImportCallConv =
@@ -1241,120 +1278,123 @@
       foreignImportName = HsName
         "@NsVar"
         "nesInitList_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          4
-          (HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
-                "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word8"}
-            TypeSpec {
-              typeSpecModule = Just
-                (HsModuleName
-                  "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
-                (HsIdentifier "Word8"),
-              typeSpecInstances = Map.fromList
-                [
-                  _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bounded
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Read
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    FiniteBits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Integral
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Num
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Real
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    StaticSize
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    ReadRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    WriteRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Storable
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = [
-                          ]})]})),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            4
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}))),
       foreignImportOrigName =
       "get_nesInitList_ptr",
       foreignImportCallConv =
@@ -1487,8 +1527,11 @@
       foreignImportName = HsName
         "@NsVar"
         "nesBool_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCBool),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPrimType HsPrimCBool)),
       foreignImportOrigName =
       "get_nesBool_ptr",
       foreignImportCallConv =
@@ -1504,120 +1547,123 @@
       foreignImportName = HsName
         "@NsVar"
         "streamBinary_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          4096
-          (HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
-                "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word8"}
-            TypeSpec {
-              typeSpecModule = Just
-                (HsModuleName
-                  "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
-                (HsIdentifier "Word8"),
-              typeSpecInstances = Map.fromList
-                [
-                  _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bounded
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Read
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    FiniteBits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Integral
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Num
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Real
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    StaticSize
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    ReadRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    WriteRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Storable
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = [
-                          ]})]})),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            4096
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}))),
       foreignImportOrigName =
       "get_streamBinary_ptr",
       foreignImportCallConv =
@@ -1776,118 +1822,121 @@
       foreignImportName = HsName
         "@NsVar"
         "streamBinary_len_ptr",
-      foreignImportType = HsPtr
-        (HsExtBinding
-          ExtHsRef {
-            extHsRefModule = HsModuleName
-              "HsBindgen.Runtime.Prelude",
-            extHsRefIdentifier =
-            HsIdentifier "Word32"}
-          TypeSpec {
-            typeSpecModule = Just
-              (HsModuleName
-                "HsBindgen.Runtime.Prelude"),
-            typeSpecIdentifier = Just
-              (HsIdentifier "Word32"),
-            typeSpecInstances = Map.fromList
-              [
-                _×_
-                  Eq
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Ord
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Enum
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Ix
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Bounded
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Read
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Show
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Bits
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  FiniteBits
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Integral
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Num
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Real
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  StaticSize
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  ReadRaw
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  WriteRaw
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Storable
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = [
-                        ]})]}),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsExtBinding
+            ExtHsRef {
+              extHsRefModule = HsModuleName
+                "HsBindgen.Runtime.Prelude",
+              extHsRefIdentifier =
+              HsIdentifier "Word32"}
+            TypeSpec {
+              typeSpecModule = Just
+                (HsModuleName
+                  "HsBindgen.Runtime.Prelude"),
+              typeSpecIdentifier = Just
+                (HsIdentifier "Word32"),
+              typeSpecInstances = Map.fromList
+                [
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]})),
       foreignImportOrigName =
       "get_streamBinary_len_ptr",
       foreignImportCallConv =
@@ -9096,11 +9145,14 @@
       foreignImportName = HsName
         "@NsVar"
         "some_global_struct_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Struct2_t")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Struct2_t"))),
       foreignImportOrigName =
       "get_some_global_struct_ptr",
       foreignImportCallConv =
@@ -9125,8 +9177,10 @@
       foreignImportName = HsName
         "@NsVar"
         "globalConstant_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_globalConstant_ptr",
       foreignImportCallConv =
@@ -9361,11 +9415,14 @@
       foreignImportName = HsName
         "@NsVar"
         "anotherGlobalConstant_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "ConstInt")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "ConstInt"))),
       foreignImportOrigName =
       "get_anotherGlobalConstant_ptr",
       foreignImportCallConv =
@@ -9388,8 +9445,10 @@
       foreignImportName = HsName
         "@NsVar"
         "staticConst_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_staticConst_ptr",
       foreignImportCallConv =
@@ -9422,8 +9481,10 @@
       foreignImportName = HsName
         "@NsVar"
         "classless_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_classless_ptr",
       foreignImportCallConv =
@@ -9450,10 +9511,13 @@
       foreignImportName = HsName
         "@NsVar"
         "constArray1_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          4
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            4
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_constArray1_ptr",
       foreignImportCallConv =
@@ -9564,11 +9628,14 @@
       foreignImportName = HsName
         "@NsVar"
         "constArray2_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "ConstIntArray")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "ConstIntArray"))),
       foreignImportOrigName =
       "get_constArray2_ptr",
       foreignImportCallConv =
@@ -10044,11 +10111,14 @@
       foreignImportName = HsName
         "@NsVar"
         "constTuple_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Tuple")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Tuple"))),
       foreignImportOrigName =
       "get_constTuple_ptr",
       foreignImportCallConv =
@@ -10078,11 +10148,14 @@
       foreignImportName = HsName
         "@NsVar"
         "nonConstTuple_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Tuple")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Tuple"))),
       foreignImportOrigName =
       "get_nonConstTuple_ptr",
       foreignImportCallConv =
@@ -10111,8 +10184,12 @@
       foreignImportName = HsName
         "@NsVar"
         "ptrToConstInt_ptr",
-      foreignImportType = HsPtr
-        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_ptrToConstInt_ptr",
       foreignImportCallConv =
@@ -10138,8 +10215,12 @@
       foreignImportName = HsName
         "@NsVar"
         "constPtrToInt_ptr",
-      foreignImportType = HsPtr
-        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_constPtrToInt_ptr",
       foreignImportCallConv =
@@ -10167,8 +10248,12 @@
       foreignImportName = HsName
         "@NsVar"
         "constPtrToConstInt_ptr",
-      foreignImportType = HsPtr
-        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_constPtrToConstInt_ptr",
       foreignImportCallConv =

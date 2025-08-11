@@ -16,15 +16,27 @@ $(CAPI.addCSource "#include <fun_attributes_conflict.h>\nsigned int hs_bindgen_t
 
   __from C:__ @square_cp(int)@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_10e6b4d386eec8f7" square_cp :: FC.CInt -> FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_10e6b4d386eec8f7" square_cp
+  :: FC.CInt
+     {- ^ __from C:__ @x@ -}
+  -> FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_d8e5dd6836af0ac7" square_pc :: FC.CInt -> FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_d8e5dd6836af0ac7" square_pc
+  :: FC.CInt
+     {- ^ __from C:__ @x@ -}
+  -> FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_9a60da065e6486ac" square_cc :: FC.CInt -> FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_9a60da065e6486ac" square_cc
+  :: FC.CInt
+     {- ^ __from C:__ @x@ -}
+  -> FC.CInt
 
 {-|
 
   Marked @__attribute((pure))__@
 
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_1a2340fb8456aee3" square_pp :: FC.CInt -> IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_1a2340fb8456aee3" square_pp
+  :: FC.CInt
+     {- ^ __from C:__ @x@ -}
+  -> IO FC.CInt

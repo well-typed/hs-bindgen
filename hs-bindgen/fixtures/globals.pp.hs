@@ -25,7 +25,8 @@ $(CAPI.addCSource "#include <globals.h>\n__attribute__ ((const)) signed int *get
 
   __from C:__ @simpleGlobal@
 -}
-foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal_ptr
+  :: F.Ptr FC.CInt
 
 data Config = Config
   { config_x :: FC.CInt
@@ -53,7 +54,8 @@ instance F.Storable Config where
                F.pokeByteOff ptr0 (0 :: Int) config_x2
             >> F.pokeByteOff ptr0 (4 :: Int) config_y3
 
-foreign import ccall safe "get_compoundGlobal1_ptr" compoundGlobal1_ptr :: F.Ptr Config
+foreign import ccall safe "get_compoundGlobal1_ptr" compoundGlobal1_ptr
+  :: F.Ptr Config
 
 data Inline_struct = Inline_struct
   { inline_struct_x :: FC.CInt
@@ -81,7 +83,8 @@ instance F.Storable Inline_struct where
                F.pokeByteOff ptr0 (0 :: Int) inline_struct_x2
             >> F.pokeByteOff ptr0 (4 :: Int) inline_struct_y3
 
-foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2_ptr :: F.Ptr Inline_struct
+foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2_ptr
+  :: F.Ptr Inline_struct
 
 {-| Non-extern non-static global variables
 
@@ -93,31 +96,44 @@ foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2_ptr :: F.Ptr
 
   __from C:__ @nesInteger@
 -}
-foreign import ccall safe "get_nesInteger_ptr" nesInteger_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesInteger_ptr" nesInteger_ptr
+  :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesFloating_ptr" nesFloating_ptr :: F.Ptr FC.CFloat
+foreign import ccall safe "get_nesFloating_ptr" nesFloating_ptr
+  :: F.Ptr FC.CFloat
 
-foreign import ccall safe "get_nesString1_ptr" nesString1_ptr :: F.Ptr (F.Ptr FC.CChar)
+foreign import ccall safe "get_nesString1_ptr" nesString1_ptr
+  :: F.Ptr (F.Ptr FC.CChar)
 
-foreign import ccall safe "get_nesString2_ptr" nesString2_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar)
+foreign import ccall safe "get_nesString2_ptr" nesString2_ptr
+  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar)
 
-foreign import ccall safe "get_nesCharacter_ptr" nesCharacter_ptr :: F.Ptr FC.CChar
+foreign import ccall safe "get_nesCharacter_ptr" nesCharacter_ptr
+  :: F.Ptr FC.CChar
 
-foreign import ccall safe "get_nesParen_ptr" nesParen_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesParen_ptr" nesParen_ptr
+  :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesUnary_ptr" nesUnary_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesUnary_ptr" nesUnary_ptr
+  :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesBinary_ptr" nesBinary_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesBinary_ptr" nesBinary_ptr
+  :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesConditional_ptr" nesConditional_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_nesConditional_ptr" nesConditional_ptr
+  :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesCast_ptr" nesCast_ptr :: F.Ptr FC.CFloat
+foreign import ccall safe "get_nesCast_ptr" nesCast_ptr
+  :: F.Ptr FC.CFloat
 
-foreign import ccall safe "get_nesCompound_ptr" nesCompound_ptr :: F.Ptr (F.Ptr FC.CInt)
+foreign import ccall safe "get_nesCompound_ptr" nesCompound_ptr
+  :: F.Ptr (F.Ptr FC.CInt)
 
-foreign import ccall safe "get_nesInitList_ptr" nesInitList_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8)
+foreign import ccall safe "get_nesInitList_ptr" nesInitList_ptr
+  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8)
 
-foreign import ccall safe "get_nesBool_ptr" nesBool_ptr :: F.Ptr FC.CBool
+foreign import ccall safe "get_nesBool_ptr" nesBool_ptr
+  :: F.Ptr FC.CBool
 
 {-| Additional examples of global variables, abstracted from real examples
 
@@ -127,9 +143,11 @@ foreign import ccall safe "get_nesBool_ptr" nesBool_ptr :: F.Ptr FC.CBool
 
   __from C:__ @streamBinary@
 -}
-foreign import ccall safe "get_streamBinary_ptr" streamBinary_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
+foreign import ccall safe "get_streamBinary_ptr" streamBinary_ptr
+  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
 
-foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len_ptr :: F.Ptr HsBindgen.Runtime.Prelude.Word32
+foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len_ptr
+  :: F.Ptr HsBindgen.Runtime.Prelude.Word32
 
 data Version_t = Version_t
   { version_t_major :: HsBindgen.Runtime.Prelude.Word8
@@ -212,7 +230,8 @@ instance F.Storable Struct2_t where
           Struct2_t struct2_t_field12 ->
             F.pokeByteOff ptr0 (0 :: Int) struct2_t_field12
 
-foreign import ccall safe "get_some_global_struct_ptr" some_global_struct_ptr :: F.Ptr Struct2_t
+foreign import ccall safe "get_some_global_struct_ptr" some_global_struct_ptr
+  :: F.Ptr Struct2_t
 
 {-| Constant
 
@@ -220,7 +239,8 @@ foreign import ccall safe "get_some_global_struct_ptr" some_global_struct_ptr ::
 
   __from C:__ @globalConstant@
 -}
-foreign import ccall safe "get_globalConstant_ptr" globalConstant_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_globalConstant_ptr" globalConstant_ptr
+  :: F.Ptr FC.CInt
 
 {-# NOINLINE globalConstant #-}
 
@@ -238,7 +258,8 @@ newtype ConstInt = ConstInt
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "get_anotherGlobalConstant_ptr" anotherGlobalConstant_ptr :: F.Ptr ConstInt
+foreign import ccall safe "get_anotherGlobalConstant_ptr" anotherGlobalConstant_ptr
+  :: F.Ptr ConstInt
 
 {-# NOINLINE anotherGlobalConstant #-}
 
@@ -252,7 +273,8 @@ anotherGlobalConstant =
 
   __from C:__ @staticConst@
 -}
-foreign import ccall safe "get_staticConst_ptr" staticConst_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_staticConst_ptr" staticConst_ptr
+  :: F.Ptr FC.CInt
 
 {-# NOINLINE staticConst #-}
 
@@ -264,7 +286,8 @@ staticConst =
 
   __from C:__ @classless@
 -}
-foreign import ccall safe "get_classless_ptr" classless_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_classless_ptr" classless_ptr
+  :: F.Ptr FC.CInt
 
 {-# NOINLINE classless #-}
 
@@ -276,7 +299,8 @@ classless =
 
   __from C:__ @constArray1@
 -}
-foreign import ccall safe "get_constArray1_ptr" constArray1_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+foreign import ccall safe "get_constArray1_ptr" constArray1_ptr
+  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
 
 {-# NOINLINE constArray1 #-}
 
@@ -293,7 +317,8 @@ newtype ConstIntArray = ConstIntArray
   }
   deriving stock (Eq, Show)
 
-foreign import ccall safe "get_constArray2_ptr" constArray2_ptr :: F.Ptr ConstIntArray
+foreign import ccall safe "get_constArray2_ptr" constArray2_ptr
+  :: F.Ptr ConstIntArray
 
 data Tuple = Tuple
   { tuple_x :: FC.CInt
@@ -325,7 +350,8 @@ instance F.Storable Tuple where
 
   __from C:__ @constTuple@
 -}
-foreign import ccall safe "get_constTuple_ptr" constTuple_ptr :: F.Ptr Tuple
+foreign import ccall safe "get_constTuple_ptr" constTuple_ptr
+  :: F.Ptr Tuple
 
 {-# NOINLINE constTuple #-}
 
@@ -337,19 +363,22 @@ constTuple =
 
   __from C:__ @nonConstTuple@
 -}
-foreign import ccall safe "get_nonConstTuple_ptr" nonConstTuple_ptr :: F.Ptr Tuple
+foreign import ccall safe "get_nonConstTuple_ptr" nonConstTuple_ptr
+  :: F.Ptr Tuple
 
 {-| A pointer to const int
 
   __from C:__ @ptrToConstInt@
 -}
-foreign import ccall safe "get_ptrToConstInt_ptr" ptrToConstInt_ptr :: F.Ptr (F.Ptr FC.CInt)
+foreign import ccall safe "get_ptrToConstInt_ptr" ptrToConstInt_ptr
+  :: F.Ptr (F.Ptr FC.CInt)
 
 {-| A const pointer to int
 
   __from C:__ @constPtrToInt@
 -}
-foreign import ccall safe "get_constPtrToInt_ptr" constPtrToInt_ptr :: F.Ptr (F.Ptr FC.CInt)
+foreign import ccall safe "get_constPtrToInt_ptr" constPtrToInt_ptr
+  :: F.Ptr (F.Ptr FC.CInt)
 
 {-# NOINLINE constPtrToInt #-}
 
@@ -361,7 +390,8 @@ constPtrToInt =
 
   __from C:__ @constPtrToConstInt@
 -}
-foreign import ccall safe "get_constPtrToConstInt_ptr" constPtrToConstInt_ptr :: F.Ptr (F.Ptr FC.CInt)
+foreign import ccall safe "get_constPtrToConstInt_ptr" constPtrToConstInt_ptr
+  :: F.Ptr (F.Ptr FC.CInt)
 
 {-# NOINLINE constPtrToConstInt #-}
 

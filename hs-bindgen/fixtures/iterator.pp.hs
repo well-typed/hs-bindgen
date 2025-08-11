@@ -16,28 +16,59 @@ newtype Toggle = Toggle
   { un_Toggle :: HsBindgen.Runtime.Block.Block (IO FC.CBool)
   }
 
-foreign import ccall safe "hs_bindgen_test_iterator_4f34fce61cc68c9f" makeToggle :: FC.CBool -> IO Toggle
+foreign import ccall safe "hs_bindgen_test_iterator_4f34fce61cc68c9f" makeToggle
+  :: FC.CBool
+     {- ^ __from C:__ @start@ -}
+  -> IO Toggle
 
-foreign import ccall safe "hs_bindgen_test_iterator_bfb4e32e3a824c7e" toggleNext :: Toggle -> IO FC.CBool
+foreign import ccall safe "hs_bindgen_test_iterator_bfb4e32e3a824c7e" toggleNext
+  :: Toggle
+     {- ^ __from C:__ @block@ -}
+  -> IO FC.CBool
 
-foreign import ccall safe "hs_bindgen_test_iterator_8d23fba933ba9584" releaseToggle :: Toggle -> IO ()
+foreign import ccall safe "hs_bindgen_test_iterator_8d23fba933ba9584" releaseToggle
+  :: Toggle
+     {- ^ __from C:__ @block@ -}
+  -> IO ()
 
 newtype Counter = Counter
   { un_Counter :: HsBindgen.Runtime.Block.Block (IO FC.CInt)
   }
 
-foreign import ccall safe "hs_bindgen_test_iterator_5b455070cb6127b9" makeCounter :: FC.CInt -> FC.CInt -> IO Counter
+foreign import ccall safe "hs_bindgen_test_iterator_5b455070cb6127b9" makeCounter
+  :: FC.CInt
+     {- ^ __from C:__ @start@ -}
+  -> FC.CInt
+     {- ^ __from C:__ @increment@ -}
+  -> IO Counter
 
-foreign import ccall safe "hs_bindgen_test_iterator_1eb9473844c466c6" counterNext :: Counter -> IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_iterator_1eb9473844c466c6" counterNext
+  :: Counter
+     {- ^ __from C:__ @block@ -}
+  -> IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_iterator_4bd3562b992f2f1c" releaseCounter :: Counter -> IO ()
+foreign import ccall safe "hs_bindgen_test_iterator_4bd3562b992f2f1c" releaseCounter
+  :: Counter
+     {- ^ __from C:__ @block@ -}
+  -> IO ()
 
 newtype VarCounter = VarCounter
   { un_VarCounter :: HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
   }
 
-foreign import ccall safe "hs_bindgen_test_iterator_0fc005ef62990438" makeVarCounter :: FC.CInt -> IO VarCounter
+foreign import ccall safe "hs_bindgen_test_iterator_0fc005ef62990438" makeVarCounter
+  :: FC.CInt
+     {- ^ __from C:__ @start@ -}
+  -> IO VarCounter
 
-foreign import ccall safe "hs_bindgen_test_iterator_a88cd5c9559b5d52" varCounterNext :: VarCounter -> FC.CInt -> IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_iterator_a88cd5c9559b5d52" varCounterNext
+  :: VarCounter
+     {- ^ __from C:__ @block@ -}
+  -> FC.CInt
+     {- ^ __from C:__ @increment@ -}
+  -> IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_iterator_2d2d26e60eea04a8" releaseVarCounter :: VarCounter -> IO ()
+foreign import ccall safe "hs_bindgen_test_iterator_2d2d26e60eea04a8" releaseVarCounter
+  :: VarCounter
+     {- ^ __from C:__ @block@ -}
+  -> IO ()

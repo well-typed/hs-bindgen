@@ -7,8 +7,10 @@
       foreignImportName = HsName
         "@NsVar"
         "h",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_varargs_0fd77c5efa209398",
       foreignImportCallConv =

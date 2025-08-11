@@ -171,14 +171,24 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "F",
-                nameHsIdent = HsIdentifier "F"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit Nothing))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "F",
+                  nameHsIdent = HsIdentifier "F"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -207,14 +217,24 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeMacroTypedef
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "C",
-                  nameHsIdent = HsIdentifier "C"}
-                NameOriginInSource)],
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "C",
+                    nameHsIdent = HsIdentifier "C"}
+                  NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -246,17 +266,27 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -287,20 +317,30 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "F",
-                nameHsIdent = HsIdentifier "F"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "F",
+                  nameHsIdent = HsIdentifier "F"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -330,17 +370,27 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -372,8 +422,15 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimLong Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -408,11 +465,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "L",
-                nameHsIdent = HsIdentifier "L"}
-              NameOriginInSource],
+            _×_
+              Nothing
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "L",
+                  nameHsIdent = HsIdentifier "L"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -447,8 +506,12 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimLong Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -486,8 +549,12 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimLong Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -523,8 +590,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -559,11 +631,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "I",
-                nameHsIdent = HsIdentifier "I"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -598,8 +672,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -608,11 +687,10 @@ TranslationUnit {
               2
               (TypeConstArray
                 3
-                (TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "I",
-                    nameHsIdent = HsIdentifier "I"}
-                  NameOriginInSource)))},
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

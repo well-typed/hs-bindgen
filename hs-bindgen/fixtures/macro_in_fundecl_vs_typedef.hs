@@ -397,14 +397,30 @@
       foreignImportName = HsName
         "@NsVar"
         "quux1",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "MC"))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "TC"))
-          (HsIO
-            (HsPrimType HsPrimCChar))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "TC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCChar)),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad",
       foreignImportCallConv =
@@ -412,17 +428,27 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
-                    "TC"})],
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = HsIdentifier
+                      "TC"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -439,16 +465,32 @@
       foreignImportName = HsName
         "@NsVar"
         "quux2",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "MC"))
-        (HsFun
-          (HsPrimType HsPrimCChar)
-          (HsIO
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "TC")))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCChar,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName "@NsTypeConstr" "TC"))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2",
       foreignImportCallConv =
@@ -456,14 +498,24 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit Nothing))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -483,18 +535,36 @@
       foreignImportName = HsName
         "@NsVar"
         "wam1",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCFloat)
-        (HsFun
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "TC")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
           (HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "TC")))
-          (HsIO
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "MC"))))),
+              (HsName
+                "@NsTypeConstr"
+                "MC")))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0",
       foreignImportCallConv =
@@ -502,15 +572,25 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = HsIdentifier
-                      "TC"}))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = HsIdentifier
+                        "TC"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -530,18 +610,36 @@
       foreignImportName = HsName
         "@NsVar"
         "wam2",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCFloat)
-        (HsFun
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "MC")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
           (HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "MC")))
-          (HsIO
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "TC"))))),
+              (HsName
+                "@NsTypeConstr"
+                "TC")))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210",
       foreignImportCallConv =
@@ -549,14 +647,24 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeMacroTypedef
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
-                NameOriginInSource)],
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "MC",
+                    nameHsIdent = HsIdentifier "MC"}
+                  NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2002,16 +2110,33 @@
       foreignImportName = HsName
         "@NsVar"
         "struct_typedef1",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct2")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct2")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0",
       foreignImportCallConv =
@@ -2019,23 +2144,33 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct2")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct2",
-                      nameHsIdent = HsIdentifier
-                        "Struct2"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "macro_in_fundecl_vs_typedef.h:19:9"))))),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "struct2")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct2",
+                        nameHsIdent = HsIdentifier
+                          "Struct2"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "macro_in_fundecl_vs_typedef.h:19:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2050,16 +2185,33 @@
       foreignImportName = HsName
         "@NsVar"
         "struct_typedef2",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct3_t")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct3_t")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d",
       foreignImportCallConv =
@@ -2067,18 +2219,28 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct3_t",
-                    nameHsIdent = HsIdentifier
-                      "Struct3_t"})),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct3_t",
+                      nameHsIdent = HsIdentifier
+                        "Struct3_t"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2093,16 +2255,33 @@
       foreignImportName = HsName
         "@NsVar"
         "struct_typedef3",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct4")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct4")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94",
       foreignImportCallConv =
@@ -2110,21 +2289,31 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct4")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct4",
-                      nameHsIdent = HsIdentifier
-                        "Struct4"}
-                    NameOriginInSource))),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "struct4")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct4",
+                        nameHsIdent = HsIdentifier
+                          "Struct4"}
+                      NameOriginInSource)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2139,16 +2328,33 @@
       foreignImportName = HsName
         "@NsVar"
         "struct_name1",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct1")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct1")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26",
       foreignImportCallConv =
@@ -2156,18 +2362,28 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct1",
-                  nameHsIdent = HsIdentifier
-                    "Struct1"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct1",
+                    nameHsIdent = HsIdentifier
+                      "Struct1"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2182,16 +2398,33 @@
       foreignImportName = HsName
         "@NsVar"
         "struct_name2",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct3")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct3")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449",
       foreignImportCallConv =
@@ -2199,18 +2432,28 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct3",
-                  nameHsIdent = HsIdentifier
-                    "Struct3"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct3",
+                    nameHsIdent = HsIdentifier
+                      "Struct3"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2225,16 +2468,33 @@
       foreignImportName = HsName
         "@NsVar"
         "struct_name3",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct4")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct4")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf",
       foreignImportCallConv =
@@ -2242,18 +2502,28 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct4",
-                  nameHsIdent = HsIdentifier
-                    "Struct4"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct4",
+                    nameHsIdent = HsIdentifier
+                      "Struct4"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
