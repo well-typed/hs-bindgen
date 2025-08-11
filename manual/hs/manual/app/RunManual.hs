@@ -21,7 +21,7 @@ import HsBindgen.Runtime.ConstantArray qualified as CA
 
 import Arrays as Arrays
 import Example
-import Globals
+import Globals as Globals
 import Structs
 
 import Game.Player
@@ -261,16 +261,33 @@ main = do
     -- Globals
     section "Globals"
     --
+    do
+      subsection "Variables"
+      config <- peek globalConfig_ptr
+      print config
+      poke globalConfig_ptr $ config{globalConfig_numThreads = 3}
+      printGlobalConfig
+      config' <- peek globalConfig_ptr
+      print config'
 
-    config <- peek globalConfig
-    print config
-    poke globalConfig $ config{globalConfig_numThreads = 3}
-    printGlobalConfig
-    config' <- peek globalConfig
-    print config'
+      print =<< peek globalInt_ptr
+      print =<< peek externGlobalInt_ptr
 
-    print =<< peek globalInt
-    print =<< peek externGlobalInt
+      -- Constants
+      subsection "Constants"
+      print Globals.globalConstant
+      print Globals.anotherGlobalConstant
+      print Globals.staticConst
+      print Globals.classless
+      print Globals.constArray1
+      print =<< IA.peekArray 5 Globals.constArray2_ptr
+      print Globals.constTuple
+      print =<< F.peek Globals.nonConstTuple_ptr
+      -- TODO: the stub loses type qualifier information for everything but the
+      -- outer type, so we get incompatible return type warnings here
+      print =<< F.peek Globals.ptrToConstInt_ptr
+      print Globals.constPtrToInt
+      print Globals.constPtrToConstInt
 
     --
     -- Arrays
@@ -279,17 +296,17 @@ main = do
     do
       -- Global array variables
       subsection "Global variables"
-      reverseConstantArray Arrays.arr1
-      reverseConstantArrayElems Arrays.arr1
+      reverseConstantArray Arrays.arr1_ptr
+      reverseConstantArrayElems Arrays.arr1_ptr
 
-      reverseConstantArray Arrays.arr2
-      reverseConstantArrayElems Arrays.arr2
+      reverseConstantArray Arrays.arr2_ptr
+      reverseConstantArrayElems Arrays.arr2_ptr
 
-      reverseIncompleteArray 3 Arrays.arr3
-      reverseIncompleteArrayElems 3 Arrays.arr3
+      reverseIncompleteArray 3 Arrays.arr3_ptr
+      reverseIncompleteArrayElems 3 Arrays.arr3_ptr
 
-      print =<< F.peek Arrays.sudoku
-      print =<< IA.peekArray 2 Arrays.triplets
+      print =<< F.peek Arrays.sudoku_ptr
+      print =<< IA.peekArray 2 Arrays.triplets_ptr
 
       -- Matrix transpose
       subsection "Matrix transpose"
@@ -305,11 +322,11 @@ main = do
 
       -- Complex example
       subsection "Complex example"
-      ts <- IA.peekArray 2 Arrays.triplets
-      let tripletAddresses = [advancePtr (IA.isFirstElem Arrays.triplets) n | n <- [0..]]
+      ts <- IA.peekArray 2 Arrays.triplets_ptr
+      let tripletAddresses = [advancePtr (IA.isFirstElem Arrays.triplets_ptr) n | n <- [0..]]
       print (zip (IA.toList ts) tripletAddresses)
-      print =<< IA.peekArray 3 Arrays.global_triplet_ptrs
-      Arrays.pretty_print_triplets_wrapper (castPtr Arrays.global_triplet_ptrs)
+      print =<< IA.peekArray 3 Arrays.global_triplet_ptrs_ptr
+      Arrays.pretty_print_triplets_wrapper (castPtr Arrays.global_triplet_ptrs_ptr)
 
 {-------------------------------------------------------------------------------
   Arrays

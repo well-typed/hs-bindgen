@@ -1,5 +1,30 @@
 types:
 - headers: globals.h
+  cname: ConstInt
+  module: Example
+  identifier: ConstInt
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: globals.h
+  cname: ConstIntArray
+  module: Example
+  identifier: ConstIntArray
+  instances:
+  - Eq
+  - Show
+- headers: globals.h
   cname: struct config
   module: Example
   identifier: Config
@@ -27,6 +52,14 @@ types:
   cname: struct2_t
   module: Example
   identifier: Struct2_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: globals.h
+  cname: struct tuple
+  module: Example
+  identifier: Tuple
   instances:
   - Eq
   - Show

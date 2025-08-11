@@ -345,6 +345,8 @@ instance Pretty SDecl where
       -- the single string literal is quite ugly, but it's simple
       "$(CAPI.addCSource" <+> fromString (show src) >< ")"
 
+    DPragma p -> pragma p
+
 -- | Nested deriving clauses (as part of a datatype declaration)
 nestedDeriving :: [(Hs.Strategy ClosedType, [Global])] -> CtxDoc
 nestedDeriving deriv = vcat [
@@ -364,6 +366,9 @@ strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"
 strategy Hs.DeriveStock    = "stock"
 strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
+
+pragma :: Pragma -> CtxDoc
+pragma (NOINLINE n) = "{-# NOINLINE" <+> pretty n <+> "#-}"
 
 {-------------------------------------------------------------------------------
   Type pretty-printing

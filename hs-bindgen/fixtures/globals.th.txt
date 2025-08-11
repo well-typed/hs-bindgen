@@ -23,10 +23,21 @@
 -- __attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } 
 -- __attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } 
 -- __attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } 
+-- __attribute__ ((const)) const signed int *get_globalConstant_ptr (void) { return &globalConstant; } 
+-- __attribute__ ((const)) const ConstInt *get_anotherGlobalConstant_ptr (void) { return &anotherGlobalConstant; } 
+-- __attribute__ ((const)) const signed int *get_staticConst_ptr (void) { return &staticConst; } 
+-- __attribute__ ((const)) const signed int *get_classless_ptr (void) { return &classless; } 
+-- __attribute__ ((const)) const signed int (*get_constArray1_ptr (void))[4] { return &constArray1; } 
+-- __attribute__ ((const)) const ConstIntArray *get_constArray2_ptr (void) { return &constArray2; } 
+-- __attribute__ ((const)) const struct tuple *get_constTuple_ptr (void) { return &constTuple; } 
+-- __attribute__ ((const)) struct tuple *get_nonConstTuple_ptr (void) { return &nonConstTuple; } 
+-- __attribute__ ((const)) signed int **get_ptrToConstInt_ptr (void) { return &ptrToConstInt; } 
+-- __attribute__ ((const)) const signed int **get_constPtrToInt_ptr (void) { return &constPtrToInt; } 
+-- __attribute__ ((const)) const signed int **get_constPtrToConstInt_ptr (void) { return &constPtrToConstInt; } 
 {-| Global variables
 
 -}
-foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal :: Ptr CInt
+foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal_ptr :: Ptr CInt
 data Config
     = Config {config_x :: CInt, config_y :: CInt}
     deriving stock (Eq, Show)
@@ -37,7 +48,7 @@ instance Storable Config
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Config config_x_3
                                           config_y_4 -> pokeByteOff ptr_1 (0 :: Int) config_x_3 >> pokeByteOff ptr_1 (4 :: Int) config_y_4
-foreign import ccall safe "get_compoundGlobal1_ptr" compoundGlobal1 :: Ptr Config
+foreign import ccall safe "get_compoundGlobal1_ptr" compoundGlobal1_ptr :: Ptr Config
 data Inline_struct
     = Inline_struct {inline_struct_x :: CInt, inline_struct_y :: CInt}
     deriving stock (Eq, Show)
@@ -48,7 +59,7 @@ instance Storable Inline_struct
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Inline_struct inline_struct_x_3
                                                  inline_struct_y_4 -> pokeByteOff ptr_1 (0 :: Int) inline_struct_x_3 >> pokeByteOff ptr_1 (4 :: Int) inline_struct_y_4
-foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2 :: Ptr Inline_struct
+foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2_ptr :: Ptr Inline_struct
 {-| Non-extern non-static global variables
 
   These kinds of variables need to be treated with care, to avoid duplicate symbols, but do exist in the wild.
@@ -58,21 +69,21 @@ foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2 :: Ptr Inlin
   [1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
 
 -}
-foreign import ccall safe "get_nesInteger_ptr" nesInteger :: Ptr CInt
-foreign import ccall safe "get_nesFloating_ptr" nesFloating :: Ptr CFloat
-foreign import ccall safe "get_nesString1_ptr" nesString1 :: Ptr (Ptr CChar)
-foreign import ccall safe "get_nesString2_ptr" nesString2 :: Ptr (ConstantArray 3
-                                                                                CChar)
-foreign import ccall safe "get_nesCharacter_ptr" nesCharacter :: Ptr CChar
-foreign import ccall safe "get_nesParen_ptr" nesParen :: Ptr CInt
-foreign import ccall safe "get_nesUnary_ptr" nesUnary :: Ptr CInt
-foreign import ccall safe "get_nesBinary_ptr" nesBinary :: Ptr CInt
-foreign import ccall safe "get_nesConditional_ptr" nesConditional :: Ptr CInt
-foreign import ccall safe "get_nesCast_ptr" nesCast :: Ptr CFloat
-foreign import ccall safe "get_nesCompound_ptr" nesCompound :: Ptr (Ptr CInt)
-foreign import ccall safe "get_nesInitList_ptr" nesInitList :: Ptr (ConstantArray 4
-                                                                                  HsBindgen.Runtime.Prelude.Word8)
-foreign import ccall safe "get_nesBool_ptr" nesBool :: Ptr CBool
+foreign import ccall safe "get_nesInteger_ptr" nesInteger_ptr :: Ptr CInt
+foreign import ccall safe "get_nesFloating_ptr" nesFloating_ptr :: Ptr CFloat
+foreign import ccall safe "get_nesString1_ptr" nesString1_ptr :: Ptr (Ptr CChar)
+foreign import ccall safe "get_nesString2_ptr" nesString2_ptr :: Ptr (ConstantArray 3
+                                                                                    CChar)
+foreign import ccall safe "get_nesCharacter_ptr" nesCharacter_ptr :: Ptr CChar
+foreign import ccall safe "get_nesParen_ptr" nesParen_ptr :: Ptr CInt
+foreign import ccall safe "get_nesUnary_ptr" nesUnary_ptr :: Ptr CInt
+foreign import ccall safe "get_nesBinary_ptr" nesBinary_ptr :: Ptr CInt
+foreign import ccall safe "get_nesConditional_ptr" nesConditional_ptr :: Ptr CInt
+foreign import ccall safe "get_nesCast_ptr" nesCast_ptr :: Ptr CFloat
+foreign import ccall safe "get_nesCompound_ptr" nesCompound_ptr :: Ptr (Ptr CInt)
+foreign import ccall safe "get_nesInitList_ptr" nesInitList_ptr :: Ptr (ConstantArray 4
+                                                                                      HsBindgen.Runtime.Prelude.Word8)
+foreign import ccall safe "get_nesBool_ptr" nesBool_ptr :: Ptr CBool
 {-| Additional examples of global variables, abstracted from real examples
 
   The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).
@@ -80,9 +91,9 @@ foreign import ccall safe "get_nesBool_ptr" nesBool :: Ptr CBool
   [1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325
 
 -}
-foreign import ccall safe "get_streamBinary_ptr" streamBinary :: Ptr (ConstantArray 4096
-                                                                                    HsBindgen.Runtime.Prelude.Word8)
-foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len :: Ptr HsBindgen.Runtime.Prelude.Word32
+foreign import ccall safe "get_streamBinary_ptr" streamBinary_ptr :: Ptr (ConstantArray 4096
+                                                                                        HsBindgen.Runtime.Prelude.Word8)
+foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len_ptr :: Ptr HsBindgen.Runtime.Prelude.Word32
 data Version_t
     = Version_t {version_t_major :: HsBindgen.Runtime.Prelude.Word8,
                  version_t_minor :: HsBindgen.Runtime.Prelude.Word16,
@@ -118,4 +129,108 @@ instance Storable Struct2_t
           peek = \ptr_0 -> pure Struct2_t <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct2_t struct2_t_field1_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_t_field1_3
-foreign import ccall safe "get_some_global_struct_ptr" some_global_struct :: Ptr Struct2_t
+foreign import ccall safe "get_some_global_struct_ptr" some_global_struct_ptr :: Ptr Struct2_t
+{-| Constant
+
+  Although this is a constant, we don't expect an initializer (since it's `extern`).
+
+-}
+foreign import ccall safe "get_globalConstant_ptr" globalConstant_ptr :: Ptr CInt
+{-# NOINLINE globalConstant #-}
+globalConstant :: CInt
+globalConstant = unsafePerformIO (peek globalConstant_ptr)
+{-| Constant, through typedef
+
+-}
+newtype ConstInt
+    = ConstInt {un_ConstInt :: CInt}
+      {- ^ Constant, through typedef
+
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+foreign import ccall safe "get_anotherGlobalConstant_ptr" anotherGlobalConstant_ptr :: Ptr ConstInt
+{-# NOINLINE anotherGlobalConstant #-}
+anotherGlobalConstant :: ConstInt
+anotherGlobalConstant = unsafePerformIO (peek anotherGlobalConstant_ptr)
+{-| Constant, but local to the file
+
+  Unlike with `extern`, in this we _do_ expect an initializer.
+
+-}
+foreign import ccall safe "get_staticConst_ptr" staticConst_ptr :: Ptr CInt
+{-# NOINLINE staticConst #-}
+staticConst :: CInt
+staticConst = unsafePerformIO (peek staticConst_ptr)
+{-| No storage class specified
+
+-}
+foreign import ccall safe "get_classless_ptr" classless_ptr :: Ptr CInt
+{-# NOINLINE classless #-}
+classless :: CInt
+classless = unsafePerformIO (peek classless_ptr)
+{-| A an array of size 4 containing constant integers
+
+-}
+foreign import ccall safe "get_constArray1_ptr" constArray1_ptr :: Ptr (ConstantArray 4
+                                                                                      CInt)
+{-# NOINLINE constArray1 #-}
+constArray1 :: ConstantArray 4 CInt
+constArray1 = unsafePerformIO (peek constArray1_ptr)
+{-| An array of uknown size containing constant integers
+
+-}
+newtype ConstIntArray
+    = ConstIntArray {un_ConstIntArray :: (IncompleteArray CInt)}
+      {- ^ An array of uknown size containing constant integers
+
+      -}
+    deriving stock (Eq, Show)
+foreign import ccall safe "get_constArray2_ptr" constArray2_ptr :: Ptr ConstIntArray
+data Tuple
+    = Tuple {tuple_x :: CInt, tuple_y :: CInt}
+    deriving stock (Eq, Show)
+instance Storable Tuple
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Tuple <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Tuple tuple_x_3
+                                         tuple_y_4 -> pokeByteOff ptr_1 (0 :: Int) tuple_x_3 >> pokeByteOff ptr_1 (4 :: Int) tuple_y_4
+{-| A constant tuple
+
+-}
+foreign import ccall safe "get_constTuple_ptr" constTuple_ptr :: Ptr Tuple
+{-# NOINLINE constTuple #-}
+constTuple :: Tuple
+constTuple = unsafePerformIO (peek constTuple_ptr)
+{-| A non-constant tuple with a constant member
+
+-}
+foreign import ccall safe "get_nonConstTuple_ptr" nonConstTuple_ptr :: Ptr Tuple
+{-| A pointer to const int
+
+-}
+foreign import ccall safe "get_ptrToConstInt_ptr" ptrToConstInt_ptr :: Ptr (Ptr CInt)
+{-| A const pointer to int
+
+-}
+foreign import ccall safe "get_constPtrToInt_ptr" constPtrToInt_ptr :: Ptr (Ptr CInt)
+{-# NOINLINE constPtrToInt #-}
+constPtrToInt :: Ptr CInt
+constPtrToInt = unsafePerformIO (peek constPtrToInt_ptr)
+{-| A const pointer to const int
+
+-}
+foreign import ccall safe "get_constPtrToConstInt_ptr" constPtrToConstInt_ptr :: Ptr (Ptr CInt)
+{-# NOINLINE constPtrToConstInt #-}
+constPtrToConstInt :: Ptr CInt
+constPtrToConstInt = unsafePerformIO (peek constPtrToConstInt_ptr)

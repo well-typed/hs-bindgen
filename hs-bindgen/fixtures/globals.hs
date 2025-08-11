@@ -6,7 +6,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "simpleGlobal",
+        "simpleGlobal_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
@@ -486,7 +486,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "compoundGlobal1",
+        "compoundGlobal1_ptr",
       foreignImportType = HsPtr
         (HsTypRef
           (HsName
@@ -974,7 +974,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "compoundGlobal2",
+        "compoundGlobal2_ptr",
       foreignImportType = HsPtr
         (HsTypRef
           (HsName
@@ -999,7 +999,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesInteger",
+        "nesInteger_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
@@ -1047,7 +1047,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesFloating",
+        "nesFloating_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCFloat),
       foreignImportOrigName =
@@ -1065,7 +1065,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesString1",
+        "nesString1_ptr",
       foreignImportType = HsPtr
         (HsPtr
           (HsPrimType HsPrimCChar)),
@@ -1087,7 +1087,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesString2",
+        "nesString2_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           3
@@ -1111,7 +1111,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesCharacter",
+        "nesCharacter_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCChar),
       foreignImportOrigName =
@@ -1131,7 +1131,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesParen",
+        "nesParen_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
@@ -1149,7 +1149,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesUnary",
+        "nesUnary_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
@@ -1167,7 +1167,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesBinary",
+        "nesBinary_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
@@ -1185,7 +1185,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesConditional",
+        "nesConditional_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
@@ -1203,7 +1203,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesCast",
+        "nesCast_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCFloat),
       foreignImportOrigName =
@@ -1221,7 +1221,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesCompound",
+        "nesCompound_ptr",
       foreignImportType = HsPtr
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
@@ -1240,7 +1240,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesInitList",
+        "nesInitList_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           4
@@ -1486,7 +1486,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesBool",
+        "nesBool_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCBool),
       foreignImportOrigName =
@@ -1503,7 +1503,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "streamBinary",
+        "streamBinary_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           4096
@@ -1775,7 +1775,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "streamBinary_len",
+        "streamBinary_len_ptr",
       foreignImportType = HsPtr
         (HsExtBinding
           ExtHsRef {
@@ -9095,7 +9095,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "some_global_struct",
+        "some_global_struct_ptr",
       foreignImportType = HsPtr
         (HsTypRef
           (HsName
@@ -9116,4 +9116,1075 @@
                   "Struct2_t"}
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
-      foreignImportComment = Nothing}]
+      foreignImportComment = Nothing},
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const signed int *get_globalConstant_ptr (void) { return &globalConstant; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "globalConstant_ptr",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "get_globalConstant_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Just
+            [TextContent "Constant"],
+          commentOrigin = Just
+            "globalConstant",
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "Although this is a constant, we don't expect an initializer (since it's",
+                TextContent "`extern`)."]]}},
+  DeclSimple,
+  DeclSimple,
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "ConstInt",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_ConstInt",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "globals.h:448:19",
+          declId = NamePair {
+            nameC = Name "ConstInt",
+            nameHsIdent = HsIdentifier
+              "ConstInt"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeader = "globals.h",
+          declComment = Just
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Constant, through typedef"]]},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "ConstInt",
+              newtypeField = HsName
+                "@NsVar"
+                "un_ConstInt"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Constant, through typedef"],
+          commentOrigin = Just "ConstInt",
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstInt",
+      deriveInstanceComment =
+      Nothing},
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const ConstInt *get_anotherGlobalConstant_ptr (void) { return &anotherGlobalConstant; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "anotherGlobalConstant_ptr",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "ConstInt")),
+      foreignImportOrigName =
+      "get_anotherGlobalConstant_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "ConstInt",
+              nameHsIdent = HsIdentifier
+                "ConstInt"})),
+      foreignImportComment = Nothing},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const signed int *get_staticConst_ptr (void) { return &staticConst; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "staticConst_ptr",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "get_staticConst_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Constant, but local to the file"],
+          commentOrigin = Just
+            "staticConst",
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "Unlike with `extern`, in this we _do_ expect an initializer."]]}},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const signed int *get_classless_ptr (void) { return &classless; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "classless_ptr",
+      foreignImportType = HsPtr
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "get_classless_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "No storage class specified"],
+          commentOrigin = Just
+            "classless",
+          commentChildren = []}},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const signed int (*get_constArray1_ptr (void))[4] { return &constArray1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "constArray1_ptr",
+      foreignImportType = HsPtr
+        (HsConstArray
+          4
+          (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "get_constArray1_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeConstArray
+          4
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "A an array of size 4 containing constant integers"],
+          commentOrigin = Just
+            "constArray1",
+          commentChildren = []}},
+  DeclSimple,
+  DeclSimple,
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "ConstIntArray",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "ConstIntArray",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_ConstIntArray",
+        fieldType = HsIncompleteArray
+          (HsPrimType HsPrimCInt),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "globals.h:463:19",
+          declId = NamePair {
+            nameC = Name "ConstIntArray",
+            nameHsIdent = HsIdentifier
+              "ConstIntArray"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeader = "globals.h",
+          declComment = Just
+            [
+              Paragraph
+                [
+                  TextContent
+                    "An array of uknown size containing constant integers"]]},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "ConstIntArray",
+              newtypeField = HsName
+                "@NsVar"
+                "un_ConstIntArray"},
+            typedefType =
+            TypeIncompleteArray
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [Eq, Show],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "An array of uknown size containing constant integers"],
+          commentOrigin = Just
+            "ConstIntArray",
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstIntArray",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "ConstIntArray",
+      deriveInstanceComment =
+      Nothing},
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const ConstIntArray *get_constArray2_ptr (void) { return &constArray2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "constArray2_ptr",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "ConstIntArray")),
+      foreignImportOrigName =
+      "get_constArray2_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "ConstIntArray",
+              nameHsIdent = HsIdentifier
+                "ConstIntArray"})),
+      foreignImportComment = Nothing},
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
+        "Tuple",
+      structConstr = HsName
+        "@NsConstr"
+        "Tuple",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "tuple_x",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "globals.h:466:20",
+              structFieldName = NamePair {
+                nameC = Name "x",
+                nameHsIdent = HsIdentifier
+                  "tuple_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing},
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "tuple_y",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin = StructField
+            StructField {
+              structFieldLoc =
+              "globals.h:466:33",
+              structFieldName = NamePair {
+                nameC = Name "y",
+                nameHsIdent = HsIdentifier
+                  "tuple_y"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+          fieldComment = Nothing}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "globals.h:466:8",
+            declId = NamePair {
+              nameC = Name "tuple",
+              nameHsIdent = HsIdentifier
+                "Tuple"},
+            declOrigin = NameOriginInSource,
+            declAliases = [],
+            declHeader = "globals.h",
+            declComment = Nothing},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (HsName "@NsConstr" "Tuple"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldLoc =
+                  "globals.h:466:20",
+                  structFieldName = NamePair {
+                    nameC = Name "x",
+                    nameHsIdent = HsIdentifier
+                      "tuple_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+                StructField {
+                  structFieldLoc =
+                  "globals.h:466:33",
+                  structFieldName = NamePair {
+                    nameC = Name "y",
+                    nameHsIdent = HsIdentifier
+                      "tuple_y"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
+      structInstances = Set.fromList
+        [Eq, Show, Storable],
+      structComment = Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = HsName
+            "@NsTypeConstr"
+            "Tuple",
+          structConstr = HsName
+            "@NsConstr"
+            "Tuple",
+          structFields = [
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "tuple_x",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "globals.h:466:20",
+                  structFieldName = NamePair {
+                    nameC = Name "x",
+                    nameHsIdent = HsIdentifier
+                      "tuple_x"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing},
+            Field {
+              fieldName = HsName
+                "@NsVar"
+                "tuple_y",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldLoc =
+                  "globals.h:466:33",
+                  structFieldName = NamePair {
+                    nameC = Name "y",
+                    nameHsIdent = HsIdentifier
+                      "tuple_y"},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing,
+                  structFieldComment = Nothing},
+              fieldComment = Nothing}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc = "globals.h:466:8",
+                declId = NamePair {
+                  nameC = Name "tuple",
+                  nameHsIdent = HsIdentifier
+                    "Tuple"},
+                declOrigin = NameOriginInSource,
+                declAliases = [],
+                declHeader = "globals.h",
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (HsName "@NsConstr" "Tuple"),
+                  structSizeof = 8,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldLoc =
+                      "globals.h:466:20",
+                      structFieldName = NamePair {
+                        nameC = Name "x",
+                        nameHsIdent = HsIdentifier
+                          "tuple_x"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing},
+                    StructField {
+                      structFieldLoc =
+                      "globals.h:466:33",
+                      structFieldName = NamePair {
+                        nameC = Name "y",
+                        nameHsIdent = HsIdentifier
+                          "tuple_y"},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 32,
+                      structFieldWidth = Nothing,
+                      structFieldComment = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Nothing}
+        StorableInstance {
+          storableSizeOf = 8,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Tuple",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Tuple",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "tuple_x",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "globals.h:466:20",
+                          structFieldName = NamePair {
+                            nameC = Name "x",
+                            nameHsIdent = HsIdentifier
+                              "tuple_x"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "tuple_y",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "globals.h:466:33",
+                          structFieldName = NamePair {
+                            nameC = Name "y",
+                            nameHsIdent = HsIdentifier
+                              "tuple_y"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 32,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc = "globals.h:466:8",
+                        declId = NamePair {
+                          nameC = Name "tuple",
+                          nameHsIdent = HsIdentifier
+                            "Tuple"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader = "globals.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Tuple"),
+                          structSizeof = 8,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "globals.h:466:20",
+                              structFieldName = NamePair {
+                                nameC = Name "x",
+                                nameHsIdent = HsIdentifier
+                                  "tuple_x"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "globals.h:466:33",
+                              structFieldName = NamePair {
+                                nameC = Name "y",
+                                nameHsIdent = HsIdentifier
+                                  "tuple_y"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing})
+              [
+                PeekByteOff (Idx 0) 0,
+                PeekByteOff (Idx 0) 4]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = HsName
+                    "@NsTypeConstr"
+                    "Tuple",
+                  structConstr = HsName
+                    "@NsConstr"
+                    "Tuple",
+                  structFields = [
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "tuple_x",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "globals.h:466:20",
+                          structFieldName = NamePair {
+                            nameC = Name "x",
+                            nameHsIdent = HsIdentifier
+                              "tuple_x"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing},
+                    Field {
+                      fieldName = HsName
+                        "@NsVar"
+                        "tuple_y",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldLoc =
+                          "globals.h:466:33",
+                          structFieldName = NamePair {
+                            nameC = Name "y",
+                            nameHsIdent = HsIdentifier
+                              "tuple_y"},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 32,
+                          structFieldWidth = Nothing,
+                          structFieldComment = Nothing},
+                      fieldComment = Nothing}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc = "globals.h:466:8",
+                        declId = NamePair {
+                          nameC = Name "tuple",
+                          nameHsIdent = HsIdentifier
+                            "Tuple"},
+                        declOrigin = NameOriginInSource,
+                        declAliases = [],
+                        declHeader = "globals.h",
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (HsName "@NsConstr" "Tuple"),
+                          structSizeof = 8,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldLoc =
+                              "globals.h:466:20",
+                              structFieldName = NamePair {
+                                nameC = Name "x",
+                                nameHsIdent = HsIdentifier
+                                  "tuple_x"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing},
+                            StructField {
+                              structFieldLoc =
+                              "globals.h:466:33",
+                              structFieldName = NamePair {
+                                nameC = Name "y",
+                                nameHsIdent = HsIdentifier
+                                  "tuple_y"},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing,
+                              structFieldComment = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Nothing}
+                (Add 2)
+                (Seq
+                  [
+                    PokeByteOff (Idx 3) 0 (Idx 0),
+                    PokeByteOff
+                      (Idx 3)
+                      4
+                      (Idx 1)])))},
+      defineInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Tuple",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Tuple",
+      deriveInstanceComment =
+      Nothing},
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const struct tuple *get_constTuple_ptr (void) { return &constTuple; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "constTuple_ptr",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "Tuple")),
+      foreignImportOrigName =
+      "get_constTuple_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeStruct
+          NamePair {
+            nameC = Name "tuple",
+            nameHsIdent = HsIdentifier
+              "Tuple"}
+          NameOriginInSource),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent "A constant tuple"],
+          commentOrigin = Just
+            "constTuple",
+          commentChildren = []}},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) struct tuple *get_nonConstTuple_ptr (void) { return &nonConstTuple; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "nonConstTuple_ptr",
+      foreignImportType = HsPtr
+        (HsTypRef
+          (HsName
+            "@NsTypeConstr"
+            "Tuple")),
+      foreignImportOrigName =
+      "get_nonConstTuple_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeStruct
+          NamePair {
+            nameC = Name "tuple",
+            nameHsIdent = HsIdentifier
+              "Tuple"}
+          NameOriginInSource),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "A non-constant tuple with a constant member"],
+          commentOrigin = Just
+            "nonConstTuple",
+          commentChildren = []}},
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) signed int **get_ptrToConstInt_ptr (void) { return &ptrToConstInt; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "ptrToConstInt_ptr",
+      foreignImportType = HsPtr
+        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "get_ptrToConstInt_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePointer
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "A pointer to const int"],
+          commentOrigin = Just
+            "ptrToConstInt",
+          commentChildren = []}},
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const signed int **get_constPtrToInt_ptr (void) { return &constPtrToInt; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "constPtrToInt_ptr",
+      foreignImportType = HsPtr
+        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "get_constPtrToInt_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePointer
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "A const pointer to int"],
+          commentOrigin = Just
+            "constPtrToInt",
+          commentChildren = []}},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "globals.h",
+  DeclInlineC
+    "__attribute__ ((const)) const signed int **get_constPtrToConstInt_ptr (void) { return &constPtrToConstInt; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "constPtrToConstInt_ptr",
+      foreignImportType = HsPtr
+        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "get_constPtrToConstInt_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePointer
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "A const pointer to const int"],
+          commentOrigin = Just
+            "constPtrToConstInt",
+          commentChildren = []}},
+  DeclSimple,
+  DeclSimple]

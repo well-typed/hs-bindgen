@@ -20,37 +20,37 @@ $(CAPI.addCSource "#include <array.h>\n__attribute__ ((const)) signed int (*get_
 
   __from C:__ @arr0@
 -}
-foreign import ccall safe "get_arr0_ptr" arr0 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall safe "get_arr0_ptr" arr0_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 
 {-| Global, complete, initialised
 
   __from C:__ @arr1@
 -}
-foreign import ccall safe "get_arr1_ptr" arr1 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall safe "get_arr1_ptr" arr1_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 
 {-| Global, extern, complete, not initialised
 
   __from C:__ @arr2@
 -}
-foreign import ccall safe "get_arr2_ptr" arr2 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall safe "get_arr2_ptr" arr2_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 
 {-| Global, extern, complete, initialised
 
   __from C:__ @arr3@
 -}
-foreign import ccall safe "get_arr3_ptr" arr3 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall safe "get_arr3_ptr" arr3_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 
 {-| Global, incomplete
 
   __from C:__ @arr6@
 -}
-foreign import ccall safe "get_arr6_ptr" arr6 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
+foreign import ccall safe "get_arr6_ptr" arr6_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
 
 {-| Global, extern, incomplete
 
   __from C:__ @arr7@
 -}
-foreign import ccall safe "get_arr7_ptr" arr7 :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+foreign import ccall safe "get_arr7_ptr" arr7_ptr :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 
 newtype Triplet = Triplet
   { un_Triplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
@@ -104,49 +104,49 @@ instance F.Storable Example where
 
   __from C:__ @arr_1@
 -}
-foreign import ccall safe "get_arr_1_ptr" arr_1 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall safe "get_arr_1_ptr" arr_1_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 
 {-| Array of known size, typedef
 
   __from C:__ @arr_2@
 -}
-foreign import ccall safe "get_arr_2_ptr" arr_2 :: F.Ptr Triplet
+foreign import ccall safe "get_arr_2_ptr" arr_2_ptr :: F.Ptr Triplet
 
 {-| Array of unknown size
 
   __from C:__ @arr_3@
 -}
-foreign import ccall safe "get_arr_3_ptr" arr_3 :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+foreign import ccall safe "get_arr_3_ptr" arr_3_ptr :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 
 {-| Array of unknown size, typedef
 
   __from C:__ @arr_4@
 -}
-foreign import ccall safe "get_arr_4_ptr" arr_4 :: F.Ptr List
+foreign import ccall safe "get_arr_4_ptr" arr_4_ptr :: F.Ptr List
 
 {-| Multi-dimensional array of known size
 
   __from C:__ @arr_5@
 -}
-foreign import ccall safe "get_arr_5_ptr" arr_5 :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+foreign import ccall safe "get_arr_5_ptr" arr_5_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 
 {-| Multi-dimensional array of known size, typedef
 
   __from C:__ @arr_6@
 -}
-foreign import ccall safe "get_arr_6_ptr" arr_6 :: F.Ptr Matrix
+foreign import ccall safe "get_arr_6_ptr" arr_6_ptr :: F.Ptr Matrix
 
 {-| Multi-dimensional array of unknown size
 
   __from C:__ @arr_7@
 -}
-foreign import ccall safe "get_arr_7_ptr" arr_7 :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+foreign import ccall safe "get_arr_7_ptr" arr_7_ptr :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 
 {-| Multi-dimensional array of unknown size, typedef
 
   __from C:__ @arr_8@
 -}
-foreign import ccall safe "get_arr_8_ptr" arr_8 :: F.Ptr Tripletlist
+foreign import ccall safe "get_arr_8_ptr" arr_8_ptr :: F.Ptr Tripletlist
 
 {-| Array of known size
 

@@ -1154,7 +1154,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i",
+        "i_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =

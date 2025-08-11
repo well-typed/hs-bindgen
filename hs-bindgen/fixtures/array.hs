@@ -6,7 +6,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr0",
+        "arr0_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           3
@@ -35,7 +35,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr1",
+        "arr1_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           3
@@ -64,7 +64,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr2",
+        "arr2_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           3
@@ -93,7 +93,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr3",
+        "arr3_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           3
@@ -122,7 +122,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr6",
+        "arr6_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           1
@@ -151,7 +151,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr7",
+        "arr7_ptr",
       foreignImportType = HsPtr
         (HsIncompleteArray
           (HsPrimType HsPrimCInt)),
@@ -991,7 +991,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_1",
+        "arr_1_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           3
@@ -1020,7 +1020,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_2",
+        "arr_2_ptr",
       foreignImportType = HsPtr
         (HsTypRef
           (HsName
@@ -1052,7 +1052,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_3",
+        "arr_3_ptr",
       foreignImportType = HsPtr
         (HsIncompleteArray
           (HsPrimType HsPrimCInt)),
@@ -1079,7 +1079,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_4",
+        "arr_4_ptr",
       foreignImportType = HsPtr
         (HsTypRef
           (HsName
@@ -1111,7 +1111,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_5",
+        "arr_5_ptr",
       foreignImportType = HsPtr
         (HsConstArray
           4
@@ -1146,7 +1146,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_6",
+        "arr_6_ptr",
       foreignImportType = HsPtr
         (HsTypRef
           (HsName
@@ -1178,7 +1178,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_7",
+        "arr_7_ptr",
       foreignImportType = HsPtr
         (HsIncompleteArray
           (HsConstArray
@@ -1211,7 +1211,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_8",
+        "arr_8_ptr",
       foreignImportType = HsPtr
         (HsTypRef
           (HsName

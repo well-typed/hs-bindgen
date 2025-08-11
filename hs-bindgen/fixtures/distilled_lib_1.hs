@@ -10745,7 +10745,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "v",
+        "v_ptr",
       foreignImportType = HsPtr
         (HsTypRef
           (HsName

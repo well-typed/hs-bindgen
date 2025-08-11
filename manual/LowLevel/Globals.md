@@ -17,7 +17,7 @@ This results in
 
 ```hs
 foreign import {-# details elided #-}
-  globalConfig :: Ptr GlobalConfig
+  globalConfig_ptr :: Ptr GlobalConfig
 ```
 
 along with the usual definitions for structs and functions:
@@ -37,9 +37,9 @@ foreign import (..) printGlobalConfig :: IO ()
 We can use these bindings as follows:
 
 ```hs
-do config <- peek globalConfig
+do config <- peek globalConfig_ptr
    print config      -- Print it Haskell side
-   poke globalConfig $ config{globalConfig_numThreads = 3}
+   poke globalConfig_ptr $ config{globalConfig_numThreads = 3}
    printGlobalConfig -- Print it C side
 ```
 
@@ -55,12 +55,12 @@ The code `hs-bindgen` produces for this is the same as for extern globals.
 
 ```hs
 foreign import {-# details elided #-}
-  nonExternGlobalInt :: F.Ptr FC.CInt
+  nonExternGlobalInt_ptr :: Ptr CInt
 ```
 
 However, such headers need to be treated with caution: if they are included more
 than once, the resulting binary will have duplicate symbols, resulting in linker
-errors ("multiple definition of `nonExternGlobalInt'").
+errors ("multiple definition of `nonExternGlobalInt`").
 
 ## Unsupported: thread-local variables
 
@@ -93,7 +93,31 @@ will result in a warning, and not produce any bindings.
 
 ## Constants
 
-TODO
+Global variables can also represenent global *constants* if they use
+`const`-qualified types.
+
+```c
+extern const int globalConstant;
+```
+
+The code `hs-bindgen` produces for this is the same as for non-constant global variables,
+
+```hs
+foreign import {-# details elided #-}
+  globalConstant_ptr :: Ptr CInt
+```
+
+but `hs-bindgen` also produces a utility function that produces the value of the
+constant directly, rather than a pointer to the value.
+
+```hs
+{-# NOINLINE globalConstant #-}
+globalConstant :: CInt
+globalConstant = {-# details elided #-}
+```
+
+We've also added a `NOINLINE` pragma so that the `globalConstant` is evaluated
+only once.
 
 ## Guidelines for binding generation
 
@@ -109,6 +133,13 @@ The approach to generating foreign imports for global variables is as follows:
   #927][pr-927].
 
 * Then, we create a foreign import of that stub C function.
+
+* If the type of the global variable is `const`-qualified, then it is actually a
+  global *constant*. If there is a `Storable` instance in scope for the variable
+  type, we generate a *pure* Haskell function that returns the value of the
+  global constant, using a combination of `unsafePerformIO` and `peek` on the
+  variable pointer. This is safe, since the value of the global constant should
+  not change.
 
 [issue-898]:https://github.com/well-typed/hs-bindgen/issues/898
 [pr-927]:https://github.com/well-typed/hs-bindgen/pull/927
@@ -147,6 +178,14 @@ Memory layout:
 | int*                     | x_ptr_c       | 2000    | 1000    |
 |                          |               | ...     |         |
 | Ptr CInt                 | x_ptr         | 3000    | 1000    |
+
+Constant:
+```hs
+{-# NOINLINE x #-}
+-- If the type of the global were @const int x@, we would also generate the following
+x :: CInt
+x = unsafePerformIO $ peek x_ptr
+```
 
 ### Pointer value: `int*`
 
@@ -201,6 +240,16 @@ Memory layout:
 | int**                    | x_ptr_c       | 3000    | 2000    |
 |                          |               | ...     |         |
 | Ptr (Ptr CInt)           | x_ptr         | 4000    | 2000    |
+
+Constant:
+```hs
+{-# NOINLINE x #-}
+-- If the type of the global were @int * const x@, we would also generate the following.
+-- Note that we do this for const-pointer-to-int, not for pointer-to-const-int. The "outer"
+-- type should be const-qualified, which is the pointer in this case, not the int.
+x :: Ptr CInt
+x = unsafePerformIO $ peek x_ptr
+```
 
 ### Arrays of known size: `int[3]`
 
@@ -263,6 +312,14 @@ Memory layout:
 |                            |               | ...     |         |
 | Ptr (ConstantArray 3 CInt) | x_ptr         | 3000    | 1000    |
 
+Constant:
+```hs
+{-# NOINLINE x #-}
+-- If the type of the global were @const triplet x@, we would also generate the following
+x :: Triplet
+x = unsafePerformIO $ peek x_ptr
+```
+
 # Arrays of unknown size: `int[]`
 
 The approach is here is exactly the same as for arrays of known size. The
@@ -310,3 +367,13 @@ Memory layout:
 | (*int)[]                   | x_ptr_c       | 2000    | 1000    |
 |                            |               | ...     |         |
 | Ptr (IncompleteArray CInt) | x_ptr         | 3000    | 1000    |
+
+Constant:
+```hs
+{-# NOINLINE x #-}
+-- If the type of the global were @const list x@, we would /not/ generate the following.
+-- It would fail to compile because 'IncompleteArray' does not have a 'Storable' instance,
+-- and therefore neither does the 'List' newtype.
+x :: List
+x = unsafePerformIO $ peek x_ptr -- ERROR
+```

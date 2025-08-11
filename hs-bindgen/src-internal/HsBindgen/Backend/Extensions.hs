@@ -49,6 +49,8 @@ requiredExtensions = \case
     DCSource{} -> mconcat [
         ext TH.TemplateHaskell
       ]
+    DPragma{} -> mconcat [
+      ]
   where
     ext :: TH.Extension -> Set TH.Extension
     ext = Set.singleton

@@ -92,7 +92,7 @@ foreign import ccall safe "testmodule_sse3_func" sse3_func :: IO FC.CInt
 
 foreign import ccall safe "testmodule_f3" f3 :: IO ()
 
-foreign import ccall safe "get_i_ptr" i :: F.Ptr FC.CInt
+foreign import ccall safe "get_i_ptr" i_ptr :: F.Ptr FC.CInt
 
 foreign import ccall safe "testmodule_fn" fn :: IO FC.CInt
 

@@ -6,7 +6,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "b",
+        "b_ptr",
       foreignImportType = HsPtr
         (HsPrimType HsPrimCBool),
       foreignImportOrigName =
