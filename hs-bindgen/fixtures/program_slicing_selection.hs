@@ -2331,7 +2331,7 @@
   DeclInlineCInclude
     "program_slicing_selection.h",
   DeclInlineC
-    "enum FileOperationStatus testmodule_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
+    "enum FileOperationStatus test_internal_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2473,7 +2473,7 @@
                   "@NsTypeConstr"
                   "FileOperationStatus"))))),
       foreignImportOrigName =
-      "testmodule_read_file_chunk",
+      "test_internal_read_file_chunk",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

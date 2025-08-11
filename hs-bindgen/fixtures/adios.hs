@@ -383,7 +383,7 @@
       Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "void testmodule_\978 (void) { \978(); }",
+    "void test_internal_\978 (void) { \978(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -392,7 +392,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_\978",
+      "test_internal_\978",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -405,7 +405,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "void testmodule_\25308\25308 (void) { \25308\25308(); }",
+    "void test_internal_\25308\25308 (void) { \25308\25308(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -414,7 +414,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_\25308\25308",
+      "test_internal_\25308\25308",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -427,7 +427,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "void testmodule_Say\25308\25308 (void) { Say\25308\25308(); }",
+    "void test_internal_Say\25308\25308 (void) { Say\25308\25308(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -436,7 +436,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_Say\25308\25308",
+      "test_internal_Say\25308\25308",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

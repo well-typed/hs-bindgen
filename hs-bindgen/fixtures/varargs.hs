@@ -1,7 +1,7 @@
 [
   DeclInlineCInclude "varargs.h",
   DeclInlineC
-    "void testmodule_h (void) { h(); }",
+    "void test_internal_h (void) { h(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10,7 +10,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_h",
+      "test_internal_h",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

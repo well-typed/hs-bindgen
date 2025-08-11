@@ -495,7 +495,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void testmodule___f1 (void) { __f1(); }",
+    "void test_internal___f1 (void) { __f1(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -504,7 +504,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule___f1",
+      "test_internal___f1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -518,7 +518,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void testmodule_f1 (void) { f1(); }",
+    "void test_internal_f1 (void) { f1(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -527,7 +527,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_f1",
+      "test_internal_f1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -541,7 +541,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void *testmodule_my_memalign (size_t arg1, size_t arg2) { return my_memalign(arg1, arg2); }",
+    "void *test_internal_my_memalign (size_t arg1, size_t arg2) { return my_memalign(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -561,7 +561,7 @@
             (HsPtr
               (HsPrimType HsPrimVoid)))),
       foreignImportOrigName =
-      "testmodule_my_memalign",
+      "test_internal_my_memalign",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -588,7 +588,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void *testmodule_my_calloc (size_t arg1, size_t arg2) { return my_calloc(arg1, arg2); }",
+    "void *test_internal_my_calloc (size_t arg1, size_t arg2) { return my_calloc(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -608,7 +608,7 @@
             (HsPtr
               (HsPrimType HsPrimVoid)))),
       foreignImportOrigName =
-      "testmodule_my_calloc",
+      "test_internal_my_calloc",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -635,7 +635,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void *testmodule_my_realloc (void *arg1, size_t arg2) { return my_realloc(arg1, arg2); }",
+    "void *test_internal_my_realloc (void *arg1, size_t arg2) { return my_realloc(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -652,7 +652,7 @@
             (HsPtr
               (HsPrimType HsPrimVoid)))),
       foreignImportOrigName =
-      "testmodule_my_realloc",
+      "test_internal_my_realloc",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -674,7 +674,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void *testmodule_my_alloc1 (size_t arg1) { return my_alloc1(arg1); }",
+    "void *test_internal_my_alloc1 (size_t arg1) { return my_alloc1(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -689,7 +689,7 @@
           (HsPtr
             (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
-      "testmodule_my_alloc1",
+      "test_internal_my_alloc1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -710,7 +710,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void *testmodule_my_alloc2 (size_t arg1) { return my_alloc2(arg1); }",
+    "void *test_internal_my_alloc2 (size_t arg1) { return my_alloc2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -725,7 +725,7 @@
           (HsPtr
             (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
-      "testmodule_my_alloc2",
+      "test_internal_my_alloc2",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -746,7 +746,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_square (signed int arg1) { return square(arg1); }",
+    "signed int test_internal_square (signed int arg1) { return square(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -756,7 +756,7 @@
         (HsPrimType HsPrimCInt)
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_square",
+      "test_internal_square",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -773,7 +773,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_old_fn (void) { return old_fn(); }",
+    "signed int test_internal_old_fn (void) { return old_fn(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -782,7 +782,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_old_fn",
+      "test_internal_old_fn",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -797,7 +797,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "char *testmodule_my_dgettext (char *arg1, char *arg2) { return my_dgettext(arg1, arg2); }",
+    "char *test_internal_my_dgettext (char *arg1, char *arg2) { return my_dgettext(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -811,7 +811,7 @@
             (HsPtr
               (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
-      "testmodule_my_dgettext",
+      "test_internal_my_dgettext",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -839,7 +839,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "FILE *testmodule_fdopen (signed int arg1, char *arg2) { return fdopen(arg1, arg2); }",
+    "FILE *test_internal_fdopen (signed int arg1, char *arg2) { return fdopen(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -856,7 +856,7 @@
                   "@NsTypeConstr"
                   "FILE"))))),
       foreignImportOrigName =
-      "testmodule_fdopen",
+      "test_internal_fdopen",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -888,7 +888,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void testmodule_f2 (void) { f2(); }",
+    "void test_internal_f2 (void) { f2(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -897,7 +897,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_f2",
+      "test_internal_f2",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -911,7 +911,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void *testmodule_my_memcpy (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
+    "void *test_internal_my_memcpy (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -930,7 +930,7 @@
               (HsPtr
                 (HsPrimType HsPrimVoid))))),
       foreignImportOrigName =
-      "testmodule_my_memcpy",
+      "test_internal_my_memcpy",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -953,7 +953,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void testmodule_fatal (void) { fatal(); }",
+    "void test_internal_fatal (void) { fatal(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -962,7 +962,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_fatal",
+      "test_internal_fatal",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -976,7 +976,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_hash (char *arg1) { return hash(arg1); }",
+    "signed int test_internal_hash (char *arg1) { return hash(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -986,7 +986,7 @@
         (HsPtr (HsPrimType HsPrimCChar))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "testmodule_hash",
+      "test_internal_hash",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1019,7 +1019,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void *testmodule_mymalloc (size_t arg1) { return mymalloc(arg1); }",
+    "void *test_internal_mymalloc (size_t arg1) { return mymalloc(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1034,7 +1034,7 @@
           (HsPtr
             (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
-      "testmodule_mymalloc",
+      "test_internal_mymalloc",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1055,7 +1055,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void testmodule_foobar (void) { foobar(); }",
+    "void test_internal_foobar (void) { foobar(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1064,7 +1064,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_foobar",
+      "test_internal_foobar",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1078,7 +1078,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_core2_func (void) { return core2_func(); }",
+    "signed int test_internal_core2_func (void) { return core2_func(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1087,7 +1087,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_core2_func",
+      "test_internal_core2_func",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1102,7 +1102,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_sse3_func (void) { return sse3_func(); }",
+    "signed int test_internal_sse3_func (void) { return sse3_func(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1111,7 +1111,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_sse3_func",
+      "test_internal_sse3_func",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1126,7 +1126,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void testmodule_f3 (void) { f3(); }",
+    "void test_internal_f3 (void) { f3(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1135,7 +1135,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "testmodule_f3",
+      "test_internal_f3",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1168,7 +1168,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_fn (void) { return fn(); }",
+    "signed int test_internal_fn (void) { return fn(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1177,7 +1177,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_fn",
+      "test_internal_fn",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1192,7 +1192,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_y (void) { return y(); }",
+    "signed int test_internal_y (void) { return y(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1201,7 +1201,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_y",
+      "test_internal_y",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1216,7 +1216,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_x1 (void) { return x1(); }",
+    "signed int test_internal_x1 (void) { return x1(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1225,7 +1225,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_x1",
+      "test_internal_x1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1240,7 +1240,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "signed int testmodule_x2 (void) { return x2(); }",
+    "signed int test_internal_x2 (void) { return x2(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1249,7 +1249,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_x2",
+      "test_internal_x2",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
