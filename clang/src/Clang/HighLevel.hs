@@ -45,6 +45,7 @@ module Clang.HighLevel (
   , clang_getCursorSpelling
     -- * Declaration classification
   , classifyDeclaration
+  , classifyTentativeDefinition
     -- * General wrappers
   , withIndex
   , withTranslationUnit

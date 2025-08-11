@@ -107,6 +107,7 @@ module Clang.LowLevel.Core (
   , clang_getCursorLinkage
   , clang_getCursorVisibility
   , clang_getIncludedFile
+  , clang_Cursor_getVarDeclInitializer
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
   , clang_visitChildren
@@ -981,6 +982,15 @@ clang_getIncludedFile :: MonadIO m => CXCursor -> m CXFile
 clang_getIncludedFile cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       wrap_getIncludedFile cursor'
+
+-- | If cursor refers to a variable declaration and it has initializer returns
+-- cursor referring to the initializer otherwise return null cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga74690016573b854df29f33b477872e7d>
+clang_Cursor_getVarDeclInitializer :: MonadIO m => CXCursor -> m CXCursor
+clang_Cursor_getVarDeclInitializer cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate_ $ wrap_Cursor_getVarDeclInitializer cursor'
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
