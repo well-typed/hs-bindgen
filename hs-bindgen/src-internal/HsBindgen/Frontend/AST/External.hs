@@ -41,6 +41,7 @@ module HsBindgen.Frontend.AST.External (
   , Type(..)
   , ResolveBindingSpec.ResolvedExtBinding(..)
   , isVoid
+  , TypeQualifier(..)
     -- * Names
   , C.Name(..)
   , C.TypeNamespace(..)
@@ -283,3 +284,15 @@ data TypedefRef =
 isVoid :: Type -> Bool
 isVoid TypeVoid = True
 isVoid _        = False
+
+-- | A type qualifier
+--
+-- <https://en.cppreference.com/w/c/language/const.html>
+data TypeQualifier =
+    -- | No type qualifier
+    TypeQualifierNone
+    -- | @const@ type qualifier
+    --
+    -- <https://en.cppreference.com/w/c/language/const.html>
+  | TypeQualifierConst
+  deriving stock (Show, Eq, Generic)

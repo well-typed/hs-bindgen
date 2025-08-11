@@ -16,7 +16,7 @@ import Clang.HighLevel.Documentation qualified as C
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.External qualified as C hiding (TypeQualifier)
 import HsBindgen.Frontend.Macro.Reparse.Decl qualified as C
 import HsBindgen.Frontend.Macro.Tc qualified as CMacro
 import HsBindgen.Frontend.RootHeader qualified as RootHeader

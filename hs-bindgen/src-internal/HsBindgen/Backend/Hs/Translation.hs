@@ -1055,17 +1055,17 @@ wrapperDecl
 wrapperDecl innerName wrapperName res args
     | isVoidW res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> args')
+        PC.FunDefn wrapperName C.TypeVoid C.TypeQualifierNone C.ImpureFunction (unwrapType <$> args')
           [PC.Expr $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
 
     | isWrappedHeap res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> (args' :> res))
+        PC.FunDefn wrapperName C.TypeVoid C.TypeQualifierNone C.ImpureFunction (unwrapType <$> (args' :> res))
           [PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call innerName (callArgs args' (IS <$> PC.argsToIdx args'))]
 
     | otherwise
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (unwrapType res) C.ImpureFunction (unwrapType <$> args')
+        PC.FunDefn wrapperName (unwrapType res) C.TypeQualifierNone C.ImpureFunction (unwrapType <$> args')
           [PC.Return $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
   where
     callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
@@ -1350,7 +1350,7 @@ global info ty _spec =
     stubDecl :: PC.Decl
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubName stubType C.HaskellPureFunction args'
+          PC.FunDefn stubName stubType C.TypeQualifierNone C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
 globalConst :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
