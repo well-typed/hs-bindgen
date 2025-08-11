@@ -1183,10 +1183,11 @@ functionDecs ::
   -> [Hs.Decl]
 functionDecs opts moduleName typedefs info f _spec =
     [ Hs.DeclInlineCInclude $ getHashIncludeArg $ C.declHeader info
-    , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
+    , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res wrappedArgTypes) ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = importName
-        , foreignImportType     = importType
+        , foreignImportResultType = resType
+        , foreignImportParameters = args
         , foreignImportOrigName = T.pack wrapperName
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Function f
@@ -1195,13 +1196,13 @@ functionDecs opts moduleName typedefs info f _spec =
                                <> ioComment
         }
     ] ++
-    [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res args
+    [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
     | anyFancy
     ]
   where
     -- fancy types are heap types or constant arrays,
     -- i.e. ones we create high-level wrapper.
-    anyFancy = any p (res : args) where
+    anyFancy = any p (res : wrappedArgTypes) where
         p WrapType {} = False
         p HeapType {} = True
         p CAType {}   = True
@@ -1213,8 +1214,17 @@ functionDecs opts moduleName typedefs info f _spec =
         | otherwise  = highlevelName
 
     res = wrapType $ C.functionRes f
-    args = (wrapType . snd) <$> C.functionArgs f
-    attrs = C.functionAttrs f
+    args = [ Hs.FunctionParameter
+              { functionParameterName    = fmap C.nameHs mbName
+              , functionParameterType    = typ' CFunArg (unwrapType (wrapType ty))
+              , functionParameterComment = Nothing
+              }
+           | (mbName, ty) <- C.functionArgs f
+           ]
+    wrappedArgTypes =
+      [ wrapType ty
+      | (_, ty) <- C.functionArgs f
+      ]
 
     -- types which we cannot pass directly using C FFI.
     wrapType :: C.Type -> WrappedType
@@ -1232,13 +1242,12 @@ functionDecs opts moduleName typedefs info f _spec =
             go ty'
         go _ = WrapType oty
 
-    importType :: HsType
-    importType = case res of
-        HeapType {} ->
-            foldr HsFun (HsIO $ typ' CFunRes C.TypeVoid) (typ' CFunArg . unwrapType <$> (args ++ [res]))
+    resType :: ResultType HsType
+    resType =
+      case res of
+        HeapType {} -> HeapResultType $ typ' CFunRes $ unwrapType res
 
-        WrapType {} ->
-            foldr HsFun (hsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
+        WrapType {} -> NormalResultType $ hsIO $ typ' CFunRes $ unwrapType res
 
         CAType {} ->
             panicPure "ConstantArray cannot occur as a result type"
@@ -1253,12 +1262,12 @@ functionDecs opts moduleName typedefs info f _spec =
     -- An exception to the rules: the foreign import function returns @void@
     -- when @res@ is a heap type, in which case a @const@ or @pure@ attribute
     -- does not make much sense, and so we just return the result in 'IO'.
-    hsIO :: HsType -> HsType
+    hsIO :: Hs.HsType -> Hs.HsType
     -- | C-pure functions can be safely encapsulated using 'unsafePerformIO' to
     -- create a Haskell-pure functions. We include a comment in the generated
     -- bindings to this effect.
     ioComment :: Maybe Hs.Comment
-    (hsIO, ioComment) = case C.functionPurity attrs of
+    (hsIO, ioComment) = case C.functionPurity (C.functionAttrs f) of
         C.HaskellPureFunction -> (id  , Nothing)
         C.CPureFunction       -> (HsIO, Just pureComment)
         C.ImpureFunction      -> (HsIO, Nothing)
@@ -1362,7 +1371,8 @@ mkGlobal mInstsMap info ty _spec =
     , Hs.DeclInlineC prettyStub
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = stubImportName
-        , foreignImportType     = stubImportType
+        , foreignImportParameters = []
+        , foreignImportResultType = stubImportType
         , foreignImportOrigName = T.pack stubName
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Global ty
@@ -1394,8 +1404,8 @@ mkGlobal mInstsMap info ty _spec =
     stubImportName :: HsName 'NsVar
     stubImportName = HsName $ T.pack (varName ++ "_ptr")
 
-    stubImportType :: HsType
-    stubImportType = typ stubType
+    stubImportType :: ResultType HsType
+    stubImportType = NormalResultType $ typ stubType
 
     -- TODO: the stub name should go through the name mangler. See #946.
     stubName :: String

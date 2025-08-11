@@ -220,6 +220,8 @@ instance ToExpr HsType.HsPrimType
 instance ToExpr Hs.EmptyData
 instance ToExpr Hs.Field
 instance ToExpr Hs.ForeignImportDecl
+instance ToExpr Hs.FunctionParameter
+instance ToExpr a => ToExpr (HsType.ResultType a)
 instance ToExpr Hs.Newtype
 instance ToExpr Hs.PatSyn
 instance ToExpr Hs.StorableInstance
