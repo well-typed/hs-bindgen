@@ -28,7 +28,7 @@ import Data.Typeable (Typeable)
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Lib
+import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 

@@ -6,8 +6,9 @@ import System.FilePath ((</>))
 import Test.Tasty
 
 import HsBindgen.Imports
-import HsBindgen.Pipeline.Lib qualified as Pipeline
 
+import HsBindgen
+import HsBindgen.Backend.Extensions
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
@@ -20,12 +21,10 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "exts" fixture $ \_report -> do
-      decls <- runTestTranslate testResources test
-
+      (I sHsDecls :* Nil) <- runTestRunArtefacts testResources test (SHs :* Nil)
       let output :: String
           output = unlines $ map show $ List.sort $ toList $
-              Pipeline.genExtensions
-            $ Pipeline.genSHsDecls decls
+              foldMap requiredExtensions sHsDecls
 
       return $ ActualValue output
   where

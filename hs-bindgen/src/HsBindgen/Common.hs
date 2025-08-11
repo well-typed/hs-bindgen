@@ -1,5 +1,4 @@
 module HsBindgen.Common (
-
     -- * Options
     Config.Config(..)
 
@@ -45,20 +44,23 @@ module HsBindgen.Common (
     -- * Logging
   , TraceMsg.TraceMsg(..)
   , TraceMsg.BindingSpecMsg(..)
+  , TraceMsg.BootMsg(..)
   , TraceMsg.ClangMsg(..)
   , TraceMsg.DeclIndexError(..)
   , TraceMsg.Diagnostic(..)
   , TraceMsg.FrontendMsg(..)
-  , TraceMsg.ParseMsg(..)
   , TraceMsg.HandleMacrosMsg(..)
-  , TraceMsg.NameAnonMsg(..)
-  , TraceMsg.ResolveBindingSpecMsg(..)
-  , TraceMsg.SelectMsg(..)
   , TraceMsg.HandleTypedefsMsg(..)
+  , TraceMsg.HashIncludeArgMsg(..)
   , TraceMsg.MangleNamesMsg(..)
+  , TraceMsg.NameAnonMsg(..)
+  , TraceMsg.ParseMsg(..)
   , TraceMsg.ParseTypeException(..)
   , TraceMsg.ReparseError(..)
+  , TraceMsg.ResolveBindingSpecMsg(..)
   , TraceMsg.ResolveHeaderMsg(..)
+  , TraceMsg.SelectMsg(..)
+  , TraceMsg.SortMsg(..)
   , TraceMsg.TcMacroError(..)
     -- ** Tracer definition and main API
   , Tracer.Tracer -- opaque
@@ -89,6 +91,8 @@ module HsBindgen.Common (
 
     -- * Re-exports
   , Default(..)
+  , HsBindgen.I (..)
+  , HsBindgen.NP (..)
   ) where
 
 import System.FilePath qualified as FilePath
@@ -105,5 +109,7 @@ import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.TraceMsg qualified as TraceMsg
 import HsBindgen.Util.Tracer qualified as Tracer
+
+import HsBindgen qualified
 
 import HsBindgen.Imports (Default (..))

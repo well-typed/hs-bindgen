@@ -9,6 +9,7 @@ module HsBindgen
   , Artefacts
   , writeIncludeGraph
   , writeUseDeclGraph
+  , getBindings
   , writeBindings
   , writeBindingSpec
   , writeTests
@@ -16,8 +17,12 @@ module HsBindgen
     -- * Re-exports
   , I (..)
   , NP (..)
+
+    -- * Exported for tests
+  , runArtefacts
   ) where
 
+import Data.Functor ((<&>))
 import Generics.SOP (I (..), NP (..))
 import Language.Haskell.TH (Q, runQ)
 
@@ -58,7 +63,6 @@ hsBindgen ::
   -> Artefacts as
   -> IO (NP I as)
 hsBindgen = hsBindgen' id
-
 
 hsBindgenQ ::
      TracerConfig Q TraceMsg Level
@@ -113,6 +117,21 @@ hsBindgen'
   Build artefacts
 -------------------------------------------------------------------------------}
 
+-- TODO: Hide internal API.
+--
+-- -- | Haskell declarations, translated from a C header
+-- newtype HsDecls = WrapHsDecls {
+--       unwrapHsDecls :: [Hs.Decl]
+--     }
+
+-- TODO: The "get" and "write" functions have access to 'Config' for now because
+-- it needs access to pretty printer configurations. I think we have two
+-- possibilities here: Either we collect all configuration into a single
+-- 'Config' object and let getters/writers access this object. Or we separate
+-- pretty-printer related configuration and directly apply the configuration
+-- when defining the getters or writers such as 'getBindings' or
+-- 'writeBindings'.
+
 data Artefact (a :: Star) where
   -- Boot.
   HashIncludArgs :: Artefact [HashIncludeArg]
@@ -121,19 +140,14 @@ data Artefact (a :: Star) where
   DeclIndex      :: Artefact DeclIndex.DeclIndex
   UseDeclGraph   :: Artefact UseDeclGraph.UseDeclGraph
   DeclUseGraph   :: Artefact DeclUseGraph.DeclUseGraph
-  Dependencies   :: Artefact [SourcePath]
   ReifiedC       :: Artefact [C.Decl]
+  Dependencies   :: Artefact [SourcePath]
   -- Backend.
   Hs             :: Artefact [Hs.Decl]
   SHs            :: Artefact [SHs.SDecl]
-  -- Writers.
-  --
-  -- TODO: The "write" function has access to 'Config' for now because it needs
-  -- access to pretty printer configurations. I think we have two possibilities
-  -- here: Either we collect all configuration into a single 'Config' object and
-  -- let writers access this object. Or we separate pretty-printer related
-  -- configuration and directly apply the configuration when defining the
-  -- writers such as 'writeBindings'.
+  -- Getter.
+  Get :: Artefacts as -> (Config -> NP I as -> b) -> Artefact b
+  -- Writer.
   Write :: Artefacts as -> (Config -> NP I as -> IO b) -> Artefact b
 
 type Artefacts as = NP Artefact as
@@ -153,9 +167,9 @@ writeUseDeclGraph mfile =
        write mfile (UseDeclGraph.dumpMermaid index useDeclGraph)
     )
 
-writeBindings :: Maybe FilePath -> Artefact ()
-writeBindings mfile =
-  Write
+getBindings :: Artefact String
+getBindings =
+  Get
     (SHs :* Nil)
     (\Config{..} (I sHsDecls :* Nil) ->
       let translate :: [SHs.SDecl] -> PP.HsModule
@@ -163,8 +177,14 @@ writeBindings mfile =
 
           render :: PP.HsModule -> String
           render = PP.render configHsRenderOpts
-      in write mfile (render $ translate sHsDecls)
+      in render $ translate sHsDecls
     )
+
+writeBindings :: Maybe FilePath -> Artefact ()
+writeBindings mfile =
+  Write
+    (getBindings :* Nil)
+    (\_ (I bindings :* Nil) -> write mfile bindings)
 
 writeBindingSpec :: FilePath -> Artefact ()
 writeBindingSpec file =
@@ -218,11 +238,13 @@ runArtefacts
       DeclIndex    -> pure frontendIndex
       UseDeclGraph -> pure frontendUseDeclGraph
       DeclUseGraph -> pure frontendDeclUseGraph
-      Dependencies -> pure frontendDependencies
       ReifiedC     -> pure frontendCDecls
+      Dependencies -> pure frontendDependencies
       -- Backend.
       Hs     -> pure backendHsDecls
       SHs    -> pure backendSHsDecls
+      -- Getter.
+      (Get as' f)   -> go as' <&> f config
       -- Writer.
       (Write as' f) -> go as' >>= liftIO . f config
 

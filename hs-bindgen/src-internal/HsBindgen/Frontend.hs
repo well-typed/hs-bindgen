@@ -156,12 +156,12 @@ frontend tracer Config{..} BootArtefact{..} = do
         frontendUseDeclGraph = declUseDecl $ unitAnn afterSort
         frontendDeclUseGraph :: DeclUseGraph.DeclUseGraph
         frontendDeclUseGraph = declDeclUse $ unitAnn afterSort
-        -- Dependencies.
-        frontendDependencies :: [SourcePath]
-        frontendDependencies = C.unitDeps cTranslationUnit
         -- Declarations.
         frontendCDecls :: [C.Decl]
         frontendCDecls = C.unitDecls cTranslationUnit
+        -- Dependencies.
+        frontendDependencies :: [SourcePath]
+        frontendDependencies = C.unitDeps cTranslationUnit
 
     pure FrontendArtefact{..}
   where
@@ -201,8 +201,8 @@ data FrontendArtefact = FrontendArtefact {
   , frontendIndex           :: DeclIndex.DeclIndex
   , frontendUseDeclGraph    :: UseDeclGraph.UseDeclGraph
   , frontendDeclUseGraph    :: DeclUseGraph.DeclUseGraph
-  , frontendDependencies    :: [SourcePath]
   , frontendCDecls          :: [C.Decl]
+  , frontendDependencies    :: [SourcePath]
   }
 
 {-------------------------------------------------------------------------------

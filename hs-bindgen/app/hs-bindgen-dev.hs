@@ -5,9 +5,6 @@ import HsBindgen.App.Dev
 
 import HsBindgen.Lib
 
--- TODO: Remove when 'hsBindgen' is exported by Lib.
-import HsBindgen (hsBindgen)
-
 {-------------------------------------------------------------------------------
   Main application
 -------------------------------------------------------------------------------}
@@ -21,7 +18,8 @@ execDev Dev{..} = case devCmd of
 
 execParse :: GlobalOpts -> ParseOpts -> IO ()
 execParse GlobalOpts{..} ParseOpts{..} = do
-    let artefacts = _
-    _ <- hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
+    let artefacts = ReifiedC :* Nil
+    (I decls :* Nil) <- hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
+    print decls
   where
     moduleUnique = getModuleUnique config.configHsModuleOpts

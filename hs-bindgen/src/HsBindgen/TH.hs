@@ -58,20 +58,23 @@ module HsBindgen.TH (
     -- * Logging
   , Common.TraceMsg(..)
   , Common.BindingSpecMsg(..)
+  , Common.BootMsg(..)
   , Common.ClangMsg(..)
   , Common.DeclIndexError(..)
   , Common.Diagnostic(..)
   , Common.FrontendMsg(..)
-  , Common.ParseMsg(..)
   , Common.HandleMacrosMsg(..)
-  , Common.NameAnonMsg(..)
-  , Common.ResolveBindingSpecMsg(..)
-  , Common.SelectMsg(..)
   , Common.HandleTypedefsMsg(..)
+  , Common.HashIncludeArgMsg(..)
   , Common.MangleNamesMsg(..)
+  , Common.NameAnonMsg(..)
+  , Common.ParseMsg(..)
   , Common.ParseTypeException(..)
   , Common.ReparseError(..)
+  , Common.ResolveBindingSpecMsg(..)
   , Common.ResolveHeaderMsg(..)
+  , Common.SelectMsg(..)
+  , Common.SortMsg(..)
   , Common.TcMacroError(..)
     -- ** Tracer definition and main API
   , Common.Tracer -- opaque
@@ -103,6 +106,8 @@ module HsBindgen.TH (
 
    -- * Re-exports
   , Common.Default(..)
+  , Common.I (..)
+  , Common.NP (..)
   ) where
 
 import HsBindgen.Common qualified as Common

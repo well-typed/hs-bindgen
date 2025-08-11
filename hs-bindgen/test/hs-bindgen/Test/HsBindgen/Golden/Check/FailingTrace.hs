@@ -7,8 +7,8 @@ import Control.Monad
 import Test.Tasty (TestTree)
 import Test.Tasty.HUnit
 
-import Test.HsBindgen.Resources
 import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests
@@ -17,4 +17,4 @@ import Test.HsBindgen.Golden.TestCase
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test = testCase (testName test) $ do
     -- We ignore any declarations that might have been successful
-    void $ runTestTranslate testResources test
+    void $ runTestBackend testResources test

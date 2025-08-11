@@ -6,15 +6,11 @@ import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
 import Control.Monad (forM_, void, (<=<))
 import Data.ByteString qualified as BS
-import Data.Char (isLetter)
 import Optics
 import System.Exit (ExitCode, exitFailure)
 import Text.Read (readMaybe)
 
 import HsBindgen.Lib
-
--- TODO: Remove when 'hsBindgen' is exported by Lib.
-import HsBindgen
 
 -- NOTE: HsBindgen.Errors is an internal library.
 import HsBindgen.Errors
@@ -80,9 +76,10 @@ execLiterate opts = do
 execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
 execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
     spec <- fromMaybeWithFatalError <=< withTracer tracerConfig $ \tracer ->
-      getStdlibBindingSpec (contramap TraceBindingSpec tracer) clangArgs
+      getStdlibBindingSpec (contramap (TraceBoot . BootBindingSpec) tracer) clangArgs
     BS.putStr $ encodeBindingSpecYaml spec
 
+-- TODO: Should header resolution be a (boot) artefact?
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
 execResolve GlobalOpts{..} ResolveOpts{..} = do
     mErr <- withTracer tracerConfig $ \tracer -> do
@@ -94,16 +91,6 @@ execResolve GlobalOpts{..} ResolveOpts{..} = do
           Just path -> [show header, "resolves to", show path]
           Nothing   -> [show header, "not found"]
     fromMaybeWithFatalError mErr
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
-
--- to avoid potential issues it would be great to include unitid in module
--- unique but AFAIK there is no way to get one for preprocessor
--- https://github.com/well-typed/hs-bindgen/issues/502
-getModuleUnique :: HsModuleOpts -> ModuleUnique
-getModuleUnique = ModuleUnique . filter isLetter . hsModuleOptsName
 
 {-------------------------------------------------------------------------------
   Exception handling

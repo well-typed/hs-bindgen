@@ -4,7 +4,7 @@ module Test.HsBindgen.Golden.Check.PP (check) where
 import System.FilePath ((</>))
 import Test.Tasty
 
-import HsBindgen.Pipeline.Lib qualified as Pipeline
+import HsBindgen
 
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
@@ -18,12 +18,8 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "pp" fixture $ \_report -> do
-      config <- getTestConfig testResources test
-      decls  <- runTestTranslate testResources test
-
-      let output :: String
-          output = Pipeline.preprocessPure config decls
-
+      let getBindingsA = getBindings :* Nil
+      (I output :* Nil) <- runTestRunArtefacts testResources test getBindingsA
       return $ ActualValue output
   where
     fixture :: FilePath

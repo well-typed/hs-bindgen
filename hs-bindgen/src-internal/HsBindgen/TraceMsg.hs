@@ -59,8 +59,8 @@ import HsBindgen.Util.Tracer
 --
 -- Lazy on purpose to avoid evaluation when traces are not reported.
 data TraceMsg =
-    TraceBoot BootMsg
-  | TraceFrontend FrontendMsg
+    TraceBoot          BootMsg
+  | TraceFrontend      FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
   deriving stock    (Show, Eq, Generic)
   deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)

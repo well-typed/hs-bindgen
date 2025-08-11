@@ -224,8 +224,6 @@ library
   other-modules:
       HsBindgen.Common
   reexported-modules:
-    -- TODO: Remove the direct re-exports again.
-    , HsBindgen
     , HsBindgen.Config.FixCandidate
     , HsBindgen.Config.FixCandidate.ReservedNames
     , HsBindgen.Errors
@@ -289,7 +287,6 @@ executable hs-bindgen-dev
   build-depends:
       -- Internal dependencies
     , hs-bindgen
-    , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
   build-depends:
@@ -333,7 +330,6 @@ library test-common
       -- Internal dependencies
     , ansi-diff
     , ansi-terminal
-    , hs-bindgen
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
