@@ -76,18 +76,18 @@ execLiterate opts = do
     throw' = throwIO . LiterateFileException opts.input
 
 execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
-execBindingSpec globalOpts BindingSpecCmdStdlib{..} = do
-    spec <- fromMaybeWithFatalError <=< withCliTracer globalOpts $ \tracer ->
+execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
+    spec <- fromMaybeWithFatalError <=< withTracer tracerConfig $ \tracer ->
       getStdlibBindingSpec (contramap TraceBindingSpec tracer) clangArgs
     BS.putStr $ encodeBindingSpecYaml spec
 
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
-execResolve globalOpts opts = do
-    mErr <- withCliTracer globalOpts $ \tracer -> do
-      let tracerResolve = contramap TraceResolveHeader  tracer
-      inputs <- checkInputs tracer opts.inputs
-      forM_ inputs $ \header -> do
-        mPath <- resolveHeader tracerResolve opts.clangArgs header
+execResolve GlobalOpts{..} ResolveOpts{..} = do
+    mErr <- withTracer tracerConfig $ \tracer -> do
+      let tracerResolve = contramap TraceResolveHeader tracer
+      hashIncludeArgs <- checkInputs tracer inputs
+      forM_ hashIncludeArgs $ \header -> do
+        mPath <- resolveHeader tracerResolve clangArgs header
         putStrLn . unwords $ case mPath of
           Just path -> [show header, "resolves to", show path]
           Nothing   -> [show header, "not found"]

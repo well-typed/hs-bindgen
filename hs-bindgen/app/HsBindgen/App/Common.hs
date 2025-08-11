@@ -16,7 +16,6 @@ module HsBindgen.App.Common (
   , parseInputs
   , checkInputs
     -- * Auxiliary hs-bindgen functions
-  , withCliTracer
   , fromMaybeWithFatalError
   , footerWith
     -- * Auxiliary optparse-applicative functions
@@ -45,14 +44,10 @@ import HsBindgen.Lib
 
 data GlobalOpts = GlobalOpts {
       tracerConfig  :: TracerConfig IO TraceMsg Level
-    , macroWarnings :: MacroLogLevel
     }
 
 parseGlobalOpts :: Parser GlobalOpts
-parseGlobalOpts =
-    GlobalOpts
-      <$> parseTracerConfig
-      <*> parseMacroWarnings
+parseGlobalOpts = GlobalOpts <$> parseTracerConfig
 
 {-------------------------------------------------------------------------------
   Tracer configuration
@@ -63,7 +58,7 @@ parseTracerConfig =
     TracerConfig
       <$> parseVerbosity
       <*> pure def
-      <*> pure mempty
+      <*> parseCustomLogLevel
       <*> parseShowTimeStamp
       <*> parseShowCallStack
 
@@ -87,6 +82,15 @@ parseVerbosity =
       2          -> Notice
       3          -> Info
       _otherwise -> Debug
+
+parseCustomLogLevel :: Parser (CustomLogLevel TraceMsg Level)
+parseCustomLogLevel = fromMacroWarnings <$> parseMacroWarnings
+    where
+      fromMacroWarnings macroWarnings =
+        let customLogLevelSettings = case macroWarnings of
+              MacroLogInfo    -> []
+              MacroLogWarning -> [MacroTracesAreWarnings]
+        in  customLogLevelFrom customLogLevelSettings
 
 parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [
@@ -426,22 +430,6 @@ checkInputs tracer = mapM $
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
-
-withCliTracer ::
-     GlobalOpts
-  -> (Tracer IO TraceMsg -> IO a)
-  -> IO (Maybe a)
-withCliTracer GlobalOpts{..} action' = do
-    let customLogLevelSettings = case macroWarnings of
-          MacroLogInfo    -> []
-          MacroLogWarning -> [MacroTracesAreWarnings]
-        customLogLevel = customLogLevelFrom customLogLevelSettings
-
-        tracerConfig' :: TracerConfig IO TraceMsg Level
-        tracerConfig' = tracerConfig {
-          tCustomLogLevel = customLogLevel
-        }
-    withTracer tracerConfig' action'
 
 -- | Extract the result or exit gracefully with an error message.
 --

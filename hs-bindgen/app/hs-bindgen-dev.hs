@@ -21,11 +21,11 @@ execDev Dev{..} = case devCmd of
     DevCmdParse cmdOpts -> execParse devGlobalOpts cmdOpts
 
 execParse :: GlobalOpts -> ParseOpts -> IO ()
-execParse globalOpts opts =
+execParse GlobalOpts{..} opts =
   doParse >>= fromMaybeWithFatalError >>= print
   where
     doParse :: IO (Maybe TranslationUnit)
-    doParse = withCliTracer globalOpts $ \tracer -> do
+    doParse = withTracer tracerConfig $ \tracer -> do
       inputPaths <- checkInputs tracer opts.inputPaths
       (extSpec, pSpec) <- loadBindingSpecs
                             (contramap TraceBindingSpec tracer)

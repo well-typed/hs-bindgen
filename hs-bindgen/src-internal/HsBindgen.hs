@@ -88,9 +88,8 @@ hsBindgen
         boot tracer clangArgs bindingSpecConfig uncheckedHashIncludeArgs
       let tracerFrontend :: Tracer IO FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
-      frontenArtefact <-
-        frontend tracerFrontend config bootArtefact
-      pure (bootArtefact, frontenArtefact)
+      frontendArtefact <- frontend tracerFrontend config bootArtefact
+      pure (bootArtefact, frontendArtefact)
     (bootArtefact, frontendArtefact) <- maybe fatalError pure mArtefact
     -- Backend.
     let backendArtefact = backend moduleUnique config frontendArtefact
