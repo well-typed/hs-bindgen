@@ -318,3 +318,14 @@ foreign import capi unsafe "clang_wrappers.h"
 
 -- void clang_executeOnThread (void(*fn)(void *), void *user_data, unsigned stack_size);
 
+-- Cross-referencing in the AST https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorPrintingPolicy :: R CXCursor_ -> IO CXPrintingPolicy
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorPrettyPrinted :: R CXCursor_ -> CXPrintingPolicy -> W CXString_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h clang_PrintingPolicy_dispose"
+  nowrapper_PrintingPolicy_dispose :: CXPrintingPolicy -> IO ()
+

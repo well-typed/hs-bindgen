@@ -120,3 +120,8 @@ CXString clang_getCursorKindSpelling (enum CXCursorKind Kind);
 // void clang_getDefinitionSpellingAndExtent (CXCursor, const char **startBuf, const char **endBuf, unsigned *startLine, unsigned *startColumn, unsigned *endLine, unsigned *endColumn);
 // void clang_enableStackTraces (void);
 // void clang_executeOnThread (void(*fn)(void *), void *user_data, unsigned stack_size);
+
+// Cross-referencing in the AST https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html
+CXPrintingPolicy clang_getCursorPrintingPolicy(CXCursor Cursor);
+CXString clang_getCursorPrettyPrinted(CXCursor Cursor, CXPrintingPolicy policy);
+void clang_PrintingPolicy_dispose (CXPrintingPolicy policy);

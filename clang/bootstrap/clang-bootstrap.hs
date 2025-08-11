@@ -248,10 +248,12 @@ toHaskellType _  ["enum"
                  ,"CXLinkageKind"]          = "SimpleEnum CXLinkageKind"
 toHaskellType _  ["enum"
                  ,"CXVisibilityKind"]       = "SimpleEnum CXVisibilityKind"
+toHaskellType _  ["CXPrintingPolicy"]       = "CXPrintingPolicy"
 toHaskellType _  ["long","long"]            = "CLLong"
 toHaskellType _  ["unsigned","long","long"] = "CULLong"
 toHaskellType _  ["unsigned"]               = "CUInt"
 toHaskellType _  ["int"]                    = "CInt"
+toHaskellType _  ["void"]                   = "()"
 toHaskellType _ ty                          = error $ "Unknown type " ++ unwords ty
 
 cRA :: RA -> String
@@ -270,8 +272,10 @@ toCType _  ["enum"
            ,"CXLinkageKind"]          = "enum CXLinkageKind"
 toCType _  ["enum"
            ,"CXVisibilityKind"]       = "enum CXVisibilityKind"
+toCType _  ["CXPrintingPolicy"]       = "CXPrintingPolicy"
 toCType _  ["long","long"]            = "long long"
 toCType _  ["unsigned","long","long"] = "unsigned long long"
 toCType _  ["unsigned"]               = "unsigned"
 toCType _  ["int"]                    = "int"
+toCType _  ["void"]                   = "void"
 toCType _ ty                          = error $ "Unknown type " ++ unwords ty

@@ -349,3 +349,13 @@ static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* 
 
 /* void clang_executeOnThread (void(*fn)(void *), void *user_data, unsigned stack_size); */
 
+/* Cross-referencing in the AST https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html */
+
+static inline CXPrintingPolicy wrap_getCursorPrintingPolicy(const CXCursor* Cursor) {
+  return clang_getCursorPrintingPolicy(*Cursor);
+}
+
+static inline void wrap_getCursorPrettyPrinted(const CXCursor* Cursor, CXPrintingPolicy policy, CXString* result) {
+  *result = clang_getCursorPrettyPrinted(*Cursor, policy);
+}
+

@@ -120,6 +120,9 @@ module Clang.LowLevel.Core (
   , clang_Cursor_getBriefCommentText
   , clang_Cursor_getSpellingNameRange
   , clang_isCursorDefinition
+  , clang_getCursorPrintingPolicy
+  , clang_getCursorPrettyPrinted
+  , clang_PrintingPolicy_dispose
     -- * Type information for CXCursors
   , CXTypeKind(..)
   , CXTypeLayoutError(..)
@@ -276,7 +279,7 @@ clang_createIndex diagnostics = liftIO $
     diagnostics' :: CInt
     diagnostics' =
         case diagnostics of
-          DisplayDiagnostics     -> 1
+          DisplayDiagnostics     -> 0
           DontDisplayDiagnostics -> 0
 
 -- | Destroy the given index.
@@ -1200,6 +1203,30 @@ clang_isCursorDefinition :: MonadIO m => CXCursor -> m Bool
 clang_isCursorDefinition cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_isCursorDefinition cursor'
+
+-- | Retrieve the default policy for the cursor.
+--
+-- The policy should be released after use with clang_PrintingPolicy_dispose.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaae83c013276d1fff6475566a23d9fffd>
+clang_getCursorPrintingPolicy :: MonadIO m => CXCursor -> m CXPrintingPolicy
+clang_getCursorPrintingPolicy cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getCursorPrintingPolicy cursor'
+
+-- | Pretty print declarations.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gab9d561cc237ce0d8bfbab80cdd5be216>
+clang_getCursorPrettyPrinted :: MonadIO m => CXCursor -> CXPrintingPolicy -> m Text
+clang_getCursorPrettyPrinted cursor pol = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate_ $ wrap_getCursorPrettyPrinted cursor' pol
+
+-- | Release a printing policy.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga81b2a9cac2b0ad4da7086c7fd3d4256f>
+clang_PrintingPolicy_dispose :: MonadIO m => CXPrintingPolicy -> m ()
+clang_PrintingPolicy_dispose pol = liftIO $ nowrapper_PrintingPolicy_dispose pol
 
 {-------------------------------------------------------------------------------
   Type information for CXCursors
