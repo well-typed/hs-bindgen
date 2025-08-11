@@ -405,12 +405,6 @@ parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat 
   Input arguments
 -------------------------------------------------------------------------------}
 
--- | Unchecked @#include@ argument
---
--- We need to emit trace messages monadically, so we do not check values within
--- the pure parser.
-type UncheckedHashIncludeArg = FilePath
-
 -- | Parse one or more input header arguments
 --
 -- This uses standard syntax for one or more arguments, which

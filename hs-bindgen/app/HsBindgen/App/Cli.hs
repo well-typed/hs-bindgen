@@ -106,7 +106,7 @@ data PreprocessOpts = PreprocessOpts {
       config            :: Config
     , bindingSpecConfig :: BindingSpecConfig
     , output            :: Maybe FilePath
-    , genBindingSpec    :: Maybe FilePath
+    , outputBindingSpec :: Maybe FilePath
     , inputs            :: [UncheckedHashIncludeArg]
     }
   deriving stock (Show, Generic)

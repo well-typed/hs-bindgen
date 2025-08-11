@@ -4,7 +4,7 @@ module Main (main) where
 
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
-import Control.Monad (forM_, (<=<))
+import Control.Monad (forM_, void, (<=<))
 import Data.ByteString qualified as BS
 import Data.Char (isLetter)
 import Optics
@@ -16,6 +16,7 @@ import HsBindgen.Lib
 -- NOTE: HsBindgen.Errors is an internal library.
 import HsBindgen.Errors
 
+import HsBindgen
 import HsBindgen.App.Cli
 import HsBindgen.App.Common
 
@@ -39,81 +40,24 @@ execCli Cli{..} = case cliCmd of
 -------------------------------------------------------------------------------}
 
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
-execPreprocess globalOpts opts = do
-    (hsDecls, inputs) <- fromMaybeWithFatalError <=<
-      withCliTracer globalOpts $ \tracer -> do
-        inputs <- checkInputs tracer opts.inputs
-        (extSpec, pSpec) <- loadBindingSpecs
-                              (contramap TraceBindingSpec tracer)
-                              opts.config.configClangArgs
-                              opts.bindingSpecConfig
-        (, inputs) <$>
-          translateCHeaders
-            mu
-            (contramap TraceFrontend tracer)
-            opts.config
-            extSpec
-            pSpec
-            inputs
-
-    preprocessIO opts.config opts.output hsDecls
-
-    case opts.genBindingSpec of
-      Nothing   -> return ()
-      Just path -> genBindingSpec opts.config inputs path hsDecls
+execPreprocess GlobalOpts{..} PreprocessOpts{..} = do
+    case outputBindingSpec of
+      -- TODO: We can not assemble the heterogeneous list of artefacts before
+      -- evaluating `hsBindgen`. The types don't line up. (We even have to pull
+      -- 'void' inside the case statement).
+      Nothing   -> void $ run $ (writeBindings output) :* Nil
+      Just file -> void $ run $ (writeBindings output) :* writeBindingSpec file :* Nil
   where
-    mu = getModuleUnique opts.config.configHsModuleOpts
-
--- execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
--- execPreprocess globalOpts opts = do
---     fromMaybeWithFatalError <=<
---       withCliTracer globalOpts $ \tracer -> do
---         inputs <- checkInputs tracer opts.inputs
---         (extSpec, pSpec) <- loadBindingSpecs
---                               (contramap TraceBindingSpec tracer)
---                               opts.config.configClangArgs
---                               opts.bindingSpecConfig
---         -- TODO: Will write output, even with Error trace.
---         mRes <-
---           hsBindgen
---             (contramap TraceFrontend tracer)
---             opts.config
---             extSpec
---             pSpec
---             inputs
---             (HCons (Hs mu) (HCons (writeBindings mu opts.config) HNil))
-
---         case mRes of
---           Nothing -> pure ()
---           Just (HCons hsDecls _) ->
---             case opts.genBindingSpec of
---               Nothing   -> return ()
---               -- TODO: Need to unwrap 'HsDecls'.
---               Just path -> genBindingSpec opts.config inputs path hsDecls
---   where
---     mu = getModuleUnique opts.config.configHsModuleOpts
+    moduleUnique = getModuleUnique config.configHsModuleOpts
+    run :: Artefacts as -> IO (NP I as)
+    run = hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
-execGenTests globalOpts opts = do
-    (hsDecls, inputs) <- fromMaybeWithFatalError <=<
-      withCliTracer globalOpts $ \tracer -> do
-        inputs <- checkInputs tracer opts.inputs
-        (extSpec, pSpec) <- loadBindingSpecs
-                              (contramap TraceBindingSpec tracer)
-                              opts.config.configClangArgs
-                              opts.bindingSpecConfig
-        (, inputs) <$>
-          translateCHeaders
-            mu
-            (contramap TraceFrontend tracer)
-            opts.config
-            extSpec
-            pSpec
-            inputs
-
-    genTests opts.config inputs opts.output hsDecls
+execGenTests GlobalOpts{..} GenTestsOpts{..} = do
+  let artefacts = writeTests output :* Nil
+  void $ hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
   where
-    mu = getModuleUnique opts.config.configHsModuleOpts
+    moduleUnique = getModuleUnique config.configHsModuleOpts
 
 execLiterate :: LiterateOpts -> IO ()
 execLiterate opts = do

@@ -71,6 +71,7 @@ module HsBindgen.Lib (
     -- * Paths
   , Common.HashIncludeArg(..)
   , Common.hashIncludeArg
+  , Common.UncheckedHashIncludeArg
   , Common.hashIncludeArgWithTrace
   , Common.CIncludeDir(..)
   , (Common.</>)

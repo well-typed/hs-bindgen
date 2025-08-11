@@ -36,6 +36,7 @@ module HsBindgen.Common (
     -- * Paths
   , RootHeader.HashIncludeArg(..)
   , RootHeader.hashIncludeArg
+  , RootHeader.UncheckedHashIncludeArg
   , RootHeader.hashIncludeArgWithTrace
   , Paths.CIncludeDir(..)
   , (FilePath.</>)
