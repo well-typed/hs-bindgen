@@ -28,13 +28,21 @@ newtype TC = TC
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "testmodule_quux1" quux1 :: MC -> TC -> IO FC.CChar
+foreign import ccall safe "testmodule_quux1" quux1 :: MC
+                                                   -> TC
+                                                   -> (IO FC.CChar)
 
-foreign import ccall safe "testmodule_quux2" quux2 :: MC -> FC.CChar -> IO TC
+foreign import ccall safe "testmodule_quux2" quux2 :: MC
+                                                   -> FC.CChar
+                                                   -> (IO TC)
 
-foreign import ccall safe "testmodule_wam1" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
+foreign import ccall safe "testmodule_wam1" wam1 :: FC.CFloat
+                                                 -> F.Ptr TC
+                                                 -> (IO (F.Ptr MC))
 
-foreign import ccall safe "testmodule_wam2" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
+foreign import ccall safe "testmodule_wam2" wam2 :: FC.CFloat
+                                                 -> F.Ptr MC
+                                                 -> (IO (F.Ptr TC))
 
 data Struct1 = Struct1
   { struct1_a :: FC.CInt
@@ -134,14 +142,26 @@ instance F.Storable Struct4 where
           Struct4 struct4_a2 ->
             F.pokeByteOff ptr0 (0 :: Int) struct4_a2
 
-foreign import ccall safe "testmodule_struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef1" struct_typedef1 :: (F.Ptr Struct2)
+                                                                       -> MC
+                                                                       -> (IO ())
 
-foreign import ccall safe "testmodule_struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t)
+                                                                       -> MC
+                                                                       -> (IO ())
 
-foreign import ccall safe "testmodule_struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef3" struct_typedef3 :: (F.Ptr Struct4)
+                                                                       -> MC
+                                                                       -> (IO ())
 
-foreign import ccall safe "testmodule_struct_name1" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name1" struct_name1 :: (F.Ptr Struct1)
+                                                                 -> MC
+                                                                 -> (IO ())
 
-foreign import ccall safe "testmodule_struct_name2" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name2" struct_name2 :: (F.Ptr Struct3)
+                                                                 -> MC
+                                                                 -> (IO ())
 
-foreign import ccall safe "testmodule_struct_name3" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name3" struct_name3 :: (F.Ptr Struct4)
+                                                                 -> MC
+                                                                 -> (IO ())

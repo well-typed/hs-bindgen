@@ -8,8 +8,15 @@
       foreignImportName = HsName
         "@NsVar"
         "fun2",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_fun2",
@@ -18,8 +25,10 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

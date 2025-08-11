@@ -8,8 +8,16 @@
       foreignImportName = HsName
         "@NsVar"
         "square_cp",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_square_cp",
@@ -18,8 +26,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             HaskellPureFunction,
@@ -50,8 +63,16 @@
       foreignImportName = HsName
         "@NsVar"
         "square_pc",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_square_pc",
@@ -60,8 +81,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             HaskellPureFunction,
@@ -77,8 +103,16 @@
       foreignImportName = HsName
         "@NsVar"
         "square_cc",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "testmodule_square_cc",
@@ -87,8 +121,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             HaskellPureFunction,
@@ -104,8 +143,16 @@
       foreignImportName = HsName
         "@NsVar"
         "square_pp",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "testmodule_square_pp",
@@ -114,8 +161,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             CPureFunction,

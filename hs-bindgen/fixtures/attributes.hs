@@ -1958,7 +1958,10 @@
                   "fILE__close"},
               structFieldType = TypePointer
                 (TypeFun
-                  [TypePointer TypeVoid]
+                  [
+                    _×_
+                      Nothing
+                      (TypePointer TypeVoid)]
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
               structFieldOffset = 64,
@@ -2019,7 +2022,10 @@
                       "fILE__close"},
                   structFieldType = TypePointer
                     (TypeFun
-                      [TypePointer TypeVoid]
+                      [
+                        _×_
+                          Nothing
+                          (TypePointer TypeVoid)]
                       (TypePrim
                         (PrimIntegral PrimInt Signed))),
                   structFieldOffset = 64,
@@ -2105,7 +2111,10 @@
                       "fILE__close"},
                   structFieldType = TypePointer
                     (TypeFun
-                      [TypePointer TypeVoid]
+                      [
+                        _×_
+                          Nothing
+                          (TypePointer TypeVoid)]
                       (TypePrim
                         (PrimIntegral PrimInt Signed))),
                   structFieldOffset = 64,
@@ -2166,7 +2175,10 @@
                           "fILE__close"},
                       structFieldType = TypePointer
                         (TypeFun
-                          [TypePointer TypeVoid]
+                          [
+                            _×_
+                              Nothing
+                              (TypePointer TypeVoid)]
                           (TypePrim
                             (PrimIntegral PrimInt Signed))),
                       structFieldOffset = 64,
@@ -2255,7 +2267,10 @@
                               "fILE__close"},
                           structFieldType = TypePointer
                             (TypeFun
-                              [TypePointer TypeVoid]
+                              [
+                                _×_
+                                  Nothing
+                                  (TypePointer TypeVoid)]
                               (TypePrim
                                 (PrimIntegral PrimInt Signed))),
                           structFieldOffset = 64,
@@ -2316,7 +2331,10 @@
                                   "fILE__close"},
                               structFieldType = TypePointer
                                 (TypeFun
-                                  [TypePointer TypeVoid]
+                                  [
+                                    _×_
+                                      Nothing
+                                      (TypePointer TypeVoid)]
                                   (TypePrim
                                     (PrimIntegral PrimInt Signed))),
                               structFieldOffset = 64,
@@ -2408,7 +2426,10 @@
                               "fILE__close"},
                           structFieldType = TypePointer
                             (TypeFun
-                              [TypePointer TypeVoid]
+                              [
+                                _×_
+                                  Nothing
+                                  (TypePointer TypeVoid)]
                               (TypePrim
                                 (PrimIntegral PrimInt Signed))),
                           structFieldOffset = 64,
@@ -2469,7 +2490,10 @@
                                   "fILE__close"},
                               structFieldType = TypePointer
                                 (TypeFun
-                                  [TypePointer TypeVoid]
+                                  [
+                                    _×_
+                                      Nothing
+                                      (TypePointer TypeVoid)]
                                   (TypePrim
                                     (PrimIntegral PrimInt Signed))),
                               structFieldOffset = 64,

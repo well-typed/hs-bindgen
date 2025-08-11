@@ -124,4 +124,7 @@ instance F.Storable FileOperationRecord where
                  F.pokeByteOff ptr0 (0 :: Int) fileOperationRecord_status2
               >> F.pokeByteOff ptr0 (8 :: Int) fileOperationRecord_bytes_processed3
 
-foreign import ccall safe "testmodule_read_file_chunk" read_file_chunk :: (F.Ptr HsBindgen.Runtime.Prelude.CFile) -> (F.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
+foreign import ccall safe "testmodule_read_file_chunk" read_file_chunk :: (F.Ptr HsBindgen.Runtime.Prelude.CFile)
+                                                                       -> F.Ptr Void
+                                                                       -> HsBindgen.Runtime.Prelude.CSize
+                                                                       -> IO FileOperationStatus

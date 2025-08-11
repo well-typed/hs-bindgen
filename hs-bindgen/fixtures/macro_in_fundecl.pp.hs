@@ -48,28 +48,45 @@ newtype S = S
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "testmodule_quux" quux :: F -> FC.CChar -> IO FC.CChar
+foreign import ccall safe "testmodule_quux" quux :: F
+                                                 -> FC.CChar
+                                                 -> (IO FC.CChar)
 
-foreign import ccall safe "testmodule_wam" wam :: FC.CFloat -> (F.Ptr C) -> IO (F.Ptr C)
+foreign import ccall safe "testmodule_wam" wam :: FC.CFloat
+                                               -> F.Ptr C
+                                               -> (IO (F.Ptr C))
 
-foreign import ccall safe "testmodule_foo1" foo1 :: FC.CFloat -> (F.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (F.Ptr FC.CChar)
+foreign import ccall safe "testmodule_foo1" foo1 :: FC.CFloat
+                                                 -> F.FunPtr (FC.CInt -> IO FC.CInt)
+                                                 -> (IO (F.Ptr FC.CChar))
 
-foreign import ccall safe "testmodule_foo2" foo2 :: F -> (F.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (F.Ptr FC.CChar)
+foreign import ccall safe "testmodule_foo2" foo2 :: F
+                                                 -> F.FunPtr (FC.CInt -> IO FC.CInt)
+                                                 -> (IO (F.Ptr FC.CChar))
 
-foreign import ccall safe "testmodule_foo3" foo3 :: FC.CFloat -> (F.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (F.Ptr C)
+foreign import ccall safe "testmodule_foo3" foo3 :: FC.CFloat
+                                                 -> F.FunPtr (FC.CInt -> IO FC.CInt)
+                                                 -> (IO (F.Ptr C))
 
-foreign import ccall safe "testmodule_bar1" bar1 :: FC.CLong -> IO (F.FunPtr (FC.CShort -> IO FC.CInt))
+foreign import ccall safe "testmodule_bar1" bar1 :: FC.CLong
+                                                 -> IO (F.FunPtr (FC.CShort -> IO FC.CInt))
 
-foreign import ccall safe "testmodule_bar2" bar2 :: L -> IO (F.FunPtr (FC.CShort -> IO FC.CInt))
+foreign import ccall safe "testmodule_bar2" bar2 :: L
+                                                 -> IO (F.FunPtr (FC.CShort -> IO FC.CInt))
 
-foreign import ccall safe "testmodule_bar3" bar3 :: FC.CLong -> IO (F.FunPtr (S -> IO FC.CInt))
+foreign import ccall safe "testmodule_bar3" bar3 :: FC.CLong
+                                                 -> IO (F.FunPtr (S -> IO FC.CInt))
 
-foreign import ccall safe "testmodule_bar4" bar4 :: FC.CLong -> IO (F.FunPtr (FC.CShort -> IO I))
+foreign import ccall safe "testmodule_bar4" bar4 :: FC.CLong
+                                                 -> IO (F.FunPtr (FC.CShort -> IO I))
 
-foreign import ccall safe "testmodule_baz1" baz1 :: FC.CInt -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+foreign import ccall safe "testmodule_baz1" baz1 :: FC.CInt
+                                                 -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
-foreign import ccall safe "testmodule_baz2" baz2 :: I -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+foreign import ccall safe "testmodule_baz2" baz2 :: I
+                                                 -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
-foreign import ccall safe "testmodule_baz3" baz3 :: FC.CInt -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
+foreign import ccall safe "testmodule_baz3" baz3 :: FC.CInt
+                                                 -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
 
 foreign import ccall safe "testmodule_no_args_no_void" no_args_no_void :: IO I

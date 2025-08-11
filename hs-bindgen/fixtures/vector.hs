@@ -466,16 +466,29 @@
       foreignImportName = HsName
         "@NsVar"
         "new_vector",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCDouble)
-        (HsFun
-          (HsPrimType HsPrimCDouble)
-          (HsIO
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Vector"))))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Vector")))),
       foreignImportOrigName =
       "testmodule_new_vector",
       foreignImportCallConv =
@@ -483,10 +496,20 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

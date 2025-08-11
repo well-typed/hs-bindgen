@@ -2323,36 +2323,68 @@
       foreignImportName = HsName
         "@NsVar"
         "resample_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_num_valid_samples"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Int32_T")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_iq_int"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Cint16_T")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_old_rate"),
+          functionParameterType = HsTypRef
             (HsName
               "@NsTypeConstr"
-              "Int32_T")))
-        (HsFun
-          (HsPtr
+              "Int64_T"),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_new_rate"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Int64_T"),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_iq_resampled_int"),
+          functionParameterType = HsPtr
             (HsTypRef
               (HsName
                 "@NsTypeConstr"
-                "Cint16_T")))
-          (HsFun
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Int64_T"))
-            (HsFun
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Int64_T"))
-              (HsFun
-                (HsPtr
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "Cint16_T")))
-                (HsIO
-                  (HsPrimType HsPrimUnit)))))),
+                "Cint16_T")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_resample",
       foreignImportCallConv =
@@ -2360,51 +2392,83 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_num_valid_samples",
+                  nameHsIdent = HsIdentifier
+                    "res_m_num_valid_samples"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int32_T",
+                      nameHsIdent = HsIdentifier
+                        "Int32_T"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_iq_int",
+                  nameHsIdent = HsIdentifier
+                    "res_m_iq_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = HsIdentifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_old_rate",
+                  nameHsIdent = HsIdentifier
+                    "res_m_old_rate"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = Name "int32_T",
+                    nameC = Name "int64_T",
                     nameHsIdent = HsIdentifier
-                      "Int32_T"})),
-            TypeConstArray
-              30720000
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "cint16_T")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "cint16_T",
-                      nameHsIdent = HsIdentifier
-                        "Cint16_T"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "spec_examples.h:14:9"))))),
-            TypeTypedef
-              (TypedefRegular
+                      "Int64_T"})),
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "int64_T",
+                  nameC = Name "res_m_new_rate",
                   nameHsIdent = HsIdentifier
-                    "Int64_T"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "int64_T",
-                  nameHsIdent = HsIdentifier
-                    "Int64_T"}),
-            TypeConstArray
-              30720000
+                    "res_m_new_rate"})
               (TypeTypedef
-                (TypedefSquashed
-                  (Name "cint16_T")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "cint16_T",
-                      nameHsIdent = HsIdentifier
-                        "Cint16_T"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "spec_examples.h:14:9")))))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = HsIdentifier
+                      "Int64_T"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_iq_resampled_int",
+                  nameHsIdent = HsIdentifier
+                    "res_m_iq_resampled_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = HsIdentifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9"))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

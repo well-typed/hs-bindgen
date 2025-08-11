@@ -14,8 +14,14 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -41,12 +47,27 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = HsIdentifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -120,12 +141,22 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed))),
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

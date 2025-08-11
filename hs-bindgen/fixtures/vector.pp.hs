@@ -38,4 +38,6 @@ instance F.Storable Vector where
                F.pokeByteOff ptr0 (0 :: Int) vector_x2
             >> F.pokeByteOff ptr0 (8 :: Int) vector_y3
 
-foreign import ccall safe "testmodule_new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)
+foreign import ccall safe "testmodule_new_vector" new_vector :: FC.CDouble
+                                                             -> FC.CDouble
+                                                             -> (IO (F.Ptr Vector))

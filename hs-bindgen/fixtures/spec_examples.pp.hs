@@ -122,7 +122,12 @@ instance F.Storable A where
             >> F.pokeByteOff ptr0 (144 :: Int) a_b5
             >> F.pokeByteOff ptr0 (144 :: Int) a_c6
 
-foreign import ccall safe "testmodule_resample" resample_wrapper :: (F.Ptr Int32_T) -> (F.Ptr Cint16_T) -> Int64_T -> Int64_T -> (F.Ptr Cint16_T) -> IO ()
+foreign import ccall safe "testmodule_resample" resample_wrapper :: (F.Ptr Int32_T)
+                                                                 -> F.Ptr Cint16_T
+                                                                 -> Int64_T
+                                                                 -> Int64_T
+                                                                 -> (F.Ptr Cint16_T)
+                                                                 -> IO ()
 
 resample :: (F.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()
 resample =

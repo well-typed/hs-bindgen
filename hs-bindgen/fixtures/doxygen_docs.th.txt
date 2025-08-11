@@ -154,12 +154,6 @@ pattern COLOR_BLUE = Color_enum 2
 
   This function shows different parameter directions and types.
 
-  [__@input_data@ /(input)/__]: Input data buffer
-
-  [__@output_data@ /(output)/__]: Output data buffer
-
-  [__@size@ /(input,output)/__]: Size of data, updated on return
-
   __returns:__ Status code (0 = success, -1 = error)
 
 -}
@@ -172,8 +166,6 @@ foreign import ccall safe "test_internal_process_data" process_data :: Ptr HsBin
   Function with inline commands and formatting
 
   This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
-
-  [__@filename@ /(input)/__]: The @char*@ filename to process
 
   __returns:__ @true@ if successful, @false@ otherwise
 
@@ -191,10 +183,6 @@ foreign import ccall safe "test_internal_process_file" process_file :: Ptr CChar
   printf("Result: %d@n", result);
   @
 
-  [__@base@ /(input)/__]: Base value
-
-  [__@multiplier@ /(input)/__]: Multiplier value
-
   __returns:__ Calculated result
 
 -}
@@ -207,8 +195,6 @@ foreign import ccall safe "test_internal_calculate_value" calculate_value :: CIn
   This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
 
   Input Output 0 false 1 true
-
-  [__@value@ /(input)/__]: Input value
 
   __returns:__ Boolean result
 
@@ -249,10 +235,6 @@ foreign import ccall safe "test_internal_html_example" html_example :: CInt ->
 
   3. C
 
-  [__@items@ /(input)/__]: Array of items
-
-  [__@count@ /(input)/__]: Number of items
-
   __returns:__ Success status
 
 -}
@@ -269,8 +251,6 @@ foreign import ccall safe "test_internal_list_example" list_example :: Ptr (Ptr 
 
   __see:__ related_function() for similar functionality
 
-  [__@ptr@ /(input)/__]: Pointer to data
-
   __returns:__ Modified pointer
 
 -}
@@ -279,8 +259,6 @@ foreign import ccall safe "test_internal_dangerous_function" dangerous_function 
 {-|
 
   Function with return value details
-
-  [__@input@ /(input)/__]: Input string
 
   __returns:__ 0 Success
 
@@ -298,8 +276,6 @@ foreign import ccall safe "test_internal_detailed_return_codes" detailed_return_
   Function with deprecated annotation
 
   __deprecated:__ Use new_function() instead
-
-  [__@old_param@ /(input)/__]: Legacy parameter
 
   __returns:__ Legacy result
 
@@ -778,10 +754,6 @@ newtype Filename_t
 
   Static array parameter
 
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
   __returns:__ Number of bytes written
 
 -}
@@ -795,12 +767,6 @@ process_buffer = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> process_buffer_wrapper p
 
   Function with restrict pointers
 
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
-
-  [__@src@ /(input)/__]: Source buffer (restrict)
-
-  [__@n@ /(input)/__]: Number of bytes
-
   __returns:__ Destination pointer
 
 -}
@@ -811,8 +777,6 @@ foreign import ccall safe "test_internal_my_memcpy" my_memcpy :: Ptr Void ->
 {-|
 
   Inline function
-
-  [__@x@ /(input)/__]: Input value
 
   __returns:__ Doubled value
 
@@ -900,11 +864,7 @@ instance HasFlexibleArrayMember CInt Flexible_array
   }
   @
 
-  [__@config@ /(input)/__]: Configuration structure
-
   [__@data@ /(input)/__]: Input data buffer
-
-  [__@size@ /(input)/__]: Size of input data
 
   __returns:__ Status code indicating success or failure
 

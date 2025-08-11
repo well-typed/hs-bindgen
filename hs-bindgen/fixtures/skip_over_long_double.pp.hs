@@ -12,7 +12,8 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 $(CAPI.addCSource "#include <skip_over_long_double.h>\nvoid testmodule_fun2 (signed int arg1) { fun2(arg1); }\n")
 
-foreign import ccall safe "testmodule_fun2" fun2 :: FC.CInt -> IO ()
+foreign import ccall safe "testmodule_fun2" fun2 :: FC.CInt
+                                                 -> IO ()
 
 data Struct2 = Struct2
   { struct2_x :: FC.CInt

@@ -36,13 +36,16 @@ instance F.Storable Thing where
           Thing thing_x2 ->
             F.pokeByteOff ptr0 (0 :: Int) thing_x2
 
-foreign import ccall safe "testmodule_thing_fun_1" thing_fun_1_wrapper :: (F.Ptr Thing) -> IO FC.CInt
+foreign import ccall safe "testmodule_thing_fun_1" thing_fun_1_wrapper :: (F.Ptr Thing)
+                                                                       -> IO FC.CInt
 
 thing_fun_1 :: Thing -> IO FC.CInt
 thing_fun_1 =
   \x0 -> F.with x0 (\y1 -> thing_fun_1_wrapper y1)
 
-foreign import ccall safe "testmodule_thing_fun_2" thing_fun_2_wrapper :: FC.CInt -> (F.Ptr Thing) -> IO ()
+foreign import ccall safe "testmodule_thing_fun_2" thing_fun_2_wrapper :: FC.CInt
+                                                                       -> F.Ptr Thing
+                                                                       -> (IO ())
 
 thing_fun_2 :: FC.CInt -> IO Thing
 thing_fun_2 =
@@ -50,7 +53,11 @@ thing_fun_2 =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             thing_fun_2_wrapper x0 z1)
 
-foreign import ccall safe "testmodule_thing_fun_3a" thing_fun_3a_wrapper :: FC.CInt -> (F.Ptr Thing) -> FC.CDouble -> (F.Ptr Thing) -> IO ()
+foreign import ccall safe "testmodule_thing_fun_3a" thing_fun_3a_wrapper :: FC.CInt
+                                                                         -> F.Ptr Thing
+                                                                         -> FC.CDouble
+                                                                         -> F.Ptr Thing
+                                                                         -> (IO ())
 
 thing_fun_3a :: FC.CInt -> Thing -> FC.CDouble -> IO Thing
 thing_fun_3a =
@@ -61,7 +68,10 @@ thing_fun_3a =
                      HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                              thing_fun_3a_wrapper x0 y3 x2 z4))
 
-foreign import ccall safe "testmodule_thing_fun_3b" thing_fun_3b_wrapper :: FC.CInt -> (F.Ptr Thing) -> FC.CDouble -> IO FC.CChar
+foreign import ccall safe "testmodule_thing_fun_3b" thing_fun_3b_wrapper :: FC.CInt
+                                                                         -> F.Ptr Thing
+                                                                         -> FC.CDouble
+                                                                         -> IO FC.CChar
 
 thing_fun_3b :: FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar
 thing_fun_3b =

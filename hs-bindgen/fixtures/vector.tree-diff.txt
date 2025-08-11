@@ -64,10 +64,20 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
