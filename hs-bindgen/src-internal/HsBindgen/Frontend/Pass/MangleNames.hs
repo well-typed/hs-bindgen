@@ -230,7 +230,7 @@ mkMacroTypeNames = mkNewtypeNames
 mangleArgumentName :: C.Name -> M NamePair
 mangleArgumentName argName = do
     fc <- asks envFixCandidate
-    let (hsName, mError) = fromCName fc (Proxy @NsConstr) argName
+    let (hsName, mError) = fromCName fc (Proxy @NsVar) argName
     forM_ mError $ modify . (:)
     return $ NamePair argName hsName
 
