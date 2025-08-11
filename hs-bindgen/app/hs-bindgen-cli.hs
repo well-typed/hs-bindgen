@@ -13,10 +13,12 @@ import Text.Read (readMaybe)
 
 import HsBindgen.Lib
 
+-- TODO: Remove when 'hsBindgen' is exported by Lib.
+import HsBindgen
+
 -- NOTE: HsBindgen.Errors is an internal library.
 import HsBindgen.Errors
 
-import HsBindgen
 import HsBindgen.App.Cli
 import HsBindgen.App.Common
 

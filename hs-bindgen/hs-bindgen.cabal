@@ -70,6 +70,7 @@ library internal
       Data.DynGraph
       Data.DynGraph.Labelled
       HsBindgen
+      HsBindgen.Backend
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.Artefact.PP.Names
       HsBindgen.Backend.Artefact.PP.Render
@@ -96,6 +97,7 @@ library internal
       HsBindgen.BindingSpec.Gen
       HsBindgen.BindingSpec.Private
       HsBindgen.BindingSpec.Private.Stdlib
+      HsBindgen.Boot
       HsBindgen.Clang
       HsBindgen.Config
       HsBindgen.Config.FixCandidate
@@ -161,7 +163,6 @@ library internal
       HsBindgen.ModuleUnique
       HsBindgen.NameHint
       HsBindgen.Orphans
-      HsBindgen.Pipeline.Lib
       HsBindgen.Pipeline.TH
       HsBindgen.PrettyC
       HsBindgen.Resolve

@@ -127,10 +127,9 @@ type UncheckedHashIncludeArg = FilePath
 
 -- | Construct a 'HashIncludeArg', emitting trace messages
 hashIncludeArgWithTrace ::
-     Monad m
-  => Tracer m HashIncludeArgMsg
+     Tracer IO HashIncludeArgMsg
   -> UncheckedHashIncludeArg
-  -> m HashIncludeArg
+  -> IO HashIncludeArg
 hashIncludeArgWithTrace tracer fp = do
     let (msgs, arg) = hashIncludeArg fp
     mapM_ (traceWith tracer) msgs

@@ -5,9 +5,8 @@ import HsBindgen.App.Dev
 
 import HsBindgen.Lib
 
--- It is OK to import some internal libraries for our development client.
-import HsBindgen.Frontend (frontend)
-import HsBindgen.Frontend.AST.External (TranslationUnit)
+-- TODO: Remove when 'hsBindgen' is exported by Lib.
+import HsBindgen (hsBindgen)
 
 {-------------------------------------------------------------------------------
   Main application
@@ -21,19 +20,8 @@ execDev Dev{..} = case devCmd of
     DevCmdParse cmdOpts -> execParse devGlobalOpts cmdOpts
 
 execParse :: GlobalOpts -> ParseOpts -> IO ()
-execParse GlobalOpts{..} opts =
-  doParse >>= fromMaybeWithFatalError >>= print
+execParse GlobalOpts{..} ParseOpts{..} = do
+    let artefacts = _
+    _ <- hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
   where
-    doParse :: IO (Maybe TranslationUnit)
-    doParse = withTracer tracerConfig $ \tracer -> do
-      inputPaths <- checkInputs tracer opts.inputPaths
-      (extSpec, pSpec) <- loadBindingSpecs
-                            (contramap TraceBindingSpec tracer)
-                            opts.config.configClangArgs
-                            opts.bindingSpecConfig
-      frontend
-        (contramap TraceFrontend tracer)
-        opts.config
-        extSpec
-        pSpec
-        inputPaths
+    moduleUnique = getModuleUnique config.configHsModuleOpts

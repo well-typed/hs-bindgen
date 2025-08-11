@@ -5,12 +5,14 @@ module HsBindgen.TraceMsg (
     TraceMsg(..)
     -- * Messages from individual passes
   , BindingSpecMsg(..)
+  , BootMsg(..)
   , ClangMsg(..)
   , DeclIndexError(..)
   , Diagnostic(..)
   , FrontendMsg(..)
   , HandleMacrosMsg(..)
   , HandleTypedefsMsg(..)
+  , HashIncludeArgMsg(..)
   , MangleNamesMsg(..)
   , NameAnonMsg(..)
   , ParseMsg(..)
@@ -30,6 +32,7 @@ import GHC.Generics (Generic)
 
 import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
+import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (..))
@@ -44,7 +47,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpecMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Frontend.Pass.Sort.IsPass (SortMsg (..))
-import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg, getHashIncludeArg)
+import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg (..), getHashIncludeArg)
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -56,10 +59,9 @@ import HsBindgen.Util.Tracer
 --
 -- Lazy on purpose to avoid evaluation when traces are not reported.
 data TraceMsg =
-    TraceBindingSpec BindingSpecMsg
+    TraceBoot BootMsg
   | TraceFrontend FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
-  | TraceHashIncludeArg HashIncludeArgMsg
   deriving stock    (Show, Eq, Generic)
   deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
 

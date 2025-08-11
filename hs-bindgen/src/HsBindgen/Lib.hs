@@ -139,8 +139,6 @@ import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Tracer qualified as Tracer
 
-import HsBindgen.Pipeline.Lib qualified as Pipeline
-
 import HsBindgen.BindingSpec
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.ModuleUnique

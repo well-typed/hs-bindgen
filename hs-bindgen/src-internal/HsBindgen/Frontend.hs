@@ -1,23 +1,25 @@
--- | Main entry point into the clang AST folding code
---
--- Intended for unqualified import.
-module HsBindgen.Frontend (
-    frontend
+module HsBindgen.Frontend
+  ( frontend
+  , FrontendArtefact (..)
   , FrontendMsg(..)
   ) where
 
-import Control.Monad
+import System.Exit (exitFailure)
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
-import HsBindgen.BindingSpec
+import HsBindgen.Boot
 import HsBindgen.Clang
 import HsBindgen.Config
-import HsBindgen.Frontend.AST.External (emptyTranslationUnit)
-import HsBindgen.Frontend.AST.External qualified as Ext
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.Finalize
-import HsBindgen.Frontend.Pass (Msg)
+import HsBindgen.Frontend.AST.Internal hiding (Type)
+import HsBindgen.Frontend.Pass hiding (Config)
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs
@@ -35,14 +37,9 @@ import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.ProcessIncludes
-import HsBindgen.Frontend.RootHeader (RootHeader)
-import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-
-{-------------------------------------------------------------------------------
-  Construction
--------------------------------------------------------------------------------}
 
 -- | Frontend.
 --
@@ -96,14 +93,11 @@ import HsBindgen.Util.Tracer
 frontend ::
      Tracer IO FrontendMsg
   -> Config
-  -> ExternalBindingSpec
-  -> PrescriptiveBindingSpec
-  -> [RootHeader.HashIncludeArg]
-  -> IO Ext.TranslationUnit
-frontend tracer Config{..} extSpec pSpec hashIncludeArgs = do
-    -- Impure: parse source code with `libclang` and reify.
+  -> BootArtefact
+  -> IO FrontendArtefact
+frontend tracer Config{..} BootArtefact{..} = do
+    -- Frontend: Impure parse pass
     mParseResult <-
-      -- TODO: Maybe come up with empty values here, and avoid failing early below.
       withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader) <-
           processIncludes rootHeader unit
@@ -118,47 +112,61 @@ frontend tracer Config{..} extSpec pSpec hashIncludeArgs = do
           unit
         pure (reifiedUnit, isMainHeader, isInMainHeaderDir)
 
-    case mParseResult of
-      -- Possibly fail early.
-      Nothing -> pure emptyTranslationUnit
-      -- Pure: other passes.
-      Just (afterParse, isMainHeader, isInMainHeaderDir) -> do
+    (afterParse, isMainHeader, isInMainHeaderDir) <-
+      maybe clangParseError pure mParseResult
 
-        -- writeFile "includegraph.mermaid" $ IncludeGraph.dumpMermaid includeGraph
+    -- Frontend: Pure passes.
+    let (afterSort, msgsSort) =
+          sortDecls afterParse
+        (afterHandleMacros, msgsHandleMacros) =
+          handleMacros afterSort
+        (afterNameAnon, msgsNameAnon) =
+          nameAnon afterHandleMacros
+        (afterResolveBindingSpec, msgsResolveBindingSpecs) =
+          resolveBindingSpec bootExternalBindingSpec bootPrescriptiveBindingSpec afterNameAnon
+        (afterSelect, msgsSelect) =
+          selectDecls isMainHeader isInMainHeaderDir selectConfig afterResolveBindingSpec
+        (afterHandleTypedefs, msgsHandleTypedefs) =
+          handleTypedefs afterSelect
+        (afterMangleNames, msgsMangleNames) =
+          mangleNames afterHandleTypedefs
 
-        let (afterSort, msgsSort) =
-              sortDecls afterParse
-            (afterHandleMacros, msgsHandleMacros) =
-              handleMacros afterSort
-            (afterNameAnon, msgsNameAnon) =
-              nameAnon afterHandleMacros
-            (afterResolveBindingSpec, msgsResolveBindingSpecs) =
-              resolveBindingSpec extSpec pSpec afterNameAnon
-            (afterSelect, msgsSelect) =
-              selectDecls isMainHeader isInMainHeaderDir selectConfig afterResolveBindingSpec
-            (afterHandleTypedefs, msgsHandleTypedefs) =
-              handleTypedefs afterSelect
-            (afterMangleNames, msgsMangleNames) =
-              mangleNames afterHandleTypedefs
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/967: By emitting
+    -- all traces in one place, we lose the callstack and timestamp
+    -- information of the individual traces.
 
-        -- writeFile "usedecl.mermaid" $
-        --   UseDecl.dumpMermaid (Int.unitAnn afterSort)
+    -- TODO: Emitting traces forces all passes.
+    forM_ msgsSort                $ traceWith tracer . FrontendSort
+    forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
+    forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
+    forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
+    forM_ msgsSelect              $ traceWith tracer . FrontendSelect
+    forM_ msgsHandleTypedefs      $ traceWith tracer . FrontendHandleTypedefs
+    forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
 
-        -- TODO https://github.com/well-typed/hs-bindgen/issues/967: By emitting
-        -- all traces in one place, we lose the callstack and timestamp
-        -- information of the individual traces.
-        forM_ msgsSort                $ traceWith tracer . FrontendSort
-        forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
-        forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
-        forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-        forM_ msgsSelect              $ traceWith tracer . FrontendSelect
-        forM_ msgsHandleTypedefs      $ traceWith tracer . FrontendHandleTypedefs
-        forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
+    let -- Unit.
+        cTranslationUnit :: C.TranslationUnit
+        cTranslationUnit = finalize afterMangleNames
+        -- Graphs.
+        frontendIncludeGraph :: IncludeGraph.IncludeGraph
+        frontendIncludeGraph = unitIncludeGraph afterParse
+        frontendIndex        :: DeclIndex.DeclIndex
+        frontendIndex        = declIndex $ unitAnn afterSort
+        frontendUseDeclGraph :: UseDeclGraph.UseDeclGraph
+        frontendUseDeclGraph = declUseDecl $ unitAnn afterSort
+        frontendDeclUseGraph :: DeclUseGraph.DeclUseGraph
+        frontendDeclUseGraph = declDeclUse $ unitAnn afterSort
+        -- Dependencies.
+        frontendDependencies :: [SourcePath]
+        frontendDependencies = C.unitDeps cTranslationUnit
+        -- Declarations.
+        frontendCDecls :: [C.Decl]
+        frontendCDecls = C.unitDecls cTranslationUnit
 
-        return $ finalize afterMangleNames
+    pure FrontendArtefact{..}
   where
     rootHeader :: RootHeader
-    rootHeader = RootHeader.fromMainFiles hashIncludeArgs
+    rootHeader = fromMainFiles bootHashIncludeArgs
 
     setup :: ClangSetup
     setup = (defaultClangSetup configClangArgs $ ClangInputMemory hFilePath hContent) {
@@ -171,16 +179,34 @@ frontend tracer Config{..} extSpec pSpec hashIncludeArgs = do
         }
 
     hFilePath :: FilePath
-    hFilePath = getSourcePath RootHeader.name
+    hFilePath = getSourcePath name
 
     hContent :: String
-    hContent = RootHeader.content rootHeader
+    hContent = content rootHeader
 
     selectConfig :: SelectConfig
     selectConfig = SelectConfig configProgramSlicing configSelectPredicate
 
+    clangParseError :: IO a
+    clangParseError = do
+      putStrLn "An unknown error happened while parsing headers with `libclang`"
+      exitFailure
+
 {-------------------------------------------------------------------------------
-  Logging
+  Artefact
+-------------------------------------------------------------------------------}
+
+data FrontendArtefact = FrontendArtefact {
+    frontendIncludeGraph    :: IncludeGraph.IncludeGraph
+  , frontendIndex           :: DeclIndex.DeclIndex
+  , frontendUseDeclGraph    :: UseDeclGraph.UseDeclGraph
+  , frontendDeclUseGraph    :: DeclUseGraph.DeclUseGraph
+  , frontendDependencies    :: [SourcePath]
+  , frontendCDecls          :: [C.Decl]
+  }
+
+{-------------------------------------------------------------------------------
+  Trace
 -------------------------------------------------------------------------------}
 
 -- | Frontend trace messages
