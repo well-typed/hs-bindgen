@@ -25,7 +25,7 @@ import System.IO
 import HsBindgen.Backend.Artefact.PP.Names
 import HsBindgen.Backend.Artefact.PP.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
+import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Imports
@@ -318,6 +318,15 @@ instance Pretty SDecl where
                     ImportAsPtr   -> "&"
                 , string $ Text.unpack foreignImportOrigName
                 ])
+
+          importType =
+            case foreignImportResultType of
+              NormalResultType t ->
+                foldr (TFun . functionParameterType) t foreignImportParameters
+              HeapResultType t   ->
+                foldr TFun (TApp (TGlobal IO_type) (TGlobal (PrimType HsPrimUnit)))
+                           (map functionParameterType foreignImportParameters ++ [t])
+
           prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment
       in  prettyFunctionComment
        $$ hsep [ "foreign import"
@@ -326,7 +335,7 @@ instance Pretty SDecl where
                , "\"" >< impent >< "\""
                , pretty foreignImportName
                , "::"
-               , pretty foreignImportType
+               , pretty importType
                ]
 
     DDerivingInstance DerivingInstance {..} -> maybe empty (pretty . TopLevelComment) derivingInstanceComment

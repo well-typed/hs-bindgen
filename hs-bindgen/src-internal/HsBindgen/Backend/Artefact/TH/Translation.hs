@@ -612,6 +612,14 @@ mkDecl = \case
                   , Text.unpack foreignImportOrigName
                   ])
 
+            importType =
+              case foreignImportResultType of
+                NormalResultType t ->
+                  foldr (TFun . functionParameterType) t foreignImportParameters
+                HeapResultType t   ->
+                  foldr TFun (TApp (TGlobal IO_type) (TGlobal (PrimType HsPrimUnit)))
+                             (map functionParameterType foreignImportParameters ++ [t])
+
         fmap singleton $
           withDecDoc foreignImportComment $
             fmap TH.ForeignD $
@@ -620,7 +628,7 @@ mkDecl = \case
                 <*> pure safety
                 <*> pure impent
                 <*> pure (hsNameToTH foreignImportName)
-                <*> mkType EmptyEnv foreignImportType
+                <*> mkType EmptyEnv importType
 
       DPatternSynonym ps -> do
         let thPatSynName = hsNameToTH (patSynName ps)

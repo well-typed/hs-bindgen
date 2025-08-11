@@ -178,9 +178,21 @@ translateVarDecl Hs.VarDecl {..} = DVar
       }
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
-translateForeignImportDecl Hs.ForeignImportDecl {..} =
+translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
+                                                , foreignImportResultType = resType
+                                                , ..
+                                                } =
     [  DForeignImport ForeignImport
-        { foreignImportType = translateType foreignImportType
+        { foreignImportParameters =
+          map (\Hs.FunctionParameter { functionParameterType = argType
+                                     , ..
+                                     } ->
+                    FunctionParameter
+                      { functionParameterType = translateType argType
+                      , ..
+                      }
+                ) args
+        , foreignImportResultType = fmap translateType resType
         , ..
         }
     ]

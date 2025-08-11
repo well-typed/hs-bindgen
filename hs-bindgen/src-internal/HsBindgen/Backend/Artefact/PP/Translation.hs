@@ -158,7 +158,10 @@ resolveDeclImports = \case
       ]
     DDerivingInstance DerivingInstance {..} -> resolveStrategyImports derivingInstanceStrategy
                                             <> resolveTypeImports derivingInstanceType
-    DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
+    DForeignImport ForeignImport {..} ->
+         foldMap (resolveTypeImports . functionParameterType)
+                 foreignImportParameters
+      <> resolveTypeImports (Hs.extractResultType foreignImportResultType)
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>
         resolvePatExprImports patSynRHS
