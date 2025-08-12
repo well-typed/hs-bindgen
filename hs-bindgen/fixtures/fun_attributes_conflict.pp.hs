@@ -16,15 +16,19 @@ $(CAPI.addCSource "#include <fun_attributes_conflict.h>\nsigned int testmodule_s
 
   __from C:__ @square_cp(int)@
 -}
-foreign import ccall safe "testmodule_square_cp" square_cp :: FC.CInt -> FC.CInt
+foreign import ccall safe "testmodule_square_cp" square_cp :: FC.CInt
+                                                           -> FC.CInt
 
-foreign import ccall safe "testmodule_square_pc" square_pc :: FC.CInt -> FC.CInt
+foreign import ccall safe "testmodule_square_pc" square_pc :: FC.CInt
+                                                           -> FC.CInt
 
-foreign import ccall safe "testmodule_square_cc" square_cc :: FC.CInt -> FC.CInt
+foreign import ccall safe "testmodule_square_cc" square_cc :: FC.CInt
+                                                           -> FC.CInt
 
 {-|
 
   Marked @__attribute((pure))__@
 
 -}
-foreign import ccall safe "testmodule_square_pp" square_pp :: FC.CInt -> IO FC.CInt
+foreign import ccall safe "testmodule_square_pp" square_pp :: FC.CInt
+                                                           -> IO FC.CInt

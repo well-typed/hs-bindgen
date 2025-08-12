@@ -133,18 +133,22 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -171,18 +175,22 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -209,13 +217,17 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer TypeVoid,
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypePointer TypeVoid),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -242,12 +254,14 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -274,12 +288,14 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -306,8 +322,10 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             HaskellPureFunction,
@@ -360,16 +378,28 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed)))),
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "my_domain",
+                  nameHsIdent = HsIdentifier
+                    "my_domain"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "my_format",
+                  nameHsIdent = HsIdentifier
+                    "my_format"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -399,13 +429,17 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePointer
+            _×_
+              Nothing
               (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              Nothing
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -467,14 +501,32 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer TypeVoid,
-            TypePointer TypeVoid,
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "size_t",
+                  nameC = Name "dest",
                   nameHsIdent = HsIdentifier
-                    "Size_t"})],
+                    "dest"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "src",
+                  nameHsIdent = HsIdentifier
+                    "src"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "len",
+                  nameHsIdent = HsIdentifier
+                    "len"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -526,11 +578,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
+            _×_
+              Nothing
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
           functionAttrs =
           FunctionAttributes
             CPureFunction,
@@ -557,12 +611,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "size_t",
+                  nameC = Name "len",
                   nameHsIdent = HsIdentifier
-                    "Size_t"})],
+                    "len"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

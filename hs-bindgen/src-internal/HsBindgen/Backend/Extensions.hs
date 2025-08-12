@@ -6,6 +6,7 @@ import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Hs.AST (Strategy (..))
+import HsBindgen.Backend.Hs.AST.Type (extractResultType)
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 
@@ -38,10 +39,12 @@ requiredExtensions = \case
       , strategyExtensions derivingInstanceStrategy
       , typeExtensions derivingInstanceType
       ]
-    DForeignImport ForeignImport{foreignImportType} -> mconcat [
+    DForeignImport ForeignImport {..} -> mconcat [
         -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774
         ext TH.CApiFFI
-      , typeExtensions foreignImportType
+      ,    foldMap (typeExtensions . functionParameterType)
+                   foreignImportParameters
+        <> typeExtensions (extractResultType foreignImportResultType)
       ]
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms

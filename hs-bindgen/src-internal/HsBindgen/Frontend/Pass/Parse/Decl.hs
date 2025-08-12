@@ -256,7 +256,7 @@ structFieldDecl :: CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl = \curr -> do
     structFieldLoc    <- HighLevel.clang_getCursorLocation' curr
     structFieldName   <- C.Name <$> clang_getCursorDisplayName curr
-    structFieldType   <- fromCXType =<< clang_getCursorType curr
+    structFieldType   <- fromCXType curr =<< clang_getCursorType curr
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
     structFieldWidth  <- structWidth curr
@@ -282,7 +282,7 @@ unionFieldDecl :: CXCursor -> ParseDecl (C.UnionField Parse)
 unionFieldDecl = \curr -> do
     unionFieldLoc  <- HighLevel.clang_getCursorLocation' curr
     unionFieldName <- C.Name <$> clang_getCursorDisplayName curr
-    unionFieldType <- fromCXType =<< clang_getCursorType curr
+    unionFieldType <- fromCXType curr =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
     unionFieldComment   <- clang_getComment curr
     pure C.UnionField{
@@ -295,7 +295,7 @@ unionFieldDecl = \curr -> do
 
 typedefDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 typedefDecl info = simpleFold $ \curr -> do
-    typedefType <- fromCXType =<< clang_getTypedefDeclUnderlyingType curr
+    typedefType <- fromCXType curr =<< clang_getTypedefDeclUnderlyingType curr
     typedefAnn  <- getReparseInfo curr
     let decl :: C.Decl Parse
         decl = C.Decl{
@@ -322,7 +322,7 @@ enumDecl info = simpleFold $ \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
-        ety       <- fromCXType =<< clang_getEnumDeclIntegerType curr
+        ety       <- fromCXType curr =<< clang_getEnumDeclIntegerType curr
 
         let mkEnum :: [C.EnumConstant Parse] -> C.Decl Parse
             mkEnum constants = C.Decl{
@@ -371,7 +371,7 @@ enumConstantDecl curr = do
 
 functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 functionDecl info = simpleFold $ \curr -> do
-    typ  <- fromCXType =<< clang_getCursorType curr
+    typ  <- fromCXType curr =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn <- getReparseInfo curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
@@ -398,7 +398,7 @@ functionDecl info = simpleFold $ \curr -> do
   where
     guardTypeFunction ::
          C.Type Parse
-      -> ParseDecl ([C.Type Parse], C.Type Parse)
+      -> ParseDecl ([(Maybe C.Name, C.Type Parse)], C.Type Parse)
     guardTypeFunction ty =
         case ty of
           C.TypeFun args res ->
@@ -446,7 +446,7 @@ functionDecl info = simpleFold $ \curr -> do
 -- | Global variable declaration
 varDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 varDecl info = simpleFold $ \curr -> do
-    typ  <- fromCXType =<< clang_getCursorType curr
+    typ  <- fromCXType curr =<< clang_getCursorType curr
     cls  <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
         mkDecl kind = C.Decl{

@@ -302,7 +302,10 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
-foreign import ccall safe "testmodule_some_fun" some_fun_wrapper :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (F.Ptr HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
+foreign import ccall safe "testmodule_some_fun" some_fun_wrapper :: (F.Ptr A_type_t)
+                                                                 -> HsBindgen.Runtime.Prelude.Word32
+                                                                 -> (F.Ptr HsBindgen.Runtime.Prelude.Word8)
+                                                                 -> IO HsBindgen.Runtime.Prelude.Int32
 
 some_fun :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
 some_fun =

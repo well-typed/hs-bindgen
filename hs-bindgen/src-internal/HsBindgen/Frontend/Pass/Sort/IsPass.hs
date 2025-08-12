@@ -33,13 +33,14 @@ type family AnnSort (ix :: Symbol) :: Star where
   AnnSort _                 = NoAnn
 
 instance IsPass Sort where
-  type Id         Sort = Id         Parse
-  type FieldName  Sort = FieldName  Parse
-  type TypedefRef Sort = TypedefRef Parse
-  type MacroBody  Sort = MacroBody  Parse
-  type ExtBinding Sort = ExtBinding Parse
-  type Ann ix     Sort = AnnSort ix
-  type Msg        Sort = SortMsg
+  type Id           Sort = Id           Parse
+  type FieldName    Sort = FieldName    Parse
+  type ArgumentName Sort = ArgumentName Parse
+  type TypedefRef   Sort = TypedefRef   Parse
+  type MacroBody    Sort = MacroBody    Parse
+  type ExtBinding   Sort = ExtBinding   Parse
+  type Ann ix       Sort = AnnSort ix
+  type Msg          Sort = SortMsg
 
 {-------------------------------------------------------------------------------
   Information about the declarations

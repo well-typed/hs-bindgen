@@ -16,20 +16,21 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import Data.Text qualified as Text
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-fromCXType :: (MonadIO m, HasCallStack) => CXType -> m (C.Type Parse)
-fromCXType = run . cxtype
+fromCXType :: (MonadIO m, HasCallStack) => CXCursor -> CXType -> m (C.Type Parse)
+fromCXType curr = run . cxtype curr
 
 {-------------------------------------------------------------------------------
   Dispatch
 -------------------------------------------------------------------------------}
 
-cxtype :: HasCallStack => CXType -> ParseType (C.Type Parse)
-cxtype ty =
+cxtype :: HasCallStack => CXCursor -> CXType -> ParseType (C.Type Parse)
+cxtype curr ty =
     dispatchWithArg ty $ \case
       CXType_Char_S     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Signed)
       CXType_Char_U     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Unsigned)
@@ -48,15 +49,15 @@ cxtype ty =
       CXType_LongDouble -> failure UnsupportedLongDouble
       CXType_Bool       -> prim $ C.PrimBool
 
-      CXType_Attributed      -> attributed
-      CXType_BlockPointer    -> blockPointer
-      CXType_ConstantArray   -> constantArray
-      CXType_Elaborated      -> elaborated
+      CXType_Attributed      -> attributed curr
+      CXType_BlockPointer    -> blockPointer curr
+      CXType_ConstantArray   -> constantArray curr
+      CXType_Elaborated      -> elaborated curr
       CXType_Enum            -> fromDecl
-      CXType_FunctionNoProto -> function False
-      CXType_FunctionProto   -> function True
-      CXType_IncompleteArray -> incompleteArray
-      CXType_Pointer         -> pointer
+      CXType_FunctionNoProto -> function False curr
+      CXType_FunctionProto   -> function True curr
+      CXType_IncompleteArray -> incompleteArray curr
+      CXType_Pointer         -> pointer curr
       CXType_Record          -> fromDecl
       CXType_Typedef         -> fromDecl
       CXType_Void            -> const (pure C.TypeVoid)
@@ -73,11 +74,11 @@ cxtype ty =
 prim :: C.PrimType -> CXType -> ParseType (C.Type Parse)
 prim ty _ = return $ C.TypePrim ty
 
-elaborated :: CXType -> ParseType (C.Type Parse)
-elaborated = clang_Type_getNamedType >=> cxtype
+elaborated :: CXCursor -> CXType -> ParseType (C.Type Parse)
+elaborated curr = clang_Type_getNamedType >=> cxtype curr
 
-pointer :: CXType -> ParseType (C.Type Parse)
-pointer = clang_getPointeeType >=> fmap C.TypePointer . cxtype
+pointer :: CXCursor -> CXType -> ParseType (C.Type Parse)
+pointer curr = clang_getPointeeType >=> fmap C.TypePointer . cxtype curr
 
 fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
@@ -114,8 +115,8 @@ fromDecl ty = do
       uDecl  <-clang_getTypeDeclaration uType'
       HighLevel.clang_getCursorSpelling uDecl
 
-function :: Bool -> CXType -> ParseType (C.Type Parse)
-function hasProto ty = do
+function :: Bool -> CXCursor -> CXType -> ParseType (C.Type Parse)
+function hasProto curr ty = do
     isVariadic <-
       -- Functions without a prototype (that is, without declared arguments)
       -- are technically speaking considered variadic. However, we reinterpret
@@ -126,28 +127,39 @@ function hasProto ty = do
     if isVariadic then do
       throwError UnsupportedVariadicFunction
     else do
-      res   <- clang_getResultType ty >>= cxtype
+      res   <- clang_getResultType ty >>= cxtype curr
       nargs <- clang_getNumArgTypes ty
-      args  <- forM [0 .. nargs - 1] $ \i ->
-                 clang_getArgType ty (fromIntegral i) >>= cxtype
+      args  <- forM [0 .. nargs - 1] $ \i -> do
+                 argCursor <- clang_Cursor_getArgument curr (fromIntegral i)
+
+                 argName <- clang_getCursorDisplayName argCursor
+                 let mbArgName =
+                       if Text.null argName
+                          then Nothing
+                          else Just (C.Name argName)
+
+                 argCxType <- clang_getArgType ty (fromIntegral i)
+                 argCType <- cxtype curr argCxType
+
+                 return (mbArgName, argCType)
       pure $ C.TypeFun args res
 
-constantArray :: CXType -> ParseType (C.Type Parse)
-constantArray ty = do
+constantArray :: CXCursor -> CXType -> ParseType (C.Type Parse)
+constantArray curr ty = do
     n   <- fromIntegral <$> clang_getArraySize ty
-    ty' <- cxtype =<< clang_getArrayElementType ty
+    ty' <- cxtype curr =<< clang_getArrayElementType ty
     return (C.TypeConstArray n ty')
 
-incompleteArray :: CXType -> ParseType (C.Type Parse)
-incompleteArray ty = do
-    ty' <- cxtype =<< clang_getArrayElementType ty
+incompleteArray :: CXCursor -> CXType -> ParseType (C.Type Parse)
+incompleteArray curr ty = do
+    ty' <- cxtype curr =<< clang_getArrayElementType ty
     return (C.TypeIncompleteArray ty')
 
-attributed :: CXType -> ParseType (C.Type Parse)
-attributed ty = cxtype =<< clang_Type_getModifiedType ty
+attributed :: CXCursor -> CXType -> ParseType (C.Type Parse)
+attributed curr ty = cxtype curr =<< clang_Type_getModifiedType ty
 
-blockPointer :: CXType -> ParseType (C.Type Parse)
-blockPointer ty = do
-    fun <- function True =<< clang_getPointeeType ty
+blockPointer :: CXCursor -> CXType -> ParseType (C.Type Parse)
+blockPointer curr ty = do
+    fun <- function True curr =<< clang_getPointeeType ty
     return (C.TypeBlock fun)
 

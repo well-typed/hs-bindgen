@@ -7,8 +7,11 @@
       foreignImportName = HsName
         "@NsVar"
         "b",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCBool),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsPrimType HsPrimCBool)),
       foreignImportOrigName =
       "get_b_ptr",
       foreignImportCallConv =

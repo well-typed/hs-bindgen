@@ -591,12 +591,25 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypeConstArray
-              3
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypePrim
-                (PrimIntegral PrimInt Signed))],
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -627,12 +640,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "triplet",
+                  nameC = Name "xs",
                   nameHsIdent = HsIdentifier
-                    "Triplet"})],
+                    "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = HsIdentifier
+                      "Triplet"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -663,9 +682,17 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeIncompleteArray
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeIncompleteArray
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -696,12 +723,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "list",
+                  nameC = Name "xs",
                   nameHsIdent = HsIdentifier
-                    "List"})],
+                    "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "list",
+                    nameHsIdent = HsIdentifier
+                      "List"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -732,14 +765,20 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeConstArray
-              4
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
               (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+                4
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -770,12 +809,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "matrix",
+                  nameC = Name "xss",
                   nameHsIdent = HsIdentifier
-                    "Matrix"})],
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = HsIdentifier
+                      "Matrix"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -806,13 +851,19 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeIncompleteArray
-              (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeIncompleteArray
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -843,12 +894,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "tripletlist",
+                  nameC = Name "xss",
                   nameHsIdent = HsIdentifier
-                    "Tripletlist"})],
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "tripletlist",
+                    nameHsIdent = HsIdentifier
+                      "Tripletlist"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

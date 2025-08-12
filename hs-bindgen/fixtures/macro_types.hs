@@ -386,8 +386,10 @@
               (TypePointer
                 (TypeFun
                   [
-                    TypePrim
-                      (PrimFloating PrimDouble)]
+                    _×_
+                      Nothing
+                      (TypePrim
+                        (PrimFloating PrimDouble))]
                   (TypePrim
                     (PrimFloating PrimFloat))))},
         declSpec = DeclSpec
@@ -470,8 +472,10 @@
                 "un_Fun1"},
             macroType = TypeFun
               [
-                TypePrim
-                  (PrimIntegral PrimInt Signed)]
+                _×_
+                  Nothing
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed))]
               (TypePointer
                 (TypePrim
                   (PrimFloating PrimFloat)))},
@@ -529,11 +533,15 @@
             macroType = TypePointer
               (TypeFun
                 [
-                  TypePrim
-                    (PrimFloating PrimFloat),
-                  TypePointer
+                  _×_
+                    Nothing
                     (TypePrim
-                      (PrimFloating PrimDouble))]
+                      (PrimFloating PrimFloat)),
+                  _×_
+                    Nothing
+                    (TypePointer
+                      (TypePrim
+                        (PrimFloating PrimDouble)))]
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -631,9 +639,11 @@
             macroType = TypePointer
               (TypeFun
                 [
-                  TypePointer
-                    (TypePrim
-                      (PrimFloating PrimFloat))]
+                  _×_
+                    Nothing
+                    (TypePointer
+                      (TypePrim
+                        (PrimFloating PrimFloat)))]
                 (TypePointer
                   (TypePrim
                     (PrimIntegral
@@ -738,19 +748,29 @@
                 "un_Fun4"},
             macroType = TypeFun
               [
-                TypePrim
-                  (PrimIntegral PrimInt Signed),
-                TypePointer
+                _×_
+                  Nothing
                   (TypePrim
-                    (PrimIntegral PrimLong Signed))]
+                    (PrimIntegral PrimInt Signed)),
+                _×_
+                  Nothing
+                  (TypePointer
+                    (TypePrim
+                      (PrimIntegral
+                        PrimLong
+                        Signed)))]
               (TypePointer
                 (TypeFun
                   [
-                    TypePrim
-                      (PrimFloating PrimFloat),
-                    TypePointer
+                    _×_
+                      Nothing
                       (TypePrim
-                        (PrimFloating PrimDouble))]
+                        (PrimFloating PrimFloat)),
+                    _×_
+                      Nothing
+                      (TypePointer
+                        (TypePrim
+                          (PrimFloating PrimDouble)))]
                   (TypePointer
                     (TypePrim
                       (PrimIntegral
@@ -811,11 +831,13 @@
                 "un_Fun5"},
             macroType = TypeFun
               [
-                TypeConstArray
-                  8
-                  (TypePrim
-                    (PrimChar
-                      (PrimSignImplicit Nothing)))]
+                _×_
+                  Nothing
+                  (TypeConstArray
+                    8
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit Nothing))))]
               (TypePointer
                 (TypeConstArray
                   2

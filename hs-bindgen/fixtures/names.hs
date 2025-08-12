@@ -7,8 +7,10 @@
       foreignImportName = HsName
         "@NsVar"
         "by'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_by",
       foreignImportCallConv =
@@ -29,8 +31,10 @@
       foreignImportName = HsName
         "@NsVar"
         "forall'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_forall",
       foreignImportCallConv =
@@ -51,8 +55,10 @@
       foreignImportName = HsName
         "@NsVar"
         "mdo'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_mdo",
       foreignImportCallConv =
@@ -73,8 +79,10 @@
       foreignImportName = HsName
         "@NsVar"
         "pattern'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_pattern",
       foreignImportCallConv =
@@ -95,8 +103,10 @@
       foreignImportName = HsName
         "@NsVar"
         "proc'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_proc",
       foreignImportCallConv =
@@ -117,8 +127,10 @@
       foreignImportName = HsName
         "@NsVar"
         "rec'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_rec",
       foreignImportCallConv =
@@ -139,8 +151,10 @@
       foreignImportName = HsName
         "@NsVar"
         "using'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_using",
       foreignImportCallConv =
@@ -161,8 +175,10 @@
       foreignImportName = HsName
         "@NsVar"
         "anyclass",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_anyclass",
       foreignImportCallConv =
@@ -183,8 +199,10 @@
       foreignImportName = HsName
         "@NsVar"
         "capi",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_capi",
       foreignImportCallConv =
@@ -205,8 +223,10 @@
       foreignImportName = HsName
         "@NsVar"
         "cases",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_cases",
       foreignImportCallConv =
@@ -227,8 +247,10 @@
       foreignImportName = HsName
         "@NsVar"
         "ccall",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_ccall",
       foreignImportCallConv =
@@ -249,8 +271,10 @@
       foreignImportName = HsName
         "@NsVar"
         "dynamic",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_dynamic",
       foreignImportCallConv =
@@ -271,8 +295,10 @@
       foreignImportName = HsName
         "@NsVar"
         "export",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_export",
       foreignImportCallConv =
@@ -293,8 +319,10 @@
       foreignImportName = HsName
         "@NsVar"
         "family",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_family",
       foreignImportCallConv =
@@ -315,8 +343,10 @@
       foreignImportName = HsName
         "@NsVar"
         "group",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_group",
       foreignImportCallConv =
@@ -337,8 +367,10 @@
       foreignImportName = HsName
         "@NsVar"
         "interruptible",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_interruptible",
       foreignImportCallConv =
@@ -359,8 +391,10 @@
       foreignImportName = HsName
         "@NsVar"
         "javascript",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_javascript",
       foreignImportCallConv =
@@ -381,8 +415,10 @@
       foreignImportName = HsName
         "@NsVar"
         "label",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_label",
       foreignImportCallConv =
@@ -403,8 +439,10 @@
       foreignImportName = HsName
         "@NsVar"
         "prim",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_prim",
       foreignImportCallConv =
@@ -425,8 +463,10 @@
       foreignImportName = HsName
         "@NsVar"
         "role",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_role",
       foreignImportCallConv =
@@ -447,8 +487,10 @@
       foreignImportName = HsName
         "@NsVar"
         "safe",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_safe",
       foreignImportCallConv =
@@ -469,8 +511,10 @@
       foreignImportName = HsName
         "@NsVar"
         "stdcall",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_stdcall",
       foreignImportCallConv =
@@ -491,8 +535,10 @@
       foreignImportName = HsName
         "@NsVar"
         "stock",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_stock",
       foreignImportCallConv =
@@ -513,8 +559,10 @@
       foreignImportName = HsName
         "@NsVar"
         "unsafe",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_unsafe",
       foreignImportCallConv =
@@ -535,8 +583,10 @@
       foreignImportName = HsName
         "@NsVar"
         "via",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_via",
       foreignImportCallConv =

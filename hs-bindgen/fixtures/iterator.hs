@@ -56,8 +56,16 @@
       foreignImportName = HsName
         "@NsVar"
         "makeToggle",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCBool)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "start"),
+          functionParameterType =
+          HsPrimType HsPrimCBool,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsTypRef
             (HsName
@@ -70,7 +78,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim PrimBool],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim PrimBool)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -89,11 +103,18 @@
       foreignImportName = HsName
         "@NsVar"
         "toggleNext",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Toggle"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "block"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Toggle"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCBool)),
       foreignImportOrigName =
       "testmodule_toggleNext",
@@ -102,12 +123,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Toggle",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Toggle"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Toggle",
+                    nameHsIdent = HsIdentifier
+                      "Toggle"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -122,11 +149,18 @@
       foreignImportName = HsName
         "@NsVar"
         "releaseToggle",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Toggle"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "block"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Toggle"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_releaseToggle",
@@ -135,12 +169,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Toggle",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Toggle"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Toggle",
+                    nameHsIdent = HsIdentifier
+                      "Toggle"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -206,15 +246,28 @@
       foreignImportName = HsName
         "@NsVar"
         "makeCounter",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
-        (HsFun
-          (HsPrimType HsPrimCInt)
-          (HsIO
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Counter")))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "start"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "increment"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Counter"))),
       foreignImportOrigName =
       "testmodule_makeCounter",
       foreignImportCallConv =
@@ -222,10 +275,22 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "increment",
+                  nameHsIdent = HsIdentifier
+                    "increment"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -244,11 +309,18 @@
       foreignImportName = HsName
         "@NsVar"
         "counterNext",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Counter"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "block"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Counter"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "testmodule_counterNext",
@@ -257,12 +329,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Counter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Counter"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Counter",
+                    nameHsIdent = HsIdentifier
+                      "Counter"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -277,11 +355,18 @@
       foreignImportName = HsName
         "@NsVar"
         "releaseCounter",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Counter"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "block"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Counter"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_releaseCounter",
@@ -290,12 +375,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Counter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Counter"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Counter",
+                    nameHsIdent = HsIdentifier
+                      "Counter"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -342,8 +433,10 @@
             typedefType = TypeBlock
               (TypeFun
                 [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
+                  _×_
+                    Nothing
+                    (TypePrim
+                      (PrimIntegral PrimInt Signed))]
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -365,8 +458,16 @@
       foreignImportName = HsName
         "@NsVar"
         "makeVarCounter",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "start"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsTypRef
             (HsName
@@ -379,8 +480,14 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -399,14 +506,26 @@
       foreignImportName = HsName
         "@NsVar"
         "varCounterNext",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "VarCounter"))
-        (HsFun
-          (HsPrimType HsPrimCInt)
-          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "block"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "VarCounter"),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "increment"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "testmodule_varCounterNext",
       foreignImportCallConv =
@@ -414,14 +533,26 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "VarCounter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "VarCounter"}),
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "VarCounter",
+                    nameHsIdent = HsIdentifier
+                      "VarCounter"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "increment",
+                  nameHsIdent = HsIdentifier
+                    "increment"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -436,11 +567,18 @@
       foreignImportName = HsName
         "@NsVar"
         "releaseVarCounter",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "VarCounter"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "block"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "VarCounter"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_releaseVarCounter",
@@ -449,12 +587,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "VarCounter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "VarCounter"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "VarCounter",
+                    nameHsIdent = HsIdentifier
+                      "VarCounter"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

@@ -18,6 +18,7 @@ module HsBindgen.Backend.SHs.AST (
     DerivingInstance (..),
     Newtype (..),
     ForeignImport (..),
+    FunctionParameter (..),
     PatternSynonym (..),
 ) where
 
@@ -328,13 +329,21 @@ data Newtype = Newtype {
   deriving stock (Show)
 
 data ForeignImport = ForeignImport
-    { foreignImportName     :: HsName NsVar
-    , foreignImportType     :: ClosedType
-    , foreignImportOrigName :: Text
-    , foreignImportCallConv :: CallConv
-    , foreignImportOrigin   :: Origin.ForeignImport
-    , foreignImportComment  :: Maybe Comment
+    { foreignImportName       :: HsName NsVar
+    , foreignImportParameters :: [FunctionParameter]
+    , foreignImportResultType :: ResultType ClosedType
+    , foreignImportOrigName   :: Text
+    , foreignImportCallConv   :: CallConv
+    , foreignImportOrigin     :: Origin.ForeignImport
+    , foreignImportComment    :: Maybe Comment
     }
+  deriving stock (Show)
+
+data FunctionParameter = FunctionParameter
+  { functionParameterName    :: Maybe (HsName NsVar)
+  , functionParameterType    :: ClosedType
+  , functionParameterComment :: Maybe Comment
+  }
   deriving stock (Show)
 
 data PatternSynonym = PatternSynonym

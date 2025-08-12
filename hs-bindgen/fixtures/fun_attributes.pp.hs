@@ -51,27 +51,43 @@ foreign import ccall safe "testmodule___f1" __f1 :: IO ()
 
 foreign import ccall safe "testmodule_f1" f1 :: IO ()
 
-foreign import ccall safe "testmodule_my_memalign" my_memalign :: Size_t -> Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "testmodule_my_memalign" my_memalign :: Size_t
+                                                               -> Size_t
+                                                               -> (IO (F.Ptr Void))
 
-foreign import ccall safe "testmodule_my_calloc" my_calloc :: Size_t -> Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "testmodule_my_calloc" my_calloc :: Size_t
+                                                           -> Size_t
+                                                           -> (IO (F.Ptr Void))
 
-foreign import ccall safe "testmodule_my_realloc" my_realloc :: (F.Ptr Void) -> Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "testmodule_my_realloc" my_realloc :: (F.Ptr Void)
+                                                             -> Size_t
+                                                             -> (IO (F.Ptr Void))
 
-foreign import ccall safe "testmodule_my_alloc1" my_alloc1 :: Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "testmodule_my_alloc1" my_alloc1 :: Size_t
+                                                           -> IO (F.Ptr Void)
 
-foreign import ccall safe "testmodule_my_alloc2" my_alloc2 :: Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "testmodule_my_alloc2" my_alloc2 :: Size_t
+                                                           -> IO (F.Ptr Void)
 
-foreign import ccall safe "testmodule_square" square :: FC.CInt -> FC.CInt
+foreign import ccall safe "testmodule_square" square :: FC.CInt
+                                                     -> FC.CInt
 
 foreign import ccall safe "testmodule_old_fn" old_fn :: IO FC.CInt
 
-foreign import ccall safe "testmodule_my_dgettext" my_dgettext :: (F.Ptr FC.CChar) -> (F.Ptr FC.CChar) -> IO (F.Ptr FC.CChar)
+foreign import ccall safe "testmodule_my_dgettext" my_dgettext :: (F.Ptr FC.CChar)
+                                                               -> F.Ptr FC.CChar
+                                                               -> (IO (F.Ptr FC.CChar))
 
-foreign import ccall safe "testmodule_fdopen" fdopen :: FC.CInt -> (F.Ptr FC.CChar) -> IO (F.Ptr FILE)
+foreign import ccall safe "testmodule_fdopen" fdopen :: FC.CInt
+                                                     -> F.Ptr FC.CChar
+                                                     -> (IO (F.Ptr FILE))
 
 foreign import ccall safe "testmodule_f2" f2 :: IO ()
 
-foreign import ccall safe "testmodule_my_memcpy" my_memcpy :: (F.Ptr Void) -> (F.Ptr Void) -> Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "testmodule_my_memcpy" my_memcpy :: (F.Ptr Void)
+                                                           -> F.Ptr Void
+                                                           -> Size_t
+                                                           -> IO (F.Ptr Void)
 
 foreign import ccall safe "testmodule_fatal" fatal :: IO ()
 
@@ -80,9 +96,11 @@ foreign import ccall safe "testmodule_fatal" fatal :: IO ()
   Marked @__attribute((pure))__@
 
 -}
-foreign import ccall safe "testmodule_hash" hash :: (F.Ptr FC.CChar) -> IO FC.CInt
+foreign import ccall safe "testmodule_hash" hash :: (F.Ptr FC.CChar)
+                                                 -> IO FC.CInt
 
-foreign import ccall safe "testmodule_mymalloc" mymalloc :: Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "testmodule_mymalloc" mymalloc :: Size_t
+                                                         -> IO (F.Ptr Void)
 
 foreign import ccall safe "testmodule_foobar" foobar :: IO ()
 

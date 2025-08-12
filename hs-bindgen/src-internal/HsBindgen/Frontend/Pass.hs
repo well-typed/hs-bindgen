@@ -44,6 +44,9 @@ class IsPass (p :: Pass) where
   -- | Names of fields (structs and unions)
   type FieldName p :: Star
 
+  -- | Names of arguments (functions)
+  type ArgumentName p :: Star
+
   -- | Reference to a typedef
   --
   -- Initially this is just the name of the typedef, but after 'HandleTypedefs'

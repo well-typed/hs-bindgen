@@ -152,7 +152,9 @@ foreign import ccall safe "get_arr_8_ptr" arr_8 :: F.Ptr Tripletlist
 
   __from C:__ @fun_1(int, int *)@
 -}
-foreign import ccall safe "testmodule_fun_1" fun_1_wrapper :: FC.CInt -> (F.Ptr FC.CInt) -> IO FC.CInt
+foreign import ccall safe "testmodule_fun_1" fun_1_wrapper :: FC.CInt
+                                                           -> F.Ptr FC.CInt
+                                                           -> (IO FC.CInt)
 
 fun_1 :: FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO FC.CInt
 fun_1 =
@@ -165,7 +167,8 @@ fun_1 =
 
   __from C:__ @fun_2(int *)@
 -}
-foreign import ccall safe "testmodule_fun_2" fun_2_wrapper :: (F.Ptr FC.CInt) -> IO FC.CInt
+foreign import ccall safe "testmodule_fun_2" fun_2_wrapper :: (F.Ptr FC.CInt)
+                                                           -> IO FC.CInt
 
 fun_2 :: Triplet -> IO FC.CInt
 fun_2 =
@@ -177,7 +180,8 @@ fun_2 =
 
   __from C:__ @fun_3(int *)@
 -}
-foreign import ccall safe "testmodule_fun_3" fun_3_wrapper :: (F.Ptr FC.CInt) -> IO FC.CInt
+foreign import ccall safe "testmodule_fun_3" fun_3_wrapper :: (F.Ptr FC.CInt)
+                                                           -> IO FC.CInt
 
 fun_3 :: (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO FC.CInt
 fun_3 =
@@ -189,7 +193,8 @@ fun_3 =
 
   __from C:__ @fun_4(int *)@
 -}
-foreign import ccall safe "testmodule_fun_4" fun_4_wrapper :: (F.Ptr FC.CInt) -> IO FC.CInt
+foreign import ccall safe "testmodule_fun_4" fun_4_wrapper :: (F.Ptr FC.CInt)
+                                                           -> IO FC.CInt
 
 fun_4 :: List -> IO FC.CInt
 fun_4 =
@@ -201,7 +206,8 @@ fun_4 =
 
   __from C:__ @fun_5(int (*)[3])@
 -}
-foreign import ccall safe "testmodule_fun_5" fun_5_wrapper :: (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt
+foreign import ccall safe "testmodule_fun_5" fun_5_wrapper :: (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+                                                           -> IO FC.CInt
 
 fun_5 :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt
 fun_5 =
@@ -213,7 +219,8 @@ fun_5 =
 
   __from C:__ @fun_6(int (*)[3])@
 -}
-foreign import ccall safe "testmodule_fun_6" fun_6_wrapper :: (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt
+foreign import ccall safe "testmodule_fun_6" fun_6_wrapper :: (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+                                                           -> IO FC.CInt
 
 fun_6 :: Matrix -> IO FC.CInt
 fun_6 =
@@ -225,7 +232,8 @@ fun_6 =
 
   __from C:__ @fun_7(int (*)[3])@
 -}
-foreign import ccall safe "testmodule_fun_7" fun_7_wrapper :: (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt
+foreign import ccall safe "testmodule_fun_7" fun_7_wrapper :: (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+                                                           -> IO FC.CInt
 
 fun_7 :: (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt
 fun_7 =
@@ -237,7 +245,8 @@ fun_7 =
 
   __from C:__ @fun_8(int (*)[3])@
 -}
-foreign import ccall safe "testmodule_fun_8" fun_8_wrapper :: (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt
+foreign import ccall safe "testmodule_fun_8" fun_8_wrapper :: (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+                                                           -> IO FC.CInt
 
 fun_8 :: Tripletlist -> IO FC.CInt
 fun_8 =

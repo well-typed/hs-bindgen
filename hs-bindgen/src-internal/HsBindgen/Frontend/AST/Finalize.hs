@@ -222,7 +222,7 @@ instance Finalize Int.Function where
   type Finalized Int.Function = Ext.Function
 
   finalize function = Ext.Function{
-        functionArgs = map finalize functionArgs
+        functionArgs = map (bimap id finalize) functionArgs
       , functionAttrs
       , functionRes  = finalize functionRes
       }
@@ -262,7 +262,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeEnum (np, origin))         = Ext.TypeEnum np origin
   finalize (Int.TypeTypedef ref)               = Ext.TypeTypedef (finalize ref)
   finalize (Int.TypePointer typ)               = Ext.TypePointer (finalize typ)
-  finalize (Int.TypeFun args res)              = Ext.TypeFun (map finalize args) (finalize res)
+  finalize (Int.TypeFun args res)              = Ext.TypeFun (map (bimap id finalize) args) (finalize res)
   finalize (Int.TypeVoid)                      = Ext.TypeVoid
   finalize (Int.TypeConstArray n typ)          = Ext.TypeConstArray n (finalize typ)
   finalize (Int.TypeIncompleteArray typ)       = Ext.TypeIncompleteArray (finalize typ)

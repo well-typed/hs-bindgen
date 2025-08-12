@@ -497,26 +497,44 @@
       foreignImportName = HsName
         "@NsVar"
         "normal_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
             (HsName
-              "@NsTypeConstr"
-              "Opaque")))
-        (HsFun
-          (HsPtr
+              "@NsVar"
+              "ptr_to_opaque"),
+          functionParameterType = HsPtr
             (HsTypRef
               (HsName
                 "@NsTypeConstr"
-                "Outside")))
-          (HsFun
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Outside")))
-            (HsIO
-              (HsPrimType HsPrimUnit)))),
+                "Opaque")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "ptr_to_defined"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "by_value"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_normal",
       foreignImportCallConv =
@@ -524,26 +542,44 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "opaque",
+                  nameC = Name "ptr_to_opaque",
                   nameHsIdent = HsIdentifier
-                    "Opaque"}
-                NameOriginInSource),
-            TypePointer
+                    "ptr_to_opaque"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "opaque",
+                    nameHsIdent = HsIdentifier
+                      "Opaque"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_defined",
+                  nameHsIdent = HsIdentifier
+                    "ptr_to_defined"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "outside",
+                    nameHsIdent = HsIdentifier
+                      "Outside"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "by_value",
+                  nameHsIdent = HsIdentifier
+                    "by_value"})
               (TypeStruct
                 NamePair {
                   nameC = Name "outside",
                   nameHsIdent = HsIdentifier
                     "Outside"}
-                NameOriginInSource),
-            TypeStruct
-              NamePair {
-                nameC = Name "outside",
-                nameHsIdent = HsIdentifier
-                  "Outside"}
-              NameOriginInSource],
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1136,12 +1172,19 @@
       foreignImportName = HsName
         "@NsVar"
         "f1_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Named_struct")))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_struct")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_f1",
@@ -1150,12 +1193,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeStruct
-              NamePair {
-                nameC = Name "named_struct",
-                nameHsIdent = HsIdentifier
-                  "Named_struct"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = HsIdentifier
+                    "Named_struct"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1347,12 +1396,19 @@
       foreignImportName = HsName
         "@NsVar"
         "f2_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Named_union")))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_union")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "testmodule_f2",
@@ -1361,12 +1417,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeUnion
-              NamePair {
-                nameC = Name "named_union",
-                nameHsIdent = HsIdentifier
-                  "Named_union"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "named_union",
+                  nameHsIdent = HsIdentifier
+                    "Named_union"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
