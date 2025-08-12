@@ -10,7 +10,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <vector.h>\nvector *testmodule_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }\n")
+$(CAPI.addCSource "#include <vector.h>\nvector *test_internal_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }\n")
 
 data Vector = Vector
   { vector_x :: FC.CDouble
@@ -38,4 +38,4 @@ instance F.Storable Vector where
                F.pokeByteOff ptr0 (0 :: Int) vector_x2
             >> F.pokeByteOff ptr0 (8 :: Int) vector_y3
 
-foreign import ccall safe "testmodule_new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)
+foreign import ccall safe "test_internal_new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)

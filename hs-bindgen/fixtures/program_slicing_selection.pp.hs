@@ -17,7 +17,7 @@ import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
 
-$(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus testmodule_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n")
+$(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus test_internal_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n")
 
 newtype FileOperationStatus = FileOperationStatus
   { un_FileOperationStatus :: FC.CInt
@@ -124,4 +124,4 @@ instance F.Storable FileOperationRecord where
                  F.pokeByteOff ptr0 (0 :: Int) fileOperationRecord_status2
               >> F.pokeByteOff ptr0 (8 :: Int) fileOperationRecord_bytes_processed3
 
-foreign import ccall safe "testmodule_read_file_chunk" read_file_chunk :: (F.Ptr HsBindgen.Runtime.Prelude.CFile) -> (F.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
+foreign import ccall safe "test_internal_read_file_chunk" read_file_chunk :: (F.Ptr HsBindgen.Runtime.Prelude.CFile) -> (F.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus

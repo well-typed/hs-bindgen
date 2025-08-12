@@ -5,12 +5,14 @@ module HsBindgen.TraceMsg (
     TraceMsg(..)
     -- * Messages from individual passes
   , BindingSpecMsg(..)
+  , BootMsg(..)
   , ClangMsg(..)
   , DeclIndexError(..)
   , Diagnostic(..)
   , FrontendMsg(..)
   , HandleMacrosMsg(..)
   , HandleTypedefsMsg(..)
+  , HashIncludeArgMsg(..)
   , MangleNamesMsg(..)
   , NameAnonMsg(..)
   , ParseMsg(..)
@@ -30,6 +32,7 @@ import GHC.Generics (Generic)
 
 import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
+import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (..))
@@ -44,7 +47,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpecMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Frontend.Pass.Sort.IsPass (SortMsg (..))
-import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg, getHashIncludeArg)
+import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg (..), getHashIncludeArg)
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -55,11 +58,13 @@ import HsBindgen.Util.Tracer
 -- | Traces supported by @hs-bindgen@.
 --
 -- Lazy on purpose to avoid evaluation when traces are not reported.
+--
+-- Does not include backend messages because, unlike 'TraceMsg', backend
+-- messages cannot include 'Error's, or 'Warning's.
 data TraceMsg =
-    TraceBindingSpec BindingSpecMsg
-  | TraceFrontend FrontendMsg
+    TraceBoot          BootMsg
+  | TraceFrontend      FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
-  | TraceHashIncludeArg HashIncludeArgMsg
   deriving stock    (Show, Eq, Generic)
   deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
 
@@ -71,7 +76,7 @@ data TraceMsg =
 --
 -- NOTE: The order of settings matters. The first setting specifying a custom
 -- log level for the emitted trace overrules later settings.
-customLogLevelFrom :: [CustomLogLevelSetting] -> CustomLogLevel TraceMsg
+customLogLevelFrom :: [CustomLogLevelSetting] -> CustomLogLevel Level TraceMsg
 customLogLevelFrom = mconcat . map fromCustomLogLevelSetting
 
 -- | List of predefined log level customization settings.
@@ -83,17 +88,17 @@ data CustomLogLevelSetting =
   | UCharHeaderResolutionTraceIsInfo
   deriving stock (Eq, Show)
 
-fromCustomLogLevelSetting :: CustomLogLevelSetting -> CustomLogLevel TraceMsg
+fromCustomLogLevelSetting :: CustomLogLevelSetting -> CustomLogLevel Level TraceMsg
 fromCustomLogLevelSetting = \case
   MacroTracesAreWarnings     -> macroTracesAreWarnings
   UCharHeaderResolutionTraceIsInfo -> uCharResolutionTraceIsInfo
   where
-    macroTracesAreWarnings :: CustomLogLevel TraceMsg
+    macroTracesAreWarnings :: CustomLogLevel Level TraceMsg
     macroTracesAreWarnings = CustomLogLevel $ \case
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{})) -> Just Warning
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))      -> Just Warning
         _otherTrace -> Nothing
-    uCharResolutionTraceIsInfo :: CustomLogLevel TraceMsg
+    uCharResolutionTraceIsInfo :: CustomLogLevel Level TraceMsg
     uCharResolutionTraceIsInfo = CustomLogLevel $ \case
         TraceResolveHeader (ResolveHeaderNotFound h)
           | getHashIncludeArg h == "uchar.h" -> Just Info

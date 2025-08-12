@@ -8,10 +8,11 @@ import Test.Tasty (TestTree)
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Language.Haskell qualified as Hs
 
+import HsBindgen
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
-import Test.HsBindgen.Resources
 import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests
@@ -20,7 +21,7 @@ import Test.HsBindgen.Golden.TestCase
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "bindingspec" fixture $ \_report -> do
-      decls <- runTestTranslate testResources test
+      (I decls :* Nil) <- runTestArtefacts testResources test (HsDecls :* Nil)
 
       let output :: String
           output = UTF8.toString $

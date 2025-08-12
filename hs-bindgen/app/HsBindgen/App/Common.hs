@@ -16,9 +16,9 @@ module HsBindgen.App.Common (
   , parseInputs
   , checkInputs
     -- * Auxiliary hs-bindgen functions
-  , withCliTracer
   , fromMaybeWithFatalError
   , footerWith
+  , getModuleUnique
     -- * Auxiliary optparse-applicative functions
   , cmd
   , cmd'
@@ -26,6 +26,7 @@ module HsBindgen.App.Common (
 
 import Control.Monad.IO.Class (MonadIO)
 import Data.Bifunctor (Bifunctor (bimap))
+import Data.Char (isLetter)
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -44,25 +45,22 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig  :: TracerConfig
-    , macroWarnings :: MacroLogLevel
+      tracerConfig  :: TracerConfig IO Level TraceMsg
     }
-  deriving stock (Show)
 
 parseGlobalOpts :: Parser GlobalOpts
-parseGlobalOpts =
-    GlobalOpts
-      <$> parseTracerConfig
-      <*> parseMacroWarnings
+parseGlobalOpts = GlobalOpts <$> parseTracerConfig
 
 {-------------------------------------------------------------------------------
   Tracer configuration
 -------------------------------------------------------------------------------}
 
-parseTracerConfig :: Parser TracerConfig
+parseTracerConfig :: Parser (TracerConfig IO Level TraceMsg)
 parseTracerConfig =
     TracerConfig
       <$> parseVerbosity
+      <*> pure def
+      <*> parseCustomLogLevel
       <*> parseShowTimeStamp
       <*> parseShowCallStack
 
@@ -86,6 +84,15 @@ parseVerbosity =
       2          -> Notice
       3          -> Info
       _otherwise -> Debug
+
+parseCustomLogLevel :: Parser (CustomLogLevel Level TraceMsg)
+parseCustomLogLevel = fromMacroWarnings <$> parseMacroWarnings
+    where
+      fromMacroWarnings macroWarnings =
+        let customLogLevelSettings = case macroWarnings of
+              MacroLogInfo    -> []
+              MacroLogWarning -> [MacroTracesAreWarnings]
+        in  customLogLevelFrom customLogLevelSettings
 
 parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [
@@ -404,12 +411,6 @@ parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat 
   Input arguments
 -------------------------------------------------------------------------------}
 
--- | Unchecked @#include@ argument
---
--- We need to emit trace messages monadically, so we do not check values within
--- the pure parser.
-type UncheckedHashIncludeArg = FilePath
-
 -- | Parse one or more input header arguments
 --
 -- This uses standard syntax for one or more arguments, which
@@ -426,22 +427,11 @@ checkInputs ::
   -> [UncheckedHashIncludeArg]
   -> IO [HashIncludeArg]
 checkInputs tracer = mapM $
-    hashIncludeArgWithTrace (contramap TraceHashIncludeArg tracer)
+    hashIncludeArgWithTrace (contramap (TraceBoot . BootHashIncludeArg) tracer)
 
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
-
-withCliTracer ::
-     GlobalOpts
-  -> (Tracer IO TraceMsg -> IO a)
-  -> IO (Maybe a)
-withCliTracer GlobalOpts{..} action' = do
-    let customLogLevelSettings = case macroWarnings of
-          MacroLogInfo    -> []
-          MacroLogWarning -> [MacroTracesAreWarnings]
-        customLogLevel = customLogLevelFrom customLogLevelSettings
-    withTracerCustom def customLogLevel tracerConfig action'
 
 -- | Extract the result or exit gracefully with an error message.
 --
@@ -499,6 +489,12 @@ environmentVariablesFooter p =
                  <> "; possible targets: "
                  <> Text.intercalate ", " (map Text.pack triples) )
               ]
+
+-- TODO: To avoid potential issues it would be great to include the unit ID in
+-- 'ModuleUnique' but AFAIK there is no way to get one for preprocessor
+-- https://github.com/well-typed/hs-bindgen/issues/502
+getModuleUnique :: HsModuleOpts -> ModuleUnique
+getModuleUnique = ModuleUnique . filter isLetter . hsModuleOptsName
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

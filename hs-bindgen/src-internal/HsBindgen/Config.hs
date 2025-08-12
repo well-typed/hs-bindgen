@@ -8,9 +8,9 @@ import GHC.Generics (Generic)
 import Clang.Args
 import HsBindgen.Backend.Artefact.PP.Render
 import HsBindgen.Backend.Artefact.PP.Translation
+import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
-import HsBindgen.Backend.Hs.Translation
 
 -- | Configuration of @hs-bindgen@.
 --

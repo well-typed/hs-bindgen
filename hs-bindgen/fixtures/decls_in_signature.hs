@@ -491,7 +491,7 @@
   DeclInlineCInclude
     "decls_in_signature.h",
   DeclInlineC
-    "void testmodule_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
+    "void test_internal_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -518,7 +518,7 @@
             (HsIO
               (HsPrimType HsPrimUnit)))),
       foreignImportOrigName =
-      "testmodule_normal",
+      "test_internal_normal",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1130,7 +1130,7 @@
   DeclInlineCInclude
     "decls_in_signature.h",
   DeclInlineC
-    "void testmodule_f1 (struct named_struct *arg1) { f1(*arg1); }",
+    "void test_internal_f1 (struct named_struct *arg1) { f1(*arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1144,7 +1144,7 @@
               "Named_struct")))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "testmodule_f1",
+      "test_internal_f1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1341,7 +1341,7 @@
   DeclInlineCInclude
     "decls_in_signature.h",
   DeclInlineC
-    "void testmodule_f2 (union named_union *arg1) { f2(*arg1); }",
+    "void test_internal_f2 (union named_union *arg1) { f2(*arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1355,7 +1355,7 @@
               "Named_union")))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "testmodule_f2",
+      "test_internal_f2",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

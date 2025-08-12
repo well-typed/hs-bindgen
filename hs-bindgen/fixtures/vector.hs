@@ -460,7 +460,7 @@
       Nothing},
   DeclInlineCInclude "vector.h",
   DeclInlineC
-    "vector *testmodule_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+    "vector *test_internal_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -477,7 +477,7 @@
                   "@NsTypeConstr"
                   "Vector"))))),
       foreignImportOrigName =
-      "testmodule_new_vector",
+      "test_internal_new_vector",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

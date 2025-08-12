@@ -69,6 +69,8 @@ library internal
   exposed-modules:
       Data.DynGraph
       Data.DynGraph.Labelled
+      HsBindgen
+      HsBindgen.Backend
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.Artefact.PP.Names
       HsBindgen.Backend.Artefact.PP.Render
@@ -95,6 +97,7 @@ library internal
       HsBindgen.BindingSpec.Gen
       HsBindgen.BindingSpec.Private
       HsBindgen.BindingSpec.Private.Stdlib
+      HsBindgen.Boot
       HsBindgen.Clang
       HsBindgen.Config
       HsBindgen.Config.FixCandidate
@@ -160,7 +163,6 @@ library internal
       HsBindgen.ModuleUnique
       HsBindgen.NameHint
       HsBindgen.Orphans
-      HsBindgen.Pipeline.Lib
       HsBindgen.Pipeline.TH
       HsBindgen.PrettyC
       HsBindgen.Resolve
@@ -190,6 +192,7 @@ library internal
     , directory          >= 1.3.6.2   && < 1.4
     , filepath           >= 1.4       && < 1.6
     , fin                >= 0.3.2     && < 0.4
+    , generics-sop       >= 0.5.1.4   && < 0.6
     , mtl                >= 2.2       && < 2.4
     , parsec             >= 3.1       && < 3.2
     , pretty             >= 1.1.3.6   && < 1.2
@@ -284,7 +287,6 @@ executable hs-bindgen-dev
   build-depends:
       -- Internal dependencies
     , hs-bindgen
-    , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
   build-depends:
@@ -328,7 +330,6 @@ library test-common
       -- Internal dependencies
     , ansi-diff
     , ansi-terminal
-    , hs-bindgen
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies

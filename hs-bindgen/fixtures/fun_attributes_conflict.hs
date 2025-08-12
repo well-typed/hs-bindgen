@@ -2,7 +2,7 @@
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
-    "signed int testmodule_square_cp (signed int arg1) { return square_cp(arg1); }",
+    "signed int test_internal_square_cp (signed int arg1) { return square_cp(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -12,7 +12,7 @@
         (HsPrimType HsPrimCInt)
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_square_cp",
+      "test_internal_square_cp",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -44,7 +44,7 @@
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
-    "signed int testmodule_square_pc (signed int arg1) { return square_pc(arg1); }",
+    "signed int test_internal_square_pc (signed int arg1) { return square_pc(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -54,7 +54,7 @@
         (HsPrimType HsPrimCInt)
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_square_pc",
+      "test_internal_square_pc",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -71,7 +71,7 @@
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
-    "signed int testmodule_square_cc (signed int arg1) { return square_cc(arg1); }",
+    "signed int test_internal_square_cc (signed int arg1) { return square_cc(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -81,7 +81,7 @@
         (HsPrimType HsPrimCInt)
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "testmodule_square_cc",
+      "test_internal_square_cc",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -98,7 +98,7 @@
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
-    "signed int testmodule_square_pp (signed int arg1) { return square_pp(arg1); }",
+    "signed int test_internal_square_pp (signed int arg1) { return square_pp(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -108,7 +108,7 @@
         (HsPrimType HsPrimCInt)
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "testmodule_square_pp",
+      "test_internal_square_pp",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

@@ -7,9 +7,9 @@ import HsBindgen.Lib
 
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
+import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Orphans.TreeDiff ()
 import Test.HsBindgen.Resources
-import Test.HsBindgen.Golden.TestCase
 
 {-------------------------------------------------------------------------------
   Tests
@@ -18,7 +18,8 @@ import Test.HsBindgen.Golden.TestCase
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenEDiff "hs" fixture $ \_report -> do
-      ActualValue <$> runTestTranslate testResources test
+      (I hsDecls :* Nil) <- runTestArtefacts testResources test (HsDecls :* Nil)
+      pure $ ActualValue hsDecls
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".hs")

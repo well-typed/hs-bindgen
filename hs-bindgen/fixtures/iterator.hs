@@ -50,7 +50,7 @@
       newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "Toggle testmodule_makeToggle (_Bool arg1) { return makeToggle(arg1); }",
+    "Toggle test_internal_makeToggle (_Bool arg1) { return makeToggle(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -64,7 +64,7 @@
               "@NsTypeConstr"
               "Toggle"))),
       foreignImportOrigName =
-      "testmodule_makeToggle",
+      "test_internal_makeToggle",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -83,7 +83,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "_Bool testmodule_toggleNext (Toggle arg1) { return toggleNext(arg1); }",
+    "_Bool test_internal_toggleNext (Toggle arg1) { return toggleNext(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -96,7 +96,7 @@
             "Toggle"))
         (HsIO (HsPrimType HsPrimCBool)),
       foreignImportOrigName =
-      "testmodule_toggleNext",
+      "test_internal_toggleNext",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -116,7 +116,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "void testmodule_releaseToggle (Toggle arg1) { releaseToggle(arg1); }",
+    "void test_internal_releaseToggle (Toggle arg1) { releaseToggle(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -129,7 +129,7 @@
             "Toggle"))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "testmodule_releaseToggle",
+      "test_internal_releaseToggle",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -200,7 +200,7 @@
       newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "Counter testmodule_makeCounter (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
+    "Counter test_internal_makeCounter (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -216,7 +216,7 @@
                 "@NsTypeConstr"
                 "Counter")))),
       foreignImportOrigName =
-      "testmodule_makeCounter",
+      "test_internal_makeCounter",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -238,7 +238,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "signed int testmodule_counterNext (Counter arg1) { return counterNext(arg1); }",
+    "signed int test_internal_counterNext (Counter arg1) { return counterNext(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -251,7 +251,7 @@
             "Counter"))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "testmodule_counterNext",
+      "test_internal_counterNext",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -271,7 +271,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "void testmodule_releaseCounter (Counter arg1) { releaseCounter(arg1); }",
+    "void test_internal_releaseCounter (Counter arg1) { releaseCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -284,7 +284,7 @@
             "Counter"))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "testmodule_releaseCounter",
+      "test_internal_releaseCounter",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -359,7 +359,7 @@
       newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "VarCounter testmodule_makeVarCounter (signed int arg1) { return makeVarCounter(arg1); }",
+    "VarCounter test_internal_makeVarCounter (signed int arg1) { return makeVarCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -373,7 +373,7 @@
               "@NsTypeConstr"
               "VarCounter"))),
       foreignImportOrigName =
-      "testmodule_makeVarCounter",
+      "test_internal_makeVarCounter",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -393,7 +393,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "signed int testmodule_varCounterNext (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
+    "signed int test_internal_varCounterNext (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -408,7 +408,7 @@
           (HsPrimType HsPrimCInt)
           (HsIO (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "testmodule_varCounterNext",
+      "test_internal_varCounterNext",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -430,7 +430,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "void testmodule_releaseVarCounter (VarCounter arg1) { releaseVarCounter(arg1); }",
+    "void test_internal_releaseVarCounter (VarCounter arg1) { releaseVarCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -443,7 +443,7 @@
             "VarCounter"))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "testmodule_releaseVarCounter",
+      "test_internal_releaseVarCounter",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

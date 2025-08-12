@@ -5,7 +5,7 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 
 import HsBindgen.Lib
-import HsBindgen.Util.Tracer (withTracerCustom')
+import HsBindgen.Util.Tracer (withTracer')
 import Text.SimplePrettyPrint (string)
 
 import Test.Common.HsBindgen.TracePredicate
@@ -39,10 +39,11 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
     , testGroup "LeftOnError" [
           testCase "left" $ do
               let noOutput _ _ = pure ()
-                  outputConfig = OutputReport noOutput DisableAnsiColor
-                  tracerConf   = def { tVerbosity = Verbosity Debug }
-                  withTracer   = withTracerCustom outputConfig mempty tracerConf
-              res <- withTracer $ \tracer -> do traceWith tracer er
+                  tracerConf   = def {
+                      tVerbosity    = Verbosity Debug
+                    , tOutputConfig = OutputReport noOutput DisableAnsiColor
+                    }
+              res <- withTracer tracerConf $ \tracer -> do traceWith tracer er
               res @?= Nothing
         ]
     , testGroup "withTracePredicate" [
@@ -138,20 +139,22 @@ assertMaxLevelWithDegrade =
   assertMaxLevelWithCustomLogLevel (CustomLogLevel $ const $ Just Info)
 
 assertMaxLevelWithCustomLogLevel
-  :: CustomLogLevel TestTrace -> [TestTrace] -> Level -> Assertion
+  :: CustomLogLevel Level TestTrace -> [TestTrace] -> Level -> Assertion
 assertMaxLevelWithCustomLogLevel customLogLevel traces expectedLevel = do
   lvl <- testTracerIO customLogLevel traces
   lvl @?= expectedLevel
 
-testTracerIO :: CustomLogLevel TestTrace -> [TestTrace] -> IO Level
+testTracerIO :: CustomLogLevel Level TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
   let noOutput _ _ = pure ()
-      outputConfig = OutputReport noOutput DisableAnsiColor
-      tracerConfig = def { tVerbosity = Verbosity Debug }
-      -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,
-      -- and not by the tests (e.g., 'withTracePredicate').
-      withTracer = withTracerCustom' outputConfig  customLogLevel tracerConfig
-  (_, maxLogLevel) <- withTracer $ \tracer -> do
+      tracerConfig = def {
+          tVerbosity      = Verbosity Debug
+        , tOutputConfig   = OutputReport noOutput DisableAnsiColor
+        , tCustomLogLevel = customLogLevel
+        }
+  -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,
+  -- and not by the tests (e.g., 'withTracePredicate').
+  (_, maxLogLevel) <- withTracer' tracerConfig $ \tracer -> do
     mapM_ (traceWith tracer) traces
   pure maxLogLevel
 

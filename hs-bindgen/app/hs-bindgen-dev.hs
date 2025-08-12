@@ -5,10 +5,6 @@ import HsBindgen.App.Dev
 
 import HsBindgen.Lib
 
--- It is OK to import some internal libraries for our development client.
-import HsBindgen.Frontend (frontend)
-import HsBindgen.Frontend.AST.External (TranslationUnit)
-
 {-------------------------------------------------------------------------------
   Main application
 -------------------------------------------------------------------------------}
@@ -21,19 +17,9 @@ execDev Dev{..} = case devCmd of
     DevCmdParse cmdOpts -> execParse devGlobalOpts cmdOpts
 
 execParse :: GlobalOpts -> ParseOpts -> IO ()
-execParse globalOpts opts =
-  doParse >>= fromMaybeWithFatalError >>= print
+execParse GlobalOpts{..} ParseOpts{..} = do
+    let artefacts = ReifiedC :* Nil
+    (I decls :* Nil) <- hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
+    print decls
   where
-    doParse :: IO (Maybe TranslationUnit)
-    doParse = withCliTracer globalOpts $ \tracer -> do
-      inputPaths <- checkInputs tracer opts.inputPaths
-      (extSpec, pSpec) <- loadBindingSpecs
-                            (contramap TraceBindingSpec tracer)
-                            opts.config.configClangArgs
-                            opts.bindingSpecConfig
-      frontend
-        (contramap TraceFrontend tracer)
-        opts.config
-        extSpec
-        pSpec
-        inputPaths
+    moduleUnique = getModuleUnique config.configHsModuleOpts

@@ -22,17 +22,16 @@ module HsBindgen.Util.Tracer (
     -- * Tracer configuration
   , ShowTimeStamp (..)
   , ShowCallStack (..)
-  , TracerConfig (..)
   , AnsiColor (..)
   , Report
   , OutputConfig (..)
   , outputConfigQ
   , CustomLogLevel (..)
+  , TracerConfig (..)
     -- * Tracers
-  , withTracerStdOut
-  , withTracerCustom
+  , withTracer
   , fatalError
-  , withTracerCustom'
+  , withTracer'
     -- * Safe tracers
   , withTracerSafe
   ) where
@@ -168,8 +167,14 @@ getColorForLevel = \case
 -- warnings and errors should be handled in the frontend.
 --
 -- Traces with safe log levels can not abort the program.
-data SafeLevel = SafeDebug | SafeInfo
+data SafeLevel = SafeDebug | SafeInfo | SafeNotice
   deriving stock (Show, Eq)
+
+fromSafeLevel :: SafeLevel -> Level
+fromSafeLevel = \ case
+  SafeDebug  -> Debug
+  SafeInfo   -> Info
+  SafeNotice -> Notice
 
 -- | Convert values to textual representations used in traces.
 class PrettyForTrace a where
@@ -288,21 +293,6 @@ data ShowTimeStamp = EnableTimeStamp | DisableTimeStamp
 data ShowCallStack = EnableCallStack | DisableCallStack
   deriving stock (Show, Eq)
 
--- | Configuration of tracer.
-data TracerConfig = TracerConfig {
-    tVerbosity     :: !Verbosity
-  , tShowTimeStamp :: !ShowTimeStamp
-  , tShowCallStack :: !ShowCallStack
-  }
-  deriving stock (Show, Eq)
-
-instance Default TracerConfig where
-  def = TracerConfig
-    { tVerbosity      = (Verbosity Info)
-    , tShowTimeStamp  = DisableTimeStamp
-    , tShowCallStack  = DisableCallStack
-    }
-
 data AnsiColor = EnableAnsiColor | DisableAnsiColor
   deriving stock (Show, Eq)
 
@@ -323,6 +313,10 @@ data OutputConfig m =
     , _outputAnsiColor :: AnsiColor
     }
 
+-- | The default tracer configuration
+--
+-- - writes to 'stdout', and
+-- - uses ANSI colors, if available.
 instance Default (OutputConfig m) where
   def = OutputHandle stdout Nothing
 
@@ -345,49 +339,61 @@ outputConfigQ = OutputReport report DisableAnsiColor
 -- The custom log level function takes a trace and either returns 'Just' a
 -- custom log level, or 'Nothing', if it does not customize the log level of the
 -- trace.
-newtype CustomLogLevel a = CustomLogLevel { getCustomLogLevel :: a -> Maybe Level }
+newtype CustomLogLevel l a = CustomLogLevel { getCustomLogLevel :: a -> Maybe l }
 
 -- | NOTE: Custom log levels on the left-hand-side overrule custom log levels on
 -- the right-hand-side.
-instance Semigroup (CustomLogLevel a) where
+instance Semigroup (CustomLogLevel l a) where
   (CustomLogLevel l) <> (CustomLogLevel r) =
     CustomLogLevel $ \x -> l x `mplus` r x
 
-instance Monoid (CustomLogLevel a) where
+instance Monoid (CustomLogLevel l a) where
   mempty = CustomLogLevel $ const Nothing
+
+instance Contravariant (CustomLogLevel l) where
+  contramap f (CustomLogLevel g) = CustomLogLevel $ g . f
+
+-- | Configuration of tracer.
+data TracerConfig m l a = TracerConfig {
+    tVerbosity      :: !Verbosity
+  , tOutputConfig   :: !(OutputConfig m)
+  , tCustomLogLevel :: !(CustomLogLevel l a)
+  , tShowTimeStamp  :: !ShowTimeStamp
+  , tShowCallStack  :: !ShowCallStack
+  }
+
+instance Contravariant (TracerConfig m l) where
+  contramap f tracerConfig =
+    let customLogLevel = tCustomLogLevel tracerConfig
+    in  tracerConfig { tCustomLogLevel = contramap f customLogLevel }
+
+instance Default (TracerConfig m l a) where
+  def = TracerConfig
+    { tVerbosity      = (Verbosity Info)
+    , tOutputConfig   = def
+    , tCustomLogLevel = mempty
+    , tShowTimeStamp  = DisableTimeStamp
+    , tShowCallStack  = DisableCallStack
+    }
 
 {-------------------------------------------------------------------------------
   Tracers
 -------------------------------------------------------------------------------}
 
--- | Run an action with a tracer writing to 'stdout'.
+-- | Run an action with a tracer.
 --
--- Use ANSI colors, if available.
+-- The default tracer configuration
 --
--- Return 'Nothing' if an 'Error' trace was emitted.
-withTracerStdOut ::
-     ( MonadIO m
-     , PrettyForTrace a
-     , HasDefaultLogLevel a
-     , HasSource a
-     )
-  => TracerConfig
-  -> (Tracer m a -> m b)
-  -> m (Maybe b)
-withTracerStdOut = withTracerCustom def mempty
-
--- | Run an action with a custom tracer.
+-- - writes to 'stdout', and
+-- - uses ANSI colors, if available.
 --
 -- Return 'Nothing' if an 'Error' trace was emitted.
-withTracerCustom
+withTracer
   :: forall m a b. (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, HasSource a)
-  => OutputConfig m
-  -> CustomLogLevel a
-  -> TracerConfig
+  => TracerConfig m Level a
   -> (Tracer m a -> m b)
   -> m (Maybe b)
-withTracerCustom outputConfig customLogLevel tracerConf action =
-  nothingOnError (withTracerCustom' outputConfig customLogLevel tracerConf action)
+withTracer tracerConf action = nothingOnError (withTracer' tracerConf action)
 
 -- | Report that errors happened and exit with failure.
 fatalError :: MonadIO m => m a
@@ -395,26 +401,31 @@ fatalError = liftIO $ do
   putStrLn "An error happened (see above)"
   exitFailure
 
--- | Run an action with a custom tracer.
+-- | Run an action with a tracer.
 --
 -- Return the maximum log level of traces.
 --
 -- We do not export this function from the public interface, but use it in
 -- tests.
-withTracerCustom' :: forall m a b.
+withTracer' :: forall m a b.
   (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a,  HasSource a)
-  => OutputConfig m
-  -> CustomLogLevel a
-  -> TracerConfig
+  => TracerConfig m Level a
   -> (Tracer m a -> m b)
   -> m (b, Level)
-withTracerCustom' outputConfig customLogLevel tracerConf action = do
+withTracer' TracerConfig{..} action = do
   (report, ansiColor) <- getReportAndAnsiColor
   withIORef Debug $ \ref ->
-    action $ mkTracer ansiColor customLogLevel ref tracerConf report
+    action $ mkTracer
+               ansiColor
+               tCustomLogLevel
+               ref
+               tVerbosity
+               tShowCallStack
+               tShowTimeStamp
+               report
   where
     getReportAndAnsiColor :: m (Report m, AnsiColor)
-    getReportAndAnsiColor = case outputConfig of
+    getReportAndAnsiColor = case tOutputConfig of
       OutputHandle handle ansiColorSetting -> do
         ansiColor <- case ansiColorSetting of
           Nothing -> getAnsiColor handle
@@ -432,16 +443,28 @@ withTracerCustom' outputConfig customLogLevel tracerConf action = do
 -- Always returns a result (if the action does not panic).
 --
 -- See 'SafeLevel'.
-withTracerSafe
-  :: (MonadIO m, PrettyForTrace a, HasDefaultSafeLogLevel a, HasSource a)
-  => OutputConfig m
-  -> TracerConfig
+withTracerSafe :: forall m a b.
+     (MonadIO m, PrettyForTrace a, HasDefaultSafeLogLevel a, HasSource a)
+  => TracerConfig m SafeLevel a
   -> (Tracer m a -> m b)
   -> m b
-withTracerSafe outputConfig tracerConf action =
-    fst <$> withTracerCustom' outputConfig mempty tracerConf action'
+withTracerSafe tracerConf action =
+    fst <$> withTracer' tracerConf' action'
   where
-    action' tracerUnsafe = action (contramap SafeTrace tracerUnsafe)
+    action' :: Tracer m (SafeTrace a) -> m b
+    action' = action . contramap SafeTrace
+
+    changeLevel :: (l -> l') -> CustomLogLevel l c -> CustomLogLevel l' c
+    changeLevel f = CustomLogLevel . (fmap . fmap) f . getCustomLogLevel
+
+    customLogLevel :: CustomLogLevel Level (SafeTrace a)
+    customLogLevel =
+      changeLevel fromSafeLevel $
+        contramap getSafeTrace $
+        tCustomLogLevel tracerConf
+
+    tracerConf' :: TracerConfig m Level (SafeTrace a)
+    tracerConf' = tracerConf { tCustomLogLevel = customLogLevel}
 
 data SafeTrace a = SafeTrace { getSafeTrace :: a }
   deriving (Show, Eq, Generic)
@@ -450,9 +473,8 @@ instance PrettyForTrace a => PrettyForTrace (SafeTrace a) where
   prettyForTrace = prettyForTrace . getSafeTrace
 
 instance HasDefaultSafeLogLevel a => HasDefaultLogLevel (SafeTrace a) where
-  getDefaultLogLevel x = case getDefaultSafeLogLevel (getSafeTrace x) of
-    SafeDebug -> Debug
-    SafeInfo  -> Info
+  getDefaultLogLevel x = fromSafeLevel $ getDefaultSafeLogLevel (getSafeTrace x)
+
 instance HasSource a => HasSource (SafeTrace a) where
   getSource = getSource . getSafeTrace
 
@@ -473,16 +495,25 @@ mkTracer :: forall m a.
      , HasSource a
      )
   => AnsiColor
-  -> CustomLogLevel a
+  -> CustomLogLevel Level a
   -> IORef Level
-  -> TracerConfig
+  -> Verbosity
+  -> ShowCallStack
+  -> ShowTimeStamp
   -> Report m
   -> Tracer m a
-mkTracer ansiColor customLogLevel maxLogLevelRef (TracerConfig {..}) report =
-  squelchUnless isLogLevelHighEnough $ simpleWithCallStack $ traceAction
+mkTracer
+  ansiColor
+  customLogLevel
+  maxLogLevelRef
+  verbosity
+  showCallStack
+  showTimeStamp
+  report =
+    squelchUnless isLogLevelHighEnough $ simpleWithCallStack $ traceAction
   where
     isLogLevelHighEnough :: a -> Bool
-    isLogLevelHighEnough trace = getLogLevel trace >= unwrapVerbosity tVerbosity
+    isLogLevelHighEnough trace = getLogLevel trace >= unwrapVerbosity verbosity
 
     -- Log format:
     -- [OPTIONAL TIMESTAMP] [LEVEL] [SOURCE] Message.
@@ -491,11 +522,11 @@ mkTracer ansiColor customLogLevel maxLogLevelRef (TracerConfig {..}) report =
     traceAction :: MsgWithCallStack a -> m ()
     traceAction MsgWithCallStack {..} = do
       updateMaxLogLevel level
-      time <- case tShowTimeStamp of
+      time <- case showTimeStamp of
         DisableTimeStamp -> pure Nothing
         EnableTimeStamp -> Just <$> liftIO getCurrentTime
       mapM_ (report level) $ getZipList $ formatLines time level source <*> traces
-      when (tShowCallStack == EnableCallStack) $
+      when (showCallStack == EnableCallStack) $
         report level $ renderCtxDoc (indentContext 2 context)
           $ string $ prettyCallStack msgCallStack
       where level = getLogLevel msgWithoutCallStack

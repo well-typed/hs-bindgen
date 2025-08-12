@@ -2317,7 +2317,7 @@
   DeclInlineCInclude
     "spec_examples.h",
   DeclInlineC
-    "void testmodule_resample (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
+    "void test_internal_resample (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2354,7 +2354,7 @@
                 (HsIO
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
-      "testmodule_resample",
+      "test_internal_resample",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

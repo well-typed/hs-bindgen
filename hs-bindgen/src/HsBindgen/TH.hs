@@ -14,6 +14,7 @@ module HsBindgen.TH (
   , Common.Config(..)
   , PipelineTH.IncludeDir(..)
   , PipelineTH.BindgenOpts(..)
+  , PipelineTH.tracerConfigDefQ
 
     -- ** Clang arguments
   , Common.ClangArgs(..)
@@ -48,6 +49,7 @@ module HsBindgen.TH (
     -- * Paths
   , Common.HashIncludeArg(..)
   , Common.hashIncludeArg
+  , Common.UncheckedHashIncludeArg
   , Common.hashIncludeArgWithTrace
   , Common.CIncludeDir(..)
   , (Common.</>)
@@ -56,20 +58,23 @@ module HsBindgen.TH (
     -- * Logging
   , Common.TraceMsg(..)
   , Common.BindingSpecMsg(..)
+  , Common.BootMsg(..)
   , Common.ClangMsg(..)
   , Common.DeclIndexError(..)
   , Common.Diagnostic(..)
   , Common.FrontendMsg(..)
-  , Common.ParseMsg(..)
   , Common.HandleMacrosMsg(..)
-  , Common.NameAnonMsg(..)
-  , Common.ResolveBindingSpecMsg(..)
-  , Common.SelectMsg(..)
   , Common.HandleTypedefsMsg(..)
+  , Common.HashIncludeArgMsg(..)
   , Common.MangleNamesMsg(..)
+  , Common.NameAnonMsg(..)
+  , Common.ParseMsg(..)
   , Common.ParseTypeException(..)
   , Common.ReparseError(..)
+  , Common.ResolveBindingSpecMsg(..)
   , Common.ResolveHeaderMsg(..)
+  , Common.SelectMsg(..)
+  , Common.SortMsg(..)
   , Common.TcMacroError(..)
     -- ** Tracer definition and main API
   , Common.Tracer -- opaque
@@ -97,7 +102,7 @@ module HsBindgen.TH (
   , Common.customLogLevelFrom
   , Common.CustomLogLevelSetting(..)
     -- ** Tracers
-  , Common.withTracerCustom
+  , Common.withTracer
 
    -- * Re-exports
   , Common.Default(..)

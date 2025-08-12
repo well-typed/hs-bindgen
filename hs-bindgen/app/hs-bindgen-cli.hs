@@ -4,9 +4,8 @@ module Main (main) where
 
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
-import Control.Monad (forM_, (<=<))
+import Control.Monad (forM_, void, (<=<))
 import Data.ByteString qualified as BS
-import Data.Char (isLetter)
 import Optics
 import System.Exit (ExitCode, exitFailure)
 import Text.Read (readMaybe)
@@ -39,52 +38,31 @@ execCli Cli{..} = case cliCmd of
 -------------------------------------------------------------------------------}
 
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
-execPreprocess globalOpts opts = do
-    (hsDecls, inputs) <- fromMaybeWithFatalError <=<
-      withCliTracer globalOpts $ \tracer -> do
-        inputs <- checkInputs tracer opts.inputs
-        (extSpec, pSpec) <- loadBindingSpecs
-                              (contramap TraceBindingSpec tracer)
-                              opts.config.configClangArgs
-                              opts.bindingSpecConfig
-        (, inputs) <$>
-          translateCHeaders
-            mu
-            (contramap TraceFrontend tracer)
-            opts.config
-            extSpec
-            pSpec
-            inputs
-
-    preprocessIO opts.config opts.output hsDecls
-
-    case opts.genBindingSpec of
-      Nothing   -> return ()
-      Just path -> genBindingSpec opts.config inputs path hsDecls
+execPreprocess GlobalOpts{..} PreprocessOpts{..} = do
+    case outputBindingSpec of
+      -- NOTE: We can not assemble the heterogeneous list of artefacts before
+      -- evaluating `hsBindgen`. The types don't line up. (We even have to pull
+      -- 'void' inside the case statement).
+      Nothing ->
+        let artefacts =    writeBindings config output
+                        :* Nil
+        in  void $ run artefacts
+      Just file ->
+        let artefacts =    writeBindings config output
+                        :* writeBindingSpec config file
+                        :* Nil
+        in  void $ run $ artefacts
   where
-    mu = getModuleUnique opts.config.configHsModuleOpts
+    moduleUnique = getModuleUnique config.configHsModuleOpts
+    run :: Artefacts as -> IO (NP I as)
+    run = hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
-execGenTests globalOpts opts = do
-    (hsDecls, inputs) <- fromMaybeWithFatalError <=<
-      withCliTracer globalOpts $ \tracer -> do
-        inputs <- checkInputs tracer opts.inputs
-        (extSpec, pSpec) <- loadBindingSpecs
-                              (contramap TraceBindingSpec tracer)
-                              opts.config.configClangArgs
-                              opts.bindingSpecConfig
-        (, inputs) <$>
-          translateCHeaders
-            mu
-            (contramap TraceFrontend tracer)
-            opts.config
-            extSpec
-            pSpec
-            inputs
-
-    genTests opts.config inputs opts.output hsDecls
+execGenTests GlobalOpts{..} GenTestsOpts{..} = do
+  let artefacts = writeTests config output :* Nil
+  void $ hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
   where
-    mu = getModuleUnique opts.config.configHsModuleOpts
+    moduleUnique = getModuleUnique config.configHsModuleOpts
 
 execLiterate :: LiterateOpts -> IO ()
 execLiterate opts = do
@@ -103,32 +81,24 @@ execLiterate opts = do
     throw' = throwIO . LiterateFileException opts.input
 
 execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
-execBindingSpec globalOpts BindingSpecCmdStdlib{..} = do
-    spec <- fromMaybeWithFatalError <=< withCliTracer globalOpts $ \tracer ->
-      getStdlibBindingSpec (contramap TraceBindingSpec tracer) clangArgs
+execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
+    spec <- fromMaybeWithFatalError <=< withTracer tracerConfig $ \tracer ->
+      getStdlibBindingSpec (contramap (TraceBoot . BootBindingSpec) tracer) clangArgs
     BS.putStr $ encodeBindingSpecYaml spec
 
+-- TODO: Header resolution should be a (boot) artefact;
+-- https://github.com/well-typed/hs-bindgen/issues/990.
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
-execResolve globalOpts opts = do
-    mErr <- withCliTracer globalOpts $ \tracer -> do
-      let tracerResolve = contramap TraceResolveHeader  tracer
-      inputs <- checkInputs tracer opts.inputs
-      forM_ inputs $ \header -> do
-        mPath <- resolveHeader tracerResolve opts.clangArgs header
+execResolve GlobalOpts{..} ResolveOpts{..} = do
+    mErr <- withTracer tracerConfig $ \tracer -> do
+      let tracerResolve = contramap TraceResolveHeader tracer
+      hashIncludeArgs <- checkInputs tracer inputs
+      forM_ hashIncludeArgs $ \header -> do
+        mPath <- resolveHeader tracerResolve clangArgs header
         putStrLn . unwords $ case mPath of
           Just path -> [show header, "resolves to", show path]
           Nothing   -> [show header, "not found"]
     fromMaybeWithFatalError mErr
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
-
--- to avoid potential issues it would be great to include unitid in module
--- unique but AFAIK there is no way to get one for preprocessor
--- https://github.com/well-typed/hs-bindgen/issues/502
-getModuleUnique :: HsModuleOpts -> ModuleUnique
-getModuleUnique = ModuleUnique . filter isLetter . hsModuleOptsName
 
 {-------------------------------------------------------------------------------
   Exception handling

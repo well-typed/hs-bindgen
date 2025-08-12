@@ -36,7 +36,6 @@ data Dev = Dev {
       devGlobalOpts :: GlobalOpts
     , devCmd        :: DevCmd
     }
-  deriving (Show)
 
 parseDev :: Parser Dev
 parseDev =
@@ -63,7 +62,7 @@ parseDevCmd = subparser $ mconcat [
 data ParseOpts = ParseOpts {
       config            :: Config
     , bindingSpecConfig :: BindingSpecConfig
-    , inputPaths        :: [UncheckedHashIncludeArg]
+    , inputs            :: [UncheckedHashIncludeArg]
     }
   deriving (Show)
 

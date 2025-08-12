@@ -4,26 +4,19 @@
 
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.Lib (
-    -- * Frontend
-    HsDecls -- opaque
-  , translateCHeaders
-
-    -- * Backend
-  , preprocessPure
-  , preprocessIO
-
-    -- * Binding specification generation
-  , genBindingSpec
-
-    -- * Test generation
-  , genTests
-
-    -- * Debugging
-    -- ** Header resolution
+    -- * Run @hs-bindgen@
+    HsBindgen.hsBindgen
   , resolveHeader
+  , HsBindgen.Artefact(..)
+  , HsBindgen.Artefacts
+
+    -- ** Predefined artefacts
+  , HsBindgen.writeBindings
+  , HsBindgen.writeBindingSpec
+  , HsBindgen.writeTests
 
     -- * Options
-  , ModuleUnique(..)
+  , ModuleUnique.ModuleUnique(..)
   , Common.Config(..)
 
     -- ** Clang arguments
@@ -71,6 +64,7 @@ module HsBindgen.Lib (
     -- * Paths
   , Common.HashIncludeArg(..)
   , Common.hashIncludeArg
+  , Common.UncheckedHashIncludeArg
   , Common.hashIncludeArgWithTrace
   , Common.CIncludeDir(..)
   , (Common.</>)
@@ -79,20 +73,23 @@ module HsBindgen.Lib (
     -- * Logging
   , Common.TraceMsg(..)
   , Common.BindingSpecMsg(..)
+  , Common.BootMsg(..)
   , Common.ClangMsg(..)
   , Common.DeclIndexError(..)
   , Common.Diagnostic(..)
   , Common.FrontendMsg(..)
-  , Common.ParseMsg(..)
   , Common.HandleMacrosMsg(..)
-  , Common.NameAnonMsg(..)
-  , Common.ResolveBindingSpecMsg(..)
-  , Common.SelectMsg(..)
   , Common.HandleTypedefsMsg(..)
+  , Common.HashIncludeArgMsg(..)
   , Common.MangleNamesMsg(..)
+  , Common.NameAnonMsg(..)
+  , Common.ParseMsg(..)
   , Common.ParseTypeException(..)
   , Common.ReparseError(..)
+  , Common.ResolveBindingSpecMsg(..)
   , Common.ResolveHeaderMsg(..)
+  , Common.SelectMsg(..)
+  , Common.SortMsg(..)
   , Common.TcMacroError(..)
     -- ** Tracer definition and main API
   , Common.Tracer -- opaque
@@ -119,109 +116,32 @@ module HsBindgen.Lib (
   , Common.customLogLevelFrom
   , Common.CustomLogLevelSetting(..)
     -- ** Tracers
-  , Tracer.withTracerStdOut
-  , Common.withTracerCustom
+  , Common.withTracer
   , Tracer.fatalError
 
     -- * Re-exports
   , Common.Default (..)
+  , HsBindgen.I (..)
+  , HsBindgen.NP (..)
   ) where
 
 import HsBindgen.Common qualified as Common
 
-import Clang.Args qualified as Args
-import Clang.Paths qualified as Paths
+import HsBindgen qualified
 import HsBindgen.Backend.Artefact.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.Artefact.PP.Translation qualified as Backend.PP
-import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.Resolve qualified as Resolve
+import HsBindgen.ModuleUnique qualified as ModuleUnique
 import HsBindgen.Util.Tracer qualified as Tracer
 
-import HsBindgen.Pipeline.Lib qualified as Pipeline
-
-import HsBindgen.BindingSpec
-import HsBindgen.Frontend.RootHeader
-import HsBindgen.ModuleUnique
-import HsBindgen.Util.Tracer
-
-{-------------------------------------------------------------------------------
-  Parsing and translating
-
-  An opaque newtype is used because the C and Haskell ASTs are /not/ part of the
-  public API.
--------------------------------------------------------------------------------}
-
--- | Haskell declarations, translated from a C header
-newtype HsDecls = WrapHsDecls {
-      unwrapHsDecls :: [Hs.Decl]
-    }
-
--- | Translate C headers to Haskell declarations
-translateCHeaders ::
-      ModuleUnique
-   -> Tracer IO Common.FrontendMsg
-   -> Common.Config
-   -> ExternalBindingSpec
-   -> PrescriptiveBindingSpec
-   -> [HashIncludeArg]
-   -> IO HsDecls
-translateCHeaders mu tracer config extSpec pSpec headers =
-  WrapHsDecls <$> Pipeline.translateCHeaders mu tracer config extSpec pSpec headers
-
-{-------------------------------------------------------------------------------
-  Preprocessor
--------------------------------------------------------------------------------}
-
--- | Generate bindings for the given C header
-preprocessPure :: Common.Config -> HsDecls -> String
-preprocessPure config = Pipeline.preprocessPure config . unwrapHsDecls
-
--- | Generate bindings for the given C header
-preprocessIO ::
-     Common.Config
-  -> Maybe FilePath -- ^ Output file or 'Nothing' for @STDOUT@
-  -> HsDecls
-  -> IO ()
-preprocessIO config fp = Pipeline.preprocessIO config fp . unwrapHsDecls
-
-{-------------------------------------------------------------------------------
-  Binding specification generation
--------------------------------------------------------------------------------}
-
-genBindingSpec ::
-     Common.Config
-  -> [HashIncludeArg]
-  -> FilePath
-  -> HsDecls
-  -> IO ()
-genBindingSpec config hashIncludeArgs path =
-      BindingSpec.genBindingSpec config hashIncludeArgs path
-    . unwrapHsDecls
-
-{-------------------------------------------------------------------------------
-  Test generation
--------------------------------------------------------------------------------}
-
-genTests ::
-     Common.Config
-  -> [HashIncludeArg]
-  -> FilePath -- ^ Test suite directory path
-  -> HsDecls
-  -> IO ()
-genTests config hashIncludeArgs testDir =
-    Pipeline.genTests config hashIncludeArgs testDir . unwrapHsDecls
-
-{-------------------------------------------------------------------------------
-  Paths
--------------------------------------------------------------------------------}
+import Clang.Paths qualified as Paths
+import HsBindgen.Resolve qualified as Resolve
 
 -- | Resolve a header, used for debugging
 resolveHeader ::
-     Tracer IO Resolve.ResolveHeaderMsg
-  -> Args.ClangArgs
-  -> HashIncludeArg -- ^ The header we want to resolve
+     Tracer.Tracer IO Common.ResolveHeaderMsg
+  -> Common.ClangArgs
+  -> Common.HashIncludeArg -- ^ The header we want to resolve
   -> IO (Maybe FilePath)
 resolveHeader tracer args path =
     fmap Paths.getSourcePath <$>

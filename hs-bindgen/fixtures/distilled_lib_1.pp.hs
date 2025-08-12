@@ -25,7 +25,7 @@ import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 import qualified Text.Read
 
-$(CAPI.addCSource "#include <distilled_lib_1.h>\nint32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }\n__attribute__ ((const)) var_t *get_v_ptr (void) { return &v; } \n")
+$(CAPI.addCSource "#include <distilled_lib_1.h>\nint32_t test_internal_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }\n__attribute__ ((const)) var_t *get_v_ptr (void) { return &v; } \n")
 
 data Another_typedef_struct_t = Another_typedef_struct_t
   { another_typedef_struct_t_foo :: FC.CInt
@@ -302,7 +302,7 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
-foreign import ccall safe "testmodule_some_fun" some_fun_wrapper :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (F.Ptr HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
+foreign import ccall safe "test_internal_some_fun" some_fun_wrapper :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (F.Ptr HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
 
 some_fun :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
 some_fun =

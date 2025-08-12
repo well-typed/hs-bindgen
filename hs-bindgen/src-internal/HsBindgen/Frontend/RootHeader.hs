@@ -19,6 +19,7 @@ module HsBindgen.Frontend.RootHeader (
     -- * HashIncludeArg
   , HashIncludeArg(..)
   , hashIncludeArg
+  , UncheckedHashIncludeArg
   , hashIncludeArgWithTrace
     -- ** Trace message
   , HashIncludeArgMsg(..)
@@ -118,12 +119,17 @@ newtype HashIncludeArg = HashIncludeArg { getHashIncludeArg :: FilePath }
 hashIncludeArg :: FilePath -> ([HashIncludeArgMsg], HashIncludeArg)
 hashIncludeArg fp = (hashIncludeArgMsgs fp, HashIncludeArg fp)
 
+-- | Unchecked @#include@ argument
+--
+-- We need to emit trace messages monadically, so we do not check values within
+-- the pure parser.
+type UncheckedHashIncludeArg = FilePath
+
 -- | Construct a 'HashIncludeArg', emitting trace messages
 hashIncludeArgWithTrace ::
-     Monad m
-  => Tracer m HashIncludeArgMsg
-  -> FilePath
-  -> m HashIncludeArg
+     Tracer IO HashIncludeArgMsg
+  -> UncheckedHashIncludeArg
+  -> IO HashIncludeArg
 hashIncludeArgWithTrace tracer fp = do
     let (msgs, arg) = hashIncludeArg fp
     mapM_ (traceWith tracer) msgs

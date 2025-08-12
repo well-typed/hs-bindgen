@@ -19,8 +19,7 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestSimple
   , failingTestCustom
     -- * Execution
-  , runTestParse
-  , runTestTranslate
+  , runTestArtefacts
   , runTestRustBindgen
     -- ** Low-level
   , getTestConfig
@@ -32,16 +31,15 @@ import System.FilePath ((</>))
 import Test.Tasty (TestName)
 
 import Clang.HighLevel.Types qualified as Clang
+import HsBindgen
+import HsBindgen.Backend
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Clang (ClangMsg (..))
+import HsBindgen.Boot
 import HsBindgen.Config (Config (..))
-import HsBindgen.Frontend qualified as Frontend
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Lib (FrontendMsg (..), TraceMsg (..))
-import HsBindgen.Pipeline.Lib qualified as Pipeline
+import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 import Test.Common.HsBindgen.TracePredicate
@@ -211,34 +209,32 @@ withTestTracer ::
 withTestTracer TestCase{testTracePredicate} =
     withTracePredicate testTracePredicate
 
-runTestParse :: IO TestResources -> TestCase -> IO C.TranslationUnit
-runTestParse testResources test = do
-    config  <- getTestConfig  testResources test
+getTestBootArtefact :: IO TestResources -> TestCase -> IO BootArtefact
+getTestBootArtefact testResources test = do
     extSpec <- getTestExtSpec testResources test
     pSpec   <- getTestPSpec   testResources test
+    pure BootArtefact {
+          bootHashIncludeArgs         = [testInputInclude test]
+        , bootExternalBindingSpec     = extSpec
+        , bootPrescriptiveBindingSpec = pSpec
+        }
 
-    withTestTracer test $ \tracer ->
-      Frontend.frontend
-        (contramap TraceFrontend tracer)
-        config
-        extSpec
-        pSpec
-        [testInputInclude test]
-
-runTestTranslate :: IO TestResources -> TestCase -> IO [Hs.Decl]
-runTestTranslate testResources test = do
-    config  <- getTestConfig  testResources test
-    extSpec <- getTestExtSpec testResources test
-    pSpec   <- getTestPSpec   testResources test
-
-    withTestTracer test $ \tracer ->
-      Pipeline.translateCHeaders
-        "testmodule"
-        (contramap TraceFrontend tracer)
-        config
-        extSpec
-        pSpec
-        [testInputInclude test]
+runTestArtefacts :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+runTestArtefacts testResources test artefacts = do
+    config           <- getTestConfig  testResources test
+    -- Boot.
+    bootArtefact     <- getTestBootArtefact testResources test
+    -- Frontend.
+    frontendArtefact <-
+      withTestTracer test $ \tracer ->
+        frontend
+          (contramap TraceFrontend tracer)
+          config
+          bootArtefact
+    -- Backend.
+    let backendArtefact = backend "test_internal" config frontendArtefact
+    -- Artefacts.
+    runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
 
 runTestRustBindgen :: IO TestResources -> TestCase -> IO RustBindgenResult
 runTestRustBindgen testResources test = do

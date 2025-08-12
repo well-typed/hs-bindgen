@@ -54,7 +54,6 @@ data Cli = Cli {
       cliGlobalOpts :: GlobalOpts
     , cliCmd        :: CliCmd
     }
-  deriving (Show)
 
 parseCli :: Parser Cli
 parseCli =
@@ -107,7 +106,7 @@ data PreprocessOpts = PreprocessOpts {
       config            :: Config
     , bindingSpecConfig :: BindingSpecConfig
     , output            :: Maybe FilePath
-    , genBindingSpec    :: Maybe FilePath
+    , outputBindingSpec :: Maybe FilePath
     , inputs            :: [UncheckedHashIncludeArg]
     }
   deriving stock (Show, Generic)

@@ -21,14 +21,16 @@ import Language.Haskell.TH.Syntax qualified as TH
 
 import System.FilePath (makeRelative)
 
-import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..), prettyCommentKind)
-import HsBindgen.Guasi
+import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..),
+                                             prettyCommentKind)
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment (..))
+import HsBindgen.Guasi
 import HsBindgen.Lib
 import HsBindgen.Pipeline.TH qualified as PipelineTH
 
 import Text.SimplePrettyPrint
 
+import HsBindgen.Pipeline.TH (getExtensions)
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden (ActualValue (..))
 import Test.HsBindgen.Golden.TestCase
@@ -43,14 +45,14 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "th" fixture $ \_report ->
       if ghcAtLeast904 then do
-        config  <- getTestConfig      testResources test
-        unit    <- runTestParse       testResources test
         pkgroot <- getTestPackageRoot testResources
+        let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
+        (I deps :* I decls :* I requiredExts :* Nil) <- runTestArtefacts testResources test artefacts
 
-        let decls :: Qu [TH.Dec]
-            decls = PipelineTH.genBindingsFromCHeader config unit
+        let thDecls :: Qu [TH.Dec]
+            thDecls = PipelineTH.genBindingsFromCHeader deps decls requiredExts
 
-            (QuState{..}, thdecs) = runQu decls
+            (QuState{..}, thdecs) = runQu thDecls
 
             -- Here we might have headers outside of our package, but in our
             -- test setup that SHOULD cause an error, as we use bundled stdlib.
