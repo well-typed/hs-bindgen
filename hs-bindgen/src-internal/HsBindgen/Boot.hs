@@ -8,6 +8,7 @@ import GHC.Generics (Generic)
 
 import Clang.Args
 import HsBindgen.BindingSpec
+import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Util.Tracer
 
@@ -22,11 +23,14 @@ import HsBindgen.Util.Tracer
 -- - Load prescriptive binding specifications.
 boot ::
      Tracer IO BootMsg
-  -> ClangArgs
+  -> Config
   -> BindingSpecConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot tracer clangArgs bindingSpecConfig uncheckedHashIncludeArgs = do
+boot tracer config bindingSpecConfig uncheckedHashIncludeArgs = do
+    let tracerConfig :: Tracer IO ConfigMsg
+        tracerConfig = contramap BootConfig tracer
+    checkConfig tracerConfig config
     let tracerHashInclude :: Tracer IO HashIncludeArgMsg
         tracerHashInclude = contramap BootHashIncludeArg tracer
     hashIncludeArgs <-
@@ -40,6 +44,9 @@ boot tracer clangArgs bindingSpecConfig uncheckedHashIncludeArgs = do
         , bootExternalBindingSpec     = extSpec
         , bootPrescriptiveBindingSpec = pSpec
         }
+  where
+    clangArgs :: ClangArgs
+    clangArgs = configClangArgs config
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -57,7 +64,8 @@ data BootArtefact = BootArtefact {
 
 -- | Boot trace messages
 data BootMsg =
-    BootHashIncludeArg HashIncludeArgMsg
-  | BootBindingSpec BindingSpecMsg
+    BootConfig         ConfigMsg
+  | BootHashIncludeArg HashIncludeArgMsg
+  | BootBindingSpec    BindingSpecMsg
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)

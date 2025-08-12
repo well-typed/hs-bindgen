@@ -19,7 +19,5 @@ execDev Dev{..} = case devCmd of
 execParse :: GlobalOpts -> ParseOpts -> IO ()
 execParse GlobalOpts{..} ParseOpts{..} = do
     let artefacts = ReifiedC :* Nil
-    (I decls :* Nil) <- hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
+    (I decls :* Nil) <- hsBindgen tracerConfig config bindingSpecConfig inputs artefacts
     print decls
-  where
-    moduleUnique = getModuleUnique config.configHsModuleOpts

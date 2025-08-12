@@ -142,9 +142,6 @@ instance TH.Quote Qu where
         return $ TH.Name (TH.OccName n) (TH.NameU u)
 
 instance Guasi Qu where
-    -- we don't use unique string to have stable test results
-    getModuleUnique = return $ ModuleUnique "test_internal"
-
     addDependentFile fp = Qu $ do
         q@QuState{ dependencyFiles = depfiles } <- get
         put $! q { dependencyFiles = depfiles ++ [fp] }

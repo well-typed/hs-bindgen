@@ -1,5 +1,7 @@
 module HsBindgen.Config
   ( Config (..)
+  , ConfigMsg (..)
+  , checkConfig
   ) where
 
 import Data.Default (Default)
@@ -9,8 +11,10 @@ import Clang.Args
 import HsBindgen.Backend.Artefact.PP.Render
 import HsBindgen.Backend.Artefact.PP.Translation
 import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.UniqueId
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
+import HsBindgen.Util.Tracer
 
 -- | Configuration of @hs-bindgen@.
 --
@@ -32,3 +36,14 @@ data Config = Config {
   deriving stock (Show, Generic)
 
 instance Default Config
+
+checkConfig :: Tracer IO ConfigMsg -> Config -> IO ()
+checkConfig tracer config =
+    checkUniqueId (contramap ConfigUniqueId tracer) uniqueId
+  where
+    uniqueId :: UniqueId
+    uniqueId = translationUniqueId $ configTranslation config
+
+data ConfigMsg = ConfigUniqueId UniqueIdMsg
+  deriving stock (Show, Eq, Ord, Generic)
+  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)

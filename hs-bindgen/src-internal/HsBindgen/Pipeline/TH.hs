@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE OverloadedLabels #-}
 
 module HsBindgen.Pipeline.TH (
     -- * Template Haskell API
@@ -21,6 +22,7 @@ module HsBindgen.Pipeline.TH (
 import Control.Monad.State (State, execState, modify)
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
+import Optics (traverseOf, (%))
 import System.FilePath ((</>))
 
 import Clang.Args
@@ -29,6 +31,7 @@ import HsBindgen
 import HsBindgen.Backend.Artefact.TH.Translation
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec (BindingSpecConfig)
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend.RootHeader
@@ -40,6 +43,7 @@ import HsBindgen.Util.Tracer
 #ifdef MIN_VERSION_th_compat
 import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
 #else
+import HsBindgen.Backend.Hs.Translation (TranslationOpts (translationUniqueId))
 import Language.Haskell.TH.Syntax (getPackageRoot)
 #endif
 
@@ -108,10 +112,9 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         clangArgs = def {
             clangExtraIncludeDirs = CIncludeDir <$> includeDirs
           }
-        config :: Config
-        config = def { configClangArgs = clangArgs }
+    config <- ensureUniqueId $ baseConfig { configClangArgs = clangArgs}
 
-        -- Traverse #include directives.
+    let -- Traverse #include directives.
         bindgenState :: BindgenState
         bindgenState = execState hashIncludes (BindgenState [])
 
@@ -119,12 +122,10 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
-    moduleUnique <- getModuleUnique
     let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
     (I deps :* I decls :* I requiredExts :* Nil) <-
       hsBindgenQ
         tracerConfig
-        moduleUnique
         config
         bindingSpecConfig
         uncheckedHashIncludeArgs
@@ -139,6 +140,21 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
     toFilePaths xs = do
       root <- getPackageRoot
       pure $ map (toFilePath root) xs
+
+    ensureUniqueId :: Config -> TH.Q Config
+    ensureUniqueId config =
+      traverseOf
+        (#configTranslation % #translationUniqueId)
+        updateUniqueId
+        config
+
+    updateUniqueId :: UniqueId -> TH.Q UniqueId
+    updateUniqueId uniqueId@(UniqueId val)
+      | null val  = getUniqueId
+      | otherwise = pure uniqueId
+
+    getUniqueId :: TH.Q UniqueId
+    getUniqueId = UniqueId . TH.loc_package <$> TH.location
 
 -- | @#include@ (i.e., generate bindings for) a C header.
 --

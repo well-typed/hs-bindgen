@@ -25,7 +25,6 @@ module HsBindgen
 import Generics.SOP (I (..), NP (..))
 import Language.Haskell.TH (Q, runQ)
 
-import Clang.Args
 import Clang.Paths
 import HsBindgen.Backend
 import HsBindgen.Backend.Artefact.PP.Render qualified as PP
@@ -45,7 +44,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.ModuleUnique
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -55,7 +53,6 @@ import HsBindgen.Util.Tracer
 -- 'Artefact'.
 hsBindgen ::
      TracerConfig IO Level TraceMsg
-  -> ModuleUnique
   -> Config
   -> BindingSpecConfig
   -> [UncheckedHashIncludeArg]
@@ -69,7 +66,6 @@ hsBindgen = hsBindgen' id
 -- | Main entry point to run @hs-bindgen@ with Template Haskell.
 hsBindgenQ ::
      TracerConfig Q Level TraceMsg
-  -> ModuleUnique
   -> Config
   -> BindingSpecConfig
   -> [UncheckedHashIncludeArg]
@@ -81,7 +77,6 @@ hsBindgen' ::
      MonadIO m
   => (forall b. m b -> IO b)
   -> TracerConfig m Level TraceMsg
-  -> ModuleUnique
   -> Config
   -> BindingSpecConfig
   -> [UncheckedHashIncludeArg]
@@ -90,7 +85,6 @@ hsBindgen' ::
 hsBindgen'
   unliftIO
   tracerConfig
-  moduleUnique
   config
   bindingSpecConfig
   uncheckedHashIncludeArgs
@@ -105,19 +99,16 @@ hsBindgen'
           tracerBoot = contramap TraceBoot tracer
       -- 1. Boot.
       bootArtefact <- liftIO $
-        boot tracerBoot clangArgs bindingSpecConfig uncheckedHashIncludeArgs
+        boot tracerBoot config bindingSpecConfig uncheckedHashIncludeArgs
       -- 2. Frontend.
       frontendArtefact <- liftIO $
         frontend tracerFrontend config bootArtefact
       pure (bootArtefact, frontendArtefact)
     (bootArtefact, frontendArtefact) <- maybe fatalError pure mArtefact
     -- 3. Backend.
-    let backendArtefact = backend moduleUnique config frontendArtefact
+    let backendArtefact = backend config frontendArtefact
     -- 4. Artefacts.
     runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
-  where
-    clangArgs :: ClangArgs
-    clangArgs = configClangArgs config
 
 {-------------------------------------------------------------------------------
   Build artefacts

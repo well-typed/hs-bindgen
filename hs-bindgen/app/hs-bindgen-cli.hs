@@ -8,7 +8,7 @@ import Control.Monad (forM, void, (<=<))
 import Data.ByteString qualified as BS
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Optics
+import Optics (set)
 import System.Exit (ExitCode, exitFailure, exitSuccess)
 import Text.Read (readMaybe)
 
@@ -55,16 +55,13 @@ execPreprocess GlobalOpts{..} PreprocessOpts{..} = do
                         :* Nil
         in  void $ run $ artefacts
   where
-    moduleUnique = getModuleUnique config.configHsModuleOpts
     run :: Artefacts as -> IO (NP I as)
-    run = hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs
+    run = hsBindgen tracerConfig config bindingSpecConfig inputs
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
 execGenTests GlobalOpts{..} GenTestsOpts{..} = do
   let artefacts = writeTests config output :* Nil
-  void $ hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
-  where
-    moduleUnique = getModuleUnique config.configHsModuleOpts
+  void $ hsBindgen tracerConfig config bindingSpecConfig inputs artefacts
 
 execLiterate :: LiterateOpts -> IO ()
 execLiterate opts = do

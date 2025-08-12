@@ -30,6 +30,7 @@ module HsBindgen.TH (
   , Common.BindingSpecConfig(..)
 
     -- ** Translation options
+  , Common.UniqueId(..)
   , Common.TranslationOpts(..)
   , Common.Strategy(..)
   , Common.HsTypeClass(..)

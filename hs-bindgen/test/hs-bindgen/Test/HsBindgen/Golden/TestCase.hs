@@ -232,7 +232,7 @@ runTestArtefacts testResources test artefacts = do
           config
           bootArtefact
     -- Backend.
-    let backendArtefact = backend "test_internal" config frontendArtefact
+    let backendArtefact = backend config frontendArtefact
     -- Artefacts.
     runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
 
@@ -243,4 +243,3 @@ runTestRustBindgen testResources test = do
       testResources
       (configClangArgs config)
       (testInputPath test)
-
