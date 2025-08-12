@@ -1,18 +1,39 @@
 module HsBindgen.Backend.Hs.Haddock.Translation where
 
+import Data.Char (isDigit)
+import Data.List (partition)
 import Data.Text (Text)
 import Data.Text qualified as Text
-import Data.Char (isDigit)
-
-import Clang.HighLevel.Documentation qualified as C
-import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
-import Data.Maybe (isJust)
 import Text.Read (readMaybe)
+import Data.Maybe (isJust)
+
 import GHC.Natural (Natural)
 
+import Clang.HighLevel.Documentation qualified as C
+
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Language.Haskell (HsName(..))
+
 -- | Convert a Clang comment to a Haddock comment
-generateHaddocks :: C.Comment -> Hs.Comment
-generateHaddocks C.Comment{..} =
+--
+generateHaddocks :: Maybe C.Comment -> Maybe Hs.Comment
+generateHaddocks comment = fst $ generateHaddocksWithParams comment []
+
+-- | Convert a Clang comment to a Haddock comment, updating function parameters
+--
+-- This function processes 'C.ParamCommand' blocks:
+-- - If a parameter name matches one in the provided list, attach the comment to it
+-- - If no match is found, include the 'ParamCommand' in the resulting comment
+--
+-- Returns the processed comment and the updated parameters list
+--
+generateHaddocksWithParams ::
+     Maybe C.Comment
+  -> [Hs.FunctionParameter]
+  -> (Maybe Hs.Comment, [Hs.FunctionParameter])
+generateHaddocksWithParams Nothing params             = (Nothing, params)
+generateHaddocksWithParams (Just C.Comment{..}) params =
   let (commentTitle, commentChildren') =
         case commentChildren of
           (C.Paragraph [C.TextContent ""]:rest) -> (Nothing, rest)
@@ -25,24 +46,83 @@ generateHaddocks C.Comment{..} =
                                                    , rest
                                                    )
           _                                     -> (Nothing, commentChildren)
-   in Hs.Comment {
-        commentTitle
-      , commentOrigin   = if Text.null commentCName
-                             then Nothing
-                             else Just (Text.strip commentCName)
-      , commentChildren = concatMap ( convertBlockContent
-                                    . (\case
-                                          C.Paragraph ci -> C.Paragraph
-                                                          $ filter (\case
-                                                                      C.TextContent "" -> False
-                                                                      _                -> True
-                                                                   )
-                                                          $ ci
-                                          cb             -> cb
-                                      )
-                                    )
-                        $ commentChildren'
-      }
+
+      -- Separate 'ParamCommands' that match with provided parameters from
+      -- other block content
+      --
+      (paramCommands, otherContent) = partition isMatchingParamCommand commentChildren'
+
+      -- Process parameter commands and update parameters
+      --
+      updatedParams = processParamCommands paramCommands
+
+      -- Convert remaining content (including unmatched param commands)
+      finalChildren = concatMap ( convertBlockContent
+                                . (\case
+                                      C.Paragraph ci -> C.Paragraph
+                                                      $ filter (\case
+                                                                  C.TextContent "" -> False
+                                                                  _                -> True
+                                                               )
+                                                      $ ci
+                                      cb             -> cb
+                                  )
+                                )
+                    $ otherContent
+
+   in ( Just Hs.Comment {
+          commentTitle
+        , commentOrigin   = if Text.null commentCName
+                               then Nothing
+                               else Just (Text.strip commentCName)
+        , commentChildren = finalChildren
+        }
+      , updatedParams
+      )
+  where
+    -- Matches only 'C.ParamCommand' blocks that match a function parameter.
+    --
+    isMatchingParamCommand :: C.CommentBlockContent -> Bool
+    isMatchingParamCommand C.ParamCommand{..} =
+      any ( (\paramName -> not (Text.null paramCommandName)
+                        && paramName == Just paramCommandName
+            )
+          . fmap getHsName
+          . Hs.functionParameterName
+          ) params
+    isMatchingParamCommand _ = False
+
+    -- Process 'C.ParamCommand and update matching parameter
+    --
+    processParamCommands :: [C.CommentBlockContent] -> [Hs.FunctionParameter]
+    processParamCommands paramCmds =
+      go paramCmds params
+      where
+        go :: [C.CommentBlockContent]
+           -> [Hs.FunctionParameter]
+           -> [Hs.FunctionParameter]
+        go [] currentParams = currentParams
+
+        go (blockContent@C.ParamCommand{..}:rest) currentParams =
+          let comment =
+                Hs.Comment {
+                  commentTitle    = Nothing
+                , commentOrigin   = if Text.null paramCommandName
+                                       then Nothing
+                                       else Just (Text.strip paramCommandName)
+                , commentChildren = convertBlockContent blockContent
+                }
+              updatedParams =
+                map (\fp@Hs.FunctionParameter {..} ->
+                       if fmap getHsName functionParameterName == Hs.commentOrigin comment
+                          then fp { Hs.functionParameterComment = Just comment }
+                          else fp
+                    ) currentParams
+           in go rest updatedParams
+
+        -- This case should not happen since we filter the
+        -- 'C.CommentBlockContent' to be only 'C.ParamCommand's
+        go (_:rest) currentParams = go rest currentParams
 
 -- | Convert Clang block content to Haddock block content
 --
