@@ -11,6 +11,15 @@ import HsBindgen.BindingSpec
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Util.Tracer
 
+-- | Boot phase.
+--
+-- Basic setup and checks.
+--
+-- - Check arguments to @#include@.
+--
+-- - Load external binding specifications.
+--
+-- - Load prescriptive binding specifications.
 boot ::
      Tracer IO BootMsg
   -> ClangArgs
@@ -27,8 +36,8 @@ boot tracer clangArgs bindingSpecConfig uncheckedHashIncludeArgs = do
     (extSpec, pSpec) <-
       loadBindingSpecs tracerBindingSpec clangArgs bindingSpecConfig
     pure BootArtefact {
-        bootHashIncludeArgs = hashIncludeArgs
-        , bootExternalBindingSpec = extSpec
+          bootHashIncludeArgs         = hashIncludeArgs
+        , bootExternalBindingSpec     = extSpec
         , bootPrescriptiveBindingSpec = pSpec
         }
 
@@ -46,6 +55,7 @@ data BootArtefact = BootArtefact {
   Trace
 -------------------------------------------------------------------------------}
 
+-- | Boot trace messages
 data BootMsg =
     BootHashIncludeArg HashIncludeArgMsg
   | BootBindingSpec BindingSpecMsg

@@ -30,8 +30,7 @@ import HsBindgen.Pipeline.TH qualified as PipelineTH
 
 import Text.SimplePrettyPrint
 
-import HsBindgen.Backend
-import HsBindgen.Frontend
+import HsBindgen.Pipeline.TH (getExtensions)
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden (ActualValue (..))
 import Test.HsBindgen.Golden.TestCase
@@ -46,17 +45,14 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "th" fixture $ \_report ->
       if ghcAtLeast904 then do
-        (frontendArtefact, backendArtefact) <-
-          runTestBackend testResources test
         pkgroot <- getTestPackageRoot testResources
+        let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
+        (I deps :* I decls :* I requiredExts :* Nil) <- runTestArtefacts testResources test artefacts
 
-        let deps = frontendDependencies frontendArtefact
-            sHsDecls = backendSHsDecls backendArtefact
+        let thDecls :: Qu [TH.Dec]
+            thDecls = PipelineTH.genBindingsFromCHeader deps decls requiredExts
 
-            decls :: Qu [TH.Dec]
-            decls = PipelineTH.genBindingsFromCHeader deps sHsDecls
-
-            (QuState{..}, thdecs) = runQu decls
+            (QuState{..}, thdecs) = runQu thDecls
 
             -- Here we might have headers outside of our package, but in our
             -- test setup that SHOULD cause an error, as we use bundled stdlib.

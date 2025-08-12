@@ -95,7 +95,7 @@ clangAstDump opts@Options{..} = do
       Nothing -> fatalError
       Just _  -> pure ()
   where
-    tracerConf :: TracerConfig IO DumpTrace Level
+    tracerConf :: TracerConfig IO Level DumpTrace
     tracerConf = def {
         tVerbosity = Verbosity Notice
       }

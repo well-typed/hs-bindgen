@@ -139,12 +139,12 @@ assertMaxLevelWithDegrade =
   assertMaxLevelWithCustomLogLevel (CustomLogLevel $ const $ Just Info)
 
 assertMaxLevelWithCustomLogLevel
-  :: CustomLogLevel TestTrace Level -> [TestTrace] -> Level -> Assertion
+  :: CustomLogLevel Level TestTrace -> [TestTrace] -> Level -> Assertion
 assertMaxLevelWithCustomLogLevel customLogLevel traces expectedLevel = do
   lvl <- testTracerIO customLogLevel traces
   lvl @?= expectedLevel
 
-testTracerIO :: CustomLogLevel TestTrace Level -> [TestTrace] -> IO Level
+testTracerIO :: CustomLogLevel Level TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
   let noOutput _ _ = pure ()
       tracerConfig = def {

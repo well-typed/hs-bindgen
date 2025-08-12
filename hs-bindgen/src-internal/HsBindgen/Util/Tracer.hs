@@ -167,12 +167,14 @@ getColorForLevel = \case
 -- warnings and errors should be handled in the frontend.
 --
 -- Traces with safe log levels can not abort the program.
-data SafeLevel = SafeDebug | SafeInfo
+data SafeLevel = SafeDebug | SafeInfo | SafeNotice
   deriving stock (Show, Eq)
 
 fromSafeLevel :: SafeLevel -> Level
-fromSafeLevel SafeDebug = Debug
-fromSafeLevel SafeInfo  = Info
+fromSafeLevel = \ case
+  SafeDebug  -> Debug
+  SafeInfo   -> Info
+  SafeNotice -> Notice
 
 -- | Convert values to textual representations used in traces.
 class PrettyForTrace a where
@@ -337,27 +339,35 @@ outputConfigQ = OutputReport report DisableAnsiColor
 -- The custom log level function takes a trace and either returns 'Just' a
 -- custom log level, or 'Nothing', if it does not customize the log level of the
 -- trace.
-newtype CustomLogLevel a l = CustomLogLevel { getCustomLogLevel :: a -> Maybe l }
+newtype CustomLogLevel l a = CustomLogLevel { getCustomLogLevel :: a -> Maybe l }
 
 -- | NOTE: Custom log levels on the left-hand-side overrule custom log levels on
 -- the right-hand-side.
-instance Semigroup (CustomLogLevel a l) where
+instance Semigroup (CustomLogLevel l a) where
   (CustomLogLevel l) <> (CustomLogLevel r) =
     CustomLogLevel $ \x -> l x `mplus` r x
 
-instance Monoid (CustomLogLevel a l) where
+instance Monoid (CustomLogLevel l a) where
   mempty = CustomLogLevel $ const Nothing
 
+instance Contravariant (CustomLogLevel l) where
+  contramap f (CustomLogLevel g) = CustomLogLevel $ g . f
+
 -- | Configuration of tracer.
-data TracerConfig m a l = TracerConfig {
+data TracerConfig m l a = TracerConfig {
     tVerbosity      :: !Verbosity
   , tOutputConfig   :: !(OutputConfig m)
-  , tCustomLogLevel :: !(CustomLogLevel a l)
+  , tCustomLogLevel :: !(CustomLogLevel l a)
   , tShowTimeStamp  :: !ShowTimeStamp
   , tShowCallStack  :: !ShowCallStack
   }
 
-instance Default (TracerConfig m a l) where
+instance Contravariant (TracerConfig m l) where
+  contramap f tracerConfig =
+    let customLogLevel = tCustomLogLevel tracerConfig
+    in  tracerConfig { tCustomLogLevel = contramap f customLogLevel }
+
+instance Default (TracerConfig m l a) where
   def = TracerConfig
     { tVerbosity      = (Verbosity Info)
     , tOutputConfig   = def
@@ -380,7 +390,7 @@ instance Default (TracerConfig m a l) where
 -- Return 'Nothing' if an 'Error' trace was emitted.
 withTracer
   :: forall m a b. (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, HasSource a)
-  => TracerConfig m a Level
+  => TracerConfig m Level a
   -> (Tracer m a -> m b)
   -> m (Maybe b)
 withTracer tracerConf action = nothingOnError (withTracer' tracerConf action)
@@ -399,7 +409,7 @@ fatalError = liftIO $ do
 -- tests.
 withTracer' :: forall m a b.
   (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a,  HasSource a)
-  => TracerConfig m a Level
+  => TracerConfig m Level a
   -> (Tracer m a -> m b)
   -> m (b, Level)
 withTracer' TracerConfig{..} action = do
@@ -435,23 +445,26 @@ withTracer' TracerConfig{..} action = do
 -- See 'SafeLevel'.
 withTracerSafe :: forall m a b.
      (MonadIO m, PrettyForTrace a, HasDefaultSafeLogLevel a, HasSource a)
-  => TracerConfig m a SafeLevel
+  => TracerConfig m SafeLevel a
   -> (Tracer m a -> m b)
   -> m b
 withTracerSafe tracerConf action =
     fst <$> withTracer' tracerConf' action'
   where
     action' :: Tracer m (SafeTrace a) -> m b
-    action' tracerUnsafe = action (contramap SafeTrace tracerUnsafe)
+    action' = action . contramap SafeTrace
 
-    customLogLevelSafe :: a -> Maybe SafeLevel
-    customLogLevelSafe = getCustomLogLevel $ tCustomLogLevel tracerConf
+    changeLevel :: (l -> l') -> CustomLogLevel l c -> CustomLogLevel l' c
+    changeLevel f = CustomLogLevel . (fmap . fmap) f . getCustomLogLevel
 
-    tracerConf' :: TracerConfig m (SafeTrace a) Level
-    tracerConf' = tracerConf {
-        tCustomLogLevel = CustomLogLevel $
-          \(SafeTrace trace) -> fromSafeLevel <$> customLogLevelSafe trace
-      }
+    customLogLevel :: CustomLogLevel Level (SafeTrace a)
+    customLogLevel =
+      changeLevel fromSafeLevel $
+        contramap getSafeTrace $
+        tCustomLogLevel tracerConf
+
+    tracerConf' :: TracerConfig m Level (SafeTrace a)
+    tracerConf' = tracerConf { tCustomLogLevel = customLogLevel}
 
 data SafeTrace a = SafeTrace { getSafeTrace :: a }
   deriving (Show, Eq, Generic)
@@ -461,6 +474,7 @@ instance PrettyForTrace a => PrettyForTrace (SafeTrace a) where
 
 instance HasDefaultSafeLogLevel a => HasDefaultLogLevel (SafeTrace a) where
   getDefaultLogLevel x = fromSafeLevel $ getDefaultSafeLogLevel (getSafeTrace x)
+
 instance HasSource a => HasSource (SafeTrace a) where
   getSource = getSource . getSafeTrace
 
@@ -481,7 +495,7 @@ mkTracer :: forall m a.
      , HasSource a
      )
   => AnsiColor
-  -> CustomLogLevel a Level
+  -> CustomLogLevel Level a
   -> IORef Level
   -> Verbosity
   -> ShowCallStack

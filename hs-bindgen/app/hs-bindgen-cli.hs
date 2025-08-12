@@ -40,11 +40,18 @@ execCli Cli{..} = case cliCmd of
 execPreprocess :: GlobalOpts -> PreprocessOpts -> IO ()
 execPreprocess GlobalOpts{..} PreprocessOpts{..} = do
     case outputBindingSpec of
-      -- TODO: We can not assemble the heterogeneous list of artefacts before
+      -- NOTE: We can not assemble the heterogeneous list of artefacts before
       -- evaluating `hsBindgen`. The types don't line up. (We even have to pull
       -- 'void' inside the case statement).
-      Nothing   -> void $ run $ (writeBindings output) :* Nil
-      Just file -> void $ run $ (writeBindings output) :* writeBindingSpec file :* Nil
+      Nothing ->
+        let artefacts =    writeBindings config output
+                        :* Nil
+        in  void $ run artefacts
+      Just file ->
+        let artefacts =    writeBindings config output
+                        :* writeBindingSpec config file
+                        :* Nil
+        in  void $ run $ artefacts
   where
     moduleUnique = getModuleUnique config.configHsModuleOpts
     run :: Artefacts as -> IO (NP I as)
@@ -52,7 +59,7 @@ execPreprocess GlobalOpts{..} PreprocessOpts{..} = do
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
 execGenTests GlobalOpts{..} GenTestsOpts{..} = do
-  let artefacts = writeTests output :* Nil
+  let artefacts = writeTests config output :* Nil
   void $ hsBindgen tracerConfig moduleUnique config bindingSpecConfig inputs artefacts
   where
     moduleUnique = getModuleUnique config.configHsModuleOpts
@@ -79,7 +86,8 @@ execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
       getStdlibBindingSpec (contramap (TraceBoot . BootBindingSpec) tracer) clangArgs
     BS.putStr $ encodeBindingSpecYaml spec
 
--- TODO: Should header resolution be a (boot) artefact?
+-- TODO: Header resolution should be a (boot) artefact;
+-- https://github.com/well-typed/hs-bindgen/issues/990.
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
 execResolve GlobalOpts{..} ResolveOpts{..} = do
     mErr <- withTracer tracerConfig $ \tracer -> do

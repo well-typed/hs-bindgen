@@ -45,7 +45,7 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig  :: TracerConfig IO TraceMsg Level
+      tracerConfig  :: TracerConfig IO Level TraceMsg
     }
 
 parseGlobalOpts :: Parser GlobalOpts
@@ -55,7 +55,7 @@ parseGlobalOpts = GlobalOpts <$> parseTracerConfig
   Tracer configuration
 -------------------------------------------------------------------------------}
 
-parseTracerConfig :: Parser (TracerConfig IO TraceMsg Level)
+parseTracerConfig :: Parser (TracerConfig IO Level TraceMsg)
 parseTracerConfig =
     TracerConfig
       <$> parseVerbosity
@@ -85,7 +85,7 @@ parseVerbosity =
       3          -> Info
       _otherwise -> Debug
 
-parseCustomLogLevel :: Parser (CustomLogLevel TraceMsg Level)
+parseCustomLogLevel :: Parser (CustomLogLevel Level TraceMsg)
 parseCustomLogLevel = fromMacroWarnings <$> parseMacroWarnings
     where
       fromMacroWarnings macroWarnings =

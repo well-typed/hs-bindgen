@@ -91,8 +91,6 @@ module HsBindgen.Common (
 
     -- * Re-exports
   , Default(..)
-  , HsBindgen.I (..)
-  , HsBindgen.NP (..)
   ) where
 
 import System.FilePath qualified as FilePath
@@ -109,7 +107,5 @@ import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.TraceMsg qualified as TraceMsg
 import HsBindgen.Util.Tracer qualified as Tracer
-
-import HsBindgen qualified
 
 import HsBindgen.Imports (Default (..))

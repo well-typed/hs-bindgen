@@ -58,6 +58,9 @@ import HsBindgen.Util.Tracer
 -- | Traces supported by @hs-bindgen@.
 --
 -- Lazy on purpose to avoid evaluation when traces are not reported.
+--
+-- Does not include backend messages because, unlike 'TraceMsg', backend
+-- messages cannot include 'Error's, or 'Warning's.
 data TraceMsg =
     TraceBoot          BootMsg
   | TraceFrontend      FrontendMsg
@@ -73,7 +76,7 @@ data TraceMsg =
 --
 -- NOTE: The order of settings matters. The first setting specifying a custom
 -- log level for the emitted trace overrules later settings.
-customLogLevelFrom :: [CustomLogLevelSetting] -> CustomLogLevel TraceMsg Level
+customLogLevelFrom :: [CustomLogLevelSetting] -> CustomLogLevel Level TraceMsg
 customLogLevelFrom = mconcat . map fromCustomLogLevelSetting
 
 -- | List of predefined log level customization settings.
@@ -85,17 +88,17 @@ data CustomLogLevelSetting =
   | UCharHeaderResolutionTraceIsInfo
   deriving stock (Eq, Show)
 
-fromCustomLogLevelSetting :: CustomLogLevelSetting -> CustomLogLevel TraceMsg Level
+fromCustomLogLevelSetting :: CustomLogLevelSetting -> CustomLogLevel Level TraceMsg
 fromCustomLogLevelSetting = \case
   MacroTracesAreWarnings     -> macroTracesAreWarnings
   UCharHeaderResolutionTraceIsInfo -> uCharResolutionTraceIsInfo
   where
-    macroTracesAreWarnings :: CustomLogLevel TraceMsg Level
+    macroTracesAreWarnings :: CustomLogLevel Level TraceMsg
     macroTracesAreWarnings = CustomLogLevel $ \case
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{})) -> Just Warning
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))      -> Just Warning
         _otherTrace -> Nothing
-    uCharResolutionTraceIsInfo :: CustomLogLevel TraceMsg Level
+    uCharResolutionTraceIsInfo :: CustomLogLevel Level TraceMsg
     uCharResolutionTraceIsInfo = CustomLogLevel $ \case
         TraceResolveHeader (ResolveHeaderNotFound h)
           | getHashIncludeArg h == "uchar.h" -> Just Info

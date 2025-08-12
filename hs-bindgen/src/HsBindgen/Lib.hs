@@ -4,10 +4,13 @@
 
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.Lib (
+    -- * Run @hs-bindgen@
     HsBindgen.hsBindgen
   , resolveHeader
   , HsBindgen.Artefact(..)
   , HsBindgen.Artefacts
+
+    -- ** Predefined artefacts
   , HsBindgen.writeBindings
   , HsBindgen.writeBindingSpec
   , HsBindgen.writeTests
@@ -118,8 +121,8 @@ module HsBindgen.Lib (
 
     -- * Re-exports
   , Common.Default (..)
-  , Common.I (..)
-  , Common.NP (..)
+  , HsBindgen.I (..)
+  , HsBindgen.NP (..)
   ) where
 
 import HsBindgen.Common qualified as Common

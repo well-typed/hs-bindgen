@@ -11,6 +11,10 @@ module HsBindgen.Pipeline.TH (
   , tracerConfigDefQ
   , withHsBindgen
   , hashInclude
+    -- * Artefacts
+  , getExtensions
+
+    -- * Internal
   , genBindingsFromCHeader
   ) where
 
@@ -60,7 +64,7 @@ data BindgenOpts = BindgenOpts {
     -- * Binding specifications
   , bindingSpecConfig :: BindingSpecConfig
     -- * Tracer
-  , tracerConfig      :: TracerConfig TH.Q TraceMsg Level
+  , tracerConfig      :: TracerConfig TH.Q Level TraceMsg
   }
 
 instance Default BindgenOpts where
@@ -73,7 +77,7 @@ instance Default BindgenOpts where
 
 -- | The default tracer configuration in Q has verbosity 'Notice' and uses
 -- 'outputConfigQ'.
-tracerConfigDefQ :: TracerConfig TH.Q TraceMsg Level
+tracerConfigDefQ :: TracerConfig TH.Q Level TraceMsg
 tracerConfigDefQ = def {
         tVerbosity = Verbosity Notice
       , tOutputConfig = outputConfigQ
@@ -98,33 +102,34 @@ data BindgenState = BindgenState {
 -- >   hashInclude "b.h"
 withHsBindgen :: BindgenOpts -> Bindgen () -> TH.Q [TH.Dec]
 withHsBindgen BindgenOpts{..} hashIncludes = do
-  checkHsBindgenRuntimePreludeIsInScope
-  includeDirs <- toFilePaths extraIncludeDirs
-  let clangArgs :: ClangArgs
-      clangArgs = def {
-          clangExtraIncludeDirs = CIncludeDir <$> includeDirs
-        }
-      config :: Config
-      config = def { configClangArgs = clangArgs }
+    checkHsBindgenRuntimePreludeIsInScope
+    includeDirs <- toFilePaths extraIncludeDirs
+    let clangArgs :: ClangArgs
+        clangArgs = def {
+            clangExtraIncludeDirs = CIncludeDir <$> includeDirs
+          }
+        config :: Config
+        config = def { configClangArgs = clangArgs }
 
-      -- Traverse #include directives.
-      bindgenState :: BindgenState
-      bindgenState = execState hashIncludes (BindgenState [])
+        -- Traverse #include directives.
+        bindgenState :: BindgenState
+        bindgenState = execState hashIncludes (BindgenState [])
 
-      -- Restore original order of include directives.
-      uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
-      uncheckedHashIncludeArgs =
-        reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
-  moduleUnique <- getModuleUnique
-  let artefacts = Dependencies :* SHs :* Nil
-  (I deps :* I decls :* Nil) <- hsBindgenQ
-                           tracerConfig
-                           moduleUnique
-                           config
-                           bindingSpecConfig
-                           uncheckedHashIncludeArgs
-                           artefacts
-  genBindingsFromCHeader deps decls
+        -- Restore original order of include directives.
+        uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
+        uncheckedHashIncludeArgs =
+          reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
+    moduleUnique <- getModuleUnique
+    let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
+    (I deps :* I decls :* I requiredExts :* Nil) <-
+      hsBindgenQ
+        tracerConfig
+        moduleUnique
+        config
+        bindingSpecConfig
+        uncheckedHashIncludeArgs
+        artefacts
+    genBindingsFromCHeader deps decls requiredExts
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
     toFilePath root (RelativeToPkgRoot x) = root </> x
@@ -154,13 +159,29 @@ hashInclude arg = do
       prependArg = BindgenState . (arg :) . bindgenStateUncheckedHashIncludeArgs
   modify prependArg
 
+{-------------------------------------------------------------------------------
+  Artefacts
+-------------------------------------------------------------------------------}
+
+-- | Get required extensions.
+getExtensions :: Artefact (Set TH.Extension)
+getExtensions =
+  Lift
+    (FinalDecls :* Nil)
+    (\(I decls :* Nil) -> pure $ foldMap requiredExtensions decls)
+
+{-------------------------------------------------------------------------------
+  Internal
+-------------------------------------------------------------------------------}
+
 -- | Internal API; exported for testing; non-IO part of 'withHsBindgen'
 genBindingsFromCHeader
     :: Guasi q
     => [SourcePath]
     -> [SHs.SDecl]
+    -> Set TH.Extension
     -> q [TH.Dec]
-genBindingsFromCHeader deps decls = do
+genBindingsFromCHeader deps decls requiredExts = do
     -- Record dependencies, including transitively included headers.
     mapM_ (addDependentFile . getSourcePath) deps
 
@@ -169,8 +190,7 @@ genBindingsFromCHeader deps decls = do
     -- TODO: We could also check which enabled extension may interfere with the
     -- generated code (e.g. Strict/Data).
     enabledExts <- Set.fromList <$> extsEnabled
-    let requiredExts = foldMap requiredExtensions decls
-        missingExts  = requiredExts `Set.difference` enabledExts
+    let missingExts  = requiredExts `Set.difference` enabledExts
     -- TODO: The following error should be a trace.
     unless (null missingExts) $ do
       reportError $ "Missing LANGUAGE extensions: "

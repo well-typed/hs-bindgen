@@ -19,9 +19,7 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestSimple
   , failingTestCustom
     -- * Execution
-  , runTestFrontend
-  , runTestBackend
-  , runTestRunArtefacts
+  , runTestArtefacts
   , runTestRustBindgen
     -- ** Low-level
   , getTestConfig
@@ -221,29 +219,22 @@ getTestBootArtefact testResources test = do
         , bootPrescriptiveBindingSpec = pSpec
         }
 
-runTestFrontend :: IO TestResources -> TestCase -> IO FrontendArtefact
-runTestFrontend testResources test = do
-    config       <- getTestConfig  testResources test
-    bootArtefact <- getTestBootArtefact testResources test
-    withTestTracer test $ \tracer ->
-      frontend
-        (contramap TraceFrontend tracer)
-        config
-        bootArtefact
-
-runTestBackend :: IO TestResources -> TestCase -> IO (FrontendArtefact, BackendArtefact)
-runTestBackend testResources test = do
+runTestArtefacts :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+runTestArtefacts testResources test artefacts = do
     config           <- getTestConfig  testResources test
-    frontendArtefact <- runTestFrontend testResources test
+    -- Boot.
+    bootArtefact     <- getTestBootArtefact testResources test
+    -- Frontend.
+    frontendArtefact <-
+      withTestTracer test $ \tracer ->
+        frontend
+          (contramap TraceFrontend tracer)
+          config
+          bootArtefact
+    -- Backend.
     let backendArtefact = backend "test_internal" config frontendArtefact
-    pure (frontendArtefact, backendArtefact)
-
-runTestRunArtefacts :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
-runTestRunArtefacts testResources test artefacts = do
-    config       <- getTestConfig  testResources test
-    bootArtefact <- getTestBootArtefact testResources test
-    (frontendArtefact, backendArtefact) <- runTestBackend testResources test
-    runArtefacts config bootArtefact frontendArtefact backendArtefact artefacts
+    -- Artefacts.
+    runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
 
 runTestRustBindgen :: IO TestResources -> TestCase -> IO RustBindgenResult
 runTestRustBindgen testResources test = do

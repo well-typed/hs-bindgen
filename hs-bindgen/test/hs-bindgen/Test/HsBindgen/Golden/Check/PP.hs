@@ -18,8 +18,9 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "pp" fixture $ \_report -> do
-      let getBindingsA = getBindings :* Nil
-      (I output :* Nil) <- runTestRunArtefacts testResources test getBindingsA
+      config <- getTestConfig testResources test
+      let artefacts = getBindings config :* Nil
+      (I output :* Nil) <- runTestArtefacts testResources test artefacts
       return $ ActualValue output
   where
     fixture :: FilePath

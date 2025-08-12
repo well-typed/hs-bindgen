@@ -12,24 +12,33 @@ import HsBindgen.Config
 import HsBindgen.Frontend
 import HsBindgen.ModuleUnique
 
+-- | The backend translates the parsed C declarations in to Haskell
+-- declarations.
+--
+-- The backend is pure and should not emit warnings or errors.
 backend :: ModuleUnique -> Config -> FrontendArtefact -> BackendArtefact
 backend moduleUnique Config{..} FrontendArtefact{..} =
-  BackendArtefact {
-    backendHsDecls  = hsDecls
-  , backendSHsDecls = sHsDecls
-  }
-  where
-    hsDecls :: [Hs.Decl]
-    hsDecls = Hs.generateDeclarations configTranslation moduleUnique frontendCDecls
+  let -- 1. Reified C declarations to @Hs@ declarations.
+      hsDecls :: [Hs.Decl]
+      hsDecls = Hs.generateDeclarations configTranslation moduleUnique frontendCDecls
 
-    sHsDecls :: [SHs.SDecl]
-    sHsDecls = SHs.simplifySHs $ SHs.translateDecls hsDecls
+      -- 2. @Hs@ declarations to simple @Hs@ declarations.
+      sHsDecls :: [SHs.SDecl]
+      sHsDecls = SHs.translateDecls hsDecls
+
+      -- 3. Simplify
+      finalDecls :: [SHs.SDecl]
+      finalDecls = SHs.simplifySHs sHsDecls
+  in BackendArtefact {
+    backendHsDecls    = hsDecls
+  , backendFinalDecls = finalDecls
+  }
 
 {-------------------------------------------------------------------------------
   Backend
 -------------------------------------------------------------------------------}
 
 data BackendArtefact = BackendArtefact {
-    backendHsDecls  ::  [Hs.Decl]
-  , backendSHsDecls :: [SHs.SDecl]
+    backendHsDecls    :: [Hs.Decl]
+  , backendFinalDecls :: [SHs.SDecl]
   }

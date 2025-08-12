@@ -106,8 +106,6 @@ module HsBindgen.TH (
 
    -- * Re-exports
   , Common.Default(..)
-  , Common.I (..)
-  , Common.NP (..)
   ) where
 
 import HsBindgen.Common qualified as Common

@@ -19,7 +19,7 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenEDiff "treediff" fixture $ \_report -> do
-      (I deps :* I decls :* Nil) <- runTestRunArtefacts testResources test
+      (I deps :* I decls :* Nil) <- runTestArtefacts testResources test
         (Dependencies :* ReifiedC :* Nil)
       pure $ ActualValue $ C.TranslationUnit decls deps
   where

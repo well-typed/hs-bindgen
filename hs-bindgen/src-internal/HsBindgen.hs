@@ -22,7 +22,6 @@ module HsBindgen
   , runArtefacts
   ) where
 
-import Data.Functor ((<&>))
 import Generics.SOP (I (..), NP (..))
 import Language.Haskell.TH (Q, runQ)
 
@@ -50,12 +49,12 @@ import HsBindgen.ModuleUnique
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
--- TODO: TracerConfig into Config?
--- TODO: BindingSpecConfig into Config?
--- TODO: ModuleUnique into Config?
-
+-- | Main entry point to run @hs-bindgen@.
+--
+-- For a list of build artefacts, see the description and constructors of
+-- 'Artefact'.
 hsBindgen ::
-     TracerConfig IO TraceMsg Level
+     TracerConfig IO Level TraceMsg
   -> ModuleUnique
   -> Config
   -> BindingSpecConfig
@@ -64,8 +63,12 @@ hsBindgen ::
   -> IO (NP I as)
 hsBindgen = hsBindgen' id
 
+-- TODO: Can we get rid of 'hsBindgenQ' and the need to use 'runQ'?
+-- https://github.com/well-typed/hs-bindgen/issues/865.
+
+-- | Main entry point to run @hs-bindgen@ with Template Haskell.
 hsBindgenQ ::
-     TracerConfig Q TraceMsg Level
+     TracerConfig Q Level TraceMsg
   -> ModuleUnique
   -> Config
   -> BindingSpecConfig
@@ -77,7 +80,7 @@ hsBindgenQ = hsBindgen' runQ
 hsBindgen' ::
      MonadIO m
   => (forall b. m b -> IO b)
-  -> TracerConfig m TraceMsg Level
+  -> TracerConfig m Level TraceMsg
   -> ModuleUnique
   -> Config
   -> BindingSpecConfig
@@ -92,7 +95,7 @@ hsBindgen'
   bindingSpecConfig
   uncheckedHashIncludeArgs
   artefacts = do
-    -- Boot and frontend (requires unsafe tracer and `libclang`).
+    -- Boot and frontend require unsafe tracer and `libclang`.
     mArtefact <- withTracer tracerConfig $ \tracerM -> do
       let tracer :: Tracer IO TraceMsg
           tracer = natTracer unliftIO tracerM
@@ -100,15 +103,18 @@ hsBindgen'
           tracerFrontend = contramap TraceFrontend tracer
           tracerBoot :: Tracer IO BootMsg
           tracerBoot = contramap TraceBoot tracer
+      -- 1. Boot.
       bootArtefact <- liftIO $
         boot tracerBoot clangArgs bindingSpecConfig uncheckedHashIncludeArgs
+      -- 2. Frontend.
       frontendArtefact <- liftIO $
         frontend tracerFrontend config bootArtefact
       pure (bootArtefact, frontendArtefact)
     (bootArtefact, frontendArtefact) <- maybe fatalError pure mArtefact
-    -- Backend.
+    -- 3. Backend.
     let backendArtefact = backend moduleUnique config frontendArtefact
-    runArtefacts config bootArtefact frontendArtefact backendArtefact artefacts
+    -- 4. Artefacts.
+    runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
   where
     clangArgs :: ClangArgs
     clangArgs = configClangArgs config
@@ -117,88 +123,81 @@ hsBindgen'
   Build artefacts
 -------------------------------------------------------------------------------}
 
--- TODO: Hide internal API.
---
--- -- | Haskell declarations, translated from a C header
--- newtype HsDecls = WrapHsDecls {
---       unwrapHsDecls :: [Hs.Decl]
---     }
-
--- TODO: The "get" and "write" functions have access to 'Config' for now because
--- it needs access to pretty printer configurations. I think we have two
--- possibilities here: Either we collect all configuration into a single
--- 'Config' object and let getters/writers access this object. Or we separate
--- pretty-printer related configuration and directly apply the configuration
--- when defining the getters or writers such as 'getBindings' or
--- 'writeBindings'.
-
+-- | Build artefact.
 data Artefact (a :: Star) where
-  -- Boot.
+  -- * Boot
   HashIncludArgs :: Artefact [HashIncludeArg]
-  -- Frontend.
+  -- * Frontend
   IncludeGraph   :: Artefact IncludeGraph.IncludeGraph
   DeclIndex      :: Artefact DeclIndex.DeclIndex
   UseDeclGraph   :: Artefact UseDeclGraph.UseDeclGraph
   DeclUseGraph   :: Artefact DeclUseGraph.DeclUseGraph
   ReifiedC       :: Artefact [C.Decl]
   Dependencies   :: Artefact [SourcePath]
-  -- Backend.
-  Hs             :: Artefact [Hs.Decl]
-  SHs            :: Artefact [SHs.SDecl]
-  -- Getter.
-  Get :: Artefacts as -> (Config -> NP I as -> b) -> Artefact b
-  -- Writer.
-  Write :: Artefacts as -> (Config -> NP I as -> IO b) -> Artefact b
+  -- * Backend
+  HsDecls        :: Artefact [Hs.Decl]
+  FinalDecls     :: Artefact [SHs.SDecl]
+  -- * Lift
+  Lift :: Artefacts as -> (NP I as -> IO b) -> Artefact b
 
+instance Functor Artefact where
+  fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
+
+-- | A list of 'Artefact's.
 type Artefacts as = NP Artefact as
 
--- Writers.
-writeIncludeGraph :: Maybe FilePath -> Artefact ()
-writeIncludeGraph mfile =
-  Write
+-- | Write the include graph to file.
+writeIncludeGraph :: FilePath -> Artefact ()
+writeIncludeGraph file =
+  Lift
     (IncludeGraph :* Nil)
-    (\_ (I includeGraph :* Nil) -> write mfile (IncludeGraph.dumpMermaid includeGraph))
+    (\(I includeGraph :* Nil) -> writeFile file (IncludeGraph.dumpMermaid includeGraph))
 
-writeUseDeclGraph :: Maybe FilePath -> Artefact ()
-writeUseDeclGraph mfile =
-  Write
+-- | Write @use-decl@ graph to file.
+writeUseDeclGraph :: FilePath -> Artefact ()
+writeUseDeclGraph file =
+  Lift
     (DeclIndex :* UseDeclGraph :* Nil)
-    (\_ (I index :* I useDeclGraph :* Nil) ->
-       write mfile (UseDeclGraph.dumpMermaid index useDeclGraph)
+    (\(I index :* I useDeclGraph :* Nil) ->
+       writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
     )
 
-getBindings :: Artefact String
-getBindings =
-  Get
-    (SHs :* Nil)
-    (\Config{..} (I sHsDecls :* Nil) ->
+-- | Get bindings.
+getBindings :: Config -> Artefact String
+getBindings Config{..} =
+  Lift
+    (FinalDecls :* Nil)
+    (\(I finalDecls :* Nil) ->
       let translate :: [SHs.SDecl] -> PP.HsModule
           translate = PP.translateModule configHsModuleOpts
 
           render :: PP.HsModule -> String
           render = PP.render configHsRenderOpts
-      in render $ translate sHsDecls
+      in pure . render $ translate finalDecls
     )
 
-writeBindings :: Maybe FilePath -> Artefact ()
-writeBindings mfile =
-  Write
-    (getBindings :* Nil)
-    (\_ (I bindings :* Nil) -> write mfile bindings)
+-- | Write bindings to file. If no file is given, print to standard output.
+writeBindings :: Config -> Maybe FilePath -> Artefact ()
+writeBindings config mfile =
+  Lift
+    (getBindings config :* Nil)
+    (\(I bindings :* Nil) -> write mfile bindings)
 
-writeBindingSpec :: FilePath -> Artefact ()
-writeBindingSpec file =
-  Write
-    (HashIncludArgs :* Hs :* Nil)
-    (\config (I hashIncludeArgs :* I hsDecls :* Nil) ->
+-- | Write binding specifications to file.
+writeBindingSpec :: Config -> FilePath -> Artefact ()
+writeBindingSpec config file =
+  Lift
+    (HashIncludArgs :* HsDecls :* Nil)
+    (\(I hashIncludeArgs :* I hsDecls :* Nil) ->
        genBindingSpec config hashIncludeArgs file hsDecls
     )
 
-writeTests :: FilePath -> Artefact ()
-writeTests testDir =
-  Write
-    (HashIncludArgs :* Hs :* Nil)
-    (\Config{..} (I hashIncludeArgs :* I hsDecls :* Nil) ->
+-- | Create test suite in directory.
+writeTests :: Config -> FilePath -> Artefact ()
+writeTests Config{..} testDir =
+  Lift
+    (HashIncludArgs :* HsDecls :* Nil)
+    (\(I hashIncludeArgs :* I hsDecls :* Nil) ->
        genTests
          hashIncludeArgs
          hsDecls
@@ -211,16 +210,15 @@ writeTests testDir =
   Artefacts
 -------------------------------------------------------------------------------}
 
+-- | Compute the results of a list of artefacts.
 runArtefacts ::
      MonadIO m
-  => Config
-  -> BootArtefact
+  => BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefacts as
   -> m (NP I as)
 runArtefacts
-  config
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..} = go
@@ -241,12 +239,10 @@ runArtefacts
       ReifiedC     -> pure frontendCDecls
       Dependencies -> pure frontendDependencies
       -- Backend.
-      Hs     -> pure backendHsDecls
-      SHs    -> pure backendSHsDecls
-      -- Getter.
-      (Get as' f)   -> go as' <&> f config
-      -- Writer.
-      (Write as' f) -> go as' >>= liftIO . f config
+      HsDecls      -> pure backendHsDecls
+      FinalDecls   -> pure backendFinalDecls
+      -- Lift.
+      (Lift as' f) -> go as' >>= liftIO . f
 
 {-------------------------------------------------------------------------------
   Helpers

@@ -8,7 +8,7 @@ import Test.Tasty
 import HsBindgen.Imports
 
 import HsBindgen
-import HsBindgen.Backend.Extensions
+import HsBindgen.Pipeline.TH (getExtensions)
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
@@ -21,10 +21,10 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "exts" fixture $ \_report -> do
-      (I sHsDecls :* Nil) <- runTestRunArtefacts testResources test (SHs :* Nil)
+      let artefacts = getExtensions :* Nil
+      (I requiredExts :* Nil) <- runTestArtefacts testResources test artefacts
       let output :: String
-          output = unlines $ map show $ List.sort $ toList $
-              foldMap requiredExtensions sHsDecls
+          output = unlines $ map show $ List.sort $ toList $ requiredExts
 
       return $ ActualValue output
   where

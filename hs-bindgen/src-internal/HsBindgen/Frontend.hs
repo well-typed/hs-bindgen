@@ -97,7 +97,7 @@ frontend ::
   -> IO FrontendArtefact
 frontend tracer Config{..} BootArtefact{..} = do
     -- Frontend: Impure parse pass
-    mParseResult <-
+    (afterParse, isMainHeader, isInMainHeaderDir) <- fmap (fromMaybe emptyParseResult) $
       withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader) <-
           processIncludes rootHeader unit
@@ -111,12 +111,6 @@ frontend tracer Config{..} BootArtefact{..} = do
           getMainHeader
           unit
         pure (reifiedUnit, isMainHeader, isInMainHeaderDir)
-
-    -- TODO: Failing tests expect silent fail without output.
-    -- (afterParse, isMainHeader, isInMainHeaderDir) <-
-    --   maybe clangParseError pure mParseResult
-    let (afterParse, isMainHeader, isInMainHeaderDir) =
-          fromMaybe emptyParseResult mParseResult
 
     -- Frontend: Pure passes.
     let (afterSort, msgsSort) =
@@ -189,12 +183,6 @@ frontend tracer Config{..} BootArtefact{..} = do
 
     selectConfig :: SelectConfig
     selectConfig = SelectConfig configProgramSlicing configSelectPredicate
-
-    -- TODO: Failing tests expect silent fail without output.
-    -- clangParseError :: IO a
-    -- clangParseError = do
-    --   putStrLn "An unknown error happened while parsing headers with `libclang`"
-    --   exitFailure
 
     emptyTranslationUnit :: TranslationUnit Parse
     emptyTranslationUnit = TranslationUnit {
