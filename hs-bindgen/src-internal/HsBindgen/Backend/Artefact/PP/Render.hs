@@ -319,24 +319,18 @@ instance Pretty SDecl where
                 , string $ Text.unpack foreignImportOrigName
                 ])
 
-          importType =
-            case foreignImportResultType of
-              NormalResultType t ->
-                foldr (TFun . functionParameterType) t foreignImportParameters
-              HeapResultType t   ->
-                foldr TFun (TApp (TGlobal IO_type) (TGlobal (PrimType HsPrimUnit)))
-                           (map functionParameterType foreignImportParameters ++ [t])
-
           prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment
-      in  prettyFunctionComment
-       $$ hsep [ "foreign import"
-               , callconv
-               , safety
-               , "\"" >< impent >< "\""
-               , pretty foreignImportName
-               , "::"
-               , pretty importType
-               ]
+
+      in   prettyFunctionComment
+       $$  hsep [ "foreign import"
+                , callconv
+                , safety
+                , "\"" >< impent >< "\""
+                , pretty foreignImportName
+                , "::"
+                ]
+       <+> prettyForeignImportType foreignImportResultType
+                                   foreignImportParameters
 
     DDerivingInstance DerivingInstance {..} -> maybe empty (pretty . TopLevelComment) derivingInstanceComment
                                             $$ "deriving" <+> strategy derivingInstanceStrategy
@@ -380,6 +374,32 @@ strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
 
 instance ctx ~ EmptyCtx => Pretty (SType ctx) where
   prettyPrec = prettyType EmptyEnv
+
+prettyForeignImportType :: ResultType ClosedType -> [FunctionParameter] -> CtxDoc
+prettyForeignImportType resultType params =
+  case params of
+    [] -> prettyResultType 0 resultType
+    _  -> prettyParams 1 params
+  where
+    flipPrec 0 = 1
+    flipPrec 1 = 0
+    flipPrec _ = 0
+
+    prettyParam prec FunctionParameter{..} =
+         prettyType EmptyEnv prec functionParameterType
+      $$ maybe empty (pretty . PartOfDeclarationComment) functionParameterComment
+
+    prettyResultType prec = \case
+      NormalResultType t -> prettyType EmptyEnv prec t
+      HeapResultType t   ->
+        let finalResType = TApp (TGlobal IO_type) (TGlobal (PrimType HsPrimUnit))
+         in prettyType EmptyEnv prec t
+         $$ nest (-3) ("->" <+> prettyType EmptyEnv (flipPrec prec) finalResType)
+
+    prettyParams prec []     = prettyResultType prec resultType
+    prettyParams prec (p:ps) =
+         prettyParam prec p
+      $$ nest (-3) ("->" <+> prettyParams (flipPrec prec) ps)
 
 prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
 prettyType env prec = \case
