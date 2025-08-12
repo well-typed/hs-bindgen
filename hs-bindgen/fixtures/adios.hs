@@ -383,7 +383,7 @@
       Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "void test_internal_\978 (void) { \978(); }",
+    "void hs_bindgen_test_adios_8e1936b23d816eb2 (void) { \978(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -392,7 +392,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_\978",
+      "hs_bindgen_test_adios_8e1936b23d816eb2",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -405,7 +405,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "void test_internal_\25308\25308 (void) { \25308\25308(); }",
+    "void hs_bindgen_test_adios_5c74896d56245684 (void) { \25308\25308(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -414,7 +414,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_\25308\25308",
+      "hs_bindgen_test_adios_5c74896d56245684",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -427,7 +427,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "void test_internal_Say\25308\25308 (void) { Say\25308\25308(); }",
+    "void hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say\25308\25308(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -436,7 +436,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_Say\25308\25308",
+      "hs_bindgen_test_adios_e8498bfc0fabc9e9",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

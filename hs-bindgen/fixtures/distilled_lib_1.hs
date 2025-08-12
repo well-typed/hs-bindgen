@@ -9472,7 +9472,7 @@
   DeclInlineCInclude
     "distilled_lib_1.h",
   DeclInlineC
-    "int32_t test_internal_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }",
+    "int32_t hs_bindgen_test_distilled_lib_1_a1099223f16f8637 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9822,7 +9822,7 @@
                             instanceSpecConstraints = [
                               ]})]})))),
       foreignImportOrigName =
-      "test_internal_some_fun",
+      "hs_bindgen_test_distilled_lib_1_a1099223f16f8637",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

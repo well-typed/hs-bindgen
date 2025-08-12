@@ -2,7 +2,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f0 (void) { f0(); }",
+    "void hs_bindgen_test_visibility_attributes_beeef9b61fad5466 (void) { f0(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -11,7 +11,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f0",
+      "hs_bindgen_test_visibility_attributes_beeef9b61fad5466",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -25,7 +25,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f1 (void) { f1(); }",
+    "void hs_bindgen_test_visibility_attributes_8b60d38de80093fa (void) { f1(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -34,7 +34,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f1",
+      "hs_bindgen_test_visibility_attributes_8b60d38de80093fa",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -48,7 +48,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f2 (void) { f2(); }",
+    "void hs_bindgen_test_visibility_attributes_4a86b0420a250963 (void) { f2(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -57,7 +57,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f2",
+      "hs_bindgen_test_visibility_attributes_4a86b0420a250963",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -71,7 +71,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f3 (void) { f3(); }",
+    "void hs_bindgen_test_visibility_attributes_1b95ce9d55223970 (void) { f3(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -80,7 +80,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f3",
+      "hs_bindgen_test_visibility_attributes_1b95ce9d55223970",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -94,7 +94,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f4 (void) { f4(); }",
+    "void hs_bindgen_test_visibility_attributes_cdd7cda26e655f5e (void) { f4(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -103,7 +103,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f4",
+      "hs_bindgen_test_visibility_attributes_cdd7cda26e655f5e",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -117,7 +117,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f5 (void) { f5(); }",
+    "void hs_bindgen_test_visibility_attributes_3bc585c51fec9721 (void) { f5(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -126,7 +126,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f5",
+      "hs_bindgen_test_visibility_attributes_3bc585c51fec9721",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -140,7 +140,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f6 (void) { f6(); }",
+    "void hs_bindgen_test_visibility_attributes_ba28bdf96df05f32 (void) { f6(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -149,7 +149,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f6",
+      "hs_bindgen_test_visibility_attributes_ba28bdf96df05f32",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -163,7 +163,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f7 (void) { f7(); }",
+    "void hs_bindgen_test_visibility_attributes_2fc1219d73636d66 (void) { f7(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -172,7 +172,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f7",
+      "hs_bindgen_test_visibility_attributes_2fc1219d73636d66",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -186,7 +186,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f8 (void) { f8(); }",
+    "void hs_bindgen_test_visibility_attributes_7a7ce833f71ec006 (void) { f8(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -195,7 +195,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f8",
+      "hs_bindgen_test_visibility_attributes_7a7ce833f71ec006",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -209,7 +209,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f9 (void) { f9(); }",
+    "void hs_bindgen_test_visibility_attributes_3a6334fe1abf229c (void) { f9(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -218,7 +218,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f9",
+      "hs_bindgen_test_visibility_attributes_3a6334fe1abf229c",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -232,7 +232,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f10 (void) { f10(); }",
+    "void hs_bindgen_test_visibility_attributes_72e7a2a1e9f25000 (void) { f10(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -241,7 +241,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f10",
+      "hs_bindgen_test_visibility_attributes_72e7a2a1e9f25000",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -255,7 +255,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f11 (void) { f11(); }",
+    "void hs_bindgen_test_visibility_attributes_052232f3a6ecd42e (void) { f11(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -264,7 +264,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f11",
+      "hs_bindgen_test_visibility_attributes_052232f3a6ecd42e",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -278,7 +278,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f12 (void) { f12(); }",
+    "void hs_bindgen_test_visibility_attributes_792700b287b37bc9 (void) { f12(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -287,7 +287,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f12",
+      "hs_bindgen_test_visibility_attributes_792700b287b37bc9",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -301,7 +301,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f13 (void) { f13(); }",
+    "void hs_bindgen_test_visibility_attributes_241ea65011175c11 (void) { f13(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -310,7 +310,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f13",
+      "hs_bindgen_test_visibility_attributes_241ea65011175c11",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -324,7 +324,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f14 (void) { f14(); }",
+    "void hs_bindgen_test_visibility_attributes_2c775e867f8ea914 (void) { f14(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -333,7 +333,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f14",
+      "hs_bindgen_test_visibility_attributes_2c775e867f8ea914",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -347,7 +347,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f15 (void) { f15(); }",
+    "void hs_bindgen_test_visibility_attributes_c9cc679279218ae9 (void) { f15(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -356,7 +356,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f15",
+      "hs_bindgen_test_visibility_attributes_c9cc679279218ae9",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -370,7 +370,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f16 (void) { f16(); }",
+    "void hs_bindgen_test_visibility_attributes_ea5c7e17063c74da (void) { f16(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -379,7 +379,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f16",
+      "hs_bindgen_test_visibility_attributes_ea5c7e17063c74da",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -393,7 +393,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f17 (void) { f17(); }",
+    "void hs_bindgen_test_visibility_attributes_e72feade6b631a5f (void) { f17(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -402,7 +402,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f17",
+      "hs_bindgen_test_visibility_attributes_e72feade6b631a5f",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -416,7 +416,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f18 (void) { f18(); }",
+    "void hs_bindgen_test_visibility_attributes_171950f0c44f6f22 (void) { f18(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -425,7 +425,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f18",
+      "hs_bindgen_test_visibility_attributes_171950f0c44f6f22",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -439,7 +439,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f19 (void) { f19(); }",
+    "void hs_bindgen_test_visibility_attributes_5414de7b815a8658 (void) { f19(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -448,7 +448,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f19",
+      "hs_bindgen_test_visibility_attributes_5414de7b815a8658",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -462,7 +462,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f20 (void) { f20(); }",
+    "void hs_bindgen_test_visibility_attributes_74ab404c9f6d501e (void) { f20(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -471,7 +471,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f20",
+      "hs_bindgen_test_visibility_attributes_74ab404c9f6d501e",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -485,7 +485,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f21 (void) { f21(); }",
+    "void hs_bindgen_test_visibility_attributes_32c47e20171aaeee (void) { f21(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -494,7 +494,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f21",
+      "hs_bindgen_test_visibility_attributes_32c47e20171aaeee",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -508,7 +508,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f22 (void) { f22(); }",
+    "void hs_bindgen_test_visibility_attributes_ce04bbbd1ae9ec66 (void) { f22(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -517,7 +517,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f22",
+      "hs_bindgen_test_visibility_attributes_ce04bbbd1ae9ec66",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -531,7 +531,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f23 (void) { f23(); }",
+    "void hs_bindgen_test_visibility_attributes_005b979e638f474b (void) { f23(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -540,7 +540,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f23",
+      "hs_bindgen_test_visibility_attributes_005b979e638f474b",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -554,7 +554,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f24 (void) { f24(); }",
+    "void hs_bindgen_test_visibility_attributes_e0225d72ee13bade (void) { f24(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -563,7 +563,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f24",
+      "hs_bindgen_test_visibility_attributes_e0225d72ee13bade",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -577,7 +577,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f25 (void) { f25(); }",
+    "void hs_bindgen_test_visibility_attributes_c5c883717d0048e8 (void) { f25(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -586,7 +586,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f25",
+      "hs_bindgen_test_visibility_attributes_c5c883717d0048e8",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -600,7 +600,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f26 (void) { f26(); }",
+    "void hs_bindgen_test_visibility_attributes_d54b2fb5a87420f7 (void) { f26(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -609,7 +609,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f26",
+      "hs_bindgen_test_visibility_attributes_d54b2fb5a87420f7",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -623,7 +623,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f27 (void) { f27(); }",
+    "void hs_bindgen_test_visibility_attributes_d40140ee49300df1 (void) { f27(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -632,7 +632,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f27",
+      "hs_bindgen_test_visibility_attributes_d40140ee49300df1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -646,7 +646,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f28 (void) { f28(); }",
+    "void hs_bindgen_test_visibility_attributes_358fecb39951c1ed (void) { f28(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -655,7 +655,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f28",
+      "hs_bindgen_test_visibility_attributes_358fecb39951c1ed",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -669,7 +669,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "void test_internal_f29 (void) { f29(); }",
+    "void hs_bindgen_test_visibility_attributes_8255bfc1a96b601c (void) { f29(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -678,7 +678,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_f29",
+      "hs_bindgen_test_visibility_attributes_8255bfc1a96b601c",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

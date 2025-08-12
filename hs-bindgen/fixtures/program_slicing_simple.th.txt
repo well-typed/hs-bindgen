@@ -15,7 +15,7 @@ newtype Uint32_t
                       Num,
                       Real)
 data Foo
-    = Foo {foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64,
+    = Foo {foo_sixty_four :: Example.Uint64_t,
            foo_thirty_two :: Uint32_t}
     deriving stock (Eq, Show)
 instance Storable Foo

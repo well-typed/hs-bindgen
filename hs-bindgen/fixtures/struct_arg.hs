@@ -326,7 +326,7 @@
   DeclInlineCInclude
     "struct_arg.h",
   DeclInlineC
-    "signed int test_internal_thing_fun_1 (struct thing *arg1) { return thing_fun_1(*arg1); }",
+    "signed int hs_bindgen_test_struct_arg_be997777eb388096 (struct thing *arg1) { return thing_fun_1(*arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -340,7 +340,7 @@
               "Thing")))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_thing_fun_1",
+      "hs_bindgen_test_struct_arg_be997777eb388096",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -362,7 +362,7 @@
   DeclInlineCInclude
     "struct_arg.h",
   DeclInlineC
-    "void test_internal_thing_fun_2 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }",
+    "void hs_bindgen_test_struct_arg_c719e5e844a53956 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -378,7 +378,7 @@
                 "Thing")))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
-      "test_internal_thing_fun_2",
+      "hs_bindgen_test_struct_arg_c719e5e844a53956",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -400,7 +400,7 @@
   DeclInlineCInclude
     "struct_arg.h",
   DeclInlineC
-    "void test_internal_thing_fun_3a (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }",
+    "void hs_bindgen_test_struct_arg_9540300ca2ef6349 (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -425,7 +425,7 @@
               (HsIO
                 (HsPrimType HsPrimUnit))))),
       foreignImportOrigName =
-      "test_internal_thing_fun_3a",
+      "hs_bindgen_test_struct_arg_9540300ca2ef6349",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -455,7 +455,7 @@
   DeclInlineCInclude
     "struct_arg.h",
   DeclInlineC
-    "char test_internal_thing_fun_3b (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }",
+    "char hs_bindgen_test_struct_arg_f6f54b421741a2de (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -474,7 +474,7 @@
             (HsIO
               (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
-      "test_internal_thing_fun_3b",
+      "hs_bindgen_test_struct_arg_f6f54b421741a2de",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

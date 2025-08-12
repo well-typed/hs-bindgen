@@ -9,7 +9,7 @@
 -- addDependentFile musl-include/x86_64/errno.h
 -- addDependentFile examples/golden/program_slicing_selection.h
 -- #include <program_slicing_selection.h>
--- enum FileOperationStatus test_internal_read_file_chunk (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }
+-- enum FileOperationStatus hs_bindgen_test_program_slicing_selection_2e587488135cbef3 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }
 newtype FileOperationStatus
     = FileOperationStatus {un_FileOperationStatus :: CInt}
     deriving stock (Eq, Ord)
@@ -61,7 +61,7 @@ instance Storable FileOperationRecord
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    FileOperationRecord fileOperationRecord_status_3
                                                        fileOperationRecord_bytes_processed_4 -> pokeByteOff ptr_1 (0 :: Int) fileOperationRecord_status_3 >> pokeByteOff ptr_1 (8 :: Int) fileOperationRecord_bytes_processed_4
-foreign import ccall safe "test_internal_read_file_chunk" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
-                                                                             Ptr Void ->
-                                                                             HsBindgen.Runtime.Prelude.CSize ->
-                                                                             IO FileOperationStatus
+foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135cbef3" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
+                                                                                                          Ptr Void ->
+                                                                                                          HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                          IO FileOperationStatus

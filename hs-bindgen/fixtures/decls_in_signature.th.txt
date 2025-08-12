@@ -1,8 +1,8 @@
 -- addDependentFile examples/golden/decls_in_signature.h
 -- #include <decls_in_signature.h>
--- void test_internal_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }
--- void test_internal_f1 (struct named_struct *arg1) { f1(*arg1); }
--- void test_internal_f2 (union named_union *arg1) { f2(*arg1); }
+-- void hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }
+-- void hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }
+-- void hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }
 data Opaque
 data Outside
     = Outside {outside_x :: CInt, outside_y :: CInt}
@@ -14,9 +14,10 @@ instance Storable Outside
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Outside outside_x_3
                                            outside_y_4 -> pokeByteOff ptr_1 (0 :: Int) outside_x_3 >> pokeByteOff ptr_1 (4 :: Int) outside_y_4
-foreign import ccall safe "test_internal_normal" normal_wrapper :: Ptr Opaque ->
-                                                                   Ptr Outside ->
-                                                                   Ptr Outside -> IO Unit
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369" normal_wrapper :: Ptr Opaque ->
+                                                                                                  Ptr Outside ->
+                                                                                                  Ptr Outside ->
+                                                                                                  IO Unit
 normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
 {-| Error cases
@@ -44,8 +45,8 @@ instance Storable Named_struct
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
 
 -}
-foreign import ccall safe "test_internal_f1" f1_wrapper :: Ptr Named_struct ->
-                                                           IO Unit
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_8b60d38de80093fa" f1_wrapper :: Ptr Named_struct ->
+                                                                                              IO Unit
 f1 :: Named_struct -> IO Unit
 f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
 newtype Named_union = Named_union {un_Named_union :: ByteArray}
@@ -98,7 +99,7 @@ set_named_union_y :: CChar -> Named_union
 
 -}
 set_named_union_y = setUnionPayload
-foreign import ccall safe "test_internal_f2" f2_wrapper :: Ptr Named_union ->
-                                                           IO Unit
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" f2_wrapper :: Ptr Named_union ->
+                                                                                              IO Unit
 f2 :: Named_union -> IO Unit
 f2 = \x_0 -> with x_0 (\y_1 -> f2_wrapper y_1)

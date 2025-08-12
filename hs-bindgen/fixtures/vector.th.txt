@@ -1,6 +1,6 @@
 -- addDependentFile examples/golden/vector.h
 -- #include <vector.h>
--- vector *test_internal_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }
+-- vector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }
 data Vector
     = Vector {vector_x :: CDouble, vector_y :: CDouble}
     deriving stock (Eq, Show)
@@ -11,5 +11,6 @@ instance Storable Vector
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Vector vector_x_3
                                           vector_y_4 -> pokeByteOff ptr_1 (0 :: Int) vector_x_3 >> pokeByteOff ptr_1 (8 :: Int) vector_y_4
-foreign import ccall safe "test_internal_new_vector" new_vector :: CDouble ->
-                                                                   CDouble -> IO (Ptr Vector)
+foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector :: CDouble ->
+                                                                                  CDouble ->
+                                                                                  IO (Ptr Vector)

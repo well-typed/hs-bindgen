@@ -7,9 +7,9 @@ module Example where
 import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Example
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 newtype Uint32_t = Uint32_t
@@ -19,7 +19,7 @@ newtype Uint32_t = Uint32_t
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 data Foo = Foo
-  { foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64
+  { foo_sixty_four :: Example.Uint64_t
   , foo_thirty_two :: Uint32_t
   }
   deriving stock (Eq, Show)

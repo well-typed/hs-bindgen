@@ -69,15 +69,14 @@ TranslationUnit {
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
                     extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
+                      "Example",
                     extHsRefIdentifier =
-                    HsIdentifier "Word64"},
+                    HsIdentifier "Uint64_t"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
+                      (HsModuleName "Example"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word64"),
+                      (HsIdentifier "Uint64_t"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -148,24 +147,6 @@ TranslationUnit {
                               instanceSpecConstraints = []}),
                         _×_
                           Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,

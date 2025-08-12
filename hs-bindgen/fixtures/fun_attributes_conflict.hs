@@ -2,7 +2,7 @@
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
-    "signed int test_internal_square_cp (signed int arg1) { return square_cp(arg1); }",
+    "signed int hs_bindgen_test_fun_attributes_conflict_10e6b4d386eec8f7 (signed int arg1) { return square_cp(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -12,7 +12,7 @@
         (HsPrimType HsPrimCInt)
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "test_internal_square_cp",
+      "hs_bindgen_test_fun_attributes_conflict_10e6b4d386eec8f7",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -44,7 +44,7 @@
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
-    "signed int test_internal_square_pc (signed int arg1) { return square_pc(arg1); }",
+    "signed int hs_bindgen_test_fun_attributes_conflict_d8e5dd6836af0ac7 (signed int arg1) { return square_pc(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -54,7 +54,7 @@
         (HsPrimType HsPrimCInt)
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "test_internal_square_pc",
+      "hs_bindgen_test_fun_attributes_conflict_d8e5dd6836af0ac7",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -71,7 +71,7 @@
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
-    "signed int test_internal_square_cc (signed int arg1) { return square_cc(arg1); }",
+    "signed int hs_bindgen_test_fun_attributes_conflict_9a60da065e6486ac (signed int arg1) { return square_cc(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -81,7 +81,7 @@
         (HsPrimType HsPrimCInt)
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
-      "test_internal_square_cc",
+      "hs_bindgen_test_fun_attributes_conflict_9a60da065e6486ac",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -98,7 +98,7 @@
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
-    "signed int test_internal_square_pp (signed int arg1) { return square_pp(arg1); }",
+    "signed int hs_bindgen_test_fun_attributes_conflict_1a2340fb8456aee3 (signed int arg1) { return square_pp(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -108,7 +108,7 @@
         (HsPrimType HsPrimCInt)
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_square_pp",
+      "hs_bindgen_test_fun_attributes_conflict_1a2340fb8456aee3",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

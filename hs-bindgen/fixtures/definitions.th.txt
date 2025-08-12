@@ -1,9 +1,9 @@
 -- addDependentFile examples/golden/definitions.h
 -- #include <definitions.h>
--- signed int test_internal_foo (double arg1) { return foo(arg1); }
+-- signed int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }
 -- __attribute__ ((const)) signed int *get_n_ptr (void) { return &n; } 
-foreign import ccall safe "test_internal_foo" foo :: CDouble ->
-                                                     IO CInt
+foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo :: CDouble ->
+                                                                                IO CInt
 foreign import ccall safe "get_n_ptr" n_ptr :: Ptr CInt
 data X = X {x_n :: CInt} deriving stock (Eq, Show)
 instance Storable X
