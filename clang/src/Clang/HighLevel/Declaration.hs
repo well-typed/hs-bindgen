@@ -1,6 +1,6 @@
 module Clang.HighLevel.Declaration (
     -- * Declaration
-    Declaration(..)
+    DeclarationClassification(..)
   , classifyDeclaration
     -- * Other
   , classifyTentativeDefinition
@@ -16,35 +16,60 @@ import Clang.LowLevel.Core
 -------------------------------------------------------------------------------}
 
 -- | Declaration classification
-data Declaration =
-    -- | Declaration and definition together
-    DeclarationRegular
-
-    -- | Forward declaration (definition elsewhere in the translation unit)
+--
+-- This classification function is suitable for declarations of functions,
+-- variables, enums, structs, and unions.
+--
+-- Forward declarations and redeclarations can be classified as either
+-- 'DefinitionElsewhere' or 'DefinitionUnavailable'.
+--
+-- <https://en.cppreference.com/w/c/language/struct.html#Forward_declaration>
+--
+-- <https://en.cppreference.com/w/c/language/declarations.html#Redeclaration>
+--
+-- Despite the name, a tentative definition is /not/ classified as a
+-- 'Definition'. Use 'classifyTentativeDefinition' to detect whether a
+-- declaration is a tentative definition.
+--
+-- <https://en.cppreference.com/w/c/language/extern.html#Tentative_definitions>
+data DeclarationClassification =
+    -- | A declaration together with a definition.
     --
-    -- TODO: can also be a redeclaration (backwards declaration)
-  | DeclarationForward CXCursor
+    -- > int foo (void) { return 1; }; // cursor positioned here
+    --
+    -- <https://en.cppreference.com/w/c/language/declarations.html#Definitions>
+    Definition
 
-    -- | Opaque declaration (definition not available in the translation unit)
-  | DeclarationOpaque
+    -- | A declaration without definition, but the definition is available
+    -- elsewhere in the translation unit.
+    --
+    -- > struct X; // cursor positioned here
+    -- > struct X { int n; };
+  | DefinitionElsewhere CXCursor
+
+    -- | A declaration without a definition, and there is no definition
+    -- available elsewhere in the translation unit.
+    --
+    -- > extern int x; // cursor positioned here
+  | DefinitionUnavailable
   deriving stock (Show, Eq)
 
 -- | Classify a declaration
 classifyDeclaration ::
      MonadIO m
   => CXCursor  -- ^ Declaration
-  -> m Declaration
+  -> m DeclarationClassification
 classifyDeclaration cursor = do
     defnCursor <- clang_getCursorDefinition cursor
     isDefnNull <- clang_equalCursors defnCursor nullCursor
     if isDefnNull
-      then return DeclarationOpaque
+      then return DefinitionUnavailable
       else do
         isCursorDefn <- clang_equalCursors cursor defnCursor
         return $
           if isCursorDefn
-            then DeclarationRegular
-            else DeclarationForward defnCursor
+            then Definition
+            else DefinitionElsewhere defnCursor
 
 {-------------------------------------------------------------------------------
   Other

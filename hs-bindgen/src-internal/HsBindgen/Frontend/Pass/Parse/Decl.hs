@@ -133,7 +133,7 @@ structDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 structDecl info = simpleFold $ \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
-      DeclarationRegular -> do
+      Definition -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
@@ -182,7 +182,7 @@ structDecl info = simpleFold $ \curr -> do
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
               return []
-      DeclarationOpaque -> do
+      DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
@@ -190,14 +190,14 @@ structDecl info = simpleFold $ \curr -> do
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]
-      DeclarationForward _ ->
+      DefinitionElsewhere _ ->
         foldContinue
 
 unionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 unionDecl info = simpleFold $ \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
-      DeclarationRegular -> do
+      Definition -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
@@ -229,7 +229,7 @@ unionDecl info = simpleFold $ \curr -> do
         foldRecurseWith (declOrFieldDecl unionFieldDecl) $ \xs -> do
           (decls, fields) <- partitionChildren xs
           return $ decls ++ [mkUnion fields]
-      DeclarationOpaque -> do
+      DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
@@ -237,7 +237,7 @@ unionDecl info = simpleFold $ \curr -> do
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]
-      DeclarationForward _ ->
+      DefinitionElsewhere _ ->
         foldContinue
 
 declOrFieldDecl ::
@@ -318,7 +318,7 @@ enumDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 enumDecl info = simpleFold $ \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
-      DeclarationRegular -> do
+      Definition -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
@@ -338,7 +338,7 @@ enumDecl info = simpleFold $ \curr -> do
               }
 
         foldRecursePure parseConstant ((:[]) . mkEnum)
-      DeclarationOpaque -> do
+      DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
@@ -346,7 +346,7 @@ enumDecl info = simpleFold $ \curr -> do
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]
-      DeclarationForward _ ->
+      DefinitionElsewhere _ ->
         foldContinue
   where
     parseConstant :: Fold ParseDecl (C.EnumConstant Parse)
