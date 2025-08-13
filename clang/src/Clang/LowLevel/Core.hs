@@ -91,6 +91,8 @@ module Clang.LowLevel.Core (
   , CXCursor(..)
   , CXCursorKind(..)
   , CXTLSKind(..)
+  , CXLinkageKind(..)
+  , CXVisibilityKind(..)
   , clang_getTranslationUnitCursor
   , clang_equalCursors
   , clang_getCursorSemanticParent
@@ -102,7 +104,10 @@ module Clang.LowLevel.Core (
   , clang_getCursorKindSpelling
   , clang_Cursor_getTranslationUnit
   , clang_isDeclaration
+  , clang_getCursorLinkage
+  , clang_getCursorVisibility
   , clang_getIncludedFile
+  , clang_Cursor_getVarDeclInitializer
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
   , clang_visitChildren
@@ -116,6 +121,9 @@ module Clang.LowLevel.Core (
   , clang_Cursor_getBriefCommentText
   , clang_Cursor_getSpellingNameRange
   , clang_isCursorDefinition
+  , clang_getCursorPrintingPolicy
+  , clang_getCursorPrettyPrinted
+  , clang_PrintingPolicy_dispose
     -- * Type information for CXCursors
   , CXTypeKind(..)
   , CXTypeLayoutError(..)
@@ -272,7 +280,7 @@ clang_createIndex diagnostics = liftIO $
     diagnostics' :: CInt
     diagnostics' =
         case diagnostics of
-          DisplayDiagnostics     -> 1
+          DisplayDiagnostics     -> 0
           DontDisplayDiagnostics -> 0
 
 -- | Destroy the given index.
@@ -895,6 +903,9 @@ clang_getCursorLexicalParent cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorLexicalParent cursor'
 
+-- | Determine the "thread-local storage (TLS) kind" of the declaration referred to by a cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga524e1bd046dfb581484ec50e8f22ae7a>
 clang_getCursorTLSKind :: MonadIO m => CXCursor -> m (SimpleEnum CXTLSKind)
 clang_getCursorTLSKind cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
@@ -944,6 +955,26 @@ clang_Cursor_getTranslationUnit cursor = liftIO $ checkNotNull $
 clang_isDeclaration :: MonadIO m => SimpleEnum CXCursorKind -> m Bool
 clang_isDeclaration kind = liftIO $ cToBool <$> nowrapper_isDeclaration kind
 
+-- | Determine the linkage of the entity referred to by a given cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga359dae25aa1a71176a5e33f3c7ee1740>
+clang_getCursorLinkage :: MonadIO m => CXCursor -> m (SimpleEnum CXLinkageKind)
+clang_getCursorLinkage cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getCursorLinkage cursor'
+
+-- | Describe the visibility of the entity referred to by a cursor.
+--
+-- This returns the default visibility if not explicitly specified by a
+-- visibility attribute. The default visibility may be changed by commandline
+-- arguments.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga935b442bd6bde168cf354b7629b471d8>
+clang_getCursorVisibility :: MonadIO m => CXCursor -> m (SimpleEnum CXVisibilityKind)
+clang_getCursorVisibility cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getCursorVisibility cursor'
+
 -- | Retrieve the file that is included by the given inclusion directive cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf61979977343e39f21d6ea0b22167514>
@@ -951,6 +982,15 @@ clang_getIncludedFile :: MonadIO m => CXCursor -> m CXFile
 clang_getIncludedFile cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       wrap_getIncludedFile cursor'
+
+-- | If cursor refers to a variable declaration and it has initializer returns
+-- cursor referring to the initializer otherwise return null cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga74690016573b854df29f33b477872e7d>
+clang_Cursor_getVarDeclInitializer :: MonadIO m => CXCursor -> m CXCursor
+clang_Cursor_getVarDeclInitializer cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate_ $ wrap_Cursor_getVarDeclInitializer cursor'
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
@@ -1173,6 +1213,30 @@ clang_isCursorDefinition :: MonadIO m => CXCursor -> m Bool
 clang_isCursorDefinition cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_isCursorDefinition cursor'
+
+-- | Retrieve the default policy for the cursor.
+--
+-- The policy should be released after use with clang_PrintingPolicy_dispose.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaae83c013276d1fff6475566a23d9fffd>
+clang_getCursorPrintingPolicy :: MonadIO m => CXCursor -> m CXPrintingPolicy
+clang_getCursorPrintingPolicy cursor = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getCursorPrintingPolicy cursor'
+
+-- | Pretty print declarations.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gab9d561cc237ce0d8bfbab80cdd5be216>
+clang_getCursorPrettyPrinted :: MonadIO m => CXCursor -> CXPrintingPolicy -> m Text
+clang_getCursorPrettyPrinted cursor pol = liftIO $
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate_ $ wrap_getCursorPrettyPrinted cursor' pol
+
+-- | Release a printing policy.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga81b2a9cac2b0ad4da7086c7fd3d4256f>
+clang_PrintingPolicy_dispose :: MonadIO m => CXPrintingPolicy -> m ()
+clang_PrintingPolicy_dispose pol = liftIO $ nowrapper_PrintingPolicy_dispose pol
 
 {-------------------------------------------------------------------------------
   Type information for CXCursors

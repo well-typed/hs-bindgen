@@ -44,7 +44,7 @@ module Clang.HighLevel.Types (
     -- * User-provided names
   , CursorSpelling(..)
     -- * Declaration classification
-  , Declaration(..)
+  , DeclarationClassification(..)
   ) where
 
 import Clang.HighLevel.Declaration

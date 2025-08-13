@@ -1,0 +1,102 @@
+-- addDependentFile examples/golden/visibility_attributes.h
+-- #include <visibility_attributes.h>
+-- void test_internal_f0 (void) { f0(); }
+-- void test_internal_f1 (void) { f1(); }
+-- void test_internal_f2 (void) { f2(); }
+-- void test_internal_f3 (void) { f3(); }
+-- void test_internal_f4 (void) { f4(); }
+-- void test_internal_f5 (void) { f5(); }
+-- void test_internal_f6 (void) { f6(); }
+-- void test_internal_f7 (void) { f7(); }
+-- void test_internal_f8 (void) { f8(); }
+-- void test_internal_f9 (void) { f9(); }
+-- void test_internal_f10 (void) { f10(); }
+-- void test_internal_f11 (void) { f11(); }
+-- void test_internal_f12 (void) { f12(); }
+-- void test_internal_f13 (void) { f13(); }
+-- void test_internal_f14 (void) { f14(); }
+-- void test_internal_f15 (void) { f15(); }
+-- void test_internal_f16 (void) { f16(); }
+-- void test_internal_f17 (void) { f17(); }
+-- void test_internal_f18 (void) { f18(); }
+-- void test_internal_f19 (void) { f19(); }
+-- void test_internal_f20 (void) { f20(); }
+-- void test_internal_f21 (void) { f21(); }
+-- void test_internal_f22 (void) { f22(); }
+-- void test_internal_f23 (void) { f23(); }
+-- void test_internal_f24 (void) { f24(); }
+-- void test_internal_f25 (void) { f25(); }
+-- void test_internal_f26 (void) { f26(); }
+-- void test_internal_f27 (void) { f27(); }
+-- void test_internal_f28 (void) { f28(); }
+-- void test_internal_f29 (void) { f29(); }
+-- __attribute__ ((const)) signed int *get_i0_ptr (void) { return &i0; } 
+-- __attribute__ ((const)) signed int *get_i1_ptr (void) { return &i1; } 
+-- __attribute__ ((const)) signed int *get_i2_ptr (void) { return &i2; } 
+-- __attribute__ ((const)) signed int *get_i3_ptr (void) { return &i3; } 
+-- __attribute__ ((const)) signed int *get_i4_ptr (void) { return &i4; } 
+-- __attribute__ ((const)) signed int *get_i5_ptr (void) { return &i5; } 
+-- __attribute__ ((const)) signed int *get_i6_ptr (void) { return &i6; } 
+-- __attribute__ ((const)) signed int *get_i7_ptr (void) { return &i7; } 
+-- __attribute__ ((const)) signed int *get_i8_ptr (void) { return &i8; } 
+-- __attribute__ ((const)) signed int *get_i9_ptr (void) { return &i9; } 
+-- __attribute__ ((const)) signed int *get_i10_ptr (void) { return &i10; } 
+-- __attribute__ ((const)) signed int *get_i11_ptr (void) { return &i11; } 
+-- __attribute__ ((const)) signed int *get_i12_ptr (void) { return &i12; } 
+-- __attribute__ ((const)) signed int *get_i13_ptr (void) { return &i13; } 
+-- __attribute__ ((const)) signed int *get_i14_ptr (void) { return &i14; } 
+-- __attribute__ ((const)) signed int *get_i15_ptr (void) { return &i15; } 
+-- __attribute__ ((const)) signed int *get_i16_ptr (void) { return &i16; } 
+-- __attribute__ ((const)) signed int *get_i17_ptr (void) { return &i17; } 
+-- __attribute__ ((const)) signed int *get_i18_ptr (void) { return &i18; } 
+-- __attribute__ ((const)) signed int *get_i19_ptr (void) { return &i19; } 
+foreign import ccall safe "test_internal_f0" f0 :: IO Unit
+foreign import ccall safe "test_internal_f1" f1 :: IO Unit
+foreign import ccall safe "test_internal_f2" f2 :: IO Unit
+foreign import ccall safe "test_internal_f3" f3 :: IO Unit
+foreign import ccall safe "test_internal_f4" f4 :: IO Unit
+foreign import ccall safe "test_internal_f5" f5 :: IO Unit
+foreign import ccall safe "test_internal_f6" f6 :: IO Unit
+foreign import ccall safe "test_internal_f7" f7 :: IO Unit
+foreign import ccall safe "test_internal_f8" f8 :: IO Unit
+foreign import ccall safe "test_internal_f9" f9 :: IO Unit
+foreign import ccall safe "test_internal_f10" f10 :: IO Unit
+foreign import ccall safe "test_internal_f11" f11 :: IO Unit
+foreign import ccall safe "test_internal_f12" f12 :: IO Unit
+foreign import ccall safe "test_internal_f13" f13 :: IO Unit
+foreign import ccall safe "test_internal_f14" f14 :: IO Unit
+foreign import ccall safe "test_internal_f15" f15 :: IO Unit
+foreign import ccall safe "test_internal_f16" f16 :: IO Unit
+foreign import ccall safe "test_internal_f17" f17 :: IO Unit
+foreign import ccall safe "test_internal_f18" f18 :: IO Unit
+foreign import ccall safe "test_internal_f19" f19 :: IO Unit
+foreign import ccall safe "test_internal_f20" f20 :: IO Unit
+foreign import ccall safe "test_internal_f21" f21 :: IO Unit
+foreign import ccall safe "test_internal_f22" f22 :: IO Unit
+foreign import ccall safe "test_internal_f23" f23 :: IO Unit
+foreign import ccall safe "test_internal_f24" f24 :: IO Unit
+foreign import ccall safe "test_internal_f25" f25 :: IO Unit
+foreign import ccall safe "test_internal_f26" f26 :: IO Unit
+foreign import ccall safe "test_internal_f27" f27 :: IO Unit
+foreign import ccall safe "test_internal_f28" f28 :: IO Unit
+foreign import ccall safe "test_internal_f29" f29 :: IO Unit
+foreign import ccall safe "get_i0_ptr" i0_ptr :: Ptr CInt
+foreign import ccall safe "get_i1_ptr" i1_ptr :: Ptr CInt
+foreign import ccall safe "get_i2_ptr" i2_ptr :: Ptr CInt
+foreign import ccall safe "get_i3_ptr" i3_ptr :: Ptr CInt
+foreign import ccall safe "get_i4_ptr" i4_ptr :: Ptr CInt
+foreign import ccall safe "get_i5_ptr" i5_ptr :: Ptr CInt
+foreign import ccall safe "get_i6_ptr" i6_ptr :: Ptr CInt
+foreign import ccall safe "get_i7_ptr" i7_ptr :: Ptr CInt
+foreign import ccall safe "get_i8_ptr" i8_ptr :: Ptr CInt
+foreign import ccall safe "get_i9_ptr" i9_ptr :: Ptr CInt
+foreign import ccall safe "get_i10_ptr" i10_ptr :: Ptr CInt
+foreign import ccall safe "get_i11_ptr" i11_ptr :: Ptr CInt
+foreign import ccall safe "get_i12_ptr" i12_ptr :: Ptr CInt
+foreign import ccall safe "get_i13_ptr" i13_ptr :: Ptr CInt
+foreign import ccall safe "get_i14_ptr" i14_ptr :: Ptr CInt
+foreign import ccall safe "get_i15_ptr" i15_ptr :: Ptr CInt
+foreign import ccall safe "get_i16_ptr" i16_ptr :: Ptr CInt
+foreign import ccall safe "get_i17_ptr" i17_ptr :: Ptr CInt
+foreign import ccall safe "get_i18_ptr" i18_ptr :: Ptr CInt
+foreign import ccall safe "get_i19_ptr" i19_ptr :: Ptr CInt

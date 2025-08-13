@@ -107,8 +107,7 @@ clangAstDump opts@Options{..} = do
 
     cOpts :: BitfieldEnum CXTranslationUnit_Flags
     cOpts = bitfieldEnum [
-        CXTranslationUnit_SkipFunctionBodies
-      , CXTranslationUnit_DetailedPreprocessingRecord
+        CXTranslationUnit_DetailedPreprocessingRecord
       , CXTranslationUnit_IncludeAttributedTypes
       , CXTranslationUnit_VisitImplicitAttributes
       ]
@@ -223,16 +222,16 @@ foldDecls opts@Options{..} = simpleFold $ \cursor -> do
         when isDecl $ do
           decl <- HighLevel.classifyDeclaration cursor
           case decl of
-            DeclarationRegular -> do
-              traceU 2 "declaration type" ("DeclarationRegular" :: String)
+            Definition -> do
+              traceU 2 "declaration type" ("Definition" :: String)
               traceU 2 "sizeof"
                 =<< handleCallFailed (clang_Type_getSizeOf cursorType)
               traceU 2 "alignment"
                 =<< handleCallFailed (clang_Type_getAlignOf cursorType)
-            DeclarationForward{} ->
-              traceU 2 "declaration type" ("DeclarationForward" :: String)
-            DeclarationOpaque ->
-              traceU 2 "declaration type" ("DeclarationOpaque" :: String)
+            DefinitionElsewhere{} ->
+              traceU 2 "declaration type" ("DefinitionElsewhere" :: String)
+            DefinitionUnavailable ->
+              traceU 2 "declaration type" ("DefinitionUnavailable" :: String)
 
 dumpComment :: Int -> Maybe CUInt -> CXComment -> IO ()
 dumpComment level mIdx comment = do

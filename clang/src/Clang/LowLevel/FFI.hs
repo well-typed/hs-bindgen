@@ -254,9 +254,11 @@ foreign import capi unsafe "clang_wrappers.h clang_isPreprocessing"
 foreign import capi unsafe "clang_wrappers.h clang_isUnexposed"
   nowrapper_isUnexposed :: SimpleEnum CXCursorKind -> IO CUInt
 
--- enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor); // no enum
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorLinkage :: R CXCursor_ -> IO (SimpleEnum CXLinkageKind)
 
--- enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor); // no enum
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorVisibility :: R CXCursor_ -> IO (SimpleEnum CXVisibilityKind)
 
 -- enum CXAvailabilityKind clang_getCursorAvailability (CXCursor cursor); // no enum
 
@@ -315,4 +317,15 @@ foreign import capi unsafe "clang_wrappers.h"
 -- void clang_enableStackTraces (void);
 
 -- void clang_executeOnThread (void(*fn)(void *), void *user_data, unsigned stack_size);
+
+-- Cross-referencing in the AST https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorPrintingPolicy :: R CXCursor_ -> IO CXPrintingPolicy
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorPrettyPrinted :: R CXCursor_ -> CXPrintingPolicy -> W CXString_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h clang_PrintingPolicy_dispose"
+  nowrapper_PrintingPolicy_dispose :: CXPrintingPolicy -> IO ()
 

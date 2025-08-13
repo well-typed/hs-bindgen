@@ -1,0 +1,156 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "redeclaration.h:11:5",
+        declId = NamePair {
+          nameC = Name "x",
+          nameHsIdent = HsIdentifier "x"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "redeclaration.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "redeclaration.h:20:13",
+        declId = NamePair {
+          nameC = Name "int_t",
+          nameHsIdent = HsIdentifier
+            "Int_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "redeclaration.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Int_t",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Int_t"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "redeclaration.h:26:8",
+        declId = NamePair {
+          nameC = Name "X",
+          nameHsIdent = HsIdentifier "X"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "redeclaration.h",
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "X"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "redeclaration.h:26:16",
+              structFieldName = NamePair {
+                nameC = Name "n",
+                nameHsIdent = HsIdentifier
+                  "x_n"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "redeclaration.h:29:7",
+        declId = NamePair {
+          nameC = Name "y",
+          nameHsIdent = HsIdentifier "Y"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "redeclaration.h",
+        declComment = Nothing},
+      declKind = DeclUnionOpaque,
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "redeclaration.h:30:7",
+        declId = NamePair {
+          nameC = Name "Y",
+          nameHsIdent = HsIdentifier "Y"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "redeclaration.h",
+        declComment = Nothing},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Y",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Y"},
+          unionSizeof = 4,
+          unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              unionFieldLoc =
+              "redeclaration.h:30:15",
+              unionFieldName = NamePair {
+                nameC = Name "m",
+                nameHsIdent = HsIdentifier
+                  "y_m"},
+              unionFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              unionFieldComment = Nothing},
+            UnionField {
+              unionFieldLoc =
+              "redeclaration.h:30:22",
+              unionFieldName = NamePair {
+                nameC = Name "o",
+                nameHsIdent = HsIdentifier
+                  "y_o"},
+              unionFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              unionFieldComment = Nothing}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["redeclaration"]}

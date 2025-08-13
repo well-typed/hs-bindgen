@@ -275,9 +275,13 @@ static inline unsigned wrap_Cursor_hasAttrs(const CXCursor* C) {
   return clang_Cursor_hasAttrs(*C);
 }
 
-/* enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor); // no enum */
+static inline enum CXLinkageKind wrap_getCursorLinkage(const CXCursor* cursor) {
+  return clang_getCursorLinkage(*cursor);
+}
 
-/* enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor); // no enum */
+static inline enum CXVisibilityKind wrap_getCursorVisibility(const CXCursor* cursor) {
+  return clang_getCursorVisibility(*cursor);
+}
 
 /* enum CXAvailabilityKind clang_getCursorAvailability (CXCursor cursor); // no enum */
 
@@ -344,4 +348,14 @@ static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* 
 /* void clang_enableStackTraces (void); */
 
 /* void clang_executeOnThread (void(*fn)(void *), void *user_data, unsigned stack_size); */
+
+/* Cross-referencing in the AST https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html */
+
+static inline CXPrintingPolicy wrap_getCursorPrintingPolicy(const CXCursor* Cursor) {
+  return clang_getCursorPrintingPolicy(*Cursor);
+}
+
+static inline void wrap_getCursorPrettyPrinted(const CXCursor* Cursor, CXPrintingPolicy policy, CXString* result) {
+  *result = clang_getCursorPrettyPrinted(*Cursor, policy);
+}
 

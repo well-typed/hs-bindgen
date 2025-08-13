@@ -104,8 +104,6 @@ testCases = [
     , defaultTest "forward_declaration"
     , defaultTest "headers"
     , defaultTest "macro_functions"
-    , defaultTest "macro_in_fundecl_vs_typedef"
-    , defaultTest "macro_in_fundecl"
     , defaultTest "macro_typedef_scope"
     , defaultTest "macro_typedef_struct"
     , defaultTest "macro_types"
@@ -150,9 +148,48 @@ testCases = [
           Just Tolerated
         _otherwise ->
           Nothing
+    , testTraceCustom "definitions" ["foo", "n"] $ \case
+        TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
+          Just $ Expected (C.declId info)
+        _otherwise ->
+          Nothing
+    , let declsWithMsgs = [
+              -- Duplicate symbols
+              "bar1", "bar2", "bar3", "bar4"
+            , "baz1", "baz2", "baz3"
+            , "foo1", "foo2", "foo3"
+            , "quux"
+            , "wam"
+            ]
+      in testTraceCustom "macro_in_fundecl" declsWithMsgs $ \case
+        TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
+          Just $ Expected (C.declId info)
+        _otherwise ->
+          Nothing
+    , testTraceCustom "macro_in_fundecl_vs_typedef" ["quux1", "quux2", "wam1", "wam2"] $ \case
+        TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
+          Just $ Expected (C.declId info)
+        _otherwise ->
+          Nothing
+    , testTraceCustom "redeclaration" ["x", "n"] $ \case
+        TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
+          Just $ Expected (C.declId info)
+        TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+          Just $ Expected (C.declId info)
+        _otherwise ->
+          Nothing
     , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
         TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedLongDouble)) ->
           Just $ Expected $ C.declId info
+        _otherwise ->
+          Nothing
+    , testTraceCustom "tentative_definitions" ["i1", "i2", "i3", "i3"] $ \case
+        TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
+          Just $ Expected (C.declId info)
+        TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+          Just $ Expected (C.declId info)
+        TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
+          Just Tolerated
         _otherwise ->
           Nothing
     , let declsWithMsgs :: [Labelled C.Name]
@@ -187,6 +224,40 @@ testCases = [
           Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
+    , let declsWithWarnings = [
+              -- *** Functions ***
+              -- Problematic non-public visibility
+              "f2" , "f3" , "f4"
+            , "f12", "f13", "f14"
+
+              -- Duplicate symbols
+            , "f5" , "f6" , "f7" , "f8" , "f9"
+            , "f15", "f16", "f17", "f18", "f19"
+
+              -- *** Global variables ***
+              -- Problematic non-public visibility
+            , "i12", "i13", "i14"
+              -- Duplicate symbols
+            , "i0" , "i1" , "i2" , "i3" , "i4"
+            , "i5" , "i6" , "i7" , "i8" , "i9"
+            , "i15", "i16", "i17", "i18", "i19"
+              -- Unsupported storage class
+            , "i20", "i21", "i22", "i23", "i24"
+            , "i25", "i26", "i27", "i28", "i29"
+            ]
+      in (defaultTest "visibility_attributes") {
+          testTracePredicate = customTracePredicate' declsWithWarnings $ \case
+            TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (ParseNonPublicVisibility info)) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendParse (ParseUnknownStorageClass info (unsafeFromSimpleEnum -> CX_SC_Static))) ->
+              Just $ Expected (C.declId info)
+            TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
+              Just Tolerated
+            _otherwise ->
+              Nothing
+        }
 
       --
       -- Failing tests
@@ -213,6 +284,13 @@ testCases = [
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "macro redefined" `Text.isInfixOf` diagnosticSpelling x
             then Just Tolerated
+            else Nothing
+        _otherwise ->
+          Nothing
+    , failingTestCustom "tentative_definitions_linkage" [(), ()] $ \case
+        TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
+          if "non-static declaration of" `Text.isInfixOf` diagnosticSpelling x
+            then Just (Expected ())
             else Nothing
         _otherwise ->
           Nothing
@@ -301,8 +379,9 @@ testCases = [
       --
 
     , let declsWithWarnings = [
-              -- Potential duplicates
+              -- Duplicate symbols
               "arr0"
+            , "arr3"
             , "arr1"
             , "arr6"
               -- Unkown storage class: static non-const
@@ -313,7 +392,7 @@ testCases = [
       in (defaultTest "array") {
           testClangVersion = Just (>= (19, 0, 0))
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
-            TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
+            TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
                Just $ Expected (C.declId info)
             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
                Just Tolerated
@@ -332,13 +411,12 @@ testCases = [
         }
     , (defaultTest "fun_attributes") {
           testClangVersion = Just (>= (15, 0, 0))
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- We are currently issueing a "non-extern non'static global" warning
-          -- for @i@, which may not be correct @visibility@ is @hidden@.
-        , testTracePredicate = customTracePredicate' ["my_printf", "i"] $ \case
+        , testTracePredicate = customTracePredicate' ["my_printf", "i", "f3"] $ \case
              TraceFrontend (FrontendParse (ParseUnsupportedType info UnsupportedVariadicFunction)) ->
                Just $ Expected (C.declId info)
-             TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
+             TraceFrontend (FrontendParse (ParseNonPublicVisibility info)) ->
+               Just $ Expected (C.declId info)
+             TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
                Just $ Expected (C.declId info)
              _otherwise ->
                Nothing
@@ -372,6 +450,8 @@ testCases = [
               , "some_global_struct"
                 -- Other warnings
               , "unusableAnon"
+                -- Duplicate symbols
+              , "classless"
               ]
       in (defaultTest "globals") {
           -- Getting different output from (the same version of) rust-bindgen
@@ -379,7 +459,7 @@ testCases = [
           -- different llvm version? For now we just disable it.
           testRustBindgen    = RustBindgenIgnore
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
-            TraceFrontend (FrontendParse (ParsePotentialDuplicateGlobal info)) ->
+            TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
               Just $ Expected (C.declId info)
             TraceFrontend (FrontendParse (ParseUnexpectedAnonInExtern info)) ->
               Just $ Expected (C.declId info)

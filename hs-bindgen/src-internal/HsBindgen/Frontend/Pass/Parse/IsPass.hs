@@ -156,11 +156,43 @@ data ParseMsg =
     -- | Variable declaration
   | ParseUnknownStorageClass (C.DeclInfo Parse) (SimpleEnum CX_StorageClass)
 
-    -- | Global variables without `extern` or `static`
+    -- | Fully defined global variables and functions with external linkage.
     --
     -- Such definitions can lead to duplicate symbols (linker errors) if they
-    -- are included more than once (see manual section on globals for details).
-  | ParsePotentialDuplicateGlobal (C.DeclInfo Parse)
+    -- are included more than once in the same program. See the manual section
+    -- on globals for details.
+    --
+    -- Duplicate symbols can also exist across multiple shared libraries as long
+    -- as these symbols have public visiblity. However, in such cases the linker
+    -- will pick one according to the rules of linker symbol interposition,
+    -- rather than throw a linker error. It can be suprising for users if the
+    -- linker picks an unexpected definition for the symbol they are
+    -- referencing. So, if a symbol has non-public visibility, the risk of such
+    -- surprises is mitigated somewhat. See the section on Visibility in the
+    -- manual for more details.
+  | ParsePotentialDuplicateSymbol (C.DeclInfo Parse)
+      -- | The symbol has public visibility
+      Bool
+
+    -- | A function declaration or global variable declaration has a problematic
+    -- case of non-public visiblity that can lead to linker errors if the symbol
+    -- is defined in a shared library.
+    --
+    -- In such cases, we emit this message. Arguably declarations like these are
+    -- a bug in the C library, given the way that header files are @#include@d
+    -- in other header and body files.
+    --
+    -- Concretely, a linker error can occur for a declarated symbol if it:
+    -- 1. has non-public visibility,
+    -- 2. has external linkage, and
+    -- 3. is not a definition (and there is no definition elsewhere in the
+    --    header).
+    --
+    -- For example:
+    --
+    -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
+    -- > extern int __attribute__ ((visibility ("hidden"))) i;
+  | ParseNonPublicVisibility (C.DeclInfo Parse)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseMsg where
@@ -181,11 +213,22 @@ instance PrettyForTrace ParseMsg where
           "unsupported storage class"
         , showToCtxDoc storage
         ]
-      ParsePotentialDuplicateGlobal info -> hcat [
+      ParsePotentialDuplicateSymbol info isPublic -> hcat $ concat [
+          [ "Bindings generated for "
+          , prettyForTrace info
+          , " may result in duplicate symbols; "
+          , "consider using 'static' or 'extern';" ]
+        , concat [ [
+              " or if that is not an option, consider attributing hidden "
+            , "visibility to the symbol"
+            ]
+          | isPublic
+          ]
+        ]
+      ParseNonPublicVisibility info  -> hcat [
           "Bindings generated for "
         , prettyForTrace info
-        , " may result in duplicate symbols; "
-        , "consider using 'static' or 'extern'"
+        , " may result in linker errors because the symbol has non-public visibility"
         ]
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
@@ -206,7 +249,8 @@ instance HasDefaultLogLevel ParseMsg where
       ParseUnexpectedAnonInExtern{}    -> Warning
       ParseUnsupportedTLS{}            -> Warning
       ParseUnknownStorageClass{}       -> Warning
-      ParsePotentialDuplicateGlobal{}  -> Notice
+      ParsePotentialDuplicateSymbol{}  -> Notice
+      ParseNonPublicVisibility{}       -> Warning
 
 instance HasSource ParseMsg where
   getSource = const HsBindgen

@@ -133,7 +133,7 @@ structDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 structDecl info = simpleFold $ \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
-      DeclarationRegular -> do
+      Definition -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
@@ -182,7 +182,7 @@ structDecl info = simpleFold $ \curr -> do
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
               return []
-      DeclarationOpaque -> do
+      DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
@@ -190,14 +190,14 @@ structDecl info = simpleFold $ \curr -> do
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]
-      DeclarationForward _ ->
+      DefinitionElsewhere _ ->
         foldContinue
 
 unionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 unionDecl info = simpleFold $ \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
-      DeclarationRegular -> do
+      Definition -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
@@ -229,7 +229,7 @@ unionDecl info = simpleFold $ \curr -> do
         foldRecurseWith (declOrFieldDecl unionFieldDecl) $ \xs -> do
           (decls, fields) <- partitionChildren xs
           return $ decls ++ [mkUnion fields]
-      DeclarationOpaque -> do
+      DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
@@ -237,7 +237,7 @@ unionDecl info = simpleFold $ \curr -> do
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]
-      DeclarationForward _ ->
+      DefinitionElsewhere _ ->
         foldContinue
 
 declOrFieldDecl ::
@@ -318,7 +318,7 @@ enumDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 enumDecl info = simpleFold $ \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
-      DeclarationRegular -> do
+      Definition -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
@@ -338,7 +338,7 @@ enumDecl info = simpleFold $ \curr -> do
               }
 
         foldRecursePure parseConstant ((:[]) . mkEnum)
-      DeclarationOpaque -> do
+      DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
@@ -346,7 +346,7 @@ enumDecl info = simpleFold $ \curr -> do
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]
-      DeclarationForward _ ->
+      DefinitionElsewhere _ ->
         foldContinue
   where
     parseConstant :: Fold ParseDecl (C.EnumConstant Parse)
@@ -371,6 +371,10 @@ enumConstantDecl curr = do
 
 functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 functionDecl info = simpleFold $ \curr -> do
+    visibility <- getCursorVisibility curr
+    linkage <- getCursorLinkage curr
+    declCls <- HighLevel.classifyDeclaration curr
+
     typ  <- fromCXType =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction typ
     functionAnn <- getReparseInfo curr
@@ -385,16 +389,31 @@ functionDecl info = simpleFold $ \curr -> do
               }
           , declAnn  = NoAnn
           }
-    foldRecurseWith nestedDecl $ \nestedDecls -> do
-      let declsAndAttrs = concat nestedDecls
-          (decls, attrs) = partitionEithers declsAndAttrs
-          purity = C.decideFunctionPurity attrs
-          (anonDecls, otherDecls) = partitionAnonDecls decls
-      if not (null anonDecls) then do
-        recordTrace $ ParseUnexpectedAnonInSignature info
-        return []
-      else do
-        return $ otherDecls ++ [mkDecl purity]
+
+    case declCls of
+      -- The header contains a definition elsewhere, but it is not the
+      -- declaration that the cursor is currently pointing to. Skip this
+      -- declaration.
+      DefinitionElsewhere _->
+        foldContinue
+      _ -> foldRecurseWith nestedDecl $ \nestedDecls -> do
+        let declsAndAttrs = concat nestedDecls
+            (decls, attrs) = partitionEithers declsAndAttrs
+            purity = C.decideFunctionPurity attrs
+            (anonDecls, otherDecls) = partitionAnonDecls decls
+
+        -- This declaration may act as a definition.
+        let isDefn = declCls == Definition
+
+        if not (null anonDecls) then do
+          recordTrace $ ParseUnexpectedAnonInSignature info
+          return []
+        else do
+          when (visibilityCanCauseErrors visibility linkage isDefn) $
+            recordTrace $ ParseNonPublicVisibility info
+          when (isDefn && linkage == ExternalLinkage) $
+            recordTrace $ ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+          return $ otherDecls ++ [mkDecl purity]
   where
     guardTypeFunction ::
          C.Type Parse
@@ -430,12 +449,15 @@ functionDecl info = simpleFold $ \curr -> do
           Right CXCursor_ConstAttr -> foldContinueWith $ [Right C.HaskellPureFunction]
           Right CXCursor_PureAttr  -> foldContinueWith $ [Right C.CPureFunction]
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- Take visibility into account.
+          -- @visibility@ attributes. The visibility itself the value is
+          -- obtained using 'getCursorVisibility'.
           Right CXCursor_VisibilityAttr -> foldContinue
 
           -- Attributes we (probably?) want to ignore
           Right CXCursor_WarnUnusedResultAttr -> foldContinue
+
+          -- Function body
+          Right CXCursor_CompoundStmt -> foldContinue
 
           -- Panic on anything we don't recognize
           -- We could instead use 'foldContinue' here, but this is safer.
@@ -446,6 +468,10 @@ functionDecl info = simpleFold $ \curr -> do
 -- | Global variable declaration
 varDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 varDecl info = simpleFold $ \curr -> do
+    visibility <- getCursorVisibility curr
+    linkage <- getCursorLinkage curr
+    declCls <- HighLevel.classifyDeclaration curr
+
     typ  <- fromCXType =<< clang_getCursorType curr
     cls  <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
@@ -458,28 +484,40 @@ varDecl info = simpleFold $ \curr -> do
     -- TODO: https://github.com/well-typed/hs-bindgen/issues/831
     -- Call 'getReparseInfo' to support macro types in globals.
 
-    foldRecurseWith nestedDecl $ \nestedDecls -> do
-      let (anonDecls, otherDecls) = partitionAnonDecls (concat nestedDecls)
-      if not (null anonDecls) then do
-        recordTrace $ ParseUnexpectedAnonInExtern info
-        return []
-      else (otherDecls ++) <$> do
-        case cls of
-          VarGlobal isExtern -> do
-            unless isExtern $
-              recordTrace $ ParsePotentialDuplicateGlobal info
-            return [mkDecl $ C.DeclGlobal typ]
-          VarConst _isExternOrStatic -> do
-            -- TODO: should be enabled by PR #926
-            --unless isExternOrStatic $
-            --  recordTrace $ PotentialDuplicateGlobal info
-            return [mkDecl $ C.DeclConst typ]
-          VarThreadLocal -> do
-            recordTrace $ ParseUnsupportedTLS info
-            return []
-          VarUnsupported storage -> do
-            recordTrace $ ParseUnknownStorageClass info storage
-            return []
+    case declCls of
+      -- The header contains a definition elsewhere, but it is not the
+      -- declaration that the cursor is currently pointing to. Skip this
+      -- declaration.
+      DefinitionElsewhere _->
+        foldContinue
+      _ -> foldRecurseWith nestedDecl $ \nestedDecls -> do
+        let (anonDecls, otherDecls) = partitionAnonDecls (concat nestedDecls)
+
+        -- This declaration may act as a definition even if it has no
+        -- initialiser.
+        isTentative <- HighLevel.classifyTentativeDefinition curr
+        let isDefn = declCls == Definition
+                   || (isTentative && declCls == DefinitionUnavailable)
+
+        if not (null anonDecls) then do
+          recordTrace $ ParseUnexpectedAnonInExtern info
+          return []
+        else (otherDecls ++) <$> do
+          when (visibilityCanCauseErrors visibility linkage isDefn) $
+            recordTrace $ ParseNonPublicVisibility info
+          when (isDefn && linkage == ExternalLinkage) $
+            recordTrace $ ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+          case cls of
+            VarGlobal -> do
+              return [mkDecl $ C.DeclGlobal typ]
+            VarConst -> do
+              return [mkDecl $ C.DeclConst typ]
+            VarThreadLocal -> do
+              recordTrace $ ParseUnsupportedTLS info
+              return []
+            VarUnsupported storage -> do
+              recordTrace $ ParseUnknownStorageClass info storage
+              return []
   where
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [C.Decl Parse]
@@ -529,8 +567,8 @@ varDecl info = simpleFold $ \curr -> do
           -- ('CXCursor_CharacterLiteral').
           Right CXCursor_UnexposedExpr -> foldContinue
 
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/876>
-          -- Take visibility into account.
+          -- @visibility@ attributes, where the value is obtained using
+          -- @clang_getCursorVisibility@.
           Right CXCursor_VisibilityAttr -> foldContinue
 
           -- Panic on anything we don't recognize
@@ -618,18 +656,12 @@ data VarClassification =
     -- | The simplest case: a simple global variable
     --
     -- > extern int simpleGlobal;
-    --
-    -- We record if the variable is declared @extern@ or not (if it isn't,
-    -- we issue a warning, as this may result in duplicate symbols).
-    VarGlobal Bool
+    VarGlobal
 
     -- | Global constants
     --
     -- > extern const int globalConstant;
     -- > static const int staticConst = 123;
-    --
-    -- We record if the variable is declared @extern@ or @static@, for the same
-    -- reason as in 'VarGlobal'.
     --
     -- NOTE: `static` can be useful to be able to specify the /value/ of the
     -- constant in the header file (perhaps so that the compiler can inline it).
@@ -639,7 +671,7 @@ data VarClassification =
     --
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/829>
     -- We could in principle expose the /value/ of the constant, if we know it.
-  | VarConst Bool
+  | VarConst
 
     -- | Thread local variables
     --
@@ -663,11 +695,90 @@ classifyVarDecl curr = do
         canonical <- clang_getCanonicalType typ
         isConst   <- clang_isConstQualifiedType canonical
         case (fromSimpleEnum storage, isConst) of
-          (Right CX_SC_Extern , False) -> return $ VarGlobal True
-          (Right CX_SC_None   , False) -> return $ VarGlobal False
-          (Right CX_SC_Extern , True ) -> return $ VarConst True
-          (Right CX_SC_Static , True ) -> return $ VarConst True
-          (Right CX_SC_None   , True)  -> return $ VarConst False
+          (Right CX_SC_Extern , False) -> return VarGlobal
+          (Right CX_SC_None   , False) -> return VarGlobal
+          (Right CX_SC_Extern , True ) -> return VarConst
+          (Right CX_SC_Static , True ) -> return VarConst
+          (Right CX_SC_None   , True)  -> return VarConst
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal
+
+-- | The linkage of a linker symbol determines whether or not a linker symbol is
+-- visible to the linker outside the translation unit it is defined in.
+--
+-- See the section on Visibility in the manual for more details.
+data Linkage =
+    InternalLinkage
+  | NoLinkage
+  | ExternalLinkage
+  deriving stock (Show, Eq, Generic)
+
+-- | Retrieve the linkage of the entity that the cursor is currently pointing
+-- to.
+getCursorLinkage :: MonadIO m => CXCursor -> m Linkage
+getCursorLinkage curr = do
+    linkage   <- clang_getCursorLinkage curr
+    case fromSimpleEnum linkage of
+      Right linkage' -> case linkage' of
+        CXLinkage_Invalid -> do
+          loc <- HighLevel.clang_getCursorLocation' curr
+          panicIO $ "Invalid linkage " ++ show linkage' ++ " at " ++ show loc
+        CXLinkage_NoLinkage -> pure NoLinkage
+        CXLinkage_Internal -> pure InternalLinkage
+        -- This is C++ specific
+        CXLinkage_UniqueExternal -> do
+          loc <- HighLevel.clang_getCursorLocation' curr
+          panicIO $ "Unsupported linkage " ++ show linkage' ++ " at " ++ show loc
+        CXLinkage_External -> pure ExternalLinkage
+      -- Panic on anything we don't recognize
+      Left x -> do
+        loc <- HighLevel.clang_getCursorLocation' curr
+        panicIO $ "Unexpected linkage " ++ show x ++ " at " ++ show loc
+
+-- | The visibility of a linker symbol determines whether or not a linker symbol
+-- is visible to the linker outside of the shared object that it is defined in.
+--
+-- See the section on Visibility in the manual for more details.
+data Visibility =
+    PublicVisibility
+  | NonPublicVisibility
+  deriving stock (Show, Eq, Generic)
+
+-- | Retrieve the visibilty of the entity that the cursor is currently pointing
+-- to.
+getCursorVisibility :: MonadIO m => CXCursor -> m Visibility
+getCursorVisibility curr = do
+    vis  <- fromSimpleEnum <$> clang_getCursorVisibility curr
+    case vis of
+      -- See https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb
+      Right vis' -> case vis' of
+        -- Despite the name, /default/ always means public.
+        CXVisibility_Default -> pure PublicVisibility
+        CXVisibility_Hidden -> pure NonPublicVisibility
+        -- This visibility is rarely useful in practice. For binding generation,
+        -- we treat it as non-public visibility.
+        CXVisibility_Protected -> pure NonPublicVisibility
+        CXVisibility_Invalid -> do
+          loc <- HighLevel.clang_getCursorLocation' curr
+          panicIO $ "Invalid visibility " ++ show vis' ++ " at " ++ show loc
+      -- Panic on anything we don't recognize
+      Left x -> do
+        loc <- HighLevel.clang_getCursorLocation' curr
+        panicIO $ "Unexpected visibility " ++ show x ++ " at " ++ show loc
+
+-- | Check if a function declaration or global variable declaration has a
+-- problematic case of non-public visiblity.
+--
+-- See the section on Visibility in the manual for more details.
+visibilityCanCauseErrors ::
+     Visibility
+  -> Linkage
+  -> Bool
+     -- ^ Whether the declaration acts as a definition
+     --
+     -- Tentative definitions can also act as definitions if there are no full
+     -- definitions in scope.
+  -> Bool
+visibilityCanCauseErrors NonPublicVisibility ExternalLinkage False = True
+visibilityCanCauseErrors _ _ _ = False

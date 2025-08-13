@@ -1,0 +1,37 @@
+types:
+- headers: redeclaration.h
+  cname: struct X
+  module: Example
+  identifier: X
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: redeclaration.h
+  cname: union Y
+  module: Example
+  identifier: 'Y'
+  instances:
+  - Storable
+- headers: redeclaration.h
+  cname: int_t
+  module: Example
+  identifier: Int_t
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: redeclaration.h
+  cname: union y
+  module: Example
+  identifier: 'Y'
