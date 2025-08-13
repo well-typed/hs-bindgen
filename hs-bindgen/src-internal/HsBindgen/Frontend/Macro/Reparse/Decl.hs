@@ -537,7 +537,12 @@ reparseDirectDeclarator macroTys = do
       : case knownDeclarator @abs of
           SConcrete -> [ IdentifierDeclarator <$> fmap DeclName reparseIdentifier <*> many reparseAttributeSpecifier ]
           SAbstract -> [ IdentifierDeclarator AbstractName <$> many reparseAttributeSpecifier ]
-  withArrayOrFunctionSuffixes macroTys decl
+  decl' <- withArrayOrFunctionSuffixes macroTys decl
+  -- If clang is configured to parse function bodies (see
+  -- 'CXTranslationUnit_SkipFunctionBodies'), we have to skip over function
+  -- bodies here.
+  optional reparseFunctionBody
+  return decl'
 
 withArrayOrFunctionSuffixes
   :: forall abs. KnownDeclaratorType abs
@@ -606,6 +611,11 @@ reparseFunctionDeclarator macroTys decl = do
       , functionAttributes       = attrs
       }
   <?> "function declarator"
+
+reparseFunctionBody :: Reparse ()
+reparseFunctionBody = do
+    punctuation "{"
+    void $ manyTillLookahead anyToken (punctuation "}")
 
 reparseParameterList :: Macro.TypeEnv -> Reparse ( [ Parameter ], Bool )
 reparseParameterList macroTys =

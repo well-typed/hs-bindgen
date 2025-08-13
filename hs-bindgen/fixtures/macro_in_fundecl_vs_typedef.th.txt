@@ -1,9 +1,9 @@
 -- addDependentFile examples/golden/macro_in_fundecl_vs_typedef.h
 -- #include <macro_in_fundecl_vs_typedef.h>
--- char test_internal_quux1 (char arg1, TC arg2) { return quux1(arg1, arg2); }
--- TC test_internal_quux2 (char arg1, char arg2) { return quux2(arg1, arg2); }
--- char *test_internal_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }
--- TC *test_internal_wam2 (float arg1, char *arg2) { return wam2(arg1, arg2); }
+-- char test_internal_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }
+-- TC test_internal_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }
+-- MC *test_internal_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }
+-- TC *test_internal_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }
 -- void test_internal_struct_typedef1 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }
 -- void test_internal_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }
 -- void test_internal_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }
@@ -34,14 +34,14 @@ newtype TC
                       Ix,
                       Num,
                       Real)
-foreign import ccall safe "test_internal_quux1" quux1 :: CChar ->
+foreign import ccall safe "test_internal_quux1" quux1 :: MC ->
                                                          TC -> IO CChar
-foreign import ccall safe "test_internal_quux2" quux2 :: CChar ->
+foreign import ccall safe "test_internal_quux2" quux2 :: MC ->
                                                          CChar -> IO TC
 foreign import ccall safe "test_internal_wam1" wam1 :: CFloat ->
-                                                       Ptr TC -> IO (Ptr CChar)
+                                                       Ptr TC -> IO (Ptr MC)
 foreign import ccall safe "test_internal_wam2" wam2 :: CFloat ->
-                                                       Ptr CChar -> IO (Ptr TC)
+                                                       Ptr MC -> IO (Ptr TC)
 data Struct1
     = Struct1 {struct1_a :: CInt}
     deriving stock (Eq, Show)
